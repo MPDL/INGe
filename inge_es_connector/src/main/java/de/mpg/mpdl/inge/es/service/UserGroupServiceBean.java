@@ -4,43 +4,37 @@
 package de.mpg.mpdl.inge.es.service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.services.UserGroupInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
  * 
  */
-public class UserGroupService implements UserGroupInterface {
+@Service
+public class UserGroupServiceBean implements UserGroupInterface {
 
-  private String indexName = null;
-  private String indexType = null;
-  private ObjectMapper mapper = new ObjectMapper();
+  @Value("${usergroup_index_name}")
+  private String indexName;
+  @Value("${usergroup_index_type}")
+  private String indexType;
 
-  public UserGroupService() {
-    init();
-  }
-
-  protected void init() {
-    try {
-      this.indexName = PropertyReader.getProperty("usergroup_index_name");
-      this.indexType = PropertyReader.getProperty("usergroup_index_type");
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
-  }
+  @Autowired
+  private ObjectMapper mapper;
+  @Autowired
+  private ElasticSearchTransportClientConnector connector;
 
   /*
    * (non-Javadoc)
@@ -52,12 +46,10 @@ public class UserGroupService implements UserGroupInterface {
   @Override
   public String createUserGroup(UserGroupVO userGroup, String userGroupId)
       throws AuthenticationException, TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(userGroup);
-      return ElasticSearchTransportClient.INSTANCE.index(indexName, indexType, userGroupId,
-          voAsBytes);
+      return connector.index(indexName, indexType, userGroupId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -71,8 +63,7 @@ public class UserGroupService implements UserGroupInterface {
   @Override
   public UserGroupVO readUserGroup(String userGroupId) throws TechnicalException,
       NotFoundException, SecurityException {
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    byte[] voAsBytes = ElasticSearchTransportClient.INSTANCE.get(indexName, indexType, userGroupId);
+    byte[] voAsBytes = connector.get(indexName, indexType, userGroupId);
     try {
       UserGroupVO group = mapper.readValue(voAsBytes, UserGroupVO.class);
       return group;
@@ -91,12 +82,10 @@ public class UserGroupService implements UserGroupInterface {
   @Override
   public String updateUserGroup(UserGroupVO userGroup, String userGroupId)
       throws AuthenticationException, TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(userGroup);
-      return ElasticSearchTransportClient.INSTANCE.update(indexName, indexType, userGroupId,
-          voAsBytes);
+      return connector.update(indexName, indexType, userGroupId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -110,7 +99,7 @@ public class UserGroupService implements UserGroupInterface {
   @Override
   public String deleteUserGroup(String userGroupId) throws AuthenticationException,
       TechnicalException {
-    return ElasticSearchTransportClient.INSTANCE.delete(indexName, indexType, userGroupId);
+    return connector.delete(indexName, indexType, userGroupId);
   }
 
 }

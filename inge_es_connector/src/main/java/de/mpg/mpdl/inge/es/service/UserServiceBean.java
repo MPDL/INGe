@@ -4,43 +4,37 @@
 package de.mpg.mpdl.inge.es.service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.services.UserInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
  * 
  */
-public class UserService implements UserInterface {
+@Service
+public class UserServiceBean implements UserInterface {
 
-  private String indexName = null;
-  private String indexType = null;
-  private ObjectMapper mapper = new ObjectMapper();
+  @Value("${usergroup_index_name}")
+  private String indexName;
+  @Value("${usergroup_index_type}")
+  private String indexType;
 
-  public UserService() {
-    init();
-  }
-
-  protected void init() {
-    try {
-      this.indexName = PropertyReader.getProperty("user_index_name");
-      this.indexType = PropertyReader.getProperty("user_index_type");
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
-  }
+  @Autowired
+  private ObjectMapper mapper;
+  @Autowired
+  private ElasticSearchTransportClientConnector connector;
 
   /*
    * (non-Javadoc)
@@ -51,11 +45,10 @@ public class UserService implements UserInterface {
   @Override
   public String createUser(AccountUserVO user, String userId) throws AuthenticationException,
       TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(user);
-      return ElasticSearchTransportClient.INSTANCE.index(indexName, indexType, userId, voAsBytes);
+      return connector.index(indexName, indexType, userId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -69,8 +62,7 @@ public class UserService implements UserInterface {
   @Override
   public AccountUserVO readUser(String userId) throws TechnicalException, NotFoundException,
       SecurityException {
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    byte[] voAsBytes = ElasticSearchTransportClient.INSTANCE.get(indexName, indexType, userId);
+    byte[] voAsBytes = connector.get(indexName, indexType, userId);
     try {
       AccountUserVO userVo = mapper.readValue(voAsBytes, AccountUserVO.class);
       return userVo;
@@ -88,11 +80,10 @@ public class UserService implements UserInterface {
   @Override
   public String updateUser(AccountUserVO user, String userId) throws AuthenticationException,
       TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(user);
-      return ElasticSearchTransportClient.INSTANCE.update(indexName, indexType, userId, voAsBytes);
+      return connector.update(indexName, indexType, userId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -105,7 +96,7 @@ public class UserService implements UserInterface {
    */
   @Override
   public String deleteUser(String userId) throws AuthenticationException, TechnicalException {
-    return ElasticSearchTransportClient.INSTANCE.delete(indexName, indexType, userId);
+    return connector.delete(indexName, indexType, userId);
   }
 
 }

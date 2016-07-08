@@ -1,23 +1,31 @@
-package de.mpg.mpdl.inge;
+package de.mpg.mpdl.inge.es.connector;
 
-import org.junit.Ignore;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.mpg.mpdl.inge.es.connector.OrganizationService;
+import de.mpg.mpdl.inge.es.service.OrganizationServiceBean;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationCountCumulationFieldVO;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
 
-public class TestOrganizationService extends TestBase {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ServiceBeanTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TestOrganizationServiceBean extends TestBase {
 
-  OrganizationService os = new OrganizationService();
+  @Autowired
+  private OrganizationServiceBean bean;
+
   String test_ou_id = "test_ou";
 
   @Test
   public void testCreate() {
     try {
-      String ou = os.createOrganization(test_ou(), test_ou_id);
+      String ou = bean.createOrganization(test_ou(), test_ou_id);
       assert ou.equals(test_ou_id);
     } catch (SecurityException | NotFoundException | TechnicalException e) {
       // TODO Auto-generated catch block
@@ -28,7 +36,7 @@ public class TestOrganizationService extends TestBase {
   @Test
   public void testRead() {
     try {
-      AffiliationVO organization = os.readOrganization(test_ou_id);
+      AffiliationVO organization = bean.readOrganization(test_ou_id);
       assert organization.getDefaultMetadata().getCity().equals("Munich");
     } catch (SecurityException | NotFoundException | TechnicalException e) {
       // TODO Auto-generated catch block
@@ -40,9 +48,9 @@ public class TestOrganizationService extends TestBase {
   public void testUpdate() {
 
     try {
-      AffiliationVO organization = os.readOrganization(test_ou_id);
+      AffiliationVO organization = bean.readOrganization(test_ou_id);
       organization.getDefaultMetadata().setCountryCode("DE");
-      String ou = os.updateOrganization(organization, test_ou_id);
+      String ou = bean.updateOrganization(organization, test_ou_id);
       assert ou.equals(ou);
     } catch (SecurityException | NotFoundException | TechnicalException e) {
       // TODO Auto-generated catch block
@@ -50,15 +58,15 @@ public class TestOrganizationService extends TestBase {
     }
   }
 
-  @Ignore
   @Test
-  public void testDelete() {
+  public void testZDelete() {
     try {
-      String ou = os.deleteOrganization(test_ou_id);
+      String ou = bean.deleteOrganization(test_ou_id);
       assert ou.equals(test_ou_id);
     } catch (SecurityException | NotFoundException | TechnicalException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
+
 }

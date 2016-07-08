@@ -28,7 +28,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

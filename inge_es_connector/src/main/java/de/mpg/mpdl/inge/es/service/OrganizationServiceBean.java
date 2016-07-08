@@ -4,42 +4,36 @@
 package de.mpg.mpdl.inge.es.service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.services.OrganizationInterface;
 import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author frank
  * 
  */
-public class OrganizationService implements OrganizationInterface {
+@Service
+public class OrganizationServiceBean implements OrganizationInterface {
 
-  private String indexName = null;
-  private String indexType = null;
-  private ObjectMapper mapper = new ObjectMapper();
+  @Value("${organization_index_name}")
+  private String indexName;
+  @Value("${organization_index_type}")
+  private String indexType;
 
-  public OrganizationService() {
-    init();
-  }
-
-  protected void init() {
-    try {
-      this.indexName = PropertyReader.getProperty("organization_index_name");
-      this.indexType = PropertyReader.getProperty("organization_index_type");
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
-  }
+  @Autowired
+  private ObjectMapper mapper;
+  @Autowired
+  private ElasticSearchTransportClientConnector connector;
 
   /*
    * (non-Javadoc)
@@ -50,12 +44,10 @@ public class OrganizationService implements OrganizationInterface {
   @Override
   public String createOrganization(AffiliationVO organization, String organizationId)
       throws SecurityException, NotFoundException, TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(organization);
-      return ElasticSearchTransportClient.INSTANCE.index(indexName, indexType, organizationId,
-          voAsBytes);
+      return connector.index(indexName, indexType, organizationId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -69,9 +61,7 @@ public class OrganizationService implements OrganizationInterface {
   @Override
   public AffiliationVO readOrganization(String organizationId) throws TechnicalException,
       NotFoundException, SecurityException {
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    byte[] voAsBytes =
-        ElasticSearchTransportClient.INSTANCE.get(indexName, indexType, organizationId);
+    byte[] voAsBytes = connector.get(indexName, indexType, organizationId);
     try {
       AffiliationVO organization = mapper.readValue(voAsBytes, AffiliationVO.class);
       return organization;
@@ -89,12 +79,10 @@ public class OrganizationService implements OrganizationInterface {
   @Override
   public String updateOrganization(AffiliationVO organization, String organizationId)
       throws SecurityException, NotFoundException, TechnicalException {
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(organization);
-      return ElasticSearchTransportClient.INSTANCE.update(indexName, indexType, organizationId,
-          voAsBytes);
+      return connector.update(indexName, indexType, organizationId, voAsBytes);
     } catch (JsonProcessingException e) {
       throw new TechnicalException(e.getMessage(), e.getCause());
     }
@@ -109,6 +97,6 @@ public class OrganizationService implements OrganizationInterface {
   public String deleteOrganization(String organizationId) throws SecurityException,
       NotFoundException, TechnicalException {
 
-    return ElasticSearchTransportClient.INSTANCE.delete(indexName, indexType, organizationId);
+    return connector.delete(indexName, indexType, organizationId);
   }
 }
