@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
+import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
@@ -192,7 +192,7 @@ public class YearbookItemEditBean extends FacesBean {
           + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId() + ")");
     } else if (userGroups.size() == 1) {
       this.setUserGroup(userGroups.get(0));
-      for (SelectorVO user : this.getUserGroup().getSelectors()) {
+      for (MemberVO user : this.getUserGroup().getSelectors()) {
         if (user.getName().equals("user-account")) {
           this.collaboratorUserIds.add(user.getString());
         }
@@ -519,10 +519,10 @@ public class YearbookItemEditBean extends FacesBean {
         // this.getUserGroup().removeSelectorsInCoreservice(this.getUserGroup().getSelectors(),
         // loginHelper.getESciDocUserHandle());
         // }
-        List<SelectorVO> selectors = new ArrayList<SelectorVO>();
+        List<MemberVO> selectors = new ArrayList<MemberVO>();
         for (AccountUserRO userId : collaborators) {
           if (!("").equals(userId.getObjectId())) {
-            SelectorVO selector = new SelectorVO();
+            MemberVO selector = new MemberVO();
             // TODO set type for INGe
             // selector.setType(Type.INTERNAL);
             selector.setObjid(userId.getObjectId());

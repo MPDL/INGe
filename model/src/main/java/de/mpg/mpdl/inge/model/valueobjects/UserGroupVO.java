@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resources;
-import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
+import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 
 /**
  * 
@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SelectorVO;
  *           &lt;/xs:sequence>
  *         &lt;/xs:complexType>
  *       &lt;/xs:element>
- *       &lt;xs:element ref="ns2:selectors" minOccurs="0"/>
+ *       &lt;xs:element ref="ns2:members" minOccurs="0"/>
  *       &lt;xs:element ref="ns2:resources" minOccurs="0"/>
  *     &lt;/xs:sequence>
  *     &lt;xs:attributeGroup ref="ns1:eSciDocResourceIdentityAttributes"/>
@@ -69,8 +69,8 @@ public class UserGroupVO extends ValueObject {
   private String description;
   private String type;
   private boolean active;
-  private List<SelectorVO> selectors;
-  private Resources resources;
+  private List<MemberVO> members;
+  private List<GrantVO> grants;
   private String objid;
   private Date lastModificationDate;
 
@@ -277,40 +277,23 @@ public class UserGroupVO extends ValueObject {
   }
 
   /**
-   * Get the 'selectors' element value.
+   * Get the 'members' element value.
    * 
    * @return value
    */
-  public List<SelectorVO> getSelectors() {
-    return selectors;
+  public List<MemberVO> getSelectors() {
+    return members;
   }
 
   /**
-   * Set the 'selectors' element value.
+   * Set the 'members' element value.
    * 
-   * @param selectors
+   * @param members
    */
-  public void setSelectors(List<SelectorVO> selectors) {
-    this.selectors = selectors;
+  public void setSelectors(List<MemberVO> selectors) {
+    this.members = selectors;
   }
 
-  /**
-   * Get the 'resources' element value.
-   * 
-   * @return value
-   */
-  public Resources getResources() {
-    return resources;
-  }
-
-  /**
-   * Set the 'resources' element value.
-   * 
-   * @param resources
-   */
-  public void setResources(Resources resources) {
-    this.resources = resources;
-  }
 
   /**
    * Get the 'objid' attribute value. <create>discarded</create><update>discarded</update>
@@ -349,4 +332,12 @@ public class UserGroupVO extends ValueObject {
   public void setLastModificationDate(Date lastModificationDate) {
     this.lastModificationDate = lastModificationDate;
   }
+
+public List<GrantVO> getGrants() {
+	return grants;
+}
+
+public void setGrants(List<GrantVO> grants) {
+	this.grants = grants;
+}
 }
