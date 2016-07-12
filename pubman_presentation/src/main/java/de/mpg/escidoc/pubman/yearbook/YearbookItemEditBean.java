@@ -194,7 +194,7 @@ public class YearbookItemEditBean extends FacesBean {
       this.setUserGroup(userGroups.get(0));
       for (MemberVO user : this.getUserGroup().getSelectors()) {
         if (user.getName().equals("user-account")) {
-          this.collaboratorUserIds.add(user.getString());
+          this.collaboratorUserIds.add(user.getMemberId());
         }
       }
     }
@@ -525,9 +525,9 @@ public class YearbookItemEditBean extends FacesBean {
             MemberVO selector = new MemberVO();
             // TODO set type for INGe
             // selector.setType(Type.INTERNAL);
-            selector.setObjid(userId.getObjectId());
+            // selector.setObjid(userId.getObjectId());
             selector.setName("user-account");
-            selector.setString(userId.getObjectId());
+            selector.setMemberId(userId.getObjectId());
             selectors.add(selector);
 
           }

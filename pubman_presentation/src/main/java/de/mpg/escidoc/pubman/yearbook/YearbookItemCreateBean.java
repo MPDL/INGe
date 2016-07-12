@@ -295,14 +295,14 @@ public class YearbookItemCreateBean extends FacesBean {
           && this.collaborators.get(0).getObjectId() != null) {
         for (AccountUserRO userId : collaborators) {
           if (!("").equals(userId.getObjectId())) {
-            MemberVO selector = new MemberVO();
+            MemberVO member = new MemberVO();
             // TODO set type for INGe
             // selector.setType(Type.INTERNAL);
-            selector.setObjid(userId.getObjectId());
-            selector.setName("user-account");
-            selector.setString(userId.getObjectId());
+            // member.setObjid(userId.getObjectId());
+            member.setName("user-account");
+            member.setMemberId(userId.getObjectId());
             List<MemberVO> selectors = new ArrayList<MemberVO>();
-            selectors.add(selector);
+            selectors.add(member);
             // TODO INGe connection
             // ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
           }

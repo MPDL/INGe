@@ -333,11 +333,11 @@ public class UserGroupVO extends ValueObject {
     this.lastModificationDate = lastModificationDate;
   }
 
-public List<GrantVO> getGrants() {
-	return grants;
-}
+  public List<GrantVO> getGrants() {
+    return grants;
+  }
 
-public void setGrants(List<GrantVO> grants) {
-	this.grants = grants;
-}
+  public void setGrants(List<GrantVO> grants) {
+    this.grants = grants;
+  }
 }
