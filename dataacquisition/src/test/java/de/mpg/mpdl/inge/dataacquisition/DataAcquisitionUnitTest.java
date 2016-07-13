@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.test.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.util.List;
 

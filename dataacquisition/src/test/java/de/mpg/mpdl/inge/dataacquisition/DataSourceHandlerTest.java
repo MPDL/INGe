@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.test.dataacquisition;
+package de.mpg.mpdl.inge.dataacquisition;
 
 import java.util.List;
 
