@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.citation_style_language_managercitation_style_language_manager.test;
+package de.mpg.mpdl.inge.citation_style_language_manager;
 
 import static org.junit.Assert.assertEquals;
 
