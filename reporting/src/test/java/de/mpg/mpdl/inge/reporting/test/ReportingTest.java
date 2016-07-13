@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test;
+package de.mpg.mpdl.inge.reporting.test;
 
 import static org.junit.Assert.fail;
 
@@ -38,7 +38,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.reporting.ReportFHI;
+import de.mpg.mpdl.inge.reporting.ReportFHI;
 
 @Ignore
 public class ReportingTest {

@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.reporting;
+package de.mpg.mpdl.inge.reporting;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
