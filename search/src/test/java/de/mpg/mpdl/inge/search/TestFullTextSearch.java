@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.search.test;
+package de.mpg.mpdl.inge.search;
 
 import static org.junit.Assert.assertTrue;
 
