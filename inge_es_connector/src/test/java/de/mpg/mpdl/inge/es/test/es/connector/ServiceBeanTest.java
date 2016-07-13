@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.es.connector;
+package de.mpg.mpdl.inge.es.test.es.connector;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;

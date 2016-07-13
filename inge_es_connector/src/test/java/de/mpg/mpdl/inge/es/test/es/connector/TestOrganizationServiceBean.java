@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.es.connector;
+package de.mpg.mpdl.inge.es.test.es.connector;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
