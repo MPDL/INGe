@@ -23,36 +23,19 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.exportmanager;
+package de.mpg.mpdl.inge.exportmanager.test.exportmanager;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 
-/**
- * JUnit test class for Structured Export component
- * 
- * @author Author: Vlad Makarenko (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- */
-import net.sf.saxon.om.SiblingCountingNode;
-
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import test.TestHelper;
-
 import de.mpg.mpdl.inge.exportmanager.Export;
 import de.mpg.mpdl.inge.exportmanager.ExportHandler;
-import de.mpg.mpdl.inge.exportmanager.ExportManagerException;
-import de.mpg.mpdl.inge.exportmanager.Export.ArchiveFormats;
 
 
 public class ExportTest {

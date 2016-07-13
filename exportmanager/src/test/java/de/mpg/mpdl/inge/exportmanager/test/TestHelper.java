@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test;
+package de.mpg.mpdl.inge.exportmanager.test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,6 +36,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+
+import de.mpg.mpdl.inge.exportmanager.test.TestHelper;
 
 // import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
 
