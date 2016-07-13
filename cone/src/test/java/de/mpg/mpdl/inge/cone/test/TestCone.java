@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test;
+package de.mpg.mpdl.inge.cone.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
