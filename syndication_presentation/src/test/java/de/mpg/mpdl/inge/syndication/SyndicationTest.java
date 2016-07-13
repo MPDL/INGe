@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.syndication.test;
+package de.mpg.mpdl.inge.syndication;
 
 import static org.junit.Assert.assertTrue;
 
