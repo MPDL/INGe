@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.citationmanager.test;
+package de.mpg.mpdl.inge.citationmanager;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.citationmanager.test;
+package de.mpg.mpdl.inge.citationmanager;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.citationmanager.TestHelper;
 import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
@@ -28,7 +29,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
-import de.mpg.mpdl.inge.citationmanager.test.TestHelper;
 
 /**
  * @author endres

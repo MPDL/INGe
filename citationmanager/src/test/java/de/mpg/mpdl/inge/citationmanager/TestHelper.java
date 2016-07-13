@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.citationmanager.test;
+package de.mpg.mpdl.inge.citationmanager;
 
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
