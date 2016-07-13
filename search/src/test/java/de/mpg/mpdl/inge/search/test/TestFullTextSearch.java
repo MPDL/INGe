@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.test.search;
+package de.mpg.mpdl.inge.search.test;
 
 import static org.junit.Assert.assertTrue;
 
@@ -58,7 +58,7 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import gov.loc.www.zing.srw.service.SRWPort;
 
-//TODO adjust to INGe
+// TODO adjust to INGe
 @Ignore
 public class TestFullTextSearch {
   private static String userHandle;

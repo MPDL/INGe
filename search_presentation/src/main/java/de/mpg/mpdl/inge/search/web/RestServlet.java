@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.search.presentation;
+package de.mpg.mpdl.inge.search.web;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
