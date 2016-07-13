@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.exportmanager.test.exportmanager;
+package de.mpg.mpdl.inge.exportmanager.test;
 
 
 import static org.junit.Assert.assertFalse;
