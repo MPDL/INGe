@@ -24,55 +24,42 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming.component;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.mpdl.inge.xmltransforming.TestBase;
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.test.TestBase;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.LockVO;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Test class for {@link XmlTransforming} methods for LockVo transformation.
  * 
- * @author Author: mfranke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * @revised by MuJ: 03.09.2007
  */
-public class TransformGrantsTest extends TestBase {
+public class TransformLockTest extends TestBase {
   private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private static Logger logger = Logger.getLogger(TransformGrantsTest.class);
+  private Logger logger = Logger.getLogger(getClass());
 
   /**
-   * Test for {@link XmlTransforming#transformToGrantVOList(String)}.
+   * Test for {@link XmlTransforming#transformToLockVO(String)}.
    * 
-   * @throws Exception Any exception
+   * @throws TechnicalException
+   * @throws Exception
    */
+  @Ignore("Not implemenmted yet")
   @Test
-  public void testTransformToGrantVOList() throws Exception {
-    logger.info("### TransformGrantsTest ###");
-
-    String grantsXml =
-        ResourceUtil.getResourceAsString(
-            "xmltransforming/component/transformGrantsTest/current-grants.xml",
-            TransformGrantsTest.class.getClassLoader());
-
-    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXml);
-
-    assertNotNull("Grants are null", grants);
-
-    assertEquals("user-account", grants.get(0).getGrantType());
-    assertEquals("escidoc:user2", grants.get(0).getGrantedTo());
-    assertEquals("escidoc:role-depositor", grants.get(1).getRole());
-    assertEquals("group", grants.get(1).getGrantType());
-
+  public void testTransformToLockVO() throws TechnicalException {
+    logger.info("### testTransformToLockVO ###");
+    LockVO lock = xmlTransforming.transformToLockVO("lockInformation xml");
+    assertNotNull("Transforming of LockVO not implemented yet.", lock);
   }
 }

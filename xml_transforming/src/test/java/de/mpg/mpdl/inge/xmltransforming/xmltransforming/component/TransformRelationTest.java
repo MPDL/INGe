@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming.component;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,8 +33,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import de.mpg.mpdl.inge.xmltransforming.TestBase;
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.test.TestBase;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;

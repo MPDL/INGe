@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming.component;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -43,6 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test cases for the method transformToPubItem of the interface XmlTransforming. The main purpose

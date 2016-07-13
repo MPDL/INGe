@@ -24,12 +24,12 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test;
+package de.mpg.mpdl.inge.xmltransforming;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.XmlTransformingTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTest;
 
 /**
  * Component test suite for common_logic.

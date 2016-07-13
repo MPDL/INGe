@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test;
+package de.mpg.mpdl.inge.xmltransforming;
 
 import java.util.HashMap;
 import java.util.Map;

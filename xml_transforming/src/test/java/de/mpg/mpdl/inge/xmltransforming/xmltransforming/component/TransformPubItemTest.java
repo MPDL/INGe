@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming.component;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +40,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.xmltransforming.util.ObjectComparator;
 import de.mpg.mpdl.inge.xmltransforming.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -54,6 +53,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**

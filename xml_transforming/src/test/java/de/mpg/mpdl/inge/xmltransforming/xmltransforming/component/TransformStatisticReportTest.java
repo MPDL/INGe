@@ -23,7 +23,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur F�rderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming.component;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,7 +35,6 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDateParamValueVO;
@@ -44,6 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParam
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test of {@link XmlTransforming} methods for statistic transformings.

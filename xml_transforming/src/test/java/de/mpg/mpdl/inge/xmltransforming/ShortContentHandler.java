@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.xmltransforming.test;
+package de.mpg.mpdl.inge.xmltransforming;
 
 import java.io.StringWriter;
 import java.util.HashMap;

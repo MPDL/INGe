@@ -24,29 +24,29 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.xmltransforming.test.xmltransforming;
+package de.mpg.mpdl.inge.xmltransforming.xmltransforming;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import de.mpg.mpdl.inge.xmltransforming.test.TestBase;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformAffiliationTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformContainerTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformContextTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformExportFormatTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformGrantsTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformInvalidPubItemTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformLockTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformParamTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformPubItemTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformPubItemVersionListTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformRelationTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformSearchResultGrantList;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformSearchResultTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformSearchResultUserGroupList;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformStatisticAggregationTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformStatisticReportTest;
-import de.mpg.mpdl.inge.xmltransforming.test.xmltransforming.component.TransformTocTest;
+import de.mpg.mpdl.inge.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformAffiliationTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformContainerTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformContextTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformExportFormatTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformGrantsTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformInvalidPubItemTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformLockTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformParamTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformPubItemTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformPubItemVersionListTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformRelationTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformSearchResultGrantList;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformSearchResultTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformSearchResultUserGroupList;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformStatisticAggregationTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformStatisticReportTest;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformTocTest;
 
 /**
  * Component test suite for XmlTransforming.
