@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,27 +35,29 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion REVIEW_METHOD.
+ * Test cases for PubItemVOComparator with criterion PUBLISHING_INFO.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class ReviewMethodComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(ReviewMethodComparatorTest.class);
+public class PublishingInfoComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(PublishingInfoComparatorTest.class);
 
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortReviewMethodAscending() {
+  public void sortPublishingInfoAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getReviewMethod() + " ("
+      PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
+      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"1", "1", "3", "2", "4"};
@@ -66,12 +68,13 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortReviewMethodDescending() {
+  public void sortPublishingInfoDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
     Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.REVIEW_METHOD)));
+        PubItemVOComparator.Criteria.PUBLISHING_INFO)));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getReviewMethod() + " ("
+      PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
+      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
@@ -84,7 +87,7 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase {
   @Test
   public void compareTwoNullValues() {
     int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD).compare(
+        new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO).compare(
             getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }

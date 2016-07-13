@@ -24,9 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
-
-import static org.junit.Assert.assertEquals;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,34 +33,28 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion EVENT_TITLE.
+ * Test cases for PubItemVOComparator with criterion GENRE.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class EventTitleComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(EventTitleComparatorTest.class);
+public class GenreComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(GenreComparatorTest.class);
 
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortEventTitleAscending() {
+  public void sortGenreAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE));
     for (PubItemVO itemVO : list) {
-      EventVO event = null;
-      if (itemVO.getMetadata().getEvent() != null) {
-        event = itemVO.getMetadata().getEvent();
-      }
-
-      logger.debug((event != null ? event.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger
+          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -72,32 +64,15 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortEventTitleDescending() {
+  public void sortGenreDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections
-        .sort(list, Collections.reverseOrder(new PubItemVOComparator(
-            PubItemVOComparator.Criteria.EVENT_TITLE)));
+    Collections.sort(list,
+        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE)));
     for (PubItemVO itemVO : list) {
-      EventVO event = null;
-      if (itemVO.getMetadata().getEvent() != null) {
-        event = itemVO.getMetadata().getEvent();
-      }
-
-      logger.debug((event != null ? event.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger
+          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};
     assertObjectIdOrder(list, expectedIdOrder);
-  }
-
-  /**
-   * Test for comoparing two null values.
-   */
-  @Test
-  public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE).compare(getPubItemVO4(),
-            getPubItemVO4());
-    assertEquals(0, rc);
   }
 }

@@ -24,7 +24,9 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,32 +35,18 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion CREATOR.
+ * Test cases for PubItemVOComparator with criterion SOURCE_TITLE.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class CreatorComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(CreatorComparatorTest.class);
-
-  private String getCreatorName(PubItemVO pubItem) {
-    String creatorname = null;
-    CreatorVO creator = pubItem.getMetadata().getCreators().get(0);
-    if (creator.getPerson() != null) {
-      creatorname = creator.getPerson().getFamilyName();
-    } else // if(creator.getOrganization() != null)
-    {
-      if (creator.getOrganization().getName() != null) {
-        creatorname = creator.getOrganization().getName();
-      }
-    }
-    return creatorname;
-  }
+public class SourceTitleComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(SourceTitleComparatorTest.class);
 
   /**
    * Test for sorting ascending.
@@ -66,11 +54,16 @@ public class CreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE));
     for (PubItemVO itemVO : list) {
-      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
+      SourceVO source = null;
+      if (itemVO.getMetadata().getSources().size() > 0) {
+        source = itemVO.getMetadata().getSources().get(0);
+      }
+      logger.debug((source != null ? source.getTitle() : "null") + " ("
+          + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"3", "2", "1", "1", "4"};
+    String[] expectedIdOrder = new String[] {"1", "1", "2", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -80,12 +73,28 @@ public class CreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
+        PubItemVOComparator.Criteria.SOURCE_TITLE)));
     for (PubItemVO itemVO : list) {
-      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
+      SourceVO source = null;
+      if (itemVO.getMetadata().getSources().size() > 0) {
+        source = itemVO.getMetadata().getSources().get(0);
+      }
+      logger.debug((source != null ? source.getTitle() : "null") + " ("
+          + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"4", "1", "1", "2", "3"};
+    String[] expectedIdOrder = new String[] {"4", "3", "2", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
+  }
+
+  /**
+   * Test for comoparing two null values.
+   */
+  @Test
+  public void compareTwoNullValues() {
+    int rc =
+        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE).compare(getPubItemVO4(),
+            getPubItemVO4());
+    assertEquals(0, rc);
   }
 }

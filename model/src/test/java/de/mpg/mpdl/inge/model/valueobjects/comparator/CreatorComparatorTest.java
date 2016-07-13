@@ -24,9 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
-
-import static org.junit.Assert.assertEquals;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,27 +37,24 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion SOURCE_CREATOR.
+ * Test cases for PubItemVOComparator with criterion CREATOR.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class SourceCreatorComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(SourceCreatorComparatorTest.class);
+public class CreatorComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(CreatorComparatorTest.class);
 
-  private String getSourceCreatorName(PubItemVO pubItem) {
+  private String getCreatorName(PubItemVO pubItem) {
     String creatorname = null;
-    if (pubItem.getMetadata().getSources().size() > 0) {
-      CreatorVO creator = pubItem.getMetadata().getSources().get(0).getCreators().get(0);
-      if (creator.getPerson() != null) {
-        creatorname = creator.getPerson().getFamilyName();
-      } else
-      // if(creator.getOrganization() != null)
-      {
-        if (creator.getOrganization().getName() != null) {
-          creatorname = creator.getOrganization().getName();
-        }
+    CreatorVO creator = pubItem.getMetadata().getCreators().get(0);
+    if (creator.getPerson() != null) {
+      creatorname = creator.getPerson().getFamilyName();
+    } else // if(creator.getOrganization() != null)
+    {
+      if (creator.getOrganization().getName() != null) {
+        creatorname = creator.getOrganization().getName();
       }
     }
     return creatorname;
@@ -71,9 +66,9 @@ public class SourceCreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR));
     for (PubItemVO itemVO : list) {
-      logger.debug(getSourceCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"3", "2", "1", "1", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -85,23 +80,12 @@ public class SourceCreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.SOURCE_CREATOR)));
+    Collections.sort(list,
+        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR)));
     for (PubItemVO itemVO : list) {
-      logger.debug(getSourceCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "1", "1", "2", "3"};
     assertObjectIdOrder(list, expectedIdOrder);
-  }
-
-  /**
-   * Test for comoparing two null values.
-   */
-  @Test
-  public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR).compare(
-            getPubItemVO4(), getPubItemVO4());
-    assertEquals(0, rc);
   }
 }

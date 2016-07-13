@@ -24,31 +24,38 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects;
+package de.mpg.mpdl.inge.model.valueobjects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.test.TestBase;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.TestBase;
+import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
- * Test cases for the clone methods of value objects.
+ * For testing the methods in {@link AccountUserVO}.
  * 
- * @author Peter Broszeit (initial creation)
+ * @author Johannes Mueller (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
+ * @version $Revision$ $LastChangedDate$
  * 
  */
-public class ValueObjectCloneTest extends TestBase {
+public class AccountUserVOTest extends TestBase {
+
   /**
-   * Test the clone method for the MdsPublicationVO class.
+   * @throws Exception Any exception
    */
+  @Ignore
   @Test
-  public void cloneMdsPublication() {
-    MdsPublicationVO mdsOriginal = getMdsPublication1();
-    MdsPublicationVO mdsClone = (MdsPublicationVO) mdsOriginal.clone();
-    assertEquals(mdsOriginal, mdsClone);
+  public void testIsModeratorFunction() throws Exception {
+    String adminUserHandle = null; // loginSystemAdministrator();
+    // TODO for INGe
+    // AccountUserVO admin = getAccountUser(adminUserHandle);
+    //
+    // assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
   }
+
 }

@@ -24,22 +24,28 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.itemsorting;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.Test;
 
 /**
- * All Tests of the comparator class for PubItemVOs.
+ * Test class for {@link de.mpg.escidoc.services.common.intemsorting.ItemSortingBean}.
  * 
- * @author Peter Broszeit (initial creation)
+ * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
+ * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({TitleComparatorTest.class, DateComparatorTest.class,
-    GenreComparatorTest.class, CreatorComparatorTest.class, PublishingInfoComparatorTest.class,
-    ReviewMethodComparatorTest.class, SourceCreatorComparatorTest.class,
-    SourceTitleComparatorTest.class, EventTitleComparatorTest.class})
-public class ComparatorTest {
+public class ItemSortingTest {
+  // TODO StG
+
+  /*
+   * TODO MuJ: implement component test: testSortPubItemVersionList Remark (by MuJ): The
+   * functionality of ItemSorting.sortItemVersionList is rudimentary tested in
+   * test.xmltransforming.integration
+   * .TransformPubItemVersionListIntegrationTest.testTransformPubItemVersionList
+   */
+  @Test
+  public void testSortItemVersionList() {
+
+  }
 }

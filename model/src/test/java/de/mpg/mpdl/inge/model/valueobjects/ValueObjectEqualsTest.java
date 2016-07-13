@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects;
+package de.mpg.mpdl.inge.model.valueobjects;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -35,7 +35,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.test.TestBase;
+import de.mpg.mpdl.inge.model.TestBase;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;

@@ -24,7 +24,9 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,30 +35,47 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion GENRE.
+ * Test cases for PubItemVOComparator with criterion SOURCE_CREATOR.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class GenreComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(GenreComparatorTest.class);
+public class SourceCreatorComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(SourceCreatorComparatorTest.class);
+
+  private String getSourceCreatorName(PubItemVO pubItem) {
+    String creatorname = null;
+    if (pubItem.getMetadata().getSources().size() > 0) {
+      CreatorVO creator = pubItem.getMetadata().getSources().get(0).getCreators().get(0);
+      if (creator.getPerson() != null) {
+        creatorname = creator.getPerson().getFamilyName();
+      } else
+      // if(creator.getOrganization() != null)
+      {
+        if (creator.getOrganization().getName() != null) {
+          creatorname = creator.getOrganization().getName();
+        }
+      }
+    }
+    return creatorname;
+  }
 
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortGenreAscending() {
+  public void sortCreatorAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getSourceCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
+    String[] expectedIdOrder = new String[] {"3", "2", "1", "1", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -64,15 +83,25 @@ public class GenreComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortGenreDescending() {
+  public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
+        PubItemVOComparator.Criteria.SOURCE_CREATOR)));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getSourceCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};
+    String[] expectedIdOrder = new String[] {"4", "1", "1", "2", "3"};
     assertObjectIdOrder(list, expectedIdOrder);
+  }
+
+  /**
+   * Test for comoparing two null values.
+   */
+  @Test
+  public void compareTwoNullValues() {
+    int rc =
+        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR).compare(
+            getPubItemVO4(), getPubItemVO4());
+    assertEquals(0, rc);
   }
 }

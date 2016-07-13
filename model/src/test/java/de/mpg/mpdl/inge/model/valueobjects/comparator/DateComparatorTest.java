@@ -24,46 +24,34 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion SOURCE_TITLE.
+ * Test cases for PubItemVOComparator with criterion DATE.
  * 
- * @author Peter (initial creation)
+ * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class SourceTitleComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(SourceTitleComparatorTest.class);
-
+public class DateComparatorTest extends ComparatorTestBase {
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortCreatorAscending() {
+  public void sortDateAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE));
-    for (PubItemVO itemVO : list) {
-      SourceVO source = null;
-      if (itemVO.getMetadata().getSources().size() > 0) {
-        source = itemVO.getMetadata().getSources().get(0);
-      }
-      logger.debug((source != null ? source.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
-    }
-    String[] expectedIdOrder = new String[] {"1", "1", "2", "3", "4"};
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.DATE));
+    String[] expectedIdOrder = new String[] {"1", "1", "3", "2", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -71,19 +59,11 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortCreatorDescending() {
+  public void sortDateDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.SOURCE_TITLE)));
-    for (PubItemVO itemVO : list) {
-      SourceVO source = null;
-      if (itemVO.getMetadata().getSources().size() > 0) {
-        source = itemVO.getMetadata().getSources().get(0);
-      }
-      logger.debug((source != null ? source.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
-    }
-    String[] expectedIdOrder = new String[] {"4", "3", "2", "1", "1"};
+    Collections.sort(list,
+        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.DATE)));
+    String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -93,8 +73,9 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
   @Test
   public void compareTwoNullValues() {
     int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE).compare(getPubItemVO4(),
+        new PubItemVOComparator(PubItemVOComparator.Criteria.DATE).compare(getPubItemVO4(),
             getPubItemVO4());
     assertEquals(0, rc);
   }
+
 }

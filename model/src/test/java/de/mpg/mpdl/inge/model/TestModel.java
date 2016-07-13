@@ -24,14 +24,14 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test;
+package de.mpg.mpdl.inge.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import de.mpg.mpdl.inge.model.test.referenceobjects.ReferenceObjectTest;
-import de.mpg.mpdl.inge.model.test.valueobjects.ValueObjectTest;
-import de.mpg.mpdl.inge.model.test.valueobjects.comparator.ComparatorTest;
+import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObjectTest;
+import de.mpg.mpdl.inge.model.valueobjects.ValueObjectTest;
+import de.mpg.mpdl.inge.model.valueobjects.comparator.ComparatorTest;
 
 /**
  * Component test suite for common_logic.

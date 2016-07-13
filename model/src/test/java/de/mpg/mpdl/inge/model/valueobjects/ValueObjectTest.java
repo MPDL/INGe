@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects;
+package de.mpg.mpdl.inge.model.valueobjects;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -38,9 +38,9 @@ import org.junit.runners.Suite;
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({de.mpg.mpdl.inge.model.test.valueobjects.ValueObjectEqualsTest.class,
-    de.mpg.mpdl.inge.model.test.valueobjects.ValueObjectCloneTest.class,
-    de.mpg.mpdl.inge.model.test.valueobjects.FilterTaskParamVOTest.class,
-    de.mpg.mpdl.inge.model.test.valueobjects.AccountUserVOTest.class})
+@Suite.SuiteClasses({de.mpg.mpdl.inge.model.valueobjects.ValueObjectEqualsTest.class,
+    de.mpg.mpdl.inge.model.valueobjects.ValueObjectCloneTest.class,
+    de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVOTest.class,
+    de.mpg.mpdl.inge.model.valueobjects.AccountUserVOTest.class})
 public class ValueObjectTest {
 }

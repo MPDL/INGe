@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,32 +35,36 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for PubItemVOComparator with criterion PUBLISHING_INFO.
+ * Test cases for PubItemVOComparator with criterion EVENT_TITLE.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class PublishingInfoComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(PublishingInfoComparatorTest.class);
+public class EventTitleComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(EventTitleComparatorTest.class);
 
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortPublishingInfoAscending() {
+  public void sortEventTitleAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE));
     for (PubItemVO itemVO : list) {
-      PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
+      EventVO event = null;
+      if (itemVO.getMetadata().getEvent() != null) {
+        event = itemVO.getMetadata().getEvent();
+      }
+
+      logger.debug((event != null ? event.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"1", "1", "3", "2", "4"};
+    String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -68,16 +72,21 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortPublishingInfoDescending() {
+  public void sortEventTitleDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.PUBLISHING_INFO)));
+    Collections
+        .sort(list, Collections.reverseOrder(new PubItemVOComparator(
+            PubItemVOComparator.Criteria.EVENT_TITLE)));
     for (PubItemVO itemVO : list) {
-      PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
+      EventVO event = null;
+      if (itemVO.getMetadata().getEvent() != null) {
+        event = itemVO.getMetadata().getEvent();
+      }
+
+      logger.debug((event != null ? event.getTitle() : "null") + " ("
           + itemVO.getVersion().getObjectId() + ")");
     }
-    String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
+    String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
 
@@ -87,8 +96,8 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase {
   @Test
   public void compareTwoNullValues() {
     int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO).compare(
-            getPubItemVO4(), getPubItemVO4());
+        new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE).compare(getPubItemVO4(),
+            getPubItemVO4());
     assertEquals(0, rc);
   }
 }
