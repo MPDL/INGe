@@ -32,7 +32,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -44,13 +43,13 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the result.
