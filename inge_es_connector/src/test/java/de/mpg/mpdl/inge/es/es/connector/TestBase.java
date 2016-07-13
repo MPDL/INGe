@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.es.test.es.connector;
+package de.mpg.mpdl.inge.es.es.connector;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;

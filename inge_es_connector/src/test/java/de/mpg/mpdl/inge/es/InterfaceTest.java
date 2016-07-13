@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.es.test;
+package de.mpg.mpdl.inge.es;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
