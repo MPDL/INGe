@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.exportmanager.test;
+package de.mpg.mpdl.inge.exportmanager;
 
 
 import static org.junit.Assert.assertFalse;
@@ -69,7 +69,6 @@ public class ExportTest {
     }
 
   }
-
 
 
 }
