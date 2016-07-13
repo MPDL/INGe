@@ -24,11 +24,13 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.util;
+package de.mpg.mpdl.inge.validation.util;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * TODO Description
