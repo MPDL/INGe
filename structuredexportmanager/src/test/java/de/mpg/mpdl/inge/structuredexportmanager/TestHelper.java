@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.structuredexportmanager.test;
+package de.mpg.mpdl.inge.structuredexportmanager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
