@@ -1,4 +1,4 @@
-package test;
+package de.mpg.mpdl.inge.model.test;
 
 import java.io.StringWriter;
 import java.util.HashMap;

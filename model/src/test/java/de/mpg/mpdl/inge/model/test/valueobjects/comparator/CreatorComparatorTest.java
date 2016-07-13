@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,28 +33,42 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Test cases for the PubItemVOComparator with Criteria TITLE tests.
+ * Test cases for PubItemVOComparator with criterion CREATOR.
  * 
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
-public class TitleComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(TitleComparatorTest.class);
+public class CreatorComparatorTest extends ComparatorTestBase {
+  private static Logger logger = Logger.getLogger(CreatorComparatorTest.class);
+
+  private String getCreatorName(PubItemVO pubItem) {
+    String creatorname = null;
+    CreatorVO creator = pubItem.getMetadata().getCreators().get(0);
+    if (creator.getPerson() != null) {
+      creatorname = creator.getPerson().getFamilyName();
+    } else // if(creator.getOrganization() != null)
+    {
+      if (creator.getOrganization().getName() != null) {
+        creatorname = creator.getOrganization().getName();
+      }
+    }
+    return creatorname;
+  }
 
   /**
    * Test for sorting ascending.
    */
   @Test
-  public void sortTitleAscending() {
+  public void sortCreatorAscending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.TITLE));
+    Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getTitle() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"3", "2", "1", "1", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -64,13 +78,12 @@ public class TitleComparatorTest extends ComparatorTestBase {
    * Test for sorting descending.
    */
   @Test
-  public void sortTitleDescending() {
+  public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
     Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.TITLE)));
+        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR)));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getTitle() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "1", "1", "2", "3"};
     assertObjectIdOrder(list, expectedIdOrder);

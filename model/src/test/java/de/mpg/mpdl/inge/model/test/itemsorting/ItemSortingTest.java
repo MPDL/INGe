@@ -24,31 +24,28 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.valueobjects;
-
-import static org.junit.Assert.assertEquals;
+package de.mpg.mpdl.inge.model.test.itemsorting;
 
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import test.TestBase;
-
 /**
- * Test cases for the clone methods of value objects.
+ * Test class for {@link de.mpg.escidoc.services.common.intemsorting.ItemSortingBean}.
  * 
- * @author Peter Broszeit (initial creation)
+ * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
- * 
+ * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
-public class ValueObjectCloneTest extends TestBase {
-  /**
-   * Test the clone method for the MdsPublicationVO class.
+public class ItemSortingTest {
+  // TODO StG
+
+  /*
+   * TODO MuJ: implement component test: testSortPubItemVersionList Remark (by MuJ): The
+   * functionality of ItemSorting.sortItemVersionList is rudimentary tested in
+   * test.xmltransforming.integration
+   * .TransformPubItemVersionListIntegrationTest.testTransformPubItemVersionList
    */
   @Test
-  public void cloneMdsPublication() {
-    MdsPublicationVO mdsOriginal = getMdsPublication1();
-    MdsPublicationVO mdsClone = (MdsPublicationVO) mdsOriginal.clone();
-    assertEquals(mdsOriginal, mdsClone);
+  public void testSortItemVersionList() {
+
   }
 }

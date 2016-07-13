@@ -24,23 +24,22 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test;
+package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-
 /**
- * Component test suite for common_logic.
+ * All Tests of the comparator class for PubItemVOs.
  * 
  * @author Peter Broszeit (initial creation)
- * @version $Revision$ $LastChangedDate$ by $Author$
- * @revised by MuJ: 06.09.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class, ValueObjectTest.class, ComparatorTest.class})
-public class TestModel {
+@Suite.SuiteClasses({TitleComparatorTest.class, DateComparatorTest.class,
+    GenreComparatorTest.class, CreatorComparatorTest.class, PublishingInfoComparatorTest.class,
+    ReviewMethodComparatorTest.class, SourceCreatorComparatorTest.class,
+    SourceTitleComparatorTest.class, EventTitleComparatorTest.class})
+public class ComparatorTest {
 }

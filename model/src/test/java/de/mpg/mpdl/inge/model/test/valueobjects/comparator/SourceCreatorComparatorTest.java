@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.valueobjects.comparator;
+package de.mpg.mpdl.inge.model.test.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
 

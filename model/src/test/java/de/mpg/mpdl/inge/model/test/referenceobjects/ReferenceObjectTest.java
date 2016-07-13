@@ -24,38 +24,48 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.valueobjects;
+package de.mpg.mpdl.inge.model.test.referenceobjects;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import test.TestBase;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 
 /**
- * For testing the methods in {@link AccountUserVO}.
+ * Test for class ReferenceObject.
  * 
- * @author Johannes Mueller (initial creation)
+ * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
+ * @version $Revision$ $20.09.2007
+ * @revised by MuJ: 20.09.2007
  */
-public class AccountUserVOTest extends TestBase {
-
+public class ReferenceObjectTest {
   /**
-   * @throws Exception Any exception
+   * Test method for
+   * {@link de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject#equals(java.lang.Object)} .
    */
-  @Ignore
   @Test
-  public void testIsModeratorFunction() throws Exception {
-    String adminUserHandle = null; // loginSystemAdministrator();
-    // TODO for INGe
-    // AccountUserVO admin = getAccountUser(adminUserHandle);
-    //
-    // assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
+  public void testEqualsObject() {
+    AccountUserRO userRef1 = new AccountUserRO();
+    userRef1.setObjectId("4711");
+    AccountUserRO userRef2 = new AccountUserRO();
+    userRef2.setObjectId("4711");
+    assertEquals(userRef1, userRef2);
   }
 
+  /**
+   * Test method for
+   * {@link de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject#equals(java.lang.Object)} .
+   */
+  @Test
+  public void testEqualsObjectDifferentROs() {
+    AccountUserRO userRef = new AccountUserRO();
+    userRef.setObjectId("4711");
+    AffiliationRO affRef = new AffiliationRO();
+    affRef.setObjectId("4711");
+    assertTrue(!userRef.equals(affRef));
+  }
 }

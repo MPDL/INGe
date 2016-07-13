@@ -24,28 +24,23 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.itemsorting;
+package de.mpg.mpdl.inge.model.test.valueobjects;
 
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * Test class for {@link de.mpg.escidoc.services.common.intemsorting.ItemSortingBean}.
+ * Test for class ValueObject
  * 
- * @author Galina Stancheva (initial creation)
+ * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
+ * @version $Revision$ $LastChangedDate$
+ * @revised by MuJ: 03.09.2007
  */
-public class ItemSortingTest {
-  // TODO StG
-
-  /*
-   * TODO MuJ: implement component test: testSortPubItemVersionList Remark (by MuJ): The
-   * functionality of ItemSorting.sortItemVersionList is rudimentary tested in
-   * test.xmltransforming.integration
-   * .TransformPubItemVersionListIntegrationTest.testTransformPubItemVersionList
-   */
-  @Test
-  public void testSortItemVersionList() {
-
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({de.mpg.mpdl.inge.model.test.valueobjects.ValueObjectEqualsTest.class,
+    de.mpg.mpdl.inge.model.test.valueobjects.ValueObjectCloneTest.class,
+    de.mpg.mpdl.inge.model.test.valueobjects.FilterTaskParamVOTest.class,
+    de.mpg.mpdl.inge.model.test.valueobjects.AccountUserVOTest.class})
+public class ValueObjectTest {
 }

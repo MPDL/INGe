@@ -24,22 +24,31 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package test.valueobjects;
+package de.mpg.mpdl.inge.model.test.valueobjects;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import de.mpg.mpdl.inge.model.test.TestBase;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
- * Test for class ValueObject
+ * Test cases for the clone methods of value objects.
  * 
- * @author Miriam Doelle (initial creation)
+ * @author Peter Broszeit (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * @revised by MuJ: 03.09.2007
+ * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
+ * 
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({test.valueobjects.ValueObjectEqualsTest.class,
-    test.valueobjects.ValueObjectCloneTest.class, test.valueobjects.FilterTaskParamVOTest.class,
-    test.valueobjects.AccountUserVOTest.class})
-public class ValueObjectTest {
+public class ValueObjectCloneTest extends TestBase {
+  /**
+   * Test the clone method for the MdsPublicationVO class.
+   */
+  @Test
+  public void cloneMdsPublication() {
+    MdsPublicationVO mdsOriginal = getMdsPublication1();
+    MdsPublicationVO mdsClone = (MdsPublicationVO) mdsOriginal.clone();
+    assertEquals(mdsOriginal, mdsClone);
+  }
 }
