@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.reporting.test;
+package de.mpg.mpdl.inge.reporting;
 
 import static org.junit.Assert.fail;
 

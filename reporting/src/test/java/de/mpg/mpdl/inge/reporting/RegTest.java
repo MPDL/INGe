@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.reporting.test;
+package de.mpg.mpdl.inge.reporting;
 
 import static org.junit.Assert.*;
 
