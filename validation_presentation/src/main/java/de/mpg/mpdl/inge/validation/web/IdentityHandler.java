@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.validation.init;
+package de.mpg.mpdl.inge.validation.web;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

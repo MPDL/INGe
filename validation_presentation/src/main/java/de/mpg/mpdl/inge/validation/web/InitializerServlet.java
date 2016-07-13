@@ -22,14 +22,14 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.validation.init;
+package de.mpg.mpdl.inge.validation.web;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.init.RefreshTask;
+import de.mpg.mpdl.inge.validation.web.RefreshTask;
 
 /**
  * Starts the initialization process.

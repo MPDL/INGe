@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.validation.init;
+package de.mpg.mpdl.inge.validation.web;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
