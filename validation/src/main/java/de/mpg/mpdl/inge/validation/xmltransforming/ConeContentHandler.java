@@ -34,9 +34,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.util.IdentityHandler;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import de.mpg.mpdl.inge.validation.util.IdentityHandler;
 
 /**
  * TODO Description

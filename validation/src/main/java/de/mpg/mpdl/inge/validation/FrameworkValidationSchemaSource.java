@@ -43,8 +43,8 @@ import de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.WrongDateException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ShortContentHandler;
 import de.mpg.mpdl.inge.validation.util.CacheTuple;
+import de.mpg.mpdl.inge.validation.util.ShortContentHandler;
 
 /**
  * This implementation of {@link ValidationSchemaSource} retrieves Validation schema items from the
