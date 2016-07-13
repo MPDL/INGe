@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.transformation.test;
+package de.mpg.mpdl.inge.transformation;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

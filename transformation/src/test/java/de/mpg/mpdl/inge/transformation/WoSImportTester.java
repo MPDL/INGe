@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.transformation.test;
+package de.mpg.mpdl.inge.transformation;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;

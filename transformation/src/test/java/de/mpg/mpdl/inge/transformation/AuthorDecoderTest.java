@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.transformation.test;
+package de.mpg.mpdl.inge.transformation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
