@@ -1310,34 +1310,26 @@
 				<sonar.jdbc.password>${sonar.jdbc.password}</sonar.jdbc.password>
 				<sonar.host.url>${sonar.host.url}</sonar.host.url>
 
-				<!-- sonar.sources>src/main/java,target/generated-sources</sonar.sources -->
-				<!-- sonar.binaries>target/classes,target/test-classes</sonar.binaries -->
-
-				<!-- path to test source directories (optional) -->
-				<!-- sonar.tests>src/test/java</sonar.tests -->
-
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
 				<jacoco.version>0.7.4.201502262128</jacoco.version>
 				
-				<!--  
-				<jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
+				  
+				<jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>
 				<jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
 				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
 				<sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
 				<sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
--->
+
 				<!-- command line arguments when starting test for test coverage analysis -->
-				
-				<!-- 
+		
 				<jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m
 					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
 					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
 				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
 					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
 					${jacoco.agent.it.arg}</jacoco.arguments.it>
-					
-					 -->
+				
 			</properties>
 
 			<build>
@@ -1365,13 +1357,13 @@
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
-								<!--  
+					
 								<configuration>
 									<destFile>${sonar.jacoco.reportPath}</destFile>
 									<propertyName>jacoco.agent.ut.arg</propertyName>
 									<append>true</append>
 								</configuration>
-								-->
+							
 							</execution>
 
 							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info 
@@ -1397,15 +1389,15 @@
  -->
 							<execution>
 								<id>jacoco-site</id>
-								<phase>prepare-package</phase>
+								<phase>post-unit-test</phase>
 								<goals>
 									<goal>report</goal>
 								</goals>
-								<!-- 
+								
 								<configuration>
 									<dataFile>${sonar.jacoco.itReportPath}</dataFile>
 								</configuration>
-								 -->
+								
 							</execution>
 						</executions>
 					</plugin>
