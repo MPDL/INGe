@@ -1389,13 +1389,13 @@
  -->
 							<execution>
 								<id>jacoco-site</id>
-								<phase>post-unit-test</phase>
+								<phase>test</phase>
 								<goals>
 									<goal>report</goal>
 								</goals>
 								
 								<configuration>
-									<dataFile>${sonar.jacoco.itReportPath}</dataFile>
+									<dataFile>${sonar.jacoco.reportPath}</dataFile>
 								</configuration>
 								
 							</execution>
