@@ -1318,7 +1318,7 @@
 
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
-				<jacoco.version>0.7.1.201405082137</jacoco.version>
+				<jacoco.version>0.7.4.201502262128</jacoco.version>
 				
 				<!--  
 				<jacoco.outputDir>${project.basedir}/../../jacoco</jacoco.outputDir>
