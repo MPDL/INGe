@@ -1312,7 +1312,7 @@
 
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
-				<jacoco.version>0.7.6</jacoco.version>
+				<jacoco.version>0.7.6.201602180812</jacoco.version>
 				  
 				<jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>
 				<jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
