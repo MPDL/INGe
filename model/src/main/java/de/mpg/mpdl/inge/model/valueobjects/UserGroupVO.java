@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resources;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 
 /**
@@ -59,6 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
+@JsonInclude(value = Include.NON_NULL)
 public class UserGroupVO extends ValueObject {
   private Date creationDate;
   private String createdBy;
@@ -281,7 +286,7 @@ public class UserGroupVO extends ValueObject {
    * 
    * @return value
    */
-  public List<MemberVO> getSelectors() {
+  public List<MemberVO> getMembers() {
     return members;
   }
 
@@ -290,8 +295,8 @@ public class UserGroupVO extends ValueObject {
    * 
    * @param members
    */
-  public void setSelectors(List<MemberVO> selectors) {
-    this.members = selectors;
+  public void setMembers(List<MemberVO> members) {
+    this.members = members;
   }
 
 

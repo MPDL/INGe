@@ -51,8 +51,11 @@ public class IngeESConnectorConfiguration {
             .put("client.transport.sniff", true).build();
     TransportClient client = new TransportClient.Builder().settings(settings).build();
     for (String ip : transportIps.split(" ")) {
+      String addr = ip.split(":")[0];
+      int port = Integer.valueOf(ip.split(":")[1]);
       try {
-        client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
+        client
+            .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(addr), port));
       } catch (UnknownHostException e) {
         e.printStackTrace();
       }
