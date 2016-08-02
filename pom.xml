@@ -59,6 +59,7 @@
 		<module>inge_es_connector</module>
 		<module>model</module>
 		<module>inge_services</module>
+		<module>inge_seaweedfs_connector</module>
 	</modules>
 
 	<licenses>
