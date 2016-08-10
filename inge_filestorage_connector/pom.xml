@@ -8,12 +8,16 @@
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>inge_seaweedfs_connector</artifactId>
-	<name>inge_seaweedfs_connector</name>
+	<artifactId>inge_filestorage_connector</artifactId>
+	<name>inge_filestorage_connector</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_services</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

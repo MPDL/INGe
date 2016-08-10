@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.seaweedfs;
+package de.mpg.mpdl.inge.filestorage;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -17,12 +17,13 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * 
  */
 @Configuration
-@ComponentScan(basePackages = {"de.mpg.mpdl.inge.seaweedfs"})
-@PropertySource("classpath:seaweed.properties")
-public class SeaweedConnectorConfiguration {
+@ComponentScan(basePackages = {"de.mpg.mpdl.inge.filestorage",
+    "de.mpg.mpdl.inge.filestorage.filesystem", "de.mpg.mpdl.inge.filestorage.seaweedfs"})
+@PropertySource("classpath:filestorage.properties")
+public class FileStorageConnectorConfiguration {
 
   private final CloseableHttpClient httpClient = HttpClients.createDefault();
-  
+
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertyConfig() {
     return new PropertySourcesPlaceholderConfigurer();

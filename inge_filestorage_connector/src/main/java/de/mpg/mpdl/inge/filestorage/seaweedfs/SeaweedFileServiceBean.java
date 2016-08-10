@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.seaweedfs;
+package de.mpg.mpdl.inge.filestorage.seaweedfs;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.services.FileStorageInterface;
+
 
 /**
  * File storage service for seaweed (handling full text files and so on)
@@ -36,13 +40,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 
  */
 @Service
-public class SeaweedFileServiceBean {
+public class SeaweedFileServiceBean implements FileStorageInterface {
   
   private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
-  @Value("${seaweed_master_server_ip:http://localhost:9333}")
+  @Value("${seaweed_master_server_ip}")
   private String seaweedMasterUrl;
-  @Value("${seaweed_direct_submit_path:/submit}")
+  @Value("${seaweed_direct_submit_path}")
   private String seaweedDirectSubmitPath;
   @Autowired
   private CloseableHttpClient httpClient;
@@ -50,14 +54,18 @@ public class SeaweedFileServiceBean {
   /**
    * creates a file in the seaweed instance
    * 
+   * (non-Javadoc)
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream, java.lang.String)
+   * 
    * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
    * @throws IOException
    */
-  public JsonNode createFile(File file) throws IOException {
-    JsonNode jsonObject = null;
+  @Override
+  public String createFile(InputStream fileInputStream, String fileName) throws IOException {
+    String fileId;
     HttpEntity entity =
         MultipartEntityBuilder.create()
-            .addBinaryBody("upload_file", file, ContentType.DEFAULT_BINARY, "myDatei").build();
+            .addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName).build();
 
     HttpPost httpPost = new HttpPost(seaweedMasterUrl + seaweedDirectSubmitPath);
     httpPost.setEntity(entity);
@@ -68,25 +76,30 @@ public class SeaweedFileServiceBean {
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
       ObjectMapper mapper = new ObjectMapper();
-      jsonObject = mapper.readTree(responseEntity.getContent());
+      JsonNode jsonObject = mapper.readTree(responseEntity.getContent());
       // ensure it is fully consumed
       EntityUtils.consume(responseEntity);
+      fileId = jsonObject.findValuesAsText("fid").get(0);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
+      throw e;
     } finally {
       response.close();
     }
-    return jsonObject;
+    return fileId;
   }
 
   /**
    * read a file from the seaweed instance to an outputstream
    * 
+   * (non-Javadoc)
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String, java.io.OutputStream)
+   * 
    * @param fileId - Id of the file to read
    * @param out - OutputStream where result is written
    * @throws IOException
    */
+  @Override
   public void readFile(String fileId, OutputStream out) throws IOException {
     HttpGet httpGet = new HttpGet(seaweedMasterUrl + "/" + fileId);
     CloseableHttpResponse response = null;
@@ -102,7 +115,7 @@ public class SeaweedFileServiceBean {
       // ensure it is fully consumed
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      logger.error("An error occoured, when trying to retrieve file [" + fileId + "]", e);
       e.printStackTrace();
     } finally {
       response.close();
@@ -112,13 +125,17 @@ public class SeaweedFileServiceBean {
   /**
    * delete a file with a specific id from the seaweed instance
    * 
+   * (non-Javadoc)
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
+   * 
    * @param fileId - Id of the file to read
    * @throws Exception
    */
+  @Override
   public void deleteFile(String fileId) throws Exception {
     HttpDelete httpDelete =
         new HttpDelete(seaweedMasterUrl + "/" + URLEncoder.encode(fileId, "UTF-8"));
-    System.out.println(httpDelete.getURI().toString());
+    logger.info("Delete request: " + httpDelete.getURI().toString());
     CloseableHttpResponse response = null;
 
     try {
@@ -136,12 +153,16 @@ public class SeaweedFileServiceBean {
       InputStream retrievedFileInputStream = responseEntity.getContent();
       StringWriter stringWriter = new StringWriter();
       IOUtils.copy(retrievedFileInputStream, stringWriter);
-      System.out.println("Delete Response: " + stringWriter);
+      logger.info("Delete Response: " + stringWriter);
       // ensure it is fully consumed
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      logger.error("An error occoured, when trying to delete the file [" + fileId + "]", e);
+      throw e;
+    } catch (URISyntaxException e) {
+      logger.error("An error with the generated URI occoured, "
+          + "when trying to delete the file [" + fileId + "]", e);
+      throw e;
     } finally {
       response.close();
     }
