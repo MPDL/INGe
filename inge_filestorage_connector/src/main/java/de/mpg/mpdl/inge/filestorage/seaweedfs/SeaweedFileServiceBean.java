@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.filestorage.seaweedfs;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,7 +7,6 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -41,7 +39,7 @@ import de.mpg.mpdl.inge.services.FileStorageInterface;
  */
 @Service
 public class SeaweedFileServiceBean implements FileStorageInterface {
-  
+
   private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
   @Value("${seaweed_master_server_ip}")
@@ -55,7 +53,9 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * creates a file in the seaweed instance
    * 
    * (non-Javadoc)
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream, java.lang.String)
+   * 
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
+   *      java.lang.String)
    * 
    * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
    * @throws IOException
@@ -65,7 +65,8 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     String fileId;
     HttpEntity entity =
         MultipartEntityBuilder.create()
-            .addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName).build();
+            .addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName)
+            .build();
 
     HttpPost httpPost = new HttpPost(seaweedMasterUrl + seaweedDirectSubmitPath);
     httpPost.setEntity(entity);
@@ -93,7 +94,9 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * read a file from the seaweed instance to an outputstream
    * 
    * (non-Javadoc)
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String, java.io.OutputStream)
+   * 
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
+   *      java.io.OutputStream)
    * 
    * @param fileId - Id of the file to read
    * @param out - OutputStream where result is written
@@ -126,6 +129,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * delete a file with a specific id from the seaweed instance
    * 
    * (non-Javadoc)
+   * 
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
    * 
    * @param fileId - Id of the file to read
