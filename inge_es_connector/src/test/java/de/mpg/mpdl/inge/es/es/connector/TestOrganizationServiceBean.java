@@ -59,7 +59,7 @@ public class TestOrganizationServiceBean extends TestBase {
   }
 
   @Test
-  public void testDelete() {
+  public void testZDelete() {
     try {
       String ou = bean.deleteOrganization(test_ou_id);
       assert ou.equals(test_ou_id);
