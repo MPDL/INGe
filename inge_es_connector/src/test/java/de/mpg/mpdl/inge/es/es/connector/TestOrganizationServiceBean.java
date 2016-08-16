@@ -64,7 +64,7 @@ public class TestOrganizationServiceBean extends TestBase {
       String ou = bean.deleteOrganization(test_ou_id);
       assert ou.equals(test_ou_id);
     } catch (SecurityException | NotFoundException | TechnicalException e) {
-      // TODO Auto-generated catch block
+      // TODO Auto-generated catch block asdf
       e.printStackTrace();
     }
   }
