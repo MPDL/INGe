@@ -38,9 +38,9 @@
 	<packaging>war</packaging>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_presentation</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_presentation</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/pubman_presentation</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_presentation</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 

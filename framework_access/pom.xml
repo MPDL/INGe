@@ -38,9 +38,9 @@
 	<name>framework_access</name>
 	<version>1.3.40-SNAPSHOT</version>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/framework_access</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/framework_access</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/framework_access</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/framework_access</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 	<build>

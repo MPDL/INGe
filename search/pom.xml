@@ -39,9 +39,9 @@
 	<packaging>ejb</packaging>
 	<version>1.1.29-SNAPSHOT</version>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/search</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/search</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/search</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/search</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 	<build>

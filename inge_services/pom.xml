@@ -11,9 +11,9 @@
 	<artifactId>inge_services</artifactId>
 	<name>inge_services</name>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_services</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_services</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/inge_services</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_services</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
 	<properties>

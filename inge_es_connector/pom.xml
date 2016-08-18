@@ -12,9 +12,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inge_es_connector</name>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/inge_es_connector</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
 	<properties>

@@ -14,9 +14,9 @@
 	<name>pubman_util</name>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_util</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_util</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/pubman_util</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_util</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	  </scm>
 
