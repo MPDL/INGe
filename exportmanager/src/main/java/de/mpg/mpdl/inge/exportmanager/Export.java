@@ -61,8 +61,8 @@ import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
