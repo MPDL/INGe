@@ -30,45 +30,21 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRRtfExporter;
-import net.sf.jasperreports.engine.export.JRTextExporter;
-import net.sf.jasperreports.engine.export.JRTextExporterParameter;
-import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
-import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
-
 import org.apache.log4j.Logger;
-import org.apache.tika.sax.XHTMLContentHandler;
 import org.docx4j.Docx4J;
-import org.docx4j.convert.in.xhtml.FormattingOption;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
-import org.docx4j.wml.PPrBase.PStyle;
-import org.docx4j.wml.R;
-import org.w3c.dom.Document;
 
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
@@ -76,10 +52,10 @@ import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * 
@@ -92,10 +68,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 
 public class CitationStyleExecutor implements CitationStyleHandler {
-
-  private static final String PARENT_ELEMENT_NAME = "content-model-specific";
-  private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
-  private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
 
   private CitationStyleLanguageManagerInterface citationStyleLanguageManager =
       new CitationStyleLanguageManagerDefaultImpl();
