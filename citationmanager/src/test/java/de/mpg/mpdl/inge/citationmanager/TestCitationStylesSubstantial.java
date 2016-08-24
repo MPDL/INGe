@@ -51,10 +51,9 @@ import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -391,7 +390,7 @@ public class TestCitationStylesSubstantial {
   }
 
   private void writeToFile(String fileName, String content) throws IOException {
-    TestHelper.writeToFile(ResourceUtil.getPathToTestResources() + fileName, content.getBytes());
+    TestHelper.writeToFile(CitationUtil.getPathToTestResources() + fileName, content.getBytes());
   }
 
 

@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.citationmanager.xslt;
+package de.mpg.mpdl.inge.citationmanager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -72,9 +72,7 @@ import org.w3c.dom.Document;
 
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -115,7 +113,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
    * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#explainStyles()
    */
   public String explainStyles() throws CitationStyleManagerException {
-    return ResourceUtil.getExplainStyles();
+    return CitationUtil.getExplainStyles();
   }
 
 
@@ -167,7 +165,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
       } else {
 
         StringWriter sw = new StringWriter();
-        String csXslPath = ResourceUtil.getPathToCitationStyleXSL(exportFormat.getName());
+        String csXslPath = CitationUtil.getPathToCitationStyleXSL(exportFormat.getName());
 
         /* get xslt from the templCache */
         Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
@@ -194,7 +192,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
         Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
         Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
-        TransformationBean trans = ResourceUtil.getTransformationBean();
+        TransformationBean trans = CitationUtil.getTransformationBean();
 
         byte[] v1 = null;
         try {
@@ -296,7 +294,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
       Transformer transformer =
           XmlHelper
               .tryTemplCache(
-                  ResourceUtil.getPathToTransformations()
+                  CitationUtil.getPathToTransformations()
                       + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
       transformer.setParameter("cs", cs);
       transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
@@ -321,7 +319,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
     try {
       Transformer transformer =
           XmlHelper.tryTemplCache(
-              ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl")
+              CitationUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl")
               .newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
       transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);

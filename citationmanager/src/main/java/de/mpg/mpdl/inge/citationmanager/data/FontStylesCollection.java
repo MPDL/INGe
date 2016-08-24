@@ -37,9 +37,9 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * An instance of this class represents a Collection of {@link FontStyle}s
@@ -226,7 +226,8 @@ public class FontStylesCollection implements Cloneable {
    */
   public static FontStylesCollection loadFromXml(String xmlFileName) throws IOException,
       SAXException {
-    return loadFromXml(ResourceUtil.getResourceAsStream(xmlFileName));
+    return loadFromXml(ResourceUtil.getResourceAsStream(xmlFileName,
+        FontStylesCollection.class.getClassLoader()));
   }
 
   public Object clone() {

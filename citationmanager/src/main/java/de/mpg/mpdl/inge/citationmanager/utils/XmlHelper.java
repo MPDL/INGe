@@ -315,7 +315,9 @@ public class XmlHelper {
       FileNotFoundException, CitationStyleManagerException {
     Utils.checkName(path, "Empty XSLT name.");
 
-    InputStream is = ResourceUtil.getResourceAsStream(path);
+    InputStream is =
+        de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(path,
+            XmlHelper.class.getClassLoader());
 
     Templates x = templCache.get(path);
     if (x == null) {
@@ -335,8 +337,10 @@ public class XmlHelper {
 
       // get default JasperDesign
 
-      String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
-      JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
+      String path = CitationUtil.getPathToCitationStyles() + "citation-style.jrxml";
+      JasperDesign jd =
+          JRXmlLoader.load(de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(path,
+              XmlHelper.class.getClassLoader()));
 
 
       // populate page header
@@ -420,7 +424,8 @@ public class XmlHelper {
       Validator handler = new Validator();
       builder.setErrorHandler(handler);
 
-      builder.parse(ResourceUtil.getResourceAsFile(xmlDocumentUrl));
+      builder.parse(de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsFile(xmlDocumentUrl,
+          XmlHelper.class.getClassLoader()));
 
       if (handler.validationError) {
         return ("XML Document has Error: " + handler.saxParseException.getLineNumber() + ":"
@@ -464,13 +469,13 @@ public class XmlHelper {
    * @throws IOException
    */
   public String validateCitationStyleXML(final String cs) throws IOException {
-    String csFile = ResourceUtil.getPathToCitationStyleXML(cs);
+    String csFile = CitationUtil.getPathToCitationStyleXML(cs);
     logger.info("Document to be validated: " + csFile);
 
     // XML Schema validation
     logger.info("XML Schema validation...");
     String report =
-        validateSchema(ResourceUtil.getUriToResources() + ResourceUtil.SCHEMAS_DIRECTORY
+        validateSchema(CitationUtil.getUriToResources() + CitationUtil.SCHEMAS_DIRECTORY
             + CITATIONSTYLE_XML_SCHEMA_FILE, csFile);
     if (report != null) {
       return report;
@@ -480,12 +485,12 @@ public class XmlHelper {
     // Schematron validation
     logger.info("Schematron validation...");
     SchtrnValidator validator = new SchtrnValidator();
-    validator.setEngineStylesheet(ResourceUtil.getPathToSchemas() + SCHEMATRON_DIRECTORY
+    validator.setEngineStylesheet(CitationUtil.getPathToSchemas() + SCHEMATRON_DIRECTORY
         + "schematron-diagnose.xsl");
     validator.setParams(new SchtrnParams());
     validator.setBaseXML(true);
     try {
-      report = validator.validate(csFile, ResourceUtil.getPathToSchemas() + SCHEMATRON_FILE);
+      report = validator.validate(csFile, CitationUtil.getPathToSchemas() + SCHEMATRON_FILE);
     } catch (TransformerConfigurationException e1) {
       return "Schematron validation problem (TransformerConfigurationException): "
           + e1.getMessage();
@@ -526,12 +531,13 @@ public class XmlHelper {
       if ("__Default__".equalsIgnoreCase(cs)) {
         fsc.put(
             cs,
-            FontStylesCollection.loadFromXml(ResourceUtil.getPathToCitationStyles()
+            FontStylesCollection.loadFromXml(CitationUtil.getPathToCitationStyles()
                 + FONT_STYLES_COLLECTION_FILE));
       } else {
         InputStream inputStream =
-            ResourceUtil.getResourceAsStream(ResourceUtil.getPathToCitationStyle(cs)
-                + FONT_STYLES_COLLECTION_FILE);
+            de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(
+                CitationUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE,
+                XmlHelper.class.getClassLoader());
         // get specific FontStyleCollection for citation style if exists
         if (inputStream != null) {
           fsc.put(cs, FontStylesCollection.loadFromXml(inputStream));
@@ -585,8 +591,10 @@ public class XmlHelper {
     Document doc = null;
     try {
       doc =
-          parseDocumentForTraversing(new InputSource(ResourceUtil.getResourceAsStream(ResourceUtil
-              .getPathToSchemas() + ResourceUtil.EXPLAIN_FILE)));
+          parseDocumentForTraversing(new InputSource(
+              de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(
+                  CitationUtil.getPathToSchemas() + CitationUtil.EXPLAIN_FILE,
+                  XmlHelper.class.getClassLoader())));
     } catch (Exception e) {
       throw new CitationStyleManagerException("Cannot parse explain file", e);
     }
@@ -708,10 +716,10 @@ public class XmlHelper {
       NodeList nl = null;
       try {
         nl =
-            xpathNodeList(
-                "/export-formats/output-formats/output-format",
-                ResourceUtil.getResourceAsString(ResourceUtil.SCHEMAS_DIRECTORY
-                    + "explain-styles.xml"));
+            xpathNodeList("/export-formats/output-formats/output-format",
+                de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsString(
+                    CitationUtil.SCHEMAS_DIRECTORY + "explain-styles.xml",
+                    XmlHelper.class.getClassLoader()));
       } catch (Exception e) {
         throw new RuntimeException("Cannot process expain file:", e);
       }
@@ -766,10 +774,10 @@ public class XmlHelper {
       NodeList nl;
       try {
         nl =
-            xpathNodeList(
-                "/export-formats/export-format/identifier",
-                ResourceUtil.getResourceAsString(ResourceUtil.SCHEMAS_DIRECTORY
-                    + "explain-styles.xml"));
+            xpathNodeList("/export-formats/export-format/identifier",
+                de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsString(
+                    CitationUtil.SCHEMAS_DIRECTORY + "explain-styles.xml",
+                    XmlHelper.class.getClassLoader()));
       } catch (Exception e) {
         throw new RuntimeException("Cannot process expain file:", e);
       }
