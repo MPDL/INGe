@@ -178,7 +178,7 @@ public class TestCitationStylesSubstantial {
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
         String snippet =
-            new String(cse.getOutput(XmlHelper.outputString(doc), new ExportFormatVO(
+            new String(cse.getOutput(DOMUtilities.outputString(doc), new ExportFormatVO(
                 FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
@@ -190,7 +190,7 @@ public class TestCitationStylesSubstantial {
         // get expected result from the abstract field
         Node checkNode = XmlHelper.xpathNode(EXPECTED_XPATH, doc);
         String comment =
-            objid + ", xpath:" + EXPECTED_XPATH + ", item:" + XmlHelper.outputString(doc);
+            objid + ", xpath:" + EXPECTED_XPATH + ", item:" + DOMUtilities.outputString(doc);
         assertNotNull("expected citation has not been found for " + comment, checkNode);
         expectedCit = checkNode.getTextContent();
         assertNotNull("expected citation element is empty for " + comment, checkNode);

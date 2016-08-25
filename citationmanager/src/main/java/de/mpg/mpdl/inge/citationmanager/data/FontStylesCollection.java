@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -286,7 +285,7 @@ public class FontStylesCollection implements Cloneable {
       root.appendChild(element);
     }
 
-    XmlHelper.output(doc, xmlFileName);
+    DOMUtilities.output(doc, xmlFileName);
 
   }
 
