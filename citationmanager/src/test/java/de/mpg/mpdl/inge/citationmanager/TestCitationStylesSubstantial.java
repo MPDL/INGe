@@ -56,6 +56,7 @@ import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
@@ -160,7 +161,7 @@ public class TestCitationStylesSubstantial {
       // get items from file
       itemList = TestHelper.getCitationStyleTestXmlAsString(FILE_NAME);
 
-      Document doc = XmlHelper.createDocument(itemList);
+      Document doc = DOMUtilities.createDocument(itemList);
       Element root = doc.getDocumentElement();
 
       Node[] itemsArr = TestHelper.getItemNodes(root);

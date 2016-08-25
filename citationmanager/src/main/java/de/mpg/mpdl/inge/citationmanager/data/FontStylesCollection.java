@@ -32,13 +32,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -108,7 +109,7 @@ public class FontStylesCollection implements Cloneable {
     fontStyles.add(fs);
 
     String cssn = fs.getCssClass();
-    if (Utils.checkVal(cssn)) {
+    if (StringUtils.isNotEmpty(StringUtils.strip(cssn))) {
       cssMap.put(cssn, fs);
     }
 
@@ -132,19 +133,12 @@ public class FontStylesCollection implements Cloneable {
   }
 
   public FontStyle getFontStyleByName(String name) {
-    return Utils.checkVal(name) ? namesMap.get(name) : null;
-    // for ( FontStyle fs: fontStyles ) {
-    // if (fs.getName().equals(name)) {
-    // return fs;
-    // }
-    // }
-    // // throws Exception if not found (should be organized )
-    // return null;
+    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? namesMap.get(name) : null;
   }
 
 
   public FontStyle getFontStyleByCssClass(String name) {
-    return Utils.checkVal(name) ? cssMap.get(name) : null;
+    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? cssMap.get(name) : null;
   }
 
 
@@ -260,7 +254,7 @@ public class FontStylesCollection implements Cloneable {
   public void writeToXml(String xmlFileName) throws IOException, SAXException,
       CitationStyleManagerException {
 
-    Document doc = XmlHelper.createDocument();
+    Document doc = DOMUtilities.createDocument();
 
     Element root = doc.createElement("font-styles-collection");
 

@@ -25,9 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,25 +51,12 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRReportFont;
-import net.sf.jasperreports.engine.JRStyle;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.engine.xml.JRXmlWriter;
-import net.sf.saxon.event.SaxonOutputKeys;
-
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
-import org.w3c.dom.traversal.NodeIterator;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -83,6 +68,14 @@ import com.topologi.schematron.SchtrnValidator;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
+import de.mpg.mpdl.inge.util.DOMUtilities;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRStyle;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.saxon.event.SaxonOutputKeys;
 
 /**
  * 
@@ -145,51 +138,6 @@ public class XmlHelper {
     } catch (ParserConfigurationException e) {
       throw new RuntimeException("Failed to create a document builder factory", e);
     }
-  }
-
-  /**
-   * Creates new empty org.w3c.dom.Document
-   * 
-   * @return org.w3c.dom.Document
-   * @throws CitationStyleManagerException
-   */
-  public static Document createDocument() {
-    return createDocumentBuilder().newDocument();
-  }
-
-  /**
-   * Creates new org.w3c.dom.Document
-   * 
-   * @param xml
-   * @return org.w3c.dom.Document
-   * @throws RuntimeException
-   */
-  public static Document createDocument(String xml) {
-    try {
-      return createDocument(xml.getBytes("UTF-8"));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot create Document", e);
-    }
-  }
-
-  /**
-   * Creates new org.w3c.dom.Document
-   * 
-   * @param xml
-   * @return org.w3c.dom.Document
-   * @throws CitationStyleManagerException
-   * @throws IOException
-   * @throws SAXException
-   * @throws Exception
-   */
-  public static Document createDocument(byte[] xml) {
-    DocumentBuilder db = createDocumentBuilder();
-    try {
-      return db.parse(new ByteArrayInputStream(xml), "UTF-8");
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot create Document", e);
-    }
-
   }
 
   /**
@@ -381,20 +329,6 @@ public class XmlHelper {
     jrs.setPdfEncoding(dfs.getPdfEncoding());
     jrs.setPdfEmbedded(true);
 
-  }
-
-  /**
-   * Set report header
-   * 
-   * @param jasperDesign
-   * @param cs
-   */
-  private static void setPageHeader(JasperDesign jasperDesign, String cs) {
-    jasperDesign.setName(cs);
-    JRDesignStaticText st =
-        (JRDesignStaticText) jasperDesign.getTitle().getElementByKey("staticText");
-    if (st != null)
-      st.setText("Citation Style: " + cs);
   }
 
   /**
@@ -839,24 +773,11 @@ public class XmlHelper {
   }
 
 
-  /**
-   * Returns <code>org.w3c.dom.traversal.NodeIterator</code> for org.w3c.dom.Document traversing
-   * 
-   * @throws ExportManagerException
-   */
-  private static NodeIterator getFilteredNodes(NodeFilter nodeFilter, Document doc)
-      throws CitationStyleManagerException {
-    NodeIterator ni =
-        ((DocumentTraversal) doc).createNodeIterator(doc.getDocumentElement(),
-            NodeFilter.SHOW_ELEMENT, nodeFilter, true);
-    return ni;
-  }
-
   /*****************/
   /** XPATH Utils **/
   /*****************/
   public static String xpathString(String expr, String xml) {
-    return xpathString(expr, createDocument(xml));
+    return xpathString(expr, DOMUtilities.createDocument(xml));
   }
 
   public static String xpathString(String expr, Document doc) {
@@ -869,7 +790,7 @@ public class XmlHelper {
   }
 
   public static Double xpathNumber(String expr, String xml) {
-    return xpathNumber(expr, createDocument(xml));
+    return xpathNumber(expr, DOMUtilities.createDocument(xml));
   }
 
   public static Double xpathNumber(String expr, Document doc) {
@@ -883,7 +804,7 @@ public class XmlHelper {
   }
 
   public static NodeList xpathNodeList(String expr, String xml) {
-    return xpathNodeList(expr, createDocument(xml));
+    return xpathNodeList(expr, DOMUtilities.createDocument(xml));
   }
 
   public static NodeList xpathNodeList(String expr, Document doc) {
@@ -895,7 +816,7 @@ public class XmlHelper {
   }
 
   public static Node xpathNode(String expr, String xml) {
-    return xpathNode(expr, createDocument(xml));
+    return xpathNode(expr, DOMUtilities.createDocument(xml));
   }
 
   public static Node xpathNode(String expr, Document doc) {
