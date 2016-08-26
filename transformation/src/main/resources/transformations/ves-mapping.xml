@@ -101,7 +101,8 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>
 			
-			<map v2="http://purl.org/eprint/type/Patent">other</map>	
+			<map v2="http://purl.org/eprint/type/Patent">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/film">other</map>	
 		</v2-to-v1>
 				
 		<v2-to-edoc>
