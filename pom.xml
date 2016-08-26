@@ -147,9 +147,9 @@
 	</ciManagement>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe.git</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe.git</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe</url>
+		<connection>scm:git:git@github.com:MPDL/INGe.git</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe.git</developerConnection>
+		<url>https://github.com/MPDL/INGe</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -1313,7 +1313,7 @@
 
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
-				<jacoco.version>0.7.7.201606060606</jacoco.version>
+				<jacoco.version>0.7.4.201502262128</jacoco.version>
 	
 				  
 				<jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>

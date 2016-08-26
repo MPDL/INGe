@@ -12,9 +12,9 @@
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/citation_style_language_manager</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/citation_style_language_manager</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/citation_style_language_manager</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/citation_style_language_manager</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
 

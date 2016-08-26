@@ -192,7 +192,7 @@ public class YearbookItemEditBean extends FacesBean {
           + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId() + ")");
     } else if (userGroups.size() == 1) {
       this.setUserGroup(userGroups.get(0));
-      for (MemberVO user : this.getUserGroup().getSelectors()) {
+      for (MemberVO user : this.getUserGroup().getMembers()) {
         if (user.getName().equals("user-account")) {
           this.collaboratorUserIds.add(user.getMemberId());
         }

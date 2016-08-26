@@ -51,12 +51,12 @@ import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
@@ -161,7 +161,7 @@ public class TestCitationStylesSubstantial {
       // get items from file
       itemList = TestHelper.getCitationStyleTestXmlAsString(FILE_NAME);
 
-      Document doc = XmlHelper.createDocument(itemList);
+      Document doc = DOMUtilities.createDocument(itemList);
       Element root = doc.getDocumentElement();
 
       Node[] itemsArr = TestHelper.getItemNodes(root);
@@ -178,7 +178,7 @@ public class TestCitationStylesSubstantial {
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
         String snippet =
-            new String(cse.getOutput(XmlHelper.outputString(doc), new ExportFormatVO(
+            new String(cse.getOutput(DOMUtilities.outputString(doc), new ExportFormatVO(
                 FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
@@ -190,7 +190,7 @@ public class TestCitationStylesSubstantial {
         // get expected result from the abstract field
         Node checkNode = XmlHelper.xpathNode(EXPECTED_XPATH, doc);
         String comment =
-            objid + ", xpath:" + EXPECTED_XPATH + ", item:" + XmlHelper.outputString(doc);
+            objid + ", xpath:" + EXPECTED_XPATH + ", item:" + DOMUtilities.outputString(doc);
         assertNotNull("expected citation has not been found for " + comment, checkNode);
         expectedCit = checkNode.getTextContent();
         assertNotNull("expected citation element is empty for " + comment, checkNode);
@@ -391,7 +391,7 @@ public class TestCitationStylesSubstantial {
   }
 
   private void writeToFile(String fileName, String content) throws IOException {
-    TestHelper.writeToFile(ResourceUtil.getPathToTestResources() + fileName, content.getBytes());
+    TestHelper.writeToFile(CitationUtil.getPathToTestResources() + fileName, content.getBytes());
   }
 
 

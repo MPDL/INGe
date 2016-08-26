@@ -40,9 +40,9 @@
 	<version>1.0.102-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/validation</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/validation</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/validation</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/validation</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 

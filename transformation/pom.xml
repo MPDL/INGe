@@ -40,9 +40,9 @@
 	<version>1.0.83-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:git:git@github.com:MPDL-Collections/INGe/transformation</connection>
-    <developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/transformation</developerConnection>
-    <url>https://github.com/MPDL-Collections/INGe/</url>
+	  <connection>scm:git:git@github.com:MPDL/INGe/transformation</connection>
+    <developerConnection>scm:git:git@github.com:MPDL/INGe/transformation</developerConnection>
+    <url>https://github.com/MPDL/INGe/</url>
     <tag>HEAD</tag>
   </scm>
 	<build>

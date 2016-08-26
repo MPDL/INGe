@@ -40,9 +40,9 @@
 	<version>0.39-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/reporting</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/reporting</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/reporting</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/reporting</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 	

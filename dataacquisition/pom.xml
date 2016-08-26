@@ -31,9 +31,9 @@
 	<version>1.0.91-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/dataacquisition</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/dataacquisition</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/dataacquisition</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/dataacquisition</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 
