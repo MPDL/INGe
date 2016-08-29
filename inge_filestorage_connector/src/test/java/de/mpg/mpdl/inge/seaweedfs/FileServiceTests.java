@@ -52,9 +52,9 @@ public class FileServiceTests {
    */
   @Test
   public void testSeaweedfsCreateReadDelete() throws Exception {
-    for (String filename : FILE_NAMES) {
-      InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(filename);
-      String fileId = seaweedFileServiceBean.createFile(fileInputStream, filename);
+    for (String fileName : FILE_NAMES) {
+      InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+      String fileId = seaweedFileServiceBean.createFile(fileInputStream, fileName);
       OutputStream retrievedFileOutputStream = new ByteArrayOutputStream();
       seaweedFileServiceBean.readFile(fileId, retrievedFileOutputStream);
       System.out.println(((ByteArrayOutputStream) retrievedFileOutputStream).toString());
@@ -70,9 +70,14 @@ public class FileServiceTests {
    */
   @Test
   public void testFilesystemCreateReadDelete() throws Exception {
-    for (String filename : FILE_NAMES) {
-      InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(filename);
-      fileSystemServiceBean.createFile(fileInputStream, "test");
+    for (String fileName : FILE_NAMES) {
+      InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+      String fileRelativePath = fileSystemServiceBean.createFile(fileInputStream, fileName);
+      OutputStream retrievedFileOutputStream = new ByteArrayOutputStream();
+      fileSystemServiceBean.readFile(fileRelativePath, retrievedFileOutputStream);
+      System.out.println(((ByteArrayOutputStream) retrievedFileOutputStream).toString());
+      fileSystemServiceBean.deleteFile(fileRelativePath);
+      System.out.println("--------------------");
     }
   }
 }
