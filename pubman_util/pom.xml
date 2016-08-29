@@ -14,9 +14,9 @@
 	<name>pubman_util</name>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_util</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/pubman_util</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/pubman_util</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_util</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	  </scm>
 
@@ -40,6 +40,15 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 			<scope>compile</scope>
+		</dependency>
+				<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
+			<version>8.7</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

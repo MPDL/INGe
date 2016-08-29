@@ -20,15 +20,15 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.TestHelper;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * @author endres
@@ -184,12 +184,13 @@ public class TestCitationManager {
     // It is in old MD set
     Format out = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
     Format in = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
-    TransformationBean trans = ResourceUtil.getTransformationBean();
+    TransformationBean trans = CitationUtil.getTransformationBean();
 
     byte[] v2 =
         trans.transform(
-            ResourceUtil.getResourceAsString("target/test-classes/testFiles/Sengbusch.xml")
-                .getBytes("UTF-8"), in, out, "escidoc");
+            ResourceUtil.getResourceAsString("target/test-classes/testFiles/Sengbusch.xml",
+                CitationStyleManagerImpl.class.getClassLoader()).getBytes("UTF-8"), in, out,
+            "escidoc");
 
 
     testOutput("APA", "pdf", "Sengbusch", new String(v2, "UTF-8"));
@@ -201,8 +202,9 @@ public class TestCitationManager {
 
 
 
-    testOutput("APA", "snippet", "arxiv",
-        ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv:0904-2.3933.xml"));
+    testOutput("APA", "snippet", "arxiv", ResourceUtil.getResourceAsString(
+        "src/test/resources/testFiles/arXiv:0904-2.3933.xml",
+        CitationStyleManagerImpl.class.getClassLoader()));
 
   }
 

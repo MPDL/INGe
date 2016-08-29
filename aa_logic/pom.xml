@@ -40,9 +40,9 @@
 	<version>0.2.33-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/aa_logic</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/aa_logic</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/aa_logic</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/aa_logic</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 	  <tag>HEAD</tag>
   </scm>
 	

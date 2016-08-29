@@ -57,10 +57,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.citationmanager.utils.ResourceUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 // import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
 
@@ -161,9 +162,10 @@ public class TestHelper {
 
 
   public static Properties getTestProperties(String cs) throws FileNotFoundException, IOException {
-    String path_to_props = ResourceUtil.getPathToCitationStyleTestResources(cs) + "test.properties";
+    String path_to_props = CitationUtil.getPathToCitationStyleTestResources(cs) + "test.properties";
     // logger.info("path_to_props:" + path_to_props);
-    InputStream is = ResourceUtil.getResourceAsStream(path_to_props);
+    InputStream is =
+        ResourceUtil.getResourceAsStream(path_to_props, TestHelper.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
 
@@ -171,13 +173,14 @@ public class TestHelper {
   }
 
   public static String getCitationStyleTestXmlAsString(String fileName) throws IOException {
-    return getFileAsString(ResourceUtil.CITATIONSTYLES_DIRECTORY + fileName);
+    return getFileAsString(CitationUtil.CITATIONSTYLES_DIRECTORY + fileName);
   }
 
 
   public static String getFileAsString(String fileName) throws IOException {
-    logger.info("test XML" + ResourceUtil.getPathToTestResources() + fileName);
-    return ResourceUtil.getResourceAsString(ResourceUtil.getPathToTestResources() + fileName);
+    logger.info("test XML" + CitationUtil.getPathToTestResources() + fileName);
+    return ResourceUtil.getResourceAsString(CitationUtil.getPathToTestResources() + fileName,
+        TestHelper.class.getClassLoader());
   }
 
 
@@ -239,7 +242,7 @@ public class TestHelper {
 
     String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
 
-    writeToFile(ResourceUtil.getPathToDataSources() + fileName, itemList.getBytes());
+    writeToFile(CitationUtil.getPathToDataSources() + fileName, itemList.getBytes());
   }
 
 

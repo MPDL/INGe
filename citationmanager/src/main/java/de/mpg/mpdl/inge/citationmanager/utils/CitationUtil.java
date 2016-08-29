@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.citationmanager.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,21 +34,11 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
-import net.sf.jasperreports.engine.JRException;
-
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 
 /**
@@ -64,8 +53,8 @@ import de.mpg.mpdl.inge.transformation.TransformationBean;
  * @author vlad
  * 
  */
-public class ResourceUtil {
-  private static final Logger logger = Logger.getLogger(ResourceUtil.class);
+public class CitationUtil {
+  private static final Logger logger = Logger.getLogger(CitationUtil.class);
 
   public final static String CLASS_DIRECTORY = "target/classes/";
 
@@ -127,61 +116,6 @@ public class ResourceUtil {
     }
     is.close();
     os.close();
-  }
-
-  /**
-   * Gets a resource as InputStream.
-   * 
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as InputStream.
-   * @throws FileNotFoundException Thrown if the resource cannot be located.
-   */
-  public static File getResourceAsFile(final String fileName) throws FileNotFoundException {
-    File file = null;
-    if (ResourceUtil.class.getClassLoader().getResource(fileName) != null) {
-      file = new File(ResourceUtil.class.getClassLoader().getResource(fileName).getFile());
-    }
-    if (file == null) {
-      file = new File(fileName);
-    }
-    return file;
-  }
-
-  /**
-   * Gets a resource as InputStream.
-   * 
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as InputStream.
-   * @throws FileNotFoundException Thrown if the resource cannot be located.
-   */
-  public static InputStream getResourceAsStream(final String fileName) throws FileNotFoundException {
-    InputStream fileIn = null;
-    File file = new File(fileName);
-    if (file.exists()) {
-      fileIn = new FileInputStream(fileName);
-    } else {
-      fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(fileName);
-    }
-    return fileIn;
-
-  }
-
-  /**
-   * Gets a resource as String.
-   * 
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as String.
-   * @throws IOException Thrown if the resource cannot be located.
-   */
-  public static String getResourceAsString(final String fileName) throws IOException {
-    InputStream fileIn = getResourceAsStream(fileName);
-    BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
-    String line = null;
-    StringBuffer result = new StringBuffer();
-    while ((line = br.readLine()) != null) {
-      result.append(line).append("\n");
-    }
-    return result.toString();
   }
 
   /**
@@ -338,7 +272,9 @@ public class ResourceUtil {
   public static String getExplainStyles() throws CitationStyleManagerException {
     String fileString = null;
     try {
-      fileString = getResourceAsString(getPathToSchemas() + ResourceUtil.EXPLAIN_FILE);
+      fileString =
+          de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsString(getPathToSchemas()
+              + CitationUtil.EXPLAIN_FILE, CitationUtil.class.getClassLoader());
     } catch (IOException e) {
       throw new CitationStyleManagerException(e);
     }
@@ -359,7 +295,8 @@ public class ResourceUtil {
   public static Properties getProperties(String path, String fileName)
       throws FileNotFoundException, IOException {
     InputStream is =
-        ResourceUtil.getResourceAsStream(ResourceUtil.getPathToResources() + path + fileName);
+        de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(CitationUtil.getPathToResources()
+            + path + fileName, CitationUtil.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
     return props;

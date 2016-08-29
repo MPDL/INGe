@@ -1,23 +1,17 @@
 package de.mpg.mpdl.inge.seaweedfs;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageConnectorConfiguration;
 import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;

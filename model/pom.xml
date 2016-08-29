@@ -25,9 +25,9 @@
 	<name>model</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<scm>
-		<connection>scm:git:git@github.com:MPDL-Collections/INGe/model</connection>
-		<developerConnection>scm:git:git@github.com:MPDL-Collections/INGe/model</developerConnection>
-		<url>https://github.com/MPDL-Collections/INGe/</url>
+		<connection>scm:git:git@github.com:MPDL/INGe/model</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/model</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
 	<build>
