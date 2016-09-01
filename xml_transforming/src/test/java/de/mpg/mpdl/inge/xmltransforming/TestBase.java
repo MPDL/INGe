@@ -58,9 +58,6 @@ import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -80,7 +77,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -109,7 +106,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -921,7 +918,7 @@ public class TestBase {
       throw new IllegalArgumentException(TestBase.class.getSimpleName()
           + ":assertXMLExist:xPath is null");
     }
-    NodeList nodes = selectNodeList(node, xPath);
+    NodeList nodes = DOMUtilities.selectNodeList(node, xPath);
     assertTrue(message, nodes.getLength() > 0);
   }
 
@@ -1072,109 +1069,6 @@ public class TestBase {
   }
 
   /**
-   * Gets the <code>Schema</code> object for the provided <code>File</code>.
-   * 
-   * @param schemaStream The file containing the schema.
-   * @return Returns the <code>Schema</code> object.
-   * @throws Exception If anything fails.
-   */
-  private static Schema getSchema(final String schemaFileName) throws Exception {
-    if (schemaFileName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getSchema:schemaFileName is null");
-    }
-    File schemaFile = new File(schemaFileName);
-
-    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema theSchema = sf.newSchema(schemaFile);
-    return theSchema;
-  }
-
-  /**
-   * Delivers the value of one distinct node in an <code>org.w3c.dom.Document</code>.
-   * 
-   * @param document The <code>org.w3c.dom.Document</code>
-   * @param xpathExpression The XPath expression as string
-   * 
-   * @return The value of the node
-   * 
-   * @throws TransformerException Thrown when the transformation failed
-   */
-  protected String getValue(Document document, String xpathExpression) throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return xPath.evaluate(xpathExpression, document);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Parse the given xml String into a Document.
-   * 
-   * @param xml The xml String.
-   * @param namespaceAwareness namespace awareness (default is false)
-   * @return The Document.
-   * @throws Exception If anything fails.
-   */
-  protected static Document getDocument(final String xml, final boolean namespaceAwareness)
-      throws Exception {
-    if (xml == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getDocument:xml is null");
-    }
-    String charset = "UTF-8";
-    Document result = null;
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    docBuilderFactory.setNamespaceAware(namespaceAwareness);
-    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-    result = docBuilder.parse(new ByteArrayInputStream(xml.getBytes(charset)));
-    result.getDocumentElement().normalize();
-    return result;
-  }
-
-  /**
-   * Return the child of the node selected by the xPath.
-   * 
-   * @param node The node.
-   * @param xpathExpression The XPath expression as string
-   * 
-   * @return The child of the node selected by the xPath
-   * 
-   * @throws TransformerException If anything fails.
-   */
-  public static Node selectSingleNode(final Node node, final String xpathExpression)
-      throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return (Node) xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Return the list of children of the node selected by the xPath.
-   * 
-   * @param node The node.
-   * @param xpathExpression The xPath.
-   * @return The list of children of the node selected by the xPath.
-   * @throws TransformerException If anything fails.
-   */
-  public static NodeList selectNodeList(final Node node, final String xpathExpression)
-      throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return (NodeList) xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
    * Return the text value of the selected attribute.
    * 
    * @param node The node.
@@ -1198,7 +1092,7 @@ public class TestBase {
           + ":getAttributeValue:attributeName is null");
     }
     String result = null;
-    Node attribute = selectSingleNode(node, xPath);
+    Node attribute = DOMUtilities.selectSingleNode(node, xPath);
     if (attribute.hasAttributes()) {
       result = attribute.getAttributes().getNamedItem(attributeName).getTextContent();
     }
@@ -1231,7 +1125,7 @@ public class TestBase {
       xPath = "/*/@" + attributeName;
     }
     assertXMLExist("Attribute not found [" + attributeName + "]. ", document, xPath);
-    String value = selectSingleNode(document, xPath).getTextContent();
+    String value = DOMUtilities.selectSingleNode(document, xPath).getTextContent();
     return value;
   }
 
@@ -1326,7 +1220,7 @@ public class TestBase {
     document.getDocumentElement().normalize();
 
     // Extract the file information.
-    String href = getValue(document, "/staging-file/@href");
+    String href = DOMUtilities.getValue(document, "/staging-file/@href");
     assertNotNull(href);
 
     // Create an item with the href in the component.

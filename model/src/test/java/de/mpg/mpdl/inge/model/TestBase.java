@@ -27,50 +27,19 @@
 package de.mpg.mpdl.inge.model;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.TransformerException;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
@@ -97,9 +66,12 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.XmlUtilities;
 
 /**
- * Base Class for tests in common_logic.
+ * Base Class for tests.
  * 
  * @author Johannes Mueller (initial creation)
  * @author $Author$ (last modification)
@@ -121,7 +93,7 @@ public class TestBase {
           + "responsible affiliation for this collection. Please contact\n"
           + "u.tschida@zim.mpg.de for any questions.";
 
-  private static Map<String, Schema> schemas = null;
+
 
   /**
    * Logger for this class.
@@ -841,372 +813,9 @@ public class TestBase {
     return result;
   }
 
-  /**
-   * Assert that the Element/Attribute selected by the xPath exists.
-   * 
-   * @param message The message printed if assertion fails.
-   * @param node The Node.
-   * @param xPath The xPath.
-   * @throws Exception If anything fails.
-   */
-  public static void assertXMLExist(final String message, final Node node, final String xPath)
-      throws Exception {
-    if (message == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:message is null");
-    }
-    if (node == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:node is null");
-    }
-    if (xPath == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:xPath is null");
-    }
-    NodeList nodes = selectNodeList(node, xPath);
-    assertTrue(message, nodes.getLength() > 0);
-  }
-
-  /**
-   * Assert that the XML is valid to the schema.
-   * 
-   * @param xmlData The XML as string
-   * @throws Exception Any exception
-   */
-  public static void assertXMLValid(final String xmlData) throws Exception {
-
-    if (xmlData == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLValid:xmlData is null");
-    }
-
-    if (schemas == null) {
-      initializeSchemas();
-    }
-
-    String nameSpace = getNameSpaceFromXml(xmlData);
-
-    logger.debug("Looking up namespace '" + nameSpace + "'");
-
-    Schema schema = schemas.get(nameSpace);
-
-    logger.info("Schema: " + schema);
-
-    // FIXME tendres: fix this here that it will run on the build-server!
-    // try
-    // {
-    // Validator validator = schema.newValidator();
-    // InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-    //
-    // logger.info("Validator: " + validator);
-    //
-    // //validator.validate(new SAXSource(new InputSource(in)));
-    // }
-    // catch (SAXParseException e)
-    // {
-    // StringBuffer sb = new StringBuffer();
-    // sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() +
-    // "\n");
-    // sb.append("SAXParseException message: " + e.getMessage() + "\n");
-    // sb.append("Affected XML: \n" + xmlData);
-    // fail(sb.toString());
-    // }
-
-  }
-
   public static void main(String[] args) throws Exception {
     String xml = args[0];
-    assertXMLValid(xml);
-  }
-
-  /**
-   * @param xmlData
-   * @return
-   * @throws ParserConfigurationException
-   * @throws SAXException
-   * @throws IOException
-   * @throws UnsupportedEncodingException
-   */
-  private static String getNameSpaceFromXml(final String xmlData)
-      throws ParserConfigurationException, SAXException, IOException, UnsupportedEncodingException {
-    SAXParserFactory factory = SAXParserFactory.newInstance();
-    SAXParser parser = factory.newSAXParser();
-    DefaultHandler handler = new DefaultHandler() {
-      private String nameSpace = null;
-      private boolean first = true;
-
-      public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        if (first) {
-          if (qName.contains(":")) {
-            String prefix = qName.substring(0, qName.indexOf(":"));
-            String attributeName = "xmlns:" + prefix;
-            nameSpace = attributes.getValue(attributeName);
-          } else {
-            nameSpace = attributes.getValue("xmlns");
-          }
-          first = false;
-        }
-
-      }
-
-      public String toString() {
-        return nameSpace;
-      }
-    };
-    parser.parse(new ByteArrayInputStream(xmlData.getBytes("UTF-8")), handler);
-    String nameSpace = handler.toString();
-    return nameSpace;
-  }
-
-  /**
-   * @throws IOException
-   * @throws SAXException
-   * @throws ParserConfigurationException
-   */
-  private static void initializeSchemas() throws IOException, SAXException,
-      ParserConfigurationException {
-    File[] schemaFiles =
-        ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
-    schemas = new HashMap<String, Schema>();
-    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    for (File file : schemaFiles) {
-      try {
-        Schema schema = sf.newSchema(file);
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser parser = factory.newSAXParser();
-        DefaultHandler handler = new DefaultHandler() {
-          private String nameSpace = null;
-          private boolean found = false;
-
-          public void startElement(String uri, String localName, String qName, Attributes attributes) {
-            if (!found) {
-              String tagName = null;
-              int ix = qName.indexOf(":");
-              if (ix >= 0) {
-                tagName = qName.substring(ix + 1);
-              } else {
-                tagName = qName;
-              }
-              if ("schema".equals(tagName)) {
-                nameSpace = attributes.getValue("targetNamespace");
-                found = true;
-              }
-            }
-          }
-
-          public String toString() {
-            return nameSpace;
-          }
-        };
-        parser.parse(file, handler);
-        if (handler.toString() != null) {
-          schemas.put(handler.toString(), schema);
-        } else {
-          logger.warn("Error reading xml schema: " + file);
-        }
-
-      } catch (Exception e) {
-        logger.warn("Invalid xml schema " + file);
-        logger.debug("Stacktrace: ", e);
-      }
-
-    }
-  }
-
-  /**
-   * Gets the <code>Schema</code> object for the provided <code>File</code>.
-   * 
-   * @param schemaStream The file containing the schema.
-   * @return Returns the <code>Schema</code> object.
-   * @throws Exception If anything fails.
-   */
-  private static Schema getSchema(final String schemaFileName) throws Exception {
-    if (schemaFileName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getSchema:schemaFileName is null");
-    }
-    File schemaFile = new File(schemaFileName);
-
-    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema theSchema = sf.newSchema(schemaFile);
-    return theSchema;
-  }
-
-  /**
-   * Delivers the value of one distinct node in an <code>org.w3c.dom.Document</code>.
-   * 
-   * @param document The <code>org.w3c.dom.Document</code>
-   * @param xpathExpression The XPath expression as string
-   * 
-   * @return The value of the node
-   * 
-   * @throws TransformerException Thrown when the transformation failed
-   */
-  protected String getValue(Document document, String xpathExpression) throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return xPath.evaluate(xpathExpression, document);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Parse the given xml String into a Document.
-   * 
-   * @param xml The xml String.
-   * @param namespaceAwareness namespace awareness (default is false)
-   * @return The Document.
-   * @throws Exception If anything fails.
-   */
-  protected static Document getDocument(final String xml, final boolean namespaceAwareness)
-      throws Exception {
-    if (xml == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getDocument:xml is null");
-    }
-    String charset = "UTF-8";
-    Document result = null;
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    docBuilderFactory.setNamespaceAware(namespaceAwareness);
-    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-    result = docBuilder.parse(new ByteArrayInputStream(xml.getBytes(charset)));
-    result.getDocumentElement().normalize();
-    return result;
-  }
-
-  /**
-   * Return the child of the node selected by the xPath.
-   * 
-   * @param node The node.
-   * @param xpathExpression The XPath expression as string
-   * 
-   * @return The child of the node selected by the xPath
-   * 
-   * @throws TransformerException If anything fails.
-   */
-  public static Node selectSingleNode(final Node node, final String xpathExpression)
-      throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return (Node) xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Return the list of children of the node selected by the xPath.
-   * 
-   * @param node The node.
-   * @param xpathExpression The xPath.
-   * @return The list of children of the node selected by the xPath.
-   * @throws TransformerException If anything fails.
-   */
-  public static NodeList selectNodeList(final Node node, final String xpathExpression)
-      throws TransformerException {
-    XPathFactory factory = XPathFactory.newInstance();
-    XPath xPath = factory.newXPath();
-    try {
-      return (NodeList) xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Return the text value of the selected attribute.
-   * 
-   * @param node The node.
-   * @param xPath The xpath to select the node containint the attribute,
-   * @param attributeName The name of the attribute.
-   * @return The text value of the selected attribute.
-   * @throws Exception If anything fails.
-   */
-  public static String getAttributeValue(final Node node, final String xPath,
-      final String attributeName) throws Exception {
-    if (node == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:node is null");
-    }
-    if (xPath == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:xPath is null");
-    }
-    if (attributeName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:attributeName is null");
-    }
-    String result = null;
-    Node attribute = selectSingleNode(node, xPath);
-    if (attribute.hasAttributes()) {
-      result = attribute.getAttributes().getNamedItem(attributeName).getTextContent();
-    }
-    return result;
-  }
-
-  /**
-   * Gets the value of the specified attribute of the root element from the document.
-   * 
-   * @param document The document to retrieve the value from.
-   * @param attributeName The name of the attribute whose value shall be retrieved.
-   * @return Returns the attribute value.
-   * @throws Exception If anything fails.
-   * @throws TransformerException
-   */
-  public static String getRootElementAttributeValue(final Document document,
-      final String attributeName) throws Exception {
-    if (document == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getRootElementAttributeValue:document is null");
-    }
-    if (attributeName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getRootElementAttributeValue:attributeName is null");
-    }
-    String xPath;
-    if (attributeName.startsWith("@")) {
-      xPath = "/*/" + attributeName;
-    } else {
-      xPath = "/*/@" + attributeName;
-    }
-    assertXMLExist("Attribute not found [" + attributeName + "]. ", document, xPath);
-    String value = selectSingleNode(document, xPath).getTextContent();
-    return value;
-  }
-
-
-  /**
-   * Serialize the given Dom Object to a String.
-   * 
-   * @param xml The Xml Node to serialize.
-   * @param omitXMLDeclaration Indicates if XML declaration will be omitted.
-   * @return The String representation of the Xml Node.
-   * @throws Exception If anything fails.
-   */
-  protected static String toString(final Node xml, final boolean omitXMLDeclaration)
-      throws Exception {
-    if (xml == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
-    }
-    String result = null;
-
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-    // serialize
-    DOMImplementation implementation =
-        DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
-    DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
-    LSSerializer serial = feature.createLSSerializer();
-    LSOutput output = feature.createLSOutput();
-    output.setByteStream(outputStream);
-    serial.write(xml, output);
-
-    result = output.toString();
-
-    return result;
+    XmlUtilities.assertXMLValid(xml);
   }
 
 

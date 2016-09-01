@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
@@ -144,8 +145,8 @@ public class TransformContainerTest extends XmlTransformingTestBase {
     assertXMLValid(containerListXML);
     // does container-list[XML] contain five nodes?
     final String xPath = "//container-list/container";
-    Document doc = getDocument(containerListXML, false);
-    NodeList list = selectNodeList(doc, xPath);
+    Document doc = DOMUtilities.createDocument(containerListXML, false);
+    NodeList list = DOMUtilities.selectNodeList(doc, xPath);
     assertEquals("container-list does not contain correct number of items", list.getLength(), 5);
   }
 

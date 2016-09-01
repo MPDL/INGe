@@ -23,20 +23,15 @@
  */
 package de.mpg.mpdl.inge.dataacquisition;
 
-import java.io.StringReader;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 
 /**
  * 
@@ -64,10 +59,8 @@ public class ProtocolHandler {
    */
   public void checkOAIRecord(String record) throws BadArgumentException,
       IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException {
-    DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-    domFactory.setNamespaceAware(true);
+
     Document recordDOM;
-    DocumentBuilder builder;
 
     // Possible error codes:
     String error1 = "badArgument";
@@ -76,8 +69,7 @@ public class ProtocolHandler {
 
 
     try {
-      builder = domFactory.newDocumentBuilder();
-      recordDOM = builder.parse(new InputSource(new StringReader(record)));
+      recordDOM = DOMUtilities.createDocument(record, true);
 
     } catch (Exception e) {
       throw new RuntimeException("An error occurred while checking the OAI Record: " + record);

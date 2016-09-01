@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
@@ -249,9 +251,10 @@ public class FontStylesCollection implements Cloneable {
    * @throws IOException
    * @throws SAXException
    * @throws CitationStyleManagerException
+   * @throws ParserConfigurationException
    */
   public void writeToXml(String xmlFileName) throws IOException, SAXException,
-      CitationStyleManagerException {
+      CitationStyleManagerException, ParserConfigurationException {
 
     Document doc = DOMUtilities.createDocument();
 
@@ -295,16 +298,8 @@ public class FontStylesCollection implements Cloneable {
     FontStylesCollection fsc =
         FontStylesCollection
             .loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
-    // fsc.writeToXml("resource/CitationStyles/Default/FontStylesTestOutput.xml");
-
-    // toString methods made...
-    // System.out.println(fsc);
-
-    // fsc.writeToXml("FontStylesOut2.xml");
 
     FontStylesCollection fscclone = (FontStylesCollection) fsc.clone();
-
-    // fscclone.writeToXml("FontStylesOut3.xml");
 
     System.out.println("Source: -->" + fsc);
 
@@ -313,9 +308,6 @@ public class FontStylesCollection implements Cloneable {
     System.out.println("Source after cloning:" + fsc);
 
     System.out.println("Clone: -->" + fscclone);
-
-
-
   }
 
 }
