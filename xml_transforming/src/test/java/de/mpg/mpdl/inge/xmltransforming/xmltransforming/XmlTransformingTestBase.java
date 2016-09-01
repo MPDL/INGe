@@ -28,15 +28,12 @@ package de.mpg.mpdl.inge.xmltransforming.xmltransforming;
 
 import java.io.StringWriter;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Node;
 
@@ -51,22 +48,7 @@ import de.mpg.mpdl.inge.xmltransforming.TestBase;
  * @version $Revision$ $LastChangedDate$ @revised by MuJ: 28.08.2007
  */
 public class XmlTransformingTestBase extends TestBase {
-  /**
-   * The charset encoding, e.g. for DOM to String conversions.
-   */
-  private final static String XML_CHARSET_ENCODING = "UTF-8";
-  /**
-   * The {@link javax.xml.parsers.DocumentBuilderFactory} for this class.
-   */
-  private static DocumentBuilderFactory m_docBuilderFactory = null;
-  /**
-   * The {@link javax.xml.xpath.XPathFactory} for this class.
-   */
-  private static XPathFactory m_xPathFactory = null;
-  /**
-   * The {@link javax.xml.xpath.XPath} for this class.
-   */
-  private static XPath m_xPath = null;
+
   /**
    * Flag to determine whether this class has been initialized (by the init() method).
    */
@@ -79,11 +61,6 @@ public class XmlTransformingTestBase extends TestBase {
    * @throws ParserConfigurationException
    */
   protected static void init() throws ParserConfigurationException {
-    // m_docBuilderFactory = DocumentBuilderFactory.newInstance();
-    // m_docBuilderFactory.setNamespaceAware(true);
-    // m_xPathFactory = XPathFactory.newInstance();
-    // m_xPath = m_xPathFactory.newXPath();
-    // m_xPath.setNamespaceContext(new XPathNamespaceContext());
     setInitialized(true);
   }
 

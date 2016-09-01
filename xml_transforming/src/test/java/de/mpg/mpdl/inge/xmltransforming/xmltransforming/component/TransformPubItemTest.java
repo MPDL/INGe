@@ -54,6 +54,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingTestBase;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -199,8 +200,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertXMLValid(pubItemListXML);
     // does item list[XML] contain five item nodes?
     final String xPath = "//item-list/item";
-    Document doc = getDocument(pubItemListXML, false);
-    NodeList list = selectNodeList(doc, xPath);
+    Document doc = DOMUtilities.createDocument(pubItemListXML, false);
+    NodeList list = DOMUtilities.selectNodeList(doc, xPath);
     assertEquals("item list does not contain correct number of items", list.getLength(), 5);
   }
 
@@ -228,8 +229,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // check the metadata part of the XML
     final String xPath = "//item/md-records/md-record/publication";
-    Document doc = getDocument(itemXML, false);
-    NodeList publicationMetadataList = selectNodeList(doc, xPath);
+    Document doc = DOMUtilities.createDocument(itemXML, false);
+    NodeList publicationMetadataList = DOMUtilities.selectNodeList(doc, xPath);
     assertEquals("item does not contain exactly one metadata record of type 'publication'",
         publicationMetadataList.getLength(), 1);
     String metadataXML = toString(publicationMetadataList.item(0), false);
@@ -370,12 +371,13 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // transform the item into XML
     String itemXml = xmlTransforming.transformToItem(pubItem);
     logger.info("Transformed item(XML):\n" + itemXml);
-    Node itemDoc = getDocument(itemXml, false);
+    Node itemDoc = DOMUtilities.createDocument(new String(itemXml.getBytes(), "UTF-8"), false);
     // check validity of item
     assertXMLValid(toString(itemDoc, false));
     logger.info("Transformed item is valid.");
     // check validity of metadata
-    Node metadataXml = selectSingleNode(itemDoc, "//item/md-records/md-record/publication");
+    Node metadataXml =
+        DOMUtilities.selectSingleNode(itemDoc, "//item/md-records/md-record/publication");
     logger.debug("Metadata:\n" + toString(metadataXml, false));
     assertXMLValid(toString(metadataXml, false));
     logger.info("Transformed item metadata is valid.");

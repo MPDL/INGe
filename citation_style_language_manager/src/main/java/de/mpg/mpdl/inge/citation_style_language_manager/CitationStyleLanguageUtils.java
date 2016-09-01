@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.undercouch.citeproc.helper.CSLUtils;
 
 /**
@@ -99,9 +100,7 @@ public class CitationStyleLanguageUtils {
   protected static String parseDefaultLocaleFromStyle(String style) {
     String defaultLocale = null;
     try {
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder builder = factory.newDocumentBuilder();
-      Document doc = builder.parse(IOUtils.toInputStream(style, "UTF-8"));
+      Document doc = DOMUtilities.createDocument(style);
       NodeList styleTagList = doc.getElementsByTagName("style");
       if (styleTagList != null && styleTagList.getLength() != 0) {
         defaultLocale =

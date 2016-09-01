@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.syndication;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,8 +43,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -59,6 +56,7 @@ import org.w3c.dom.NodeList;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 
@@ -397,7 +395,8 @@ public class Utils {
         Element e = (Element) node;
         String objid = e.getAttribute("objid");
         String name =
-            Utils.xpathString("/organizational-unit/properties/name", createDocument(node));
+            Utils.xpathString("/organizational-unit/properties/name",
+                DOMUtilities.createDocument(node));
         outm.put(name, objid);
       }
     } catch (Exception e) {
@@ -407,69 +406,11 @@ public class Utils {
     return outm;
   }
 
-
-  // private static String performOragnizationalItemsSearch(String query, String maximumRecords)
-  // throws SyndicationException
-  // {
-  //
-  // URL url;
-  // http://dev-coreservice.mpdl.mpg.de:8080/srw/search/escidocou_all?operation=searchRetrieve&query=escidoc.public-status=opened%20or%20escidoc.public-status=closed&maximumRecords=10000
-  // try {
-  // url = new URL(
-  // "http://dev-coreservice.mpdl.mpg.de:8080" +
-  // "/srw/search/escidocou_all?operation=searchRetrieve&" +
-  // "query=" + URLEncoder.encode(query, "UTF-8") +
-  // "&maximumRecords=" + URLEncoder.encode(maximumRecords, "UTF-8")
-  // );
-  // }
-  // catch (Exception e)
-  // {
-  // throw new SyndicationException("Wrong URL:", e);
-  // }
-  //
-  // logger.info("Search URL:" + url.toString());
-  // Object content;
-  // URLConnection uconn;
-  // try
-  // {
-  // uconn = url.openConnection();
-  // if ( !(uconn instanceof HttpURLConnection) )
-  // throw new IllegalArgumentException(
-  // "URL protocol must be HTTP."
-  // );
-  // HttpURLConnection conn = (HttpURLConnection)uconn;
-  //
-  // InputStream stream = conn.getErrorStream( );
-  // if ( stream != null )
-  // {
-  // conn.disconnect();
-  // throw new SyndicationException(Utils.getInputStreamAsString( stream ));
-  // }
-  // else if ( (content = conn.getContent( )) != null && content instanceof InputStream )
-  // content = Utils.getInputStreamAsString( (InputStream)content );
-  // else
-  // {
-  // conn.disconnect();
-  // throw new SyndicationException("Cannot retrieve content from the HTTP response");
-  // }
-  // conn.disconnect();
-  //
-  // return (String)content;
-  // }
-  // catch (Exception e)
-  // {
-  // throw new SyndicationException(e);
-  // }
-  //
-  // }
-  //
-
-
   /***************/
   /** XML Utils **/
   /***************/
   public static NodeList xpathNodeList(String expr, String xml) throws Exception {
-    return xpathNodeList(expr, createDocument(xml));
+    return xpathNodeList(expr, DOMUtilities.createDocument(xml));
   }
 
   public static NodeList xpathNodeList(String expr, Document doc) throws Exception {
@@ -478,33 +419,6 @@ public class Utils {
 
   public static String xpathString(String expr, Document doc) throws Exception {
     return (String) xpath.evaluate(expr, doc, XPathConstants.STRING);
-  }
-
-  public static DocumentBuilder createDocumentBuilder() throws Exception {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setValidating(false);
-    dbf.setIgnoringComments(true);
-    return dbf.newDocumentBuilder();
-  }
-
-  public static Document createDocument(String xml) throws Exception {
-    DocumentBuilder db = createDocumentBuilder();
-    return db.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
-  }
-
-  public static Document createDocument(Node sourceNode) throws Exception {
-    Document doc = createDocumentBuilder().newDocument();
-    Node source;
-    if (sourceNode.getNodeType() == Node.DOCUMENT_NODE) {
-      source = ((Document) sourceNode).getDocumentElement();
-    } else {
-      source = sourceNode;
-    }
-
-    Node node = doc.importNode(source, true);
-    doc.appendChild(node);
-
-    return doc;
   }
 
 

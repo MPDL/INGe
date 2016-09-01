@@ -83,7 +83,8 @@ public class XmlHelper {
 
   private static final Logger logger = Logger.getLogger(XmlHelper.class);
 
-  // public final static String DATASOURCES_XML_SCHEMA_FILE = "escidoc/soap/item/0.3/item-list.xsd";
+  // public final static String DATASOURCES_XML_SCHEMA_FILE =
+  // "escidoc/soap/item/0.3/item-list.xsd";
   public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
   public final static String SCHEMATRON_DIRECTORY = "Schematron/";
   public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
@@ -97,7 +98,6 @@ public class XmlHelper {
   // List of all available output formats
   public static HashMap<String, String[]> outputFormatsHash = null;
 
-
   private static XPath xpath = XPathFactory.newInstance().newXPath();
 
   private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
@@ -105,7 +105,6 @@ public class XmlHelper {
   // FontStyleCollectiona Hash
   public static HashMap<String, FontStylesCollection> fsc =
       new HashMap<String, FontStylesCollection>();
-
 
   /**
    * Builds new DocumentBuilder
@@ -192,7 +191,6 @@ public class XmlHelper {
           JRXmlLoader
               .load(ResourceUtil.getResourceAsStream(path, XmlHelper.class.getClassLoader()));
 
-
       // populate page header
       // setPageHeader(jd, cs);
 
@@ -255,7 +253,6 @@ public class XmlHelper {
       // ResourceUtil.getResourceAsFile(schemaUrl)
       // );
 
-
       DocumentBuilder builder = factory.newDocumentBuilder();
       Validator handler = new Validator();
       builder.setErrorHandler(handler);
@@ -296,7 +293,6 @@ public class XmlHelper {
   // , xmlDocumentUrl
   // );
   // }
-
 
   /**
    * Validation of CitationStyle XML against 1) XML schema 2) Schematron schema
@@ -342,7 +338,6 @@ public class XmlHelper {
 
     return null;
   }
-
 
   /**
    * Load Default FontStylesCollection, singleton 1) if no citation style is given, return default
@@ -399,8 +394,6 @@ public class XmlHelper {
     return loadFontStylesCollection(null);
   }
 
-
-
   /**
    * Validator class for XML Schema validation
    */
@@ -421,7 +414,6 @@ public class XmlHelper {
     public void warning(SAXParseException exception) throws SAXException {}
   }
 
-
   public static Document getExplainDocument() throws CitationStyleManagerException {
     Document doc = null;
     try {
@@ -434,7 +426,6 @@ public class XmlHelper {
     }
     return doc;
   }
-
 
   /*
    * Returns list of Citation Styles
@@ -461,7 +452,7 @@ public class XmlHelper {
   }
 
   /**
-   * Checks Output Format (<code>of</code>) availability for Citation Style (<code>cs</code>)
+   * Checks Output Format (<code>of</code>) availability for Citation Style ( <code>cs</code>)
    * 
    * @param cs - Citation Style name
    * @param of - Output Format name
@@ -476,7 +467,6 @@ public class XmlHelper {
 
     return getCitationStylesHash().get(cs).containsKey(of);
   }
-
 
   /**
    * Returns the list of the output formats (first element of the array) for the citation style
@@ -520,7 +510,6 @@ public class XmlHelper {
     return csh.get(csName).get(outFormat)[0];
   }
 
-
   /**
    * Returns the file extension according to format name.
    * 
@@ -535,8 +524,6 @@ public class XmlHelper {
 
     return of.containsKey(outputFormat) ? of.get(outputFormat)[1] : of.get("pdf")[1];
   }
-
-
 
   /**
    * Get outputFormatsHash, where keys: names of output format values: array of {mime-type,
@@ -564,7 +551,6 @@ public class XmlHelper {
         Node n = nl.item(i);
         NodeList nll = n.getChildNodes();
 
-
         String name = null, format = null, ext = null;
         for (int ii = 0; ii < nll.getLength(); ii++) {
           Node nn = nll.item(ii);
@@ -583,7 +569,7 @@ public class XmlHelper {
           }
         }
         outputFormatsHash.put(name, // key: output format key
-            new String[] {format,// mime-type
+            new String[] {format, // mime-type
                 ext // extension
             }
 
@@ -625,10 +611,8 @@ public class XmlHelper {
         // find output formats
         NodeList exportFormatChildren = n.getParentNode().getChildNodes();
 
-
         // find output formats element
         Node outputFormatsNode = findNode(exportFormatChildren, "output-formats");
-
 
         // if no export format identifier found, continue for
         HashMap<String, String[]> formatsHash = new HashMap<String, String[]>();
@@ -653,7 +637,6 @@ public class XmlHelper {
 
   }
 
-
   /**
    * Search for the first <code>Node</code> with the nodeName().equals(nodeName) in the nodeList
    * 
@@ -672,12 +655,16 @@ public class XmlHelper {
     return null;
   }
 
-
   /*****************/
+
   /** XPATH Utils **/
   /*****************/
   public static String xpathString(String expr, String xml) {
-    return xpathString(expr, DOMUtilities.createDocument(xml));
+    try {
+      return xpathString(expr, DOMUtilities.createDocument(xml));
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot evaluate XPath:", e);
+    }
   }
 
   public static String xpathString(String expr, Document doc) {
@@ -690,21 +677,27 @@ public class XmlHelper {
   }
 
   public static Double xpathNumber(String expr, String xml) {
-    return xpathNumber(expr, DOMUtilities.createDocument(xml));
+    try {
+      return xpathNumber(expr, DOMUtilities.createDocument(xml));
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot evaluate XPath:", e);
+    }
   }
 
   public static Double xpathNumber(String expr, Document doc) {
     try {
-      return (Double) xpath.evaluate(expr, doc,
-
-      XPathConstants.NUMBER);
+      return (Double) xpath.evaluate(expr, doc, XPathConstants.NUMBER);
     } catch (Exception e) {
       throw new RuntimeException("Cannot evaluate XPath:", e);
     }
   }
 
   public static NodeList xpathNodeList(String expr, String xml) {
-    return xpathNodeList(expr, DOMUtilities.createDocument(xml));
+    try {
+      return xpathNodeList(expr, DOMUtilities.createDocument(xml));
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot evaluate XPath:", e);
+    }
   }
 
   public static NodeList xpathNodeList(String expr, Document doc) {
@@ -716,7 +709,11 @@ public class XmlHelper {
   }
 
   public static Node xpathNode(String expr, String xml) {
-    return xpathNode(expr, DOMUtilities.createDocument(xml));
+    try {
+      return xpathNode(expr, DOMUtilities.createDocument(xml));
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot evaluate XPath:", e);
+    }
   }
 
   public static Node xpathNode(String expr, Document doc) {
@@ -726,7 +723,6 @@ public class XmlHelper {
       throw new RuntimeException("Cannot evaluate XPath:", e);
     }
   }
-
 
 }
 
@@ -745,7 +741,8 @@ class OutputFormatNodeFilter implements NodeFilter {
     Node parent = n.getParentNode();
     if ("output-format".equals(n.getLocalName()) && parent != null
         && "export-format".equals(parent.getLocalName())
-        && cs.equals(parent.getChildNodes().item(3).getTextContent()// name, style
+        && cs.equals(parent.getChildNodes().item(3).getTextContent()// name,
+            // style
             )) {
       // System.out.println("Matched-->" + n.getLocalName()
       // + ";parent:" + parent.getLocalName()
@@ -756,7 +753,6 @@ class OutputFormatNodeFilter implements NodeFilter {
     return FILTER_SKIP;
   }
 }
-
 
 
 class ExportFormatNodeFilter implements NodeFilter {
