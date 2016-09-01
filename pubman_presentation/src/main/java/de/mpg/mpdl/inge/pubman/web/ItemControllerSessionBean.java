@@ -118,7 +118,7 @@ public class ItemControllerSessionBean extends FacesBean {
   private static final long serialVersionUID = 8235607890711998557L;
 
   public static final String BEAN_NAME = "ItemControllerSessionBean";
-  private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+  private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
   private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
@@ -1246,35 +1246,6 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * Cleans up the CreatorVO from unused sub-VOs.
-   * 
-   * @param creator the creator that has to be cleaned up
-   */
-  private void cleanUpCreator(CreatorVO creator) {
-    // build completeName out of givenName and familyName
-    if (creator.getPerson() != null && creator.getPerson().getCompleteName() == null) {
-      String completeName = new String();
-      if (creator.getPerson().getGivenName() != null) {
-        completeName.concat(creator.getPerson().getGivenName() + " ");
-      }
-      completeName.concat(creator.getPerson().getFamilyName());
-      creator.getPerson().setCompleteName(completeName);
-    }
-
-    // delete unfilled PersonOrganizations
-    if (creator.getPerson() != null && creator.getPerson().getOrganizations() != null) {
-      for (int j = (creator.getPerson().getOrganizations().size() - 1); j >= 0; j--) {
-        if (creator.getPerson() != null
-            && (creator.getPerson().getOrganizations().get(j).getName() == null
-                || creator.getPerson().getOrganizations().get(j).getName() == null || creator
-                .getPerson().getOrganizations().get(j).getName().length() == 0)) {
-          creator.getPerson().getOrganizations().remove(j);
-        }
-      }
-    }
-  }
-
-  /**
    * Returns all items for a user depending on the selected itemState.
    * 
    * @param selectedItemState the item state for which the items should be returned
@@ -2197,8 +2168,6 @@ public class ItemControllerSessionBean extends FacesBean {
       if (searchedObject != null && searchedObject.getNumberOfRecords() > 0
           && !searchedObject.getRecords().isEmpty()) {
         if (searchedObject.getRecords().get(0).getData() != null) {
-          long end = System.currentTimeMillis();
-
           AccountUserVO userVO = (AccountUserVO) searchedObject.getRecords().get(0).getData();
           return userVO;
         } else {

@@ -41,8 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
@@ -80,7 +80,7 @@ public class RestServlet extends HttpServlet {
 
 
   public RestServlet() {
-    cse = new CitationStyleExecutor();
+    cse = CitationStyleHandlerFactory.getCitationStyleHandler();
     se = new StructuredExport();
   }
 
@@ -100,7 +100,6 @@ public class RestServlet extends HttpServlet {
   protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
     String cqlQuery = null;
-    String language = null;
     String exportFormat = null;
     String outputFormat = null;
     String cslConeId = null;

@@ -36,14 +36,9 @@ import org.junit.Test;
  * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
 public class ItemSortingTest {
-  // TODO StG
+  // TODO
 
-  /*
-   * TODO MuJ: implement component test: testSortPubItemVersionList Remark (by MuJ): The
-   * functionality of ItemSorting.sortItemVersionList is rudimentary tested in
-   * test.xmltransforming.integration
-   * .TransformPubItemVersionListIntegrationTest.testTransformPubItemVersionList
-   */
+
   @Test
   public void testSortItemVersionList() {
 

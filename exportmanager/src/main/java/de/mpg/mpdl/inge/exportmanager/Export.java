@@ -61,8 +61,8 @@ import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
@@ -143,7 +143,7 @@ public class Export implements ExportHandler {
 
   private CitationStyleHandler getCitationStyleHandler() {
     if (csh == null) {
-      csh = new CitationStyleExecutor();
+      csh = CitationStyleHandlerFactory.getCitationStyleHandler();
     }
     return csh;
   }

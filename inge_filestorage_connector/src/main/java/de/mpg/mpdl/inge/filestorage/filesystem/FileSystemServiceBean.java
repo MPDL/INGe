@@ -17,11 +17,11 @@ import de.mpg.mpdl.inge.services.FileStorageInterface;
 
 /**
  * File storage service direct on the file system
- *
+ * 
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- *
+ * 
  */
 @Service
 public class FileSystemServiceBean implements FileStorageInterface {
@@ -46,14 +46,16 @@ public class FileSystemServiceBean implements FileStorageInterface {
     int day = calendar.get(Calendar.DAY_OF_MONTH);
     // Path starting after the the defined filesystemRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
-    Path directoryPath = FileSystems.getDefault().getPath(filesystemRootPath + relativeDirectoryPath);
+    Path directoryPath =
+        FileSystems.getDefault().getPath(filesystemRootPath + relativeDirectoryPath);
     if (Files.notExists(directoryPath)) {
       System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
       Files.createDirectories(directoryPath);
     }
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
     if (Files.notExists(filePath)) {
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+          + "]");
       Files.copy(fileInputStream, filePath);
     } else {
       int i = 1;
@@ -64,8 +66,9 @@ public class FileSystemServiceBean implements FileStorageInterface {
         newFileName = nameOfTheFile + "_" + i + fileSuffix;
         filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
         i++;
-      } while(Files.exists(filePath));
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+      } while (Files.exists(filePath));
+      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+          + "]");
       Files.copy(fileInputStream, filePath);
     }
     return relativeDirectoryPath + "/" + newFileName;
@@ -98,7 +101,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
       Files.delete(path);
     }
   }
-  
+
   /**
    * Creates a Directoy in the file system if it is not already existing
    * 
@@ -106,8 +109,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * @return Path to the directory
    */
   private Path createDirectoryIfNessessary(Path directoryPath) {
-    
+
     return null;
   }
-  
+
 }

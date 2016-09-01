@@ -51,6 +51,7 @@ import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
+import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;

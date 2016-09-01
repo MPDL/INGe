@@ -35,7 +35,7 @@ public class FileServiceTests {
 
   @Autowired
   SeaweedFileServiceBean seaweedFileServiceBean;
-  
+
   @Autowired
   FileSystemServiceBean fileSystemServiceBean;
 

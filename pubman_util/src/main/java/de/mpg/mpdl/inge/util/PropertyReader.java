@@ -61,8 +61,6 @@ public class PropertyReader {
 
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
-  private static final String PROPERTY_FILE_KEY = "pubman.properties.file";
-
   private static URL solution;
 
   private static String fileLocation = null;
