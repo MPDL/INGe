@@ -438,7 +438,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String submitOrReleasePubItemList(ArrayList<PubItemVO> pubItemList,
       String submissionComment, String navigationRuleWhenSuccessfull) {
     boolean allSubmitted = true;
-    if (pubItemList.size() > 0) {
+    if (!pubItemList.isEmpty()) {
       for (int i = 0; i < pubItemList.size(); i++) {
         try {
           // submitting the item
@@ -508,7 +508,7 @@ public class ItemControllerSessionBean extends FacesBean {
   // TODO NBU: remove this method
   public String deletePubItemList(List<PubItemVOPresentation> pubItemList,
       String navigationRuleWhenSuccessfull) {
-    if (pubItemList.size() > 0) {
+    if (!pubItemList.isEmpty()) {
       for (int i = 0; i < pubItemList.size(); i++) {
         try {
           // deleting the item
@@ -597,7 +597,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // context
     // if there is only one context for this user we can skip the CreateItem-Dialog and create the
     // new item directly
-    if (this.getContextListSessionBean().getDepositorContextList().size() == 0) {
+    if (this.getContextListSessionBean().getDepositorContextList().isEmpty()) {
       logger.warn("The user does not have privileges for any context.");
       error(getMessage("ViewItemFull_user_has_no_context"));
       return null;
@@ -732,7 +732,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // newPubItem.getFiles().add(new FileVO());
     // }
     // Creator
-    if (newPubItem.getMetadata().getCreators().size() == 0) {
+    if (newPubItem.getMetadata().getCreators().isEmpty()) {
       CreatorVO newCreator = new CreatorVO();
 
       newCreator.setType(CreatorType.PERSON);
@@ -756,26 +756,26 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // Identifiers
-    if (newPubItem.getMetadata().getIdentifiers().size() == 0) {
+    if (newPubItem.getMetadata().getIdentifiers().isEmpty()) {
       newPubItem.getMetadata().getIdentifiers().add(new IdentifierVO());
     }
 
     // Abstracts
-    if (newPubItem.getMetadata().getAbstracts().size() == 0) {
+    if (newPubItem.getMetadata().getAbstracts().isEmpty()) {
       newPubItem.getMetadata().getAbstracts().add(new AbstractVO());
     }
 
     // Subjects
-    if (newPubItem.getMetadata().getSubjects().size() == 0) {
+    if (newPubItem.getMetadata().getSubjects().isEmpty()) {
       newPubItem.getMetadata().getSubjects().add(new SubjectVO());
     }
 
     // Language
-    if (newPubItem.getMetadata().getLanguages().size() == 0) {
+    if (newPubItem.getMetadata().getLanguages().isEmpty()) {
       newPubItem.getMetadata().getLanguages().add("");
     }
     // Source
-    if (newPubItem.getMetadata().getSources().size() == 0) {
+    if (newPubItem.getMetadata().getSources().isEmpty()) {
       SourceVO newSource = new SourceVO();
       newPubItem.getMetadata().getSources().add(newSource);
     }
@@ -788,7 +788,7 @@ public class ItemControllerSessionBean extends FacesBean {
         PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO();
         source.setPublishingInfo(newSourcePublishingInfo);
       }
-      if (source.getCreators().size() == 0) {
+      if (source.getCreators().isEmpty()) {
         CreatorVO newSourceCreator = new CreatorVO();
         // create a new Organization for this person
         PersonVO newPerson = new PersonVO();
@@ -802,7 +802,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
         source.getCreators().add(newSourceCreator);
       }
-      if (source.getIdentifiers().size() == 0) {
+      if (source.getIdentifiers().isEmpty()) {
         source.getIdentifiers().add(new IdentifierVO());
       }
     }
@@ -855,7 +855,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization()
-        .getIdentifiers().size() == 0) {
+        .getIdentifiers().isEmpty()) {
       newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization()
           .getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
     }
@@ -866,7 +866,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram()
-        .getIdentifiers().size() == 0) {
+        .getIdentifiers().isEmpty()) {
       newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram()
           .getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
     }
