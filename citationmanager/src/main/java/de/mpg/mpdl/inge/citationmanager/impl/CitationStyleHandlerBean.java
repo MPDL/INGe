@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.citationmanager;
+package de.mpg.mpdl.inge.citationmanager.impl;
 
 import java.io.IOException;
 
@@ -36,6 +36,8 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 
 

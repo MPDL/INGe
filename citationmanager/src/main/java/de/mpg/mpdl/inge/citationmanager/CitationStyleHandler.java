@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.citationmanager;
 import java.io.IOException;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import net.sf.jasperreports.engine.JRException;
 
 /**

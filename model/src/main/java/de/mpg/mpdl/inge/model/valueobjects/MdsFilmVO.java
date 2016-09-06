@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractAcquisitionDeviceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FilmAcquisitionDeviceVO;
@@ -67,7 +68,7 @@ public class MdsFilmVO extends MetadataSetVO {
   /**
    * Information about the technology used in the process of producing the film.
    */
-  private FilmAcquisitionDeviceVO filmAcquisitionDevice;
+  private AbstractAcquisitionDeviceVO filmAcquisitionDevice;
   private FilmType filmType;
   /**
    * The place where the motive on the film could be found. Described in common words.
@@ -99,7 +100,7 @@ public class MdsFilmVO extends MetadataSetVO {
    * Delivers the film acquisition device, i. e. information about the technology used in the
    * process of producing the film.
    */
-  public FilmAcquisitionDeviceVO getFilmAcquisitionDevice() {
+  public AbstractAcquisitionDeviceVO getFilmAcquisitionDevice() {
     return filmAcquisitionDevice;
   }
 

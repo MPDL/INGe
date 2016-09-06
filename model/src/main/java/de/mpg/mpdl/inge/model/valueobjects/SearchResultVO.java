@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 
 /**
  * Representation of an PubItem search result record. This class is used only for JiBX
- * transformations of search results. 
+ * transformations of search results.
  * 
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$

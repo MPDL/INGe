@@ -23,7 +23,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.citationmanager;
+package de.mpg.mpdl.inge.citationmanager.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -48,6 +48,8 @@ import org.docx4j.wml.P;
 
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
 import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
