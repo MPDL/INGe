@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.dataacquisition.valueobjects;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * The attributes of an dataacquisition source.
@@ -185,7 +184,7 @@ public class DataSourceVO {
     this.sourceOAIIdentifier = sourceOAIIdentifier;
   }
 
-  public void setIdentifierExample(Vector<String> identifierExample) {
+  public void setIdentifierExample(List<String> identifierExample) {
     this.identifierExample = identifierExample;
   }
 

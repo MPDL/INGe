@@ -36,7 +36,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import noNamespace.SourceType;
 import noNamespace.SourcesDocument;
@@ -311,7 +310,7 @@ public class Util {
    * This method retrieves all formats a given format can be transformed into.
    * 
    * @param fetchFormats
-   * @return Vector of Metadata Value Objects
+   * @return List of Metadata Value Objects
    */
   public List<MetadataVO> getTransformFormats(List<MetadataVO> fetchFormats) {
     List<MetadataVO> allFormats = new ArrayList<MetadataVO>();
@@ -361,13 +360,13 @@ public class Util {
   }
 
   /**
-   * Eliminates duplicates in a Vector.
+   * Eliminates duplicates in a List.
    * 
-   * @param metadataV as MetadataVO Vector
-   * @return Vector with unique entries
+   * @param metadataV as MetadataVO List
+   * @return List with unique entries
    */
-  public Vector<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
-    Vector<MetadataVO> cleanVector = new Vector<MetadataVO>();
+  public List<MetadataVO> getRidOfDuplicatesInList(List<MetadataVO> metadataV) {
+    List<MetadataVO> cleanList = new ArrayList<MetadataVO>();
     MetadataVO format1;
     MetadataVO format2;
 
@@ -382,11 +381,11 @@ public class Util {
         }
       }
       if (!duplicate) {
-        cleanVector.add(format1);
+        cleanList.add(format1);
       }
     }
 
-    return cleanVector;
+    return cleanList;
   }
 
   /**
@@ -557,11 +556,11 @@ public class Util {
   }
 
   /**
-   * This methods gets a vector of formats, checks the formats names and adds the format type to the
+   * This methods gets a List of formats, checks the formats names and adds the format type to the
    * name, if the name occurs more than once in the list.
    * 
    * @param formats
-   * @return Vector of FormatVOs
+   * @return List of FormatVOs
    */
   private Format[] handleDuplicateFormatNames(Format[] formats) {
     for (int i = 0; i < formats.length; i++) {

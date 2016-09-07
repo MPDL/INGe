@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.rmi.AccessException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -167,8 +167,8 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    */
   public byte[] unapi(String identifier, boolean show) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    List<FullTextVO> fullTextV = new Vector<FullTextVO>();
-    List<MetadataVO> metadataV = new Vector<MetadataVO>();
+    List<FullTextVO> fullTextV = new ArrayList<FullTextVO>();
+    List<MetadataVO> metadataV = new ArrayList<MetadataVO>();
     Util util = new Util();
     String[] tmp = identifier.split(":");
     DataSourceVO source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
@@ -193,12 +193,12 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       transitionFormat.setName(transitionFormatName);
       transitionFormat.setEncoding(util.getDefaultEncoding(transitionFormatName));
       transitionFormat.setMdFormat(util.getDefaultMimeType(transitionFormatName));
-      Vector<MetadataVO> transitionFormatV = new Vector<MetadataVO>();
+      List<MetadataVO> transitionFormatV = new ArrayList<MetadataVO>();
       transitionFormatV.add(transitionFormat);
       // Call method with transition format escidoc
       metadataV.addAll(util.getTransformFormats(transitionFormatV));
     }
-    metadataV = util.getRidOfDuplicatesInVector(metadataV);
+    metadataV = util.getRidOfDuplicatesInList(metadataV);
 
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);

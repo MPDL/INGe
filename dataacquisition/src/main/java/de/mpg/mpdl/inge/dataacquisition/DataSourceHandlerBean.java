@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.purl.dc.elements.x11.SimpleLiteral;
@@ -56,7 +55,7 @@ public class DataSourceHandlerBean {
   /**
    * Returns all available Sources.
    * 
-   * @return Vector of DataSourceVO
+   * @return List of DataSourceVO
    * @throws RuntimeException
    */
   public List<DataSourceVO> getSources() throws RuntimeException {
@@ -99,7 +98,7 @@ public class DataSourceHandlerBean {
           sourceVO.setIdentifier(idPrefVec);
           // Identifier Examples
           SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
-          Vector<String> idExVec = new Vector<String>();
+          List<String> idExVec = new ArrayList<String>();
           for (int y = 0; y < idExArr.length; y++) {
             String idEx = simpleLiteralTostring(idExArr[y]);
             idExVec.add(idEx);
@@ -194,8 +193,8 @@ public class DataSourceHandlerBean {
    */
   public DataSourceVO getSourceByName(String name) throws RuntimeException {
     DataSourceVO sourceVO = new DataSourceVO();
-    Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
-    Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
+    List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
+    List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
     boolean found = false;
     try {
       ClassLoader cl = this.getClass().getClassLoader();
@@ -220,7 +219,7 @@ public class DataSourceHandlerBean {
         sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
         // Accepted identifier Prefixes
         SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
-        Vector<String> idPrefVec = new Vector<String>();
+        List<String> idPrefVec = new ArrayList<String>();
         for (int i = 0; i < idPrefArr.length; i++) {
           String idPref = simpleLiteralTostring(idPrefArr[i]);
           idPrefVec.add(idPref);
@@ -228,7 +227,7 @@ public class DataSourceHandlerBean {
         sourceVO.setIdentifier(idPrefVec);
         // Identifier Examples
         SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
-        Vector<String> idExVec = new Vector<String>();
+        List<String> idExVec = new ArrayList<String>();
         for (int y = 0; y < idExArr.length; y++) {
           String idEx = simpleLiteralTostring(idExArr[y]);
           idExVec.add(idEx);
@@ -405,7 +404,7 @@ public class DataSourceHandlerBean {
       for (int i = 0; i < mdv.size(); i++) {
         MetadataVO mdVO = source.getMdFormats().get(i);
         if (mdVO.getName().equalsIgnoreCase(md.getName())) {
-          mdv.add(i, md);
+          mdv.set(i, md);
         }
       }
     }
