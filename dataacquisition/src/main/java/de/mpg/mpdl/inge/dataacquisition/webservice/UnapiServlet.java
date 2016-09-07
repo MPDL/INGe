@@ -6,7 +6,9 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.rmi.AccessException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -198,7 +200,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       // Call method with transition format escidoc
       metadataV.addAll(util.getTransformFormats(transitionFormatV));
     }
-    metadataV = util.getRidOfDuplicatesInList(metadataV);
+    metadataV = util.getRidOfDuplicatesInVector(metadataV);
 
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);

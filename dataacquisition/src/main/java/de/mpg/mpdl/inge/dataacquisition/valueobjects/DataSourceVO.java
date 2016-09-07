@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.dataacquisition.valueobjects;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The attributes of an dataacquisition source.

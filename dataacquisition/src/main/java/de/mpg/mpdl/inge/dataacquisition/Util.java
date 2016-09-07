@@ -365,8 +365,8 @@ public class Util {
    * @param metadataV as MetadataVO List
    * @return List with unique entries
    */
-  public List<MetadataVO> getRidOfDuplicatesInList(List<MetadataVO> metadataV) {
-    List<MetadataVO> cleanList = new ArrayList<MetadataVO>();
+  public List<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
+    List<MetadataVO> cleanVector = new ArrayList<MetadataVO>();
     MetadataVO format1;
     MetadataVO format2;
 
@@ -381,11 +381,11 @@ public class Util {
         }
       }
       if (!duplicate) {
-        cleanList.add(format1);
+        cleanVector.add(format1);
       }
     }
 
-    return cleanList;
+    return cleanVector;
   }
 
   /**
