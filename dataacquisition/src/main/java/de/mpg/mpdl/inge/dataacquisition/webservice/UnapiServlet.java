@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.rmi.AccessException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServlet;
@@ -166,8 +167,8 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    */
   public byte[] unapi(String identifier, boolean show) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    Vector<FullTextVO> fullTextV = new Vector<FullTextVO>();
-    Vector<MetadataVO> metadataV = new Vector<MetadataVO>();
+    List<FullTextVO> fullTextV = new Vector<FullTextVO>();
+    List<MetadataVO> metadataV = new Vector<MetadataVO>();
     Util util = new Util();
     String[] tmp = identifier.split(":");
     DataSourceVO source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
@@ -235,7 +236,6 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
       SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException,
       FormatNotAvailableException {
-    String trimmedId = "";
     this.filename = identifier;
 
     try {

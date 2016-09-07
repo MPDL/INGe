@@ -26,6 +26,7 @@ package de.mpg.mpdl.inge.dataacquisition.valueobjects;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -50,33 +51,33 @@ public class DataSourceVO {
 
   private String copyright;
   // Identifier prefix
-  private Vector<String> identifier;
+  private List<String> identifier;
   private String sourceOAIIdentifier;
 
-  private Vector<String> identifierExample;
+  private List<String> identifierExample;
 
   // Full text informations_______________________________
-  private Vector<FullTextVO> ftFormats;
-  private Vector<MetadataVO> mdFormats;
+  private List<FullTextVO> ftFormats;
+  private List<MetadataVO> mdFormats;
 
   /**
    * The value object for import sources descriptions.
    */
   public DataSourceVO() {}
 
-  public Vector<FullTextVO> getFtFormats() {
+  public List<FullTextVO> getFtFormats() {
     return this.ftFormats;
   }
 
-  public void setFtFormats(Vector<FullTextVO> ftFormats) {
+  public void setFtFormats(List<FullTextVO> ftFormats) {
     this.ftFormats = ftFormats;
   }
 
-  public Vector<MetadataVO> getMdFormats() {
+  public List<MetadataVO> getMdFormats() {
     return this.mdFormats;
   }
 
-  public void setMdFormats(Vector<MetadataVO> mdFormats) {
+  public void setMdFormats(List<MetadataVO> mdFormats) {
     this.mdFormats = mdFormats;
   }
 
@@ -160,11 +161,11 @@ public class DataSourceVO {
     this.type = type;
   }
 
-  public Vector<String> getIdentifier() {
+  public List<String> getIdentifier() {
     return this.identifier;
   }
 
-  public void setIdentifier(Vector<String> identifier) {
+  public void setIdentifier(List<String> identifier) {
     this.identifier = identifier;
   }
 
@@ -188,7 +189,7 @@ public class DataSourceVO {
     this.identifierExample = identifierExample;
   }
 
-  public Vector<String> getIdentifierExample() {
+  public List<String> getIdentifierExample() {
     return this.identifierExample;
   }
 

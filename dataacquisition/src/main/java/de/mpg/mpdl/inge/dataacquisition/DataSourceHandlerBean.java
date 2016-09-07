@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -35,7 +37,6 @@ public class DataSourceHandlerBean {
   private ThirdPartyTransformation thirdPartyTransformer = null;
   private static final Logger LOGGER = Logger.getLogger(DataSourceHandlerBean.class);
   private String transformationFormat = null;
-  // private final String sourceXmlPath = "resources/sources.xml";
   private String sourceXmlPath = null;
 
   /**
@@ -58,23 +59,24 @@ public class DataSourceHandlerBean {
    * @return Vector of DataSourceVO
    * @throws RuntimeException
    */
-  public Vector<DataSourceVO> getSources() throws RuntimeException {
-    Vector<DataSourceVO> sourceVec = new Vector<DataSourceVO>();
+  public List<DataSourceVO> getSources() throws RuntimeException {
+
+    List<DataSourceVO> sourceVec = new ArrayList<DataSourceVO>();
 
     try {
       System.out.println();
       ClassLoader cl = this.getClass().getClassLoader();
       java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
       String xml = ResourceUtil.getStreamAsString(in);
+
       this.sourceDoc = ImportSourcesDocument.Factory.parse(xml);
-      // System.out.println(this.sourceDoc);
       this.thirdPartyTransformer = new ThirdPartyTransformation();
       this.sourceType = this.sourceDoc.getImportSources();
       ImportSourceType[] sources = this.sourceType.getImportSourceArray();
       for (int i = 0; i < sources.length; i++) {
         ImportSourceType source = sources[i];
-        Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
-        Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
+        List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
+        List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
 
         String status = simpleLiteralTostring(source.getStatus());
         if (status.equalsIgnoreCase("published")) {
@@ -89,7 +91,7 @@ public class DataSourceHandlerBean {
           sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
           // Accepted identifier Prefixes
           SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
-          Vector<String> idPrefVec = new Vector<String>();
+          List<String> idPrefVec = new ArrayList<String>();
           for (int x = 0; x < idPrefArr.length; x++) {
             String idPref = simpleLiteralTostring(idPrefArr[x]);
             idPrefVec.add(idPref);
@@ -178,7 +180,7 @@ public class DataSourceHandlerBean {
    * @return DataSourceVO
    * @throws RuntimeException
    */
-  public Vector<DataSourceVO> getSources(String format) throws RuntimeException {
+  public List<DataSourceVO> getSources(String format) throws RuntimeException {
     this.transformationFormat = format;
     return this.getSources();
   }
@@ -380,7 +382,7 @@ public class DataSourceHandlerBean {
    * @return MetadataVO
    */
   public MetadataVO getDefaultMdFormatFromSource(DataSourceVO source) {
-    Vector<MetadataVO> mdv = source.getMdFormats();
+    List<MetadataVO> mdv = source.getMdFormats();
     for (int i = 0; i < mdv.size(); i++) {
       MetadataVO mdVO = source.getMdFormats().get(i);
       if (mdVO.isMdDefault()) {
@@ -398,12 +400,12 @@ public class DataSourceHandlerBean {
    * @return ImportSourceVO with updated metadata informations
    */
   public DataSourceVO updateMdEntry(DataSourceVO source, MetadataVO md) {
-    Vector<MetadataVO> mdv = source.getMdFormats();
+    List<MetadataVO> mdv = source.getMdFormats();
     if (md != null) {
       for (int i = 0; i < mdv.size(); i++) {
         MetadataVO mdVO = source.getMdFormats().get(i);
         if (mdVO.getName().equalsIgnoreCase(md.getName())) {
-          mdv.setElementAt(md, i);
+          mdv.add(i, md);
         }
       }
     }

@@ -34,6 +34,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import noNamespace.SourceType;
@@ -70,7 +72,6 @@ public class Util {
   private TransformationBean transformer;
   private final Logger logger = Logger.getLogger(Util.class);
   private final String internalFormat = "eSciDoc-publication-item";
-  private final String internalListFormat = "eSciDoc-publication-item-list";
   private final String transformationService = "escidoc";
   private final String dummyFormat = "unknown";
 
@@ -280,7 +281,7 @@ public class Util {
    * @return a trimed identifier
    */
   public String trimIdentifier(DataSourceVO source, String identifier) {
-    Vector<String> idPrefVec = source.getIdentifier();
+    List<String> idPrefVec = source.getIdentifier();
 
     for (int i = 0; i < idPrefVec.size(); i++) {
       String idPref = idPrefVec.get(i).toLowerCase();
@@ -312,8 +313,8 @@ public class Util {
    * @param fetchFormats
    * @return Vector of Metadata Value Objects
    */
-  public Vector<MetadataVO> getTransformFormats(Vector<MetadataVO> fetchFormats) {
-    Vector<MetadataVO> allFormats = new Vector<MetadataVO>();
+  public List<MetadataVO> getTransformFormats(List<MetadataVO> fetchFormats) {
+    List<MetadataVO> allFormats = new ArrayList<MetadataVO>();
 
     for (int i = 0; i < fetchFormats.size(); i++) {
       MetadataVO md = fetchFormats.get(i);
@@ -339,7 +340,7 @@ public class Util {
    * @param metadataV
    * @return true if escidoc format can be transition format, else false
    */
-  public boolean checkEscidocTransition(Vector<MetadataVO> metadataV, String identifier) {
+  public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
     if (identifier.toLowerCase().contains(this.getInternalFormat())) {
       // Transition not possible for escidoc source
       return false;
@@ -362,20 +363,20 @@ public class Util {
   /**
    * Eliminates duplicates in a Vector.
    * 
-   * @param dirtyVector as MetadataVO Vector
+   * @param metadataV as MetadataVO Vector
    * @return Vector with unique entries
    */
-  public Vector<MetadataVO> getRidOfDuplicatesInVector(Vector<MetadataVO> dirtyVector) {
+  public Vector<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
     Vector<MetadataVO> cleanVector = new Vector<MetadataVO>();
     MetadataVO format1;
     MetadataVO format2;
 
 
-    for (int i = 0; i < dirtyVector.size(); i++) {
+    for (int i = 0; i < metadataV.size(); i++) {
       boolean duplicate = false;
-      format1 = (MetadataVO) dirtyVector.get(i);
-      for (int x = i + 1; x < dirtyVector.size(); x++) {
-        format2 = (MetadataVO) dirtyVector.get(x);
+      format1 = (MetadataVO) metadataV.get(i);
+      for (int x = i + 1; x < metadataV.size(); x++) {
+        format2 = (MetadataVO) metadataV.get(x);
         if (this.isMdFormatEqual(format1, format2)) {
           duplicate = true;
         }
@@ -447,7 +448,7 @@ public class Util {
   public byte[] createUnapiSourcesXml() {
     byte[] xml = null;
 
-    Vector<DataSourceVO> sources;
+    List<DataSourceVO> sources;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
 
@@ -474,7 +475,7 @@ public class Util {
         sourceDesc.setStringValue(source.getDescription());
         desc.set(sourceDesc);
         // Identifier prefix
-        Vector<String> idPreVec = source.getIdentifier();
+        List<String> idPreVec = source.getIdentifier();
         for (int x = 0; x < idPreVec.size(); x++) {
           SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
           XmlString sourceidPre = XmlString.Factory.newInstance();
@@ -487,7 +488,7 @@ public class Util {
         sourceidDel.setStringValue(":");
         idDel.set(sourceidDel);
         // Identifier example
-        Vector<String> examples = source.getIdentifierExample();
+        List<String> examples = source.getIdentifierExample();
         if (examples != null) {
           for (String example : examples) {
             SimpleLiteral idEx = xmlSource.addNewIdentifierExample();

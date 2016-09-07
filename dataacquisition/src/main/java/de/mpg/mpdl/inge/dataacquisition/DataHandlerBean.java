@@ -43,7 +43,6 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -65,11 +64,6 @@ import org.apache.fop.apps.MimeConstants;
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
@@ -79,6 +73,10 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
