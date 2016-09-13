@@ -69,15 +69,15 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 public class Util {
 
   private TransformationBean transformer;
-  private final Logger logger = Logger.getLogger(Util.class);
-  private final String internalFormat = "eSciDoc-publication-item";
-  private final String transformationService = "escidoc";
-  private final String dummyFormat = "unknown";
+  private static final Logger logger = Logger.getLogger(Util.class);
+  private static final String internalFormat = "eSciDoc-publication-item";
+  private static final String transformationService = "escidoc";
+  private static final String dummyFormat = "unknown";
 
   // Cone
-  private final String coneMethod = "escidocmimetypes";
-  private final String coneRel1 = "/resource/";
-  private final String coneRel2 = "?format=rdf";
+  private static final String coneMethod = "escidocmimetypes";
+  private static final String coneRel1 = "/resource/";
+  private static final String coneRel2 = "?format=rdf";
 
 
   /**
@@ -105,28 +105,28 @@ public class Util {
    * @return default mimetype
    */
   public String getDefaultMimeType(String formatName) {
-    if (formatName.equalsIgnoreCase("apa")) {
+    if ("apa".equalsIgnoreCase(formatName)) {
       return "text/html";
     }
-    if (formatName.equalsIgnoreCase("ajp")) {
+    if ("ajp".equalsIgnoreCase(formatName)) {
       return "text/html";
     }
-    if (formatName.equalsIgnoreCase("endnote")) {
+    if ("endnote".equalsIgnoreCase(formatName)) {
       return "text/plain";
     }
-    if (formatName.equalsIgnoreCase("bibtex")) {
+    if ("bibtex".equalsIgnoreCase(formatName)) {
       return "text/plain";
     }
-    if (formatName.equalsIgnoreCase("coins")) {
+    if ("coins".equalsIgnoreCase(formatName)) {
       return "text/plain";
     }
-    if (formatName.equalsIgnoreCase("pdf")) {
+    if ("pdf".equalsIgnoreCase(formatName)) {
       return "application/pdf";
     }
-    if (formatName.equalsIgnoreCase("ps")) {
+    if ("ps".equalsIgnoreCase(formatName)) {
       return "application/gzip";
     }
-    if (formatName.equalsIgnoreCase("bmcarticleFullTextHtml")) {
+    if ("bmcarticleFullTextHtml".equalsIgnoreCase(formatName)) {
       return "text/html";
     }
     if (formatName.startsWith("html-meta-tags")) {
@@ -190,7 +190,7 @@ public class Util {
         if (!sourceMd.getMdFormat().equalsIgnoreCase(possibleFormat.getType())) {
           fetchMd = false;
         }
-        if ((!sourceMd.getEncoding().equals("*")) && (!possibleFormat.getEncoding().equals("*"))) {
+        if ((!"*".equals(sourceMd.getEncoding())) && (!"*".equals(possibleFormat.getEncoding()))) {
           if (!sourceMd.getEncoding().equalsIgnoreCase(possibleFormat.getEncoding())) {
             fetchMd = false;
           }
@@ -256,7 +256,7 @@ public class Util {
       if (!ft.getFtFormat().equalsIgnoreCase(formatType)) {
         fetchMd = false;
       }
-      if ((!ft.getEncoding().equals("*")) && (!formatEncoding.equals("*"))) {
+      if ((!"*".equals(ft.getEncoding())) && (!"*".equals(formatEncoding))) {
         if (!ft.getEncoding().equalsIgnoreCase(formatEncoding)) {
           fetchMd = false;
         }
@@ -294,11 +294,11 @@ public class Util {
     }
 
     // SPIRES is special case
-    if (source.getName().equalsIgnoreCase("spires")) {
+    if ("spires".equalsIgnoreCase(source.getName())) {
       // If identifier is DOI, the identifier has to be enhanced
-      if ((!identifier.toLowerCase().startsWith("arxiv"))
-          && (!identifier.toLowerCase().startsWith("hep"))
-          && (!identifier.toLowerCase().startsWith("cond"))) {
+      if ((!"arxiv".startsWith(identifier.toLowerCase()))
+          && (!"hep".startsWith(identifier.toLowerCase()))
+          && (!"cond".startsWith(identifier.toLowerCase()))) {
         identifier = "FIND+DOI+" + identifier;
       }
     }
@@ -339,25 +339,25 @@ public class Util {
    * @param metadataV
    * @return true if escidoc format can be transition format, else false
    */
-  public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
-    if (identifier.toLowerCase().contains(this.getInternalFormat())) {
-      // Transition not possible for escidoc source
-      return false;
-    } else {
-      for (int i = 0; i < metadataV.size(); i++) {
-        MetadataVO md = metadataV.get(i);
-        Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-        Format[] trgFormats = this.transformer.getTargetFormats(format);
-        for (int x = 0; x < trgFormats.length; x++) {
-          Format trgFormat = trgFormats[x];
-          if (trgFormat.getName().equals(this.getInternalFormat())) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
+	public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
+		if (identifier.toLowerCase().contains(this.getInternalFormat()))
+			// Transition not possible for escidoc source
+			return false;
+
+		for (int i = 0; i < metadataV.size(); i++) {
+			MetadataVO md = metadataV.get(i);
+			Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
+			Format[] trgFormats = this.transformer.getTargetFormats(format);
+			for (int x = 0; x < trgFormats.length; x++) {
+				Format trgFormat = trgFormats[x];
+				if (trgFormat.getName().equals(this.getInternalFormat())) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 
   /**
    * Eliminates duplicates in a List.
@@ -421,23 +421,22 @@ public class Util {
    * @param src2
    * @return true if equal, else false
    */
-  public boolean isFormatEqual(Format src1, Format src2) {
-    if (!src1.getName().equalsIgnoreCase(src2.getName())) {
-      return false;
-    }
-    if (!src1.getType().equalsIgnoreCase(src2.getType())) {
-      return false;
-    }
-    if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")) {
-      return true;
-    } else {
-      if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
+	public boolean isFormatEqual(Format src1, Format src2) {
+		if (!src1.getName().equalsIgnoreCase(src2.getName())) {
+			return false;
+		}
+		if (!src1.getType().equalsIgnoreCase(src2.getType())) {
+			return false;
+		}
+		if ("*".equals(src1.getEncoding()) || "*".equals(src2.getEncoding())) {
+			return true;
+		}
+		if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
   /**
    * Creates the source description xml.
@@ -503,7 +502,7 @@ public class Util {
       xOpts.setUseDefaultNamespace();
       xmlSourceDoc.save(baos, xOpts);
     } catch (IOException e) {
-      this.logger.error("Error when creating outputXml.", e);
+      logger.error("Error when creating outputXml.", e);
       throw new RuntimeException(e);
     }
 
@@ -595,14 +594,14 @@ public class Util {
     try {
 
       URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + this.coneMethod
-              + this.coneRel1 + mimeType + this.coneRel2);
+          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + coneMethod
+              + coneRel1 + mimeType + coneRel2);
       conn = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpConn = (HttpURLConnection) conn;
       int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
-          this.logger.debug("Cone Service responded with 200.");
+          logger.debug("Cone Service responded with 200.");
           break;
         default:
           throw new RuntimeException("An error occurred while calling Cone Service: "
@@ -620,7 +619,7 @@ public class Util {
       }
       httpConn.disconnect();
     } catch (Exception e) {
-      this.logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType
+      logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType
           + ")", e);
       return null;
     }
@@ -629,14 +628,14 @@ public class Util {
   }
 
   public String getInternalFormat() {
-    return this.internalFormat;
+    return internalFormat;
   }
 
   public String getTransformationService() {
-    return this.transformationService;
+    return transformationService;
   }
 
   public String getDummyFormat() {
-    return this.dummyFormat;
+    return dummyFormat;
   }
 }
