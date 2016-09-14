@@ -24,11 +24,11 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
 
 
 /**

@@ -24,15 +24,55 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
+
+import de.mpg.mpdl.inge.cone.ModelList.Model;
 
 /**
- * An interface indicating that the implementing class can be expressed in RDF descriptions.
+ * Indicates whether an object can be an object of an s-p-o triple.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public interface Describable {
+public interface LocalizedTripleObject extends Describable {
+  /**
+   * Get the language of this element.
+   * 
+   * @return The iso 639-2 code of the language. If the element has no language, "" or null is
+   *         returned.
+   */
+  public String getLanguage();
+
+  /**
+   * Set the language of this element.
+   * 
+   * @param language The iso 639-2 code of the language. If the element has no language, language
+   *        should be set to null.
+   */
+  public void setLanguage(String language);
+
+  /**
+   * Check if this object has useful content.
+   * 
+   * @return true if either this element has a value or a sub-element of it.
+   */
+  public boolean hasValue();
+
+  /**
+   * Display this object as RDF/XML.
+   * 
+   * @return The object as RDF
+   */
+  public String toRdf(Model model);
+
+  /**
+   * Display this object as JSON object.
+   * 
+   * @return The object as JSON
+   */
+  public String toJson();
+
+  public int hashCode();
 }

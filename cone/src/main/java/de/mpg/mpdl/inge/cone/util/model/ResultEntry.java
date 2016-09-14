@@ -1,9 +1,12 @@
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone.util.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.mpg.mpdl.inge.cone.LocalizedString;
+import de.mpg.mpdl.inge.cone.LocalizedTripleObject;
 
 public class ResultEntry extends LocalizedString {
 

@@ -339,25 +339,25 @@ public class Util {
    * @param metadataV
    * @return true if escidoc format can be transition format, else false
    */
-	public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
-		if (identifier.toLowerCase().contains(this.getInternalFormat()))
-			// Transition not possible for escidoc source
-			return false;
+  public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
+    if (identifier.toLowerCase().contains(this.getInternalFormat()))
+      // Transition not possible for escidoc source
+      return false;
 
-		for (int i = 0; i < metadataV.size(); i++) {
-			MetadataVO md = metadataV.get(i);
-			Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-			Format[] trgFormats = this.transformer.getTargetFormats(format);
-			for (int x = 0; x < trgFormats.length; x++) {
-				Format trgFormat = trgFormats[x];
-				if (trgFormat.getName().equals(this.getInternalFormat())) {
-					return true;
-				}
-			}
-		}
+    for (int i = 0; i < metadataV.size(); i++) {
+      MetadataVO md = metadataV.get(i);
+      Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
+      Format[] trgFormats = this.transformer.getTargetFormats(format);
+      for (int x = 0; x < trgFormats.length; x++) {
+        Format trgFormat = trgFormats[x];
+        if (trgFormat.getName().equals(this.getInternalFormat())) {
+          return true;
+        }
+      }
+    }
 
-		return false;
-	}
+    return false;
+  }
 
   /**
    * Eliminates duplicates in a List.
@@ -421,22 +421,22 @@ public class Util {
    * @param src2
    * @return true if equal, else false
    */
-	public boolean isFormatEqual(Format src1, Format src2) {
-		if (!src1.getName().equalsIgnoreCase(src2.getName())) {
-			return false;
-		}
-		if (!src1.getType().equalsIgnoreCase(src2.getType())) {
-			return false;
-		}
-		if ("*".equals(src1.getEncoding()) || "*".equals(src2.getEncoding())) {
-			return true;
-		}
-		if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+  public boolean isFormatEqual(Format src1, Format src2) {
+    if (!src1.getName().equalsIgnoreCase(src2.getName())) {
+      return false;
+    }
+    if (!src1.getType().equalsIgnoreCase(src2.getType())) {
+      return false;
+    }
+    if ("*".equals(src1.getEncoding()) || "*".equals(src2.getEncoding())) {
+      return true;
+    }
+    if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   /**
    * Creates the source description xml.
@@ -594,8 +594,8 @@ public class Util {
     try {
 
       URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + coneMethod
-              + coneRel1 + mimeType + coneRel2);
+          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + coneMethod + coneRel1
+              + mimeType + coneRel2);
       conn = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpConn = (HttpURLConnection) conn;
       int responseCode = httpConn.getResponseCode();
@@ -619,8 +619,8 @@ public class Util {
       }
       httpConn.disconnect();
     } catch (Exception e) {
-      logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType
-          + ")", e);
+      logger
+          .warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
       return null;
     }
 

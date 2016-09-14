@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
 import java.io.Serializable;
 
@@ -37,64 +37,61 @@ import java.io.Serializable;
  * 
  */
 public class Pair<T> implements Describable, Serializable {
-	/**
+  /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String key;
-	private T value;
+  private static final long serialVersionUID = 1L;
+  private String key;
+  private T value;
 
-	/**
-	 * Default constructor.
-	 */
-	public Pair() {
-	}
+  /**
+   * Default constructor.
+   */
+  public Pair() {}
 
-	/**
-	 * Constructor with fields.
-	 * 
-	 * @param key
-	 *            The key
-	 * @param value
-	 *            The value
-	 */
-	public Pair(String key, T value) {
-		this.key = key;
-		this.value = value;
-	}
+  /**
+   * Constructor with fields.
+   * 
+   * @param key The key
+   * @param value The value
+   */
+  public Pair(String key, T value) {
+    this.key = key;
+    this.value = value;
+  }
 
-	public String getKey() {
-		return key;
-	}
+  public String getKey() {
+    return key;
+  }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-	public T getValue() {
-		return value;
-	}
+  public T getValue() {
+    return value;
+  }
 
-	public void setValue(T value) {
-		this.value = value;
-	}
+  public void setValue(T value) {
+    this.value = value;
+  }
 
-	@Override
-	public boolean equals(Object other) {
-		if (other == null) {
-			return false;
-		} else if (!(other instanceof Pair)) {
-			return false;
-		}
-		Pair<?> otherPair = (Pair<?>) other;
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    } else if (!(other instanceof Pair)) {
+      return false;
+    }
+    Pair<?> otherPair = (Pair<?>) other;
 
-		return (key == null ? otherPair.key == null : key.equals(otherPair.key))
-				&& (value == null ? otherPair.value == null : value.equals(otherPair.value));
-	}
-	
-	
-	public int hashCode() {
-		return (key == null ? 1 : key.hashCode()) * (value == null ? 1 : value.hashCode());
-	}
+    return (key == null ? otherPair.key == null : key.equals(otherPair.key))
+        && (value == null ? otherPair.value == null : value.equals(otherPair.value));
+  }
+
+
+  public int hashCode() {
+    return (key == null ? 1 : key.hashCode()) * (value == null ? 1 : value.hashCode());
+  }
 
 }

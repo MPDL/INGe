@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone.util.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

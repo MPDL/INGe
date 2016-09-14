@@ -24,44 +24,15 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
-
-import java.io.UnsupportedEncodingException;
+package de.mpg.mpdl.inge.cone;
 
 /**
- * Helper class for URL handling.
+ * An interface indicating that the implementing class can be expressed in RDF descriptions.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class UrlHelper {
-  /**
-   * Hide constructor of util class.
-   */
-  private UrlHelper() {}
-
-  /**
-   * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
-   * 
-   * @param brokenValue
-   * @return hopefully fixed string.
-   */
-  public static String fixURLEncoding(String input) {
-    if (input != null) {
-      try {
-        String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
-        if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
-          return input;
-        } else {
-          return utf8;
-        }
-      } catch (UnsupportedEncodingException e) {
-        throw new RuntimeException(e);
-      }
-    } else {
-      return null;
-    }
-  }
+public interface Describable {
 }

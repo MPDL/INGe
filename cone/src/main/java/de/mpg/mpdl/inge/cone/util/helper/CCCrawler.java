@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone.util.helper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,8 +35,11 @@ import java.util.regex.Pattern;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 
+import de.mpg.mpdl.inge.cone.LocalizedString;
+import de.mpg.mpdl.inge.cone.LocalizedTripleObject;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
+import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**

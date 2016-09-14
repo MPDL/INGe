@@ -46,8 +46,7 @@ public class ProtocolHandler {
   /**
    * Public constructor for the protocolHandler class.
    */
-  public ProtocolHandler() {
-  }
+  public ProtocolHandler() {}
 
   /**
    * Checks a OAI Record for error codes and throws corresponding exceptions.

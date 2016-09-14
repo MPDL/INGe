@@ -37,14 +37,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -58,6 +55,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -1168,11 +1166,9 @@ public class PubItemListSessionBean extends
         }
       }
     } catch (IOException e) {
-      logger.debug("IO-Exception while retrieving ExternalContext for nextItem");
-      e.printStackTrace();
+      logger.warn("IO-Exception while retrieving ExternalContext for nextItem", e);
     } catch (Exception e) {
-      logger.debug("Exception while getting link to nextListItem");
-      e.printStackTrace();
+      logger.warn("Exception while getting link to nextListItem", e);
     }
   }
 
@@ -1224,11 +1220,9 @@ public class PubItemListSessionBean extends
         }
       }
     } catch (IOException e) {
-      logger.debug("IO-Exception while retrieving ExternalContext for previousItem");
-      e.printStackTrace();
+      logger.warn("IO-Exception while retrieving ExternalContext for previousItem", e);
     } catch (Exception e) {
-      logger.debug("Exception while getting link to previousListItem");
-      e.printStackTrace();
+      logger.warn("Exception while getting link to previousListItem", e);
     }
   }
 
@@ -1340,7 +1334,6 @@ public class PubItemListSessionBean extends
           / (double) this.getElementsPerPage()));
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
       int positionInPartList = (itemPosition - 1) % this.getElementsPerPage();
-      String newCheckString = this.getCurrentPartList().get(positionInPartList).getLink();
       fc.getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());
     } catch (IOException e) {
       logger.debug("Problem reading new itemPosition");

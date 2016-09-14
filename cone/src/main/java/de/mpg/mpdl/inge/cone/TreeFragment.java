@@ -1,3 +1,5 @@
+package de.mpg.mpdl.inge.cone;
+
 /*
  * 
  * CDDL HEADER START
@@ -22,7 +24,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.cone.util;
+
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -39,9 +41,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.rdfimport.ModelList;
-import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
-import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Predicate;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

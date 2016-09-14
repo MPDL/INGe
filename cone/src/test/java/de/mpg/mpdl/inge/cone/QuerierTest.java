@@ -39,9 +39,6 @@ import org.junit.Test;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.Querier.ModeType;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
-import de.mpg.mpdl.inge.cone.util.Describable;
-import de.mpg.mpdl.inge.cone.util.Pair;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

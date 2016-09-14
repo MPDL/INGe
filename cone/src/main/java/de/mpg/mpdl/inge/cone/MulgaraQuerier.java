@@ -25,10 +25,6 @@ import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
-import de.mpg.mpdl.inge.cone.util.LocalizedString;
-import de.mpg.mpdl.inge.cone.util.LocalizedTripleObject;
-import de.mpg.mpdl.inge.cone.util.Pair;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
