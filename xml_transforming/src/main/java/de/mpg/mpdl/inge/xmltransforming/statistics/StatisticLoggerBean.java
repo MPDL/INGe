@@ -393,26 +393,27 @@ public class StatisticLoggerBean implements StatisticLogger {
     // c+=loc.longitude;
     return c;
   }
-  
-	private void enhanceParameterList(String sessionId, String ip, boolean loggedIn, String referer, String solutionId,
-			List<StatisticReportRecordParamVO> additionalParams, List<StatisticReportRecordParamVO> paramList)
-					throws Exception {
-		paramList.addAll(getUserStats(sessionId, ip));
-		StatisticReportRecordParamVO loggedInParam = new StatisticReportRecordParamVO();
-		loggedInParam.setName("loggedIn");
-		loggedInParam.setParamValue(new StatisticReportRecordStringParamValueVO(String.valueOf(loggedIn)));
-		paramList.add(loggedInParam);
-		StatisticReportRecordParamVO solutionIdParam = new StatisticReportRecordParamVO();
-		solutionIdParam.setName("solution");
-		solutionIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(solutionId));
-		paramList.add(solutionIdParam);
-		StatisticReportRecordParamVO refererParam = new StatisticReportRecordParamVO();
-		refererParam.setName("referer");
-		refererParam.setParamValue(new StatisticReportRecordStringParamValueVO(referer));
-		paramList.add(refererParam);
-		if (additionalParams != null) {
-			paramList.addAll(additionalParams);
-		}
-	}
+
+  private void enhanceParameterList(String sessionId, String ip, boolean loggedIn, String referer,
+      String solutionId, List<StatisticReportRecordParamVO> additionalParams,
+      List<StatisticReportRecordParamVO> paramList) throws Exception {
+    paramList.addAll(getUserStats(sessionId, ip));
+    StatisticReportRecordParamVO loggedInParam = new StatisticReportRecordParamVO();
+    loggedInParam.setName("loggedIn");
+    loggedInParam.setParamValue(new StatisticReportRecordStringParamValueVO(String
+        .valueOf(loggedIn)));
+    paramList.add(loggedInParam);
+    StatisticReportRecordParamVO solutionIdParam = new StatisticReportRecordParamVO();
+    solutionIdParam.setName("solution");
+    solutionIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(solutionId));
+    paramList.add(solutionIdParam);
+    StatisticReportRecordParamVO refererParam = new StatisticReportRecordParamVO();
+    refererParam.setName("referer");
+    refererParam.setParamValue(new StatisticReportRecordStringParamValueVO(referer));
+    paramList.add(refererParam);
+    if (additionalParams != null) {
+      paramList.addAll(additionalParams);
+    }
+  }
 
 }
