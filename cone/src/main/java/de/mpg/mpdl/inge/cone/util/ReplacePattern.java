@@ -24,62 +24,47 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util.helper;
+package de.mpg.mpdl.inge.cone.util;
+
+import java.util.regex.Pattern;
 
 /**
- * A triple consisting of subject,, predicate and object.
+ * Helper class for result pattern.
  * 
  * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 3229 $ $LastChangedDate: 2010-06-14 13:19:44 +0200 (Mo, 14 Jun 2010) $
  * 
  */
-public class Triple {
-  private String subject;
-  private String predicate;
-  private String object;
+public class ReplacePattern {
+  Pattern pattern;
+  String replace;
 
   /**
-   * Default constructor.
-   */
-  public Triple() {
-
-  }
-
-  /**
-   * Constructor with fields.
+   * Convenience cvonstructor.
    * 
-   * @param subject The identifier
-   * @param predicate The attribute
-   * @param object The value
+   * @param patternString Will be converted to a @see java.util.regex.Pattern
+   * @param replace The string the matching pattern will be substituted by.
    */
-  public Triple(String subject, String predicate, String object) {
-    this.object = object;
-    this.predicate = predicate;
-    this.subject = subject;
+  public ReplacePattern(String patternString, String replace) {
+    this.pattern = Pattern.compile(patternString);
+    this.replace = replace;
   }
 
-  public String getSubject() {
-    return subject;
+  public Pattern getPattern() {
+    return pattern;
   }
 
-  public void setSubject(String subject) {
-    this.subject = subject;
+  public void setPattern(Pattern pattern) {
+    this.pattern = pattern;
   }
 
-  public String getPredicate() {
-    return predicate;
+  public String getReplace() {
+    return replace;
   }
 
-  public void setPredicate(String predicate) {
-    this.predicate = predicate;
+  public void setReplace(String replace) {
+    this.replace = replace;
   }
 
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
 }

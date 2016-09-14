@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.cone.util.helper;
+package de.mpg.mpdl.inge.cone.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -24,47 +24,44 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util.model;
+package de.mpg.mpdl.inge.cone.util;
 
-import java.util.regex.Pattern;
+import java.io.UnsupportedEncodingException;
 
 /**
- * Helper class for result pattern.
+ * Helper class for URL handling.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3229 $ $LastChangedDate: 2010-06-14 13:19:44 +0200 (Mo, 14 Jun 2010) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
  */
-class ReplacePattern {
-  Pattern pattern;
-  String replace;
+public class UrlHelper {
+  /**
+   * Hide constructor of util class.
+   */
+  private UrlHelper() {}
 
   /**
-   * Convenience cvonstructor.
+   * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
    * 
-   * @param patternString Will be converted to a @see java.util.regex.Pattern
-   * @param replace The string the matching pattern will be substituted by.
+   * @param brokenValue
+   * @return hopefully fixed string.
    */
-  public ReplacePattern(String patternString, String replace) {
-    this.pattern = Pattern.compile(patternString);
-    this.replace = replace;
+  public static String fixURLEncoding(String input) {
+    if (input != null) {
+      try {
+        String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
+        if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
+          return input;
+        } else {
+          return utf8;
+        }
+      } catch (UnsupportedEncodingException e) {
+        throw new RuntimeException(e);
+      }
+    } else {
+      return null;
+    }
   }
-
-  public Pattern getPattern() {
-    return pattern;
-  }
-
-  public void setPattern(Pattern pattern) {
-    this.pattern = pattern;
-  }
-
-  public String getReplace() {
-    return replace;
-  }
-
-  public void setReplace(String replace) {
-    this.replace = replace;
-  }
-
 }

@@ -24,44 +24,62 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util.helper;
-
-import java.io.UnsupportedEncodingException;
+package de.mpg.mpdl.inge.cone.util;
 
 /**
- * Helper class for URL handling.
+ * A triple consisting of subject,, predicate and object.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class UrlHelper {
-  /**
-   * Hide constructor of util class.
-   */
-  private UrlHelper() {}
+public class Triple {
+  private String subject;
+  private String predicate;
+  private String object;
 
   /**
-   * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
-   * 
-   * @param brokenValue
-   * @return hopefully fixed string.
+   * Default constructor.
    */
-  public static String fixURLEncoding(String input) {
-    if (input != null) {
-      try {
-        String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
-        if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
-          return input;
-        } else {
-          return utf8;
-        }
-      } catch (UnsupportedEncodingException e) {
-        throw new RuntimeException(e);
-      }
-    } else {
-      return null;
-    }
+  public Triple() {
+
+  }
+
+  /**
+   * Constructor with fields.
+   * 
+   * @param subject The identifier
+   * @param predicate The attribute
+   * @param object The value
+   */
+  public Triple(String subject, String predicate, String object) {
+    this.object = object;
+    this.predicate = predicate;
+    this.subject = subject;
+  }
+
+  public String getSubject() {
+    return subject;
+  }
+
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
+
+  public String getPredicate() {
+    return predicate;
+  }
+
+  public void setPredicate(String predicate) {
+    this.predicate = predicate;
+  }
+
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
   }
 }

@@ -34,8 +34,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
-import de.mpg.mpdl.inge.cone.util.model.ModelHelper;
-import de.mpg.mpdl.inge.cone.util.model.ResultEntry;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

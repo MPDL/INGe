@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util.helper;
+package de.mpg.mpdl.inge.cone.util;
 
 import java.io.StringWriter;
 import java.io.Writer;

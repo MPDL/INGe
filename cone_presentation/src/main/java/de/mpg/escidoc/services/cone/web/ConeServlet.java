@@ -77,8 +77,8 @@ import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.formatter.Formatter;
-import de.mpg.mpdl.inge.cone.util.helper.Rdfs;
-import de.mpg.mpdl.inge.cone.util.helper.UrlHelper;
+import de.mpg.mpdl.inge.cone.util.Rdfs;
+import de.mpg.mpdl.inge.cone.util.UrlHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
