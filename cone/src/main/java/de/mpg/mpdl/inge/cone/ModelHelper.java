@@ -42,7 +42,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
-import de.mpg.mpdl.inge.cone.util.ReplacePattern;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -479,5 +478,37 @@ public class ModelHelper {
       }
     }
 
+  }
+
+  static class ReplacePattern {
+    Pattern pattern;
+    String replace;
+
+    /**
+     * Convenience cvonstructor.
+     * 
+     * @param patternString Will be converted to a @see java.util.regex.Pattern
+     * @param replace The string the matching pattern will be substituted by.
+     */
+    public ReplacePattern(String patternString, String replace) {
+      this.pattern = Pattern.compile(patternString);
+      this.replace = replace;
+    }
+
+    public Pattern getPattern() {
+      return pattern;
+    }
+
+    public void setPattern(Pattern pattern) {
+      this.pattern = pattern;
+    }
+
+    public String getReplace() {
+      return replace;
+    }
+
+    public void setReplace(String replace) {
+      this.replace = replace;
+    }
   }
 }
