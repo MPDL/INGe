@@ -65,7 +65,6 @@ public class JQueryFormatter extends Formatter {
 
   private static final Logger logger = Logger.getLogger(JQueryFormatter.class);
   private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
-  private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
   private static final String DEFAULT_ENCODING = "UTF-8";
 
   @Override

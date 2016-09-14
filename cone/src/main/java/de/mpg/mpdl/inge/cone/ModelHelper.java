@@ -485,7 +485,7 @@ public class ModelHelper {
     String replace;
 
     /**
-     * Convenience cvonstructor.
+     * Convenience constructor.
      * 
      * @param patternString Will be converted to a @see java.util.regex.Pattern
      * @param replace The string the matching pattern will be substituted by.
