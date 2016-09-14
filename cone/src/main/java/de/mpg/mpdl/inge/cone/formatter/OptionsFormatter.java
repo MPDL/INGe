@@ -43,7 +43,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
 import de.mpg.mpdl.inge.cone.util.Describable;
 import de.mpg.mpdl.inge.cone.util.Pair;
 import de.mpg.mpdl.inge.cone.util.TreeFragment;

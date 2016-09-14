@@ -39,12 +39,12 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.cone.ModelList;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.ModelResult;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

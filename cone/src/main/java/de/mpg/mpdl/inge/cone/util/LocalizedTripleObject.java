@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.cone.util;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
 
 /**
  * Indicates whether an object can be an object of an s-p-o triple.

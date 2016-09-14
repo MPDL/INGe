@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

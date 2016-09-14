@@ -69,11 +69,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.mpdl.inge.cone.ModelList;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.formatter.Formatter;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
 import de.mpg.mpdl.inge.cone.util.Describable;
 import de.mpg.mpdl.inge.cone.util.Pair;
 import de.mpg.mpdl.inge.cone.util.Rdfs;

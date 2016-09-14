@@ -39,9 +39,9 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.ModelList;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Model;
+import de.mpg.mpdl.inge.cone.rdfimport.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
