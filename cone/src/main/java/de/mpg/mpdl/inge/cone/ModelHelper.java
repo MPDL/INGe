@@ -24,13 +24,12 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,15 +38,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.jrdf.graph.PredicateNode;
 
-import de.mpg.mpdl.inge.cone.ModelList;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
-import de.mpg.mpdl.inge.cone.Querier;
-import de.mpg.mpdl.inge.cone.QuerierFactory;
 
 /**
  * Helper class for result pattern.
@@ -91,7 +86,7 @@ public class ModelHelper {
 
     for (ModelResult modelResult : model.getResults()) {
 
-      if (languages.size() == 0) {
+      if (languages.isEmpty()) {
         List<Map<String, List<LocalizedTripleObject>>> permutationMaps =
             getPermutations(model, poMap, modelResult, loggedIn, "");
 
@@ -110,12 +105,6 @@ public class ModelHelper {
         }
       }
     }
-
-    /*
-     * for(Pair<ResultEntry> res : results) { logger.info("Result: type=" + res.getValue().getType()
-     * + " || " + "result=" + res.getValue().getValue() + " || sortResult=" +
-     * res.getValue().getSortResult() + " || lang=" + res.getValue().getLanguage()); }
-     */
 
     return results;
   }
@@ -314,182 +303,6 @@ public class ModelHelper {
     return result.toString();
   }
 
-
-
-  /**
-   * Reads the result pattern from the {@link Model} and builds up results.
-   * 
-   * @param modelName A string representing the model.
-   * @param currentSubject The identifier of the resource.
-   * @param poMap The data.
-   * @return A list of {@link Pair} containing the results in different languages.
-   * @throws Exception Any exception.
-   */
-  /*
-   * public static List<Pair<LocalizedString>> buildObjectFromPattern(String modelName, String
-   * currentSubject, TreeFragment poMap, boolean loggedIn) throws Exception {
-   * 
-   * Model model = ModelList.getInstance().getModelByAlias(modelName);
-   * 
-   * Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
-   * 
-   * List<Pair<LocalizedString>> results = new ArrayList<Pair<LocalizedString>>();
-   * 
-   * for (Result modelResult : model.getResults()) {
-   * 
-   * if (languages.size() == 0) { List<ReplaceResult> result = getResultsFromPattern(model,
-   * modelResult.getResultPattern(), poMap, "", loggedIn, false, null);
-   * 
-   * 
-   * for (ReplaceResult string : result) { logger.info("Result: " + string.getResult());
-   * if(modelResult.getSortPattern()!=null) {
-   * 
-   * List<ReplaceResult> sortResult = getResultsFromPattern(model, modelResult.getSortPattern(),
-   * poMap, "", loggedIn, true, string.getValueMap()); logger.info("Sort result: " + sortResult); }
-   * 
-   * results.add(new Pair<LocalizedString>(null, new LocalizedString(string.getResult()))); }
-   * 
-   * } else { for (String lang : languages) { List<ReplaceResult> result =
-   * getResultsFromPattern(model, modelResult.getResultPattern(), poMap, lang, loggedIn, false,
-   * null);
-   * 
-   * if (!"".equals(lang)) { for (ReplaceResult string : result) { if (!"".equals(string)) {
-   * logger.info("Result: " + string.getResult());
-   * 
-   * if(modelResult.getSortPattern()!=null) { List<ReplaceResult> sortResult =
-   * getResultsFromPattern(model, modelResult.getSortPattern(), poMap, "", loggedIn, true,
-   * string.getValueMap()); logger.info("Sort result: " + sortResult); }
-   * 
-   * results.add(new Pair<LocalizedString>(lang, new LocalizedString(string.getResult()))); } } }
-   * else { for (ReplaceResult string : result) { if (!"".equals(string)) { logger.info("Result: " +
-   * string.getResult());
-   * 
-   * if(modelResult.getSortPattern()!=null) { List<ReplaceResult> sortResult =
-   * getResultsFromPattern(model, modelResult.getSortPattern(), poMap, "", loggedIn, true,
-   * string.getValueMap()); logger.info("Sort result: " + sortResult); }
-   * 
-   * results.add(new Pair<LocalizedString>(null, new LocalizedString(string.getResult()))); } } } }
-   * } } return results; }
-   * 
-   * 
-   * 
-   * private static List<ReplaceResult> getResultsFromPattern(Model model, String pattern,
-   * Map<String, List<LocalizedTripleObject>> originPoMap, String lang, boolean loggedIn, boolean
-   * sort, Map<String, List<LocalizedTripleObject>> sortPoMap) { String[] patternPieces =
-   * pattern.split("\\n");
-   * 
-   * 
-   * //List<String> result = new ArrayList<String>(); List<ReplaceResult> result = new
-   * ArrayList<ReplaceResult>(); result.add(new ReplaceResult(""));
-   * 
-   * //logger.info(
-   * "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX---PATTERN.---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-   * );
-   * 
-   * for (String line : patternPieces) {
-   * //logger.info("------------------------------------- patternLine: " + line
-   * +"---------------------------------------------------"); List<ReplaceResult> strings = new
-   * ArrayList<ReplaceResult>(); strings.add(new ReplaceResult(line));
-   * 
-   * 
-   * 
-   * // First replace predicates which match predicates from sort map if(sortPoMap!=null) { for
-   * (String predicateName : sortPoMap.keySet()) {
-   * 
-   * List<ReplaceResult> newStrings = new ArrayList<ReplaceResult>();
-   * 
-   * for (ReplaceResult string : strings) { List<ReplaceResult> rep =
-   * simpleReplacePattern(sortPoMap, string.getResult(), predicateName, string);
-   * newStrings.addAll(rep); }
-   * 
-   * if (newStrings.size() > 0) { strings = newStrings; } }
-   * 
-   * }
-   * 
-   * //then replace al,l others for (String predicateName : originPoMap.keySet()) {
-   * //logger.info("Predicate: " + predicateName); Predicate predicate =
-   * model.getPredicate(predicateName); if (!sort && predicate == null) {
-   * logger.warn("Predicate not found: " + predicateName); }
-   * 
-   * List<ReplaceResult> newStrings = new ArrayList<ReplaceResult>();
-   * 
-   * for (ReplaceResult string : strings) { List<ReplaceResult> rep = null;
-   * 
-   * rep = replacePattern(originPoMap, predicate, lang, loggedIn, string); newStrings.addAll(rep);
-   * //logger.info("Replace Result After adding: " + newStrings);
-   * 
-   * }
-   * 
-   * if (newStrings.size() > 0) { strings = newStrings; }
-   * 
-   * // logger.info("strings: " + strings); }
-   * 
-   * // logger.info("strings before regex: " + strings); List<ReplaceResult> newResult = new
-   * ArrayList<ReplaceResult>(); //logger.info("Replace tokens"); for (ReplaceResult res : strings)
-   * { String string = res.getResult(); String singleString = string; singleString =
-   * singleString.replaceAll(REGEX_BRACKETS, ""); String newString = null; while
-   * (!singleString.equals(newString)) { newString = singleString; singleString =
-   * replaceTokens(singleString); } if (singleString.startsWith(":")) { singleString = ""; } else if
-   * (singleString.contains(":")) { singleString = singleString.substring(singleString.indexOf(":")
-   * + 1); }
-   * 
-   * newResult.add(new ReplaceResult(singleString.replace("&#x3A;", ":").replace("&#x2C;", ","),
-   * res.getValueMap()));
-   * 
-   * }
-   * 
-   * //logger.info("strings: " + strings); //logger.info("newResult: " + newResult);
-   * //logger.info("Remove duplicates");
-   * 
-   * 
-   * strings = new ArrayList<ReplaceResult>();
-   * 
-   * //logger.info("Strings before duplicate check :" + newResult);
-   * 
-   * 
-   * for (ReplaceResult string : newResult) { if (!strings.contains(string)) { strings.add(string);
-   * } }
-   * 
-   * //logger.info("Strings after duplicate check :" + strings); //logger.info("strings: " +
-   * strings); //logger.info("newResult: " + newResult); //logger.info("Adding old results");
-   * 
-   * 
-   * //For sorting, reduce list to one entry containing all resulting strings of the pattern // The
-   * predicate maps can be ignored for soprt results and don't have to be in the result
-   * if(sortPoMap!=null) { StringBuffer singleResult = new StringBuffer();
-   * 
-   * for (ReplaceResult string : strings) { singleResult.append(string.getResult()); } strings = new
-   * ArrayList<ReplaceResult>(); strings.add(new ReplaceResult(singleResult.toString())); }
-   * 
-   * newResult = new ArrayList<ReplaceResult>();
-   * 
-   * for (ReplaceResult oldResult : result) { for (ReplaceResult string : strings) {
-   * 
-   * //logger.info("------ Merging " + oldResult.getResult() + " with " + string.getResult()+
-   * " ------");
-   * 
-   * //logger.info("Old: " + oldResult.getValueMap()); //logger.info("Current: " +
-   * string.getValueMap()); Map<String, List<LocalizedTripleObject>> mergedMap = new HashMap<String,
-   * List<LocalizedTripleObject>>();
-   * 
-   * 
-   * mergedMap.putAll(oldResult.getValueMap()); mergedMap.putAll(string.getValueMap());
-   * 
-   * //logger.info("Merged: " + mergedMap);
-   * 
-   * 
-   * 
-   * 
-   * newResult.add (new ReplaceResult(oldResult.getResult() + string.getResult(), mergedMap )); } }
-   * result = newResult; //logger.info("strings: " + strings); //logger.info("newResult: " +
-   * newResult); }
-   * 
-   * return result;
-   * 
-   * 
-   * }
-   */
-
   /**
    * @param modelName
    * @param poMap
@@ -566,119 +379,7 @@ public class ModelHelper {
     return languages;
   }
 
-  /*
-   * private static List<ReplaceResult> replacePattern(Map<String, List<LocalizedTripleObject>>
-   * poMap, Predicate predicate, String lang, boolean loggedIn, ReplaceResult oldReplaceResult) {
-   * return replacePattern(poMap, predicate, lang, loggedIn, "", oldReplaceResult); }
-   */
-  /**
-   * @param poMap
-   * @param line
-   * @param strings
-   * @param predicate
-   * @return
-   */
-  /*
-   * private static List<ReplaceResult> replacePattern(Map<String, List<LocalizedTripleObject>>
-   * poMap, Predicate predicate, String lang, boolean loggedIn, String prefix, ReplaceResult
-   * oldReplaceResult) { //logger.info("----------------Replacing-----------------");
-   * //logger.info("Predicate: " + predicate); //Map<String, TreeFragment> replacedPatternMap = new
-   * LinkedHashMap<String, TreeFragment>(); List<ReplaceResult> replaceResults = new
-   * ArrayList<ReplaceResult>(); String line = oldReplaceResult.getResult(); //List<String> strings
-   * = new ArrayList<String>(); if (line.contains("<" + prefix + predicate.getId() + ">")) { for
-   * (LocalizedTripleObject value : poMap.get(predicate.getId())) { try { if
-   * (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) ||
-   * (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) &&
-   * (value.getLanguage() == null ||
-   * value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default"))))) {
-   * String newPart = line.replace("<" + prefix + predicate.getId() + ">",
-   * value.toString().replace(":", "&#x3A;").replace(",", "&#x2C;"));
-   * 
-   * //If pattern without conditons contains predicate, add value to possible sorting criterias of
-   * this result part
-   * 
-   * ReplaceResult replaceRes = new ReplaceResult(newPart);
-   * 
-   * if(oldReplaceResult!=null) { //logger.info("Add to " + newPart + " " +
-   * oldReplaceResult.getValueMap());
-   * replaceRes.getValueMap().putAll(oldReplaceResult.getValueMap()); }
-   * 
-   * if(replaceTokens(line).contains(("<" + prefix + predicate.getId() + ">"))) {
-   * 
-   * 
-   * //logger.info("Added: " + value.toString() + " to map " + newPart);
-   * 
-   * List<LocalizedTripleObject> subList = new ArrayList<LocalizedTripleObject>();
-   * subList.add(value);
-   * 
-   * replaceRes.getValueMap().put(prefix + predicate.getId(), subList); }
-   * //replacedPatternMap.put(newPart, sortingTreeFrag); //strings.add(newPart);
-   * replaceResults.add(replaceRes); } } catch (Exception e) { throw new RuntimeException(e); } } }
-   * else if (line.contains("<" + prefix + predicate.getId() + "|")) { for (LocalizedTripleObject
-   * value : poMap.get(predicate.getId())) { try { if (!predicate.isResource() && (value instanceof
-   * TreeFragment && (lang.equals(value.getLanguage()) || value.getLanguage() == null ||
-   * "".equals(value.getLanguage()) || ("".equals(lang) &&
-   * value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default")))))) {
-   * TreeFragment treeValue = (TreeFragment) value; for (String subPredicateName :
-   * treeValue.keySet()) { replaceResults.addAll(replacePattern(treeValue,
-   * predicate.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|",
-   * oldReplaceResult)); //logger.info("Replace Results after " + prefix + subPredicateName + ": "
-   * +replaceResults); } } else if (predicate.isResource() && value instanceof TreeFragment &&
-   * predicate.isIncludeResource()) { Querier querier = QuerierFactory.newQuerier(loggedIn);
-   * TreeFragment treeFragment = querier.details(predicate.getResourceModel(),
-   * ((TreeFragment)value).getSubject(), lang); querier.release(); Model newModel =
-   * ModelList.getInstance().getModelByAlias(predicate.getResourceModel()); for (String
-   * subPredicateName : treeFragment.keySet()) { replaceResults.addAll(replacePattern(treeFragment,
-   * newModel.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|",
-   * oldReplaceResult)); } } else if (predicate.isResource() && value instanceof LocalizedString &&
-   * predicate.isIncludeResource()) { Querier querier = QuerierFactory.newQuerier(loggedIn);
-   * TreeFragment treeFragment = querier.details(predicate.getResourceModel(),
-   * ((LocalizedString)value).getValue(), lang); querier.release(); Model newModel =
-   * ModelList.getInstance().getModelByAlias(predicate.getResourceModel()); for (String
-   * subPredicateName : treeFragment.keySet()) { replaceResults.addAll(replacePattern(treeFragment,
-   * newModel.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|",
-   * oldReplaceResult)); } }
-   * 
-   * } catch (Exception e) { throw new RuntimeException(e); } } }
-   * 
-   * return replaceResults; }
-   */
 
-  /**
-   * Simple version of pattern replace, used for sorting maps
-   * 
-   */
-  /*
-   * private static List<ReplaceResult> simpleReplacePattern(Map<String,
-   * List<LocalizedTripleObject>> poMap, String line, String predicateName, ReplaceResult
-   * oldReplaceResult) { List<ReplaceResult> replaceResults = new ArrayList<ReplaceResult>();
-   * //List<String> strings = new ArrayList<String>(); if (line.contains("<" + predicateName + ">"))
-   * { for (LocalizedTripleObject value : poMap.get(predicateName)) { try {
-   * 
-   * String newPart = line.replace("<" + predicateName + ">", value.toString().replace(":",
-   * "&#x3A;").replace(",", "&#x2C;"));
-   * 
-   * ReplaceResult replaceRes = new ReplaceResult(newPart);
-   * 
-   * if(replaceTokens(line).contains(("<" + predicateName + ">"))) {
-   * 
-   * List<LocalizedTripleObject> subList = new ArrayList<LocalizedTripleObject>();
-   * subList.add(value); replaceRes.getValueMap().put(predicateName, subList); }
-   * replaceResults.add(replaceRes);
-   * 
-   * } catch (Exception e) { throw new RuntimeException(e); } } }
-   * 
-   * 
-   * 
-   * return replaceResults;
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * }
-   */
   /**
    * @param string
    * @return
@@ -777,5 +478,37 @@ public class ModelHelper {
       }
     }
 
+  }
+
+  static class ReplacePattern {
+    Pattern pattern;
+    String replace;
+
+    /**
+     * Convenience constructor.
+     * 
+     * @param patternString Will be converted to a @see java.util.regex.Pattern
+     * @param replace The string the matching pattern will be substituted by.
+     */
+    public ReplacePattern(String patternString, String replace) {
+      this.pattern = Pattern.compile(patternString);
+      this.replace = replace;
+    }
+
+    public Pattern getPattern() {
+      return pattern;
+    }
+
+    public void setPattern(Pattern pattern) {
+      this.pattern = pattern;
+    }
+
+    public String getReplace() {
+      return replace;
+    }
+
+    public void setReplace(String replace) {
+      this.replace = replace;
+    }
   }
 }

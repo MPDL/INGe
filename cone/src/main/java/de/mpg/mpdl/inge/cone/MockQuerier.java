@@ -23,10 +23,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.cone.util.LocalizedString;
-import de.mpg.mpdl.inge.cone.util.LocalizedTripleObject;
-import de.mpg.mpdl.inge.cone.util.Pair;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

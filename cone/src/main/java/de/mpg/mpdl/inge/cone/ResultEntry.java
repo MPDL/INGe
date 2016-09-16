@@ -1,6 +1,5 @@
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

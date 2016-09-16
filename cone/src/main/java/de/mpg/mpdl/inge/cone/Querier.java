@@ -18,11 +18,6 @@ package de.mpg.mpdl.inge.cone;
 import java.util.List;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.cone.util.Describable;
-import de.mpg.mpdl.inge.cone.util.LocalizedString;
-import de.mpg.mpdl.inge.cone.util.Pair;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
-
 /**
  * Interface between the CoNE data storage and the presentation.
  * 

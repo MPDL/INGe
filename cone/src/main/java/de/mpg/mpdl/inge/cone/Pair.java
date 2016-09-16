@@ -24,55 +24,74 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import java.io.Serializable;
 
 /**
- * Indicates whether an object can be an object of an s-p-o triple.
+ * A key-value pair.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public interface LocalizedTripleObject extends Describable {
+public class Pair<T> implements Describable, Serializable {
   /**
-   * Get the language of this element.
-   * 
-   * @return The iso 639-2 code of the language. If the element has no language, "" or null is
-   *         returned.
-   */
-  public String getLanguage();
+	 * 
+	 */
+  private static final long serialVersionUID = 1L;
+  private String key;
+  private T value;
 
   /**
-   * Set the language of this element.
-   * 
-   * @param language The iso 639-2 code of the language. If the element has no language, language
-   *        should be set to null.
+   * Default constructor.
    */
-  public void setLanguage(String language);
+  public Pair() {}
 
   /**
-   * Check if this object has useful content.
+   * Constructor with fields.
    * 
-   * @return true if either this element has a value or a sub-element of it.
+   * @param key The key
+   * @param value The value
    */
-  public boolean hasValue();
+  public Pair(String key, T value) {
+    this.key = key;
+    this.value = value;
+  }
 
-  /**
-   * Display this object as RDF/XML.
-   * 
-   * @return The object as RDF
-   */
-  public String toRdf(Model model);
+  public String getKey() {
+    return key;
+  }
 
-  /**
-   * Display this object as JSON object.
-   * 
-   * @return The object as JSON
-   */
-  public String toJson();
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-  public int hashCode();
+  public T getValue() {
+    return value;
+  }
+
+  public void setValue(T value) {
+    this.value = value;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    } else if (!(other instanceof Pair)) {
+      return false;
+    }
+    Pair<?> otherPair = (Pair<?>) other;
+
+    return (key == null ? otherPair.key == null : key.equals(otherPair.key))
+        && (value == null ? otherPair.value == null : value.equals(otherPair.value));
+  }
+
+
+  public int hashCode() {
+    return (key == null ? 1 : key.hashCode()) * (value == null ? 1 : value.hashCode());
+  }
+
 }

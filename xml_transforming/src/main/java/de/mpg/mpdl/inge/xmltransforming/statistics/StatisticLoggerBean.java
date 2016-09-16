@@ -30,7 +30,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -42,7 +41,6 @@ import com.maxmind.geoip.Country;
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 
-import de.mpg.mpdl.inge.xmltransforming.StatisticLogger;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.ItemAction;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticRecordVO;
@@ -50,6 +48,7 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParam
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.xmltransforming.StatisticLogger;
 
 /**
  * TODO Description
@@ -356,23 +355,7 @@ public class StatisticLoggerBean implements StatisticLogger {
     authorIdParam.setName("authorId");
     authorIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(authorId));
     paramList.add(authorIdParam);
-    paramList.addAll(getUserStats(sessionId, ip));
-    StatisticReportRecordParamVO loggedInParam = new StatisticReportRecordParamVO();
-    loggedInParam.setName("loggedIn");
-    loggedInParam.setParamValue(new StatisticReportRecordStringParamValueVO(String
-        .valueOf(loggedIn)));
-    paramList.add(loggedInParam);
-    StatisticReportRecordParamVO solutionIdParam = new StatisticReportRecordParamVO();
-    solutionIdParam.setName("solution");
-    solutionIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(solutionId));
-    paramList.add(solutionIdParam);
-    StatisticReportRecordParamVO refererParam = new StatisticReportRecordParamVO();
-    refererParam.setName("referer");
-    refererParam.setParamValue(new StatisticReportRecordStringParamValueVO(referer));
-    paramList.add(refererParam);
-    if (additionalParams != null) {
-      paramList.addAll(additionalParams);
-    }
+    enhanceParameterList(sessionId, ip, loggedIn, referer, solutionId, additionalParams, paramList);
     // TODO
     // statisticRecord.createInCoreservice(userHandle);
   }
@@ -393,6 +376,27 @@ public class StatisticLoggerBean implements StatisticLogger {
     orgIdParam.setName("orgId");
     orgIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(orgId));
     paramList.add(orgIdParam);
+    enhanceParameterList(sessionId, ip, loggedIn, referer, solutionId, additionalParams, paramList);
+  }
+
+  public String ipToCountry(String ip) {
+    String c = "";
+    c += ipLookUpService.getCountry(ip).getCode();
+    // c +=" - ";
+    // c += ipLookUpService.getRegion(ip).countryCode;
+    c += " - ";
+    // Location loc = ipLookUpService.getLocation(ip);
+    // c+=loc.countryCode;
+    // c+=loc.region;
+    // c+=loc.city;
+    // c+=loc.postalCode;
+    // c+=loc.longitude;
+    return c;
+  }
+
+  private void enhanceParameterList(String sessionId, String ip, boolean loggedIn, String referer,
+      String solutionId, List<StatisticReportRecordParamVO> additionalParams,
+      List<StatisticReportRecordParamVO> paramList) throws Exception {
     paramList.addAll(getUserStats(sessionId, ip));
     StatisticReportRecordParamVO loggedInParam = new StatisticReportRecordParamVO();
     loggedInParam.setName("loggedIn");
@@ -410,23 +414,6 @@ public class StatisticLoggerBean implements StatisticLogger {
     if (additionalParams != null) {
       paramList.addAll(additionalParams);
     }
-    // TODO
-    // statisticRecord.createInCoreservice(userHandle);
-  }
-
-  public String ipToCountry(String ip) {
-    String c = "";
-    c += ipLookUpService.getCountry(ip).getCode();
-    // c +=" - ";
-    // c += ipLookUpService.getRegion(ip).countryCode;
-    c += " - ";
-    // Location loc = ipLookUpService.getLocation(ip);
-    // c+=loc.countryCode;
-    // c+=loc.region;
-    // c+=loc.city;
-    // c+=loc.postalCode;
-    // c+=loc.longitude;
-    return c;
   }
 
 }

@@ -16,6 +16,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -43,6 +44,8 @@ import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ContextConfiguration(classes = FileStorageConnectorConfiguration.class)
 public class FileServiceTests {
+  
+  private static Logger logger = Logger.getLogger(FileServiceTests.class);
 
   public static final String[] FILE_NAMES = {"test100k.db", "test1Mb.db"};
   public static final String FILE2_NAME = "test1Mb.db";
@@ -64,6 +67,8 @@ public class FileServiceTests {
   @Ignore
   @Test
   public void testSeaweedfsCreateReadDelete() throws Exception {
+    logger.info("--------------------");
+    logger.info("Starting Seaweed test " + this.getClass().getName());
     for (String fileName : FILE_NAMES) {
       InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
       String fileId = seaweedFileServiceBean.createFile(fileInputStream, fileName);
@@ -74,7 +79,7 @@ public class FileServiceTests {
       retrievedFileOutputStream = new ByteArrayOutputStream();
       seaweedFileServiceBean.readFile(fileId, retrievedFileOutputStream);
       assertEquals("", new String(((ByteArrayOutputStream) retrievedFileOutputStream).toByteArray()));
-      System.out.println("--------------------");
+      logger.info("--------------------");
     }
   }
 
@@ -85,6 +90,8 @@ public class FileServiceTests {
    */
   @Test
   public void testFilesystemCreateReadDelete() throws Exception {
+    logger.info("--------------------");
+    logger.info("Starting Filesystem test " + this.getClass().getName());
     for (String fileName : FILE_NAMES) {
       InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
       String fileRelativePath = fileSystemServiceBean.createFile(fileInputStream, fileName);
@@ -94,7 +101,7 @@ public class FileServiceTests {
       fileSystemServiceBean.deleteFile(fileRelativePath);
       Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
       assertFalse(Files.exists(path));
-      System.out.println("--------------------");
+      logger.info("--------------------");
     }
   }
 }

@@ -34,11 +34,9 @@ import java.net.URL;
 import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
@@ -57,8 +55,13 @@ import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
+import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -78,6 +81,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -85,7 +90,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.CreatorCollection;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -96,15 +100,6 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -112,6 +107,8 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.validation.ItemValidating;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving
@@ -168,22 +165,19 @@ public class EasySubmission extends FacesBean {
    * HtmlAjaxRepeat();
    */
   public SelectItem[] locatorVisibilities;
-  private CreatorCollection creatorCollection;
   private IdentifierCollection identifierCollection;
   private String selectedDate;
   private boolean fromEasySubmission = false;
   // Import
-  private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();
+  private List<DataSourceVO> dataSources = new ArrayList<DataSourceVO>();
   private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
   // private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
   public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
   public SelectItem[] FULLTEXT_OPTIONS;
   public SelectItem[] REFERENCE_OPTIONS;
   private String serviceID;
-  private String creatorParseString;
   private boolean overwriteCreators;
   private HtmlMessages valMessage = new HtmlMessages();
-  private boolean autosuggestJournals = false;
   private String suggestConeUrl = null;
   private String hiddenAlternativeTitlesField;
   private String hiddenIdsField;
@@ -340,7 +334,6 @@ public class EasySubmission extends FacesBean {
     this.setBibTexInfo();
     if (getItem() != null && getItem().getMetadata() != null && getSource() != null
         && getSource().getGenre() != null && getSource().getGenre().equals(SourceVO.Genre.JOURNAL)) {
-      this.autosuggestJournals = true;
     }
     if (getItem() != null && getItem().getMetadata() != null
         && getItem().getMetadata().getGenre() == null) {
@@ -521,17 +514,6 @@ public class EasySubmission extends FacesBean {
     return "loadNewEasySubmission";
   }
 
-  private void bindFiles() {
-    List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-    for (int i = 0; i < this.getItemControllerSessionBean().getCurrentPubItem().getFiles().size(); i++) {
-      PubFileVOPresentation filepres =
-          new PubFileVOPresentation(i, this.getItemControllerSessionBean().getCurrentPubItem()
-              .getFiles().get(i));
-      files.add(filepres);
-    }
-    this.getEasySubmissionSessionBean().setFiles(files);
-  }
-
   /**
    * This method binds the uploaded files to the files in the PubItem during the save process
    */
@@ -696,24 +678,6 @@ public class EasySubmission extends FacesBean {
     // this.showValidationMessages(report);
     // return null;
     // }
-  }
-
-  /**
-   * Displays validation messages.
-   * 
-   * @author Michael Franke
-   * @param report The Validation report object.
-   */
-  private void showValidationMessages(ValidationReportVO report) {
-    for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
-      ValidationReportItemVO element = (ValidationReportItemVO) iter.next();
-      if (element.isRestrictive()) {
-        error(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
-      } else {
-        info(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
-      }
-    }
-    this.valMessage.setRendered(true);
   }
 
   /**
@@ -974,7 +938,7 @@ public class EasySubmission extends FacesBean {
       if (this.getEasySubmissionSessionBean().getRadioSelectReferenceValue()
           .equals(this.getEasySubmissionSessionBean().getREFERENCE_FILE())) {
         LocatorUploadBean locatorBean = new LocatorUploadBean();
-        Vector<FileVO> locators = locatorBean.getLocators(itemVO);
+        List<FileVO> locators = locatorBean.getLocators(itemVO);
         // Check if item has locators
         if (locators != null && locators.size() > 0) {
           // Upload the locators as file
@@ -1008,7 +972,7 @@ public class EasySubmission extends FacesBean {
    */
   public String harvestData() {
     FileVO fileVO = new FileVO();
-    Vector<FileVO> fileVOs = new Vector<FileVO>();
+    List<FileVO> fileVOs = new ArrayList<FileVO>();
     String fetchedItem = null;
     String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
     PubItemVO itemVO = null;
@@ -1034,9 +998,9 @@ public class EasySubmission extends FacesBean {
                 .equals(this.getEasySubmissionSessionBean().FULLTEXT_NONE)) && !fetchedItem
                 .equals("")) && !service.equalsIgnoreCase("escidoc")) {
           DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
-          Vector<FullTextVO> ftFormats = source.getFtFormats();
+          List<FullTextVO> ftFormats = source.getFtFormats();
           FullTextVO fulltext = new FullTextVO();
-          Vector<String> formats = new Vector<String>();
+          List<String> formats = new ArrayList<String>();
           // Get DEFAULT full text version from source
           if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
               .equals(this.getEasySubmissionSessionBean().FULLTEXT_DEFAULT)) {
@@ -1436,49 +1400,13 @@ public class EasySubmission extends FacesBean {
   }
 
   /**
-   * This method maps the entered date into the MD record of the item according to the selected type
-   */
-  private void mapSelectedDate() {
-    String selectedDateType = CommonUtils.getUIValue(this.dateSelect);
-    // first delete all previously entered dates
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateCreated("");
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateSubmitted("");
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateAccepted("");
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-        .setDatePublishedOnline("");
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateModified("");
-    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-        .setDatePublishedInPrint("");
-    // map the selected date type to the referring metadata property
-    if (selectedDateType.equals("DATE_CREATED")) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDateCreated(this.getEasySubmissionSessionBean().getSelectedDate());
-    } else if (selectedDateType.equals("DATE_SUBMITTED")) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDateSubmitted(this.getEasySubmissionSessionBean().getSelectedDate());
-    } else if (selectedDateType.equals("DATE_ACCEPTED")) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDateAccepted(this.getEasySubmissionSessionBean().getSelectedDate());
-    } else if (selectedDateType.equals("DATE_PUBLISHED_ONLINE")) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDatePublishedOnline(this.getEasySubmissionSessionBean().getSelectedDate());
-    } else if (selectedDateType.equals("DATE_MODIFIED")) {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDateModified(this.getEasySubmissionSessionBean().getSelectedDate());
-    } else {
-      this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-          .setDatePublishedInPrint(this.getEasySubmissionSessionBean().getSelectedDate());
-    }
-  }
-
-  /**
    * Fill import source values dynamically from importsourceHandler
    */
   private void setImportSourcesInfo() {
     try {
       this.dataSources = this.dataSourceHandler.getSources(this.INTERNAL_MD_FORMAT);
-      Vector<SelectItem> v_serviceOptions = new Vector<SelectItem>();
-      Vector<FullTextVO> ftFormats = new Vector<FullTextVO>();
+      List<SelectItem> v_serviceOptions = new ArrayList<SelectItem>();
+      List<FullTextVO> ftFormats = new ArrayList<FullTextVO>();
       String currentSource = "";
       for (int i = 0; i < this.dataSources.size(); i++) {
         DataSourceVO source = (DataSourceVO) this.dataSources.get(i);
@@ -1550,7 +1478,7 @@ public class EasySubmission extends FacesBean {
       currentSource = new DataSourceVO();
     }
     this.getEasySubmissionSessionBean().setCurrentExternalServiceType(currentSource.getName());
-    Vector<FullTextVO> ftFormats = currentSource.getFtFormats();
+    List<FullTextVO> ftFormats = currentSource.getFtFormats();
     if (ftFormats != null && ftFormats.size() > 0) {
       for (int x = 0; x < ftFormats.size(); x++) {
         this.getEasySubmissionSessionBean().setFulltext(true);

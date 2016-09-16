@@ -84,4 +84,11 @@ public class MetadataVO {
   public void setMdDefault(boolean mdDefault) {
     this.mdDefault = mdDefault;
   }
+  /*
+   * public boolean equlas(Object obj) { if (obj == this) return true; if (!(obj instanceof
+   * MetadataVO)) return false; MetadataVO other = (MetadataVO) obj;
+   * 
+   * return this.mdDesc.equals(other.getMdDesc()) && this.mdFormat.equals(other.getMdFormat()) &&
+   * this.name.equals(other.getName()); }
+   */
 }

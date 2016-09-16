@@ -31,6 +31,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import de.mpg.mpdl.inge.cone.Describable;
+import de.mpg.mpdl.inge.cone.LocalizedString;
+import de.mpg.mpdl.inge.cone.Pair;
+import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

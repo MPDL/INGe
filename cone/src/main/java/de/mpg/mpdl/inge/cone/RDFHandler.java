@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.rdfimport;
+package de.mpg.mpdl.inge.cone;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,11 +39,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
-import de.mpg.mpdl.inge.cone.Querier;
-import de.mpg.mpdl.inge.cone.QuerierFactory;
-import de.mpg.mpdl.inge.cone.util.LocalizedString;
-import de.mpg.mpdl.inge.cone.util.LocalizedTripleObject;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 

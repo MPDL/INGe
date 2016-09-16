@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -26,6 +24,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.csl.CSLItemData;
@@ -209,16 +209,7 @@ public class MetadataProvider implements ItemDataProvider {
           try {
             Date date =
                 new SimpleDateFormat(formatString).parse(metadata.getDatePublishedInPrint());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            if (dateFormats[0].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-                  calendar.get(Calendar.DAY_OF_MONTH));
-            } else if (dateFormats[1].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
-            } else if (dateFormats[2].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
-            }
+            setIssued(cslItem, formatString, date);
             break;
           } catch (ParseException e) {
             // This ParseException is wanted if the formats are not equal --> not thrown
@@ -231,16 +222,7 @@ public class MetadataProvider implements ItemDataProvider {
         for (String formatString : dateFormats) {
           try {
             Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedOnline());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            if (dateFormats[0].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-                  calendar.get(Calendar.DAY_OF_MONTH));
-            } else if (dateFormats[1].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
-            } else if (dateFormats[2].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
-            }
+            setIssued(cslItem, formatString, date);
             break;
           } catch (ParseException e) {
             // This ParseException is wanted if the formats are not equal --> not thrown
@@ -255,16 +237,7 @@ public class MetadataProvider implements ItemDataProvider {
         for (String formatString : dateFormats) {
           try {
             Date date = new SimpleDateFormat(formatString).parse(metadata.getDateAccepted());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            if (dateFormats[0].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-                  calendar.get(Calendar.DAY_OF_MONTH));
-            } else if (dateFormats[1].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
-            } else if (dateFormats[2].equals(formatString)) {
-              cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
-            }
+            setIssued(cslItem, formatString, date);
             break;
           } catch (ParseException e) {
             // This ParseException is wanted if the formats are not equal --> not thrown
@@ -572,6 +545,19 @@ public class MetadataProvider implements ItemDataProvider {
     return cslItem.build();
   }
 
+  private void setIssued(CSLItemDataBuilder cslItem, String formatString, Date date) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    if (dateFormats[0].equals(formatString)) {
+      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+          calendar.get(Calendar.DAY_OF_MONTH));
+    } else if (dateFormats[1].equals(formatString)) {
+      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+    } else if (dateFormats[2].equals(formatString)) {
+      cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
+    }
+  }
+
   private CSLType getCslGenre(Genre genre) {
     CSLType cslGenre = null;
     if (Genre.ARTICLE.equals(genre) || Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre)
@@ -652,30 +638,8 @@ public class MetadataProvider implements ItemDataProvider {
               if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
                   .equals(file1.getContentCategoryString())) {
                 return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else {
-                return 1;
-              }
+              } else
+                return checkContentcategory(file1, file2);
             }
           } else if (FileVO.Storage.EXTERNAL_URL.equals(file1.getStorage())) {
             if (file1.getContentCategory().equals(file2.getContentCategory())) {
@@ -684,30 +648,8 @@ public class MetadataProvider implements ItemDataProvider {
               if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
                   .equals(file1.getContentCategoryString())) {
                 return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                  .equals(file1.getContentCategory())) {
-                return -1;
-              } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                  .equals(file2.getContentCategory())) {
-                return 1;
-              } else {
-                return 1;
-              }
+              } else
+                return checkContentcategory(file1, file2);
             }
           } else {
             return 1;
@@ -723,6 +665,33 @@ public class MetadataProvider implements ItemDataProvider {
 
       }
 
+    }
+
+    private int checkContentcategory(FileVO file1, FileVO file2) {
+      if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file2
+          .getContentCategory())) {
+        return 1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file1
+          .getContentCategory())) {
+        return -1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file2
+          .getContentCategory())) {
+        return 1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file1
+          .getContentCategory())) {
+        return -1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file2
+          .getContentCategory())) {
+        return 1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
+          .equals(file1.getContentCategory())) {
+        return -1;
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
+          .equals(file2.getContentCategory())) {
+        return 1;
+      } else {
+        return 1;
+      }
     }
 
   }

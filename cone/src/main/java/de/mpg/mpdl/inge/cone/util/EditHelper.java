@@ -32,7 +32,6 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
  * Helper class that provides methods for prefilling form entries.

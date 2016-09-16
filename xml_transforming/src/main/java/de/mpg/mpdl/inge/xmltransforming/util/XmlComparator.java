@@ -135,10 +135,6 @@ public class XmlComparator {
       }
     }
 
-    public List<Node> getNodeList() {
-      return nodeList;
-    }
-
   }
 
   private class SecondXmlHandler extends ShortContentHandler {

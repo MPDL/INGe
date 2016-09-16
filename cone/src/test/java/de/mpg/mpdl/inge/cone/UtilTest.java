@@ -34,10 +34,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.cone.util.LocalizedString;
-import de.mpg.mpdl.inge.cone.util.LocalizedTripleObject;
-import de.mpg.mpdl.inge.cone.util.TreeFragment;
-
 /**
  * Tests for the Util classes.
  * 

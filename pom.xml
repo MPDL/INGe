@@ -1313,7 +1313,8 @@
 
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
-				<jacoco.version>0.7.4.201502262128</jacoco.version>
+				<!--jacoco.version>0.7.4.201502262128</jacoco.version-->
+				<jacoco.version>0.7.7.201606060606</jacoco.version>
 	
 				  
 				<jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>
@@ -1345,6 +1346,7 @@
 				</pluginManagement>
 
 				<plugins>
+				
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
@@ -1352,6 +1354,7 @@
 
 							<!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
 								to be passed to the JVM hosting the code being tested. -->
+	  							
 							<execution>
 								<id>prepare-ut-agent</id>
 								<phase>process-test-classes</phase>
@@ -1372,7 +1375,7 @@
 <!-- 
 							<execution>
 								<id>prepare-it-agent</id>
-								 -->
+	-->
 								
 								<!-- moved to package phase to be sure all pre-integration test have 
 									it already set to bring up environments with jacoco agent as JVM params -->
@@ -1388,6 +1391,7 @@
 								</configuration>
 							</execution>
  -->
+
 							<execution>
 								<id>jacoco-site</id>
 								<phase>test</phase>

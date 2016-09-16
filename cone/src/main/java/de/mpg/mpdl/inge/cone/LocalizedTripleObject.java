@@ -24,47 +24,55 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone.util;
+package de.mpg.mpdl.inge.cone;
 
-import java.util.regex.Pattern;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
 
 /**
- * Helper class for result pattern.
+ * Indicates whether an object can be an object of an s-p-o triple.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3229 $ $LastChangedDate: 2010-06-14 13:19:44 +0200 (Mo, 14 Jun 2010) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
  */
-class ReplacePattern {
-  Pattern pattern;
-  String replace;
+public interface LocalizedTripleObject extends Describable {
+  /**
+   * Get the language of this element.
+   * 
+   * @return The iso 639-2 code of the language. If the element has no language, "" or null is
+   *         returned.
+   */
+  public String getLanguage();
 
   /**
-   * Convenience cvonstructor.
+   * Set the language of this element.
    * 
-   * @param patternString Will be converted to a @see java.util.regex.Pattern
-   * @param replace The string the matching pattern will be substituted by.
+   * @param language The iso 639-2 code of the language. If the element has no language, language
+   *        should be set to null.
    */
-  public ReplacePattern(String patternString, String replace) {
-    this.pattern = Pattern.compile(patternString);
-    this.replace = replace;
-  }
+  public void setLanguage(String language);
 
-  public Pattern getPattern() {
-    return pattern;
-  }
+  /**
+   * Check if this object has useful content.
+   * 
+   * @return true if either this element has a value or a sub-element of it.
+   */
+  public boolean hasValue();
 
-  public void setPattern(Pattern pattern) {
-    this.pattern = pattern;
-  }
+  /**
+   * Display this object as RDF/XML.
+   * 
+   * @return The object as RDF
+   */
+  public String toRdf(Model model);
 
-  public String getReplace() {
-    return replace;
-  }
+  /**
+   * Display this object as JSON object.
+   * 
+   * @return The object as JSON
+   */
+  public String toJson();
 
-  public void setReplace(String replace) {
-    this.replace = replace;
-  }
-
+  public int hashCode();
 }

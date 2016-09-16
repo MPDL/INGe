@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.dataacquisition;
 
-import java.util.Vector;
+
+
+import java.util.List;
 
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 
@@ -13,10 +15,10 @@ public interface DataSourceHandler {
   /**
    * This methods reads in the xml description of all available import sources.
    * 
-   * @return vector of ImportSource objects
+   * @return List of ImportSource objects
    * @throws RuntimeException
    */
-  public Vector<DataSourceVO> getSources() throws RuntimeException;
+  public List<DataSourceVO> getSources() throws RuntimeException;
 
   /**
    * This methods reads in the xml description of all import sources which can be transformed to the
@@ -24,10 +26,10 @@ public interface DataSourceHandler {
    * 
    * @param format return all import sources where a MD transformation to the given format is
    *        provided by MetadataHandler
-   * @return vector of ImportSource objects
+   * @return List of ImportSource objects
    * @throws RuntimeException
    */
-  public Vector<DataSourceVO> getSources(String format) throws RuntimeException;
+  public List<DataSourceVO> getSources(String format) throws RuntimeException;
 
   /**
    * This methods reads in the xml description of a specific source, identified by its name.

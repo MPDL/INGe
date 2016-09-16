@@ -1,12 +1,13 @@
 package de.mpg.mpdl.inge.cone.util;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class XsltUtils {
 
+  private XsltUtils() {
+
+  }
 
   public static boolean validateDate(String date) {
     SimpleDateFormat yearDf = new SimpleDateFormat("yyyy");
@@ -16,21 +17,15 @@ public class XsltUtils {
     SimpleDateFormat yearMonthDayDf = new SimpleDateFormat("yyyy-MM-dd");
     yearMonthDayDf.setLenient(false);
 
-
     try {
       if (date != null && date.trim().length() == 4) {
-        Date result = yearDf.parse(date);
+        yearDf.parse(date);
         return true;
-      }
-
-      else if (date.trim().length() == 7) {
-        Date result = yearMonthDf.parse(date);
+      } else if (date.trim().length() == 7) {
+        yearMonthDf.parse(date);
         return true;
-      }
-
-
-      else if (date.trim().length() == 10) {
-        Date result = yearMonthDayDf.parse(date);
+      } else if (date.trim().length() == 10) {
+        yearMonthDayDf.parse(date);
         return true;
       } else {
         return false;
