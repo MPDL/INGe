@@ -73,11 +73,13 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     CloseableHttpResponse response = null;
 
     try {
+      System.out.println("Trying to create new File [" + fileName + "]");
       response = httpClient.execute(httpPost);
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
       ObjectMapper mapper = new ObjectMapper();
       JsonNode jsonObject = mapper.readTree(responseEntity.getContent());
+      System.out.println("Created Object [" + jsonObject + "]");
       // ensure it is fully consumed
       EntityUtils.consume(responseEntity);
       fileId = jsonObject.findValuesAsText("fid").get(0);
@@ -104,6 +106,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    */
   @Override
   public void readFile(String fileId, OutputStream out) throws IOException {
+    System.out.println("Trying to read Id [" + fileId + "]");
     HttpGet httpGet = new HttpGet(seaweedMasterUrl + "/" + fileId);
     CloseableHttpResponse response = null;
     InputStream retrievedFileInputStream = null;
@@ -137,6 +140,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    */
   @Override
   public void deleteFile(String fileId) throws Exception {
+    System.out.println("Trying to delete Id [" + fileId + "]");
     HttpDelete httpDelete =
         new HttpDelete(seaweedMasterUrl + "/" + URLEncoder.encode(fileId, "UTF-8"));
     logger.info("Delete request: " + httpDelete.getURI().toString());
@@ -149,8 +153,8 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       if (response.getStatusLine().getStatusCode() == 301) {
         logger.info("Redirecting delete manually");
         httpDelete.setURI(new URI(response.getFirstHeader("Location").getValue()));
-        System.out.println(httpDelete.getURI().toString());
         response.close();
+        System.out.println("[" + httpDelete.toString() + "]");
         response = httpClient.execute(httpDelete);
       }
       HttpEntity responseEntity = response.getEntity();
