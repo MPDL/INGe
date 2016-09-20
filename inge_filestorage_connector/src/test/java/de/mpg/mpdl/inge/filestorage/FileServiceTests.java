@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.seaweedfs;
+package de.mpg.mpdl.inge.filestorage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
