@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +54,31 @@ public class FileServiceTests {
   @Autowired
   FileSystemServiceBean fileSystemServiceBean;
 
+  @BeforeClass
+  public static void setUpClass() {
+    // Initialize stuff once for ALL tests (run once)
+      try {
+        System.out.println("\nStarte SeaweadServer...");
+        Runtime.getRuntime().exec("c:/SeaweedFS/start_seaweed.bat > c:/SeaweedFS/start.log");
+        Thread.currentThread();
+        System.out.println("\nwarte...");
+        Thread.sleep(40000);
+      } catch (Exception e) {
+        System.out.println("\nException" + e);
+      }
+  }
+  
+  @AfterClass
+  public static void tearDownClass() {
+    // Do something after ALL tests have been run (run once)
+    try {
+      System.out.println("\nBeende SeaweadServer...");
+      Runtime.getRuntime().exec("c:/SeaweedFS/kill_seaweed.bat > c:/SeaweedFS/kill.log");
+    } catch (Exception e) {
+      System.out.println("\nException" + e);
+    }
+  }
+  
   /**
    * Test for creating, reading and deleting a file from seaweedfs
    * 
