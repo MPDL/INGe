@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.services.FileStorageInterface;
 
-
 /**
  * File storage service for seaweed (handling full text files and so on)
  * 

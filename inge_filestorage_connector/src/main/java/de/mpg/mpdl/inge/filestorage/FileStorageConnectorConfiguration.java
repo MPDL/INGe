@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
- * Spring configuration for the seaweed service module
+ * Spring configuration
  * 
  * @author walter (initial creation)
  * @author $Author$ (last modification)
