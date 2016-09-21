@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import de.mpg.mpdl.inge.services.FileStorageInterface;
 
 /**
- * File storage service direct on the file system
+ * File storage service for gluster
  * 
  * @author przibylla (initial creation)
  * @author $Author$ (last modification)
@@ -42,7 +42,7 @@ public class GlusterFileServiceBean implements FileStorageInterface {
     int year = calendar.get(Calendar.YEAR);
     int month = calendar.get(Calendar.MONTH) + 1; // plus one cause calendar month starts with 0
     int day = calendar.get(Calendar.DAY_OF_MONTH);
-    // Path starting after the the defined filesystemRootPath
+    // Path starting after the the defined glusterRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
     Path directoryPath =
         FileSystems.getDefault().getPath(glusterRootPath + relativeDirectoryPath);
