@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;

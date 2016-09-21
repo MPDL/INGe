@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.mpg.mpdl.inge.citation_style_language_manager;
+package de.mpg.mpdl.inge.cslmanager;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

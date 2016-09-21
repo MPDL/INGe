@@ -35,9 +35,9 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageUtils;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerDefaultImpl;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageUtils;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 

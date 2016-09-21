@@ -46,13 +46,13 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
 
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerDefaultImpl;
-import de.mpg.mpdl.inge.citation_style_language_manager.CitationStyleLanguageManagerInterface;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerDefaultImpl;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;

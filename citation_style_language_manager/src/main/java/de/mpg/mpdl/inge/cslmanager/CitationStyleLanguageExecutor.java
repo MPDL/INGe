@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.citation_style_language_manager;
+package de.mpg.mpdl.inge.cslmanager;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;

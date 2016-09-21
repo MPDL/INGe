@@ -25,60 +25,49 @@
 
 package de.mpg.mpdl.inge.search.bean;
 
-import gov.loc.www.zing.srw.RecordType;
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
-import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
-import gov.loc.www.zing.srw.service.SRWPort;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.xml.namespace.QName;
-
-import net.sf.jasperreports.engine.JRException;
 
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogMethodDurationInterceptor;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
-import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
+import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
+import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.SearchRetrieveRequestType;
+import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.StringOrXmlFragment;
+import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+import gov.loc.www.zing.srw.service.SRWPort;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * {@inheritDoc}
@@ -417,32 +406,6 @@ public class SearchBean implements Search {
     }
 
     return exportData;
-  }
-
-  /**
-   * Transforms the search result set to a xml string.
-   * 
-   * @param searchResult search result retrieved from the SRU interface
-   * @return search result set as string
-   * @throws Exception
-   */
-  private String transformToItemListAsString(SearchRetrieveResponseType searchResult)
-      throws Exception {
-    ArrayList<ItemVO> resultList = new ArrayList<ItemVO>();
-    if (searchResult.getRecords() != null) {
-      for (RecordType record : searchResult.getRecords().getRecord()) {
-        StringOrXmlFragment data = record.getRecordData();
-        MessageElement[] messages = data.get_any();
-        // Data is in the first record
-        if (messages.length == 1) {
-          String searchResultItem = messages[0].getAsString();
-          ItemVO itemResult = xmlTransforming.transformToItem(searchResultItem);
-          resultList.add(itemResult);
-        }
-      }
-    }
-    String itemStringList = xmlTransforming.transformToItemList(resultList);
-    return itemStringList;
   }
 
   private List<AffiliationVO> transformToAffiliationList(SearchRetrieveResponseType searchResult)
