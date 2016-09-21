@@ -135,7 +135,7 @@ public class FileServiceTests {
   }
 
   /**
-   * Test for creating, reading and deleting a file from the glusterfs
+   * Test for creating, reading and deleting a file from glusterfs
    * 
    * @throws IOException
    */
