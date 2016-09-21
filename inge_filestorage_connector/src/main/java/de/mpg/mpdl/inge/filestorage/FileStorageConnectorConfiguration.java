@@ -20,7 +20,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @ComponentScan(basePackages = { //
     "de.mpg.mpdl.inge.filestorage", //
     "de.mpg.mpdl.inge.filestorage.filesystem", //
-    "de.mpg.mpdl.inge.filestorage.seaweedfs" //
+    "de.mpg.mpdl.inge.filestorage.seaweedfs", //
+    "de.mpg.mpdl.inge.filestorage.glusterfs" //
     })
 @PropertySource("classpath:filestorage.properties")
 public class FileStorageConnectorConfiguration {
