@@ -25,10 +25,6 @@ package de.mpg.mpdl.inge.dataacquisition;
 
 import java.rmi.AccessException;
 
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
@@ -45,7 +41,7 @@ public interface DataHandler {
    * @return xml presentation of all available import sources
    * @throws RuntimeException
    */
-  String explainSources() throws RuntimeException;
+  String explainSources() throws DataaquisitionException;
 
   /**
    * This operation fetches data from the specified source. The format of the requested data will be
@@ -60,9 +56,7 @@ public interface DataHandler {
    * @throws RuntimeException
    * @throws FormatNotAvailableException
    */
-  byte[] doFetch(String sourceName, String identifier) throws SourceNotAvailableException,
-      IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException,
-      AccessException, FormatNotAvailableException;
+  byte[] doFetch(String sourceName, String identifier) throws DataaquisitionException;
 
   /**
    * This operation fetches data from the specified source and returns it in the requested format.
@@ -80,8 +74,7 @@ public interface DataHandler {
    * @throws FormatNotAvailableException
    */
   byte[] doFetch(String sourceName, String identifier, String formatName)
-      throws SourceNotAvailableException, IdentifierNotRecognisedException,
-      FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+      throws DataaquisitionException;
 
   /**
    * This operation fetches data from the specified source and returns it in the requested format.
@@ -101,9 +94,7 @@ public interface DataHandler {
    * @throws FormatNotAvailableException
    */
   byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType,
-      String trgFormatEncoding) throws SourceNotAvailableException,
-      IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException,
-      AccessException, FormatNotAvailableException;
+      String trgFormatEncoding) throws DataaquisitionException;
 
 
   /**
@@ -123,8 +114,7 @@ public interface DataHandler {
    * @throws FormatNotAvailableException
    */
   byte[] doFetch(String sourceName, String identifier, Format[] formats)
-      throws SourceNotAvailableException, IdentifierNotRecognisedException,
-      FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+      throws DataaquisitionException;
 
   /**
    * This operation fetches data from the specified source and returns it in the requested format.
@@ -143,6 +133,5 @@ public interface DataHandler {
    * @throws FormatNotAvailableException
    */
   byte[] doFetch(String sourceName, String identifier, String[] formats)
-      throws SourceNotAvailableException, IdentifierNotRecognisedException,
-      FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+      throws DataaquisitionException;
 }

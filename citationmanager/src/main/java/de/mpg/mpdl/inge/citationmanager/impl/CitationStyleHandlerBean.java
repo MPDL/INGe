@@ -70,16 +70,15 @@ public class CitationStyleHandlerBean implements CitationStyleHandler {
    * @throws IOException
    * @throws IllegalArgumentException
    */
-  public String explainStyles() throws CitationStyleManagerException, IllegalArgumentException,
-      IOException {
+  public String explainStyles() throws CitationStyleManagerException {
     return cse.explainStyles();
   }
 
   /**
    * {@inheritDoc}
    */
-  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws JRException,
-      CitationStyleManagerException, IOException {
+  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
+      
     logger
         .debug("CitationStyleHandlerBean getOutput with citationStyle: " + exportFormat.getName());
     return cse.getOutput(itemList, exportFormat);

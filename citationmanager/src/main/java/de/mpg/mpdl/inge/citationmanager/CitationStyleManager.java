@@ -54,7 +54,7 @@ public interface CitationStyleManager {
    * @throws CitationStyleManagerException
    * @throws CitationStyleManagerException
    */
-  String validate(String cs) throws IOException, CitationStyleManagerException;
+  String validate(String cs) throws CitationStyleManagerException;
 
   /**
    * Create Citation Style The method creates new Citation Style. Default Citation Style will be

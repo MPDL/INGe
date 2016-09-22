@@ -57,8 +57,8 @@ public interface CitationStyleHandler {
    * supported output file formats. The XML formatted output of the citation styles is created in
    * accordance with the explain_styles.xsd.
    */
-  String explainStyles() throws IllegalArgumentException, IOException,
-      CitationStyleManagerException;
+  String explainStyles() throws CitationStyleManagerException;
+      
 
   /**
    * This method returns <code>true</code> if citationStyle is in the list of the citation styles,
@@ -104,7 +104,7 @@ public interface CitationStyleHandler {
    *        should be formatted in accordance with item-list.xsd Metadata record for each item in
    *        the item list should be specified in accordance with escidoc_publication_profile.xsd
    */
-  byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws IOException, JRException,
-      CitationStyleManagerException;
+  byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException;
+      
 
 }

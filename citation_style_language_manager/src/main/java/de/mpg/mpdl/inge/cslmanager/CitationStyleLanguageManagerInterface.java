@@ -14,7 +14,8 @@ public interface CitationStyleLanguageManagerInterface {
   String SERVICE_NAME =
       "ejb/de/mpg/escidoc/services/citation_style_language_manager/CitationStyleLanguageManagerInterface";
 
-  byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws Exception;
+  byte[] getOutput(ExportFormatVO exportFormat, String itemList)
+      throws CitationStyleLanguageException;
 
   boolean isCitationStyle(String cs);
 }

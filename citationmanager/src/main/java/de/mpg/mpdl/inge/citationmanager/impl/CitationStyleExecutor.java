@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.citationmanager.impl;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigInteger;
@@ -57,7 +56,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  * 
@@ -112,8 +110,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
 
 
 
-  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws IOException,
-      JRException, CitationStyleManagerException {
+  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
 
     Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()),
         "Output format is not defined");
@@ -254,30 +251,6 @@ public class CitationStyleExecutor implements CitationStyleHandler {
 
   public boolean isCitationStyle(String cs) throws CitationStyleManagerException {
     return XmlHelper.isCitationStyle(cs);
-  }
-
-  /**
-   * Generates JasperReport DataSource
-   * 
-   * @param snippets
-   * @return String
-   */
-  private String generateJasperReportDataSource(String cs, String snippets) {
-    StringWriter result = new StringWriter();
-    try {
-      Transformer transformer =
-          XmlHelper
-              .tryTemplCache(
-                  CitationUtil.getPathToTransformations()
-                      + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
-      transformer.setParameter("cs", cs);
-      transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
-
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot transform to JasperReport DataSource", e);
-    }
-
-    return result.toString();
   }
 
   /**

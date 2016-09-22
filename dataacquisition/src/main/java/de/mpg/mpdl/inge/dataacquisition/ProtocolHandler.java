@@ -28,9 +28,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.mpg.mpdl.inge.dataacquisition.exceptions.BadArgumentException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 
 /**
@@ -57,8 +54,7 @@ public class ProtocolHandler {
    * @throws FormatNotRecognisedException
    * @throws RuntimeException
    */
-  public void checkOAIRecord(String record) throws BadArgumentException,
-      IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException {
+  public void checkOAIRecord(String record) throws DataaquisitionException {
 
     Document recordDOM;
 
@@ -80,17 +76,17 @@ public class ProtocolHandler {
       NamedNodeMap attr = errorNode.getAttributes();
       Node errorCode = attr.getNamedItem("code");
       if (errorCode.getTextContent().equals(error1)) {
-        throw new BadArgumentException("OAI-Record returned with error Code " + "'badArgument "
+        throw new DataaquisitionException("OAI-Record returned with error Code " + "'badArgument "
             + "(The request includes illegal arguments or is missing required arguments)'.");
       }
       if (errorCode.getTextContent().equals(error2)) {
-        throw new FormatNotRecognisedException("OAI-Record returned with error Code "
+        throw new DataaquisitionException("OAI-Record returned with error Code "
             + "'cannotDisseminateFormat "
             + "(The value of the metadataPrefix argument is not supported by the item "
             + "identified by the value of the identifier argument)'.");
       }
       if (errorCode.getTextContent().equals(error3)) {
-        throw new IdentifierNotRecognisedException("OAI-Record returned with error Code "
+        throw new DataaquisitionException("OAI-Record returned with error Code "
             + "'idDoesNotExist "
             + "(The value of the identifier argument is unknown or illegal in this repository)'.");
       }

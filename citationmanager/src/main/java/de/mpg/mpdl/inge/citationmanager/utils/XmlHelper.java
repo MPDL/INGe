@@ -276,23 +276,6 @@ public class XmlHelper {
     return null;
   }
 
-  // /**
-  // * Validation of DataSource XML against the XML schema
-  // * @param xmlDocumentUrl is URI to XML to be validated
-  // * @throws CitationStyleManagerException
-  // * @throws IOException
-  // */
-
-  // public void validateDataSourceXML(final String xmlDocumentUrl) throws
-  // CitationStyleManagerException, IOException{
-  //
-  // validateSchema(
-  // ResourceUtil.getUriToResources()
-  // + ResourceUtil.SCHEMAS_DIRECTORY
-  // + DATASOURCES_XML_SCHEMA_FILE
-  // , xmlDocumentUrl
-  // );
-  // }
 
   /**
    * Validation of CitationStyle XML against 1) XML schema 2) Schematron schema

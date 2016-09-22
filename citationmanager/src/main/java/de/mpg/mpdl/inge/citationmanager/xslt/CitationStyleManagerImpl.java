@@ -37,8 +37,6 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
@@ -51,7 +49,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
 
-/**
+/** 
  * 
  * Citation Style Manager
  * 
@@ -62,8 +60,6 @@ import net.sf.saxon.event.SaxonOutputKeys;
  */
 
 public class CitationStyleManagerImpl implements CitationStyleManager {
-
-  private static Logger logger = Logger.getLogger(CitationStyleManagerImpl.class);
 
   public static enum TASKS {
     validate, compile, pdf, rtf, odt, html_plain, html_styled, txt, snippet, escidoc_snippet
@@ -115,8 +111,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     public Source resolve(String href, String base) throws TransformerException {
       InputStream is;
 
-      // logger.info("href:" + href + "; base:" + base);
-
       try {
         String path =
             ("cs-processing-xslt-includes.xml".equals(href) ? CitationUtil.getPathToClasses()
@@ -147,10 +141,14 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   }
 
-  public String validate(String cs) throws IOException, CitationStyleManagerException {
+  public String validate(String cs) throws CitationStyleManagerException {
     Utils.checkName(cs, "Citation Style is not defined");
 
-    return xh.validateCitationStyleXML(cs);
+    try {
+		return xh.validateCitationStyleXML(cs);
+	} catch (IOException e) {
+		throw new CitationStyleManagerException(e);
+	}
   }
 
   public static void main(String args[]) throws IOException, CitationStyleManagerException,
@@ -161,8 +159,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     String il = null;
     String cs = null;
     String task = null;
-    String of = null;
-
+    
     if (args.length == 0) {
       usage();
       return;
@@ -174,8 +171,8 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
         task = args[k].substring(2);
       if (args[k].startsWith("-CS"))
         cs = args[k].substring(3);
-      if (args[k].startsWith("-OF"))
-        of = args[k].substring(3);
+      if (args[k].startsWith("-OF")) {
+	}
       if (args[k].startsWith("-IL"))
         il = args[k].substring(3);
 

@@ -3,34 +3,28 @@ package de.mpg.mpdl.inge.dataacquisition.webservice;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.AccessException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import noNamespace.FormatType;
-import noNamespace.FormatsDocument;
-import noNamespace.FormatsType;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.Util;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import noNamespace.FormatType;
+import noNamespace.FormatsDocument;
+import noNamespace.FormatsType;
 
 /**
  * This class provides the implementation of the {@link Unapi} interface.
@@ -112,30 +106,10 @@ public class UnapiServlet extends HttpServlet implements Unapi {
                 response.setStatus(200);
                 outStream.write(data);
               }
-            } catch (IdentifierNotRecognisedException e) {
+            } catch (DataaquisitionException e) {
               this.resetValues();
               this.logger.error("Item with identifier " + identifier + " was not found.", e);
               response.sendError(404, "Identifier " + identifier + " not recognized");
-            } catch (SourceNotAvailableException e) {
-              this.resetValues();
-              this.logger.error("Import Source not available.", e);
-              response.sendError(404, "Source not available");
-            } catch (RuntimeException e) {
-              this.resetValues();
-              this.logger.error(
-                  "Technical problems occurred when communicating with import source.", e);
-              response.sendError(404, "Technical problems occurred");
-            } catch (FormatNotRecognisedException e) {
-              this.resetValues();
-              this.logger.error("Format " + format + " was not recognised.", e);
-              response.sendError(406, "Format not recognized");
-            } catch (FormatNotAvailableException e) {
-              this.resetValues();
-              response.sendError(403, "Format " + e.getMessage()
-                  + "was not available on import source.");
-            } catch (AccessException e) {
-              this.resetValues();
-              response.sendError(403, "Access denied for " + identifier);
             }
           }
         }
@@ -235,9 +209,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   /**
    * {@inheritDoc}
    */
-  public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-      SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException,
-      FormatNotAvailableException {
+  public byte[] unapi(String identifier, String format) throws DataaquisitionException {
     this.filename = identifier;
 
     try {
@@ -263,23 +235,13 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       // }
       if (idType.equals(this.idTypeUnknown) || sourceId == null) {
         this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
-        throw new IdentifierNotRecognisedException();
+        throw new DataaquisitionException("The type of the identifier (" + identifier
+            + ") was not recognised.");
       }
-    } catch (AccessException e) {
-      throw new AccessException(identifier);
-    } catch (IdentifierNotRecognisedException e) {
-      throw new IdentifierNotRecognisedException(e);
-    } catch (SourceNotAvailableException e) {
-      throw new SourceNotAvailableException(e);
-    } catch (FormatNotRecognisedException e) {
-      throw new FormatNotRecognisedException(e);
-    } catch (FormatNotAvailableException e) {
-      throw new FormatNotAvailableException(e.getMessage());
-    } catch (ArrayIndexOutOfBoundsException e) {
-      // Given identifier has wrong encoding (type : value)
-      throw new IdentifierNotRecognisedException();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    } catch (DataaquisitionException e) {
+      throw new DataaquisitionException(identifier, e);
+    } catch (MalformedURLException e) {
+      throw new DataaquisitionException(identifier, e);
     }
     return null;
   }

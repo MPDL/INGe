@@ -77,7 +77,8 @@ public class CitationStyleLanguageManagerDefaultImpl implements
    * #getOutput(java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws Exception {
+  public byte[] getOutput(ExportFormatVO exportFormat, String itemList)
+      throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
     StringWriter snippet = new StringWriter();
     byte[] result = null;
@@ -139,16 +140,17 @@ public class CitationStyleLanguageManagerDefaultImpl implements
       result = snippet.toString().getBytes("UTF-8");
     } catch (IOException e) {
       logger.error("Error creating CSL processor", e);
-      throw new Exception(e);
+      throw new CitationStyleLanguageException("Error creating CSL processor", e);
     } catch (TransformerConfigurationException e) {
       logger.error("Error preparing transformation itemList to snippet", e);
-      throw new Exception(e);
+      throw new CitationStyleLanguageException(
+          "Error preparing transformation itemList to snippet", e);
     } catch (TransformerException e) {
       logger.error("Error transforming itemList to snippet", e);
-      throw new Exception(e);
+      throw new CitationStyleLanguageException("Error transforming itemList to snippet", e);
     } catch (Exception e) {
       logger.error("Error getting output", e);
-      throw new Exception(e);
+      throw new CitationStyleLanguageException("Error getting output", e);
     }
     return result;
   }

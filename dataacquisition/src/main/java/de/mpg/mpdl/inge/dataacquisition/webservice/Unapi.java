@@ -2,10 +2,7 @@ package de.mpg.mpdl.inge.dataacquisition.webservice;
 
 import java.rmi.AccessException;
 
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 
 /**
  * UNAPI Interface for the DataAquisition Service.
@@ -43,7 +40,6 @@ public interface Unapi {
    * @throws FormatNotRecognisedException
    * @throws AccessException (Restricted access to the source)
    */
-  public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-      SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException,
-      FormatNotAvailableException;
+  public byte[] unapi(String identifier, String format) throws DataaquisitionException;
+
 }
