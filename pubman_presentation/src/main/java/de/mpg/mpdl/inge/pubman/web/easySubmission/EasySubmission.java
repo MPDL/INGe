@@ -57,9 +57,7 @@ import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.FormatNotAvailableException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.IdentifierNotRecognisedException;
-import de.mpg.mpdl.inge.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
@@ -1056,30 +1054,17 @@ public class EasySubmission extends FacesBean {
         error(getMessage("easy_submission_import_from_external_service_access_denied_error")
             + getServiceID());
         return null;
-      } catch (IdentifierNotRecognisedException inre) {
-        logger.error("Error fetching from external import source", inre);
+      } catch (DataaquisitionException inre) {
+        logger.error(inre.getMessage(), inre);
         error(getMessage("easy_submission_import_from_external_service_identifier_error")
             + getServiceID());
         return null;
-      } catch (SourceNotAvailableException anae) {
-        logger.error("Import source currently not available", anae);
-        long millis = anae.getRetryAfter().getTime() - (new Date()).getTime();
-        if (millis < 1) {
-          millis = 1;
-        }
-        error(getMessage("easy_submission_external_source_not_available_error").replace("$1",
-            Math.ceil(millis / 1000) + ""));
-        return null;
-      } catch (FormatNotAvailableException e) {
-        error(getMessage("formatNotAvailable_FromFetchingSource").replace("$1", e.getMessage())
-            .replace("$2", service));
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            this.getEasySubmissionSessionBean().FULLTEXT_NONE);
       } catch (Exception e) {
-        logger.error("Error fetching from external import source", e);
-        error(getMessage("easy_submission_import_from_external_service_error"));
-        return null;
-      }
+    	  logger.error(e.getMessage(), e);
+          error(getMessage("easy_submission_import_from_external_service_identifier_error")
+              + getServiceID());
+          return null;
+        } 
       // Generate item ValueObject
       if (fetchedItem != null && !fetchedItem.trim().equals("")) {
         try {

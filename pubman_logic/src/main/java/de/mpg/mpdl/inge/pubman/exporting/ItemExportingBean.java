@@ -30,21 +30,15 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import net.sf.jasperreports.engine.JRException;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -53,6 +47,9 @@ import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * This class provides the ejb implementation of the {@link ItemExporting} interface.
@@ -98,9 +95,7 @@ public class ItemExportingBean implements ItemExporting {
 
     } catch (CitationStyleManagerException e) {
       throw new TechnicalException(e);
-    } catch (IOException e) {
-      throw new TechnicalException(e);
-    }
+    } 
     List<ExportFormatVO> result = null;
     result = xmlTransforming.transformToExportFormatVOList(layoutFormats);
     appendStructuredFormat(result);

@@ -16,7 +16,7 @@ public interface Unapi {
    * @return sourcesXML
    * @throws RuntimeException
    */
-  public byte[] unapi() throws RuntimeException;
+  public byte[] unapi() throws DataaquisitionException;
 
   /**
    * This operation gives back a description of all available formats for an identifier.
@@ -26,7 +26,7 @@ public interface Unapi {
    * @return formatsXML
    * @throws RuntimeException
    */
-  public byte[] unapi(String identifier, boolean show) throws RuntimeException;
+  public byte[] unapi(String identifier, boolean show) throws DataaquisitionException;
 
   /**
    * This operation fetches the format from the specified identifier.

@@ -125,13 +125,16 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     } catch (IOException e) {
       this.resetValues();
       this.logger.error("unAPI request could not be processed due to technical problems.", e);
-    }
+    } catch (DataaquisitionException e) {
+    	this.resetValues();
+        this.logger.error("unAPI request could not be processed due to technical problems.", e);
+	}
   }
 
   /**
    * {@inheritDoc}
    */
-  public byte[] unapi() throws RuntimeException {
+  public byte[] unapi() {
     Util util = new Util();
     return util.createUnapiSourcesXml();
   }
@@ -140,8 +143,10 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    * {@inheritDoc} if unapi interface is called with no identifier, the identifier is set to escidoc
    * as default, showing escidoc formats to fetch only when not the default identifier is set, the
    * identifier is displayed in the formats xml.
+ * @throws DataaquisitionException 
    */
-  public byte[] unapi(String identifier, boolean show) {
+  public byte[] unapi(String identifier, boolean show) throws DataaquisitionException {
+	  
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     List<FullTextVO> fullTextV = new ArrayList<FullTextVO>();
     List<MetadataVO> metadataV = new ArrayList<MetadataVO>();
@@ -201,7 +206,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       xmlFormatsDoc.save(baos, xOpts);
     } catch (IOException e) {
       this.logger.info("Error when creating output xml.", e);
-      throw new RuntimeException(e);
+      throw new DataaquisitionException(e);
     }
     return baos.toByteArray();
   }
