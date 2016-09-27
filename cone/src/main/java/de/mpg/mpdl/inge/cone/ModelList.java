@@ -383,6 +383,9 @@ public class ModelList {
    * @version $Revision$ $LastChangedDate$
    */
   public class Model {
+    final QName rdfDescriptionTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "Description", "rdf");
+
     private String name;
     private String description;
     private List<String> aliases = new ArrayList<String>();
@@ -398,7 +401,7 @@ public class ModelList {
     private boolean localizedMatches;
     private boolean globalMatches;
     private boolean open;
-    private QName rdfAboutTag = RDFHandler.rdfDescriptionTag;
+    private QName rdfAboutTag = rdfDescriptionTag;
 
     /**
      * Default constructor.
@@ -598,17 +601,18 @@ public class ModelList {
      */
     @Override
     public boolean equals(Object object) {
+      if (object == null) {
+        return false;
+      }
       if (object instanceof Model) {
-        if (object == null) {
-          return false;
-        } else if (((Model) object).name == null) {
+        if (((Model) object).name == null) {
           return (this.name == null);
         } else {
           return (((Model) object).name.equals(this.name));
         }
-      } else {
-        return false;
       }
+      return false;
+
     }
 
     /**

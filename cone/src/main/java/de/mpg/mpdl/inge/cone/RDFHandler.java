@@ -65,9 +65,6 @@ public class RDFHandler extends DefaultHandler {
 
   private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
       "RDF", "rdf");
-  public final static QName rdfDescriptionTag = new QName(
-      "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "Description", "rdf");
-
 
   public RDFHandler(boolean loggedIn, Model model) throws ConeException {
     this.model = model;
