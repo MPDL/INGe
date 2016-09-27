@@ -54,6 +54,7 @@ package de.mpg.mpdl.inge.cone.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -77,7 +78,6 @@ import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.formatter.AbstractFormatter;
 import de.mpg.mpdl.inge.cone.util.Rdfs;
-import de.mpg.mpdl.inge.cone.util.UrlHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -230,9 +230,14 @@ public class ConeServlet extends HttpServlet {
     }
 
     if ("query".equals(action)) {
-      String query =
-          UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request
-              .getParameter("query") : request.getParameter("q"));
+      String query;
+      try {
+        query =
+            UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request
+                .getParameter("query") : request.getParameter("q"));
+      } catch (ConeException e1) {
+        throw new ServletException(e1);
+      };
       int limit = -1;
 
       try {
@@ -512,4 +517,44 @@ public class ConeServlet extends HttpServlet {
         .getSession().getAttribute("logged_in")).booleanValue());
   }
 
+}
+
+
+/**
+ * Helper class for URL handling.
+ * 
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ * 
+ */
+class UrlHelper {
+  /**
+   * Hide constructor of util class.
+   */
+  private UrlHelper() {}
+
+  /**
+   * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
+   * 
+   * @param brokenValue
+   * @return hopefully fixed string.
+   * @throws ConeException
+   */
+  static String fixURLEncoding(String input) throws ConeException {
+    if (input != null) {
+      try {
+        String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
+        if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
+          return input;
+        } else {
+          return utf8;
+        }
+      } catch (UnsupportedEncodingException e) {
+        throw new ConeException(e);
+      }
+    } else {
+      return null;
+    }
+  }
 }

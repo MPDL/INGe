@@ -283,18 +283,18 @@ public class ModelList {
       for (Model model : list) {
         modelStack.push(model.getName());
         try {
-			setI18nFlags(model, model.getPredicates(), modelStack);
-		} catch (ConeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+          setI18nFlags(model, model.getPredicates(), modelStack);
+        } catch (ConeException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
         modelStack.pop();
       }
     }
 
     /**
      * @param model
-     * @throws ConeException 
+     * @throws ConeException
      */
     private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> modelStack)
         throws SAXException, ConeException {

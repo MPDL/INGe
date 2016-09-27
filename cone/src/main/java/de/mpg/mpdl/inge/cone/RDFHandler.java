@@ -60,7 +60,7 @@ public class RDFHandler extends DefaultHandler {
   private Querier querier;
   private Model model;
   private StringBuffer currentContent;
-  
+
   private static final Logger logger = Logger.getLogger(RDFHandler.class);
 
   private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -183,7 +183,7 @@ public class RDFHandler extends DefaultHandler {
       if (this.stack.peek() instanceof LocalizedString) {
         ((LocalizedString) this.stack.peek()).setValue(currentContent.toString());
       } else {
-    	  logger.warn("Wrong RDF structure at " + name + " (namespace " + uri + ")");
+        logger.warn("Wrong RDF structure at " + name + " (namespace " + uri + ")");
       }
     }
 

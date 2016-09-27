@@ -372,10 +372,10 @@ public class ModelHelper {
                 ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
             TreeFragment subResource;
 
-              subResource =
-                  querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
-              languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
-              querier.release();
+            subResource =
+                querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
+            languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
+            querier.release();
           }
         }
       }
