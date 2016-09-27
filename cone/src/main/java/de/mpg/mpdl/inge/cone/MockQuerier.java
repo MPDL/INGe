@@ -15,6 +15,8 @@
  */
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -220,16 +222,20 @@ public class MockQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, String query, String lang, ModeType modeType)
-      throws Exception {
-    return query(model, query, lang, modeType,
-        Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
+      throws ConeException {
+    try {
+      return query(model, query, lang, modeType,
+          Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
+    } catch (NumberFormatException | IOException | URISyntaxException e) {
+      throw new ConeException(e);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
   public List<Pair> query(String model, String query, String lang, ModeType modeType, int limit)
-      throws Exception {
+      throws ConeException {
     List<Pair> resultSet = new ArrayList<Pair>();
     for (String id : data.keySet()) {
       if ("*".equals(query) || data.get(id).toLowerCase().contains(query.toLowerCase())) {
@@ -249,8 +255,14 @@ public class MockQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
-      throws Exception {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+      throws ConeException {
+    String limitString = null;
+    try {
+      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+    } catch (IOException | URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -261,7 +273,7 @@ public class MockQuerier implements Querier {
    * java.lang.String, int)
    */
   public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType,
-      int limit) throws Exception {
+      int limit) throws ConeException {
     // TODO Auto-generated method stub
     return null;
   }
@@ -269,15 +281,20 @@ public class MockQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<Pair> query(String model, String query, ModeType modeType) throws Exception {
-    return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default"),
-        modeType);
+  public List<Pair> query(String model, String query, ModeType modeType) throws ConeException {
+    try {
+      return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default"),
+          modeType);
+    } catch (IOException | URISyntaxException e) {
+      // TODO Auto-generated catch block
+      throw new ConeException(e);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id) throws Exception {
+  public TreeFragment details(String model, String id) throws ConeException {
     TreeFragment resultSet = new TreeFragment(id);
     List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
     triple1.add(THIS_IS_THE_TITLE);
@@ -295,7 +312,7 @@ public class MockQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id, String lang) throws Exception {
+  public TreeFragment details(String model, String id, String lang) throws ConeException {
     TreeFragment resultSet = new TreeFragment(id);
     if ("de".equals(lang)) {
       List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
@@ -323,28 +340,28 @@ public class MockQuerier implements Querier {
   /**
    * Empty implementation.
    */
-  public void create(String model, String id, TreeFragment values) throws Exception {
+  public void create(String model, String id, TreeFragment values) throws ConeException {
     // Do nothing here
   }
 
   /**
    * Empty implementation.
    */
-  public void delete(String model, String id) throws Exception {
+  public void delete(String model, String id) throws ConeException {
     // Do nothing here
   }
 
   /**
    * Empty implementation.
    */
-  public String createUniqueIdentifier(String model) throws Exception {
+  public String createUniqueIdentifier(String model) throws ConeException {
     return "mock" + new Date().getTime();
   }
 
   /**
    * Empty implementation.
    */
-  public List<String> getAllIds(String modelName) throws Exception {
+  public List<String> getAllIds(String modelName) throws ConeException {
     List<String> result = new ArrayList<String>();
     result.addAll(data.keySet());
     return result;
@@ -353,7 +370,7 @@ public class MockQuerier implements Querier {
   /**
    * Empty implementation.
    */
-  public List<String> getAllIds(String modelName, int hits) throws Exception {
+  public List<String> getAllIds(String modelName, int hits) throws ConeException {
     List<String> result = new ArrayList<String>();
     if (hits == 0) {
       result.addAll(data.keySet());
@@ -370,12 +387,10 @@ public class MockQuerier implements Querier {
     return result;
   }
 
-
-
   /**
    * Empty implementation.
    */
-  public void release() throws Exception {
+  public void release() throws ConeException {
     // Do nothing here
   }
 
@@ -387,7 +402,7 @@ public class MockQuerier implements Querier {
     return this.loggedIn;
   }
 
-  public void cleanup() throws Exception {
+  public void cleanup() throws ConeException {
     // TODO Auto-generated method stub
 
   }

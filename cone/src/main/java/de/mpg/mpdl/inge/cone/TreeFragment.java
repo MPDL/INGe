@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -110,40 +112,28 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
    */
   public boolean hasValue() {
     return (subject != null && !"".equals(subject));
-    // for (String element : this.keySet())
-    // {
-    // List<LocalizedTripleObject> list = this.get(element);
-    // for (LocalizedTripleObject object : list)
-    // {
-    // if (object.hasValue())
-    // {
-    // return true;
-    // }
-    // }
-    // }
-    // return false;
   }
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws ConeException
    */
-  public String toRdf(Model model) {
+  public String toRdf(Model model) throws ConeException {
     if (size() == 0) {
+
       try {
         return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("escidoc.cone.service.url")
             + subject);
-      } catch (Exception e) {
-        throw new RuntimeException(e);
+      } catch (IOException | URISyntaxException e) {
+        throw new ConeException(e);
       }
+
     } else {
       StringWriter result = new StringWriter();
       Map<String, String> namespaces = new HashMap<String, String>();
-      ModelList modelList;
-      try {
-        modelList = ModelList.getInstance();
-      } catch (Exception e) {
-        throw new RuntimeException(e);
-      }
+      ModelList modelList = ModelList.getInstance();;
+
       int counter = 0;
 
       result.append("<"

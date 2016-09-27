@@ -17,7 +17,10 @@ package de.mpg.mpdl.inge.cone.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,8 +32,11 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
+import org.mulgara.itql.ItqlInterpreterException;
 import org.mulgara.query.Answer;
+import org.mulgara.query.TuplesException;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -49,17 +55,8 @@ public class CreateTripleStore {
   private String mulgaraServer;
   private String mulgaraPort;
 
-  /**
-   * Main-Method.
-   * 
-   * @param args No arguments needed
-   * @throws Exception Any exception
-   */
-  public static void main(String[] args) throws Exception {
-    new CreateTripleStore();
-  }
-
-  private CreateTripleStore() throws Exception {
+  private CreateTripleStore() throws TuplesException, IOException, URISyntaxException,
+      ItqlInterpreterException {
     mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
     mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
     File tqlFile =
@@ -72,6 +69,7 @@ public class CreateTripleStore {
         logger.debug(EXECUTING + line);
         interpreter.executeUpdate(line);
       }
+      reader.close();
     }
     for (String model : models) {
       List<String> pattern = new ArrayList<String>();
@@ -109,7 +107,12 @@ public class CreateTripleStore {
             lang = matcher.group(3);
           }
           if (currentSubject != null && !currentSubject.equals(subject)) {
-            flushSubject(model, currentSubject, poMap, languages, pattern);
+            try {
+              flushSubject(model, currentSubject, poMap, languages, pattern);
+            } catch (Exception e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
             poMap = new HashMap<String, String>();
             languages = new HashSet<String>();
           }
@@ -133,7 +136,7 @@ public class CreateTripleStore {
   }
 
   private void flushSubject(String model, String currentSubject, Map<String, String> poMap,
-      Set<String> languages, List<String> pattern) throws Exception {
+      Set<String> languages, List<String> pattern) throws ItqlInterpreterException {
     if (languages.size() == 0) {
       String result = "";
       for (String line : pattern) {
@@ -217,4 +220,15 @@ public class CreateTripleStore {
   private String escapeForItqlObject(String result) {
     return result.replace("'", "\\'");
   }
+
+  /**
+   * Main-Method.
+   * 
+   * @param args No arguments needed
+   * @throws Exception Any exception
+   */
+  public static void main(String[] args) throws Exception {
+    new CreateTripleStore();
+  }
+
 }

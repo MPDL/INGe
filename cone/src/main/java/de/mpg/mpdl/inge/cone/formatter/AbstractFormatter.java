@@ -34,6 +34,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
@@ -46,9 +47,9 @@ import de.mpg.mpdl.inge.cone.ModelList.Model;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public abstract class Formatter {
+public abstract class AbstractFormatter {
 
-  public static Formatter getFormatter(String format) {
+  public static AbstractFormatter getFormatter(String format) throws ConeException {
     if ("html".equals(format.toLowerCase())) {
       return new HtmlFormatter();
     } else if ("jquery".equals(format.toLowerCase())) {
@@ -60,7 +61,7 @@ public abstract class Formatter {
     } else if ("rdf".equals(format.toLowerCase())) {
       return new RdfFormatter();
     } else {
-      throw new RuntimeException("Formatter for '" + format + "' not found");
+      throw new ConeException("Formatter for '" + format + "' not found");
     }
   }
 
@@ -81,9 +82,10 @@ public abstract class Formatter {
    * @param pairs The results
    * @return A string that displays the given results in the current format.
    * @throws IOException From XSLT transformation.
+   * @throws ConeException
    */
   public abstract String formatQuery(List<? extends Describable> pairs, Model model)
-      throws IOException;
+      throws ConeException;
 
   /**
    * Format the results of the details action.
@@ -95,9 +97,10 @@ public abstract class Formatter {
    * 
    * @return A string that displays the given results in the current format.
    * @throws IOException From XSLT transformation.
+   * @throws ConeException
    */
   public abstract String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws IOException;
+      throws ConeException;
 
   /**
    * An implementing servlet should return the "Content-Type" header value of its format (e.g.

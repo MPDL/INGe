@@ -15,10 +15,13 @@
  */
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,7 +79,7 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String model, String query, ModeType modeType)
-      throws Exception {
+      throws ConeException {
     return query(model, query, null, modeType);
   }
 
@@ -84,8 +87,13 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String model, String query, String language,
-      ModeType modeType) throws Exception {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+      ModeType modeType) throws ConeException {
+    String limitString;
+    try {
+      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+    } catch (IOException | URISyntaxException e) {
+      throw new ConeException(e);
+    }
     return query(model, query, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -93,8 +101,13 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String model, Pair<String>[] searchFields,
-      String language, ModeType modeType) throws Exception {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+      String language, ModeType modeType) throws ConeException {
+    String limitString;
+    try {
+      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+    } catch (IOException | URISyntaxException e) {
+      throw new ConeException(e);
+    }
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -102,256 +115,285 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String model, String searchString, String language,
-      ModeType modeType, int limit) throws Exception {
-    logger.debug("query:  model = '" + model + "' searchString = '" + searchString
-        + "' language = '" + language + "' modeType = '" + modeType.toString() + "' linit = '"
-        + limit + "'");
+      ModeType modeType, int limit) throws ConeException {
+    if (logger.isDebugEnabled()) {
+      logger.debug("query:  model = '" + model + "' searchString = '" + searchString
+          + "' language = '" + language + "' modeType = '" + modeType.toString() + "' linit = '"
+          + limit + "'");
+    }
     if (modeType == ModeType.FAST) {
       return queryFast(model, searchString, language, limit);
     } else if (modeType == ModeType.FULL) {
       return queryFull(model, searchString, language, limit);
     } else {
-      throw new RuntimeException("Mode " + modeType + " not supported.");
+      throw new ConeException("Mode " + modeType + " not supported.");
     }
 
   }
 
   public List<? extends Describable> queryFast(String model, String searchString, String language,
-      int limit) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
-
-    if (language == null) {
-      language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-    }
-
-    language = language.replace("'", "''");
-
-    String[] searchStrings = formatSearchString(searchString);
-    String subQuery = "matches.model = '" + model + "'";
-    String order1 = "";
-    String order2 = "";
-    for (int i = 0; i < searchStrings.length; i++) {
-      subQuery += " and";
-      if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-        subQuery +=
-            " ('|' || matches.value || '|') ilike '%|"
-                + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
-      } else {
-        subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
-        order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-        order2 +=
-            "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
-                + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
-                + "%' desc, ";
-
+      int limit) throws ConeException {
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
+
+      if (language == null) {
+        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      }
+
+      language = language.replace("'", "''");
+
+      String[] searchStrings = formatSearchString(searchString);
+      String subQuery = "matches.model = '" + model + "'";
+      String order1 = "";
+      String order2 = "";
+      for (int i = 0; i < searchStrings.length; i++) {
+        subQuery += " and";
+        if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
+          subQuery +=
+              " ('|' || matches.value || '|') ilike '%|"
+                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+        } else {
+          subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
+          order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
+          order2 +=
+              "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
+                  + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
+                  + "%' desc, ";
+
+        }
+      }
+      String query =
+          "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
+              + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
+              + subQuery;
+
+      if (!"*".equals(language)) {
+        query +=
+            " and (r1.lang = '"
+                + language
+                + "' or (r1.lang is null and '"
+                + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+      }
+      query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
+      if (limit > 0) {
+        query += " limit " + limit;
+      }
+
+      query += ";";
+
+      logger.debug("query: " + query);
+
+      Statement statement = connection.createStatement();
+      long now = new Date().getTime();
+      ResultSet result = statement.executeQuery(query);
+      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      while (result.next()) {
+        String id = result.getString("id");
+        String value = result.getString("value");
+        String lang = result.getString("lang");
+        String type = result.getString("type");
+        String sortKey = result.getString("sort");
+        Pair<LocalizedString> pair =
+            new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        resultSet.add(pair);
+      }
+
+      result.close();
+      statement.close();
+
+      return resultSet;
+
+    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+      throw new ConeException(e);
     }
-    String query =
-        "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
-            + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
-            + subQuery;
 
-    if (!"*".equals(language)) {
-      query +=
-          " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
-              + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
-    }
-    query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
-    if (limit > 0) {
-      query += " limit " + limit;
-    }
-
-    query += ";";
-
-    logger.debug("query: " + query);
-
-    Statement statement = connection.createStatement();
-    long now = new Date().getTime();
-    ResultSet result = statement.executeQuery(query);
-    logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-    List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
-    while (result.next()) {
-      String id = result.getString("id");
-      String value = result.getString("value");
-      String lang = result.getString("lang");
-      String type = result.getString("type");
-      String sortKey = result.getString("sort");
-      Pair<LocalizedString> pair =
-          new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
-      resultSet.add(pair);
-    }
-
-    result.close();
-    statement.close();
-
-    return resultSet;
   }
 
   public List<? extends Describable> queryFull(String model, String searchString, String language,
-      int limit) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+      int limit) throws ConeException {
 
-    if (language == null) {
-      language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-    }
-
-    language = language.replace("'", "''");
-
-    String[] searchStrings = formatSearchString(searchString);
-    String subQuery = "model = '" + model + "'";
-    String order1 = "";
-    String order2 = "";
-    for (int i = 0; i < searchStrings.length; i++) {
-      subQuery += " and";
-      if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-        subQuery +=
-            " ('|' || matches.value || '|') ilike '%|"
-                + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
-      } else {
-        subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
-        order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-        order2 +=
-            "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
-                + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
-                + "%' desc, ";
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
+
+      if (language == null) {
+        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      }
+
+      language = language.replace("'", "''");
+
+      String[] searchStrings = formatSearchString(searchString);
+      String subQuery = "model = '" + model + "'";
+      String order1 = "";
+      String order2 = "";
+      for (int i = 0; i < searchStrings.length; i++) {
+        subQuery += " and";
+        if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
+          subQuery +=
+              " ('|' || matches.value || '|') ilike '%|"
+                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+        } else {
+          subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
+          order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
+          order2 +=
+              "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
+                  + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
+                  + "%' desc, ";
+        }
+      }
+      String query =
+          "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id "
+              + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
+              + subQuery;
+      if (!"*".equals(language)) {
+        query +=
+            " and (r1.lang = '"
+                + language
+                + "' or (r1.lang is null and '"
+                + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+      }
+      query += " order by " + order1 + order2 + "r1.value, r1.id";
+
+      if (limit > 0) {
+        query += " limit " + limit;
+      }
+
+      query += ";";
+
+      logger.debug("query: " + query);
+
+      Statement statement = connection.createStatement();
+      long now = new Date().getTime();
+      ResultSet result = statement.executeQuery(query);
+      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
+      while (result.next()) {
+        String id = result.getString("id");
+        TreeFragment treeFragment = details(model, id, language);
+        resultSet.add(treeFragment);
+      }
+
+      result.close();
+      statement.close();
+
+      return resultSet;
+
+    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+      throw new ConeException(e);
     }
-    String query =
-        "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id "
-            + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
-            + subQuery;
-    if (!"*".equals(language)) {
-      query +=
-          " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
-              + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
-    }
-    query += " order by " + order1 + order2 + "r1.value, r1.id";
-
-    if (limit > 0) {
-      query += " limit " + limit;
-    }
-
-    query += ";";
-
-    logger.debug("query: " + query);
-
-    Statement statement = connection.createStatement();
-    long now = new Date().getTime();
-    ResultSet result = statement.executeQuery(query);
-    logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-    List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
-    while (result.next()) {
-      String id = result.getString("id");
-      TreeFragment treeFragment = details(model, id, language);
-      resultSet.add(treeFragment);
-    }
-
-    result.close();
-    statement.close();
-
-    return resultSet;
   }
 
   /**
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs,
-      String language, ModeType modeType, int limit) throws Exception {
+      String language, ModeType modeType, int limit) throws ConeException {
     if (modeType == ModeType.FAST) {
       return queryFast(modelName, searchPairs, language, limit);
     } else if (modeType == ModeType.FULL) {
       return queryFull(modelName, searchPairs, language, limit);
     } else {
-      throw new RuntimeException("Mode " + modeType + " not supported.");
+      throw new ConeException("Mode " + modeType + " not supported.");
     }
   }
 
   public List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
+      String language, int limit) throws ConeException {
+
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
+      }
+
+      if (language == null) {
+        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      }
+
+      language = language.replace("'", "''");
+
+      String[] subQueries = getSubqueries(modelName, searchPairs);
+
+      String fromExtension = subQueries[0];
+      String joinClause = subQueries[1];
+      String subQuery = subQueries[2];
+      String order1 = subQueries[3];
+      String order2 = subQueries[4];
+
+      String query =
+          "select distinct r1.*" + fromExtension
+              + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
+              + joinClause + "where " + subQuery;
+
+      if (!"*".equals(language)) {
+        query +=
+            " and (r1.lang = '"
+                + language
+                + "' or (r1.lang is null and '"
+                + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+      }
+      query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
+      if (limit > 0) {
+        query += " limit " + limit;
+      }
+
+      query += ";";
+      if (logger.isDebugEnabled()) {
+        logger.debug("query: " + query);
+      }
+
+      Statement statement = connection.createStatement();
+      long now = new Date().getTime();
+      ResultSet result = statement.executeQuery(query);
+      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      while (result.next()) {
+        String id = result.getString("id");
+        String value = result.getString("value");
+        String lang = result.getString("lang");
+        String type = result.getString("type");
+        String sortKey = result.getString("sort");
+        Pair<LocalizedString> pair =
+            new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        resultSet.add(pair);
+      }
+
+      result.close();
+      statement.close();
+
+      return resultSet;
+    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+      throw new ConeException(e);
     }
-
-    if (language == null) {
-      language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-    }
-
-    language = language.replace("'", "''");
-
-    String[] subQueries = getSubqueries(modelName, searchPairs);
-
-    String fromExtension = subQueries[0];
-    String joinClause = subQueries[1];
-    String subQuery = subQueries[2];
-    String order1 = subQueries[3];
-    String order2 = subQueries[4];
-
-    String query =
-        "select distinct r1.*" + fromExtension
-            + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
-            + joinClause + "where " + subQuery;
-
-    if (!"*".equals(language)) {
-      query +=
-          " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
-              + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
-    }
-    query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
-    if (limit > 0) {
-      query += " limit " + limit;
-    }
-
-    query += ";";
-
-    logger.debug("query: " + query);
-
-    Statement statement = connection.createStatement();
-    long now = new Date().getTime();
-    ResultSet result = statement.executeQuery(query);
-    logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-    List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
-    while (result.next()) {
-      String id = result.getString("id");
-      String value = result.getString("value");
-      String lang = result.getString("lang");
-      String type = result.getString("type");
-      String sortKey = result.getString("sort");
-      Pair<LocalizedString> pair =
-          new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
-      resultSet.add(pair);
-    }
-
-    result.close();
-    statement.close();
-
-    return resultSet;
   }
 
-  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs) throws Exception {
+  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs) throws ConeException {
     return getSubqueries(modelName, searchPairs, 0);
   }
 
   private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, int level)
-      throws Exception {
+      throws ConeException {
     return getSubqueries(modelName, searchPairs, null, level, 0);
   }
 
   private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate)
-      throws Exception {
+      throws ConeException {
     return getSubqueries(searchPairs, parentPredicate, 0);
   }
 
   private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate, int level)
-      throws Exception {
+      throws ConeException {
     return getSubqueries(null, searchPairs, parentPredicate, level, 0);
   }
 
   private String[] getSubqueries(String modelName, Pair<String>[] searchPairs,
-      Predicate parentPredicate, int level, int counter) throws Exception {
+      Predicate parentPredicate, int level, int counter) throws ConeException {
     String fromExtension = "";
     String subQuery = "";
     String joinClause = "";
@@ -462,59 +504,70 @@ public class SQLQuerier implements Querier {
   }
 
   public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
+      String language, int limit) throws ConeException {
+
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
+      }
+
+      if (language == null) {
+        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      }
+
+      language = language.replace("'", "''");
+
+      String[] subQueries = getSubqueries(modelName, searchPairs);
+
+      String fromExtension = subQueries[0];
+      String joinClause = subQueries[1];
+      String subQuery = subQueries[2];
+      String order1 = subQueries[3];
+      String order2 = subQueries[4];
+
+      String query =
+          "select distinct r1.*" + fromExtension
+              + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
+              + joinClause + "where " + subQuery;
+
+      if (!"*".equals(language)) {
+        query +=
+            " and (r1.lang = '"
+                + language
+                + "' or (r1.lang is null and '"
+                + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+      }
+      query += " order by " + order1 + order2 + "r1.value, r1.id";
+      if (limit > 0) {
+        query += " limit " + limit;
+      }
+
+      query += ";";
+
+      if (logger.isDebugEnabled()) {
+        logger.debug("query: " + query);
+      }
+
+      Statement statement = connection.createStatement();
+      long now = new Date().getTime();
+      ResultSet result = statement.executeQuery(query);
+      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
+      while (result.next()) {
+        String id = result.getString("id");
+        TreeFragment treeFragment = details(modelName, id, language);
+        resultSet.add(treeFragment);
+      }
+
+      result.close();
+      statement.close();
+
+      return resultSet;
+
+    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+      throw new ConeException(e);
     }
-
-    if (language == null) {
-      language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-    }
-
-    language = language.replace("'", "''");
-
-    String[] subQueries = getSubqueries(modelName, searchPairs);
-
-    String fromExtension = subQueries[0];
-    String joinClause = subQueries[1];
-    String subQuery = subQueries[2];
-    String order1 = subQueries[3];
-    String order2 = subQueries[4];
-
-    String query =
-        "select distinct r1.*" + fromExtension
-            + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
-            + joinClause + "where " + subQuery;
-
-    if (!"*".equals(language)) {
-      query +=
-          " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
-              + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
-    }
-    query += " order by " + order1 + order2 + "r1.value, r1.id";
-    if (limit > 0) {
-      query += " limit " + limit;
-    }
-
-    query += ";";
-
-    logger.debug("query: " + query);
-
-    Statement statement = connection.createStatement();
-    long now = new Date().getTime();
-    ResultSet result = statement.executeQuery(query);
-    logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-    List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
-    while (result.next()) {
-      String id = result.getString("id");
-      TreeFragment treeFragment = details(modelName, id, language);
-      resultSet.add(treeFragment);
-    }
-
-    result.close();
-    statement.close();
-
-    return resultSet;
   }
 
   /**
@@ -546,37 +599,41 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id) throws Exception {
+  public TreeFragment details(String model, String id) throws ConeException {
     return details(model, id, null);
   }
 
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String modelName, String id, String language) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+  public TreeFragment details(String modelName, String id, String language) throws ConeException {
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
+      }
 
-    if (modelName != null) {
-      Stack<String> idStack = new Stack<String>();
-      idStack.push(id);
+      if (modelName != null) {
+        Stack<String> idStack = new Stack<String>();
+        idStack.push(id);
 
-      TreeFragment result = details(modelName, id, language, idStack, connection);
+        TreeFragment result = details(modelName, id, language, idStack, connection);
 
-      return result;
-    } else {
-      throw new NullPointerException("Model name not provided");
+        return result;
+      } else {
+        throw new ConeException("Model name not provided");
+      }
+    } catch (SQLException e) {
+      throw new ConeException(e);
     }
   }
 
   public TreeFragment details(String modelName, String id, String language, Stack<String> idStack,
-      Connection connection) throws Exception {
+      Connection connection) throws ConeException {
     if (modelName != null) {
       Model model = ModelList.getInstance().getModelByAlias(modelName);
       return details(modelName, model.getPredicates(), id, language, idStack, connection);
     } else {
-      throw new NullPointerException("Model name not provided");
+      throw new ConeException("Model name not provided");
     }
   }
 
@@ -584,90 +641,93 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public TreeFragment details(String modelName, List<Predicate> predicates, String id,
-      String language, Stack<String> idStack, Connection connection) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
-
-    id = escape(id);
-    String query = "select distinct object, predicate, lang from triples where ";
-
-    if (modelName != null) {
-      query += " model = '" + modelName + "' and";
-    }
-
-    query += " subject = '" + id + "'";
-
-    if (language == null) {
-      language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-    }
-    if (language != null && !"*".equals(language)) {
-      query += " and (lang is null or lang = '" + language + "')";
-    }
-    logger.debug("query: " + query);
-    Statement statement = connection.createStatement();
-    ResultSet result = statement.executeQuery(query);
-    TreeFragment resultMap = new TreeFragment(id);
-    while (result.next()) {
-      String predicateValue = result.getString("predicate");
-      String object = result.getString("object");
-
-      // Redirect?
-      if ("http://www.w3.org/2002/07/owl#sameAs".equals(predicateValue)) {
-        return details(modelName, predicates, object, language, idStack, connection);
+      String language, Stack<String> idStack, Connection connection) throws ConeException {
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
 
-      String lang = result.getString("lang");
+      id = escape(id);
+      String query = "select distinct object, predicate, lang from triples where ";
 
-      LocalizedTripleObject localizedTripleObject = null;
+      if (modelName != null) {
+        query += " model = '" + modelName + "' and";
+      }
 
-      boolean found = false;
-      for (Predicate predicate : predicates) {
-        if (predicate.getId().equals(predicateValue)) {
-          if (!predicate.isRestricted() || loggedIn) {
-            if (predicate.isResource() && !(idStack.contains(object))
-                && predicate.isIncludeResource()) {
-              idStack.push(object);
-              localizedTripleObject =
-                  details(predicate.getResourceModel(), object, language, idStack, connection);
-              idStack.pop();
-              localizedTripleObject.setLanguage(lang);
-            } else if (!predicate.isResource() && predicate.getPredicates() != null
-                && predicate.getPredicates().size() > 0) {
-              localizedTripleObject =
-                  details(null, predicate.getPredicates(), object, language, idStack, connection);
-              localizedTripleObject.setLanguage(lang);
+      query += " subject = '" + id + "'";
+
+      if (language == null) {
+        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      }
+      if (language != null && !"*".equals(language)) {
+        query += " and (lang is null or lang = '" + language + "')";
+      }
+      logger.debug("query: " + query);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery(query);
+      TreeFragment resultMap = new TreeFragment(id);
+      while (result.next()) {
+        String predicateValue = result.getString("predicate");
+        String object = result.getString("object");
+
+        // Redirect?
+        if ("http://www.w3.org/2002/07/owl#sameAs".equals(predicateValue)) {
+          return details(modelName, predicates, object, language, idStack, connection);
+        }
+
+        String lang = result.getString("lang");
+
+        LocalizedTripleObject localizedTripleObject = null;
+
+        boolean found = false;
+        for (Predicate predicate : predicates) {
+          if (predicate.getId().equals(predicateValue)) {
+            if (!predicate.isRestricted() || loggedIn) {
+              if (predicate.isResource() && !(idStack.contains(object))
+                  && predicate.isIncludeResource()) {
+                idStack.push(object);
+                localizedTripleObject =
+                    details(predicate.getResourceModel(), object, language, idStack, connection);
+                idStack.pop();
+                localizedTripleObject.setLanguage(lang);
+              } else if (!predicate.isResource() && predicate.getPredicates() != null
+                  && predicate.getPredicates().size() > 0) {
+                localizedTripleObject =
+                    details(null, predicate.getPredicates(), object, language, idStack, connection);
+                localizedTripleObject.setLanguage(lang);
+              } else {
+                localizedTripleObject = new LocalizedString(object, lang);
+              }
+              found = true;
+
+              if (resultMap.containsKey(predicateValue)) {
+                resultMap.get(predicateValue).add(localizedTripleObject);
+              } else {
+                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+                newEntry.add(localizedTripleObject);
+                resultMap.put(predicateValue, newEntry);
+              }
+
+              break;
             } else {
-              localizedTripleObject = new LocalizedString(object, lang);
+              found = true;
+              break;
             }
-            found = true;
-
-            if (resultMap.containsKey(predicateValue)) {
-              resultMap.get(predicateValue).add(localizedTripleObject);
-            } else {
-              ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
-              newEntry.add(localizedTripleObject);
-              resultMap.put(predicateValue, newEntry);
-            }
-
-            break;
-          } else {
-            found = true;
-            break;
           }
         }
+        if (!found) {
+          logger.error("Predicate '" + predicateValue + "' (subject = '" + id
+              + "') not found in model '" + modelName + "'");
+        }
       }
-      if (!found) {
-        logger.error("Predicate '" + predicateValue + "' (subject = '" + id
-            + "') not found in model '" + modelName + "'");
-        // throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
-      }
+
+      result.close();
+      statement.close();
+
+      return resultMap;
+    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+      throw new ConeException(e);
     }
-
-    result.close();
-    statement.close();
-
-    return resultMap;
   }
 
   /**
@@ -683,121 +743,128 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public void create(String modelName, String id, TreeFragment values) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+  public void create(String modelName, String id, TreeFragment values) throws ConeException {
 
-    String query = "select count(subject) as cnt from triples where subject = ?";
-    PreparedStatement statement = connection.prepareStatement(query);
-    statement.setString(1, id);
-
-    ResultSet result = statement.executeQuery();
-    if (result.next()) {
-      int count = result.getInt("cnt");
-      if (count > 0) {
-        if (modelName != null) {
-          throw new RuntimeException("Trying to create a resource that is already existing: "
-              + modelName + " " + id);
-        } else {
-          // Won't update an existing resource linked from this resource
-          result.close();
-          statement.close();
-          return;
-        }
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
-    } else {
-      throw new RuntimeException(
-          "Select count statement should always return a result, but did not.");
-    }
 
-    query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
-
-    result.close();
-    statement.close();
-    statement = connection.prepareStatement(query);
-
-    for (String predicate : values.keySet()) {
+      String query = "select count(subject) as cnt from triples where subject = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, id);
-      statement.setString(2, predicate);
-      statement.setString(5, modelName);
 
-      for (LocalizedTripleObject object : values.get(predicate)) {
-        if (object instanceof LocalizedString && !"".equals(((LocalizedString) object).getValue())) {
-          statement.setString(3, ((LocalizedString) object).getValue());
-        } else if (object instanceof TreeFragment) {
-          statement.setString(3, ((TreeFragment) object).getSubject());
-          create(null, ((TreeFragment) object).getSubject(), (TreeFragment) object);
-        } else {
-          continue;
+      ResultSet result = statement.executeQuery();
+      if (result.next()) {
+        int count = result.getInt("cnt");
+        if (count > 0) {
+          if (modelName != null) {
+            throw new ConeException("Trying to create a resource that is already existing: "
+                + modelName + " " + id);
+          } else {
+            // Won't update an existing resource linked from this
+            // resource
+            result.close();
+            statement.close();
+            return;
+          }
         }
-
-        if (object.getLanguage() == null || "".equals(object.getLanguage())) {
-          statement.setString(4, null);
-        } else {
-          statement.setString(4, object.getLanguage());
-        }
-        statement.executeUpdate();
+      } else {
+        throw new ConeException(
+            "Select count statement should always return a result, but did not.");
       }
-    }
 
-    if (modelName != null) {
-      query = "insert into results (id, value, lang, type, sort) values (?, ?, ?, ?, ?)";
+      query =
+          "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
+
+      result.close();
       statement.close();
       statement = connection.prepareStatement(query);
 
-      statement.setString(1, id);
+      for (String predicate : values.keySet()) {
+        statement.setString(1, id);
+        statement.setString(2, predicate);
+        statement.setString(5, modelName);
 
-      List<Pair<ResultEntry>> results =
-          ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
-
-      for (Pair<ResultEntry> pair : results) {
-        if (pair.getValue() != null && !"".equals(pair.getValue())) {
-          statement.setString(2, pair.getValue().getValue());
-
-
-          if (pair.getValue().getLanguage() != null && "".equals(pair.getValue().getLanguage())) {
-            statement.setString(3, null);
+        for (LocalizedTripleObject object : values.get(predicate)) {
+          if (object instanceof LocalizedString
+              && !"".equals(((LocalizedString) object).getValue())) {
+            statement.setString(3, ((LocalizedString) object).getValue());
+          } else if (object instanceof TreeFragment) {
+            statement.setString(3, ((TreeFragment) object).getSubject());
+            create(null, ((TreeFragment) object).getSubject(), (TreeFragment) object);
           } else {
-            statement.setString(3, pair.getValue().getLanguage());
+            continue;
           }
 
-          statement.setString(4, pair.getValue().getType());
-          statement.setString(5, pair.getValue().getSortResult());
-
-          statement.executeUpdate();
-        }
-      }
-
-      query = "insert into matches (id, value, lang, model) values (?, ?, ?, ?)";
-      statement.close();
-      statement = connection.prepareStatement(query);
-
-      statement.setString(1, id);
-      statement.setString(4, modelName);
-
-      List<Pair<LocalizedString>> matchResults =
-          ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
-
-      for (Pair<LocalizedString> pair : matchResults) {
-        if (pair.getValue() != null && !"".equals(pair.getValue())) {
-          statement.setString(2, pair.getValue().getValue());
-          if (pair.getKey() != null && "".equals(pair.getKey())) {
-            statement.setString(3, null);
+          if (object.getLanguage() == null || "".equals(object.getLanguage())) {
+            statement.setString(4, null);
           } else {
-            statement.setString(3, pair.getKey());
+            statement.setString(4, object.getLanguage());
           }
           statement.executeUpdate();
         }
       }
+
+      if (modelName != null) {
+        query = "insert into results (id, value, lang, type, sort) values (?, ?, ?, ?, ?)";
+        statement.close();
+        statement = connection.prepareStatement(query);
+
+        statement.setString(1, id);
+
+        List<Pair<ResultEntry>> results =
+            ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
+
+        for (Pair<ResultEntry> pair : results) {
+          if (pair.getValue() != null && !"".equals(pair.getValue())) {
+            statement.setString(2, pair.getValue().getValue());
+
+            if (pair.getValue().getLanguage() != null && "".equals(pair.getValue().getLanguage())) {
+              statement.setString(3, null);
+            } else {
+              statement.setString(3, pair.getValue().getLanguage());
+            }
+
+            statement.setString(4, pair.getValue().getType());
+            statement.setString(5, pair.getValue().getSortResult());
+
+            statement.executeUpdate();
+          }
+        }
+
+        query = "insert into matches (id, value, lang, model) values (?, ?, ?, ?)";
+        statement.close();
+        statement = connection.prepareStatement(query);
+
+        statement.setString(1, id);
+        statement.setString(4, modelName);
+
+        List<Pair<LocalizedString>> matchResults =
+            ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+
+        for (Pair<LocalizedString> pair : matchResults) {
+          if (pair.getValue() != null && !"".equals(pair.getValue())) {
+            statement.setString(2, pair.getValue().getValue());
+            if (pair.getKey() != null && "".equals(pair.getKey())) {
+              statement.setString(3, null);
+            } else {
+              statement.setString(3, pair.getKey());
+            }
+            statement.executeUpdate();
+          }
+        }
+      }
+      statement.close();
+    } catch (SQLException e) {
+      throw new ConeException(e);
     }
-    statement.close();
   }
 
   /**
    * {@inheritDoc}
    */
-  public void delete(String modelName, String id) throws Exception {
+  public void delete(String modelName, String id) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     List<Predicate> predicates = model.getPredicates();
@@ -805,129 +872,145 @@ public class SQLQuerier implements Querier {
     delete(predicates, id);
   }
 
-  public void delete(List<Predicate> predicates, String id) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+  public void delete(List<Predicate> predicates, String id) throws ConeException {
 
-    String query = "select distinct object from triples where subject = ? and predicate = ?";
-    PreparedStatement statement = connection.prepareStatement(query);
-
-    for (Predicate predicate : predicates) {
-      if (!predicate.isResource() && predicate.getPredicates() != null
-          && predicate.getPredicates().size() > 0) {
-
-        statement.setString(1, id);
-        statement.setString(2, predicate.getId());
-
-        ResultSet result = statement.executeQuery();
-
-        while (result.next()) {
-          String subId = result.getString("object");
-          delete(predicate.getPredicates(), subId);
-        }
-
-        result.close();
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
+
+      String query = "select distinct object from triples where subject = ? and predicate = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      for (Predicate predicate : predicates) {
+        if (!predicate.isResource() && predicate.getPredicates() != null
+            && predicate.getPredicates().size() > 0) {
+
+          statement.setString(1, id);
+          statement.setString(2, predicate.getId());
+
+          ResultSet result = statement.executeQuery();
+
+          while (result.next()) {
+            String subId = result.getString("object");
+            delete(predicate.getPredicates(), subId);
+          }
+
+          result.close();
+        }
+      }
+
+      statement.close();
+      query = "delete from triples where subject = ?";
+      statement = connection.prepareStatement(query);
+      statement.setString(1, id);
+      statement.executeUpdate();
+
+      statement.close();
+      query = "delete from results where id = ?";
+      statement = connection.prepareStatement(query);
+      statement.setString(1, id);
+      statement.executeUpdate();
+
+      statement.close();
+      query = "delete from matches where id = ?";
+      statement = connection.prepareStatement(query);
+      statement.setString(1, id);
+      statement.executeUpdate();
+
+      statement.close();
+
+    } catch (SQLException e) {
+      throw new ConeException(e);
     }
-
-    statement.close();
-    query = "delete from triples where subject = ?";
-    statement = connection.prepareStatement(query);
-    statement.setString(1, id);
-    statement.executeUpdate();
-
-    statement.close();
-    query = "delete from results where id = ?";
-    statement = connection.prepareStatement(query);
-    statement.setString(1, id);
-    statement.executeUpdate();
-
-    statement.close();
-    query = "delete from matches where id = ?";
-    statement = connection.prepareStatement(query);
-    statement.setString(1, id);
-    statement.executeUpdate();
-
-    statement.close();
 
   }
 
   /**
    * {@inheritDoc}
    */
-  public synchronized String createUniqueIdentifier(String model) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+  public synchronized String createUniqueIdentifier(String model) throws ConeException {
 
-    String query = "select value from properties where name = 'max_id'";
-    Statement statement = connection.createStatement();
-    ResultSet result = statement.executeQuery(query);
-
-    if (result.next()) {
-      String maxIdAsString = result.getString("value");
-      int maxId = Integer.parseInt(maxIdAsString) + 1;
-
-      query = "update properties set value = '" + maxId + "' where name = 'max_id'";
-      statement.executeUpdate(query);
-
-      String uid;
-      if (model == null) {
-        uid = "genid:" + maxId;
-      } else {
-        uid = model + "/resource/" + model + maxId;
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
 
-      result.close();
-      query = "select * from triples where subject = '" + uid + "' limit 1";
-      result = statement.executeQuery(query);
+      String query = "select value from properties where name = 'max_id'";
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery(query);
 
       if (result.next()) {
+        String maxIdAsString = result.getString("value");
+        int maxId = Integer.parseInt(maxIdAsString) + 1;
+
+        query = "update properties set value = '" + maxId + "' where name = 'max_id'";
+        statement.executeUpdate(query);
+
+        String uid;
+        if (model == null) {
+          uid = "genid:" + maxId;
+        } else {
+          uid = model + "/resource/" + model + maxId;
+        }
+
         result.close();
-        statement.close();
-        return createUniqueIdentifier(model);
+        query = "select * from triples where subject = '" + uid + "' limit 1";
+        result = statement.executeQuery(query);
+
+        if (result.next()) {
+          result.close();
+          statement.close();
+          return createUniqueIdentifier(model);
+        } else {
+          result.close();
+          statement.close();
+          return uid;
+        }
       } else {
         result.close();
         statement.close();
-        return uid;
-      }
-    } else {
-      result.close();
-      statement.close();
 
-      throw new Exception("'max_id not found in properties table'");
+        throw new ConeException("'max_id not found in properties table'");
+      }
+    } catch (SQLException e) {
+      throw new ConeException(e);
     }
   }
 
-  public List<String> getAllIds(String modelName) throws Exception {
+  public List<String> getAllIds(String modelName) throws ConeException {
     return getAllIds(modelName, 0);
   }
 
-  public List<String> getAllIds(String modelName, int hits) throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
-    }
+  public List<String> getAllIds(String modelName, int hits) throws ConeException {
 
-    String query = "select distinct subject from triples where model = ?";
-    if (hits > 0) {
-      query += " limit ?";
-    }
-    PreparedStatement statement = connection.prepareStatement(query);
-    statement.setString(1, modelName);
-    if (hits > 0) {
-      statement.setInt(2, hits);
-    }
-    ResultSet result = statement.executeQuery();
-    List<String> results = new ArrayList<String>();
-    while (result.next()) {
-      results.add(result.getString("subject"));
-    }
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
+      }
 
-    result.close();
-    statement.close();
+      String query = "select distinct subject from triples where model = ?";
+      if (hits > 0) {
+        query += " limit ?";
+      }
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, modelName);
+      if (hits > 0) {
+        statement.setInt(2, hits);
+      }
+      ResultSet result = statement.executeQuery();
+      List<String> results = new ArrayList<String>();
+      while (result.next()) {
+        results.add(result.getString("subject"));
+      }
 
-    return results;
+      result.close();
+      statement.close();
+
+      return results;
+    } catch (SQLException e) {
+      throw new ConeException(e);
+    }
   }
 
   @Override
@@ -939,8 +1022,12 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public void release() throws Exception {
-    connection.close();
+  public void release() throws ConeException {
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      throw new ConeException(e);
+    }
   }
 
   public void setLoggedIn(boolean loggedIn) {
@@ -951,23 +1038,29 @@ public class SQLQuerier implements Querier {
     return this.loggedIn;
   }
 
-  public void cleanup() throws Exception {
-    if (connection.isClosed()) {
-      throw new RuntimeException("Connection was already closed.");
+  public void cleanup() throws ConeException {
+
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
+      }
+
+      String query =
+          "delete from matches m1 where m1.id in ( select id from matches left join triples on id = subject where subject is null)";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+      statement.close();
+
+      query =
+          "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
+      statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+
+      statement.close();
+
+    } catch (SQLException e) {
+      throw new ConeException(e);
     }
-
-    String query =
-        "delete from matches m1 where m1.id in ( select id from matches left join triples on id = subject where subject is null)";
-    PreparedStatement statement = connection.prepareStatement(query);
-    statement.executeUpdate();
-    statement.close();
-
-    query =
-        "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
-    statement = connection.prepareStatement(query);
-    statement.executeUpdate();
-
-    statement.close();
   }
 
 }

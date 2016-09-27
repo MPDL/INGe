@@ -42,6 +42,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
@@ -57,7 +58,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class RdfFormatter extends Formatter {
+public class RdfFormatter extends AbstractFormatter {
 
   private static final Logger logger = Logger.getLogger(RdfFormatter.class);
   private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
@@ -107,7 +108,7 @@ public class RdfFormatter extends Formatter {
    * @param pairs A list of key-value pairs
    * @return A String formatted as HTML
    */
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException {
+  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
 
     String result = RdfHelper.formatList(pairs, model);
 
@@ -124,7 +125,7 @@ public class RdfFormatter extends Formatter {
    * @throws IOException Any i/o exception
    */
   public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws IOException {
+      throws ConeException {
 
     String result = RdfHelper.formatMap(id, triples, model);
 

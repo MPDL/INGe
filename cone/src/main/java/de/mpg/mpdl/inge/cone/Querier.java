@@ -41,7 +41,7 @@ public interface Querier {
    * @throws Exception Any exception
    */
   public List<? extends Describable> query(String model, String query, ModeType modeType)
-      throws Exception;
+      throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
@@ -53,7 +53,7 @@ public interface Querier {
    * @throws Exception Any exception
    */
   public List<? extends Describable> query(String model, String query, String lang,
-      ModeType modeType) throws Exception;
+      ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
@@ -67,7 +67,7 @@ public interface Querier {
    * @throws Exception Any exception
    */
   public List<? extends Describable> query(String model, String query, String lang,
-      ModeType modeType, int limit) throws Exception;
+      ModeType modeType, int limit) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
@@ -80,7 +80,7 @@ public interface Querier {
    * @throws Exception Any exception
    */
   public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang,
-      ModeType modeType) throws Exception;
+      ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
@@ -94,7 +94,7 @@ public interface Querier {
    * @throws Exception Any exception
    */
   public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang,
-      ModeType modeType, int limit) throws Exception;
+      ModeType modeType, int limit) throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id.
@@ -107,7 +107,7 @@ public interface Querier {
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String model, String id) throws Exception;
+  public TreeFragment details(String model, String id) throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id and returns the results in the
@@ -122,7 +122,7 @@ public interface Querier {
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String model, String id, String lang) throws Exception;
+  public TreeFragment details(String model, String id, String lang) throws ConeException;
 
   /**
    * Inserts a map of values into the database.
@@ -135,7 +135,7 @@ public interface Querier {
    *        alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public void create(String model, String id, TreeFragment values) throws Exception;
+  public void create(String model, String id, TreeFragment values) throws ConeException;
 
   /**
    * Deletes all entries from the database that fit the given model and id.
@@ -144,19 +144,19 @@ public interface Querier {
    * @param id The identifier.
    * @throws Exception Any exception.
    */
-  public void delete(String model, String id) throws Exception;
+  public void delete(String model, String id) throws ConeException;
 
-  public String createUniqueIdentifier(String model) throws Exception;
+  public String createUniqueIdentifier(String model) throws ConeException;
 
-  public List<String> getAllIds(String model) throws Exception;
+  public List<String> getAllIds(String model) throws ConeException;
 
-  public List<String> getAllIds(String model, int hits) throws Exception;
+  public List<String> getAllIds(String model, int hits) throws ConeException;
 
-  public void release() throws Exception;
+  public void release() throws ConeException;
 
   public void setLoggedIn(boolean loggedIn);
 
   public boolean getLoggedIn();
 
-  public void cleanup() throws Exception;
+  public void cleanup() throws ConeException;
 }

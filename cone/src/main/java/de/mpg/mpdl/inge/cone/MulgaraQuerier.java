@@ -15,15 +15,18 @@
  */
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
+import org.mulgara.itql.ItqlInterpreterException;
 import org.mulgara.query.Answer;
+import org.mulgara.query.TuplesException;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -55,7 +58,7 @@ public class MulgaraQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<Pair> query(String model, String query, ModeType modeType) throws Exception {
+  public List<Pair> query(String model, String query, ModeType modeType) throws ConeException {
     return query(model, query, null);
   }
 
@@ -63,9 +66,13 @@ public class MulgaraQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, String searchString, String language, ModeType modeType,
-      int limit) throws Exception {
+      int limit) throws ConeException {
     if (language == null) {
-      language = PropertyReader.getProperty("escidoc.cone.language.default");
+      try {
+        language = PropertyReader.getProperty("escidoc.cone.language.default");
+      } catch (IOException | URISyntaxException e) {
+        throw new ConeException(e);
+      }
     }
     String[] searchStringsWithWildcards = formatSearchString(searchString);
     String query =
@@ -84,25 +91,28 @@ public class MulgaraQuerier implements Querier {
     query += ";";
 
     ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
-    long now = new Date().getTime();
-    Answer answer = interpreter.executeQuery(query);
-    logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+    Answer answer = null;
     List<Pair> resultSet = new ArrayList<Pair>();
 
-    while (answer.next()) {
-      String subject = answer.getObject(0).toString();
-      String objectString = answer.getObject(1).toString();
-      Pattern pattern = Pattern.compile(REGEX_OBJECT_WITH_LANGUAGE);
-      Matcher matcher = pattern.matcher(objectString);
-      String object = null;
-      String lang = null;
-      if (matcher.find()) {
-        object = matcher.group(1);
-        lang = matcher.group(3);
+    try {
+      answer = interpreter.executeQuery(query);
+      while (answer.next()) {
+        String subject = answer.getObject(0).toString();
+        String objectString = answer.getObject(1).toString();
+        Pattern pattern = Pattern.compile(REGEX_OBJECT_WITH_LANGUAGE);
+        Matcher matcher = pattern.matcher(objectString);
+        String object = null;
+        String lang = null;
+        if (matcher.find()) {
+          object = matcher.group(1);
+          lang = matcher.group(3);
+        }
+        if (lang == null || language == null || lang.equals(language)) {
+          resultSet.add(new Pair(subject, object));
+        }
       }
-      if (lang == null || language == null || lang.equals(language)) {
-        resultSet.add(new Pair(subject, object));
-      }
+    } catch (TuplesException | ItqlInterpreterException e) {
+      e.printStackTrace();
     }
 
     return resultSet;
@@ -112,9 +122,15 @@ public class MulgaraQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
-      throws Exception {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-    return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
+      throws ConeException {
+    String limitString;
+    try {
+      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+      return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
+    } catch (IOException | URISyntaxException e) {
+      throw new ConeException(e);
+    }
+
   }
 
   /*
@@ -124,8 +140,7 @@ public class MulgaraQuerier implements Querier {
    * java.lang.String, int)
    */
   public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType,
-      int limit) throws Exception {
-    // TODO Auto-generated method stub
+      int limit) throws ConeException {
     return null;
   }
 
@@ -140,46 +155,51 @@ public class MulgaraQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id) throws Exception {
+  public TreeFragment details(String model, String id) throws ConeException {
     return details(model, id, null);
   }
 
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id, String language) throws Exception {
-    TreeFragment resultMap = new TreeFragment(id);
-    id = formatIdString(id);
-    String query =
-        "select $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + DATABASE_NAME + model
-            + "> where " + "<" + id + "> $p $o;";
-    logger.debug("query: " + query);
-    ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
-    Answer answer = interpreter.executeQuery(query);
-    while (answer.next()) {
-      String predicate = answer.getObject(0).toString();
-      // subject = subject.substring(1, subject.length() - 1);
-      String objectString = answer.getObject(2).toString();
-      Pattern pattern = Pattern.compile(REGEX_OBJECT_WITH_LANGUAGE);
-      Matcher matcher = pattern.matcher(objectString);
-      String object = null;
-      String lang = null;
-      if (matcher.find()) {
-        object = matcher.group(1);
-        lang = matcher.group(3);
-      }
-      if (lang == null || language == null || lang.equals(language)) {
-        if (resultMap.containsKey(predicate)) {
-          resultMap.get(predicate).add(new LocalizedString(object, lang));
-        } else {
-          ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
-          newEntry.add(new LocalizedString(object, lang));
-          resultMap.put(predicate, newEntry);
+  public TreeFragment details(String model, String id, String language) throws ConeException {
+
+    try {
+      TreeFragment resultMap = new TreeFragment(id);
+      id = formatIdString(id);
+      String query =
+          "select $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + DATABASE_NAME + model
+              + "> where " + "<" + id + "> $p $o;";
+      logger.debug("query: " + query);
+      ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
+      Answer answer = interpreter.executeQuery(query);
+      while (answer.next()) {
+        String predicate = answer.getObject(0).toString();
+        // subject = subject.substring(1, subject.length() - 1);
+        String objectString = answer.getObject(2).toString();
+        Pattern pattern = Pattern.compile(REGEX_OBJECT_WITH_LANGUAGE);
+        Matcher matcher = pattern.matcher(objectString);
+        String object = null;
+        String lang = null;
+        if (matcher.find()) {
+          object = matcher.group(1);
+          lang = matcher.group(3);
+        }
+        if (lang == null || language == null || lang.equals(language)) {
+          if (resultMap.containsKey(predicate)) {
+            resultMap.get(predicate).add(new LocalizedString(object, lang));
+          } else {
+            ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+            newEntry.add(new LocalizedString(object, lang));
+            resultMap.put(predicate, newEntry);
+          }
         }
       }
+      logger.info("Result: " + resultMap);
+      return resultMap;
+    } catch (ItqlInterpreterException | TuplesException e) {
+      throw new ConeException(e);
     }
-    logger.info("Result: " + resultMap);
-    return resultMap;
   }
 
   // TODO: Implement escaping for RDF ids
@@ -191,37 +211,34 @@ public class MulgaraQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, String query, String language, ModeType modeType)
-      throws Exception {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-    return query(model, query, null, modeType, Integer.parseInt(limitString));
+      throws ConeException {
+    String limitString;
+    try {
+      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+      return query(model, query, null, modeType, Integer.parseInt(limitString));
+    } catch (IOException | URISyntaxException e) {
+      throw new ConeException(e);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
-  public void create(String model, String id, TreeFragment values) throws Exception {
+  public void create(String model, String id, TreeFragment values) throws ConeException {
     // TODO MF: Implement
   }
 
   /**
    * {@inheritDoc}
    */
-  public void delete(String model, String id) throws Exception {
+  public void delete(String model, String id) throws ConeException {
     // TODO MF: Implement
   }
 
   /**
    * {@inheritDoc}
    */
-  public String createUniqueIdentifier(String model) throws Exception {
-    // TODO MF: Implement
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public List<String> getAllIds(String modelName) throws Exception {
+  public String createUniqueIdentifier(String model) throws ConeException {
     // TODO MF: Implement
     return null;
   }
@@ -229,7 +246,7 @@ public class MulgaraQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<String> getAllIds(String modelName, int hits) throws Exception {
+  public List<String> getAllIds(String modelName) throws ConeException {
     // TODO MF: Implement
     return null;
   }
@@ -237,7 +254,15 @@ public class MulgaraQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public void release() throws Exception {
+  public List<String> getAllIds(String modelName, int hits) throws ConeException {
+    // TODO MF: Implement
+    return null;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void release() throws ConeException {
     // TODO MF: Implement
   }
 
@@ -249,7 +274,7 @@ public class MulgaraQuerier implements Querier {
     return this.loggedIn;
   }
 
-  public void cleanup() throws Exception {
+  public void cleanup() throws ConeException {
     // TODO Auto-generated method stub
 
   }

@@ -38,6 +38,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamResult;
@@ -45,6 +47,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.TreeFragment;
@@ -60,7 +63,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class HtmlFormatter extends Formatter {
+public class HtmlFormatter extends AbstractFormatter {
 
   private static final Logger logger = Logger.getLogger(HtmlFormatter.class);
   private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
@@ -109,7 +112,7 @@ public class HtmlFormatter extends Formatter {
    * @param pairs A list of key-value pairs
    * @return A String formatted as HTML
    */
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException {
+  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
 
     String result = RdfHelper.formatList(pairs, model);
     StringWriter writer = new StringWriter();
@@ -122,8 +125,8 @@ public class HtmlFormatter extends Formatter {
               "xslt/html/resultlist-html.xsl", HtmlFormatter.class.getClassLoader())));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
       transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    } catch (TransformerException | FileNotFoundException e) {
+      throw new ConeException(e);
     }
     return writer.toString();
   }
@@ -138,7 +141,7 @@ public class HtmlFormatter extends Formatter {
    * @throws IOException Any i/o exception
    */
   public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws IOException {
+      throws ConeException {
 
     String result = RdfHelper.formatMap(id, triples, model);
     StringWriter writer = new StringWriter();

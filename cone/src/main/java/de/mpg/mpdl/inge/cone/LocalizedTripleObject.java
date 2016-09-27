@@ -64,8 +64,9 @@ public interface LocalizedTripleObject extends Describable {
    * Display this object as RDF/XML.
    * 
    * @return The object as RDF
+   * @throws ConeException
    */
-  public String toRdf(Model model);
+  public String toRdf(Model model) throws ConeException;
 
   /**
    * Display this object as JSON object.

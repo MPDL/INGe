@@ -57,9 +57,7 @@ public class RDFHandler extends DefaultHandler {
   private Stack<QName> tagStack = new Stack<QName>();
 
   private Querier querier;
-
   private Model model;
-
   private StringBuffer currentContent;
 
   private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -68,24 +66,21 @@ public class RDFHandler extends DefaultHandler {
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "Description", "rdf");
 
 
-  public RDFHandler(boolean loggedIn, Model model) {
+  public RDFHandler(boolean loggedIn, Model model) throws ConeException {
     this.model = model;
     querier = QuerierFactory.newQuerier(loggedIn);
     try {
       PropertyReader.getProperty("escidoc.cone.service.url");
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new ConeException(e);
     }
   }
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes)
       throws SAXException {
-    // super.startElement(uri, localName, name, attributes);
-
 
     QName currentTag = new QName(uri, localName);
-
 
     if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag)
         && currentTag.equals(model.getRdfAboutTag())) {
@@ -94,11 +89,9 @@ public class RDFHandler extends DefaultHandler {
       this.stack.push(new TreeFragment(subject));
     }
 
-
     else if (tagStack.size() > 1 && tagStack.get(0).equals(rdfRootTag)) {
       String predicate;
-      // String namespace;
-      // String tagName;
+
       if (uri != null) {
 
         if (!uri.endsWith("/") && !uri.endsWith("#")) {
@@ -143,8 +136,15 @@ public class RDFHandler extends DefaultHandler {
         LocalizedString firstValue = new LocalizedString();
         firstValue.setLanguage(attributes.getValue("xml:lang"));
 
-        // For predicates that link to other resources, use rdf:resource attribute as content
-        Predicate p = model.getPredicate(predicate);
+        // For predicates that link to other resources, use rdf:resource
+        // attribute as content
+        Predicate p = null;
+        try {
+          p = model.getPredicate(predicate);
+        } catch (ConeException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
         if (p != null && p.getResourceModel() != null && !p.isIncludeResource()) {
           if (attributes.getValue("rdf:resource") != null) {
             firstValue.setValue(attributes.getValue("rdf:resource"));
@@ -193,14 +193,6 @@ public class RDFHandler extends DefaultHandler {
       result.add(this.stack.pop());
       return;
     }
-
-    /*
-     * String namespace; String tagName; if (name.contains(":")) { String nsPrefix =
-     * name.split(":")[0]; namespace = namespaces.get(nsPrefix); tagName = name.split(":")[1]; }
-     * else if (namespaces.get("") != null) { namespace = namespaces.get(""); tagName = name; } else
-     * { namespace = null; tagName = name; }
-     */
-
 
     if (!this.stack.isEmpty() && !currentTag.equals(model.getRdfAboutTag())) {
       this.stack.pop();

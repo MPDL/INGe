@@ -54,8 +54,6 @@ package de.mpg.mpdl.inge.cone.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -69,14 +67,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.Aa;
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.TreeFragment;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.formatter.Formatter;
+import de.mpg.mpdl.inge.cone.formatter.AbstractFormatter;
 import de.mpg.mpdl.inge.cone.util.Rdfs;
 import de.mpg.mpdl.inge.cone.util.UrlHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -118,6 +117,8 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws IOException
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -125,17 +126,19 @@ public class ConeServlet extends HttpServlet {
     request.setCharacterEncoding(DEFAULT_ENCODING);
     response.setCharacterEncoding(DEFAULT_ENCODING);
 
-    Formatter formatter;
+    AbstractFormatter formatter = null;
 
     PrintWriter out = response.getWriter();
 
-    logger.debug("request.getPathInfo() " + request.getPathInfo());
-    logger.debug("getPathTranslated() " + request.getPathTranslated());
-    logger.debug("getRequestURI() " + request.getRequestURI());
-    logger.debug("getServletPath() " + request.getServletPath());
-    logger.debug("getLocalAddr() " + request.getLocalAddr());
-    logger.debug("getLocalName() " + request.getLocalName());
-    logger.debug("getLocalPort() " + request.getLocalPort());
+    if (logger.isDebugEnabled()) {
+      logger.debug("request.getPathInfo() " + request.getPathInfo());
+      logger.debug("getPathTranslated() " + request.getPathTranslated());
+      logger.debug("getRequestURI() " + request.getRequestURI());
+      logger.debug("getServletPath() " + request.getServletPath());
+      logger.debug("getLocalAddr() " + request.getLocalAddr());
+      logger.debug("getLocalName() " + request.getLocalName());
+      logger.debug("getLocalPort() " + request.getLocalPort());
+    }
 
     // Read the model name and action from the URL
     String[] path = request.getServletPath().split("/", 4);
@@ -206,15 +209,17 @@ public class ConeServlet extends HttpServlet {
       }
     }
 
-    formatter = Formatter.getFormatter(format);
+    try {
+      formatter = AbstractFormatter.getFormatter(format);
+    } catch (ConeException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
 
-    logger.debug("Formatter is '" + formatter + "'");
-    logger.debug("Querying for '" + model + "'");
-
-    // if ("explain".equals(model))
-    // {
-    // explain(response);
-    // }
+    if (logger.isDebugEnabled()) {
+      logger.debug("Formatter is '" + formatter + "'");
+      logger.debug("Querying for '" + model + "'");
+    }
 
     Querier.ModeType modeType = Querier.ModeType.FAST;
     String mode =
@@ -229,7 +234,6 @@ public class ConeServlet extends HttpServlet {
           UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request
               .getParameter("query") : request.getParameter("q"));
       int limit = -1;
-
 
       try {
         limit =
@@ -305,12 +309,11 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   private void allAction(String lang, Querier.ModeType modeType, HttpServletResponse response,
-      Formatter formatter, String modelName, boolean loggedIn) throws Exception {
+      AbstractFormatter formatter, String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     if (model != null) {
       response.setContentType(formatter.getContentType());
-
 
       Querier querier = QuerierFactory.newQuerier(loggedIn);
 
@@ -345,24 +348,12 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   private void detailAction(String id, String lang, HttpServletResponse response,
-      Formatter formatter, PrintWriter out, String modelName, boolean loggedIn) throws Exception {
+      AbstractFormatter formatter, PrintWriter out, String modelName, boolean loggedIn)
+      throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     if (model != null) {
       response.setContentType(formatter.getContentType());
-
-      try {
-        URI uri = new URI(id);
-      } catch (URISyntaxException e) {
-
-        id = model.getSubjectPrefix() + id;
-
-        try {
-          new URI(id);
-        } catch (URISyntaxException e2) {
-          reportMissingParameter("id", response);
-        }
-      }
 
       if (id == null) {
         reportMissingParameter("id", response);
@@ -401,44 +392,48 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   private void queryAction(String query, int limit, String lang, Querier.ModeType modeType,
-      HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn)
-      throws Exception {
+      HttpServletResponse response, AbstractFormatter formatter, String modelName, boolean loggedIn)
+      throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
-    if (model != null) {
-      response.setContentType(formatter.getContentType());
+    try {
+      if (model != null) {
+        response.setContentType(formatter.getContentType());
 
-      if (query == null) {
-        reportMissingParameter("q", response);
-      } else if ("".equals(query)) {
-        reportEmptyParameter("q", response);
-      } else {
-
-        Querier querier = QuerierFactory.newQuerier(loggedIn);
-
-        logger.debug("Querier is " + querier);
-
-        if (querier == null) {
-          reportMissingQuerier(response);
+        if (query == null) {
+          reportMissingParameter("q", response);
+        } else if ("".equals(query)) {
+          reportEmptyParameter("q", response);
         } else {
-          List<? extends Describable> result = null;
 
-          try {
-            if (limit >= 0) {
-              result = querier.query(model.getName(), query, lang, modeType, limit);
-            } else {
-              result = querier.query(model.getName(), query, lang, modeType);
+          Querier querier = QuerierFactory.newQuerier(loggedIn);
+
+          logger.debug("Querier is " + querier);
+
+          if (querier == null) {
+            reportMissingQuerier(response);
+          } else {
+            List<? extends Describable> result = null;
+
+            try {
+              if (limit >= 0) {
+                result = querier.query(model.getName(), query, lang, modeType, limit);
+              } else {
+                result = querier.query(model.getName(), query, lang, modeType);
+              }
+            } catch (Exception e) {
+              logger.error(DB_ERROR_MESSAGE, e);
             }
-          } catch (Exception e) {
-            logger.error(DB_ERROR_MESSAGE, e);
-          }
 
-          response.getWriter().print(formatter.formatQuery(result, model));
+            response.getWriter().print(formatter.formatQuery(result, model));
+          }
+          querier.release();
         }
-        querier.release();
+      } else {
+        reportUnknownModel(modelName, response);
       }
-    } else {
-      reportUnknownModel(modelName, response);
+    } catch (IOException e) {
+      throw new ConeException(e);
     }
   }
 
@@ -451,38 +446,44 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   private void queryFieldsAction(Pair[] searchFields, int limit, String lang,
-      Querier.ModeType modeType, HttpServletResponse response, Formatter formatter,
-      String modelName, boolean loggedIn) throws Exception {
+      Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
+      String modelName, boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
-    if (model != null) {
-      response.setContentType(formatter.getContentType());
+    try {
+      if (model != null) {
+        response.setContentType(formatter.getContentType());
 
-      Querier querier = QuerierFactory.newQuerier(loggedIn);
+        Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-      logger.debug("Querier is " + querier);
-
-      if (querier == null) {
-        reportMissingQuerier(response);
-      } else {
-        List<? extends Describable> result = null;
-
-        try {
-          if (limit >= 0) {
-            result = querier.query(model.getName(), searchFields, lang, modeType, limit);
-          } else {
-            result = querier.query(model.getName(), searchFields, lang, modeType);
-          }
-        } catch (Exception e) {
-          logger.error(DB_ERROR_MESSAGE, e);
+        if (logger.isDebugEnabled()) {
+          logger.debug("Querier is " + querier);
         }
 
-        response.getWriter().print(formatter.formatQuery(result, model));
-      }
-      querier.release();
+        if (querier == null) {
+          reportMissingQuerier(response);
+        } else {
+          List<? extends Describable> result = null;
 
-    } else {
-      reportUnknownModel(modelName, response);
+          try {
+            if (limit >= 0) {
+              result = querier.query(model.getName(), searchFields, lang, modeType, limit);
+            } else {
+              result = querier.query(model.getName(), searchFields, lang, modeType);
+            }
+          } catch (Exception e) {
+            logger.error(DB_ERROR_MESSAGE, e);
+          }
+
+          response.getWriter().print(formatter.formatQuery(result, model));
+        }
+        querier.release();
+
+      } else {
+        reportUnknownModel(modelName, response);
+      }
+    } catch (IOException e) {
+      throw new ConeException(e);
     }
   }
 

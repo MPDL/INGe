@@ -15,8 +15,10 @@
  */
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +30,7 @@ import java.util.Stack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -51,7 +54,6 @@ public class ModelList {
     ONLOAD, ONSAVE
   }
 
-
   public enum Type {
     STRING, XML
   }
@@ -62,17 +64,24 @@ public class ModelList {
   private Map<String, String> defaultNamepaces = new HashMap<String, String>();
   private Map<String, Set<String>> formatMimetypes = new HashMap<String, Set<String>>();
 
-  private ModelList() throws Exception {
-    InputStream in =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
-            ModelList.class.getClassLoader());
-    ServiceListHandler listHandler = new ServiceListHandler();
-    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-    parser.parse(in, listHandler);
-    list = listHandler.getList();
-    logger.debug("Length: " + list.size());
-    for (Model model : list) {
-      logger.debug("Model:" + model.getName());
+  private ModelList() throws ConeException {
+    try {
+      InputStream in =
+          ResourceUtil.getResourceAsStream(
+              PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+              ModelList.class.getClassLoader());
+      ServiceListHandler listHandler = new ServiceListHandler();
+      SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+      parser.parse(in, listHandler);
+      list = listHandler.getList();
+      logger.debug("Length: " + list.size());
+      for (Model model : list) {
+        if (logger.isDebugEnabled()) {
+          logger.debug("Model:" + model.getName());
+        }
+      }
+    } catch (IOException | SAXException | URISyntaxException | ParserConfigurationException ex) {
+      throw new ConeException(ex);
     }
   }
 
@@ -81,8 +90,9 @@ public class ModelList {
    * 
    * @throws Exception Any exception.
    * @return The singleton
+   * @throws ConeException
    */
-  public static ModelList getInstance() throws Exception {
+  public static synchronized ModelList getInstance() throws ConeException {
     if (instance == null) {
       instance = new ModelList();
     }
@@ -169,7 +179,6 @@ public class ModelList {
 
         }
 
-
       } else if ("models/model/primary-identifier".equals(localStack.toString())) {
         currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
       } else if ("models/model/results/result/result-pattern".equals(localStack.toString())) {
@@ -182,8 +191,6 @@ public class ModelList {
         int resultSize = currentService.getResults().size();
         currentService.getResults().get(resultSize - 1).setType(content.trim());
       }
-
-
 
     }
 
@@ -203,8 +210,8 @@ public class ModelList {
               + " in model " + currentService.getName() + " must not be null");
         }
 
-
-        // if parent is "predicates" (and therefore not another sub-predicate) and value is same as
+        // if parent is "predicates" (and therefore not another
+        // sub-predicate) and value is same as
         // primary identifier
         else if (localStack.size() > 1
             && "predicates".equals(localStack.get(localStack.size() - 2))
@@ -362,7 +369,6 @@ public class ModelList {
 
   }
 
-
   /**
    * A bean holding data of a CoNE service.
    * 
@@ -501,7 +507,6 @@ public class ModelList {
       this.identifierPrefix = identifierPrefix;
     }
 
-
     public boolean isLocalizedResultPattern() {
       return localizedResultPattern;
     }
@@ -565,10 +570,11 @@ public class ModelList {
      *        is thrown.
      * 
      * @return null if there is no predicate with the given id, the according predicate otherwise.
+     * @throws ConeException
      */
-    public Predicate getPredicate(String predicateId) {
+    public Predicate getPredicate(String predicateId) throws ConeException {
       if (predicateId == null) {
-        throw new NullPointerException("Empty predicate name");
+        throw new ConeException("Empty predicate name");
       }
       for (Predicate predicate : getPredicates()) {
         if (predicateId.equals(predicate.getId())) {
@@ -730,10 +736,11 @@ public class ModelList {
      * 
      * @return null if there is no sub predicate with the given id, the according sub predicate
      *         otherwise.
+     * @throws ConeException
      */
-    public Predicate getPredicate(String predicateId) {
+    public Predicate getPredicate(String predicateId) throws ConeException {
       if (predicateId == null) {
-        throw new NullPointerException("Empty predicate name");
+        throw new ConeException("Empty predicate name");
       }
       for (Predicate predicate : getPredicates()) {
         if (predicateId.equals(predicate.getId())) {
@@ -907,9 +914,7 @@ public class ModelList {
       this.type = type;
     }
 
-
   }
-
 
   public class ModelResult {
 
@@ -942,7 +947,6 @@ public class ModelList {
     public void setType(String type) {
       this.type = type;
     }
-
 
   }
 }

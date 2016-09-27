@@ -31,6 +31,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.LocalizedString;
 import de.mpg.mpdl.inge.cone.Pair;
@@ -58,8 +59,10 @@ public class RdfHelper {
    * @param pairs A list of key-value pairs
    * 
    * @return The RDF
+   * @throws ConeException
    */
-  public static String formatList(List<? extends Describable> pairs, Model model) {
+  public static String formatList(List<? extends Describable> pairs, Model model)
+      throws ConeException {
 
     StringWriter result = new StringWriter();
 
@@ -106,7 +109,7 @@ public class RdfHelper {
             }
             result.append("\t</rdf:Description>\n");
           } catch (Exception exception) {
-            throw new RuntimeException(exception);
+            throw new ConeException(exception);
           }
         } else if (pair instanceof TreeFragment) {
           result.append(((TreeFragment) pair).toRdf(model));
@@ -119,12 +122,6 @@ public class RdfHelper {
     return result.toString();
   }
 
-  /*
-   * public static String xmlEscape(String value) { value = value.replace("&", "&amp;"); value =
-   * value.replace("<", "&lt;"); value = value.replace(">", "&gt;");
-   * 
-   * return value; }
-   */
   /**
    * Formats an a Map of triples into RDF.
    * 
@@ -133,7 +130,7 @@ public class RdfHelper {
    * 
    * @return The RDF
    */
-  public static String formatMap(String id, TreeFragment triples, Model model) {
+  public static String formatMap(String id, TreeFragment triples, Model model) throws ConeException {
     if (triples != null) {
       StringWriter result = new StringWriter();
 

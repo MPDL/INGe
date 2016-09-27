@@ -46,6 +46,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.LocalizedString;
 import de.mpg.mpdl.inge.cone.Pair;
@@ -63,7 +64,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class JsonFormatter extends Formatter {
+public class JsonFormatter extends AbstractFormatter {
 
   private static final Logger logger = Logger.getLogger(JsonFormatter.class);
   private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
@@ -138,7 +139,7 @@ public class JsonFormatter extends Formatter {
    * @param pairs The RDF.
    * @return A String formatted in JSON format.
    */
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws IOException {
+  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
 
     StringWriter result = new StringWriter();
 
@@ -234,7 +235,7 @@ public class JsonFormatter extends Formatter {
    * @return A String formatted in a JQuery readable format.
    */
   public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws IOException {
+      throws ConeException {
     return triples.toJson();
   }
 

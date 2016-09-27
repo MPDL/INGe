@@ -26,7 +26,9 @@
 
 package de.mpg.mpdl.inge.cone;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,7 +78,7 @@ public class ModelHelper {
 
 
   public static List<Pair<ResultEntry>> buildObjectFromPatternNew(String modelName,
-      String currentSubject, TreeFragment poMap, boolean loggedIn) throws Exception {
+      String currentSubject, TreeFragment poMap, boolean loggedIn) throws ConeException {
 
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
@@ -147,8 +149,9 @@ public class ModelHelper {
   }
 
 
-  public static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model,
-      TreeFragment poMap, ModelResult modelResult, boolean loggedIn, String lang) {
+  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model,
+      TreeFragment poMap, ModelResult modelResult, boolean loggedIn, String lang)
+      throws ConeException {
     // logger.info("----------------------------Get Permutations-----------------------------------\n"
     // + modelResult.getResultPattern() + "\n" +
     // "------------------------------------------------------------------------------");
@@ -159,9 +162,10 @@ public class ModelHelper {
   }
 
 
-  public static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model,
+  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model,
       Predicate superPredicate, TreeFragment poMap, ModelResult modelResult, boolean loggedIn,
-      String lang, List<Map<String, List<LocalizedTripleObject>>> permutationList, String prefix) {
+      String lang, List<Map<String, List<LocalizedTripleObject>>> permutationList, String prefix)
+      throws ConeException {
 
     for (String predicateName : poMap.keySet()) {
       String regex = "(<|\\|)" + Pattern.quote(predicateName) + "(>|\\|)";
@@ -242,8 +246,8 @@ public class ModelHelper {
                 }
               }
             }
-          } catch (Exception e) {
-            throw new RuntimeException(e);
+          } catch (URISyntaxException | IOException e) {
+            throw new ConeException(e);
           }
 
         }
@@ -311,7 +315,7 @@ public class ModelHelper {
    * @throws Exception
    */
   private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap,
-      boolean loggedIn) throws Exception {
+      boolean loggedIn) throws ConeException {
     Set<String> languages = new HashSet<String>();
 
     if (model.isLocalizedResultPattern()) {
@@ -346,10 +350,11 @@ public class ModelHelper {
    * @param poMap
    * @param languages
    * @return
+   * @throws ConeException
    * @throws Exception
    */
   private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap,
-      boolean loggedIn) throws Exception {
+      boolean loggedIn) throws ConeException {
     Set<String> languages = new HashSet<String>();
 
     if (model.isLocalizedMatches()) {
@@ -365,10 +370,16 @@ public class ModelHelper {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
             Model subModel =
                 ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
-            TreeFragment subResource =
-                querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
-            languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
-            querier.release();
+            TreeFragment subResource;
+            try {
+              subResource =
+                  querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
+              languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
+              querier.release();
+            } catch (ConeException e) {
+              throw new ConeException(e);
+            }
+
           }
         }
       }
@@ -385,6 +396,7 @@ public class ModelHelper {
    * @return
    */
   private static String replaceTokens(String string) {
+
     if (string == null) {
       return null;
     }
@@ -403,16 +415,8 @@ public class ModelHelper {
     return string;
   }
 
-  public static String escapeForItqlObject(String result) {
-    return result.replace("'", "\\'");
-  }
-
-  public static String escapeForSqlObject(String result) {
-    return result.replace("'", "\\'");
-  }
-
   public static List<Pair<LocalizedString>> buildMatchStringFromModel(String modelName, String id,
-      TreeFragment values, boolean loggedIn) throws Exception {
+      TreeFragment values, boolean loggedIn) throws ConeException {
     Set<String> languages = new HashSet<String>();
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
@@ -430,8 +434,8 @@ public class ModelHelper {
     return results;
   }
 
-  public static String getMatchString(List<Predicate> predicates, TreeFragment values, String lang,
-      boolean loggedIn) throws Exception {
+  private static String getMatchString(List<Predicate> predicates, TreeFragment values,
+      String lang, boolean loggedIn) throws ConeException {
     StringWriter result = new StringWriter();
 
     for (Predicate predicate : predicates) {
