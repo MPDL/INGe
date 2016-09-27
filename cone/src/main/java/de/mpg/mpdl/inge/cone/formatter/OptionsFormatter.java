@@ -121,7 +121,7 @@ public class OptionsFormatter extends AbstractFormatter {
           try {
             result.append(key.substring(key.lastIndexOf("/") + 1));
           } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConeException(e);
           }
           result.append("|");
           result.append(value.toString());

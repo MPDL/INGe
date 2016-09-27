@@ -282,16 +282,22 @@ public class ModelList {
 
       for (Model model : list) {
         modelStack.push(model.getName());
-        setI18nFlags(model, model.getPredicates(), modelStack);
+        try {
+			setI18nFlags(model, model.getPredicates(), modelStack);
+		} catch (ConeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         modelStack.pop();
       }
     }
 
     /**
      * @param model
+     * @throws ConeException 
      */
     private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> modelStack)
-        throws SAXException {
+        throws SAXException, ConeException {
       for (Predicate predicate : predicates) {
         for (ModelResult result : model.getResults()) {
           if (predicate.isLocalized()
@@ -331,7 +337,7 @@ public class ModelList {
               }
             }
           } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConeException(e);
           }
         }
       }
@@ -750,7 +756,7 @@ public class ModelList {
       return null;
     }
 
-    public String getDefault(HttpServletRequest request) {
+    public String getDefault(HttpServletRequest request) throws ConeException {
       if (this.defaultValue == null) {
         return null;
       } else if (this.defaultValue.startsWith("'") && this.defaultValue.endsWith("'")) {
@@ -765,7 +771,7 @@ public class ModelList {
           String result = (String) method.invoke(null, new Object[] {request});
           return result;
         } catch (Exception e) {
-          throw new RuntimeException(e);
+          throw new ConeException(e);
         }
       }
     }

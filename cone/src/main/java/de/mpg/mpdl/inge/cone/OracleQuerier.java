@@ -123,7 +123,7 @@ public class OracleQuerier implements Querier {
     } else if (modeType == ModeType.FULL) {
       return queryFull(model, searchString, language, limit);
     } else {
-      throw new RuntimeException("Mode " + modeType + " not supported.");
+      throw new ConeException("Mode " + modeType + " not supported.");
     }
 
   }
@@ -200,7 +200,7 @@ public class OracleQuerier implements Querier {
 
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       if (language == null) {
@@ -271,7 +271,7 @@ public class OracleQuerier implements Querier {
     } else if (modeType == ModeType.FULL) {
       return queryFull(modelName, searchPairs, language, limit);
     } else {
-      throw new RuntimeException("Mode " + modeType + " not supported.");
+      throw new ConeException("Mode " + modeType + " not supported.");
     }
   }
 
@@ -279,7 +279,7 @@ public class OracleQuerier implements Querier {
       String language, int limit) throws ConeException {
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       if (language == null) {
@@ -366,7 +366,7 @@ public class OracleQuerier implements Querier {
       String language, int limit) throws ConeException {
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       if (language == null) {
@@ -484,7 +484,7 @@ public class OracleQuerier implements Querier {
   public TreeFragment details(String modelName, String id, String language) throws ConeException {
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       if (modelName != null) {
@@ -589,7 +589,7 @@ public class OracleQuerier implements Querier {
         if (!found) {
           logger.error("Predicate '" + predicateValue + "' (subject = '" + id
               + "') not found in model '" + modelName + "'");
-          // throw new RuntimeException("Predicate '" + predicateValue
+          // throw new ConeException("Predicate '" + predicateValue
           // +
           // "' not found in model.");
         }
@@ -633,7 +633,7 @@ public class OracleQuerier implements Querier {
         int count = result.getInt("cnt");
         if (count > 0) {
           if (modelName != null) {
-            throw new RuntimeException("Trying to create a resource that is already existing: "
+            throw new ConeException("Trying to create a resource that is already existing: "
                 + modelName + " " + id);
           } else {
             // Won't update an existing resource linked from this
@@ -644,7 +644,7 @@ public class OracleQuerier implements Querier {
           }
         }
       } else {
-        throw new RuntimeException(
+        throw new ConeException(
             "Select count statement should always return a result, but did not.");
       }
 
@@ -745,7 +745,7 @@ public class OracleQuerier implements Querier {
 
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       String query = "select distinct object from triples where subject = ? and predicate = ?";
@@ -801,7 +801,7 @@ public class OracleQuerier implements Querier {
 
     try {
       if (connection.isClosed()) {
-        throw new RuntimeException("Connection was already closed.");
+        throw new ConeException("Connection was already closed.");
       }
 
       String query = "select value from properties where name = 'max_id'";

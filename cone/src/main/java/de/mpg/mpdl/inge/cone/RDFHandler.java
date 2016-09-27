@@ -33,6 +33,7 @@ import java.util.Stack;
 
 import javax.xml.namespace.QName;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -59,6 +60,8 @@ public class RDFHandler extends DefaultHandler {
   private Querier querier;
   private Model model;
   private StringBuffer currentContent;
+  
+  private static final Logger logger = Logger.getLogger(RDFHandler.class);
 
   private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
       "RDF", "rdf");
@@ -142,8 +145,7 @@ public class RDFHandler extends DefaultHandler {
         try {
           p = model.getPredicate(predicate);
         } catch (ConeException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+          logger.warn("getPredica<te failed", e);
         }
         if (p != null && p.getResourceModel() != null && !p.isIncludeResource()) {
           if (attributes.getValue("rdf:resource") != null) {
@@ -181,7 +183,7 @@ public class RDFHandler extends DefaultHandler {
       if (this.stack.peek() instanceof LocalizedString) {
         ((LocalizedString) this.stack.peek()).setValue(currentContent.toString());
       } else {
-        throw new RuntimeException("Wrong RDF structure at " + name + " (namespace " + uri + ")");
+    	  logger.warn("Wrong RDF structure at " + name + " (namespace " + uri + ")");
       }
     }
 

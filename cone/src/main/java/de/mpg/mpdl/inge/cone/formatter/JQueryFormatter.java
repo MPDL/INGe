@@ -151,7 +151,7 @@ public class JQueryFormatter extends AbstractFormatter {
           try {
             result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
           } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConeException(e);
           }
         } else if (pair instanceof TreeFragment) {
           result.append(((TreeFragment) pair).toJson());

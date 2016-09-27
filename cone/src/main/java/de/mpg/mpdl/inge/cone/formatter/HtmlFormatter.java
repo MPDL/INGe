@@ -195,7 +195,7 @@ public class HtmlFormatter extends AbstractFormatter {
 
       transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new ConeException(e);
     }
     return writer.toString();
   }

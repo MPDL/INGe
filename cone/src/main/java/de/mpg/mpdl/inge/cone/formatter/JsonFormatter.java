@@ -157,7 +157,7 @@ public class JsonFormatter extends AbstractFormatter {
             result.append(PropertyReader.getProperty("escidoc.cone.service.url")
                 + key.replace("\"", "\\\""));
           } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConeException(e);
           }
           result.append("\",\n");
 
@@ -195,7 +195,7 @@ public class JsonFormatter extends AbstractFormatter {
             result.append(PropertyReader.getProperty("escidoc.cone.service.url")
                 + key.replace("\"", "\\\""));
           } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConeException(e);
           }
           result.append("\",\n");
 

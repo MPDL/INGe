@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.cone.util;
 
 import java.io.UnsupportedEncodingException;
 
+import de.mpg.mpdl.inge.cone.ConeException;
+
 /**
  * Helper class for URL handling.
  * 
@@ -47,8 +49,9 @@ public class UrlHelper {
    * 
    * @param brokenValue
    * @return hopefully fixed string.
+ * @throws ConeException 
    */
-  public static String fixURLEncoding(String input) {
+  public static String fixURLEncoding(String input) throws ConeException {
     if (input != null) {
       try {
         String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
@@ -58,7 +61,7 @@ public class UrlHelper {
           return utf8;
         }
       } catch (UnsupportedEncodingException e) {
-        throw new RuntimeException(e);
+        throw new ConeException(e);
       }
     } else {
       return null;

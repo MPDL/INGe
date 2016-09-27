@@ -59,7 +59,7 @@ public class QuerierFactory {
         ((Querier) querierImpl).setLoggedIn(loggedIn);
         return (Querier) querierImpl;
       } else {
-        throw new RuntimeException("Instantiated querier class ("
+        throw new ConeException("Instantiated querier class ("
             + querierImpl.getClass().getName() + ") does not implement the Querier interface.");
       }
     } catch (Exception e) {

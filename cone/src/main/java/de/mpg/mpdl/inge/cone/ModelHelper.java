@@ -371,15 +371,11 @@ public class ModelHelper {
             Model subModel =
                 ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
             TreeFragment subResource;
-            try {
+
               subResource =
                   querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
               languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
               querier.release();
-            } catch (ConeException e) {
-              throw new ConeException(e);
-            }
-
           }
         }
       }
