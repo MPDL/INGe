@@ -28,9 +28,6 @@ package de.mpg.mpdl.inge.syndication;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -201,38 +198,6 @@ public class Utils {
    */
   public static String quoteReplacement(String str) {
     return Matcher.quoteReplacement(str).replace("{", "\\{").replace("}", "\\}");
-  }
-
-
-  /**
-   * Get a resource as InputStream.
-   * 
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as InputStream.
-   * @throws FileNotFoundException Thrown if the resource cannot be located.
-   */
-  public static InputStream getResourceAsStream(final String fileName) throws FileNotFoundException {
-    InputStream fileIn = null;
-
-    File file = new File(fileName);
-    if (file.exists()) {
-      fileIn = new FileInputStream(fileName);
-    } else {
-      fileIn = Feeds.class.getClassLoader().getResourceAsStream(fileName);
-    }
-    return fileIn;
-
-  }
-
-  /**
-   * Get a resource as String.
-   * 
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as String.
-   * @throws IOException Thrown if the resource cannot be located.
-   */
-  public static String getResourceAsString(final String fileName) throws IOException {
-    return getInputStreamAsString(getResourceAsStream(fileName));
   }
 
   /**
