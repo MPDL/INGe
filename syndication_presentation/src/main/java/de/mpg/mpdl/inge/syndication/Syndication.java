@@ -43,7 +43,6 @@ import org.apache.log4j.Logger;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
-import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

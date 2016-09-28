@@ -41,7 +41,6 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class Feeds {
@@ -129,7 +128,7 @@ public class Feeds {
    * Find feed which URI matches <code>uriMatcher</code>. <code>uriMatcher</code> should be
    * calculated before the method usage.
    * 
-   * @see de.mpg.mpdl.inge.syndication.feed.Feed#generateUriMatcher(String) generateUriMatcher
+   * @see de.mpg.mpdl.inge.syndication.Feed#generateUriMatcher(String) generateUriMatcher
    * @param uri is URI to be matched
    * @return matched <code>feed</code>
    */

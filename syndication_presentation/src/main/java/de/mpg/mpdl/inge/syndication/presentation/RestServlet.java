@@ -25,12 +25,8 @@
 
 package de.mpg.mpdl.inge.syndication.presentation;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,15 +38,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.sun.syndication.io.FeedException;
 
+import de.mpg.mpdl.inge.syndication.Feed;
 import de.mpg.mpdl.inge.syndication.Syndication;
 import de.mpg.mpdl.inge.syndication.SyndicationException;
 import de.mpg.mpdl.inge.syndication.Utils;
-import de.mpg.mpdl.inge.syndication.feed.Feed;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
