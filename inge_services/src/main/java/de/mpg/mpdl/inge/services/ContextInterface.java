@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.services;
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
+
 
 /**
  * Interface for persisting and retrieving Contexts
@@ -22,8 +23,8 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String createContext(ContextVO context, String contextId) throws AuthenticationException,
-      TechnicalException;
+  public String createContext(ContextVO context, String contextId) throws IngeServiceException;
+
 
   /**
    * 
@@ -33,8 +34,7 @@ public interface ContextInterface {
    * @throws SecurityException
    * @return {@link ContextVO}
    */
-  public ContextVO readContext(String contextId) throws TechnicalException, NotFoundException,
-      SecurityException;
+  public ContextVO readContext(String contextId) throws IngeServiceException;
 
   /**
    * 
@@ -44,9 +44,7 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String updateContext(ContextVO context, String contextId) throws AuthenticationException,
-      TechnicalException;
-
+  public String updateContext(ContextVO context, String contextId) throws IngeServiceException;
 
   /**
    * 
@@ -55,5 +53,5 @@ public interface ContextInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String deleteContext(String contextId) throws AuthenticationException, TechnicalException;
+  public String deleteContext(String contextId) throws IngeServiceException;
 }

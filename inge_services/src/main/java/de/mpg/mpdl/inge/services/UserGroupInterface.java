@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.services;
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * Interface for persisting and retrieving user groups
@@ -23,8 +23,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String createUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws AuthenticationException, TechnicalException;
+  public String createUserGroup(UserGroupVO userGroup, String userGroupId) throws IngeServiceException;
 
   /**
    * 
@@ -34,8 +33,7 @@ public interface UserGroupInterface {
    * @throws SecurityException
    * @return {@link UserGroupVO}
    */
-  public UserGroupVO readUserGroup(String userGroupId) throws TechnicalException,
-      NotFoundException, SecurityException;
+  public UserGroupVO readUserGroup(String userGroupId) throws IngeServiceException;
 
 
   /**
@@ -46,8 +44,7 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String updateUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws AuthenticationException, TechnicalException;
+  public String updateUserGroup(UserGroupVO userGroup, String userGroupId) throws IngeServiceException;
 
 
   /**
@@ -57,6 +54,5 @@ public interface UserGroupInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String deleteUserGroup(String userGroupId) throws AuthenticationException,
-      TechnicalException;
+  public String deleteUserGroup(String userGroupId)  throws IngeServiceException;
 }

@@ -13,10 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.services.OrganizationInterface;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * @author frank
@@ -43,13 +42,13 @@ public class OrganizationServiceBean implements OrganizationInterface {
    */
   @Override
   public String createOrganization(AffiliationVO organization, String organizationId)
-      throws SecurityException, NotFoundException, TechnicalException {
+      throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(organization);
       return connector.index(indexName, indexType, organizationId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -59,14 +58,13 @@ public class OrganizationServiceBean implements OrganizationInterface {
    * @see de.mpg.mpdl.inge.services.OrganizationInterface#readOrganization(java.lang.String)
    */
   @Override
-  public AffiliationVO readOrganization(String organizationId) throws TechnicalException,
-      NotFoundException, SecurityException {
+  public AffiliationVO readOrganization(String organizationId) throws IngeServiceException {
     byte[] voAsBytes = connector.get(indexName, indexType, organizationId);
     try {
       AffiliationVO organization = mapper.readValue(voAsBytes, AffiliationVO.class);
       return organization;
     } catch (IOException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -78,13 +76,13 @@ public class OrganizationServiceBean implements OrganizationInterface {
    */
   @Override
   public String updateOrganization(AffiliationVO organization, String organizationId)
-      throws SecurityException, NotFoundException, TechnicalException {
+      throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(organization);
       return connector.update(indexName, indexType, organizationId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -94,9 +92,7 @@ public class OrganizationServiceBean implements OrganizationInterface {
    * @see de.mpg.mpdl.inge.services.OrganizationInterface#deleteOrganization(java.lang.String)
    */
   @Override
-  public String deleteOrganization(String organizationId) throws SecurityException,
-      NotFoundException, TechnicalException {
-
+  public String deleteOrganization(String organizationId) {
     return connector.delete(indexName, indexType, organizationId);
   }
 }

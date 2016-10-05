@@ -8,8 +8,6 @@ import org.elasticsearch.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
-
 /**
  * ElasticSearchTransportClientConnector
  * 
@@ -31,10 +29,8 @@ public class ElasticSearchTransportClientConnector {
    * @param id
    * @param voAsBytes
    * @return {@link String}
-   * @throws TechnicalException
    */
-  public String index(String indexName, String indexType, String id, byte[] voAsBytes)
-      throws TechnicalException {
+  public String index(String indexName, String indexType, String id, byte[] voAsBytes) {
 
     IndexResponse indexResponse =
         client.prepareIndex().setIndex(indexName).setType(indexType).setId(id).setSource(voAsBytes)
@@ -48,9 +44,8 @@ public class ElasticSearchTransportClientConnector {
    * @param indexType
    * @param id
    * @return byte[]
-   * @throws TechnicalException
    */
-  public byte[] get(String indexName, String indexType, String id) throws TechnicalException {
+  public byte[] get(String indexName, String indexType, String id) {
     GetResponse getResponse =
         client.prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
     byte[] voAsBytes = getResponse.getSourceAsBytes();
@@ -64,10 +59,8 @@ public class ElasticSearchTransportClientConnector {
    * @param id
    * @param voAsBytes
    * @return {@link String}
-   * @throws TechnicalException
    */
-  public String update(String indexName, String indexType, String id, byte[] voAsBytes)
-      throws TechnicalException {
+  public String update(String indexName, String indexType, String id, byte[] voAsBytes) {
     UpdateResponse updateResponse =
         client.prepareUpdate().setIndex(indexName).setType(indexType).setId(id).setDoc(voAsBytes)
             .get();
@@ -81,7 +74,7 @@ public class ElasticSearchTransportClientConnector {
    * @param id
    * @return {@link String}
    */
-  public String delete(String indexName, String indexType, String id) throws TechnicalException {
+  public String delete(String indexName, String indexType, String id) {
     DeleteResponse deleteResponse =
         client.prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
     client.close();

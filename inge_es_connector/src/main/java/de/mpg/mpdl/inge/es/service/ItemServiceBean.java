@@ -13,10 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.ItemInterface;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * @author frank
@@ -43,14 +42,13 @@ public class ItemServiceBean implements ItemInterface {
    * java.lang.String)
    */
   @Override
-  public String createItem(PubItemVO item, String itemId) throws TechnicalException,
-      SecurityException {
+  public String createItem(PubItemVO item, String itemId) throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(item);
       return connector.index(indexName, indexType, itemId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -60,14 +58,13 @@ public class ItemServiceBean implements ItemInterface {
    * @see de.mpg.mpdl.inge.services.ItemInterface#readItem(java.lang.String)
    */
   @Override
-  public PubItemVO readItem(String itemId) throws TechnicalException, NotFoundException,
-      SecurityException {
+  public PubItemVO readItem(String itemId) throws IngeServiceException {
     byte[] voAsBytes = connector.get(indexName, indexType, itemId);
     try {
       PubItemVO item = mapper.readValue(voAsBytes, PubItemVO.class);
       return item;
     } catch (IOException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -80,13 +77,13 @@ public class ItemServiceBean implements ItemInterface {
    */
   @Override
   public String updateItem(PubItemVO item, String itemId, boolean createNewVersion)
-      throws TechnicalException, SecurityException, NotFoundException {
+      throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(item);
       return connector.update(indexName, indexType, itemId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -96,8 +93,7 @@ public class ItemServiceBean implements ItemInterface {
    * @see de.mpg.mpdl.inge.services.ItemInterface#deleteItem(java.lang.String)
    */
   @Override
-  public String deleteItem(String itemId) throws TechnicalException, SecurityException,
-      NotFoundException {
+  public String deleteItem(String itemId) {
     return connector.delete(indexName, indexType, itemId);
   }
 

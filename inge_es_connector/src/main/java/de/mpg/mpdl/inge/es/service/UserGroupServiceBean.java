@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.services.UserGroupInterface;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * @author frank
@@ -45,13 +43,13 @@ public class UserGroupServiceBean implements UserGroupInterface {
    */
   @Override
   public String createUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws AuthenticationException, TechnicalException {
+      throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(userGroup);
       return connector.index(indexName, indexType, userGroupId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -61,14 +59,13 @@ public class UserGroupServiceBean implements UserGroupInterface {
    * @see de.mpg.mpdl.inge.services.UserGroupInterface#readUserGroup(java.lang.String)
    */
   @Override
-  public UserGroupVO readUserGroup(String userGroupId) throws TechnicalException,
-      NotFoundException, SecurityException {
+  public UserGroupVO readUserGroup(String userGroupId) throws IngeServiceException {
     byte[] voAsBytes = connector.get(indexName, indexType, userGroupId);
     try {
       UserGroupVO group = mapper.readValue(voAsBytes, UserGroupVO.class);
       return group;
     } catch (IOException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -81,13 +78,13 @@ public class UserGroupServiceBean implements UserGroupInterface {
    */
   @Override
   public String updateUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws AuthenticationException, TechnicalException {
+      throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(userGroup);
       return connector.update(indexName, indexType, userGroupId, voAsBytes);
     } catch (JsonProcessingException e) {
-      throw new TechnicalException(e.getMessage(), e.getCause());
+      throw new IngeServiceException(e.getMessage(), e.getCause());
     }
   }
 
@@ -97,8 +94,7 @@ public class UserGroupServiceBean implements UserGroupInterface {
    * @see de.mpg.mpdl.inge.services.UserGroupInterface#deleteUserGroup(java.lang.String)
    */
   @Override
-  public String deleteUserGroup(String userGroupId) throws AuthenticationException,
-      TechnicalException {
+  public String deleteUserGroup(String userGroupId) {
     return connector.delete(indexName, indexType, userGroupId);
   }
 

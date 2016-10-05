@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
+
 
 /**
  * Interface for persisting and retrieving publication items
@@ -20,10 +21,9 @@ public interface ItemInterface {
    * @exception TechnicalException
    * @exception DepositingException
    * @return {@link String}
+ * @throws SecurityException 
    */
-  public String createItem(PubItemVO item, String itemId) throws TechnicalException,
-      SecurityException;
-
+  public String createItem(PubItemVO item, String itemId) throws IngeServiceException, TechnicalException, SecurityException;
 
   /**
    * 
@@ -33,8 +33,7 @@ public interface ItemInterface {
    * @throws SecurityException
    * @return {@link PubItemVO}
    */
-  public PubItemVO readItem(String itemId) throws TechnicalException, NotFoundException,
-      SecurityException;
+  public PubItemVO readItem(String itemId) throws IngeServiceException;
 
   /**
    * 
@@ -44,9 +43,8 @@ public interface ItemInterface {
    * @throws DepositingException
    * @throws ItemNotFoundException
    * @return {@link String}
-   */
-  public String updateItem(PubItemVO item, String itemId, boolean createNewVersion)
-      throws TechnicalException, SecurityException, NotFoundException;
+   */ 
+  public String updateItem(PubItemVO item, String itemId, boolean createNewVersion) throws IngeServiceException;
 
 
   /**
@@ -57,6 +55,5 @@ public interface ItemInterface {
    * @exception ItemNotFoundException
    * @return {@link String}
    */
-  public String deleteItem(String itemId) throws TechnicalException, SecurityException,
-      NotFoundException;
+  public String deleteItem(String itemId) throws IngeServiceException;
 }

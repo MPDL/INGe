@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.services;
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.tech.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * Interface for persisting and retrieving user s
@@ -22,8 +22,7 @@ public interface UserInterface {
    * @throws TechnicalException
    * @return {@link String}
    */
-  public String createUser(AccountUserVO user, String userId) throws AuthenticationException,
-      TechnicalException;
+  public String createUser(AccountUserVO user, String userId)  throws IngeServiceException;
 
   /**
    * 
@@ -33,8 +32,7 @@ public interface UserInterface {
    * @throws SecurityException
    * @return {@link AccountUserVO}
    */
-  public AccountUserVO readUser(String userId) throws TechnicalException, NotFoundException,
-      SecurityException;
+  public AccountUserVO readUser(String userId)  throws IngeServiceException;
 
 
   /**
@@ -45,8 +43,8 @@ public interface UserInterface {
    * @throws TechnicalException
    * @return modified user
    */
-  public String updateUser(AccountUserVO user, String userId) throws AuthenticationException,
-      TechnicalException;
+  public String updateUser(AccountUserVO user, String userId)  throws IngeServiceException;
+     
 
 
   /**
@@ -56,5 +54,5 @@ public interface UserInterface {
    * @throws TechnicalException
    * @return deleted user
    */
-  public String deleteUser(String userId) throws AuthenticationException, TechnicalException;
+  public String deleteUser(String userId)  throws IngeServiceException;
 }
