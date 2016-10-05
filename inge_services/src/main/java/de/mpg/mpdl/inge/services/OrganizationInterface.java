@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.services;
 
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * Interface for persisting and retrieving organizations

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.services.ContextInterface;
-import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 
 
 /**

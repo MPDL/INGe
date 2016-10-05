@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.services;
 import de.escidoc.core.client.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 
 /**

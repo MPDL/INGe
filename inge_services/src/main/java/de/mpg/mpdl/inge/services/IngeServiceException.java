@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.tech.exceptions;
+package de.mpg.mpdl.inge.services;
 
 /**
  * Exception if a service fails

@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.service.OrganizationServiceBean;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ServiceBeanTest

@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.UserInterface;
-import de.mpg.mpdl.inge.tech.exceptions.IngeServiceException;
 
 /**
  * @author frank
