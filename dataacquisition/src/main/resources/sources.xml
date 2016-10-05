@@ -204,10 +204,10 @@
 	
 	<Import-Source name="PubMedCentral">
 		<dc:description>PubMed Central (PMC) is the U.S. National Institutes of Health (NIH) free digital archive of biomedical and life sciences journal literature.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.pubmedcentral.nih.gov/</dc:identifier>
+		<dc:identifier xsi:type="dcterms:URI">https://www.ncbi.nlm.nih.gov/pmc/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
+		<item-url>https://www.ncbi.nlm.nih.gov/pmc/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
 		<source-identifier>pmcid:pmc</source-identifier>
 		<source-identifier>pmcid: pmc</source-identifier>
 		<source-identifier>pmcid</source-identifier>
@@ -217,13 +217,13 @@
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<copyright>http://www.pubmedcentral.nih.gov/about/copyright.html</copyright>
+		<copyright>https://www.ncbi.nlm.nih.gov/pmc/about/copyright.html</copyright>
 		<status>published</status>
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
-				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>PubMed Central</label>
 				<name>pmc</name>
@@ -231,7 +231,7 @@
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
-				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>oai dc</label>
 				<name>oai_dc</name>
@@ -240,7 +240,7 @@
 		</MD-fetch-settings>
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
 				<name>pdf</name>
@@ -249,7 +249,7 @@
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
-				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>XML</label>
 				<name>xml</name>
