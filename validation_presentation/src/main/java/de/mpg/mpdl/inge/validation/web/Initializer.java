@@ -43,7 +43,6 @@ import org.jboss.vfs.VFS;
 import org.jboss.vfs.VirtualFile;
 import org.xml.sax.InputSource;
 
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.validation.ItemValidating;
@@ -165,16 +164,13 @@ public class Initializer extends Thread {
   /**
    * Initialize Connection to database.
    * 
-   * @throws TechnicalException Any exception.
+   * @throws Exception Any exception.
    */
-  private static Connection getConnection() throws TechnicalException {
-    try {
-      Context ctx = new InitialContext();
-      DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
-      return dataSource.getConnection();
-    } catch (Exception e) {
-      throw new TechnicalException(e);
-    }
+  private static Connection getConnection() throws Exception {
+
+    Context ctx = new InitialContext();
+    DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/Validation");
+    return dataSource.getConnection();
   }
 
   private static String[] splitSqlScript(final String sql) {
