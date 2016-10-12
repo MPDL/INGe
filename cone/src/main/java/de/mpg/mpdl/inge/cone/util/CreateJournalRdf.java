@@ -19,13 +19,15 @@ import java.io.FileWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -124,15 +126,15 @@ public class CreateJournalRdf {
   /**
    * Initialize Connection to database.
    * 
-   * @throws TechnicalException Any exception.
+   * @throws ConeException Any exception.
    */
-  private Connection getConnection() throws TechnicalException {
+  private Connection getConnection() throws ConeException {
     try {
       Context ctx = new InitialContext();
       DataSource dataSource = (DataSource) ctx.lookup("Journals");
       return dataSource.getConnection();
-    } catch (Exception e) {
-      throw new TechnicalException(e);
+    } catch (NamingException | SQLException e) {
+      throw new ConeException(e);
     }
   }
 }

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.util;
+package de.mpg.mpdl.inge.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class Util {
+public class DateUtilities {
 
   /**
    * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding
@@ -49,7 +49,7 @@ public class Util {
    * 
    * @param dateString The String to deserialize
    * @return The corresponding <code>java.util.Date</code>
-   * @throws WrongDateException
+   * @throws Exception
    */
   public static Date deserializeDate(String dateString) throws Exception {
     Date date = null;

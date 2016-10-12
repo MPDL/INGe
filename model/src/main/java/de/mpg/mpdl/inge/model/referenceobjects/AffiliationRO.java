@@ -81,18 +81,4 @@ public class AffiliationRO extends ReferenceObject {
   public void setForm(String form) {
     this.form = form;
   }
-
-  /**
-   * 
-   * @param href the xlink:href to be set
-   */
-  private void setHref(String href) {
-    if (href == null) {
-      return;
-    }
-    if (href.contains("/")) {
-      href = href.substring(href.lastIndexOf("/") + 1);
-    }
-    this.setObjectId(href);
-  }
 }

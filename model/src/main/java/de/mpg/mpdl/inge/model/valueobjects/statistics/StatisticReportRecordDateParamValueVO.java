@@ -27,7 +27,7 @@ package de.mpg.mpdl.inge.model.valueobjects.statistics;
 
 import java.util.Date;
 
-import de.mpg.mpdl.inge.model.util.Util;
+import de.mpg.mpdl.inge.util.DateUtilities;
 
 /**
  * VO class representing a datevalue element of a statistic parameter
@@ -49,7 +49,7 @@ public class StatisticReportRecordDateParamValueVO extends StatisticReportRecord
 
   public Date getDateValue() {
     try {
-      return Util.deserializeDate(value);
+      return DateUtilities.deserializeDate(value);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

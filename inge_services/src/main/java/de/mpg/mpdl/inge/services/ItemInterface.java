@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.services;
 
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 
@@ -17,19 +16,15 @@ public interface ItemInterface {
    * 
    * @param item
    * @param itemId
-   * @exception TechnicalException
-   * @exception DepositingException
+   * @exception IngeServiceException
    * @return {@link String}
- * @throws SecurityException 
    */
-  public String createItem(PubItemVO item, String itemId) throws IngeServiceException, TechnicalException, SecurityException;
+  public String createItem(PubItemVO item, String itemId) throws IngeServiceException;
 
   /**
    * 
    * @param itemId
-   * @throws TechnicalException
-   * @throws PubItemNotFoundException
-   * @throws SecurityException
+   * @throws IngeServiceException
    * @return {@link PubItemVO}
    */
   public PubItemVO readItem(String itemId) throws IngeServiceException;
@@ -38,20 +33,17 @@ public interface ItemInterface {
    * 
    * @param itemId
    * @param item
-   * @throws TechnicalException
-   * @throws DepositingException
-   * @throws ItemNotFoundException
+   * @throws IngeServiceException
    * @return {@link String}
-   */ 
-  public String updateItem(PubItemVO item, String itemId, boolean createNewVersion) throws IngeServiceException;
+   */
+  public String updateItem(PubItemVO item, String itemId, boolean createNewVersion)
+      throws IngeServiceException;
 
 
   /**
    * 
    * @param itemId
-   * @exception TechnicalException
-   * @exception DepositingException
-   * @exception ItemNotFoundException
+   * @exception IngeServiceException
    * @return {@link String}
    */
   public String deleteItem(String itemId) throws IngeServiceException;

@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.services;
 
-import de.mpg.mpdl.inge.model.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**
@@ -16,20 +15,16 @@ public interface OrganizationInterface {
    * 
    * @param organization
    * @param organizationId
-   * @throws SecurityException
-   * @throws NotFoundException
-   * @throws TechnicalException
+   * @throws IngeServiceException
    * @return {@link String}
    */
   public String createOrganization(AffiliationVO organization, String organizationId)
-		  throws IngeServiceException;
+      throws IngeServiceException;
 
   /**
    * 
    * @param organizationId
-   * @throws TechnicalException
-   * @throws NotFoundException
-   * @throws SecurityException
+   * @throws IngeServiceException
    * @return {@link AffiliationVO}
    */
   public AffiliationVO readOrganization(String organizationId) throws IngeServiceException;
@@ -39,20 +34,17 @@ public interface OrganizationInterface {
    * 
    * @param organization
    * @param organizationId
-   * @throws SecurityException
-   * @throws NotFoundException
-   * @throws TechnicalException
+   * @throws IngeServiceException
    * @return {@link String}
    */
-  public String updateOrganization(AffiliationVO organization, String organizationId) throws IngeServiceException;
+  public String updateOrganization(AffiliationVO organization, String organizationId)
+      throws IngeServiceException;
 
 
   /**
    * 
    * @param organizationId
-   * @throws SecurityException
-   * @throws NotFoundException
-   * @throws TechnicalException
+   * @throws IngeServiceException
    * @return {@link String}
    */
   public String deleteOrganization(String organizationId) throws IngeServiceException;

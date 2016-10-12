@@ -81,19 +81,4 @@ public class ContextRO extends ReferenceObject implements Cloneable {
   public Object clone() {
     return new ContextRO(this);
   }
-
-  /**
-   * Sets objectId extracted from xlink:href.
-   * 
-   * @param href
-   */
-  private void setHref(String href) {
-    if (href == null) {
-      return;
-    }
-    if (href.contains("/")) {
-      href = href.substring(href.lastIndexOf("/") + 1);
-    }
-    this.setObjectId(href);
-  }
 }

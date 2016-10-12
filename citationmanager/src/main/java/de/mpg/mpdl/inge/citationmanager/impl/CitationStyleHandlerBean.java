@@ -75,8 +75,9 @@ public class CitationStyleHandlerBean implements CitationStyleHandler {
   /**
    * {@inheritDoc}
    */
-  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-      
+  public byte[] getOutput(String itemList, ExportFormatVO exportFormat)
+      throws CitationStyleManagerException {
+
     logger
         .debug("CitationStyleHandlerBean getOutput with citationStyle: " + exportFormat.getName());
     return cse.getOutput(itemList, exportFormat);

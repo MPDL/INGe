@@ -110,7 +110,8 @@ public class CitationStyleExecutor implements CitationStyleHandler {
 
 
 
-  public byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
+  public byte[] getOutput(String itemList, ExportFormatVO exportFormat)
+      throws CitationStyleManagerException {
 
     Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()),
         "Output format is not defined");

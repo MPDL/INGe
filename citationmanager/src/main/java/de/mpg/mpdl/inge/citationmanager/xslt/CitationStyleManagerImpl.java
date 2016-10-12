@@ -49,7 +49,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
 
-/** 
+/**
  * 
  * Citation Style Manager
  * 
@@ -145,10 +145,10 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     Utils.checkName(cs, "Citation Style is not defined");
 
     try {
-		return xh.validateCitationStyleXML(cs);
-	} catch (IOException e) {
-		throw new CitationStyleManagerException(e);
-	}
+      return xh.validateCitationStyleXML(cs);
+    } catch (IOException e) {
+      throw new CitationStyleManagerException(e);
+    }
   }
 
   public static void main(String args[]) throws IOException, CitationStyleManagerException,
@@ -159,7 +159,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     String il = null;
     String cs = null;
     String task = null;
-    
+
     if (args.length == 0) {
       usage();
       return;
@@ -172,7 +172,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
       if (args[k].startsWith("-CS"))
         cs = args[k].substring(3);
       if (args[k].startsWith("-OF")) {
-	}
+      }
       if (args[k].startsWith("-IL"))
         il = args[k].substring(3);
 

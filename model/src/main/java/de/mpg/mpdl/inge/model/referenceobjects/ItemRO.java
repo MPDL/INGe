@@ -56,11 +56,6 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The xlink:href prefix for an ItemRO
-   */
-  private final String PATH_FOR_XLINK_HREF = "/ir/item/";
-
-  /**
    * The version number of the referenced item. This attribute is optional.
    */
   private int versionNumber;
