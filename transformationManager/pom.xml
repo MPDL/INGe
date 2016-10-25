@@ -46,7 +46,7 @@
 		</dependency>
 	    <dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_util</artifactId>
+			<artifactId>inge_util</artifactId>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

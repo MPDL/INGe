@@ -32,7 +32,7 @@
 	</description>
 
 	<modules>
-		<module>pubman_util</module>
+		<module>inge_util</module>
 		<module>framework_access</module>
 		<module>xml_transforming</module>
 		<module>citation_style_language_manager</module>
@@ -204,7 +204,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>pubman_util</artifactId>
+				<artifactId>inge_util</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<type>jar</type>
 			</dependency>
