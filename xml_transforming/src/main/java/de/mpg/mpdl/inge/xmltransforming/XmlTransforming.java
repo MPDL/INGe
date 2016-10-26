@@ -56,7 +56,6 @@ import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.TocItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.TocVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
@@ -497,10 +496,6 @@ public interface XmlTransforming {
 
   public List<AggregationDefinitionVO> transformToStatisticAggregationDefinitionList(
       String aggregationDefinitionList) throws TechnicalException;
-
-  public TocItemVO transformToTocItemVO(String tocXML) throws TechnicalException;
-
-  public String transformToTocItem(TocItemVO tocItemVO) throws TechnicalException;
 
   public TocVO transformToTocVO(String tocXML) throws TechnicalException;
 

@@ -105,7 +105,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.TocItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.TocVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
@@ -1730,60 +1729,6 @@ public class XmlTransformingBean implements XmlTransforming {
   }
 
 
-  public TocItemVO transformToTocItemVO(String tocXML) throws TechnicalException {
-    logger.debug("transformToTovItemVO(String) - String toc=\n" + tocXML);
-    if (tocXML == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":transformToTocItemVO: tocXML is null");
-    }
-    TocItemVO tocItemVO = null;
-    try {
-      // unmarshal StatisticReport from String
-      IBindingFactory bfact = BindingDirectory.getFactory("TocItemVO_input", TocItemVO.class);
-      IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-      StringReader sr = new StringReader(tocXML);
-      Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-      tocItemVO = (TocItemVO) unmarshalledObject;
-    } catch (JiBXException e) {
-      // throw a new UnmarshallingException, log the root cause of the JiBXException first
-      logger.error(e.getRootCause());
-      throw new UnmarshallingException(tocXML, e);
-    } catch (ClassCastException e) {
-      throw new TechnicalException(e);
-    }
-
-
-    return tocItemVO;
-  }
-
-  public String transformToTocItem(TocItemVO tocItemVO) throws TechnicalException {
-    logger.debug("transformToTocItemVO()");
-    if (tocItemVO == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":transformToToc:tocItemVO is null");
-    }
-    String utf8container = null;
-    try {
-      IBindingFactory bfact = BindingDirectory.getFactory("TocItemVO_output", TocItemVO.class);
-      // marshal object (with nice indentation, as UTF-8)
-      IMarshallingContext mctx = bfact.createMarshallingContext();
-      mctx.setIndent(2);
-      StringWriter sw = new StringWriter();
-      mctx.setOutput(sw);
-      mctx.marshalDocument(tocItemVO, "UTF-8", null, sw);
-      // use the following call to omit the leading "<?xml" tag of the generated XML
-      // mctx.marshalDocument(containerVO);
-      utf8container = sw.toString().trim();
-    } catch (JiBXException e) {
-      throw new MarshallingException(tocItemVO.getClass().getSimpleName(), e);
-    } catch (ClassCastException e) {
-      throw new TechnicalException(e);
-    }
-    if (logger.isDebugEnabled()) {
-      logger.debug("transformToToc() - result: String utf8container=" + utf8container);
-    }
-    return utf8container;
-  }
 
   public TocVO transformToTocVO(String tocXML) throws TechnicalException {
     logger.debug("transformToToVO(String) - String toc=\n" + tocXML);

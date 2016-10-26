@@ -46,7 +46,6 @@ import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformSearc
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformSearchResultUserGroupList;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformStatisticAggregationTest;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformStatisticReportTest;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformTocTest;
 
 /**
  * Component test suite for XmlTransforming.
@@ -62,7 +61,7 @@ import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformTocTe
     TransformGrantsTest.class, TransformParamTest.class, TransformContextTest.class,
     TransformPubItemTest.class, TransformRelationTest.class, TransformPubItemVersionListTest.class,
     TransformStatisticReportTest.class, TransformStatisticAggregationTest.class,
-    TransformTocTest.class, TransformSearchResultTest.class, TransformSearchResultGrantList.class,
+    TransformSearchResultTest.class, TransformSearchResultGrantList.class,
     TransformSearchResultUserGroupList.class})
 public class XmlTransformingTest extends TestBase {
 
