@@ -650,7 +650,6 @@ public class JiBXHelper {
    * @throws WrongEnumException
    */
   public static CreatorRole deserializeCreatorRoleEnum(String enumValue) throws WrongEnumException {
-    CreatorRole creatorRole = null;
     if (enumValue == null) {
       throw new WrongEnumException("CreatorRoleEnum is null.");
     } else {
@@ -781,7 +780,6 @@ public class JiBXHelper {
    * @throws WrongEnumException
    */
   public static DegreeType deserializeDegreeTypeEnum(String enumValue) throws WrongEnumException {
-    DegreeType degreeType = null;
     if (enumValue == null) {
       throw new WrongEnumException("degree is null.");
     } else {
@@ -1135,7 +1133,6 @@ public class JiBXHelper {
    */
   public static ReviewMethod deserializeReviewMethodEnum(String enumValue)
       throws WrongEnumException {
-    ReviewMethod reviewMethod = null;
     if (enumValue == null) {
       throw new WrongEnumException("review-method is null.");
     } else {
@@ -1207,7 +1204,6 @@ public class JiBXHelper {
    */
   public static SourceVO.Genre deserializeSourceGenreEnum(String enumValue)
       throws WrongEnumException {
-    SourceVO.Genre genre = null;
     if (enumValue != null) {
 
       for (SourceVO.Genre g : SourceVO.Genre.values()) {
@@ -1215,15 +1211,6 @@ public class JiBXHelper {
           return g;
         }
       }
-
-      // throw exception if not found
-      // throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
-
-      /*
-       * String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase(); try { genre =
-       * SourceVO.Genre.valueOf(upperCaseText); } catch (IllegalArgumentException e) { throw new
-       * WrongEnumException("GenreEnum value is '" + enumValue + "'."); }
-       */
     }
     // Logger not working here
     System.out.println("SourceGenre " + enumValue + " could not be found. Returning null.");
