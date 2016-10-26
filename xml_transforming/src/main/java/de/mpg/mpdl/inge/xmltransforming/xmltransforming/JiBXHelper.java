@@ -45,7 +45,6 @@ import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -372,16 +371,6 @@ public class JiBXHelper {
    */
   public static List<ItemVO> itemVOListFactory() {
     return new ArrayList<ItemVO>();
-  }
-
-  /**
-   * Temporary factory method to create a <code>java.util.ArrayList&ltObject</code> for Container
-   * objects until ContainerVOs are implemented
-   * 
-   * @return A new <code>java.util.ArrayList&lt;Object></code>
-   */
-  public static List<ContainerVO> containerVOListFactory() {
-    return new ArrayList<ContainerVO>();
   }
 
   /**
@@ -1089,31 +1078,6 @@ public class JiBXHelper {
   }
 
   /**
-   * Deserializes a String containing a lock-status-type like defined in container.xsd to the
-   * corresponding <code>ContainerVO.LockStatus</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return ValidityStatus The corresponding <code>ContainerVO.LockStatus</code> Enum
-   * @throws WrongEnumException
-   */
-  public static de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus deserializeContainerLockStatusEnum(
-      String enumValue) throws WrongEnumException {
-    de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus lockStatus = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("lock-status is null.");
-    } else {
-      String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
-      try {
-        lockStatus =
-            de.mpg.mpdl.inge.model.valueobjects.ContainerVO.LockStatus.valueOf(upperCaseText);
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("LockStatusEnum value is '" + enumValue + "'.", e);
-      }
-    }
-    return lockStatus;
-  }
-
-  /**
    * Serializes a Java Enum of arbitrary type to the corresponding String representation according
    * to the following rules: Every upper case letter is replaced by a lower case letter and every
    * underscore is replaced by a hyphen. If theses rules are not sufficient, a specialized
@@ -1493,32 +1457,6 @@ public class JiBXHelper {
   public static String addOrganizationalUnitLinkPrefix(String unprefixedString) {
     return new String("/oum/organizational-unit/" + removeLinkPrefix(unprefixedString));
   }
-
-  /**
-   * Deserializes a String containing a status-type like defined in container.xsd to the
-   * corresponding <code>ContainerVO.State</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return ContainerVO.State The corresponding <code>ContainerVO.State</code> Enum.
-   * 
-   * @throws WrongEnumException Thrown if string value does not match any value of the enum.
-   */
-  public static ContainerVO.State deserializeContainerStateEnum(String enumValue)
-      throws WrongEnumException {
-    ContainerVO.State state = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("container status is null.");
-    } else {
-      String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
-      try {
-        state = ContainerVO.State.valueOf(upperCaseText);
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("container status value is '" + enumValue + "'.", e);
-      }
-    }
-    return state;
-  }
-
 
   /**
    * Removes characters from a string that are illegal according to W3C spec

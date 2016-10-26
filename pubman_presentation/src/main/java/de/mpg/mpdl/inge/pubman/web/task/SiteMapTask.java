@@ -38,26 +38,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.search.Search;
-import de.mpg.mpdl.inge.search.bean.SearchBean;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Thread that creates Sitemap files.
@@ -423,9 +418,6 @@ public class SiteMapTask extends Thread {
       } else {
         logger.error("Search result is not an ItemVO, " + "but a "
             + result.getClass().getSimpleName());
-        if (result instanceof ContainerVO) {
-          logger.error("Container is " + ((ContainerVO) result).getVersion().getObjectId());
-        }
       }
     }
   }

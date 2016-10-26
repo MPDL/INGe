@@ -34,6 +34,7 @@
 	<modules>
 		<module>inge_util</module>
 		<module>framework_access</module>
+		<module>model</module>
 		<module>xml_transforming</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
@@ -56,8 +57,7 @@
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-		<module>inge_es_connector</module>
-		<module>model</module>
+		<module>inge_es_connector</module>	
 		<module>inge_services</module>
 		<module>inge_filestorage_connector</module>
 	</modules>

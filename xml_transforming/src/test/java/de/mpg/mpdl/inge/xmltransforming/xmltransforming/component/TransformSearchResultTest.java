@@ -37,7 +37,6 @@ import org.junit.Test;
 
 import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContainerResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
@@ -73,18 +72,6 @@ public class TransformSearchResultTest extends XmlTransformingTestBase {
 
     assertTrue(((ItemResultVO) itemResultVO).getFiles().size() == 1);
 
-  }
-
-  @Test
-  public void testContainerSearchResult() throws Exception {
-    String searchResultXML = readFile(SEARCH_SAMPLE_FILE2);
-    SearchResultElement containerResultVO =
-        xmlTransforming.transformToSearchResult(searchResultXML);
-    assertNotNull(containerResultVO);
-    assertTrue(containerResultVO instanceof ContainerResultVO);
-
-    assertTrue(((ContainerResultVO) containerResultVO).getMetadataSets().size() == 2);
-    assertTrue(((ContainerResultVO) containerResultVO).getMembers().size() > 1);
   }
 
   @Test

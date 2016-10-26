@@ -33,15 +33,12 @@ import java.util.List;
 import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.MarshallingException;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ContainerVOListWrapper;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContainerResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContainerVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -429,32 +426,6 @@ public interface XmlTransforming {
   public String transformToMemberList(List<? extends ValueObject> memberList)
       throws TechnicalException;
 
-  public ContainerVO transformToContainer(String containerXml) throws TechnicalException;
-
-  /**
-   * Transform a xml string to a container list.
-   * 
-   * 
-   * @param containerList xml string of containers
-   * @return list of containers
-   * @throws TechnicalException if transforming fails
-   */
-  public List<? extends ContainerVO> transformToContainerList(String containerList)
-      throws TechnicalException;
-
-  /**
-   * Transform a xml string to a container result.
-   * 
-   * @deprecated Please use XmlTransforming.transformToSearchResult instead.
-   * 
-   * @param containerResult xml string of container search result.
-   * @return container search result
-   * @throws TechnicalException if transforming fails
-   */
-  @Deprecated
-  public ContainerResultVO transformToContainerResult(String containerResult)
-      throws TechnicalException;
-
   /**
    * Transform a xml string to a organizational unit result.
    * 
@@ -466,11 +437,6 @@ public interface XmlTransforming {
    */
   @Deprecated
   public AffiliationResultVO transformToAffiliationResult(String affiliationResult)
-      throws TechnicalException;
-
-  public String transformToContainer(ContainerVO containerVO) throws TechnicalException;
-
-  public String transformToContainerList(List<? extends ContainerVO> containerVOList)
       throws TechnicalException;
 
   public List<StatisticReportRecordVO> transformToStatisticReportRecordList(
@@ -502,9 +468,6 @@ public interface XmlTransforming {
   public ResultVO transformToResult(String resultXml) throws TechnicalException;
 
   public ItemVOListWrapper transformToItemListWrapper(String itemListXml) throws TechnicalException;
-
-  public ContainerVOListWrapper transformToContainerListWrapper(String containerListXml)
-      throws TechnicalException;
 
   public FileVO transformToFileVO(String fileXML) throws TechnicalException;
 

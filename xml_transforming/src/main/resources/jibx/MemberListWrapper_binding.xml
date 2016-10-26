@@ -40,9 +40,7 @@
 			<structure ns="${xsd.soap.item.item}"
 				type="de.mpg.mpdl.inge.model.valueobjects.ItemVO" usage="optional">
 			</structure>
-			<structure ns="${xsd.soap.container.container}"
-				type="de.mpg.mpdl.inge.model.valueobjects.ContainerVO" usage="optional">
-			</structure>
+			
 		</collection>
 		
 	</mapping>

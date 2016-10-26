@@ -31,7 +31,6 @@ import org.junit.runners.Suite;
 
 import de.mpg.mpdl.inge.xmltransforming.TestBase;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformAffiliationTest;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformContainerTest;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformContextTest;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformExportFormatTest;
 import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformGrantsTest;
@@ -56,10 +55,10 @@ import de.mpg.mpdl.inge.xmltransforming.xmltransforming.component.TransformStati
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TransformAffiliationTest.class, TransformContainerTest.class,
-    TransformExportFormatTest.class, TransformInvalidPubItemTest.class, TransformLockTest.class,
-    TransformGrantsTest.class, TransformParamTest.class, TransformContextTest.class,
-    TransformPubItemTest.class, TransformRelationTest.class, TransformPubItemVersionListTest.class,
+@Suite.SuiteClasses({TransformAffiliationTest.class, TransformExportFormatTest.class,
+    TransformInvalidPubItemTest.class, TransformLockTest.class, TransformGrantsTest.class,
+    TransformParamTest.class, TransformContextTest.class, TransformPubItemTest.class,
+    TransformRelationTest.class, TransformPubItemVersionListTest.class,
     TransformStatisticReportTest.class, TransformStatisticAggregationTest.class,
     TransformSearchResultTest.class, TransformSearchResultGrantList.class,
     TransformSearchResultUserGroupList.class})
