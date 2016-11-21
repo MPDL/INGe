@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>de.undercouch</groupId>
 			<artifactId>citeproc-java</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -84,11 +84,13 @@
 			<artifactId>locales</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<version>1.7R4</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
