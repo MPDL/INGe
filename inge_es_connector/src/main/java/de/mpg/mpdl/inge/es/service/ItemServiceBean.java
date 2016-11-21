@@ -76,8 +76,7 @@ public class ItemServiceBean implements ItemInterface {
    * java.lang.String, boolean)
    */
   @Override
-  public String updateItem(PubItemVO item, String itemId)
-      throws IngeServiceException {
+  public String updateItem(PubItemVO item, String itemId) throws IngeServiceException {
     byte[] voAsBytes;
     try {
       voAsBytes = mapper.writeValueAsBytes(item);
