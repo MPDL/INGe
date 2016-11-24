@@ -87,6 +87,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_services</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>transformation</artifactId>
 			<version>1.0.0</version>
