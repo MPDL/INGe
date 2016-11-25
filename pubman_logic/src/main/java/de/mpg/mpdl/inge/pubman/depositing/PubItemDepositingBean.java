@@ -88,6 +88,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
+import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.validation.ItemInvalidException;
 import de.mpg.mpdl.inge.validation.ItemValidating;
 import de.mpg.mpdl.inge.validation.ValidationSchemaNotFoundException;

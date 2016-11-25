@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ContextConfiguration(classes = FileStorageConnectorConfiguration.class)
 public class FileServiceTests {
-  
+
   private static Logger logger = Logger.getLogger(FileServiceTests.class);
 
   public static final String[] FILE_NAMES = {"test100k.db", "test1Mb.db"};
@@ -50,7 +50,7 @@ public class FileServiceTests {
 
   @Value("${gluster_path}")
   private String glusterRootPath;
-  
+
   @Autowired
   SeaweedFileServiceBean seaweedFileServiceBean;
 
@@ -63,28 +63,30 @@ public class FileServiceTests {
   @BeforeClass
   public static void setUpClass() {
     // Initialize stuff once for ALL tests (run once)
-      try {
-        System.out.println("\nStarte SeaweadServer...");
-        Runtime.getRuntime().exec("c:/Tools/SeaweedFS/start_seaweed.bat > c:/Tools/SeaweedFS/start.log");
-        Thread.currentThread();
-        System.out.println("\nwarte...");
-        Thread.sleep(40000);
-      } catch (Exception e) {
-        System.out.println("\nException" + e);
-      }
+    try {
+      System.out.println("\nStarte SeaweadServer...");
+      Runtime.getRuntime().exec(
+          "c:/Tools/SeaweedFS/start_seaweed.bat > c:/Tools/SeaweedFS/start.log");
+      Thread.currentThread();
+      System.out.println("\nwarte...");
+      Thread.sleep(40000);
+    } catch (Exception e) {
+      System.out.println("\nException" + e);
+    }
   }
-  
+
   @AfterClass
   public static void tearDownClass() {
     // Do something after ALL tests have been run (run once)
     try {
       System.out.println("\nBeende SeaweadServer...");
-      Runtime.getRuntime().exec("c:/Tools/SeaweedFS/kill_seaweed.bat > c:/Tools/SeaweedFS/kill.log");
+      Runtime.getRuntime()
+          .exec("c:/Tools/SeaweedFS/kill_seaweed.bat > c:/Tools/SeaweedFS/kill.log");
     } catch (Exception e) {
       System.out.println("\nException" + e);
     }
   }
-  
+
   /**
    * Test for creating, reading and deleting a file from seaweedfs
    * 
@@ -105,7 +107,8 @@ public class FileServiceTests {
       seaweedFileServiceBean.deleteFile(fileId);
       retrievedFileOutputStream = new ByteArrayOutputStream();
       seaweedFileServiceBean.readFile(fileId, retrievedFileOutputStream);
-      assertEquals("", new String(((ByteArrayOutputStream) retrievedFileOutputStream).toByteArray()));
+      assertEquals("",
+          new String(((ByteArrayOutputStream) retrievedFileOutputStream).toByteArray()));
       logger.info("--------------------");
     }
   }

@@ -44,8 +44,7 @@ public class GlusterFileServiceBean implements FileStorageInterface {
     int day = calendar.get(Calendar.DAY_OF_MONTH);
     // Path starting after the the defined glusterRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
-    Path directoryPath =
-        FileSystems.getDefault().getPath(glusterRootPath + relativeDirectoryPath);
+    Path directoryPath = FileSystems.getDefault().getPath(glusterRootPath + relativeDirectoryPath);
     if (Files.notExists(directoryPath)) {
       System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
       Files.createDirectories(directoryPath);

@@ -36,8 +36,7 @@ public interface ItemInterface {
    * @throws IngeServiceException
    * @return {@link String}
    */
-  public String updateItem(PubItemVO item, String itemId)
-      throws IngeServiceException;
+  public String updateItem(PubItemVO item, String itemId) throws IngeServiceException;
 
 
   /**

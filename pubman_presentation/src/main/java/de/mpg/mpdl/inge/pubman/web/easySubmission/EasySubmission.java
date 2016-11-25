@@ -1060,11 +1060,11 @@ public class EasySubmission extends FacesBean {
             + getServiceID());
         return null;
       } catch (Exception e) {
-    	  logger.error(e.getMessage(), e);
-          error(getMessage("easy_submission_import_from_external_service_identifier_error")
-              + getServiceID());
-          return null;
-        } 
+        logger.error(e.getMessage(), e);
+        error(getMessage("easy_submission_import_from_external_service_identifier_error")
+            + getServiceID());
+        return null;
+      }
       // Generate item ValueObject
       if (fetchedItem != null && !fetchedItem.trim().equals("")) {
         try {
