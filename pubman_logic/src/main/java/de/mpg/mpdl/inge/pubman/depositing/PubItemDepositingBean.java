@@ -89,6 +89,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.validation.ItemInvalidException;
 import de.mpg.mpdl.inge.validation.ItemValidating;
 import de.mpg.mpdl.inge.validation.ValidationSchemaNotFoundException;
@@ -164,10 +165,11 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // retrieve PubCollection for default metadata
     ContextVO collection = null;
     try {
-      String context =
-          de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
-              pubCollectionRef.getObjectId());
-      collection = xmlTransforming.transformToContext(context);
+//      String context =
+//          de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
+//              pubCollectionRef.getObjectId());
+//      collection = xmlTransforming.transformToContext(context);
+      collection = ContextInterfaceConnectorFactory.getInstance().readContext(pubCollectionRef.getObjectId());
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {

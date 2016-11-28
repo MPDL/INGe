@@ -18,8 +18,8 @@ public class ContextInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS =
       "inge.inge_services.context_interface.connector_class";
 
-  public ItemInterface getInstance() throws InstantiationException, IllegalAccessException,
-      ClassNotFoundException, IOException, URISyntaxException {
-    return (ItemInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+  public static ContextInterface getInstance() throws InstantiationException,
+      IllegalAccessException, ClassNotFoundException, IOException, URISyntaxException {
+    return (ContextInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }
 }

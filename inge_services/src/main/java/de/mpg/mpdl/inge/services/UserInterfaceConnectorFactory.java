@@ -17,8 +17,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class UserInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS = "inge.inge_services.user_interface.connector_class";
 
-  public ItemInterface getInstance() throws InstantiationException, IllegalAccessException,
+  public UserInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
-    return (ItemInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+    return (UserInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }
 }

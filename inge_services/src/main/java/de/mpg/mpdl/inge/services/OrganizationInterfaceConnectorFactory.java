@@ -18,8 +18,8 @@ public class OrganizationInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS =
       "inge.inge_services.organization_interface.connector_class";
 
-  public ItemInterface getInstance() throws InstantiationException, IllegalAccessException,
+  public OrganizationInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
-    return (ItemInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+    return (OrganizationInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }
 }
