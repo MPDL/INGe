@@ -38,6 +38,7 @@
 		<module>xml_transforming</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
+		<module>inge_validation</module>
 		<module>validation</module>
 		<module>validation_presentation</module>
 		<module>structuredexportmanager</module>
@@ -365,6 +366,17 @@
 				<type>ejb</type>
 			</dependency>
 
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>inge_validation</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>ejb</type>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>inge_validation</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>validation</artifactId>
