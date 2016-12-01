@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
-  private final static String URL_PATTERN = getUrlPattern();
+  private static final String URL_PATTERN = getUrlPattern();
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {

@@ -23,30 +23,31 @@ public class ConeCache {
     static final ConeCache INSTANCE = new ConeCache();
   }
 
-  private final static Logger LOG = Logger.getLogger(ConeCache.class);
+  private static final Logger LOG = Logger.getLogger(ConeCache.class);
 
   // TODO
-  private final static String ISO639_3_IDENTIFIER_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
-  private final static String ISO639_3_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
-  private final static String DDC_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/ddc/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MIME_TYPES_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIPKS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpipks/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIRG_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpirg/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIS_GROUPS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIS_PROJECTS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-projects/query?format=rdf&q=*&mode=full&n=0";
+  private static final String ISO639_3_IDENTIFIER_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private static final String ISO639_3_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private static final String DDC_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/ddc/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MIME_TYPES_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIPKS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpipks/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIRG_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpirg/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_GROUPS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_PROJECTS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-projects/query?format=rdf&q=*&mode=full&n=0";
 
-  private final static String IDENTIFIER = "dc:identifier";
-  private final static String TITLE = "dc:title";
+  private static final String IDENTIFIER = "dc:identifier";
+  private static final String TITLE = "dc:title";
 
-  private ConeSet iso639_3_Identifier = ConeSet.ISO639_3_IDENTIFIER;
-  private ConeSet iso639_3_Title = ConeSet.ISO639_3_TITLE;
-  private ConeSet ddcTitle = ConeSet.DDC_TITLE;
-  private ConeSet mimeTypesTitle = ConeSet.MIME_TYPES_TITLE;
-  private ConeSet mpipksTitle = ConeSet.MPIPKS_TITLE;
-  private ConeSet mpirgTitle = ConeSet.MPIRG_TITLE;
-  private ConeSet mpisGroupsTitle = ConeSet.MPIS_GROUPS_TITLE;
-  private ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
+  private final ConeSet iso639_3_Identifier = ConeSet.ISO639_3_IDENTIFIER;
+  private final ConeSet iso639_3_Title = ConeSet.ISO639_3_TITLE;
+  private final ConeSet ddcTitle = ConeSet.DDC_TITLE;
+  private final ConeSet mimeTypesTitle = ConeSet.MIME_TYPES_TITLE;
+  private final ConeSet mpipksTitle = ConeSet.MPIPKS_TITLE;
+  private final ConeSet mpirgTitle = ConeSet.MPIRG_TITLE;
+  private final ConeSet mpisGroupsTitle = ConeSet.MPIS_GROUPS_TITLE;
+  private final ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
 
+  // TODO entfernen
   private int testCount = 0;
 
   private ConeCache() {
@@ -89,7 +90,6 @@ public class ConeCache {
     System.out.println("*** Ende refresh: " + queryUrl);
   }
 
-  
   private Set<String> fill(ConeHandler handler, String queryUrl)
       throws HttpException, IOException, ParserConfigurationException, SAXException, ConeException {
     HttpClient client = new HttpClient();

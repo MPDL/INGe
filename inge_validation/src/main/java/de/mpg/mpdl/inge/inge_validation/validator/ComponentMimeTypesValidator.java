@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
-  private final static String IMT = "dcterms:IMT";
+  private static final String IMT = "dcterms:IMT";
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {

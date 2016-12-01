@@ -32,12 +32,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> implements
     Validator<List<SubjectVO>> {
 
-  private final static String ISO639_3 = "eterms:ISO639_3";
-  private final static String DDC = "eterms:DDC";
-  private final static String MPIPKS = "eterms:MPIPKS";
-  private final static String MPIRG = "eterms:MPIRG";
-  private final static String MPIS_GROUPS = "eterms:MPIS_GROUPS";
-  private final static String MPIS_PROJECTS = "eterms:MPIS_PROJECTS";
+  private static final String ISO639_3 = "eterms:ISO639_3";
+  private static final String DDC = "eterms:DDC";
+  private static final String MPIPKS = "eterms:MPIPKS";
+  private static final String MPIRG = "eterms:MPIRG";
+  private static final String MPIS_GROUPS = "eterms:MPIS_GROUPS";
+  private static final String MPIS_PROJECTS = "eterms:MPIS_PROJECTS";
 
   @Override
   public boolean validate(ValidatorContext context, List<SubjectVO> subjects) {

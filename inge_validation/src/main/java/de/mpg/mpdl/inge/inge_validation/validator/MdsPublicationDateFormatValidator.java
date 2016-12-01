@@ -43,9 +43,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements
     Validator<MdsPublicationVO> {
 
-  public final static SimpleDateFormat SHORT = new SimpleDateFormat("yyyy");
-  public final static SimpleDateFormat MEDIUM = new SimpleDateFormat("yyyy-MM");
-  public final static SimpleDateFormat LONG = new SimpleDateFormat("yyyy-MM-dd");
+  public static final SimpleDateFormat SHORT = new SimpleDateFormat("yyyy");
+  public static final SimpleDateFormat MEDIUM = new SimpleDateFormat("yyyy-MM");
+  public static final SimpleDateFormat LONG = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
