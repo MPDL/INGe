@@ -8,7 +8,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.util.ConeSetsCache;
+import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 
 /*
@@ -29,7 +29,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     if (languages != null) {
 
-      Set<String> iso639_3_IdentifierSet = ConeSetsCache.getInstance().getIso639_3_IdentifierSet();
+      Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
 
       int i = 1;
       for (String language : languages) {

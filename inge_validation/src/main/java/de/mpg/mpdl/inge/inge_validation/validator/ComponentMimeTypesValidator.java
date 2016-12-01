@@ -8,7 +8,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.util.ConeSetsCache;
+import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
@@ -49,7 +49,7 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
 
     if (!files.isEmpty()) {
 
-      Set<String> mimeTypesTitleSet = ConeSetsCache.getInstance().getMimeTypesTitleSet();
+      Set<String> mimeTypesTitleSet = ConeCache.getInstance().getMimeTypesTitleSet();
 
       int i = 1;
       for (FileVO fileVO : files) {

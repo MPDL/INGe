@@ -7,7 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.util.ConeSetsCache;
+import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 
@@ -46,7 +46,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
     if (subjects != null) {
 
-      ConeSetsCache coneSets = ConeSetsCache.getInstance();
+      ConeCache coneCache = ConeCache.getInstance();
 
       int i = 1;
       for (SubjectVO subjectVO : subjects) {
@@ -54,43 +54,43 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
         if (subjectVO.getType() != null && subjectVO.getValue() != null) {
 
           if (ISO639_3.equals(subjectVO.getType()) //
-              && !coneSets.getIso639_3_TitleSet().isEmpty()
-              && coneSets.getIso639_3_TitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getIso639_3_TitleSet().isEmpty()
+              && coneCache.getIso639_3_TitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (DDC.equals(subjectVO.getType()) //
-              && !coneSets.getDdcTitleSet().isEmpty()
-              && coneSets.getDdcTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getDdcTitleSet().isEmpty()
+              && coneCache.getDdcTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIPKS.equals(subjectVO.getType()) //
-              && !coneSets.getMpipksTitleSet().isEmpty()
-              && coneSets.getMpipksTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpipksTitleSet().isEmpty()
+              && coneCache.getMpipksTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIRG.equals(subjectVO.getType()) //
-              && !coneSets.getMpirgTitleSet().isEmpty()
-              && coneSets.getMpirgTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpirgTitleSet().isEmpty()
+              && coneCache.getMpirgTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_GROUPS.equals(subjectVO.getType()) //
-              && !coneSets.getMpisGroupsTitleSet().isEmpty()
-              && coneSets.getMpisGroupsTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpisGroupsTitleSet().isEmpty()
+              && coneCache.getMpisGroupsTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION).setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_PROJECTS.equals(subjectVO.getType()) //
-              && !coneSets.getMpisProjectTitleSet().isEmpty()
-              && coneSets.getMpisProjectTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpisProjectTitleSet().isEmpty()
+              && coneCache.getMpisProjectTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION)
                 .setField("subject[" + i + "]"));

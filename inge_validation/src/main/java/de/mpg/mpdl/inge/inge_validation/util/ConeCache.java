@@ -16,14 +16,14 @@ import org.xml.sax.SAXException;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
 //TODO System.out.println rauswerfen
-public class ConeSetsCache {
+public class ConeCache {
   // Innere private Klasse, die erst beim Zugriff durch die umgebende Klasse initialisiert wird
   private static final class InstanceHolder {
     // Die Initialisierung von Klassenvariablen geschieht nur einmal und wird vom ClassLoader implizit synchronisiert
-    static final ConeSetsCache INSTANCE = new ConeSetsCache();
+    static final ConeCache INSTANCE = new ConeCache();
   }
 
-  private final static Logger LOG = Logger.getLogger(ConeSetsCache.class);
+  private final static Logger LOG = Logger.getLogger(ConeCache.class);
 
   // TODO
   private final static String ISO639_3_IDENTIFIER_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
@@ -49,12 +49,12 @@ public class ConeSetsCache {
 
   private int testCount = 0;
 
-  private ConeSetsCache() {
+  private ConeCache() {
       refreshCache();
   }
 
-  public static ConeSetsCache getInstance() {
-    return ConeSetsCache.InstanceHolder.INSTANCE;
+  public static ConeCache getInstance() {
+    return ConeCache.InstanceHolder.INSTANCE;
   }
 
   public void refreshCache() {
@@ -69,7 +69,7 @@ public class ConeSetsCache {
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
-    System.out.println("\n*** Start refillSet: " + queryUrl);
+    System.out.println("\n*** Start refresh: " + queryUrl);
     try {
       Set<String> result = fill(handler, queryUrl);
       System.out.println("    " + "Size: " + result.size() + " " + queryUrl);
@@ -81,12 +81,12 @@ public class ConeSetsCache {
       }
     } catch (IOException | ParserConfigurationException | SAXException | ConeException e) {
       System.out.println(e);
-      LOG.warn("Could not refill Cone Set with Url: " + queryUrl);
+      LOG.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
         LOG.error("Cone Set is empty: Url: " + queryUrl);
       }
     }
-    System.out.println("*** Ende refillSet: " + queryUrl);
+    System.out.println("*** Ende refresh: " + queryUrl);
   }
 
   

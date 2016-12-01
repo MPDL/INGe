@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.inge_validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.inge_validation.util.ConeSetsCache;
+import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
 
 //TODO System.out.println rauswerfen
 public class TestConeCache {
@@ -36,7 +36,7 @@ public class TestConeCache {
   }
 
   class GetDDLThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -51,7 +51,7 @@ public class TestConeCache {
   }
 
   class GetISOThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -66,7 +66,7 @@ public class TestConeCache {
   }
 
   class GetISOIdThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -81,7 +81,7 @@ public class TestConeCache {
   }
 
   class GetMIMEThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -96,7 +96,7 @@ public class TestConeCache {
   }
 
   class GetMPIPKSThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -111,7 +111,7 @@ public class TestConeCache {
   }
 
   class GetMPIRKThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -126,7 +126,7 @@ public class TestConeCache {
   }
 
   class GetMPISGROUPThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -141,7 +141,7 @@ public class TestConeCache {
   }
 
   class GetMPISPROJECTThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -156,7 +156,7 @@ public class TestConeCache {
   }
 
   class RefreshCacheThread extends Thread {
-    ConeSetsCache cache = ConeSetsCache.getInstance();
+    ConeCache cache = ConeCache.getInstance();
 
     public void run() {
       while (true) {
@@ -173,7 +173,7 @@ public class TestConeCache {
     }
   }
 
-  private void logCacheSetSizes(ConeSetsCache cache) {
+  private void logCacheSetSizes(ConeCache cache) {
     System.out.println("cDDC_Title: " + cache.getDdcTitleSet().size());
     System.out.println("cISO_Identifier: " + cache.getIso639_3_IdentifierSet().size());
     System.out.println("cISO_Title: " + cache.getIso639_3_TitleSet().size());
