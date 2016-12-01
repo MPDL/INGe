@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.util;
 
 import java.io.IOException;
-import java.nio.file.ProviderNotFoundException;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,217 +10,176 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
+//TODO System.out.println rauswerfen
 public class ConeSetsCache {
-  private static ConeSetsCache INSTANCE = null;
+  // Innere private Klasse, die erst beim Zugriff durch die umgebende Klasse initialisiert wird
+  private static final class InstanceHolder {
+    // Die Initialisierung von Klassenvariablen geschieht nur einmal und wird vom ClassLoader implizit synchronisiert
+    static final ConeSetsCache INSTANCE = new ConeSetsCache();
+  }
 
-  private final static String ISO639_3_IDENTIFIER_URL =
-      "http://pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
-  private final static String ISO639_3_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
-  private final static String DDC_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/ddc/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MIME_TYPES_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIPKS_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/mpipks/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIRG_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/mpirg/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIS_GROUPS_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
-  private final static String MPIS_PROJECTS_TITLE_URL =
-      "http://pubman.mpdl.mpg.de/cone/mpis-projects/query?format=rdf&q=*&mode=full&n=0";
+  private final static Logger LOG = Logger.getLogger(ConeSetsCache.class);
+
+  // TODO
+  private final static String ISO639_3_IDENTIFIER_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private final static String ISO639_3_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private final static String DDC_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/ddc/query?format=rdf&q=*&mode=full&n=0";
+  private final static String MIME_TYPES_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
+  private final static String MPIPKS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpipks/query?format=rdf&q=*&mode=full&n=0";
+  private final static String MPIRG_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpirg/query?format=rdf&q=*&mode=full&n=0";
+  private final static String MPIS_GROUPS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
+  private final static String MPIS_PROJECTS_TITLE_URL = "http://qa-pubman.mpdl.mpg.de/cone/mpis-projects/query?format=rdf&q=*&mode=full&n=0";
 
   private final static String IDENTIFIER = "dc:identifier";
   private final static String TITLE = "dc:title";
 
-  private Set<String> iso639_3_IdentifierSet = new HashSet<String>();
-  private Set<String> iso639_3_TitleSet = new HashSet<String>();
-  private Set<String> ddcTitleSet = new HashSet<String>();
-  private Set<String> mimeTypesTitleSet = new HashSet<String>();
-  private Set<String> mpipksTitleSet = new HashSet<String>();
-  private Set<String> mpirgTitleSet = new HashSet<String>();
-  private Set<String> mpisGroupsTitleSet = new HashSet<String>();
-  private Set<String> mpisProjectTitleSet = new HashSet<String>();
+  private ConeSet iso639_3_Identifier = ConeSet.ISO639_3_IDENTIFIER;
+  private ConeSet iso639_3_Title = ConeSet.ISO639_3_TITLE;
+  private ConeSet ddcTitle = ConeSet.DDC_TITLE;
+  private ConeSet mimeTypesTitle = ConeSet.MIME_TYPES_TITLE;
+  private ConeSet mpipksTitle = ConeSet.MPIPKS_TITLE;
+  private ConeSet mpirgTitle = ConeSet.MPIRG_TITLE;
+  private ConeSet mpisGroupsTitle = ConeSet.MPIS_GROUPS_TITLE;
+  private ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
 
-  private Set<String> iso639_3_IdentifierSet_OLD = new HashSet<String>();
-  private Set<String> iso639_3_TitleSet_OLD = new HashSet<String>();
-  private Set<String> ddcTitleSet_OLD = new HashSet<String>();
-  private Set<String> mimeTypesTitleSet_OLD = new HashSet<String>();
-  private Set<String> mpipksTitleSet_OLD = new HashSet<String>();
-  private Set<String> mpirgTitleSet_OLD = new HashSet<String>();
-  private Set<String> mpisGroupsTitleSet_OLD = new HashSet<String>();
-  private Set<String> mpisProjectTitleSet_OLD = new HashSet<String>();
+  private int testCount = 0;
 
-  private ConeSetsCache() {}
+  private ConeSetsCache() {
+      refreshCache();
+  }
 
   public static ConeSetsCache getInstance() {
-    if (ConeSetsCache.INSTANCE == null) {
-      ConeSetsCache.INSTANCE = new ConeSetsCache();
-    }
-    return ConeSetsCache.INSTANCE;
+    return ConeSetsCache.InstanceHolder.INSTANCE;
   }
 
-  public void clearCache() {
-    resetSet(this.iso639_3_IdentifierSet, this.iso639_3_IdentifierSet_OLD);
-    resetSet(this.iso639_3_TitleSet, this.iso639_3_TitleSet_OLD);
-    resetSet(this.ddcTitleSet, this.ddcTitleSet_OLD);
-    resetSet(this.mimeTypesTitleSet, this.mimeTypesTitleSet_OLD);
-    resetSet(this.mpipksTitleSet, this.mpipksTitleSet_OLD);
-    resetSet(this.mpirgTitleSet, this.mpirgTitleSet_OLD);
-    resetSet(this.mpisGroupsTitleSet, this.mpisGroupsTitleSet_OLD);
-    resetSet(this.mpisProjectTitleSet, this.mpisProjectTitleSet_OLD);
+  public void refreshCache() {
+    refresh(this.iso639_3_Identifier, new ConeHandler(IDENTIFIER), ISO639_3_IDENTIFIER_URL);
+    refresh(this.iso639_3_Title, new ConeHandler(TITLE), ISO639_3_TITLE_URL);
+    refresh(this.ddcTitle, new ConeHandler(TITLE), DDC_TITLE_URL);
+    refresh(this.mimeTypesTitle, new ConeHandler(TITLE), MIME_TYPES_TITLE_URL);
+    refresh(this.mpipksTitle, new ConeHandler(TITLE), MPIPKS_TITLE_URL);
+    refresh(this.mpirgTitle, new ConeHandler(TITLE), MPIRG_TITLE_URL);
+    refresh(this.mpisGroupsTitle, new ConeHandler(TITLE), MPIS_GROUPS_TITLE_URL);
+    refresh(this.mpisProjectTitle, new ConeHandler(TITLE), MPIS_PROJECTS_TITLE_URL);
   }
 
-  // TODO: correct? Getter synchronized?
-  private void resetSet(Set<String> mySet, Set<String> mySet_OLD) {
-    synchronized (mySet) {
-      if (!mySet.isEmpty()) {
-        mySet_OLD = new HashSet<String>();
-        mySet_OLD.addAll(mySet);
+  private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
+    System.out.println("\n*** Start refillSet: " + queryUrl);
+    try {
+      Set<String> result = fill(handler, queryUrl);
+      System.out.println("    " + "Size: " + result.size() + " " + queryUrl);
+      if (!result.isEmpty()) {
+        synchronized (coneSet.set()) {
+          coneSet.set().clear();
+          coneSet.set().addAll(result);
+        }
       }
-      mySet = new HashSet<String>();
+    } catch (IOException | ParserConfigurationException | SAXException | ConeException e) {
+      System.out.println(e);
+      LOG.warn("Could not refill Cone Set with Url: " + queryUrl);
+      if (coneSet.set().isEmpty()) {
+        LOG.error("Cone Set is empty: Url: " + queryUrl);
+      }
     }
+    System.out.println("*** Ende refillSet: " + queryUrl);
   }
 
-  private Set<String> fill(String queryUrl, ConeHandler handler) throws HttpException, IOException,
-      ParserConfigurationException, SAXException {
+  
+  private Set<String> fill(ConeHandler handler, String queryUrl)
+      throws HttpException, IOException, ParserConfigurationException, SAXException, ConeException {
     HttpClient client = new HttpClient();
     GetMethod method = new GetMethod(queryUrl);
 
     ProxyHelper.executeMethod(client, method);
 
-    if (method.getStatusCode() == 200) {
+    if (method.getStatusCode() == 200 && this.testCount < 20) {
+      this.testCount++;
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(method.getResponseBodyAsStream(), handler);
       return handler.getResult();
     } else {
-      throw new ProviderNotFoundException("Could not load CONE attributes.");
+      System.out.println("**** ERROR ***** ");
+      LOG.error("Could not load CONE attributes:" + method.getStatusCode());
+      throw new ConeException("Could not load CONE attributes: " + method.getStatusCode());
     }
   }
 
   public Set<String> getDdcTitleSet() {
-    if (this.ddcTitleSet.isEmpty()) {
-      try {
-        this.ddcTitleSet = fill(DDC_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.ddcTitleSet_OLD.isEmpty()) {
-          this.ddcTitleSet.addAll(this.ddcTitleSet_OLD);
-        }
-      }
+    if (this.ddcTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE ddcTitleSet is empty.");
     }
 
-    return this.ddcTitleSet;
+    return this.ddcTitle.set();
   }
 
   public Set<String> getIso639_3_IdentifierSet() {
-    if (this.iso639_3_IdentifierSet.isEmpty()) {
-      try {
-        this.iso639_3_IdentifierSet = fill(ISO639_3_IDENTIFIER_URL, new ConeHandler(IDENTIFIER));
-      } catch (Exception e) {
-        // TODO
-        if (!this.iso639_3_IdentifierSet_OLD.isEmpty()) {
-          this.iso639_3_IdentifierSet.addAll(this.iso639_3_IdentifierSet_OLD);
-        }
-      }
+    if (this.iso639_3_Identifier.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE iso639_3_IdentifierSet is empty.");
     }
 
-    return this.iso639_3_IdentifierSet;
+    return this.iso639_3_Identifier.set();
   }
 
   public Set<String> getIso639_3_TitleSet() {
-    if (this.iso639_3_TitleSet.isEmpty()) {
-      try {
-        this.iso639_3_TitleSet = fill(ISO639_3_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.iso639_3_TitleSet_OLD.isEmpty()) {
-          this.iso639_3_TitleSet.addAll(this.iso639_3_TitleSet_OLD);
-        }
-      }
+    if (this.iso639_3_Title.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE iso639_3_TitleSet is empty.");
     }
 
-    return this.iso639_3_TitleSet;
+    return this.iso639_3_Title.set();
   }
 
   public Set<String> getMimeTypesTitleSet() {
-    if (this.mimeTypesTitleSet.isEmpty()) {
-      try {
-        this.mimeTypesTitleSet = fill(MIME_TYPES_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.mimeTypesTitleSet_OLD.isEmpty()) {
-          this.mimeTypesTitleSet.addAll(this.mimeTypesTitleSet_OLD);
-        }
-      }
+    if (this.mimeTypesTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE mimeTypesTitleSet is empty.");
     }
 
-    return this.mimeTypesTitleSet;
+    return this.mimeTypesTitle.set();
   }
 
   public Set<String> getMpipksTitleSet() {
-    if (this.mpipksTitleSet.isEmpty()) {
-      try {
-        this.mpipksTitleSet = fill(MPIPKS_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.mpipksTitleSet_OLD.isEmpty()) {
-          this.mpipksTitleSet.addAll(this.mpipksTitleSet_OLD);
-        }
-      }
+    if (this.mpipksTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE mpipksTitleSet is empty.");
     }
 
-    return this.mpipksTitleSet;
+    return this.mpipksTitle.set();
   }
 
   public Set<String> getMpirgTitleSet() {
-    if (this.mpirgTitleSet.isEmpty()) {
-      try {
-        this.mpirgTitleSet = fill(MPIRG_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.mpirgTitleSet_OLD.isEmpty()) {
-          this.mpirgTitleSet.addAll(this.mpirgTitleSet_OLD);
-        }
-      }
+    if (this.mpirgTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE mpirgTitleSet is empty.");
     }
 
-    return this.mpirgTitleSet;
+    return this.mpirgTitle.set();
   }
 
   public Set<String> getMpisGroupsTitleSet() {
-    if (this.mpisGroupsTitleSet.isEmpty()) {
-      try {
-        this.mpisGroupsTitleSet = fill(MPIS_GROUPS_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.mpisGroupsTitleSet_OLD.isEmpty()) {
-          this.mpisGroupsTitleSet.addAll(this.mpisGroupsTitleSet_OLD);
-        }
-      }
+    if (this.mpisGroupsTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE mpisGroupsTitleSet is empty.");
     }
 
-    return this.mpisGroupsTitleSet;
+    return this.mpisGroupsTitle.set();
   }
 
   public Set<String> getMpisProjectTitleSet() {
-    if (this.mpisProjectTitleSet.isEmpty()) {
-      try {
-        this.mpisProjectTitleSet = fill(MPIS_PROJECTS_TITLE_URL, new ConeHandler(TITLE));
-      } catch (Exception e) {
-        // TODO
-        if (!this.mpisProjectTitleSet_OLD.isEmpty()) {
-          this.mpisProjectTitleSet.addAll(this.mpisProjectTitleSet_OLD);
-        }
-      }
+    if (this.mpisProjectTitle.set().isEmpty()) {
+      System.out.println("empty");
+      LOG.error("CONE mpisProjectTitleSet is empty.");
     }
 
-    return this.mpisProjectTitleSet;
+    return this.mpisProjectTitle.set();
   }
 
 }
