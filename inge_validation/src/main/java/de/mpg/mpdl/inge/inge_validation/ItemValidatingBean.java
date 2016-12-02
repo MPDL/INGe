@@ -8,8 +8,9 @@ import javax.ejb.TransactionAttributeType;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationReportVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.ValidationReportVO;
 
 @Stateless
 @Remote(ItemValidating.class)
@@ -18,36 +19,34 @@ public class ItemValidatingBean implements ItemValidating {
 
   private static final Logger LOG = Logger.getLogger(ItemValidatingBean.class);
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO) {
-    try {
+  public ValidationReportVO validateItemObject(final ItemVO itemVO) throws ValidationException {
       ValidationService s = new ValidationService();
-      return s.doValidation(itemVO);
-    } catch (Exception e) {
-      LOG.error("validateItemObject:", e);
-      // TODO
-    }
-
-    return null;
+      
+      try {
+        return s.doValidation(itemVO);
+      } catch (ValidationException e) {
+        LOG.error("validateItemObject:", e);
+        throw e;
+      }
   }
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint) {
+  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint) throws ValidationException {
+    ValidationService s = new ValidationService();
+    
     try {
-      ValidationService s = new ValidationService();
       return s.doValidation(itemVO, validationPoint);
-    } catch (Exception e) {
+    } catch (ValidationException e) {
       LOG.error("validateItemObject:", e);
-      // TODO
+      throw e;
     }
-
-    return null;
   }
 
-  public void refreshValidationSchemaCache() {
+  public void refreshValidationSchemaCache() throws ValidationException {
     try {
       ConeCache.getInstance().refreshCache();
-    } catch (Exception e) {
+    } catch (ValidationException e) {
       LOG.error("refreshValidationSchemaCache:", e);
-      // TODO
+      throw e;
     }
   }
 

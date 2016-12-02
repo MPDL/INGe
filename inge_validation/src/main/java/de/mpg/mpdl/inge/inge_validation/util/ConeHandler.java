@@ -7,11 +7,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-//TODO System.out.println rauswerfen
+// TODO System.out.println rauswerfen
 public class ConeHandler extends DefaultHandler {
 
   private Set<String> result = new HashSet<String>();
-  
+
   private String searchElement;
   private StringBuffer tmp;
   private boolean isSearchElement = false;
@@ -37,14 +37,13 @@ public class ConeHandler extends DefaultHandler {
   }
 
   @Override
-  public void endElement(String uri, String localName, String qName)
-      throws SAXException {
+  public void endElement(String uri, String localName, String qName) throws SAXException {
     if (qName.equalsIgnoreCase(this.searchElement)) {
       this.result.add(this.tmp.toString());
       this.isSearchElement = false;
     }
   }
-  
+
   public Set<String> getResult() {
     System.out.println(this.result.size());
     return this.result;
