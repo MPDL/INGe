@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.13" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
+  router="FAN">  
+  <class id="1" language="java" name="com.baidu.unbiz.fluentvalidator.ValidatorHandler" project="inge_validation" 
+    file="C:/Users/przibyll/.m2/repository/com/baidu/unbiz/fluent-validator/1.0.5/fluent-validator-1.0.5.jar" 
+    binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3390" y="-542"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" language="java" name="com.baidu.unbiz.fluentvalidator.Validator" project="inge_validation" 
+    file="C:/Users/przibyll/.m2/repository/com/baidu/unbiz/fluent-validator/1.0.5/fluent-validator-1.0.5.jar" 
+    binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3432" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" language="java" name="org.xml.sax.helpers.DefaultHandler" project="inge_validation" 
+    file="C:/Program Files/Java/jdk1.8.0_112/jre/lib/rt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5832" y="-1056"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ConeHandler" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ConeHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5814" y="-659"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ErrorMessages" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ErrorMessages.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1742" y="1442"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.NoSlashesInFileNameValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/NoSlashesInFileNameValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="255" x="4267" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/ComponentDataRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="255" x="1796" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/SourceCreatorsRoleRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="274" x="892" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.ClassifiedKeywordsValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/ClassifiedKeywordsValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="275" x="5197" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.LanguageCodeValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/LanguageCodeValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="251" x="5512" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" 
+    name="de.mpg.mpdl.inge.inge_validation.validator.PublicationCreatorsRoleRequiredValidator" project="inge_validation" 
+    
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/PublicationCreatorsRoleRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="275" x="2405" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/EventTitleRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="237" x="3676" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/SourceRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="274" x="4562" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.UriAsLocatorValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/UriAsLocatorValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="255" x="1206" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/DateRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="281" x="4876" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.CreatorRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/CreatorRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="275" x="577" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/GenreRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="224" x="313" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/IdTypeRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="280" x="3356" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/ComponentContentRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="255" x="1501" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.SourceTitlesRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/SourceTitlesRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="274" x="2091" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.OrganizationNameRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/OrganizationNameRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="275" x="3041" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.ComponentMimeTypesValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/ComponentMimeTypesValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="255" x="5803" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/TitleRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="222" x="51" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/MdsPublicationDateFormatValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="281" x="2720" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="de.mpg.mpdl.inge.inge_validation.validator.SourceGenresRequiredValidator" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/validator/SourceGenresRequiredValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="274" x="3953" y="230"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="26" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ConeSet" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ConeSet.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5835" y="-377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="27" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ValidationPoint" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ValidationPoint.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1810" y="-1049"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="28" language="java" name="de.mpg.mpdl.inge.inge_validation.ValidationService" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/ValidationService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2071" y="-798"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="de.mpg.mpdl.inge.inge_validation.ItemValidatingBean" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/ItemValidatingBean.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4075" y="-621"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="30" language="java" name="de.mpg.mpdl.inge.inge_validation.ItemValidating" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/ItemValidating.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4075" y="-1100"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="31" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ConeException" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ConeException.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5091" y="-909"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ValidationException" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ValidationException.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4631" y="-849"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ValidationReportItemVO" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ValidationReportItemVO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3281" y="-1072"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ValidationReportVO" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ValidationReportVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3606" y="-1077"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ItemInvalidException" 
+    project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ItemInvalidException.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4040" y="-1289"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="de.mpg.mpdl.inge.inge_validation.util.Properties" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/Properties.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5085" y="-555"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ConeCache.InstanceHolder" 
+    project="inge_validation" file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ConeCache.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5146" y="-358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="de.mpg.mpdl.inge.inge_validation.util.ConeCache" project="inge_validation" 
+    file="/inge_validation/src/main/java/de/mpg/mpdl/inge/inge_validation/util/ConeCache.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="531" width="229" x="5309" y="-914"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="39">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="40" name="mpisGroupsTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="42">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="43">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="44">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="46">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="47" name="items">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="48" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <realization id="50">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="51">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="53">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="54">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="55">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="56">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <generalization id="57">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="58">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="61">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <dependency id="62">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <realization id="65">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="66">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <realization id="67">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="69">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <association id="70">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="71" name="INSTANCE">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="72" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="73">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="74">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="75" name="mpisProjectTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="77">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="78">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="79">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="80" name="iso639_3_Identifier">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="81" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="82">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="83">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="84">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="85">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="86">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="87">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="88">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="89">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="91">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="92">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="93">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="94">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="95">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <dependency id="96">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="97">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <realization id="98">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="99">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="100">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="101">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="102">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <generalization id="103">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <dependency id="104">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <realization id="105">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="106">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <generalization id="107">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="108">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="109" name="ddcTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="110" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="111">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <generalization id="112">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="113">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="114" name="iso639_3_Title">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="115" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="116">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="117">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="118" name="mpirgTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="120">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="121">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="122">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="124">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="125">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="126">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="127">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="128">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="129">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="130">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="131">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="132">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="133">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="134" name="report">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="135" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="136">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="137">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="138">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="139">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="140">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="141">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <generalization id="142">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="143">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="144">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="145">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="146">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="147">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="148">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="149">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="150">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <dependency id="151">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <generalization id="152">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="153">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="154" name="mimeTypesTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="155" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="156">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <nesting id="157">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="37"/>  
+  </nesting>  
+  <generalization id="158">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="159">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="160">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="161">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <association id="162">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="163" name="mpipksTitle">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="164" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="165">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="166">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="167">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <dependency id="168">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <realization id="169">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="170">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
