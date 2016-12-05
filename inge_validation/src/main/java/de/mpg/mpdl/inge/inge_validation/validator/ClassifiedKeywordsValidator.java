@@ -32,12 +32,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> implements
     Validator<List<SubjectVO>> {
 
-  private static final String ISO639_3 = "eterms:ISO639_3";
-  private static final String DDC = "eterms:DDC";
-  private static final String MPIPKS = "eterms:MPIPKS";
-  private static final String MPIRG = "eterms:MPIRG";
-  private static final String MPIS_GROUPS = "eterms:MPIS_GROUPS";
-  private static final String MPIS_PROJECTS = "eterms:MPIS_PROJECTS";
+  public static final String ISO639_3 = "eterms:ISO639_3";
+  public static final String DDC = "eterms:DDC";
+  public static final String MPIPKS = "eterms:MPIPKS";
+  public static final String MPIRG = "eterms:MPIRG";
+  public static final String MPIS_GROUPS = "eterms:MPIS_GROUPS";
+  public static final String MPIS_PROJECTS = "eterms:MPIS_PROJECTS";
 
   @Override
   public boolean validate(ValidatorContext context, List<SubjectVO> subjects) {
@@ -55,42 +55,42 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           if (ISO639_3.equals(subjectVO.getType()) //
               && !coneCache.getIso639_3_TitleSet().isEmpty()
-              && coneCache.getIso639_3_TitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getIso639_3_TitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (DDC.equals(subjectVO.getType()) //
               && !coneCache.getDdcTitleSet().isEmpty()
-              && coneCache.getDdcTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getDdcTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIPKS.equals(subjectVO.getType()) //
               && !coneCache.getMpipksTitleSet().isEmpty()
-              && coneCache.getMpipksTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpipksTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIRG.equals(subjectVO.getType()) //
               && !coneCache.getMpirgTitleSet().isEmpty()
-              && coneCache.getMpirgTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpirgTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_GROUPS.equals(subjectVO.getType()) //
               && !coneCache.getMpisGroupsTitleSet().isEmpty()
-              && coneCache.getMpisGroupsTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpisGroupsTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION).setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_PROJECTS.equals(subjectVO.getType()) //
               && !coneCache.getMpisProjectTitleSet().isEmpty()
-              && coneCache.getMpisProjectTitleSet().contains(subjectVO.getValue())) {
+              && !coneCache.getMpisProjectTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION)
                 .setField("subject[" + i + "]"));

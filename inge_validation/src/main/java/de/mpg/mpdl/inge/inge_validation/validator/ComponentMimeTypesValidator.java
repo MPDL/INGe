@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
-  private static final String IMT = "dcterms:IMT";
+  public static final String IMT = "dcterms:IMT";
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -63,7 +63,6 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
 
             if (IMT.equals(formatVO.getType()) //
                 && !mimeTypesTitleSet.contains(formatVO.getValue())) {
-              context.addErrorMsg(ErrorMessages.MIME_TYPE_NOT_VALID);
               context.addError(ValidationError.create(ErrorMessages.MIME_TYPE_NOT_VALID).setField(
                   "file[" + i + "].format[" + j + "]"));
               ok = false;

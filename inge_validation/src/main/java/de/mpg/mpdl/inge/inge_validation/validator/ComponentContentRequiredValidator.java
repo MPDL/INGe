@@ -51,7 +51,7 @@ public class ComponentContentRequiredValidator extends ValidatorHandler<List<Fil
             && (fileVO.getDefaultMetadata() != null
                 && fileVO.getDefaultMetadata().getTitle() != null //
                 || fileVO.getMimeType() != null //
-            || fileVO.getDescription() != null)) {
+                || fileVO.getDescription() != null)) {
           context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED)
               .setField("file[" + i + "]"));
           ok = false;

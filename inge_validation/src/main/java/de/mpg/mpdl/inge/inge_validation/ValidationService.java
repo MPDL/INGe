@@ -126,7 +126,7 @@ public class ValidationService {
     }
   }
 
-  private ValidationReportVO convert(ComplexResult complexResult) {
+  ValidationReportVO convert(ComplexResult complexResult) {
     ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {

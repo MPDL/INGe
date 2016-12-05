@@ -29,11 +29,11 @@ public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> im
     if (m != null) {
 
       if (m.getDateAccepted() == null //
-          || m.getDateCreated() == null //
-          || m.getDateModified() == null //
-          || m.getDatePublishedInPrint() == null //
-          || m.getDatePublishedOnline() == null //
-          || m.getDateSubmitted() == null) {
+          && m.getDateCreated() == null //
+          && m.getDateModified() == null //
+          && m.getDatePublishedInPrint() == null //
+          && m.getDatePublishedOnline() == null //
+          && m.getDateSubmitted() == null) {
         context.addErrorMsg(ErrorMessages.DATE_NOT_PROVIDED);
 
         return false;

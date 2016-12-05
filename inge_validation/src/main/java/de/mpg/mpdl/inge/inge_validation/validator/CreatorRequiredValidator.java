@@ -71,6 +71,7 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
           PersonVO p = creatorVO.getPerson();
           if (p == null || p.getFamilyName() == null) {
             errorPers = true;
+            continue;
           }
 
           int orgsOk = 0;
