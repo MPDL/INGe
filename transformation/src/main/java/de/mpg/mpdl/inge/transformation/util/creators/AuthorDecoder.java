@@ -65,7 +65,7 @@ public class AuthorDecoder {
      * for (String string : prefixes2) { System.out.println(string); }
      */
     if (args == null || args.length == 0) {
-      System.out.println("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
+      System.out.println("usage: java de.mpg.mpdl.inge.util.AuthorDecoder author_string");
       System.out.println("Please make sure your classpath points to a valid log4j configuration.");
     } else {
       AuthorDecoder authorDecoder = new AuthorDecoder(args[0]);

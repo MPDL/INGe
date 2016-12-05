@@ -101,9 +101,8 @@ public class StructuredExport implements StructuredExportHandler {
   /*
    * ( Takes PubMan item-list and converts it to specified exportFormat. Uses XSLT.
    * 
-   * @see
-   * de.mpg.escidoc.services.endnotemanager.StructuredExportHandler#getOutputString(java.lang.String
-   * , java.lang.String)
+   * @see de.mpg.mpdl.inge.endnotemanager.StructuredExportHandler#getOutputString(java.lang.String ,
+   * java.lang.String)
    */
 
   public byte[] getOutput(String itemList, String exportFormat)

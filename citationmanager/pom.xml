@@ -76,7 +76,7 @@
 							</descriptorRefs>
 							<archive>
 								<manifest>
-									<mainClass>de.mpg.escidoc.services.citationmanager.xslt.CitationStyleManagerImpl</mainClass>
+									<mainClass>de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl</mainClass>
 								</manifest>
 							</archive>
 						</configuration>

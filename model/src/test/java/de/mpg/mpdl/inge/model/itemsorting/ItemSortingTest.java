@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.model.itemsorting;
 import org.junit.Test;
 
 /**
- * Test class for {@link de.mpg.escidoc.services.common.intemsorting.ItemSortingBean}.
+ * Test class for {@link de.mpg.mpdl.inge.common.intemsorting.ItemSortingBean}.
  * 
  * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)

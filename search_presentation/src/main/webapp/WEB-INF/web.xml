@@ -35,7 +35,7 @@
 	<!-- Initializer Servlet -->
 	<servlet>
 		<servlet-name>SearchAndExport Servlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.search.presentation.RestServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.search.web.RestServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

@@ -98,7 +98,7 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>xml_transforming</artifactId>
-			<scope>compile</scope>
+			<scope>provided</scope>
 				<exclusions>
 					<!-- conflicts with cql-java.jar -->
 					<exclusion>

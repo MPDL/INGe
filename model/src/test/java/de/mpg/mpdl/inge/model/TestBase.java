@@ -104,7 +104,7 @@ public class TestBase {
    * Helper method to retrieve a EJB service instance. The name to be passed to the method is
    * normally 'ServiceXY.SERVICE_NAME'.
    * 
-   * @param serviceName The name of the service, e.g. "ejb.de.mpg.escidoc.services.common.XXX"
+   * @param serviceName The name of the service, e.g. "ejb.de.mpg.mpdl.inge.common.XXX"
    * 
    * @return instance of the EJB service
    * 

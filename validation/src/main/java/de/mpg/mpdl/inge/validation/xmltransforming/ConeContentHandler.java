@@ -53,7 +53,7 @@ public class ConeContentHandler extends IdentityHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.util.IdentityHandler#processingInstruction(java.lang.String,
+   * @see de.mpg.mpdl.inge.util.IdentityHandler#processingInstruction(java.lang.String,
    * java.lang.String)
    */
   @Override

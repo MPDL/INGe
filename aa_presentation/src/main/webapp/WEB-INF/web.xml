@@ -7,34 +7,34 @@
 	<!-- Property Initializer -->
 	<servlet>
 		<servlet-name>PropertyInitializer</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.PropertyInitializer</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.PropertyInitializer</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
 	<!-- AA Servlets -->
 	<servlet>
 		<servlet-name>AaStart</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.AaStart</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.AaStart</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>AaFinish</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.AaFinish</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.AaFinish</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>AaClientStart</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.client.StartClientServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.client.StartClientServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>AaClientFinish</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.client.FinalClientServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.client.FinalClientServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>LogoutClientServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.aa.web.client.LogoutClientServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.aa.web.client.LogoutClientServlet</servlet-class>
 	</servlet>
 	
 	<session-config>

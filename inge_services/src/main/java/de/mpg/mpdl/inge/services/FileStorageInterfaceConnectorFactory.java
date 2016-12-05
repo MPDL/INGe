@@ -18,8 +18,8 @@ public class FileStorageInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS =
       "inge.inge_services.file_storage_interface.connector_class";
 
-  public static FileStorageInterface getInstance() throws InstantiationException, IllegalAccessException,
-      ClassNotFoundException, IOException, URISyntaxException {
+  public static FileStorageInterface getInstance() throws InstantiationException,
+      IllegalAccessException, ClassNotFoundException, IOException, URISyntaxException {
     return (FileStorageInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }
 }

@@ -30,7 +30,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"
 	xmlns:functx="http://www.functx.com"
-	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"	
+	xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"	
 	
 	xmlns:exslt="http://exslt.org/common"
 	>

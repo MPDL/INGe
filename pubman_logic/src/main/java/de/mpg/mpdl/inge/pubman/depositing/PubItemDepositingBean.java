@@ -165,13 +165,13 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // retrieve PubCollection for default metadata
     ContextVO collection = null;
     try {
-       String context =
-       de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
-       pubCollectionRef.getObjectId());
-       collection = xmlTransforming.transformToContext(context);
-//      collection =
-//          ContextInterfaceConnectorFactory.getInstance()
-//              .readContext(pubCollectionRef.getObjectId());
+      // String context =
+      // de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
+      // pubCollectionRef.getObjectId());
+      // collection = xmlTransforming.transformToContext(context);
+      collection =
+          ContextInterfaceConnectorFactory.getInstance()
+              .readContext(pubCollectionRef.getObjectId());
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {

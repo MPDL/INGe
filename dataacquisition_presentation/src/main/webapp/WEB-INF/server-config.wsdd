@@ -51,7 +51,7 @@
 	<handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
 	<service name="import" provider="java:RPC">
 		<parameter name="allowedMethods" value="unapi"/>
-		<parameter name="className" value="de.mpg.escidoc.services.importmanager.ImportHandlerBean"/>
+		<parameter name="className" value="de.mpg.mpdl.inge.importmanager.ImportHandlerBean"/>
 				
 	<!--<parameter name="typeMappingVersion" value="1.2"/>
 		<parameter name="wsdlPortType" value="ImportWebService"/>

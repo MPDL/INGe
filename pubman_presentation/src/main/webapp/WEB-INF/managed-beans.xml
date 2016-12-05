@@ -32,592 +32,592 @@
 
 	<managed-bean>
 		<managed-bean-name>SwordUtil</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.sword.SwordUtil</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.sword.SwordUtil</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ApplicationBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ApplicationBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ApplicationBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>Navigation</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.desktop.Navigation</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.desktop.Navigation</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>Search</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.desktop.Search</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.desktop.Search</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SearchResultListPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.SearchResultListPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.SearchResultListPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AdvancedSearchEdit</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.search.AdvancedSearchEdit</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>Login</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.desktop.Login</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.desktop.Login</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EditItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.editItem.EditItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.editItem.EditItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EditItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.editItem.EditItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EditItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.EditItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.EditItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SubmitItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.submitItem.SubmitItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AcceptItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.acceptItem.AcceptItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SubmitItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.SubmitItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.SubmitItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
    <managed-bean>
 		<managed-bean-name>AcceptItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.AcceptItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.AcceptItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>WithdrawItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.withdrawItem.WithdrawItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>WithdrawItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.WithdrawItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.WithdrawItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>HomePage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.HomePage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.HomePage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemOrganizationInformation</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemOrganizationInformation</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganizationInformation</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemOrganizationInformationPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemOrganizationInformationPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganizationInformationPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewRevisionsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewRevisionsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewRevisionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>LocalTagsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.LocalTagsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.LocalTagsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>LoginHelper</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.util.LoginHelper</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.LoginHelper</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AdvancedSearchPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.AdvancedSearchPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.AdvancedSearchPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ExportItems</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.export.ExportItems</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.export.ExportItems</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ExportItemsSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.export.ExportItemsSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ExportEmailPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ExportEmailPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ExportEmailPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationDetail</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.search.AffiliationDetail</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.search.AffiliationDetail</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>LoginErrorPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.LoginErrorPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.LoginErrorPage</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ErrorPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ErrorPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ErrorPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ItemControllerSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ItemControllerSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>DepositorWSSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>DepositorWSPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.DepositorWSPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.DepositorWSPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SearchResultListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.search.SearchResultListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.search.SearchResultListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
    <managed-bean>
 		<managed-bean-name>WithdrawItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
    <managed-bean>
 		<managed-bean-name>SubmitItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
    <managed-bean>
 		<managed-bean-name>AcceptItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationTree</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationTree</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationTree</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>BreadcrumbItemHistorySessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>BreadcrumbItemHistoryRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistoryRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistoryRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationSearchResultListPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationSearchResultListPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.AffiliationSearchResultListPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationTreePage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationTreePage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.AffiliationTreePage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>RightsManagementSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.RightsManagementSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemFull</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemFull</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemMedium</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemMedium</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemMedium</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemFullPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemFullPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewItemFullPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemReleaseHistoryPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemReleaseHistoryPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewItemReleaseHistoryPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ReleaseHistory</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.releases.ReleaseHistory</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ItemVersionListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>CreateItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.createItem.CreateItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.createItem.CreateItem</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>CreateItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.CreateItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.CreateItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SubmissionPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.SubmissionPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.SubmissionPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>BrowseByPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.BrowseByPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>BrowseByBreadcrumbPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByBreadcrumbPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.BrowseByBreadcrumbPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>BrowseBySelectPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.BrowseBySelectPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.BrowseBySelectPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ContextListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.contextList.ContextListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>CreateRevision</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.CreateRevision</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.revisions.CreateRevision</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>RelationListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RelationListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemStatisticsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemStatisticsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemStatistics</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.statistics.ViewItemStatistics</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.statistics.ViewItemStatistics</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemRevisionsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemRevisionsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>NoSearchResultsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.NoSearchResultsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.NoSearchResultsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EasySubmissionPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.EasySubmissionPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.EasySubmissionPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>FetchMetadataPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.FetchMetadataPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.FetchMetadataPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EasySubmission</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmission</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>EasySubmissionSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemLogPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemLogPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewItemLogPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemLog</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.itemLog.ViewItemLog</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.itemLog.ViewItemLog</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>QAWSPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.QAWSPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.QAWSPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>QAWSSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.qaws.QAWSSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ReviseItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ReviseItemPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ReviseItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ReviseItem</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.reviseItem.ReviseItem</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.reviseItem.ReviseItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>PubManSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.PubManSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.PubManSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>PubManRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.PubManRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.PubManRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>PubItemListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.itemList.PubItemListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>RevisionItemListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionItemListSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.revisions.RevisionItemListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>MyItemsRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>MyTasksRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.qaws.MyTasksRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>RevisionsRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.revisions.RevisionsRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>CartItemsRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.basket.CartItemsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.basket.CartItemsRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>CartItemsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.CartItemsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.CartItemsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SearchRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>PubItemStorageSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationDetailPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationDetailPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.AffiliationDetailPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
     <managed-bean>
         <managed-bean-name>Header</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.desktop.Header</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.desktop.Header</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>MultipleImport</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.MultipleImport</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>NewMultipleImport</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.NewMultipleImport</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.NewMultipleImport</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>MultipleImportForm</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.MultipleImportForm</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImportForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportWorkspace</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportWorkspace</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.ImportWorkspace</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportItemDetails</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItemDetails</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.beans.ImportItemDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportData</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportData</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.beans.ImportData</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportItems</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItems</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.multipleimport.beans.ImportItems</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>AudienceBean</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.audience.AudienceBean</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.audience.AudienceBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>AudienceSessionBean</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.audience.AudienceSessionBean</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
      <managed-bean>
         <managed-bean-name>StatisticSessionBean</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.statistics.StatisticSessionBean</managed-bean-class>
+        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.statistics.StatisticSessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
 		<managed-bean-name>BrowseBySessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>OrganizationSuggest</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.OrganizationSuggest</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.OrganizationSuggest</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 		<managed-bean>
 		<managed-bean-name>UserAccountSuggest</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.UserAccountSuggest</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.UserAccountSuggest</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookCandidatesRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookCandidatesRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookCandidatesRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookModeratorRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookModeratorRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookModeratorRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookItemSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookItemCreateBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookItemCreateBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemCreateBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookItemEditBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookItemEditBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemEditBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookArchiveBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookArchiveBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookArchiveBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookArchiveRetrieverRequestBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookArchiveRetrieverRequestBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookArchiveRetrieverRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookCandidatesSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookCandidatesSessionBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.yearbook.YearbookCandidatesSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.YearbookPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.YearbookPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>YearbookArchivePage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.YearbookArchivePage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.YearbookArchivePage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>WorkspacesPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.WorkspacesPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.WorkspacesPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ToolsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ToolsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ToolsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ReportWorkspacePage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.ReportWorkspacePage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ReportWorkspacePage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ReportWorkspaceBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.workspaces.ReportWorkspaceBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.workspaces.ReportWorkspaceBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AdvancedSearchBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.searchNew.AdvancedSearchBean</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.searchNew.AdvancedSearchBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>UserAccountOptions</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.util.UserAccountOptions</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.UserAccountOptions</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>UserAccountOptionsPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.UserAccountOptionsPage</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.UserAccountOptionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>InternationalizationHelper</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.util.InternationalizationHelper</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 </faces-config>

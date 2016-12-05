@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:tools="http://www.editura.de/ns/2012/tools" xmlns:intern="http://www.editura.de/ns/2012/intern" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" exclude-result-prefixes="xsl xs xd tools intern Util" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:tools="http://www.editura.de/ns/2012/tools" xmlns:intern="http://www.editura.de/ns/2012/intern" xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util" exclude-result-prefixes="xsl xs xd tools intern Util" version="2.0">
 	<xsl:variable name="intern:maximum-depth-for-recursions" as="xs:integer">300</xsl:variable>
 	<xsl:function name="tools:render-context-and-parent-as-string" as="xs:string">
 		<xsl:param name="context" as="node()?"/>

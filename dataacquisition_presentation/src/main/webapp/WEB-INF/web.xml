@@ -7,7 +7,7 @@
 	<servlet>
 		<servlet-name>UnapiServlet</servlet-name>
 		<display-name>UNAPI Servlet</display-name>
-		<servlet-class>de.mpg.escidoc.services.dataacquisition.webservice.UnapiServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.dataacquisition.webservice.UnapiServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

@@ -95,7 +95,7 @@ public class ItemExportingBean implements ItemExporting {
 
     } catch (CitationStyleManagerException e) {
       throw new TechnicalException(e);
-    } 
+    }
     List<ExportFormatVO> result = null;
     result = xmlTransforming.transformToExportFormatVOList(layoutFormats);
     appendStructuredFormat(result);

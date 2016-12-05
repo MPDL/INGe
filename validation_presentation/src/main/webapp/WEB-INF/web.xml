@@ -35,14 +35,14 @@
 	<servlet>
 		<servlet-name>InitializerServlet</servlet-name>
 		<display-name>InitializerServlet</display-name>
-		<servlet-class>de.mpg.escidoc.services.validation.init.InitializerServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.validation.web.InitializerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet>
 		<servlet-name>RESTServlet</servlet-name>
 		<display-name>REST Servlet</display-name>
-		<servlet-class>de.mpg.escidoc.services.validation.webservice.RestServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.validation.webservice.RestServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

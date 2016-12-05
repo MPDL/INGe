@@ -29,7 +29,7 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
-	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
+	xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"
 	>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"
 		cdata-section-elements="dcterms:bibliographicCitation" />

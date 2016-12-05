@@ -108,8 +108,8 @@ public class IdentityHandler extends ShortContentHandler {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.services.util.ShortContentHandler#content(java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String)
+   * @see de.mpg.mpdl.inge.util.ShortContentHandler#content(java.lang.String, java.lang.String,
+   * java.lang.String, java.lang.String)
    */
   @Override
   public void content(String uri, String localName, String name, String content) {

@@ -7,7 +7,7 @@
 	<!-- CoNE Servlets -->
 	<servlet>
 		<servlet-name>ConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.ConeServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.cone.web.ConeServlet</servlet-class>
 	</servlet>
 	
 	<session-config>

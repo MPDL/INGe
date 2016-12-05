@@ -50,7 +50,7 @@
 	<iso:ns prefix="event" uri="${xsd.metadata.event}" />
 	<iso:ns prefix="source" uri="${xsd.metadata.source}" />
 	<iso:ns prefix="organization" uri="${xsd.metadata.organization}" />
-	<iso:ns prefix="escidoc-util" uri="java:de.mpg.escidoc.services.util.SchematronUtil" />
+	<iso:ns prefix="escidoc-util" uri="java:de.mpg.mpdl.inge.validation.util.SchematronUtil" />
    
 	
 	<!-- Validation points -->

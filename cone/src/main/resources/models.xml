@@ -223,22 +223,22 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Last Modification Date"
 				value="http://purl.org/dc/terms/modified" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Creation Date"
 				value="http://purl.org/dc/terms/created" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 			<predicate name="Modified By"
 				value="http://purl.org/dc/terms/contributor" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Created By"
 				value="http://purl.org/dc/terms/creator" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 		</predicates>
 		<results>
@@ -683,22 +683,22 @@ OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/
 			<predicate name="Last Modification Date"
 				value="http://purl.org/dc/terms/modified" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Creation Date"
 				value="http://purl.org/dc/terms/created" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 			<predicate name="Modified By"
 				value="http://purl.org/dc/terms/contributor" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Created By"
 				value="http://purl.org/dc/terms/creator" multiple="false"
 				mandatory="true" localized="false" searchable="false"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 		</predicates>
 		<results>

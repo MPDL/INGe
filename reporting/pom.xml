@@ -58,7 +58,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.mpg.escidoc.services.reporting.ReportFHI</mainClass>
+							<mainClass>de.mpg.inge.reporting.ReportFHI</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
