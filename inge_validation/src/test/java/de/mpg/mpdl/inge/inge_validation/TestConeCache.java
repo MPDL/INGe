@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationException;
 
 public class TestConeCache {
 

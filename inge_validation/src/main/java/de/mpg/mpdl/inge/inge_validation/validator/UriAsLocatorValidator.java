@@ -33,8 +33,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * FileVO.content
  */
 
-public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implements
-    Validator<List<FileVO>> {
+public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>>
+    implements Validator<List<FileVO>> {
 
   private static final String URL_PATTERN = getUrlPattern();
 
@@ -51,8 +51,8 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
         if (fileVO.getContent() != null //
             && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
             && !Pattern.matches(URL_PATTERN, fileVO.getContent())) {
-          context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
-              "file[" + i + "]"));
+          context.addError(
+              ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField("file[" + i + "]"));
           ok = false;
         }
 
@@ -66,11 +66,16 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
 
   private static String getUrlPattern() {
     String SubDomain = "(?i:[a-z0-9]|[a-z0-9][-a-z0-9]*[a-z0-9])";
-    String TopDomains =
-        "(?x-i:com\\b        \n" + "     |edu\\b        \n" + "     |biz\\b        \n"
-            + "     |in(?:t|fo)\\b \n" + "     |mil\\b        \n" + "     |net\\b        \n"
-            + "     |org\\b        \n" + "     |[a-z][a-z]\\b \n" + // L�ndercodes
-            ")                   \n";
+    String TopDomains = //
+        "(?x-i:com\\b              \n" //
+            + "     |edu\\b        \n" //
+            + "     |biz\\b        \n" //
+            + "     |in(?:t|fo)\\b \n" //
+            + "     |mil\\b        \n" //
+            + "     |net\\b        \n" //
+            + "     |org\\b        \n" //
+            + "     |[a-z][a-z]\\b \n" // Laendercodes
+            + ")                   \n";
     String Hostname = "(?:" + SubDomain + "\\.)+" + TopDomains;
 
     String NOT_IN = ";\"'<>()\\[\\]{}\\s\\x7F-\\xFF";
@@ -79,18 +84,19 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
     String EMBEDDED = "[" + NOT_END + "]";
     String UrlPath = "/" + ANYWHERE + "*(" + EMBEDDED + "+" + ANYWHERE + "+)*";
 
-    return "(?x:                                                \n"
-        + "  \\b                                               \n"
-        + "  ## Hostname-Teil erkennen                         \n"
-        + "  (                                                 \n"
-        + "    (?: ftp | http s? ): // [-\\w]+(\\.\\w[-\\w]*)+ \n"
-        + "   |                                                \n" + "    " + Hostname
-        + "                                \n"
-        + "  )                                                 \n"
-        + "  # Optionale Portnummer zulassen                   \n"
-        + "  (?:  :\\d+ )?                                     \n"
-        + "                                                    \n"
-        + "  # Rest der URL ist optional und beginnt mit /     \n" + " (?: " + UrlPath
-        + ")?                              \n" + ")";
+    return "(?x:                                               \n" //
+        + "  \\b                                               \n" //
+        + "  ## Hostname-Teil erkennen                         \n" //
+        + "  (                                                 \n" //
+        + "    (?: ftp | http s? ): // [-\\w]+(\\.\\w[-\\w]*)+ \n" //
+        + "   |                                                \n" //
+        + "    " + Hostname + "                                \n" //
+        + "  )                                                 \n" //
+        + "  # Optionale Portnummer zulassen                   \n" //
+        + "  (?:  :\\d+ )?                                     \n" //
+        + "                                                    \n" //
+        + "  # Rest der URL ist optional und beginnt mit /     \n" //
+        + " (?: " + UrlPath + ")?                              \n" + ")";
   }
+  
 }

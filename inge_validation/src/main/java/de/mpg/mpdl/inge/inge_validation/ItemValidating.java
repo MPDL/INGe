@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation;
 
-import de.mpg.mpdl.inge.inge_validation.util.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationReportVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 

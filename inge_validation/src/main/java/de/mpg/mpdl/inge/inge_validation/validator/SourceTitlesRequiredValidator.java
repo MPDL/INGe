@@ -18,8 +18,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * SourceTitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>>
+    implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -44,7 +44,7 @@ public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceV
                 || sourceVO.getSources() != null && !sourceVO.getSources().isEmpty() //
                 || sourceVO.getStartPage() != null //
                 || sourceVO.getTotalNumberOfPages() != null //
-            || sourceVO.getVolume() != null)) {
+                || sourceVO.getVolume() != null)) {
           context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED)
               .setField("source[" + i + "]"));
           ok = false;

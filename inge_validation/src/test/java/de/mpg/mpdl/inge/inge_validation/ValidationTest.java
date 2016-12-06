@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,9 +28,18 @@ import de.mpg.mpdl.inge.inge_validation.validator.LanguageCodeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.NoSlashesInFileNameValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.OrganizationNameRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.PublicationCreatorsRoleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceGenresRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceTitlesRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.UriAsLocatorValidator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
@@ -38,6 +49,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -998,9 +1011,9 @@ public class ValidationTest {
     FileVO f1 = new FileVO();
     f1.setStorage(Storage.INTERNAL_MANAGED);
     f1.setName("blu/bb");
-    
+
     this.pubItemVO.getFiles().add(f1);
-    
+
     FileVO f2 = new FileVO();
     f2.setStorage(Storage.INTERNAL_MANAGED);
     MdsFileVO m1 = new MdsFileVO();
@@ -1033,9 +1046,9 @@ public class ValidationTest {
     FileVO f1 = new FileVO();
     f1.setStorage(Storage.INTERNAL_MANAGED);
     f1.setName("blubb");
-    
+
     this.pubItemVO.getFiles().add(f1);
-    
+
     FileVO f2 = new FileVO();
     f2.setStorage(Storage.INTERNAL_MANAGED);
     MdsFileVO m1 = new MdsFileVO();
@@ -1088,7 +1101,7 @@ public class ValidationTest {
     p2.getOrganizations().add(o4);
     c2.setPerson(p2);
     this.pubItemVO.getMetadata().getCreators().add(c2);
-    
+
     FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
         new OrganizationNameRequiredValidator());
 
@@ -1135,7 +1148,7 @@ public class ValidationTest {
     p2.getOrganizations().add(o4);
     c2.setPerson(p2);
     this.pubItemVO.getMetadata().getCreators().add(c2);
-    
+
     FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
         new OrganizationNameRequiredValidator());
 
@@ -1150,4 +1163,599 @@ public class ValidationTest {
     LOG.info("--------------------- FINISHED testOrganizationNameRequired2 ---------------------");
   }
 
+  @Ignore
+  @Test
+  public void testPublicationCreatorsRoleRequired1() throws Exception {
+    LOG.info("----------------- STARTING testPublicationCreatorsRoleRequired1 -----------------");
+
+    CreatorVO c1 = new CreatorVO();
+    c1.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o1 = new OrganizationVO();
+    o1.setName("blubb");
+    c1.setOrganization(o1);
+    this.pubItemVO.getMetadata().getCreators().add(c1);
+
+    CreatorVO c2 = new CreatorVO();
+    c2.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o2 = new OrganizationVO();
+    o2.setAddress("blubb");
+    c2.setOrganization(o2);
+    this.pubItemVO.getMetadata().getCreators().add(c2);
+
+    CreatorVO c3 = new CreatorVO();
+    c3.setType(CreatorType.PERSON);
+    PersonVO p1 = new PersonVO();
+    p1.setFamilyName("blubb");
+    c3.setPerson(p1);
+    this.pubItemVO.getMetadata().getCreators().add(c3);
+
+    CreatorVO c4 = new CreatorVO();
+    c4.setType(CreatorType.PERSON);
+    PersonVO p2 = new PersonVO();
+    p2.setGivenName("blubb");
+    OrganizationVO o3 = new OrganizationVO();
+    o3.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    OrganizationVO o4 = new OrganizationVO();
+    o4.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    c4.setPerson(p2);
+    this.pubItemVO.getMetadata().getCreators().add(c3);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+        new PublicationCreatorsRoleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("----------------- FINISHED testPublicationCreatorsRoleRequired1 -----------------");
+  }
+
+  @Ignore
+  @Test
+  public void testPublicationCreatorsRoleRequired2() throws Exception {
+    LOG.info("----------------- STARTING testPublicationCreatorsRoleRequired2 -----------------");
+
+    CreatorVO c1 = new CreatorVO();
+    c1.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o1 = new OrganizationVO();
+    o1.setName("blubb");
+    c1.setOrganization(o1);
+    c1.setRole(CreatorRole.ACTOR);
+    this.pubItemVO.getMetadata().getCreators().add(c1);
+
+    CreatorVO c2 = new CreatorVO();
+    c2.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o2 = new OrganizationVO();
+    o2.setAddress("blubb");
+    c2.setOrganization(o2);
+    c2.setRole(CreatorRole.ACTOR);
+    this.pubItemVO.getMetadata().getCreators().add(c2);
+
+    CreatorVO c3 = new CreatorVO();
+    c3.setType(CreatorType.PERSON);
+    PersonVO p1 = new PersonVO();
+    p1.setFamilyName("blubb");
+    c3.setPerson(p1);
+    c3.setRole(CreatorRole.ACTOR);
+    this.pubItemVO.getMetadata().getCreators().add(c3);
+
+    CreatorVO c4 = new CreatorVO();
+    c4.setType(CreatorType.PERSON);
+    PersonVO p2 = new PersonVO();
+    p2.setGivenName("blubb");
+    OrganizationVO o3 = new OrganizationVO();
+    o3.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    OrganizationVO o4 = new OrganizationVO();
+    o4.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    c4.setPerson(p2);
+    c4.setRole(CreatorRole.ACTOR);
+    this.pubItemVO.getMetadata().getCreators().add(c3);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+        new PublicationCreatorsRoleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("----------------- FINISHED testPublicationCreatorsRoleRequired2 -----------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceCreatorsRoleRequired1() throws Exception {
+    LOG.info("------------------- STARTING testSourceCreatorsRoleRequired1 -------------------");
+
+    CreatorVO c1 = new CreatorVO();
+    c1.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o1 = new OrganizationVO();
+    o1.setName("blubb");
+    c1.setOrganization(o1);
+    SourceVO s1 = new SourceVO();
+    s1.getCreators().add(c1);
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    CreatorVO c2 = new CreatorVO();
+    c2.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o2 = new OrganizationVO();
+    o2.setAddress("blubb");
+    c2.setOrganization(o2);
+    SourceVO s2 = new SourceVO();
+    s2.getCreators().add(c2);
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    CreatorVO c3 = new CreatorVO();
+    c3.setType(CreatorType.PERSON);
+    PersonVO p1 = new PersonVO();
+    p1.setFamilyName("blubb");
+    c3.setPerson(p1);
+    SourceVO s3 = new SourceVO();
+    s3.getCreators().add(c3);
+    this.pubItemVO.getMetadata().getSources().add(s3);
+
+    CreatorVO c4 = new CreatorVO();
+    c4.setType(CreatorType.PERSON);
+    PersonVO p2 = new PersonVO();
+    p2.setGivenName("blubb");
+    OrganizationVO o3 = new OrganizationVO();
+    o3.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    OrganizationVO o4 = new OrganizationVO();
+    o4.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    c4.setPerson(p2);
+    SourceVO s4 = new SourceVO();
+    s4.getCreators().add(c4);
+    this.pubItemVO.getMetadata().getSources().add(s4);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceCreatorsRoleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("------------------- FINISHED testSourceCreatorsRoleRequired1 -------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceCreatorsRoleRequired2() throws Exception {
+    LOG.info("------------------- STARTING testSourceCreatorsRoleRequired2 -------------------");
+
+    CreatorVO c1 = new CreatorVO();
+    c1.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o1 = new OrganizationVO();
+    o1.setName("blubb");
+    c1.setOrganization(o1);
+    SourceVO s1 = new SourceVO();
+    c1.setRole(CreatorRole.ACTOR);
+    s1.getCreators().add(c1);
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    CreatorVO c2 = new CreatorVO();
+    c2.setType(CreatorType.ORGANIZATION);
+    OrganizationVO o2 = new OrganizationVO();
+    o2.setAddress("blubb");
+    c2.setOrganization(o2);
+    SourceVO s2 = new SourceVO();
+    c2.setRole(CreatorRole.ACTOR);
+    s2.getCreators().add(c2);
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    CreatorVO c3 = new CreatorVO();
+    c3.setType(CreatorType.PERSON);
+    PersonVO p1 = new PersonVO();
+    p1.setFamilyName("blubb");
+    c3.setPerson(p1);
+    SourceVO s3 = new SourceVO();
+    c3.setRole(CreatorRole.ACTOR);
+    s3.getCreators().add(c3);
+    this.pubItemVO.getMetadata().getSources().add(s3);
+
+    CreatorVO c4 = new CreatorVO();
+    c4.setType(CreatorType.PERSON);
+    PersonVO p2 = new PersonVO();
+    p2.setGivenName("blubb");
+    OrganizationVO o3 = new OrganizationVO();
+    o3.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    OrganizationVO o4 = new OrganizationVO();
+    o4.setAddress("blubb");
+    p2.getOrganizations().add(o3);
+    c4.setPerson(p2);
+    SourceVO s4 = new SourceVO();
+    c4.setRole(CreatorRole.ACTOR);
+    s4.getCreators().add(c4);
+    this.pubItemVO.getMetadata().getSources().add(s4);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceCreatorsRoleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("------------------- FINISHED testSourceCreatorsRoleRequired2 -------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceGenresRequired1() throws Exception {
+    LOG.info("---------------------- STARTING testSourceGenresRequired1 ----------------------");
+
+    SourceVO s1 = new SourceVO();
+    s1.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    SourceVO s2 = new SourceVO();
+    s2.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceGenresRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceGenresRequired1 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceGenresRequired2() throws Exception {
+    LOG.info("---------------------- STARTING testSourceGenresRequired2 ----------------------");
+
+    SourceVO s1 = new SourceVO();
+    s1.setTitle("blubb");
+    s1.setGenre(SourceVO.Genre.ENCYCLOPEDIA);
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    SourceVO s2 = new SourceVO();
+    s2.setTitle("blubb");
+    s2.setGenre(SourceVO.Genre.ENCYCLOPEDIA);
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceGenresRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceGenresRequired2 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceRequired1() throws Exception {
+    LOG.info("---------------------- STARTING testSourceRequired1 ----------------------");
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceRequired1 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceRequired2() throws Exception {
+    LOG.info("---------------------- STARTING testSourceRequired2 ----------------------");
+
+    SourceVO s = new SourceVO();
+    this.mdsPublicationVO.getSources().add(s);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceRequired2 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceTitlesRequired1() throws Exception {
+    LOG.info("---------------------- STARTING testSourceTitlesRequired1 ----------------------");
+
+    SourceVO s1 = new SourceVO();
+    s1.setVolume("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    SourceVO s2 = new SourceVO();
+    s2.setTotalNumberOfPages("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    SourceVO s3 = new SourceVO();
+    s3.setStartPage("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s3);
+
+    SourceVO s4 = new SourceVO();
+    s4.setSequenceNumber("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s4);
+
+    SourceVO s5 = new SourceVO();
+    s5.setPublishingInfo(new PublishingInfoVO());
+    this.pubItemVO.getMetadata().getSources().add(s5);
+
+    SourceVO s6 = new SourceVO();
+    s6.setIssue("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s6);
+
+    SourceVO s7 = new SourceVO();
+    s7.getIdentifiers().add(new IdentifierVO());
+    this.pubItemVO.getMetadata().getSources().add(s7);
+
+    SourceVO s8 = new SourceVO();
+    s8.getSources().add(new SourceVO());
+    this.pubItemVO.getMetadata().getSources().add(s8);
+
+    SourceVO s9 = new SourceVO();
+    s9.setGenre((SourceVO.Genre.ENCYCLOPEDIA));
+    this.pubItemVO.getMetadata().getSources().add(s9);
+
+    SourceVO s10 = new SourceVO();
+    s10.setEndPage("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s10);
+
+    SourceVO s11 = new SourceVO();
+    s11.setDatePublishedInPrint(new Date());
+    this.pubItemVO.getMetadata().getSources().add(s11);
+
+    SourceVO s12 = new SourceVO();
+    s12.getCreators().add(new CreatorVO());
+    this.pubItemVO.getMetadata().getSources().add(s12);
+
+    SourceVO s13 = new SourceVO();
+    s13.getAlternativeTitles().add(new AlternativeTitleVO());
+    this.pubItemVO.getMetadata().getSources().add(s13);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceTitlesRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceTitlesRequired1 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testSourceTitlesRequired2() throws Exception {
+    LOG.info("---------------------- STARTING testSourceTitlesRequired2 ----------------------");
+
+    SourceVO s1 = new SourceVO();
+    s1.setVolume("blubb");
+    s1.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s1);
+
+    SourceVO s2 = new SourceVO();
+    s2.setTotalNumberOfPages("blubb");
+    s2.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s2);
+
+    SourceVO s3 = new SourceVO();
+    s3.setStartPage("blubb");
+    s3.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s3);
+
+    SourceVO s4 = new SourceVO();
+    s4.setSequenceNumber("blubb");
+    s4.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s4);
+
+    SourceVO s5 = new SourceVO();
+    s5.setPublishingInfo(new PublishingInfoVO());
+    s5.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s5);
+
+    SourceVO s6 = new SourceVO();
+    s6.setIssue("blubb");
+    s6.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s6);
+
+    SourceVO s7 = new SourceVO();
+    s7.getIdentifiers().add(new IdentifierVO());
+    s7.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s7);
+
+    SourceVO s8 = new SourceVO();
+    s8.getSources().add(new SourceVO());
+    s8.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s8);
+
+    SourceVO s9 = new SourceVO();
+    s9.setGenre((SourceVO.Genre.ENCYCLOPEDIA));
+    s9.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s9);
+
+    SourceVO s10 = new SourceVO();
+    s10.setEndPage("blubb");
+    s10.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s10);
+
+    SourceVO s11 = new SourceVO();
+    s11.setDatePublishedInPrint(new Date());
+    s11.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s11);
+
+    SourceVO s12 = new SourceVO();
+    s12.getCreators().add(new CreatorVO());
+    s12.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s12);
+
+    SourceVO s13 = new SourceVO();
+    s13.getAlternativeTitles().add(new AlternativeTitleVO());
+    s13.setTitle("blubb");
+    this.pubItemVO.getMetadata().getSources().add(s13);
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+        new SourceTitlesRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testSourceTitlesRequired2 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testTitleRequired1() throws Exception {
+    LOG.info("---------------------- STARTING testTileRequired1 ----------------------");
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
+        new TitleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testTitleRequired1 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testTitleRequired2() throws Exception {
+    LOG.info("---------------------- STARTING testTileRequired2 ----------------------");
+
+    this.mdsPublicationVO.setTitle("blubb");
+
+    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
+        new TitleRequiredValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testTitleRequired2 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testUriAsLocator1() throws Exception {
+    LOG.info("---------------------- STARTING testUriAsLocator1 ----------------------");
+
+    FileVO f1 = new FileVO();
+    f1.setContent("blubb");
+    f1.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f1);
+
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new UriAsLocatorValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertFalse(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testUriAsLocator1 ----------------------");
+  }
+
+  @Ignore
+  @Test
+  public void testUriAsLocator2() throws Exception {
+    LOG.info("---------------------- STARTING testUriAsLocator2 ----------------------");
+
+    FileVO f1 = new FileVO();
+    f1.setContent("www.google.de");
+    f1.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f1);
+
+    FileVO f2 = new FileVO();
+    f2.setContent("http://www.google.de");
+    f2.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f2);
+
+    FileVO f3 = new FileVO();
+    f3.setContent("https://www.google.de");
+    f3.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f3);
+
+    FileVO f4 = new FileVO();
+    f4.setContent("http://hdl.handle.net/11858/00-001Z-0000-002B-68A6-3");
+    f4.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f4);
+
+    FileVO f5 = new FileVO();
+    f5.setContent("http://www.kyb.tuebingen.mpg.de/fileadmin/user_upload/files/2011/GREAT10.pdf");
+    f5.setStorage(Storage.EXTERNAL_URL);
+    this.pubItemVO.getFiles().add(f5);
+
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new UriAsLocatorValidator());
+
+    ComplexResult complexResult =
+        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+    LOG.info(complexResult.toString());
+    LOG.info(this.validationService.convert(complexResult).toString());
+
+    Assert.assertTrue(complexResult.isSuccess());
+
+    LOG.info("---------------------- FINISHED testUriAsLocator2 ----------------------");
+  }
 }

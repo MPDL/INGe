@@ -5,7 +5,6 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.Result;
 import com.baidu.unbiz.fluentvalidator.ValidationError;
 
-import de.mpg.mpdl.inge.inge_validation.util.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationReportVO;
@@ -139,63 +138,6 @@ public class ValidationService {
     }
 
     return v;
-  }
-
-  public static void main(String[] args) {
-    System.out.println("Start");
-
-    PubItemVO pubItemVO = new PubItemVO();
-    MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
-    pubItemVO.setMetadata(mdsPublicationVO);
-
-    FluentValidator v =
-        FluentValidator
-            .checkAll()
-
-            .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
-            .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-            .on(pubItemVO.getFiles(), new UriAsLocatorValidator())
-            .on(pubItemVO.getMetadata(), new DateRequiredValidator())
-            .when(
-                !MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre())
-                    && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre())
-                    && !MdsPublicationVO.Genre.MANUSCRIPT
-                        .equals(pubItemVO.getMetadata().getGenre())
-                    && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()))
-            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(),
-                new PublicationCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator())
-            .when(
-                MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre())
-                    || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre())
-                    || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata()
-                        .getGenre())
-                    || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata()
-                        .getGenre()))
-            .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
-
-    Result result =
-        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toSimple());
-    System.out.println(result);
-
-    ComplexResult complexResult =
-        v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
-    System.out.println(complexResult);
-
-    System.out.println("Ende");
   }
 
 }
