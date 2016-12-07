@@ -20,19 +20,20 @@ public class ItemValidatingBean implements ItemValidating {
   private static final Logger LOG = Logger.getLogger(ItemValidatingBean.class);
 
   public ValidationReportVO validateItemObject(final ItemVO itemVO) throws ValidationException {
-      ValidationService s = new ValidationService();
-      
-      try {
-        return s.doValidation(itemVO);
-      } catch (ValidationException e) {
-        LOG.error("validateItemObject:", e);
-        throw e;
-      }
+    ValidationService s = new ValidationService();
+
+    try {
+      return s.doValidation(itemVO);
+    } catch (ValidationException e) {
+      LOG.error("validateItemObject:", e);
+      throw e;
+    }
   }
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint) throws ValidationException {
+  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint)
+      throws ValidationException {
     ValidationService s = new ValidationService();
-    
+
     try {
       return s.doValidation(itemVO, validationPoint);
     } catch (ValidationException e) {

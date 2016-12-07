@@ -39,9 +39,9 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 public class YearbookItemCreateBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);

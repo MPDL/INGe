@@ -47,7 +47,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

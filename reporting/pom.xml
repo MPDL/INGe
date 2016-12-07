@@ -138,7 +138,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>xml_transforming</artifactId>
+			<artifactId>model</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

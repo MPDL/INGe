@@ -35,7 +35,7 @@ import org.z3950.zing.cql.CQLOrNode;
 import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.ModifierSet;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 

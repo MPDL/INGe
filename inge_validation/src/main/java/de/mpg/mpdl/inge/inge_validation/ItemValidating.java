@@ -11,7 +11,8 @@ public interface ItemValidating {
 
   ValidationReportVO validateItemObject(final ItemVO itemVO) throws ValidationException;
 
-  ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint) throws ValidationException;
+  ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint)
+      throws ValidationException;
 
   void refreshValidationSchemaCache() throws ValidationException;
 

@@ -28,14 +28,18 @@ public class ConeCache {
 
   private static final Logger LOG = Logger.getLogger(ConeCache.class);
 
-  private static final String ISO639_3_IDENTIFIER_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private static final String ISO639_3_IDENTIFIER_QUERY =
+      "iso639-3/query?format=rdf&q=*&mode=full&n=0";
   private static final String ISO639_3_TITLE_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";
   private static final String DDC_TITLE_QUERY = "ddc/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MIME_TYPES_TITLE_QUERY = "escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MIME_TYPES_TITLE_QUERY =
+      "escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIPKS_TITLE_QUERY = "mpipks/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIRG_TITLE_QUERY = "mpirg/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MPIS_GROUPS_TITLE_QUERY = "/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MPIS_PROJECTS_TITLE_QUERY = "mpis-projects/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_GROUPS_TITLE_QUERY =
+      "/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_PROJECTS_TITLE_QUERY =
+      "mpis-projects/query?format=rdf&q=*&mode=full&n=0";
 
   private static final String IDENTIFIER = "dc:identifier";
   private static final String TITLE = "dc:title";
@@ -57,12 +61,12 @@ public class ConeCache {
   private ConeCache() {
     try {
       this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
-      System.out.println("ConeServiceUrl: "  + this.coneServiceUrl);
+      System.out.println("ConeServiceUrl: " + this.coneServiceUrl);
     } catch (IOException | URISyntaxException e) {
       LOG.error(e);
       throw new IllegalArgumentException();
     }
-    
+
     try {
       refreshCache();
     } catch (ValidationException e) {
@@ -76,17 +80,20 @@ public class ConeCache {
   }
 
   public void refreshCache() throws ValidationException {
-    refresh(this.iso639_3_Identifier, new ConeHandler(IDENTIFIER), coneServiceUrl + ISO639_3_IDENTIFIER_QUERY);
+    refresh(this.iso639_3_Identifier, new ConeHandler(IDENTIFIER), coneServiceUrl
+        + ISO639_3_IDENTIFIER_QUERY);
     refresh(this.iso639_3_Title, new ConeHandler(TITLE), coneServiceUrl + ISO639_3_TITLE_QUERY);
     refresh(this.ddcTitle, new ConeHandler(TITLE), coneServiceUrl + DDC_TITLE_QUERY);
     refresh(this.mimeTypesTitle, new ConeHandler(TITLE), coneServiceUrl + MIME_TYPES_TITLE_QUERY);
     refresh(this.mpipksTitle, new ConeHandler(TITLE), coneServiceUrl + MPIPKS_TITLE_QUERY);
     refresh(this.mpirgTitle, new ConeHandler(TITLE), coneServiceUrl + MPIRG_TITLE_QUERY);
     refresh(this.mpisGroupsTitle, new ConeHandler(TITLE), coneServiceUrl + MPIS_GROUPS_TITLE_QUERY);
-    refresh(this.mpisProjectTitle, new ConeHandler(TITLE), coneServiceUrl + MPIS_PROJECTS_TITLE_QUERY);
+    refresh(this.mpisProjectTitle, new ConeHandler(TITLE), coneServiceUrl
+        + MPIS_PROJECTS_TITLE_QUERY);
   }
 
-  private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) throws ValidationException {
+  private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
+      throws ValidationException {
     System.out.println("\n*** Start refresh: " + queryUrl);
     try {
       Set<String> result = fill(handler, queryUrl);
@@ -108,8 +115,8 @@ public class ConeCache {
     System.out.println("*** Ende refresh: " + queryUrl);
   }
 
-  private Set<String> fill(ConeHandler handler, String queryUrl)
-      throws HttpException, IOException, ParserConfigurationException, SAXException, ConeException {
+  private Set<String> fill(ConeHandler handler, String queryUrl) throws HttpException, IOException,
+      ParserConfigurationException, SAXException, ConeException {
     HttpClient client = new HttpClient();
     GetMethod method = new GetMethod(queryUrl);
 

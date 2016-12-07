@@ -33,9 +33,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandlerBean;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;

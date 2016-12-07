@@ -71,13 +71,20 @@ public class LocalURIResolver implements URIResolver {
     }
 
     try {
-      Source source =
-          new StreamSource(ResourceUtil.getResourceAsStream(href,
-              LocalURIResolver.class.getClassLoader()));
+      Source source = new StreamSource(
+          ResourceUtil.getResourceAsStream(href, LocalURIResolver.class.getClassLoader()));
 
       return source;
     } catch (FileNotFoundException e) {
-      throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href);
+      try {
+        Source source =
+            new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href,
+                LocalURIResolver.class.getClassLoader()));
+
+        return source;
+      } catch (FileNotFoundException ex) {
+        throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href);
+      }
     }
   }
 }

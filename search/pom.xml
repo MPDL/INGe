@@ -97,15 +97,8 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>xml_transforming</artifactId>
+			<artifactId>model</artifactId>
 			<scope>provided</scope>
-				<exclusions>
-					<!-- conflicts with cql-java.jar -->
-					<exclusion>
-						<groupId>org.z3950.zing</groupId>			
-						<artifactId>cql</artifactId>
-					</exclusion>
-				</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

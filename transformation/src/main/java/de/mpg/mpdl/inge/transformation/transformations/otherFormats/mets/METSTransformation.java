@@ -34,7 +34,7 @@ import de.escidoc.schemas.metadatarecords.x05.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
-import de.mpg.mpdl.inge.xmltransforming.DataGathering;
+import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;

@@ -21,9 +21,9 @@ import org.junit.Test;
 
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.xmltransforming.util.CommonUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
@@ -49,7 +49,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeTy
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;

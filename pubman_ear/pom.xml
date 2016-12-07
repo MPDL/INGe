@@ -133,10 +133,6 @@
 						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>xml_transforming</artifactId>
-						</ejbModule>
-						<ejbModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search</artifactId>
 						</ejbModule>
 						<ejbModule>
@@ -226,11 +222,6 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>xml_transforming</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

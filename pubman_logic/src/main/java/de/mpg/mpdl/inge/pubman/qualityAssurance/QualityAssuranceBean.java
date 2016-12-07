@@ -51,10 +51,10 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogMethodDurationInterceptor;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;

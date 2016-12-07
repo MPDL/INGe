@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.bean.AnyFieldCriterionCollection;
 import de.mpg.mpdl.inge.pubman.web.search.bean.ContextCriterionCollection;

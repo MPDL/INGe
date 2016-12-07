@@ -42,9 +42,9 @@ import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundE
 import de.escidoc.core.common.exceptions.application.violated.ReadonlyAttributeViolationException;
 import de.escidoc.core.common.exceptions.application.violated.ReadonlyElementViolationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.logging.CommonLogicMessages;
-import de.mpg.mpdl.inge.xmltransforming.logging.MessageCreator;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.CommonLogicMessages;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.MessageCreator;
 
 
 /**

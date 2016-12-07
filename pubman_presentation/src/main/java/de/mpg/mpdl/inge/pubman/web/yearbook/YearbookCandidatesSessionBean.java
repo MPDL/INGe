@@ -10,7 +10,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;

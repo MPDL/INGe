@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

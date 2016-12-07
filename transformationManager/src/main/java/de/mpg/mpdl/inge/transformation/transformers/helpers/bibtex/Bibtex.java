@@ -74,9 +74,9 @@ import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
 import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Implementation of BibTex transformation.

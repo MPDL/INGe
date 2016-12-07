@@ -105,8 +105,8 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.validation.ItemValidating;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving

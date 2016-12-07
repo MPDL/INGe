@@ -39,9 +39,9 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;

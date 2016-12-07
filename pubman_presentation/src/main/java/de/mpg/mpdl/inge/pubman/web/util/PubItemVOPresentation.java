@@ -43,7 +43,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;

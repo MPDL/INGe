@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Thread that creates Sitemap files.

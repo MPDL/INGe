@@ -40,8 +40,8 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Bean for editing Yearbook-Items and its related User-Groups

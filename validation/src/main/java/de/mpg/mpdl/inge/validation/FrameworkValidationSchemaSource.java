@@ -39,8 +39,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.JiBXHelper;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.exceptions.WrongDateException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongDateException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.validation.util.CacheTuple;

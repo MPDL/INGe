@@ -4,7 +4,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 
 /**
  * Removes all sub and sup tags from a string, used for browser title

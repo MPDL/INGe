@@ -41,7 +41,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Utility class for XSLT transformations.

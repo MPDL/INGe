@@ -47,7 +47,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.xmltransforming.util.CommonUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
@@ -66,7 +66,7 @@ import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;

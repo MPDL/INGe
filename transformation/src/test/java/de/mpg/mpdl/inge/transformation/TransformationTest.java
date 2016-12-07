@@ -17,10 +17,10 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.xmltransforming.util.XmlComparator;
+import de.mpg.mpdl.inge.model.xmltransforming.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;

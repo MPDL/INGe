@@ -7,7 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import de.mpg.mpdl.inge.xmltransforming.util.HtmlUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 
 public class HTMLSubSupConverter implements Converter {
   public static final String CONVERTER_ID = "HTMLSubSupConverter";

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.Util;

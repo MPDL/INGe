@@ -52,7 +52,7 @@ import org.primefaces.model.UploadedFile;
 import com.sun.faces.facelets.component.UIRepeat;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;

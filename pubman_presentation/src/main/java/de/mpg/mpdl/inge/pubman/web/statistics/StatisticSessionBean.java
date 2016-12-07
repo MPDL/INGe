@@ -4,7 +4,7 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.xmltransforming.StatisticLogger;
+import de.mpg.mpdl.inge.model.xmltransforming.StatisticLogger;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.util.AdminHelper;
 

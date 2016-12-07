@@ -47,8 +47,8 @@ import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import net.sf.jasperreports.engine.JRException;
 
 /**

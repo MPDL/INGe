@@ -44,12 +44,12 @@ import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnEx
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogMethodDurationInterceptor;
-import de.mpg.mpdl.inge.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.xmltransforming.util.CommonUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;

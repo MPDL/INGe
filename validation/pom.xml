@@ -138,8 +138,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>xml_transforming</artifactId>
-			<scope>compile</scope>
+			<artifactId>model</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

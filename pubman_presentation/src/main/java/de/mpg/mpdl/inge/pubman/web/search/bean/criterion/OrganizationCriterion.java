@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search.bean.criterion;
 
 import java.util.ArrayList;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;

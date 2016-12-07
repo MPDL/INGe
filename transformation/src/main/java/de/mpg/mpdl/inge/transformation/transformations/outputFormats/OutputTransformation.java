@@ -55,7 +55,7 @@ import net.sf.jasperreports.engine.util.JRXmlUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Util.Styles;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;

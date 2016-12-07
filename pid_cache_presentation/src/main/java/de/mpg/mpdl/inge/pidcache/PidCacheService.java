@@ -8,9 +8,9 @@ import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.pidcache.process.CacheProcess;
 import de.mpg.mpdl.inge.pidcache.tables.Cache;
 import de.mpg.mpdl.inge.pidcache.tables.Queue;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Implement the PID cache service

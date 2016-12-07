@@ -40,7 +40,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
-import de.mpg.mpdl.inge.xmltransforming.util.CommonUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;

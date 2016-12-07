@@ -59,6 +59,11 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
 			<scope>compile</scope>
 		</dependency>

@@ -152,7 +152,7 @@ public class ModelList {
    * @version $Revision$ $LastChangedDate$
    */
   private class ServiceListHandler extends
-      de.mpg.mpdl.inge.xmltransforming.util.ShortContentHandler {
+      de.mpg.mpdl.inge.model.xmltransforming.util.ShortContentHandler {
     private Set<Model> list = new LinkedHashSet<Model>();
     private Model currentService = null;
     private Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();

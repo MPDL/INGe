@@ -49,7 +49,7 @@ import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the result.

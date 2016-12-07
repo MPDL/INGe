@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aggregation-definition:aggregation-definition xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.4"  xmlns:xlink="http://www.w3.org/1999/xlink"  xlink:href="escidoc:12345">
+<aggregation-definition:aggregation-definition xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.4"  xmlns:xlink="http://www.w3.org/1999/xlink"  objid="escidoc:12345">
     <aggregation-definition:name>pubman item statistics without version</aggregation-definition:name>
-    <aggregation-definition:scope  xlink:href="escidoc:scope1"/>
+    <aggregation-definition:scope  objid="escidoc:scope1"/>
     <aggregation-definition:aggregation-table>
         <aggregation-definition:name>pubman_object_stats</aggregation-definition:name>
         <aggregation-definition:field>

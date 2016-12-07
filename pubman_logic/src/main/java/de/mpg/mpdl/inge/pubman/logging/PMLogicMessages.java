@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.logging;
 
 import java.text.MessageFormat;
 
-import de.mpg.mpdl.inge.xmltransforming.logging.Messages;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 
 /**
  * Messages used in pubman logic.

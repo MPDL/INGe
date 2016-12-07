@@ -31,7 +31,7 @@ import java.net.URISyntaxException;
 import javax.ejb.Remote;
 
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;

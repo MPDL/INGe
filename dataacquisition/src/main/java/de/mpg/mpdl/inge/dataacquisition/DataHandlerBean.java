@@ -76,8 +76,8 @@ import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * This class provides the ejb implementation of the {@link DataHandler} interface.
@@ -344,9 +344,9 @@ public class DataHandlerBean implements DataHandler {
             if (componentBytes != null) {
               String componentXml = new String(componentBytes, this.enc);
               InitialContext initialContext = new InitialContext();
-              de.mpg.mpdl.inge.xmltransforming.XmlTransforming xmlTransforming =
-                  (de.mpg.mpdl.inge.xmltransforming.XmlTransforming) initialContext
-                      .lookup(de.mpg.mpdl.inge.xmltransforming.XmlTransforming.SERVICE_NAME);
+              de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming xmlTransforming =
+                  (de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming) initialContext
+                      .lookup(de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming.SERVICE_NAME);
               this.componentVO = xmlTransforming.transformToFileVO(componentXml);
             }
           }

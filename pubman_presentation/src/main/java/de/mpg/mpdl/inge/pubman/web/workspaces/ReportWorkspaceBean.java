@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;

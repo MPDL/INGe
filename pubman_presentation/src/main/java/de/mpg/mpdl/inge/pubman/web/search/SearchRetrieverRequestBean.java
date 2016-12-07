@@ -17,7 +17,7 @@ import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
