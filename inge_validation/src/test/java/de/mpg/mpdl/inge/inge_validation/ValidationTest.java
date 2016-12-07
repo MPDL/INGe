@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 
+import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.validator.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator;
@@ -63,7 +64,7 @@ public class ValidationTest {
   private PubItemVO pubItemVO;
   private MdsPublicationVO mdsPublicationVO;
   private ValidationService validationService;
-  // private ConeCache coneCache = ConeCache.getInstance();
+  private ConeCache coneCache = ConeCache.getInstance();
 
   @Before
   public void setUp() throws Exception {
