@@ -113,8 +113,9 @@ public class ValidationTest {
     s6.setValue("blubb");
     this.mdsPublicationVO.getSubjects().add(s6);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(),
-        new ClassifiedKeywordsValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(),
+            new ClassifiedKeywordsValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -162,8 +163,9 @@ public class ValidationTest {
     s6.setValue("AMPTE");
     this.mdsPublicationVO.getSubjects().add(s6);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(),
-        new ClassifiedKeywordsValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(),
+            new ClassifiedKeywordsValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -195,8 +197,9 @@ public class ValidationTest {
     f3.setDescription("blubb");
     this.pubItemVO.getFiles().add(f3);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new ComponentContentRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentContentRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -231,8 +234,9 @@ public class ValidationTest {
     f3.setContent("blubb");
     this.pubItemVO.getFiles().add(f3);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new ComponentContentRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentContentRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -268,8 +272,9 @@ public class ValidationTest {
     f4.setVisibility(FileVO.Visibility.PUBLIC);
     this.pubItemVO.getFiles().add(f4);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new ComponentDataRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentDataRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -309,8 +314,9 @@ public class ValidationTest {
     f4.setContent("blubb");
     this.pubItemVO.getFiles().add(f4);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new ComponentDataRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentDataRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -447,8 +453,9 @@ public class ValidationTest {
     c3.setPerson(p);
     this.pubItemVO.getMetadata().getCreators().add(c3);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new CreatorRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new CreatorRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -473,8 +480,9 @@ public class ValidationTest {
     c.setOrganization(o);
     this.pubItemVO.getMetadata().getCreators().add(c);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new CreatorRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new CreatorRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -502,8 +510,9 @@ public class ValidationTest {
     c.setPerson(p);
     this.pubItemVO.getMetadata().getCreators().add(c);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new CreatorRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new CreatorRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -655,8 +664,9 @@ public class ValidationTest {
     EventVO e = new EventVO();
     this.mdsPublicationVO.setEvent(e);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
-        new EventTitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
+            new EventTitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -679,8 +689,9 @@ public class ValidationTest {
     e.setTitle("blubb");
     this.mdsPublicationVO.setEvent(e);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
-        new EventTitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
+            new EventTitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -703,8 +714,9 @@ public class ValidationTest {
     e.setTitle("blubb");
     this.mdsPublicationVO.setEvent(e);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
-        new EventTitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
+            new EventTitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -727,8 +739,9 @@ public class ValidationTest {
     e.setTitle("blubb");
     this.mdsPublicationVO.setEvent(e);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
-        new EventTitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
+            new EventTitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -751,8 +764,9 @@ public class ValidationTest {
     e.setTitle("blubb");
     this.mdsPublicationVO.setEvent(e);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
-        new EventTitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getEvent(),
+            new EventTitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -770,8 +784,9 @@ public class ValidationTest {
   public void testGenreRequired1() throws Exception {
     LOG.info("--------------------- STARTING testGenreRequired1 ---------------------");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(),
-        new GenreRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(),
+            new GenreRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -791,8 +806,9 @@ public class ValidationTest {
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(),
-        new GenreRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(),
+            new GenreRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -818,8 +834,9 @@ public class ValidationTest {
     i2.setId("blubb");
     this.mdsPublicationVO.getIdentifiers().add(i2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(),
-        new IdTypeRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(),
+            new IdTypeRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -842,8 +859,9 @@ public class ValidationTest {
     i.setType(IdType.ARXIV);
     this.mdsPublicationVO.getIdentifiers().add(i);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(),
-        new IdTypeRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(),
+            new IdTypeRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -864,8 +882,9 @@ public class ValidationTest {
     this.mdsPublicationVO.getLanguages().add("blubb");
     this.mdsPublicationVO.getLanguages().add("blubber");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getLanguages(),
-        new LanguageCodeValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getLanguages(),
+            new LanguageCodeValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -886,8 +905,9 @@ public class ValidationTest {
     this.mdsPublicationVO.getLanguages().add("aaa");
     this.mdsPublicationVO.getLanguages().add("bbb");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getLanguages(),
-        new LanguageCodeValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getLanguages(),
+            new LanguageCodeValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -912,8 +932,9 @@ public class ValidationTest {
     this.mdsPublicationVO.setDatePublishedOnline("blubb");
     this.mdsPublicationVO.setDateSubmitted("blubb");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
-        new MdsPublicationDateFormatValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
+            new MdsPublicationDateFormatValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -938,8 +959,9 @@ public class ValidationTest {
     this.mdsPublicationVO.setDatePublishedOnline("2017");
     this.mdsPublicationVO.setDateSubmitted("2017");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
-        new MdsPublicationDateFormatValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
+            new MdsPublicationDateFormatValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -964,8 +986,9 @@ public class ValidationTest {
     this.mdsPublicationVO.setDatePublishedOnline("2017-01");
     this.mdsPublicationVO.setDateSubmitted("2017-01");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
-        new MdsPublicationDateFormatValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
+            new MdsPublicationDateFormatValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -990,8 +1013,9 @@ public class ValidationTest {
     this.mdsPublicationVO.setDatePublishedOnline("2017-01-01");
     this.mdsPublicationVO.setDateSubmitted("2017-01-01");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
-        new MdsPublicationDateFormatValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(),
+            new MdsPublicationDateFormatValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1025,8 +1049,9 @@ public class ValidationTest {
     f2.setDefaultMetadata(m2);
     this.pubItemVO.getFiles().add(f2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new NoSlashesInFileNameValidator());
+    FluentValidator v =
+        FluentValidator.checkAll()
+            .on(this.pubItemVO.getFiles(), new NoSlashesInFileNameValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1060,8 +1085,9 @@ public class ValidationTest {
     f2.setDefaultMetadata(m2);
     this.pubItemVO.getFiles().add(f2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-        new NoSlashesInFileNameValidator());
+    FluentValidator v =
+        FluentValidator.checkAll()
+            .on(this.pubItemVO.getFiles(), new NoSlashesInFileNameValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1103,8 +1129,9 @@ public class ValidationTest {
     c2.setPerson(p2);
     this.pubItemVO.getMetadata().getCreators().add(c2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new OrganizationNameRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new OrganizationNameRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1150,8 +1177,9 @@ public class ValidationTest {
     c2.setPerson(p2);
     this.pubItemVO.getMetadata().getCreators().add(c2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new OrganizationNameRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new OrganizationNameRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1203,8 +1231,9 @@ public class ValidationTest {
     c4.setPerson(p2);
     this.pubItemVO.getMetadata().getCreators().add(c3);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new PublicationCreatorsRoleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new PublicationCreatorsRoleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1260,8 +1289,9 @@ public class ValidationTest {
     c4.setRole(CreatorRole.ACTOR);
     this.pubItemVO.getMetadata().getCreators().add(c3);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-        new PublicationCreatorsRoleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
+            new PublicationCreatorsRoleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1321,8 +1351,9 @@ public class ValidationTest {
     s4.getCreators().add(c4);
     this.pubItemVO.getMetadata().getSources().add(s4);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceCreatorsRoleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceCreatorsRoleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1386,8 +1417,9 @@ public class ValidationTest {
     s4.getCreators().add(c4);
     this.pubItemVO.getMetadata().getSources().add(s4);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceCreatorsRoleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceCreatorsRoleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1413,8 +1445,9 @@ public class ValidationTest {
     s2.setTitle("blubb");
     this.pubItemVO.getMetadata().getSources().add(s2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceGenresRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceGenresRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1442,8 +1475,9 @@ public class ValidationTest {
     s2.setGenre(SourceVO.Genre.ENCYCLOPEDIA);
     this.pubItemVO.getMetadata().getSources().add(s2);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceGenresRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceGenresRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1461,8 +1495,9 @@ public class ValidationTest {
   public void testSourceRequired1() throws Exception {
     LOG.info("---------------------- STARTING testSourceRequired1 ----------------------");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1483,8 +1518,9 @@ public class ValidationTest {
     SourceVO s = new SourceVO();
     this.mdsPublicationVO.getSources().add(s);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1554,8 +1590,9 @@ public class ValidationTest {
     s13.getAlternativeTitles().add(new AlternativeTitleVO());
     this.pubItemVO.getMetadata().getSources().add(s13);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceTitlesRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceTitlesRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1638,8 +1675,9 @@ public class ValidationTest {
     s13.setTitle("blubb");
     this.pubItemVO.getMetadata().getSources().add(s13);
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-        new SourceTitlesRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
+            new SourceTitlesRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1657,8 +1695,9 @@ public class ValidationTest {
   public void testTitleRequired1() throws Exception {
     LOG.info("---------------------- STARTING testTileRequired1 ----------------------");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
-        new TitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
+            new TitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1678,8 +1717,9 @@ public class ValidationTest {
 
     this.mdsPublicationVO.setTitle("blubb");
 
-    FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
-        new TitleRequiredValidator());
+    FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
+            new TitleRequiredValidator());
 
     ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());

@@ -16,7 +16,7 @@ public class TestConeCache {
     System.out.println("Ende");
   }
 
-  private void go() {
+  public void go() {
     List<Thread> list = new ArrayList<Thread>();
     list.add(new GetDDLThread());
     list.add(new GetISOThread());
