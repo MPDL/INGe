@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package de.mpg.mpdl.inge.inge_validation.util;
 
 @SuppressWarnings("serial")
@@ -48,3 +49,27 @@ public class ConeException extends Exception {
     this.statusCode = statusCode;
   }
 }
+=======
+package de.mpg.mpdl.inge.inge_validation.util;
+
+@SuppressWarnings("serial")
+public class ConeException extends Exception {
+
+  public ConeException() {
+    super();
+  }
+
+  public ConeException(String message) {
+    super(message);
+  }
+
+  public ConeException(Throwable cause) {
+    super(cause);
+  }
+
+  public ConeException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+}
+>>>>>>> branch 'master' of https://github.com/MPDL/INGe.git

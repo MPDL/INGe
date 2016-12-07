@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package de.mpg.mpdl.inge.inge_validation.validator;
 
 import java.util.List;
@@ -66,3 +67,73 @@ public class ComponentContentRequiredValidator extends ValidatorHandler<List<Fil
   }
 
 }
+=======
+package de.mpg.mpdl.inge.inge_validation.validator;
+
+import java.util.List;
+
+import com.baidu.unbiz.fluentvalidator.ValidationError;
+import com.baidu.unbiz.fluentvalidator.Validator;
+import com.baidu.unbiz.fluentvalidator.ValidatorContext;
+import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
+
+import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+
+/*
+ * <!-- File: If a filename, a content category, a mime-type or a description is given, there has to
+ * be a content. --> <iso:pattern name="component_content_required" id="component_content_required">
+ * <iso:rule context="escidocComponents:component"> <iso:assert
+ * test="(escidocComponents:content/@xlink:href != '') or
+ * not(escidocMetadataRecords:md-records/escidocMetadataRecords
+ * :md-record[@name='escidoc']/file:file/dc:title != '' or
+ * escidocComponents:properties/prop:mime-type != '' or
+ * escidocComponents:properties/prop:description != '')"> ComponentContentNotProvided</iso:assert>
+ * </iso:rule> </iso:pattern>
+ */
+
+/*
+ * escidocComponents:component -> de.mpg.mpdl.inge.model.valueobjects.FileVO
+ * escidocMetadataRecords:md-records -> de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO ->
+ * FileVO.metadataSets
+ * escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[@name='escidoc'] ->
+ * de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO -> FileVO.getDefaultMetaData()
+ * escidocMetadataRecords:md-record.file:file/dc:title -> MetadataSetVO.titel
+ * escidocComponents:properties/prop:mime-type -> FileVO.mimeType
+ * escidocComponents:properties/prop:description -> FileVO.description
+ * escidocComponents:content/@xlink:href -> FileVO.content
+ */
+
+public class ComponentContentRequiredValidator extends ValidatorHandler<List<FileVO>> implements
+    Validator<List<FileVO>> {
+
+  @Override
+  public boolean validate(ValidatorContext context, List<FileVO> files) {
+
+    boolean ok = true;
+
+    if (!files.isEmpty()) {
+
+      int i = 1;
+      for (FileVO fileVO : files) {
+
+        if (fileVO.getContent() == null //
+            && (fileVO.getDefaultMetadata() != null
+                && fileVO.getDefaultMetadata().getTitle() != null //
+                || fileVO.getMimeType() != null //
+                || fileVO.getDescription() != null)) {
+          context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED)
+              .setField("file[" + i + "]"));
+          ok = false;
+        }
+
+        i++;
+      } // for
+
+    } // if
+
+    return ok;
+  }
+
+}
+>>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
