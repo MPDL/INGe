@@ -21,7 +21,9 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>xml_transforming</artifactId>
+	<!-- 
 	<packaging>ejb</packaging>
+	 -->
 	<name>xml_transforming</name>
 	<version>1.1.95-SNAPSHOT</version>
 	<scm>
