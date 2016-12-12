@@ -316,7 +316,16 @@
 		<escidoc:position>
 			<rdf:Description>
 				<xsl:variable name="escidoc-ou">
-					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+					<xsl:variable name="escidoc-ou">
+					<xsl:choose>
+						<xsl:when test="not($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]) and $import-name='MPICC'">
+							<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = 'Max Planck Institute for Foreign and International Criminal Law']/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
 				</xsl:variable>
 				<xsl:text>&#xa;</xsl:text>
 				<xsl:comment>Found ID: "<xsl:value-of select="$escidoc-ou"/>" for Name: "<xsl:value-of select="$ouname"/>"</xsl:comment>
