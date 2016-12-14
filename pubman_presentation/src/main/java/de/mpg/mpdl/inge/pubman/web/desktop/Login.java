@@ -154,32 +154,13 @@ public class Login extends FacesBean {
   public String forceLogout() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
     try {
-      // HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
-      // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-      // if (loginHelper.isLoggedIn() == true && loginHelper.getESciDocUserHandle() != null)
-      // {
-      // UserManagementWrapper ummw = (UserManagementWrapper)
-      // ServiceLocator.getUserManagementWrapper(loginHelper.getESciDocUserHandle());
-      // ummw.logout();
-      // loginHelper.logout(loginHelper.getESciDocUserHandle());
-      // if (session != null)
-      // {
-      // session.invalidate();
-      // }
-      // }
       fc.getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
               + request.getRequestURL().toString());
-
-      // fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
-
     } catch (IOException e) {
-      logger.error("Could not redirect to Fremework login page", e);
-    } catch (ServiceException e) {
-      logger.error("Could not redirect to Fremework login page", e);
-    } catch (URISyntaxException e) {
-      logger.error("Could not redirect to Fremework login page", e);
+      logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
 
     return "";

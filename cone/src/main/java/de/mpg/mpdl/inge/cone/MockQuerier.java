@@ -226,7 +226,7 @@ public class MockQuerier implements Querier {
     try {
       return query(model, query, lang, modeType,
           Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
-    } catch (NumberFormatException | IOException | URISyntaxException e) {
+    } catch (NumberFormatException e) {
       throw new ConeException(e);
     }
   }
@@ -256,13 +256,7 @@ public class MockQuerier implements Querier {
    */
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
       throws ConeException {
-    String limitString = null;
-    try {
-      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-    } catch (IOException | URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -282,13 +276,10 @@ public class MockQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<Pair> query(String model, String query, ModeType modeType) throws ConeException {
-    try {
-      return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default"),
-          modeType);
-    } catch (IOException | URISyntaxException e) {
-      // TODO Auto-generated catch block
-      throw new ConeException(e);
-    }
+
+    return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default", "en"),
+        modeType);
+
   }
 
   /**

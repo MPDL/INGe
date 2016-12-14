@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.util;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -60,11 +59,10 @@ public class ConeCache {
   private int testCount = 0;
 
   private ConeCache() {
-    try {
-      this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
-      System.out.println("ConeServiceUrl: " + this.coneServiceUrl);
-    } catch (IOException | URISyntaxException e) {
-      LOG.error(e);
+    this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
+    LOG.info("ConeServiceUrl: " + this.coneServiceUrl);
+    if (this.coneServiceUrl == null) {
+      LOG.error("Property <" + Properties.ESCIDOC_CONE_SERVICE_URL + "> not set");
       throw new IllegalArgumentException();
     }
 

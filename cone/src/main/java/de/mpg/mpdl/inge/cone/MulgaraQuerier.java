@@ -15,8 +15,6 @@
  */
 package de.mpg.mpdl.inge.cone;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -68,11 +66,7 @@ public class MulgaraQuerier implements Querier {
   public List<Pair> query(String model, String searchString, String language, ModeType modeType,
       int limit) throws ConeException {
     if (language == null) {
-      try {
-        language = PropertyReader.getProperty("escidoc.cone.language.default");
-      } catch (IOException | URISyntaxException e) {
-        throw new ConeException(e);
-      }
+      language = PropertyReader.getProperty("escidoc.cone.language.default", "en");
     }
     String[] searchStringsWithWildcards = formatSearchString(searchString);
     String query =
@@ -124,12 +118,12 @@ public class MulgaraQuerier implements Querier {
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
       throws ConeException {
     String limitString;
-    try {
-      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-      return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
-    } catch (IOException | URISyntaxException e) {
-      throw new ConeException(e);
+
+    limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+    if (limitString == null) {
+      limitString = "50";
     }
+    return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
 
   }
 
@@ -212,13 +206,10 @@ public class MulgaraQuerier implements Querier {
    */
   public List<Pair> query(String model, String query, String language, ModeType modeType)
       throws ConeException {
-    String limitString;
-    try {
-      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-      return query(model, query, null, modeType, Integer.parseInt(limitString));
-    } catch (IOException | URISyntaxException e) {
-      throw new ConeException(e);
-    }
+
+    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
+    return query(model, query, null, modeType, Integer.parseInt(limitString));
+
   }
 
   /**

@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -40,8 +38,8 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
-import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -79,7 +77,6 @@ public class ApplicationBean extends FacesBean {
   public static final String DEFAULT_STYLESHEET_URL = "";
   private static Logger logger = Logger.getLogger(ApplicationBean.class);
 
-  private final String APP_TITLE = "Publication Manager";
   /** system type of this application instance */
   private SystemType systemType;
   private String appTitle = null;
@@ -89,8 +86,6 @@ public class ApplicationBean extends FacesBean {
   /** filename of the ear-internal property file */
   private static final String PROPERTY_FILENAME = "solution.properties";
 
-  /** Stylesheet distinguation */
-  private static final String STANDARD_STYLESHEET = "stylesheet";
   private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 
   /** Initialization of the Transformation Service */
@@ -430,16 +425,12 @@ public class ApplicationBean extends FacesBean {
     styleTags.append(StylesheetSpecial);
 
     // Last Step: add Favicon information if it should be applied
-    try {
-      if ("true".equals(PropertyReader.getProperty("escidoc.pubman.favicon.apply"))) {
-        styleTags.append("<link rel=\"shortcut icon\" type=\"image/png\" href=\""
-            + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
-      }
-    } catch (IOException e) {
-      throw new PubManStylesheetNotAvailableException(e);
-    } catch (URISyntaxException e) {
-      throw new PubManStylesheetNotAvailableException(e);
+
+    if ("true".equals(PropertyReader.getProperty("escidoc.pubman.favicon.apply"))) {
+      styleTags.append("<link rel=\"shortcut icon\" type=\"image/png\" href=\""
+          + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "\"/>");
     }
+
     return styleTags.toString();
 
   }
@@ -507,14 +498,7 @@ public class ApplicationBean extends FacesBean {
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
   public SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException {
-    String sysType;
-    try {
-      sysType = PropertyReader.getProperty("escidoc.systemtype");
-    } catch (IOException e) {
-      throw new PubManVersionNotAvailableException(e);
-    } catch (URISyntaxException e) {
-      throw new PubManVersionNotAvailableException(e);
-    }
+    String sysType = PropertyReader.getProperty("escidoc.systemtype");
 
     if (sysType.equals("workstation")) {
       return SystemType.Workstation;
@@ -540,7 +524,7 @@ public class ApplicationBean extends FacesBean {
   public String getReloadResourceBundlesAndProperties() throws Exception {
     String returnVal = "";
     ResourceBundle.clearCache();
-    PropertyReader.loadProperties();
+    PropertyReader.forceReloadProperties();
     loadProperties();
     languageSelectItems.clear();
     ouList.clear();

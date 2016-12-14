@@ -15,8 +15,6 @@
  */
 package de.mpg.mpdl.inge.cone;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -88,12 +86,8 @@ public class SQLQuerier implements Querier {
    */
   public List<? extends Describable> query(String model, String query, String language,
       ModeType modeType) throws ConeException {
-    String limitString;
-    try {
-      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-    } catch (IOException | URISyntaxException e) {
-      throw new ConeException(e);
-    }
+
+    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
     return query(model, query, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -102,12 +96,8 @@ public class SQLQuerier implements Querier {
    */
   public List<? extends Describable> query(String model, Pair<String>[] searchFields,
       String language, ModeType modeType) throws ConeException {
-    String limitString;
-    try {
-      limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-    } catch (IOException | URISyntaxException e) {
-      throw new ConeException(e);
-    }
+
+    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -207,7 +197,7 @@ public class SQLQuerier implements Querier {
 
       return resultSet;
 
-    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+    } catch (SQLException | ConeException e) {
       throw new ConeException(e);
     }
 
@@ -284,7 +274,7 @@ public class SQLQuerier implements Querier {
 
       return resultSet;
 
-    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+    } catch (SQLException | ConeException e) {
       throw new ConeException(e);
     }
   }
@@ -368,7 +358,7 @@ public class SQLQuerier implements Querier {
       statement.close();
 
       return resultSet;
-    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+    } catch (SQLException | ConeException e) {
       throw new ConeException(e);
     }
   }
@@ -565,7 +555,7 @@ public class SQLQuerier implements Querier {
 
       return resultSet;
 
-    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+    } catch (SQLException | ConeException e) {
       throw new ConeException(e);
     }
   }
@@ -725,7 +715,7 @@ public class SQLQuerier implements Querier {
       statement.close();
 
       return resultMap;
-    } catch (IOException | SQLException | URISyntaxException | ConeException e) {
+    } catch (SQLException | ConeException e) {
       throw new ConeException(e);
     }
   }

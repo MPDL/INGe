@@ -128,7 +128,7 @@ public enum ElasticSearchIndexAdminClient {
       for (String ip : PropertyReader.getProperty("es_transport_ips").split(" ")) {
         client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
       }
-    } catch (IOException | URISyntaxException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return client;

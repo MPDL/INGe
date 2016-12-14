@@ -222,8 +222,6 @@ public class StructuredExport implements StructuredExportHandler {
     } catch (TransformerException e) {
       // TODO Auto-generated catch block
       throw new StructuredExportManagerException(e);
-    } catch (URISyntaxException e) {
-      throw new StructuredExportManagerException("Problems by setParameters:", e);
     }
   }
 
