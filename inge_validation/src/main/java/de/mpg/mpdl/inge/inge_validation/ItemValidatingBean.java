@@ -51,16 +51,13 @@ public class ItemValidatingBean implements ItemValidating {
 
   }
 
-  public void refreshValidationSchemaCache() throws ValidationException {
+  public void refreshValidationSchemaCache() throws ValidationConeCacheConfigException {
 
     try {
       ConeCache.getInstance().refreshCache();
-    } catch (ValidationException e) {
+    } catch (ValidationConeCacheConfigException e) {
       LOG.error("refreshValidationSchemaCache:", e);
       throw e;
-    } catch (Exception e) {
-      LOG.error("refreshValidationSchemaCache:", e);
-      throw new ValidationException("refreshValidationSchemaCache:", e);
     }
 
   }

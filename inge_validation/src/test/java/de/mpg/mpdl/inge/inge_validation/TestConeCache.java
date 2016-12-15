@@ -162,7 +162,7 @@ public class TestConeCache {
         System.out.println("Start refreshCache");
         try {
           cache.refreshCache();
-        } catch (ValidationException e) {
+        } catch (ValidationConeCacheConfigException e) {
           System.out.println(e);
         }
         System.out.println("Ende refreshCache");

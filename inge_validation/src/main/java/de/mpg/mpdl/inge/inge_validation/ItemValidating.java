@@ -13,6 +13,6 @@ public interface ItemValidating {
   ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint)
       throws ValidationException;
 
-  void refreshValidationSchemaCache() throws ValidationException;
+  void refreshValidationSchemaCache() throws ValidationConeCacheConfigException;
 
 }

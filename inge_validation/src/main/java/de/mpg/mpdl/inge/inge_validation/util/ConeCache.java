@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import de.mpg.mpdl.inge.inge_validation.ValidationConeCacheConfigException;
 import de.mpg.mpdl.inge.inge_validation.ValidationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -63,7 +64,7 @@ public class ConeCache {
 
     try {
       refreshCache();
-    } catch (CacheConfigException e) {
+    } catch (ValidationConeCacheConfigException e) {
       LOG.error(e);
       throw new IllegalStateException();
     }
@@ -73,7 +74,7 @@ public class ConeCache {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
-  public void refreshCache() throws CacheConfigException {
+  public void refreshCache() throws ValidationConeCacheConfigException {
     refresh(this.iso639_3_Identifier, new ConeHandler(IDENTIFIER), this.coneServiceUrl + ISO639_3_IDENTIFIER_QUERY);
     refresh(this.iso639_3_Title, new ConeHandler(TITLE), this.coneServiceUrl + ISO639_3_TITLE_QUERY);
     refresh(this.ddcTitle, new ConeHandler(TITLE), this.coneServiceUrl + DDC_TITLE_QUERY);
@@ -85,7 +86,7 @@ public class ConeCache {
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
-      throws CacheConfigException {
+      throws ValidationConeCacheConfigException {
     System.out.println("\n*** Start refresh: " + queryUrl);
     try {
       Set<String> result = fill(handler, queryUrl);
@@ -101,7 +102,7 @@ public class ConeCache {
       LOG.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
         LOG.error("Cone Set is empty: Url: " + queryUrl);
-        throw new CacheConfigException(e);
+        throw new ValidationConeCacheConfigException(e);
       }
     }
     System.out.println("*** Ende refresh: " + queryUrl);
