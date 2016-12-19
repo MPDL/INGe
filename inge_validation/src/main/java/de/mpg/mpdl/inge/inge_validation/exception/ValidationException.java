@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.inge_validation;
+package de.mpg.mpdl.inge.inge_validation.exception;
 
 @SuppressWarnings("serial")
 public class ValidationException extends Exception {
