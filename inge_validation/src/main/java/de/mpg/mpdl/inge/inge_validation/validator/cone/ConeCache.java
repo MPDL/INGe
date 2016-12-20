@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ConeException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.Properties;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
