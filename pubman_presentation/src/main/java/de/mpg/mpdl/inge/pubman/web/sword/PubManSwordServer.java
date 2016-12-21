@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -40,30 +41,34 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
 import org.apache.log4j.Logger;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDAuthenticationException;
+import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
 import org.purl.sword.base.ServiceDocumentRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemInvalidException;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * Main class to provide SWORD Server functionality.
@@ -86,11 +91,20 @@ public class PubManSwordServer {
    * @return DepositResponse
    * @throws Exception
    * @throws ItemInvalidException
-   * @throws PubItemStatusInvalidException
+   * @throws ValidationException
+   * @throws NamingException
+   * @throws SWORDContentTypeException
+   * @throws URISyntaxException
+   * @throws TechnicalException
+   * @throws PubManException
+   * @throws SecurityException
+   * @throws DepositingException
+   * @throws AuthorizationException
    */
-  public DepositResponse doDeposit(Deposit deposit, String collection)
-      throws PubItemStatusInvalidException, ItemInvalidException, ContentStreamNotFoundException,
-      Exception {
+  public DepositResponse doDeposit(Deposit deposit, String collection) throws ItemInvalidException,
+      ContentStreamNotFoundException, NamingException, ValidationException,
+      SWORDContentTypeException, AuthorizationException, DepositingException, SecurityException,
+      PubManException, TechnicalException, URISyntaxException {
     SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
     DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);

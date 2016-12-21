@@ -29,7 +29,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -51,6 +50,10 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -123,11 +126,6 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
-
-
 
 /**
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
@@ -159,6 +157,7 @@ public class ViewItemFull extends FacesBean {
   // Validation Service
   @EJB
   private ItemValidating itemValidating;
+
   private PubItemVOPresentation pubItem = null;
   private HtmlMessages valMessage = new HtmlMessages();
   // Added by DiT: constant for the function modify and new revision to check the rights and/or if
@@ -960,7 +959,7 @@ public class ViewItemFull extends FacesBean {
     PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
     ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, "submit_item");
+      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -991,7 +990,7 @@ public class ViewItemFull extends FacesBean {
     PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
     ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, "accept_item");
+      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -1085,11 +1084,11 @@ public class ViewItemFull extends FacesBean {
     warn(getMessage(VALIDATION_ERROR_MESSAGE));
     for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       ValidationReportItemVO element = iter.next();
-      if (element.isRestrictive()) {
-        error(getMessage(element.getContent()));
-      } else {
-        info(getMessage(element.getContent()));
-      }
+      // if (element.isRestrictive()) {
+      error(getMessage(element.getContent()));
+      // } else {
+      // info(getMessage(element.getContent()));
+      // }
     }
     this.valMessage.setRendered(true);
   }

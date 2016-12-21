@@ -80,7 +80,12 @@ import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
@@ -88,6 +93,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
@@ -105,10 +111,6 @@ import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemInvalidException;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * This class provides helper method for the SWORD Server implementation.
@@ -134,7 +136,7 @@ public class SwordUtil extends FacesBean {
   private String depositXml = "";
   private String depositXmlFileName;
 
-  private String validationPoint;
+  private ValidationPoint validationPoint;
 
 
   // Packaging Format
@@ -150,9 +152,6 @@ public class SwordUtil extends FacesBean {
 
   private final String itemPath = "/pubman/item/";
   private final String serviceDocUrl = "faces/sword/servicedocument";
-  private final String validationPointAccept = "accept_item";
-  private final String validationPointSubmit = "submit_item";
-  private final String validationPointDefault = "default";
   private final String transformationService = "escidoc";
   private final String treatmentText =
       "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
@@ -175,7 +174,7 @@ public class SwordUtil extends FacesBean {
    */
   public void init() {
     this.depositServlet = new PubManDepositServlet();
-    this.setValidationPoint(this.validationPointDefault);
+    this.setValidationPoint(ValidationPoint.DEFAULT);
     this.filenames.clear();
     super.init();
   }
@@ -386,7 +385,7 @@ public class SwordUtil extends FacesBean {
    * @throws SWORDContentTypeException
    */
   public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws ItemInvalidException,
-      ContentStreamNotFoundException, Exception {
+      ContentStreamNotFoundException, SWORDContentTypeException {
     String item = null;
     List<FileVO> attachements = new ArrayList<FileVO>();
     // List<String> attachementsNames = new ArrayList< String>();
@@ -604,11 +603,13 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    * @throws NamingException
    * @throws ItemInvalidException
+   * @throws ValidationException
    * @throws PubManException
    * @throws DepositingException
    */
   public PubItemVO doDeposit(AccountUserVO user, PubItemVO item) throws ItemInvalidException,
-      PubItemStatusInvalidException, Exception {
+      NamingException, AuthorizationException, SecurityException, TechnicalException,
+      URISyntaxException, ValidationException, DepositingException, PubManException {
     PubItemVO depositedItem = null;
     InitialContext initialContext = new InitialContext();
     PubItemDepositing depositBean =
@@ -680,15 +681,15 @@ public class SwordUtil extends FacesBean {
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {
-      this.setValidationPoint(this.validationPointAccept);
+      this.setValidationPoint(ValidationPoint.ACCEPT_ITEM);
       return "RELEASE";
     }
     if ((isStatePending || isStateInRevision) && isWorkflowStandard && isOwner) {
-      this.setValidationPoint(this.validationPointSubmit);
+      this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
       return "SAVE_SUBMIT";
     }
     if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator)) {
-      this.setValidationPoint(this.validationPointSubmit);
+      this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
       return "SUBMIT";
     }
     return null;
@@ -926,22 +927,23 @@ public class SwordUtil extends FacesBean {
     return se;
   }
 
-  public ValidationReportVO validateItem(PubItemVO item) throws NamingException {
+  public ValidationReportVO validateItem(PubItemVO item) throws NamingException,
+      ValidationException {
     InitialContext initialContext = new InitialContext();
     ItemValidating itemValidating =
         (ItemValidating) initialContext
-            .lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+            .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
 
     // To set the validation point
     this.getMethod(item);
 
     ValidationReportVO report = new ValidationReportVO();
 
-    try {
-      report = itemValidating.validateItemObject(item, this.getValidationPoint());
-    } catch (Exception e) {
-      this.logger.error("Validation error", e);
-    }
+    // try {
+    report = itemValidating.validateItemObject(item, this.getValidationPoint());
+    // } catch (Exception e) {
+    // this.logger.error("Validation error", e);
+    // }
     return report;
   }
 
@@ -956,11 +958,11 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  public String getValidationPoint() {
+  public ValidationPoint getValidationPoint() {
     return this.validationPoint;
   }
 
-  public void setValidationPoint(String validationPoint) {
+  public void setValidationPoint(ValidationPoint validationPoint) {
     this.validationPoint = validationPoint;
   }
 

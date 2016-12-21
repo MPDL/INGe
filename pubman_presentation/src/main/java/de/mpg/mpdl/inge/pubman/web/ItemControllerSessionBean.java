@@ -76,6 +76,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.PubItemPublishing;
@@ -103,9 +106,6 @@ import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
-
 
 /**
  * Handles all actions on/with items, calls to the framework.
@@ -324,7 +324,8 @@ public class ItemControllerSessionBean extends FacesBean {
        * FrM: Validation with validation point "submit_item"
        */
       ValidationReportVO report =
-          this.itemValidating.validateItemObject(new PubItemVO(currentPubItem), "submit_item");
+          this.itemValidating.validateItemObject(new PubItemVO(currentPubItem),
+              ValidationPoint.SUBMIT_ITEM);
       currentItemValidationReport = report;
 
       logger.debug("Validation Report: " + report);
@@ -976,7 +977,8 @@ public class ItemControllerSessionBean extends FacesBean {
     /*
      * FrM: Validation with validation point "submit_item"
      */
-    ValidationReportVO report = this.itemValidating.validateItemObject(pubItem, "submit_item");
+    ValidationReportVO report =
+        this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
     currentItemValidationReport = report;
 
     logger.debug("Validation Report: " + report);
@@ -1025,7 +1027,7 @@ public class ItemControllerSessionBean extends FacesBean {
      * FrM: Validation with validation point "submit_item"
      */
     ValidationReportVO report =
-        this.itemValidating.validateItemObject(new PubItemVO(pubItem), "submit_item");
+        this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.SUBMIT_ITEM);
     currentItemValidationReport = report;
 
     logger.debug("Validation Report: " + report);
@@ -1111,7 +1113,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param validationPoint the validation point for the validation
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String validate(PubItemVO pubItem, String validationPoint) throws Exception {
+  public String validate(PubItemVO pubItem, ValidationPoint validationPoint) throws Exception {
     if (pubItem != null) {
       PubItemVO itemVO = new PubItemVO(pubItem);
 
@@ -1897,7 +1899,7 @@ public class ItemControllerSessionBean extends FacesBean {
      * Copied by DiT from submitPubItem() by FrM: Validation with validation point "accept_item"
      */
     ValidationReportVO report =
-        this.itemValidating.validateItemObject(pubItem, EditItem.VALIDATIONPOINT_ACCEPT);
+        this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
     currentItemValidationReport = report;
 
     logger.debug("Validation Report: " + report);

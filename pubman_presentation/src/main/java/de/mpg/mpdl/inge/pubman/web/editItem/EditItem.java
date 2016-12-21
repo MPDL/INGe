@@ -107,12 +107,13 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
@@ -139,9 +140,7 @@ public class EditItem extends FacesBean {
       "EditItem.pubItem.metadata.event";
   public final static String VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS =
       "EditItem.pubItem.metadata.identifiers";
-  // Constants for validation points
-  public final static String VALIDATIONPOINT_SUBMIT = "submit_item";
-  public final static String VALIDATIONPOINT_ACCEPT = "accept_item";
+
   // Validation Service
   @EJB
   private ItemValidating itemValidating = null;
@@ -624,7 +623,7 @@ public class EditItem extends FacesBean {
       }
 
       PubItemVO item = this.getPubItem();
-      this.getItemControllerSessionBean().validate(item, EditItem.VALIDATIONPOINT_SUBMIT);
+      this.getItemControllerSessionBean().validate(item, ValidationPoint.SUBMIT_ITEM);
       if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems()) {
         this.showValidationMessages(this.getItemControllerSessionBean()
             .getCurrentItemValidationReport());
@@ -665,7 +664,7 @@ public class EditItem extends FacesBean {
     ValidationReportVO report = null;
     try {
       PubItemVO itemVO = new PubItemVO(getPubItem());
-      report = this.itemValidating.validateItemObject(itemVO, "default");
+      report = this.itemValidating.validateItemObject(itemVO);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -880,7 +879,7 @@ public class EditItem extends FacesBean {
         // create a validation report
         ValidationReportVO changedReport = new ValidationReportVO();
         ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-        changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+        // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
         changedReportItem.setContent("itemHasNotBeenChanged");
         changedReport.addItem(changedReportItem);
         // show report and stay on this page
@@ -943,7 +942,7 @@ public class EditItem extends FacesBean {
     ValidationReportVO report = null;
     try {
       PubItemVO item = new PubItemVO(getPubItem());
-      report = this.itemValidating.validateItemObject(item, "submit_item");
+      report = this.itemValidating.validateItemObject(item, ValidationPoint.SUBMIT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -976,7 +975,7 @@ public class EditItem extends FacesBean {
             // create a validation report
             ValidationReportVO changedReport = new ValidationReportVO();
             ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-            changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+            // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
             changedReportItem.setContent("itemHasNotBeenChanged");
             changedReport.addItem(changedReportItem);
             // show report and stay on this page
@@ -1133,7 +1132,7 @@ public class EditItem extends FacesBean {
     try {
       report =
           this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
-              EditItem.VALIDATIONPOINT_ACCEPT);
+              ValidationPoint.ACCEPT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -1159,7 +1158,7 @@ public class EditItem extends FacesBean {
           // create a validation report
           ValidationReportVO changedReport = new ValidationReportVO();
           ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-          changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+          // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
           changedReportItem.setContent("itemHasNotBeenChanged");
           changedReport.addItem(changedReportItem);
           // show report and stay on this page
@@ -1542,13 +1541,13 @@ public class EditItem extends FacesBean {
   public void showValidationMessages(FacesBean bean, ValidationReportVO report) {
     for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       ValidationReportItemVO element = iter.next();
-      if (element.isRestrictive()) {
-        FacesBean.error(bean.getMessage(element.getContent()).replaceAll("\\$1",
-            element.getElement()));
-      } else {
-        FacesBean.info(bean.getMessage(element.getContent()).replaceAll("\\$1",
-            element.getElement()));
-      }
+      // if (element.isRestrictive()) {
+      FacesBean.error(bean.getMessage(element.getContent())
+          .replaceAll("\\$1", element.getElement()));
+      // } else {
+      // FacesBean.info(bean.getMessage(element.getContent()).replaceAll("\\$1",
+      // element.getElement()));
+      // }
     }
     // this.valMessage.setRendered(true);
   }

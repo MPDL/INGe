@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
@@ -36,8 +37,8 @@ public class ItemValidatingBean implements ItemValidating {
 
   }
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint)
-      throws ValidationException {
+  public ValidationReportVO validateItemObject(final ItemVO itemVO,
+      final ValidationPoint validationPoint) throws ValidationException {
 
     ValidationService s = new ValidationService();
 

@@ -43,16 +43,15 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
-import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.SWORDContentTypeException;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
-import de.mpg.mpdl.inge.validation.ItemInvalidException;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * DepositServlet for the PubMan SWORD interface.
@@ -167,11 +166,6 @@ public class PubManDepositServlet extends HttpServlet {
         // Get the DepositResponse
         dr = this.pubMan.doDeposit(deposit, this.collection);
       }
-    } catch (SWORDAuthenticationException sae) {
-      response.sendError(HttpServletResponse.SC_FORBIDDEN, this.getError());
-      this.logger.error(sae.toString());
-      this.validDeposit = false;
-
     } catch (SWORDContentTypeException e) {
       this.errorDoc.setSummary("File format not supported.");
       this.errorDoc.setErrorDesc(swordError.ErrorContent);
