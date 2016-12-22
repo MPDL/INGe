@@ -39,6 +39,7 @@
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
 		<module>inge_validation</module>
+		<module>inge_validation_presentation</module>
 		<module>validation</module>
 		<module>validation_presentation</module>
 		<module>structuredexportmanager</module>
