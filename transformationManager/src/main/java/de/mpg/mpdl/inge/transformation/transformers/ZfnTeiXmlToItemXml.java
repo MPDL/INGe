@@ -16,35 +16,37 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
 
-	@Override
-	public Source getXsltSource() throws TransformationException{
-		
-		return getXmlSourceFromProperty("escidoc.transformation.zfn.stylesheet.filename" ,"transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl");
-		
-		
-	}
+  @Override
+  public Source getXsltSource() throws TransformationException {
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		Map<String, Object> map = new HashMap<String, Object>(); 
-		 if(FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())){
-	        	map.put("is-item-list", Boolean.FALSE);
-	      }
-	      else if(FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())){
-	        	map.put("is-item-list", Boolean.TRUE);
-	      }
-		 
+    return getXmlSourceFromProperty("escidoc.transformation.zfn.stylesheet.filename",
+        "transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl");
 
-		map.put("zfnId", getConfiguration().get("id"));
-		map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-		map.put("external_organisation_id", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-		return map;
-	}
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException {
-		return null;
-	}
+  }
+
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    Map<String, Object> map = new HashMap<String, Object>();
+    if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
+      map.put("is-item-list", Boolean.FALSE);
+    } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
+      map.put("is-item-list", Boolean.TRUE);
+    }
+
+
+    map.put("zfnId", getConfiguration().get("id"));
+    map.put("content-model",
+        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external_organisation_id",
+        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+    return map;
+  }
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return null;
+  }
 
 
 }

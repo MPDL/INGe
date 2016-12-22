@@ -3,47 +3,47 @@ package de.mpg.mpdl.inge.transformation;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 public class TransformerEdge {
-	
-	private Class<? extends Transformer> transformerClass;
-	
-	private FORMAT sourceFormat;
-	
-	private FORMAT targetFormat;
 
-	public TransformerEdge(Class<? extends Transformer> transformerClass, FORMAT sourceFormat, FORMAT targetFormat) {
-		super();
-		this.transformerClass = transformerClass;
-		this.sourceFormat = sourceFormat;
-		this.targetFormat = targetFormat;
-	}
+  private Class<? extends Transformer> transformerClass;
 
-	public Class<? extends Transformer> getTransformerClass() {
-		return transformerClass;
-	}
+  private FORMAT sourceFormat;
 
-	public void setTransformerClass(Class<? extends Transformer> transformerClass) {
-		this.transformerClass = transformerClass;
-	}
+  private FORMAT targetFormat;
 
-	public FORMAT getSourceFormat() {
-		return sourceFormat;
-	}
+  public TransformerEdge(Class<? extends Transformer> transformerClass, FORMAT sourceFormat,
+      FORMAT targetFormat) {
+    super();
+    this.transformerClass = transformerClass;
+    this.sourceFormat = sourceFormat;
+    this.targetFormat = targetFormat;
+  }
 
-	public void setSourceFormat(FORMAT sourceFormat) {
-		this.sourceFormat = sourceFormat;
-	}
+  public Class<? extends Transformer> getTransformerClass() {
+    return transformerClass;
+  }
 
-	public FORMAT getTargetFormat() {
-		return targetFormat;
-	}
+  public void setTransformerClass(Class<? extends Transformer> transformerClass) {
+    this.transformerClass = transformerClass;
+  }
 
-	public void setTargetFormat(FORMAT targetFormat) {
-		this.targetFormat = targetFormat;
-	}
-	
-	public String toString()
-	{
-		return  sourceFormat + " --> " + targetFormat + " (" + transformerClass.toString() + ")";
-	}
+  public FORMAT getSourceFormat() {
+    return sourceFormat;
+  }
+
+  public void setSourceFormat(FORMAT sourceFormat) {
+    this.sourceFormat = sourceFormat;
+  }
+
+  public FORMAT getTargetFormat() {
+    return targetFormat;
+  }
+
+  public void setTargetFormat(FORMAT targetFormat) {
+    this.targetFormat = targetFormat;
+  }
+
+  public String toString() {
+    return sourceFormat + " --> " + targetFormat + " (" + transformerClass.toString() + ")";
+  }
 
 }

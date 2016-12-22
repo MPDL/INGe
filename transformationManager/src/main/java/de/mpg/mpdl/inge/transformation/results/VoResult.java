@@ -5,22 +5,22 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.VoSource;
 
-public class VoResult extends TransformerResultAbstractImpl<ValueObject> implements TransformerResult{
+public class VoResult extends TransformerResultAbstractImpl<ValueObject> implements
+    TransformerResult {
 
-	public VoResult(ValueObject r) {
-		super(r);
-		
-	}
-	
-	public VoResult() {
-		super(null);
-		
-	}
+  public VoResult(ValueObject r) {
+    super(r);
 
-	@Override
-	public TransformerSource createSourceFromInBetweenResult()
-			throws TransformationException {
-		return new VoSource(this.getResult());
-	}
+  }
+
+  public VoResult() {
+    super(null);
+
+  }
+
+  @Override
+  public TransformerSource createSourceFromInBetweenResult() throws TransformationException {
+    return new VoSource(this.getResult());
+  }
 
 }

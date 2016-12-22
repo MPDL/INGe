@@ -11,33 +11,26 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 public class TransformerStreamSource extends StreamSource implements TransformerSource, Source {
 
 
-	//private ValueObject valueObject;
-	
+  // private ValueObject valueObject;
 
-	public TransformerStreamSource(InputStream inputStream) {
-		super(inputStream);
-	}
 
-	public TransformerStreamSource(Reader reader) {
-		super(reader);
-	}
+  public TransformerStreamSource(InputStream inputStream) {
+    super(inputStream);
+  }
 
-	/*
+  public TransformerStreamSource(Reader reader) {
+    super(reader);
+  }
 
-	public TransformerStreamSource(ValueObject vo)
-	{
-		this.valueObject = vo;
-	}
-
-	
-	public ValueObject getValueObject() {
-		return valueObject;
-	}
-
-	public void setValueObject(ValueObject valueObject) {
-		this.valueObject = valueObject;
-	}
-	*/
+  /*
+   * 
+   * public TransformerStreamSource(ValueObject vo) { this.valueObject = vo; }
+   * 
+   * 
+   * public ValueObject getValueObject() { return valueObject; }
+   * 
+   * public void setValueObject(ValueObject valueObject) { this.valueObject = valueObject; }
+   */
 
 
 

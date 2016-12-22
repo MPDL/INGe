@@ -5,9 +5,9 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public interface TransformerResult {
 
-	
-	public TransformerSource createSourceFromInBetweenResult() throws TransformationException;
-	
-	
+
+  public TransformerSource createSourceFromInBetweenResult() throws TransformationException;
+
+
 
 }
