@@ -13,7 +13,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 public class DijkstraAlgorithm {
 
-  private final List<FORMAT> nodes;
   private final List<TransformerEdge> edges;
 
   private Set<FORMAT> settledNodes;
@@ -25,7 +24,6 @@ public class DijkstraAlgorithm {
 
   public DijkstraAlgorithm(List<FORMAT> formatList, List<TransformerEdge> transformerList) {
     // create a copy of the array so that we can operate on this array
-    this.nodes = new ArrayList<FORMAT>(formatList);
     this.edges = new ArrayList<TransformerEdge>(transformerList);
   }
 
