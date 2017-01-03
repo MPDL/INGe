@@ -135,20 +135,12 @@ public class Feed extends SyndFeedImpl {
    * @param query
    */
   public void setQuery(String query) {
-    try {
-      if (query != null && query.contains("${content_model}")) {
-        String contentModel = PropertyReader.getProperty(FEEDS_CONTENT_MODEL);
-        if (contentModel != null) {
-          query = query.replaceAll("\\$\\{content_model\\}", contentModel);
-        }
+
+    if (query != null && query.contains("${content_model}")) {
+      String contentModel = PropertyReader.getProperty(FEEDS_CONTENT_MODEL);
+      if (contentModel != null) {
+        query = query.replaceAll("\\$\\{content_model\\}", contentModel);
       }
-    } catch (IOException e) {
-      System.out.println("Problem reading property(" + FEEDS_CONTENT_MODEL + ")");
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      System.out
-          .println("Problem replacing ${content_model} with specific content-model in setQuery");
-      e.printStackTrace();
     }
     this.query = query;
   }

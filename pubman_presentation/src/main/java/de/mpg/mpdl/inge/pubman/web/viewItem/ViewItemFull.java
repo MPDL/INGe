@@ -29,7 +29,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -44,8 +43,6 @@ import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,8 +50,10 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -75,11 +74,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
-import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -126,11 +126,6 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
-
-
 
 /**
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
@@ -162,6 +157,7 @@ public class ViewItemFull extends FacesBean {
   // Validation Service
   @EJB
   private ItemValidating itemValidating;
+
   private PubItemVOPresentation pubItem = null;
   private HtmlMessages valMessage = new HtmlMessages();
   // Added by DiT: constant for the function modify and new revision to check the rights and/or if
@@ -301,33 +297,15 @@ public class ViewItemFull extends FacesBean {
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // populate the core service Url
-    try {
-      this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    } catch (IOException ioE) {
-      throw new RuntimeException(
-          "Could  not read the Property file for property 'escidoc.framework_access.framework.url'",
-          ioE);
-    } catch (URISyntaxException uE) {
-      throw new RuntimeException(
-          "Syntax of property 'escidoc.framework_access.framework.url' not correct", uE);
-    }
+    this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
 
     // Try to get the validation service
 
     this.transformer = getApplicationBean().getTransformationService();
 
-
-    try {
-      this.defaultSize =
-          Integer.parseInt(PropertyReader
-              .getProperty("escidoc.pubman_presentation.viewFullItem.defaultSize"));
-    } catch (Exception e) {
-      throw new RuntimeException(
-          "Property escidoc.pubman_presentation.viewFullItem.defaultSize size not found", e);
-    }
-
-    // System.out.println(getFacesContext().getViewRoot().getViewId());
-
+    this.defaultSize =
+        Integer.parseInt(PropertyReader.getProperty(
+            "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
 
     if (loginHelper != null) {
       String viewId = getFacesContext().getViewRoot().getViewId();
@@ -336,10 +314,7 @@ public class ViewItemFull extends FacesBean {
       } else if ("/viewItemFullPage.jsp".equals(viewId)) {
         loginHelper.setDetailedMode(true);
       }
-
     }
-
-
 
     boolean logViewAction = false;
     // Try to get a pubitem either via the controller session bean or an URL Parameter
@@ -984,7 +959,7 @@ public class ViewItemFull extends FacesBean {
     PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
     ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, "submit_item");
+      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -1015,7 +990,7 @@ public class ViewItemFull extends FacesBean {
     PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
     ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, "accept_item");
+      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
     } catch (Exception e) {
       throw new RuntimeException("Validation error", e);
     }
@@ -1109,11 +1084,11 @@ public class ViewItemFull extends FacesBean {
     warn(getMessage(VALIDATION_ERROR_MESSAGE));
     for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       ValidationReportItemVO element = iter.next();
-      if (element.isRestrictive()) {
-        error(getMessage(element.getContent()));
-      } else {
-        info(getMessage(element.getContent()));
-      }
+      // if (element.isRestrictive()) {
+      error(getMessage(element.getContent()));
+      // } else {
+      // info(getMessage(element.getContent()));
+      // }
     }
     this.valMessage.setRendered(true);
   }
@@ -1710,15 +1685,9 @@ public class ViewItemFull extends FacesBean {
    * @return String name of the specified OU (escidoc.pubman_presentation.overview_page.authors_ou)
    */
   public String getSpecificOrganization() {
-    String rootOrganization = null;
-    try {
-      rootOrganization =
-          PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
+    String rootOrganization =
+        PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+
     if (rootOrganization != null) {
       return rootOrganization;
     } else {

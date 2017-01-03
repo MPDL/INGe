@@ -15,23 +15,23 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.coins.CoinsTransform
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_VO, targetFormat = FORMAT.COINS_STRING)
 public class ItemVoToCoins extends SingleTransformer implements ChainableTransformer {
 
-	@Override
-	public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-		VoSource s = (VoSource)source;
-		
-		CoinsTransformation coinsTransformation = new CoinsTransformation();
-		String stringResult = coinsTransformation.getCOinS((PubItemVO)s.getSource());
-		
-		writeStringToStreamResult(stringResult, (TransformerStreamResult)result);
+  @Override
+  public void transform(TransformerSource source, TransformerResult result)
+      throws TransformationException {
+    VoSource s = (VoSource) source;
 
-	}
+    CoinsTransformation coinsTransformation = new CoinsTransformation();
+    String stringResult = coinsTransformation.getCOinS((PubItemVO) s.getSource());
 
-	@Override
-	public TransformerResult createNewInBetweenResult() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    writeStringToStreamResult(stringResult, (TransformerStreamResult) result);
 
+  }
+
+  @Override
+  public TransformerResult createNewInBetweenResult() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 
 

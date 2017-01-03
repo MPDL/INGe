@@ -39,7 +39,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
-	xmlns:jfunc="java:de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.BibTexExport"
+	xmlns:jfunc="java:de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.BibtexExport"
 	xmlns:function="urn:pubman:functions"
 	xmlns:dc="${xsd.metadata.dc}"
 	xmlns:dcterms="${xsd.metadata.dcterms}"

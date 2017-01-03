@@ -352,21 +352,12 @@ public class PubItemDepositingBean implements PubItemDepositing {
     }
 
     // Transform the item to XML
-<<<<<<< HEAD
     /*
      * String itemXML = xmlTransforming.transformToItem(pubItem); if (logger.isDebugEnabled()) {
      * logger
      * .debug("PubItemDepositingBean.savePubItem: pubItem[VO] successfully transformed to item[XML]"
      * + "\nitem: " + itemXML); }
      */
-=======
-    String itemXML = xmlTransforming.transformToItem(pubItem);
-    if (logger.isDebugEnabled()) {
-      logger
-          .debug("PubItemDepositingBean.savePubItem: pubItem[VO] successfully transformed to item[XML]"
-              + "\nitem: " + itemXML);
-    }
->>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
 
     try {
       /*
@@ -459,7 +450,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
     }
 
-<<<<<<< HEAD
 
     // ItemHandler itemHandler;
     // try {
@@ -467,14 +457,15 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // } catch (Exception e) {
     // throw new TechnicalException(e);
     // }
-=======
-    ItemHandler itemHandler;
+
+    // Validate the item
+    long start = System.currentTimeMillis();
+    ValidationReportVO report;
     try {
-      itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-    } catch (Exception e) {
-      throw new TechnicalException(e);
+      report = itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
+    } catch (ValidationException e) {
+      throw e;
     }
->>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
 
     // Validate the item
     long start = System.currentTimeMillis();
@@ -490,25 +481,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
     if (!report.isValid()) {
       throw new ItemInvalidException(report);
-<<<<<<< HEAD
-
-
-    // Validate the item
-    long start = System.currentTimeMillis();
-    ValidationReportVO report;
-    try {
-      report = itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
-    } catch (ValidationException e) {
-      throw e;
-    }
-    long end = System.currentTimeMillis();
-    logger.info("validation of <" + pubItem.getVersion().getObjectId() + "> needed <"
-        + (end - start) + "> msec");
-
-    if (!report.isValid()) {
-      throw new ItemInvalidException(report);
-=======
->>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
     }
 
     // first save the item

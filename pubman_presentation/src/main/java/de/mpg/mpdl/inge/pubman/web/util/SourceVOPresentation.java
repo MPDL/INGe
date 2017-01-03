@@ -80,9 +80,7 @@ public class SourceVOPresentation extends SourceVO {
       if (contentCategoryURI != null) {
         Logger.getLogger(SourceVOPresentation.class).info(
             "Source genre properties URI is " + contentCategoryURI.toString());
-        InputStream in =
-            PropertyReader.getInputStream(contentCategoryURI.getPath().toString(),
-                SourceVOPresentation.class);
+        InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();

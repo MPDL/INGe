@@ -113,14 +113,11 @@ public class QualityAssuranceBean implements QualityAssurance {
     Filter f1 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(state));
     filter.getFilterList().add(f1);
 
-    try {
-      Filter f3 =
-          filter.new FrameworkItemTypeFilter(
-              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-      filter.getFilterList().add(f3);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+
+    Filter f3 =
+        filter.new FrameworkItemTypeFilter(
+            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    filter.getFilterList().add(f3);
 
     Filter f4 = filter.new ContextFilter(contextobjId);
     filter.getFilterList().add(f4);

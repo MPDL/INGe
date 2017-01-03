@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.audience;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +34,14 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.GrantVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -425,53 +423,21 @@ public class AudienceBean extends FacesBean {
    * @return String URL of the coreservice
    */
   public String getFwUrl() {
-    String fwUrl = "";
-
-    // populate the core service Url
-    try {
-      fwUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
-    } catch (IOException ioE) {
-      throw new RuntimeException(
-          "Could  not read the Property file for property 'escidoc.framework_access.login.url'",
-          ioE);
-    } catch (URISyntaxException uE) {
-      throw new RuntimeException(
-          "Syntax of property 'escidoc.framework_access.login.url' not correct", uE);
-    }
-    return fwUrl;
+    return PropertyReader.getProperty("escidoc.framework_access.login.url");
   }
 
   public String getItemPattern() {
     String itemPattern = "";
 
-    String pubmanUrl = "";
-    try {
-      pubmanUrl =
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-    } catch (IOException ioE) {
-      throw new RuntimeException(
-          "Could  not read the Property file for property 'escidoc.pubman.instance.url' or 'escidoc.pubman.instance.context.path'",
-          ioE);
-    } catch (URISyntaxException uE) {
-      throw new RuntimeException(
-          "Syntax of property 'escidoc.pubman.instance.url' or 'escidoc.pubman.instance.context.path' not correct",
-          uE);
-    }
+    String pubmanUrl =
+        PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
 
-    try {
-      itemPattern =
-          PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
-              "\\$1",
-              this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                  .getObjectIdAndVersion());
-    } catch (IOException ioE) {
-      throw new RuntimeException(
-          "Could  not read the Property file for property 'escidoc.pubman.item.pattern'", ioE);
-    } catch (URISyntaxException uE) {
-      throw new RuntimeException("Syntax of property 'escidoc.pubman.item.pattern' not correct", uE);
-    }
-
+    itemPattern =
+        PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+            "\\$1",
+            this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                .getObjectIdAndVersion());
 
     if (!pubmanUrl.endsWith("/"))
       pubmanUrl = pubmanUrl + "/";

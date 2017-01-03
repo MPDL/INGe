@@ -22,41 +22,39 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.marc.MarcXmlWriterNS
 @TransformerModule(sourceFormat = FORMAT.MARC_21_STRING, targetFormat = FORMAT.MARC_XML)
 public class Marc21ToMarcXml extends SingleTransformer implements ChainableTransformer {
 
-	@Override
-	public void transform(TransformerSource source, TransformerResult result)
-			throws TransformationException {
-		try {
+  @Override
+  public void transform(TransformerSource source, TransformerResult result)
+      throws TransformationException {
+    try {
 
 
-			
-			      MarcReader reader = new MarcStreamReader(((TransformerStreamSource)source).getInputStream(), "UTF-8");
-			      //OutputStream resultOs = new ByteArrayOutputStream();
 
-			      MarcXmlWriterNSFix writer = new MarcXmlWriterNSFix((Result)result);
+      MarcReader reader =
+          new MarcStreamReader(((TransformerStreamSource) source).getInputStream(), "UTF-8");
+      // OutputStream resultOs = new ByteArrayOutputStream();
 
-			      while (reader.hasNext()) {
-			        Record record = reader.next();
-			        writer.write(record);
-			      }
+      MarcXmlWriterNSFix writer = new MarcXmlWriterNSFix((Result) result);
 
-			      writer.close();
-			
+      while (reader.hasNext()) {
+        Record record = reader.next();
+        writer.write(record);
+      }
 
-		} catch (Exception e) {
-			throw new TransformationException("Error while transforming Marc21 to Marc XML", e);
-		}
+      writer.close();
 
 
-	}
-
-	@Override
-	public TransformerResult createNewInBetweenResult() {
-		return new TransformerStreamResult(new ByteArrayOutputStream());
-	}
+    } catch (Exception e) {
+      throw new TransformationException("Error while transforming Marc21 to Marc XML", e);
+    }
 
 
-	
-	
+  }
+
+  @Override
+  public TransformerResult createNewInBetweenResult() {
+    return new TransformerStreamResult(new ByteArrayOutputStream());
+  }
+
 
 
 }

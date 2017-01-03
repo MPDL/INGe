@@ -55,6 +55,10 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
@@ -84,9 +88,6 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * TODO Description
@@ -209,7 +210,8 @@ public class ImportProcess extends Thread {
       this.duplicateStrategy = duplicateStrategy;
       InitialContext context = new InitialContext();
       this.itemValidating =
-          (ItemValidating) context.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
+          (ItemValidating) context
+              .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
@@ -637,7 +639,8 @@ public class ImportProcess extends Thread {
         }
         // Release validation
         log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
-        validationReportVO = this.itemValidating.validateItemObject(pubItemVO, "submit_item");
+        validationReportVO =
+            this.itemValidating.validateItemObject(pubItemVO, ValidationPoint.SUBMIT_ITEM);
         if (validationReportVO.isValid()) {
           if (!validationReportVO.hasItems()) {
             log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
@@ -651,11 +654,11 @@ public class ImportProcess extends Thread {
         } else {
           log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
           for (ValidationReportItemVO item : validationReportVO.getItems()) {
-            if (item.isRestrictive()) {
-              log.addDetail(ErrorLevel.WARNING, item.getContent());
-            } else {
-              log.addDetail(ErrorLevel.WARNING, item.getContent());
-            }
+            // if (item.isRestrictive()) {
+            log.addDetail(ErrorLevel.WARNING, item.getContent());
+            // } else {
+            // log.addDetail(ErrorLevel.WARNING, item.getContent());
+            // }
           }
         }
         log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
@@ -678,11 +681,11 @@ public class ImportProcess extends Thread {
       } else {
         log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
         for (ValidationReportItemVO item : validationReportVO.getItems()) {
-          if (item.isRestrictive()) {
-            log.addDetail(ErrorLevel.PROBLEM, item.getContent());
-          } else {
-            log.addDetail(ErrorLevel.WARNING, item.getContent());
-          }
+          // if (item.isRestrictive()) {
+          log.addDetail(ErrorLevel.PROBLEM, item.getContent());
+          // } else {
+          // log.addDetail(ErrorLevel.WARNING, item.getContent());
+          // }
         }
         log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
         log.finishItem();

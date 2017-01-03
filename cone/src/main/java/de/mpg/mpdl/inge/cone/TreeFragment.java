@@ -122,12 +122,8 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toRdf(Model model) throws ConeException {
     if (size() == 0) {
 
-      try {
-        return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("escidoc.cone.service.url")
-            + subject);
-      } catch (IOException | URISyntaxException e) {
-        throw new ConeException(e);
-      }
+      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("escidoc.cone.service.url")
+          + subject);
 
     } else {
       StringWriter result = new StringWriter();

@@ -35,7 +35,6 @@
 		<module>inge_util</module>
 		<module>framework_access</module>
 		<module>model</module>
-		<module>xml_transforming</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
 		<module>inge_validation</module>

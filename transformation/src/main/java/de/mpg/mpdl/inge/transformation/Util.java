@@ -453,9 +453,6 @@ public class Util {
       logger.error("IOException when getting Property <" + FRAMEWORK_PROPERTY + ">\n"
           + "Or reading document from URL <" + url, e);
       throw e;
-    } catch (URISyntaxException e) {
-      logger.error("Invalid URL when getting Property: <" + FRAMEWORK_PROPERTY + ">", e);
-      throw e;
     } catch (ParserConfigurationException e) {
       logger.error("Parser configuration error", e);
       throw e;

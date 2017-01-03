@@ -80,7 +80,7 @@ public class ModelList {
           logger.debug("Model:" + model.getName());
         }
       }
-    } catch (IOException | SAXException | URISyntaxException | ParserConfigurationException ex) {
+    } catch (IOException | SAXException | ParserConfigurationException ex) {
       throw new ConeException(ex);
     }
   }

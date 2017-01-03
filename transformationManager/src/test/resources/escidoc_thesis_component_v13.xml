@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:item objid="escidoc:723119" last-modification-date="2016-11-19T17:42:15.278Z">
+    <escidocItem:properties>
+      <prop:creation-date>2011-02-03T22:01:33.981Z</prop:creation-date>
+      <srel:created-by objid="escidoc:691566"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Batch release</prop:public-status-comment>
+      <srel:context objid="escidoc:690624"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001M-0000-0010-BAC0-A</prop:pid>
+      <prop:version objid="escidoc:723119:5">
+        <version:number>5</version:number>
+        <version:date>2016-11-19T17:42:15.278Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:user42"/>
+        <version:comment>Batch release</version:comment>
+        <version:pid>hdl:11858/00-001M-0000-002B-FFEA-7</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:723119:5">
+        <version:number>5</version:number>
+        <version:date>2016-11-19T17:42:15.278Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:723119:5">
+        <release:number>5</release:number>
+        <release:date>2016-11-19T17:42:15.278Z</release:date>
+        <release:pid>hdl:11858/00-001M-0000-002B-FFEA-7</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag>multiple_import</local-tag>
+          <local-tag>Import CBS 2011-02-03 17:10</local-tag>
+          <local-tag>mpi_cbs_series</local-tag>
+          <local-tag>publ_cbs</local-tag>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/eprint/type/Thesis">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Schubotz</eterms:family-name>
+              <eterms:given-name>Ricarda Ines</eterms:given-name>
+              <organization:organization>
+                <dc:title>Department Cognitive Neurology, MPI for Human Cognitive and Brain Sciences, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:634563</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons19985</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Human premotor cortex: Beyond motor performance</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+          <dc:identifier xsi:type="eterms:EDOC">261685</dc:identifier>
+          <dc:identifier xsi:type="eterms:OTHER">P7470</dc:identifier>
+          <dc:identifier xsi:type="eterms:ISBN">3-936816-23-9</dc:identifier>
+          <eterms:publishing-info>
+            <dc:publisher>Max Planck Institute for Human Cognitive and Brain Sciences</dc:publisher>
+            <eterms:place>Leipzig</eterms:place>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2004</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+            <dc:title>MPI Series in Human Cognitive and Brain Sciences</dc:title>
+            <eterms:volume>50</eterms:volume>
+          </source:source>
+          <eterms:total-number-of-pages>128</eterms:total-number-of-pages>
+          <eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation</eterms:degree>
+          <dcterms:abstract>Die vorliegende Schrift zur kumulativen Habilitation befasst sich mit den noch wenig untersuchten nicht-motorischen Funktionen des humanen prämotorischen Cortex. Berichtet wird eine Serie von Experimenten, die an gesunden jungen Probanden mittels funktioneller Magnet-Resonanz-Tomographie durchgeführt wurden, und deren übergreifende Fragestellung war, welche Faktoren die Aktivität prämotorische Subregionen bei der rein attentionalen Verarbeitng sequentieller Information signifikant beeinflussen.</dcterms:abstract>
+          <dc:subject xsi:type="eterms:DDC"/>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="https://coreservice.mpdl.mpg.de">
+      <escidocComponents:component objid="escidoc:723118">
+        <escidocComponents:properties>
+          <prop:creation-date>2011-02-03T22:01:33.691Z</prop:creation-date>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:pid>hdl:11858/00-001M-0000-0010-BABF-0</prop:pid>
+          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:file-name>schubotz_habil.pdf</prop:file-name>
+          <prop:mime-type>application/pdf</prop:mime-type>
+          <prop:checksum>fb2accd0731bed6aba505137e16d8228</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="schubotz_habil.pdf" xlink:href="/ir/item/escidoc:723119/components/component/escidoc:723118/content" storage="internal-managed"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>schubotz_habil.pdf</dc:title>
+              <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+              <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+              <dcterms:extent>2744320</dcterms:extent>
+              <dcterms:license>http://creativecommons.org/licenses/by-nc/3.0/</dcterms:license>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
+  </escidocItem:item>
+</escidocItemList:item-list>

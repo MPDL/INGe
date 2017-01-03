@@ -71,8 +71,9 @@ public class LocalURIResolver implements URIResolver {
     }
 
     try {
-      Source source = new StreamSource(
-          ResourceUtil.getResourceAsStream(href, LocalURIResolver.class.getClassLoader()));
+      Source source =
+          new StreamSource(ResourceUtil.getResourceAsStream(href,
+              LocalURIResolver.class.getClassLoader()));
 
       return source;
     } catch (FileNotFoundException e) {

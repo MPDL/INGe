@@ -19,31 +19,30 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.endnote.EndNoteImpor
 @TransformerModule(sourceFormat = FORMAT.ENDNOTE_STRING, targetFormat = FORMAT.ENDNOTE_XML)
 public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableTransformer {
 
-	@Override
-	public void transform(TransformerSource source, TransformerResult result)
-			throws TransformationException {
-		try {
+  @Override
+  public void transform(TransformerSource source, TransformerResult result)
+      throws TransformationException {
+    try {
 
 
-					
-			EndNoteImport endNoteImport = new EndNoteImport();
-			String res = endNoteImport.transformEndNote2XML(getStringFromSource(source));
-			
-			XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(res)), (Result)result);	
-			
-		} catch (Exception e) {
-			throw new TransformationException("Error while transforming EndNote to EndNote XML", e);
-		}
+
+      EndNoteImport endNoteImport = new EndNoteImport();
+      String res = endNoteImport.transformEndNote2XML(getStringFromSource(source));
+
+      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(res)), (Result) result);
+
+    } catch (Exception e) {
+      throw new TransformationException("Error while transforming EndNote to EndNote XML", e);
+    }
 
 
-	}
+  }
 
-	@Override
-	public TransformerResult createNewInBetweenResult() {
-		return new TransformerStreamResult(new ByteArrayOutputStream());
-	}
+  @Override
+  public TransformerResult createNewInBetweenResult() {
+    return new TransformerStreamResult(new ByteArrayOutputStream());
+  }
 
-	
 
 
 }

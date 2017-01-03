@@ -254,9 +254,6 @@ public class DataHandlerBean implements DataHandler {
     } catch (IOException e) {
       this.logger.error("An error occurred while accessing sources.xml.", e);
       throw new DataaquisitionException("An error occurred while accessing sources.xml.", e);
-    } catch (URISyntaxException e) {
-      this.logger.error("An error occurred while accessing solution.porperties.", e);
-      throw new DataaquisitionException(e);
     }
     return explainXML;
   }

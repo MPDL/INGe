@@ -189,9 +189,7 @@ public class PubFileVOPresentation extends FacesBean {
       if (contentCategoryURI != null) {
         Logger.getLogger(PubFileVOPresentation.class).info(
             "Content-category properties URI is " + contentCategoryURI.toString());
-        InputStream in =
-            PropertyReader.getInputStream(contentCategoryURI.getPath().toString(),
-                PubFileVOPresentation.class);
+        InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();

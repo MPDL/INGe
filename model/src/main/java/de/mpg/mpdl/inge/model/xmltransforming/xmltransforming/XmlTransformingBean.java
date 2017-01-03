@@ -932,8 +932,6 @@ public class XmlTransformingBean implements XmlTransforming {
       throw new TechnicalException(e);
     } catch (java.lang.ClassCastException e) {
       throw new TechnicalException(e);
-    } catch (ServiceException e) {
-      throw new TechnicalException(e);
     }
     return url;
   }

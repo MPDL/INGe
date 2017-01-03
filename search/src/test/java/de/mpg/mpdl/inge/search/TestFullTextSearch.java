@@ -534,15 +534,7 @@ public class TestFullTextSearch {
     // Creator.Person.Organization.Address
     organization.setAddress("<a href=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
     // Creator.Person.Organization.Identifier
-    try {
-      organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
     person.getOrganizations().add(organization);
     // Creator.Person.Identifier
     person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
@@ -558,15 +550,7 @@ public class TestFullTextSearch {
     // Creator.Organization.Address
     organization.setAddress("Amalienstraße");
     // Creator.Organization.Identifier
-    try {
-      organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
     creator.setOrganization(organization);
     mds.getCreators().add(creator);
 
@@ -636,15 +620,7 @@ public class TestFullTextSearch {
     // Source.Creator.Organization.Address
     organization.setAddress("Ümläüte ßind schön. à bientôt!");
     // Source.Creator.Organization.Identifier
-    try {
-      organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    organization.setIdentifier(PropertyReader.getProperty("framework.organizational_unit.id"));
     creator.setOrganization(organization);
     source.getCreators().add(creator);
     // Source.Volume
@@ -672,16 +648,8 @@ public class TestFullTextSearch {
     source.getSources().add(new SourceVO("The source of the source."));
     CreatorVO sourceSourceCreator = new CreatorVO(new OrganizationVO(), CreatorRole.ARTIST);
     sourceSourceCreator.getOrganization().setName("Creator of the Source of the source");
-    try {
-      sourceSourceCreator.getOrganization().setIdentifier(
-          PropertyReader.getProperty("framework.organizational_unit.id"));
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    sourceSourceCreator.getOrganization().setIdentifier(
+        PropertyReader.getProperty("framework.organizational_unit.id"));
     source.getSources().get(0).getCreators().add(sourceSourceCreator);
     mds.getSources().add(source);
 

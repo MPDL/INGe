@@ -26,13 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.el.ValueExpression;
@@ -41,9 +37,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
@@ -55,6 +48,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.Internationalized;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
@@ -539,15 +533,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
   public List<CreatorVO> getOrganizationsAuthors() {
     List<CreatorVO> creators = this.getMetadata().getCreators();
     List<CreatorVO> mpgCreators = new ArrayList<CreatorVO>();
-    String rootOrganization = null;
-    try {
-      rootOrganization =
-          PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
+    String rootOrganization =
+        PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+
     boolean isPartOfTheOrganization = false;
     if (rootOrganization != null && !rootOrganization.isEmpty()) {
       for (CreatorVO creator : creators) {

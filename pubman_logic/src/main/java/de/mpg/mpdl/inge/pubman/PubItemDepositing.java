@@ -32,6 +32,8 @@ import javax.ejb.Remote;
 
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -45,7 +47,6 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
-import de.mpg.mpdl.inge.validation.ItemInvalidException;
 
 /**
  * Depositing service interface for Publication Items.
@@ -80,10 +81,11 @@ public interface PubItemDepositing {
    * @exception PubItemNotFoundException,
    * @exception PubManException
    * @throws ItemInvalidException
+   * @throws ValidationException
    */
   public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
       throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException,
-      PubManException, ItemInvalidException;
+      PubManException, ItemInvalidException, ValidationException;
 
   /**
    * Creates an new PubItemVO object with the default metadata of the given Collection. The PubItem
@@ -146,12 +148,13 @@ public interface PubItemDepositing {
    * @exception PubItemNotFoundException,
    * @exception PubItemStatusInvalidException
    * @throws PubItemAlreadyReleasedException
+   * @throws ValidationException
    */
   public PubItemVO savePubItem(PubItemVO item, AccountUserVO user) throws TechnicalException,
       SecurityException, PubItemMandatoryAttributesMissingException,
       PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException,
       PubItemStatusInvalidException, PubItemAlreadyReleasedException, URISyntaxException,
-      AuthorizationException;
+      AuthorizationException, ValidationException;
 
   /**
    * Submits the given pubItem. As on submit, a new version must be created (which is not done by
@@ -167,10 +170,12 @@ public interface PubItemDepositing {
    * @exception PubItemNotFoundException,
    * @exception PubManException
    * @throws ItemInvalidException
+   * @throws ValidationException
    */
   public PubItemVO submitPubItem(PubItemVO item, String submissionComment, AccountUserVO user)
       throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException,
-      PubManException, ItemInvalidException, URISyntaxException, AuthorizationException;
+      PubManException, ItemInvalidException, URISyntaxException, AuthorizationException,
+      ValidationException;
 
   /**
    * Creates a new PubItem as a revision of the given one. Also a content relation of type

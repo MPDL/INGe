@@ -26,68 +26,73 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class BmcXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-	@Override
-	public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-		
-		
-		  //For the source, a sax source is required which resolves the doctype system id's in the source xml.
-		SAXSource saxSource = null;
-	      try {
-			  SAXParserFactory saxparserfactory = SAXParserFactory.newInstance();
-			  saxparserfactory.setNamespaceAware(true);
-			  saxparserfactory.setValidating(false);
-			  SAXParser parser = null;
-			  parser = saxparserfactory.newSAXParser();
-			
-			  XMLReader xmlreader = null;
-			 
-			  xmlreader = parser.getXMLReader(); 
-			  
-			  EntityResolver res = new CatalogResolver();
-			  xmlreader.setEntityResolver(res);
-			  saxSource =  new SAXSource(xmlreader, SAXSource.sourceToInputSource((Source)source));
-		} catch (Exception e) {
-			throw new TransformationException("Could not transform BMC xml source  to SAX source");
-		} 
-		
-	      super.transform(saxSource, (Result)result);
-	}
-	
-	
-	@Override
-	public Source getXsltSource() throws TransformationException{
-		return getXmlSourceFromProperty("escidoc.transformation.bmc2escidoc.stylesheet.filename", "transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl");
-	}
+  @Override
+  public void transform(TransformerSource source, TransformerResult result)
+      throws TransformationException {
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		Map<String, Object> map = new HashMap<String, Object>(); 
-		
-		String ns_prefix_xsd_soap_common_srel = (PropertyReader.getProperty("xsd.soap.common.srel") != null) 
-				? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
-		 		: "{http://escidoc.de/core/01/structural-relations/}";
-	        
-	        
-        map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test")); 
-        map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication")); 
 
-        if(FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat()))
-        {
-        	map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
-        }
-        else if(FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat()))
-        {
-        	map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item-list");
-        }
-        
-        return map;
+    // For the source, a sax source is required which resolves the doctype system id's in the source
+    // xml.
+    SAXSource saxSource = null;
+    try {
+      SAXParserFactory saxparserfactory = SAXParserFactory.newInstance();
+      saxparserfactory.setNamespaceAware(true);
+      saxparserfactory.setValidating(false);
+      SAXParser parser = null;
+      parser = saxparserfactory.newSAXParser();
 
-	}
-	
+      XMLReader xmlreader = null;
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException{
-		return SingleTransformer.getDefaultConfigurationFromProperty("escidoc.transformation.bmc2escidoc.configuration.filename", "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
-	}
+      xmlreader = parser.getXMLReader();
+
+      EntityResolver res = new CatalogResolver();
+      xmlreader.setEntityResolver(res);
+      saxSource = new SAXSource(xmlreader, SAXSource.sourceToInputSource((Source) source));
+    } catch (Exception e) {
+      throw new TransformationException("Could not transform BMC xml source  to SAX source");
+    }
+
+    super.transform(saxSource, (Result) result);
+  }
+
+
+  @Override
+  public Source getXsltSource() throws TransformationException {
+    return getXmlSourceFromProperty("escidoc.transformation.bmc2escidoc.stylesheet.filename",
+        "transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl");
+  }
+
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    Map<String, Object> map = new HashMap<String, Object>();
+
+    String ns_prefix_xsd_soap_common_srel =
+        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{"
+            + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+            : "{http://escidoc.de/core/01/structural-relations/}";
+
+
+    map.put(ns_prefix_xsd_soap_common_srel + "context-URI",
+        PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
+        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+
+    if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
+      map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
+    } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
+      map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item-list");
+    }
+
+    return map;
+
+  }
+
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return SingleTransformer.getDefaultConfigurationFromProperty(
+        "escidoc.transformation.bmc2escidoc.configuration.filename",
+        "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
+  }
 
 }

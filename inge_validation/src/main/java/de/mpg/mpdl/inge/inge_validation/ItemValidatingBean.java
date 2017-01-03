@@ -7,8 +7,11 @@ import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.inge_validation.util.ConeCache;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
 @Stateless
@@ -34,8 +37,8 @@ public class ItemValidatingBean implements ItemValidating {
 
   }
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO, final String validationPoint)
-      throws ValidationException {
+  public ValidationReportVO validateItemObject(final ItemVO itemVO,
+      final ValidationPoint validationPoint) throws ValidationException {
 
     ValidationService s = new ValidationService();
 
@@ -51,16 +54,13 @@ public class ItemValidatingBean implements ItemValidating {
 
   }
 
-  public void refreshValidationSchemaCache() throws ValidationException {
+  public void refreshValidationSchemaCache() throws ValidationConeCacheConfigException {
 
     try {
       ConeCache.getInstance().refreshCache();
-    } catch (ValidationException e) {
+    } catch (ValidationConeCacheConfigException e) {
       LOG.error("refreshValidationSchemaCache:", e);
       throw e;
-    } catch (Exception e) {
-      LOG.error("refreshValidationSchemaCache:", e);
-      throw new ValidationException("refreshValidationSchemaCache:", e);
     }
 
   }

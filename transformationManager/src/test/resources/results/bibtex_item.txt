@@ -1,0 +1,10 @@
+@article{escidoc:2368787,
+title = {{Oxytocin reactivity during intergroup conflict in wild chimpanzees}},
+author = {Samuni, Liran and Preis, Anna and Mundry, Roger and Deschner, Tobias and Crockford, Catherine ǂ and Wittig, Roman M.},
+language = {eng},
+issn = {0027-8424},
+publisher = {National Academy of Sciences},
+address = {Washington, D.C.},
+year = {2016},
+journal = {{Proceedings of the National Academy of Sciences of the United States of America}},
+}

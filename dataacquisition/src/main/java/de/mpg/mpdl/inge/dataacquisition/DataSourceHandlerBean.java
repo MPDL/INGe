@@ -42,14 +42,9 @@ public class DataSourceHandlerBean {
    * Public constructor for DataSourceHandlerBean class.
    */
   public DataSourceHandlerBean() {
-    try {
-      sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
-      LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
+
+    sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
+    LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
   }
 
   /**

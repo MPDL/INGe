@@ -124,9 +124,7 @@ public class CreatorVOPresentation extends CreatorVO {
       if (contentCategoryURI != null) {
         Logger.getLogger(CreatorVOPresentation.class).info(
             "Author-Roles properties URI is " + contentCategoryURI.toString());
-        InputStream in =
-            PropertyReader.getInputStream(contentCategoryURI.getPath().toString(),
-                CreatorVOPresentation.class);
+        InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();

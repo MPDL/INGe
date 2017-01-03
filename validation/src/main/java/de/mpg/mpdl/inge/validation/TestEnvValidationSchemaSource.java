@@ -56,17 +56,11 @@ public class TestEnvValidationSchemaSource implements ValidationSchemaSource {
     CacheTuple id = null;
     String schematron = null;
 
-    try {
-      id =
-          new CacheTuple(
-              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"),
-              "publication");
-      schematron = this.readFile("testenv/pubman_test_collection.xml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
+    id =
+        new CacheTuple(
+            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"),
+            "publication");
+    schematron = this.readFile("testenv/pubman_test_collection.xml");
 
     map.put(id, schematron);
     return map;

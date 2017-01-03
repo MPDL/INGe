@@ -29,11 +29,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
@@ -43,7 +40,7 @@ import org.apache.log4j.Logger;
  * This class tries to locate the properties in various ways. Once the properties file has been read
  * it is cached. The following steps are executed to find a properties file:
  * <ul>
- * <li>First the location of the properties file is dertermined by looking for the system property
+ * <li>First the location of the properties file is determined by looking for the system property
  * <code>pubman.properties.file</code>. This property can be used to set the path to the properties
  * file that should be used. If this property is not set the default file path
  * <code>pubman.properties</code> is used.
@@ -63,100 +60,136 @@ public class PropertyReader {
 
   private static URL solution;
 
-  private static String fileLocation = null;
+  private static String fileLocation = "";
+
+  private static Logger logger = Logger.getLogger(PropertyReader.class);
+
+  static int counter = 0;
+
+  private PropertyReader() {
+    loadProperties();
+  }
+
+  private static PropertyReader getInstance() {
+    return PropertyReaderHolder.instance;
+  }
+
+  public static String getProperty(String key) {
+    return PropertyReader.getInstance().doGetProperty(key);
+  }
+
+  public static String getProperty(String key, String defaultValue) {
+    return PropertyReader.getInstance().doGetProperty(key) != null ? PropertyReader.getInstance()
+        .doGetProperty(key) : defaultValue;
+  }
+
+  public static Properties getProperties() {
+    PropertyReader.getInstance();
+    return PropertyReader.properties;
+  }
 
   /**
-   * Gets the value of a property for the given key from the system properties or the escidoc
+   * Get the configured URL of the running framework instance.
+   * 
+   * @return The url as a String.
+   */
+  public static String getFrameworkUrl() {
+    return getProperty("escidoc.framework_access.framework.url");
+  }
+
+  public static String getLoginUrl() {
+    return getProperty("escidoc.framework_access.login.url");
+  }
+
+  public static void setProperty(String key, String value) {
+
+    Object object = null;
+    if ((object = properties.getProperty(key)) != null) {
+      if (logger.isDebugEnabled()) {
+        logger.debug("Overwriting property (" + key + ", " + object.toString() + ")" + " with "
+            + value);
+      }
+    }
+    properties.setProperty(key, value);
+  }
+
+  /**
+   * Force the property file to be reloaded into the Properties object
+   */
+  public static void forceReloadProperties() {
+    new PropertyReader();
+  }
+
+  /**
+   * Gets the value of a property for the given key from the system properties or the PubMan
    * property file. It is always tried to get the requested property value from the system
    * properties. This option gives the opportunity to set a specific property temporary using the
    * system properties. If the requested property could not be obtained from the system properties
-   * the escidoc property file is accessed. (For details on access to the properties file see class
+   * the PubMan property file is accessed. (For details on access to the properties file see class
    * description.)
    * 
    * @param key The key of the property.
    * @param callingClass Class of the calling class
    * @return The value of the property.
-   * @throws IOException
-   * @throws URISyntaxException
    */
-  public static String getProperty(String key) throws IOException, URISyntaxException {
+  private String doGetProperty(String key) {
     // First check system properties
     String value = System.getProperty(key);
     if (value != null) {
       return value;
     }
-    // Check properties file
-    if (properties == null) {
-      loadProperties();
-    }
+
     // Get the property
     value = properties.getProperty(key);
-    // Logger.getLogger(PropertyReader.class).info("framework URL: "+value);
+
     return value;
-  }
-
-  public static Properties getProperties() throws IOException, URISyntaxException {
-    if (properties == null) {
-      loadProperties();
-    }
-
-    return properties;
   }
 
   /**
    * Load the properties from the location defined by the system property
    * <code>pubman.properties.file</code>. If this property is not set the default file path
-   * <code>pubman.properties</code> is used.
-   * 
-   * @param callingClass Class of the calling class
-   * @throws IOException If the properties file could not be found neither in the file system nor in
-   *         the classpath.
-   * @throws URISyntaxException
+   * <code>pubman.properties</code> is used. If no properties can be loaded, the jvm is terminated.
    */
-  public static void loadProperties() throws IOException, URISyntaxException {
-    String propertiesFile = null;
+  private void loadProperties() {
+    counter++;
+
+    String propertiesFile = "";
     Properties solProperties = new Properties();
-    try {
-      solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
-    } catch (Exception e) {
-      Logger.getLogger(PropertyReader.class).warn(
-          "WARNING: solution.properties not found: " + e.getMessage());
-    }
+
+    solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
+
     if (solution != null) {
-      Logger.getLogger(PropertyReader.class).info("Solution URI is " + solution.toString());
-      InputStream in = getInputStream("solution.properties");
-      solProperties.load(in);
-      in.close();
-      String appname = solProperties.getProperty("appname");
-      propertiesFile = appname + ".properties";
+      logger.info("Solution URI is <" + solution.toString() + ">");
+
+      try {
+        InputStream in = getInputStream("solution.properties");
+        solProperties.load(in);
+        in.close();
+
+        String appname = solProperties.getProperty("appname");
+        propertiesFile = appname + ".properties";
+      } catch (IOException e) {
+        logger.warn("Could not read properties from solution.properties file.");
+      }
+
     } else {
       // Use Default location of properties file
       propertiesFile = DEFAULT_PROPERTY_FILE;
-      Logger.getLogger(PropertyReader.class).debug(
-          "solution.properties file not found. Trying default.");
+      logger.info("Trying default property file: <" + DEFAULT_PROPERTY_FILE + ">");
     }
 
-    InputStream instream = getInputStream(propertiesFile);
     properties = new Properties();
-    properties.load(instream);
-    properties.putAll(solProperties);
-    instream.close();
-
-    Logger.getLogger(PropertyReader.class).info("Properties loaded from " + fileLocation);
-    // Logger.getLogger(PropertyReader.class).info(properties.toString());
-  }
-
-  public static void setProperty(String key, String value) throws IOException, URISyntaxException {
-    if (properties == null) {
-      loadProperties();
+    try {
+      InputStream instream = getInputStream(propertiesFile);
+      properties.load(instream);
+      properties.putAll(solProperties);
+      instream.close();
+    } catch (IOException e) {
+      logger.fatal("Got no properties to load...<" + propertiesFile + ">", e);
+      throw new ExceptionInInitializerError(e);
     }
 
-    Object object = null;
-    if ((object = properties.getProperty(key)) != null) {
-      Logger.getLogger(PropertyReader.class).debug(
-          "Overwriting property (" + key + ", " + object.toString() + ")" + " with " + value);
-    }
-    properties.setProperty(key, value);
+    logger.info("Properties loaded successfully from " + fileLocation);
   }
 
   /**
@@ -182,7 +215,7 @@ public class PropertyReader {
    * @throws IOException If the file could not be found neither in the file system nor in the
    *         classpath.
    */
-  public static InputStream getInputStream(String filepath, Class callingClass) throws IOException {
+  private static InputStream getInputStream(String filepath, Class callingClass) throws IOException {
     InputStream instream = null;
     // First try to search in file system
     try {
@@ -202,30 +235,16 @@ public class PropertyReader {
     return instream;
   }
 
-  /**
-   * Get the configured URL of the running framework instance.
-   * 
-   * @return The url as a String.
-   * @throws ServiceException
-   * @throws URISyntaxException
-   */
-  public static String getFrameworkUrl() throws ServiceException, URISyntaxException {
-    String url;
-    try {
-      url = getProperty("escidoc.framework_access.framework.url");
-    } catch (IOException e) {
-      throw new ServiceException(e);
-    }
-    return url;
+  // only for test purpose
+  static int getCounter() {
+    return counter;
   }
 
-  public static String getLoginUrl() throws ServiceException, URISyntaxException {
-    String url;
-    try {
-      url = getProperty("escidoc.framework_access.login.url");
-    } catch (IOException e) {
-      throw new ServiceException(e);
-    }
-    return url;
+  static void clean() {
+    properties = null;
+  }
+
+  private static class PropertyReaderHolder {
+    private static final PropertyReader instance = new PropertyReader();
   }
 }

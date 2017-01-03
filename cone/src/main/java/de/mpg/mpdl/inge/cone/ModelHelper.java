@@ -190,64 +190,59 @@ public class ModelHelper {
             new ArrayList<Map<String, List<LocalizedTripleObject>>>();
 
         for (LocalizedTripleObject value : poMap.get(predicate.getId())) {
-          try {
-            if (!predicate.isResource()
-                && (value instanceof TreeFragment && (lang.equals(value.getLanguage())
-                    || value.getLanguage() == null || "".equals(value.getLanguage()) || (""
-                    .equals(lang) && value.getLanguage().equals(
-                    PropertyReader.getProperty("escidoc.cone.language.default")))))) {
-              TreeFragment treeValue = (TreeFragment) value;
 
-              newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult,
-                  loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
+          if (!predicate.isResource()
+              && (value instanceof TreeFragment && (lang.equals(value.getLanguage())
+                  || value.getLanguage() == null || "".equals(value.getLanguage()) || (""
+                  .equals(lang) && value.getLanguage().equals(
+                  PropertyReader.getProperty("escidoc.cone.language.default", "en")))))) {
+            TreeFragment treeValue = (TreeFragment) value;
 
-            } else if (predicate.isResource() && value instanceof TreeFragment
-                && predicate.isIncludeResource()) {
-              Querier querier = QuerierFactory.newQuerier(loggedIn);
-              TreeFragment treeFragment =
-                  querier.details(predicate.getResourceModel(),
-                      ((TreeFragment) value).getSubject(), lang);
-              querier.release();
-              Model newModel =
-                  ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+            newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult,
+                loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
 
-              newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult,
-                  loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
+          } else if (predicate.isResource() && value instanceof TreeFragment
+              && predicate.isIncludeResource()) {
+            Querier querier = QuerierFactory.newQuerier(loggedIn);
+            TreeFragment treeFragment =
+                querier.details(predicate.getResourceModel(), ((TreeFragment) value).getSubject(),
+                    lang);
+            querier.release();
+            Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
 
-            } else if (predicate.isResource() && value instanceof LocalizedString
-                && predicate.isIncludeResource()) {
-              Querier querier = QuerierFactory.newQuerier(loggedIn);
-              TreeFragment treeFragment =
-                  querier.details(predicate.getResourceModel(),
-                      ((LocalizedString) value).getValue(), lang);
-              querier.release();
-              Model newModel =
-                  ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+            newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult,
+                loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
 
-              newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult,
-                  loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
+          } else if (predicate.isResource() && value instanceof LocalizedString
+              && predicate.isIncludeResource()) {
+            Querier querier = QuerierFactory.newQuerier(loggedIn);
+            TreeFragment treeFragment =
+                querier.details(predicate.getResourceModel(), ((LocalizedString) value).getValue(),
+                    lang);
+            querier.release();
+            Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
 
-            } else {
+            newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult,
+                loggedIn, lang, permutationList, prefix + predicate.getId() + "|"));
 
-              if (lang.equals(value.getLanguage())
-                  || "".equals(value.getLanguage())
-                  || (!predicate.isLocalized() && value.getLanguage() == null)
-                  || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage()
-                      .equals(PropertyReader.getProperty("escidoc.cone.language.default"))))) {
+          } else {
 
-                for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
-                  Map<String, List<LocalizedTripleObject>> newMap =
-                      new HashMap<String, List<LocalizedTripleObject>>();
-                  newMap.putAll(currentMap);
-                  List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
-                  list.add(value);
-                  newMap.put(prefix + predicate.getId(), list);
-                  newPermutationList.add(newMap);
-                }
+            if (lang.equals(value.getLanguage())
+                || "".equals(value.getLanguage())
+                || (!predicate.isLocalized() && value.getLanguage() == null)
+                || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(
+                    PropertyReader.getProperty("escidoc.cone.language.default", "en"))))) {
+
+              for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
+                Map<String, List<LocalizedTripleObject>> newMap =
+                    new HashMap<String, List<LocalizedTripleObject>>();
+                newMap.putAll(currentMap);
+                List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
+                list.add(value);
+                newMap.put(prefix + predicate.getId(), list);
+                newPermutationList.add(newMap);
               }
             }
-          } catch (URISyntaxException | IOException e) {
-            throw new ConeException(e);
           }
 
         }
