@@ -19,27 +19,29 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ItemXmlToZimXml extends XslTransformer implements ChainableTransformer {
 
 
-	@Override
-	public Source getXsltSource() throws TransformationException{	
-		return getXmlSourceFromProperty("escidoc.transformation.escidoc2edoc_import.stylesheet.filename", "transformations/otherFormats/xslt/escidoc2edoc_import.xsl");
-	}
+  @Override
+  public Source getXsltSource() throws TransformationException {
+    return getXmlSourceFromProperty(
+        "escidoc.transformation.escidoc2edoc_import.stylesheet.filename",
+        "transformations/otherFormats/xslt/escidoc2edoc_import.xsl");
+  }
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		return null;
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    return null;
 
-	}
-	
-	
-	@Override
-	public URIResolver getURIResolver(){
-		return new LocalUriResolver("transformations/otherFormats/xslt");
-	}
+  }
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException {
-		return null;
-	}
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/otherFormats/xslt");
+  }
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return null;
+  }
 
 
 }

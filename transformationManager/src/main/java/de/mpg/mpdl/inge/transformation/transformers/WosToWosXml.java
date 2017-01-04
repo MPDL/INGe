@@ -19,31 +19,31 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.wos.WoSImport;
 @TransformerModule(sourceFormat = FORMAT.WOS_STRING, targetFormat = FORMAT.WOS_XML)
 public class WosToWosXml extends SingleTransformer implements ChainableTransformer {
 
-	@Override
-	public void transform(TransformerSource source, TransformerResult result)
-			throws TransformationException {
-		try {
-			
-
-			WoSImport wosImport = new WoSImport();
-			
-	        String resultXmlString = wosImport.transformWoS2XML(getStringFromSource(source));
-			
-			XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)), (Result)result);	
-			
-		} catch (Exception e) {
-			throw new TransformationException("Error while transforming WOS to WOS XML", e);
-		}
+  @Override
+  public void transform(TransformerSource source, TransformerResult result)
+      throws TransformationException {
+    try {
 
 
-	}
+      WoSImport wosImport = new WoSImport();
 
-	@Override
-	public TransformerResult createNewInBetweenResult() {
-		return new TransformerStreamResult(new ByteArrayOutputStream());
-	}
+      String resultXmlString = wosImport.transformWoS2XML(getStringFromSource(source));
 
-	
+      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)),
+          (Result) result);
+
+    } catch (Exception e) {
+      throw new TransformationException("Error while transforming WOS to WOS XML", e);
+    }
+
+
+  }
+
+  @Override
+  public TransformerResult createNewInBetweenResult() {
+    return new TransformerStreamResult(new ByteArrayOutputStream());
+  }
+
 
 
 }

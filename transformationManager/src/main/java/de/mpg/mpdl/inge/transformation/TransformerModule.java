@@ -13,7 +13,8 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 @Repeatable(TransformerModules.class)
 public @interface TransformerModule {
 
-	FORMAT sourceFormat();
-	FORMAT targetFormat();
-	
+  FORMAT sourceFormat();
+
+  FORMAT targetFormat();
+
 }

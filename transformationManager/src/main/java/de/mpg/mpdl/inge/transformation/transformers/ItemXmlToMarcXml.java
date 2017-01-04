@@ -18,31 +18,34 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransformer {
 
 
-	@Override
-	public Source getXsltSource() throws TransformationException{	
-		return getXmlSourceFromProperty("escidoc.transformation.escidoc2marcxml.stylesheet.filename", "transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl");
-	}
+  @Override
+  public Source getXsltSource() throws TransformationException {
+    return getXmlSourceFromProperty("escidoc.transformation.escidoc2marcxml.stylesheet.filename",
+        "transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl");
+  }
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		Map<String, Object> map = new HashMap<String, Object>(); 
-		map.put("pubman_instance",PropertyReader.getProperty("escidoc.pubman.instance.url"));
-		map.put("pubman_instance_context_path",PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
-		map.put("coreservice_instance",PropertyReader.getProperty("escidoc.framework_access.framework.url"));
-        return map;
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+    map.put("pubman_instance_context_path",
+        PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
+    map.put("coreservice_instance",
+        PropertyReader.getProperty("escidoc.framework_access.framework.url"));
+    return map;
 
-	}
-	
-	
-	@Override
-	public URIResolver getURIResolver(){
-		return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
-	}
+  }
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException {
-		return null;
-	}
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
+  }
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return null;
+  }
 
 
 }

@@ -25,7 +25,6 @@ public class InitializerServlet extends HttpServlet {
   @Override
   public void destroy() {
     super.destroy();
-    
     this.refreshTask.interrupt();
   }
 

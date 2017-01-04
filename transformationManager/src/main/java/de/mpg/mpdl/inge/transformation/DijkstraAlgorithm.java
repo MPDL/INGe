@@ -13,134 +13,128 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 public class DijkstraAlgorithm {
 
-	  private final List<FORMAT> nodes;
-	  private final List<TransformerEdge> edges;
-	  
-	  private Set<FORMAT> settledNodes;
-	  private Set<FORMAT> unSettledNodes;
-	  
-	  private Map<FORMAT, FORMAT> predecessors;
-	  private Map<FORMAT, TransformerEdge> predecessorEdges;
-	  private Map<FORMAT, Integer> distance;
+  private final List<TransformerEdge> edges;
 
-	  public DijkstraAlgorithm(List<FORMAT> formatList, List<TransformerEdge> transformerList) {
-	    // create a copy of the array so that we can operate on this array
-	    this.nodes = new ArrayList<FORMAT>(formatList);
-	    this.edges = new ArrayList<TransformerEdge>(transformerList);
-	  }
+  private Set<FORMAT> settledNodes;
+  private Set<FORMAT> unSettledNodes;
 
-	  public void execute(FORMAT source) {
-	    settledNodes = new HashSet<FORMAT>();
-	    unSettledNodes = new HashSet<FORMAT>();
-	    
-	    distance = new HashMap<FORMAT, Integer>();
-	    predecessors = new HashMap<FORMAT, FORMAT>();
-	    predecessorEdges = new HashMap<TransformerFactory.FORMAT, TransformerEdge>();
-	    distance.put(source, 0);
-	    unSettledNodes.add(source);
-	    while (unSettledNodes.size() > 0) {
-	      FORMAT node = getMinimum(unSettledNodes);
-	      settledNodes.add(node);
-	      unSettledNodes.remove(node);
-	      findMinimalDistances(node);
-	    }
-	  }
+  private Map<FORMAT, FORMAT> predecessors;
+  private Map<FORMAT, TransformerEdge> predecessorEdges;
+  private Map<FORMAT, Integer> distance;
 
-	  private void findMinimalDistances(FORMAT node) {
-	    List<TransformerEdge> adjacentNodes = getNeighbors(node);
-	    for (TransformerEdge edge : adjacentNodes) {
-	      if (getShortestDistance(edge.getTargetFormat()) > getShortestDistance(node)
-	          + getDistance(node, edge.getTargetFormat())) {
-	        distance.put(edge.getTargetFormat(), getShortestDistance(node)
-	            + getDistance(node, edge.getTargetFormat()));
-	        
-	        predecessors.put(edge.getTargetFormat(), node);
-	        predecessorEdges.put(edge.getTargetFormat(), edge);
-	        
-	        unSettledNodes.add(edge.getTargetFormat());
-	      }
-	    }
+  public DijkstraAlgorithm(List<FORMAT> formatList, List<TransformerEdge> transformerList) {
+    // create a copy of the array so that we can operate on this array
+    this.edges = new ArrayList<TransformerEdge>(transformerList);
+  }
 
-	  }
+  public void execute(FORMAT source) {
+    settledNodes = new HashSet<FORMAT>();
+    unSettledNodes = new HashSet<FORMAT>();
 
-	  private int getDistance(FORMAT node, FORMAT target) {
-	    for (TransformerEdge edge : edges) {
-	      if (edge.getSourceFormat().equals(node)
-	          && edge.getTargetFormat().equals(target)) {
-	        //All have the same weight for now
-	    	  return 1;
-	      }
-	    }
-	    throw new RuntimeException("Should not happen");
-	  }
+    distance = new HashMap<FORMAT, Integer>();
+    predecessors = new HashMap<FORMAT, FORMAT>();
+    predecessorEdges = new HashMap<TransformerFactory.FORMAT, TransformerEdge>();
+    distance.put(source, 0);
+    unSettledNodes.add(source);
+    while (unSettledNodes.size() > 0) {
+      FORMAT node = getMinimum(unSettledNodes);
+      settledNodes.add(node);
+      unSettledNodes.remove(node);
+      findMinimalDistances(node);
+    }
+  }
 
-	  private List<TransformerEdge> getNeighbors(FORMAT node) {
-	    List<TransformerEdge> neighbors = new ArrayList<TransformerEdge>();
-	    for (TransformerEdge edge : edges) {
-	      if (edge.getSourceFormat().equals(node)
-	          && !isSettled(edge.getTargetFormat())) {
-	        neighbors.add(edge);
-	      }
-	    }
-	    return neighbors;
-	  }
+  private void findMinimalDistances(FORMAT node) {
+    List<TransformerEdge> adjacentNodes = getNeighbors(node);
+    for (TransformerEdge edge : adjacentNodes) {
+      if (getShortestDistance(edge.getTargetFormat()) > getShortestDistance(node)
+          + getDistance(node, edge.getTargetFormat())) {
+        distance.put(edge.getTargetFormat(),
+            getShortestDistance(node) + getDistance(node, edge.getTargetFormat()));
 
-	  private FORMAT getMinimum(Set<FORMAT> FORMATes) {
-	    FORMAT minimum = null;
-	    for (FORMAT FORMAT : FORMATes) {
-	      if (minimum == null) {
-	        minimum = FORMAT;
-	      } else {
-	        if (getShortestDistance(FORMAT) < getShortestDistance(minimum)) {
-	          minimum = FORMAT;
-	        }
-	      }
-	    }
-	    return minimum;
-	  }
+        predecessors.put(edge.getTargetFormat(), node);
+        predecessorEdges.put(edge.getTargetFormat(), edge);
 
-	  private boolean isSettled(FORMAT FORMAT) {
-	    return settledNodes.contains(FORMAT);
-	  }
+        unSettledNodes.add(edge.getTargetFormat());
+      }
+    }
 
-	  private int getShortestDistance(FORMAT destination) {
-	    Integer d = distance.get(destination);
-	    if (d == null) {
-	      return Integer.MAX_VALUE;
-	    } else {
-	      return d;
-	    }
-	  }
+  }
 
-	  /*
-	   * This method returns the path from the source to the selected target and
-	   * NULL if no path exists
-	   */
-	  public List<TransformerEdge> getPath(FORMAT target) {
-	    LinkedList<FORMAT> path = new LinkedList<FORMAT>();
-	    LinkedList<TransformerEdge> edgesPath = new LinkedList<TransformerEdge>();
-	    FORMAT step = target;
-	    // check if a path exists
-	    if (predecessors.get(step) == null) {
-	      return null;
-	    }
-	    path.add(step);
-	    edgesPath.add(predecessorEdges.get(step));
-	    
-	    while (predecessors.get(step) != null) {
-	      step = predecessors.get(step);
-	      path.add(step);
-	      
-	      TransformerEdge predecessorEdge = predecessorEdges.get(step);
-	      if(predecessorEdge != null)
-	      {
-	    	  edgesPath.add(predecessorEdge);
-	      }
-	      
-	    }
-	    // Put it into the correct order
-	    Collections.reverse(path);
-	    Collections.reverse(edgesPath);
-	    return edgesPath;
-	  }
+  private int getDistance(FORMAT node, FORMAT target) {
+    for (TransformerEdge edge : edges) {
+      if (edge.getSourceFormat().equals(node) && edge.getTargetFormat().equals(target)) {
+        // All have the same weight for now
+        return 1;
+      }
+    }
+    throw new RuntimeException("Should not happen");
+  }
+
+  private List<TransformerEdge> getNeighbors(FORMAT node) {
+    List<TransformerEdge> neighbors = new ArrayList<TransformerEdge>();
+    for (TransformerEdge edge : edges) {
+      if (edge.getSourceFormat().equals(node) && !isSettled(edge.getTargetFormat())) {
+        neighbors.add(edge);
+      }
+    }
+    return neighbors;
+  }
+
+  private FORMAT getMinimum(Set<FORMAT> FORMATes) {
+    FORMAT minimum = null;
+    for (FORMAT FORMAT : FORMATes) {
+      if (minimum == null) {
+        minimum = FORMAT;
+      } else {
+        if (getShortestDistance(FORMAT) < getShortestDistance(minimum)) {
+          minimum = FORMAT;
+        }
+      }
+    }
+    return minimum;
+  }
+
+  private boolean isSettled(FORMAT FORMAT) {
+    return settledNodes.contains(FORMAT);
+  }
+
+  private int getShortestDistance(FORMAT destination) {
+    Integer d = distance.get(destination);
+    if (d == null) {
+      return Integer.MAX_VALUE;
+    } else {
+      return d;
+    }
+  }
+
+  /*
+   * This method returns the path from the source to the selected target and NULL if no path exists
+   */
+  public List<TransformerEdge> getPath(FORMAT target) {
+    LinkedList<FORMAT> path = new LinkedList<FORMAT>();
+    LinkedList<TransformerEdge> edgesPath = new LinkedList<TransformerEdge>();
+    FORMAT step = target;
+    // check if a path exists
+    if (predecessors.get(step) == null) {
+      return null;
+    }
+    path.add(step);
+    edgesPath.add(predecessorEdges.get(step));
+
+    while (predecessors.get(step) != null) {
+      step = predecessors.get(step);
+      path.add(step);
+
+      TransformerEdge predecessorEdge = predecessorEdges.get(step);
+      if (predecessorEdge != null) {
+        edgesPath.add(predecessorEdge);
+      }
+
+    }
+    // Put it into the correct order
+    Collections.reverse(path);
+    Collections.reverse(edgesPath);
+    return edgesPath;
+  }
 }

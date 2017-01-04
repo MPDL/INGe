@@ -30,13 +30,19 @@
 		<dependency>
 		    <groupId>xerces</groupId>
 		    <artifactId>xercesImpl</artifactId>
-		    <version>2.11.0</version>
 		</dependency>
 		<!-- Required for resolving catalog entities -->
 		<dependency>
 		    <groupId>xml-resolver</groupId>
 		    <artifactId>xml-resolver</artifactId>
-		    <version>1.2</version>
+		</dependency>
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.commons</groupId>
+  			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<!-- Required for searching for annoted classes -->
 		<dependency>
@@ -51,13 +57,25 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>model</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>xml_transforming</artifactId>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

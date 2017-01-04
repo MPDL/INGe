@@ -16,33 +16,28 @@ public class TransformerStreamResult extends StreamResult implements Transformer
 
 
 
+  public TransformerStreamResult(OutputStream outputStream) {
+    super(outputStream);
+    // TODO Auto-generated constructor stub
+  }
 
 
-	public TransformerStreamResult(OutputStream outputStream) {
-		super(outputStream);
-		// TODO Auto-generated constructor stub
-	}
+  public TransformerStreamResult(Writer writer) {
+    super(writer);
+    // TODO Auto-generated constructor stub
+  }
 
+  @Override
+  public TransformerSource createSourceFromInBetweenResult() throws TransformationException {
+    try {
+      byte[] buf = ((ByteArrayOutputStream) getOutputStream()).toByteArray();
+      TransformerStreamSource ts = new TransformerStreamSource(new ByteArrayInputStream(buf));
+      return ts;
+    } catch (Exception e) {
+      throw new TransformationException("Could not create new Xml Source", e);
+    }
 
-	public TransformerStreamResult(Writer writer) {
-		super(writer);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public TransformerSource createSourceFromInBetweenResult()
-			throws TransformationException {
-		try {
-			byte[] buf = ((ByteArrayOutputStream)getOutputStream()).toByteArray();
-			TransformerStreamSource ts = new TransformerStreamSource(new ByteArrayInputStream(buf));
-			return ts;
-		} catch (Exception e) {
-			throw new TransformationException("Could not create new Xml Source", e);
-		}
-		
-	}
-
-	
+  }
 
 
 

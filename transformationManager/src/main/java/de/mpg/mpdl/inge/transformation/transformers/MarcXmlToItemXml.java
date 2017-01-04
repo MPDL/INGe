@@ -19,45 +19,48 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class MarcXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
 
-	@Override
-	public Source getXsltSource() throws TransformationException{	
-		return getXmlSourceFromProperty("escidoc.transformation.marcxml2escidoc.stylesheet.filename", "transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl");
-	}
+  @Override
+  public Source getXsltSource() throws TransformationException {
+    return getXmlSourceFromProperty("escidoc.transformation.marcxml2escidoc.stylesheet.filename",
+        "transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl");
+  }
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		Map<String, Object> map = new HashMap<String, Object>(); 
-		
-		String ns_prefix_xsd_soap_common_srel = (PropertyReader.getProperty("xsd.soap.common.srel") != null) 
-				? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
-		 		: "{http://escidoc.de/core/01/structural-relations/}";
-		
-		map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test")); 
-        map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-        
-        if(FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat()))
-        {
-        	map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
-        }
-        else if(FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat()))
-        {
-        	map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item-list");
-        }
-        
-        return map;
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    Map<String, Object> map = new HashMap<String, Object>();
 
-	}
-	
-	
-	@Override
-	public URIResolver getURIResolver(){
-		return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
-	}
+    String ns_prefix_xsd_soap_common_srel =
+        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{"
+            + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+            : "{http://escidoc.de/core/01/structural-relations/}";
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException {
-		return SingleTransformer.getDefaultConfigurationFromProperty("escidoc.transformation.endnote.configuration.filename", "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
-	}
+    map.put(ns_prefix_xsd_soap_common_srel + "context-URI",
+        PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
+        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+
+    if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
+      map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
+    } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
+      map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item-list");
+    }
+
+    return map;
+
+  }
+
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
+  }
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return SingleTransformer.getDefaultConfigurationFromProperty(
+        "escidoc.transformation.endnote.configuration.filename",
+        "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
+  }
 
 
 }

@@ -13,20 +13,21 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 public class ModsXmlToOaiDcXml extends XslTransformer implements ChainableTransformer {
 
 
-	@Override
-	public Source getXsltSource() throws TransformationException{
-		return getXmlSourceFromProperty("escidoc.transformation.mods2oaidc.stylesheet.filename" ,"transformations/standardFormats/xslt/mods2oai_dc.xsl");	
-	}
+  @Override
+  public Source getXsltSource() throws TransformationException {
+    return getXmlSourceFromProperty("escidoc.transformation.mods2oaidc.stylesheet.filename",
+        "transformations/standardFormats/xslt/mods2oai_dc.xsl");
+  }
 
-	@Override
-	public Map<String, Object> getParameters() throws TransformationException {
-		return null;
-	}
+  @Override
+  public Map<String, Object> getParameters() throws TransformationException {
+    return null;
+  }
 
-	@Override
-	public Map<String, String> getDefaultConfiguration() throws TransformationException {
-		return null;
-	}
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return null;
+  }
 
 
 }
