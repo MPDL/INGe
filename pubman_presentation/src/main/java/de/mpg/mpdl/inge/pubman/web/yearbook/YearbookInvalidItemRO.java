@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.Date;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 
 public class YearbookInvalidItemRO extends ItemRO implements Comparable<ItemRO> {
 

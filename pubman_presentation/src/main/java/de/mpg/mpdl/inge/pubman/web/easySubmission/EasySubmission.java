@@ -102,9 +102,10 @@ import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
@@ -1367,14 +1368,16 @@ public class EasySubmission extends FacesBean {
       } catch (Exception e) {
         throw new RuntimeException("Error while cleaning up item genre specificly", e);
       }
-      ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
+      ValidationReportVO report =
+          this.itemValidating.validateItemObject(itemVO, ValidationPoint.valueOf(validationPoint));
       if (!report.isValid()) {
         for (ValidationReportItemVO item : report.getItems()) {
-          if (item.isRestrictive()) {
-            error(getMessage(item.getContent()));
-          } else {
-            warn(getMessage(item.getContent()));
-          }
+          // TODO add isRestictive to new inge_validation
+          // if (item.isRestrictive()) {
+          error(getMessage(item.getContent()));
+          // } else {
+          // warn(getMessage(item.getContent()));
+          // }
         }
         return null;
       }

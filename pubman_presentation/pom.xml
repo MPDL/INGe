@@ -76,11 +76,12 @@
 			<artifactId>structuredexportmanager</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>validation</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>

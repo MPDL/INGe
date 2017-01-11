@@ -37,6 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
@@ -56,7 +57,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.bean.FileBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.bean.SearchHitBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 
 /**
  * Wrapper class for items to be used in the presentation.

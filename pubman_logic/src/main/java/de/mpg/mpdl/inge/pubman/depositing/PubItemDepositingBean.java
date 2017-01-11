@@ -94,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 
 /**
  * This class provides the ejb implementation of the {@link PubItemDepositing} interface.
@@ -457,15 +458,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // } catch (Exception e) {
     // throw new TechnicalException(e);
     // }
-
-    // Validate the item
-    long start = System.currentTimeMillis();
-    ValidationReportVO report;
-    try {
-      report = itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
-    } catch (ValidationException e) {
-      throw e;
-    }
 
     // Validate the item
     long start = System.currentTimeMillis();
