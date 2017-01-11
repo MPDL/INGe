@@ -5,8 +5,8 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class RefreshTask extends Thread {
 
