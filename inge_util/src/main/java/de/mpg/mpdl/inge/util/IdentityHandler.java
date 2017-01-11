@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.xmltransforming.util;
+package de.mpg.mpdl.inge.util;
 
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -32,6 +32,8 @@ import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import de.mpg.mpdl.inge.util.ShortContentHandler;
 
 /**
  * SAX handler to write an XML that is identical to the input XML. Might be useful to make small

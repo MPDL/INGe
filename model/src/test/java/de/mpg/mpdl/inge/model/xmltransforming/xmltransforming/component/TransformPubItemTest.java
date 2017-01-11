@@ -41,7 +41,7 @@ import org.w3c.dom.NodeList;
 
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
-import de.mpg.mpdl.inge.model.xmltransforming.util.XmlComparator;
+import de.mpg.mpdl.inge.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;

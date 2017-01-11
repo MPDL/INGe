@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:item objid="escidoc:2376868" last-modification-date="2016-12-22T12:27:00.301Z">
+    <escidocItem:properties>
+      <prop:creation-date>2016-12-22T12:25:15.474Z</prop:creation-date>
+      <srel:created-by objid="escidoc:604559"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:582611"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001M-0000-002C-2AE2-B</prop:pid>
+      <prop:version objid="escidoc:2376868:3">
+        <version:number>3</version:number>
+        <version:date>2016-12-22T12:27:00.301Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:604559"/>
+        <version:comment/>
+        <version:pid>hdl:11858/00-001M-0000-002C-2AE5-5</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:2376868:3">
+        <version:number>3</version:number>
+        <version:date>2016-12-22T12:27:00.301Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:2376868:3">
+        <release:number>3</release:number>
+        <release:date>2016-12-22T12:27:00.301Z</release:date>
+        <release:pid>hdl:11858/00-001M-0000-002C-2AE5-5</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag>Web</local-tag>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:family-name>Dick</eterms:family-name>
+              <eterms:given-name>B.</eterms:given-name>
+              <organization:organization>
+                <dc:title>Abteilung Laserphysik, MPI for biophysical chemistry, Max Planck Society</dc:title>
+                <dc:identifier>escidoc:578547</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons14982</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Line-narrowing spectroscopy in amorphous solids through polarization detection of spectral holes. I. Principles.</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+          <dc:identifier xsi:type="eterms:DOI">10.1016/0301-0104(89)80064-3</dc:identifier>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">1989-10-01</dcterms:issued>
+          <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>Chemical Physics</dc:title>
+            <eterms:volume>136</eterms:volume>
+            <eterms:issue>3</eterms:issue>
+            <eterms:start-page>413</eterms:start-page>
+            <eterms:end-page>428</eterms:end-page>
+          </source:source>
+          <dcterms:abstract>Detection of spectral satellite holes by polarization spectroscopy is proposed as a method to measure the line-narrowed electronic absorption spectrum of a large molecule in an amorphous solid at low temperature. The linewidths of the zero-phonon holes yield information about molecular dephasing and the correlation of the inhomogeneous distribution of the two molecular transitions involved in the hole-burning and the detection step. Constructive or destructive interference of the signal light field with an intentionally admixed background light field yields information on the symmetry of vibronic states.</dcterms:abstract>
+          <dc:subject xsi:type="eterms:DDC"/>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="https://coreservice.mpdl.mpg.de">
+      <escidocComponents:component objid="escidoc:2376869">
+        <escidocComponents:properties>
+          <prop:creation-date>2016-12-22T12:26:15.119Z</prop:creation-date>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:pid>hdl:11858/00-001M-0000-002C-2AE4-7</prop:pid>
+          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+          <prop:file-name>2376868.pdf</prop:file-name>
+          <prop:mime-type>application/pdf</prop:mime-type>
+          <prop:checksum>dac5d6abca511eab98cc59d168f56ff1</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="2376868.pdf" xlink:href="/ir/item/escidoc:2376868/components/component/escidoc:2376869/content" storage="internal-managed"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>2376868.pdf</dc:title>
+              <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+              <dcterms:extent>1543038</dcterms:extent>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
+  </escidocItem:item>
+</escidocItemList:item-list>
