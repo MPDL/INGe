@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML,
@@ -48,6 +50,11 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
+  }
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/standardFormats/xslt");
   }
 
 

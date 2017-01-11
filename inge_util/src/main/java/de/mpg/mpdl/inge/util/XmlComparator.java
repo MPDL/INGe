@@ -1,3 +1,5 @@
+package de.mpg.mpdl.inge.util;
+
 /*
  * 
  * CDDL HEADER START
@@ -23,8 +25,6 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-
-package de.mpg.mpdl.inge.model.xmltransforming.util;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -133,6 +133,10 @@ public class XmlComparator {
       } else {
         nodeList.add(new XmlNode(attributeMap, name, null));
       }
+    }
+
+    public List<Node> getNodeList() {
+      return nodeList;
     }
 
   }

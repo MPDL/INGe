@@ -37,7 +37,7 @@ import org.apache.axis.encoding.Base64;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.model.xmltransforming.util.IdentityHandler;
+import de.mpg.mpdl.inge.util.IdentityHandler;
 
 /**
  * Format processor for eDoc XML files.

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edoc>
+   <record id="escidoc:2368787">
+      <metadata>
+         <basic>
+            <genre>Article</genre>
+            <title>Oxytocin reactivity during intergroup conflict in wild chimpanzees</title>
+            <language>English</language>
+            <journaltitle>Proceedings of the National Academy of Sciences of the United States of America</journaltitle>
+            <journalabbreviation>Proc. Acad. Sci. USA</journalabbreviation>
+            <pubstatus>published</pubstatus>
+            <refereed>joureview</refereed>
+         </basic>
+         <creators>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>L.</creatorini>
+               <creatornfamily>Samuni</creatornfamily>
+               <creatorngiven>Liran</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>A.</creatorini>
+               <creatornfamily>Preis</creatornfamily>
+               <creatorngiven>Anna</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>R.</creatorini>
+               <creatornfamily>Mundry</creatornfamily>
+               <creatorngiven>Roger</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>T.</creatorini>
+               <creatornfamily>Deschner</creatornfamily>
+               <creatorngiven>Tobias</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>C.</creatorini>
+               <creatornfamily>Crockford</creatornfamily>
+               <creatorngiven>Catherine ǂ</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>R.</creatorini>
+               <creatornfamily>Wittig</creatornfamily>
+               <creatorngiven>Roman M.</creatorngiven>
+            </creator>
+         </creators>
+         <identifiers>
+            <identifier type="url">/item/escidoc:2368787</identifier>
+         </identifiers>
+      </metadata>
+      <metametadata>
+         <lastmodified>2016-12-14</lastmodified>
+      </metametadata>
+   </record>
+</edoc>

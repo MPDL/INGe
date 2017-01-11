@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.XmlComparator;
 
 public class TransformerFactoryTest {
 
@@ -58,13 +59,10 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    String expectedResult =
-        ResourceUtil.getResourceAsString("results/bibtex_item.txt", getClass().getClassLoader())
-            .replaceAll("[^A-Za-z0-9]", "");
-    String result = wr.toString().replaceAll("[^A-Za-z0-9]", "");
-
-    assertTrue(StringUtils.difference(expectedResult, result), expectedResult.equals(result));
+    assertTransformation(wr, "results/bibtex_item.txt");
   }
+
+
 
   @Test
   public void testItemXmlV3ToDoiMetadataXml() throws TransformationException, IOException {
@@ -80,16 +78,73 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    String expectedResult =
-        ResourceUtil.getResourceAsString("results/doi_item.xml", getClass().getClassLoader())
-            .replaceAll("[^A-Za-z0-9]", "");
-    logger.info("expectedResult\n" + expectedResult);
+    assertXmlTransformation(wr, "results/doi_item.xml");
+  }
 
-    String result = wr.toString().replaceAll("[^A-Za-z0-9]", "");
-    logger.info("result\n" + result);
+  @Test
+  public void testItemXmlV3ToEdocXml() throws TransformationException, IOException {
 
-    assertTrue(StringUtils.difference(expectedResult, result), expectedResult.equals(result));
+    StringWriter wr = new StringWriter();
 
+    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.EDOC_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertTransformation(wr, "results/edoc_item.xml");
+  }
+
+  @Test
+  public void testItemXmlV3ToEndnote() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_STRING);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertTransformation(wr, "results/endnote_item.txt");
+  }
+
+  @Test
+  public void testItemXmlV3ToEndnoteXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertTransformation(wr, "results/endnote_item.xml");
+  }
+
+  @Test
+  public void testItemXmlV3ToHtmlMetaTags() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertTransformation(wr, "results/html-meta-tags.txt");
   }
 
   //
@@ -132,6 +187,36 @@ public class TransformerFactoryTest {
 
   }
 
+  // Helper method to compare expected result with real result
+  // we strip the String omitting all not printible characters
+  private void assertTransformation(StringWriter wr, String fileNameOfExpectedResult)
+      throws IOException {
 
+    String result = wr.toString().replaceAll("[^A-Za-z0-9]", "");
+    String expectedResult =
+        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader())
+            .replaceAll("[^A-Za-z0-9]", "");
+
+    String difference = StringUtils.difference(expectedResult, result);
+
+    assertTrue("Difference in assert <" + difference + ">", difference.equals(""));
+  }
+  
+  private void assertXmlTransformation(StringWriter wr, String fileNameOfExpectedResult) 
+		  throws IOException {
+	    String result = wr.toString();
+	    String expectedResult =
+	        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
+
+	    XmlComparator xmlComparator = null;
+		try {
+			xmlComparator = new XmlComparator(result, expectedResult);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    assertTrue("Difference in assert <"  + ">", xmlComparator.equal());
+	  }
 
 }
