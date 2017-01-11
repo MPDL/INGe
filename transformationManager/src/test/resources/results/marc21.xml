@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marc:collection xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                 xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc"
+                 xmlns:item-list="http://www.escidoc.de/schemas/itemlist/0.10"
+                 xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                 xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                 xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                 xmlns:saxon="http://saxon.sf.net/"
+                 xmlns:marc="http://www.loc.gov/MARC21/slim"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcterms="http://purl.org/dc/terms/"
+                 xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
+                 xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                 xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
+                 xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                 xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                 xmlns:prop="http://escidoc.de/core/01/properties/"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                 xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                 xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/">
+  
+    
+    
+      
+        <marc:record>
+      <marc:leader>     naa a22     uub4500</marc:leader>
+      <marc:controlfield tag="001">escidoc2368787</marc:controlfield>
+      <marc:controlfield tag="003">ZDB-97-MPR</marc:controlfield>
+      <marc:controlfield tag="005">20170111134254.794</marc:controlfield>
+      <marc:controlfield tag="008">20170111s2016    xx |||||r    |00| ||eng |</marc:controlfield>
+            <marc:datafield tag="100" ind1="1" ind2=" ">
+         <marc:subfield code="a">Samuni, Liran</marc:subfield>
+         <marc:subfield code="u">Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society; Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE; The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons129528</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          <marc:datafield tag="245" ind1="1" ind2="0">
+         <marc:subfield code="a">Oxytocin reactivity during intergroup conflict in wild chimpanzees</marc:subfield>
+      </marc:datafield>
+      <marc:datafield tag="260" ind1=" " ind2=" ">
+         <marc:subfield code="c">2016</marc:subfield>
+      </marc:datafield>
+            <marc:datafield tag="700" ind1="1" ind2=" ">
+         <marc:subfield code="a">Preis, Anna</marc:subfield>
+         <marc:subfield code="u">Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society; Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE; The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons72908</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          
+            <marc:datafield tag="700" ind1="1" ind2=" ">
+         <marc:subfield code="a">Mundry, Roger</marc:subfield>
+         <marc:subfield code="u">Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society; Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons72862</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          
+            <marc:datafield tag="700" ind1="1" ind2=" ">
+         <marc:subfield code="a">Deschner, Tobias</marc:subfield>
+         <marc:subfield code="u">Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society; Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society, Deutscher Platz 6, 04103 Leipzig, DE</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons72641</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          
+            <marc:datafield tag="700" ind1="1" ind2=" ">
+         <marc:subfield code="a">Crockford, Catherine ǂ</marc:subfield>
+         <marc:subfield code="u">Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons72635</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          
+            <marc:datafield tag="700" ind1="1" ind2=" ">
+         <marc:subfield code="a">Wittig, Roman M.</marc:subfield>
+         <marc:subfield code="u">Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</marc:subfield>
+         <marc:subfield code="0">(eterms:CONE)http://pubman.mpdl.mpg.de/cone/persons/resource/persons73044</marc:subfield>
+         <marc:subfield code="4">aut</marc:subfield>
+      </marc:datafield>
+          <marc:datafield tag="773" ind1="0" ind2="8">
+         <marc:subfield code="i">in:</marc:subfield>
+         <marc:subfield code="t">Proceedings of the National Academy of Sciences of the United States of America</marc:subfield>
+         <marc:subfield code="d">Washington, D.C.: National Academy of Sciences, 2016</marc:subfield>
+         <marc:subfield code="p">PNAS</marc:subfield>
+         <marc:subfield code="x">0027-8424</marc:subfield>
+         <marc:subfield code="7">nnas</marc:subfield>
+      </marc:datafield>
+      <marc:datafield tag="887" ind1=" " ind2=" ">
+         <marc:subfield code="a">escidoc:1542176</marc:subfield>
+         <marc:subfield code="2">mpg.pure.context.id</marc:subfield>
+      </marc:datafield>
+      <marc:datafield tag="952" ind1=" " ind2=" ">
+         <marc:subfield code="j">2016</marc:subfield>
+      </marc:datafield>
+      <marc:datafield tag="996" ind1=" " ind2=" ">
+         <marc:subfield code="a">Zeitschriftenartikel</marc:subfield>
+      </marc:datafield>
+      <marc:datafield tag="997" ind1=" " ind2=" ">
+         <marc:subfield code="a">article</marc:subfield>
+      </marc:datafield>
+   </marc:record>
+      
+    
+    
+  
+</marc:collection>

@@ -55,7 +55,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import de.mpg.mpdl.inge.util.LocalURIResolver;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -235,7 +235,7 @@ public class StructuredExport implements StructuredExportHandler {
     BufferedReader br;
     try {
       TransformerFactory factory = new TransformerFactoryImpl();
-      factory.setURIResolver(new LocalURIResolver(PATH_TO_RESOURCES + EXPLAIN_FILE));
+      factory.setURIResolver(new LocalUriResolver(PATH_TO_RESOURCES + EXPLAIN_FILE));
       br =
           new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(
               PATH_TO_RESOURCES + EXPLAIN_FILE, StructuredExport.class.getClassLoader()), "UTF-8"));

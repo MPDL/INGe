@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.util.LocalURIResolver;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.validation.util.CacheTriple;
@@ -736,7 +736,7 @@ public final class ValidationSchemaCache {
       xmlTransforming = new XmlTransformingBean();
 
       factory = new net.sf.saxon.TransformerFactoryImpl();
-      factory.setURIResolver(new LocalURIResolver());
+      factory.setURIResolver(new LocalUriResolver());
       LOGGER.info("ValidationSchemaCache initialized.");
     } catch (Exception e) {
       LOGGER.warn("Error occured when getting xmlTransforming bean.", e);
