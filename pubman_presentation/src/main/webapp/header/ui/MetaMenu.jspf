@@ -63,8 +63,8 @@
 
 	<!-- LogIn, LogOut -->
 	<h:commandLink id="lnkLoginLogout" styleClass="free_area0_p8 endline" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" />
-	<h:inputSecret id="inputSecretPassword" style="float:right" styleClass="free_area0_p8 endline" value="#{Login.password}"/>
-	<h:inputText id="inputUsername" style="float:right" styleClass="free_area0_p8 endline" value="#{Login.username}"/>
+	<h:inputSecret id="inputSecretPassword" style="float:right" styleClass="free_area0_p8 endline" value="#{LoginHelper.password}"/>
+	<h:inputText id="inputUsername" style="float:right" styleClass="free_area0_p8 endline" value="#{LoginHelper.username}"/>
 	
 	<h:panelGroup styleClass="seperator" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 

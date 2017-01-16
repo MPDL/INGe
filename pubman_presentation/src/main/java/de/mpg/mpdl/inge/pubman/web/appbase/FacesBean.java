@@ -76,7 +76,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
    */
   protected void init() {
 
-    testLogin();
+    // testLogin();
     getSessionBean(StatisticSessionBean.class);
     // restore messages if from redirect
     // ((FacesMessagesSessionBean)
