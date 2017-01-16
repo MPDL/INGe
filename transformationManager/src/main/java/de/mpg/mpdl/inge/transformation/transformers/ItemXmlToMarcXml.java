@@ -7,11 +7,10 @@ import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
-import de.mpg.mpdl.inge.transformation.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.MARC_XML)

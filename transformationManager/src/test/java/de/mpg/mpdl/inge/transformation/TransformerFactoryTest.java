@@ -147,6 +147,22 @@ public class TransformerFactoryTest {
     assertTransformation(wr, "results/html-meta-tags.txt");
   }
 
+  @Test
+  public void testItemXmlV3ToMarc21Xml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.MARC_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/marc21.xml");
+  }
+
   //
   // deprecated transformations
   //
@@ -201,22 +217,21 @@ public class TransformerFactoryTest {
 
     assertTrue("Difference in assert <" + difference + ">", difference.equals(""));
   }
-  
-  private void assertXmlTransformation(StringWriter wr, String fileNameOfExpectedResult) 
-		  throws IOException {
-	    String result = wr.toString();
-	    String expectedResult =
-	        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
 
-	    XmlComparator xmlComparator = null;
-		try {
-			xmlComparator = new XmlComparator(result, expectedResult);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+  private void assertXmlTransformation(StringWriter wr, String fileNameOfExpectedResult)
+      throws IOException {
+    String result = wr.toString();
+    String expectedResult =
+        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
 
-	    assertTrue("Difference in assert <"  + ">", xmlComparator.equal());
-	  }
+    XmlComparator xmlComparator = null;
+    try {
+      xmlComparator = new XmlComparator(result, expectedResult);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
+  }
 
 }

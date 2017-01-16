@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,7 +23,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
-import de.mpg.mpdl.inge.transformation.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -101,7 +100,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
         }
       }
 
-
+      logger.debug("Using <" + this.getClass().getSimpleName() + ">");
 
       xslTransformer.transform(source, result);
 

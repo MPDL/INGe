@@ -24,7 +24,7 @@
  * reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.transformation.util;
+package de.mpg.mpdl.inge.util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,9 +38,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * This class handle URIs in XSLT stylesheets such as xsl:import. In a jar the stylesheet can only
