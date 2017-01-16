@@ -163,9 +163,8 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
       throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
     }
 
-    Object bean =
-        FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
-            .getValue(FacesContext.getCurrentInstance());
+    Object bean = FacesContext.getCurrentInstance().getApplication()
+        .createValueBinding("#{" + name + "}").getValue(FacesContext.getCurrentInstance());
     logger.debug("Getting bean " + name + ": " + bean);
     return bean;
   }
@@ -357,7 +356,8 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void message(String summary, String detail, UIComponent component, Severity severity) {
+  public static void message(String summary, String detail, UIComponent component,
+      Severity severity) {
 
     FacesMessage fm = new FacesMessage(severity, summary, detail);
 
@@ -432,14 +432,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     // if not logged in redirect to login page
     if (!loginHelper.isLoggedIn()) {
-      try {
-        Login login = new Login();
-        login.loginLogout();
-      } catch (Exception e) {
-        logger.error("Error during redirection.", e);
-        error("Could not redirect to login!");
-      }
-
+      info(getMessage("NotLoggedIn"));
     }
 
   }
