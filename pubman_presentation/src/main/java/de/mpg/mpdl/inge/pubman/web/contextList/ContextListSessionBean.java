@@ -26,14 +26,24 @@
 
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
@@ -45,6 +55,8 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
+import de.mpg.mpdl.inge.es.service.ContextServiceBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
@@ -53,6 +65,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
  * @author: Thomas Diebäcker, created 12.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@Component
 public class ContextListSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ContextListSessionBean";
   private static Logger logger = Logger.getLogger(ContextListSessionBean.class);
@@ -68,6 +81,8 @@ public class ContextListSessionBean extends FacesBean {
   private List<PubContextVOPresentation> allPrivilegedContextList =
       new ArrayList<PubContextVOPresentation>();
   private LoginHelper loginHelper;
+
+  private ContextServiceHandler contextServiceHandler;;
 
   // private UIXIterator contextIterator = new UIXIterator();
 
@@ -85,6 +100,7 @@ public class ContextListSessionBean extends FacesBean {
       logger.error("Could not create context list.", e);
     }
   }
+
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
@@ -205,9 +221,8 @@ public class ContextListSessionBean extends FacesBean {
     return yearbookModeratorContextList;
   }
 
-
-
-  // TODO NBU: this method needs to be moved elsewhere here only to avoid common logic modification
+  // TODO NBU: this method needs to be moved elsewhere here only to avoid
+  // common logic modification
   // at present
   /**
    * @Retrieves A list of all contexts for which user has granted privileges @see
@@ -219,32 +234,50 @@ public class ContextListSessionBean extends FacesBean {
     if (this.loginHelper.isLoggedIn()
         && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null) {
       try {
-        // Create filter
-        FilterTaskParamVO filter = new FilterTaskParamVO();
-        ItemRefFilter itmRefFilter = filter.new ItemRefFilter();
-        filter.getFilterList().add(itmRefFilter);
-
+        /*
+         * // Create filter FilterTaskParamVO filter = new FilterTaskParamVO(); ItemRefFilter
+         * itmRefFilter = filter.new ItemRefFilter(); filter.getFilterList().add(itmRefFilter);
+         * 
+         * boolean hasGrants = false;
+         * 
+         * for (GrantVO grant : this.loginHelper.getAccountUser(). getGrantsWithoutAudienceGrants())
+         * { if (grant.getObjectRef() != null) { itmRefFilter.getIdList().add(new
+         * ItemRO(grant.getObjectRef())); hasGrants = true; } }
+         */
         boolean hasGrants = false;
 
+        ArrayList<String> ctxIdList = new ArrayList<>();
         for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
           if (grant.getObjectRef() != null) {
-            itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
+            String id = grant.getObjectRef().substring(grant.getObjectRef().lastIndexOf(":") + 1);
+            ctxIdList.add(id);
             hasGrants = true;
           }
         }
 
         // ... and transform filter to xml
         if (hasGrants) {
-          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+          // XmlTransformingBean xmlTransforming = new
+          // XmlTransformingBean();
 
           // Get context list
-          String contextList =
-              ServiceLocator.getContextHandler(this.loginHelper.getAccountUser().getHandle())
-                  .retrieveContexts(filter.toMap());
+          ArrayList<ContextVO> ctxList = new ArrayList<>();
+          contextServiceHandler = new ContextServiceHandler();
+          for (String id : ctxIdList) {
+            ContextVO ctx = contextServiceHandler.readContext("pure_" + id);
+            ctxList.add(ctx);
+          }
+          /*
+           * String contextList = ServiceLocator.getContextHandler(this.loginHelper.
+           * getAccountUser().getHandle()) .retrieveContexts(filter.toMap());
+           */
           // ... and transform to PubCollections.
           this.allPrivilegedContextList =
-              CommonUtils.convertToPubCollectionVOPresentationList(xmlTransforming
-                  .transformToContextList(contextList));
+              CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
+          /*
+           * CommonUtils.convertToPubCollectionVOPresentationList( xmlTransforming
+           * .transformToContextList(contextList));
+           */
         }
 
         this.depositorContextList = new ArrayList<PubContextVOPresentation>();
@@ -253,9 +286,11 @@ public class ContextListSessionBean extends FacesBean {
         this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
 
         for (PubContextVOPresentation context : this.allPrivilegedContextList) {
-          // TODO NBU: change this dummy looping once AccountUserVO provides method for
+          // TODO NBU: change this dummy looping once AccountUserVO
+          // provides method for
           // isDepositor(ObjectRef)
-          // At present it only provides this function for Moderator and Privileged viewer
+          // At present it only provides this function for Moderator
+          // and Privileged viewer
 
           for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
             if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
@@ -306,6 +341,5 @@ public class ContextListSessionBean extends FacesBean {
   public void setAllPrivilegedContextList(List<PubContextVOPresentation> allPrivilegedContextList) {
     this.allPrivilegedContextList = allPrivilegedContextList;
   }
-
 
 }

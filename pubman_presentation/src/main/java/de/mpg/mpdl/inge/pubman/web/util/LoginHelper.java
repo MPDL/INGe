@@ -60,6 +60,7 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
+import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
 import de.mpg.mpdl.inge.es.service.OrganizationServiceBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -90,7 +91,7 @@ public class LoginHelper extends FacesBean {
 
   private static Logger logger = Logger.getLogger(LoginHelper.class);
 
-  public static final String PARAMETERNAME_USERHANDLE = "autheticationToken";
+  public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
   public final static String BEAN_NAME = "LoginHelper";
   private String eSciDocUserHandle = null;
 
@@ -102,7 +103,7 @@ public class LoginHelper extends FacesBean {
     this.eSciDocUserHandle = eSciDocUserHandle;
   }
 
-  private String autheticationToken = null;
+  private String authenticationToken = null;
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
   private String username = "";
@@ -117,15 +118,14 @@ public class LoginHelper extends FacesBean {
   private boolean detailedMode = false;
 
 
-  @Autowired
-  OrganizationServiceBean osb;
+  private OrganizationServiceHandler organizationServiceHandler;
 
   /**
    * Public constructor.
    */
   public LoginHelper() {}
 
- 
+
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.
    * 
@@ -139,17 +139,18 @@ public class LoginHelper extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String token = this.obtainToken();
-    if (this.autheticationToken == null || this.autheticationToken.equals("")) {
+    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       if (token != null) {
-        this.autheticationToken = token;
+        this.authenticationToken = token;
         this.loggedIn = true;
         this.wasLoggedIn = true;
         this.setDetailedMode(true);
 
       }
     }
-    if (this.autheticationToken != null && !this.autheticationToken.equals("") && this.wasLoggedIn) {
-      fetchAccountUser(this.autheticationToken);
+    if (this.authenticationToken != null && !this.authenticationToken.equals("")
+        && this.wasLoggedIn) {
+      fetchAccountUser(this.authenticationToken);
       this.btnLoginLogout = "login_btLogout";
       // reinitialize ContextList
       ((ContextListSessionBean) getSessionBean(ContextListSessionBean.class)).init();
@@ -192,6 +193,8 @@ public class LoginHelper extends FacesBean {
     attributes.add(email);
     attributes.add(ou);
     this.accountUser.setAttributes(attributes);
+    this.accountUser.setActive((boolean) rawUser.get("active"));
+    this.accountUser.setName(rawUser.get("lastName") + ", " + rawUser.get("firstName"));
     this.setAuthenticationToken(token);
     this.setLoggedIn(true);
     this.setWasLoggedIn(true);
@@ -205,23 +208,21 @@ public class LoginHelper extends FacesBean {
     boolean isAlreadyGranted;
     if (!grantMap.isEmpty()) {
       for (LinkedHashMap<String, Map<String, Object>> grant : grantMap) {
-        isAlreadyGranted = false;
-        for (GrantVO comparisonGrant : this.userGrants) {
-          if ((grant.get("targetId") != null && comparisonGrant.getObjectRef() != null)
-              && (grant.get("role") != null && comparisonGrant.getRole() != null))
-          // && (grant.getObjectRef()).equals(comparisonGrant.getObjectRef())
-          // && (grant.getRole()).equals(comparisonGrant.getRole()))
-          {
-            isAlreadyGranted = true;
+
+        GrantVO grantVo = new GrantVO();
+        grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.get("exid"));
+        grantVo.setGrantType("");
+        String targetId = "/ir/context/escidoc:" + grant.get("targetId");
+        if (targetId.contains("all")) {
+
+        } else {
+          if (targetId.contains("vm44")) {
+            grantVo.setObjectRef(targetId.replace(
+                "vm44.mpdl.mpg.de/inge/pure_contexts/context/pure_", ""));
+            String roleName = (String) grant.get("role").get("name");
+            grantVo.setRole((String) "escidoc:role-" + roleName.toLowerCase());
+            this.userGrants.add(grantVo);
           }
-        }
-        if (isAlreadyGranted == false) {
-          GrantVO grantVo = new GrantVO();
-          grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.get("escidoc_id"));
-          grantVo.setGrantType("");
-          grantVo.setObjectRef("/ir/context/escidoc:" + grant.get("targerId"));
-          grantVo.setRole((String) "/aa/role/escidoc:role-" + grant.get("role").get("name"));
-          this.userGrants.add(grantVo);
         }
       }
     }
@@ -248,7 +249,7 @@ public class LoginHelper extends FacesBean {
         (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
     // change the button language
 
-    if (this.autheticationToken == null || this.autheticationToken.equals("")) {
+    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       this.btnLoginLogout = "login_btLogin";
     } else {
       this.btnLoginLogout = "login_btLogout";
@@ -264,19 +265,19 @@ public class LoginHelper extends FacesBean {
 
   // Getters and Setters
   public void login(String userHandle) {
-    this.autheticationToken = userHandle;
+    this.authenticationToken = userHandle;
   }
 
   public void logout(String userHandle) {
-    this.autheticationToken = null;
+    this.authenticationToken = null;
   }
 
   public String getAuthenticationToken() {
-    return autheticationToken;
+    return authenticationToken;
   }
 
   public void setAuthenticationToken(String authenticationToken) {
-    this.autheticationToken = authenticationToken;
+    this.authenticationToken = authenticationToken;
   }
 
   public AccountUserVO getAccountUser() {
@@ -316,7 +317,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getUser() {
-    return this.autheticationToken;
+    return this.authenticationToken;
   }
 
   public String getLoginLogoutLabel() {
@@ -350,7 +351,7 @@ public class LoginHelper extends FacesBean {
   @Override
   public String toString() {
     return "[Login: "
-        + (loggedIn ? "User " + autheticationToken + "(" + accountUser + ") is logged in]"
+        + (loggedIn ? "User " + authenticationToken + "(" + accountUser + ") is logged in]"
             : "No user is logged in (" + accountUser + ")]");
   }
 
@@ -383,11 +384,11 @@ public class LoginHelper extends FacesBean {
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
-
+      organizationServiceHandler = new OrganizationServiceHandler();
       userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (UserAttributeVO ua : getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          AffiliationVO orgUnit = osb.readOrganization(ua.getValue());
+          AffiliationVO orgUnit = organizationServiceHandler.readOrganization(ua.getValue());
           userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }

@@ -244,6 +244,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public int getVersionNumberForXml() {
     if (versionNumber > 0) {
       return versionNumber;
@@ -252,6 +253,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public Date getModificationDateForXml() {
     if (modificationDate == null) {
       return new Date();
@@ -260,6 +262,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public State getStateForXml() {
     if (state == null) {
       return State.PENDING;
@@ -268,6 +271,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public AccountUserRO getModifiedByForXml() {
     if (modifiedByRO == null) {
       return new AccountUserRO();
@@ -276,6 +280,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
+  @JsonIgnore
   public String getLastMessageForXml() {
     if (lastMessage == null) {
       return "";

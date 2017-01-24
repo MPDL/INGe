@@ -135,11 +135,11 @@ public class Login extends FacesBean {
     if (token != null) {
       this.loggedIn = true;
       try {
-		loginHelper.insertLogin();
-	} catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+        loginHelper.insertLogin();
+      } catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
   }
 
