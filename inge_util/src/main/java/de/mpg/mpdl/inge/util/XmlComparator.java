@@ -37,6 +37,8 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -50,213 +52,258 @@ import org.xml.sax.SAXException;
  * 
  */
 public class XmlComparator {
-	public List<String> errors = new ArrayList<String>();
+  public static Logger logger = Logger.getLogger(XmlComparator.class);
+  private List<String> errors = new ArrayList<String>();
+  private Map<String, String> attributesToIgnore = new HashMap<String, String>();
+  private boolean omit = false;
 
-	/**
-	 * Constructor taking 2 XML strings.
-	 * 
-	 * @param xml1
-	 *            An XML string
-	 * @param xml2
-	 * @throws Exception
-	 */
-	public XmlComparator(String xml1, String xml2) throws Exception {
-		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-		FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
-		SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
-		parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
-		parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
-	}
+  /**
+   * Constructor taking 2 XML strings.
+   * 
+   * @param xml1 An XML string
+   * @param xml2
+   * @throws Exception
+   */
+  public XmlComparator(String xml1, String xml2) throws Exception {
+    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+    FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
+    SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
+    parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
+    parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
+  }
+  
+  public XmlComparator(String xml1, String xml2, String ignore) throws Exception {
+	    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+	    FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
+	    SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
+	    addElementToIgnore(ignore);
+	    parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
+	    parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
+	  }
 
-	public boolean equal() {
-		return (errors.size() == 0);
-	}
+  public boolean equal() {
+    return (errors.size() == 0);
+  }
 
-	public List<String> getErrors() {
-		return errors;
-	}
+  public List<String> getErrors() {
+    return errors;
+  }
 
-	public String listErrors() {
-		return Arrays.toString(errors.toArray(new String[this.errors.size()]));
-		
-	}
+  public String listErrors() {
+    return Arrays.toString(errors.toArray(new String[this.errors.size()]));
+  }
 
-	private class FirstXmlHandler extends ShortContentHandler {
+  public void addElementToIgnore(String element) {
+    String[] attributeKeyAndValue = StringUtils.split(element, '=');
+    attributesToIgnore.put(attributeKeyAndValue[0], attributeKeyAndValue[1]);
+  }
 
-		private LinkedList<Node> nodeList = new LinkedList<Node>();
+  private class FirstXmlHandler extends ShortContentHandler {
 
-		@Override
-		public void content(String uri, String localName, String name, String content) throws SAXException {
-			super.content(uri, localName, name, content);
-			nodeList.add(new TextNode(content));
-		}
+    private LinkedList<Node> nodeList = new LinkedList<Node>();
 
-		@Override
-		public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
-			super.startElement(uri, localName, name, attributes);
-			Map<String, String> attributeMap = new HashMap<String, String>();
-			for (int i = 0; i < attributes.getLength(); i++) {
-				if (attributes.getQName(i).contains(":")) {
-					if (!attributes.getQName(i).startsWith("xmlns:")) {
-						String namespace = getNamespaces()
-								.get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-						String attributeName = attributes.getQName(i)
-								.substring(attributes.getQName(i).indexOf(":") + 1);
 
-						if (!"schemaLocation".equals(attributeName)
-								|| !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
-							attributeMap.put(namespace + ":" + attributeName, attributes.getValue(i));
-						}
-					}
-				}
-				// TODO MF: Hack for md-record/@name
-				else if ("name".equals(attributes.getQName(i))
-						&& "md-record".equals(name.substring(name.indexOf(":") + 1))) {
-					// Do nothing
-				} else {
-					attributeMap.put(attributes.getQName(i), attributes.getValue(i));
-				}
+    @Override
+    public void content(String uri, String localName, String name, String content)
+        throws SAXException {
+      super.content(uri, localName, name, content);
+      
+      nodeList.add(new TextNode(content));
+    }
 
-			}
-			if (name.contains(":")) {
-				nodeList.add(new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
-						getNamespaces().get(name.substring(0, name.indexOf(":")))));
-			} else {
-				nodeList.add(new XmlNode(attributeMap, name, null));
-			}
-		}
+    @Override
+    public void startElement(String uri, String localName, String name, Attributes attributes)
+        throws SAXException {
+    	
+      logger.info(uri + "1" + localName + "2" + name);
+      super.startElement(uri, localName, name, attributes);
+      Map<String, String> attributeMap = new HashMap<String, String>();
+      for (int i = 0; i < attributes.getLength(); i++) {
+        logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
+        
+        if (attributes.getQName(i).contains(":")) {
+          if (!attributes.getQName(i).startsWith("xmlns:")) {
+            String namespace =
+                getNamespaces().get(
+                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String attributeName =
+                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-	}
+            if (!"schemaLocation".equals(attributeName)
+                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
+              attributeMap.put(namespace + ":" + attributeName, attributes.getValue(i));
+            }
+          }
+        }
+        // TODO MF: Hack for md-record/@name
+        else if ("name".equals(attributes.getQName(i))
+            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
+          // Do nothing
+        }        
+        else {
+          attributeMap.put(attributes.getQName(i), attributes.getValue(i));
+        }
 
-	private class SecondXmlHandler extends ShortContentHandler {
-		private FirstXmlHandler firstXmlHandler;
+      }
+      if (name.contains(":")) {
+        nodeList.add(new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
+            getNamespaces().get(name.substring(0, name.indexOf(":")))));
+      } else {
+        nodeList.add(new XmlNode(attributeMap, name, null));
+      }
+    }
 
-		public SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
-			this.firstXmlHandler = firstXmlHandler;
-		}
+  }
 
-		@Override
-		public void content(String uri, String localName, String name, String content) throws SAXException {
-			super.content(uri, localName, name, content);
-			TextNode textNode = new TextNode(content);
-			Node other = firstXmlHandler.nodeList.poll();
+  private class SecondXmlHandler extends ShortContentHandler {
+    private FirstXmlHandler firstXmlHandler;
 
-			if (!textNode.equals(other)) {
-				errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
-			}
-		}
+    public SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
+      this.firstXmlHandler = firstXmlHandler;
+    }
 
-		@Override
-		public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
-			super.startElement(uri, localName, name, attributes);
-			XmlNode xmlNode;
-			Map<String, String> attributeMap = new HashMap<String, String>();
-			for (int i = 0; i < attributes.getLength(); i++) {
-				if (attributes.getQName(i).contains(":")) {
-					if (!attributes.getQName(i).startsWith("xmlns:")) {
-						String namespace = getNamespaces()
-								.get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-						String tagName = attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
+    @Override
+    public void content(String uri, String localName, String name, String content)
+        throws SAXException {
+      super.content(uri, localName, name, content);
+      TextNode textNode = new TextNode(content);
+      Node other = firstXmlHandler.nodeList.poll();
+    	  
+      if (!textNode.equals(other) && !omit) {
+        errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
+      }
+      if (omit) {
+    	  omit = false;
+      }
+    }
 
-						if (!"schemaLocation".equals(tagName)
-								|| !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
-							attributeMap.put(namespace + ":" + tagName, attributes.getValue(i));
-						}
-					}
-				}
-				// TODO MF: Hack for md-record/@name
-				else if ("name".equals(attributes.getQName(i))
-						&& "md-record".equals(name.substring(name.indexOf(":") + 1))) {
-					// Do nothing
-				} else {
-					attributeMap.put(attributes.getQName(i), attributes.getValue(i));
-				}
+    @Override
+    public void startElement(String uri, String localName, String name, Attributes attributes)
+        throws SAXException {
 
-			}
+        logger.info(uri + "1" + localName + "2" + name);
+      super.startElement(uri, localName, name, attributes);
+      XmlNode xmlNode;
+      Map<String, String> attributeMap = new HashMap<String, String>();
+      for (int i = 0; i < attributes.getLength(); i++) {
+    	  logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
+    	  
+    	  if (attributesToIgnore.get(attributes.getQName(i)) != null 
+          		&& attributesToIgnore.get(attributes.getQName(i)).equals(attributes.getValue(i))) { 
+          	logger.info("omitting <" + attributes.getQName(i) + "> <" + attributes.getValue(i) + ">");
+          	omit = true;
+          }
+    	  
+        if (attributes.getQName(i).contains(":")) {
+          if (!attributes.getQName(i).startsWith("xmlns:")) {
+            String namespace =
+                getNamespaces().get(
+                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String tagName =
+                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-			if (name.contains(":")) {
-				xmlNode = new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
-						getNamespaces().get(name.substring(0, name.indexOf(":"))));
-			} else {
-				xmlNode = new XmlNode(attributeMap, name, null);
-			}
-			Node other = firstXmlHandler.nodeList.poll();
+            if (!"schemaLocation".equals(tagName)
+                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
+              attributeMap.put(namespace + ":" + tagName, attributes.getValue(i));
+            }
+          }
+        }
+        // TODO MF: Hack for md-record/@name
+        else if ("name".equals(attributes.getQName(i))
+            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
+          // Do nothing
+        } 
+        else {
+          attributeMap.put(attributes.getQName(i), attributes.getValue(i));
+        }
 
-			if (!xmlNode.equals(other)) {
-				errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
-			}
-		}
+      }
+      if (name.contains(":")) {
+        xmlNode =
+            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(
+                name.substring(0, name.indexOf(":"))));
+      } else {
+        xmlNode = new XmlNode(attributeMap, name, null);
+      }
+      Node other = firstXmlHandler.nodeList.poll();
 
-	}
+      if (!xmlNode.equals(other)) {
+        errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
+      }
+    }
 
-	private interface Node {
-		public boolean equals(Object other);
-	}
+  }
 
-	private class XmlNode implements Node {
-		private Map<String, String> attributes;
-		private String name;
-		private String namespace;
+  private interface Node {
+    public boolean equals(Object other);
+  }
 
-		public XmlNode(Map<String, String> attributes, String name, String namespace) {
-			this.attributes = attributes;
-			this.name = name;
-			this.namespace = namespace;
-		}
+  private class XmlNode implements Node {
+    private Map<String, String> attributes;
+    private String name;
+    private String namespace;
 
-		@Override
-		public boolean equals(Object other) {
-			if (other == null || !(other instanceof XmlNode)) {
-				return false;
-			} else {
-				for (String name : attributes.keySet()) {
-					if (!name.startsWith("xmlns:") && !name.equals("xsi")
-							&& !attributes.get(name).equals(((XmlNode) other).attributes.get(name))) {
-						return false;
-					}
-				}
+    public XmlNode(Map<String, String> attributes, String name, String namespace) {
+      this.attributes = attributes;
+      this.name = name;
+      this.namespace = namespace;
+    }
 
-				for (String name : ((XmlNode) other).attributes.keySet()) {
-					if (!name.startsWith("xmlns:")
-							&& !((XmlNode) other).attributes.get(name).equals(attributes.get(name))) {
-						return false;
-					}
-				}
+    @Override
+    public boolean equals(Object other) {
+      if (other == null || !(other instanceof XmlNode)) {
+        return false;
+      } else {
+        for (String name : attributes.keySet()) {
+          if (!name.startsWith("xmlns:") && !name.equals("xsi")
+              && !attributes.get(name).equals(((XmlNode) other).attributes.get(name))) {
+            return false;
+          }
+        }
 
-				boolean x1 = (name == null ? ((XmlNode) other).name == null : name.equals(((XmlNode) other).name));
-				boolean x2 = (namespace == null ? ((XmlNode) other).namespace == null
-						: namespace.equals(((XmlNode) other).namespace));
+        for (String name : ((XmlNode) other).attributes.keySet()) {
+          if (!name.startsWith("xmlns:")
+              && !((XmlNode) other).attributes.get(name).equals(attributes.get(name))) {
+            return false;
+          }
+        }
 
-				return (x1 && x2);
-			}
-		}
+        boolean x1 =
+            (name == null ? ((XmlNode) other).name == null : name.equals(((XmlNode) other).name));
+        boolean x2 =
+            (namespace == null ? ((XmlNode) other).namespace == null : namespace
+                .equals(((XmlNode) other).namespace));
 
-	}
+        return (x1 && x2);
+      }
+    }
 
-	private class TextNode implements Node {
-		private String content;
+  }
 
-		public TextNode(String content) {
-			this.content = content.replace(">", "&gt;");
-		}
+  private class TextNode implements Node {
+    private String content;
 
-		@Override
-		public boolean equals(Object other) {
-			if (other == null || !(other instanceof TextNode)) {
-				return false;
-			} else if (content == null) {
-				return (((TextNode) other).content == null);
-			} else if (content.matches("^\\s*$")) {
-				return (((TextNode) other).content == null || ((TextNode) other).content.matches("^\\s*$"));
-			} else {
-				return content.equals(((TextNode) other).content);
-			}
-		}
+    public TextNode(String content) {
+      this.content = content.replace(">", "&gt;");
+    }
 
-		@Override
-		public String toString() {
-			return content;
-		}
+    @Override
+    public boolean equals(Object other) {
+      if (other == null || !(other instanceof TextNode)) {
+        return false;
+      } else if (content == null) {
+        return (((TextNode) other).content == null);
+      } else if (content.matches("^\\s*$")) {
+        return (((TextNode) other).content == null || ((TextNode) other).content.matches("^\\s*$"));
+      } else {
+        return content.equals(((TextNode) other).content);
+      }
+    }
 
-	}
+    @Override
+    public String toString() {
+      return content;
+    }
+
+  }
 }
