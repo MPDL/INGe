@@ -57,6 +57,7 @@ public class XmlComparator {
   private Map<String, String> attributesToIgnore = new HashMap<String, String>();
   private boolean omit = false;
 
+
   /**
    * Constructor taking 2 XML strings.
    * 
@@ -71,28 +72,13 @@ public class XmlComparator {
     parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
     parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
   }
-  
-  public XmlComparator(String xml1, String xml2, String ignore) throws Exception {
-	    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-	    FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
-	    SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
-	    addElementToIgnore(ignore);
-	    parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
-	    parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
-	  }
-  public List<String> errors = new ArrayList<String>();
 
-  /**
-   * Constructor taking 2 XML strings.
-   * 
-   * @param xml1 An XML string
-   * @param xml2
-   * @throws Exception
-   */
-  public XmlComparator(String xml1, String xml2) throws Exception {
+
+  public XmlComparator(String xml1, String xml2, String ignore) throws Exception {
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
     SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
+    addElementToIgnore(ignore);
     parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
     parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
   }
@@ -108,14 +94,13 @@ public class XmlComparator {
   public String listErrors() {
     return Arrays.toString(errors.toArray(new String[this.errors.size()]));
   }
-  public String listErrors() {
-    return Arrays.toString(errors.toArray(new String[this.errors.size()]));
 
   public void addElementToIgnore(String element) {
     String[] attributeKeyAndValue = StringUtils.split(element, '=');
     attributesToIgnore.put(attributeKeyAndValue[0], attributeKeyAndValue[1]);
   }
-  }
+
+
 
   private class FirstXmlHandler extends ShortContentHandler {
 
@@ -130,36 +115,21 @@ public class XmlComparator {
     }
 
     @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
-      super.content(uri, localName, name, content);
-      
-      nodeList.add(new TextNode(content));
-    }
-    @Override
     public void startElement(String uri, String localName, String name, Attributes attributes)
         throws SAXException {
-      super.startElement(uri, localName, name, attributes);
-      Map<String, String> attributeMap = new HashMap<String, String>();
-      for (int i = 0; i < attributes.getLength(); i++) {
-        if (attributes.getQName(i).contains(":")) {
-          if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace =
-                getNamespaces().get(
-                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-            String attributeName =
-                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-    @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
-    	
+
       logger.info(uri + "1" + localName + "2" + name);
       super.startElement(uri, localName, name, attributes);
       Map<String, String> attributeMap = new HashMap<String, String>();
+
+
+
       for (int i = 0; i < attributes.getLength(); i++) {
         logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
-        
+
+        super.startElement(uri, localName, name, attributes);
+
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
             String namespace =
@@ -167,6 +137,7 @@ public class XmlComparator {
                     attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
             String attributeName =
                 attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
+
             if (!"schemaLocation".equals(attributeName)
                 || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
               attributeMap.put(namespace + ":" + attributeName, attributes.getValue(i));
@@ -177,32 +148,11 @@ public class XmlComparator {
         else if ("name".equals(attributes.getQName(i))
             && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
           // Do nothing
+
         } else {
-          attributeMap.put(attributes.getQName(i), attributes.getValue(i));
-        }
 
-            if (!"schemaLocation".equals(attributeName)
-                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
-              attributeMap.put(namespace + ":" + attributeName, attributes.getValue(i));
-            }
-          }
-        }
-        // TODO MF: Hack for md-record/@name
-        else if ("name".equals(attributes.getQName(i))
-            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
-          // Do nothing
-        }        
-        else {
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
         }
-      }
-      if (name.contains(":")) {
-        nodeList.add(new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
-            getNamespaces().get(name.substring(0, name.indexOf(":")))));
-      } else {
-        nodeList.add(new XmlNode(attributeMap, name, null));
-      }
-    }
 
       }
       if (name.contains(":")) {
@@ -214,19 +164,15 @@ public class XmlComparator {
     }
   }
 
-  }
-  private class SecondXmlHandler extends ShortContentHandler {
-    private FirstXmlHandler firstXmlHandler;
+
 
   private class SecondXmlHandler extends ShortContentHandler {
     private FirstXmlHandler firstXmlHandler;
-    public SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
-      this.firstXmlHandler = firstXmlHandler;
-    }
 
     public SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
       this.firstXmlHandler = firstXmlHandler;
     }
+
     @Override
     public void content(String uri, String localName, String name, String content)
         throws SAXException {
@@ -234,20 +180,13 @@ public class XmlComparator {
       TextNode textNode = new TextNode(content);
       Node other = firstXmlHandler.nodeList.poll();
 
-    @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
-      super.content(uri, localName, name, content);
-      TextNode textNode = new TextNode(content);
-      Node other = firstXmlHandler.nodeList.poll();
-    	  
       if (!textNode.equals(other) && !omit) {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
       }
       if (omit) {
-    	  omit = false;
+        omit = false;
       }
-    }
+
       if (!textNode.equals(other)) {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
       }
@@ -256,13 +195,23 @@ public class XmlComparator {
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes)
         throws SAXException {
-    @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+
+
+      logger.info(uri + "1" + localName + "2" + name);
+
       super.startElement(uri, localName, name, attributes);
       XmlNode xmlNode;
       Map<String, String> attributeMap = new HashMap<String, String>();
       for (int i = 0; i < attributes.getLength(); i++) {
+
+        logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
+
+        if (attributesToIgnore.get(attributes.getQName(i)) != null
+            && attributesToIgnore.get(attributes.getQName(i)).equals(attributes.getValue(i))) {
+          logger.info("omitting <" + attributes.getQName(i) + "> <" + attributes.getValue(i) + ">");
+          omit = true;
+        }
+
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
             String namespace =
@@ -271,26 +220,6 @@ public class XmlComparator {
             String tagName =
                 attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-        logger.info(uri + "1" + localName + "2" + name);
-      super.startElement(uri, localName, name, attributes);
-      XmlNode xmlNode;
-      Map<String, String> attributeMap = new HashMap<String, String>();
-      for (int i = 0; i < attributes.getLength(); i++) {
-    	  logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
-    	  
-    	  if (attributesToIgnore.get(attributes.getQName(i)) != null 
-          		&& attributesToIgnore.get(attributes.getQName(i)).equals(attributes.getValue(i))) { 
-          	logger.info("omitting <" + attributes.getQName(i) + "> <" + attributes.getValue(i) + ">");
-          	omit = true;
-          }
-    	  
-        if (attributes.getQName(i).contains(":")) {
-          if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace =
-                getNamespaces().get(
-                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-            String tagName =
-                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
             if (!"schemaLocation".equals(tagName)
                 || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
               attributeMap.put(namespace + ":" + tagName, attributes.getValue(i));
@@ -301,35 +230,14 @@ public class XmlComparator {
         else if ("name".equals(attributes.getQName(i))
             && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
           // Do nothing
+
         } else {
+
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
         }
 
-            if (!"schemaLocation".equals(tagName)
-                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
-              attributeMap.put(namespace + ":" + tagName, attributes.getValue(i));
-            }
-          }
-        }
-        // TODO MF: Hack for md-record/@name
-        else if ("name".equals(attributes.getQName(i))
-            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
-          // Do nothing
-        } 
-        else {
-          attributeMap.put(attributes.getQName(i), attributes.getValue(i));
-        }
       }
 
-      }
-      if (name.contains(":")) {
-        xmlNode =
-            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(
-                name.substring(0, name.indexOf(":"))));
-      } else {
-        xmlNode = new XmlNode(attributeMap, name, null);
-      }
-      Node other = firstXmlHandler.nodeList.poll();
       if (name.contains(":")) {
         xmlNode =
             new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(
@@ -343,12 +251,14 @@ public class XmlComparator {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
       }
     }
-
   }
+
+
 
   private interface Node {
     public boolean equals(Object other);
   }
+
 
   private class XmlNode implements Node {
     private Map<String, String> attributes;
@@ -418,4 +328,6 @@ public class XmlComparator {
     }
 
   }
+
+
 }
