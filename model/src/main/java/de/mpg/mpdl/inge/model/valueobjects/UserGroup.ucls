@@ -13,7 +13,7 @@
   </class>  
   <class id="2" language="java" name="de.mpg.mpdl.inge.model.valueobjects.GrantVO" project="model" 
     file="/model/src/main/java/de/mpg/mpdl/inge/model/valueobjects/GrantVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1040" y="490"/>    
+    <position height="-1" width="-1" x="886" y="215"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,104 +22,90 @@
   </class>  
   <class id="3" language="java" name="de.mpg.mpdl.inge.model.valueobjects.MemberVO" project="model" 
     file="/model/src/main/java/de/mpg/mpdl/inge/model/valueobjects/MemberVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1021" y="871"/>    
+    <position height="-1" width="-1" x="280" y="637"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="de.mpg.mpdl.inge.model.valueobjects.ValueObject" project="model" 
-    file="/model/src/main/java/de/mpg/mpdl/inge/model/valueobjects/ValueObject.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1039" y="63"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="de.mpg.mpdl.inge.model.referenceobjects.GrantRO" project="model" 
+  <class id="4" language="java" name="de.mpg.mpdl.inge.model.referenceobjects.GrantRO" project="model" 
     file="/model/src/main/java/de/mpg/mpdl/inge/model/referenceobjects/GrantRO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1365" y="677"/>    
+    <position height="-1" width="-1" x="1239" y="445"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="6" language="java" name="de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles" project="model" 
+  <enumeration id="5" language="java" name="de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles" project="model" 
     file="/model/src/main/java/de/mpg/mpdl/inge/model/valueobjects/GrantVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1356" y="374"/>    
+    <position height="-1" width="-1" x="885" y="629"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="7" language="java" name="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" project="model" 
+  <class id="6" language="java" name="de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject" project="model" 
     file="/model/src/main/java/de/mpg/mpdl/inge/model/referenceobjects/ReferenceObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1673" y="663"/>    
+    <position height="-1" width="-1" x="1239" y="137"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <association id="9">    
+  <association id="7">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="10" name="members">        
-        <position height="0" width="0" x="-6" y="-47"/>      
+      <attribute id="8" name="members">        
+        <position height="0" width="0" x="-747" y="-281"/>      
       </attribute>      
-      <multiplicity id="11" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-6" y="-47"/>      
+      <multiplicity id="9" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-747" y="-281"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="12">    
+  <dependency id="10">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
+  <nesting id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
   <association id="13">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="14" name="grants">        
-        <position height="0" width="0" x="-5" y="-48"/>      
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="14" name="reference">        
+        <position height="0" width="0" x="-168" y="-358"/>      
       </attribute>      
-      <multiplicity id="15" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-5" y="-48"/>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-168" y="-358"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="17" name="grants">        
+        <position height="0" width="0" x="-159" y="-323"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-159" y="-323"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="16">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="17">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="18" name="reference">        
-        <position height="0" width="0" x="-42" y="-126"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-42" y="-126"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="20">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
