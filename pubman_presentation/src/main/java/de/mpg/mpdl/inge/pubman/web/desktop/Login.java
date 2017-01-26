@@ -38,6 +38,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -100,12 +101,12 @@ public class Login extends FacesBean {
       URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    String userHandle = loginHelper.getESciDocUserHandle();
+    String token = loginHelper.getAuthenticationToken();
 
-    if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null) {
+    if (loginHelper.isLoggedIn() && loginHelper.getAuthenticationToken() != null) {
       // logout mechanism
       loginHelper.setBtnLoginLogout("login_btLogin");
-      if (userHandle != null) {
+      if (token != null) {
         long zeit = -System.currentTimeMillis();
 
         zeit += System.currentTimeMillis();
@@ -124,29 +125,37 @@ public class Login extends FacesBean {
         session.invalidate();
       }
     } else {
-      fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+      login(loginHelper);
     }
     return "";
   }
 
+  public void login(LoginHelper loginHelper) {
+    String token = loginHelper.obtainToken();
+    if (token != null) {
+      this.loggedIn = true;
+      try {
+        loginHelper.insertLogin();
+      } catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+  }
+
   /**
+   * @param loginHelper
    * @param fc
    * @throws IOException
    * @throws ServiceException
    * @throws URISyntaxException
    */
   public void logout() throws IOException, ServiceException, URISyntaxException {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    // Deactivated because of import tool
-    fc.getExternalContext().redirect(
-        PropertyReader.getLoginUrl()
-            + LOGOUT_URL
-            + "?target="
-            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + "?logout=true", "UTF-8"));
-    // fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") +
-    // PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
+    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
+    this.loggedIn = false;
+    loginHelper.logout("");
+
   }
 
   /**
