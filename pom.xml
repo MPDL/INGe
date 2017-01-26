@@ -49,7 +49,9 @@
 		<module>dataacquisition_presentation</module>
 		<module>exportmanager</module>
 		<module>transformation</module>
+		<!--  
 		<module>transformationManager</module>
+		-->
 		<module>syndication_presentation</module>
 		<module>reporting</module>
 		<module>pid_cache_presentation</module>

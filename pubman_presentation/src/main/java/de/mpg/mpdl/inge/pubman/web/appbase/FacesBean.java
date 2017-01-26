@@ -76,7 +76,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
    */
   protected void init() {
 
-    // testLogin();
+    testLogin();
     getSessionBean(StatisticSessionBean.class);
     // restore messages if from redirect
     // ((FacesMessagesSessionBean)
@@ -432,7 +432,14 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     // if not logged in redirect to login page
     if (!loginHelper.isLoggedIn()) {
-      info(getMessage("NotLoggedIn"));
+      try {
+        Login login = new Login();
+        login.loginLogout();
+      } catch (Exception e) {
+        logger.error("Error during redirection.", e);
+        error("Could not redirect to login!");
+      }
+
     }
 
   }

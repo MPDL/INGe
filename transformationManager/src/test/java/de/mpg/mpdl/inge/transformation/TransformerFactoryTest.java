@@ -160,7 +160,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformation(wr, "results/marc21.xml");
+    assertXmlTransformationWithIgnore(wr, "results/marc21.xml", "tag=005");
   }
 
   //
@@ -233,5 +233,21 @@ public class TransformerFactoryTest {
 
     assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
   }
+  
+  private void assertXmlTransformationWithIgnore(StringWriter wr, String fileNameOfExpectedResult, String ignore)
+	      throws IOException {
+	    String result = wr.toString();
+	    String expectedResult =
+	        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
+
+	    XmlComparator xmlComparator = null;
+	    try {
+	      xmlComparator = new XmlComparator(result, expectedResult, ignore);
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+
+	    assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
+	  }
 
 }

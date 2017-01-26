@@ -33,8 +33,6 @@ public enum ElasticSearchIndexAdminClient {
 
   INSTANCE;
 
-  private ElasticSearchIndexAdminClient() {}
-
   /**
    * Create a new index
    * 

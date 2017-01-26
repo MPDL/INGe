@@ -26,45 +26,29 @@
 package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
-import de.mpg.mpdl.inge.es.service.OrganizationServiceBean;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -72,7 +56,6 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.desktop.Login;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -91,24 +74,14 @@ public class LoginHelper extends FacesBean {
 
   private static Logger logger = Logger.getLogger(LoginHelper.class);
 
-  public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
+  public static final String PARAMETERNAME_USERHANDLE = "eSciDocUserHandle";
   public final static String BEAN_NAME = "LoginHelper";
   private String eSciDocUserHandle = null;
-
-  public String getESciDocUserHandle() {
-    return eSciDocUserHandle;
-  }
-
-  public void setESciDocUserHandle(String eSciDocUserHandle) {
-    this.eSciDocUserHandle = eSciDocUserHandle;
-  }
-
-  private String authenticationToken = null;
   private String btnLoginLogout = "login_btLogin";
-  private String displayUserName = "";
-  private String username = "";
-  private String password = "";
   private boolean loggedIn = false;
+  // a flag for showing if the user has been logged in once. If yes, the user
+  // will be redirected to the home page
+  // after log out.
   private boolean wasLoggedIn = false;
   private AccountUserVO accountUser = new AccountUserVO();
   private List<AffiliationVOPresentation> userAccountAffiliations;
@@ -118,13 +91,77 @@ public class LoginHelper extends FacesBean {
   private boolean detailedMode = false;
 
 
-  private OrganizationServiceHandler organizationServiceHandler;
-
   /**
    * Public constructor.
    */
   public LoginHelper() {}
 
+  /**
+   * Method checks if the user is already logged in and inserts the escidoc user handle. If not it
+   * redirects to the login page.
+   * 
+   * @return String empty navigation string for reloading the current page
+   * @throws IOException IOException
+   * @throws ServletException ServletException
+   * @throws ServiceException ServiceException
+   * @throws TechnicalException TechnicalException
+   */
+  public String checkLogin() throws IOException, ServletException, ServiceException,
+      TechnicalException, URISyntaxException {
+    FacesContext fc = FacesContext.getCurrentInstance();
+    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    Login login = (Login) getRequestBean(Login.class);
+
+    // check if the user is not logged in at all
+    if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals("")) {
+      // if the request handle is null or empty
+      if (userHandle == null || userHandle.equals("")) {
+        // if ths user was not logged in then log-in the user
+        if (!wasLoggedIn) {
+          if (login == null) {
+            login = new Login();
+            login.loginLogout();
+          }
+        } else {
+          // if the user was logged in, then redirect to where it was asked during the login
+          this.wasLoggedIn = false;
+          fc.getExternalContext().redirect(request.getContextPath());
+        }
+      } else {
+        // if the user is logged in, encode the Handle and prepare some private attributes
+        this.eSciDocUserHandle = new String(Base64.decode(userHandle));
+        this.loggedIn = true;
+        this.wasLoggedIn = false;
+      }
+    }
+    // if the user is logged-in successfully, then
+    if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals("") && !this.wasLoggedIn) {
+      fetchAccountUser(this.eSciDocUserHandle);
+      this.btnLoginLogout = "login_btLogout";
+      this.wasLoggedIn = true;
+    }
+
+    logger.debug("this.accountUser.isDepositor(): " + this.accountUser.isDepositor());
+    logger.debug("getLabel(\"mainMenu_lnkDepositor\"): " + getLabel("mainMenu_lnkDepositor"));
+
+    // enable the depositor links if necessary
+    if (this.accountUser.isDepositor()) {
+      DepositorWSSessionBean depWSSessionBean =
+          (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
+
+      depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
+      depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
+      depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
+    }
+
+    if (this.accountUser.isModerator()) {
+      QAWSSessionBean qaWSSessionBean = (QAWSSessionBean) getSessionBean(QAWSSessionBean.class);
+      qaWSSessionBean.init();
+    }
+
+    return "";
+  }
 
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.
@@ -138,19 +175,18 @@ public class LoginHelper extends FacesBean {
       URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String token = this.obtainToken();
-    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
-      if (token != null) {
-        this.authenticationToken = token;
+    String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals("")) {
+      if (userHandle != null) {
+        this.eSciDocUserHandle = new String(Base64.decode(userHandle));
         this.loggedIn = true;
         this.wasLoggedIn = true;
         this.setDetailedMode(true);
 
       }
     }
-    if (this.authenticationToken != null && !this.authenticationToken.equals("")
-        && this.wasLoggedIn) {
-      fetchAccountUser(this.authenticationToken);
+    if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals("") && this.wasLoggedIn) {
+      fetchAccountUser(this.eSciDocUserHandle);
       this.btnLoginLogout = "login_btLogout";
       // reinitialize ContextList
       ((ContextListSessionBean) getSessionBean(ContextListSessionBean.class)).init();
@@ -172,69 +208,84 @@ public class LoginHelper extends FacesBean {
   /**
    * retrieves the account user with the user handle
    * 
-   * @param token user handle that is given back from FIZ framework (is needed here to call
+   * @param userHandle user handle that is given back from FIZ framework (is needed here to call
    *        framework methods)
    * @throws ServletException, ServiceException, TechnicalException
    */
-  public void fetchAccountUser(String token) throws WebserverSystemException,
+  public void fetchAccountUser(String userHandle) throws WebserverSystemException,
       SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
       TechnicalException, URISyntaxException {
+    // Call FrameWork method
+    XmlTransformingBean transforming = new XmlTransformingBean();
+    Login login = (Login) getRequestBean(Login.class);
+    String xmlUser = "";
+    try {
+      UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+      xmlUser = uah.retrieve(userHandle);
+      this.accountUser = transforming.transformToAccountUser(xmlUser);
+      String attributesXml = uah.retrieveAttributes(accountUser.getReference().getObjectId());
+      this.accountUser.setAttributes(transforming.transformToUserAttributesList(attributesXml));
+      // add the user handle to the transformed account user
+      this.accountUser.setHandle(userHandle);
+      this.setESciDocUserHandle(userHandle);
+      this.setLoggedIn(true);
+      this.setWasLoggedIn(true);
+      this.userGrants = new ArrayList<GrantVO>();
 
-    Map<String, Object> rawUser = null;
-    rawUser = this.obtainUser();
-    this.accountUser = new AccountUserVO();
-    List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
-    UserAttributeVO email = new UserAttributeVO();
-    email.setName("email");
-    email.setValue((String) rawUser.get("email"));
-    UserAttributeVO ou = new UserAttributeVO();
-    ou.setName("o");
-    ou.setValue((String) rawUser.get("ouid"));
-    attributes.add(email);
-    attributes.add(ou);
-    this.accountUser.setAttributes(attributes);
-    this.accountUser.setActive((boolean) rawUser.get("active"));
-    this.accountUser.setName(rawUser.get("lastName") + ", " + rawUser.get("firstName"));
-    this.setAuthenticationToken(token);
-    this.setLoggedIn(true);
-    this.setWasLoggedIn(true);
-    this.userGrants = new ArrayList<GrantVO>();
+      // get all user-grants
 
-    // get all user-grants
+      FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    ArrayList<LinkedHashMap<String, Map<String, Object>>> grantMap =
-        (ArrayList<LinkedHashMap<String, Map<String, Object>>>) rawUser.get("grants");
+      Filter accountUserFilter =
+          filter.new StandardFilter("http://escidoc.de/core/01/properties/user", this.accountUser
+              .getReference().getObjectId(), "=", "AND");
+      filter.getFilterList().add(accountUserFilter);
 
-    boolean isAlreadyGranted;
-    if (!grantMap.isEmpty()) {
-      for (LinkedHashMap<String, Map<String, Object>> grant : grantMap) {
+      Filter notAudienceRoleFilter =
+          filter.new StandardFilter("/properties/role/id",
+              GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "<>", "AND");
+      filter.getFilterList().add(notAudienceRoleFilter);
 
-        GrantVO grantVo = new GrantVO();
-        grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.get("exid"));
-        grantVo.setGrantType("");
-        String targetId = "/ir/context/escidoc:" + grant.get("targetId");
-        if (targetId.contains("all")) {
+      Filter notRevokedFilter =
+          filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
+      filter.getFilterList().add(notRevokedFilter);
 
-        } else {
-          if (targetId.contains("vm44")) {
-            grantVo.setObjectRef(targetId.replace(
-                "vm44.mpdl.mpg.de/inge/pure_contexts/context/pure_", ""));
-            String roleName = (String) grant.get("role").get("name");
-            grantVo.setRole((String) "escidoc:role-" + roleName.toLowerCase());
-            this.userGrants.add(grantVo);
+      String userGrantXML = uah.retrieveGrants(filter.toMap());
+      SearchRetrieveResponseVO searchResult =
+          transforming.transformToSearchRetrieveResponseGrantVO(userGrantXML);
+      boolean isAlreadyGranted;
+      if (searchResult.getRecords() != null) {
+        for (SearchRetrieveRecordVO searchRecord : searchResult.getRecords()) {
+          isAlreadyGranted = false;
+          GrantVO grant = (GrantVO) searchRecord.getData();
+          for (GrantVO comparisonGrant : this.userGrants) {
+            if ((grant.getObjectRef() != null && comparisonGrant.getObjectRef() != null)
+                && (grant.getRole() != null && comparisonGrant.getRole() != null)
+                && (grant.getObjectRef()).equals(comparisonGrant.getObjectRef())
+                && (grant.getRole()).equals(comparisonGrant.getRole())) {
+              isAlreadyGranted = true;
+            }
+          }
+          if (isAlreadyGranted == false) {
+            this.userGrants.add(grant);
           }
         }
       }
-    }
 
 
-    // NOTE: The block below must not be removed, as it sets the this.accountUser grants
-    List<GrantVO> setterGrants = this.accountUser.getGrants();
-    if (this.userGrants != null && !this.userGrants.isEmpty()) {
-      for (GrantVO userGrant : this.userGrants) {
-        setterGrants.add(userGrant);
-        this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
+      // NOTE: The block below must not be removed, as it sets the this.accountUser grants
+      List<GrantVO> setterGrants = this.accountUser.getGrants();
+      if (this.userGrants != null && !this.userGrants.isEmpty()) {
+        for (GrantVO userGrant : this.userGrants) {
+          setterGrants.add(userGrant);
+          this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
+        }
       }
+    } catch (AuthenticationException e) {
+      login.forceLogout();
+    } catch (IOException e) {
+      e.printStackTrace();
+      login.forceLogout();
     }
   }
 
@@ -249,7 +300,7 @@ public class LoginHelper extends FacesBean {
         (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
     // change the button language
 
-    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
+    if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals("")) {
       this.btnLoginLogout = "login_btLogin";
     } else {
       this.btnLoginLogout = "login_btLogout";
@@ -265,19 +316,19 @@ public class LoginHelper extends FacesBean {
 
   // Getters and Setters
   public void login(String userHandle) {
-    this.authenticationToken = userHandle;
+    this.eSciDocUserHandle = userHandle;
   }
 
   public void logout(String userHandle) {
-    this.authenticationToken = null;
+    this.eSciDocUserHandle = null;
   }
 
-  public String getAuthenticationToken() {
-    return authenticationToken;
+  public String getESciDocUserHandle() {
+    return eSciDocUserHandle;
   }
 
-  public void setAuthenticationToken(String authenticationToken) {
-    this.authenticationToken = authenticationToken;
+  public void setESciDocUserHandle(String eSciDocUserHandle) {
+    this.eSciDocUserHandle = eSciDocUserHandle;
   }
 
   public AccountUserVO getAccountUser() {
@@ -317,41 +368,17 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getUser() {
-    return this.authenticationToken;
+    return this.eSciDocUserHandle;
   }
 
   public String getLoginLogoutLabel() {
     return getLabel(btnLoginLogout);
   }
 
-  public String getDisplayUserName() {
-    return displayUserName;
-  }
-
-  public void setDisplayUserName(String displayUserName) {
-    this.displayUserName = displayUserName;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   @Override
   public String toString() {
     return "[Login: "
-        + (loggedIn ? "User " + authenticationToken + "(" + accountUser + ") is logged in]"
+        + (loggedIn ? "User " + eSciDocUserHandle + "(" + accountUser + ") is logged in]"
             : "No user is logged in (" + accountUser + ")]");
   }
 
@@ -384,12 +411,15 @@ public class LoginHelper extends FacesBean {
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
-      organizationServiceHandler = new OrganizationServiceHandler();
+      XmlTransformingBean transforming = new XmlTransformingBean();
+      OrganizationalUnitHandler ouh =
+          ServiceLocator.getOrganizationalUnitHandler(getESciDocUserHandle());
       userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (UserAttributeVO ua : getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          AffiliationVO orgUnit = organizationServiceHandler.readOrganization(ua.getValue());
-          userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
+          String orgUnitXml = ouh.retrieve(ua.getValue());
+          userAccountAffiliations.add(new AffiliationVOPresentation(transforming
+              .transformToAffiliation(orgUnitXml)));
         }
       }
     }
@@ -470,77 +500,6 @@ public class LoginHelper extends FacesBean {
    */
   public boolean isDetailedMode() {
     return this.detailedMode;
-  }
-
-  public String obtainToken() {
-
-    try {
-
-      URL url = new URL("https://vm44.mpdl.mpg.de/auth/token");
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("POST");
-      conn.setRequestProperty("Content-Type", "application/json");
-
-      String input =
-          "{\"userid\":\"" + this.getUsername() + "\",\"password\":\"" + this.getPassword() + "\"}";
-
-      OutputStream os = conn.getOutputStream();
-      os.write(input.getBytes());
-      os.flush();
-
-      System.out.println(conn.getResponseCode());
-      String token = conn.getHeaderField("Token");
-      System.out.println(token);
-
-      conn.disconnect();
-      return token;
-
-    } catch (MalformedURLException e) {
-
-      e.printStackTrace();
-
-    } catch (IOException e) {
-
-      e.printStackTrace();
-
-    }
-    return null;
-
-  }
-
-  public Map<String, Object> obtainUser() {
-
-    try {
-
-      URL url = new URL("https://vm44.mpdl.mpg.de/auth/users/" + this.getUsername());
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", this.getAuthenticationToken());
-
-      ObjectMapper mapper = new ObjectMapper();
-      Map<String, Object> rawUser = mapper.readValue(conn.getInputStream(), Map.class);
-      conn.disconnect();
-
-      // rawUser.forEach((k, v) -> System.out.println("user map. " + k + "   " + v));
-
-      return rawUser;
-
-    } catch (MalformedURLException e) {
-
-      e.printStackTrace();
-
-    } catch (JsonParseException e) {
-
-      e.printStackTrace();
-
-    } catch (IOException e) {
-
-      e.printStackTrace();
-
-    }
-    return null;
   }
 
 }

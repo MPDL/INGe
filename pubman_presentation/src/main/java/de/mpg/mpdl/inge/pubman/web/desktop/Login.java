@@ -38,7 +38,6 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -101,12 +100,12 @@ public class Login extends FacesBean {
       URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    String token = loginHelper.getAuthenticationToken();
+    String userHandle = loginHelper.getESciDocUserHandle();
 
-    if (loginHelper.isLoggedIn() && loginHelper.getAuthenticationToken() != null) {
+    if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null) {
       // logout mechanism
       loginHelper.setBtnLoginLogout("login_btLogin");
-      if (token != null) {
+      if (userHandle != null) {
         long zeit = -System.currentTimeMillis();
 
         zeit += System.currentTimeMillis();
@@ -125,37 +124,29 @@ public class Login extends FacesBean {
         session.invalidate();
       }
     } else {
-      login(loginHelper);
+      fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
     }
     return "";
   }
 
-  public void login(LoginHelper loginHelper) {
-    String token = loginHelper.obtainToken();
-    if (token != null) {
-      this.loggedIn = true;
-      try {
-        loginHelper.insertLogin();
-      } catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    }
-  }
-
   /**
-   * @param loginHelper
    * @param fc
    * @throws IOException
    * @throws ServiceException
    * @throws URISyntaxException
    */
   public void logout() throws IOException, ServiceException, URISyntaxException {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
-    this.loggedIn = false;
-    loginHelper.logout("");
-
+    FacesContext fc = FacesContext.getCurrentInstance();
+    // Deactivated because of import tool
+    fc.getExternalContext().redirect(
+        PropertyReader.getLoginUrl()
+            + LOGOUT_URL
+            + "?target="
+            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + "?logout=true", "UTF-8"));
+    // fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") +
+    // PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
   }
 
   /**
