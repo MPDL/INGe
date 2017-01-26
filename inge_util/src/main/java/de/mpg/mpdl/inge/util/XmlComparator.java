@@ -30,9 +30,12 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -51,10 +54,12 @@ import org.xml.sax.SAXException;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+
 public class XmlComparator {
   public static Logger logger = Logger.getLogger(XmlComparator.class);
   private List<String> errors = new ArrayList<String>();
-  private Map<String, String> attributesToIgnore = new HashMap<String, String>();
+  private ArrayListValuedHashMap<String, String> attributesToIgnore =
+      new ArrayListValuedHashMap<String, String>();
   private boolean omit = false;
 
 
@@ -74,11 +79,11 @@ public class XmlComparator {
   }
 
 
-  public XmlComparator(String xml1, String xml2, String ignore) throws Exception {
+  public XmlComparator(String xml1, String xml2, List<String> ignore) throws Exception {
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     FirstXmlHandler firstXmlHandler = new FirstXmlHandler();
     SecondXmlHandler secondXmlHandler = new SecondXmlHandler(firstXmlHandler);
-    addElementToIgnore(ignore);
+    addElementsToIgnore(ignore);
     parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
     parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
   }
@@ -95,9 +100,18 @@ public class XmlComparator {
     return Arrays.toString(errors.toArray(new String[this.errors.size()]));
   }
 
-  public void addElementToIgnore(String element) {
-    String[] attributeKeyAndValue = StringUtils.split(element, '=');
-    attributesToIgnore.put(attributeKeyAndValue[0], attributeKeyAndValue[1]);
+  private void addElementsToIgnore(List<String> elements) {
+
+    if (elements == null)
+      return;
+
+    Iterator<String> it = elements.iterator();
+
+    while (it.hasNext()) {
+      String[] splitElement = StringUtils.split(it.next(), '=');
+
+      attributesToIgnore.put(splitElement[0], splitElement[1]);
+    }
   }
 
 
@@ -118,15 +132,10 @@ public class XmlComparator {
     public void startElement(String uri, String localName, String name, Attributes attributes)
         throws SAXException {
 
-
-      logger.info(uri + "1" + localName + "2" + name);
       super.startElement(uri, localName, name, attributes);
       Map<String, String> attributeMap = new HashMap<String, String>();
 
-
-
       for (int i = 0; i < attributes.getLength(); i++) {
-        logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
 
         super.startElement(uri, localName, name, attributes);
 
@@ -150,7 +159,6 @@ public class XmlComparator {
           // Do nothing
 
         } else {
-
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
         }
 
@@ -186,28 +194,18 @@ public class XmlComparator {
       if (omit) {
         omit = false;
       }
-
-      if (!textNode.equals(other)) {
-        errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
-      }
     }
 
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes)
         throws SAXException {
 
-
-      logger.info(uri + "1" + localName + "2" + name);
-
       super.startElement(uri, localName, name, attributes);
       XmlNode xmlNode;
       Map<String, String> attributeMap = new HashMap<String, String>();
       for (int i = 0; i < attributes.getLength(); i++) {
 
-        logger.info(attributes.getQName(i) + "XX" + attributes.getValue(i));
-
-        if (attributesToIgnore.get(attributes.getQName(i)) != null
-            && attributesToIgnore.get(attributes.getQName(i)).equals(attributes.getValue(i))) {
+        if (attributesToIgnore.containsMapping(attributes.getQName(i), attributes.getValue(i))) {
           logger.info("omitting <" + attributes.getQName(i) + "> <" + attributes.getValue(i) + ">");
           omit = true;
         }
@@ -235,7 +233,6 @@ public class XmlComparator {
 
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
         }
-
       }
 
       if (name.contains(":")) {
