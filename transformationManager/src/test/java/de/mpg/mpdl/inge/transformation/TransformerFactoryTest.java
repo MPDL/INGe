@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -160,8 +163,27 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformationWithIgnore(wr, "results/marc21.xml", "tag=005");
+    assertXmlTransformationWithIgnore(wr, "results/marc21.xml",
+        Arrays.asList(new String[] {"tag=005", "tag=008"}));
   }
+  
+  @Test
+  public void testItemXmlV3ToOaiDcXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.OAI_DC);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+    
+    assertTransformation(wr, "results/oai_dc.xml");
+  }
+  
+  
 
   //
   // deprecated transformations
@@ -233,21 +255,21 @@ public class TransformerFactoryTest {
 
     assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
   }
-  
-  private void assertXmlTransformationWithIgnore(StringWriter wr, String fileNameOfExpectedResult, String ignore)
-	      throws IOException {
-	    String result = wr.toString();
-	    String expectedResult =
-	        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
 
-	    XmlComparator xmlComparator = null;
-	    try {
-	      xmlComparator = new XmlComparator(result, expectedResult, ignore);
-	    } catch (Exception e) {
-	      e.printStackTrace();
-	    }
+  private void assertXmlTransformationWithIgnore(StringWriter wr, String fileNameOfExpectedResult,
+      List<String> ignoreElements) throws IOException {
+    String result = wr.toString();
+    String expectedResult =
+        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader());
 
-	    assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
-	  }
+    XmlComparator xmlComparator = null;
+    try {
+      xmlComparator = new XmlComparator(result, expectedResult, ignoreElements);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
+  }
 
 }

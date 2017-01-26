@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:dcterms="http://purl.org/dc/terms/"
+           xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+           xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+   <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
+   <dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
+   <dc:creator>Samuni, Liran</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Preis, Anna</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Mundry, Roger</dc:creator>
+   <dc:contributor>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Deschner, Tobias</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Crockford, Catherine ǂ</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Wittig, Roman M.</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:title>Oxytocin reactivity during intergroup conflict in wild
+chimpanzees</dc:title>
+   <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+   <dc:date xsi:type="dcterms:W3CDTF">2016</dc:date>
+   <dc:source>Proceedings of the National Academy of Sciences of the United States of America</dc:source>
+   <dc:subject xsi:type="eterms:DDC"/>
+</oai_dc:dc>
+INFO  [de.mpg.mpdl.inge.transformation.TransformerFactoryTest] [main]: 
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:dcterms="http://purl.org/dc/terms/"
+           xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+           xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+   <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
+   <dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
+   <dc:creator>Samuni, Liran</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Preis, Anna</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Mundry, Roger</dc:creator>
+   <dc:contributor>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Deschner, Tobias</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Crockford, Catherine ǂ</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:creator>Wittig, Roman M.</dc:creator>
+   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
+   <dc:title>Oxytocin reactivity during intergroup conflict in wild
+chimpanzees</dc:title>
+   <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+   <dc:date xsi:type="dcterms:W3CDTF">2016</dc:date>
+   <dc:source>Proceedings of the National Academy of Sciences of the United States of America</dc:source>
+   <dc:subject xsi:type="eterms:DDC"/>
+</oai_dc:dc>
