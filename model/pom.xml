@@ -30,6 +30,10 @@
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
+	<properties>
+	        <spring.security.version>4.1.1.RELEASE</spring.security.version>
+		</properties>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -204,6 +208,12 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+				<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+		
 		<!-- START - xml_transforming dependencies -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
