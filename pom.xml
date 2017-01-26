@@ -416,7 +416,7 @@
 			<dependency>
 				<artifactId>lucene-core</artifactId>
             	<groupId>org.apache.lucene</groupId>
-            	<version>5.5.0</version>
+            	<version>5.5.2</version>
 			</dependency>
 
 			<dependency>
