@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,6 +28,10 @@ public class TransformerFactoryTest {
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
+  
+  //
+  // source ESCIDOC_ITEM_V3_XML
+  //
 
   @Test
   public void testItemXmlV3ToItemXmlV2() throws FileNotFoundException, TransformationException {
@@ -62,7 +65,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/bibtex_item.txt");
+    assertTransformation(wr, "results/fromEscidocItemToBibtex.txt");
   }
 
 
@@ -81,7 +84,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformation(wr, "results/doi_item.xml");
+    assertXmlTransformation(wr, "results/fromEscidocItemToDoiMetadata.xml");
   }
 
   @Test
@@ -97,7 +100,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/edoc_item.xml");
+    assertXmlTransformation(wr, "results/fromEscidocItemToEdoc.xml");
   }
 
   @Test
@@ -114,7 +117,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/endnote_item.txt");
+    assertTransformation(wr, "results/fromEscidocItemToEndnote.txt");
   }
 
   @Test
@@ -130,7 +133,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/endnote_item.xml");
+    assertTransformation(wr, "results/fromEscidocItemToEndnote.xml");
   }
 
   @Test
@@ -147,7 +150,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/html-meta-tags.txt");
+    assertTransformation(wr, "results/fromEscidocItemToHtmlMetatagsDC.xml");
   }
 
   @Test
@@ -163,7 +166,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformationWithIgnore(wr, "results/marc21.xml",
+    assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToMarc.xml",
         Arrays.asList(new String[] {"tag=005", "tag=008"}));
   }
   
@@ -180,7 +183,55 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
     
-    assertTransformation(wr, "results/oai_dc.xml");
+    assertTransformation(wr, "results/fromEscidocItemToOaiDC.xml");
+  }
+  
+  @Test
+  public void testItemXmlV3ToZimXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ZIM_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+    
+    assertXmlTransformation(wr, "results/fromEscidocItemToZim.xml");
+  }
+  
+  @Test
+  public void testBibtexToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "bibtex.txt")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+    
+    assertXmlTransformation(wr, "results/fromBibtexToEscidocItem.xml");
+  }
+  
+  @Test
+  public void testBmcXmlToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "bmc.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+    
+    assertXmlTransformation(wr, "results/fromBmcToEscidocItem.xml");
   }
   
   
