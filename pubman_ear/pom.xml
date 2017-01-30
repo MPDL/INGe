@@ -44,7 +44,6 @@
 
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<packagingExcludes>./*.properties</packagingExcludes>
-					<packagingExcludes>${additionalEarExcludes}</packagingExcludes>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<!-- <jboss> <data-sources> <data-source>validation-ds.xml</data-source> 
@@ -505,17 +504,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<!-- For PubMan instance which runs on its own in wildfly, without escidoc-core -->
-			<id>standalone</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<additionalEarExcludes>**/jboss-all.xml</additionalEarExcludes>
-			</properties>
-
 		</profile>
 	</profiles>
 </project>

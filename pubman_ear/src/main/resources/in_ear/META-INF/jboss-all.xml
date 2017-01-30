@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-    <jboss umlns="urn:jboss:1.0">  
-      <!-- Required if PubMan is deployed together with escidoc.core in wildfly for correct deployment order -->
-      <jboss-deployment-dependencies xmlns="urn:jboss:deployment-dependencies:1.0">  
-      	<dependency name="escidoc-core.ear" />
-      
-      </jboss-deployment-dependencies>  
-    </jboss>  
