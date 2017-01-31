@@ -30,12 +30,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -58,8 +55,7 @@ import org.xml.sax.SAXException;
 public class XmlComparator {
   public static Logger logger = Logger.getLogger(XmlComparator.class);
   private List<String> errors = new ArrayList<String>();
-  private ArrayListValuedHashMap<String, String> attributesToIgnore =
-      new ArrayListValuedHashMap<String, String>();
+  private List<XmlNode> elementsToIgnore = new ArrayList<XmlNode>();
   private boolean omit = false;
 
 
@@ -105,12 +101,20 @@ public class XmlComparator {
     if (elements == null)
       return;
 
-    Iterator<String> it = elements.iterator();
+    for (String e : elements) {
+      String[] components = StringUtils.split(e, ",");
+      String name = components[0].trim();
+      Map<String, String> attributeMap = new HashMap<String, String>();
+      
+      if (components[1] != null && components[1].contains("=")) {
+	      String tag[] = StringUtils.split(components[1].trim(), "=");	      
+	      attributeMap.put(tag[0], tag[1]);
+      }
+      String nameSpace = components[2].trim();
 
-    while (it.hasNext()) {
-      String[] splitElement = StringUtils.split(it.next(), '=');
+      XmlNode node = new XmlNode(attributeMap, name, nameSpace);
 
-      attributesToIgnore.put(splitElement[0], splitElement[1]);
+      elementsToIgnore.add(node);
     }
   }
 
@@ -205,11 +209,6 @@ public class XmlComparator {
       Map<String, String> attributeMap = new HashMap<String, String>();
       for (int i = 0; i < attributes.getLength(); i++) {
 
-        if (attributesToIgnore.containsMapping(attributes.getQName(i), attributes.getValue(i))) {
-          logger.info("omitting <" + attributes.getQName(i) + "> <" + attributes.getValue(i) + ">");
-          omit = true;
-        }
-
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
             String namespace =
@@ -241,7 +240,14 @@ public class XmlComparator {
                 name.substring(0, name.indexOf(":"))));
       } else {
         xmlNode = new XmlNode(attributeMap, name, null);
+        
       }
+      
+      if (elementsToIgnore.contains(xmlNode)) {
+        logger.info("omitting <" + xmlNode.toString() + ">");
+        omit = true;
+      }
+
       Node other = firstXmlHandler.nodeList.poll();
 
       if (!xmlNode.equals(other)) {
@@ -273,16 +279,16 @@ public class XmlComparator {
       if (other == null || !(other instanceof XmlNode)) {
         return false;
       } else {
-        for (String name : attributes.keySet()) {
-          if (!name.startsWith("xmlns:") && !name.equals("xsi")
-              && !attributes.get(name).equals(((XmlNode) other).attributes.get(name))) {
+        for (String attributeName : attributes.keySet()) {
+          if (!attributeName.startsWith("xmlns:") && !attributeName.equals("xsi")
+              && !attributes.get(attributeName).equals(((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
         }
 
-        for (String name : ((XmlNode) other).attributes.keySet()) {
-          if (!name.startsWith("xmlns:")
-              && !((XmlNode) other).attributes.get(name).equals(attributes.get(name))) {
+        for (String attributeName : ((XmlNode) other).attributes.keySet()) {
+          if (!attributeName.startsWith("xmlns:")
+              && !((XmlNode) other).attributes.get(attributeName).equals(attributes.get(attributeName))) {
             return false;
           }
         }
@@ -299,7 +305,7 @@ public class XmlComparator {
 
   }
 
-  private class TextNode implements Node {
+  public class TextNode implements Node {
     private String content;
 
     public TextNode(String content) {

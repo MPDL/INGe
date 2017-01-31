@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zim_transfer>
+   <record>
+      <metametadata>
+         <localid>escidoc:2368787</localid>
+      </metametadata>
+      <rights/>
+      <genre>3</genre>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>L.</creatorini>
+         <creatornfamily>Samuni</creatornfamily>
+         <creatorngiven>Liran</creatorngiven>
+      </creator>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>A.</creatorini>
+         <creatornfamily>Preis</creatornfamily>
+         <creatorngiven>Anna</creatorngiven>
+      </creator>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>R.</creatorini>
+         <creatornfamily>Mundry</creatornfamily>
+         <creatorngiven>Roger</creatorngiven>
+      </creator>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>T.</creatorini>
+         <creatornfamily>Deschner</creatornfamily>
+         <creatorngiven>Tobias</creatorngiven>
+      </creator>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>C. ǂ.</creatorini>
+         <creatornfamily>Crockford</creatornfamily>
+         <creatorngiven>Catherine ǂ</creatorngiven>
+      </creator>
+      <creator role="author" creatortype="individual" internextern="unknown">
+         <creatorini>R. M.</creatorini>
+         <creatornfamily>Wittig</creatornfamily>
+         <creatorngiven>Roman M.</creatorngiven>
+      </creator>
+      <publication>
+         <source>
+            <injournal>
+               <journaltitle>Proceedings of the National Academy of Sciences of the United States of America</journaltitle>
+               <journalabbreviation>Proc. Acad. Sci. USA</journalabbreviation>
+            </injournal>
+         </source>
+      </publication>
+      <content>
+         <educationalpurpose>no</educationalpurpose>
+         <enduser>notspecified</enduser>
+         <identifier type="url">/item/escidoc:2368787</identifier>
+         <language>English</language>
+         <pubstatus>published</pubstatus>
+         <refereed>joureview</refereed>
+         <title>Oxytocin reactivity during intergroup conflict in wild chimpanzees</title>
+      </content>
+   </record>
+</zim_transfer>

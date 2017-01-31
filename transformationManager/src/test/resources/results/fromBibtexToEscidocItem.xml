@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
+                  xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7"
+                  xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7"
+                  xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                  xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
+                  xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                  xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3"
+                  xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:prop="http://escidoc.de/core/01/properties/"
+                  xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                  xmlns:version="http://escidoc.de/core/01/properties/version/"
+                  xmlns:release="http://escidoc.de/core/01/properties/release/"
+                  xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10"
+                  xmlns:container="http://www.escidoc.de/schemas/container/0.9"
+                  xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9"
+                  xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
+                  xmlns:mods-md="http://www.loc.gov/mods/v3"
+                  xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                  xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                  xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook"
+                  xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face"
+                  xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+  <escidocItem:properties>
+      <srel:content-model xlink:href=""/>
+      <prop:version>
+         <version:number>1</version:number>
+         <version:date>2017-01-26T13:15:24.696Z</version:date>
+         <version:status>pending</version:status>
+         <srel:modified-by/>
+         <version:comment/>
+      </prop:version>
+      <prop:latest-version>
+         <version:number>1</version:number>
+         <version:date>2017-01-26T13:15:24.703Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+         <release:number>1</release:number>
+         <release:date>2017-01-26T13:15:24.703Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+         <local-tags/>
+      </prop:content-model-specific>
+  </escidocItem:properties>
+  <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+         <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                  xmlns:dcterms="http://purl.org/dc/terms/"
+                                  xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                                  xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                                  xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                                  xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                                  xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                                  xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project"
+                                  xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
+                                  type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Chiari</eterms:family-name>
+                  <eterms:given-name>M.</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>External Organizations</dc:title>
+                     <dc:identifier>escidoc:9019</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Bianconi</eterms:family-name>
+                  <eterms:given-name>M.</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Bogdanovic Radovic</eterms:family-name>
+                  <eterms:given-name>I.</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Mayer</eterms:family-name>
+                  <eterms:given-name>M.</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Benchmark measurements of non-Rutherford proton elastic scattering cross section for boron</dc:title>
+            <dc:identifier xsi:type="eterms:DOI">10.1016/j.nimb.2014.11.045</dc:identifier>
+            <dc:identifier xsi:type="eterms:BIBTEX_CITEKEY">escidoc:2058440</dc:identifier>
+            <eterms:publishing-info/>
+            <dcterms:issued xsi:type="dcterms:W3CDTF">2015</dcterms:issued>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms</dc:title>
+               <eterms:volume>343</eterms:volume>
+               <eterms:start-page>70</eterms:start-page>
+               <eterms:end-page>76</eterms:end-page>
+               <eterms:publishing-info>
+                  <dc:publisher>Elsevier B.V.</dc:publisher>
+                  <eterms:place>Amsterdam</eterms:place>
+               </eterms:publishing-info>
+               <dc:identifier xsi:type="eterms:ISSN">0168-583X</dc:identifier>
+            </source:source>
+         </publication:publication>
+      </escidocMetadataRecords:md-record>
+  </escidocMetadataRecords:md-records>
+  <escidocComponents:components/>
+</escidocItem:item>
