@@ -473,7 +473,7 @@ public class LoginHelper extends FacesBean {
 
     try {
 
-      URL url = new URL("https://vm44.mpdl.mpg.de/auth/token");
+      URL url = new URL("http://vm44.mpdl.mpg.de/auth/token");
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("POST");
@@ -510,7 +510,7 @@ public class LoginHelper extends FacesBean {
 
     try {
 
-      URL url = new URL("https://vm44.mpdl.mpg.de/auth/users/" + this.getUsername());
+      URL url = new URL("http://vm44.mpdl.mpg.de/auth/users/" + this.getUsername());
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");
