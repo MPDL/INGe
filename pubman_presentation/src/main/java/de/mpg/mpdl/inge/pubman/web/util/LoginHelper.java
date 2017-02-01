@@ -31,7 +31,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,40 +42,27 @@ import java.util.ResourceBundle;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
-import de.mpg.mpdl.inge.es.service.OrganizationServiceBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
-import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -177,21 +163,22 @@ public class LoginHelper extends FacesBean {
       SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
       TechnicalException, URISyntaxException {
 
-    Map<String, Object> rawUser = null;
+    JsonNode rawUser = null;
     rawUser = this.obtainUser();
     this.accountUser = new AccountUserVO();
     List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
     UserAttributeVO email = new UserAttributeVO();
     email.setName("email");
-    email.setValue((String) rawUser.get("email"));
+    email.setValue(rawUser.path("email").asText());
     UserAttributeVO ou = new UserAttributeVO();
     ou.setName("o");
-    ou.setValue((String) rawUser.get("ouid"));
+    ou.setValue(rawUser.path("ouid").asText());
     attributes.add(email);
     attributes.add(ou);
     this.accountUser.setAttributes(attributes);
-    this.accountUser.setActive((boolean) rawUser.get("active"));
-    this.accountUser.setName(rawUser.get("lastName") + ", " + rawUser.get("firstName"));
+    this.accountUser.setActive(rawUser.path("active").asBoolean());
+    this.accountUser.setName(rawUser.path("lastName").asText() + ", "
+        + rawUser.path("firstName").asText());
     this.setAuthenticationToken(token);
     this.setLoggedIn(true);
     this.setWasLoggedIn(true);
@@ -199,28 +186,23 @@ public class LoginHelper extends FacesBean {
 
     // get all user-grants
 
-    ArrayList<LinkedHashMap<String, Map<String, Object>>> grantMap =
-        (ArrayList<LinkedHashMap<String, Map<String, Object>>>) rawUser.get("grants");
+    JsonNode grants = rawUser.path("grants");
 
-    boolean isAlreadyGranted;
-    if (!grantMap.isEmpty()) {
-      for (LinkedHashMap<String, Map<String, Object>> grant : grantMap) {
+    if (grants.isArray()) {
+      for (JsonNode grant : grants) {
 
         GrantVO grantVo = new GrantVO();
-        grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.get("exid"));
+        grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
         grantVo.setGrantType("");
-        String targetId = "/ir/context/escidoc:" + grant.get("targetId");
-        if (targetId.contains("all")) {
+        if (grant.path("targetId").asText().contains("all")) {
 
         } else {
-          if (targetId.contains("vm44")) {
-            grantVo.setObjectRef(targetId.replace(
-                "vm44.mpdl.mpg.de/inge/pure_contexts/context/pure_", ""));
-            String roleName = (String) grant.get("role").get("name");
-            grantVo.setRole((String) "escidoc:role-" + roleName.toLowerCase());
-            this.userGrants.add(grantVo);
-          }
+          grantVo.setObjectRef(grant.path("targetId").asText());
+          String roleName = grant.path("role").path("name").asText();
+          grantVo.setRole((String) "escidoc:role-" + roleName.toLowerCase());
+          this.userGrants.add(grantVo);
         }
+
       }
     }
 
@@ -473,7 +455,7 @@ public class LoginHelper extends FacesBean {
 
     try {
 
-      URL url = new URL("http://vm44.mpdl.mpg.de/auth/token");
+      URL url = new URL(PropertyReader.getProperty("auth.token.url"));
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("POST");
@@ -506,18 +488,18 @@ public class LoginHelper extends FacesBean {
 
   }
 
-  public Map<String, Object> obtainUser() {
+  public JsonNode obtainUser() {
 
     try {
 
-      URL url = new URL("http://vm44.mpdl.mpg.de/auth/users/" + this.getUsername());
+      URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");
       conn.setRequestProperty("Authorization", this.getAuthenticationToken());
 
       ObjectMapper mapper = new ObjectMapper();
-      Map<String, Object> rawUser = mapper.readValue(conn.getInputStream(), Map.class);
+      JsonNode rawUser = mapper.readTree(conn.getInputStream());
       conn.disconnect();
 
       // rawUser.forEach((k, v) -> System.out.println("user map. " + k + "   " + v));

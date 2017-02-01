@@ -233,7 +233,7 @@ public class ContextListSessionBean extends FacesBean {
         ArrayList<String> ctxIdList = new ArrayList<>();
         for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
           if (grant.getObjectRef() != null) {
-            String id = grant.getObjectRef().substring(grant.getObjectRef().lastIndexOf(":") + 1);
+            String id = grant.getObjectRef();
             ctxIdList.add(id);
             hasGrants = true;
           }
@@ -248,7 +248,8 @@ public class ContextListSessionBean extends FacesBean {
           ArrayList<ContextVO> ctxList = new ArrayList<>();
           contextServiceHandler = new ContextServiceHandler();
           for (String id : ctxIdList) {
-            ContextVO ctx = contextServiceHandler.readContext("pure_" + id);
+            ContextVO ctx =
+                contextServiceHandler.readContext(id.replace("/ir/context/escidoc:", "pure_"));
             ctxList.add(ctx);
           }
           /*
