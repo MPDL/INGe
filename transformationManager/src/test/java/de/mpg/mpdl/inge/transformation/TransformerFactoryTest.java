@@ -312,23 +312,21 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMarcXmlToEscidocItem.xml");
   }
 
-/*  
-  @Test
-  public void testModsXmlToItemXmlV3() throws TransformationException, IOException {
-
-    StringWriter wr = new StringWriter();
-
-    Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
-
-    t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mods2.xml")),
-        new TransformerStreamResult(wr));
-
-    logger.info("\n" + wr.toString());
-
-    // assertXmlTransformation(wr, "results/fromMarcXmlToEscidocItem.xml");
-  }
-*/
+  /*
+   * @Test public void testModsXmlToItemXmlV3() throws TransformationException, IOException {
+   * 
+   * StringWriter wr = new StringWriter();
+   * 
+   * Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+   * 
+   * t.transform( new
+   * TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mods2.xml")), new
+   * TransformerStreamResult(wr));
+   * 
+   * logger.info("\n" + wr.toString());
+   * 
+   * // assertXmlTransformation(wr, "results/fromMarcXmlToEscidocItem.xml"); }
+   */
 
 
   //

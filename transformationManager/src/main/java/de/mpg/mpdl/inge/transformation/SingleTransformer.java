@@ -8,17 +8,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.transformation.transformers.XslTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public abstract class SingleTransformer implements Transformer {
+
+  private static Logger logger = Logger.getLogger(SingleTransformer.class);
 
   private FORMAT sourceFormat;
 
@@ -55,16 +58,15 @@ public abstract class SingleTransformer implements Transformer {
     String stylesheetFileName = PropertyReader.getProperty(property);
 
     if (stylesheetFileName == null) {
-      XslTransformer.logger
-          .warn("No default configuration file found for Xml transformation. Property " + property
-              + " not set.");
+      logger.warn("No default configuration file found for Xml transformation. Property "
+          + property + " not set.");
       return null;
     } else {
       try {
         Map<String, String> config = new HashMap<String, String>();
         InputStream stylesheetInputStram =
             ResourceUtil.getResourceAsStream(stylesheetFileName,
-                XslTransformer.class.getClassLoader());
+                SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
         props.load(stylesheetInputStram);
         stylesheetInputStram.close();
