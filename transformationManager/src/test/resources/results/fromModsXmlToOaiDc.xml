@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:srw_dc="info:srw/schema/1/dc-schema"
+           xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+           xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+	  <dc:type>n</dc:type>
+	  <dc:type>f</dc:type>
+	  <dc:title>Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum: Nach Ordnung der Materien zusammen getragen und heraus gegeben von Eberhard Christian Wilhelm von Schauroth</dc:title>
+	  <dc:title>Unvollständige Sammlung einiger Conclusorum, Schreiben und anderer Verhandlungen des Corporis evangelicorum</dc:title>
+	  <dc:contributor>(Schauroth, Eberhard Christian Wilhelm von)</dc:contributor>
+	  <dc:contributor>Frank, Willi (Frank, Wilhelm)</dc:contributor>
+	  <dc:publisher>Neubauer</dc:publisher>
+	
+	  <dc:description>Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreißlichen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich</dc:description>
+	  <dc:subject>Corpus Evangelicorum</dc:subject>
+	
+	  <dc:identifier>69448</dc:identifier>
+</oai_dc:dc>

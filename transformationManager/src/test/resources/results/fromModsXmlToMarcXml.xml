@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+   <marc:leader>     nm  22     uu 4500</marc:leader>
+   <marc:controlfield tag="001">69448</marc:controlfield>
+   <marc:controlfield tag="003">MPIER catalog</marc:controlfield>
+   <marc:controlfield tag="008">      s           ||||||||||||||||||||||</marc:controlfield>
+	  <marc:datafield tag="655" ind1=" " ind2="7">
+      <marc:subfield code="a">n</marc:subfield>
+      <marc:subfield code="2">MAB2-051/1-3</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="655" ind1=" " ind2="7">
+      <marc:subfield code="a">f</marc:subfield>
+      <marc:subfield code="2">MAB2-051</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="245" ind1="1" ind2="0">
+      <marc:subfield code="a">Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</marc:subfield>
+      <marc:subfield code="b">Nach Ordnung der Materien zusammen getragen und heraus gegeben von Eberhard Christian Wilhelm von Schauroth</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="130" ind1="0" ind2=" ">
+      <marc:subfield code="a">Unvollständige Sammlung einiger Conclusorum, Schreiben und anderer Verhandlungen des Corporis evangelicorum</marc:subfield>
+      <marc:subfield code="a">Unvollständige Sammlung einiger Conclusorum</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="720" ind1=" " ind2=" ">
+      <marc:subfield code="a"/>
+   </marc:datafield>
+	  <marc:datafield tag="720" ind1=" " ind2=" ">
+      <marc:subfield code="a">Willi</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="260" ind1=" " ind2=" ">
+      <marc:subfield code="a">Regenspurg</marc:subfield>
+      <marc:subfield code="b">Neubauer</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="260" ind1=" " ind2=" ">
+      <marc:subfield code="c">1752</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="500" ind1=" " ind2=" ">
+      <marc:subfield code="a">Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreißlichen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich</marc:subfield>
+   </marc:datafield>
+	  <marc:datafield tag="650" ind1="1" ind2=" ">
+      <marc:subfield code="a">Corpus Evangelicorum</marc:subfield>
+   </marc:datafield>
+	
+	
+</marc:record>

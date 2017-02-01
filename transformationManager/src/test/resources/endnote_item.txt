@@ -1,0 +1,32 @@
+%0 Journal Article
+%A Samuni, Liran
+%A Preis, Anna
+%A Mundry, Roger
+%A Deschner, Tobias
+%A Crockford, Catherine ǂ
+%A Wittig, Roman M.
+%+ Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
+%T Oxytocin reactivity during intergroup conflict in wild
+chimpanzees (advance online) : 
+%G eng
+%U http://hdl.handle.net/11858/00-001M-0000-002C-186C-8
+%R 10.1073/pnas.1616812114
+%7 2016-12
+%D 2016
+%* Review method: peer-reviewed
+%J Proceedings of the National Academy of Sciences of the United States of America
+%O Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS
+%I National Academy of Sciences
+%C Washington, D.C.
+%@ 0027-8424
