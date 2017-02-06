@@ -29,10 +29,10 @@ public class TestBase {
 
     return vo;
   }
-  
+
   public PubItemVO test_item() {
     PubItemVO vo = new PubItemVO();
-    
+
     return vo;
   }
 }

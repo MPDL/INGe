@@ -19,7 +19,7 @@ public class TestContextServiceHandler extends TestBase {
 
   private ContextServiceHandler contextServiceHandler;
   private String test_context_id = "test_context";
- 
+
   @Before
   public void setUp() throws Exception {
     this.contextServiceHandler = new ContextServiceHandler();

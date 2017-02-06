@@ -18,7 +18,7 @@ public class TestItemServiceHandler extends TestBase {
 
   private ItemServiceHandler itemServiceHandler;
   private String test_item_id = "test_item";
- 
+
   @Before
   public void setUp() throws Exception {
     this.itemServiceHandler = new ItemServiceHandler();

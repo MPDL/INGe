@@ -18,7 +18,7 @@ public class TestOrganizationServiceHandler extends TestBase {
 
   private OrganizationServiceHandler organizationServiceHandler;
   private String test_ou_id = "test_ou";
- 
+
   @Before
   public void setUp() throws Exception {
     this.organizationServiceHandler = new OrganizationServiceHandler();
@@ -26,7 +26,7 @@ public class TestOrganizationServiceHandler extends TestBase {
 
   @After
   public void tearDown() throws Exception {}
-  
+
   @Test
   public void testCreate() {
     try {
