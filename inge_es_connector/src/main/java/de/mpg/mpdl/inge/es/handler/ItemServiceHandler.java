@@ -25,7 +25,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class ItemServiceHandler implements ItemInterface {
 
-  private ObjectMapper mapper = new ObjectMapper();
+  private ObjectMapper mapper = ElasticSearchTransportClient.INSTANCE.getMapper();
   private final String indexName = PropertyReader.getProperty("item_index_name");
   private final String indexType = PropertyReader.getProperty("item_index_type");
 

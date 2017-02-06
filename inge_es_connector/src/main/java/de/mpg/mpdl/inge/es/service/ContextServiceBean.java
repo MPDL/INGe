@@ -35,7 +35,6 @@ public class ContextServiceBean implements ContextInterface {
   @Autowired
   private ElasticSearchTransportClientConnector connector;
 
-
   /*
    * (non-Javadoc)
    * 

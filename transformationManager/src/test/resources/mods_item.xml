@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" version="3.2">
+	<genre authority="MAB2-051/1-3">n</genre>
+	<genre authority="MAB2-051">f</genre>
+	<titleInfo ID="ti1" displayLabel="ti1_label">
+		<title>Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</title>
+		<subTitle>Nach Ordnung der Materien zusammen getragen und heraus gegeben von Eberhard Christian Wilhelm von Schauroth</subTitle>
+	</titleInfo>
+	<titleInfo ID="ti2" type="uniform">
+		<title>Unvollständige Sammlung einiger Conclusorum, Schreiben und anderer Verhandlungen des Corporis evangelicorum</title>
+		<title>Unvollständige Sammlung einiger Conclusorum</title>
+	</titleInfo>
+	<name type="personal">
+		<displayForm>Schauroth, Eberhard Christian Wilhelm von</displayForm>
+		<role>
+			<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+		</role>
+	</name>
+	<name type="personal">
+		<namePart type="given">Willi</namePart>
+		<namePart type="family">Frank</namePart>
+		<displayForm>Frank, Wilhelm</displayForm>
+		<displayForm>Willi Frank</displayForm>
+		<role>
+			<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+		</role>
+		<role>
+			<roleTerm authority="marcrelator" type="code">666</roleTerm>
+			<roleTerm authority="marcrelator" type="code">777</roleTerm>
+		</role>
+	</name>
+	<originInfo>
+		<place>
+			<placeTerm type="text">Regenspurg</placeTerm>
+		</place>
+		<publisher>Neubauer</publisher>
+	</originInfo>
+	<originInfo>
+					<dateIssued keyDate="yes" encoding="w3cdtf">1752</dateIssued>
+				</originInfo>
+	<note>Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreißlichen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich</note>
+	<subject>
+		<topic>Corpus Evangelicorum</topic>
+	</subject>
+	<recordInfo>
+		<recordIdentifier source="MPIER catalog">69448</recordIdentifier>
+	</recordInfo>
+	<identifier type="local">69448</identifier>
+</mods>
+

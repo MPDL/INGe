@@ -1,0 +1,186 @@
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+   <ei:properties>
+      <srel:content-model xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                          xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                          xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                          xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          objid="escidoc:2001"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+      <mdr:md-record xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     name="escidoc">
+         <pub:publication type="http://purl.org/eprint/type/Book">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Lehmann</eterms:family-name>
+                  <eterms:given-name>Christian</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>External Organizations</dc:title>
+                     <dc:identifier>escidoc:9019</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Thoughts on grammaticalization</dc:title>
+            <dc:language>en</dc:language>
+            <dc:identifier xsi:type="eterms:OTHER">244</dc:identifier>
+            <dc:identifier xsi:type="eterms:URI">https://www.db-thueringen
+              .
+              de/servlets/DerivateServlet/Derivate-2058/ASSid
+              UE09.pdf</dc:identifier>
+            <dc:identifier xsi:type="eterms:ISBN">3-929075-50-4</dc:identifier>
+            <eterms:publishing-info>
+               <dc:publisher>Lincom Europa</dc:publisher>
+               <eterms:place>M�nchen</eterms:place>
+               <eterms:edition>N.A.</eterms:edition>
+            </eterms:publishing-info>
+            <dcterms:issued>1995</dcterms:issued>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+               <dc:title>Lincom Studies in Theoretical Linguistics ; 1</dc:title>
+               <dcterms:alternative>Lincom Studies in Theoretical Linguistics</dcterms:alternative>
+               <eterms:volume>1</eterms:volume>
+            </source:source>
+            <eterms:total-number-of-pages>xii, 192 S.</eterms:total-number-of-pages>
+            <dcterms:subject>P299.G73, ISO 639-3 : -, Grammar, Comparative and general--Grammaticalization</dcterms:subject>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.8">
+      <ec:component>
+         <ec:properties xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                        xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                        xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                        xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                        xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                        xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                        xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                        xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                        xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                        xmlns:escidoc="urn:escidoc:functions"
+                        xmlns:prop="http://escidoc.de/core/01/properties/"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                        xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                        xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                        xmlns:dc="http://purl.org/dc/elements/1.1/"
+                        xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                        xmlns:dcterms="http://purl.org/dc/terms/"
+                        xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <prop:visibility>audience</prop:visibility>
+            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+            <prop:file-name>ASSidUE09.pdf</prop:file-name>
+            <prop:mime-type>application/pdf</prop:mime-type>
+         </ec:properties>
+         <ec:content xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     xlink:type="simple"
+                     xlink:title="ASSidUE09.pdf"
+                     xlink:href="https://www.db-thueringen.de/servlets/DerivateServlet/Derivate-2058/ASSidUE09.pdf"
+                     storage="internal-managed"/>
+         <mdr:md-records xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                         xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                         xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                         xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                         xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                         xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                         xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                         xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                         xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                         xmlns:escidoc="urn:escidoc:functions"
+                         xmlns:prop="http://escidoc.de/core/01/properties/"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                         xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                         xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                         xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                         xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                         xmlns:dc="http://purl.org/dc/elements/1.1/"
+                         xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                         xmlns:dcterms="http://purl.org/dc/terms/"
+                         xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+            <mdr:md-record name="escidoc">
+               <file:file>
+                  <dc:title>ASSidUE09.pdf</dc:title>
+                  <dc:identifier xsi:type="eterms:URI">https://www.db-thueringen
+              .
+              de/servlets/DerivateServlet/Derivate-2058/ASSid
+              UE09.pdf</dc:identifier>
+                  <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+                  <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                  <dcterms:extent>864713</dcterms:extent>
+               </file:file>
+            </mdr:md-record>
+         </mdr:md-records>
+      </ec:component>
+   </ec:components>
+</ei:item>

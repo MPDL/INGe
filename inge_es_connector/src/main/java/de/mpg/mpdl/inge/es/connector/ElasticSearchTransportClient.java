@@ -14,6 +14,10 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -31,6 +35,16 @@ public enum ElasticSearchTransportClient {
 
   private ElasticSearchTransportClient() {}
 
+  TransportClient client = null;
+  ObjectMapper mapper = null;
+
+  public ObjectMapper getMapper() {
+    mapper = new ObjectMapper();
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    return mapper;
+  }
+
   /**
    * get a {@link TransportClient} with predefined {@link Settings}
    * 
@@ -38,7 +52,6 @@ public enum ElasticSearchTransportClient {
    */
   protected TransportClient getClient() {
 
-    TransportClient client = null;
     Settings settings =
         Settings.settingsBuilder()
             .put("cluster.name", PropertyReader.getProperty("es_cluster_name"))

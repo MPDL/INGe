@@ -3,11 +3,13 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.util.Map;
 
 import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 
 @TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.MARC_XML)
 public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransformer {
@@ -17,6 +19,11 @@ public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransfo
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty("escidoc.transformation.mods2marc.stylesheet.filename",
         "transformations/standardFormats/xslt/mods2marc21.xsl");
+  }
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/standardFormats/xslt");
   }
 
   @Override

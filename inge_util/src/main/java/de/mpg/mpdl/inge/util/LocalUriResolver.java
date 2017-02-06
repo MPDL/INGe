@@ -77,7 +77,7 @@ public class LocalUriResolver implements URIResolver {
    */
   public final Source resolve(String href, String altBase) throws TransformerException {
 
-    logger.debug("Trying to resolve " + href + " with base " + altBase);
+    logger.debug("Trying to resolve <" + href + "> with base <" + altBase + ">");
     String path = null;
 
     if (altBase == null) {

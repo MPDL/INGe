@@ -27,10 +27,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class ContextServiceHandler implements ContextInterface {
 
-  private ObjectMapper mapper = new ObjectMapper();
   private final String indexName = PropertyReader.getProperty("context_index_name");
   private final String indexType = PropertyReader.getProperty("context_index_type");
-
+  private ObjectMapper mapper = ElasticSearchTransportClient.INSTANCE.getMapper();
 
   /*
    * (non-Javadoc)
