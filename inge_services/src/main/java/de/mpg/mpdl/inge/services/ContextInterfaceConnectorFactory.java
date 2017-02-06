@@ -15,11 +15,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class ContextInterfaceConnectorFactory {
-  private static final String CONNECTOR_CLASS =
+  private static final String CONNECTOR_CLASS_PROPERTY =
       "inge.inge_services.context_interface.connector_class";
 
   public static ContextInterface getInstance() throws InstantiationException,
       IllegalAccessException, ClassNotFoundException, IOException, URISyntaxException {
-    return (ContextInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+    return (ContextInterface) Class.forName(PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY))
+        .newInstance();
   }
 }

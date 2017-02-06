@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>inge_services</artifactId>
 	<name>inge_services</name>
+	<version>0.0.1-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_services</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_services</developerConnection>

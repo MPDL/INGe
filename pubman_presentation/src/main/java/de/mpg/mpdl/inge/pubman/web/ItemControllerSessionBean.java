@@ -104,6 +104,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -1801,8 +1802,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     String xmlContext = "";
     try {
-      xmlContext = ServiceLocator.getContextHandler().retrieve(contextID);
-      context = this.xmlTransforming.transformToContext(xmlContext);
+      context = ContextInterfaceConnectorFactory.getInstance().readContext(contextID.replace("/ir/context/escidoc:", "pure_"));
     } catch (Exception e) {
       logger.debug(e.toString());
       Login login = (Login) getSessionBean(Login.class);

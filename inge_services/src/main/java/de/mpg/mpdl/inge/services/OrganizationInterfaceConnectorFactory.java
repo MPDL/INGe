@@ -15,11 +15,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class OrganizationInterfaceConnectorFactory {
-  private static final String CONNECTOR_CLASS =
+  private static final String CONNECTOR_CLASS_PROPERTY =
       "inge.inge_services.organization_interface.connector_class";
 
   public OrganizationInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
-    return (OrganizationInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+    return (OrganizationInterface) Class.forName(
+        PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY)).newInstance();
   }
 }

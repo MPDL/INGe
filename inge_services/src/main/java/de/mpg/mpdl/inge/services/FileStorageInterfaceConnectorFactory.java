@@ -15,11 +15,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class FileStorageInterfaceConnectorFactory {
-  private static final String CONNECTOR_CLASS =
+  private static final String CONNECTOR_CLASS_PROPERTY =
       "inge.inge_services.file_storage_interface.connector_class";
 
   public static FileStorageInterface getInstance() throws InstantiationException,
       IllegalAccessException, ClassNotFoundException, IOException, URISyntaxException {
-    return (FileStorageInterface) Class.forName(CONNECTOR_CLASS).newInstance();
+    return (FileStorageInterface) Class.forName(
+        PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY)).newInstance();
   }
 }

@@ -162,9 +162,10 @@ public class PubItemDepositingBean implements PubItemDepositing {
       // de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
       // pubCollectionRef.getObjectId());
       // collection = xmlTransforming.transformToContext(context);
+      // TODO remove replace
       collection =
-          ContextInterfaceConnectorFactory.getInstance()
-              .readContext(pubCollectionRef.getObjectId());
+          ContextInterfaceConnectorFactory.getInstance().readContext(
+              pubCollectionRef.getObjectId().replace("/ir/context/escidoc:", "pure_"));
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {

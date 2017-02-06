@@ -105,10 +105,10 @@ public class XmlComparator {
       String[] components = StringUtils.split(e, ",");
       String name = components[0].trim();
       Map<String, String> attributeMap = new HashMap<String, String>();
-      
+
       if (components[1] != null && components[1].contains("=")) {
-	      String tag[] = StringUtils.split(components[1].trim(), "=");	      
-	      attributeMap.put(tag[0], tag[1]);
+        String tag[] = StringUtils.split(components[1].trim(), "=");
+        attributeMap.put(tag[0], tag[1]);
       }
       String nameSpace = components[2].trim();
 
@@ -240,9 +240,9 @@ public class XmlComparator {
                 name.substring(0, name.indexOf(":"))));
       } else {
         xmlNode = new XmlNode(attributeMap, name, null);
-        
+
       }
-      
+
       if (elementsToIgnore.contains(xmlNode)) {
         logger.info("omitting <" + xmlNode.toString() + ">");
         omit = true;
@@ -280,15 +280,18 @@ public class XmlComparator {
         return false;
       } else {
         for (String attributeName : attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:") && !attributeName.equals("xsi")
-              && !attributes.get(attributeName).equals(((XmlNode) other).attributes.get(attributeName))) {
+          if (!attributeName.startsWith("xmlns:")
+              && !attributeName.equals("xsi")
+              && !attributes.get(attributeName).equals(
+                  ((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
         }
 
         for (String attributeName : ((XmlNode) other).attributes.keySet()) {
           if (!attributeName.startsWith("xmlns:")
-              && !((XmlNode) other).attributes.get(attributeName).equals(attributes.get(attributeName))) {
+              && !((XmlNode) other).attributes.get(attributeName).equals(
+                  attributes.get(attributeName))) {
             return false;
           }
         }
