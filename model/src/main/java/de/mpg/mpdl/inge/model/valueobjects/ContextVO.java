@@ -288,72 +288,105 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   @Override
-  public boolean equals(Object other) {
-    if (other == null) {
-      return false;
-    } else if (!(other instanceof ContextVO)) {
-      return false;
-    } else {
-      ContextVO otherContextVO = (ContextVO) other;
-      if (otherContextVO.adminDescriptors.containsAll(this.adminDescriptors)
-          && this.adminDescriptors.containsAll(otherContextVO.adminDescriptors)
-          && ((otherContextVO.creator == null && this.creator == null) || otherContextVO.creator
-              .equals(this.creator))
-          && ((otherContextVO.defaultMetadata == null && this.defaultMetadata == null) || otherContextVO.defaultMetadata
-              .equals(this.defaultMetadata))
-          && ((otherContextVO.description == null && this.description == null) || otherContextVO.description
-              .equals(this.description))
-          && ((otherContextVO.name == null && this.name == null) || otherContextVO.name
-              .equals(this.name))
-          && ((otherContextVO.reference == null && this.reference == null) || otherContextVO.reference
-              .equals(this.reference))
-          && otherContextVO.responsibleAffiliations.containsAll(this.responsibleAffiliations)
-          && this.responsibleAffiliations.containsAll(otherContextVO.responsibleAffiliations)
-          && otherContextVO.state == this.state
-          && ((otherContextVO.type == null && this.type == null) || otherContextVO.type
-              .equals(this.type))
-          && ((otherContextVO.type == null && this.type == null) || otherContextVO.type
-              .equals(this.type))
-          && otherContextVO.validationPoints.containsAll(this.validationPoints)
-          && this.validationPoints.containsAll(otherContextVO.validationPoints)) {
-        System.out.println("Contexts are equal");
-        return true;
-      } else {
-        System.out.println(otherContextVO.adminDescriptors.containsAll(this.adminDescriptors));
-        System.out.println(this.adminDescriptors.containsAll(otherContextVO.adminDescriptors));
-        System.out.println(otherContextVO.creator == null && this.creator == null);
-        System.out.println(otherContextVO.creator.equals(this.creator));
-
-        System.out.println(otherContextVO.defaultMetadata == null && this.defaultMetadata == null);
-        System.out.println(otherContextVO.defaultMetadata.equals(this.defaultMetadata));
-
-        System.out.println(otherContextVO.description == null && this.description == null);
-        System.out.println(otherContextVO.description.equals(this.description));
-
-        System.out.println(otherContextVO.name == null && this.name == null);
-        System.out.println(otherContextVO.name.equals(this.name));
-
-        System.out.println(otherContextVO.reference == null && this.reference == null);
-        System.out.println(otherContextVO.reference.equals(this.reference));
-
-        System.out.println(otherContextVO.responsibleAffiliations
-            .containsAll(this.responsibleAffiliations));
-        System.out.println(this.responsibleAffiliations
-            .containsAll(otherContextVO.responsibleAffiliations));
-        System.out.println(otherContextVO.state == this.state);
-        System.out.println(otherContextVO.type == null && this.type == null);
-        System.out.println(otherContextVO.type.equals(this.type));
-
-        System.out.println(otherContextVO.type == null && this.type == null);
-        System.out.println(otherContextVO.type.equals(this.type));
-
-        System.out.println(otherContextVO.validationPoints.containsAll(this.validationPoints));
-        System.out.println(this.validationPoints.containsAll(otherContextVO.validationPoints));
-        return false;
-      }
-    }
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((adminDescriptors == null) ? 0 : adminDescriptors.hashCode());
+    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+    result = prime * result + ((defaultMetadata == null) ? 0 : defaultMetadata.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((validationPoints == null) ? 0 : validationPoints.hashCode());
+    return result;
   }
 
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    ContextVO other = (ContextVO) obj;
+    
+    if (adminDescriptors == null) {
+      if (other.adminDescriptors != null)
+        return false;
+    } else if (other.adminDescriptors == null)
+      return false;
+    else if (!adminDescriptors.containsAll(other.adminDescriptors) //
+        || !other.adminDescriptors.containsAll(adminDescriptors)) {
+      return false;
+    }
+    
+    if (creator == null) {
+      if (other.creator != null)
+        return false;
+    } else if (!creator.equals(other.creator))
+      return false;
+    
+    if (defaultMetadata == null) {
+      if (other.defaultMetadata != null)
+        return false;
+    } else if (!defaultMetadata.equals(other.defaultMetadata))
+      return false;
+    
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
+      return false;
+    
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    
+    if (reference == null) {
+      if (other.reference != null)
+        return false;
+    } else if (!reference.equals(other.reference))
+      return false;
+    
+    if (responsibleAffiliations == null) {
+      if (other.responsibleAffiliations != null)
+        return false;
+    } else if (other.responsibleAffiliations == null)
+      return false;
+    else if (!responsibleAffiliations.containsAll(other.responsibleAffiliations) //
+        || !other.responsibleAffiliations.containsAll(responsibleAffiliations)) {
+      return false;
+    }
+    
+    if (state != other.state)
+      return false;
+    
+    if (type == null) {
+      if (other.type != null)
+        return false;
+    } else if (!type.equals(other.type))
+      return false;
+    
+    if (validationPoints == null) {
+      if (other.validationPoints != null)
+        return false;
+    } else if (other.validationPoints == null)
+      return false;
+    else if (!validationPoints.containsAll(other.validationPoints) //
+        || !other.validationPoints.containsAll(validationPoints)) {
+      return false;
+    }
+    
+    return true;
+  }
 
 }

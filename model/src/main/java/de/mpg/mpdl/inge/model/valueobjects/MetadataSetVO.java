@@ -93,20 +93,33 @@ public class MetadataSetVO extends ValueObject {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    } else if (!(obj instanceof MdsFileVO)) {
-      return false;
-    }
-    MetadataSetVO other = (MetadataSetVO) obj;
-    if (!(this.title == null && other.title == null)
-        && (this.title == null || !this.title.equals(other.title))) {
-      return false;
-    } else {
-      return true;
-    }
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    MetadataSetVO other = (MetadataSetVO) obj;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    return true;
+  }
 
 }

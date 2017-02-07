@@ -81,4 +81,34 @@ public class AffiliationRO extends ReferenceObject {
   public void setForm(String form) {
     this.form = form;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((form == null) ? 0 : form.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (!super.equals(obj))
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    AffiliationRO other = (AffiliationRO) obj;
+    
+    if (form == null) {
+      if (other.form != null)
+        return false;
+    } else if (!form.equals(other.form))
+      return false;
+    
+    return true;
+  }
 }
