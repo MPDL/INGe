@@ -33,19 +33,14 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
    */
   private String name;
   private List<String> alternativeNames = new ArrayList<String>();
-
   private String type;
-
   private String startDate;
   private String endDate;
-
-
 
   /**
    * Default constructor.
    */
   public MdsOrganizationalUnitDetailsVO() {
-
   }
 
   /**
@@ -64,16 +59,6 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
     this.setStartDate(other.getStartDate());
     this.setEndDate(other.getEndDate());
   }
-
-  /*
-   * public void setStartDateAsString(String date) throws Exception { if (date == null ||
-   * "".equals(date)) { setStartDate(null); } else { SimpleDateFormat sdf = new
-   * SimpleDateFormat(Constants.ESCIDOC_DATE_FORMAT); setStartDate(sdf.parse(date)); } }
-   * 
-   * public void setEndDateAsString(String date) throws Exception { if (date == null ||
-   * "".equals(date)) { setEndDate(null); } else { SimpleDateFormat sdf = new
-   * SimpleDateFormat(Constants.ESCIDOC_DATE_FORMAT); setEndDate(sdf.parse(date)); } }
-   */
 
   public String getCity() {
     return city;
@@ -141,6 +126,111 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 
   public String getEndDate() {
     return endDate;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((alternativeNames == null) ? 0 : alternativeNames.hashCode());
+    result = prime * result + ((city == null) ? 0 : city.hashCode());
+    result = prime * result + ((coordinates == null) ? 0 : coordinates.hashCode());
+    result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
+    result = prime * result + ((descriptions == null) ? 0 : descriptions.hashCode());
+    result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (!super.equals(obj))
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    MdsOrganizationalUnitDetailsVO other = (MdsOrganizationalUnitDetailsVO) obj;
+    
+    if (alternativeNames == null) {
+      if (other.alternativeNames != null)
+        return false;
+    } else if (other.alternativeNames == null)
+      return false;
+    else if (!alternativeNames.containsAll(other.alternativeNames) //
+        || !other.alternativeNames.containsAll(alternativeNames)) {
+      return false;
+    }
+    
+    if (city == null) {
+      if (other.city != null)
+        return false;
+    } else if (!city.equals(other.city))
+      return false;
+    
+    if (coordinates == null) {
+      if (other.coordinates != null)
+        return false;
+    } else if (!coordinates.equals(other.coordinates))
+      return false;
+    
+    if (countryCode == null) {
+      if (other.countryCode != null)
+        return false;
+    } else if (!countryCode.equals(other.countryCode))
+      return false;
+    
+    if (descriptions == null) {
+      if (other.descriptions != null)
+        return false;
+    } else if (other.descriptions == null)
+      return false;
+    else if (!descriptions.containsAll(other.descriptions) //
+        || !other.descriptions.containsAll(descriptions)) {
+      return false;
+    }
+    
+    if (endDate == null) {
+      if (other.endDate != null)
+        return false;
+    } else if (!endDate.equals(other.endDate))
+      return false;
+    
+    if (identifiers == null) {
+      if (other.identifiers != null)
+        return false;
+    } else if (other.identifiers == null)
+      return false;
+    else if (!identifiers.containsAll(other.identifiers) //
+        || !other.identifiers.containsAll(identifiers)) {
+      return false;
+    }
+    
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    
+    if (startDate == null) {
+      if (other.startDate != null)
+        return false;
+    } else if (!startDate.equals(other.startDate))
+      return false;
+    
+    if (type == null) {
+      if (other.type != null)
+        return false;
+    } else if (!type.equals(other.type))
+      return false;
+    
+    return true;
   }
 
 }

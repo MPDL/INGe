@@ -120,6 +120,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
     if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
       return false;
     }
+    
     OrganizationVO other = (OrganizationVO) obj;
     return equals(getAddress(), other.getAddress())
         && equals(getIdentifier(), other.getIdentifier()) && equals(getName(), other.getName());

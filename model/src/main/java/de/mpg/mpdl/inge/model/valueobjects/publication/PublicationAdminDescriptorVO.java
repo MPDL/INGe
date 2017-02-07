@@ -131,37 +131,82 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   }
 
   @Override
-  public boolean equals(Object other) {
-    if (other == null) {
-      return false;
-    } else if (!(other instanceof PublicationAdminDescriptorVO)) {
-      return false;
-    } else {
-      PublicationAdminDescriptorVO otherPublicationAdminDescriptorVO =
-          (PublicationAdminDescriptorVO) other;
-      if (otherPublicationAdminDescriptorVO.allowedGenres.containsAll(this.allowedGenres)
-          && this.allowedGenres.containsAll(otherPublicationAdminDescriptorVO.allowedGenres)
-          && otherPublicationAdminDescriptorVO.allowedSubjectClassifications
-              .containsAll(this.allowedSubjectClassifications)
-          && this.allowedSubjectClassifications
-              .containsAll(otherPublicationAdminDescriptorVO.allowedSubjectClassifications)
-          && ((otherPublicationAdminDescriptorVO.contactEmail == null && this.contactEmail == null) || otherPublicationAdminDescriptorVO.contactEmail
-              .equals(this.contactEmail))
-          && ((otherPublicationAdminDescriptorVO.templateItem == null && this.templateItem == null) || otherPublicationAdminDescriptorVO.templateItem
-              .equals(this.templateItem))
-          && ((otherPublicationAdminDescriptorVO.validationSchema == null && this.validationSchema == null) || otherPublicationAdminDescriptorVO.validationSchema
-              .equals(this.validationSchema))
-          && ((otherPublicationAdminDescriptorVO.visibilityOfReferences == null && this.visibilityOfReferences == null) || otherPublicationAdminDescriptorVO.visibilityOfReferences
-              .equals(this.visibilityOfReferences))
-          && otherPublicationAdminDescriptorVO.workflow == this.workflow) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((allowedGenres == null) ? 0 : allowedGenres.hashCode());
+    result = prime * result
+        + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications.hashCode());
+    result = prime * result + ((contactEmail == null) ? 0 : contactEmail.hashCode());
+    result = prime * result + ((templateItem == null) ? 0 : templateItem.hashCode());
+    result = prime * result + ((validationSchema == null) ? 0 : validationSchema.hashCode());
+    result =
+        prime * result + ((visibilityOfReferences == null) ? 0 : visibilityOfReferences.hashCode());
+    result = prime * result + ((workflow == null) ? 0 : workflow.hashCode());
+    return result;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
+    
+    if (allowedGenres == null) {
+      if (other.allowedGenres != null)
+        return false;
+    } else if (other.allowedGenres == null)
+      return false;
+    else if (!allowedGenres.containsAll(other.allowedGenres) //
+        || !other.allowedGenres.containsAll(allowedGenres)) {
+      return false;
+    }
+    
+    if (allowedSubjectClassifications == null) {
+      if (other.allowedSubjectClassifications != null)
+        return false;
+    } else if (other.allowedSubjectClassifications == null)
+      return false;
+    else if (!allowedSubjectClassifications.containsAll(other.allowedSubjectClassifications) //
+        || !other.allowedSubjectClassifications.containsAll(allowedSubjectClassifications)) {
+      return false;
+    }
+    
+    if (contactEmail == null) {
+      if (other.contactEmail != null)
+        return false;
+    } else if (!contactEmail.equals(other.contactEmail))
+      return false;
+    
+    if (templateItem == null) {
+      if (other.templateItem != null)
+        return false;
+    } else if (!templateItem.equals(other.templateItem))
+      return false;
+    
+    if (validationSchema == null) {
+      if (other.validationSchema != null)
+        return false;
+    } else if (!validationSchema.equals(other.validationSchema))
+      return false;
+    
+    if (visibilityOfReferences == null) {
+      if (other.visibilityOfReferences != null)
+        return false;
+    } else if (!visibilityOfReferences.equals(other.visibilityOfReferences))
+      return false;
+    
+    if (workflow != other.workflow)
+      return false;
+    
+    return true;
+  }
 
 }

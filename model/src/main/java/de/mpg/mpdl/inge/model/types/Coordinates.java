@@ -97,5 +97,47 @@ public class Coordinates implements Serializable {
     this.altitude = altitude;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    long temp;
+    temp = Double.doubleToLongBits(altitude);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + (altitudeSet ? 1231 : 1237);
+    temp = Double.doubleToLongBits(latitude);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    temp = Double.doubleToLongBits(longitude);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    Coordinates other = (Coordinates) obj;
+    
+    if (Double.doubleToLongBits(altitude) != Double.doubleToLongBits(other.altitude))
+      return false;
+    
+    if (altitudeSet != other.altitudeSet)
+      return false;
+    
+    if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+      return false;
+    
+    if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+      return false;
+    
+    return true;
+  }
 
 }

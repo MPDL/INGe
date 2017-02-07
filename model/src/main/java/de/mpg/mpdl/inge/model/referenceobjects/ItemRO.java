@@ -236,12 +236,62 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   @Override
-  public boolean equals(Object object) {
-    if (super.equals(object)) {
-      return (((ItemRO) object).versionNumber == this.versionNumber);
-    } else {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((lastMessage == null) ? 0 : lastMessage.hashCode());
+    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
+    result = prime * result + ((modifiedByRO == null) ? 0 : modifiedByRO.hashCode());
+    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result + versionNumber;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (!super.equals(obj))
       return false;
-    }
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    ItemRO other = (ItemRO) obj;
+    
+    if (lastMessage == null) {
+      if (other.lastMessage != null)
+        return false;
+    } else if (!lastMessage.equals(other.lastMessage))
+      return false;
+    
+    if (modificationDate == null) {
+      if (other.modificationDate != null)
+        return false;
+    } else if (!modificationDate.equals(other.modificationDate))
+      return false;
+    
+    if (modifiedByRO == null) {
+      if (other.modifiedByRO != null)
+        return false;
+    } else if (!modifiedByRO.equals(other.modifiedByRO))
+      return false;
+    
+    if (pid == null) {
+      if (other.pid != null)
+        return false;
+    } else if (!pid.equals(other.pid))
+      return false;
+    
+    if (state != other.state)
+      return false;
+    
+    if (versionNumber != other.versionNumber)
+      return false;
+    
+    return true;
   }
 
   @JsonIgnore
