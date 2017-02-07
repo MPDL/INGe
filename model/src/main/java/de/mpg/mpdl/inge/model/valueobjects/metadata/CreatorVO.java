@@ -231,17 +231,49 @@ public class CreatorVO extends ValueObject implements Cloneable {
     return clone;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((organization == null) ? 0 : organization.hashCode());
+    result = prime * result + ((person == null) ? 0 : person.hashCode());
+    result = prime * result + ((role == null) ? 0 : role.hashCode());
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    return result;
+  }
+
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
       return false;
-    }
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
     CreatorVO other = (CreatorVO) obj;
-    return equals(getPerson(), other.getPerson())
-        && equals(getOrganization(), other.getOrganization()) && equals(getRole(), other.getRole());
+    
+    if (organization == null) {
+      if (other.organization != null)
+        return false;
+    } else if (!organization.equals(other.organization))
+      return false;
+    
+    if (person == null) {
+      if (other.person != null)
+        return false;
+    } else if (!person.equals(other.person))
+      return false;
+    
+    if (role != other.role)
+      return false;
+    
+    if (type != other.type)
+      return false;
+    
+    return true;
   }
 
   /**

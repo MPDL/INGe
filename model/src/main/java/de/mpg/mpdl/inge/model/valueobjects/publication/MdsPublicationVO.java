@@ -580,39 +580,214 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     return new MdsPublicationVO(this);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((abstracts == null) ? 0 : abstracts.hashCode());
+    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
+    result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+    result = prime * result + ((dateAccepted == null) ? 0 : dateAccepted.hashCode());
+    result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+    result = prime * result + ((dateModified == null) ? 0 : dateModified.hashCode());
+    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result = prime * result + ((datePublishedOnline == null) ? 0 : datePublishedOnline.hashCode());
+    result = prime * result + ((dateSubmitted == null) ? 0 : dateSubmitted.hashCode());
+    result = prime * result + ((degree == null) ? 0 : degree.hashCode());
+    result = prime * result + ((event == null) ? 0 : event.hashCode());
+    result = prime * result + ((freeKeywords == null) ? 0 : freeKeywords.hashCode());
+    result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
+    result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+    result = prime * result + ((legalCase == null) ? 0 : legalCase.hashCode());
+    result = prime * result + ((location == null) ? 0 : location.hashCode());
+    result = prime * result + ((projectInfo == null) ? 0 : projectInfo.hashCode());
+    result = prime * result + ((publishingInfo == null) ? 0 : publishingInfo.hashCode());
+    result = prime * result + ((reviewMethod == null) ? 0 : reviewMethod.hashCode());
+    result = prime * result + ((sources == null) ? 0 : sources.hashCode());
+    result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
+    result = prime * result + ((tableOfContents == null) ? 0 : tableOfContents.hashCode());
+    result = prime * result + ((totalNumberOfPages == null) ? 0 : totalNumberOfPages.hashCode());
+    return result;
+  }
+
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
+    if (this == obj)
+      return true;
+    
+    if (!super.equals(obj))
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    MdsPublicationVO other = (MdsPublicationVO) obj;
+    
+    if (abstracts == null) {
+      if (other.abstracts != null)
+        return false;
+    } else if (other.abstracts == null)
+      return false;
+    else if (!abstracts.containsAll(other.abstracts) //
+        || !other.abstracts.containsAll(abstracts)) {
       return false;
     }
-    MdsPublicationVO other = (MdsPublicationVO) obj;
-    return equals(getTitle(), other.getTitle())
-        && equals(getAlternativeTitles(), other.getAlternativeTitles())
-        && equals(getCreators(), other.getCreators())
-        && equals(getDateAccepted(), other.getDateAccepted())
-        && equals(getDateCreated(), other.getDateCreated())
-        && equals(getDateModified(), other.getDateModified())
-        && equals(getDatePublishedInPrint(), other.getDatePublishedInPrint())
-        // DiT, 14.11.2007: added DatePublishedOnline
-        && equals(getDatePublishedOnline(), other.getDatePublishedOnline())
-        && equals(getDateSubmitted(), other.getDateSubmitted())
-        && equals(getDegree(), other.getDegree()) && equals(getEvent(), other.getEvent())
-        && equals(getLegalCase(), other.getLegalCase()) && equals(getGenre(), other.getGenre())
-        && equals(getIdentifiers(), other.getIdentifiers())
-        && equals(getLanguages(), other.getLanguages())
-        && equals(getLocation(), other.getLocation())
-        && equals(getPublishingInfo(), other.getPublishingInfo())
-        && equals(getReviewMethod(), other.getReviewMethod())
-        && equals(getSources(), other.getSources())
-        && equals(getFreeKeywords(), other.getFreeKeywords())
-        && equals(getSubjects(), other.getSubjects())
-        && equals(getAbstracts(), other.getAbstracts())
-        && equals(getTableOfContents(), other.getTableOfContents())
-        && equals(getTotalNumberOfPages(), other.getTotalNumberOfPages())
-        && equals(getProjectInfo(), other.getProjectInfo());
+    
+    if (alternativeTitles == null) {
+      if (other.alternativeTitles != null)
+        return false;
+    } else if (other.alternativeTitles == null)
+      return false;
+    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
+        || !other.alternativeTitles.containsAll(alternativeTitles)) {
+      return false;
+    }
+    
+    if (creators == null) {
+      if (other.creators != null)
+        return false;
+    } else if (other.creators == null)
+      return false;
+    else if (!creators.containsAll(other.creators) //
+        || !other.creators.containsAll(creators)) {
+      return false;
+    }
+    
+    if (dateAccepted == null) {
+      if (other.dateAccepted != null)
+        return false;
+    } else if (!dateAccepted.equals(other.dateAccepted))
+      return false;
+    
+    if (dateCreated == null) {
+      if (other.dateCreated != null)
+        return false;
+    } else if (!dateCreated.equals(other.dateCreated))
+      return false;
+    
+    if (dateModified == null) {
+      if (other.dateModified != null)
+        return false;
+    } else if (!dateModified.equals(other.dateModified))
+      return false;
+    
+    if (datePublishedInPrint == null) {
+      if (other.datePublishedInPrint != null)
+        return false;
+    } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
+      return false;
+    
+    if (datePublishedOnline == null) {
+      if (other.datePublishedOnline != null)
+        return false;
+    } else if (!datePublishedOnline.equals(other.datePublishedOnline))
+      return false;
+    
+    if (dateSubmitted == null) {
+      if (other.dateSubmitted != null)
+        return false;
+    } else if (!dateSubmitted.equals(other.dateSubmitted))
+      return false;
+    
+    if (degree != other.degree)
+      return false;
+    
+    if (event == null) {
+      if (other.event != null)
+        return false;
+    } else if (!event.equals(other.event))
+      return false;
+    
+    if (freeKeywords == null) {
+      if (other.freeKeywords != null)
+        return false;
+    } else if (!freeKeywords.equals(other.freeKeywords))
+      return false;
+    
+    if (genre != other.genre)
+      return false;
+    
+    if (identifiers == null) {
+      if (other.identifiers != null)
+        return false;
+    } else if (other.identifiers == null)
+      return false;
+    else if (!identifiers.containsAll(other.identifiers) //
+        || !other.identifiers.containsAll(identifiers)) {
+      return false;
+    }
+    
+    if (languages == null) {
+      if (other.languages != null)
+        return false;
+    } else if (other.languages == null)
+      return false;
+    else if (!languages.containsAll(other.languages) //
+        || !other.languages.containsAll(languages)) {
+      return false;
+    }
+    
+    if (legalCase == null) {
+      if (other.legalCase != null)
+        return false;
+    } else if (!legalCase.equals(other.legalCase))
+      return false;
+    
+    if (location == null) {
+      if (other.location != null)
+        return false;
+    } else if (!location.equals(other.location))
+      return false;
+    
+    if (projectInfo == null) {
+      if (other.projectInfo != null)
+        return false;
+    } else if (!projectInfo.equals(other.projectInfo))
+      return false;
+    
+    if (publishingInfo == null) {
+      if (other.publishingInfo != null)
+        return false;
+    } else if (!publishingInfo.equals(other.publishingInfo))
+      return false;
+    
+    if (reviewMethod != other.reviewMethod)
+      return false;
+    
+    if (sources == null) {
+      if (other.sources != null)
+        return false;
+    } else if (other.sources == null)
+      return false;
+    else if (!sources.containsAll(other.sources) //
+        || !other.sources.containsAll(sources)) {
+      return false;
+    }
+    
+    if (subjects == null) {
+      if (other.subjects != null)
+        return false;
+    } else if (other.subjects == null)
+      return false;
+    else if (!subjects.containsAll(other.subjects) //
+        || !other.subjects.containsAll(subjects)) {
+      return false;
+    }
+    
+    if (tableOfContents == null) {
+      if (other.tableOfContents != null)
+        return false;
+    } else if (!tableOfContents.equals(other.tableOfContents))
+      return false;
+    
+    if (totalNumberOfPages == null) {
+      if (other.totalNumberOfPages != null)
+        return false;
+    } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
+      return false;
+    
+    return true;
   }
 
   /**

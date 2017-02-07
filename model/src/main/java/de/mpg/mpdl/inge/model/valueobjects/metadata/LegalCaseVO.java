@@ -95,21 +95,55 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
-      return false;
-    }
-    LegalCaseVO other = new LegalCaseVO();
-    return equals(getTitle(), other.getTitle()) && equals(getIdentifier(), other.getIdentifier())
-        && equals(getDatePublished(), other.getDatePublished())
-        && equals(getCourtName(), other.getCourtName());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((courtName == null) ? 0 : courtName.hashCode());
+    result = prime * result + ((datePublished == null) ? 0 : datePublished.hashCode());
+    result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    LegalCaseVO other = (LegalCaseVO) obj;
+    
+    if (courtName == null) {
+      if (other.courtName != null)
+        return false;
+    } else if (!courtName.equals(other.courtName))
+      return false;
+    
+    if (datePublished == null) {
+      if (other.datePublished != null)
+        return false;
+    } else if (!datePublished.equals(other.datePublished))
+      return false;
+    
+    if (identifier == null) {
+      if (other.identifier != null)
+        return false;
+    } else if (!identifier.equals(other.identifier))
+      return false;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    return true;
+  }
 
 }

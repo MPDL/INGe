@@ -347,27 +347,138 @@ public class SourceVO extends ValueObject implements Cloneable {
     return vo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
   @Override
-  public boolean equals(Object o) {
-    if (o == null || !(o instanceof SourceVO)) {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
+    result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result = prime * result + ((endPage == null) ? 0 : endPage.hashCode());
+    result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
+    result = prime * result + ((issue == null) ? 0 : issue.hashCode());
+    result = prime * result + ((publishingInfo == null) ? 0 : publishingInfo.hashCode());
+    result = prime * result + ((sequenceNumber == null) ? 0 : sequenceNumber.hashCode());
+    result = prime * result + ((sources == null) ? 0 : sources.hashCode());
+    result = prime * result + ((startPage == null) ? 0 : startPage.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((totalNumberOfPages == null) ? 0 : totalNumberOfPages.hashCode());
+    result = prime * result + ((volume == null) ? 0 : volume.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    SourceVO other = (SourceVO) obj;
+    
+    if (alternativeTitles == null) {
+      if (other.alternativeTitles != null)
+        return false;
+    } else if (other.alternativeTitles == null)
+      return false;
+    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
+        || !other.alternativeTitles.containsAll(alternativeTitles)) {
       return false;
     }
-    SourceVO vo = (SourceVO) o;
-    return equals(getTitle(), vo.getTitle()) && equals(getVolume(), vo.getVolume())
-        && equals(getIssue(), vo.getIssue()) && equals(getPublishingInfo(), vo.getPublishingInfo())
-        && equals(getSequenceNumber(), vo.getSequenceNumber())
-        && equals(getStartPage(), vo.getStartPage()) && equals(getEndPage(), vo.getEndPage())
-        && equals(getAlternativeTitles(), vo.getAlternativeTitles())
-        && equals(getCreators(), vo.getCreators()) && equals(getIdentifiers(), vo.getIdentifiers())
-        && equals(getSources(), vo.getSources())
-        // added by DiT, 27.11.2007
-        && equals(this.getGenre(), vo.getGenre())
-        && equals(this.getTotalNumberOfPages(), vo.getTotalNumberOfPages());
+    
+    if (creators == null) {
+      if (other.creators != null)
+        return false;
+    } else if (other.creators == null)
+      return false;
+    else if (!creators.containsAll(other.creators) //
+        || !other.creators.containsAll(creators)) {
+      return false;
+    }
+    
+    if (datePublishedInPrint == null) {
+      if (other.datePublishedInPrint != null)
+        return false;
+    } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
+      return false;
+    
+    if (endPage == null) {
+      if (other.endPage != null)
+        return false;
+    } else if (!endPage.equals(other.endPage))
+      return false;
+    
+    if (genre != other.genre)
+      return false;
+    
+    if (identifiers == null) {
+      if (other.identifiers != null)
+        return false;
+    } else if (other.identifiers == null)
+      return false;
+    else if (!identifiers.containsAll(other.identifiers) //
+        || !other.identifiers.containsAll(identifiers)) {
+      return false;
+    }
+    
+    if (issue == null) {
+      if (other.issue != null)
+        return false;
+    } else if (!issue.equals(other.issue))
+      return false;
+    
+    if (publishingInfo == null) {
+      if (other.publishingInfo != null)
+        return false;
+    } else if (!publishingInfo.equals(other.publishingInfo))
+      return false;
+    
+    if (sequenceNumber == null) {
+      if (other.sequenceNumber != null)
+        return false;
+    } else if (!sequenceNumber.equals(other.sequenceNumber))
+      return false;
+    
+    if (sources == null) {
+      if (other.sources != null)
+        return false;
+    } else if (other.sources == null)
+      return false;
+    else if (!sources.containsAll(other.sources) //
+        || !other.sources.containsAll(sources)) {
+      return false;
+    }
+    
+    if (startPage == null) {
+      if (other.startPage != null)
+        return false;
+    } else if (!startPage.equals(other.startPage))
+      return false;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    if (totalNumberOfPages == null) {
+      if (other.totalNumberOfPages != null)
+        return false;
+    } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
+      return false;
+    
+    if (volume == null) {
+      if (other.volume != null)
+        return false;
+    } else if (!volume.equals(other.volume))
+      return false;
+    
+    return true;
   }
 
   public void setDatePublishedInPrint(Date datePublishedInPrint) {

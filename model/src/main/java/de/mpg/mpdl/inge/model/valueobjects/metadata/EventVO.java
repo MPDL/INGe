@@ -169,21 +169,70 @@ public class EventVO extends ValueObject implements Cloneable {
     return clone;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
+    result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+    result = prime * result + ((invitationStatus == null) ? 0 : invitationStatus.hashCode());
+    result = prime * result + ((place == null) ? 0 : place.hashCode());
+    result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    EventVO other = (EventVO) obj;
+    
+    if (alternativeTitles == null) {
+      if (other.alternativeTitles != null)
+        return false;
+    } else if (other.alternativeTitles == null)
+      return false;
+    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
+        || !other.alternativeTitles.containsAll(alternativeTitles)) {
       return false;
     }
-    EventVO other = (EventVO) obj;
-    return equals(getTitle(), other.getTitle()) && equals(getStartDate(), other.getStartDate())
-        && equals(getEndDate(), other.getEndDate()) && equals(getPlace(), other.getPlace())
-        && equals(getInvitationStatus(), other.getInvitationStatus())
-        && equals(getAlternativeTitles(), other.getAlternativeTitles());
+    
+    if (endDate == null) {
+      if (other.endDate != null)
+        return false;
+    } else if (!endDate.equals(other.endDate))
+      return false;
+    
+    if (invitationStatus != other.invitationStatus)
+      return false;
+    
+    if (place == null) {
+      if (other.place != null)
+        return false;
+    } else if (!place.equals(other.place))
+      return false;
+    
+    if (startDate == null) {
+      if (other.startDate != null)
+        return false;
+    } else if (!startDate.equals(other.startDate))
+      return false;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    return true;
   }
 
   /**

@@ -47,7 +47,6 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   @IgnoreForCleanup
   private String language;
-
   private String value;
   private String type;
 
@@ -150,19 +149,48 @@ public class SubjectVO extends ValueObject implements Cloneable {
     return vo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals()
-   */
   @Override
-  public boolean equals(Object o) {
-    if (o == null || !(o instanceof SubjectVO)) {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((language == null) ? 0 : language.hashCode());
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
       return false;
-    }
-    SubjectVO vo = (SubjectVO) o;
-    return equals(getLanguage(), vo.getLanguage()) && equals(getValue(), vo.getValue())
-        && equals(getType(), vo.getType());
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    SubjectVO other = (SubjectVO) obj;
+    
+    if (language == null) {
+      if (other.language != null)
+        return false;
+    } else if (!language.equals(other.language))
+      return false;
+    
+    if (type == null) {
+      if (other.type != null)
+        return false;
+    } else if (!type.equals(other.type))
+      return false;
+    
+    if (value == null) {
+      if (other.value != null)
+        return false;
+    } else if (!value.equals(other.value))
+      return false;
+    
+    return true;
   }
 
   /*
