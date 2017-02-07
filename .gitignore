@@ -7,3 +7,8 @@ target/
 *.launch
 *~
 /jacoco
+
+# IntelliJ
+*.iml
+.idea/
+*.iws
