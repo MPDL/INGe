@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
-
 public class PubItemVO extends ItemVO {
 
   private static Logger logger = Logger.getLogger(PubItemVO.class);

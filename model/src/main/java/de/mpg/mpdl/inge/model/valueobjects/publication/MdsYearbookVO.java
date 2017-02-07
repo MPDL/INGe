@@ -25,7 +25,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.publication;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;

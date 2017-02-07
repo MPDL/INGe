@@ -1,8 +1,5 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,9 +8,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
 @JsonInclude(value = Include.NON_NULL)
 public class ProjectInfoVO extends ValueObject {
-
-
-
   private String title;
   private IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "");
   private FundingInfoVO fundingInfo = new FundingInfoVO();

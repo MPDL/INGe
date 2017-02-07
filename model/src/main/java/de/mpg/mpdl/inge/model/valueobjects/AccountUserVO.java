@@ -361,6 +361,126 @@ public class AccountUserVO extends ValueObject {
     return attributes;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (active ? 1231 : 1237);
+    result = prime * result + ((affiliations == null) ? 0 : affiliations.hashCode());
+    result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+    result = prime * result + ((email == null) ? 0 : email.hashCode());
+    result = prime * result + ((grants == null) ? 0 : grants.hashCode());
+    result =
+        prime * result + ((grantsWithoutAudience == null) ? 0 : grantsWithoutAudience.hashCode());
+    result = prime * result + ((handle == null) ? 0 : handle.hashCode());
+    result =
+        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((password == null) ? 0 : password.hashCode());
+    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+    result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+    return result;
+  }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    AccountUserVO other = (AccountUserVO) obj;
+    
+    if (active != other.active)
+      return false;
+    
+    if (affiliations == null) {
+      if (other.affiliations != null)
+        return false;
+    } else if (other.affiliations == null)
+      return false;
+    else if (!affiliations.containsAll(other.affiliations) //
+        || !other.affiliations.containsAll(affiliations)) {
+      return false;
+    }
+    
+    if (attributes == null) {
+      if (other.attributes != null)
+        return false;
+    } else if (other.attributes == null)
+      return false;
+    else if (!attributes.containsAll(other.attributes) //
+        || !other.attributes.containsAll(attributes)) {
+      return false;
+    }
+    
+    if (email == null) {
+      if (other.email != null)
+        return false;
+    } else if (!email.equals(other.email))
+      return false;
+    
+    if (grants == null) {
+      if (other.grants != null)
+        return false;
+    } else if (other.grants == null)
+      return false;
+    else if (!grants.containsAll(other.grants) //
+        || !other.grants.containsAll(grants)) {
+      return false;
+    }
+    
+    if (grantsWithoutAudience == null) {
+      if (other.grantsWithoutAudience != null)
+        return false;
+    } else if (other.grantsWithoutAudience == null)
+      return false;
+    else if (!grantsWithoutAudience.containsAll(other.grantsWithoutAudience) //
+        || !other.grantsWithoutAudience.containsAll(grantsWithoutAudience)) {
+      return false;
+    }
+    
+    if (handle == null) {
+      if (other.handle != null)
+        return false;
+    } else if (!handle.equals(other.handle))
+      return false;
+    
+    if (lastModificationDate == null) {
+      if (other.lastModificationDate != null)
+        return false;
+    } else if (!lastModificationDate.equals(other.lastModificationDate))
+      return false;
+    
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    
+    if (password == null) {
+      if (other.password != null)
+        return false;
+    } else if (!password.equals(other.password))
+      return false;
+    
+    if (reference == null) {
+      if (other.reference != null)
+        return false;
+    } else if (!reference.equals(other.reference))
+      return false;
+    
+    if (userid == null) {
+      if (other.userid != null)
+        return false;
+    } else if (!userid.equals(other.userid))
+      return false;
+    
+    return true;
+  }
 
 }
