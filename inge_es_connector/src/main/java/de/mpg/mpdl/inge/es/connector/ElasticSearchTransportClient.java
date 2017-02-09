@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
 import org.elasticsearch.action.delete.DeleteResponse;
