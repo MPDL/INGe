@@ -178,6 +178,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // Set an initial version
     ItemRO itemVersion = new ItemRO();
     itemVersion.setVersionNumber(1);
+    // TODO remove test objectID
+    itemVersion.setObjectId("escidoc:12345");
     result.setVersion(itemVersion);
     result.setContext(pubCollectionRef);
     if (collection.getDefaultMetadata() != null
