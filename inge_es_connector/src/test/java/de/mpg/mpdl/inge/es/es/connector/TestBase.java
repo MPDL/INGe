@@ -1,7 +1,13 @@
 package de.mpg.mpdl.inge.es.es.connector;
 
+import java.io.IOException;
 import java.util.Date;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -51,6 +57,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 
 public class TestBase {
   private static final Date DATE = new Date();
+
+  private ObjectMapper mapper = ElasticSearchTransportClient.INSTANCE.getMapper();
 
   public AffiliationVO test_ou() {
     AffiliationVO vo = new AffiliationVO();
@@ -181,14 +189,14 @@ public class TestBase {
     vo.setBaseUrl("testBaseUrl");
     vo.setContentModel("testContenModel");
     vo.setContentModelHref("testContenModelHRef");
-    
+
     // Context
     ContextRO context = new ContextRO("testContext");
     context.setTitle("testTitle");
     vo.setContext(context);
-    
+
     vo.setCreationDate(DATE);
-    
+
     // LatestRelease
     ItemRO latestRelease = new ItemRO("testLatestRelease");
     latestRelease.setHref("testHref");
@@ -216,9 +224,9 @@ public class TestBase {
     latestVersion.setTitle("testTitle");
     latestVersion.setVersionNumber(5);
     vo.setLatestVersion(latestVersion);
-    
+
     vo.setLockStatus(LockStatus.LOCKED);
-    
+
     // MetaData
     MdsPublicationVO mdsPublication = new MdsPublicationVO();
     mdsPublication.setDateAccepted("testDateAccepted");
@@ -399,16 +407,16 @@ public class TestBase {
     subject.setValue("testValue");
     mdsPublication.getSubjects().add(subject);
     vo.setMetadata(mdsPublication);
-    
+
     // Owner
     AccountUserRO owner = new AccountUserRO("testOwner");
     owner.setTitle("testTitle");
     vo.setOwner(owner);
-    
+
     vo.setPid("testPid");
     vo.setPublicStatus(ItemVO.State.RELEASED);
     vo.setPublicStatusComment("testPublicStatusComment");
-    
+
     // Version
     ItemRO version = new ItemRO("testVersion");
     version.setHref("testHref");
@@ -422,36 +430,36 @@ public class TestBase {
     version.setTitle("testTitle");
     version.setVersionNumber(5);
     vo.setVersion(version);
-    
+
     // Yearbook (erst mal weglassen!)
-//    MdsYearbookVO yearbook = new MdsYearbookVO();
-//    yearbook.setEndDate("2017");
-//    yearbook.setStartDate("2017");
-//    yearbook.setTitle("testTitle");
-//    yearbook.setYear("testYear");
-//    // -PersonCreator
-//    person = new PersonVO();
-//    person.setCompleteName("testCompleteName");
-//    person.setFamilyName("testFamililyName");
-//    person.setGivenName("testGivenName");
-//    identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
-//    person.setIdentifier(identifier);
-//    person.getAlternativeNames().add("testAlternativeName");
-//    organization = new OrganizationVO();
-//    organization.setAddress("testAdress");
-//    organization.setIdentifier("testIdentifer");
-//    organization.setName("testName");
-//    person.getOrganizations().add(organization);
-//    person.getPseudonyms().add("testPseudonym");
-//    person.getTitles().add("testTitle");
-//    creator = new CreatorVO(person, CreatorRole.ACTOR);
-//    yearbook.getCreators().add(creator);
-//    // -OrganizationCreator
-//    creator = new CreatorVO(organization, CreatorRole.EDITOR);
-//    yearbook.getCreators().add(creator);
-//    yearbook.getIncludedContexts().add("testContext");
-//    vo.setYearbookMetadata(yearbook);
-    
+    // MdsYearbookVO yearbook = new MdsYearbookVO();
+    // yearbook.setEndDate("2017");
+    // yearbook.setStartDate("2017");
+    // yearbook.setTitle("testTitle");
+    // yearbook.setYear("testYear");
+    // // -PersonCreator
+    // person = new PersonVO();
+    // person.setCompleteName("testCompleteName");
+    // person.setFamilyName("testFamililyName");
+    // person.setGivenName("testGivenName");
+    // identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
+    // person.setIdentifier(identifier);
+    // person.getAlternativeNames().add("testAlternativeName");
+    // organization = new OrganizationVO();
+    // organization.setAddress("testAdress");
+    // organization.setIdentifier("testIdentifer");
+    // organization.setName("testName");
+    // person.getOrganizations().add(organization);
+    // person.getPseudonyms().add("testPseudonym");
+    // person.getTitles().add("testTitle");
+    // creator = new CreatorVO(person, CreatorRole.ACTOR);
+    // yearbook.getCreators().add(creator);
+    // // -OrganizationCreator
+    // creator = new CreatorVO(organization, CreatorRole.EDITOR);
+    // yearbook.getCreators().add(creator);
+    // yearbook.getIncludedContexts().add("testContext");
+    // vo.setYearbookMetadata(yearbook);
+
     // Files
     FileVO file = new FileVO();
     file.setChecksum("testChecksum");
@@ -490,7 +498,7 @@ public class TestBase {
     file.setStorage(Storage.EXTERNAL_MANAGED);
     file.setVisibility(Visibility.PRIVATE);
     vo.getFiles().add(file);
-    
+
     vo.getLocalTags().add("testTag");
 
     // Relations
@@ -524,4 +532,11 @@ public class TestBase {
 
     return vo;
   }
+
+  public PubItemVO create_item() throws JsonParseException, JsonMappingException, IOException {
+    String src="{\"files\":[{\"reference\":{\"objectId\":\"escidoc:1383643\"},\"name\":\"1Dreview.pdf\",\"visibility\":\"PUBLIC\",\"description\":null,\"createdByRO\":{\"objectId\":null,\"title\":null},\"creationDate\":\"2012-02-29T14:05:34.343+0000\",\"lastModificationDate\":null,\"pid\":null,\"content\":\"/ir/item/escidoc:1351618/components/component/escidoc:1383643/content\",\"storage\":\"INTERNAL_MANAGED\",\"contentCategory\":\"http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext\",\"checksum\":\"a3d04c9e8b348890c8c8b80b2520708e\",\"checksumAlgorithm\":\"MD5\",\"mimeType\":\"application/pdf\",\"defaultMetadata\":{\"title\":\"1Dreview.pdf\",\"description\":\"\",\"identifiers\":[],\"formats\":[{\"value\":\"application/pdf\",\"type\":\"dcterms:IMT\"}],\"size\":1487794,\"copyrightDate\":\"2011\",\"rights\":\"Elsevier\",\"license\":\"\"},\"contentCategoryString\":\"http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext\",\"visibilityString\":\"PUBLIC\",\"storageString\":\"INTERNAL_MANAGED\"}],\"localTags\":[\"\"],\"owner\":{\"objectId\":\"escidoc:653557\",\"title\":\"THDepositor\"},\"pid\":\"hdl:11858/00-001M-0000-000F-3FDA-3\",\"contentModel\":\"escidoc:persistent4\",\"version\":{\"objectId\":\"escidoc:1351618\",\"title\":\"ThisVersion\",\"versionNumber\":4,\"modificationDate\":\"2012-02-29T14:16:10.491+0000\",\"lastMessage\":\"\",\"state\":\"RELEASED\",\"modifiedByRO\":{\"objectId\":\"escidoc:653571\",\"title\":\"UtaSiebeky\"},\"pid\":\"hdl:11858/00-001M-0000-000F-3FDD-E\",\"versionNumberForXml\":4,\"modificationDateForXml\":\"2012-02-29T14:16:10.491+0000\",\"stateForXml\":\"RELEASED\",\"modifiedByForXml\":{\"objectId\":\"escidoc:653571\",\"title\":\"UtaSiebeky\"},\"lastMessageForXml\":\"\"},\"latestVersion\":{\"objectId\":\"escidoc:1351618\",\"title\":\"LatestVersion\",\"versionNumber\":4,\"modificationDate\":\"2012-02-29T14:16:10.491+0000\",\"versionNumberForXml\":4,\"modificationDateForXml\":\"2012-02-29T14:16:10.491+0000\",\"stateForXml\":\"PENDING\",\"modifiedByForXml\":{\"objectId\":null,\"title\":null},\"lastMessageForXml\":\"\"},\"latestRelease\":{\"objectId\":\"escidoc:1351618\",\"title\":\"Latestpublicversion\",\"versionNumber\":4,\"modificationDate\":\"2012-02-29T14:16:10.491+0000\",\"pid\":\"hdl:11858/00-001M-0000-000F-3FDD-E\",\"versionNumberForXml\":4,\"modificationDateForXml\":\"2012-02-29T14:16:10.491+0000\",\"stateForXml\":\"PENDING\",\"modifiedByForXml\":{\"objectId\":null,\"title\":null},\"lastMessageForXml\":\"\"},\"relations\":[],\"creationDate\":\"2012-02-10T16:02:52.910+0000\",\"lockStatus\":\"UNLOCKED\",\"publicStatus\":\"RELEASED\",\"publicStatusComment\":\"\",\"metadata\":{\"title\":\"Time-dependentdensity-functionalandreduceddensity-matrixmethodsforfewelectrons:Exactversusadiabaticapproximations\",\"alternativeTitles\":[],\"creators\":[{\"person\":{\"givenName\":\"N.\",\"familyName\":\"Helbig\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"Av.Tolosa72,E-20018SanSebastián,Spain\",\"identifier\":\"escidoc:persistent22\",\"name\":\"Nano-BioSpectroscopygroup,Dpto.FísicadeMateriales,UniversidaddelPaísVasco,CentrodeFísicadeMaterialesCSIC-UPV/EHU-MPCandDIPC,\"},{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"}],\"organizationsSize\":2},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"},{\"person\":{\"givenName\":\"J.I\",\"familyName\":\"Fuks\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"Av.Tolosa72,E-20018SanSebastián,Spain\",\"identifier\":\"escidoc:persistent22\",\"name\":\"Nano-BioSpectroscopygroup,Dpto.FísicadeMateriales,UniversidaddelPaísVasco,CentrodeFísicadeMaterialesCSIC-UPV/EHU-MPCandDIPC,\"},{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"}],\"organizationsSize\":2},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"},{\"person\":{\"givenName\":\"I.V.\",\"familyName\":\"Tokatly\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"Av.Tolosa72,E-20018SanSebastián,Spain\",\"identifier\":\"escidoc:persistent22\",\"name\":\"Nano-BioSpectroscopygroup,Dpto.FísicadeMateriales,UniversidaddelPaísVasco,CentrodeFísicadeMaterialesCSIC-UPV/EHU-MPCandDIPC,\"},{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"},{\"address\":\"E-48011Bilbao,Spain\",\"identifier\":\"escidoc:persistent22\",\"name\":\"IKERBASQUE,BasqueFoundationforScience,\"}],\"organizationsSize\":3},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"},{\"person\":{\"givenName\":\"Heiko\",\"familyName\":\"Appel\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"},{\"address\":\"Faradayweg4-6,D-14195Berlin,Germany\",\"identifier\":\"escidoc:634547\",\"name\":\"Theory,FritzHaberInstitute,MaxPlanckSociety\"}],\"identifier\":{\"id\":\"http://pubman.mpdl.mpg.de/cone/persons/resource/persons21304\",\"type\":\"CONE\",\"typeString\":\"CONE\"},\"organizationsSize\":2},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"},{\"person\":{\"givenName\":\"E.K.U\",\"familyName\":\"Gross\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"},{\"address\":\"Weinberg2,D-06120Halle,Germany\",\"identifier\":\"escidoc:persistent22\",\"name\":\"Max-Planck-InstitutfürMikrostrukturphysik,\"}],\"organizationsSize\":2},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"},{\"person\":{\"givenName\":\"Angel\",\"familyName\":\"Rubio\",\"alternativeNames\":[],\"titles\":[],\"pseudonyms\":[],\"organizations\":[{\"address\":\"Av.Tolosa72,E-20018SanSebastián,Spain\",\"identifier\":\"escidoc:persistent22\",\"name\":\"Nano-BioSpectroscopygroup,Dpto.FísicadeMateriales,UniversidaddelPaísVasco,CentrodeFísicadeMaterialesCSIC-UPV/EHU-MPCandDIPC,\"},{\"address\":\"\",\"identifier\":\"escidoc:persistent22\",\"name\":\"EuropeanTheoreticalSpectroscopyFacility\"},{\"address\":\"Faradayweg4-6,D-14195Berlin,Germany\",\"identifier\":\"escidoc:634547\",\"name\":\"Theory,FritzHaberInstitute,MaxPlanckSociety\"}],\"identifier\":{\"id\":\"http://pubman.mpdl.mpg.de/cone/persons/resource/persons22028\",\"type\":\"CONE\",\"typeString\":\"CONE\"},\"organizationsSize\":3},\"role\":\"AUTHOR\",\"type\":\"PERSON\",\"roleString\":\"AUTHOR\",\"typeString\":\"PERSON\"}],\"datePublishedInPrint\":\"2011-06-28\",\"genre\":\"ARTICLE\",\"identifiers\":[{\"id\":\"10.1016/j.chemphys.2011.06.010\",\"type\":\"DOI\",\"typeString\":\"DOI\"}],\"languages\":[\"eng\"],\"reviewMethod\":\"PEER\",\"sources\":[{\"title\":\"ChemicalPhysics\",\"alternativeTitles\":[{\"value\":\"Chem.Phys.\",\"type\":\"OTHER\"}],\"creators\":[],\"volume\":\"391\",\"issue\":\"1\",\"startPage\":\"1\",\"endPage\":\"10\",\"sequenceNumber\":\"\",\"publishingInfo\":{\"place\":\"Amsterdam\",\"publisher\":\"North-Holland\"},\"identifiers\":[{\"id\":\"0301-0104\",\"type\":\"ISSN\",\"typeString\":\"ISSN\"},{\"id\":\"http://pubman.mpdl.mpg.de/cone/journals/resource/954925509371\",\"type\":\"CONE\",\"typeString\":\"CONE\"}],\"sources\":[],\"genre\":\"JOURNAL\",\"totalNumberOfPages\":\"\"}],\"freeKeywords\":\"\",\"subjects\":[{\"value\":\"\",\"type\":\"DDC\"}],\"tableOfContents\":\"\",\"totalNumberOfPages\":\"\",\"abstracts\":[]},\"context\":{\"objectId\":\"escidoc:23049\",\"title\":\"PublicationsoftheFritzHaberInstitute\"},\"modificationDate\":\"2012-02-29T14:16:10.491+0000\"}";
+    PubItemVO item = mapper.readValue(src, PubItemVO.class);
+    return item;
+  }
+
 }

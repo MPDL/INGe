@@ -5,15 +5,10 @@ package de.mpg.mpdl.inge.es.handler;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientConnector;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.ItemInterface;
@@ -28,7 +23,6 @@ public class ItemServiceHandler implements ItemInterface {
   private ObjectMapper mapper = ElasticSearchTransportClient.INSTANCE.getMapper();
   private final String indexName = PropertyReader.getProperty("item_index_name");
   private final String indexType = PropertyReader.getProperty("item_index_type");
-
 
   /*
    * (non-Javadoc)
