@@ -70,7 +70,7 @@ public class TestItemServiceHandler extends TestBase {
       System.out.println(e);
     }
   }
-  
+
   @Ignore
   @Test
   public void testUpdate() {

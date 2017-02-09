@@ -246,33 +246,33 @@ public class CreatorVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     CreatorVO other = (CreatorVO) obj;
-    
+
     if (organization == null) {
       if (other.organization != null)
         return false;
     } else if (!organization.equals(other.organization))
       return false;
-    
+
     if (person == null) {
       if (other.person != null)
         return false;
     } else if (!person.equals(other.person))
       return false;
-    
+
     if (role != other.role)
       return false;
-    
+
     if (type != other.type)
       return false;
-    
+
     return true;
   }
 

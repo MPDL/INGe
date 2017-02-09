@@ -94,21 +94,21 @@ public class AffiliationRO extends ReferenceObject {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     AffiliationRO other = (AffiliationRO) obj;
-    
+
     if (form == null) {
       if (other.form != null)
         return false;
     } else if (!form.equals(other.form))
       return false;
-    
+
     return true;
   }
 }

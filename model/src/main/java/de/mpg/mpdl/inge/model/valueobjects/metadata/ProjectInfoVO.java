@@ -66,33 +66,33 @@ public class ProjectInfoVO extends ValueObject {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     ProjectInfoVO other = (ProjectInfoVO) obj;
-    
+
     if (fundingInfo == null) {
       if (other.fundingInfo != null)
         return false;
     } else if (!fundingInfo.equals(other.fundingInfo))
       return false;
-    
+
     if (grantIdentifier == null) {
       if (other.grantIdentifier != null)
         return false;
     } else if (!grantIdentifier.equals(other.grantIdentifier))
       return false;
-    
+
     if (title == null) {
       if (other.title != null)
         return false;
     } else if (!title.equals(other.title))
       return false;
-    
+
     return true;
   }
 

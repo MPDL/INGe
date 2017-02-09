@@ -251,52 +251,52 @@ public class GrantVO extends ValueObject {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     GrantVO other = (GrantVO) obj;
-    
+
     if (grantType == null) {
       if (other.grantType != null)
         return false;
     } else if (!grantType.equals(other.grantType))
       return false;
-    
+
     if (grantedTo == null) {
       if (other.grantedTo != null)
         return false;
     } else if (!grantedTo.equals(other.grantedTo))
       return false;
-    
+
     if (lastModificationDate == null) {
       if (other.lastModificationDate != null)
         return false;
     } else if (!lastModificationDate.equals(other.lastModificationDate))
       return false;
-    
+
     if (objectRef == null) {
       if (other.objectRef != null)
         return false;
     } else if (!objectRef.equals(other.objectRef))
       return false;
-    
+
     if (reference == null) {
       if (other.reference != null)
         return false;
     } else if (!reference.equals(other.reference))
       return false;
-    
+
     if (role == null) {
       if (other.role != null)
         return false;
     } else if (!role.equals(other.role))
       return false;
-    
+
     return true;
   }
-  
+
 }

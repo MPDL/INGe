@@ -156,39 +156,39 @@ public class MdsFileVO extends MetadataSetVO {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     MdsFileVO other = (MdsFileVO) obj;
-    
+
     if (contentCategory == null) {
       if (other.contentCategory != null)
         return false;
     } else if (!contentCategory.equals(other.contentCategory))
       return false;
-    
+
     if (copyrightDate == null) {
       if (other.copyrightDate != null)
         return false;
     } else if (!copyrightDate.equals(other.copyrightDate))
       return false;
-    
+
     if (description == null) {
       if (other.description != null)
         return false;
     } else if (!description.equals(other.description))
       return false;
-    
+
     if (embargoUntil == null) {
       if (other.embargoUntil != null)
         return false;
     } else if (!embargoUntil.equals(other.embargoUntil))
       return false;
-    
+
     if (formats == null) {
       if (other.formats != null)
         return false;
@@ -198,7 +198,7 @@ public class MdsFileVO extends MetadataSetVO {
         || !other.formats.containsAll(formats)) {
       return false;
     }
-    
+
     if (identifiers == null) {
       if (other.identifiers != null)
         return false;
@@ -208,22 +208,22 @@ public class MdsFileVO extends MetadataSetVO {
         || !other.identifiers.containsAll(identifiers)) {
       return false;
     }
-    
+
     if (license == null) {
       if (other.license != null)
         return false;
     } else if (!license.equals(other.license))
       return false;
-    
+
     if (rights == null) {
       if (other.rights != null)
         return false;
     } else if (!rights.equals(other.rights))
       return false;
-    
+
     if (size != other.size)
       return false;
-    
+
     return true;
   }
 }

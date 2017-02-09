@@ -590,7 +590,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     result = prime * result + ((dateAccepted == null) ? 0 : dateAccepted.hashCode());
     result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
     result = prime * result + ((dateModified == null) ? 0 : dateModified.hashCode());
-    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result =
+        prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
     result = prime * result + ((datePublishedOnline == null) ? 0 : datePublishedOnline.hashCode());
     result = prime * result + ((dateSubmitted == null) ? 0 : dateSubmitted.hashCode());
     result = prime * result + ((degree == null) ? 0 : degree.hashCode());
@@ -615,15 +616,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     MdsPublicationVO other = (MdsPublicationVO) obj;
-    
+
     if (abstracts == null) {
       if (other.abstracts != null)
         return false;
@@ -633,7 +634,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.abstracts.containsAll(abstracts)) {
       return false;
     }
-    
+
     if (alternativeTitles == null) {
       if (other.alternativeTitles != null)
         return false;
@@ -643,7 +644,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.alternativeTitles.containsAll(alternativeTitles)) {
       return false;
     }
-    
+
     if (creators == null) {
       if (other.creators != null)
         return false;
@@ -653,61 +654,61 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.creators.containsAll(creators)) {
       return false;
     }
-    
+
     if (dateAccepted == null) {
       if (other.dateAccepted != null)
         return false;
     } else if (!dateAccepted.equals(other.dateAccepted))
       return false;
-    
+
     if (dateCreated == null) {
       if (other.dateCreated != null)
         return false;
     } else if (!dateCreated.equals(other.dateCreated))
       return false;
-    
+
     if (dateModified == null) {
       if (other.dateModified != null)
         return false;
     } else if (!dateModified.equals(other.dateModified))
       return false;
-    
+
     if (datePublishedInPrint == null) {
       if (other.datePublishedInPrint != null)
         return false;
     } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
       return false;
-    
+
     if (datePublishedOnline == null) {
       if (other.datePublishedOnline != null)
         return false;
     } else if (!datePublishedOnline.equals(other.datePublishedOnline))
       return false;
-    
+
     if (dateSubmitted == null) {
       if (other.dateSubmitted != null)
         return false;
     } else if (!dateSubmitted.equals(other.dateSubmitted))
       return false;
-    
+
     if (degree != other.degree)
       return false;
-    
+
     if (event == null) {
       if (other.event != null)
         return false;
     } else if (!event.equals(other.event))
       return false;
-    
+
     if (freeKeywords == null) {
       if (other.freeKeywords != null)
         return false;
     } else if (!freeKeywords.equals(other.freeKeywords))
       return false;
-    
+
     if (genre != other.genre)
       return false;
-    
+
     if (identifiers == null) {
       if (other.identifiers != null)
         return false;
@@ -717,7 +718,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.identifiers.containsAll(identifiers)) {
       return false;
     }
-    
+
     if (languages == null) {
       if (other.languages != null)
         return false;
@@ -727,34 +728,34 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.languages.containsAll(languages)) {
       return false;
     }
-    
+
     if (legalCase == null) {
       if (other.legalCase != null)
         return false;
     } else if (!legalCase.equals(other.legalCase))
       return false;
-    
+
     if (location == null) {
       if (other.location != null)
         return false;
     } else if (!location.equals(other.location))
       return false;
-    
+
     if (projectInfo == null) {
       if (other.projectInfo != null)
         return false;
     } else if (!projectInfo.equals(other.projectInfo))
       return false;
-    
+
     if (publishingInfo == null) {
       if (other.publishingInfo != null)
         return false;
     } else if (!publishingInfo.equals(other.publishingInfo))
       return false;
-    
+
     if (reviewMethod != other.reviewMethod)
       return false;
-    
+
     if (sources == null) {
       if (other.sources != null)
         return false;
@@ -764,7 +765,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.sources.containsAll(sources)) {
       return false;
     }
-    
+
     if (subjects == null) {
       if (other.subjects != null)
         return false;
@@ -774,19 +775,19 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         || !other.subjects.containsAll(subjects)) {
       return false;
     }
-    
+
     if (tableOfContents == null) {
       if (other.tableOfContents != null)
         return false;
     } else if (!tableOfContents.equals(other.tableOfContents))
       return false;
-    
+
     if (totalNumberOfPages == null) {
       if (other.totalNumberOfPages != null)
         return false;
     } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
       return false;
-    
+
     return true;
   }
 

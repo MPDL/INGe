@@ -163,33 +163,33 @@ public class SubjectVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     SubjectVO other = (SubjectVO) obj;
-    
+
     if (language == null) {
       if (other.language != null)
         return false;
     } else if (!language.equals(other.language))
       return false;
-    
+
     if (type == null) {
       if (other.type != null)
         return false;
     } else if (!type.equals(other.type))
       return false;
-    
+
     if (value == null) {
       if (other.value != null)
         return false;
     } else if (!value.equals(other.value))
       return false;
-    
+
     return true;
   }
 

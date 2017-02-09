@@ -186,15 +186,15 @@ public class EventVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     EventVO other = (EventVO) obj;
-    
+
     if (alternativeTitles == null) {
       if (other.alternativeTitles != null)
         return false;
@@ -204,34 +204,34 @@ public class EventVO extends ValueObject implements Cloneable {
         || !other.alternativeTitles.containsAll(alternativeTitles)) {
       return false;
     }
-    
+
     if (endDate == null) {
       if (other.endDate != null)
         return false;
     } else if (!endDate.equals(other.endDate))
       return false;
-    
+
     if (invitationStatus != other.invitationStatus)
       return false;
-    
+
     if (place == null) {
       if (other.place != null)
         return false;
     } else if (!place.equals(other.place))
       return false;
-    
+
     if (startDate == null) {
       if (other.startDate != null)
         return false;
     } else if (!startDate.equals(other.startDate))
       return false;
-    
+
     if (title == null) {
       if (other.title != null)
         return false;
     } else if (!title.equals(other.title))
       return false;
-    
+
     return true;
   }
 

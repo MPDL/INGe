@@ -110,39 +110,39 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     LegalCaseVO other = (LegalCaseVO) obj;
-    
+
     if (courtName == null) {
       if (other.courtName != null)
         return false;
     } else if (!courtName.equals(other.courtName))
       return false;
-    
+
     if (datePublished == null) {
       if (other.datePublished != null)
         return false;
     } else if (!datePublished.equals(other.datePublished))
       return false;
-    
+
     if (identifier == null) {
       if (other.identifier != null)
         return false;
     } else if (!identifier.equals(other.identifier))
       return false;
-    
+
     if (title == null) {
       if (other.title != null)
         return false;
     } else if (!title.equals(other.title))
       return false;
-    
+
     return true;
   }
 
