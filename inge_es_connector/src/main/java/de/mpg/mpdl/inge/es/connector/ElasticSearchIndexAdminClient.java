@@ -17,6 +17,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -120,10 +121,9 @@ public enum ElasticSearchIndexAdminClient {
     TransportClient client = null;
     try {
       Settings settings =
-          Settings.settingsBuilder()
-              .put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
+          Settings.builder().put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
               .put("client.transport.sniff", true).build();
-      client = new TransportClient.Builder().settings(settings).build();
+      client = new PreBuiltTransportClient(settings);
       for (String ip : PropertyReader.getProperty("es_transport_ips").split(" ")) {
         client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
       }

@@ -11,6 +11,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,10 +52,9 @@ public enum ElasticSearchTransportClient {
   protected TransportClient getClient() {
 
     Settings settings =
-        Settings.settingsBuilder()
-            .put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
+        Settings.builder().put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
             .put("client.transport.sniff", true).build();
-    client = new TransportClient.Builder().settings(settings).build();
+    client = new PreBuiltTransportClient(settings);
     String transportIps = PropertyReader.getProperty("es_transport_ips");
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
