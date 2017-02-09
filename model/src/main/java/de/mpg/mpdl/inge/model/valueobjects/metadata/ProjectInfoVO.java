@@ -1,8 +1,5 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,9 +8,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
 @JsonInclude(value = Include.NON_NULL)
 public class ProjectInfoVO extends ValueObject {
-
-
-
   private String title;
   private IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "");
   private FundingInfoVO fundingInfo = new FundingInfoVO();
@@ -58,22 +52,48 @@ public class ProjectInfoVO extends ValueObject {
     return clonedProjectInfo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
-      return false;
-    }
-    ProjectInfoVO other = (ProjectInfoVO) obj;
-    return equals(getTitle(), other.getTitle())
-        && equals(getGrantIdentifier(), other.getGrantIdentifier())
-        && equals(getFundingInfo(), other.getFundingInfo());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((fundingInfo == null) ? 0 : fundingInfo.hashCode());
+    result = prime * result + ((grantIdentifier == null) ? 0 : grantIdentifier.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
   }
 
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    ProjectInfoVO other = (ProjectInfoVO) obj;
+    
+    if (fundingInfo == null) {
+      if (other.fundingInfo != null)
+        return false;
+    } else if (!fundingInfo.equals(other.fundingInfo))
+      return false;
+    
+    if (grantIdentifier == null) {
+      if (other.grantIdentifier != null)
+        return false;
+    } else if (!grantIdentifier.equals(other.grantIdentifier))
+      return false;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    return true;
+  }
 
 }

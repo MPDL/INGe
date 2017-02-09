@@ -28,7 +28,7 @@ public class TestItemServiceHandler extends TestBase {
   public void tearDown() throws Exception {}
 
   @Test
-  public void testCreate() {
+  public void test1Create() {
     try {
       String contextId = this.itemServiceHandler.createItem(test_item(), test_item_id);
       assert contextId.equals(test_item_id);
@@ -39,7 +39,7 @@ public class TestItemServiceHandler extends TestBase {
   }
 
   @Test
-  public void testRead() {
+  public void test1Read() {
     try {
       PubItemVO pubItemVO = this.itemServiceHandler.readItem(test_item_id);
       assert pubItemVO.equals(test_item());
@@ -49,6 +49,29 @@ public class TestItemServiceHandler extends TestBase {
     }
   }
 
+  @Test
+  public void test2Create() {
+    try {
+      String contextId = this.itemServiceHandler.createItem(create_item(), test_item_id);
+      assert contextId.equals(test_item_id);
+    } catch (Exception e) {
+      LOG.error(e);
+      System.out.println(e);
+    }
+  }
+
+  @Test
+  public void test2Read() {
+    try {
+      PubItemVO pubItemVO = this.itemServiceHandler.readItem(test_item_id);
+      assert pubItemVO.equals(create_item());
+    } catch (Exception e) {
+      LOG.error(e);
+      System.out.println(e);
+    }
+  }
+  
+  @Ignore
   @Test
   public void testUpdate() {
     try {

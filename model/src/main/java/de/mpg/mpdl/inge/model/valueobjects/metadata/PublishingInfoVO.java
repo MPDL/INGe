@@ -114,18 +114,48 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
     return vo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
   @Override
-  public boolean equals(Object o) {
-    if (o == null || !(o instanceof PublishingInfoVO)) {
-      return false;
-    }
-    PublishingInfoVO vo = (PublishingInfoVO) o;
-    return equals(getEdition(), vo.getEdition()) && equals(getPlace(), vo.getPlace())
-        && equals(getPublisher(), vo.getPublisher());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((edition == null) ? 0 : edition.hashCode());
+    result = prime * result + ((place == null) ? 0 : place.hashCode());
+    result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
+    return result;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    PublishingInfoVO other = (PublishingInfoVO) obj;
+    
+    if (edition == null) {
+      if (other.edition != null)
+        return false;
+    } else if (!edition.equals(other.edition))
+      return false;
+    
+    if (place == null) {
+      if (other.place != null)
+        return false;
+    } else if (!place.equals(other.place))
+      return false;
+    
+    if (publisher == null) {
+      if (other.publisher != null)
+        return false;
+    } else if (!publisher.equals(other.publisher))
+      return false;
+    
+    return true;
+  }
+  
 }

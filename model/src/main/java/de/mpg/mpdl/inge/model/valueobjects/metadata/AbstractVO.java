@@ -128,18 +128,41 @@ public class AbstractVO extends ValueObject implements Cloneable {
     return vo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals()
-   */
   @Override
-  public boolean equals(Object o) {
-    if (o == null || !(o instanceof AbstractVO)) {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((language == null) ? 0 : language.hashCode());
+    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
       return false;
-    }
-    AbstractVO vo = (AbstractVO) o;
-    return equals(getLanguage(), vo.getLanguage()) && equals(getValue(), vo.getValue());
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    AbstractVO other = (AbstractVO) obj;
+    
+    if (language == null) {
+      if (other.language != null)
+        return false;
+    } else if (!language.equals(other.language))
+      return false;
+    
+    if (value == null) {
+      if (other.value != null)
+        return false;
+    } else if (!value.equals(other.value))
+      return false;
+    
+    return true;
   }
 
   /*

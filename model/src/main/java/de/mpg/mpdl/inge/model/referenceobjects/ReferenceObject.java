@@ -100,27 +100,42 @@ public abstract class ReferenceObject implements Serializable {
     this.objectId = objectId;
   }
 
-  /**
-   * Softens the strict equivalence relation defined by the overwritten
-   * {@link java. lang.Object#equals(Object)} method. Two ReferenceObjects are equal, if they are
-   * identical, or if they are of the same type and contain the same objectId.
-   * 
-   * @returns true if the objects are equal according to the defined equivalence relation.
-   * 
-   * @param object
-   */
   @Override
-  public boolean equals(Object object) {
-    if (this == object) {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
       return true;
-    }
-    if (getClass().isInstance(object)) {
-      ReferenceObject otherRef = (ReferenceObject) object;
-      if (objectId != null && objectId.equals(otherRef.getObjectId())) {
-        return true;
-      }
-    }
-    return false;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    ReferenceObject other = (ReferenceObject) obj;
+    
+    if (objectId == null) {
+      if (other.objectId != null)
+        return false;
+      
+    } else if (!objectId.equals(other.objectId))
+      return false;
+    
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    
+    return true;
   }
 
   /**
@@ -138,6 +153,5 @@ public abstract class ReferenceObject implements Serializable {
   public String getTitle() {
     return title;
   }
-
 
 }

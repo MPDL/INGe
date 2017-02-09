@@ -485,64 +485,126 @@ public class FileVO extends ValueObject implements Cloneable {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    } else if (!(obj instanceof FileVO)) {
-      return false;
-    }
-    FileVO other = (FileVO) obj;
-    if (!(this.checksum == null && other.checksum == null)
-        && (this.checksum == null || !this.checksum.equals(other.checksum))) {
-      return false;
-    } else if (!(this.checksumAlgorithm == null && other.checksumAlgorithm == null)
-        && (this.checksumAlgorithm == null || !this.checksumAlgorithm
-            .equals(other.checksumAlgorithm))) {
-      return false;
-    } else if (!(this.content == null && other.content == null)
-        && (this.content == null || !this.content.equals(other.content))) {
-      return false;
-    } else if (!(this.contentCategory == null && other.contentCategory == null)
-        && (this.contentCategory == null || !this.contentCategory.equals(other.contentCategory))) {
-      return false;
-    } else if (!(this.createdByRO == null && other.createdByRO == null)
-        && (this.createdByRO == null || !this.createdByRO.equals(other.createdByRO))) {
-      return false;
-    } else if (!(this.creationDate == null && other.creationDate == null)
-        && (this.creationDate == null || !this.creationDate.equals(other.creationDate))) {
-      return false;
-    } else if (!(this.description == null && other.description == null)
-        && (this.description == null || !this.description.equals(other.description))) {
-      return false;
-    } else if (!(this.lastModificationDate == null && other.lastModificationDate == null)
-        && (this.lastModificationDate == null || !this.lastModificationDate
-            .equals(other.lastModificationDate))) {
-      return false;
-    } else if (!(this.metadataSets == null && other.metadataSets == null)
-        && (this.metadataSets == null || !this.metadataSets.equals(other.metadataSets))) {
-      return false;
-    } else if (!(this.mimeType == null && other.mimeType == null)
-        && (this.mimeType == null || !this.mimeType.equals(other.mimeType))) {
-      return false;
-    } else if (!(this.name == null && other.name == null)
-        && (this.name == null || !this.name.equals(other.name))) {
-      return false;
-    } else if (!(this.pid == null && other.pid == null)
-        && (this.pid == null || !this.pid.equals(other.pid))) {
-      return false;
-    } else if (!(this.reference == null && other.reference == null)
-        && (this.reference == null || !this.reference.equals(other.reference))) {
-      return false;
-    } else if (!(this.storage == null && other.storage == null)
-        && (this.storage == null || !this.storage.equals(other.storage))) {
-      return false;
-    } else if (!(this.visibility == null && other.visibility == null)
-        && (this.visibility == null || !this.visibility.equals(other.visibility))) {
-      return false;
-    } else {
-      return true;
-    }
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((checksum == null) ? 0 : checksum.hashCode());
+    result = prime * result + ((checksumAlgorithm == null) ? 0 : checksumAlgorithm.hashCode());
+    result = prime * result + ((content == null) ? 0 : content.hashCode());
+    result = prime * result + ((contentCategory == null) ? 0 : contentCategory.hashCode());
+    result = prime * result + ((createdByRO == null) ? 0 : createdByRO.hashCode());
+    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
+    result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
+    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+    result = prime * result + ((storage == null) ? 0 : storage.hashCode());
+    result = prime * result + ((visibility == null) ? 0 : visibility.hashCode());
+    return result;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    FileVO other = (FileVO) obj;
+    
+    if (checksum == null) {
+      if (other.checksum != null)
+        return false;
+    } else if (!checksum.equals(other.checksum))
+      return false;
+    
+    if (checksumAlgorithm != other.checksumAlgorithm)
+      return false;
+    
+    if (content == null) {
+      if (other.content != null)
+        return false;
+    } else if (!content.equals(other.content))
+      return false;
+    
+    if (contentCategory == null) {
+      if (other.contentCategory != null)
+        return false;
+    } else if (!contentCategory.equals(other.contentCategory))
+      return false;
+    
+    if (createdByRO == null) {
+      if (other.createdByRO != null)
+        return false;
+    } else if (!createdByRO.equals(other.createdByRO))
+      return false;
+    
+    if (creationDate == null) {
+      if (other.creationDate != null)
+        return false;
+    } else if (!creationDate.equals(other.creationDate))
+      return false;
+    
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
+      return false;
+    
+    if (lastModificationDate == null) {
+      if (other.lastModificationDate != null)
+        return false;
+    } else if (!lastModificationDate.equals(other.lastModificationDate))
+      return false;
+    
+    if (metadataSets == null) {
+      if (other.metadataSets != null)
+        return false;
+    } else if (other.metadataSets == null)
+      return false;
+    else if (!metadataSets.containsAll(other.metadataSets) //
+        || !other.metadataSets.containsAll(metadataSets)) {
+      return false;
+    }
+    
+    if (mimeType == null) {
+      if (other.mimeType != null)
+        return false;
+    } else if (!mimeType.equals(other.mimeType))
+      return false;
+    
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    
+    if (pid == null) {
+      if (other.pid != null)
+        return false;
+    } else if (!pid.equals(other.pid))
+      return false;
+    
+    if (reference == null) {
+      if (other.reference != null)
+        return false;
+    } else if (!reference.equals(other.reference))
+      return false;
+    
+    if (storage != other.storage)
+      return false;
+    
+    if (visibility != other.visibility)
+      return false;
+    
+    return true;
+  }
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 @JsonInclude(value = Include.NON_NULL)
@@ -138,44 +137,93 @@ public class MdsFileVO extends MetadataSetVO {
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((contentCategory == null) ? 0 : contentCategory.hashCode());
+    result = prime * result + ((copyrightDate == null) ? 0 : copyrightDate.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((embargoUntil == null) ? 0 : embargoUntil.hashCode());
+    result = prime * result + ((formats == null) ? 0 : formats.hashCode());
+    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
+    result = prime * result + ((license == null) ? 0 : license.hashCode());
+    result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+    result = prime * result + size;
+    return result;
+  }
+
+  @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    } else if (!(obj instanceof MdsFileVO)) {
-      return false;
-    }
+    if (this == obj)
+      return true;
+    
     if (!super.equals(obj))
       return false;
-
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
     MdsFileVO other = (MdsFileVO) obj;
-    if (!(this.contentCategory == null && other.contentCategory == null)
-        && (this.contentCategory == null || !this.contentCategory.equals(other.contentCategory))) {
+    
+    if (contentCategory == null) {
+      if (other.contentCategory != null)
+        return false;
+    } else if (!contentCategory.equals(other.contentCategory))
       return false;
-    } else if (!(this.copyrightDate == null && other.copyrightDate == null)
-        && (this.copyrightDate == null || !this.copyrightDate.equals(other.copyrightDate))) {
+    
+    if (copyrightDate == null) {
+      if (other.copyrightDate != null)
+        return false;
+    } else if (!copyrightDate.equals(other.copyrightDate))
       return false;
-    } else if (!(this.description == null && other.description == null)
-        && (this.description == null || !this.description.equals(other.description))) {
+    
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
       return false;
-    } else if (!(this.embargoUntil == null && other.embargoUntil == null)
-        && (this.embargoUntil == null || !this.embargoUntil.equals(other.embargoUntil))) {
+    
+    if (embargoUntil == null) {
+      if (other.embargoUntil != null)
+        return false;
+    } else if (!embargoUntil.equals(other.embargoUntil))
       return false;
-    } else if (!(this.formats == null && other.formats == null)
-        && (this.formats == null || !this.formats.equals(other.formats))) {
+    
+    if (formats == null) {
+      if (other.formats != null)
+        return false;
+    } else if (other.formats == null)
       return false;
-    } else if (!(this.identifiers == null && other.identifiers == null)
-        && (this.identifiers == null || !this.identifiers.equals(other.identifiers))) {
+    else if (!formats.containsAll(other.formats) //
+        || !other.formats.containsAll(formats)) {
       return false;
-    } else if (!(this.license == null && other.license == null)
-        && (this.license == null || !this.license.equals(other.license))) {
-      return false;
-    } else if (!(this.rights == null && other.rights == null)
-        && (this.rights == null || !this.rights.equals(other.rights))) {
-      return false;
-    } else if (this.size != other.size) {
-      return false;
-    } else {
-      return true;
     }
+    
+    if (identifiers == null) {
+      if (other.identifiers != null)
+        return false;
+    } else if (other.identifiers == null)
+      return false;
+    else if (!identifiers.containsAll(other.identifiers) //
+        || !other.identifiers.containsAll(identifiers)) {
+      return false;
+    }
+    
+    if (license == null) {
+      if (other.license != null)
+        return false;
+    } else if (!license.equals(other.license))
+      return false;
+    
+    if (rights == null) {
+      if (other.rights != null)
+        return false;
+    } else if (!rights.equals(other.rights))
+      return false;
+    
+    if (size != other.size)
+      return false;
+    
+    return true;
   }
 }

@@ -195,24 +195,99 @@ public class PersonVO extends ValueObject implements Cloneable {
     return vo;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
   @Override
-  public boolean equals(Object o) {
-    if (o == null || !(o instanceof PersonVO)) {
-      return false;
-    }
-    PersonVO vo = (PersonVO) o;
-    return equals(getFamilyName(), vo.getFamilyName()) && equals(getGivenName(), vo.getGivenName())
-        && equals(getCompleteName(), vo.getCompleteName())
-        && equals(getIdentifier(), vo.getIdentifier())
-        && equals(getAlternativeNames(), vo.getAlternativeNames())
-        && equals(getOrganizations(), vo.getOrganizations())
-        && equals(getPseudonyms(), vo.getPseudonyms()) && equals(getTitles(), vo.getTitles());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((alternativeNames == null) ? 0 : alternativeNames.hashCode());
+    result = prime * result + ((completeName == null) ? 0 : completeName.hashCode());
+    result = prime * result + ((familyName == null) ? 0 : familyName.hashCode());
+    result = prime * result + ((givenName == null) ? 0 : givenName.hashCode());
+    result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+    result = prime * result + ((organizations == null) ? 0 : organizations.hashCode());
+    result = prime * result + ((pseudonyms == null) ? 0 : pseudonyms.hashCode());
+    result = prime * result + ((titles == null) ? 0 : titles.hashCode());
+    return result;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    PersonVO other = (PersonVO) obj;
+    
+    if (alternativeNames == null) {
+      if (other.alternativeNames != null)
+        return false;
+    } else if (other.alternativeNames == null)
+      return false;
+    else if (!alternativeNames.containsAll(other.alternativeNames) //
+        || !other.alternativeNames.containsAll(alternativeNames)) {
+      return false;
+    }
+    
+    if (completeName == null) {
+      if (other.completeName != null)
+        return false;
+    } else if (!completeName.equals(other.completeName))
+      return false;
+    
+    if (familyName == null) {
+      if (other.familyName != null)
+        return false;
+    } else if (!familyName.equals(other.familyName))
+      return false;
+    
+    if (givenName == null) {
+      if (other.givenName != null)
+        return false;
+    } else if (!givenName.equals(other.givenName))
+      return false;
+    
+    if (identifier == null) {
+      if (other.identifier != null)
+        return false;
+    } else if (!identifier.equals(other.identifier))
+      return false;
+    
+    if (organizations == null) {
+      if (other.organizations != null)
+        return false;
+    } else if (other.organizations == null)
+      return false;
+    else if (!organizations.containsAll(other.organizations) //
+        || !other.organizations.containsAll(organizations)) {
+      return false;
+    }
+    
+    if (pseudonyms == null) {
+      if (other.pseudonyms != null)
+        return false;
+    } else if (other.pseudonyms == null)
+      return false;
+    else if (!pseudonyms.containsAll(other.pseudonyms) //
+        || !other.pseudonyms.containsAll(pseudonyms)) {
+      return false;
+    }
+    
+    if (titles == null) {
+      if (other.titles != null)
+        return false;
+    } else if (other.titles == null)
+      return false;
+    else if (!titles.containsAll(other.titles) //
+        || !other.titles.containsAll(titles)) {
+      return false;
+    }
+    
+    return true;
+  }
 
 }

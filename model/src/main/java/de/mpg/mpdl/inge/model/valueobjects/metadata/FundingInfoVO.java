@@ -49,21 +49,41 @@ public class FundingInfoVO extends ValueObject {
   }
 
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
-      return false;
-    }
-    FundingInfoVO other = (FundingInfoVO) obj;
-    return equals(getFundingOrganization(), other.getFundingOrganization())
-        && equals(getFundingProgram(), other.getFundingProgram());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((fundingOrganization == null) ? 0 : fundingOrganization.hashCode());
+    result = prime * result + ((fundingProgram == null) ? 0 : fundingProgram.hashCode());
+    return result;
   }
 
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    FundingInfoVO other = (FundingInfoVO) obj;
+    
+    if (fundingOrganization == null) {
+      if (other.fundingOrganization != null)
+        return false;
+    } else if (!fundingOrganization.equals(other.fundingOrganization))
+      return false;
+    
+    if (fundingProgram == null) {
+      if (other.fundingProgram != null)
+        return false;
+    } else if (!fundingProgram.equals(other.fundingProgram))
+      return false;
+    
+    return true;
+  }
 
 }

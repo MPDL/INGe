@@ -25,7 +25,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.publication;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
@@ -170,21 +169,70 @@ public class MdsYearbookVO extends MetadataSetVO implements Cloneable {
     this.includedContexts = newIncludedContexts;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+    result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+    result = prime * result + ((includedContexts == null) ? 0 : includedContexts.hashCode());
+    result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+    result = prime * result + ((year == null) ? 0 : year.hashCode());
+    return result;
+  }
+
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(getClass().isAssignableFrom(obj.getClass()))) {
+    if (this == obj)
+      return true;
+    
+    if (!super.equals(obj))
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    MdsYearbookVO other = (MdsYearbookVO) obj;
+    
+    if (creators == null) {
+      if (other.creators != null)
+        return false;
+    } else if (other.creators == null)
+      return false;
+    else if (!creators.containsAll(other.creators) //
+        || !other.creators.containsAll(creators)) {
       return false;
     }
-    MdsYearbookVO other = (MdsYearbookVO) obj;
-    return equals(this.getTitle(), other.getTitle())
-        && equals(this.getCreators(), other.getCreators())
-        && equals(this.getYear(), other.getYear())
-        && equals(this.getStartDate(), other.getStartDate())
-        && equals(this.getEndDate(), other.getEndDate())
-        && equals(this.getIncludedContexts(), other.getIncludedContexts());
+    
+    if (endDate == null) {
+      if (other.endDate != null)
+        return false;
+    } else if (!endDate.equals(other.endDate))
+      return false;
+    
+    if (includedContexts == null) {
+      if (other.includedContexts != null)
+        return false;
+    } else if (other.includedContexts == null)
+      return false;
+    else if (!includedContexts.containsAll(other.includedContexts) //
+        || !other.includedContexts.containsAll(includedContexts)) {
+      return false;
+    }
+    
+    if (startDate == null) {
+      if (other.startDate != null)
+        return false;
+    } else if (!startDate.equals(other.startDate))
+      return false;
+    
+    if (year == null) {
+      if (other.year != null)
+        return false;
+    } else if (!year.equals(other.year))
+      return false;
+    
+    return true;
   }
 
   /**

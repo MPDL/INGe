@@ -63,21 +63,39 @@ public class FormatVO extends ValueObject {
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    return result;
+  }
+
+  @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    } else if (!(obj instanceof FormatVO)) {
-      return false;
-    }
-    FormatVO other = (FormatVO) obj;
-    if (!(this.type == null && other.type == null)
-        && (this.type == null || !this.type.equals(other.type))) {
-      return false;
-    } else if (!(this.value == null && other.value == null)
-        && (this.value == null || !this.value.equals(other.value))) {
-      return false;
-    } else {
+    if (this == obj)
       return true;
-    }
+    
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+    FormatVO other = (FormatVO) obj;
+    
+    if (type == null) {
+      if (other.type != null)
+        return false;
+    } else if (!type.equals(other.type))
+      return false;
+    
+    if (value == null) {
+      if (other.value != null)
+        return false;
+    } else if (!value.equals(other.value))
+      return false;
+    
+    return true;
   }
 }
