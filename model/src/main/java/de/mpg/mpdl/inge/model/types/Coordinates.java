@@ -15,7 +15,7 @@ public class Coordinates implements Serializable {
   private double longitude;
   private double altitude;
 
-//  private boolean altitudeSet;
+  // private boolean altitudeSet;
 
   public Coordinates() {}
 
@@ -30,7 +30,7 @@ public class Coordinates implements Serializable {
     this.latitude = latitude;
     this.longitude = longitute;
     this.altitude = altitude;
-//    this.altitudeSet = true;
+    // this.altitudeSet = true;
   }
 
   /**
@@ -43,7 +43,7 @@ public class Coordinates implements Serializable {
     this.latitude = latitude;
     this.longitude = longitute;
     this.altitude = 0;
-//    this.altitudeSet = false;
+    // this.altitudeSet = false;
   }
 
   public Coordinates(String coordinates) throws Exception {
@@ -52,25 +52,25 @@ public class Coordinates implements Serializable {
       if (coordinatesArray.length == 2) {
         this.latitude = Double.parseDouble(coordinatesArray[0]);
         this.longitude = Double.parseDouble(coordinatesArray[1]);
-//        this.altitudeSet = false;
+        // this.altitudeSet = false;
       } else if (coordinatesArray.length == 3) {
         this.latitude = Double.parseDouble(coordinatesArray[0]);
         this.longitude = Double.parseDouble(coordinatesArray[1]);
         this.altitude = Double.parseDouble(coordinatesArray[2]);
-//        this.altitudeSet = true;
+        // this.altitudeSet = true;
       } else {
         throw new NumberFormatException("The coordinates are not in the right format");
       }
     }
   }
 
-//  public String toString() {
-//    if (altitudeSet) {
-//      return latitude + "," + longitude + "," + altitude;
-//    } else {
-//      return latitude + "," + longitude;
-//    }
-//  }
+  // public String toString() {
+  // if (altitudeSet) {
+  // return latitude + "," + longitude + "," + altitude;
+  // } else {
+  // return latitude + "," + longitude;
+  // }
+  // }
 
   public double getLatitude() {
     return latitude;
@@ -114,24 +114,24 @@ public class Coordinates implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     Coordinates other = (Coordinates) obj;
-    
+
     if (Double.doubleToLongBits(altitude) != Double.doubleToLongBits(other.altitude))
       return false;
-    
+
     if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
       return false;
-    
+
     if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
       return false;
-    
+
     return true;
   }
 

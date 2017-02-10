@@ -128,34 +128,34 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     PublishingInfoVO other = (PublishingInfoVO) obj;
-    
+
     if (edition == null) {
       if (other.edition != null)
         return false;
     } else if (!edition.equals(other.edition))
       return false;
-    
+
     if (place == null) {
       if (other.place != null)
         return false;
     } else if (!place.equals(other.place))
       return false;
-    
+
     if (publisher == null) {
       if (other.publisher != null)
         return false;
     } else if (!publisher.equals(other.publisher))
       return false;
-    
+
     return true;
   }
-  
+
 }

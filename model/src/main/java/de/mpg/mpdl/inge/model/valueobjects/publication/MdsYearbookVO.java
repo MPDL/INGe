@@ -185,15 +185,15 @@ public class MdsYearbookVO extends MetadataSetVO implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     MdsYearbookVO other = (MdsYearbookVO) obj;
-    
+
     if (creators == null) {
       if (other.creators != null)
         return false;
@@ -203,13 +203,13 @@ public class MdsYearbookVO extends MetadataSetVO implements Cloneable {
         || !other.creators.containsAll(creators)) {
       return false;
     }
-    
+
     if (endDate == null) {
       if (other.endDate != null)
         return false;
     } else if (!endDate.equals(other.endDate))
       return false;
-    
+
     if (includedContexts == null) {
       if (other.includedContexts != null)
         return false;
@@ -219,19 +219,19 @@ public class MdsYearbookVO extends MetadataSetVO implements Cloneable {
         || !other.includedContexts.containsAll(includedContexts)) {
       return false;
     }
-    
+
     if (startDate == null) {
       if (other.startDate != null)
         return false;
     } else if (!startDate.equals(other.startDate))
       return false;
-    
+
     if (year == null) {
       if (other.year != null)
         return false;
     } else if (!year.equals(other.year))
       return false;
-    
+
     return true;
   }
 

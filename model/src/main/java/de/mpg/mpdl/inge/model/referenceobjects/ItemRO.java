@@ -252,45 +252,45 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     ItemRO other = (ItemRO) obj;
-    
+
     if (lastMessage == null) {
       if (other.lastMessage != null)
         return false;
     } else if (!lastMessage.equals(other.lastMessage))
       return false;
-    
+
     if (modificationDate == null) {
       if (other.modificationDate != null)
         return false;
     } else if (!modificationDate.equals(other.modificationDate))
       return false;
-    
+
     if (modifiedByRO == null) {
       if (other.modifiedByRO != null)
         return false;
     } else if (!modifiedByRO.equals(other.modifiedByRO))
       return false;
-    
+
     if (pid == null) {
       if (other.pid != null)
         return false;
     } else if (!pid.equals(other.pid))
       return false;
-    
+
     if (state != other.state)
       return false;
-    
+
     if (versionNumber != other.versionNumber)
       return false;
-    
+
     return true;
   }
 

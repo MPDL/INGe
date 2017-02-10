@@ -62,27 +62,27 @@ public class FundingInfoVO extends ValueObject {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     FundingInfoVO other = (FundingInfoVO) obj;
-    
+
     if (fundingOrganization == null) {
       if (other.fundingOrganization != null)
         return false;
     } else if (!fundingOrganization.equals(other.fundingOrganization))
       return false;
-    
+
     if (fundingProgram == null) {
       if (other.fundingProgram != null)
         return false;
     } else if (!fundingProgram.equals(other.fundingProgram))
       return false;
-    
+
     return true;
   }
 

@@ -357,7 +357,8 @@ public class UserGroupVO extends ValueObject {
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((grants == null) ? 0 : grants.hashCode());
     result = prime * result + ((label == null) ? 0 : label.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result =
+        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((members == null) ? 0 : members.hashCode());
     result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -370,42 +371,42 @@ public class UserGroupVO extends ValueObject {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     UserGroupVO other = (UserGroupVO) obj;
-    
+
     if (active != other.active)
       return false;
-    
+
     if (createdBy == null) {
       if (other.createdBy != null)
         return false;
     } else if (!createdBy.equals(other.createdBy))
       return false;
-    
+
     if (creationDate == null) {
       if (other.creationDate != null)
         return false;
     } else if (!creationDate.equals(other.creationDate))
       return false;
-    
+
     if (description == null) {
       if (other.description != null)
         return false;
     } else if (!description.equals(other.description))
       return false;
-    
+
     if (email == null) {
       if (other.email != null)
         return false;
     } else if (!email.equals(other.email))
       return false;
-    
+
     if (grants == null) {
       if (other.grants != null)
         return false;
@@ -415,19 +416,19 @@ public class UserGroupVO extends ValueObject {
         || !other.grants.containsAll(grants)) {
       return false;
     }
-    
+
     if (label == null) {
       if (other.label != null)
         return false;
     } else if (!label.equals(other.label))
       return false;
-    
+
     if (lastModificationDate == null) {
       if (other.lastModificationDate != null)
         return false;
     } else if (!lastModificationDate.equals(other.lastModificationDate))
       return false;
-    
+
     if (members == null) {
       if (other.members != null)
         return false;
@@ -437,32 +438,32 @@ public class UserGroupVO extends ValueObject {
         || !other.members.containsAll(members)) {
       return false;
     }
-    
+
     if (modifiedBy == null) {
       if (other.modifiedBy != null)
         return false;
     } else if (!modifiedBy.equals(other.modifiedBy))
       return false;
-    
+
     if (name == null) {
       if (other.name != null)
         return false;
     } else if (!name.equals(other.name))
       return false;
-    
+
     if (objid == null) {
       if (other.objid != null)
         return false;
     } else if (!objid.equals(other.objid))
       return false;
-    
+
     if (type == null) {
       if (other.type != null)
         return false;
     } else if (!type.equals(other.type))
       return false;
-    
+
     return true;
   }
-  
+
 }

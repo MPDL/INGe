@@ -353,7 +353,8 @@ public class SourceVO extends ValueObject implements Cloneable {
     int result = 1;
     result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
     result = prime * result + ((creators == null) ? 0 : creators.hashCode());
-    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result =
+        prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
     result = prime * result + ((endPage == null) ? 0 : endPage.hashCode());
     result = prime * result + ((genre == null) ? 0 : genre.hashCode());
     result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
@@ -372,15 +373,15 @@ public class SourceVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     SourceVO other = (SourceVO) obj;
-    
+
     if (alternativeTitles == null) {
       if (other.alternativeTitles != null)
         return false;
@@ -390,7 +391,7 @@ public class SourceVO extends ValueObject implements Cloneable {
         || !other.alternativeTitles.containsAll(alternativeTitles)) {
       return false;
     }
-    
+
     if (creators == null) {
       if (other.creators != null)
         return false;
@@ -400,22 +401,22 @@ public class SourceVO extends ValueObject implements Cloneable {
         || !other.creators.containsAll(creators)) {
       return false;
     }
-    
+
     if (datePublishedInPrint == null) {
       if (other.datePublishedInPrint != null)
         return false;
     } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
       return false;
-    
+
     if (endPage == null) {
       if (other.endPage != null)
         return false;
     } else if (!endPage.equals(other.endPage))
       return false;
-    
+
     if (genre != other.genre)
       return false;
-    
+
     if (identifiers == null) {
       if (other.identifiers != null)
         return false;
@@ -425,25 +426,25 @@ public class SourceVO extends ValueObject implements Cloneable {
         || !other.identifiers.containsAll(identifiers)) {
       return false;
     }
-    
+
     if (issue == null) {
       if (other.issue != null)
         return false;
     } else if (!issue.equals(other.issue))
       return false;
-    
+
     if (publishingInfo == null) {
       if (other.publishingInfo != null)
         return false;
     } else if (!publishingInfo.equals(other.publishingInfo))
       return false;
-    
+
     if (sequenceNumber == null) {
       if (other.sequenceNumber != null)
         return false;
     } else if (!sequenceNumber.equals(other.sequenceNumber))
       return false;
-    
+
     if (sources == null) {
       if (other.sources != null)
         return false;
@@ -453,31 +454,31 @@ public class SourceVO extends ValueObject implements Cloneable {
         || !other.sources.containsAll(sources)) {
       return false;
     }
-    
+
     if (startPage == null) {
       if (other.startPage != null)
         return false;
     } else if (!startPage.equals(other.startPage))
       return false;
-    
+
     if (title == null) {
       if (other.title != null)
         return false;
     } else if (!title.equals(other.title))
       return false;
-    
+
     if (totalNumberOfPages == null) {
       if (other.totalNumberOfPages != null)
         return false;
     } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
       return false;
-    
+
     if (volume == null) {
       if (other.volume != null)
         return false;
     } else if (!volume.equals(other.volume))
       return false;
-    
+
     return true;
   }
 

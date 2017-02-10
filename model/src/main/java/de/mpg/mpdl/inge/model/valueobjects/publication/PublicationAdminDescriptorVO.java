@@ -135,8 +135,11 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     final int prime = 31;
     int result = 1;
     result = prime * result + ((allowedGenres == null) ? 0 : allowedGenres.hashCode());
-    result = prime * result
-        + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications.hashCode());
+    result =
+        prime
+            * result
+            + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications
+                .hashCode());
     result = prime * result + ((contactEmail == null) ? 0 : contactEmail.hashCode());
     result = prime * result + ((templateItem == null) ? 0 : templateItem.hashCode());
     result = prime * result + ((validationSchema == null) ? 0 : validationSchema.hashCode());
@@ -150,15 +153,15 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
-    
+
     if (allowedGenres == null) {
       if (other.allowedGenres != null)
         return false;
@@ -168,7 +171,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
         || !other.allowedGenres.containsAll(allowedGenres)) {
       return false;
     }
-    
+
     if (allowedSubjectClassifications == null) {
       if (other.allowedSubjectClassifications != null)
         return false;
@@ -178,34 +181,34 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
         || !other.allowedSubjectClassifications.containsAll(allowedSubjectClassifications)) {
       return false;
     }
-    
+
     if (contactEmail == null) {
       if (other.contactEmail != null)
         return false;
     } else if (!contactEmail.equals(other.contactEmail))
       return false;
-    
+
     if (templateItem == null) {
       if (other.templateItem != null)
         return false;
     } else if (!templateItem.equals(other.templateItem))
       return false;
-    
+
     if (validationSchema == null) {
       if (other.validationSchema != null)
         return false;
     } else if (!validationSchema.equals(other.validationSchema))
       return false;
-    
+
     if (visibilityOfReferences == null) {
       if (other.visibilityOfReferences != null)
         return false;
     } else if (!visibilityOfReferences.equals(other.visibilityOfReferences))
       return false;
-    
+
     if (workflow != other.workflow)
       return false;
-    
+
     return true;
   }
 

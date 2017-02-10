@@ -455,39 +455,39 @@ public class ItemVO extends ValueObject implements Searchable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     ItemVO other = (ItemVO) obj;
-    
+
     if (baseUrl == null) {
       if (other.baseUrl != null)
         return false;
     } else if (!baseUrl.equals(other.baseUrl))
       return false;
-    
+
     if (contentModel == null) {
       if (other.contentModel != null)
         return false;
     } else if (!contentModel.equals(other.contentModel))
       return false;
-    
+
     if (contextRO == null) {
       if (other.contextRO != null)
         return false;
     } else if (!contextRO.equals(other.contextRO))
       return false;
-    
+
     if (creationDate == null) {
       if (other.creationDate != null)
         return false;
     } else if (!creationDate.equals(other.creationDate))
       return false;
-    
+
     if (files == null) {
       if (other.files != null)
         return false;
@@ -497,19 +497,19 @@ public class ItemVO extends ValueObject implements Searchable {
         || !other.files.containsAll(files)) {
       return false;
     }
-    
+
     if (latestRelease == null) {
       if (other.latestRelease != null)
         return false;
     } else if (!latestRelease.equals(other.latestRelease))
       return false;
-    
+
     if (latestVersion == null) {
       if (other.latestVersion != null)
         return false;
     } else if (!latestVersion.equals(other.latestVersion))
       return false;
-    
+
     if (localTags == null) {
       if (other.localTags != null)
         return false;
@@ -519,10 +519,10 @@ public class ItemVO extends ValueObject implements Searchable {
         || !other.localTags.containsAll(localTags)) {
       return false;
     }
-    
+
     if (lockStatus != other.lockStatus)
       return false;
-    
+
     if (metadataSets == null) {
       if (other.metadataSets != null)
         return false;
@@ -532,28 +532,28 @@ public class ItemVO extends ValueObject implements Searchable {
         || !other.metadataSets.containsAll(metadataSets)) {
       return false;
     }
-    
+
     if (owner == null) {
       if (other.owner != null)
         return false;
     } else if (!owner.equals(other.owner))
       return false;
-    
+
     if (pid == null) {
       if (other.pid != null)
         return false;
     } else if (!pid.equals(other.pid))
       return false;
-    
+
     if (publicStatus != other.publicStatus)
       return false;
-    
+
     if (publicStatusComment == null) {
       if (other.publicStatusComment != null)
         return false;
     } else if (!publicStatusComment.equals(other.publicStatusComment))
       return false;
-    
+
     if (relations == null) {
       if (other.relations != null)
         return false;
@@ -563,13 +563,13 @@ public class ItemVO extends ValueObject implements Searchable {
         || !other.relations.containsAll(relations)) {
       return false;
     }
-    
+
     if (version == null) {
       if (other.version != null)
         return false;
     } else if (!version.equals(other.version))
       return false;
-    
+
     return true;
   }
 

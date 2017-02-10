@@ -10,6 +10,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,9 +48,9 @@ public class IngeESConnectorConfiguration {
   public Client client() {
 
     Settings settings =
-        Settings.settingsBuilder().put("cluster.name", clusterName)
-            .put("client.transport.sniff", true).build();
-    TransportClient client = new TransportClient.Builder().settings(settings).build();
+        Settings.builder().put("cluster.name", clusterName).put("client.transport.sniff", true)
+            .build();
+    TransportClient client = new PreBuiltTransportClient(settings);
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);

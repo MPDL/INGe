@@ -113,28 +113,28 @@ public abstract class ReferenceObject implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     ReferenceObject other = (ReferenceObject) obj;
-    
+
     if (objectId == null) {
       if (other.objectId != null)
         return false;
-      
+
     } else if (!objectId.equals(other.objectId))
       return false;
-    
+
     if (title == null) {
       if (other.title != null)
         return false;
     } else if (!title.equals(other.title))
       return false;
-    
+
     return true;
   }
 

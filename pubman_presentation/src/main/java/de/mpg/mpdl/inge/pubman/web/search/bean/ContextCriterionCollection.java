@@ -37,39 +37,41 @@ public class ContextCriterionCollection {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    contextCriterionBean = new ContextCriterionBean(contexts);
-    contextCriterionManager = new ContextCriterionManager();
+    this.contextCriterionBean = new ContextCriterionBean(this.contexts);
+    this.contextCriterionManager = new ContextCriterionManager();
 
     System.out.println();
   }
 
   public void getContexts() throws Exception {
-    contexts = new ArrayList<ContextVO>();
-    contexts = this.pubItemDepositing.getPubCollectionListForDepositing();
+    // contexts = new ArrayList<ContextVO>();
+    this.contexts = this.pubItemDepositing.getPubCollectionListForDepositing();
   }
 
   public List<SelectItem> getContextList() throws Exception {
     getContexts();
-    contextList = new ArrayList<SelectItem>();
+    this.contextList = new ArrayList<SelectItem>();
 
-    for (ContextVO c : contexts) {
-      contextList.add(new SelectItem(c.getReference().getObjectId(), c.getName()));
+    for (ContextVO c : this.contexts) {
+      if (c.getReference() != null) {
+        this.contextList.add(new SelectItem(c.getReference().getObjectId(), c.getName()));
+      }
     }
 
-    Collections.sort(contextList, new SelectItemComparator());
-    contextList.add(0, new SelectItem("", "--"));
-    return contextList;
+    Collections.sort(this.contextList, new SelectItemComparator());
+    this.contextList.add(0, new SelectItem("", "--"));
+    return this.contextList;
   }
 
   public void clearAllForms() {
-    for (ContextCriterionBean bean : contextCriterionManager.getObjectList()) {
+    for (ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
       bean.clearCriterion();
     }
   }
 
   public List<Criterion> getFilledCriterion() {
     List<Criterion> returnList = new ArrayList<Criterion>();
-    for (ContextCriterionBean bean : contextCriterionManager.getObjectList()) {
+    for (ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
       Criterion vo = bean.getCriterionVO();
       if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
@@ -79,7 +81,7 @@ public class ContextCriterionCollection {
   }
 
   public ContextCriterionBean getContextCriterionBean() {
-    return contextCriterionBean;
+    return this.contextCriterionBean;
   }
 
   public void setContextCriterionBean(ContextCriterionBean contextCriterionBean) {
@@ -95,7 +97,7 @@ public class ContextCriterionCollection {
   }
 
   public ContextCriterionManager getContextCriterionManager() {
-    return contextCriterionManager;
+    return this.contextCriterionManager;
   }
 
   public void setContextCriterionManager(ContextCriterionManager contextCriterionManager) {

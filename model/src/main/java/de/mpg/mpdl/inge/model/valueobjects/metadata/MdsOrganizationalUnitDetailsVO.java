@@ -40,8 +40,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   /**
    * Default constructor.
    */
-  public MdsOrganizationalUnitDetailsVO() {
-  }
+  public MdsOrganizationalUnitDetailsVO() {}
 
   /**
    * Clone constructor.
@@ -149,15 +148,15 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (!super.equals(obj))
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     MdsOrganizationalUnitDetailsVO other = (MdsOrganizationalUnitDetailsVO) obj;
-    
+
     if (alternativeNames == null) {
       if (other.alternativeNames != null)
         return false;
@@ -167,25 +166,25 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         || !other.alternativeNames.containsAll(alternativeNames)) {
       return false;
     }
-    
+
     if (city == null) {
       if (other.city != null)
         return false;
     } else if (!city.equals(other.city))
       return false;
-    
+
     if (coordinates == null) {
       if (other.coordinates != null)
         return false;
     } else if (!coordinates.equals(other.coordinates))
       return false;
-    
+
     if (countryCode == null) {
       if (other.countryCode != null)
         return false;
     } else if (!countryCode.equals(other.countryCode))
       return false;
-    
+
     if (descriptions == null) {
       if (other.descriptions != null)
         return false;
@@ -195,13 +194,13 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         || !other.descriptions.containsAll(descriptions)) {
       return false;
     }
-    
+
     if (endDate == null) {
       if (other.endDate != null)
         return false;
     } else if (!endDate.equals(other.endDate))
       return false;
-    
+
     if (identifiers == null) {
       if (other.identifiers != null)
         return false;
@@ -211,25 +210,25 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         || !other.identifiers.containsAll(identifiers)) {
       return false;
     }
-    
+
     if (name == null) {
       if (other.name != null)
         return false;
     } else if (!name.equals(other.name))
       return false;
-    
+
     if (startDate == null) {
       if (other.startDate != null)
         return false;
     } else if (!startDate.equals(other.startDate))
       return false;
-    
+
     if (type == null) {
       if (other.type != null)
         return false;
     } else if (!type.equals(other.type))
       return false;
-    
+
     return true;
   }
 

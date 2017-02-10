@@ -214,15 +214,15 @@ public class PersonVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     PersonVO other = (PersonVO) obj;
-    
+
     if (alternativeNames == null) {
       if (other.alternativeNames != null)
         return false;
@@ -232,31 +232,31 @@ public class PersonVO extends ValueObject implements Cloneable {
         || !other.alternativeNames.containsAll(alternativeNames)) {
       return false;
     }
-    
+
     if (completeName == null) {
       if (other.completeName != null)
         return false;
     } else if (!completeName.equals(other.completeName))
       return false;
-    
+
     if (familyName == null) {
       if (other.familyName != null)
         return false;
     } else if (!familyName.equals(other.familyName))
       return false;
-    
+
     if (givenName == null) {
       if (other.givenName != null)
         return false;
     } else if (!givenName.equals(other.givenName))
       return false;
-    
+
     if (identifier == null) {
       if (other.identifier != null)
         return false;
     } else if (!identifier.equals(other.identifier))
       return false;
-    
+
     if (organizations == null) {
       if (other.organizations != null)
         return false;
@@ -266,7 +266,7 @@ public class PersonVO extends ValueObject implements Cloneable {
         || !other.organizations.containsAll(organizations)) {
       return false;
     }
-    
+
     if (pseudonyms == null) {
       if (other.pseudonyms != null)
         return false;
@@ -276,7 +276,7 @@ public class PersonVO extends ValueObject implements Cloneable {
         || !other.pseudonyms.containsAll(pseudonyms)) {
       return false;
     }
-    
+
     if (titles == null) {
       if (other.titles != null)
         return false;
@@ -286,7 +286,7 @@ public class PersonVO extends ValueObject implements Cloneable {
         || !other.titles.containsAll(titles)) {
       return false;
     }
-    
+
     return true;
   }
 

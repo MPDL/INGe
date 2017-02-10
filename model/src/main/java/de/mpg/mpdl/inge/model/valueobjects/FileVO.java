@@ -495,7 +495,8 @@ public class FileVO extends ValueObject implements Cloneable {
     result = prime * result + ((createdByRO == null) ? 0 : createdByRO.hashCode());
     result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
     result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result =
+        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
     result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -510,60 +511,60 @@ public class FileVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     FileVO other = (FileVO) obj;
-    
+
     if (checksum == null) {
       if (other.checksum != null)
         return false;
     } else if (!checksum.equals(other.checksum))
       return false;
-    
+
     if (checksumAlgorithm != other.checksumAlgorithm)
       return false;
-    
+
     if (content == null) {
       if (other.content != null)
         return false;
     } else if (!content.equals(other.content))
       return false;
-    
+
     if (contentCategory == null) {
       if (other.contentCategory != null)
         return false;
     } else if (!contentCategory.equals(other.contentCategory))
       return false;
-    
+
     if (createdByRO == null) {
       if (other.createdByRO != null)
         return false;
     } else if (!createdByRO.equals(other.createdByRO))
       return false;
-    
+
     if (creationDate == null) {
       if (other.creationDate != null)
         return false;
     } else if (!creationDate.equals(other.creationDate))
       return false;
-    
+
     if (description == null) {
       if (other.description != null)
         return false;
     } else if (!description.equals(other.description))
       return false;
-    
+
     if (lastModificationDate == null) {
       if (other.lastModificationDate != null)
         return false;
     } else if (!lastModificationDate.equals(other.lastModificationDate))
       return false;
-    
+
     if (metadataSets == null) {
       if (other.metadataSets != null)
         return false;
@@ -573,37 +574,37 @@ public class FileVO extends ValueObject implements Cloneable {
         || !other.metadataSets.containsAll(metadataSets)) {
       return false;
     }
-    
+
     if (mimeType == null) {
       if (other.mimeType != null)
         return false;
     } else if (!mimeType.equals(other.mimeType))
       return false;
-    
+
     if (name == null) {
       if (other.name != null)
         return false;
     } else if (!name.equals(other.name))
       return false;
-    
+
     if (pid == null) {
       if (other.pid != null)
         return false;
     } else if (!pid.equals(other.pid))
       return false;
-    
+
     if (reference == null) {
       if (other.reference != null)
         return false;
     } else if (!reference.equals(other.reference))
       return false;
-    
+
     if (storage != other.storage)
       return false;
-    
+
     if (visibility != other.visibility)
       return false;
-    
+
     return true;
   }
 

@@ -297,7 +297,9 @@ public class ContextVO extends ValueObject implements Searchable {
     result = prime * result + ((description == null) ? 0 : description.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
+    result =
+        prime * result
+            + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
     result = prime * result + ((state == null) ? 0 : state.hashCode());
     result = prime * result + ((type == null) ? 0 : type.hashCode());
     result = prime * result + ((validationPoints == null) ? 0 : validationPoints.hashCode());
@@ -308,15 +310,15 @@ public class ContextVO extends ValueObject implements Searchable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    
+
     if (obj == null)
       return false;
-    
+
     if (getClass() != obj.getClass())
       return false;
-    
+
     ContextVO other = (ContextVO) obj;
-    
+
     if (adminDescriptors == null) {
       if (other.adminDescriptors != null)
         return false;
@@ -326,37 +328,37 @@ public class ContextVO extends ValueObject implements Searchable {
         || !other.adminDescriptors.containsAll(adminDescriptors)) {
       return false;
     }
-    
+
     if (creator == null) {
       if (other.creator != null)
         return false;
     } else if (!creator.equals(other.creator))
       return false;
-    
+
     if (defaultMetadata == null) {
       if (other.defaultMetadata != null)
         return false;
     } else if (!defaultMetadata.equals(other.defaultMetadata))
       return false;
-    
+
     if (description == null) {
       if (other.description != null)
         return false;
     } else if (!description.equals(other.description))
       return false;
-    
+
     if (name == null) {
       if (other.name != null)
         return false;
     } else if (!name.equals(other.name))
       return false;
-    
+
     if (reference == null) {
       if (other.reference != null)
         return false;
     } else if (!reference.equals(other.reference))
       return false;
-    
+
     if (responsibleAffiliations == null) {
       if (other.responsibleAffiliations != null)
         return false;
@@ -366,16 +368,16 @@ public class ContextVO extends ValueObject implements Searchable {
         || !other.responsibleAffiliations.containsAll(responsibleAffiliations)) {
       return false;
     }
-    
+
     if (state != other.state)
       return false;
-    
+
     if (type == null) {
       if (other.type != null)
         return false;
     } else if (!type.equals(other.type))
       return false;
-    
+
     if (validationPoints == null) {
       if (other.validationPoints != null)
         return false;
@@ -385,7 +387,7 @@ public class ContextVO extends ValueObject implements Searchable {
         || !other.validationPoints.containsAll(validationPoints)) {
       return false;
     }
-    
+
     return true;
   }
 
