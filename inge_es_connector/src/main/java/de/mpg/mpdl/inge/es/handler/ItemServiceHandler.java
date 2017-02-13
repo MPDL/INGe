@@ -51,7 +51,7 @@ public class ItemServiceHandler implements ItemInterface {
   public PubItemVO readItem(String itemId) throws IngeServiceException {
     byte[] voAsBytes =
         ElasticSearchTransportClient.INSTANCE.get(indexName, indexType,
-            itemId.replace("ir/item/escidoc:", "pure:"));
+            itemId.replace("ir/item", "").replace("escidoc:", "pure:"));
     try {
       PubItemVO item = mapper.readValue(voAsBytes, PubItemVO.class);
       return item;

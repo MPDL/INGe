@@ -52,7 +52,7 @@ public class ContextServiceHandler implements ContextInterface {
   public ContextVO readContext(String contextId) throws IngeServiceException {
     byte[] voAsBytes =
         ElasticSearchTransportClient.INSTANCE.get(indexName, indexType,
-            contextId.replace("escidoc:", "pure_"));
+            contextId.replace("/ir/context/", "").replace("escidoc:", "pure_"));
     try {
       ContextVO context = mapper.readValue(voAsBytes, ContextVO.class);
       return context;
