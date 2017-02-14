@@ -62,8 +62,7 @@ public class RefreshTask extends Thread {
         logger.info("Starting refresh of validation database.");
         Context ctx = new InitialContext();
         ItemValidating itemValidating =
-            (ItemValidating) ctx
-                .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
+            (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
         itemValidating.refreshValidationSchemaCache();
         logger.info("Finished refresh of validation database.");
 

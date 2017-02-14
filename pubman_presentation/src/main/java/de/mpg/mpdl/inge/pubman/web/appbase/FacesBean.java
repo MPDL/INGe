@@ -45,11 +45,10 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
-import de.mpg.mpdl.inge.pubman.web.statistics.StatisticSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.mpdl.inge.pubman.web.statistics.StatisticSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * The FacesBean provides common features for bean and facesMessage handling. Designed to replace
