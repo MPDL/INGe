@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.inge_validation;
 
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
-import com.baidu.unbiz.fluentvalidator.Result;
 import com.baidu.unbiz.fluentvalidator.ValidationError;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -53,6 +52,7 @@ public class ValidationService {
 
   public ValidationReportVO doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException {
+
     if (itemVO instanceof PubItemVO == false) {
       throw new ValidationException("itemVO instanceof PubItemVO == false");
     }
@@ -65,6 +65,7 @@ public class ValidationService {
         FluentValidator v =
             FluentValidator
                 .checkAll()
+                .failOver()
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
@@ -102,10 +103,10 @@ public class ValidationService {
                 .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
 
-        Result result =
-            v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toSimple());
-
-        System.out.println(result);
+        // Result result =
+        // v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toSimple());
+        //
+        // System.out.println(result);
 
         ComplexResult complexResult =
             v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());

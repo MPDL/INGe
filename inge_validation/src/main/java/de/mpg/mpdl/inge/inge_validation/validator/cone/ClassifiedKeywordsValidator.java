@@ -50,7 +50,8 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
       int i = 1;
       for (SubjectVO subjectVO : subjects) {
 
-        if (subjectVO.getType() != null && subjectVO.getValue() != null) {
+        if (subjectVO.getType() != null && subjectVO.getType().trim().length() > 0
+            && subjectVO.getValue() != null && subjectVO.getValue().trim().length() > 0) {
 
           if (ISO639_3.equals(subjectVO.getType()) //
               && !coneCache.getIso639_3_TitleSet().isEmpty()

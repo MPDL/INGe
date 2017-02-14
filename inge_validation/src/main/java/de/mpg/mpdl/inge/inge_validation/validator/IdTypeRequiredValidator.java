@@ -30,7 +30,8 @@ public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>
       int i = 1;
       for (IdentifierVO identifierVO : identifiers) {
 
-        if (identifierVO.getId() != null && identifierVO.getType() == null) {
+        if (identifierVO.getId() != null && identifierVO.getId().trim().length() > 0
+            && identifierVO.getType() == null) {
           context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField(
               "identifier[" + i + "]"));
           ok = false;

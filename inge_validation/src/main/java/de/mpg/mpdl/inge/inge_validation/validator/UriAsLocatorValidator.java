@@ -49,6 +49,7 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
       for (FileVO fileVO : files) {
 
         if (fileVO.getContent() != null //
+            && fileVO.getContent().trim().length() > 0
             && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
             && !Pattern.matches(URL_PATTERN, fileVO.getContent())) {
           context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
