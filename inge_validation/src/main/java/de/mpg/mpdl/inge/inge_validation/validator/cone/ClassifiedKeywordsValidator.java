@@ -50,46 +50,48 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
       int i = 1;
       for (SubjectVO subjectVO : subjects) {
 
-        if (subjectVO.getType() != null && subjectVO.getType().trim().length() > 0
-            && subjectVO.getValue() != null && subjectVO.getValue().trim().length() > 0) {
+        if (subjectVO.getType() != null //
+            && subjectVO.getType().trim().length() > 0 //
+            && subjectVO.getValue() != null //
+            && subjectVO.getValue().trim().length() > 0) {
 
           if (ISO639_3.equals(subjectVO.getType()) //
-              && !coneCache.getIso639_3_TitleSet().isEmpty()
+              && !coneCache.getIso639_3_TitleSet().isEmpty() //
               && !coneCache.getIso639_3_TitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (DDC.equals(subjectVO.getType()) //
-              && !coneCache.getDdcTitleSet().isEmpty()
+              && !coneCache.getDdcTitleSet().isEmpty() //
               && !coneCache.getDdcTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIPKS.equals(subjectVO.getType()) //
-              && !coneCache.getMpipksTitleSet().isEmpty()
+              && !coneCache.getMpipksTitleSet().isEmpty() //
               && !coneCache.getMpipksTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIRG.equals(subjectVO.getType()) //
-              && !coneCache.getMpirgTitleSet().isEmpty()
+              && !coneCache.getMpirgTitleSet().isEmpty() //
               && !coneCache.getMpirgTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
                 .setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_GROUPS.equals(subjectVO.getType()) //
-              && !coneCache.getMpisGroupsTitleSet().isEmpty()
+              && !coneCache.getMpisGroupsTitleSet().isEmpty() //
               && !coneCache.getMpisGroupsTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION).setField("subject[" + i + "]"));
             ok = false;
 
           } else if (MPIS_PROJECTS.equals(subjectVO.getType()) //
-              && !coneCache.getMpisProjectTitleSet().isEmpty()
+              && !coneCache.getMpisProjectTitleSet().isEmpty() //
               && !coneCache.getMpisProjectTitleSet().contains(subjectVO.getValue())) {
             context.addError(ValidationError.create(
                 ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION)

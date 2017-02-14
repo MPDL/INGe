@@ -328,7 +328,7 @@ public class ItemControllerSessionBean extends FacesBean {
       ValidationReportVO report =
           this.itemValidating.validateItemObject(new PubItemVO(currentPubItem),
               ValidationPoint.SUBMIT_ITEM);
-      currentItemValidationReport = report;
+      this.currentItemValidationReport = report;
 
       logger.debug("Validation Report: " + report);
 
@@ -2043,7 +2043,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public PubItemVOPresentation getCurrentPubItem() {
-    return currentPubItem;
+    return this.currentPubItem;
   }
 
   public void setCurrentPubItem(PubItemVOPresentation currentPubItem) {
@@ -2051,7 +2051,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public ValidationReportVO getCurrentItemValidationReport() {
-    return currentItemValidationReport;
+    return this.currentItemValidationReport;
   }
 
   public void setCurrentItemValidationReport(ValidationReportVO currentItemValidationReport) {
@@ -2071,7 +2071,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     }
 
-    return currentContext;
+    return this.currentContext;
   }
 
   public void setCurrentCollection(ContextVO currentCollection) {

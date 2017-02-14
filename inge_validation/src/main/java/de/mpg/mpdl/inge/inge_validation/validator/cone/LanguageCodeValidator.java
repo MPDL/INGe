@@ -33,7 +33,9 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
       int i = 1;
       for (String language : languages) {
 
-        if (language != null && language.trim().length() > 0 && !iso639_3_IdentifierSet.isEmpty()
+        if (language != null //
+            && language.trim().length() > 0 //
+            && !iso639_3_IdentifierSet.isEmpty() //
             && !iso639_3_IdentifierSet.contains(language)) {
           context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField(
               "language[" + i + "]"));

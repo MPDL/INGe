@@ -56,19 +56,23 @@ public class ComponentDataRequiredValidator extends ValidatorHandler<List<FileVO
 
         if (fileVO.getContent() == null) {
 
-          if (fileVO.getDefaultMetadata() != null && fileVO.getDefaultMetadata().getTitle() != null) {
+          if (fileVO.getDefaultMetadata() != null //
+              && fileVO.getDefaultMetadata().getTitle() != null //
+              && fileVO.getDefaultMetadata().getTitle().trim().length() > 0) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (fileVO.getContentCategory() != null) {
+          if (fileVO.getContentCategory() != null //
+              && fileVO.getContentCategory().trim().length() > 0) {
             context.addError(ValidationError.create(
                 ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (fileVO.getMimeType() != null) {
+          if (fileVO.getMimeType() != null //
+              && fileVO.getMimeType().trim().length() > 0) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;

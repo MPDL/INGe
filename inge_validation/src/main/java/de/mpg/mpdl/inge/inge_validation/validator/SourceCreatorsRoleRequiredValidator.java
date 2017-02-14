@@ -49,7 +49,10 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                 case ORGANIZATION:
 
                   OrganizationVO o = creatorVO.getOrganization();
-                  if (o.getName() != null || o.getAddress() != null) {
+                  if (o.getName() != null //
+                      && o.getName().trim().length() > 0 //
+                      || o.getAddress() != null //
+                      && o.getAddress().trim().length() > 0) {
                     context.addError(ValidationError.create(
                         ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
                         "source[" + i + "].creator[" + j + "]"));
@@ -61,7 +64,10 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                 case PERSON:
 
                   PersonVO p = creatorVO.getPerson();
-                  if (p.getFamilyName() != null || p.getGivenName() != null) {
+                  if (p.getFamilyName() != null //
+                      && p.getFamilyName().trim().length() > 0 //
+                      || p.getGivenName() != null //
+                      && p.getGivenName().trim().length() > 0) {
                     context.addError(ValidationError.create(
                         ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
                         "source[" + i + "].creator[" + j + "]"));
@@ -73,7 +79,10 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   int z = 1;
                   for (OrganizationVO organizationVO : orgs) {
 
-                    if (organizationVO.getName() != null || organizationVO.getAddress() != null)
+                    if (organizationVO.getName() != null //
+                        && organizationVO.getName().trim().length() > 0 //
+                        || organizationVO.getAddress() != null //
+                        && organizationVO.getAddress().trim().length() > 0)
                       context.addError(ValidationError.create(
                           ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
                           "source[" + i + "].creator[" + j + "].organization[" + z + "]"));

@@ -64,7 +64,7 @@ public class ValidationTest {
   private PubItemVO pubItemVO;
   private MdsPublicationVO mdsPublicationVO;
   private ValidationService validationService;
-  private ConeCache coneCache = ConeCache.getInstance();
+  private ConeCache coneCache = ConeCache.getInstance(); // zur erstmaligen Befüllung des Caches
 
   @Before
   public void setUp() throws Exception {

@@ -18,7 +18,6 @@ import de.mpg.mpdl.inge.inge_validation.util.Properties;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
-// TODO System.out.println rauswerfen
 public class ConeCache {
   // Innere private Klasse, die erst beim Zugriff durch die umgebende Klasse initialisiert wird
   private static final class InstanceHolder {
@@ -55,9 +54,6 @@ public class ConeCache {
   private final ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
 
   private final String coneServiceUrl;
-
-  // TODO entfernen
-  private int testCount = 0;
 
   private ConeCache() {
     this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
@@ -96,10 +92,14 @@ public class ConeCache {
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
       throws ValidationConeCacheConfigException {
-    System.out.println("\n*** Start refresh: " + queryUrl);
+    LOG.info("*** Start refresh: " + queryUrl);
     try {
       Set<String> result = fill(handler, queryUrl);
-      System.out.println("    " + "Size: " + result.size() + " " + queryUrl);
+      if (0 == result.size()) {
+        LOG.warn("    " + "Size: " + result.size() + " " + queryUrl);
+      } else {
+        LOG.info("    " + "Size: " + result.size() + " " + queryUrl);
+      }
       if (!result.isEmpty()) {
         synchronized (coneSet.set()) {
           coneSet.set().clear();
@@ -107,14 +107,13 @@ public class ConeCache {
         }
       }
     } catch (IOException | ParserConfigurationException | SAXException | ConeException e) {
-      System.out.println(e);
       LOG.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
         LOG.error("Cone Set is empty: Url: " + queryUrl);
         throw new ValidationConeCacheConfigException(e);
       }
     }
-    System.out.println("*** Ende refresh: " + queryUrl);
+    LOG.info("*** Ende refresh: " + queryUrl);
   }
 
   private Set<String> fill(ConeHandler handler, String queryUrl)
@@ -124,14 +123,12 @@ public class ConeCache {
 
     ProxyHelper.executeMethod(client, method);
 
-    if (method.getStatusCode() == 200 && this.testCount < 20) {
-      this.testCount++;
+    if (method.getStatusCode() == 200) {
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(method.getResponseBodyAsStream(), handler);
       return handler.getResult();
     } else {
-      System.out.println("**** ERROR ***** ");
       LOG.error("Could not load CONE attributes:" + method.getStatusCode());
       throw new ConeException("Could not load CONE attributes: " + method.getStatusCode());
     }
@@ -139,7 +136,6 @@ public class ConeCache {
 
   public Set<String> getDdcTitleSet() {
     if (this.ddcTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE ddcTitleSet is empty.");
     }
 
@@ -148,7 +144,6 @@ public class ConeCache {
 
   public Set<String> getIso639_3_IdentifierSet() {
     if (this.iso639_3_Identifier.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE iso639_3_IdentifierSet is empty.");
     }
 
@@ -157,7 +152,6 @@ public class ConeCache {
 
   public Set<String> getIso639_3_TitleSet() {
     if (this.iso639_3_Title.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE iso639_3_TitleSet is empty.");
     }
 
@@ -166,7 +160,6 @@ public class ConeCache {
 
   public Set<String> getMimeTypesTitleSet() {
     if (this.mimeTypesTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE mimeTypesTitleSet is empty.");
     }
 
@@ -175,7 +168,6 @@ public class ConeCache {
 
   public Set<String> getMpipksTitleSet() {
     if (this.mpipksTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE mpipksTitleSet is empty.");
     }
 
@@ -184,7 +176,6 @@ public class ConeCache {
 
   public Set<String> getMpirgTitleSet() {
     if (this.mpirgTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE mpirgTitleSet is empty.");
     }
 
@@ -193,7 +184,6 @@ public class ConeCache {
 
   public Set<String> getMpisGroupsTitleSet() {
     if (this.mpisGroupsTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE mpisGroupsTitleSet is empty.");
     }
 
@@ -202,7 +192,6 @@ public class ConeCache {
 
   public Set<String> getMpisProjectTitleSet() {
     if (this.mpisProjectTitle.set().isEmpty()) {
-      System.out.println("empty");
       LOG.error("CONE mpisProjectTitleSet is empty.");
     }
 

@@ -121,7 +121,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
   private boolean checkDate(String s) {
 
-    if (s != null) {
+    if (s != null && s.trim().length() > 0) {
       try {
         SHORT.parse(s);
       } catch (ParseException e) {

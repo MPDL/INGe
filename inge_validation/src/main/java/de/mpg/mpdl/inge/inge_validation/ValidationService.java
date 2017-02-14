@@ -115,11 +115,13 @@ public class ValidationService {
 
         return convert(complexResult);
 
+        // TODO
       case ACCEPT_ITEM:
-        return null;
+        return new ValidationReportVO();
 
+        // TODO
       case SUBMIT_ITEM:
-        return null;
+        return new ValidationReportVO();
 
       default:
         throw new ValidationException("undefined validation for validation point:"

@@ -43,7 +43,10 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
             case ORGANIZATION:
 
               OrganizationVO o = creatorVO.getOrganization();
-              if (o.getName() != null || o.getAddress() != null) {
+              if (o.getName() != null //
+                  && o.getName().trim().length() > 0 //
+                  || o.getAddress() != null //
+                  && o.getAddress().trim().length() > 0) {
                 context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
                     .setField("creator[" + i + "]"));
                 ok = false;
@@ -54,7 +57,10 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
             case PERSON:
 
               PersonVO p = creatorVO.getPerson();
-              if (p.getFamilyName() != null || p.getGivenName() != null) {
+              if (p.getFamilyName() != null //
+                  && p.getFamilyName().trim().length() > 0 //
+                  || p.getGivenName() != null //
+                  && p.getGivenName().trim().length() > 0) {
                 context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
                     .setField("creator[" + i + "]"));
                 ok = false;
@@ -65,7 +71,10 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
               int j = 1;
               for (OrganizationVO organizationVO : orgs) {
 
-                if (organizationVO.getName() != null || organizationVO.getAddress() != null)
+                if (organizationVO.getName() != null //
+                    && organizationVO.getName().trim().length() > 0 //
+                    || organizationVO.getAddress() != null //
+                    && organizationVO.getAddress().trim().length() > 0)
                   context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
                       .setField("creator[" + i + "].organization[" + j + "]"));
                 ok = false;

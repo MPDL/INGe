@@ -23,8 +23,8 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
     if (e != null && e.getTitle() == null //
         && (e.getEndDate() != null //
             || e.getInvitationStatus() != null //
-            || e.getPlace() != null //
-        || e.getStartDate() != null)) {
+            || e.getPlace() != null && e.getPlace().trim().length() > 0 //
+        || e.getStartDate() != null && e.getStartDate().trim().length() > 0)) {
       context.addErrorMsg(ErrorMessages.EVENT_TITLE_NOT_PROVIDED);
 
       return false;

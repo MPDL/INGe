@@ -53,7 +53,8 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
       int i = 1;
       for (FileVO fileVO : files) {
 
-        if (fileVO.getContent() != null && fileVO.getContent().trim().length() > 0 //
+        if (fileVO.getContent() != null //
+            && fileVO.getContent().trim().length() > 0 //
             && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED) //
             && !mimeTypesTitleSet.isEmpty()) {
 
