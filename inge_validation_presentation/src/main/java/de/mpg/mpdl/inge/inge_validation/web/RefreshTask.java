@@ -19,11 +19,12 @@ public class RefreshTask extends Thread {
     try {
       this.setName("Validation Refresh Task");
 
-      final int timeout = Integer
-          .parseInt(PropertyReader.getProperty(Properties.ESCIDOC_VALIDATION_REFRESH_INTERVAL));
+      final int timeout =
+          Integer.parseInt(PropertyReader
+              .getProperty(Properties.ESCIDOC_VALIDATION_REFRESH_INTERVAL));
 
       LOG.info("Starting RefreshTask");
-      
+
       while (!this.terminate) {
         LOG.info("Starting refresh of validation database.");
         Context ctx = new InitialContext();

@@ -168,10 +168,9 @@ public class LoginHelper extends FacesBean {
     rawUser = this.obtainUser();
     AccountUserRO userRO = new AccountUserRO();
     userRO.setObjectId("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
-    userRO.setTitle(rawUser.path("lastName").asText() + ", "
-        + rawUser.path("firstName").asText());
+    userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
     this.accountUser = new AccountUserVO();
-    
+
     this.accountUser.setReference(userRO);
     List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
     UserAttributeVO email = new UserAttributeVO();
