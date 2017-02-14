@@ -53,6 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -165,7 +166,13 @@ public class LoginHelper extends FacesBean {
 
     JsonNode rawUser = null;
     rawUser = this.obtainUser();
+    AccountUserRO userRO = new AccountUserRO();
+    userRO.setObjectId("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
+    userRO.setTitle(rawUser.path("lastName").asText() + ", "
+        + rawUser.path("firstName").asText());
     this.accountUser = new AccountUserVO();
+    
+    this.accountUser.setReference(userRO);
     List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
     UserAttributeVO email = new UserAttributeVO();
     email.setName("email");
