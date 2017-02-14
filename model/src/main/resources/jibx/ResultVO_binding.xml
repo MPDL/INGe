@@ -30,7 +30,7 @@
 <binding>
 
 	<mapping name="result" ns="${xsd.soap.result.result}" class="de.mpg.mpdl.inge.model.valueobjects.ResultVO" ordered="false">
-		<value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-Method="setLastModificationDate" field="lastModificationDate"/>
+		<value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" field="lastModificationDate"/>
 		<value style="element" name="pid" ns="${xsd.soap.result.result}" field="pid" usage="optional"/>
 	</mapping>
 

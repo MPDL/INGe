@@ -280,7 +280,7 @@
 
 			<!-- Node: item.md-records.md-record.publication.subject -->
 			<!-- Field: PubItemVO.metadata.freeKeywords -->
-            <value stlye="element" name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
+            <value style="element" name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
             
             <!-- Node: item.md-records.md-record.publication.DDC -->
 			<!-- Field: PubItemVO.metadata.subjects -->
