@@ -32,6 +32,8 @@ import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -164,8 +166,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
       // collection = xmlTransforming.transformToContext(context);
       // TODO remove replace
       collection =
-          ContextInterfaceConnectorFactory.getInstance().readContext(
-              pubCollectionRef.getObjectId().replace("/ir/context/escidoc:", "pure_"));
+          ContextInterfaceConnectorFactory.getInstance()
+              .readContext(pubCollectionRef.getObjectId());
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {
@@ -175,12 +177,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
     // create new PubItemVO
     PubItemVO result = new PubItemVO();
-    // Set an initial version
-    ItemRO itemVersion = new ItemRO();
-    itemVersion.setVersionNumber(1);
-    // TODO remove test objectID
-    itemVersion.setObjectId("escidoc:12345");
-    result.setVersion(itemVersion);
     result.setContext(pubCollectionRef);
     if (collection.getDefaultMetadata() != null
         && collection.getDefaultMetadata() instanceof MdsPublicationVO) {
@@ -384,6 +380,18 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
       if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null) {
         // itemStored = itemHandler.create(itemXML);
+        // Set an initial version
+        ItemRO itemVersion = new ItemRO();
+        itemVersion.setVersionNumber(1);
+        // TODO remove test objectID
+        itemVersion.setObjectId("pure:12345");
+        itemVersion.setState(PubItemVO.State.PENDING);
+        Date creationDate = Calendar.getInstance().getTime();
+        itemVersion.setModificationDate(creationDate);
+        pubItem.setVersion(itemVersion);
+        pubItem.setPublicStatus(PubItemVO.State.PENDING);
+        pubItem.setCreationDate(creationDate);
+        pubItem.setOwner(user.getReference());
         ItemInterfaceConnectorFactory.getInstance().createItem(pubItem,
             pubItem.getVersion().getObjectId());
         message = PUBITEM_CREATED;
