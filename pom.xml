@@ -855,6 +855,11 @@
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
+		<!-- Elasticsearch connection -->
+		<inge.inge_services.context_interface.connector_class>de.mpg.mpdl.inge.es.handler.ContextServiceHandler</inge.inge_services.context_interface.connector_class>
+		<inge.inge_services.file_storage_interface.connector_class>de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean</inge.inge_services.file_storage_interface.connector_class>
+		<inge.inge_services.item_interface.connector_class>de.mpg.mpdl.inge.es.handler.ItemServiceHandler</inge.inge_services.item_interface.connector_class>
+		<inge.inge_services.organization_interface.connector_class>de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler</inge.inge_services.organization_interface.connector_class>
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>

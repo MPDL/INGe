@@ -281,6 +281,17 @@
 			<artifactId>pid_cache_presentation</artifactId>
 			<type>war</type>
 		</dependency>
+		
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_services</artifactId>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_es_connector</artifactId>
+			<type>jar</type>
+		</dependency>
 
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -292,6 +303,18 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.7.3</version>
+		</dependency>
+		<dependency>
+			<!-- Override managed version for Jsoup -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
 		</dependency>
 
 	</dependencies>

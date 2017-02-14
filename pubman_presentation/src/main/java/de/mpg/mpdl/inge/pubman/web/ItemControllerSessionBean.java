@@ -104,6 +104,8 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -1436,22 +1438,7 @@ public class ItemControllerSessionBean extends FacesBean {
       logger.debug("Retrieving Items with id: " + itemID);
     }
 
-    String xmlItem = "";
-
-    // login with escidoc user handle
-    if (loginHelper.getESciDocUserHandle() != null) {
-      xmlItem = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(itemID);
-    }
-    // anonymous login
-    else {
-      xmlItem = ServiceLocator.getItemHandler().retrieve(itemID);
-
-      // transform the xml item
-      if (logger.isDebugEnabled()) {
-        logger.debug("Transforming items...");
-      }
-    }
-    return new PubItemVOPresentation(this.xmlTransforming.transformToPubItem(xmlItem));
+    return new PubItemVOPresentation(ItemInterfaceConnectorFactory.getInstance().readItem(itemID));
   }
 
   /**
@@ -1801,8 +1788,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     String xmlContext = "";
     try {
-      xmlContext = ServiceLocator.getContextHandler().retrieve(contextID);
-      context = this.xmlTransforming.transformToContext(xmlContext);
+      context = ContextInterfaceConnectorFactory.getInstance().readContext(contextID);
     } catch (Exception e) {
       logger.debug(e.toString());
       Login login = (Login) getSessionBean(Login.class);

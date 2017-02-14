@@ -24,7 +24,7 @@ public class ValidationReportVO extends ValueObject {
   }
 
   public boolean isValid() {
-    return hasItems();
+    return !hasItems();
   }
 
   @Override

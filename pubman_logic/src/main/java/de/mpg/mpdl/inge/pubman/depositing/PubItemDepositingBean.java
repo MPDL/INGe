@@ -162,9 +162,10 @@ public class PubItemDepositingBean implements PubItemDepositing {
       // de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
       // pubCollectionRef.getObjectId());
       // collection = xmlTransforming.transformToContext(context);
+      // TODO remove replace
       collection =
-          ContextInterfaceConnectorFactory.getInstance()
-              .readContext(pubCollectionRef.getObjectId());
+          ContextInterfaceConnectorFactory.getInstance().readContext(
+              pubCollectionRef.getObjectId().replace("/ir/context/escidoc:", "pure_"));
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {
@@ -177,6 +178,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
     // Set an initial version
     ItemRO itemVersion = new ItemRO();
     itemVersion.setVersionNumber(1);
+    // TODO remove test objectID
+    itemVersion.setObjectId("escidoc:12345");
     result.setVersion(itemVersion);
     result.setContext(pubCollectionRef);
     if (collection.getDefaultMetadata() != null
