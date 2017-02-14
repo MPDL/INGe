@@ -56,7 +56,11 @@
 							</jarModule> -->
 
 						<webModule>
-
+							<groupId>de.mpg.mpdl.inge</groupId>
+							<artifactId>inge_validation_presentation</artifactId>
+							<contextRoot>/validation</contextRoot>
+						</webModule>
+						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
@@ -217,6 +221,11 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
 			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_validation_presentation</artifactId>
+			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

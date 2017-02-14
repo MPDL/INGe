@@ -32,38 +32,37 @@
 	</description>
 
 	<modules>
-		<module>inge_util</module>
-		<module>framework_access</module>
-		<module>model</module>
+		<module>aa_logic</module>
+		<module>aa_presentation</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
-		<module>inge_validation</module>
-		<module>validation</module>
-		<module>validation_presentation</module>
-		<module>structuredexportmanager</module>
-		<module>search</module>
-		<module>search_presentation</module>
 		<module>cone</module>
 		<module>cone_presentation</module>
 		<module>dataacquisition</module>
 		<module>dataacquisition_presentation</module>
 		<module>exportmanager</module>
-		<module>transformation</module>
- 
-		<module>transformationManager</module>
-
-		<module>syndication_presentation</module>
-		<module>reporting</module>
+		<module>framework_access</module>
+		<module>inge_es_connector</module>	
+		<module>inge_filestorage_connector</module>
+		<module>inge_services</module>
+		<module>inge_util</module>
+		<module>inge_validation</module>
+		<module>inge_validation_presentation</module>
+		<module>model</module>
 		<module>pid_cache_presentation</module>
-		<module>aa_logic</module>
-		<module>aa_presentation</module>
+		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
-		<module>pubman_ear</module>
-		<module>inge_es_connector</module>	
-		<module>inge_services</module>
-		<module>inge_filestorage_connector</module>
-	</modules>
+		<module>reporting</module>
+		<module>search</module>
+		<module>search_presentation</module>
+		<module>structuredexportmanager</module>
+		<module>syndication_presentation</module>
+		<module>transformation</module>
+		<module>validation</module>
+		<module>validation_presentation</module>
+ 		<module>transformationManager</module>
+ 	</modules>
 
 	<licenses>
 		<license>
@@ -358,6 +357,12 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>inge_validation_presentation</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
