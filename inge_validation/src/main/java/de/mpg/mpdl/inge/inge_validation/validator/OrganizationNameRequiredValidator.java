@@ -29,7 +29,7 @@ public class OrganizationNameRequiredValidator extends ValidatorHandler<List<Cre
 
     boolean ok = true;
 
-    if (creators != null) {
+    if (creators != null && creators.isEmpty() == false) {
 
       int i = 1;
       for (CreatorVO creatorVO : creators) {
@@ -41,22 +41,18 @@ public class OrganizationNameRequiredValidator extends ValidatorHandler<List<Cre
           if (p != null) {
             List<OrganizationVO> orgs = p.getOrganizations();
 
-            if (orgs != null) {
+            int j = 1;
+            for (OrganizationVO organizationVO : orgs) {
 
-              int j = 1;
-              for (OrganizationVO organizationVO : orgs) {
+              if (organizationVO.getName() == null || organizationVO.getAddress() == null) {
+                context.addError(ValidationError.create(
+                    ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
+                    .setField("creator[" + i + "].organization[" + j + "]"));
+                ok = false;
+              }
 
-                if (organizationVO.getName() == null || organizationVO.getAddress() == null) {
-                  context.addError(ValidationError.create(
-                      ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
-                      .setField("creator[" + i + "].organization[" + j + "]"));
-                  ok = false;
-                }
-
-                j++;
-              } // for
-
-            } // if
+              j++;
+            } // for
 
           } // if
 

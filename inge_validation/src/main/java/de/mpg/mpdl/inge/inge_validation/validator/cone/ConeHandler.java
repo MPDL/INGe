@@ -7,7 +7,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-// TODO System.out.println rauswerfen
 public class ConeHandler extends DefaultHandler {
 
   private Set<String> result = new HashSet<String>();
@@ -45,7 +44,6 @@ public class ConeHandler extends DefaultHandler {
   }
 
   public Set<String> getResult() {
-    System.out.println(this.result.size());
     return this.result;
   }
 

@@ -43,7 +43,7 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
 
     boolean ok = true;
 
-    if (!files.isEmpty()) {
+    if (files != null && files.isEmpty() == false) {
 
       int i = 1;
       for (FileVO fileVO : files) {

@@ -31,7 +31,7 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
 
     boolean ok = true;
 
-    if (creators != null) {
+    if (creators != null && creators.isEmpty() == false) {
 
       int i = 1;
       for (CreatorVO creatorVO : creators) {

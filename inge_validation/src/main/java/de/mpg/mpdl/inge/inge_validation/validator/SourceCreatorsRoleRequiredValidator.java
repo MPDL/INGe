@@ -32,69 +32,65 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
     boolean ok = true;
 
-    if (sources != null) {
+    if (sources != null && sources.isEmpty() == false) {
 
       int i = 1;
       for (SourceVO sourceVO : sources) {
 
-        if (sourceVO.getCreators() != null) {
+        int j = 1;
+        for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
-          int j = 1;
-          for (CreatorVO creatorVO : sourceVO.getCreators()) {
+          if (creatorVO.getRole() == null) {
 
-            if (creatorVO.getRole() == null) {
+            switch (creatorVO.getType()) {
 
-              switch (creatorVO.getType()) {
+              case ORGANIZATION:
 
-                case ORGANIZATION:
+                OrganizationVO o = creatorVO.getOrganization();
+                if (o.getName() != null //
+                    && o.getName().trim().length() > 0 //
+                    || o.getAddress() != null //
+                    && o.getAddress().trim().length() > 0) {
+                  context.addError(ValidationError.create(
+                      ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
+                      "source[" + i + "].creator[" + j + "]"));
+                  ok = false;
+                }
 
-                  OrganizationVO o = creatorVO.getOrganization();
-                  if (o.getName() != null //
-                      && o.getName().trim().length() > 0 //
-                      || o.getAddress() != null //
-                      && o.getAddress().trim().length() > 0) {
+                break;
+
+              case PERSON:
+
+                PersonVO p = creatorVO.getPerson();
+                if (p.getFamilyName() != null //
+                    && p.getFamilyName().trim().length() > 0 //
+                    || p.getGivenName() != null //
+                    && p.getGivenName().trim().length() > 0) {
+                  context.addError(ValidationError.create(
+                      ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
+                      "source[" + i + "].creator[" + j + "]"));
+                  ok = false;
+                }
+
+                List<OrganizationVO> orgs = p.getOrganizations();
+
+                int z = 1;
+                for (OrganizationVO organizationVO : orgs) {
+
+                  if (organizationVO.getName() != null //
+                      && organizationVO.getName().trim().length() > 0 //
+                      || organizationVO.getAddress() != null //
+                      && organizationVO.getAddress().trim().length() > 0)
                     context.addError(ValidationError.create(
                         ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                        "source[" + i + "].creator[" + j + "]"));
-                    ok = false;
-                  }
+                        "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                  ok = false;
 
-                  break;
+                  z++;
+                } // for
 
-                case PERSON:
-
-                  PersonVO p = creatorVO.getPerson();
-                  if (p.getFamilyName() != null //
-                      && p.getFamilyName().trim().length() > 0 //
-                      || p.getGivenName() != null //
-                      && p.getGivenName().trim().length() > 0) {
-                    context.addError(ValidationError.create(
-                        ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                        "source[" + i + "].creator[" + j + "]"));
-                    ok = false;
-                  }
-
-                  List<OrganizationVO> orgs = p.getOrganizations();
-
-                  int z = 1;
-                  for (OrganizationVO organizationVO : orgs) {
-
-                    if (organizationVO.getName() != null //
-                        && organizationVO.getName().trim().length() > 0 //
-                        || organizationVO.getAddress() != null //
-                        && organizationVO.getAddress().trim().length() > 0)
-                      context.addError(ValidationError.create(
-                          ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                          "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
-                    ok = false;
-
-                    z++;
-                  } // for
-
-                  break;
-              } // switch
-
-            } // if
+                break;
+            } // switch
 
             j++;
           } // for

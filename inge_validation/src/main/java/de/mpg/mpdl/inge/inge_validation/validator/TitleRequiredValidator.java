@@ -15,9 +15,9 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 public class TitleRequiredValidator extends ValidatorHandler<String> implements Validator<String> {
 
   @Override
-  public boolean validate(ValidatorContext context, String titel) {
+  public boolean validate(ValidatorContext context, String title) {
 
-    if (titel == null) {
+    if (title == null || title.trim().length() == 0) {
       context.addErrorMsg(ErrorMessages.TITLE_NOT_PROVIDED);
       return false;
     }

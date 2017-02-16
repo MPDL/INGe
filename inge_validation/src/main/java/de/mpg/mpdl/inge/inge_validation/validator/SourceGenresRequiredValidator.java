@@ -25,7 +25,7 @@ public class SourceGenresRequiredValidator extends ValidatorHandler<List<SourceV
 
     boolean ok = true;
 
-    if (sources != null) {
+    if (sources != null && sources.isEmpty() == false) {
 
       int i = 1;
       for (SourceVO sourceVO : sources) {

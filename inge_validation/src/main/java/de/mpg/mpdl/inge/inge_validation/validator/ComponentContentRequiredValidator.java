@@ -42,12 +42,13 @@ public class ComponentContentRequiredValidator extends ValidatorHandler<List<Fil
 
     boolean ok = true;
 
-    if (!files.isEmpty()) {
+    if (files != null && files.isEmpty() == false) {
 
       int i = 1;
       for (FileVO fileVO : files) {
 
-        if (fileVO.getContent() == null //
+        if ((fileVO.getContent() == null //
+            || fileVO.getContent().trim().length() == 0) //
             && (fileVO.getDefaultMetadata() != null
                 && fileVO.getDefaultMetadata().getTitle() != null //
                 && fileVO.getDefaultMetadata().getTitle().trim().length() > 0 //
