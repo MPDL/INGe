@@ -18,7 +18,7 @@ public class OrganizationInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS_PROPERTY =
       "inge.inge_services.organization_interface.connector_class";
 
-  public OrganizationInterface getInstance() throws InstantiationException, IllegalAccessException,
+  public static OrganizationInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
     return (OrganizationInterface) Class.forName(
         PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY)).newInstance();

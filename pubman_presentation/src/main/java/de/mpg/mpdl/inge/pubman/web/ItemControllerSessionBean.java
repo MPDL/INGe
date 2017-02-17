@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -105,7 +107,9 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -2141,32 +2145,14 @@ public class ItemControllerSessionBean extends FacesBean {
    * Return the value object of the owner of the item.
    */
   public AccountUserVO retrieveUserAccount(String userId) {
+    AccountUserVO userAccount = null;
     try {
-      HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      filterParams.put("operation", new String[] {"searchRetrieve"});
-      filterParams.put("query", new String[] {"\"/id\"=" + userId});
-
-
-      UserAccountHandler userAccountHandler =
-          ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
-      String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
-      SearchRetrieveResponseVO searchedObject =
-          xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
-
-      if (searchedObject != null && searchedObject.getNumberOfRecords() > 0
-          && !searchedObject.getRecords().isEmpty()) {
-        if (searchedObject.getRecords().get(0).getData() != null) {
-          AccountUserVO userVO = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-          return userVO;
-        } else {
-          return null;
-        }
-      }
+      userAccount = UserInterfaceConnectorFactory.getInstance().readUser(userId);
     } catch (Exception e) {
       logger.error("Error retrieving user account", e);
       logger.error("Returning null");
-    }
-    return null;
+    } 
+    return userAccount;
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {

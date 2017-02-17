@@ -16,7 +16,7 @@ public class UserGroupInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS =
       "inge.inge_services.usergroup_interface.connector_class";
 
-  public UserGroupInterface getInstance() throws InstantiationException, IllegalAccessException,
+  public static UserGroupInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
     return (UserGroupInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }

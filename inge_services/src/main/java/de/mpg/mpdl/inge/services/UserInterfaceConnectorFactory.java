@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 public class UserInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS = "inge.inge_services.user_interface.connector_class";
 
-  public UserInterface getInstance() throws InstantiationException, IllegalAccessException,
+  public static UserInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {
     return (UserInterface) Class.forName(CONNECTOR_CLASS).newInstance();
   }
