@@ -40,17 +40,18 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * viewItemPage.java Backing bean for viewItemPage.jsp Created on 24. Januar 2007, 18:15 Copyright
  * Tobias Schraut Revised by ScT: 23.08.2007
  */
-public class viewItemPage extends BreadcrumbPage {
+@SuppressWarnings("serial")
+public class ViewItemPage extends BreadcrumbPage {
   final public static String BEAN_NAME = "ViewItemPage";
   // The referring GUI Tool Page
   public final static String GT_VIEW_ITEM_PAGE = "GTviewItemPage.jsp";
-  private static Logger logger = Logger.getLogger(viewItemPage.class);
+  private static Logger logger = Logger.getLogger(ViewItemPage.class);
   public static final String PARAMETERNAME_ITEM_ID = "itemId";
 
   /**
    * Public constructor.
    */
-  public viewItemPage() {
+  public ViewItemPage() {
     this.init();
   }
 
@@ -64,7 +65,7 @@ public class viewItemPage extends BreadcrumbPage {
     // Try to get the request parameter (item ID) out of the faces context
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String itemID = request.getParameter(viewItemPage.PARAMETERNAME_ITEM_ID);
+    String itemID = request.getParameter(ViewItemPage.PARAMETERNAME_ITEM_ID);
     // initialize viewItem
 
     // insert the itemID into the view item session bean
