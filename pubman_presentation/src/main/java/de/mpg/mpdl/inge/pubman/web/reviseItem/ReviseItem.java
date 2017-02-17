@@ -53,11 +53,12 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ReviseItem extends FacesBean {
   private static Logger logger = Logger.getLogger(ReviseItem.class);
   // Faces navigation string
   public static final String LOAD_REVISEITEM = "loadReviseItem";
-  public static final String JSP_NAME = "ReviseItemPage.jsp";
+//  public static final String JSP_NAME = "ReviseItemPage.jsp";
 
   private String reviseComment;
 

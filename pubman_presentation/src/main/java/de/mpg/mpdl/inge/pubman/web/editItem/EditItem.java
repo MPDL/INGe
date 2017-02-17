@@ -130,17 +130,17 @@ public class EditItem extends FacesBean {
   public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
-  public static final String AUTOPASTE_DELIMITER = " ||##|| ";
+//  public static final String AUTOPASTE_DELIMITER = " ||##|| ";
   // Faces navigation string
   public final static String LOAD_EDITITEM = "loadEditItem";
   // Constants for value bindings
-  public final static String VALUE_BINDING_PUBITEM_METADATA = "EditItem.pubItem.metadata";
-  public final static String VALUE_BINDING_PUBITEM_METADATA_CREATORS =
-      "EditItem.pubItem.metadata.creators";
-  public final static String VALUE_BINDING_PUBITEM_METADATA_EVENT =
-      "EditItem.pubItem.metadata.event";
-  public final static String VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS =
-      "EditItem.pubItem.metadata.identifiers";
+//  public final static String VALUE_BINDING_PUBITEM_METADATA = "EditItem.pubItem.metadata";
+//  public final static String VALUE_BINDING_PUBITEM_METADATA_CREATORS =
+//      "EditItem.pubItem.metadata.creators";
+//  public final static String VALUE_BINDING_PUBITEM_METADATA_EVENT =
+//      "EditItem.pubItem.metadata.event";
+//  public final static String VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS =
+//      "EditItem.pubItem.metadata.identifiers";
 
   // Validation Service
   @EJB

@@ -49,7 +49,9 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
  * @author: $Author$ last modification
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
+  private static final Logger logger = Logger.getLogger(CreateItem.class);
 
   public enum SubmissionMethod {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION

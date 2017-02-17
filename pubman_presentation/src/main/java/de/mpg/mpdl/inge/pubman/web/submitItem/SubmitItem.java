@@ -61,7 +61,7 @@ public class SubmitItem extends FacesBean {
   private static Logger logger = Logger.getLogger(SubmitItem.class);
   // Faces navigation string
   public static final String LOAD_SUBMITITEM = "loadSubmitItem";
-  public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
+//  public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String submissionComment;
 

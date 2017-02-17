@@ -62,7 +62,7 @@ public class ErrorPage extends BreadcrumbPage {
   // The referring GUI Tool Page
   public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
   // JSP-Name for avoiding JSF-Navigation
-  public final static String JSP_NAME = "ErrorPage.jsp";
+//  public final static String JSP_NAME = "ErrorPage.jsp";
 
   private Exception exception = null;
   private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();

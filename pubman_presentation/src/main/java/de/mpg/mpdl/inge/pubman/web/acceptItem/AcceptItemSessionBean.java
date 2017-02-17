@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.acceptItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -37,11 +35,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class AcceptItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "AcceptItemSessionBean";
-
-  @SuppressWarnings("unused")
-  private static final Logger LOGGER = Logger.getLogger(AcceptItemSessionBean.class);
 
   // navigationString to go back to the list where acceptItem has been called from
   private String navigationStringToGoBack = null;

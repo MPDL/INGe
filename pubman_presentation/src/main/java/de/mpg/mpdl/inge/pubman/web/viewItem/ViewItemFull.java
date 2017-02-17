@@ -148,7 +148,7 @@ public class ViewItemFull extends FacesBean {
   private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
   // Faces navigation string
   public final static String LOAD_VIEWITEM = "loadViewItem";
-  public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
+//  public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
   public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
   public final static String ISI_KNOWLEDGE_BASE_LINK =
       "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";

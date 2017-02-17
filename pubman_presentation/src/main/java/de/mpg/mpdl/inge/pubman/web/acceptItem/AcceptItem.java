@@ -58,7 +58,7 @@ public class AcceptItem extends FacesBean {
   private static Logger logger = Logger.getLogger(AcceptItem.class);
   // Faces navigation string
   public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
-  public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
+//  public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String acceptanceComment = null;
 
