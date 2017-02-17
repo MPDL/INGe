@@ -7,7 +7,7 @@ import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
@@ -21,14 +21,17 @@ public class ItemValidatingBean implements ItemValidating {
 
   private static final Logger LOG = Logger.getLogger(ItemValidatingBean.class);
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO) throws ValidationException {
+  public void validateItemObject(final ItemVO itemVO) throws ValidationException,
+      ItemInvalidException {
 
     ValidationService s = new ValidationService();
 
     try {
-      return s.doValidation(itemVO);
+      s.doValidation(itemVO);
     } catch (ValidationException e) {
       LOG.error("validateItemObject:", e);
+      throw e;
+    } catch (ItemInvalidException e) {
       throw e;
     } catch (Exception e) {
       LOG.error("validateItemObject: " + itemVO, e);
@@ -37,15 +40,17 @@ public class ItemValidatingBean implements ItemValidating {
 
   }
 
-  public ValidationReportVO validateItemObject(final ItemVO itemVO,
-      final ValidationPoint validationPoint) throws ValidationException {
+  public void validateItemObject(final ItemVO itemVO, final ValidationPoint validationPoint)
+      throws ValidationException, ItemInvalidException {
 
     ValidationService s = new ValidationService();
 
     try {
-      return s.doValidation(itemVO, validationPoint);
+      s.doValidation(itemVO, validationPoint);
     } catch (ValidationException e) {
       LOG.error("validateItemObject:", e);
+      throw e;
+    } catch (ItemInvalidException e) {
       throw e;
     } catch (Exception e) {
       LOG.error("validateItemObject: " + itemVO + validationPoint, e);

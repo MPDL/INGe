@@ -25,7 +25,7 @@ public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> im
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
 
-    if (sources.isEmpty()) {
+    if (sources == null || sources.isEmpty()) {
       context.addErrorMsg(ErrorMessages.SOURCE_NOT_PROVIDED);
       return false;
     }

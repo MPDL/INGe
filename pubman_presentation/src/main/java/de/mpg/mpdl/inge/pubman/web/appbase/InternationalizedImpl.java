@@ -100,8 +100,6 @@ public class InternationalizedImpl implements Internationalized {
    * @return the actual or new bean instance
    */
   public static Object getSessionBean(final Class<?> cls) {
-
-
     String name = null;
 
     try {
@@ -112,7 +110,6 @@ public class InternationalizedImpl implements Internationalized {
     } catch (Exception e) {
       throw new RuntimeException("Error getting bean name of " + cls, e);
     }
-
 
     FacesContext context = FacesContext.getCurrentInstance();
     Object bean =

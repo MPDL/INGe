@@ -37,6 +37,7 @@ public class GenreSpecificItemManager {
   public static final String SUBMISSION_METHOD_ALL = "all";
   public static final String SUBMISSION_METHOD_EASY = "easy-submission";
   public static final String SUBMISSION_METHOD_FULL = "full-submission";
+
   private PubItemVO pubItem;
   private String submissionMethod;
 
@@ -152,25 +153,25 @@ public class GenreSpecificItemManager {
     return javaObject;
   }
 
-  private void setObjectValue(Object object, String mapString, Object value) throws Exception,
-      NoSuchMethodException {
-    Method method = null;
-    String renamedAttribute = "";
-    String firstCharacter = "";
-    // prepare the string for a method call
-    renamedAttribute = mapString;
-    // save the first character
-    firstCharacter = renamedAttribute.substring(0, 1);
-    // remove the first character
-    renamedAttribute = renamedAttribute.substring(1);
-    // add the first character in upper case
-    renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-    if (object != null) {
-      method =
-          object.getClass().getMethod("set" + renamedAttribute, new Class[] {object.getClass()});
-      // method.invoke(javaObject, new Object[]{null});
-    }
-  }
+  // private void setObjectValue(Object object, String mapString, Object value) throws Exception,
+  // NoSuchMethodException {
+  // Method method = null;
+  // String renamedAttribute = "";
+  // String firstCharacter = "";
+  // // prepare the string for a method call
+  // renamedAttribute = mapString;
+  // // save the first character
+  // firstCharacter = renamedAttribute.substring(0, 1);
+  // // remove the first character
+  // renamedAttribute = renamedAttribute.substring(1);
+  // // add the first character in upper case
+  // renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
+  // if (object != null) {
+  // method =
+  // object.getClass().getMethod("set" + renamedAttribute, new Class[] {object.getClass()});
+  // // method.invoke(javaObject, new Object[]{null});
+  // }
+  // }
 
   public ResourceBundle getGenreBundle(String genre) {
     return ResourceBundle.getBundle("Genre_" + genre);

@@ -26,22 +26,14 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.naming.InitialContext;
 
-import org.apache.log4j.Logger;
-
-import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 
 /**
@@ -53,18 +45,18 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  * 
  */
 public class SubmitProcess extends Thread {
-  private static final Logger logger = Logger.getLogger(SubmitProcess.class);
+  // private static final Logger logger = Logger.getLogger(SubmitProcess.class);
 
   private ImportLog log;
   private PubItemDepositing pubItemDepositing;
-  private PubItemPublishing pubItemPublishing;
-  private XmlTransforming xmlTransforming;
-  private ItemHandler itemHandler;
-  private ContextHandler contextHandler;
+  // private PubItemPublishing pubItemPublishing;
+  private XmlTransforming xmlTransforming; //
+  private ItemHandler itemHandler; //
+  // private ContextHandler contextHandler;
   private AccountUserVO user;
   private boolean alsoRelease;
 
-  private Map<String, ContextVO> contexts = new HashMap<String, ContextVO>();
+  // private Map<String, ContextVO> contexts = new HashMap<String, ContextVO>();
 
   public SubmitProcess(ImportLog log, boolean alsoRelease) {
     this.log = log;
@@ -84,14 +76,14 @@ public class SubmitProcess extends Thread {
       this.pubItemDepositing =
           (PubItemDepositing) context
               .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-      this.pubItemPublishing =
-          (PubItemPublishing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+      // this.pubItemPublishing =
+      // (PubItemPublishing) context
+      // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-      this.contextHandler = ServiceLocator.getContextHandler(this.user.getHandle());
+      // this.contextHandler = ServiceLocator.getContextHandler(this.user.getHandle());
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -100,9 +92,7 @@ public class SubmitProcess extends Thread {
     }
     this.log.finishItem();
     this.log.setPercentage(5);
-
   }
-
 
   public void run() {
     int itemCount = 0;
@@ -125,8 +115,8 @@ public class SubmitProcess extends Thread {
         try {
           log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
 
-          String itemXml = itemHandler.retrieve(item.getItemId());
-          PubItemVO itemVO = xmlTransforming.transformToPubItem(itemXml);
+          String itemXml = this.itemHandler.retrieve(item.getItemId());
+          PubItemVO itemVO = this.xmlTransforming.transformToPubItem(itemXml);
           // ContextRO contextRO = itemVO.getContext();
           // ContextVO contextVO;
           // if (this.contexts.containsKey(contextRO.getObjectId()))

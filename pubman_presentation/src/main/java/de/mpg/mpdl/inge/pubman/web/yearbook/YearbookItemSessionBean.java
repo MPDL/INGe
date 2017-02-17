@@ -16,6 +16,8 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
@@ -41,9 +43,6 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 
 public class YearbookItemSessionBean extends FacesBean {
   enum YBWORKSPACE {
@@ -289,8 +288,9 @@ public class YearbookItemSessionBean extends FacesBean {
       // revalidate
       System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
       // TODO maybe a special validationpoint for the yearbook needs to be created
-      ValidationReportVO rep =
-          this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.DEFAULT);
+      ValidationReportVO rep = new ValidationReportVO();
+      // ValidationReportVO rep =
+      // this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.DEFAULT);
       if (rep.getItems().size() > 0) {
         validItemMap.remove(pubItem.getVersion().getObjectId());
         invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem

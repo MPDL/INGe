@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.publishing;
 import java.util.Date;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -44,12 +43,8 @@ import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnEx
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
-import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -57,10 +52,14 @@ import de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.PubItemPublishing;
-import de.mpg.mpdl.inge.pubman.depositing.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
@@ -99,9 +98,11 @@ public class PubItemPublishingBean implements PubItemPublishing {
       PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException,
       SecurityException {
     long gstart = System.currentTimeMillis();
+
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".releasePubItem: pubItem reference is null.");
     }
+
     if (pubItemRef.getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".releasePubItem: pubItem reference does not contain an objectId.");
@@ -112,6 +113,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".releasePubItem: user is null.");
     }
+
     try {
       ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
       // ItemHandler adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
@@ -271,8 +273,6 @@ public class PubItemPublishingBean implements PubItemPublishing {
     long gend = System.currentTimeMillis();
     LOGGER.info("*** total release of <" + pubItemRef.getObjectId() + "> needed <"
         + (gend - gstart) + "> msec");
-
-
   }
 
   /**
@@ -287,10 +287,12 @@ public class PubItemPublishingBean implements PubItemPublishing {
       throw new IllegalArgumentException(getClass()
           + ".withdrawPubItem: pubItem reference is null.");
     }
+
     if (pubItem.getVersion().getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".withdrawPubItem: pubItem reference does not contain an objectId.");
     }
+
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".withdrawPubItem: user is null.");
     }
@@ -306,6 +308,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
     if (withdrawalComment == null || withdrawalComment.trim().length() == 0) {
       throw new MissingWithdrawalCommentException(pubItem.getVersion());
     }
+
     try {
       TaskParamVO param = new TaskParamVO(lastModificationDate, withdrawalComment);
       ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
@@ -325,7 +328,6 @@ public class PubItemPublishingBean implements PubItemPublishing {
     } catch (Exception e) {
       ExceptionHandler.handleException(e, getClass() + ".withdrawPubItem");
     }
-
   }
 
 }

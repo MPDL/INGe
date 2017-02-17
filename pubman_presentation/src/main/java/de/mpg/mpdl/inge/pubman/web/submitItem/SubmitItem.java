@@ -141,8 +141,7 @@ public class SubmitItem extends FacesBean {
     logger.debug("Now submitting, then go to " + navigateTo);
 
     retVal =
-        this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem(submissionComment,
-            navigateTo);
+        this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {

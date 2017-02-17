@@ -30,23 +30,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
 import de.escidoc.www.services.sm.ReportHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.StatisticLogger;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
-import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -63,7 +58,10 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecim
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.StatisticLogger;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
+import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;

@@ -26,7 +26,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     boolean ok = true;
 
-    if (languages != null) {
+    if (languages != null && languages.isEmpty() == false) {
 
       Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
 

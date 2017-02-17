@@ -40,9 +40,6 @@ import org.apache.log4j.Logger;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.ServiceDocumentRequest;
 
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-
-
 /**
  * The servlet to provide a servicedocument for Pubman.
  * 
@@ -53,9 +50,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private Logger log = Logger.getLogger(PubManServiceDocumentServlet.class);
 
-  private AccountUserVO currentUser;
+  // private AccountUserVO currentUser;
   private PubManSwordServer swordServer = new PubManSwordServer();
-
 
   /**
    * Initialise the servlet.
@@ -86,8 +82,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
       throws ServletException, IOException {
     // Create the ServiceDocumentRequest
     ServiceDocumentRequest sdr = new ServiceDocumentRequest();
-    SwordUtil util = new SwordUtil();
-    AccountUserVO user = null;
+    // SwordUtil util = new SwordUtil();
+    // AccountUserVO user = null;
 
     String usernamePassword = this.getUsernamePassword(request);
     if ((usernamePassword != null) && (!usernamePassword.equals(""))) {
@@ -95,8 +91,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
       if (p != -1) {
         sdr.setUsername(usernamePassword.substring(0, p));
         sdr.setPassword(usernamePassword.substring(p + 1));
-        user = util.getAccountUser(sdr.getUsername(), sdr.getPassword());
-        this.currentUser = user;
+        // user = util.getAccountUser(sdr.getUsername(), sdr.getPassword());
+        // this.currentUser = user;
       }
     } else {
       String s = "Basic realm=\"SWORD\"";
@@ -107,7 +103,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
 
     try {
       String doc = this.swordServer.doServiceDocument(sdr);
-      this.currentUser = null;
+      // this.currentUser = null;
 
       // Print out the Service Document
       response.setCharacterEncoding("UTF-8");
@@ -119,7 +115,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
       response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
       response.setStatus(401);
       response.setCharacterEncoding("UTF-8");
-      this.currentUser = null;
+      // this.currentUser = null;
     } catch (Exception e) {
       this.log.error(e);
     }

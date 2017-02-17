@@ -49,6 +49,7 @@ import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFo
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
@@ -62,12 +63,13 @@ public class PubManDepositServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   private Logger logger = Logger.getLogger(PubManDepositServlet.class);
-  private String collection;
-  PubManSwordServer pubMan;
-  private String error = "";
+  // private String collection;
+  // PubManSwordServer pubManSwordServer;
+  // private String error = "";
   private PubManSwordErrorDocument errorDoc;
   private boolean validDeposit = true;
-  private String md5Header = "";
+
+  // private String md5Header = "";
 
   /**
    * Process the GET request. This will return an unimplemented response.
@@ -103,7 +105,7 @@ public class PubManDepositServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    this.pubMan = new PubManSwordServer();
+    PubManSwordServer pubManSwordServer = new PubManSwordServer();
     SwordUtil util = new SwordUtil();
     Deposit deposit = new Deposit();
     AccountUserVO user = null;
@@ -122,23 +124,23 @@ public class PubManDepositServlet extends HttpServlet {
         deposit.setUsername(usernamePassword.substring(0, p));
         deposit.setPassword(usernamePassword.substring(p + 1));
         user = util.getAccountUser(deposit.getUsername(), deposit.getPassword());
-        this.pubMan.setCurrentUser(user);
+        pubManSwordServer.setCurrentUser(user);
       }
     }
 
     try {
       // Deposit --------------------------------------------------
       // Check if login was successfull
-      if (this.pubMan.getCurrentUser() == null && this.validDeposit) {
+      if (pubManSwordServer.getCurrentUser() == null && this.validDeposit) {
         this.errorDoc.setSummary("Login user: " + deposit.getUsername() + " failed.");
         this.errorDoc.setErrorDesc(swordError.AuthentificationFailure);
         this.validDeposit = false;
       }
 
       // Check if collection was provided
-      this.collection = request.getParameter("collection");
-      if ((this.collection == null || this.collection.equals("")) && this.validDeposit) {
-        this.collection = request.getParameter("collection");
+      String collection = request.getParameter("collection");
+      if ((collection == null || collection.equals("")) && this.validDeposit) {
+        collection = request.getParameter("collection");
         this.errorDoc.setSummary("No collection provided in request.");
         this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
         this.validDeposit = false;
@@ -146,9 +148,9 @@ public class PubManDepositServlet extends HttpServlet {
 
       // Check if user has depositing rights for this collection
       else {
-        if (!util.checkCollection(this.collection, user) && this.validDeposit) {
+        if (!util.checkCollection(collection, user) && this.validDeposit) {
           this.errorDoc.setSummary("User: " + deposit.getUsername()
-              + " does not have depositing rights for collection " + this.collection + ".");
+              + " does not have depositing rights for collection " + collection + ".");
           this.errorDoc.setErrorDesc(swordError.AuthorisationFailure);
           this.validDeposit = false;
         }
@@ -164,7 +166,7 @@ public class PubManDepositServlet extends HttpServlet {
 
       if (this.validDeposit) {
         // Get the DepositResponse
-        dr = this.pubMan.doDeposit(deposit, this.collection);
+        dr = pubManSwordServer.doDeposit(deposit, collection);
       }
     } catch (SWORDContentTypeException e) {
       this.errorDoc.setSummary("File format not supported.");
@@ -183,6 +185,11 @@ public class PubManDepositServlet extends HttpServlet {
         error += itemReport.getContent() + "\n";
       }
       this.errorDoc.setSummary(error);
+      this.errorDoc.setErrorDesc(swordError.ValidationFailure);
+      this.validDeposit = false;
+    } catch (ValidationException e) {
+      logger.error("Error in Validation", e);
+      this.errorDoc.setSummary(e.getMessage());
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);
       this.validDeposit = false;
     } catch (PubItemStatusInvalidException e) {
@@ -222,7 +229,7 @@ public class PubManDepositServlet extends HttpServlet {
       throw new RuntimeException();
     }
 
-    this.pubMan.setCurrentUser(null);
+    pubManSwordServer.setCurrentUser(null);
     this.validDeposit = true;
   }
 
@@ -345,21 +352,21 @@ public class PubManDepositServlet extends HttpServlet {
     return check;
   }
 
-  public PubManSwordServer getPubMan() {
-    return this.pubMan;
-  }
+  // public PubManSwordServer getPubMan() {
+  // return this.pubManSwordServer;
+  // }
+  //
+  // public void setPubMan(PubManSwordServer pubMan) {
+  // this.pubManSwordServer = pubMan;
+  // }
 
-  public void setPubMan(PubManSwordServer pubMan) {
-    this.pubMan = pubMan;
-  }
-
-  public String getError() {
-    return this.error;
-  }
-
-  public void setError(String error) {
-    this.error = error;
-  }
+  // public String getError() {
+  // return this.error;
+  // }
+  //
+  // public void setError(String error) {
+  // this.error = error;
+  // }
 
   public PubManSwordErrorDocument getErrorDoc() {
     return this.errorDoc;

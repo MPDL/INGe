@@ -43,7 +43,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
     boolean ok = true;
 
-    if (subjects != null) {
+    if (subjects != null && subjects.isEmpty() == false) {
 
       ConeCache coneCache = ConeCache.getInstance();
 

@@ -47,18 +47,17 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
@@ -600,11 +599,14 @@ public class ImportProcess extends Thread {
    * @return
    */
   private void prepareItem(String singleItem) {
+
     log.addDetail(ErrorLevel.FINE, "import_process_source_data_found");
     log.addDetail(ErrorLevel.FINE, singleItem);
     log.addDetail(ErrorLevel.FINE, "import_process_start_transformation");
     String esidocXml = null;
+
     try {
+
       if (configuration != null && transformation instanceof Configurable) {
         esidocXml =
             new String(((Configurable) transformation).transform(
@@ -615,6 +617,7 @@ public class ImportProcess extends Thread {
             new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
                 this.format, ESCIDOC_FORMAT, "escidoc"), ESCIDOC_FORMAT.getEncoding());
       }
+
       log.addDetail(ErrorLevel.FINE, esidocXml);
       log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
       PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
@@ -624,72 +627,53 @@ public class ImportProcess extends Thread {
       pubItemVO.getLocalTags().add("multiple_import");
       pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
 
-      // Default validation
+      // Default Validation
       log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
-      ValidationReportVO validationReportVO = this.itemValidating.validateItemObject(pubItemVO);
-      if (validationReportVO.isValid()) {
-        if (!validationReportVO.hasItems()) {
-          log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
-        } else {
-          log.addDetail(ErrorLevel.WARNING,
-              "import_process_default_validation_successful_with_warnings");
-          for (ValidationReportItemVO item : validationReportVO.getItems()) {
-            log.addDetail(ErrorLevel.WARNING, item.getContent());
-          }
-        }
-        // Release validation
+      try {
+        this.itemValidating.validateItemObject(pubItemVO);
+        log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
+
+        // Release Validation
         log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
-        validationReportVO =
-            this.itemValidating.validateItemObject(pubItemVO, ValidationPoint.SUBMIT_ITEM);
-        if (validationReportVO.isValid()) {
-          if (!validationReportVO.hasItems()) {
-            log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
-          } else {
-            log.addDetail(ErrorLevel.WARNING,
-                "import_process_release_validation_successful_with_warnings");
-            for (ValidationReportItemVO item : validationReportVO.getItems()) {
-              log.addDetail(ErrorLevel.WARNING, item.getContent());
+        try {
+          this.itemValidating.validateItemObject(pubItemVO);
+          log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
+
+          log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
+          log.setItemVO(pubItemVO);
+          if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
+            log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
+            boolean duplicatesDetected = checkDuplicatesByIdentifier(pubItemVO);
+            if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
+              this.rollback = true;
+              fail();
+            } else if (duplicatesDetected) {
+              log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
+              log.finishItem();
+            } else {
+              log.suspendItem();
             }
-          }
-        } else {
-          log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
-          for (ValidationReportItemVO item : validationReportVO.getItems()) {
-            // if (item.isRestrictive()) {
-            log.addDetail(ErrorLevel.WARNING, item.getContent());
-            // } else {
-            // log.addDetail(ErrorLevel.WARNING, item.getContent());
-            // }
-          }
-        }
-        log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
-        log.setItemVO(pubItemVO);
-        if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
-          log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
-          boolean duplicatesDetected = checkDuplicatesByIdentifier(pubItemVO);
-          if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
-            this.rollback = true;
-            fail();
-          } else if (duplicatesDetected) {
-            log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
-            log.finishItem();
           } else {
             log.suspendItem();
           }
-        } else {
-          log.suspendItem();
+
+        } catch (ItemInvalidException e2) { // Release Validation
+          log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
+          for (ValidationReportItemVO item : e2.getReport().getItems()) {
+            log.addDetail(ErrorLevel.WARNING, item.getContent());
+          }
         }
-      } else {
+
+      } catch (ItemInvalidException e) { // Default Validation
         log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
-        for (ValidationReportItemVO item : validationReportVO.getItems()) {
-          // if (item.isRestrictive()) {
+        for (ValidationReportItemVO item : e.getReport().getItems()) {
           log.addDetail(ErrorLevel.PROBLEM, item.getContent());
-          // } else {
-          // log.addDetail(ErrorLevel.WARNING, item.getContent());
-          // }
         }
         log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
         log.finishItem();
+
       }
+
     } catch (Exception e) {
       logger.error("Error while multiple import", e);
       log.addDetail(ErrorLevel.ERROR, e);
@@ -700,6 +684,113 @@ public class ImportProcess extends Thread {
       log.finishItem();
     }
   }
+
+  // /**
+  // * @param writer
+  // * @param singleItem
+  // * @return
+  // */
+  // private void prepareItem(String singleItem) {
+  // log.addDetail(ErrorLevel.FINE, "import_process_source_data_found");
+  // log.addDetail(ErrorLevel.FINE, singleItem);
+  // log.addDetail(ErrorLevel.FINE, "import_process_start_transformation");
+  // String esidocXml = null;
+  // try {
+  // if (configuration != null && transformation instanceof Configurable) {
+  // esidocXml =
+  // new String(((Configurable) transformation).transform(
+  // singleItem.getBytes(this.format.getEncoding()), this.format, ESCIDOC_FORMAT,
+  // "escidoc", configuration), ESCIDOC_FORMAT.getEncoding());
+  // } else {
+  // esidocXml =
+  // new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
+  // this.format, ESCIDOC_FORMAT, "escidoc"), ESCIDOC_FORMAT.getEncoding());
+  // }
+  // log.addDetail(ErrorLevel.FINE, esidocXml);
+  // log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
+  // PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
+  // pubItemVO.setContext(escidocContext);
+  // pubItemVO.setContentModel(publicationContentModel);
+  // pubItemVO.getVersion().setObjectId(null);
+  // pubItemVO.getLocalTags().add("multiple_import");
+  // pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
+  //
+  // // Default validation
+  // log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
+  // ValidationReportVO validationReportVO = this.itemValidating.validateItemObject(pubItemVO);
+  // if (validationReportVO.isValid()) {
+  // if (!validationReportVO.hasItems()) {
+  // log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
+  // } else {
+  // log.addDetail(ErrorLevel.WARNING,
+  // "import_process_default_validation_successful_with_warnings");
+  // for (ValidationReportItemVO item : validationReportVO.getItems()) {
+  // log.addDetail(ErrorLevel.WARNING, item.getContent());
+  // }
+  // }
+  // // Release validation
+  // log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
+  // validationReportVO =
+  // this.itemValidating.validateItemObject(pubItemVO, ValidationPoint.SUBMIT_ITEM);
+  // if (validationReportVO.isValid()) {
+  // if (!validationReportVO.hasItems()) {
+  // log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
+  // } else {
+  // log.addDetail(ErrorLevel.WARNING,
+  // "import_process_release_validation_successful_with_warnings");
+  // for (ValidationReportItemVO item : validationReportVO.getItems()) {
+  // log.addDetail(ErrorLevel.WARNING, item.getContent());
+  // }
+  // }
+  // } else {
+  // log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
+  // for (ValidationReportItemVO item : validationReportVO.getItems()) {
+  // // if (item.isRestrictive()) {
+  // log.addDetail(ErrorLevel.WARNING, item.getContent());
+  // // } else {
+  // // log.addDetail(ErrorLevel.WARNING, item.getContent());
+  // // }
+  // }
+  // }
+  // log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
+  // log.setItemVO(pubItemVO);
+  // if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
+  // log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
+  // boolean duplicatesDetected = checkDuplicatesByIdentifier(pubItemVO);
+  // if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
+  // this.rollback = true;
+  // fail();
+  // } else if (duplicatesDetected) {
+  // log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
+  // log.finishItem();
+  // } else {
+  // log.suspendItem();
+  // }
+  // } else {
+  // log.suspendItem();
+  // }
+  // } else {
+  // log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
+  // for (ValidationReportItemVO item : validationReportVO.getItems()) {
+  // // if (item.isRestrictive()) {
+  // log.addDetail(ErrorLevel.PROBLEM, item.getContent());
+  // // } else {
+  // // log.addDetail(ErrorLevel.WARNING, item.getContent());
+  // // }
+  // }
+  // log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
+  // log.finishItem();
+  // }
+  // } catch (Exception e) {
+  // logger.error("Error while multiple import", e);
+  // log.addDetail(ErrorLevel.ERROR, e);
+  // log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
+  // if (this.rollback) {
+  // fail();
+  // }
+  // log.finishItem();
+  // }
+  // }
 
   private boolean checkDuplicatesByIdentifier(PubItemVO itemVO) {
     try {

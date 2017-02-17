@@ -1,14 +1,9 @@
 package de.mpg.mpdl.inge.pubman;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.auth.CredentialsProvider;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -24,7 +19,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.TestTransformation;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.doi.DoiMetadataTransformation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

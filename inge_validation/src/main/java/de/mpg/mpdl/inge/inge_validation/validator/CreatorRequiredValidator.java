@@ -69,19 +69,21 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
         case PERSON:
 
           PersonVO p = creatorVO.getPerson();
-          if (p == null || p.getFamilyName() == null && p.getFamilyName().trim().length() > 0) {
+          if (p == null || p.getFamilyName() == null) {
             errorPers = true;
             continue;
           }
 
           int orgsOk = 0;
           List<OrganizationVO> orgs = p.getOrganizations();
-          if (orgs != null) {
+          if (orgs.isEmpty() == false) {
             for (OrganizationVO organizationVO : orgs) {
               if (organizationVO.getName() != null && organizationVO.getName().trim().length() > 0) {
                 orgsOk++;
               }
             }
+          } else {
+            orgsOk++;
           }
 
           if (orgsOk > 0) {

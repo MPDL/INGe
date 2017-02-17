@@ -53,7 +53,6 @@ import org.w3c.dom.Element;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -62,6 +61,12 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
+import de.mpg.mpdl.inge.pubman.depositing.PubItemMandatoryAttributesMissingException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -89,26 +94,35 @@ public class PubManSwordServer {
    * @param deposit
    * @param collection
    * @return DepositResponse
+   * @throws ContentStreamNotFoundException
    * @throws Exception
-   * @throws ItemInvalidException
    * @throws ValidationException
    * @throws NamingException
    * @throws SWORDContentTypeException
+   * @throws PubItemAlreadyReleasedException
+   * @throws PubItemNotFoundException
+   * @throws PubCollectionNotFoundException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemLockedException
+   * @throws PubItemMandatoryAttributesMissingException
    * @throws URISyntaxException
    * @throws TechnicalException
    * @throws PubManException
    * @throws SecurityException
    * @throws DepositingException
    * @throws AuthorizationException
+   * @throws ItemInvalidException
    */
-  public DepositResponse doDeposit(Deposit deposit, String collection) throws ItemInvalidException,
-      ContentStreamNotFoundException, NamingException, ValidationException,
-      SWORDContentTypeException, AuthorizationException, DepositingException, SecurityException,
-      PubManException, TechnicalException, URISyntaxException {
+  public DepositResponse doDeposit(Deposit deposit, String collection)
+      throws ContentStreamNotFoundException, SWORDContentTypeException, NamingException,
+      ValidationException, AuthorizationException, PubItemMandatoryAttributesMissingException,
+      PubItemLockedException, PubItemStatusInvalidException, PubCollectionNotFoundException,
+      PubItemNotFoundException, PubItemAlreadyReleasedException, SecurityException,
+      TechnicalException, ItemInvalidException {
+
     SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
     DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
-    boolean valid = false;
 
     this.setVerbose("Start depositing process ... ");
 
@@ -122,18 +136,21 @@ public class PubManSwordServer {
 
     // Validate Item
     util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(depositItem));
-    ValidationReportVO validationReport = util.validateItem(depositItem);
-    if (validationReport.isValid()) {
-      this.setVerbose("Escidoc Publication Item successfully validated.");
-      valid = true;
-    } else {
-      this.setVerbose("Following validation error(s) occurred: " + validationReport);
-      valid = false;
-      throw new ItemInvalidException(validationReport);
+
+    try {
+      util.validateItem(depositItem);
+    } catch (ValidationException e) {
+      this.setVerbose("Following validation error(s) occurred: " + e);
+      throw e;
+    } catch (ItemInvalidException e) {
+      this.setVerbose("Following validation error(s) occurred: " + e.getReport());
+      throw e;
     }
 
+    this.setVerbose("Escidoc Publication Item successfully validated.");
+
     // Deposit item
-    if (!deposit.isNoOp() && valid) {
+    if (!deposit.isNoOp()) {
       depositItem = util.doDeposit(this.currentUser, depositItem);
       if (depositItem.getVersion().getState().equals(State.RELEASED)) {
         dr = new DepositResponse(Deposit.CREATED);
@@ -145,20 +162,95 @@ public class PubManSwordServer {
             + depositItem.getPublicStatus() + ").");
       }
     } else {
-      if (valid) {
-        this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
-      } else {
-        this.setVerbose("Escidoc Publication Item not deposited due to validation errors.");
-      }
+      this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
     }
 
-    SWORDEntry se = util.createResponseAtom(depositItem, deposit, valid);
+    SWORDEntry se = util.createResponseAtom(depositItem, deposit);
     if (deposit.isVerbose()) {
       se.setVerboseDescription(this.getVerbose());
     }
     dr.setEntry(se);
+
     return dr;
   }
+
+  // /**
+  // * Process the deposit.
+  // *
+  // * @param deposit
+  // * @param collection
+  // * @return DepositResponse
+  // * @throws Exception
+  // * @throws ItemInvalidException
+  // * @throws ValidationException
+  // * @throws NamingException
+  // * @throws SWORDContentTypeException
+  // * @throws URISyntaxException
+  // * @throws TechnicalException
+  // * @throws PubManException
+  // * @throws SecurityException
+  // * @throws DepositingException
+  // * @throws AuthorizationException
+  // */
+  // public DepositResponse doDeposit(Deposit deposit, String collection) throws
+  // ItemInvalidException,
+  // ContentStreamNotFoundException, NamingException, ValidationException,
+  // SWORDContentTypeException, AuthorizationException, DepositingException, SecurityException,
+  // PubManException, TechnicalException, URISyntaxException {
+  // SwordUtil util = new SwordUtil();
+  // PubItemVO depositItem = null;
+  // DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
+  // boolean valid = false;
+  //
+  // this.setVerbose("Start depositing process ... ");
+  //
+  // // Create item
+  // util.setCurrentDeposit(deposit);
+  // depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
+  // this.setVerbose("Escidoc Publication Item successfully created.");
+  // ContextRO context = new ContextRO();
+  // context.setObjectId(collection);
+  // depositItem.setContext(context);
+  //
+  // // Validate Item
+  // util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(depositItem));
+  // ValidationReportVO validationReport = util.validateItem(depositItem);
+  // if (validationReport.isValid()) {
+  // this.setVerbose("Escidoc Publication Item successfully validated.");
+  // valid = true;
+  // } else {
+  // this.setVerbose("Following validation error(s) occurred: " + validationReport);
+  // valid = false;
+  // throw new ItemInvalidException(validationReport);
+  // }
+  //
+  // // Deposit item
+  // if (!deposit.isNoOp() && valid) {
+  // depositItem = util.doDeposit(this.currentUser, depositItem);
+  // if (depositItem.getVersion().getState().equals(State.RELEASED)) {
+  // dr = new DepositResponse(Deposit.CREATED);
+  // this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
+  // + depositItem.getPublicStatus() + ").");
+  // } else {
+  // dr = new DepositResponse(Deposit.ACCEPTED);
+  // this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
+  // + depositItem.getPublicStatus() + ").");
+  // }
+  // } else {
+  // if (valid) {
+  // this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
+  // } else {
+  // this.setVerbose("Escidoc Publication Item not deposited due to validation errors.");
+  // }
+  // }
+  //
+  // SWORDEntry se = util.createResponseAtom(depositItem, deposit, valid);
+  // if (deposit.isVerbose()) {
+  // se.setVerboseDescription(this.getVerbose());
+  // }
+  // dr.setEntry(se);
+  // return dr;
+  // }
 
   /**
    * Provides Service Document.

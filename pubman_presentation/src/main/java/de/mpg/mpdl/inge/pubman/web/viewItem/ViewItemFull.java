@@ -53,6 +53,8 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -222,8 +224,6 @@ public class ViewItemFull extends FacesBean {
   private boolean isOwner;
   private boolean isModifyDisabled;
   private boolean isCreateNewRevisionDisabled;
-  private boolean isFromEasySubmission;
-  private boolean isFromSearchResult;
   @EJB
   private PubItemDepositing pubItemDepositing;
   private boolean isWorkflowStandard;
@@ -316,7 +316,7 @@ public class ViewItemFull extends FacesBean {
       }
     }
 
-    boolean logViewAction = false;
+    // boolean logViewAction = false;
     // Try to get a pubitem either via the controller session bean or an URL Parameter
     itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
     // long inBetweenTime = System.currentTimeMillis();
@@ -335,7 +335,7 @@ public class ViewItemFull extends FacesBean {
           getViewItemSessionBean().itemChanged();
         }
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
-        logViewAction = true;
+        // logViewAction = true;
       } catch (AuthorizationException e) {
         if (loginHelper.isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
@@ -740,23 +740,22 @@ public class ViewItemFull extends FacesBean {
     this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
     if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState())
         || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnAddedSuccessfully"));
       }
     } else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
         || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
       if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
-        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       } else if (isModerator
           && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
-        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during adding SSRN-Tag.",
                 AcceptItem.LOAD_ACCEPTITEM);
       } else {
-        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
-        // returnValue = icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
       }
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnAddedSuccessfully"));
@@ -779,22 +778,22 @@ public class ViewItemFull extends FacesBean {
     this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
     if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState())
         || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
       }
     } else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
         || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
       if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
-        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       } else if (isModerator
           && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
-        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during removing SSRN-Tag.",
                 AcceptItem.LOAD_ACCEPTITEM);
       } else {
-        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
+        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
         // returnValue = icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
       }
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
@@ -953,66 +952,107 @@ public class ViewItemFull extends FacesBean {
    * @return String nav rule to load the page the user came from
    */
   public String submitItem() {
-    /*
-     * FrM: Validation with validation point "submit_item"
-     */
-    PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
-    ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
-    } catch (Exception e) {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
+          ValidationPoint.SUBMIT_ITEM);
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-    logger.debug("Validation Report: " + report);
-    if (report.isValid() && !report.hasItems()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Submitting item...");
-      }
-      getSubmitItemSessionBean().setNavigationStringToGoBack(
-          getViewItemSessionBean().getNavigationStringToGoBack());
-      return SubmitItem.LOAD_SUBMITITEM;
-    } else if (report.isValid()) {
-      // TODO FrM: Informative messages
-      getSubmitItemSessionBean().setNavigationStringToGoBack(
-          getViewItemSessionBean().getNavigationStringToGoBack());
-      return SubmitItem.LOAD_SUBMITITEM;
-    } else {
-      // Item is invalid, do not submit anything.
-      this.showValidationMessages(report);
-      return null;
-    }
+
+    getSubmitItemSessionBean().setNavigationStringToGoBack(
+        getViewItemSessionBean().getNavigationStringToGoBack());
+
+    return SubmitItem.LOAD_SUBMITITEM;
   }
 
+  // /**
+  // * submits the selected item(s) an redirects the user to the page he came from (depositor
+  // * workspace or search result list) Changed by FrM: Inserted validation and call to
+  // * "enter submission comment" page.
+  // *
+  // * @return String nav rule to load the page the user came from
+  // */
+  // public String submitItem() {
+  // /*
+  // * FrM: Validation with validation point "submit_item"
+  // */
+  // PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+  // ValidationReportVO report = null;
+  // try {
+  // report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
+  // } catch (Exception e) {
+  // throw new RuntimeException("Validation error", e);
+  // }
+  // logger.debug("Validation Report: " + report);
+  // if (report.isValid() && !report.hasItems()) {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  // getSubmitItemSessionBean().setNavigationStringToGoBack(
+  // getViewItemSessionBean().getNavigationStringToGoBack());
+  // return SubmitItem.LOAD_SUBMITITEM;
+  // } else if (report.isValid()) {
+  // // TODO FrM: Informative messages
+  // getSubmitItemSessionBean().setNavigationStringToGoBack(
+  // getViewItemSessionBean().getNavigationStringToGoBack());
+  // return SubmitItem.LOAD_SUBMITITEM;
+  // } else {
+  // // Item is invalid, do not submit anything.
+  // this.showValidationMessages(report);
+  // return null;
+  // }
+  // }
+
   public String acceptItem() {
-    /*
-     * FrM: Validation with validation point "submit_item"
-     */
-    PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
-    ValidationReportVO report = null;
     try {
-      report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
-    } catch (Exception e) {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
+          ValidationPoint.ACCEPT_ITEM);
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-    logger.debug("Validation Report: " + report);
-    if (report.isValid() && !report.hasItems()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Accepting item...");
-      }
-      getAcceptItemSessionBean().setNavigationStringToGoBack(
-          getViewItemSessionBean().getNavigationStringToGoBack());
-      return AcceptItem.LOAD_ACCEPTITEM;
-    } else if (report.isValid()) {
-      // TODO FrM: Informative messages
-      getAcceptItemSessionBean().setNavigationStringToGoBack(
-          getViewItemSessionBean().getNavigationStringToGoBack());
-      return AcceptItem.LOAD_ACCEPTITEM;
-    } else {
-      // Item is invalid, do not submit anything.
-      this.showValidationMessages(report);
-      return null;
-    }
+
+    getAcceptItemSessionBean().setNavigationStringToGoBack(
+        getViewItemSessionBean().getNavigationStringToGoBack());
+
+    return AcceptItem.LOAD_ACCEPTITEM;
   }
+
+  // public String acceptItem() {
+  // /*
+  // * FrM: Validation with validation point "submit_item"
+  // */
+  // PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+  // ValidationReportVO report = null;
+  // try {
+  // report = this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+  // } catch (Exception e) {
+  // throw new RuntimeException("Validation error", e);
+  // }
+  // logger.debug("Validation Report: " + report);
+  // if (report.isValid() && !report.hasItems()) {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Accepting item...");
+  // }
+  // getAcceptItemSessionBean().setNavigationStringToGoBack(
+  // getViewItemSessionBean().getNavigationStringToGoBack());
+  // return AcceptItem.LOAD_ACCEPTITEM;
+  // } else if (report.isValid()) {
+  // // TODO FrM: Informative messages
+  // getAcceptItemSessionBean().setNavigationStringToGoBack(
+  // getViewItemSessionBean().getNavigationStringToGoBack());
+  // return AcceptItem.LOAD_ACCEPTITEM;
+  // } else {
+  // // Item is invalid, do not submit anything.
+  // this.showValidationMessages(report);
+  // return null;
+  // }
+  // }
 
   /**
    * Returns a reference to the scoped data bean (the AcceptItemSessionBean).
@@ -2930,7 +2970,7 @@ public class ViewItemFull extends FacesBean {
       ItemControllerSessionBean icsb =
           (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
-      icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+      icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       icsb.saveAndSubmitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
       returnValue =
           icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);

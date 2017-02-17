@@ -97,6 +97,11 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
+import de.mpg.mpdl.inge.pubman.depositing.PubItemMandatoryAttributesMissingException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
@@ -129,20 +134,19 @@ public class SwordUtil extends FacesBean {
   private static final int NUMBER_OF_URL_TOKENS = 2;
 
   private Logger logger = Logger.getLogger(SwordUtil.class);
-  private PubManDepositServlet depositServlet;
+  // private PubManDepositServlet depositServlet;
 
   private Vector<String> filenames = new Vector<String>();
   // Format of the provided Metadata
   private String depositXml = "";
-  private String depositXmlFileName;
+  // private String depositXmlFileName;
 
   private ValidationPoint validationPoint;
-
 
   // Packaging Format
   private final String acceptedFormat = "application/zip";
   // Metadata Format
-  private final String mdFormatTEI = "http://www.tei-c.org/ns/1.0"; // Not yet supported
+  // private final String mdFormatTEI = "http://www.tei-c.org/ns/1.0"; // Not yet supported
   private final String mdFormatEscidoc = "http://purl.org/escidoc/metadata/schemas/0.1/publication";
   private final String mdFormatBibTex = "BibTex";
   private final String mdFormatEndnote = "EndNote";
@@ -151,7 +155,7 @@ public class SwordUtil extends FacesBean {
   private Deposit currentDeposit;
 
   private final String itemPath = "/pubman/item/";
-  private final String serviceDocUrl = "faces/sword/servicedocument";
+  // private final String serviceDocUrl = "faces/sword/servicedocument";
   private final String transformationService = "escidoc";
   private final String treatmentText =
       "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
@@ -173,7 +177,7 @@ public class SwordUtil extends FacesBean {
    * Initialisation method.
    */
   public void init() {
-    this.depositServlet = new PubManDepositServlet();
+    // this.depositServlet = new PubManDepositServlet();
     this.setValidationPoint(ValidationPoint.DEFAULT);
     this.filenames.clear();
     super.init();
@@ -384,8 +388,8 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws SWORDContentTypeException
    */
-  public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws ItemInvalidException,
-      ContentStreamNotFoundException, SWORDContentTypeException {
+  public PubItemVO readZipFile(InputStream in, AccountUserVO user)
+      throws ContentStreamNotFoundException, SWORDContentTypeException {
     String item = null;
     List<FileVO> attachements = new ArrayList<FileVO>();
     // List<String> attachementsNames = new ArrayList< String>();
@@ -426,7 +430,7 @@ public class SwordUtil extends FacesBean {
 
             item = new String(sw.toString());
             this.depositXml = item;
-            this.depositXmlFileName = name;
+            // this.depositXmlFileName = name;
             pubItem = createItem(item, user);
 
             // if not escidoc format, add as component
@@ -459,19 +463,16 @@ public class SwordUtil extends FacesBean {
           }
         }
 
-
         if (!existing) {
           pubItem.getFiles().add(newFile);
         }
-
       }
-
 
       // If peer format, add additional copyright information to component. They are read from the
       // TEI metadata.
       if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI)) {
         // Copyright information are imported from metadata file
-        InitialContext initialContext = new InitialContext();
+        // InitialContext initialContext = new InitialContext();
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         Transformation transformer = new TransformationBean();
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
@@ -493,14 +494,12 @@ public class SwordUtil extends FacesBean {
         }
       }
 
-
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
     if (count == 0) {
       this.logger.info("No zip file was provided.");
-      this.depositServlet.setError("No zip file was provided.");
+      // this.depositServlet.setError("No zip file was provided.");
       throw new SWORDContentTypeException();
     }
 
@@ -526,7 +525,7 @@ public class SwordUtil extends FacesBean {
     }
 
     try {
-      InitialContext initialContext = new InitialContext();
+      // InitialContext initialContext = new InitialContext();
       XmlTransformingBean xmlTransforming = new XmlTransformingBean();
       ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
       Transformation transformer = appBean.getTransformationService();
@@ -602,31 +601,44 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws URISyntaxException
    * @throws NamingException
+   * @throws PubItemStatusInvalidException
    * @throws ItemInvalidException
+   * @throws PubItemAlreadyReleasedException
+   * @throws PubItemNotFoundException
+   * @throws PubCollectionNotFoundException
+   * @throws PubItemLockedException
+   * @throws PubItemMandatoryAttributesMissingException
    * @throws ValidationException
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(AccountUserVO user, PubItemVO item) throws ItemInvalidException,
-      NamingException, AuthorizationException, SecurityException, TechnicalException,
-      URISyntaxException, ValidationException, DepositingException, PubManException {
+  public PubItemVO doDeposit(AccountUserVO user, PubItemVO item) throws NamingException,
+      PubItemStatusInvalidException, AuthorizationException,
+      PubItemMandatoryAttributesMissingException, PubItemLockedException,
+      PubCollectionNotFoundException, PubItemNotFoundException, PubItemAlreadyReleasedException,
+      SecurityException, TechnicalException {
+
     PubItemVO depositedItem = null;
     InitialContext initialContext = new InitialContext();
     PubItemDepositing depositBean =
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+
     String method = this.getMethod(item);
 
     if (method == null) {
       throw new PubItemStatusInvalidException(null, null);
     }
-    if (method.equals("SAVE")) {
-      depositedItem = depositBean.savePubItem(item, user);
-    }
+
+    // if (method.equals("SAVE")) {
+    // depositedItem = depositBean.savePubItem(item, user);
+    // }
+
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
       depositedItem = depositBean.savePubItem(item, user);
       depositedItem = depositBean.submitPubItem(depositedItem, "", user);
     }
+
     if (method.equals("RELEASE")) {
       depositedItem = depositBean.savePubItem(item, user);
       depositedItem = depositBean.submitAndReleasePubItem(depositedItem, "", user);
@@ -643,9 +655,11 @@ public class SwordUtil extends FacesBean {
     if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD)) {
       return Workflow.STANDARD;
     }
+
     if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE)) {
       return Workflow.SIMPLE;
     }
+
     return null;
   }
 
@@ -657,13 +671,13 @@ public class SwordUtil extends FacesBean {
 
     boolean isStatePending = true;
     boolean isStateSubmitted = false;
-    boolean isStateReleased = false;
+    // boolean isStateReleased = false;
     boolean isStateInRevision = false;
 
     if (item != null && item.getVersion() != null && item.getVersion().getState() != null) {
       isStatePending = item.getVersion().getState().equals(PubItemVO.State.PENDING);
       isStateSubmitted = item.getVersion().getState().equals(PubItemVO.State.SUBMITTED);
-      isStateReleased = item.getVersion().getState().equals(PubItemVO.State.RELEASED);
+      // isStateReleased = item.getVersion().getState().equals(PubItemVO.State.RELEASED);
       isStateInRevision = item.getVersion().getState().equals(PubItemVO.State.IN_REVISION);
     }
 
@@ -684,14 +698,17 @@ public class SwordUtil extends FacesBean {
       this.setValidationPoint(ValidationPoint.ACCEPT_ITEM);
       return "RELEASE";
     }
+
     if ((isStatePending || isStateInRevision) && isWorkflowStandard && isOwner) {
       this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
       return "SAVE_SUBMIT";
     }
+
     if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator)) {
       this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
       return "SUBMIT";
     }
+
     return null;
   }
 
@@ -723,8 +740,10 @@ public class SwordUtil extends FacesBean {
    * 
    * @return a reference to the scoped data bean
    */
-  protected de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean getItemControllerSessionBean() {
-    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
+  protected ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    // return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getBean(
+    // ItemControllerSessionBean.class);
   }
 
   public Vector<String> getFileNames() {
@@ -866,12 +885,13 @@ public class SwordUtil extends FacesBean {
     HttpClient client = new HttpClient();
     client.executeMethod(method);
     String response = method.getResponseBodyAsString();
-    InitialContext context = new InitialContext();
+    // InitialContext context = new InitialContext();
     XmlTransformingBean ctransforming = new XmlTransformingBean();
     return ctransforming.transformUploadResponseToFileURL(response);
   }
 
-  public SWORDEntry createResponseAtom(PubItemVO item, Deposit deposit, boolean valid) {
+  // public SWORDEntry createResponseAtom(PubItemVO item, Deposit deposit, boolean valid) {
+  public SWORDEntry createResponseAtom(PubItemVO item, Deposit deposit) {
     SWORDEntry se = new SWORDEntry();
     PubManSwordServer server = new PubManSwordServer();
 
@@ -903,8 +923,9 @@ public class SwordUtil extends FacesBean {
 
     Content content = new Content();
     content.setSource("");
-    // Only set content if item was deposited
-    if (!deposit.isNoOp() && item != null && valid) {
+    // // Only set content if item was deposited
+    // if (!deposit.isNoOp() && item != null && valid) {
+    if (!deposit.isNoOp() && item != null) {
       content.setSource(server.getCoreserviceURL() + "/ir/item/" + item.getVersion().getObjectId());
       se.setId(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
     }
@@ -927,8 +948,8 @@ public class SwordUtil extends FacesBean {
     return se;
   }
 
-  public ValidationReportVO validateItem(PubItemVO item) throws NamingException,
-      ValidationException {
+  public void validateItem(PubItemVO item) throws NamingException, ValidationException,
+      ItemInvalidException {
     InitialContext initialContext = new InitialContext();
     ItemValidating itemValidating =
         (ItemValidating) initialContext
@@ -937,14 +958,7 @@ public class SwordUtil extends FacesBean {
     // To set the validation point
     this.getMethod(item);
 
-    ValidationReportVO report = new ValidationReportVO();
-
-    // try {
-    report = itemValidating.validateItemObject(item, this.getValidationPoint());
-    // } catch (Exception e) {
-    // this.logger.error("Validation error", e);
-    // }
-    return report;
+    itemValidating.validateItemObject(item, this.getValidationPoint());
   }
 
   public boolean checkMetadatFormat(String format) {

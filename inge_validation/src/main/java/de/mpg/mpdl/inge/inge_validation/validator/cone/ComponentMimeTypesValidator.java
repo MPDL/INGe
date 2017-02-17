@@ -46,7 +46,7 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
 
     boolean ok = true;
 
-    if (!files.isEmpty()) {
+    if (files != null && !files.isEmpty()) {
 
       Set<String> mimeTypesTitleSet = ConeCache.getInstance().getMimeTypesTitleSet();
 
