@@ -6,6 +6,7 @@ import com.baidu.unbiz.fluentvalidator.ValidationError;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
@@ -36,22 +37,23 @@ public class ValidationService {
 
   public ValidationService() {}
 
-  public ValidationReportVO doValidation(final ItemVO itemVO) throws ValidationException {
-    return doValidation(itemVO, ValidationPoint.DEFAULT);
+  public void doValidation(final ItemVO itemVO) throws ValidationException, ItemInvalidException {
+    doValidation(itemVO, ValidationPoint.DEFAULT);
   }
 
-  public ValidationReportVO doValidation(final ItemVO itemVO, String vp) throws ValidationException {
+  public void doValidation(final ItemVO itemVO, String vp) throws ValidationException,
+      ItemInvalidException {
     ValidationPoint validationPoint = ValidationPoint.valueOf(vp);
 
     if (validationPoint == null) {
       throw new ValidationException("unknown validation point");
     }
 
-    return doValidation(itemVO, validationPoint);
+    doValidation(itemVO, validationPoint);
   }
 
-  public ValidationReportVO doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
-      throws ValidationException {
+  public void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
+      throws ValidationException, ItemInvalidException {
 
     if (itemVO instanceof PubItemVO == false) {
       throw new ValidationException("itemVO instanceof PubItemVO == false");
@@ -103,25 +105,22 @@ public class ValidationService {
                 .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
 
-        // Result result =
-        // v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toSimple());
-        //
-        // System.out.println(result);
-
         ComplexResult complexResult =
             v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(complexResult);
 
-        return convert(complexResult);
+        checkResult(complexResult);
 
         // TODO
       case ACCEPT_ITEM:
-        return new ValidationReportVO();
+        throw new ValidationException("undefined validation for validation point:"
+            + validationPoint);
 
         // TODO
       case SUBMIT_ITEM:
-        return new ValidationReportVO();
+        throw new ValidationException("undefined validation for validation point:"
+            + validationPoint);
 
       default:
         throw new ValidationException("undefined validation for validation point:"
@@ -129,7 +128,7 @@ public class ValidationService {
     }
   }
 
-  ValidationReportVO convert(ComplexResult complexResult) {
+  private void checkResult(ComplexResult complexResult) throws ItemInvalidException {
     ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {
@@ -139,9 +138,9 @@ public class ValidationService {
         item.setElement(error.getField());
         v.addItem(item);
       }
-    }
 
-    return v;
+      throw new ItemInvalidException(v);
+    }
   }
 
 }

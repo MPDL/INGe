@@ -38,10 +38,12 @@ import org.apache.log4j.Logger;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
-import de.mpg.mpdl.inge.model.xmltransforming.EmailHandling;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -74,16 +76,20 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
+import de.mpg.mpdl.inge.model.xmltransforming.EmailHandling;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.QualityAssurance;
+import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
@@ -94,7 +100,6 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
@@ -117,10 +122,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class ItemControllerSessionBean extends FacesBean {
 
+  public static final String BEAN_NAME = "ItemControllerSessionBean";
+
   private static final long serialVersionUID = 8235607890711998557L;
 
-  public static final String BEAN_NAME = "ItemControllerSessionBean";
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+  private static final String PROPERTY_CONTENT_MODEL =
+      "escidoc.framework_access.content-model.id.publication";
 
   private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
@@ -142,24 +150,18 @@ public class ItemControllerSessionBean extends FacesBean {
   private EmailHandling emailHandling;
   @EJB
   private DataGathering dataGathering;
-  private ValidationReportVO currentItemValidationReport = null;
-  private PubItemVOPresentation currentPubItem = null;
-  private ContextVO currentContext = null;
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
 
-  private static final String PROPERTY_CONTENT_MODEL =
-      "escidoc.framework_access.content-model.id.publication";
-
+  // private ValidationReportVO currentItemValidationReport_ = null;
+  private PubItemVOPresentation currentPubItem = null;
+  private ContextVO currentContext = null;
 
   /**
    * Public constructor, initializing used Beans.
    */
   public ItemControllerSessionBean() {
-
-
     this.init();
-
   }
 
   /**
@@ -212,8 +214,7 @@ public class ItemControllerSessionBean extends FacesBean {
    *        informative validation messages.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String saveCurrentPubItem(final String navigationRuleWhenSuccessfull,
-      final boolean ignoreInformativeMessages) {
+  public String saveCurrentPubItem(final String navigationRuleWhenSuccessfull) {
     PubItemVO newPubItem = null;
 
     try {
@@ -224,7 +225,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
 
       // saving the current item
-      newPubItem = this.savePubItem(this.currentPubItem, ignoreInformativeMessages);
+      newPubItem = this.savePubItem(this.currentPubItem);
 
       // Item invalid, therefore not saved
       if (newPubItem == this.currentPubItem) {
@@ -261,7 +262,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param submissionComment Optional comment.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String submitOrReleaseCurrentPubItem(final String submissionComment,
+  public String submitCurrentPubItem(final String submissionComment,
       final String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
@@ -271,7 +272,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
 
       // submitting the current item
-      ItemRO pubItemRO = this.submitOrReleasePubItem(this.currentPubItem, submissionComment);
+      ItemRO pubItemRO = this.submitPubItem(this.currentPubItem, submissionComment);
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
         return null;
@@ -313,47 +314,10 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
+      this.cleanUpItem(this.currentPubItem);
 
-
-      if (currentPubItem != null && currentPubItem.getVersion() != null) {
-        logger.debug("Saving/submitting PubItem: " + currentPubItem.getVersion().getObjectId());
-      } else {
-        logger.debug("Saving/submitting a new PubItem.");
-      }
-
-
-      /*
-       * FrM: Validation with validation point "submit_item"
-       */
-      ValidationReportVO report =
-          this.itemValidating.validateItemObject(new PubItemVO(currentPubItem),
-              ValidationPoint.SUBMIT_ITEM);
-      this.currentItemValidationReport = report;
-
-      logger.debug("Validation Report: " + report);
-
-      if (report.isValid()) {
-        // clean up the item from unused sub-VOs
-        this.cleanUpItem(currentPubItem);
-
-        if (logger.isDebugEnabled()) {
-          logger.debug("Submitting item...");
-        }
-
-        // submit the item
-
-        PubItemVO submittedPubItem =
-            pubItemDepositing.submitPubItem(new PubItemVO(currentPubItem), submissionComment,
-                loginHelper.getAccountUser());
-
-      }
-
-      else {
-        // Item is invalid, do not submit anything.
-        return null;
-      }
-
-
+      pubItemDepositing.submitPubItem(new PubItemVO(this.currentPubItem), submissionComment,
+          loginHelper.getAccountUser());
     } catch (Exception e) {
       logger.error("Could not submit item." + "\n" + e.toString());
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
@@ -364,40 +328,108 @@ public class ItemControllerSessionBean extends FacesBean {
     return navigationRuleWhenSuccessfull;
   }
 
-  /**
-   * Submits a PubItem and handles navigation afterwards.
-   * 
-   * @param submissionComment A comment
-   * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
-   *        operation is successful.
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String saveAndSubmitOrReleaseCurrentPubItem(String submissionComment,
-      String navigationRuleWhenSuccessfull) {
-    try {
-      if (this.currentPubItem == null) {
-        TechnicalException technicalException =
-            new TechnicalException("No current PubItem is set.");
-        throw technicalException;
-      }
+  // /**
+  // * saves and submits a pub item
+  // *
+  // * @param submissionComment A comment
+  // * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
+  // * operation is successful.
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String saveAndSubmitCurrentPubItem(String submissionComment,
+  // String navigationRuleWhenSuccessfull) {
+  // try {
+  // if (this.currentPubItem == null) {
+  // TechnicalException technicalException =
+  // new TechnicalException("No current PubItem is set.");
+  // throw technicalException;
+  // }
+  //
+  //
+  //
+  // if (currentPubItem != null && currentPubItem.getVersion() != null) {
+  // logger.debug("Saving/submitting PubItem: " + currentPubItem.getVersion().getObjectId());
+  // } else {
+  // logger.debug("Saving/submitting a new PubItem.");
+  // }
+  //
+  //
+  // /*
+  // * FrM: Validation with validation point "submit_item"
+  // */
+  // ValidationReportVO report =
+  // this.itemValidating.validateItemObject(new PubItemVO(currentPubItem),
+  // ValidationPoint.SUBMIT_ITEM);
+  // this.currentItemValidationReport = report;
+  //
+  // logger.debug("Validation Report: " + report);
+  //
+  // if (report.isValid()) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(currentPubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // // submit the item
+  //
+  // PubItemVO submittedPubItem =
+  // pubItemDepositing.submitPubItem(new PubItemVO(currentPubItem), submissionComment,
+  // loginHelper.getAccountUser());
+  //
+  // }
+  //
+  // else {
+  // // Item is invalid, do not submit anything.
+  // return null;
+  // }
+  //
+  //
+  // } catch (Exception e) {
+  // logger.error("Could not submit item." + "\n" + e.toString());
+  // ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+  //
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  //
+  // return navigationRuleWhenSuccessfull;
+  // }
 
-      // submitting the current item
-      ItemRO pubItemRO =
-          this.saveAndSubmitOrReleasePubItem(this.currentPubItem, submissionComment, true);
-
-      if (pubItemRO == this.currentPubItem.getVersion()) {
-        return null;
-      }
-
-    } catch (Exception e) {
-      logger.error("Could not submit item." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
-
-      return ErrorPage.LOAD_ERRORPAGE;
-    }
-
-    return navigationRuleWhenSuccessfull;
-  }
+  // /**
+  // * Submits a PubItem and handles navigation afterwards.
+  // *
+  // * @param submissionComment A comment
+  // * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
+  // * operation is successful.
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String saveAndSubmitOrReleaseCurrentPubItem(String submissionComment,
+  // String navigationRuleWhenSuccessfull) {
+  // try {
+  // if (this.currentPubItem == null) {
+  // TechnicalException technicalException =
+  // new TechnicalException("No current PubItem is set.");
+  // throw technicalException;
+  // }
+  //
+  // // submitting the current item
+  // ItemRO pubItemRO =
+  // this.saveAndSubmitOrReleasePubItem(this.currentPubItem, submissionComment, true);
+  //
+  // if (pubItemRO == this.currentPubItem.getVersion()) {
+  // return null;
+  // }
+  //
+  // } catch (Exception e) {
+  // logger.error("Could not submit item." + "\n" + e.toString());
+  // ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+  //
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  //
+  // return navigationRuleWhenSuccessfull;
+  // }
 
   /**
    * Submits a PubItem and handles navigation afterwards.
@@ -416,7 +448,6 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-      // submitting the current item
       this.withdrawPubItem(this.currentPubItem, withdrawalComment);
     } catch (Exception e) {
       logger.error("Could not withdraw item." + "\n" + e.toString());
@@ -428,44 +459,44 @@ public class ItemControllerSessionBean extends FacesBean {
     return navigationRuleWhenSuccessfull;
   }
 
-  /**
-   * Submits a list of PubItems and handles navigation afterwards.
-   * 
-   * @param pubItemList list with pubItems to submit
-   * @param submissionComment A comment
-   * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
-   *        operation is successful.
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  // //TODO NBU: remove this method
-  public String submitOrReleasePubItemList(ArrayList<PubItemVO> pubItemList,
-      String submissionComment, String navigationRuleWhenSuccessfull) {
-    boolean allSubmitted = true;
-    if (!pubItemList.isEmpty()) {
-      for (int i = 0; i < pubItemList.size(); i++) {
-        try {
-          // submitting the item
-          ItemRO pubItemRO = this.submitOrReleasePubItem(pubItemList.get(i), submissionComment);
-          if (pubItemRO == pubItemList.get(i).getVersion()) {
-            allSubmitted = false;
-          }
-        } catch (Exception e) {
-          logger.error("Could not submit item." + "\n", e);
-          ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
-
-          return ErrorPage.LOAD_ERRORPAGE;
-        }
-      }
-    } else {
-      logger.warn("No item selected.");
-    }
-
-    if (!allSubmitted) {
-      return null;
-    }
-
-    return navigationRuleWhenSuccessfull;
-  }
+  // /**
+  // * Submits a list of PubItems and handles navigation afterwards.
+  // *
+  // * @param pubItemList list with pubItems to submit
+  // * @param submissionComment A comment
+  // * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
+  // * operation is successful.
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // // //TODO NBU: remove this method
+  // public String submitOrReleasePubItemList(ArrayList<PubItemVO> pubItemList,
+  // String submissionComment, String navigationRuleWhenSuccessfull) {
+  // boolean allSubmitted = true;
+  // if (!pubItemList.isEmpty()) {
+  // for (int i = 0; i < pubItemList.size(); i++) {
+  // try {
+  // // submitting the item
+  // ItemRO pubItemRO = this.submitOrReleasePubItem(pubItemList.get(i), submissionComment);
+  // if (pubItemRO == pubItemList.get(i).getVersion()) {
+  // allSubmitted = false;
+  // }
+  // } catch (Exception e) {
+  // logger.error("Could not submit item." + "\n", e);
+  // ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+  //
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // }
+  // } else {
+  // logger.warn("No item selected.");
+  // }
+  //
+  // if (!allSubmitted) {
+  // return null;
+  // }
+  //
+  // return navigationRuleWhenSuccessfull;
+  // }
 
   /**
    * Deletes a PubItem and handles navigation afterwards.
@@ -496,39 +527,38 @@ public class ItemControllerSessionBean extends FacesBean {
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
-
     return navigationRuleWhenSuccessfull;
   }
 
-  /**
-   * Deletes a list of PubItems and handles navigation afterwards.
-   * 
-   * @param pubItemList list with pubItems to delete
-   * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
-   *        operation is successfull
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  // TODO NBU: remove this method
-  public String deletePubItemList(List<PubItemVOPresentation> pubItemList,
-      String navigationRuleWhenSuccessfull) {
-    if (!pubItemList.isEmpty()) {
-      for (int i = 0; i < pubItemList.size(); i++) {
-        try {
-          // deleting the item
-          this.deletePubItem(pubItemList.get(i).getVersion());
-        } catch (Exception e) {
-          logger.error("Could not submit item." + "\n" + e.toString());
-          ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
-
-          return ErrorPage.LOAD_ERRORPAGE;
-        }
-      }
-    } else {
-      logger.warn("No item selected.");
-    }
-
-    return navigationRuleWhenSuccessfull;
-  }
+  // /**
+  // * Deletes a list of PubItems and handles navigation afterwards.
+  // *
+  // * @param pubItemList list with pubItems to delete
+  // * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
+  // * operation is successfull
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // // TODO NBU: remove this method
+  // public String deletePubItemList(List<PubItemVOPresentation> pubItemList,
+  // String navigationRuleWhenSuccessfull) {
+  // if (!pubItemList.isEmpty()) {
+  // for (int i = 0; i < pubItemList.size(); i++) {
+  // try {
+  // // deleting the item
+  // this.deletePubItem(pubItemList.get(i).getVersion());
+  // } catch (Exception e) {
+  // logger.error("Could not submit item." + "\n" + e.toString());
+  // ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+  //
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // }
+  // } else {
+  // logger.warn("No item selected.");
+  // }
+  //
+  // return navigationRuleWhenSuccessfull;
+  // }
 
   /**
    * Creates a new Revision of a PubItem and handles navigation afterwards.
@@ -606,7 +636,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return null;
     }
 
-    PubItemVO newItem = new PubItemVO(this.getCurrentPubItem());
+    PubItemVO newItem = new PubItemVO(this.currentPubItem);
     newItem.getVersion().setObjectId(null);
     newItem.setPid(null);
     newItem.getVersion().setVersionNumber(0);
@@ -883,199 +913,267 @@ public class ItemControllerSessionBean extends FacesBean {
    * Saves a PubItem to the framework.
    * 
    * @param pubItem the PubItem to save
-   * @param ignoreInformativeMessages indicates, if the system should save the item even if there
-   *        are informative validation messages.
    * @return the PubItem returned by the framework
    */
-  private PubItemVO savePubItem(PubItemVO pubItemToSave, boolean ignoreInformativeMessages)
-      throws Exception {
+  private PubItemVO savePubItem(PubItemVO pubItemToSave) throws Exception {
+
     // work with a clone of the metadata so the item can be cleaned up before saving and the item in
     // EditItem stays in the same (uncleaned) state so we can continue editing when saving fails for
     // some reason
-
     PubItemVO pubItem = (PubItemVO) pubItemToSave.clone();
 
-    if (logger.isDebugEnabled()) {
-      if (pubItem != null && pubItem.getVersion() != null
-          && pubItem.getVersion().getObjectId() != null) {
-        logger.debug("Saving PubItem: " + pubItem.getVersion().getObjectId());
-      } else {
-        logger.debug("Saving a new PubItem.");
-      }
-    }
+    // clean up the item from unused sub-VOs
+    this.cleanUpItem(pubItem);
 
-    /*
-     * FrM: Validation with validation point "default"
-     */
-    // logger.info(xmlTransforming.transformToItem(pubItem));
-    ValidationReportVO report = this.itemValidating.validateItemObject(pubItem);
-    currentItemValidationReport = report;
+    // save the item
+    PubItemVO newPubItem =
+        this.pubItemDepositing.savePubItem(pubItem, loginHelper.getAccountUser());
 
-    logger.debug("Validation Report: " + report);
-
-    if (report.isValid() && !report.hasItems()) {
-
-
-      // Item is totally valid, save immediately.
-
-      // clean up the item from unused sub-VOs
-      this.cleanUpItem(pubItem);
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Saving item...");
-      }
-
-      // save the item
-      PubItemVO newPubItem =
-          this.pubItemDepositing.savePubItem(pubItem, loginHelper.getAccountUser());
-
-      return newPubItem;
-    } else if (report.isValid()) {
-      // Item is valid, but has informative messages.
-
-      if (ignoreInformativeMessages) {
-        // clean up the item from unused sub-VOs
-        this.cleanUpItem(pubItem);
-
-        if (logger.isDebugEnabled()) {
-          logger.debug("Saving item...");
-        }
-
-        // save the item
-        PubItemVO newPubItem =
-            this.pubItemDepositing.savePubItem(pubItem, loginHelper.getAccountUser());
-
-        return newPubItem;
-      }
-
-      return pubItem;
-    } else {
-      // Item is invalid, do not save anything.
-      currentItemValidationReport = report;
-      return pubItemToSave;
-    }
+    return newPubItem;
   }
+
+  // /**
+  // * Saves a PubItem to the framework.
+  // *
+  // * @param pubItem the PubItem to save
+  // * @param ignoreInformativeMessages indicates, if the system should save the item even if there
+  // * are informative validation messages.
+  // * @return the PubItem returned by the framework
+  // */
+  // private PubItemVO savePubItem(PubItemVO pubItemToSave, boolean ignoreInformativeMessages)
+  // throws Exception {
+  // // work with a clone of the metadata so the item can be cleaned up before saving and the item
+  // in
+  // // EditItem stays in the same (uncleaned) state so we can continue editing when saving fails
+  // for
+  // // some reason
+  //
+  // PubItemVO pubItem = (PubItemVO) pubItemToSave.clone();
+  //
+  // if (logger.isDebugEnabled()) {
+  // if (pubItem != null && pubItem.getVersion() != null
+  // && pubItem.getVersion().getObjectId() != null) {
+  // logger.debug("Saving PubItem: " + pubItem.getVersion().getObjectId());
+  // } else {
+  // logger.debug("Saving a new PubItem.");
+  // }
+  // }
+  //
+  // /*
+  // * FrM: Validation with validation point "default"
+  // */
+  // // logger.info(xmlTransforming.transformToItem(pubItem));
+  // ValidationReportVO report = this.itemValidating.validateItemObject(pubItem);
+  // currentItemValidationReport = report;
+  //
+  // logger.debug("Validation Report: " + report);
+  //
+  // if (report.isValid() && !report.hasItems()) {
+  //
+  //
+  // // Item is totally valid, save immediately.
+  //
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Saving item...");
+  // }
+  //
+  // // save the item
+  // PubItemVO newPubItem =
+  // this.pubItemDepositing.savePubItem(pubItem, loginHelper.getAccountUser());
+  //
+  // return newPubItem;
+  // } else if (report.isValid()) {
+  // // Item is valid, but has informative messages.
+  //
+  // if (ignoreInformativeMessages) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Saving item...");
+  // }
+  //
+  // // save the item
+  // PubItemVO newPubItem =
+  // this.pubItemDepositing.savePubItem(pubItem, loginHelper.getAccountUser());
+  //
+  // return newPubItem;
+  // }
+  //
+  // return pubItem;
+  // } else {
+  // // Item is invalid, do not save anything.
+  // currentItemValidationReport = report;
+  // return pubItemToSave;
+  // }
+  // }
 
   /**
    * Submits a PubItem to the framework.
    * 
    * @param pubItem the PubItem to submit
    * @return a reference to the PubItem returned by the framework
+   * @throws TechnicalException
+   * @throws SecurityException
+   * @throws PubItemNotFoundException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemLockedException
    */
-  private ItemRO submitOrReleasePubItem(PubItemVO pubItem, String submissionComment)
-      throws Exception {
-    if (logger.isDebugEnabled()) {
-      if (pubItem != null && pubItem.getVersion() != null) {
-        logger.debug("Submitting PubItem: " + pubItem.getVersion().getObjectId());
-      } else {
-        logger.debug("Submitting a new PubItem.");
-      }
-    }
-
+  private ItemRO submitPubItem(PubItemVO pubItem, String submissionComment)
+      throws PubItemLockedException, PubItemStatusInvalidException, PubItemNotFoundException,
+      SecurityException, TechnicalException {
     if (pubItem instanceof PubItemVOPresentation) {
       pubItem = new PubItemVO(pubItem);
     }
 
-    /*
-     * FrM: Validation with validation point "submit_item"
-     */
-    ValidationReportVO report =
-        this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
-    currentItemValidationReport = report;
+    this.cleanUpItem(pubItem);
 
-    logger.debug("Validation Report: " + report);
+    if (pubItem.getVersion().getState() == ItemVO.State.SUBMITTED) {
+      this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+          submissionComment, loginHelper.getAccountUser());
+      return new PubItemVO().getVersion();
 
-    if (report.isValid()) {
+    } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
+      return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem),
+          submissionComment, loginHelper.getAccountUser()).getVersion();
 
-
-      // clean up the item from unused sub-VOs
-      this.cleanUpItem(pubItem);
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Submitting item...");
-      }
-
-      // submit the item
-      ItemRO submittedPubItem =
-          submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser())
-              .getVersion();
-
-      return submittedPubItem;
+    } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD)) {
+      return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment,
+          loginHelper.getAccountUser()).getVersion();
     }
 
-    else {
-      // Item is invalid, do not submit anything.
-      return pubItem.getVersion();
-    }
+    return pubItem.getVersion();
   }
 
-  /**
-   * Submits a PubItem to the framework.
-   * 
-   * @param pubItem the PubItem to submit
-   * @return a reference to the PubItem returned by the framework
-   */
-  private ItemRO saveAndSubmitOrReleasePubItem(PubItemVO pubItem, String submissionComment,
-      boolean ignoreInformativeMessages) throws Exception {
-    if (logger.isDebugEnabled()) {
-      if (pubItem != null && pubItem.getVersion() != null) {
-        logger.debug("Saving/submitting PubItem: " + pubItem.getVersion().getObjectId());
-      } else {
-        logger.debug("Saving/submitting a new PubItem.");
-      }
-    }
+  // /**
+  // * Submits a PubItem to the framework.
+  // *
+  // * @param pubItem the PubItem to submit
+  // * @return a reference to the PubItem returned by the framework
+  // */
+  // private ItemRO submitPubItem(PubItemVO pubItem, String submissionComment)
+  // throws Exception {
+  // if (logger.isDebugEnabled()) {
+  // if (pubItem != null && pubItem.getVersion() != null) {
+  // logger.debug("Submitting PubItem: " + pubItem.getVersion().getObjectId());
+  // } else {
+  // logger.debug("Submitting a new PubItem.");
+  // }
+  // }
+  //
+  // if (pubItem instanceof PubItemVOPresentation) {
+  // pubItem = new PubItemVO(pubItem);
+  // }
+  //
+  // /*
+  // * FrM: Validation with validation point "submit_item"
+  // */
+  // ValidationReportVO report =
+  // this.itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
+  // // currentItemValidationReport = report;
+  //
+  // logger.debug("Validation Report: " + report);
+  //
+  // if (report.isValid()) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // if (pubItem.getVersion().getState() == ItemVO.State.SUBMITTED) {
+  // this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+  // submissionComment, loginHelper.getAccountUser());
+  // return new PubItemVO().getVersion();
+  //
+  // } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
+  // return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem),
+  // submissionComment, loginHelper.getAccountUser()).getVersion();
+  //
+  // } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD)) {
+  // return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment,
+  // loginHelper.getAccountUser()).getVersion();
+  // }
+  //
+  // }
+  //
+  // else {
+  // // Item is invalid, do not submit anything.
+  // return pubItem.getVersion();
+  // }
+  // }
 
-    /*
-     * FrM: Validation with validation point "submit_item"
-     */
-    ValidationReportVO report =
-        this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.SUBMIT_ITEM);
-    currentItemValidationReport = report;
-
-    logger.debug("Validation Report: " + report);
-
-    if (report.isValid() && !report.hasItems()) {
-
-
-      // clean up the item from unused sub-VOs
-      this.cleanUpItem(pubItem);
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Submitting item...");
-      }
-
-      // submit the item
-
-      PubItemVO submittedPubItem =
-          submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser());
-
-      return submittedPubItem.getVersion();
-    } else if (report.isValid()) {
-
-      // Item is valid, but has informative messages.
-
-      if (ignoreInformativeMessages) {
-        // clean up the item from unused sub-VOs
-        this.cleanUpItem(pubItem);
-
-        if (logger.isDebugEnabled()) {
-          logger.debug("Submitting item...");
-        }
-
-        // submit the item
-        PubItemVO submittedPubItem =
-            submitOrSubmitAndReleasePubItem(pubItem, submissionComment,
-                loginHelper.getAccountUser());
-
-        return submittedPubItem.getVersion();
-      }
-
-      return pubItem.getVersion();
-    } else {
-      // Item is invalid, do not submit anything.
-      return pubItem.getVersion();
-    }
-  }
+  // /**
+  // * Submits a PubItem to the framework.
+  // *
+  // * @param pubItem the PubItem to submit
+  // * @return a reference to the PubItem returned by the framework
+  // */
+  // private ItemRO saveAndSubmitOrReleasePubItem(PubItemVO pubItem, String submissionComment,
+  // boolean ignoreInformativeMessages) throws Exception {
+  // if (logger.isDebugEnabled()) {
+  // if (pubItem != null && pubItem.getVersion() != null) {
+  // logger.debug("Saving/submitting PubItem: " + pubItem.getVersion().getObjectId());
+  // } else {
+  // logger.debug("Saving/submitting a new PubItem.");
+  // }
+  // }
+  //
+  // /*
+  // * FrM: Validation with validation point "submit_item"
+  // */
+  // ValidationReportVO report =
+  // this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.SUBMIT_ITEM);
+  // currentItemValidationReport = report;
+  //
+  // logger.debug("Validation Report: " + report);
+  //
+  // if (report.isValid() && !report.hasItems()) {
+  //
+  //
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // // submit the item
+  //
+  // PubItemVO submittedPubItem =
+  // submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser());
+  //
+  // return submittedPubItem.getVersion();
+  // } else if (report.isValid()) {
+  //
+  // // Item is valid, but has informative messages.
+  //
+  // if (ignoreInformativeMessages) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // // submit the item
+  // PubItemVO submittedPubItem =
+  // submitOrSubmitAndReleasePubItem(pubItem, submissionComment,
+  // loginHelper.getAccountUser());
+  //
+  // return submittedPubItem.getVersion();
+  // }
+  //
+  // return pubItem.getVersion();
+  // } else {
+  // // Item is invalid, do not submit anything.
+  // return pubItem.getVersion();
+  // }
+  // }
 
   /**
    * Submits a PubItem to the framework.
@@ -1085,53 +1183,65 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return a reference to the PubItem returned by the framework
    */
   private void withdrawPubItem(PubItemVO pubItem, String withdrawalComment) throws Exception {
-    if (logger.isDebugEnabled()) {
-      if (pubItem != null && pubItem.getVersion() != null) {
-        logger.debug("Withdrawing PubItem: " + pubItem.getVersion().getObjectId());
-      } else {
-        logger.error("Withdrawing a new PubItem??????");
-      }
-    }
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("Withdrawing item...");
-    }
-
     Date lastModificationDate = pubItem.getModificationDate();
-    // withdrawalComment = pubItem.getWithdrawalComment();
 
-    // withdraw the item
     this.pubItemPublishing.withdrawPubItem(new PubItemVO(pubItem), lastModificationDate,
         withdrawalComment, loginHelper.getAccountUser());
-
   }
 
+  // /**
+  // * Submits a PubItem to the framework.
+  // *
+  // * @author Michael Franke
+  // * @param pubItem the PubItem to submit
+  // * @return a reference to the PubItem returned by the framework
+  // */
+  // private void withdrawPubItem(PubItemVO pubItem, String withdrawalComment) throws Exception {
+  // if (logger.isDebugEnabled()) {
+  // if (pubItem != null && pubItem.getVersion() != null) {
+  // logger.debug("Withdrawing PubItem: " + pubItem.getVersion().getObjectId());
+  // } else {
+  // logger.error("Withdrawing a new PubItem??????");
+  // }
+  // }
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Withdrawing item...");
+  // }
+  //
+  // Date lastModificationDate = pubItem.getModificationDate();
+  // // withdrawalComment = pubItem.getWithdrawalComment();
+  //
+  // // withdraw the item
+  // this.pubItemPublishing.withdrawPubItem(new PubItemVO(pubItem), lastModificationDate,
+  // withdrawalComment, loginHelper.getAccountUser());
+  // }
 
-  /**
-   * Validates the item.
-   * 
-   * @author Michael Franke Changed by DiT, 17.10.2007: new parameter: validation point
-   * @param pubItem the item to validate
-   * @param validationPoint the validation point for the validation
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String validate(PubItemVO pubItem, ValidationPoint validationPoint) throws Exception {
-    if (pubItem != null) {
-      PubItemVO itemVO = new PubItemVO(pubItem);
-
-      // cleanup item according to genre specific MD specification
-      GenreSpecificItemManager itemManager =
-          new GenreSpecificItemManager(itemVO, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-      try {
-        itemVO = (PubItemVO) itemManager.cleanupItem();
-      } catch (Exception e) {
-        throw new RuntimeException("Error while cleaning up item genre specificly", e);
-      }
-      ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
-      currentItemValidationReport = report;
-    }
-    return null;
-  }
+  // /**
+  // * Validates the item.
+  // *
+  // * @author Michael Franke Changed by DiT, 17.10.2007: new parameter: validation point
+  // * @param pubItem the item to validate
+  // * @param validationPoint the validation point for the validation
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String validate(PubItemVO pubItem, ValidationPoint validationPoint) throws Exception {
+  // if (pubItem != null) {
+  // PubItemVO itemVO = new PubItemVO(pubItem);
+  //
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(itemVO, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+  // try {
+  // itemVO = (PubItemVO) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+  // }
+  // ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
+  // currentItemValidationReport = report;
+  // }
+  // return null;
+  // }
 
   /**
    * Deletes a PubItem from the framework.
@@ -1162,8 +1272,6 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       pubItem.getMetadata().cleanup();
 
-
-
       // delete unfilled file
       if (pubItem.getFiles() != null) {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
@@ -1180,8 +1288,6 @@ public class ItemControllerSessionBean extends FacesBean {
     } catch (Exception e1) {
       throw new RuntimeException("Error while cleaning up  item", e1);
     }
-
-
 
     // TODO MF: Check specification for this behaviour: Always when an organization does not have an
     // identifier, make it "external".
@@ -1206,7 +1312,6 @@ public class ItemControllerSessionBean extends FacesBean {
       }
 
       if (pubItem.getMetadata().getSources() != null) {
-
 
         for (SourceVO source : pubItem.getMetadata().getSources()) {
           for (CreatorVO creator : source.getCreators()) {
@@ -1242,10 +1347,10 @@ public class ItemControllerSessionBean extends FacesBean {
           pubItem.getLocalTags().remove(tag);
         }
       }
+
     } catch (Exception e) {
       logger.error("Error getting external org id", e);
     }
-
 
   }
 
@@ -1786,7 +1891,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
     ContextVO context = null;
 
-    String xmlContext = "";
+    // String xmlContext = "";
     try {
       context = ContextInterfaceConnectorFactory.getInstance().readContext(contextID);
     } catch (Exception e) {
@@ -1838,6 +1943,9 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public String acceptCurrentPubItem(String acceptanceComment, String navigationRuleWhenSuccessfull) {
+
+    // TODO: Was passiert bei Validierungsfehler ?
+
     try {
       if (this.currentPubItem == null) {
         TechnicalException technicalException =
@@ -1846,7 +1954,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
 
       // accepting the current item
-      ItemRO pubItemRO = this.acceptPubItem(this.currentPubItem, acceptanceComment, true);
+      ItemRO pubItemRO = this.acceptPubItem(this.currentPubItem, acceptanceComment);
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
         return null;
@@ -1854,7 +1962,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     } catch (Exception e) {
       logger.error("Could not accept item." + "\n" + e.toString(), e);
-      ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -1867,67 +1975,101 @@ public class ItemControllerSessionBean extends FacesBean {
    * 
    * @param pubItem the item that should be updated
    * @param acceptanceComment a comment for the acceptance
-   * @param ignoreInformativeMessages ignore informative messages from the validation report
    * @return reference to the accepted item
    * @throws Exception if framework access fails
    */
-  private ItemRO acceptPubItem(PubItemVO pubItem, String acceptanceComment,
-      boolean ignoreInformativeMessages) throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Accepting PubItem: " + pubItem.getVersion().getObjectId());
-    }
+  private ItemRO acceptPubItem(PubItemVO pubItem, String acceptanceComment) throws Exception {
+    // TODO: Exception Handling
 
     if (pubItem instanceof PubItemVOPresentation) {
       pubItem = new PubItemVO(pubItem);
     }
 
-    /*
-     * Copied by DiT from submitPubItem() by FrM: Validation with validation point "accept_item"
-     */
-    ValidationReportVO report =
-        this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
-    currentItemValidationReport = report;
-
-    logger.debug("Validation Report: " + report);
-
-    if (report.isValid() && !report.hasItems()) {
-      // clean up the item from unused sub-VOs
-      this.cleanUpItem(pubItem);
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Submitting item...");
-      }
-
-      // accept the item
-      ItemRO acceptedPubItem =
-          this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
-              loginHelper.getAccountUser()).getVersion();
-
-      return acceptedPubItem;
-    } else if (report.isValid()) {
-      // Item is valid, but has informative messages.
-      if (ignoreInformativeMessages) {
-        // clean up the item from unused sub-VOs
-        this.cleanUpItem(pubItem);
-
-        if (logger.isDebugEnabled()) {
-          logger.debug("Submitting item...");
-        }
-
-        // accept the item
-        ItemRO acceptedPubItem =
-            this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
-                loginHelper.getAccountUser()).getVersion();
-
-        return acceptedPubItem;
-      }
-
-      return pubItem.getVersion();
-    } else {
-      // Item is invalid, do not accept anything.
-      return pubItem.getVersion();
+    try {
+      this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+    } catch (ValidationException e) {
+      throw e;
+    } catch (ItemInvalidException e) {
+      throw e;
+    } catch (Exception e) {
+      ExceptionHandler.handleException(e, "PubItemDepositing.acceptPubItem");
     }
+
+    this.cleanUpItem(pubItem);
+
+    ItemRO acceptedPubItem =
+        this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
+            loginHelper.getAccountUser()).getVersion();
+
+    return acceptedPubItem;
   }
+
+  // /**
+  // * Accepts an item.
+  // *
+  // * @param pubItem the item that should be updated
+  // * @param acceptanceComment a comment for the acceptance
+  // * @param ignoreInformativeMessages ignore informative messages from the validation report
+  // * @return reference to the accepted item
+  // * @throws Exception if framework access fails
+  // */
+  // private ItemRO acceptPubItem(PubItemVO pubItem, String acceptanceComment,
+  // boolean ignoreInformativeMessages) throws Exception {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Accepting PubItem: " + pubItem.getVersion().getObjectId());
+  // }
+  //
+  // if (pubItem instanceof PubItemVOPresentation) {
+  // pubItem = new PubItemVO(pubItem);
+  // }
+  //
+  // /*
+  // * Copied by DiT from submitPubItem() by FrM: Validation with validation point "accept_item"
+  // */
+  // ValidationReportVO report =
+  // this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+  // currentItemValidationReport = report;
+  //
+  // logger.debug("Validation Report: " + report);
+  //
+  // if (report.isValid() && !report.hasItems()) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // // accept the item
+  // ItemRO acceptedPubItem =
+  // this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
+  // loginHelper.getAccountUser()).getVersion();
+  //
+  // return acceptedPubItem;
+  // } else if (report.isValid()) {
+  // // Item is valid, but has informative messages.
+  // if (ignoreInformativeMessages) {
+  // // clean up the item from unused sub-VOs
+  // this.cleanUpItem(pubItem);
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  // // accept the item
+  // ItemRO acceptedPubItem =
+  // this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
+  // loginHelper.getAccountUser()).getVersion();
+  //
+  // return acceptedPubItem;
+  // }
+  //
+  // return pubItem.getVersion();
+  // } else {
+  // // Item is invalid, do not accept anything.
+  // return pubItem.getVersion();
+  // }
+  // }
 
   /**
    * @author Tobias Schraut
@@ -2050,23 +2192,22 @@ public class ItemControllerSessionBean extends FacesBean {
     this.currentPubItem = currentPubItem;
   }
 
-  public ValidationReportVO getCurrentItemValidationReport() {
-    return this.currentItemValidationReport;
-  }
+  // public ValidationReportVO getCurrentItemValidationReport() {
+  // return this.currentItemValidationReport;
+  // }
 
-  public void setCurrentItemValidationReport(ValidationReportVO currentItemValidationReport) {
-    this.currentItemValidationReport = currentItemValidationReport;
-  }
+  // public void setCurrentItemValidationReport(ValidationReportVO currentItemValidationReport) {
+  // this.currentItemValidationReport = currentItemValidationReport;
+  // }
 
   public ContextVO getCurrentContext() {
     // retrieve current context newly if the current item has changed or if the context has not been
     // retrieved so far
-    if (this.getCurrentPubItem() != null) {
+    if (this.currentPubItem != null) {
       if (this.currentContext == null
-          || !(this.currentContext.getReference().getObjectId().equals(this.getCurrentPubItem()
+          || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem
               .getContext().getObjectId()))) {
-        ContextVO context =
-            this.retrieveContext(this.getCurrentPubItem().getContext().getObjectId());
+        ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
         this.setCurrentCollection(context);
       }
     }
@@ -2078,23 +2219,21 @@ public class ItemControllerSessionBean extends FacesBean {
     this.currentContext = currentCollection;
   }
 
-
-  private PubItemVO submitOrSubmitAndReleasePubItem(PubItemVO pubItem, String submissionComment,
-      AccountUserVO user) throws Exception {
-    if (pubItem.getVersion().getState() == ItemVO.State.SUBMITTED) {
-      this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
-          submissionComment, user);
-      return new PubItemVO();
-    } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
-      return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem),
-          submissionComment, user);
-    } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD)) {
-      return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment, user);
-    }
-
-    return null;
-
-  }
+  // private PubItemVO submitOrSubmitAndReleasePubItem(PubItemVO pubItem, String submissionComment,
+  // AccountUserVO user) throws Exception {
+  // if (pubItem.getVersion().getState() == ItemVO.State.SUBMITTED) {
+  // this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+  // submissionComment, user);
+  // return new PubItemVO();
+  // } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
+  // return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem),
+  // submissionComment, user);
+  // } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD)) {
+  // return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment, user);
+  // }
+  //
+  // return null;
+  // }
 
   public String getCurrentWorkflow() {
     PublicationAdminDescriptorVO.Workflow workflow =
@@ -2170,8 +2309,8 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
-    return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this
-        .getCurrentPubItem().getVersion().getObjectId(), loginHelper.getAccountUser());
+    return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem
+        .getVersion().getObjectId(), loginHelper.getAccountUser());
   }
 
   public PubItemListSessionBean getPubItemListSessionBean() {

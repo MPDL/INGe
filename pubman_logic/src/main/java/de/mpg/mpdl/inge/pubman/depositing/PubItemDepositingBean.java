@@ -30,7 +30,6 @@ package de.mpg.mpdl.inge.pubman.depositing;
 import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_CREATED;
 import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,8 +42,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-
-import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.invalid.InvalidContextException;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
@@ -60,7 +57,6 @@ import de.escidoc.core.common.exceptions.application.violated.NotPublishedExcept
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
@@ -75,7 +71,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.PubCollectionStatus
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
@@ -90,22 +85,14 @@ import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 
-/**
- * This class provides the ejb implementation of the {@link PubItemDepositing} interface.
- * 
- * @author Miriam Doelle (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * @revised by MuJ: 19.09.2007
- */
 @Remote(PubItemDepositing.class)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -113,13 +100,6 @@ import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 public class PubItemDepositingBean implements PubItemDepositing {
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
-
-  /**
-   * Logger for this class.
-   */
-  private static final Logger logger = Logger.getLogger(PubItemDepositingBean.class);
-
-
 
   /**
    * A XmlTransforming instance.
@@ -141,29 +121,30 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws PubCollectionNotFoundException
+   * @throws TechnicalException
+   * @throws SecurityException
    */
   public PubItemVO createPubItem(ContextRO pubCollectionRef, AccountUserVO user)
-      throws TechnicalException, SecurityException, PubCollectionNotFoundException,
-      IllegalArgumentException {
+      throws PubCollectionNotFoundException, SecurityException, TechnicalException {
+
     if (pubCollectionRef == null) {
       throw new IllegalArgumentException(getClass()
           + ".createPubItem: pubCollection reference is null.");
     }
+
     if (pubCollectionRef.getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".createPubItem: pubCollection reference does not contain an objectId.");
     }
+
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".createPubItem: user is null.");
     }
 
-    // retrieve PubCollection for default metadata
     ContextVO collection = null;
     try {
-      // String context =
-      // de.mpg.mpdl.inge.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(
-      // pubCollectionRef.getObjectId());
-      // collection = xmlTransforming.transformToContext(context);
       // TODO remove replace
       collection =
           ContextInterfaceConnectorFactory.getInstance()
@@ -173,9 +154,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
     } catch (Exception e) {
       ExceptionHandler.handleException(e, getClass() + ".createPubItem");
     }
+
     // TODO check if user can write to this collection
 
-    // create new PubItemVO
     PubItemVO result = new PubItemVO();
     result.setContext(pubCollectionRef);
     if (collection.getDefaultMetadata() != null
@@ -192,24 +173,36 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws PubItemLockedException
+   * @throws PubItemNotFoundException
+   * @throws PubItemStatusInvalidException
+   * @throws TechnicalException
+   * @throws SecurityException
    */
-  public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws TechnicalException,
-      PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException {
+  public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws PubItemLockedException,
+      PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
+      TechnicalException {
+
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".deletePubItem: pubItem reference is null.");
     }
+
     if (pubItemRef.getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".deletePubItem: pubItem reference does not contain an objectId.");
     }
+
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".deletePubItem: user is null.");
     }
 
     try {
       ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
+
       ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
+
     } catch (LockingException e) {
       throw new PubItemLockedException(pubItemRef, e);
     } catch (ItemNotFoundException e) {
@@ -225,13 +218,18 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws TechnicalException
+   * @throws SecurityException
    */
   public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
-      throws TechnicalException {
+      throws SecurityException, TechnicalException {
+
     if (user == null) {
       throw new IllegalArgumentException(getClass()
           + ".getPubCollectionListForDepositing: user is null.");
     }
+
     if (user.getReference() == null || user.getReference().getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
@@ -289,14 +287,15 @@ public class PubItemDepositingBean implements PubItemDepositing {
       return contextList;
 
     } catch (Exception e) {
-      // No business exceptions expected.
       ExceptionHandler.handleException(e,
           "getPubCollectionListForDepositing for user <" + user.getUserid() + ">");
-      throw new TechnicalException(e);
     }
+
+    return null;
   }
 
-  public List<ContextVO> getPubCollectionListForDepositing() throws TechnicalException {
+  public List<ContextVO> getPubCollectionListForDepositing() throws SecurityException,
+      TechnicalException {
     try {
       // Create filter
       FilterTaskParamVO filterParam = new FilterTaskParamVO();
@@ -310,11 +309,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
       HashMap<String, String[]> filterMap = filterParam.toMap();
 
-      if (logger.isDebugEnabled()) {
-        String query[] = filterMap.get("query");
-        logger.debug("getPubCollectionListForDepositing " + query[0]);
-      }
-
       // Get context list
       String xmlContextList = ServiceLocator.getContextHandler().retrieveContexts(filterMap);
       // ... and transform to PubCollections.
@@ -323,25 +317,19 @@ public class PubItemDepositingBean implements PubItemDepositing {
               .transformSearchRetrieveResponseToContextList(xmlContextList);
 
       return contextList;
+
     } catch (Exception e) {
-      // No business exceptions expected.
       ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
-      throw new TechnicalException(e);
     }
+
+    return null;
   }
 
-  /**
-   * {@inheritDoc} Changed by Peter Broszeit, 17.10.2007: Method prepared to save also released
-   * items and restructed.
-   * 
-   * @throws ValidationException
-   */
-  public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user) throws TechnicalException,
-      PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
-      PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
-      SecurityException, PubItemAlreadyReleasedException, URISyntaxException,
-      AuthorizationException, ValidationException {
-    // Check parameters and prepare
+  public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user)
+      throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
+      PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
+      PubItemStatusInvalidException, TechnicalException, AuthorizationException {
+
     if (pubItem == null) {
       throw new IllegalArgumentException(getClass().getSimpleName()
           + ".savePubItem: pubItem is null.");
@@ -351,36 +339,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
       throw new IllegalArgumentException(getClass().getSimpleName() + ".savePubItem: user is null.");
     }
 
-    // Transform the item to XML
-    /*
-     * String itemXML = xmlTransforming.transformToItem(pubItem); if (logger.isDebugEnabled()) {
-     * logger
-     * .debug("PubItemDepositingBean.savePubItem: pubItem[VO] successfully transformed to item[XML]"
-     * + "\nitem: " + itemXML); }
-     */
-
     try {
-      /*
-       * Validation of the existing items - gets Item string and Validation point "default" -
-       * returns validation report (as exception).
-       */
-
-      ValidationReportVO report = itemValidating.validateItemObject(pubItem);
-      if (!report.isValid()) {
-        throw new ItemInvalidException(report);
-      }
-      // Get item handler
-      // ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
       PMLogicMessages message;
-      // String itemStored;
-      // PubItemVO pubItemStored;
-      // Check whether item has to be created or updated
-
-      // TODO set new objId
-
       if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null) {
-        // itemStored = itemHandler.create(itemXML);
-        // Set an initial version
         ItemRO itemVersion = new ItemRO();
         itemVersion.setVersionNumber(1);
         // TODO remove test objectID
@@ -396,20 +357,14 @@ public class PubItemDepositingBean implements PubItemDepositing {
             pubItem.getVersion().getObjectId());
         message = PUBITEM_CREATED;
       } else {
-        logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
-
-        // Update the item and set message
-        // itemStored = itemHandler.update(pubItem.getVersion().getObjectId(), itemXML);
         ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
             pubItem.getVersion().getObjectId());
         message = PUBITEM_UPDATED;
       }
 
-      // Transform the item and log the action.
-      // pubItemStored = xmlTransforming.transformToPubItem(itemStored);
       ApplicationLog.info(message,
           new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
-      return pubItem;
+
     } catch (MissingAttributeValueException e) {
       throw new PubItemMandatoryAttributesMissingException(pubItem, e);
     } catch (ContextNotFoundException e) {
@@ -432,85 +387,154 @@ public class PubItemDepositingBean implements PubItemDepositing {
       throw new TechnicalException(e);
     } catch (AuthorizationException e) {
       throw e;
-    } catch (ValidationException e) {
-      throw e;
     } catch (Exception e) {
       ExceptionHandler.handleException(e, getClass().getSimpleName() + ".savePubItem");
-      throw new TechnicalException();
     }
+
+    return pubItem;
   }
+
+  // /**
+  // * {@inheritDoc} Changed by Peter Broszeit, 17.10.2007: Method prepared to save also released
+  // * items and restructed.
+  // *
+  // * @throws ValidationException
+  // */
+  // public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user) throws TechnicalException,
+  // PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
+  // PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
+  // SecurityException, PubItemAlreadyReleasedException, URISyntaxException,
+  // AuthorizationException, ValidationException {
+  // // Check parameters and prepare
+  // if (pubItem == null) {
+  // throw new IllegalArgumentException(getClass().getSimpleName()
+  // + ".savePubItem: pubItem is null.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass().getSimpleName() + ".savePubItem: user is null.");
+  // }
+  //
+  // // Transform the item to XML
+  // /*
+  // * String itemXML = xmlTransforming.transformToItem(pubItem); if (logger.isDebugEnabled()) {
+  // * logger
+  // * .debug("PubItemDepositingBean.savePubItem: pubItem[VO] successfully transformed to item[XML]"
+  // * + "\nitem: " + itemXML); }
+  // */
+  //
+  // try {
+  // /*
+  // * Validation of the existing items - gets Item string and Validation point "default" -
+  // * returns validation report (as exception).
+  // */
+  //
+  // ValidationReportVO report = itemValidating.validateItemObject(pubItem);
+  // if (!report.isValid()) {
+  // throw new ItemInvalidException(report);
+  // }
+  // // Get item handler
+  // // ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+  // PMLogicMessages message;
+  // // String itemStored;
+  // // PubItemVO pubItemStored;
+  // // Check whether item has to be created or updated
+  //
+  // // TODO set new objId
+  //
+  // if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null) {
+  // // itemStored = itemHandler.create(itemXML);
+  // // Set an initial version
+  // ItemRO itemVersion = new ItemRO();
+  // itemVersion.setVersionNumber(1);
+  // // TODO remove test objectID
+  // itemVersion.setObjectId("pure:12345");
+  // itemVersion.setState(PubItemVO.State.PENDING);
+  // Date creationDate = Calendar.getInstance().getTime();
+  // itemVersion.setModificationDate(creationDate);
+  // pubItem.setVersion(itemVersion);
+  // pubItem.setPublicStatus(PubItemVO.State.PENDING);
+  // pubItem.setCreationDate(creationDate);
+  // pubItem.setOwner(user.getReference());
+  // ItemInterfaceConnectorFactory.getInstance().createItem(pubItem,
+  // pubItem.getVersion().getObjectId());
+  // message = PUBITEM_CREATED;
+  // } else {
+  // logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
+  //
+  // // Update the item and set message
+  // // itemStored = itemHandler.update(pubItem.getVersion().getObjectId(), itemXML);
+  // ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
+  // pubItem.getVersion().getObjectId());
+  // message = PUBITEM_UPDATED;
+  // }
+  //
+  // // Transform the item and log the action.
+  // // pubItemStored = xmlTransforming.transformToPubItem(itemStored);
+  // ApplicationLog.info(message,
+  // new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
+  // return pubItem;
+  // } catch (MissingAttributeValueException e) {
+  // throw new PubItemMandatoryAttributesMissingException(pubItem, e);
+  // } catch (ContextNotFoundException e) {
+  // throw new PubCollectionNotFoundException(pubItem.getContext(), e);
+  // } catch (MissingElementValueException e) {
+  // throw new PubItemMandatoryAttributesMissingException(pubItem, e);
+  // } catch (LockingException e) {
+  // throw new PubItemLockedException(pubItem.getVersion(), e);
+  // } catch (InvalidContextException e) {
+  // throw new PubCollectionNotFoundException(pubItem.getContext(), e);
+  // } catch (ItemNotFoundException e) {
+  // throw new PubItemNotFoundException(pubItem.getVersion(), e);
+  // } catch (AlreadyPublishedException e) {
+  // throw new PubItemAlreadyReleasedException(pubItem.getVersion(), e);
+  // } catch (InvalidStatusException e) {
+  // throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
+  // } catch (FileNotFoundException e) {
+  // throw new PubFileContentNotFoundException(pubItem.getFiles(), e);
+  // } catch (NotPublishedException e) {
+  // throw new TechnicalException(e);
+  // } catch (AuthorizationException e) {
+  // throw e;
+  // } catch (ValidationException e) {
+  // throw e;
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, getClass().getSimpleName() + ".savePubItem");
+  // throw new TechnicalException();
+  // }
+  // }
 
   /**
    * {@inheritDoc}
    * 
-   * @throws ItemInvalidException
    * @throws ValidationException
+   * @throws ItemInvalidException
+   * @throws TechnicalException
+   * @throws SecurityException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemNotFoundException
    */
   public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user)
-      throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException,
-      PubManException, URISyntaxException, AuthorizationException, ItemInvalidException,
-      ValidationException {
-    long gstart = System.currentTimeMillis();
+      throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
+      TechnicalException {
 
     if (pubItem == null) {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
     }
 
-    logger.info("*** start submit of <" + pubItem.getVersion().getObjectId() + ">");
-
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
     }
 
-
-    // ItemHandler itemHandler;
-    // try {
-    // itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-    // } catch (Exception e) {
-    // throw new TechnicalException(e);
-    // }
-
-    // Validate the item
-    long start = System.currentTimeMillis();
-    ValidationReportVO report;
-    try {
-      report = itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
-    } catch (ValidationException e) {
-      throw e;
-    }
-    long end = System.currentTimeMillis();
-    logger.info("validation of <" + pubItem.getVersion().getObjectId() + "> needed <"
-        + (end - start) + "> msec");
-
-    if (!report.isValid()) {
-      throw new ItemInvalidException(report);
-    }
-
-    // first save the item
     PubItemVO savedPubItem = pubItem;
-    // PubItemVO savedPubItem = savePubItem(pubItem, user);
-    // PubItemVO pubItemActual = null;
-    // then submit the item
     try {
-      // TaskParamVO taskParam =
-      // new TaskParamVO(savedPubItem.getModificationDate(), submissionComment);
-      long s1 = System.currentTimeMillis();
-      // itemHandler.submit(savedPubItem.getVersion().getObjectId(),
-      // xmlTransforming.transformToTaskParam(taskParam));
-
       // TODO update version
-
       ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
           pubItem.getVersion().getObjectId());
+
       ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] {
           savedPubItem.getVersion().getObjectId(), user.getUserid()});
-      long e1 = System.currentTimeMillis();
-      logger.info("pure itemHandler.submit item " + pubItem.getVersion().getObjectId()
-          + "> needed <" + (e1 - s1) + "> msec");
 
-      // Retrieve item once again.
-      // String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
-      // pubItemActual = xmlTransforming.transformToPubItem(item);
     } catch (InvalidStatusException e) {
       throw new PubItemStatusInvalidException(savedPubItem.getVersion(), e);
     } catch (ItemNotFoundException e) {
@@ -519,22 +543,107 @@ public class PubItemDepositingBean implements PubItemDepositing {
       ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
     }
 
-    long gend = System.currentTimeMillis();
-    logger.info("*** total submit of <" + pubItem.getVersion().getObjectId() + "> needed <"
-        + (gend - gstart) + "> msec");
     return pubItem;
   }
+
+  // /**
+  // * {@inheritDoc}
+  // *
+  // * @throws ItemInvalidException
+  // * @throws ValidationException
+  // */
+  // public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user)
+  // throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException,
+  // PubManException, URISyntaxException, AuthorizationException, ItemInvalidException,
+  // ValidationException {
+  // long gstart = System.currentTimeMillis();
+  //
+  // if (pubItem == null) {
+  // throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
+  // }
+  //
+  // logger.info("*** start submit of <" + pubItem.getVersion().getObjectId() + ">");
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
+  // }
+  //
+  //
+  // // ItemHandler itemHandler;
+  // // try {
+  // // itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+  // // } catch (Exception e) {
+  // // throw new TechnicalException(e);
+  // // }
+  //
+  // // Validate the item
+  // long start = System.currentTimeMillis();
+  // ValidationReportVO report;
+  // try {
+  // report = itemValidating.validateItemObject(pubItem, ValidationPoint.SUBMIT_ITEM);
+  // } catch (ValidationException e) {
+  // throw e;
+  // }
+  // long end = System.currentTimeMillis();
+  // logger.info("validation of <" + pubItem.getVersion().getObjectId() + "> needed <"
+  // + (end - start) + "> msec");
+  //
+  // if (!report.isValid()) {
+  // throw new ItemInvalidException(report);
+  // }
+  //
+  // // first save the item
+  // PubItemVO savedPubItem = pubItem;
+  // // PubItemVO savedPubItem = savePubItem(pubItem, user);
+  // // PubItemVO pubItemActual = null;
+  // // then submit the item
+  // try {
+  // // TaskParamVO taskParam =
+  // // new TaskParamVO(savedPubItem.getModificationDate(), submissionComment);
+  // long s1 = System.currentTimeMillis();
+  // // itemHandler.submit(savedPubItem.getVersion().getObjectId(),
+  // // xmlTransforming.transformToTaskParam(taskParam));
+  //
+  // // TODO update version
+  //
+  // ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
+  // pubItem.getVersion().getObjectId());
+  // ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] {
+  // savedPubItem.getVersion().getObjectId(), user.getUserid()});
+  // long e1 = System.currentTimeMillis();
+  // logger.info("pure itemHandler.submit item " + pubItem.getVersion().getObjectId()
+  // + "> needed <" + (e1 - s1) + "> msec");
+  //
+  // // Retrieve item once again.
+  // // String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
+  // // pubItemActual = xmlTransforming.transformToPubItem(item);
+  // } catch (InvalidStatusException e) {
+  // throw new PubItemStatusInvalidException(savedPubItem.getVersion(), e);
+  // } catch (ItemNotFoundException e) {
+  // throw new PubItemNotFoundException(savedPubItem.getVersion(), e);
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
+  // }
+  //
+  // long gend = System.currentTimeMillis();
+  // logger.info("*** total submit of <" + pubItem.getVersion().getObjectId() + "> needed <"
+  // + (gend - gstart) + "> msec");
+  // return pubItem;
+  // }
 
   /**
    * {@inheritDoc}
    * 
    * @author Peter Broszeit
    * @throws ValidationException
+   * @throws ItemInvalidException
+   * @throws TechnicalException
+   * @throws SecurityException
+   * @throws PubItemNotFoundException
    */
   public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
-      throws TechnicalException, SecurityException, PubItemNotFoundException, ItemInvalidException,
-      ValidationException {
-    // Check parameters and prepare
+      throws PubItemNotFoundException, SecurityException, TechnicalException {
+
     if (pubItem == null) {
       throw new IllegalArgumentException(getClass().getSimpleName()
           + ".acceptPubItem: pubItem is null.");
@@ -548,30 +657,10 @@ public class PubItemDepositingBean implements PubItemDepositing {
     ItemHandler itemHandler;
     try {
       itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-    } catch (Exception e) {
-      throw new TechnicalException(e);
-    }
-
-    // Validate the item
-    ValidationReportVO report;
-    try {
-      report = itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
-    } catch (ValidationException e) {
-      throw e;
-    }
-
-    if (!report.isValid()) {
-      throw new ItemInvalidException(report);
-    }
-
-    // Release the item
-    try {
-      // Because no workflow system is used at this time
-      // automatic release is triggered here
+      // Because no workflow system is used at this time automatic release is triggered here
       // item has to be retrieved again to get actual modification date
       pmPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
           acceptComment, user);
-
       // Retrieve item once again.
       String item = itemHandler.retrieve(pubItem.getVersion().getObjectId());
       pubItem = xmlTransforming.transformToPubItem(item);
@@ -580,9 +669,68 @@ public class PubItemDepositingBean implements PubItemDepositing {
     } catch (Exception e) {
       ExceptionHandler.handleException(e, getClass().getSimpleName() + ".acceptPubItem");
     }
-    // Return the accepted item
+
     return pubItem;
   }
+
+  // /**
+  // * {@inheritDoc}
+  // *
+  // * @author Peter Broszeit
+  // * @throws ValidationException
+  // */
+  // public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
+  // throws TechnicalException, SecurityException, PubItemNotFoundException, ItemInvalidException,
+  // ValidationException {
+  // // Check parameters and prepare
+  // if (pubItem == null) {
+  // throw new IllegalArgumentException(getClass().getSimpleName()
+  // + ".acceptPubItem: pubItem is null.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass().getSimpleName()
+  // + ".acceptPubItem: user is null.");
+  // }
+  //
+  // ItemHandler itemHandler;
+  // try {
+  // itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+  // } catch (Exception e) {
+  // throw new TechnicalException(e);
+  // }
+  //
+  // // Validate the item
+  // ValidationReportVO report;
+  // try {
+  // report = itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+  // } catch (ValidationException e) {
+  // throw e;
+  // }
+  //
+  // if (!report.isValid()) {
+  // throw new ItemInvalidException(report);
+  // }
+  //
+  // // Release the item
+  // try {
+  // // Because no workflow system is used at this time
+  // // automatic release is triggered here
+  // // item has to be retrieved again to get actual modification date
+  // pmPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+  // acceptComment, user);
+  //
+  // // Retrieve item once again.
+  // String item = itemHandler.retrieve(pubItem.getVersion().getObjectId());
+  // pubItem = xmlTransforming.transformToPubItem(item);
+  // } catch (ItemNotFoundException e) {
+  // throw new PubItemNotFoundException(pubItem.getVersion(), e);
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, getClass().getSimpleName() + ".acceptPubItem");
+  // }
+  // // Return the accepted item
+  // return pubItem;
+  // }
 
   /*
    * (non-Javadoc)
@@ -593,12 +741,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * de.mpg.mpdl.inge.model.valueobjects.AccountUserVO)
    */
   public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment,
-      ContextRO pubCollection, AccountUserVO owner) throws SecurityException,
-      PubItemMandatoryAttributesMissingException, PubItemLockedException,
-      PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException,
-      PubItemAlreadyReleasedException, TechnicalException {
-    logger.debug("createRevisionOfItem(" + originalPubItem.getVersion().getObjectId() + ","
-        + relationComment + "," + pubCollection.getObjectId() + "," + owner.getHandle());
+      ContextRO pubCollection, AccountUserVO owner) {
+
     // Create an empty new item.
     PubItemVO copiedPubItem = new PubItemVO();
     // Set the owner.
@@ -635,7 +779,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
       for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
         copiedPubItem.getMetadata().getSubjects().add(subject);
       }
-
     }
 
     ItemRelationVO relation = new ItemRelationVO();
@@ -643,36 +786,32 @@ public class PubItemDepositingBean implements PubItemDepositing {
     relation.setTargetItemRef(originalPubItem.getVersion());
     relation.setDescription(relationComment);
     copiedPubItem.getRelations().add(relation);
+
     // return the new created revision of the given pubItem.
     return copiedPubItem;
   }
 
-
-
   /**
    * {@inheritDoc}
+   * 
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemNotFoundException
+   * @throws TechnicalException
+   * @throws SecurityException
+   * @throws ValidationException
+   * @throws ItemInvalidException
    */
   public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment,
-      AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException,
-      SecurityException, PubManException, ItemInvalidException {
+      AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
+      SecurityException, TechnicalException {
 
     ItemHandler itemHandler;
-
+    PubItemVO pubItemActual = null;
     try {
       itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-    } catch (Exception e) {
-      throw new TechnicalException(e);
-    }
-
-    PubItemVO pubItemActual = null;
-
-    // then release the item
-    try {
       pubItemActual = submitPubItem(pubItem, submissionComment, user);
-
-      pmPublishing.releasePubItem(pubItemActual.getVersion(), pubItemActual.getModificationDate(),
-          submissionComment, user);
-
+      this.pmPublishing.releasePubItem(pubItemActual.getVersion(),
+          pubItemActual.getModificationDate(), submissionComment, user);
       // Retrieve item once again.
       String item = itemHandler.retrieve(pubItemActual.getVersion().getObjectId());
       pubItemActual = xmlTransforming.transformToPubItem(item);
@@ -683,6 +822,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
     } catch (Exception e) {
       ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
     }
+
     return pubItemActual;
   }
 }

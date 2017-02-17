@@ -33,7 +33,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -60,6 +59,11 @@ import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -81,6 +85,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -102,12 +108,6 @@ import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving
@@ -535,7 +535,7 @@ public class EasySubmission extends FacesBean {
   }
 
   public String saveLocator() {
-    EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
+    // EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
     // set the name if it is not filled
     logger.info("this.getLocators().size():" + this.getLocators().size());
     if (this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata()
@@ -595,13 +595,13 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
     this.setFromEasySubmission(true);
     // info(getMessage("easy_submission_preview_hint"));
-    if (validate("easy_submission_step_5", "validate") == null) {
+    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "validate") == null) {
       return null;
     }
     EditItem editItem = (EditItem) getRequestBean(EditItem.class);
     editItem.setFromEasySubmission(true);
     String returnValue =
-        (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false));
+        (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM));
     if (returnValue != null && !"".equals(returnValue)) {
       getEasySubmissionSessionBean().cleanup();
     }
@@ -719,7 +719,7 @@ public class EasySubmission extends FacesBean {
        * for(UploadItem file : this.uploadedFile) {
        */
       StringBuffer errorMessage = new StringBuffer();
-      int indexUpload = this.getFiles().size() - 1;
+      // int indexUpload = this.getFiles().size() - 1;
       // UploadItem file = this.uploadedFile;
       String contentURL;
       if (file != null) {
@@ -823,14 +823,14 @@ public class EasySubmission extends FacesBean {
     if (file != null && file.getSize() > 0) {
       try {
         // upload the file
-        LoginHelper loginHelper = (LoginHelper) this.getBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
         URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
         if (url != null) {
           contentURL = url.toString();
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getBean(ErrorPage.class)).setException(e);
         // force JSF to load the ErrorPage
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
@@ -906,7 +906,7 @@ public class EasySubmission extends FacesBean {
       StringBuffer content = new StringBuffer();
       try {
         UploadedFile uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
-        InputStream fileIs = null;
+        // InputStream fileIs = null;
 
         /*
          * if(uploadedBibTexFile.isTempFile()) { fileIs = new
@@ -1023,7 +1023,7 @@ public class EasySubmission extends FacesBean {
           byte[] ba =
               dataHandler.doFetch(this.getEasySubmissionSessionBean()
                   .getCurrentExternalServiceType(), getServiceID(), formats.toArray(arrFormats));
-          LoginHelper loginHelper = (LoginHelper) this.getBean(LoginHelper.class);
+          LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
           ByteArrayInputStream in = new ByteArrayInputStream(ba);
           URL fileURL =
               this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());
@@ -1085,7 +1085,7 @@ public class EasySubmission extends FacesBean {
                   FileVO newFile = new FileVO();
                   byte[] content =
                       dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                  LoginHelper loginHelper = (LoginHelper) this.getBean(LoginHelper.class);
+                  LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
                   ByteArrayInputStream in = new ByteArrayInputStream(content);
                   URL fileURL;
                   fileURL =
@@ -1220,7 +1220,7 @@ public class EasySubmission extends FacesBean {
 
   public String validateAndLoadStep3Manual() {
     // validate
-    if (validate("easy_submission_step_4", "loadNewEasySubmission") == null) {
+    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_4, "loadNewEasySubmission") == null) {
       return "";
     }
     return loadStep3Manual();
@@ -1238,7 +1238,7 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
     // first try to upload the entered file
     // upload(false);
-    PubItemVO item = this.getItemControllerSessionBean().getCurrentPubItem();
+    // PubItemVO item = this.getItemControllerSessionBean().getCurrentPubItem();
 
     // then try to save the locator
     saveLocator();
@@ -1304,33 +1304,39 @@ public class EasySubmission extends FacesBean {
      * (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean
      * .ES_STEP5)) { mapSelectedDate(); }
      */
-    FacesContext fc = FacesContext.getCurrentInstance();
+    // FacesContext fc = FacesContext.getCurrentInstance();
+
     // validate
-    if (validate("easy_submission_step_3", "loadNewEasySubmission") == null) {
+    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_3, "loadNewEasySubmission") == null) {
       return "";
     }
+
     this.getEasySubmissionSessionBean()
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP4);
     this.init();
+
     return "loadNewEasySubmission";
   }
 
   public String loadStep5Manual() {
-    PubItemVO item = this.getItemControllerSessionBean().getCurrentPubItem();
+    // PubItemVO item = this.getItemControllerSessionBean().getCurrentPubItem();
     // validate
-    if (validate("easy_submission_step_4", "loadNewEasySubmission") == null) {
+    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_4, "loadNewEasySubmission") == null) {
       return "";
     }
+
     this.getEasySubmissionSessionBean()
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
     this.init();
+
     return "loadNewEasySubmission";
   }
 
   public String loadPreview() {
     parseAndSetAlternativeSourceTitlesAndIds();
+
     // validate
-    if (validate("easy_submission_step_5", "loadEditItem") == null) {
+    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "loadEditItem") == null) {
       return "";
     } else {
       // this.getEasySubmissionSessionBean().bindOrganizationsToCreators();
@@ -1347,17 +1353,20 @@ public class EasySubmission extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String validate(String validationPoint, String navigateTo) {
+  public String validate(ValidationPoint validationPoint, String navigateTo) {
     try {
       // bind Organizations To Creators
       if (!this.getEasySubmissionSessionBean().bindOrganizationsToCreators()) {
         return null;
       }
+
       PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+
       // write creators back to VO
       if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4) {
         this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
       }
+
       PubItemVO itemVO = new PubItemVO(pubItem);
 
       // cleanup item according to genre specific MD specification
@@ -1368,24 +1377,69 @@ public class EasySubmission extends FacesBean {
       } catch (Exception e) {
         throw new RuntimeException("Error while cleaning up item genre specificly", e);
       }
-      ValidationReportVO report =
-          this.itemValidating.validateItemObject(itemVO, ValidationPoint.valueOf(validationPoint));
-      if (!report.isValid()) {
-        for (ValidationReportItemVO item : report.getItems()) {
-          // TODO add isRestictive to new inge_validation
-          // if (item.isRestrictive()) {
+
+      try {
+        this.itemValidating.validateItemObject(itemVO, validationPoint);
+      } catch (ItemInvalidException e) {
+        for (ValidationReportItemVO item : e.getReport().getItems()) {
           error(getMessage(item.getContent()));
-          // } else {
-          // warn(getMessage(item.getContent()));
-          // }
         }
         return null;
+      } catch (ValidationException e) {
+        throw new RuntimeException("Validation error", e);
       }
     } catch (Exception e) {
       logger.error("Validation error", e);
     }
+
     return navigateTo;
   }
+
+  // /**
+  // * Validates the item.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String validate(String validationPoint, String navigateTo) {
+  // try {
+  // // bind Organizations To Creators
+  // if (!this.getEasySubmissionSessionBean().bindOrganizationsToCreators()) {
+  // return null;
+  // }
+  // PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+  // // write creators back to VO
+  // if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() ==
+  // EasySubmissionSessionBean.ES_STEP4) {
+  // this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
+  // }
+  // PubItemVO itemVO = new PubItemVO(pubItem);
+  //
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(itemVO, GenreSpecificItemManager.SUBMISSION_METHOD_EASY);
+  // try {
+  // itemVO = (PubItemVO) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+  // }
+  // ValidationReportVO report =
+  // this.itemValidating.validateItemObject(itemVO, ValidationPoint.valueOf(validationPoint));
+  // if (!report.isValid()) {
+  // for (ValidationReportItemVO item : report.getItems()) {
+  // // TODO add isRestictive to new inge_validation
+  // // if (item.isRestrictive()) {
+  // error(getMessage(item.getContent()));
+  // // } else {
+  // // warn(getMessage(item.getContent()));
+  // // }
+  // }
+  // return null;
+  // }
+  // } catch (Exception e) {
+  // logger.error("Validation error", e);
+  // }
+  // return navigateTo;
+  // }
 
   /**
    * Fill import source values dynamically from importsourceHandler

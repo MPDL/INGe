@@ -36,38 +36,38 @@ package de.mpg.mpdl.inge.pubman;
  */
 public class ServiceNotAvailableException extends RuntimeException {
 
-  /** serial for the serializable interface */
-  private static final long serialVersionUID = 1L;
-  /**
-   * The name of the service which could not be retrieved.
-   */
-  private String serviceName;
-
-  /**
-   * Creates a new Exception with the specified detail message.
-   * 
-   * @param serviceName The error message
-   */
-  public ServiceNotAvailableException(String serviceName) {
-    this.serviceName = serviceName;
-  }
-
-  /**
-   * Creates a new Exception with the specified detail message and cause.
-   * 
-   * @param serviceName
-   * @param cause The cause
-   */
-  public ServiceNotAvailableException(String serviceName, Throwable cause) {
-    super(cause);
-    this.serviceName = serviceName;
-  }
-
-  /**
-   * @return the serviceName
-   */
-  public String getServiceName() {
-    return serviceName;
-  }
-
+  // /** serial for the serializable interface */
+  // private static final long serialVersionUID = 1L;
+  // /**
+  // * The name of the service which could not be retrieved.
+  // */
+  // private String serviceName;
+  //
+  // /**
+  // * Creates a new Exception with the specified detail message.
+  // *
+  // * @param serviceName The error message
+  // */
+  // public ServiceNotAvailableException(String serviceName) {
+  // this.serviceName = serviceName;
+  // }
+  //
+  // /**
+  // * Creates a new Exception with the specified detail message and cause.
+  // *
+  // * @param serviceName
+  // * @param cause The cause
+  // */
+  // public ServiceNotAvailableException(String serviceName, Throwable cause) {
+  // super(cause);
+  // this.serviceName = serviceName;
+  // }
+  //
+  // /**
+  // * @return the serviceName
+  // */
+  // public String getServiceName() {
+  // return serviceName;
+  // }
+  //
 }

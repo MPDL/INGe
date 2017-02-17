@@ -31,7 +31,6 @@ import java.net.URISyntaxException;
 import javax.ejb.Remote;
 
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -39,11 +38,12 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
-import de.mpg.mpdl.inge.pubman.depositing.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.depositing.PubItemMandatoryAttributesMissingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
@@ -60,12 +60,8 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 public interface PubItemDepositing {
 
   public static final String WORKFLOW_SIMPLE = "simple";
-
   public static final String WORKFLOW_STANDARD = "standard";
 
-  /**
-   * The service name.
-   */
   public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/PubItemDepositing";
 
   /**
@@ -80,12 +76,11 @@ public interface PubItemDepositing {
    * @exception DepositingException,
    * @exception PubItemNotFoundException,
    * @exception PubManException
-   * @throws ItemInvalidException
    * @throws ValidationException
+   * @throws ItemInvalidException
    */
   public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
-      throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException,
-      PubManException, ItemInvalidException, ValidationException;
+      throws PubItemNotFoundException, SecurityException, TechnicalException;
 
   /**
    * Creates an new PubItemVO object with the default metadata of the given Collection. The PubItem
@@ -93,25 +88,29 @@ public interface PubItemDepositing {
    * 
    * @param collectionRef
    * @param user
+   * @throws IllegalArgumentException
    * @exception TechnicalException,
    * @exception SecurityException,
    * @exception PubCollectionNotFoundException
    */
   public PubItemVO createPubItem(ContextRO collectionRef, AccountUserVO user)
-      throws TechnicalException, SecurityException, PubCollectionNotFoundException,
-      IllegalArgumentException;
+      throws PubCollectionNotFoundException, SecurityException, TechnicalException;
 
   /**
    * Deletes the PubItem identified by the given reference.
    * 
    * @param itemRef
    * @param user
+   * @throws SecurityException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemNotFoundException
+   * @throws PubItemLockedException
    * @exception TechnicalException TechnicalException
    * @exception DepositingException ,
    */
-  public void deletePubItem(ItemRO itemRef, AccountUserVO user) throws TechnicalException,
-      SecurityException, PubItemNotFoundException, PubItemLockedException,
-      PubItemStatusInvalidException;
+  public void deletePubItem(ItemRO itemRef, AccountUserVO user) throws PubItemLockedException,
+      PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
+      TechnicalException;
 
   /**
    * Returns all open PubCollections for which the given user is in the role "Depositor".
@@ -121,7 +120,7 @@ public interface PubItemDepositing {
    * @exception SecurityException
    */
   public java.util.List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
-      throws TechnicalException, SecurityException;
+      throws SecurityException, TechnicalException;
 
   /**
    * Returns all PubContexts.
@@ -130,8 +129,8 @@ public interface PubItemDepositing {
    * @exception TechnicalException,
    * @exception SecurityException
    */
-  public java.util.List<ContextVO> getPubCollectionListForDepositing() throws TechnicalException,
-      SecurityException;
+  public java.util.List<ContextVO> getPubCollectionListForDepositing() throws SecurityException,
+      TechnicalException;
 
   /**
    * Saves the given pubItem (i.e. creates a new version). If the pubItem already exists an update
@@ -140,6 +139,8 @@ public interface PubItemDepositing {
    * 
    * @param item
    * @param user
+   * @throws AuthorizationException
+   * @throws URISyntaxException
    * @exception TechnicalException,
    * @exception SecurityException,
    * @exception PubItemMandatoryAttributesMissingException,
@@ -149,12 +150,12 @@ public interface PubItemDepositing {
    * @exception PubItemStatusInvalidException
    * @throws PubItemAlreadyReleasedException
    * @throws ValidationException
+   * @throws ItemInvalidException
    */
-  public PubItemVO savePubItem(PubItemVO item, AccountUserVO user) throws TechnicalException,
-      SecurityException, PubItemMandatoryAttributesMissingException,
-      PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException,
-      PubItemStatusInvalidException, PubItemAlreadyReleasedException, URISyntaxException,
-      AuthorizationException, ValidationException;
+  public PubItemVO savePubItem(PubItemVO item, AccountUserVO user)
+      throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
+      PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
+      PubItemStatusInvalidException, TechnicalException, AuthorizationException;
 
   /**
    * Submits the given pubItem. As on submit, a new version must be created (which is not done by
@@ -164,18 +165,18 @@ public interface PubItemDepositing {
    * @param item
    * @param submissionComment
    * @param user
+   * @throws PubItemStatusInvalidException
    * @exception TechnicalException,
    * @exception SecurityException,
    * @exception DepositingException,
    * @exception PubItemNotFoundException,
    * @exception PubManException
-   * @throws ItemInvalidException
    * @throws ValidationException
+   * @throws ItemInvalidException
    */
   public PubItemVO submitPubItem(PubItemVO item, String submissionComment, AccountUserVO user)
-      throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException,
-      PubManException, ItemInvalidException, URISyntaxException, AuthorizationException,
-      ValidationException;
+      throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
+      TechnicalException;
 
   /**
    * Creates a new PubItem as a revision of the given one. Also a content relation of type
@@ -195,10 +196,7 @@ public interface PubItemDepositing {
    * @throws SecurityException
    */
   public PubItemVO createRevisionOfItem(PubItemVO pubItem, String relationComment,
-      ContextRO pubCollection, AccountUserVO user) throws SecurityException,
-      PubItemMandatoryAttributesMissingException, PubItemLockedException,
-      PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException,
-      PubItemAlreadyReleasedException, TechnicalException;
+      ContextRO pubCollection, AccountUserVO user);
 
 
   /**
@@ -210,14 +208,16 @@ public interface PubItemDepositing {
    * @param item
    * @param submissionComment
    * @param user
+   * @throws PubItemStatusInvalidException
    * @exception TechnicalException,
    * @exception SecurityException,
    * @exception DepositingException,
    * @exception PubItemNotFoundException,
-   * @exception PubManException
+   * @throws ValidationException
    * @throws ItemInvalidException
+   * @exception PubManException
    */
   public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment,
-      AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException,
-      SecurityException, PubManException, ItemInvalidException;
+      AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
+      SecurityException, TechnicalException;
 }

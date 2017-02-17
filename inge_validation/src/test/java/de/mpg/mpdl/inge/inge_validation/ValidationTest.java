@@ -121,7 +121,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -171,7 +171,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -205,7 +205,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -242,7 +242,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -280,7 +280,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -322,7 +322,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -373,7 +373,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -424,7 +424,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -461,7 +461,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -488,7 +488,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -518,7 +518,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -539,7 +539,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -561,7 +561,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -583,7 +583,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -605,7 +605,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -627,7 +627,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -649,7 +649,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -672,7 +672,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -697,7 +697,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -722,7 +722,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -747,7 +747,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -772,7 +772,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -792,7 +792,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -814,7 +814,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -842,7 +842,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -867,7 +867,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -890,7 +890,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -913,7 +913,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -940,7 +940,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -967,7 +967,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -994,7 +994,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1021,7 +1021,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1057,7 +1057,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1093,7 +1093,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1137,7 +1137,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1185,7 +1185,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1239,7 +1239,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1297,7 +1297,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1359,7 +1359,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1425,7 +1425,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1453,7 +1453,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1483,7 +1483,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1503,7 +1503,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1526,7 +1526,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1598,7 +1598,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1683,7 +1683,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1703,7 +1703,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1725,7 +1725,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 
@@ -1749,7 +1749,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertFalse(complexResult.isSuccess());
 
@@ -1793,7 +1793,7 @@ public class ValidationTest {
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
     LOG.info(complexResult.toString());
-    LOG.info(this.validationService.convert(complexResult).toString());
+    // LOG.info(this.validationService.convert(complexResult).toString());
 
     Assert.assertTrue(complexResult.isSuccess());
 

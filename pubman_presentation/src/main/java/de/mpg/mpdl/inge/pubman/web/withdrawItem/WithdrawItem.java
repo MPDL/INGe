@@ -52,6 +52,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@SuppressWarnings("serial")
 public class WithdrawItem extends FacesBean {
   private static Logger logger = Logger.getLogger(WithdrawItem.class);
   // Faces navigation string
@@ -159,11 +160,13 @@ public class WithdrawItem extends FacesBean {
     if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal)) {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
     }
+
     PubItemListSessionBean pubItemListSessionBean =
         (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
     if (pubItemListSessionBean != null) {
       pubItemListSessionBean.update();
     }
+
     return retVal;
   }
 
@@ -184,8 +187,6 @@ public class WithdrawItem extends FacesBean {
     }
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
-
-
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).

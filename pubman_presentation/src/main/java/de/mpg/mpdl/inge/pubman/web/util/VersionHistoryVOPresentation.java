@@ -9,14 +9,13 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
@@ -36,14 +35,11 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     for (EventLogEntryVO event : getEvents()) {
       eventLogEntries.add(new EventLogEntryVOPresentation(event, this));
     }
-
   }
-
 
   public String getFormattedModificationDate() {
     return CommonUtils.format(getModificationDate());
   }
-
 
   public List<EventLogEntryVOPresentation> getEventLogEntries() {
     return eventLogEntries;

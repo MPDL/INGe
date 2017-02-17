@@ -52,7 +52,12 @@ import org.primefaces.model.UploadedFile;
 import com.sun.faces.facelets.component.UIRepeat;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
@@ -75,6 +80,9 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.EditItemPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -88,8 +96,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection.IdentifierManager;
+import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
@@ -104,13 +112,6 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -181,7 +182,6 @@ public class EditItem extends FacesBean {
    * Public constructor.
    */
   public EditItem() {
-
     this.init();
   }
 
@@ -196,6 +196,7 @@ public class EditItem extends FacesBean {
     // this.fileTable = new CoreTable();
     // enables the commandlinks
     this.enableLinks();
+
     // initializes the (new) item if necessary
     try {
       // this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
@@ -206,11 +207,13 @@ public class EditItem extends FacesBean {
 
     // if item is currently part of invalid yearbook items, show Validation Messages
 
-    if (getItem() == null)
+    if (getItem() == null) {
       return;
-    ContextListSessionBean clsb =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-    LoginHelper loginHelper = (LoginHelper) this.getSessionBean(LoginHelper.class);
+    }
+
+    // ContextListSessionBean clsb =
+    // (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     if (getItem().getVersion() != null && getItem().getVersion().getObjectId() != null
         && loginHelper.getIsYearbookEditor()) {
       YearbookItemSessionBean yisb =
@@ -613,39 +616,10 @@ public class EditItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String validate() {
-    if (this.getPubItem() == null)
+    if (this.getPubItem() == null) {
       return "";
-
-    try {
-
-      if (!restoreVO()) {
-        return "";
-      }
-
-      PubItemVO item = this.getPubItem();
-      this.getItemControllerSessionBean().validate(item, ValidationPoint.SUBMIT_ITEM);
-      if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems()) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else {
-        String message = getMessage("itemIsValid");
-        info(message);
-        this.valMessage.setRendered(true);
-      }
-    } catch (Exception e) {
-      logger.error("Could not validate item." + "\n" + e.toString(), e);
-      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
-      return ErrorPage.LOAD_ERRORPAGE;
     }
-    return null;
-  }
 
-  /**
-   * Saves the item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String save() {
     if (!restoreVO()) {
       return "";
     }
@@ -656,197 +630,313 @@ public class EditItem extends FacesBean {
     try {
       this.item = (PubItemVOPresentation) itemManager.cleanupItem();
     } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
-    /*
-     * FrM: Validation with validation point "default"
-     */
-    ValidationReportVO report = null;
+
     try {
-      PubItemVO itemVO = new PubItemVO(getPubItem());
-      report = this.itemValidating.validateItemObject(itemVO);
-    } catch (Exception e) {
-      throw new RuntimeException("Validation error", e);
-    }
-    logger.debug("Validation Report: " + report);
-    if (report.isValid() && !report.hasItems()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Saving item...");
-      }
-      String retVal = "";
-      try {
-        retVal =
-            this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM,
-                false);
-      } catch (RuntimeException rE) {
-        logger.error("Error saving item", rE);
-        String message = getMessage("itemHasBeenChangedInTheMeantime");
-        fatal(message);
-        this.valMessage.setRendered(true);
-      }
-      if (retVal == null) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
-        // set the current submission method to empty string (for GUI purpose)
-        this.getEditItemSessionBean().setCurrentSubmission("");
-        // redirect to the view item page afterwards (if no error occured)
-        try {
-          info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
-          FacesContext fc = FacesContext.getCurrentInstance();
-          HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-          if (isFromEasySubmission()) {
-            fc.getExternalContext().redirect(
-                request.getContextPath()
-                    + "/faces/viewItemFullPage.jsp?itemId="
-                    + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                        .getObjectId() + "&fromEasySub=true");
-          } else {
-            fc.getExternalContext().redirect(
-                request.getContextPath()
-                    + "/faces/viewItemFullPage.jsp?itemId="
-                    + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                        .getObjectId());
-          }
-        } catch (IOException e) {
-          logger.error("Could not redirect to View Item Page", e);
-        }
-      }
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
-      return retVal;
-    } else if (report.isValid()) {
-      String retVal =
-          this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
-      if (retVal == null) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
-        // redirect to the view item page afterwards (if no error occured)
-        try {
-          FacesContext fc = FacesContext.getCurrentInstance();
-          HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-          if (isFromEasySubmission()) {
-            fc.getExternalContext().redirect(
-                request.getContextPath()
-                    + "/faces/viewItemFullPage.jsp?itemId="
-                    + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                        .getObjectId() + "&fromEasySub=true");
-          } else {
-            fc.getExternalContext().redirect(
-                request.getContextPath()
-                    + "/faces/viewItemFullPage.jsp?itemId="
-                    + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                        .getObjectId());
-          }
-        } catch (IOException e) {
-          logger.error("Could not redirect to View Item Page", e);
-        }
-      }
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
-      return retVal;
-    } else {
-      // Item is invalid, do not submit anything.
-      this.showValidationMessages(report);
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()));
+      String message = getMessage("itemIsValid");
+      info(message);
+      this.valMessage.setRendered(true);
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
       return null;
+    } catch (ValidationException e) {
+      throw new RuntimeException("Validation error", e);
+    } catch (Exception e) {
+      logger.error("Could not validate item." + "\n" + e.toString(), e);
+      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+      return ErrorPage.LOAD_ERRORPAGE;
     }
+
+    return null;
   }
 
   /**
-     * 
-     */
+   * Saves the item.
+   * 
+   * @return string, identifying the page that should be navigated to after this methodcall
+   */
+  public String save() {
+    if (this.getPubItem() == null) {
+      return "";
+    }
+
+    if (!restoreVO()) {
+      return "";
+    }
+
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
+
+    try {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()));
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
+      throw new RuntimeException("Validation error", e);
+    }
+
+    String retVal = "";
+    try {
+      retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
+    } catch (RuntimeException rE) {
+      logger.error("Error saving item", rE);
+      String message = getMessage("itemHasBeenChangedInTheMeantime");
+      fatal(message);
+      this.valMessage.setRendered(true);
+    }
+
+    if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
+      // set the current submission method to empty string (for GUI purpose)
+      this.getEditItemSessionBean().setCurrentSubmission("");
+      // redirect to the view item page afterwards (if no error occured)
+      try {
+        info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        if (isFromEasySubmission()) {
+          fc.getExternalContext().redirect(
+              request.getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId() + "&fromEasySub=true");
+        } else {
+          fc.getExternalContext().redirect(
+              request.getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId());
+        }
+      } catch (IOException e) {
+        logger.error("Could not redirect to View Item Page", e);
+      }
+    }
+
+    PubItemListSessionBean pubItemListSessionBean =
+        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    pubItemListSessionBean.update();
+
+    return retVal;
+  }
+
+  // /**
+  // * Saves the item.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String save() {
+  // if (!restoreVO()) {
+  // return "";
+  // }
+  //
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+  // try {
+  // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+  // }
+  // /*
+  // * FrM: Validation with validation point "default"
+  // */
+  // ValidationReportVO report = null;
+  // try {
+  // PubItemVO itemVO = new PubItemVO(getPubItem());
+  // report = this.itemValidating.validateItemObject(itemVO);
+  // } catch (Exception e) {
+  // throw new RuntimeException("Validation error", e);
+  // }
+  // logger.debug("Validation Report: " + report);
+  // if (report.isValid() && !report.hasItems()) {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Saving item...");
+  // }
+  // String retVal = "";
+  // try {
+  // retVal =
+  // this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM,
+  // false);
+  // } catch (RuntimeException rE) {
+  // logger.error("Error saving item", rE);
+  // String message = getMessage("itemHasBeenChangedInTheMeantime");
+  // fatal(message);
+  // this.valMessage.setRendered(true);
+  // }
+  // if (retVal == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
+  // // set the current submission method to empty string (for GUI purpose)
+  // this.getEditItemSessionBean().setCurrentSubmission("");
+  // // redirect to the view item page afterwards (if no error occured)
+  // try {
+  // info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+  // if (isFromEasySubmission()) {
+  // fc.getExternalContext().redirect(
+  // request.getContextPath()
+  // + "/faces/viewItemFullPage.jsp?itemId="
+  // + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+  // .getObjectId() + "&fromEasySub=true");
+  // } else {
+  // fc.getExternalContext().redirect(
+  // request.getContextPath()
+  // + "/faces/viewItemFullPage.jsp?itemId="
+  // + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+  // .getObjectId());
+  // }
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to View Item Page", e);
+  // }
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // } else if (report.isValid()) {
+  // String retVal =
+  // this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+  // if (retVal == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
+  // // redirect to the view item page afterwards (if no error occured)
+  // try {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+  // if (isFromEasySubmission()) {
+  // fc.getExternalContext().redirect(
+  // request.getContextPath()
+  // + "/faces/viewItemFullPage.jsp?itemId="
+  // + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+  // .getObjectId() + "&fromEasySub=true");
+  // } else {
+  // fc.getExternalContext().redirect(
+  // request.getContextPath()
+  // + "/faces/viewItemFullPage.jsp?itemId="
+  // + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+  // .getObjectId());
+  // }
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to View Item Page", e);
+  // }
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // } else {
+  // // Item is invalid, do not submit anything.
+  // this.showValidationMessages(report);
+  // return null;
+  // }
+  // }
+
   private boolean restoreVO() {
     // bind the temporary uploaded files to the files in the current item
     bindUploadedFilesAndLocators();
+
     // bind Organizations To Creators
     if (!this.getEditItemSessionBean().bindOrganizationsToCreators()) {
       return false;
     }
+
     for (SourceBean sourceBean : getEditItemSessionBean().getSources()) {
       if (!sourceBean.bindOrganizationsToCreators()) {
         return false;
       }
     }
+
     // write creators back to VO
     this.getEditItemSessionBean().bindCreatorsToVO(item.getMetadata().getCreators());
+
     // write source creators back to VO
     for (SourceBean sourceBean : getEditItemSessionBean().getSources()) {
       sourceBean.bindCreatorsToVO(sourceBean.getSource().getCreators());
     }
+
     // write sources back to VO
     this.getEditItemSessionBean().bindSourcesToVO(item.getMetadata().getSources());
+
     return true;
   }
 
-  /**
-   * Saves the item, even if there are informative validation messages.
-   * 
-   * @author Michael Franke
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String saveAnyway() {
-    String retVal = "";
-    try {
-      retVal =
-          this.getItemControllerSessionBean().saveCurrentPubItem(
-              MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS, true);
-    } catch (RuntimeException rE) {
-      logger.error("Error saving item", rE);
-      String message = getMessage("itemHasBeenChangedInTheMeantime");
-      fatal(message);
-      retVal = EditItem.LOAD_EDITITEM;
-      this.valMessage.setRendered(true);
-    }
-    if (!(this.getItemControllerSessionBean().getCurrentItemValidationReport().isValid())) {
-      this.showValidationMessages(this.getItemControllerSessionBean()
-          .getCurrentItemValidationReport());
-    } else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      // set the current submission method to empty string (for GUI purpose)
-      this.getEditItemSessionBean().setCurrentSubmission("");
-      info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
-    }
-    // initialize viewItem
-    /*
-     * this is only neccessary if viewItem should be called after saving; this should stay here as a
-     * comment if this might come back once... de.mpg.escidoc.pubman.viewItem.ViewItem viewItem =
-     * (de.mpg.escidoc.pubman.viewItem.ViewItem
-     * )this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-     * "ViewItem"); viewItem.setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
-     * viewItem.loadItem();
-     */
-    return retVal;
-  }
+  // /**
+  // * Saves the item, even if there are informative validation messages.
+  // *
+  // * @author Michael Franke
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String saveAnyway() {
+  // String retVal = "";
+  // try {
+  // retVal =
+  // this.getItemControllerSessionBean().saveCurrentPubItem(
+  // MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS, true);
+  // } catch (RuntimeException rE) {
+  // logger.error("Error saving item", rE);
+  // String message = getMessage("itemHasBeenChangedInTheMeantime");
+  // fatal(message);
+  // retVal = EditItem.LOAD_EDITITEM;
+  // this.valMessage.setRendered(true);
+  // }
+  // if (!(this.getItemControllerSessionBean().getCurrentItemValidationReport().isValid())) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+  // // set the current submission method to empty string (for GUI purpose)
+  // this.getEditItemSessionBean().setCurrentSubmission("");
+  // info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
+  // }
+  // // initialize viewItem
+  // /*
+  // * this is only neccessary if viewItem should be called after saving; this should stay here as a
+  // * comment if this might come back once... de.mpg.escidoc.pubman.viewItem.ViewItem viewItem =
+  // * (de.mpg.escidoc.pubman.viewItem.ViewItem
+  // * )this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+  // * "ViewItem"); viewItem.setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+  // * viewItem.loadItem();
+  // */
+  // return retVal;
+  // }
 
-  /**
-   * Submits the item. Should not be used at the moment.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String submit() {
-    logger.error("This is a call to \"EditItem.submit\" which should not happen.");
-    String retVal =
-        this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("",
-            MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-    if (retVal == null) {
-      this.showValidationMessages(this.getItemControllerSessionBean()
-          .getCurrentItemValidationReport());
-    } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
-    }
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
-    return retVal;
-  }
+  // /**
+  // * Submits the item. Should not be used at the moment.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String submit() {
+  // logger.error("This is a call to \"EditItem.submit\" which should not happen.");
+  // String retVal =
+  // this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("",
+  // MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+  // if (retVal == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+  // info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // }
 
   public String saveAndRelease() {
     if (!restoreVO()) {
@@ -860,6 +950,15 @@ public class EditItem extends FacesBean {
       this.item = (PubItemVOPresentation) itemManager.cleanupItem();
     } catch (Exception e) {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
+
+    try {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()));
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
+      throw new RuntimeException("Validation error", e);
     }
 
     // start: check if the item has been changed
@@ -886,18 +985,10 @@ public class EditItem extends FacesBean {
         this.showValidationMessages(changedReport);
         return null;
       } else {
-        if (this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM,
-            false) == null) {
-          this.showValidationMessages(this.getItemControllerSessionBean()
-              .getCurrentItemValidationReport());
-          return null;
-        }
-        if (this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
-            "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM) == null) {
-          this.showValidationMessages(this.getItemControllerSessionBean()
-              .getCurrentItemValidationReport());
-          return null;
-        }
+        // TODO: 2x saven???
+        this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
+        this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+            "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
         try {
           this.getItemControllerSessionBean().setCurrentPubItem(
               this.getItemControllerSessionBean().retrieveItem(
@@ -913,8 +1004,77 @@ public class EditItem extends FacesBean {
         return SubmitItem.LOAD_SUBMITITEM;
       }
     }
+
     return "";
   }
+
+  // public String saveAndRelease() {
+  // if (!restoreVO()) {
+  // return "";
+  // }
+  //
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+  // try {
+  // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+  // }
+  //
+  // // start: check if the item has been changed
+  // PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+  // PubItemVO oldPubItem = null;
+  // if (newPubItem.getVersion().getObjectId() != null) {
+  // try {
+  // oldPubItem =
+  // this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+  // } catch (Exception e) {
+  // logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+  // ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+  // logger.warn("Item has not been changed.");
+  // // create a validation report
+  // ValidationReportVO changedReport = new ValidationReportVO();
+  // ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+  // // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+  // changedReportItem.setContent("itemHasNotBeenChanged");
+  // changedReport.addItem(changedReportItem);
+  // // show report and stay on this page
+  // this.showValidationMessages(changedReport);
+  // return null;
+  // } else {
+  // if (this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM,
+  // false) == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // return null;
+  // }
+  // if (this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+  // "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM) == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // return null;
+  // }
+  // try {
+  // this.getItemControllerSessionBean().setCurrentPubItem(
+  // this.getItemControllerSessionBean().retrieveItem(
+  // newPubItem.getVersion().getObjectId()));
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error retrieving submitted item", e);
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return SubmitItem.LOAD_SUBMITITEM;
+  // }
+  // }
+  // return "";
+  // }
 
   /**
    * Saves and submits an item.
@@ -927,105 +1087,192 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-
-
-    // end: check if the item has been changed
     // cleanup item according to genre specific MD specification
     GenreSpecificItemManager itemManager =
         new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
     try {
       this.item = (PubItemVOPresentation) itemManager.cleanupItem();
     } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-    ValidationReportVO report = null;
     try {
-      PubItemVO item = new PubItemVO(getPubItem());
-      report = this.itemValidating.validateItemObject(item, ValidationPoint.SUBMIT_ITEM);
-    } catch (Exception e) {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()));
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-    logger.debug("Validation Report: " + report);
 
-
-    if (report.isValid()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Submitting item...");
-      }
-
-
-
-      // start: check if the item has been changed
-      PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-      PubItemVO oldPubItem = null;
-      if (newPubItem.getVersion().getObjectId() != null) {
-        try {
-          oldPubItem =
-              this.getItemControllerSessionBean().retrieveItem(
-                  newPubItem.getVersion().getObjectId());
-        } catch (Exception e) {
-          logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-          ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
-          return ErrorPage.LOAD_ERRORPAGE;
-        }
-        if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-          if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
-            logger.warn("Item has not been changed.");
-            // create a validation report
-            ValidationReportVO changedReport = new ValidationReportVO();
-            ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-            // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-            changedReportItem.setContent("itemHasNotBeenChanged");
-            changedReport.addItem(changedReportItem);
-            // show report and stay on this page
-            this.showValidationMessages(changedReport);
-            return null;
-          } else {
-            return SubmitItem.LOAD_SUBMITITEM;
-          }
-        }
-      }
-
-
-
-      String retVal = "";
+    // start: check if the item has been changed
+    PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVO oldPubItem = null;
+    if (newPubItem.getVersion().getObjectId() != null) {
       try {
-        retVal =
-            this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM,
-                false);
-      } catch (RuntimeException rE) {
-        logger.error("Error saving item", rE);
-        String message = getMessage("itemHasBeenChangedInTheMeantime");
-        fatal(message);
-        retVal = EditItem.LOAD_EDITITEM;
-        this.valMessage.setRendered(true);
-        return retVal;
+        oldPubItem =
+            this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+      } catch (Exception e) {
+        logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        return ErrorPage.LOAD_ERRORPAGE;
       }
-      if (retVal == null) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-        // set the current submission method to empty string (for GUI purpose)
-        this.getEditItemSessionBean().setCurrentSubmission("");
-        getSubmitItemSessionBean().setNavigationStringToGoBack(
-            MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-        String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
-        info(localMessage);
-        getSubmitItemSessionBean().setMessage(localMessage);
+      if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+        if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+          logger.warn("Item has not been changed.");
+          // create a validation report
+          ValidationReportVO changedReport = new ValidationReportVO();
+          ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+          // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+          changedReportItem.setContent("itemHasNotBeenChanged");
+          changedReport.addItem(changedReportItem);
+          // show report and stay on this page
+          this.showValidationMessages(changedReport);
+          return null;
+        } else {
+          return SubmitItem.LOAD_SUBMITITEM;
+        }
       }
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
-      return retVal;
-    } else {
-      // Item is invalid, do not submit anything.
-      this.showValidationMessages(report);
-      return null;
     }
+
+    String retVal = "";
+    try {
+      retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
+    } catch (RuntimeException rE) {
+      logger.error("Error saving item", rE);
+      String message = getMessage("itemHasBeenChangedInTheMeantime");
+      fatal(message);
+      retVal = EditItem.LOAD_EDITITEM;
+      this.valMessage.setRendered(true);
+      return retVal;
+    }
+
+    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+      // set the current submission method to empty string (for GUI purpose)
+      this.getEditItemSessionBean().setCurrentSubmission("");
+      getSubmitItemSessionBean().setNavigationStringToGoBack(
+          MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+      String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
+      info(localMessage);
+      getSubmitItemSessionBean().setMessage(localMessage);
+    }
+
+    PubItemListSessionBean pubItemListSessionBean =
+        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    if (pubItemListSessionBean != null) {
+      pubItemListSessionBean.update();
+    }
+
+    return retVal;
   }
+
+  // /**
+  // * Saves and submits an item.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // Changed
+  // * by FrM: Inserted validation and call to "enter submission comment" page.
+  // */
+  // public String saveAndSubmit() {
+  // if (!restoreVO()) {
+  // return "";
+  // }
+  //
+  // // end: check if the item has been changed
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+  // try {
+  // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+  // }
+  //
+  // ValidationReportVO report = null;
+  // try {
+  // PubItemVO item = new PubItemVO(getPubItem());
+  // report = this.itemValidating.validateItemObject(item, ValidationPoint.SUBMIT_ITEM);
+  // } catch (Exception e) {
+  // throw new RuntimeException("Validation error", e);
+  // }
+  // logger.debug("Validation Report: " + report);
+  //
+  //
+  // if (report.isValid()) {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Submitting item...");
+  // }
+  //
+  //
+  //
+  // // start: check if the item has been changed
+  // PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+  // PubItemVO oldPubItem = null;
+  // if (newPubItem.getVersion().getObjectId() != null) {
+  // try {
+  // oldPubItem = this.getItemControllerSessionBean()
+  // .retrieveItem(newPubItem.getVersion().getObjectId());
+  // } catch (Exception e) {
+  // logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+  // ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+  // if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+  // logger.warn("Item has not been changed.");
+  // // create a validation report
+  // ValidationReportVO changedReport = new ValidationReportVO();
+  // ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+  // // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+  // changedReportItem.setContent("itemHasNotBeenChanged");
+  // changedReport.addItem(changedReportItem);
+  // // show report and stay on this page
+  // this.showValidationMessages(changedReport);
+  // return null;
+  // } else {
+  // return SubmitItem.LOAD_SUBMITITEM;
+  // }
+  // }
+  // }
+  //
+  //
+  //
+  // String retVal = "";
+  // try {
+  // retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM,
+  // false);
+  // } catch (RuntimeException rE) {
+  // logger.error("Error saving item", rE);
+  // String message = getMessage("itemHasBeenChangedInTheMeantime");
+  // fatal(message);
+  // retVal = EditItem.LOAD_EDITITEM;
+  // this.valMessage.setRendered(true);
+  // return retVal;
+  // }
+  // if (retVal == null) {
+  // this.showValidationMessages(
+  // this.getItemControllerSessionBean().getCurrentItemValidationReport());
+  // } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+  // // set the current submission method to empty string (for GUI purpose)
+  // this.getEditItemSessionBean().setCurrentSubmission("");
+  // getSubmitItemSessionBean()
+  // .setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+  // String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
+  // info(localMessage);
+  // getSubmitItemSessionBean().setMessage(localMessage);
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // } else {
+  // // Item is invalid, do not submit anything.
+  // this.showValidationMessages(report);
+  // return null;
+  // }
+  // }
 
   /**
    * Deletes the current item.
@@ -1116,6 +1363,10 @@ public class EditItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String saveAndAccept() {
+    if (this.getPubItem() == null) {
+      return "";
+    }
+
     if (!restoreVO()) {
       return "";
     }
@@ -1126,125 +1377,228 @@ public class EditItem extends FacesBean {
     try {
       this.item = (PubItemVOPresentation) itemManager.cleanupItem();
     } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
-    ValidationReportVO report = null;
+
     try {
-      report =
-          this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
-              ValidationPoint.ACCEPT_ITEM);
-    } catch (Exception e) {
+      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()));
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-    logger.debug("Validation Report: " + report);
-    if (report.isValid() && !report.hasItems()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Accepting item...");
-      }
-      // check if the item has been changed
-      PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-      PubItemVO oldPubItem = null;
-      try {
-        oldPubItem =
-            this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
-      } catch (Exception e) {
-        logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
-        return ErrorPage.LOAD_ERRORPAGE;
-      }
-      if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
-          logger.warn("Item has not been changed.");
-          // create a validation report
-          ValidationReportVO changedReport = new ValidationReportVO();
-          ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-          // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-          changedReportItem.setContent("itemHasNotBeenChanged");
-          changedReport.addItem(changedReportItem);
-          // show report and stay on this page
-          this.showValidationMessages(changedReport);
-          return null;
-        } else {
-          return AcceptItem.LOAD_ACCEPTITEM;
-        }
-      } else {
-        if (logger.isDebugEnabled()) {
-          logger.debug("Item was changed.");
-        }
-      }
-      String retVal = "";
-      // If item is released, submit it additionally (because it is pending after the save)
-      try {
-        if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
-            .equals(ItemVO.State.RELEASED)) {
-          // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
-          // (save
-          // removed there)
-          this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
-          retVal =
-              this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
-                  "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
-        } else {
-          // only save it
-          retVal =
-              this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM,
-                  false);
-        }
-      }
-      // handle optimistic locking exception
-      catch (RuntimeException rE) {
-        logger.error("Error saving item", rE);
-        String message = getMessage("itemHasBeenChangedInTheMeantime");
-        fatal(message);
-        retVal = EditItem.LOAD_EDITITEM;
-        this.valMessage.setRendered(true);
-        return retVal;
-      }
-      if (retVal == null) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-        // set the current submission method to empty string (for GUI purpose)
-        this.getEditItemSessionBean().setCurrentSubmission("");
-        getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
-        String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
-        info(localMessage);
-        getAcceptItemSessionBean().setMessage(localMessage);
-      }
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
-      return retVal;
-    } else if (report.isValid()) {
-      // TODO FrM: Informative messages
-      String retVal =
-          this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
-      if (retVal == null) {
-        this.showValidationMessages(this.getItemControllerSessionBean()
-            .getCurrentItemValidationReport());
-      } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-        // set the current submission method to empty string (for GUI purpose)
-        this.getEditItemSessionBean().setCurrentSubmission("");
-        getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
-        String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED);
-        info(localMessage);
-        getAcceptItemSessionBean().setMessage(localMessage);
-      }
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
-      return retVal;
-    } else {
-      // Item is invalid, do not accept anything.
-      this.showValidationMessages(report);
-      return null;
+
+    // check if the item has been changed
+    PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVO oldPubItem = null;
+    try {
+      oldPubItem =
+          this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+    } catch (Exception e) {
+      logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      return ErrorPage.LOAD_ERRORPAGE;
     }
+    if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+      if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+        logger.warn("Item has not been changed.");
+        // create a validation report
+        ValidationReportVO changedReport = new ValidationReportVO();
+        ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+        // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+        changedReportItem.setContent("itemHasNotBeenChanged");
+        changedReport.addItem(changedReportItem);
+        // show report and stay on this page
+        this.showValidationMessages(changedReport);
+        return null;
+      } else {
+        return AcceptItem.LOAD_ACCEPTITEM;
+      }
+    } else {
+      if (logger.isDebugEnabled()) {
+        logger.debug("Item was changed.");
+      }
+    }
+    String retVal = "";
+    // If item is released, submit it additionally (because it is pending after the save)
+    try {
+      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
+          .equals(ItemVO.State.RELEASED)) {
+        // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
+        // (save
+        // removed there)
+        this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
+        retVal =
+            this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+                "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+      } else {
+        // only save it
+        retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
+      }
+    }
+    // handle optimistic locking exception
+    catch (RuntimeException rE) {
+      logger.error("Error saving item", rE);
+      String message = getMessage("itemHasBeenChangedInTheMeantime");
+      fatal(message);
+      retVal = EditItem.LOAD_EDITITEM;
+      this.valMessage.setRendered(true);
+      return retVal;
+    }
+
+    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+      // set the current submission method to empty string (for GUI purpose)
+      this.getEditItemSessionBean().setCurrentSubmission("");
+      getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+      String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
+      info(localMessage);
+      getAcceptItemSessionBean().setMessage(localMessage);
+    }
+
+    PubItemListSessionBean pubItemListSessionBean =
+        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    if (pubItemListSessionBean != null) {
+      pubItemListSessionBean.update();
+    }
+
+    return retVal;
   }
 
+  // /**
+  // * Saves and accepts an item.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String saveAndAccept() {
+  // if (!restoreVO()) {
+  // return "";
+  // }
+  //
+  // // cleanup item according to genre specific MD specification
+  // GenreSpecificItemManager itemManager =
+  // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+  // try {
+  // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+  // }
+  // ValidationReportVO report = null;
+  // try {
+  // report =
+  // this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
+  // ValidationPoint.ACCEPT_ITEM);
+  // } catch (Exception e) {
+  // throw new RuntimeException("Validation error", e);
+  // }
+  // logger.debug("Validation Report: " + report);
+  // if (report.isValid() && !report.hasItems()) {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Accepting item...");
+  // }
+  // // check if the item has been changed
+  // PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+  // PubItemVO oldPubItem = null;
+  // try {
+  // oldPubItem =
+  // this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+  // } catch (Exception e) {
+  // logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+  // ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+  // if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+  // logger.warn("Item has not been changed.");
+  // // create a validation report
+  // ValidationReportVO changedReport = new ValidationReportVO();
+  // ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+  // // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+  // changedReportItem.setContent("itemHasNotBeenChanged");
+  // changedReport.addItem(changedReportItem);
+  // // show report and stay on this page
+  // this.showValidationMessages(changedReport);
+  // return null;
+  // } else {
+  // return AcceptItem.LOAD_ACCEPTITEM;
+  // }
+  // } else {
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("Item was changed.");
+  // }
+  // }
+  // String retVal = "";
+  // // If item is released, submit it additionally (because it is pending after the save)
+  // try {
+  // if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
+  // .equals(ItemVO.State.RELEASED)) {
+  // // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
+  // // (save
+  // // removed there)
+  // this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+  // retVal =
+  // this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+  // "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+  // } else {
+  // // only save it
+  // retVal =
+  // this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM,
+  // false);
+  // }
+  // }
+  // // handle optimistic locking exception
+  // catch (RuntimeException rE) {
+  // logger.error("Error saving item", rE);
+  // String message = getMessage("itemHasBeenChangedInTheMeantime");
+  // fatal(message);
+  // retVal = EditItem.LOAD_EDITITEM;
+  // this.valMessage.setRendered(true);
+  // return retVal;
+  // }
+  // if (retVal == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+  // // set the current submission method to empty string (for GUI purpose)
+  // this.getEditItemSessionBean().setCurrentSubmission("");
+  // getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+  // String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
+  // info(localMessage);
+  // getAcceptItemSessionBean().setMessage(localMessage);
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // } else if (report.isValid()) {
+  // // TODO FrM: Informative messages
+  // String retVal =
+  // this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+  // if (retVal == null) {
+  // this.showValidationMessages(this.getItemControllerSessionBean()
+  // .getCurrentItemValidationReport());
+  // } else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+  // // set the current submission method to empty string (for GUI purpose)
+  // this.getEditItemSessionBean().setCurrentSubmission("");
+  // getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+  // String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED);
+  // info(localMessage);
+  // getAcceptItemSessionBean().setMessage(localMessage);
+  // }
+  // PubItemListSessionBean pubItemListSessionBean =
+  // (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  // if (pubItemListSessionBean != null) {
+  // pubItemListSessionBean.update();
+  // }
+  // return retVal;
+  // } else {
+  // // Item is invalid, do not accept anything.
+  // this.showValidationMessages(report);
+  // return null;
+  // }
+  // }
 
   public String logUploadComplete() {
     logger.info("upload complete");
@@ -1323,7 +1677,7 @@ public class EditItem extends FacesBean {
     if (file != null) {
       try {
         // upload the file
-        LoginHelper loginHelper = (LoginHelper) this.getSessionBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         URL url = null;
         if (loginHelper.getAccountUser().isDepositor()) {
           url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
@@ -1338,7 +1692,7 @@ public class EditItem extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getBean(ErrorPage.class)).setException(e);
         // force JSF to load the ErrorPage
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
@@ -1655,18 +2009,17 @@ public class EditItem extends FacesBean {
     return null;
   }
 
-  /**
-   * Evaluates if the EditItem should be in modify mode.
-   * 
-   * @return true if modify mode should be on
-   */
-  private boolean isInModifyMode() {
-    boolean isModifyMode =
-        this.getPubItem().getVersion().getState() != null
-            && (this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED) || this
-                .getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED));
-    return isModifyMode;
-  }
+  // /**
+  // * Evaluates if the EditItem should be in modify mode.
+  // *
+  // * @return true if modify mode should be on
+  // */
+  // private boolean isInModifyMode() {
+  // boolean isModifyMode = this.getPubItem().getVersion().getState() != null
+  // && (this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED)
+  // || this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED));
+  // return isModifyMode;
+  // }
 
   /**
    * Returns the AffiliationSessionBean.
