@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -36,8 +34,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Michael Franke, created 02.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class NoSearchResultsPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(NoSearchResultsPage.class);
   public static final String BEAN_NAME = "NoSearchResultsPage";
 
   /**
@@ -54,8 +52,6 @@ public class NoSearchResultsPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
-
   }
 
   @Override

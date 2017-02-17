@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @author Tobias Schraut, created 03.09.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ViewItemFullPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(ViewItemFullPage.class);
 

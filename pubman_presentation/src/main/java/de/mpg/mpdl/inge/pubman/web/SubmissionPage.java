@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class SubmissionPage extends BreadcrumbPage {
   @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(SubmissionPage.class);

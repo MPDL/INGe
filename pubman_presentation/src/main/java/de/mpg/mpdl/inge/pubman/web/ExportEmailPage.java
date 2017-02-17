@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
@@ -38,10 +36,8 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ExportEmailPage extends BreadcrumbPage {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(ExportEmailPage.class);
-
   /**
    * Public constructor
    */

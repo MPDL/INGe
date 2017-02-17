@@ -26,12 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
+@SuppressWarnings("serial")
 public class BrowseByBreadcrumbPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(BrowseByBreadcrumbPage.class);
   public static final String BEAN_NAME = "BrowseByBreadcrumbPage";
 
   public BrowseByBreadcrumbPage() {

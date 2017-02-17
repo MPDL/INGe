@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ReviseItemPage extends BreadcrumbPage {
   /**
    * Public constructor.

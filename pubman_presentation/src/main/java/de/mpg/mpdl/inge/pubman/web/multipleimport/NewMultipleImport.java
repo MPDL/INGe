@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -38,10 +36,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision: 4287 $ $LastChangedDate: 2011-03-10 14:23:22 +0100 (Do, 10 Mrz 2011) $
  * 
  */
+@SuppressWarnings("serial")
 public class NewMultipleImport extends BreadcrumbPage {
-
-  private static final Logger logger = Logger.getLogger(NewMultipleImport.class);
-
   public static final String BEAN_NAME = "NewMultipleImport";
 
   public NewMultipleImport() {

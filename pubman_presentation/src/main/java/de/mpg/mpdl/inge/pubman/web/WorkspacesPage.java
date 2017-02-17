@@ -35,18 +35,16 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
-
 /**
  * BackingBean for Workspaces Page (WorkspacesPage.jsp).
  * 
  */
+@SuppressWarnings("serial")
 public class WorkspacesPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(WorkspacesPage.class);
   public static final String BEAN_NAME = "WorkspacesPage";
   // The referring GUI Tool Page
   public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
-
-
 
   /**
    * Public constructor.
@@ -81,7 +79,6 @@ public class WorkspacesPage extends BreadcrumbPage {
     return "";
   }
 
-
   /**
    * Returns the ViewItemSessionBean.
    * 
@@ -90,7 +87,6 @@ public class WorkspacesPage extends BreadcrumbPage {
   protected ViewItemSessionBean getViewItemSessionBean() {
     return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
-
 
   @Override
   public boolean isItemSpecific() {

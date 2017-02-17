@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
@@ -37,8 +35,8 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @author: Tobias Schraut, created 22.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ViewItemRevisionsPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(ViewItemRevisionsPage.class);
   public static final String BEAN_NAME = "ViewItemRevisionsPage";
   // Faces navigation string
   public static final String LOAD_VIEWREVISIONS = "loadViewRevisions";

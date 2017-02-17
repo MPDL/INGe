@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
-
 /**
  * Backing Bean for ViewStatisticsPage.jsp
  * 
@@ -38,9 +37,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ViewItemStatisticsPage extends BreadcrumbPage {
   public static final String LOAD_VIEWSTATISTICS = "loadViewStatistics";
-
 
   /**
    * Public constructor.
@@ -55,10 +54,9 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+   super.init();
 
   }
-
 
   /**
    * Returns the ViewItemSessionBean.

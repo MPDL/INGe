@@ -44,6 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
 
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;

@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
  * 
  */
+@SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(ReportWorkspacePage.class);
   public static final String BEAN_NAME = "ReportWorkspacePage";

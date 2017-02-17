@@ -26,12 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
+@SuppressWarnings("serial")
 public class SearchResultListPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(SearchResultListPage.class);
   public static final String BEAN_NAME = "SearchResultListPage";
 
   public SearchResultListPage() {
@@ -42,6 +40,4 @@ public class SearchResultListPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
-
 }

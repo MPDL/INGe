@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Tobias Schraut, created 14.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 13.09.2007
  */
+@SuppressWarnings("serial")
 public class AffiliationTreePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
 

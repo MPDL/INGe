@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.appbase;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -25,9 +24,9 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
 
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(BreadcrumbPage.class);
 
   private BreadcrumbItem previousItem = null;
@@ -46,7 +45,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     String pageName = page.substring(0, page.lastIndexOf("."));
 
     // -----
-    Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
+//    Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
 
 
     HttpServletRequest requ = (HttpServletRequest) fc.getExternalContext().getRequest();

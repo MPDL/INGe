@@ -24,8 +24,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -36,8 +34,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookArchivePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(YearbookArchivePage.class);
   public static final String BEAN_NAME = "YearbookArchivePage";
 
   public YearbookArchivePage() {

@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(HomePage.class);
   public static final String BEAN_NAME = "HomePage";

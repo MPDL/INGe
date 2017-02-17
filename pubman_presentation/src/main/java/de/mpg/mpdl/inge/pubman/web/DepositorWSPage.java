@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 public class DepositorWSPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(DepositorWSPage.class);
   public static final String BEAN_NAME = "DepositorWSPage";

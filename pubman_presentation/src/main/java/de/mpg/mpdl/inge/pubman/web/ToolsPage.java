@@ -26,10 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-
 
 /**
  * BackingBean for Workspaces Page (ToolsPage.jsp).
@@ -39,10 +36,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision: 4371 $ $LastChangedDate: 2011-03-23 13:25:53 +0100 (Mi, 23 Mrz 2011) $
  * 
  */
+@SuppressWarnings("serial")
 public class ToolsPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(ToolsPage.class);
   public static final String BEAN_NAME = "ToolsPage";
-
 
   /**
    * Public constructor.

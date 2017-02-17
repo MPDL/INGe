@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
+@SuppressWarnings("serial")
 public class WithdrawItemPage extends BreadcrumbPage {
   /**
    * Public constructor.

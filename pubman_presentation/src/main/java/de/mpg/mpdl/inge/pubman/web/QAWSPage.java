@@ -44,11 +44,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(QAWSPage.class);
   public static final String BEAN_NAME = "QAWSPage";
-
-
 
   /**
    * Public constructor.

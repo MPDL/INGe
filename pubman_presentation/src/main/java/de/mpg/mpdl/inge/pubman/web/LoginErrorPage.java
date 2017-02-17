@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -36,10 +34,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Tobias Schraut, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
+@SuppressWarnings("serial")
 public class LoginErrorPage extends BreadcrumbPage {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(LoginErrorPage.class);
-
   /**
    * Public constructor
    */
