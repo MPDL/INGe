@@ -58,7 +58,7 @@ public class ErrorPage extends BreadcrumbPage {
   // Faces navigation string
   public final static String LOAD_ERRORPAGE = "loadErrorPage";
   // Faces navigation string for GUI Tool
-  public final static String GT_LOAD_ERRORPAGE = "loadGTErrorPage";
+//  public final static String GT_LOAD_ERRORPAGE = "loadGTErrorPage";
   // The referring GUI Tool Page
   public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
   // JSP-Name for avoiding JSF-Navigation

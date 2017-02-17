@@ -123,8 +123,8 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 public class EditItem extends FacesBean {
-  private static final long serialVersionUID = 1L;
   public static final String BEAN_NAME = "EditItem";
   private static Logger logger = Logger.getLogger(EditItem.class);
   public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";

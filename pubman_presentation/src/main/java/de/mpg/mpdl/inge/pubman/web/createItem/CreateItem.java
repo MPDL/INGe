@@ -56,9 +56,6 @@ public class CreateItem extends FacesBean {
   }
 
   public static final String BEAN_NAME = "CreateItem";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(CreateItem.class);
-
   private String target = EditItem.LOAD_EDITITEM;
 
   private SubmissionMethod method = SubmissionMethod.FULL_SUBMISSION;

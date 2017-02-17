@@ -135,6 +135,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author Tobias Schraut, created 03.09.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ViewItemFull extends FacesBean {
   private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
   private static Logger logger = Logger.getLogger(ViewItemFull.class);

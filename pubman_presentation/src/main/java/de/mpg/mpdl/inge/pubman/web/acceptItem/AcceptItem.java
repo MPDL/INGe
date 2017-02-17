@@ -53,6 +53,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@SuppressWarnings("serial")
 public class AcceptItem extends FacesBean {
   private static Logger logger = Logger.getLogger(AcceptItem.class);
   // Faces navigation string

@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -35,10 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class CreateItemPage extends FacesBean {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(CreateItemPage.class);
-
   /**
    * Public constructor
    */
@@ -55,7 +51,5 @@ public class CreateItemPage extends FacesBean {
     // Perform initializations inherited from our superclass
     super.init();
     checkForLogin();
-
   }
-
 }
