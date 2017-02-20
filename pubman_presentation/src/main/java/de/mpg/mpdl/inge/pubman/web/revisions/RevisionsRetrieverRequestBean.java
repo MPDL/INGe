@@ -20,10 +20,12 @@ import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class RevisionsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
 
   private int numberOfRecords;
+  
   // Faces navigation string
   public final static String LOAD_REVISION_LIST = "loadRevisionList";
 

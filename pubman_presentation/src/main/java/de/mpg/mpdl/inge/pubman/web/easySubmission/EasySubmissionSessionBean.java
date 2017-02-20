@@ -71,7 +71,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private final String REFERENCE_FILE = "FILE";
   private final String REFERENCE_LOCATOR = "LOCATOR";
 
-
   private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
 
   private String currentSubmissionStep = ES_STEP1;
@@ -101,14 +100,14 @@ public class EasySubmissionSessionBean extends EditItemBean {
 
   private String radioSelectFulltext;
 
-
   private boolean importSourceRefresh = false;
-  public SelectItem[] FULLTEXT_OPTIONS;
-  public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-  public SelectItem[] REFERENCE_OPTIONS;
-
+  
+  private SelectItem[] FULLTEXT_OPTIONS;
+  private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+  private SelectItem[] REFERENCE_OPTIONS;
 
   private String genreBundle = "Genre_ARTICLE";
+  
   /**
    * A creator bean that holds the data from the author copy&paste organizations
    */
@@ -173,7 +172,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.context = context;
   }
 
-
   /*
    * public PubItemVO getCurrentItem() { return currentItem; }
    * 
@@ -229,7 +227,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.currentlySelecting = currentlySelecting;
   }
 
-
   public String getSelectedDate() {
     return selectedDate;
   }
@@ -249,7 +246,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public boolean isImportSourceRefresh() {
     return importSourceRefresh;
   }
-
 
   public void setImportSourceRefresh(boolean importSourceRefresh) {
     this.importSourceRefresh = importSourceRefresh;
@@ -277,7 +273,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
     return EXTERNAL_SERVICE_OPTIONS;
   }
-
 
   public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
     EXTERNAL_SERVICE_OPTIONS = external_service_options;
@@ -326,7 +321,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
     return showAuthorCopyPaste;
   }
 
-
   @Override
   public String getCreatorParseString() {
     return creatorParseString;
@@ -336,7 +330,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public void setCreatorParseString(String creatorParseString) {
     this.creatorParseString = creatorParseString;
   }
-
 
   public SelectItem[] getREFERENCE_OPTIONS() {
     this.REFERENCE_OPTIONS =

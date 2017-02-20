@@ -15,7 +15,6 @@ import javax.faces.event.PhaseListener;
 
 import org.apache.log4j.Logger;
 
-
 /**
  * 
  * With this listener, it can be avoided that Faces Messages are lost when doing an redirect instead
@@ -26,8 +25,9 @@ import org.apache.log4j.Logger;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class FacesMessagesPhaseListener implements PhaseListener {
-  private Logger logger = Logger.getLogger(FacesMessagesPhaseListener.class);
+  private static final Logger logger = Logger.getLogger(FacesMessagesPhaseListener.class);
 
   private static final String sessionToken = "REDIRECT_MESSAGES_SUPPORT";
 
@@ -64,11 +64,9 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    * @param context
    */
   private void removeFromCache(FacesContext context) {
-
     getMessageCache(context).clear();
     logger.trace("Message Cache cleared");
   }
-
 
   /**
    * Caches messages from current faces context to a session object
@@ -98,7 +96,6 @@ public class FacesMessagesPhaseListener implements PhaseListener {
     logger.trace("Saved " + cachedCount + " messages in cache");
     return cachedCount;
   }
-
 
   /**
    * Restores messages from session to faces context

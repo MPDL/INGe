@@ -26,14 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.appbase;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
@@ -41,13 +36,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.mpdl.inge.pubman.web.statistics.StatisticSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
@@ -57,48 +48,39 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @author Mario Wagner
  * @version
  */
+@SuppressWarnings("serial")
 public class FacesBean extends InternationalizedImpl implements Serializable {
+  public static final String BEAN_NAME = FacesBean.class.getName();
 
-  private static Logger logger = Logger.getLogger(FacesBean.class);
-  public static String BEAN_NAME = FacesBean.class.getName();
+  private static final Logger logger = Logger.getLogger(FacesBean.class);
 
   public FacesBean() {
-    super();
-    // Call statistic session bean in order to log user
-
-
-
   }
 
   /**
    * Dummy method to please derived classes.
    */
   protected void init() {
-
-    // testLogin();
-    getSessionBean(StatisticSessionBean.class);
-    // restore messages if from redirect
-    // ((FacesMessagesSessionBean)
-    // getSessionBean(FacesMessagesSessionBean.class)).restoreMessages();
+//    getSessionBean(StatisticSessionBean.class);
   }
 
   /**
    * Dummy method to please derived classes.
    */
   protected void prerender() {
-    logger.debug("prerender");
+//    logger.debug("prerender");
   }
 
-  /**
-   * Return the <code>Application</code> instance for the current web application.
-   * 
-   * @return <code>Application</code>
-   */
-  public static Application getApplication() {
-    ApplicationFactory factory =
-        (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-    return factory.getApplication();
-  }
+//  /**
+//   * Return the <code>Application</code> instance for the current web application.
+//   * 
+//   * @return <code>Application</code>
+//   */
+//  public static Application getApplication() {
+//    ApplicationFactory factory =
+//        (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+//    return factory.getApplication();
+//  }
 
   /**
    * Return the <code>FacesContext</code> instance for the current request.
@@ -118,30 +100,30 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     return getFacesContext().getExternalContext();
   }
 
-  /**
-   * Check if a user is already logged in.
-   */
-  protected void testLogin() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    logger.debug("Checking login: " + loginHelper);
-    if (!loginHelper.isLoggedIn()) {
-      try {
-        try {
-          loginHelper.insertLogin();
-        } catch (UnmarshallingException e) {
-          logger.error(e.toString(), e);
-        } catch (TechnicalException e) {
-          logger.error(e.toString(), e);
-        } catch (ServiceException e) {
-          logger.error(e.toString(), e);
-        } catch (URISyntaxException e) {
-          logger.error(e.toString(), e);
-        }
-      } catch (IOException e1) {
-        logger.debug(e1.toString());
-      }
-    }
-  }
+//  /**
+//   * Check if a user is already logged in.
+//   */
+//  protected void testLogin() {
+//    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+//    logger.debug("Checking login: " + loginHelper);
+//    if (!loginHelper.isLoggedIn()) {
+//      try {
+//        try {
+//          loginHelper.insertLogin();
+//        } catch (UnmarshallingException e) {
+//          logger.error(e.toString(), e);
+//        } catch (TechnicalException e) {
+//          logger.error(e.toString(), e);
+//        } catch (ServiceException e) {
+//          logger.error(e.toString(), e);
+//        } catch (URISyntaxException e) {
+//          logger.error(e.toString(), e);
+//        }
+//      } catch (IOException e1) {
+//        logger.debug(e1.toString());
+//      }
+//    }
+//  }
 
   /**
    * Return any bean stored in request, session or application scope under the specified name.
@@ -154,6 +136,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   @Deprecated
   public static synchronized Object getBean(final Class<?> cls) {
     String name = null;
+    
     try {
       name = (String) cls.getField("BEAN_NAME").get(new String());
     } catch (IllegalAccessException iae) {
@@ -165,7 +148,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     Object bean =
         FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
             .getValue(FacesContext.getCurrentInstance());
-    logger.debug("Getting bean " + name + ": " + bean);
+    
     return bean;
   }
 
@@ -357,9 +340,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
    * @param summary summary text
    */
   public static void message(String summary, String detail, UIComponent component, Severity severity) {
-
     FacesMessage fm = new FacesMessage(severity, summary, detail);
-
 
     if (component == null) {
       getFacesContext().addMessage(null, fm);
@@ -394,15 +375,18 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
         return true;
       }
     }
+    
     return false;
   }
 
   public int getNumberOfMessages() {
     int number = 0;
+    
     for (Iterator<FacesMessage> i = getFacesContext().getMessages(); i.hasNext();) {
       i.next();
       number++;
     }
+    
     return number;
   }
 
@@ -427,13 +411,11 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   }
 
   protected void checkForLogin() {
-
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     // if not logged in redirect to login page
     if (!loginHelper.isLoggedIn()) {
       info(getMessage("NotLoggedIn"));
     }
-
   }
 
 }

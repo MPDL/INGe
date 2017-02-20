@@ -26,7 +26,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
  */
 @SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
-
   private static final Logger logger = Logger.getLogger(BreadcrumbPage.class);
 
   private BreadcrumbItem previousItem = null;
@@ -35,7 +34,6 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-
     super.init();
 
     logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
@@ -47,13 +45,11 @@ public abstract class BreadcrumbPage extends FacesBean {
     // -----
     // Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
 
-
     HttpServletRequest requ = (HttpServletRequest) fc.getExternalContext().getRequest();
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
     if (requ.getQueryString() != null && !pageName.equals("HomePage")) {
       page += "?" + requ.getQueryString();
     }
-
 
     /*
      * String itemId = parameterMap.get("itemId"); if (itemId!=null) { page += "?itemId="+itemId; }
@@ -93,7 +89,6 @@ public abstract class BreadcrumbPage extends FacesBean {
     }
   }
 
-
   public String getPreviousPageURI() {
     return previousItem.getPage();
   }
@@ -114,13 +109,13 @@ public abstract class BreadcrumbPage extends FacesBean {
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }
+    
     return null;
   }
 
   protected Method getDefaultAction() throws NoSuchMethodException {
     return null;
   }
-
 
   public abstract boolean isItemSpecific();
 

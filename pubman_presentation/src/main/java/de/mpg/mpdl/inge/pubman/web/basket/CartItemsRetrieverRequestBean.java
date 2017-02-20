@@ -32,15 +32,17 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class CartItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   public static final String BEAN_NAME = "CartItemsRetrieverRequestBean";
-  private int numberOfRecords;
-
+  
+  private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+  
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED =
       "deleteItemsFromBasket_NoItemSelected";
 
-  Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+  private int numberOfRecords;
 
   @EJB
   XmlTransforming xmlTransforming;
@@ -191,9 +193,7 @@ public class CartItemsRetrieverRequestBean extends
           getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
-
   }
-
 
   /**
    * Called when the export format list should be updated. Workaround. Method needs to be called
@@ -203,7 +203,6 @@ public class CartItemsRetrieverRequestBean extends
   public void updateExportOptions() {
     ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
     exportItemsBean.updateExportFormats();
-
   }
 
 }

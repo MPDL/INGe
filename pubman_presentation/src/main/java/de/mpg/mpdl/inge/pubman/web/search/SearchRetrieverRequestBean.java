@@ -41,12 +41,12 @@ import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class SearchRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+  public static final String BEAN_NAME = "SearchRetrieverRequestBean";
 
-  public static String BEAN_NAME = "SearchRetrieverRequestBean";
-
-  private static Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
+  private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**
    * The HTTP-GET parameter name for the cql query

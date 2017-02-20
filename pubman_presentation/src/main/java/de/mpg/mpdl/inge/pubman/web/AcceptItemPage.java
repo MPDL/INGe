@@ -61,7 +61,7 @@ public class AcceptItemPage extends BreadcrumbPage {
    */
   @Override
   public void prerender() {
-    super.prerender();
+//    super.prerender();
     AcceptItem fragment = (AcceptItem) getBean(AcceptItem.class);
     fragment.handleMessage();
   }

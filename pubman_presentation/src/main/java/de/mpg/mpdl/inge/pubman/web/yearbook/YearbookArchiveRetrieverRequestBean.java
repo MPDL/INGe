@@ -35,10 +35,13 @@ import de.mpg.mpdl.inge.search.Search;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookArchiveRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
   public static final String BEAN_NAME = "YearbookArchiveRetrieverRequestBean";
+
+  private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
+
   private String selectedSortOrder;
   private static String parameterSelectedOrgUnit = "orgUnit";
   private int numberOfRecords;
@@ -170,9 +173,8 @@ public class YearbookArchiveRetrieverRequestBean extends
         filter.getFilterList().add(sortFilter);
       }
 
-      String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
-              filter.toMap());
+      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
+          .retrieveItems(filter.toMap());
 
       SearchRetrieveResponseVO result =
           xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);

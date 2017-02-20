@@ -655,7 +655,7 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Validation error", e);
     } catch (Exception e) {
       logger.error("Could not validate item." + "\n" + e.toString(), e);
-      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -1702,7 +1702,7 @@ public class EditItem extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         // force JSF to load the ErrorPage
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");

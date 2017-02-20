@@ -64,7 +64,7 @@ public class ReviseItemPage extends BreadcrumbPage {
    */
   @Override
   public void prerender() {
-    super.prerender();
+//    super.prerender();
     SubmitItem fragment = (SubmitItem) getBean(SubmitItem.class);
     fragment.handleMessage();
   }

@@ -119,17 +119,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 25.04.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {
-
   public static final String BEAN_NAME = "ItemControllerSessionBean";
 
-  private static final long serialVersionUID = 8235607890711998557L;
-
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+  
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
-
-  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
   @EJB
   private PubItemDepositing pubItemDepositing;
@@ -151,6 +148,8 @@ public class ItemControllerSessionBean extends FacesBean {
   private DataGathering dataGathering;
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
+
+  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
   // private ValidationReportVO currentItemValidationReport_ = null;
   private PubItemVOPresentation currentPubItem = null;
@@ -184,10 +183,6 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String createNewPubItem(final String navigationRuleWhenSuccessful,
       final ContextRO pubContextRO) {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Creating a new PubItem.");
-    }
-
     try {
       // creating a new item
       PubItemVOPresentation newPubItem = this.createNewPubItem(pubContextRO);
@@ -1961,7 +1956,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     } catch (Exception e) {
       logger.error("Could not accept item." + "\n" + e.toString(), e);
-      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }

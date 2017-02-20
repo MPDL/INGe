@@ -51,19 +51,20 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
  */
 @SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
+  public static final String BEAN_NAME = "CreateItem";
+  
   private static final Logger logger = Logger.getLogger(CreateItem.class);
 
   public enum SubmissionMethod {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION
   }
 
-  public static final String BEAN_NAME = "CreateItem";
-  private String target = EditItem.LOAD_EDITITEM;
-
   private SubmissionMethod method = SubmissionMethod.FULL_SUBMISSION;
 
   // Faces navigation string
   public final static String LOAD_CREATEITEM = "loadCreateItem";
+  private String target = EditItem.LOAD_EDITITEM;
+  
 
   /**
    * Public constructor.
@@ -78,7 +79,6 @@ public class CreateItem extends FacesBean {
    */
   public void init() {
     super.init();
-
   }
 
   public String confirmSelection() {
@@ -91,7 +91,6 @@ public class CreateItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String newSubmission() {
-
     target = EditItem.LOAD_EDITITEM;
     method = SubmissionMethod.FULL_SUBMISSION;
     String genreBundle = "Genre_ARTICLE";
