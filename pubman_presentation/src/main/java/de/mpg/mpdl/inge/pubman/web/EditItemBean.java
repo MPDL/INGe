@@ -67,7 +67,7 @@ public class EditItemBean extends FacesBean {
   public void initOrganizationsFromCreators() {
     List<OrganizationVOPresentation> creatorOrganizations =
         new ArrayList<OrganizationVOPresentation>();
-//    int counter = 1;
+    // int counter = 1;
     for (CreatorVOPresentation creator : this.creators) {
 
       if (creator.getType() == CreatorType.PERSON) {
@@ -83,7 +83,7 @@ public class EditItemBean extends FacesBean {
                 organizationPresentation.setName("");
               }
               creatorOrganizations.add(organizationPresentation);
-//              counter++;
+              // counter++;
             }
           }
         }
@@ -99,9 +99,9 @@ public class EditItemBean extends FacesBean {
     this.creatorOrganizations = creatorOrganizations;
   }
 
-//  public int getCreatorsSize() {
-//    return creators.size();
-//  }
+  // public int getCreatorsSize() {
+  // return creators.size();
+  // }
 
   /**
    * Returns the content(set by javascript) from a hidden input field that indicates whether the

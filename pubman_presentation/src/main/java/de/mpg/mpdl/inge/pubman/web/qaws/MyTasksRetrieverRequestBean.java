@@ -66,7 +66,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   // Faces navigation string
   public static final String LOAD_QAWS = "loadQAWSPage";
 
-//  private Map<String, AffiliationVOPresentation> affiliationMap;
+  // private Map<String, AffiliationVOPresentation> affiliationMap;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -203,30 +203,30 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   }
 
-//  /**
-//   * Adds organization filters to the given FilterTaskParam for the given affiliation and
-//   * recursively for all its children.
-//   * 
-//   * @param aff
-//   * @param filter
-//   */
-//  private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter) {
-//    try {
-//      AffiliationVOPresentation affiliation = aff;
-//      Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
-//      filter.getFilterList().add(f);
-//
-//      if (aff.getHasChildren()) {
-//        for (AffiliationVOPresentation childAff : aff.getChildren()) {
-//          addOrgFiltersRecursive(childAff, filter);
-//        }
-//      }
-//    } catch (Exception e) {
-//      logger.error("Error in retrieving organizations", e);
-//      error("Couldn't retrieve all organizational units for the filter menu");
-//    }
-//
-//  }
+  // /**
+  // * Adds organization filters to the given FilterTaskParam for the given affiliation and
+  // * recursively for all its children.
+  // *
+  // * @param aff
+  // * @param filter
+  // */
+  // private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter) {
+  // try {
+  // AffiliationVOPresentation affiliation = aff;
+  // Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
+  // filter.getFilterList().add(f);
+  //
+  // if (aff.getHasChildren()) {
+  // for (AffiliationVOPresentation childAff : aff.getChildren()) {
+  // addOrgFiltersRecursive(childAff, filter);
+  // }
+  // }
+  // } catch (Exception e) {
+  // logger.error("Error in retrieving organizations", e);
+  // error("Couldn't retrieve all organizational units for the filter menu");
+  // }
+  //
+  // }
 
   /**
    * Reads out the parameters from HTTP-GET request for the selected item state and the selected
@@ -367,7 +367,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
      * setItemStateSelectItems(itemStateSelectItems);
      */
 
-//    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // Contexts (Collections)
     ContextListSessionBean clsb =

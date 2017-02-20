@@ -62,7 +62,7 @@ public class EditItemSessionBean extends EditItemBean {
   /**
    * A creator bean that holds the data from the author copy&paste organizations
    */
-//  private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+  // private CreatorBean authorCopyPasteOrganizationsCreatorBean;
 
   private List<SourceBean> sources = new ArrayList<SourceBean>();
 
@@ -87,7 +87,7 @@ public class EditItemSessionBean extends EditItemBean {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-//    initAuthorCopyPasteCreatorBean();
+    // initAuthorCopyPasteCreatorBean();
   }
 
   /**
@@ -109,7 +109,7 @@ public class EditItemSessionBean extends EditItemBean {
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
-//    initAuthorCopyPasteCreatorBean();
+    // initAuthorCopyPasteCreatorBean();
   }
 
   /**
@@ -203,33 +203,33 @@ public class EditItemSessionBean extends EditItemBean {
     this.sources = sources;
   }
 
-//  /**
-//   * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste
-//   * organizations.
-//   */
-//  public void initAuthorCopyPasteCreatorBean() {
-////    CreatorVO newVO = new CreatorVO();
-//    // TODO MF.
-//  }
+  // /**
+  // * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste
+  // * organizations.
+  // */
+  // public void initAuthorCopyPasteCreatorBean() {
+  // // CreatorVO newVO = new CreatorVO();
+  // // TODO MF.
+  // }
 
-//  /**
-//   * Sets the CreatorBean that manages the author copy&paste organizations.
-//   * 
-//   * @param authorCopyPasteOrganizationsCreatorBean
-//   */
-//  public void setAuthorCopyPasteOrganizationsCreatorBean(
-//      CreatorBean authorCopyPasteOrganizationsCreatorBean) {
-//    this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
-//  }
+  // /**
+  // * Sets the CreatorBean that manages the author copy&paste organizations.
+  // *
+  // * @param authorCopyPasteOrganizationsCreatorBean
+  // */
+  // public void setAuthorCopyPasteOrganizationsCreatorBean(
+  // CreatorBean authorCopyPasteOrganizationsCreatorBean) {
+  // this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
+  // }
 
-//  /**
-//   * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
-//   * 
-//   * @return
-//   */
-//  public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
-//    return authorCopyPasteOrganizationsCreatorBean;
-//  }
+  // /**
+  // * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
+  // *
+  // * @return
+  // */
+  // public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
+  // return authorCopyPasteOrganizationsCreatorBean;
+  // }
 
   public String getCurrentSubmission() {
     return currentSubmission;

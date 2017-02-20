@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 @SuppressWarnings("serial")
 public class ViewItemRevisionsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemRevisionsPage";
-  
+
   // Faces navigation string
   public static final String LOAD_VIEWREVISIONS = "loadViewRevisions";
 

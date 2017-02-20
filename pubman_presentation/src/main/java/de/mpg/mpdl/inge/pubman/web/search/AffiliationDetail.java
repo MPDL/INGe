@@ -44,8 +44,9 @@ public class AffiliationDetail {
   private boolean renderDetails = false;
 
   private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
-//  private HtmlPanelGroup panDetail = new HtmlPanelGroup();
-//  private HtmlOutputText txtName = new HtmlOutputText();
+
+  // private HtmlPanelGroup panDetail = new HtmlPanelGroup();
+  // private HtmlOutputText txtName = new HtmlOutputText();
 
   /**
    * Public constructor.

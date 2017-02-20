@@ -53,7 +53,7 @@ public class QAWSSessionBean extends FacesBean {
   /** value for the selected collection */
   private String selectedContextId = null;
 
-//  private AffiliationVO selectedAffiliationVO;
+  // private AffiliationVO selectedAffiliationVO;
 
   /** value for the selected organizational unit */
   private String selectedOUId = null;

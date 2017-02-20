@@ -50,7 +50,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   private String exportFormatType = "LAYOUT";
   private String exportFormatName = "APA";
-//  private String fileFormat = FileFormatVO.PDF_NAME;
+  // private String fileFormat = FileFormatVO.PDF_NAME;
   private ExportFormatVO curExportFormatVO = new ExportFormatVO();
   private FileFormatVO curFileFormatVO = new FileFormatVO();
 
@@ -196,7 +196,7 @@ public class ExportItemsSessionBean extends FacesBean {
     )
       fileFormat = FileFormatVO.TEXT_NAME;
 
-//    this.fileFormat = fileFormat;
+    // this.fileFormat = fileFormat;
 
     curFileFormatVO.setName(fileFormat);
     curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));

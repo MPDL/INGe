@@ -72,12 +72,12 @@ public class AudienceBean extends FacesBean {
   public final void init() {
     // Perform initializations inherited from our superclass
     super.init();
-//    AudienceSessionBean asb = this.getAudienceSessionBean();
+    // AudienceSessionBean asb = this.getAudienceSessionBean();
     // fill the file list in the session bean
     if (this.getAudienceSessionBean().getFileListNew() == null
         || this.getAudienceSessionBean().getFileListNew().size() == 0) {
       if (this.getItemControllerSessionBean().getCurrentPubItem().getFiles() != null) {
-//        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         int fileIndex = 0;
         for (int i = 0; i < this.getItemControllerSessionBean().getCurrentPubItem().getFiles()
             .size(); i++) {
@@ -132,7 +132,7 @@ public class AudienceBean extends FacesBean {
 
       // fill the user group list
       if (this.getAudienceSessionBean().getUgl() == null) {
-//        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         try {
           this.getAudienceSessionBean().setUgl(
           // TODO INGe connection
@@ -246,7 +246,7 @@ public class AudienceBean extends FacesBean {
    * @return String navigation string
    */
   public String applyForAll() {
-//    AudienceSessionBean asb = this.getAudienceSessionBean();
+    // AudienceSessionBean asb = this.getAudienceSessionBean();
     // if(this.getAudienceSessionBean().getGrantsForAllFiles().size() > 0 &&
     // !this.getAudienceSessionBean().getGrantsForAllFiles().get(0).getGrant().getGrantedTo().trim().equals(""))
     // {
@@ -301,8 +301,8 @@ public class AudienceBean extends FacesBean {
    */
   public String save() {
     boolean error = false;
-//    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-//    AudienceSessionBean asb = this.getAudienceSessionBean();
+    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    // AudienceSessionBean asb = this.getAudienceSessionBean();
 
     // first clean up unnecessary grants (empty grants for presentation)
     // old list
@@ -332,8 +332,8 @@ public class AudienceBean extends FacesBean {
     // First look for grants to be revoked (which are available in the old list but do not exist in
     // the new list anymore) or changed
     for (int i = 0; i < this.getAudienceSessionBean().getFileListOld().size(); i++) {
-//      List<GrantVOPresentation> grants =
-//          this.getAudienceSessionBean().getFileListOld().get(i).getGrantList();
+      // List<GrantVOPresentation> grants =
+      // this.getAudienceSessionBean().getFileListOld().get(i).getGrantList();
       List<GrantVOPresentation> grantsToRevoke =
           this.getAudienceSessionBean().getFileListOld().get(i).getGrantList();
       List<GrantVOPresentation> grantsToCreate = new ArrayList<GrantVOPresentation>();

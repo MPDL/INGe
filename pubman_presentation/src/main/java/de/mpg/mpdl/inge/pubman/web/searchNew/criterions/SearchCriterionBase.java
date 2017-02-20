@@ -373,7 +373,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
       // split the search string into single words, except if they are in quotes
       List<String> splittedSearchStrings = new ArrayList<String>();
-//      List<String> splittedOperators = new ArrayList<String>();
+      // List<String> splittedOperators = new ArrayList<String>();
 
       // Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
 
@@ -799,7 +799,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
   public static void updateParenthesisStatus(List<SearchCriterionBase> criterionList) {
-//    SearchCriterionBase lastOpenedParenthesis;
+    // SearchCriterionBase lastOpenedParenthesis;
     for (SearchCriterionBase sc : criterionList) {
       if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
 

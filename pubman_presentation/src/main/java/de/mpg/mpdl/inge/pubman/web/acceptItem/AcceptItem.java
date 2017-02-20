@@ -56,15 +56,16 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @SuppressWarnings("serial")
 public class AcceptItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(AcceptItem.class);
-  
+
   // Faces navigation string
   public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
-//  public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
+  // public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String acceptanceComment = null;
-//  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
-//  private String navigationStringToGoBack;
+
+  // private String navigationStringToGoBack;
 
   /**
    * Public constructor.
@@ -101,14 +102,14 @@ public class AcceptItem extends FacesBean {
     }
     this.creators = creators.toString();
 
-//    if (logger.isDebugEnabled()) {
-//      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-//        logger
-//            .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
-//      } else {
-//        logger.error("NO ITEM GIVEN");
-//      }
-//    }
+    // if (logger.isDebugEnabled()) {
+    // if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
+    // logger
+    // .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
+    // } else {
+    // logger.error("NO ITEM GIVEN");
+    // }
+    // }
   }
 
   /**
@@ -204,8 +205,8 @@ public class AcceptItem extends FacesBean {
    * @author Michael Franke
    */
   public void handleMessage() {
-//    String message = this.getAcceptItemSessionBean().getMessage();
-//    this.valMessage = message;
+    // String message = this.getAcceptItemSessionBean().getMessage();
+    // this.valMessage = message;
 
     // keep the message just once
     this.getAcceptItemSessionBean().setMessage(null);
@@ -237,21 +238,21 @@ public class AcceptItem extends FacesBean {
     this.acceptanceComment = acceptanceComment;
   }
 
-//  public String getValMessage() {
-//    return valMessage;
-//  }
-//
-//  public void setValMessage(String valMessage) {
-//    this.valMessage = valMessage;
-//  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
-//  public final String getNavigationStringToGoBack() {
-//    return navigationStringToGoBack;
-//  }
-//
-//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-//    this.navigationStringToGoBack = navigationStringToGoBack;
-//  }
+  // public final String getNavigationStringToGoBack() {
+  // return navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
     return this.creators;

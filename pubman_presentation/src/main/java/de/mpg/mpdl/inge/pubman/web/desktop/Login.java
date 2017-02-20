@@ -185,7 +185,7 @@ public class Login extends FacesBean {
    */
   public String forceLogout(String itemID) {
     FacesContext fc = FacesContext.getCurrentInstance();
-//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
       fc.getExternalContext().redirect(
@@ -246,27 +246,27 @@ public class Login extends FacesBean {
     this.password = password;
   }
 
-//  private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException,
-//      ServiceException {
-//    BreadcrumbItemHistorySessionBean breadCrumbHistory =
-//        (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-//
-//    String pubmanUrl =
-//        PropertyReader.getProperty("escidoc.pubman.instance.url")
-//            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-//    if (!pubmanUrl.endsWith("/"))
-//      pubmanUrl = pubmanUrl + "/";
-//
-//    // Use double URL encoding here because the login mechanism gives back the decoded URL
-//    // parameters.
-//    String url =
-//        PropertyReader.getLoginUrl()
-//            + LOGIN_URL
-//            + "?target="
-//            + pubmanUrl
-//            + "faces/"
-//            + URLEncoder.encode(
-//                URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"), "UTF-8");
-//    return url;
-//  }
+  // private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException,
+  // ServiceException {
+  // BreadcrumbItemHistorySessionBean breadCrumbHistory =
+  // (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+  //
+  // String pubmanUrl =
+  // PropertyReader.getProperty("escidoc.pubman.instance.url")
+  // + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+  // if (!pubmanUrl.endsWith("/"))
+  // pubmanUrl = pubmanUrl + "/";
+  //
+  // // Use double URL encoding here because the login mechanism gives back the decoded URL
+  // // parameters.
+  // String url =
+  // PropertyReader.getLoginUrl()
+  // + LOGIN_URL
+  // + "?target="
+  // + pubmanUrl
+  // + "faces/"
+  // + URLEncoder.encode(
+  // URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"), "UTF-8");
+  // return url;
+  // }
 }

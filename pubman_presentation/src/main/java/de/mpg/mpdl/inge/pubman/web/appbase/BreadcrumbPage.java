@@ -45,7 +45,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     String pageName = page.substring(0, page.lastIndexOf("."));
 
     // -----
-//    Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
+    // Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
 
 
     HttpServletRequest requ = (HttpServletRequest) fc.getExternalContext().getRequest();

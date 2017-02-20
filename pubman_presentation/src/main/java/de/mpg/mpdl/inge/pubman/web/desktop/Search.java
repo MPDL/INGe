@@ -43,8 +43,8 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearc
 
 @SuppressWarnings("serial")
 public class Search extends FacesBean {
-//  private static final String PROPERTY_CONTENT_MODEL =
-//      "escidoc.framework_access.content-model.id.publication";
+  // private static final String PROPERTY_CONTENT_MODEL =
+  // "escidoc.framework_access.content-model.id.publication";
 
   private static Logger logger = Logger.getLogger(Search.class);
 

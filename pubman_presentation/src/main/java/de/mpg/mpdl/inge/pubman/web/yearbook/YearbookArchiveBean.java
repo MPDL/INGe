@@ -38,25 +38,25 @@ public class YearbookArchiveBean extends FacesBean {
   public static final String BEAN_NAME = "YearbookArchiveBean";
   private static final Logger logger = Logger.getLogger(YearbookArchiveBean.class);
 
-//  private YearbookItemSessionBean yearbookItemSessionBean;
+  // private YearbookItemSessionBean yearbookItemSessionBean;
   private LoginHelper loginHelper;
   private XmlTransforming xmlTransforming;
-//  private PubItemVO activeYearbookItem;
-//  private MdsYearbookVO yearbookMetadata;
+  // private PubItemVO activeYearbookItem;
+  // private MdsYearbookVO yearbookMetadata;
   private List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
 
   public YearbookArchiveBean() throws Exception {
-//    this.yearbookItemSessionBean =
-//        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    // this.yearbookItemSessionBean =
+    // (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
     InitialContext initialContext = new InitialContext();
     this.xmlTransforming =
         (XmlTransforming) initialContext
             .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-//    this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
+    // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();

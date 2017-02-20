@@ -45,7 +45,7 @@ import org.apache.axis.encoding.Base64;
 public class ArxivProcessor extends FormatProcessor {
 
   private boolean init = false;
-//  private String[] items = null;
+  // private String[] items = null;
   private int counter = -1;
   private int length = -1;
   private byte[] originalData = null;

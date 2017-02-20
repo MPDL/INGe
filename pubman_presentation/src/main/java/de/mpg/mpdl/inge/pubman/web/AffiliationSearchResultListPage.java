@@ -36,11 +36,11 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class AffiliationSearchResultListPage extends BreadcrumbPage {
-//  private static Logger logger = Logger.getLogger(AffiliationSearchResultListPage.class);
+  // private static Logger logger = Logger.getLogger(AffiliationSearchResultListPage.class);
 
-//  // The referring GUI Tool Page
-//  public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE =
-//      "GTAffiliationSearchResultListPage.jsp";
+  // // The referring GUI Tool Page
+  // public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE =
+  // "GTAffiliationSearchResultListPage.jsp";
 
   /**
    * Construct a new Page bean instance.
@@ -67,21 +67,21 @@ public class AffiliationSearchResultListPage extends BreadcrumbPage {
 
   }
 
-//  /**
-//   * Redirets to the referring GUI Tool page.
-//   * 
-//   * @return a navigation string
-//   */
-//  protected String redirectToGUITool() {
-//    FacesContext fc = FacesContext.getCurrentInstance();
-//    try {
-//      fc.getExternalContext().redirect(GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
-//    } catch (IOException e) {
-//      logger.error("Could not redirect to GUI Tool Affiliation Search result list page." + "\n"
-//          + e.toString());
-//    }
-//    return "";
-//  }
+  // /**
+  // * Redirets to the referring GUI Tool page.
+  // *
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // fc.getExternalContext().redirect(GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool Affiliation Search result list page." + "\n"
+  // + e.toString());
+  // }
+  // return "";
+  // }
 
   @Override
   public boolean isItemSpecific() {

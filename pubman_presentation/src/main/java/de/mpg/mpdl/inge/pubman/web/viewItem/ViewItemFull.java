@@ -136,42 +136,42 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class ViewItemFull extends FacesBean {
   public static final String BEAN_NAME = "ViewItemFull";
-  
+
   // Faces navigation string
   public static final String LOAD_VIEWITEM = "loadViewItem";
-  
+
   private static final Logger logger = Logger.getLogger(ViewItemFull.class);
-  
+
   private static final String PARAMETERNAME_ITEM_ID = "itemId";
   private static final String PARAMETERNAME_MENU_VIEW = "view";
-  
+
   // SSRN local Tag
   private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
-  
+
   // resolve Handle Service
   private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
-  
-//  public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
+
+  // public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
   private static final String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
-  
+
   private static final String ISI_KNOWLEDGE_BASE_LINK =
       "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
   private static final String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
-  
+
   private int defaultSize = 20;
   public boolean isDepositor = false;
   public boolean isModerator = false;
   public boolean isPrivilegedViewer = false;
-  
-//  private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
-  
+
+  // private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
+
   // Validation Service
   @EJB
   private ItemValidating itemValidating;
 
   private PubItemVOPresentation pubItem = null;
-//  private HtmlMessages valMessage = new HtmlMessages();
-  
+  // private HtmlMessages valMessage = new HtmlMessages();
+
   // Added by DiT: constant for the function modify and new revision to check the rights and/or if
   // the function has to
   // be disabled (DiT)
@@ -206,7 +206,7 @@ public class ViewItemFull extends FacesBean {
 
   // = new ArrayList<SourceBean>();
   private LoginHelper loginHelper;
-  
+
   /** The url used for the citation */
   private String citationURL;
 
@@ -235,14 +235,14 @@ public class ViewItemFull extends FacesBean {
   private boolean isOwner;
   private boolean isModifyDisabled;
   private boolean isCreateNewRevisionDisabled;
-  
+
   @EJB
   private PubItemDepositing pubItemDepositing;
   private boolean isWorkflowStandard;
   private boolean isWorkflowSimple;
   private boolean isStateInRevision;
   // private boolean hasRevision;
-  
+
   @EJB
   private PubItemSimpleStatistics pubManStatistics;
   private boolean isPublicStateReleased;
@@ -273,7 +273,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
   private Transformation transformer;
-  
+
   @EJB
   private XmlTransforming xmlTransforming;
   private String languages;
@@ -1127,7 +1127,7 @@ public class ViewItemFull extends FacesBean {
       // info(getMessage(element.getContent()));
       // }
     }
-//    this.valMessage.setRendered(true);
+    // this.valMessage.setRendered(true);
   }
 
   /**
@@ -1793,7 +1793,7 @@ public class ViewItemFull extends FacesBean {
         logger.error("Error retrieving latest modifier", e);
       }
     }
-    
+
     return latestModifier;
   }
 
@@ -1851,17 +1851,17 @@ public class ViewItemFull extends FacesBean {
    * 
    * }
    */
-  
-//  /**
-//   * gets the parameters out of the faces context
-//   * 
-//   * @param name name of the parameter in the faces context
-//   * @return the value of the parameter as string
-//   */
-//  public static String getFacesParamValue(String name) {
-//    return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-//        .get(name);
-//  }
+
+  // /**
+  // * gets the parameters out of the faces context
+  // *
+  // * @param name name of the parameter in the faces context
+  // * @return the value of the parameter as string
+  // */
+  // public static String getFacesParamValue(String name) {
+  // return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+  // .get(name);
+  // }
 
   /**
    * Navigates to the release history page.
@@ -1982,22 +1982,22 @@ public class ViewItemFull extends FacesBean {
     return (ReleaseHistory) getRequestBean(ReleaseHistory.class);
   }
 
-//  // Getters and Setters
-//  public HtmlPanelGroup getPanelItemFull() {
-//    return this.panelItemFull;
-//  }
-//
-//  public void setPanelItemFull(HtmlPanelGroup panelItemFull) {
-//    this.panelItemFull = panelItemFull;
-//  }
+  // // Getters and Setters
+  // public HtmlPanelGroup getPanelItemFull() {
+  // return this.panelItemFull;
+  // }
+  //
+  // public void setPanelItemFull(HtmlPanelGroup panelItemFull) {
+  // this.panelItemFull = panelItemFull;
+  // }
 
-//  public HtmlMessages getValMessage() {
-//    return this.valMessage;
-//  }
-//
-//  public void setValMessage(HtmlMessages valMessage) {
-//    this.valMessage = valMessage;
-//  }
+  // public HtmlMessages getValMessage() {
+  // return this.valMessage;
+  // }
+  //
+  // public void setValMessage(HtmlMessages valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public PubItemVO getPubItem() {
     return this.pubItem;
@@ -2038,9 +2038,9 @@ public class ViewItemFull extends FacesBean {
         && this.pubItem.getMetadata().getFreeKeywords().length() > 0;
   }
 
-//  public boolean getHasContentGroup() {
-//    return getHasAbstracts() || getHasFreeKeywords() || getHasSubjects();
-//  }
+  // public boolean getHasContentGroup() {
+  // return getHasAbstracts() || getHasFreeKeywords() || getHasSubjects();
+  // }
 
   public String getGenre() {
     String genre = "";
@@ -2228,15 +2228,15 @@ public class ViewItemFull extends FacesBean {
     this.isCreateNewRevisionDisabled = isCreateNewRevisionDisabled;
   }
 
-//  public boolean getIsFromEasySubmission() {
-//    FacesContext fc = FacesContext.getCurrentInstance();
-//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-//    if (request.getParameter("fromEasySub") != null) {
-//      String fromEasySubmission = request.getParameter("fromEasySub");
-//      return fromEasySubmission.equals("true");
-//    }
-//    return false;
-//  }
+  // public boolean getIsFromEasySubmission() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+  // if (request.getParameter("fromEasySub") != null) {
+  // String fromEasySubmission = request.getParameter("fromEasySub");
+  // return fromEasySubmission.equals("true");
+  // }
+  // return false;
+  // }
 
   public boolean getHasAudience() {
     if (this.pubItem == null) {
@@ -2253,21 +2253,21 @@ public class ViewItemFull extends FacesBean {
     return false;
   }
 
-//  public boolean getIsWorkflowStandard() {
-//    return this.isWorkflowStandard;
-//  }
-//
-//  public void setWorkflowStandard(boolean isWorkflowStandard) {
-//    this.isWorkflowStandard = isWorkflowStandard;
-//  }
+  // public boolean getIsWorkflowStandard() {
+  // return this.isWorkflowStandard;
+  // }
+  //
+  // public void setWorkflowStandard(boolean isWorkflowStandard) {
+  // this.isWorkflowStandard = isWorkflowStandard;
+  // }
 
-//  public boolean getIsWorkflowSimple() {
-//    return this.isWorkflowSimple;
-//  }
-//
-//  public void setWorkflowSimple(boolean isWorkflowSimple) {
-//    this.isWorkflowSimple = isWorkflowSimple;
-//  }
+  // public boolean getIsWorkflowSimple() {
+  // return this.isWorkflowSimple;
+  // }
+  //
+  // public void setWorkflowSimple(boolean isWorkflowSimple) {
+  // this.isWorkflowSimple = isWorkflowSimple;
+  // }
 
   public String reviseItem() {
     return ReviseItem.LOAD_REVISEITEM;
@@ -2914,15 +2914,15 @@ public class ViewItemFull extends FacesBean {
     return null;
   }
 
-//  /**
-//   * checks if the current item and user are cappable for creating a DOI (moderator, released and
-//   * some needed Metadata)
-//   * 
-//   * @return if a doi can be created for this item
-//   */
-//  public boolean isDoiCappable() {
-//    return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
-//  }
+  // /**
+  // * checks if the current item and user are cappable for creating a DOI (moderator, released and
+  // * some needed Metadata)
+  // *
+  // * @return if a doi can be created for this item
+  // */
+  // public boolean isDoiCappable() {
+  // return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
+  // }
 
   /**
    * Adds a DOI and releases the Item again

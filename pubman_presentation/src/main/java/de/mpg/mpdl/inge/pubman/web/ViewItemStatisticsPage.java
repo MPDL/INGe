@@ -54,7 +54,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-   super.init();
+    super.init();
   }
 
   /**

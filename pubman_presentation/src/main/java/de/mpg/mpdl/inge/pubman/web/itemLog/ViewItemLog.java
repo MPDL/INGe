@@ -46,10 +46,10 @@ import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 @SuppressWarnings("serial")
 public class ViewItemLog extends FacesBean {
   public static final String BEAN_NAME = "ViewItemLog";
-  
+
   // Faces navigation string
   public static final String LOAD_ITEM_LOG = "loadViewItemLog";
-  
+
   private static final Logger logger = Logger.getLogger(ViewItemLog.class);
 
   /**

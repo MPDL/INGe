@@ -104,7 +104,7 @@ public class CreatorBean extends FacesBean {
     }
     this.creator = creator;
     personType = CreatorVO.CreatorType.PERSON.equals(creator.getType());
-//    organisationType = CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType());
+    // organisationType = CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType());
     currentOrgaForSelection = null;
     // ensure proper initialization of our DataModelManager
     if (personType) {
@@ -354,7 +354,7 @@ public class CreatorBean extends FacesBean {
    */
   public void setOuNumbers(String ouNumber) {
     this.ouNumber = ouNumber;
-//    EditItem editItem = (EditItem) getRequestBean(EditItem.class);
+    // EditItem editItem = (EditItem) getRequestBean(EditItem.class);
     // editItem.bindOrganizationsToCreator(this);
   }
 

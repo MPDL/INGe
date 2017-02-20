@@ -45,8 +45,8 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 public class ViewItemFullPage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(ViewItemFullPage.class);
 
-//  // The referring GUI Tool Page
-//  public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
+  // // The referring GUI Tool Page
+  // public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
 
   /**
    * Public constructor.
@@ -80,21 +80,21 @@ public class ViewItemFullPage extends BreadcrumbPage {
      */
   }
 
-//  /**
-//   * Redirets to the referring GUI Tool page.
-//   * 
-//   * @return a navigation string
-//   */
-//  protected String redirectToGUITool() {
-//    FacesContext fc = FacesContext.getCurrentInstance();
-//    try {
-//      this.getViewItemSessionBean().setHasBeenRedirected(true);
-//      fc.getExternalContext().redirect(GT_VIEW_ITEM_FULL_PAGE);
-//    } catch (IOException e) {
-//      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-//    }
-//    return "";
-//  }
+  // /**
+  // * Redirets to the referring GUI Tool page.
+  // *
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // this.getViewItemSessionBean().setHasBeenRedirected(true);
+  // fc.getExternalContext().redirect(GT_VIEW_ITEM_FULL_PAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+  // }
+  // return "";
+  // }
 
   /**
    * Returns the ViewItemSessionBean.

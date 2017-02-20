@@ -192,8 +192,8 @@ public class MultipleImport extends FacesBean {
       return null;
     }
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-//    InternationalizationHelper i18nHelper =
-//        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+    // InternationalizationHelper i18nHelper =
+    // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
 
     Map<String, String> configuration = null;
 
@@ -222,10 +222,10 @@ public class MultipleImport extends FacesBean {
     return null;
   }
 
-//  private void cleanUp() {
-//    this.configParameters = null;
-//    this.parametersValues = null;
-//  }
+  // private void cleanUp() {
+  // this.configParameters = null;
+  // this.parametersValues = null;
+  // }
 
   /**
    * JSF action that is triggered from the submission menu.

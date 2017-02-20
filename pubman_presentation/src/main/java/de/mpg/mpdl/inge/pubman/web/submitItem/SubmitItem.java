@@ -59,16 +59,17 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @SuppressWarnings("serial")
 public class SubmitItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(SubmitItem.class);
-  
+
   // Faces navigation string
   public static final String LOAD_SUBMITITEM = "loadSubmitItem";
-  
-//  public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
+
+  // public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String submissionComment;
-//  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
-//  private String navigationStringToGoBack;
+
+  // private String navigationStringToGoBack;
 
   /**
    * Public constructor.
@@ -205,8 +206,8 @@ public class SubmitItem extends FacesBean {
    * @author Michael Franke
    */
   public void handleMessage() {
-//    String message = this.getSessionBean().getMessage();
-//    this.valMessage = message;
+    // String message = this.getSessionBean().getMessage();
+    // this.valMessage = message;
 
     // keep the message just once
     this.getSubmitItemSessionBean().setMessage(null);
@@ -273,21 +274,21 @@ public class SubmitItem extends FacesBean {
     this.submissionComment = submissionComment;
   }
 
-//  public String getValMessage() {
-//    return valMessage;
-//  }
-//
-//  public void setValMessage(String valMessage) {
-//    this.valMessage = valMessage;
-//  }
-//
-//  public final String getNavigationStringToGoBack() {
-//    return navigationStringToGoBack;
-//  }
-//
-//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-//    this.navigationStringToGoBack = navigationStringToGoBack;
-//  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
+  //
+  // public final String getNavigationStringToGoBack() {
+  // return navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
     return this.creators;

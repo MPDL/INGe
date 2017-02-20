@@ -36,8 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  */
 @SuppressWarnings("serial")
 public class ViewItemMedium extends FacesBean {
-  
-  public ViewItemMedium() {
-  }
-  
+
+  public ViewItemMedium() {}
+
 }

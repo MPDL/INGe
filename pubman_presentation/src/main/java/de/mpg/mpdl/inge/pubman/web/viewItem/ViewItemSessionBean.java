@@ -44,15 +44,15 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 @SuppressWarnings("serial")
 public class ViewItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ViewItemSessionBean";
-  
+
   private static Logger logger = Logger.getLogger(ViewItemSessionBean.class);
-  
+
   // navigationString to go back to the list where viewItem has been called
   // from
   private String navigationStringToGoBack = null;
-//  // navigationString to go back to the list where viewItem has been called
-//  // from
-//  private String itemIdViaURLParam = null;
+  // // navigationString to go back to the list where viewItem has been called
+  // // from
+  // private String itemIdViaURLParam = null;
 
   // Flag if view item has already been redirected
   private boolean hasBeenRedirected = false;
@@ -148,13 +148,13 @@ public class ViewItemSessionBean extends FacesBean {
     this.navigationStringToGoBack = navigationStringToGoBack;
   }
 
-//  public String getItemIdViaURLParam() {
-//    return itemIdViaURLParam;
-//  }
-//
-//  public void setItemIdViaURLParam(String itemIdViaURLParam) {
-//    this.itemIdViaURLParam = itemIdViaURLParam;
-//  }
+  // public String getItemIdViaURLParam() {
+  // return itemIdViaURLParam;
+  // }
+  //
+  // public void setItemIdViaURLParam(String itemIdViaURLParam) {
+  // this.itemIdViaURLParam = itemIdViaURLParam;
+  // }
 
 
   public boolean isHasBeenRedirected() {

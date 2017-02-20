@@ -74,8 +74,8 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePassword() {
     try {
-//      InternationalizationHelper internationalizationHelper =
-//          (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+      // InternationalizationHelper internationalizationHelper =
+      // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
       if (this.password != null && !("").equals(this.password.trim())) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);

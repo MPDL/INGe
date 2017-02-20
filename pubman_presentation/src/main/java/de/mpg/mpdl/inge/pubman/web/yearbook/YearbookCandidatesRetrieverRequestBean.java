@@ -77,7 +77,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private int numberOfRecords;
 
   private YearbookItemSessionBean yisb;
-//  private PubItemListSessionBean pilsb;
+  // private PubItemListSessionBean pilsb;
 
   @EJB
   private Search searchService;
@@ -91,7 +91,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   @Override
   public void init() {
-//    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
+    // pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
   }
 
@@ -328,16 +328,16 @@ public class YearbookCandidatesRetrieverRequestBean extends
      * 
      * MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
      */
-//    String orgUnit = "";
+    // String orgUnit = "";
     String contextQuery = "";
-//    if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-//        .getIdentifier() != null) {
-//      orgUnit =
-//          MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
-//              + "=\""
-//              + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-//                  .getIdentifier() + "\"";
-//    }
+    // if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+    // .getIdentifier() != null) {
+    // orgUnit =
+    // MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
+    // + "=\""
+    // + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+    // .getIdentifier() + "\"";
+    // }
 
     if (yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts() != null
         && yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts().size() > 0) {

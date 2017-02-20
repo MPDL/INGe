@@ -6,10 +6,10 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 public class StatisticSessionBean extends FacesBean {
 
   public static String BEAN_NAME = "StatisticSessionBean";
-//  private String uuid;
 
-  public StatisticSessionBean() {
-  }
+  // private String uuid;
+
+  public StatisticSessionBean() {}
 
   /*
    * private void logNewUser() { try { InitialContext ic = new InitialContext(); StatisticLogger sl

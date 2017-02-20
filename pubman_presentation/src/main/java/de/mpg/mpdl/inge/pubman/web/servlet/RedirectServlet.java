@@ -114,13 +114,13 @@ public class RedirectServlet extends HttpServlet {
 
           byte[] buffer = new byte[2048];
           int numRead;
-//          long numWritten = 0;
+          // long numWritten = 0;
           OutputStream out = resp.getOutputStream();
           while ((numRead = input.read(buffer)) != -1) {
             logger.debug(numRead + " bytes read.");
             out.write(buffer, 0, numRead);
             resp.flushBuffer();
-//            numWritten += numRead;
+            // numWritten += numRead;
 
           }
 

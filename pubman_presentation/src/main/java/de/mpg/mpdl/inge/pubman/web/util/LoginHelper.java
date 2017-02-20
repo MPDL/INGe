@@ -112,8 +112,8 @@ public class LoginHelper extends FacesBean {
    */
   public String insertLogin() throws IOException, ServiceException, TechnicalException,
       URISyntaxException {
-//    FacesContext fc = FacesContext.getCurrentInstance();
-//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    // FacesContext fc = FacesContext.getCurrentInstance();
+    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String token = this.obtainToken();
     if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       if (token != null) {
