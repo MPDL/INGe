@@ -30,7 +30,6 @@ package de.mpg.mpdl.inge.pubman.web.home;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 

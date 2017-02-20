@@ -25,10 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
-
-
-
 public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
 

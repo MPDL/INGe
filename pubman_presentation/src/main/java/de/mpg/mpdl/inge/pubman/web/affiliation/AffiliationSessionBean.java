@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.affiliation;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.html.HtmlPanelGrid;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;

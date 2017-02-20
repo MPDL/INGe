@@ -27,16 +27,14 @@ package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean;

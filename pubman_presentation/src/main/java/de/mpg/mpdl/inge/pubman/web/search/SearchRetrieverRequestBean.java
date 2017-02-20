@@ -3,52 +3,33 @@ package de.mpg.mpdl.inge.pubman.web.search;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemStatusFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.LimitFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.LocalTagFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OwnerFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.StandardFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result

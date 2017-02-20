@@ -25,12 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-
 public class LocalTagSearchCriterion extends StandardSearchCriterion {
 
   @Override

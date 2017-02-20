@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -43,7 +42,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
@@ -51,11 +49,9 @@ import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
-import de.mpg.mpdl.inge.pubman.web.audience.AudienceBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /**

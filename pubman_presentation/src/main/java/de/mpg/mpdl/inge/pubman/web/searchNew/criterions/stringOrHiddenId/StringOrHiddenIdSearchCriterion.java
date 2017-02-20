@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.StandardSearchCriterion;
 
 public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBase {
 

@@ -40,7 +40,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 

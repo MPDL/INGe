@@ -26,28 +26,12 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bouncycastle.voms.VOMSAttribute;
-
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums.GenreSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.ComponentVisibilitySearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.DegreeSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 
 public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchCriterionBase {
 

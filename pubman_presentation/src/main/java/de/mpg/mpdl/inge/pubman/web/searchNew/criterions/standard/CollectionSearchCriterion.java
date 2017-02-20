@@ -25,22 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
-
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
-
 public class CollectionSearchCriterion extends StandardSearchCriterion {
 
   @Override

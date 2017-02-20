@@ -33,7 +33,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * SourceVOPresentation defines some presentation specific methods expanding the extended SourceVO

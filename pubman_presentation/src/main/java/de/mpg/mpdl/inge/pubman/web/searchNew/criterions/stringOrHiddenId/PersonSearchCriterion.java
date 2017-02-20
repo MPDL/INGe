@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.DisplayType;
 
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 

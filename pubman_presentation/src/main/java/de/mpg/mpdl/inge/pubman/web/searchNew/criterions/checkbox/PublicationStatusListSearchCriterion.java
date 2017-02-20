@@ -1,18 +1,9 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.StandardSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 
 public class PublicationStatusListSearchCriterion extends MapListSearchCriterion<String> {
 

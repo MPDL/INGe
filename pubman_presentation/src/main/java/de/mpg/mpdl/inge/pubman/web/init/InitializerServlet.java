@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.init;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 

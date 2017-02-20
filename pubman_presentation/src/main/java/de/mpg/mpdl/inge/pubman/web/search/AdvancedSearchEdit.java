@@ -49,8 +49,8 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.ObjectCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined by

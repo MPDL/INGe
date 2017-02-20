@@ -26,8 +26,6 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 
-import java.io.Serializable;
-
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 

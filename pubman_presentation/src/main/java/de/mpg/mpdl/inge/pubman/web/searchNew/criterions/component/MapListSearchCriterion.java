@@ -33,11 +33,9 @@ import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.StandardSearchCriterion;
 
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 

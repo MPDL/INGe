@@ -25,11 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.StandardSearchCriterion;
-
-
-
 public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   public CreatedBySearchCriterion() {
