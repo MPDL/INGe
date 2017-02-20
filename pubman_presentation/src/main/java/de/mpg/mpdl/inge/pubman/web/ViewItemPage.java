@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * Tobias Schraut Revised by ScT: 23.08.2007
  */
 @SuppressWarnings("serial")
-public class ViewItemPage2 extends BreadcrumbPage {
+public class ViewItemPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemPage";
 
   // The referring GUI Tool Page
@@ -44,7 +44,7 @@ public class ViewItemPage2 extends BreadcrumbPage {
   /**
    * Public constructor.
    */
-  public ViewItemPage2() {
+  public ViewItemPage() {
     this.init();
   }
 
