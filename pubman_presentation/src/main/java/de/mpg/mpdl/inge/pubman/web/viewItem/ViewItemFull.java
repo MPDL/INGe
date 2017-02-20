@@ -40,8 +40,6 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.component.html.HtmlMessages;
-import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -137,32 +135,43 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class ViewItemFull extends FacesBean {
-  private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
-  private static Logger logger = Logger.getLogger(ViewItemFull.class);
   public static final String BEAN_NAME = "ViewItemFull";
-  public static final String PARAMETERNAME_ITEM_ID = "itemId";
-  public static final String PARAMETERNAME_MENU_VIEW = "view";
+  
+  // Faces navigation string
+  public static final String LOAD_VIEWITEM = "loadViewItem";
+  
+  private static final Logger logger = Logger.getLogger(ViewItemFull.class);
+  
+  private static final String PARAMETERNAME_ITEM_ID = "itemId";
+  private static final String PARAMETERNAME_MENU_VIEW = "view";
+  
   // SSRN local Tag
   private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
+  
   // resolve Handle Service
   private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
-  // Faces navigation string
-  public final static String LOAD_VIEWITEM = "loadViewItem";
+  
 //  public final static String LOAD_VIEWITEM_OVERVIEW = "loadViewItemOverview";
-  public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
-  public final static String ISI_KNOWLEDGE_BASE_LINK =
+  private static final String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
+  
+  private static final String ISI_KNOWLEDGE_BASE_LINK =
       "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
-  public final static String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
+  private static final String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
+  
   private int defaultSize = 20;
   public boolean isDepositor = false;
   public boolean isModerator = false;
   public boolean isPrivilegedViewer = false;
+  
+//  private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
+  
   // Validation Service
   @EJB
   private ItemValidating itemValidating;
 
   private PubItemVOPresentation pubItem = null;
-  private HtmlMessages valMessage = new HtmlMessages();
+//  private HtmlMessages valMessage = new HtmlMessages();
+  
   // Added by DiT: constant for the function modify and new revision to check the rights and/or if
   // the function has to
   // be disabled (DiT)
@@ -197,6 +206,7 @@ public class ViewItemFull extends FacesBean {
 
   // = new ArrayList<SourceBean>();
   private LoginHelper loginHelper;
+  
   /** The url used for the citation */
   private String citationURL;
 
@@ -225,12 +235,14 @@ public class ViewItemFull extends FacesBean {
   private boolean isOwner;
   private boolean isModifyDisabled;
   private boolean isCreateNewRevisionDisabled;
+  
   @EJB
   private PubItemDepositing pubItemDepositing;
   private boolean isWorkflowStandard;
   private boolean isWorkflowSimple;
   private boolean isStateInRevision;
   // private boolean hasRevision;
+  
   @EJB
   private PubItemSimpleStatistics pubManStatistics;
   private boolean isPublicStateReleased;
@@ -261,14 +273,13 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
   private Transformation transformer;
+  
   @EJB
   private XmlTransforming xmlTransforming;
   private String languages;
 
   @EJB
   private ItemExporting itemExporting;
-
-
 
   /**
    * Public constructor.
@@ -366,7 +377,6 @@ public class ViewItemFull extends FacesBean {
       this.pubItem = icsb.getCurrentPubItem();
     }
 
-
     // inBetweenTime = System.currentTimeMillis();
     // System.out.println("ViewItemFull.init after ItemRetrieval " + (inBetweenTime - start));
 
@@ -438,11 +448,8 @@ public class ViewItemFull extends FacesBean {
               }
             }
           }
-
         }
-
       }
-
 
       // @author Markus Haarlaender - setting properties for Action Links
       this.isLoggedIn = this.loginHelper.isLoggedIn();
@@ -530,7 +537,6 @@ public class ViewItemFull extends FacesBean {
 
       createCreatorsList();
 
-
       // START - retrieve languages from CoNE
       if (this.pubItem.getMetadata().getLanguages() != null
           && this.pubItem.getMetadata().getLanguages().size() > 0) {
@@ -564,7 +570,6 @@ public class ViewItemFull extends FacesBean {
       }
 
       // END - retrieve languages from CoNE
-
 
       // clear source list first
       if (this.pubItem.getMetadata().getSources().size() > 0) {
@@ -600,7 +605,6 @@ public class ViewItemFull extends FacesBean {
             this.pubItem.setSearchHitBeanList();
             // this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem,
             // currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
-
           }
         }
       }
@@ -623,13 +627,10 @@ public class ViewItemFull extends FacesBean {
                 ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem
                     .getValidationReport());
               }
-
             } catch (Exception e) {
               logger.error("Error in Yearbook validation", e);
             }
           }
-
-
 
           try {
             if (ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState())
@@ -661,11 +662,9 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException(e);
     }
 
-
     /*
      * if (logViewAction) { logViewAction(); }
      */
-
 
     // TODO: remove into separate method, must this be in the initializer?
     // not certain why is this method it always returns null (for languages or not)
@@ -680,8 +679,6 @@ public class ViewItemFull extends FacesBean {
      * e) { throw new RuntimeException("Error retrieving language code for '" + subject.getValue() +
      * "'", e); } } } }
      */
-
-
 
     // set SSRN contexts
     try {
@@ -827,7 +824,6 @@ public class ViewItemFull extends FacesBean {
     this.isMemberOfYearbook = false;
     this.isCandidateOfYearbook = true;
     return "";
-
   }
 
   /**
@@ -1061,7 +1057,7 @@ public class ViewItemFull extends FacesBean {
    * @return a reference to the scoped data bean
    */
   protected AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getBean(AcceptItemSessionBean.class);
+    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
   /**
@@ -1131,7 +1127,7 @@ public class ViewItemFull extends FacesBean {
       // info(getMessage(element.getContent()));
       // }
     }
-    this.valMessage.setRendered(true);
+//    this.valMessage.setRendered(true);
   }
 
   /**
@@ -1446,10 +1442,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getLanguages() {
-
     return this.languages;
-
-
   }
 
   /**
@@ -1651,10 +1644,7 @@ public class ViewItemFull extends FacesBean {
     return contextName;
   }
 
-
-
   public AccountUserVO getOwner() {
-
     if (this.owner == null) {
       ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
       try {
@@ -1666,7 +1656,6 @@ public class ViewItemFull extends FacesBean {
     }
     return owner;
   }
-
 
   /**
    * Returns the Context the item belongs to
@@ -1804,8 +1793,8 @@ public class ViewItemFull extends FacesBean {
         logger.error("Error retrieving latest modifier", e);
       }
     }
+    
     return latestModifier;
-
   }
 
   /*
@@ -1862,16 +1851,17 @@ public class ViewItemFull extends FacesBean {
    * 
    * }
    */
-  /**
-   * gets the parameters out of the faces context
-   * 
-   * @param name name of the parameter in the faces context
-   * @return the value of the parameter as string
-   */
-  public static String getFacesParamValue(String name) {
-    return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-        .get(name);
-  }
+  
+//  /**
+//   * gets the parameters out of the faces context
+//   * 
+//   * @param name name of the parameter in the faces context
+//   * @return the value of the parameter as string
+//   */
+//  public static String getFacesParamValue(String name) {
+//    return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+//        .get(name);
+//  }
 
   /**
    * Navigates to the release history page.
@@ -1992,22 +1982,22 @@ public class ViewItemFull extends FacesBean {
     return (ReleaseHistory) getRequestBean(ReleaseHistory.class);
   }
 
-  // Getters and Setters
-  public HtmlPanelGroup getPanelItemFull() {
-    return this.panelItemFull;
-  }
+//  // Getters and Setters
+//  public HtmlPanelGroup getPanelItemFull() {
+//    return this.panelItemFull;
+//  }
+//
+//  public void setPanelItemFull(HtmlPanelGroup panelItemFull) {
+//    this.panelItemFull = panelItemFull;
+//  }
 
-  public void setPanelItemFull(HtmlPanelGroup panelItemFull) {
-    this.panelItemFull = panelItemFull;
-  }
-
-  public HtmlMessages getValMessage() {
-    return this.valMessage;
-  }
-
-  public void setValMessage(HtmlMessages valMessage) {
-    this.valMessage = valMessage;
-  }
+//  public HtmlMessages getValMessage() {
+//    return this.valMessage;
+//  }
+//
+//  public void setValMessage(HtmlMessages valMessage) {
+//    this.valMessage = valMessage;
+//  }
 
   public PubItemVO getPubItem() {
     return this.pubItem;
@@ -2048,9 +2038,9 @@ public class ViewItemFull extends FacesBean {
         && this.pubItem.getMetadata().getFreeKeywords().length() > 0;
   }
 
-  public boolean getHasContentGroup() {
-    return getHasAbstracts() || getHasFreeKeywords() || getHasSubjects();
-  }
+//  public boolean getHasContentGroup() {
+//    return getHasAbstracts() || getHasFreeKeywords() || getHasSubjects();
+//  }
 
   public String getGenre() {
     String genre = "";
@@ -2122,8 +2112,6 @@ public class ViewItemFull extends FacesBean {
     return this.getCreators().size();
   }
 
-
-
   public List<SourceBean> getSourceList() {
     return this.sourceList;
   }
@@ -2131,8 +2119,6 @@ public class ViewItemFull extends FacesBean {
   public void setSourceList(List<SourceBean> sourceList) {
     this.sourceList = sourceList;
   }
-
-
 
   public void setCitationURL(String citationURL) {
     this.citationURL = citationURL;
@@ -2242,15 +2228,15 @@ public class ViewItemFull extends FacesBean {
     this.isCreateNewRevisionDisabled = isCreateNewRevisionDisabled;
   }
 
-  public boolean getIsFromEasySubmission() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    if (request.getParameter("fromEasySub") != null) {
-      String fromEasySubmission = request.getParameter("fromEasySub");
-      return fromEasySubmission.equals("true");
-    }
-    return false;
-  }
+//  public boolean getIsFromEasySubmission() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+//    if (request.getParameter("fromEasySub") != null) {
+//      String fromEasySubmission = request.getParameter("fromEasySub");
+//      return fromEasySubmission.equals("true");
+//    }
+//    return false;
+//  }
 
   public boolean getHasAudience() {
     if (this.pubItem == null) {
@@ -2267,23 +2253,21 @@ public class ViewItemFull extends FacesBean {
     return false;
   }
 
+//  public boolean getIsWorkflowStandard() {
+//    return this.isWorkflowStandard;
+//  }
+//
+//  public void setWorkflowStandard(boolean isWorkflowStandard) {
+//    this.isWorkflowStandard = isWorkflowStandard;
+//  }
 
-
-  public boolean getIsWorkflowStandard() {
-    return this.isWorkflowStandard;
-  }
-
-  public void setWorkflowStandard(boolean isWorkflowStandard) {
-    this.isWorkflowStandard = isWorkflowStandard;
-  }
-
-  public boolean getIsWorkflowSimple() {
-    return this.isWorkflowSimple;
-  }
-
-  public void setWorkflowSimple(boolean isWorkflowSimple) {
-    this.isWorkflowSimple = isWorkflowSimple;
-  }
+//  public boolean getIsWorkflowSimple() {
+//    return this.isWorkflowSimple;
+//  }
+//
+//  public void setWorkflowSimple(boolean isWorkflowSimple) {
+//    this.isWorkflowSimple = isWorkflowSimple;
+//  }
 
   public String reviseItem() {
     return ReviseItem.LOAD_REVISEITEM;
@@ -2526,11 +2510,11 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getIsPublicStateReleased() {
-    return isPublicStateReleased;
+    return this.isPublicStateReleased;
   }
 
   public String getFwUrl() {
-    return fwUrl;
+    return this.fwUrl;
   }
 
   public void setFwUrl(String fwUrl) {
@@ -2538,7 +2522,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getItemPattern() {
-    return itemPattern;
+    return this.itemPattern;
   }
 
   public void setItemPattern(String itemPattern) {
@@ -2616,11 +2600,11 @@ public class ViewItemFull extends FacesBean {
   }
 
   public int getDefaultSize() {
-    return defaultSize;
+    return this.defaultSize;
   }
 
   public ArrayList<ViewItemCreators> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(ArrayList<ViewItemCreators> creators) {
@@ -2633,7 +2617,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getLatestVersionURL() {
-    return latestVersionURL;
+    return this.latestVersionURL;
   }
 
   public String getCitationHtml() {
@@ -2708,7 +2692,6 @@ public class ViewItemFull extends FacesBean {
 
   public boolean getIsMemberOfYearbook() {
     return this.isMemberOfYearbook;
-
   }
 
   public boolean getIsCandidateOfYearbook() {
@@ -2829,94 +2812,79 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean isCanEdit() {
-    return canEdit;
+    return this.canEdit;
   }
 
   public boolean isCanSubmit() {
-    return canSubmit;
+    return this.canSubmit;
   }
 
   public boolean isCanRelease() {
-    return canRelease;
+    return this.canRelease;
   }
-
 
   public boolean isCanAccept() {
-    return canAccept;
+    return this.canAccept;
   }
-
 
   public boolean isCanRevise() {
-    return canRevise;
+    return this.canRevise;
   }
 
-
   public boolean isCanDelete() {
-    return canDelete;
+    return this.canDelete;
   }
 
   public boolean isCanWithdraw() {
-    return canWithdraw;
+    return this.canWithdraw;
   }
-
 
   public boolean isCanModify() {
-    return canModify;
+    return this.canModify;
   }
-
 
   public boolean isCanCreateNewRevision() {
-    return canCreateNewRevision;
+    return this.canCreateNewRevision;
   }
-
 
   public boolean isCanCreateFromTemplate() {
-    return canCreateFromTemplate;
+    return this.canCreateFromTemplate;
   }
-
 
   public boolean isCanAddToBasket() {
-    return canAddToBasket;
+    return this.canAddToBasket;
   }
-
 
   public boolean isCanDeleteFromBasket() {
-    return canDeleteFromBasket;
+    return this.canDeleteFromBasket;
   }
-
 
   public boolean isCanViewLocalTags() {
-    return canViewLocalTags;
+    return this.canViewLocalTags;
   }
-
 
   public boolean isCanManageAudience() {
-    return canManageAudience;
+    return this.canManageAudience;
   }
-
 
   public boolean isCanShowItemLog() {
-    return canShowItemLog;
+    return this.canShowItemLog;
   }
-
 
   public boolean isCanShowStatistics() {
-    return canShowStatistics;
+    return this.canShowStatistics;
   }
-
 
   public boolean isCanShowRevisions() {
-    return canShowRevisions;
+    return this.canShowRevisions;
   }
-
 
   public boolean isCanShowReleaseHistory() {
-    return canShowReleaseHistory;
+    return this.canShowReleaseHistory;
   }
 
-
   public boolean isCanShowLastMessage() {
-    return canShowLastMessage;
+    return this.canShowLastMessage;
   }
 
   public String getHtmlMetaTags() {
@@ -2946,15 +2914,15 @@ public class ViewItemFull extends FacesBean {
     return null;
   }
 
-  /**
-   * checks if the current item and user are cappable for creating a DOI (moderator, released and
-   * some needed Metadata)
-   * 
-   * @return if a doi can be created for this item
-   */
-  public boolean isDoiCappable() {
-    return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
-  }
+//  /**
+//   * checks if the current item and user are cappable for creating a DOI (moderator, released and
+//   * some needed Metadata)
+//   * 
+//   * @return if a doi can be created for this item
+//   */
+//  public boolean isDoiCappable() {
+//    return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
+//  }
 
   /**
    * Adds a DOI and releases the Item again
@@ -2993,8 +2961,6 @@ public class ViewItemFull extends FacesBean {
     return returnValue;
   }
 
-
-
   /*
    * { ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"),
    * HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"),
@@ -3008,5 +2974,4 @@ public class ViewItemFull extends FacesBean {
    * 
    * public String getUri() { return uri; } }
    */
-
 }

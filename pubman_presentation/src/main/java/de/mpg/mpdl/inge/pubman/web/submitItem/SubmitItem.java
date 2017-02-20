@@ -58,17 +58,17 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  */
 @SuppressWarnings("serial")
 public class SubmitItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(SubmitItem.class);
+  private static final Logger logger = Logger.getLogger(SubmitItem.class);
+  
   // Faces navigation string
   public static final String LOAD_SUBMITITEM = "loadSubmitItem";
+  
 //  public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String submissionComment;
-
-  private String valMessage = null;
+//  private String valMessage = null;
   private String creators;
-
-  private String navigationStringToGoBack;
+//  private String navigationStringToGoBack;
 
   /**
    * Public constructor.
@@ -199,21 +199,17 @@ public class SubmitItem extends FacesBean {
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
-
-
   /**
    * Adds and removes messages on this page, if any.
    * 
    * @author Michael Franke
    */
   public void handleMessage() {
-
-    String message = this.getSessionBean().getMessage();
-
-    this.valMessage = message;
+//    String message = this.getSessionBean().getMessage();
+//    this.valMessage = message;
 
     // keep the message just once
-    this.getSessionBean().setMessage(null);
+    this.getSubmitItemSessionBean().setMessage(null);
   }
 
   /**
@@ -260,42 +256,41 @@ public class SubmitItem extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-
   /**
    * Returns the DepositorWSSessionBean.
    * 
    * @return a reference to the scoped data bean (DepositorWSSessionBean)
    */
-  protected final SubmitItemSessionBean getSessionBean() {
-    return (SubmitItemSessionBean) getBean(SubmitItemSessionBean.class);
+  protected final SubmitItemSessionBean getSubmitItemSessionBean() {
+    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
   }
 
   public String getSubmissionComment() {
-    return submissionComment;
+    return this.submissionComment;
   }
 
   public void setSubmissionComment(String submissionComment) {
     this.submissionComment = submissionComment;
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
-
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+//  public String getValMessage() {
+//    return valMessage;
+//  }
+//
+//  public void setValMessage(String valMessage) {
+//    this.valMessage = valMessage;
+//  }
+//
+//  public final String getNavigationStringToGoBack() {
+//    return navigationStringToGoBack;
+//  }
+//
+//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+//    this.navigationStringToGoBack = navigationStringToGoBack;
+//  }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {

@@ -24,7 +24,6 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-
 package de.mpg.mpdl.inge.pubman.web.itemLog;
 
 import java.util.List;
@@ -36,8 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 
-
-
 /**
  * Fragment class for viewItemLog.jspf
  * 
@@ -46,13 +43,14 @@ import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ViewItemLog extends FacesBean {
   public static final String BEAN_NAME = "ViewItemLog";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(ViewItemLog.class);
-
+  
   // Faces navigation string
-  public final static String LOAD_ITEM_LOG = "loadViewItemLog";
+  public static final String LOAD_ITEM_LOG = "loadViewItemLog";
+  
+  private static final Logger logger = Logger.getLogger(ViewItemLog.class);
 
   /**
    * Public constructor.

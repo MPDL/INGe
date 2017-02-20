@@ -26,12 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
@@ -41,10 +35,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class WorkspacesPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(WorkspacesPage.class);
   public static final String BEAN_NAME = "WorkspacesPage";
   // The referring GUI Tool Page
-  public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
+//  public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
 
   /**
    * Public constructor.
@@ -64,20 +57,20 @@ public class WorkspacesPage extends BreadcrumbPage {
 
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_WORKSPACES_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-    }
-    return "";
-  }
+//  /**
+//   * Redirets to the referring GUI Tool page.
+//   * 
+//   * @return a navigation string
+//   */
+//  protected String redirectToGUITool() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    try {
+//      fc.getExternalContext().redirect(GT_WORKSPACES_PAGE);
+//    } catch (IOException e) {
+//      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+//    }
+//    return "";
+//  }
 
   /**
    * Returns the ViewItemSessionBean.

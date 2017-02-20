@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 @SuppressWarnings("serial")
 public class ViewItemRevisionsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemRevisionsPage";
+  
   // Faces navigation string
   public static final String LOAD_VIEWREVISIONS = "loadViewRevisions";
 
@@ -55,11 +56,8 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
     this.getViewItemSessionBean().setHasBeenRedirected(true);
   }
-
-
 
   /**
    * Returns the ViewItemSessionBean.
@@ -67,7 +65,7 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

@@ -25,12 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -42,10 +36,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class AffiliationTreePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
-
   // The referring GUI Tool Page
-  public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
+//  public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
 
   /**
    * Construct a new Page bean instance.
@@ -53,7 +45,6 @@ public class AffiliationTreePage extends BreadcrumbPage {
   public AffiliationTreePage() {
     this.init();
     getSessionBean(ItemControllerSessionBean.class);
-
   }
 
   /**
@@ -74,20 +65,20 @@ public class AffiliationTreePage extends BreadcrumbPage {
 
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool Affiliation tree page." + "\n" + e.toString());
-    }
-    return "";
-  }
+//  /**
+//   * Redirets to the referring GUI Tool page.
+//   * 
+//   * @return a navigation string
+//   */
+//  protected String redirectToGUITool() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    try {
+//      fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
+//    } catch (IOException e) {
+//      logger.error("Could not redirect to GUI Tool Affiliation tree page." + "\n" + e.toString());
+//    }
+//    return "";
+//  }
 
 
 

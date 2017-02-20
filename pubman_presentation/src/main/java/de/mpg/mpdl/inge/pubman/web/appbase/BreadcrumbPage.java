@@ -27,7 +27,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 @SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
 
-  private static Logger logger = Logger.getLogger(BreadcrumbPage.class);
+  private static final Logger logger = Logger.getLogger(BreadcrumbPage.class);
 
   private BreadcrumbItem previousItem = null;
 

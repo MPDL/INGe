@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +47,7 @@ public class DepositorWSPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "DepositorWSPage";
 
   // the referring GUI Tool Page
-  public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
+//  public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
   // constants for error and status messages
   public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
   public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
@@ -107,23 +105,23 @@ public class DepositorWSPage extends BreadcrumbPage {
 
 
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @author Tobias Schraut
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-
-    try {
-      fc.getExternalContext().redirect(GT_DEPOSITOR_WORKSPACE_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-    }
-
-    return "";
-  }
+//  /**
+//   * Redirets to the referring GUI Tool page.
+//   * 
+//   * @author Tobias Schraut
+//   * @return a navigation string
+//   */
+//  protected String redirectToGUITool() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//
+//    try {
+//      fc.getExternalContext().redirect(GT_DEPOSITOR_WORKSPACE_PAGE);
+//    } catch (IOException e) {
+//      logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
+//    }
+//
+//    return "";
+//  }
 
 
   /**

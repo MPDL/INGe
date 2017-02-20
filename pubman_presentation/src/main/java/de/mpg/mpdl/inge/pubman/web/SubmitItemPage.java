@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
+@SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
   /**
    * Public constructor.
@@ -64,9 +65,4 @@ public class SubmitItemPage extends FacesBean {
     SubmitItem fragment = (SubmitItem) getBean(SubmitItem.class);
     fragment.handleMessage();
   }
-
-  /*
-   * @Override public boolean isItemSpecific() { return true; }
-   */
-
 }

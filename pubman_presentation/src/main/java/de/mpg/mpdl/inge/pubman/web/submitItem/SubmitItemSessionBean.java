@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.submitItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -37,11 +35,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class SubmitItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "SubmitItemSessionBean";
-
-  @SuppressWarnings("unused")
-  private static final Logger LOGGER = Logger.getLogger(SubmitItemSessionBean.class);
 
   // navigationString to go back to the list where submitItem has been called from
   private String navigationStringToGoBack = null;

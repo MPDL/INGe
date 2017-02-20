@@ -70,7 +70,7 @@ public class AcceptItemSessionBean extends FacesBean {
   }
 
   public String getMessage() {
-    return message;
+    return this.message;
   }
 
   public void setMessage(String message) {

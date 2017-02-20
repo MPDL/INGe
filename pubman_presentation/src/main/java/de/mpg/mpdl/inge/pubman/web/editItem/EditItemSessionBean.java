@@ -22,20 +22,15 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.EditItemBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 
@@ -45,11 +40,13 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * @author: Tobias Schraut, created 26.02.2007
  * @version: $Revision$ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13 Nov 2007) $
  */
+@SuppressWarnings("serial")
 public class EditItemSessionBean extends EditItemBean {
   public static final String BEAN_NAME = "EditItemSessionBean";
 
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(EditItemSessionBean.class);
+  public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
+  public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
+  public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
 
   private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
 
@@ -65,13 +62,9 @@ public class EditItemSessionBean extends EditItemBean {
   /**
    * A creator bean that holds the data from the author copy&paste organizations
    */
-  private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+//  private CreatorBean authorCopyPasteOrganizationsCreatorBean;
 
   private List<SourceBean> sources = new ArrayList<SourceBean>();
-
-  public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
-  public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
-  public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
 
   /**
    * Flag for the GUI to detect if the edit item page is called for a submission or for an editing
@@ -94,7 +87,7 @@ public class EditItemSessionBean extends EditItemBean {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    initAuthorCopyPasteCreatorBean();
+//    initAuthorCopyPasteCreatorBean();
   }
 
   /**
@@ -116,15 +109,13 @@ public class EditItemSessionBean extends EditItemBean {
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
-
-    initAuthorCopyPasteCreatorBean();
+//    initAuthorCopyPasteCreatorBean();
   }
 
   /**
      * 
      */
   public void clean() {
-
     super.clean();
     this.files.clear();
     this.locators.clear();
@@ -144,11 +135,9 @@ public class EditItemSessionBean extends EditItemBean {
     sourceList.clear();
     for (SourceBean sourceBean : getSources()) {
       SourceVO sourceVO = sourceBean.getSource();
-
       sourceList.add(sourceVO);
     }
   }
-
 
   /**
    * This method reorganizes the index property in PubFileVOPresentation after removing one element
@@ -161,8 +150,6 @@ public class EditItemSessionBean extends EditItemBean {
       }
     }
   }
-
-
 
   /**
    * This method reorganizes the index property in PubFileVOPresentation after removing one element
@@ -185,8 +172,7 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public List<PubFileVOPresentation> getLocators() {
-
-    return locators;
+    return this.locators;
   }
 
   public void setLocators(List<PubFileVOPresentation> locators) {
@@ -194,7 +180,7 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public String getGenreBundle() {
-    return genreBundle;
+    return this.genreBundle;
   }
 
   public void setGenreBundle(String genreBundle) {
@@ -206,45 +192,44 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public String getOffset() {
-    return offset;
+    return this.offset;
   }
 
   public List<SourceBean> getSources() {
-    return sources;
+    return this.sources;
   }
 
   public void setSources(List<SourceBean> sources) {
     this.sources = sources;
   }
 
-  /**
-   * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste
-   * organizations.
-   */
-  public void initAuthorCopyPasteCreatorBean() {
-    CreatorVO newVO = new CreatorVO();
+//  /**
+//   * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste
+//   * organizations.
+//   */
+//  public void initAuthorCopyPasteCreatorBean() {
+////    CreatorVO newVO = new CreatorVO();
+//    // TODO MF.
+//  }
 
-    // TODO MF.
-  }
+//  /**
+//   * Sets the CreatorBean that manages the author copy&paste organizations.
+//   * 
+//   * @param authorCopyPasteOrganizationsCreatorBean
+//   */
+//  public void setAuthorCopyPasteOrganizationsCreatorBean(
+//      CreatorBean authorCopyPasteOrganizationsCreatorBean) {
+//    this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
+//  }
 
-  /**
-   * Sets the CreatorBean that manages the author copy&paste organizations.
-   * 
-   * @param authorCopyPasteOrganizationsCreatorBean
-   */
-  public void setAuthorCopyPasteOrganizationsCreatorBean(
-      CreatorBean authorCopyPasteOrganizationsCreatorBean) {
-    this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
-  }
-
-  /**
-   * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
-   * 
-   * @return
-   */
-  public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
-    return authorCopyPasteOrganizationsCreatorBean;
-  }
+//  /**
+//   * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
+//   * 
+//   * @return
+//   */
+//  public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
+//    return authorCopyPasteOrganizationsCreatorBean;
+//  }
 
   public String getCurrentSubmission() {
     return currentSubmission;

@@ -64,7 +64,7 @@ public class ViewItemReleaseHistoryPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

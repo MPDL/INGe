@@ -55,7 +55,6 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
    super.init();
-
   }
 
   /**
@@ -64,7 +63,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   /**

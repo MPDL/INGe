@@ -71,5 +71,4 @@ public class AcceptItemPage extends BreadcrumbPage {
     return true;
   }
 
-
 }

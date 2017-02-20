@@ -26,10 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
@@ -48,7 +44,7 @@ public class ReportWorkspacePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(ReportWorkspacePage.class);
   public static final String BEAN_NAME = "ReportWorkspacePage";
   // The referring GUI Tool Page
-  public static final String GT_REPORT_WORKSPACE_PAGE = "GTReportWorkspacePage.jsp";
+//  public static final String GT_REPORT_WORKSPACE_PAGE = "GTReportWorkspacePage.jsp";
 
   /**
    * Public constructor.
@@ -83,20 +79,20 @@ public class ReportWorkspacePage extends BreadcrumbPage {
     }
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_REPORT_WORKSPACE_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-    }
-    return "";
-  }
+//  /**
+//   * Redirets to the referring GUI Tool page.
+//   * 
+//   * @return a navigation string
+//   */
+//  protected String redirectToGUITool() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    try {
+//      fc.getExternalContext().redirect(GT_REPORT_WORKSPACE_PAGE);
+//    } catch (IOException e) {
+//      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+//    }
+//    return "";
+//  }
 
 
   /**

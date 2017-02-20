@@ -26,15 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
  * viewItemPage.java Backing bean for viewItemPage.jsp Created on 24. Januar 2007, 18:15 Copyright
@@ -42,11 +34,12 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class ViewItemPage extends BreadcrumbPage {
-  final public static String BEAN_NAME = "ViewItemPage";
+  public static final String BEAN_NAME = "ViewItemPage";
+  
   // The referring GUI Tool Page
-  public final static String GT_VIEW_ITEM_PAGE = "GTviewItemPage.jsp";
-  private static Logger logger = Logger.getLogger(ViewItemPage.class);
-  public static final String PARAMETERNAME_ITEM_ID = "itemId";
+//  public final static String GT_VIEW_ITEM_PAGE = "GTviewItemPage.jsp";
+  
+//  private static final String PARAMETERNAME_ITEM_ID = "itemId";
 
   /**
    * Public constructor.
@@ -63,43 +56,40 @@ public class ViewItemPage extends BreadcrumbPage {
     // Perform initializations inherited from our superclass
     super.init();
     // Try to get the request parameter (item ID) out of the faces context
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String itemID = request.getParameter(ViewItemPage.PARAMETERNAME_ITEM_ID);
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+//    String itemID = request.getParameter(ViewItemPage.PARAMETERNAME_ITEM_ID);
     // initialize viewItem
 
-    // insert the itemID into the view item session bean
-    if (itemID != null && !itemID.equals("")) {
-      this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
-    }
-
+//    // insert the itemID into the view item session bean
+//    if (itemID != null && !itemID.equals("")) {
+//      this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
+//    }
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_VIEW_ITEM_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-    }
-    return "";
-  }
+//  /**
+//   * Redirets to the referring GUI Tool page.
+//   * 
+//   * @return a navigation string
+//   */
+//  protected String redirectToGUITool() {
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    try {
+//      fc.getExternalContext().redirect(GT_VIEW_ITEM_PAGE);
+//    } catch (IOException e) {
+//      logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+//    }
+//    return "";
+//  }
 
-
-  /**
-   * Returns a reference to the scoped data bean (the ViewItemSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
-  }
-
+//  /**
+//   * Returns a reference to the scoped data bean (the ViewItemSessionBean).
+//   * 
+//   * @return a reference to the scoped data bean
+//   */
+//  protected ViewItemSessionBean getViewItemSessionBean() {
+//    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+//  }
 
   @Override
   public boolean isItemSpecific() {

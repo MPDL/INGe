@@ -55,17 +55,16 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  */
 @SuppressWarnings("serial")
 public class AcceptItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(AcceptItem.class);
+  private static final Logger logger = Logger.getLogger(AcceptItem.class);
+  
   // Faces navigation string
   public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
 //  public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String acceptanceComment = null;
-
-  private String valMessage = null;
+//  private String valMessage = null;
   private String creators;
-
-  private String navigationStringToGoBack;
+//  private String navigationStringToGoBack;
 
   /**
    * Public constructor.
@@ -102,14 +101,14 @@ public class AcceptItem extends FacesBean {
     }
     this.creators = creators.toString();
 
-    if (logger.isDebugEnabled()) {
-      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger
-            .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
-      } else {
-        logger.error("NO ITEM GIVEN");
-      }
-    }
+//    if (logger.isDebugEnabled()) {
+//      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
+//        logger
+//            .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
+//      } else {
+//        logger.error("NO ITEM GIVEN");
+//      }
+//    }
   }
 
   /**
@@ -131,7 +130,7 @@ public class AcceptItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal;
-    String navigateTo = getSessionBean().getNavigationStringToGoBack();
+    String navigateTo = getAcceptItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
@@ -157,8 +156,6 @@ public class AcceptItem extends FacesBean {
         logger.error("Could not redirect to View Item Page", e);
       }
     }
-
-
 
     return retVal;
   }
@@ -207,13 +204,11 @@ public class AcceptItem extends FacesBean {
    * @author Michael Franke
    */
   public void handleMessage() {
-
-    String message = this.getSessionBean().getMessage();
-
-    this.valMessage = message;
+//    String message = this.getAcceptItemSessionBean().getMessage();
+//    this.valMessage = message;
 
     // keep the message just once
-    this.getSessionBean().setMessage(null);
+    this.getAcceptItemSessionBean().setMessage(null);
   }
 
   /**
@@ -230,7 +225,7 @@ public class AcceptItem extends FacesBean {
    * 
    * @return a reference to the scoped data bean (AcceptItemSessionBean)
    */
-  protected final AcceptItemSessionBean getSessionBean() {
+  protected final AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
@@ -242,24 +237,24 @@ public class AcceptItem extends FacesBean {
     this.acceptanceComment = acceptanceComment;
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
+//  public String getValMessage() {
+//    return valMessage;
+//  }
+//
+//  public void setValMessage(String valMessage) {
+//    this.valMessage = valMessage;
+//  }
 
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
-
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+//  public final String getNavigationStringToGoBack() {
+//    return navigationStringToGoBack;
+//  }
+//
+//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+//    this.navigationStringToGoBack = navigationStringToGoBack;
+//  }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {

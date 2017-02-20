@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Tobias Schraut, created 20.02.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
+@SuppressWarnings("serial")
 public class ViewItemOrganizationInformationPage extends FacesBean {
   /**
    * Public constructor
