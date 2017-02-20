@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.depositing;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
-
 /**
  * Exception used for publication item with missing attributes.
  * 
@@ -37,6 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class PubItemMandatoryAttributesMissingException extends DepositingException {
   /**
    * The invalid pubitem

@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class PubFileContentNotFoundException extends TechnicalException {
   /**
    * The list of files containing the file whose content was not found.

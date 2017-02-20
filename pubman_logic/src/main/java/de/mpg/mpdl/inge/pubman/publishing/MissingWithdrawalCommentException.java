@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.publishing;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
-
 /**
  * Exception class used to indicate that the required reason for withdrawal is missing.
  * 
@@ -36,6 +35,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
+@SuppressWarnings("serial")
 public class MissingWithdrawalCommentException extends PublishingException {
   /**
    * Creates a new instance with the given pubitem reference.

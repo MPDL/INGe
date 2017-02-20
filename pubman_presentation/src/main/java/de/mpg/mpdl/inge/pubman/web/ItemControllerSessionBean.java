@@ -2255,16 +2255,8 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Revising PubItem: " + currentPubItem.getVersion().getObjectId());
-        logger.debug("Revising item...");
-      }
-
-      // delete the item
       this.qualityAssurance.revisePubItem(currentPubItem.getVersion(), reviseComment,
           loginHelper.getAccountUser());
-
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);

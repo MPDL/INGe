@@ -61,7 +61,6 @@ public interface QualityAssurance {
    */
   public static String SERVICE_NAME = "ejb/de/mpg/escidoc/services/common/QualityAssurance";
 
-
   /**
    * Searches for publication items that matches the given context object id, the given
    * organizational unit id and the given item state
@@ -76,7 +75,6 @@ public interface QualityAssurance {
       throws TechnicalException, ServiceException, MissingMethodParameterException,
       ContextNotFoundException, InvalidXmlException, AuthenticationException,
       AuthorizationException, SystemException, RemoteException, URISyntaxException;
-
 
   /**
    * retrieves all Contexts for which the given user is Moderator
