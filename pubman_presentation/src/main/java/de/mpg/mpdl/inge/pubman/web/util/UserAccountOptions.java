@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.net.URISyntaxException;
-import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
@@ -35,14 +34,6 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
-import de.escidoc.core.common.exceptions.application.invalid.XmlCorruptedException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.UserAccountNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -83,8 +74,8 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePassword() {
     try {
-      InternationalizationHelper internationalizationHelper =
-          (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+//      InternationalizationHelper internationalizationHelper =
+//          (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
       if (this.password != null && !("").equals(this.password.trim())) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);

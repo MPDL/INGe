@@ -31,15 +31,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -47,7 +43,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -75,6 +70,7 @@ import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class StatisticChartServlet extends HttpServlet {
 
   private static final String CONTENT_TYPE = "image/png";
@@ -86,8 +82,6 @@ public class StatisticChartServlet extends HttpServlet {
   private static final String typeParameterName = "type";
 
   private static final String languageParameterName = "lang";
-
-  private Logger logger = Logger.getLogger(StatisticChartServlet.class);
 
   private String id;
 

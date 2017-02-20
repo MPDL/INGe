@@ -26,13 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.lang.reflect.Method;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 
 /**
  * BackingBean for EasySubmissionPage.jsp. This one is empty because all code is implemented in the
@@ -42,9 +36,8 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
  * @author: $Author: mfranke$
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class EasySubmissionPage extends FacesBean {
-  private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
-
   public static final String BEAN_NAME = "EasySubmissionPage";
 
   /**

@@ -31,7 +31,6 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
 import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -47,9 +46,9 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class EasySubmissionSessionBean extends EditItemBean {
   public static final String BEAN_NAME = "EasySubmissionSessionBean";
-  private static Logger logger = Logger.getLogger(EasySubmissionSessionBean.class);
 
   public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
   public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";

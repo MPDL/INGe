@@ -24,24 +24,23 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Bean for editing Yearbook-Items and its related User-Groups
@@ -50,6 +49,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class YearbookItemEditBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemEditBean.class);
   public static final String BEAN_NAME = "YearbookItemEditBean";
@@ -70,7 +70,7 @@ public class YearbookItemEditBean extends FacesBean {
   private OrganizationVO organization;
   private UserGroupVO userGroup;
   private List<UserGroupVO> userGroups;
-  private List<GrantVO> userGroupGrants;
+//  private List<GrantVO> userGroupGrants;
   private List<SelectItem> collaboratorSelectItems;
   private List<String> collaboratorUserIds;
   private List<AccountUserVO> possibleCollaboratorsList;
@@ -198,9 +198,9 @@ public class YearbookItemEditBean extends FacesBean {
         }
       }
     }
-    String userGroupGrantsXml =
-        userGroupHandler.retrieveCurrentGrants(userGroups.get(0).getObjid());
-    userGroupGrants = xmlTransforming.transformToGrantVOList(userGroupGrantsXml);
+//    String userGroupGrantsXml =
+//        userGroupHandler.retrieveCurrentGrants(userGroups.get(0).getObjid());
+//    userGroupGrants = xmlTransforming.transformToGrantVOList(userGroupGrantsXml);
   }
 
   /**
@@ -481,8 +481,8 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public String save() {
     try {
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+//      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+//      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
       PubItemVO pubItem = new PubItemVO(this.yearbookItemSessionBean.getYearbookItem());
       MdsYearbookVO mds = new MdsYearbookVO();
 
@@ -503,8 +503,8 @@ public class YearbookItemEditBean extends FacesBean {
         }
       }
       pubItem.getMetadataSets().set(0, mds);
-      String itemXml = xmlTransforming.transformToItem(pubItem);
-      String updatedXml = itemHandler.update(pubItem.getVersion().getObjectId(), itemXml);
+//      String itemXml = xmlTransforming.transformToItem(pubItem);
+//      String updatedXml = itemHandler.update(pubItem.getVersion().getObjectId(), itemXml);
       if (this.getUserGroup() != null) {
         this.getUserGroup().setName(
             this.getYear() + " - Yearbook User Group for " + getOrganization().getName() + " ("

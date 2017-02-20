@@ -40,7 +40,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -51,6 +50,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 31.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
+@SuppressWarnings("serial")
 public class Login extends FacesBean {
   public static String LOGIN_URL = "/aa/login";
   public static String LOGOUT_URL = "/aa/logout/clear.jsp";
@@ -185,7 +185,7 @@ public class Login extends FacesBean {
    */
   public String forceLogout(String itemID) {
     FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
       fc.getExternalContext().redirect(
@@ -246,29 +246,27 @@ public class Login extends FacesBean {
     this.password = password;
   }
 
-
-
-  private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException,
-      ServiceException {
-    BreadcrumbItemHistorySessionBean breadCrumbHistory =
-        (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-
-    String pubmanUrl =
-        PropertyReader.getProperty("escidoc.pubman.instance.url")
-            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-    if (!pubmanUrl.endsWith("/"))
-      pubmanUrl = pubmanUrl + "/";
-
-    // Use double URL encoding here because the login mechanism gives back the decoded URL
-    // parameters.
-    String url =
-        PropertyReader.getLoginUrl()
-            + LOGIN_URL
-            + "?target="
-            + pubmanUrl
-            + "faces/"
-            + URLEncoder.encode(
-                URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"), "UTF-8");
-    return url;
-  }
+//  private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException,
+//      ServiceException {
+//    BreadcrumbItemHistorySessionBean breadCrumbHistory =
+//        (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+//
+//    String pubmanUrl =
+//        PropertyReader.getProperty("escidoc.pubman.instance.url")
+//            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+//    if (!pubmanUrl.endsWith("/"))
+//      pubmanUrl = pubmanUrl + "/";
+//
+//    // Use double URL encoding here because the login mechanism gives back the decoded URL
+//    // parameters.
+//    String url =
+//        PropertyReader.getLoginUrl()
+//            + LOGIN_URL
+//            + "?target="
+//            + pubmanUrl
+//            + "faces/"
+//            + URLEncoder.encode(
+//                URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"), "UTF-8");
+//    return url;
+//  }
 }

@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.commons.digester.SetTopRule;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -36,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @param <FilterType> The type of filters managed by this bean that are usable for every
  *        ListRetriever, eg. sorting of PubItems.
  */
+@SuppressWarnings("serial")
 public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> extends FacesBean {
 
   private static Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
@@ -148,7 +148,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * Indicates if the list should be upadated even if no parameters have changed
    */
-  private boolean hasChanged;
+//  private boolean hasChanged;
 
   private boolean noListUpdate;
 
@@ -262,28 +262,28 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     saveOldParameters();
   }
 
-  /**
-   * Compares the parameters from the current request with the ones from the last request. Returns
-   * true if parameters have changed or if there are more/less parameters since the last request.
-   * This is done in order to avoid the list update if only e.g. a new menu should be displayed.
-   * 
-   * @return
-   */
-  private boolean parametersChanged() {
-    if (getOldRedirectParameterMap().isEmpty()
-        || getOldRedirectParameterMap().size() != getParameterMap().size()) {
-      return true;
-    } else {
-      for (String key : getOldRedirectParameterMap().keySet()) {
-        if (!getParameterMap().containsKey(key)
-            || !getParameterMap().get(key).equals(getOldRedirectParameterMap().get(key))) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-  }
+//  /**
+//   * Compares the parameters from the current request with the ones from the last request. Returns
+//   * true if parameters have changed or if there are more/less parameters since the last request.
+//   * This is done in order to avoid the list update if only e.g. a new menu should be displayed.
+//   * 
+//   * @return
+//   */
+//  private boolean parametersChanged() {
+//    if (getOldRedirectParameterMap().isEmpty()
+//        || getOldRedirectParameterMap().size() != getParameterMap().size()) {
+//      return true;
+//    } else {
+//      for (String key : getOldRedirectParameterMap().keySet()) {
+//        if (!getParameterMap().containsKey(key)
+//            || !getParameterMap().get(key).equals(getOldRedirectParameterMap().get(key))) {
+//          return true;
+//        }
+//      }
+//      return false;
+//    }
+//
+//  }
 
 
   /**
@@ -908,24 +908,24 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     getOldRedirectParameterMap().putAll(getParameterMap());
   }
 
-  /**
-   * Set this method from outside if the list has to be updated even if no GET parameters have
-   * changed;
-   */
-  public void setHasChanged() {
-    hasChanged = true;
-  }
-
-  /**
-   * Returns the value of hasChanged and resets it to false.
-   * 
-   * @return
-   */
-  private boolean getHasChanged() {
-    boolean returnVal = hasChanged;
-    hasChanged = false;
-    return returnVal;
-  }
+//  /**
+//   * Set this method from outside if the list has to be updated even if no GET parameters have
+//   * changed;
+//   */
+//  public void setHasChanged() {
+//    hasChanged = true;
+//  }
+//
+//  /**
+//   * Returns the value of hasChanged and resets it to false.
+//   * 
+//   * @return
+//   */
+//  private boolean getHasChanged() {
+//    boolean returnVal = hasChanged;
+//    hasChanged = false;
+//    return returnVal;
+//  }
 
   /**
    * Set this method if during the next call of the retriever request bean the list should not be

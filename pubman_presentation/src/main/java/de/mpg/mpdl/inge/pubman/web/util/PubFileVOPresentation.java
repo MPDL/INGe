@@ -247,7 +247,7 @@ public class PubFileVOPresentation extends FacesBean {
     String contentCategory = null;
     if (this.file.getContentCategory() != null) {
       @SuppressWarnings({"unchecked", "rawtypes"})
-      Map<String, String> propertiesMap = new HashMap<String, String>((Map) this.properties);
+      Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
       for (Map.Entry<String, String> entry : propertiesMap.entrySet()) {
         if (entry.getValue().equals(this.file.getContentCategory())) {
           contentCategory =

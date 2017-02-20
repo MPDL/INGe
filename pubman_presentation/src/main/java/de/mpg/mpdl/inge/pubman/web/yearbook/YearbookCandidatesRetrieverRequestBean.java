@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookCandidatesRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = Logger
@@ -76,7 +77,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private int numberOfRecords;
 
   private YearbookItemSessionBean yisb;
-  private PubItemListSessionBean pilsb;
+//  private PubItemListSessionBean pilsb;
 
   @EJB
   private Search searchService;
@@ -90,11 +91,8 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   @Override
   public void init() {
-    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-
+//    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-
-
   }
 
   @Override
@@ -330,16 +328,16 @@ public class YearbookCandidatesRetrieverRequestBean extends
      * 
      * MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
      */
-    String orgUnit = "";
+//    String orgUnit = "";
     String contextQuery = "";
-    if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-        .getIdentifier() != null) {
-      orgUnit =
-          MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
-              + "=\""
-              + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-                  .getIdentifier() + "\"";
-    }
+//    if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+//        .getIdentifier() != null) {
+//      orgUnit =
+//          MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
+//              + "=\""
+//              + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+//                  .getIdentifier() + "\"";
+//    }
 
     if (yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts() != null
         && yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts().size() > 0) {

@@ -716,7 +716,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     int balanceCounter = 0;
     boolean lookForClosingParenthesis = false;
     int startParenthesisBalance = 0;
-    int pos = 0;
+//    int pos = 0;
 
     this.numberOfSearchCriterions = 0;
 
@@ -753,7 +753,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
           && !DisplayType.PARENTHESIS.equals(sc.getSearchCriterion().getDisplayType())) {
         this.numberOfSearchCriterions++;
       }
-      pos++;
+//      pos++;
     }
 
     // logger.info("number of search criterions: " + numberOfSearchCriterions);

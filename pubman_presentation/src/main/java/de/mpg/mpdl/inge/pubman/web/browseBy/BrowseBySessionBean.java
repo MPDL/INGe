@@ -102,7 +102,7 @@ public class BrowseBySessionBean extends FacesBean {
       this.pubContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
     } catch (Exception e) {
-      this.logger.warn("Could not read property content model.", e);
+      logger.warn("Could not read property content model.", e);
     }
   }
 
@@ -126,7 +126,7 @@ public class BrowseBySessionBean extends FacesBean {
         }
       }
     } catch (Exception e) {
-      this.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
+      logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -244,7 +244,7 @@ public class BrowseBySessionBean extends FacesBean {
       httpConn.disconnect();
 
     } catch (Exception e) {
-      this.logger.warn("An error occurred while calling the Cone service.", e);
+      logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
     return links;

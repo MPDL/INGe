@@ -40,9 +40,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ReleaseHistory extends FacesBean {
   public static final String BEAN_NAME = "ReleaseHistory";
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(ReleaseHistory.class);
 
   // Faces navigation string

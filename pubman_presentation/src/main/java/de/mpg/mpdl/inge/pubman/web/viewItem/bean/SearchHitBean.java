@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem.bean;
 
-import org.apache.log4j.Logger;
-
 /**
  * Simple bean to store the elements of the fulltext search hits.
  * 
@@ -35,11 +33,9 @@ import org.apache.log4j.Logger;
  * @version: $Revision$ $LastChangedDate$
  */
 public class SearchHitBean {
-  private static Logger logger = Logger.getLogger(SearchHitBean.class);
   private String beforeSearchHitString;
   private String searchHitString;
   private String afterSearchHitString;
-
 
   /**
    * Public constructor

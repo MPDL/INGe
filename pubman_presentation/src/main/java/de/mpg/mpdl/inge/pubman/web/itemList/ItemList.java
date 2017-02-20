@@ -28,12 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.itemList;
 
 import javax.faces.component.html.HtmlPanelGroup;
 
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOWrapper;
 
 /**
  * Fragment class for lists of items.
@@ -41,11 +36,10 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOWrapper;
  * @author: Thomas Diebäcker, created 29.08.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ItemList extends FacesBean {
   public static final String BEAN_NAME = "itemListItemList";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(ItemList.class);
-
+  
   // panels for dynamic components
   private HtmlPanelGroup panDynamicItemList = new HtmlPanelGroup();
 
@@ -53,30 +47,29 @@ public class ItemList extends FacesBean {
    * This is just for testing purpose!
    */
   public ItemList() {
-
     this.init();
-
   }
-
-  /**
-   * Creates an item for testing purpose.
-   * 
-   * @param titleValue the title of the test item
-   * @return a new test item
-   */
-  private PubItemVOWrapper createTestItem(String titleValue) {
-    PubItemVOWrapper pubItemVOWrapper = new PubItemVOWrapper();
-    PubItemVO pubItemVO = new PubItemVO();
-    MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
-    mdsPublicationVO.setTitle(titleValue);
-    mdsPublicationVO.setGenre(MdsPublicationVO.Genre.BOOK);
-    mdsPublicationVO.setDatePublishedInPrint("2007-12-21");
-    mdsPublicationVO.setDatePublishedOnline("2007-12-22");
-    pubItemVO.setMetadata(mdsPublicationVO);
-    pubItemVOWrapper.setValueObject(pubItemVO);
-
-    return pubItemVOWrapper;
-  }
+  
+//
+//  /**
+//   * Creates an item for testing purpose.
+//   * 
+//   * @param titleValue the title of the test item
+//   * @return a new test item
+//   */
+//  private PubItemVOWrapper createTestItem(String titleValue) {
+//    PubItemVOWrapper pubItemVOWrapper = new PubItemVOWrapper();
+//    PubItemVO pubItemVO = new PubItemVO();
+//    MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
+//    mdsPublicationVO.setTitle(titleValue);
+//    mdsPublicationVO.setGenre(MdsPublicationVO.Genre.BOOK);
+//    mdsPublicationVO.setDatePublishedInPrint("2007-12-21");
+//    mdsPublicationVO.setDatePublishedOnline("2007-12-22");
+//    pubItemVO.setMetadata(mdsPublicationVO);
+//    pubItemVOWrapper.setValueObject(pubItemVO);
+//
+//    return pubItemVOWrapper;
+//  }
 
   /**
    * Callback method that is called whenever a page containing this page fragment is navigated to,

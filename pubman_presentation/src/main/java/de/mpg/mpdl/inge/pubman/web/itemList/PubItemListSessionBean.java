@@ -968,7 +968,7 @@ public class PubItemListSessionBean extends
             new String(icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList)));
       } catch (TechnicalException e) {
-        ((ErrorPage) this.getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED) {
@@ -1323,7 +1323,7 @@ public class PubItemListSessionBean extends
     if (newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements()) {
       itemPosition = newItemPosition;
     } else {
-      this.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
+      error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
     }
   }
 

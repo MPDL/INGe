@@ -34,17 +34,11 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
-
-import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -71,10 +65,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 07.03.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
+@SuppressWarnings("serial")
 public class LoginHelper extends FacesBean {
-
-  private static Logger logger = Logger.getLogger(LoginHelper.class);
-
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
   public final static String BEAN_NAME = "LoginHelper";
   private String eSciDocUserHandle = null;
@@ -120,8 +112,8 @@ public class LoginHelper extends FacesBean {
    */
   public String insertLogin() throws IOException, ServiceException, TechnicalException,
       URISyntaxException {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+//    FacesContext fc = FacesContext.getCurrentInstance();
+//    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String token = this.obtainToken();
     if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       if (token != null) {

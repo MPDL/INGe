@@ -43,9 +43,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @author: Thomas Diebäcker, created 22.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class CreateRevision extends FacesBean {
   public static final String BEAN_NAME = "CreateRevision";
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(CreateRevision.class);
 
   // Faces navigation string

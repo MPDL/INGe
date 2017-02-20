@@ -194,7 +194,7 @@ public class WithdrawItem extends FacesBean {
    * @return a reference to the scoped data bean
    */
   public final ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   /**

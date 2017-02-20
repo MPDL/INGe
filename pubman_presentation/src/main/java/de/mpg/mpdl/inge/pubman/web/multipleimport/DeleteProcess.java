@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import javax.naming.InitialContext;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
@@ -44,8 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  * 
  */
 public class DeleteProcess extends Thread {
-  private static Logger logger = Logger.getLogger(DeleteProcess.class);
-
   private ImportLog log;
   private PubItemDepositing pubItemDepositing;
   private AccountUserVO user;

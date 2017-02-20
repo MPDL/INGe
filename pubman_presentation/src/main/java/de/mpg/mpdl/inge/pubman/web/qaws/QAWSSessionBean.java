@@ -33,10 +33,8 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-
 
 /**
  * TODO Session Bean for the Quality Assurance Workspace, keeps all attributes
@@ -46,6 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class QAWSSessionBean extends FacesBean {
   public static final String BEAN_NAME = "QAWSSessionBean";
   @SuppressWarnings("unused")
@@ -54,7 +53,7 @@ public class QAWSSessionBean extends FacesBean {
   /** value for the selected collection */
   private String selectedContextId = null;
 
-  private AffiliationVO selectedAffiliationVO;
+//  private AffiliationVO selectedAffiliationVO;
 
   /** value for the selected organizational unit */
   private String selectedOUId = null;

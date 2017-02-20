@@ -117,7 +117,7 @@ public class ZfNProcessor extends FormatProcessor {
 
       }
 
-      this.logger.debug("Zip file contains " + count + "elements");
+      logger.debug("Zip file contains " + count + "elements");
       zipinputstream.close();
       this.counter = 0;
 
@@ -125,7 +125,7 @@ public class ZfNProcessor extends FormatProcessor {
       this.items = itemList.toArray(new String[] {});
       this.length = this.items.length;
     } catch (Exception e) {
-      this.logger.error("Could not read zip File: " + e.getMessage());
+      logger.error("Could not read zip File: " + e.getMessage());
       throw new RuntimeException("Error reading input stream", e);
     }
   }
@@ -159,7 +159,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @throws Exception
    */
   private FileVO createPubFile(InputStream in, AccountUserVO user) throws Exception {
-    this.logger.debug("Creating PubFile: " + this.getCurrentFile());
+    logger.debug("Creating PubFile: " + this.getCurrentFile());
 
     MdsFileVO mdSet = new MdsFileVO();
     FileVO fileVO = new FileVO();
@@ -239,9 +239,9 @@ public class ZfNProcessor extends FormatProcessor {
     this.f.enterLocalActiveMode();
     this.f.changeWorkingDirectory(dir);
     this.f.setFileType(FTP.BINARY_FILE_TYPE);
-    this.logger.debug("Connection to ftp server established.");
-    this.logger.debug("Mode: Active ftp");
-    this.logger.debug("Dir: " + dir);
+    logger.debug("Connection to ftp server established.");
+    logger.debug("Mode: Active ftp");
+    logger.debug("Dir: " + dir);
 
     this.ftpOpen = true;
   }
@@ -250,7 +250,7 @@ public class ZfNProcessor extends FormatProcessor {
     this.f.logout();
     this.f.disconnect();
     this.ftpOpen = false;
-    this.logger.debug("Connection to ftp server closed.");
+    logger.debug("Connection to ftp server closed.");
   }
 
   /**
@@ -264,7 +264,7 @@ public class ZfNProcessor extends FormatProcessor {
       try {
         this.openFtpServer();
       } catch (Exception e) {
-        this.logger.error("Could not open ftp server " + e.getCause());
+        logger.error("Could not open ftp server " + e.getCause());
         throw new Exception();
       }
     }
@@ -305,7 +305,7 @@ public class ZfNProcessor extends FormatProcessor {
       try {
         this.closeFtpServer();
       } catch (Exception e) {
-        this.logger.error("Could not close ftp server connection");
+        logger.error("Could not close ftp server connection");
       }
     }
 

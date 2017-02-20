@@ -30,8 +30,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -43,12 +41,11 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldAndFull
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearchCriterion;
 
-
+@SuppressWarnings("serial")
 public class Search extends FacesBean {
-  private static final String PROPERTY_CONTENT_MODEL =
-      "escidoc.framework_access.content-model.id.publication";
+//  private static final String PROPERTY_CONTENT_MODEL =
+//      "escidoc.framework_access.content-model.id.publication";
 
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(Search.class);
 
   private String searchString;

@@ -25,7 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -45,8 +44,8 @@ public class AffiliationDetail {
   private boolean renderDetails = false;
 
   private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
-  private HtmlPanelGroup panDetail = new HtmlPanelGroup();
-  private HtmlOutputText txtName = new HtmlOutputText();
+//  private HtmlPanelGroup panDetail = new HtmlPanelGroup();
+//  private HtmlOutputText txtName = new HtmlOutputText();
 
   /**
    * Public constructor.

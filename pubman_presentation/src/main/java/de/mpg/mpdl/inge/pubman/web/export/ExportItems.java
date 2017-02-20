@@ -235,8 +235,8 @@ public class ExportItems extends FacesBean {
         || "CSL".equalsIgnoreCase(selExportFormat)) {
       // set default fileFormat for APA or AJP to pdf
       String fileFormat = sb.getFileFormat();
-      if (fileFormat != null || fileFormat.trim().equals("")
-          || fileFormat.trim().equals(FileFormatVO.TEXT_NAME))
+      if (fileFormat != null || fileFormat != null && fileFormat.trim().equals("")
+          || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TEXT_NAME))
         sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
     } else {
       String fileFormat = null;

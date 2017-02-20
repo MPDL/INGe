@@ -24,8 +24,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.revisions;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 
 /**
@@ -36,10 +34,9 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
  * @author $Author: MWalter $ (last modification)
  * @version $Revision: 4777 $ $LastChangedDate: 2012-06-20 09:49:27 +0200 (Mi, 20 Jun 2012) $
  */
+@SuppressWarnings("serial")
 public class RevisionItemListSessionBean extends PubItemListSessionBean {
-  private static Logger logger = Logger.getLogger(RevisionItemListSessionBean.class);
-
-  public static String BEAN_NAME = "RevisionItemListSessionBean";
+  public static final String BEAN_NAME = "RevisionItemListSessionBean";
 
   public RevisionItemListSessionBean() {
     super();
