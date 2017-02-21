@@ -37,9 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class WithdrawItemPage extends BreadcrumbPage {
-  /**
-   * Public constructor.
-   */
   public WithdrawItemPage() {
     this.init();
   }

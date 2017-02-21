@@ -49,11 +49,11 @@ public class YearbookModeratorRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
 
-  private static final Logger logger =
-      Logger.getLogger(YearbookModeratorRetrieverRequestBean.class);
+  private static final Logger logger = Logger
+      .getLogger(YearbookModeratorRetrieverRequestBean.class);
 
   private String selectedSortOrder;
-  
+
   /**
    * This workspace's user.
    */
@@ -187,8 +187,9 @@ public class YearbookModeratorRetrieverRequestBean extends
       filter.getFilterList().add(f8);
       Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
-      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-          .retrieveItems(filter.toMap());
+      String xmlItemList =
+          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              filter.toMap());
 
       SearchRetrieveResponseVO result =
           xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
@@ -205,7 +206,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       error("Error in retrieving items");
       numberOfRecords = 0;
     }
-    
+
     return returnList;
   }
 
@@ -221,7 +222,7 @@ public class YearbookModeratorRetrieverRequestBean extends
           if (!query.equals("")) {
             query += " OR ";
           }
-          
+
           query += " ( " + mdQuery.getCqlQuery() + " ) ";
         }
       }
@@ -268,7 +269,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       logger.error("Could not release Yearbook Item", e);
     }
     pilsb.redirect();
-    
+
     return "";
   }
 
@@ -286,8 +287,8 @@ public class YearbookModeratorRetrieverRequestBean extends
         String paramXml = null;
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
           if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            param = new TaskParamVO(yearbookItem.getModificationDate(),
-                "Send yearbook back for rework");
+            param =
+                new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
             paramXml = xmlTransforming.transformToTaskParam(param);
             itemHandler.revise(yearbookItem.getVersion().getObjectId(), paramXml);
           } else {
@@ -305,7 +306,7 @@ public class YearbookModeratorRetrieverRequestBean extends
     }
     this.pilsb.update();
     this.pilsb.redirect();
-    
+
     return "";
   }
 }

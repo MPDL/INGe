@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 
 /**
  * BackingBean for ReviseItemPage.jsp. This one is empty because all code is implemented in the
@@ -41,9 +40,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
  */
 @SuppressWarnings("serial")
 public class ReviseItemPage extends BreadcrumbPage {
-  /**
-   * Public constructor.
-   */
   public ReviseItemPage() {
     this.init();
   }
@@ -57,17 +53,17 @@ public class ReviseItemPage extends BreadcrumbPage {
     super.init();
   }
 
-  /**
-   * Handle messages in fragments from here to please JSF life cycle.
-   * 
-   * @author: Michael Franke
-   */
-  @Override
-  public void prerender() {
-//    super.prerender();
-    SubmitItem fragment = (SubmitItem) getBean(SubmitItem.class);
-    fragment.handleMessage();
-  }
+  // /**
+  // * Handle messages in fragments from here to please JSF life cycle.
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
+  // fragment.handleMessage();
+  // }
 
   @Override
   public boolean isItemSpecific() {

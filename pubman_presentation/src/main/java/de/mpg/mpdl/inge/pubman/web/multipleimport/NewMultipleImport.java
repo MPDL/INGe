@@ -41,6 +41,11 @@ public class NewMultipleImport extends BreadcrumbPage {
   public static final String BEAN_NAME = "NewMultipleImport";
 
   public NewMultipleImport() {
+    this.init();
+  }
+
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
   }
 

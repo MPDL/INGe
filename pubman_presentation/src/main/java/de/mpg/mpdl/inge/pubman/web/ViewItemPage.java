@@ -55,6 +55,7 @@ public class ViewItemPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
+
     // Try to get the request parameter (item ID) out of the faces context
     // FacesContext fc = FacesContext.getCurrentInstance();
     // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();

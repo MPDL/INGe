@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean {
   private static final Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
-  
+
   private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
   private String unapiURLview;
 
@@ -45,7 +45,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    */
   public BaseListRetrieverRequestBean(
       BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
-    super.init();
+    // super.init();
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
     } catch (Exception e) {

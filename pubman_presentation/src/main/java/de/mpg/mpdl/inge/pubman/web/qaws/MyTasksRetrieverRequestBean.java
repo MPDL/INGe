@@ -71,17 +71,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   @EJB
   private XmlTransforming xmlTransforming;
 
-  public MyTasksRetrieverRequestBean() {
-    super();
-
-  }
+  public MyTasksRetrieverRequestBean() {}
 
   @Override
   public void init() {
     // affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     checkForLogin();
     initSelectionMenu();
-
   }
 
 

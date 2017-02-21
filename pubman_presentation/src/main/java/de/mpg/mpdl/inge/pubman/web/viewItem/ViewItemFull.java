@@ -298,11 +298,10 @@ public class ViewItemFull extends FacesBean {
    * either directly via a URL, or indirectly via page navigation. Changed by DiT, 15.10.2007: added
    * link for modify
    */
-  @Override
   public void init() {
     // Perform initializations inherited from our superclass
     // long start = System.currentTimeMillis();
-    super.init();
+    // super.init();
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";

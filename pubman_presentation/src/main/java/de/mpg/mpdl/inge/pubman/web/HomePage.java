@@ -61,9 +61,7 @@ public class HomePage extends BreadcrumbPage {
    */
   public HomePage() {
     this.init();
-
   }
-
 
   /**
    * Callback method that is called whenever a page containing this page fragment is navigated to,
@@ -77,9 +75,9 @@ public class HomePage extends BreadcrumbPage {
     } else if (parameters.containsKey("logout")) {
       info(getMessage("LogoutMessage"));
     }
+
     // Perform initializations inherited from our superclass
     super.init();
-
   }
 
 

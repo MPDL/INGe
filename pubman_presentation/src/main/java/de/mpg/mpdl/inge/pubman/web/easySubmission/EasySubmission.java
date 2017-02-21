@@ -119,7 +119,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 @SuppressWarnings("serial")
 public class EasySubmission extends FacesBean {
   public static final String BEAN_NAME = "EasySubmission";
-  
+
   private static final Logger logger = Logger.getLogger(EasySubmission.class);
 
   // constants for the submission method
@@ -145,37 +145,37 @@ public class EasySubmission extends FacesBean {
   public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED,
       this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE,
       this.DATE_MODIFIED};
-  
+
   public final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
-  
+
   // Faces navigation string
   public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
-  
+
   // Import Service
   private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
-  
+
   // Transformation Service
   private Transformation transformer = null;
-  
+
   // XML Transforming Service
   @EJB
   private XmlTransforming xmlTransforming;
-  
+
   // Validation Service
   @EJB
   private ItemValidating itemValidating;
-  
+
   private HtmlSelectOneRadio radioSelect;
   private HtmlSelectOneMenu dateSelect;
-  
+
   private UploadedFile uploadedFile;
-  
+
   /*
    * private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat(); private HtmlAjaxRepeat
    * locatorIterator = new HtmlAjaxRepeat(); private HtmlAjaxRepeat creatorIterator = new
    * HtmlAjaxRepeat();
    */
-  
+
   private SelectItem[] locatorVisibilities;
   private IdentifierCollection identifierCollection;
   private String selectedDate;
@@ -189,7 +189,7 @@ public class EasySubmission extends FacesBean {
   private SelectItem[] REFERENCE_OPTIONS;
   private String serviceID;
   private boolean overwriteCreators;
-//  private HtmlMessages valMessage = new HtmlMessages();
+  // private HtmlMessages valMessage = new HtmlMessages();
   private String suggestConeUrl = null;
   private String hiddenAlternativeTitlesField;
   private String hiddenIdsField;
@@ -202,9 +202,6 @@ public class EasySubmission extends FacesBean {
   // Dummy for language autosuggest
   private String alternativeLanguageName;
 
-  /**
-   * Public constructor.
-   */
   public EasySubmission() {
 
     // InitialContext initialContext = new InitialContext();
@@ -219,7 +216,7 @@ public class EasySubmission extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    super.init();
+    // super.init();
     SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
     SUBMISSION_METHOD_FETCH_IMPORT =
         new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
@@ -342,7 +339,7 @@ public class EasySubmission extends FacesBean {
     } else {
       this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
     }
-//    this.setBibTexInfo();
+    // this.setBibTexInfo();
     if (getItem() != null && getItem().getMetadata() != null && getSource() != null
         && getSource().getGenre() != null && getSource().getGenre().equals(SourceVO.Genre.JOURNAL)) {
     }
@@ -542,9 +539,9 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-//  public String saveValues() {
-//    return null;
-//  }
+  // public String saveValues() {
+  // return null;
+  // }
 
   public String saveLocator() {
     // EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
@@ -1170,7 +1167,7 @@ public class EasySubmission extends FacesBean {
               .addAll(itemVO.getFiles());
           // Reset info for next call
           // this.setImportSourcesInfo(); Commented out because of browser back button problem.
-//          this.setBibTexInfo();
+          // this.setBibTexInfo();
         } catch (TechnicalException e) {
           logger.warn("Error transforming item to pubItem.");
           error(getMessage("easy_submission_import_from_external_service_error"));
@@ -1597,12 +1594,12 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-//  private void setBibTexInfo() {
-//    // this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
-//    // new SelectItem[] { new SelectItem(this.REFERENCE_FILE,
-//    // getLabel("easy_submission_lblReference_file")),
-//    // new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
-//  }
+  // private void setBibTexInfo() {
+  // // this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
+  // // new SelectItem[] { new SelectItem(this.REFERENCE_FILE,
+  // // getLabel("easy_submission_lblReference_file")),
+  // // new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
+  // }
 
   /**
    * This method selects the import method 'fetch metadata from external systems'
@@ -1623,7 +1620,7 @@ public class EasySubmission extends FacesBean {
    * @return String navigation string
    */
   public String selectImportBibtex() {
-//    this.setBibTexInfo();
+    // this.setBibTexInfo();
     // this.getEasySubmissionSessionBean().setFulltext(false);
     this.getEasySubmissionSessionBean().setImportMethod(
         EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
@@ -2153,7 +2150,7 @@ public class EasySubmission extends FacesBean {
   }
 
   /* JUS END */
-  
+
   /**
    * localized creation of SelectItems for the source genres available
    * 
@@ -2209,13 +2206,13 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-//  public HtmlMessages getValMessage() {
-//    return this.valMessage;
-//  }
-//
-//  public void setValMessage(HtmlMessages valMessage) {
-//    this.valMessage = valMessage;
-//  }
+  // public HtmlMessages getValMessage() {
+  // return this.valMessage;
+  // }
+  //
+  // public void setValMessage(HtmlMessages valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public boolean getFromEasySubmission() {
     return this.fromEasySubmission;

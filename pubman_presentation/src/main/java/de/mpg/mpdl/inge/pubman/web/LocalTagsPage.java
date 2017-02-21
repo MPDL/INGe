@@ -33,6 +33,11 @@ public class LocalTagsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "LocalTagsPage";
 
   public LocalTagsPage() {
+    this.init();
+  }
+
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
   }
 

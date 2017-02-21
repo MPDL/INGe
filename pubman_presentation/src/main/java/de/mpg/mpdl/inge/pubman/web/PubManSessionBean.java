@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
+@SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {
   public static final String BEAN_NAME = "PubManSessionBean";
 
@@ -47,7 +48,7 @@ public class PubManSessionBean extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    super.init();
+    // super.init();
     InternationalizationHelper i18nHelper = this.getI18nHelper();
     this.locale = i18nHelper.getLocale();
   }

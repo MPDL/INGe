@@ -57,6 +57,7 @@ public class FetchMetadataPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
+
     checkForLogin();
   }
 

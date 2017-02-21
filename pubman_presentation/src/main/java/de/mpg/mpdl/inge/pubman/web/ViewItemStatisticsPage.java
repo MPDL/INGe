@@ -41,9 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 public class ViewItemStatisticsPage extends BreadcrumbPage {
   public static final String LOAD_VIEWSTATISTICS = "loadViewStatistics";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemStatisticsPage() {
     this.init();
   }

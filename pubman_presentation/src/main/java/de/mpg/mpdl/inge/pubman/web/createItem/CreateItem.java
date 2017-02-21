@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 @SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
   public static final String BEAN_NAME = "CreateItem";
-  
+
   private static final Logger logger = Logger.getLogger(CreateItem.class);
 
   public enum SubmissionMethod {
@@ -64,22 +64,16 @@ public class CreateItem extends FacesBean {
   // Faces navigation string
   public final static String LOAD_CREATEITEM = "loadCreateItem";
   private String target = EditItem.LOAD_EDITITEM;
-  
 
-  /**
-   * Public constructor.
-   */
-  public CreateItem() {
-    this.init();
-  }
+  public CreateItem() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // //super.init();
+  // }
 
   public String confirmSelection() {
     return target;

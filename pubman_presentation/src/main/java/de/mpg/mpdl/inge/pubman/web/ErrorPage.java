@@ -86,8 +86,6 @@ public class ErrorPage extends BreadcrumbPage {
 
     // show the pageAlert
     this.createPageAlert();
-
-
   }
 
   /**

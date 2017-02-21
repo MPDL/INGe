@@ -34,20 +34,16 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Thomas Diebäcker, created 29.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class Logo extends FacesBean {
-  /**
-   * Public constructor.
-   */
-  public Logo() {
-    this.init();
-  }
+  public Logo() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 }

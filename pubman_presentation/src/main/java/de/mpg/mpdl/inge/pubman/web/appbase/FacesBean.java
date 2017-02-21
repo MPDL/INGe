@@ -54,33 +54,32 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
 
   private static final Logger logger = Logger.getLogger(FacesBean.class);
 
-  public FacesBean() {
-  }
+  public FacesBean() {}
 
-  /**
-   * Dummy method to please derived classes.
-   */
-  protected void init() {
-//    getSessionBean(StatisticSessionBean.class);
-  }
+  // /**
+  // * Dummy method to please derived classes.
+  // */
+  // protected void init() {
+  // getSessionBean(StatisticSessionBean.class);
+  // }
+  //
+  // /**
+  // * Dummy method to please derived classes.
+  // */
+  // protected void prerender() {
+  // // logger.debug("prerender");
+  // }
 
-  /**
-   * Dummy method to please derived classes.
-   */
-  protected void prerender() {
-//    logger.debug("prerender");
-  }
-
-//  /**
-//   * Return the <code>Application</code> instance for the current web application.
-//   * 
-//   * @return <code>Application</code>
-//   */
-//  public static Application getApplication() {
-//    ApplicationFactory factory =
-//        (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-//    return factory.getApplication();
-//  }
+  // /**
+  // * Return the <code>Application</code> instance for the current web application.
+  // *
+  // * @return <code>Application</code>
+  // */
+  // public static Application getApplication() {
+  // ApplicationFactory factory =
+  // (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+  // return factory.getApplication();
+  // }
 
   /**
    * Return the <code>FacesContext</code> instance for the current request.
@@ -100,30 +99,30 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     return getFacesContext().getExternalContext();
   }
 
-//  /**
-//   * Check if a user is already logged in.
-//   */
-//  protected void testLogin() {
-//    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-//    logger.debug("Checking login: " + loginHelper);
-//    if (!loginHelper.isLoggedIn()) {
-//      try {
-//        try {
-//          loginHelper.insertLogin();
-//        } catch (UnmarshallingException e) {
-//          logger.error(e.toString(), e);
-//        } catch (TechnicalException e) {
-//          logger.error(e.toString(), e);
-//        } catch (ServiceException e) {
-//          logger.error(e.toString(), e);
-//        } catch (URISyntaxException e) {
-//          logger.error(e.toString(), e);
-//        }
-//      } catch (IOException e1) {
-//        logger.debug(e1.toString());
-//      }
-//    }
-//  }
+  // /**
+  // * Check if a user is already logged in.
+  // */
+  // protected void testLogin() {
+  // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+  // logger.debug("Checking login: " + loginHelper);
+  // if (!loginHelper.isLoggedIn()) {
+  // try {
+  // try {
+  // loginHelper.insertLogin();
+  // } catch (UnmarshallingException e) {
+  // logger.error(e.toString(), e);
+  // } catch (TechnicalException e) {
+  // logger.error(e.toString(), e);
+  // } catch (ServiceException e) {
+  // logger.error(e.toString(), e);
+  // } catch (URISyntaxException e) {
+  // logger.error(e.toString(), e);
+  // }
+  // } catch (IOException e1) {
+  // logger.debug(e1.toString());
+  // }
+  // }
+  // }
 
   /**
    * Return any bean stored in request, session or application scope under the specified name.
@@ -136,7 +135,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   @Deprecated
   public static synchronized Object getBean(final Class<?> cls) {
     String name = null;
-    
+
     try {
       name = (String) cls.getField("BEAN_NAME").get(new String());
     } catch (IllegalAccessException iae) {
@@ -148,7 +147,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
     Object bean =
         FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
             .getValue(FacesContext.getCurrentInstance());
-    
+
     return bean;
   }
 
@@ -375,18 +374,18 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
         return true;
       }
     }
-    
+
     return false;
   }
 
   public int getNumberOfMessages() {
     int number = 0;
-    
+
     for (Iterator<FacesMessage> i = getFacesContext().getMessages(); i.hasNext();) {
       i.next();
       number++;
     }
-    
+
     return number;
   }
 

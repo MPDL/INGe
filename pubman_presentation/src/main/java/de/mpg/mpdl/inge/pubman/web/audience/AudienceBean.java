@@ -51,16 +51,15 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class AudienceBean extends FacesBean {
-  private static Logger logger = Logger.getLogger(AudienceBean.class);
   public static final String BEAN_NAME = "AudienceBean";
+
+  private static final Logger logger = Logger.getLogger(AudienceBean.class);
+
   // Faces navigation string
   public static final String LOAD_AUDIENCEPAGE = "loadAudiencePage";
   public static final String DUMMY_REVOKE_COMMENT = "grant revoked";
   public static final String DUMMY_CREATE_COMMENT = "grant created";
 
-  /**
-   * Public constructor.
-   */
   public AudienceBean() {
     this.init();
   }
@@ -71,7 +70,7 @@ public class AudienceBean extends FacesBean {
    */
   public final void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
     // AudienceSessionBean asb = this.getAudienceSessionBean();
     // fill the file list in the session bean
     if (this.getAudienceSessionBean().getFileListNew() == null

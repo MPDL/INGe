@@ -36,19 +36,14 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  */
 @SuppressWarnings("serial")
 public class ViewItemOrganizationInformationPage extends FacesBean {
-  /**
-   * Public constructor
-   */
-  public ViewItemOrganizationInformationPage() {
-    this.init();
-  }
+  public ViewItemOrganizationInformationPage() {}
 
-  /**
-   * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-   * indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page is navigated to, either directly via a URL, or
+  // * indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 }

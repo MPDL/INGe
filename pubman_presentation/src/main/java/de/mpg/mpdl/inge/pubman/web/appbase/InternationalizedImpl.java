@@ -137,7 +137,7 @@ public class InternationalizedImpl implements Internationalized {
     }
 
     FacesContext context = FacesContext.getCurrentInstance();
-    
+
     return cls
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
   }

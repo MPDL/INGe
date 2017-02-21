@@ -61,9 +61,6 @@ public class YearbookArchiveRetrieverRequestBean extends
   @Override
   public void init() {
     pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-
-
-
   }
 
   @Override
@@ -173,8 +170,9 @@ public class YearbookArchiveRetrieverRequestBean extends
         filter.getFilterList().add(sortFilter);
       }
 
-      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-          .retrieveItems(filter.toMap());
+      String xmlItemList =
+          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              filter.toMap());
 
       SearchRetrieveResponseVO result =
           xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);

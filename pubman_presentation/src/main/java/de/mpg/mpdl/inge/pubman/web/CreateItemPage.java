@@ -46,10 +46,9 @@ public class CreateItemPage extends FacesBean {
    * Callback method that is called whenever a page is navigated to, either directly via a URL, or
    * indirectly via page navigation.
    */
-  @Override
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
     checkForLogin();
   }
 }

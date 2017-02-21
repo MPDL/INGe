@@ -510,11 +510,6 @@
         <managed-bean-class>de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
-        <managed-bean-name>StatisticSessionBean</managed-bean-name>
-        <managed-bean-class>de.mpg.mpdl.inge.pubman.web.statistics.StatisticSessionBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
     <managed-bean>
 		<managed-bean-name>BrowseBySessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean</managed-bean-class>

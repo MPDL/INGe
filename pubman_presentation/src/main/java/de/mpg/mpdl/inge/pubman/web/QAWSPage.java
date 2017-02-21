@@ -62,6 +62,7 @@ public class QAWSPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
 
     FacesContext fc = FacesContext.getCurrentInstance();

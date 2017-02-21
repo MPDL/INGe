@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -37,11 +35,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented.
  */
+@SuppressWarnings("serial")
 public class WithdrawItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "WithdrawItemSessionBean";
-
-  @SuppressWarnings("unused")
-  private static final Logger LOGGER = Logger.getLogger(WithdrawItemSessionBean.class);
 
   // navigationString to go back to the list where withdrawItem has been called from
   private String navigationStringToGoBack = null;
@@ -49,19 +45,17 @@ public class WithdrawItemSessionBean extends FacesBean {
   /**
    * Public constructor.
    */
-  public WithdrawItemSessionBean() {
-    this.init();
-  }
+  public WithdrawItemSessionBean() {}
 
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
-  public final void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;
