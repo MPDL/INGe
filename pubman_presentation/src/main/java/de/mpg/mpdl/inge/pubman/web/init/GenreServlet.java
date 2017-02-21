@@ -63,9 +63,10 @@ public class GenreServlet extends HttpServlet {
 
 
 
-      InputStream file = ResourceUtil.getResourceAsStream(
-          PropertyReader.getProperty("escidoc.pubman.genres.configuration"),
-          GenreServlet.class.getClassLoader());
+      InputStream file =
+          ResourceUtil.getResourceAsStream(
+              PropertyReader.getProperty("escidoc.pubman.genres.configuration"),
+              GenreServlet.class.getClassLoader());
       // File defaultFile = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml",
       // GenreServlet.class.getClassLoader());
       // String dir = defaultFile.getAbsolutePath().substring(0,

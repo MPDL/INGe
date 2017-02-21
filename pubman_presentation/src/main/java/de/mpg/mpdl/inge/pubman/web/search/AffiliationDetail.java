@@ -38,6 +38,7 @@ public class AffiliationDetail {
   public static final String BEAN_NAME = "AffiliationDetail";
 
   private AffiliationVO affiliationVO;
+
   // private boolean renderDetails = false;
   // private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
 

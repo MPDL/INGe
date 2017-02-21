@@ -109,8 +109,8 @@ public class PubManRequestBean extends FacesBean {
     try {
       url = PropertyReader.getProperty("escidoc.pubman.contact.url");
     } catch (Exception e) {
-      logger.error("Could not read property: 'escidoc.pubman.contact.url' from properties file.",
-          e);
+      logger
+          .error("Could not read property: 'escidoc.pubman.contact.url' from properties file.", e);
     }
 
     return url;

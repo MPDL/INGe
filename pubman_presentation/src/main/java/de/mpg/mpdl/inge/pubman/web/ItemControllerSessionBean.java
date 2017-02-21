@@ -226,8 +226,7 @@ public class ItemControllerSessionBean extends FacesBean {
       if (tE.getCause() instanceof OptimisticLockingException) {
         logger.error(
             "Could not save item because it has been changed by another user in the meantime."
-                + "\n" + tE.toString(),
-            tE);
+                + "\n" + tE.toString(), tE);
         throw new RuntimeException(
             "Could not save item because it has been changed by another user in the meantime.", tE);
       } else {
@@ -271,8 +270,7 @@ public class ItemControllerSessionBean extends FacesBean {
       if (tE.getCause() instanceof OptimisticLockingException) {
         logger.error(
             "Could not submit or release item because it has been changed by another user in the meantime."
-                + "\n" + tE.toString(),
-            tE);
+                + "\n" + tE.toString(), tE);
         throw new RuntimeException(
             "Could not submit or release item because it has been changed by another user in the meantime.",
             tE);
@@ -597,8 +595,9 @@ public class ItemControllerSessionBean extends FacesBean {
   private PubItemVO createNewRevision(ContextRO pubContextRO, PubItemVO pubItem,
       String revisionDescription) throws Exception {
     // create the new item
-    PubItemVO newRevision = this.pubItemDepositing.createRevisionOfItem(new PubItemVO(pubItem),
-        revisionDescription, pubContextRO, loginHelper.getAccountUser());
+    PubItemVO newRevision =
+        this.pubItemDepositing.createRevisionOfItem(new PubItemVO(pubItem), revisionDescription,
+            pubContextRO, loginHelper.getAccountUser());
 
     return newRevision;
   }
@@ -764,8 +763,8 @@ public class ItemControllerSessionBean extends FacesBean {
       newPerson.setIdentifier(new IdentifierVO());
       newPerson.getIdentifier().setType(IdType.CONE);
       OrganizationVO newPersonOrganization = new OrganizationVO();
-      newPersonOrganization
-          .setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+      newPersonOrganization.setIdentifier(PropertyReader
+          .getProperty("escidoc.pubman.external.organisation.id"));
       newPerson.getOrganizations().add(newPersonOrganization);
 
 
@@ -871,8 +870,7 @@ public class ItemControllerSessionBean extends FacesBean {
       newPubItem.getMetadata().getProjectInfo().setFundingInfo(new FundingInfoVO());
     }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo()
-        .getFundingOrganization() == null) {
+    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization() == null) {
       newPubItem.getMetadata().getProjectInfo().getFundingInfo()
           .setFundingOrganization(new FundingOrganizationVO());
     }
@@ -1031,9 +1029,8 @@ public class ItemControllerSessionBean extends FacesBean {
           submissionComment, loginHelper.getAccountUser()).getVersion();
 
     } else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD)) {
-      return this.pubItemDepositing
-          .submitPubItem(new PubItemVO(pubItem), submissionComment, loginHelper.getAccountUser())
-          .getVersion();
+      return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment,
+          loginHelper.getAccountUser()).getVersion();
     }
 
     return pubItem.getVersion();
@@ -1268,10 +1265,10 @@ public class ItemControllerSessionBean extends FacesBean {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
           // Cleanup MD
           pubItem.getFiles().get(i).getDefaultMetadata().cleanup();
-          if ((pubItem.getFiles().get(i).getName() == null
-              || pubItem.getFiles().get(i).getName().length() == 0)
-              && (pubItem.getFiles().get(i).getContent() == null
-                  || pubItem.getFiles().get(i).getContent().length() == 0)) {
+          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName()
+              .length() == 0)
+              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i)
+                  .getContent().length() == 0)) {
             pubItem.getFiles().remove(i);
           }
         }
@@ -1288,14 +1285,14 @@ public class ItemControllerSessionBean extends FacesBean {
         if (creator.getPerson() != null) {
           for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-              organization.setIdentifier(
-                  PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+              organization.setIdentifier(PropertyReader
+                  .getProperty("escidoc.pubman.external.organisation.id"));
             }
           }
         } else {
           if (creator.getOrganization() != null
-              && (creator.getOrganization().getIdentifier() == null
-                  || creator.getOrganization().getIdentifier().equals(""))) {
+              && (creator.getOrganization().getIdentifier() == null || creator.getOrganization()
+                  .getIdentifier().equals(""))) {
             creator.getOrganization().setIdentifier(
                 PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
           }
@@ -1308,16 +1305,15 @@ public class ItemControllerSessionBean extends FacesBean {
           for (CreatorVO creator : source.getCreators()) {
             if (creator.getPerson() != null) {
               for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-                if (organization.getIdentifier() == null
-                    || organization.getIdentifier().equals("")) {
-                  organization.setIdentifier(
-                      PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
+                  organization.setIdentifier(PropertyReader
+                      .getProperty("escidoc.pubman.external.organisation.id"));
                 }
               }
             } else {
               if (creator.getOrganization() != null
-                  && (creator.getOrganization().getIdentifier() == null
-                      || creator.getOrganization().getIdentifier().equals(""))) {
+                  && (creator.getOrganization().getIdentifier() == null || creator
+                      .getOrganization().getIdentifier().equals(""))) {
                 creator.getOrganization().setIdentifier(
                     PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
               }
@@ -1365,8 +1361,9 @@ public class ItemControllerSessionBean extends FacesBean {
     filter.getFilterList().add(f1);
 
 
-    Filter f2 = filter.new FrameworkItemTypeFilter(
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    Filter f2 =
+        filter.new FrameworkItemTypeFilter(
+            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     filter.getFilterList().add(f2);
 
     if (selectedItemState.toLowerCase().equals("withdrawn")) {
@@ -1397,8 +1394,9 @@ public class ItemControllerSessionBean extends FacesBean {
     }
     String xmlItemList = "";
     try {
-      xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-          .retrieveItems(filter.toMap());
+      xmlItemList =
+          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              filter.toMap());
     } catch (AuthenticationException e) {
       logger.debug(e.toString());
       Login login = (Login) getSessionBean(Login.class);
@@ -1410,8 +1408,9 @@ public class ItemControllerSessionBean extends FacesBean {
     if (logger.isDebugEnabled()) {
       logger.debug("Transforming items...");
     }
-    ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming
-        .transformSearchRetrieveResponseToItemList(xmlItemList).getItemVOList();
+    ArrayList<PubItemVO> itemList =
+        (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(
+            xmlItemList).getItemVOList();
 
     return itemList;
   }
@@ -1444,8 +1443,9 @@ public class ItemControllerSessionBean extends FacesBean {
     String xmlItemList = "";
     try {
       if (loginHelper.getESciDocUserHandle() != null) {
-        xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-            .retrieveItems(filter.toMap());
+        xmlItemList =
+            ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+                filter.toMap());
       } else {
         xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
       }
@@ -1460,8 +1460,9 @@ public class ItemControllerSessionBean extends FacesBean {
     if (logger.isDebugEnabled()) {
       logger.debug("Transforming items...");
     }
-    ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming
-        .transformSearchRetrieveResponseToItemList(xmlItemList).getItemVOList();
+    ArrayList<PubItemVO> itemList =
+        (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(
+            xmlItemList).getItemVOList();
 
     return itemList;
   }
@@ -1484,8 +1485,9 @@ public class ItemControllerSessionBean extends FacesBean {
     // login with escidoc user handle
     if (loginHelper.getESciDocUserHandle() != null) {
       try {
-        xmlVersionHistoryList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-            .retrieveVersionHistory(itemID);
+        xmlVersionHistoryList =
+            ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
+                .retrieveVersionHistory(itemID);
       } catch (AuthenticationException e) {
         logger.debug(e.toString());
         Login login = (Login) getSessionBean(Login.class);
@@ -1610,8 +1612,9 @@ public class ItemControllerSessionBean extends FacesBean {
     if (logger.isDebugEnabled()) {
       logger.debug("Transforming affiliations...");
     }
-    ArrayList<AffiliationVO> affiliationList = (ArrayList<AffiliationVO>) this.xmlTransforming
-        .transformToAffiliationList(xmlAffiliationList);
+    ArrayList<AffiliationVO> affiliationList =
+        (ArrayList<AffiliationVO>) this.xmlTransforming
+            .transformToAffiliationList(xmlAffiliationList);
     ArrayList<AffiliationVO> cleanedItemList = new ArrayList<AffiliationVO>();
     for (AffiliationVO affiliationVO : affiliationList) {
       if (!"created".equals(affiliationVO.getPublicStatus())) {
@@ -1630,8 +1633,9 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchTopLevelAffiliations() throws Exception {
-    PlainCqlQuery cqlQuery = new PlainCqlQuery(
-        "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
+    PlainCqlQuery cqlQuery =
+        new PlainCqlQuery(
+            "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
     OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
     return results.getResults();
   }
@@ -1654,8 +1658,9 @@ public class ItemControllerSessionBean extends FacesBean {
       return wrappedAffiliationList;
     }
 
-    PlainCqlQuery cqlQuery = new PlainCqlQuery(
-        "(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");
+    PlainCqlQuery cqlQuery =
+        new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId()
+            + ")");
     OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
 
     wrappedAffiliationList =
@@ -1695,9 +1700,10 @@ public class ItemControllerSessionBean extends FacesBean {
 
     logger.debug("sendEmail....");
     String status = "not sent";
-    status = emailHandling.sendMail(smtpHost, withAuth, usr, pwd, senderAddress,
-        recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses,
-        subject, text, attachments);
+    status =
+        emailHandling.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
+            recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, subject, text,
+            attachments);
     logger.debug("status " + status);
 
     return status;
@@ -1792,8 +1798,9 @@ public class ItemControllerSessionBean extends FacesBean {
 
     String xmlChildAffiliationList = "";
     try {
-      xmlChildAffiliationList = ServiceLocator.getOrganizationalUnitHandler()
-          .retrieveChildObjects(parentAffiliation.getReference().getObjectId());
+      xmlChildAffiliationList =
+          ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(
+              parentAffiliation.getReference().getObjectId());
     } catch (AuthenticationException e) {
       logger.debug(e.toString());
       Login login = (Login) getSessionBean(Login.class);
@@ -1923,8 +1930,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return string, identifying the page that should be navigated to after this method call
    * @throws Exception if framework access fails
    */
-  public String acceptCurrentPubItem(String acceptanceComment,
-      String navigationRuleWhenSuccessfull) {
+  public String acceptCurrentPubItem(String acceptanceComment, String navigationRuleWhenSuccessfull) {
 
     // TODO: Was passiert bei Validierungsfehler ?
 
@@ -1979,8 +1985,9 @@ public class ItemControllerSessionBean extends FacesBean {
 
     this.cleanUpItem(pubItem);
 
-    ItemRO acceptedPubItem = this.pubItemDepositing
-        .acceptPubItem(pubItem, acceptanceComment, loginHelper.getAccountUser()).getVersion();
+    ItemRO acceptedPubItem =
+        this.pubItemDepositing.acceptPubItem(pubItem, acceptanceComment,
+            loginHelper.getAccountUser()).getVersion();
 
     return acceptedPubItem;
   }
@@ -2061,13 +2068,15 @@ public class ItemControllerSessionBean extends FacesBean {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (loginHelper.getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering
-          .findRevisionsOfItem(loginHelper.getESciDocUserHandle(), pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(
+              loginHelper.getESciDocUserHandle(), pubItemVO.getVersion()));
     } else {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering
-          .findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(
+              AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
     }
 
 
@@ -2104,14 +2113,17 @@ public class ItemControllerSessionBean extends FacesBean {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (loginHelper.getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering
-          .findParentItemsOfRevision(loginHelper.getESciDocUserHandle(), pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils
+              .convertToRelationVOPresentationList(this.dataGathering.findParentItemsOfRevision(
+                  loginHelper.getESciDocUserHandle(), pubItemVO.getVersion()));
     } else {
       String adminHandle = AdminHelper.getAdminUserHandle();
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          this.dataGathering.findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(this.dataGathering
+              .findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
     }
 
     List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
@@ -2180,8 +2192,9 @@ public class ItemControllerSessionBean extends FacesBean {
     // retrieve current context newly if the current item has changed or if the context has not been
     // retrieved so far
     if (this.currentPubItem != null) {
-      if (this.currentContext == null || !(this.currentContext.getReference().getObjectId()
-          .equals(this.currentPubItem.getContext().getObjectId()))) {
+      if (this.currentContext == null
+          || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem
+              .getContext().getObjectId()))) {
         ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
         this.setCurrentCollection(context);
       }
@@ -2276,8 +2289,8 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
-    return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType,
-        this.currentPubItem.getVersion().getObjectId(), loginHelper.getAccountUser());
+    return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem
+        .getVersion().getObjectId(), loginHelper.getAccountUser());
   }
 
   public PubItemListSessionBean getPubItemListSessionBean() {

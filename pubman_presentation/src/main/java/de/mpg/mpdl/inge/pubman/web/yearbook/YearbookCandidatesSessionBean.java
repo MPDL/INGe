@@ -63,8 +63,9 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         orgUnitSelectItems = new ArrayList<SelectItem>();
         orgUnitSelectItems.add(new SelectItem("all", "-"));
         OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-        String topLevelOU = ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata()
-            .getCreators().get(0).getOrganization().getIdentifier());
+        String topLevelOU =
+            ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0)
+                .getOrganization().getIdentifier());
         AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
         List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
         affList.add(new AffiliationVOPresentation(affVO));
@@ -97,8 +98,8 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (AffiliationVOPresentation aff : affs) {
-      affSelectItems
-          .add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
+          + aff.getName()));
       addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
     }
   }

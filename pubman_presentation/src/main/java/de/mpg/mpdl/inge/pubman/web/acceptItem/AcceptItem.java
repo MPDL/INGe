@@ -145,9 +145,11 @@ public class AcceptItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        fc.getExternalContext().redirect(request.getContextPath()
-            + "/faces/viewItemFullPage.jsp?itemId="
-            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+        fc.getExternalContext().redirect(
+            request.getContextPath()
+                + "/faces/viewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -165,8 +167,8 @@ public class AcceptItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
-      fc.getExternalContext()
-          .redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      fc.getExternalContext().redirect(
+          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
@@ -182,12 +184,12 @@ public class AcceptItem extends FacesBean {
   public boolean getHasRightsInformation() {
     PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
     for (FileVO file : pubItemVO.getFiles()) {
-      if ((file.getDefaultMetadata().getCopyrightDate() != null
-          && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
-          || (file.getDefaultMetadata().getLicense() != null
-              && !"".equals(file.getDefaultMetadata().getLicense()))
-          || (file.getDefaultMetadata().getRights() != null
-              && !"".equals(file.getDefaultMetadata().getRights()))) {
+      if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
+          .getDefaultMetadata().getCopyrightDate()))
+          || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
+              .getDefaultMetadata().getLicense()))
+          || (file.getDefaultMetadata().getRights() != null && !"".equals(file.getDefaultMetadata()
+              .getRights()))) {
         return true;
       }
     }

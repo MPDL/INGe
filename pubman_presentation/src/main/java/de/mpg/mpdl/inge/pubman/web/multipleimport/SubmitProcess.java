@@ -73,13 +73,15 @@ public class SubmitProcess extends Thread {
       user.setUserid(log.getUser());
 
       InitialContext context = new InitialContext();
-      this.pubItemDepositing = (PubItemDepositing) context
-          .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+      this.pubItemDepositing =
+          (PubItemDepositing) context
+              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       // this.pubItemPublishing =
       // (PubItemPublishing) context
       // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
-      this.xmlTransforming = (XmlTransforming) context
-          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      this.xmlTransforming =
+          (XmlTransforming) context
+              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
       // this.contextHandler = ServiceLocator.getContextHandler(this.user.getHandle());
     } catch (Exception e) {
@@ -135,8 +137,8 @@ public class SubmitProcess extends Thread {
 
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            pubItemDepositing.submitAndReleasePubItem(itemVO,
-                "Batch submit/release from import " + log.getMessage(), user);
+            pubItemDepositing.submitAndReleasePubItem(itemVO, "Batch submit/release from import "
+                + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
 
           } else {

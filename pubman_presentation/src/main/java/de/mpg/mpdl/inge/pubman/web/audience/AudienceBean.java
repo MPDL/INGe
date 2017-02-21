@@ -83,10 +83,12 @@ public class AudienceBean extends FacesBean {
           // only take files with visibility audience
           if (this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i)
               .getVisibility().equals(Visibility.AUDIENCE)) {
-            PubFileVOPresentation fileForNewList = new PubFileVOPresentation(fileIndex,
-                this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i));
-            PubFileVOPresentation fileForOldList = new PubFileVOPresentation(fileIndex,
-                this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i));
+            PubFileVOPresentation fileForNewList =
+                new PubFileVOPresentation(fileIndex, this.getItemControllerSessionBean()
+                    .getCurrentPubItem().getFiles().get(i));
+            PubFileVOPresentation fileForOldList =
+                new PubFileVOPresentation(fileIndex, this.getItemControllerSessionBean()
+                    .getCurrentPubItem().getFiles().get(i));
 
             // add the grants
             List<GrantVO> grantList = new ArrayList<GrantVO>();
@@ -102,10 +104,10 @@ public class AudienceBean extends FacesBean {
             }
 
             for (int j = 0; j < grantList.size(); j++) {
-              fileForNewList.getGrantList()
-                  .add(new GrantVOPresentation(grantList.get(j), j, fileIndex));
-              fileForOldList.getGrantList()
-                  .add(new GrantVOPresentation(grantList.get(j), j, fileIndex));
+              fileForNewList.getGrantList().add(
+                  new GrantVOPresentation(grantList.get(j), j, fileIndex));
+              fileForOldList.getGrantList().add(
+                  new GrantVOPresentation(grantList.get(j), j, fileIndex));
             }
 
             // ensure that at least one grant is in the list (for presentation)
@@ -132,8 +134,8 @@ public class AudienceBean extends FacesBean {
         // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         try {
           this.getAudienceSessionBean().setUgl(
-              // TODO INGe connection
-              // UserGroupList.Factory.retrieveActiveUserGroups(loginHelper.getESciDocUserHandle())
+          // TODO INGe connection
+          // UserGroupList.Factory.retrieveActiveUserGroups(loginHelper.getESciDocUserHandle())
               null);
         } catch (Exception e) {
           logger.error("could not retrieve user groups for audience management: ", e);
@@ -148,8 +150,11 @@ public class AudienceBean extends FacesBean {
         newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
         // TODO set role for INGe
         // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
-        this.getAudienceSessionBean().getGrantsForAllFiles().add(new GrantVOPresentation(newGrant,
-            this.getAudienceSessionBean().getGrantsForAllFiles().size()));
+        this.getAudienceSessionBean()
+            .getGrantsForAllFiles()
+            .add(
+                new GrantVOPresentation(newGrant, this.getAudienceSessionBean()
+                    .getGrantsForAllFiles().size()));
       }
     }
   }
@@ -203,8 +208,9 @@ public class AudienceBean extends FacesBean {
         if (this.getUserGroupList().get(i) != null
             && this.getUserGroupList().get(i).getName() != null
             && !this.getUserGroupList().get(i).getName().contains("Yearbook User Group for")) {
-          selectItem = new SelectItem(this.getUserGroupList().get(i).getObjid(),
-              this.getUserGroupList().get(i).getName());
+          selectItem =
+              new SelectItem(this.getUserGroupList().get(i).getObjid(), this.getUserGroupList()
+                  .get(i).getName());
           selectItemsList.add(selectItem);
         }
       }
@@ -227,8 +233,9 @@ public class AudienceBean extends FacesBean {
     newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
     // TODO set role for INGe
     // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
-    this.getGrantsForAllFiles().add(new GrantVOPresentation(newGrant,
-        this.getAudienceSessionBean().getGrantsForAllFiles().size()));
+    this.getGrantsForAllFiles().add(
+        new GrantVOPresentation(newGrant, this.getAudienceSessionBean().getGrantsForAllFiles()
+            .size()));
     return AudienceBean.LOAD_AUDIENCEPAGE;
   }
 
@@ -247,8 +254,7 @@ public class AudienceBean extends FacesBean {
       this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().clear();
       // then add the new grants
       for (int j = 0; j < this.getAudienceSessionBean().getGrantsForAllFiles().size(); j++) {
-        if (this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant()
-            .getGrantedTo() != null
+        if (this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo() != null
             && !this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant()
                 .getGrantedTo().trim().equals("")) {
           GrantVO newGrant = new GrantVO();
@@ -258,20 +264,27 @@ public class AudienceBean extends FacesBean {
               .getGrant().getGrantedTo());
           newGrant.setGrantType(this.getAudienceSessionBean().getGrantsForAllFiles().get(j)
               .getGrant().getGrantType());
-          newGrant.setRole(
-              this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getRole());
+          newGrant.setRole(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant()
+              .getRole());
           newGrant.setGrantedTo(this.getAudienceSessionBean().getGrantsForAllFiles().get(j)
               .getGrant().getGrantedTo());
-          this.getAudienceSessionBean().getFileListNew().get(i).getGrantList()
-              .add(new GrantVOPresentation(newGrant,
-                  this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(), i));
+          this.getAudienceSessionBean()
+              .getFileListNew()
+              .get(i)
+              .getGrantList()
+              .add(
+                  new GrantVOPresentation(newGrant, this.getAudienceSessionBean().getFileListNew()
+                      .get(i).getGrantList().size(), i));
         } else {
           // ensure that at least one grant is in the list (for presentation)
           if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size() == 0) {
-            this.getAudienceSessionBean().getFileListNew().get(i).getGrantList()
-                .add(new GrantVOPresentation(new GrantVO(),
-                    this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(),
-                    i));
+            this.getAudienceSessionBean()
+                .getFileListNew()
+                .get(i)
+                .getGrantList()
+                .add(
+                    new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean()
+                        .getFileListNew().get(i).getGrantList().size(), i));
           }
         }
       }
@@ -293,8 +306,7 @@ public class AudienceBean extends FacesBean {
     // first clean up unnecessary grants (empty grants for presentation)
     // old list
     for (int i = 0; i < this.getAudienceSessionBean().getFileListOld().size(); i++) {
-      for (int j =
-          this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().size(); j > 0; j--) {
+      for (int j = this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().size(); j > 0; j--) {
         if (this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().get(j - 1)
             .getGrant().getObjectRef() == null
             || this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().get(j - 1)
@@ -306,8 +318,7 @@ public class AudienceBean extends FacesBean {
 
     // new list
     for (int i = 0; i < this.getAudienceSessionBean().getFileListNew().size(); i++) {
-      for (int j =
-          this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(); j > 0; j--) {
+      for (int j = this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(); j > 0; j--) {
         if (this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j - 1)
             .getGrant().getObjectRef() == null
             || this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j - 1)
@@ -417,11 +428,15 @@ public class AudienceBean extends FacesBean {
   public String getItemPattern() {
     String itemPattern = "";
 
-    String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
-        + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+    String pubmanUrl =
+        PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
 
-    itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", this
-        .getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectIdAndVersion());
+    itemPattern =
+        PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+            "\\$1",
+            this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                .getObjectIdAndVersion());
 
     if (!pubmanUrl.endsWith("/"))
       pubmanUrl = pubmanUrl + "/";

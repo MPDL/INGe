@@ -86,8 +86,8 @@ public class SiteMapTask extends Thread {
 
   private List<File> files = new ArrayList<File>();
 
-  public static final String SITEMAP_PATH =
-      System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
+      + "/modules/pubman/main/sitemap/";
 
   /**
    * {@inheritDoc}
@@ -351,8 +351,9 @@ public class SiteMapTask extends Thread {
    * @throws Exception
    */
   private ItemContainerSearchResult getItems(int firstRecord) {
-    SearchQuery itemQuery = new PlainCqlQuery(
-        "(escidoc.objecttype=item and escidoc.content-model.objid=" + contentModel + ")");
+    SearchQuery itemQuery =
+        new PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid="
+            + contentModel + ")");
     itemQuery.setStartRecord(firstRecord + "");
     itemQuery.setMaximumRecords(maxItemsPerRetrieve + "");
     try {
@@ -415,8 +416,8 @@ public class SiteMapTask extends Thread {
           logger.error("Error", e);
         }
       } else {
-        logger.error(
-            "Search result is not an ItemVO, " + "but a " + result.getClass().getSimpleName());
+        logger.error("Search result is not an ItemVO, " + "but a "
+            + result.getClass().getSimpleName());
       }
     }
   }
@@ -432,8 +433,8 @@ public class SiteMapTask extends Thread {
         fileWriter
             .write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
         fileWriter.write(result.getReference().getObjectId());
-        fileWriter.write(
-            "%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
+        fileWriter
+            .write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
         fileWriter.write(contentModel);
         fileWriter.write("%22)&amp;searchType=org");
         fileWriter.write("</loc>\n\t</url>\n");

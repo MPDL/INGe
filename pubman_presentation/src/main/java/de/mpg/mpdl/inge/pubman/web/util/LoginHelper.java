@@ -106,8 +106,8 @@ public class LoginHelper extends FacesBean {
    * @throws ServiceException ServiceException
    * @throws TechnicalException TechnicalException
    */
-  public String insertLogin()
-      throws IOException, ServiceException, TechnicalException, URISyntaxException {
+  public String insertLogin() throws IOException, ServiceException, TechnicalException,
+      URISyntaxException {
     // FacesContext fc = FacesContext.getCurrentInstance();
     // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String token = this.obtainToken();
@@ -148,9 +148,9 @@ public class LoginHelper extends FacesBean {
    *        framework methods)
    * @throws ServletException, ServiceException, TechnicalException
    */
-  public void fetchAccountUser(String token)
-      throws WebserverSystemException, SqlDatabaseSystemException, RemoteException,
-      MalformedURLException, ServiceException, TechnicalException, URISyntaxException {
+  public void fetchAccountUser(String token) throws WebserverSystemException,
+      SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
+      TechnicalException, URISyntaxException {
 
     JsonNode rawUser = null;
     rawUser = this.obtainUser();
@@ -171,8 +171,8 @@ public class LoginHelper extends FacesBean {
     attributes.add(ou);
     this.accountUser.setAttributes(attributes);
     this.accountUser.setActive(rawUser.path("active").asBoolean());
-    this.accountUser
-        .setName(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
+    this.accountUser.setName(rawUser.path("lastName").asText() + ", "
+        + rawUser.path("firstName").asText());
     this.setAuthenticationToken(token);
     this.setLoggedIn(true);
     this.setWasLoggedIn(true);
@@ -378,11 +378,9 @@ public class LoginHelper extends FacesBean {
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       // String orgId = "escidoc:persistent25";
-      filterParams
-          .put("query",
-              new String[] {"\"/structural-relations/user/id\"="
-                  + getAccountUser().getReference().getObjectId() + " and "
-                  + "\"/properties/active\"=\"true\""});
+      filterParams.put("query", new String[] {"\"/structural-relations/user/id\"="
+          + getAccountUser().getReference().getObjectId() + " and "
+          + "\"/properties/active\"=\"true\""});
       // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});

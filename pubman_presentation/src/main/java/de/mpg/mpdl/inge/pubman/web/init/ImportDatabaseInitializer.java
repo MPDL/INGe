@@ -53,8 +53,8 @@ public class ImportDatabaseInitializer {
 
     Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
     String connectionUrl = PropertyReader.getProperty("escidoc.import.database.connection.url");
-    Connection connection = DriverManager
-        .getConnection(
+    Connection connection =
+        DriverManager.getConnection(
             connectionUrl
                 .replaceAll("\\$1",
                     PropertyReader.getProperty("escidoc.import.database.server.name"))
@@ -64,8 +64,9 @@ public class ImportDatabaseInitializer {
             PropertyReader.getProperty("escidoc.import.database.user.name"),
             PropertyReader.getProperty("escidoc.import.database.user.password"));
 
-    String dbScript = ResourceUtil.getResourceAsString("import_database.sql",
-        ImportDatabaseInitializer.class.getClassLoader());
+    String dbScript =
+        ResourceUtil.getResourceAsString("import_database.sql",
+            ImportDatabaseInitializer.class.getClassLoader());
 
     String[] queries = dbScript.split(";");
 

@@ -187,8 +187,8 @@ public class ZfNProcessor extends FormatProcessor {
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
-          Logger.getLogger(PubFileVOPresentation.class)
-              .warn("WARNING: no content-category has been defined in Genres.xml");
+          Logger.getLogger(PubFileVOPresentation.class).warn(
+              "WARNING: no content-category has been defined in Genres.xml");
         }
       }
       fileVO.setContentCategory(contentCategory);

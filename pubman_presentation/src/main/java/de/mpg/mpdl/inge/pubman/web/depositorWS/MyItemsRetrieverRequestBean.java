@@ -119,8 +119,9 @@ public class MyItemsRetrieverRequestBean extends
       ResultSet resultSet = statement.executeQuery();
 
       while (resultSet.next()) {
-        SelectItem selectItem = new SelectItem(resultSet.getString("name") + " "
-            + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+        SelectItem selectItem =
+            new SelectItem(resultSet.getString("name") + " "
+                + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
 
@@ -157,8 +158,9 @@ public class MyItemsRetrieverRequestBean extends
 
       Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
       filter.getFilterList().add(f1);
-      Filter f2 = filter.new FrameworkItemTypeFilter(
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+      Filter f2 =
+          filter.new FrameworkItemTypeFilter(
+              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
       filter.getFilterList().add(f2);
       Filter latestVersionFilter = filter.new StandardFilter("/isLatestVersion", "true");
       filter.getFilterList().add(latestVersionFilter);
@@ -206,16 +208,18 @@ public class MyItemsRetrieverRequestBean extends
       Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
 
-      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-          .retrieveItems(filter.toMap());
+      String xmlItemList =
+          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              filter.toMap());
 
 
       ItemVOListWrapper pubItemList =
           xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
 
       numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
-      returnList = CommonUtils
-          .convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
+      returnList =
+          CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
+              .getItemVOList());
     } catch (Exception e) {
       logger.error("Error in retrieving items", e);
       error("Error in retrieving items");
@@ -304,8 +308,8 @@ public class MyItemsRetrieverRequestBean extends
    */
   public void setSelectedImport(String selectedImport) {
     this.selectedImport = selectedImport;
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedImport,
-        selectedImport);
+    getBasePaginatorListSessionBean().getParameterMap()
+        .put(parameterSelectedImport, selectedImport);
   }
 
   /**
@@ -316,8 +320,9 @@ public class MyItemsRetrieverRequestBean extends
   public String getSelectedItemStateLabel() {
     String returnString = "";
     if (getSelectedItemState() != null && !getSelectedItemState().equals("all")) {
-      returnString = getLabel(
-          getI18nHelper().convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
+      returnString =
+          getLabel(getI18nHelper().convertEnumToString(
+              PubItemVO.State.valueOf(getSelectedItemState())));
     }
     return returnString;
 

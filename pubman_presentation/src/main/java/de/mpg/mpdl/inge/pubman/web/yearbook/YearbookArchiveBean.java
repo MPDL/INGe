@@ -53,15 +53,17 @@ public class YearbookArchiveBean extends FacesBean {
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
     InitialContext initialContext = new InitialContext();
-    this.xmlTransforming = (XmlTransforming) initialContext
-        .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+    this.xmlTransforming =
+        (XmlTransforming) initialContext
+            .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
     // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
-    filterParams.put("query",
+    filterParams.put(
+        "query",
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});

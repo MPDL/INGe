@@ -64,8 +64,9 @@ public class ViewItemLog extends FacesBean {
     // super.init();
 
     if (this.getSessionBean().getVersionList() == null) {
-      this.getSessionBean().initVersionLists(getVersionHistory(
-          this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
+      this.getSessionBean().initVersionLists(
+          getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+              .getObjectId()));
     }
   }
 

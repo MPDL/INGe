@@ -51,8 +51,9 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
     this.setDate(eventLogVO.getDate());
     this.setType(eventLogVO.getType());
     this.versionHistoryVO = versionHistoryVO;
-    i18nHelper = (InternationalizationHelper) FacesContext.getCurrentInstance().getExternalContext()
-        .getSessionMap().get(InternationalizationHelper.BEAN_NAME);
+    i18nHelper =
+        (InternationalizationHelper) FacesContext.getCurrentInstance().getExternalContext()
+            .getSessionMap().get(InternationalizationHelper.BEAN_NAME);
 
   }
 

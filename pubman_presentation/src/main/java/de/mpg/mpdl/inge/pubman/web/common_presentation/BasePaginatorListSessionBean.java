@@ -195,16 +195,18 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     // logger.info("No List update: "+noListUpdate);
     if (!getNoListUpdate() && getPaginatorListRetriever() != null) {
-      currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-          getAdditionalFilters());
+      currentPartList =
+          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+              getAdditionalFilters());
       totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
       if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
         setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-            getAdditionalFilters());
+        currentPartList =
+            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+                getAdditionalFilters());
         totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -225,16 +227,18 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     // logger.info("No List update: "+noListUpdate);
     if (!getNoListUpdate()) {
-      currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-          getAdditionalFilters());
+      currentPartList =
+          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+              getAdditionalFilters());
       totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
       if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
         setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-            getAdditionalFilters());
+        currentPartList =
+            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+                getAdditionalFilters());
         totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -613,8 +617,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     for (Entry<String, String> entrySet : getParameterMap().entrySet()) {
       try {
         if (entrySet.getValue() != null) {
-          parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
-              + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
+          parameterUrl =
+              parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
+                  + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
         }
       } catch (UnsupportedEncodingException e) {
         throw new RuntimeException(e);

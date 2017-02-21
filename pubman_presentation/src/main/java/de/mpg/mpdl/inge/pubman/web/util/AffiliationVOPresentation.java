@@ -52,8 +52,8 @@ import de.mpg.mpdl.inge.pubman.web.search.AffiliationDetail;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-public class AffiliationVOPresentation extends AffiliationVO
-    implements Comparable<AffiliationVOPresentation> {
+public class AffiliationVOPresentation extends AffiliationVO implements
+    Comparable<AffiliationVOPresentation> {
   private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
 
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
@@ -240,10 +240,10 @@ public class AffiliationVOPresentation extends AffiliationVO
     }
     if (getMetadataSets().size() > 0
         && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      if (((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName()
-          .length() > (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) {
+      if (((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().length() > (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) {
         return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().substring(0,
-            (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) + "...";
+            (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH)))
+            + "...";
       } else {
         return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
       }
@@ -271,24 +271,86 @@ public class AffiliationVOPresentation extends AffiliationVO
     return getSortOrder().compareTo(other.getSortOrder());
   }
 
-  private List<AffiliationVO> getAffiliationVOfromRO(
-      List<AffiliationRO> affiliations) { /*
-                                           * List< AffiliationVO > transformedAffs = new ArrayList <
-                                           * AffiliationVO >(); InitialContext initialContext =
-                                           * null; XmlTransforming xmlTransforming = null; if(
-                                           * affiliations .size() == 0 ) { return transformedAffs ;
-                                           * } try { initialContext = new InitialContext ();
-                                           * xmlTransforming = ( XmlTransforming ) initialContext
-                                           * .lookup( XmlTransforming . SERVICE_NAME ); for(
-                                           * AffiliationRO affiliation : affiliations ) {
-                                           * OrganizationalUnitHandler ouHandler = ServiceLocator .
-                                           * getOrganizationalUnitHandler (); String ouXml =
-                                           * ouHandler . retrieve ( affiliation . getObjectId ());
-                                           * AffiliationVO affVO = xmlTransforming .
-                                           * transformToAffiliation (ouXml); transformedAffs .
-                                           * add(affVO ); } return transformedAffs ; } catch
-                                           * (Exception e) { return transformedAffs ; }
-                                           */
+  private List<AffiliationVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) { /*
+                                                                                          * List<
+                                                                                          * AffiliationVO
+                                                                                          * >
+                                                                                          * transformedAffs
+                                                                                          * = new
+                                                                                          * ArrayList
+                                                                                          * <
+                                                                                          * AffiliationVO
+                                                                                          * >();
+                                                                                          * InitialContext
+                                                                                          * initialContext
+                                                                                          * = null;
+                                                                                          * XmlTransforming
+                                                                                          * xmlTransforming
+                                                                                          * = null;
+                                                                                          * if(
+                                                                                          * affiliations
+                                                                                          * .size()
+                                                                                          * == 0 ) {
+                                                                                          * return
+                                                                                          * transformedAffs
+                                                                                          * ; } try
+                                                                                          * {
+                                                                                          * initialContext
+                                                                                          * = new
+                                                                                          * InitialContext
+                                                                                          * ();
+                                                                                          * xmlTransforming
+                                                                                          * = (
+                                                                                          * XmlTransforming
+                                                                                          * )
+                                                                                          * initialContext
+                                                                                          * .lookup(
+                                                                                          * XmlTransforming
+                                                                                          * .
+                                                                                          * SERVICE_NAME
+                                                                                          * ); for(
+                                                                                          * AffiliationRO
+                                                                                          * affiliation
+                                                                                          * :
+                                                                                          * affiliations
+                                                                                          * ) {
+                                                                                          * OrganizationalUnitHandler
+                                                                                          * ouHandler
+                                                                                          * =
+                                                                                          * ServiceLocator
+                                                                                          * .
+                                                                                          * getOrganizationalUnitHandler
+                                                                                          * ();
+                                                                                          * String
+                                                                                          * ouXml =
+                                                                                          * ouHandler
+                                                                                          * .
+                                                                                          * retrieve
+                                                                                          * (
+                                                                                          * affiliation
+                                                                                          * .
+                                                                                          * getObjectId
+                                                                                          * ());
+                                                                                          * AffiliationVO
+                                                                                          * affVO =
+                                                                                          * xmlTransforming
+                                                                                          * .
+                                                                                          * transformToAffiliation
+                                                                                          * (ouXml);
+                                                                                          * transformedAffs
+                                                                                          * .
+                                                                                          * add(affVO
+                                                                                          * ); }
+                                                                                          * return
+                                                                                          * transformedAffs
+                                                                                          * ; }
+                                                                                          * catch
+                                                                                          * (Exception
+                                                                                          * e) {
+                                                                                          * return
+                                                                                          * transformedAffs
+                                                                                          * ; }
+                                                                                          */
     return retrieveAllOrganizationalUnits(affiliations);
   }
 
@@ -307,8 +369,9 @@ public class AffiliationVOPresentation extends AffiliationVO
       return transformedAffs;
     try {
       InitialContext initialContext = new InitialContext();
-      XmlTransforming xmlTransforming = (XmlTransforming) initialContext
-          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      XmlTransforming xmlTransforming =
+          (XmlTransforming) initialContext
+              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
       if (affiliations.size() == 1) {
@@ -377,8 +440,9 @@ public class AffiliationVOPresentation extends AffiliationVO
     if (this.successors == null) {
       try {
         InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming = (XmlTransforming) initialContext
-            .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+        XmlTransforming xmlTransforming =
+            (XmlTransforming) initialContext
+                .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597

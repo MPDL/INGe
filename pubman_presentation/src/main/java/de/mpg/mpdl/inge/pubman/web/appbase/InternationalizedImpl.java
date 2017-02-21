@@ -49,8 +49,8 @@ public class InternationalizedImpl implements Internationalized {
    */
   public String getMessage(String placeholder) {
 
-    return ResourceBundle.getBundle(getI18nHelper().getSelectedMessagesBundle())
-        .getString(placeholder);
+    return ResourceBundle.getBundle(getI18nHelper().getSelectedMessagesBundle()).getString(
+        placeholder);
   }
 
   /*
@@ -61,7 +61,10 @@ public class InternationalizedImpl implements Internationalized {
    */
   public void bindComponentLabel(UIComponent component, String placeholder) {
     ValueExpression value =
-        FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
+        FacesContext
+            .getCurrentInstance()
+            .getApplication()
+            .getExpressionFactory()
             .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
                 "#{lbl." + placeholder + "}", String.class);
     component.setValueExpression("value", value);

@@ -87,41 +87,32 @@ public class PubItemListSessionBean extends
     // Use dummy value "score" for default sorting
     RELEVANCE(null, "", OrderFilter.ORDER_DESCENDING), TITLE("sort.escidoc.publication.title",
         "/sort/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING), GENRE(
-            "sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
-            "/sort/genre-without-uri /sort/md-records/md-record/publication/degree",
-            OrderFilter.ORDER_ASCENDING), DATE("sort.escidoc.any-dates", "/sort/any-dates",
-                OrderFilter.ORDER_DESCENDING), CREATOR(
-                    "sort.escidoc.publication.compound.publication-creator-names",
-                    "/sort/md-records/md-record/publication/creator/person/family-name",
-                    OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name
-                                                  // when
-                                                  // complete name is filled!!
+        "sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
+        "/sort/genre-without-uri /sort/md-records/md-record/publication/degree",
+        OrderFilter.ORDER_ASCENDING), DATE("sort.escidoc.any-dates", "/sort/any-dates",
+        OrderFilter.ORDER_DESCENDING), CREATOR(
+        "sort.escidoc.publication.compound.publication-creator-names",
+        "/sort/md-records/md-record/publication/creator/person/family-name",
+        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name
+                                      // when
+                                      // complete name is filled!!
     PUBLISHING_INFO("sort.escidoc.publication.publishing-info.publisher",
         "/sort/md-records/md-record/publication/source/publishing-info/publisher",
         OrderFilter.ORDER_ASCENDING), MODIFICATION_DATE("sort.escidoc.last-modification-date",
-            "/sort/last-modification-date",
-            OrderFilter.ORDER_DESCENDING), EVENT_TITLE("sort.escidoc.publication.event.title",
-                "/sort/md-records/md-record/publication/event/title",
-                OrderFilter.ORDER_ASCENDING), SOURCE_TITLE("",
-                    "/sort/md-records/md-record/publication/source/title",
-                    OrderFilter.ORDER_ASCENDING), SOURCE_CREATOR("",
-                        "/sort/md-records/md-record/publication/source/creator/person/family-name",
-                        OrderFilter.ORDER_ASCENDING), REVIEW_METHOD("",
-                            "/sort/md-records/md-record/publication/review-method",
-                            OrderFilter.ORDER_ASCENDING), FILE("", "",
-                                OrderFilter.ORDER_ASCENDING), CREATION_DATE(
-                                    "sort.escidoc.property.creation-date",
-                                    "/sort/properties/creation-date",
-                                    OrderFilter.ORDER_ASCENDING), STATE(
-                                        "sort.escidoc.property.version.status",
-                                        "/sort/properties/version/status",
-                                        OrderFilter.ORDER_ASCENDING), OWNER(
-                                            "sort.escidoc.property.created-by.title",
-                                            "/properties/created-by/xLinkTitle",
-                                            OrderFilter.ORDER_ASCENDING), COLLECTION(
-                                                "sort.escidoc.context.objid",
-                                                "/sort/properties/context/xLinkTitle",
-                                                OrderFilter.ORDER_ASCENDING);
+        "/sort/last-modification-date", OrderFilter.ORDER_DESCENDING), EVENT_TITLE(
+        "sort.escidoc.publication.event.title",
+        "/sort/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING), SOURCE_TITLE(
+        "", "/sort/md-records/md-record/publication/source/title", OrderFilter.ORDER_ASCENDING), SOURCE_CREATOR(
+        "", "/sort/md-records/md-record/publication/source/creator/person/family-name",
+        OrderFilter.ORDER_ASCENDING), REVIEW_METHOD("",
+        "/sort/md-records/md-record/publication/review-method", OrderFilter.ORDER_ASCENDING), FILE(
+        "", "", OrderFilter.ORDER_ASCENDING), CREATION_DATE("sort.escidoc.property.creation-date",
+        "/sort/properties/creation-date", OrderFilter.ORDER_ASCENDING), STATE(
+        "sort.escidoc.property.version.status", "/sort/properties/version/status",
+        OrderFilter.ORDER_ASCENDING), OWNER("sort.escidoc.property.created-by.title",
+        "/properties/created-by/xLinkTitle", OrderFilter.ORDER_ASCENDING), COLLECTION(
+        "sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
+        OrderFilter.ORDER_ASCENDING);
 
     /**
      * The search sorting index
@@ -560,8 +551,8 @@ public class PubItemListSessionBean extends
         SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 
         // only add if index/sorting path is available
-        if ((getPageType().equals("SearchResult")
-            && (sc.getIndex() == null || !sc.getIndex().equals("")))
+        if ((getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
+            .equals("")))
             || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
           sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
         }
@@ -570,8 +561,8 @@ public class PubItemListSessionBean extends
       for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
         SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
         // only add if index/sorting path is available
-        if ((getPageType().equals("SearchResult")
-            && (sc.getIndex() == null || !sc.getIndex().equals("")))
+        if ((getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
+            .equals("")))
             || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
           sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
         }
@@ -758,8 +749,8 @@ public class PubItemListSessionBean extends
     for (PubItemVOPresentation pubItem : selectedPubItems) {
 
       if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS) {
-        if (!pubItemStorage.getStoredPubItems()
-            .containsKey(pubItem.getVersion().getObjectIdAndVersion())) {
+        if (!pubItemStorage.getStoredPubItems().containsKey(
+            pubItem.getVersion().getObjectIdAndVersion())) {
           pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(),
               pubItem.getVersion());
           added++;
@@ -928,8 +919,9 @@ public class PubItemListSessionBean extends
       sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
       ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       try {
-        displayExportData = new String(icsb.retrieveExportData(curExportFormat,
-            CommonUtils.convertToPubItemVOList(pubItemList)));
+        displayExportData =
+            new String(icsb.retrieveExportData(curExportFormat,
+                CommonUtils.convertToPubItemVOList(pubItemList)));
       } catch (TechnicalException e) {
         ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
@@ -970,8 +962,9 @@ public class PubItemListSessionBean extends
       ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       byte[] exportFileData;
       try {
-        exportFileData = icsb.retrieveExportData(curExportFormat,
-            CommonUtils.convertToPubItemVOList(pubItemList));
+        exportFileData =
+            icsb.retrieveExportData(curExportFormat,
+                CommonUtils.convertToPubItemVOList(pubItemList));
       } catch (TechnicalException e) {
         ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
@@ -982,14 +975,15 @@ public class PubItemListSessionBean extends
       }
       // YEAR + MONTH + DAY_OF_MONTH
       Calendar rightNow = Calendar.getInstance();
-      String date = rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
-          + rightNow.get(Calendar.MONTH) + "_";
+      String date =
+          rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
+              + rightNow.get(Calendar.MONTH) + "_";
       // create an attachment temp file from the byte[] stream
       File exportAttFile;
       try {
         exportAttFile =
-            File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-                "." + FileFormatVO.getExtensionByName(sb.getFileFormat()));
+            File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
+                + FileFormatVO.getExtensionByName(sb.getFileFormat()));
         FileOutputStream fos = new FileOutputStream(exportAttFile);
         fos.write(exportFileData);
         fos.close();
@@ -1030,8 +1024,9 @@ public class PubItemListSessionBean extends
       ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       byte[] exportFileData = null;
       try {
-        exportFileData = icsb.retrieveExportData(curExportFormat,
-            CommonUtils.convertToPubItemVOList(pubItemList));
+        exportFileData =
+            icsb.retrieveExportData(curExportFormat,
+                CommonUtils.convertToPubItemVOList(pubItemList));
       } catch (TechnicalException e) {
         throw new RuntimeException("Cannot retrieve export data", e);
       }
@@ -1040,8 +1035,9 @@ public class PubItemListSessionBean extends
           (HttpServletResponse) facesContext.getExternalContext().getResponse();
       String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
       response.setContentType(contentType);
-      String fileName = "export_" + curExportFormat.getName().toLowerCase() + "."
-          + FileFormatVO.getExtensionByName(sb.getFileFormat());
+      String fileName =
+          "export_" + curExportFormat.getName().toLowerCase() + "."
+              + FileFormatVO.getExtensionByName(sb.getFileFormat());
       response.setHeader("Content-disposition", "attachment; filename=" + fileName);
       try {
         OutputStream out = response.getOutputStream();
@@ -1154,8 +1150,8 @@ public class PubItemListSessionBean extends
             this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
-            this.setListItemPosition(
-                positionFirstPartListItem + this.getCurrentPartList().size() - 1);
+            this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()
+                - 1);
             fc.getExternalContext().redirect(
                 this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
             return;
@@ -1167,8 +1163,8 @@ public class PubItemListSessionBean extends
             this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
-            this.setListItemPosition(
-                positionFirstPartListItem + this.getCurrentPartList().size() - 1);
+            this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()
+                - 1);
             fc.getExternalContext().redirect(
                 this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
             return;
@@ -1253,8 +1249,8 @@ public class PubItemListSessionBean extends
       int positionFirstPartListItem =
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
-      fc.getExternalContext()
-          .redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+      fc.getExternalContext().redirect(
+          this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
       return;
     } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
@@ -1286,8 +1282,8 @@ public class PubItemListSessionBean extends
   public void listItemPosition() {
     FacesContext fc = FacesContext.getCurrentInstance();
     try {
-      this.setCurrentPageNumber(
-          (int) Math.ceil((double) itemPosition / (double) this.getElementsPerPage()));
+      this.setCurrentPageNumber((int) Math.ceil((double) itemPosition
+          / (double) this.getElementsPerPage()));
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
       int positionInPartList = (itemPosition - 1) % this.getElementsPerPage();
       fc.getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());

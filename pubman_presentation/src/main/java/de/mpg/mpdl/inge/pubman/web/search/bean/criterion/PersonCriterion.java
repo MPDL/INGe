@@ -98,8 +98,9 @@ public class PersonCriterion extends Criterion {
         criterions.add(criterion);
       }
       if (creatorRole.size() != 0) {
-        MetadataSearchCriterion criterion1 = new MetadataSearchCriterion(CriterionType.PERSON_ROLE,
-            getRolesAsStringList(), LogicalOperator.AND);
+        MetadataSearchCriterion criterion1 =
+            new MetadataSearchCriterion(CriterionType.PERSON_ROLE, getRolesAsStringList(),
+                LogicalOperator.AND);
         criterions.add(criterion1);
       }
     }

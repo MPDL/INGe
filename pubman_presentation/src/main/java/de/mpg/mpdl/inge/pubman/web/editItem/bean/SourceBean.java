@@ -189,9 +189,13 @@ public class SourceBean extends EditItemBean {
    */
   public SelectItem[] getSourceGenreOptions() {
 
-    InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-        .getCurrentInstance().getApplication().getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+    InternationalizationHelper i18nHelper =
+        (InternationalizationHelper) FacesContext
+            .getCurrentInstance()
+            .getApplication()
+            .getVariableResolver()
+            .resolveVariable(FacesContext.getCurrentInstance(),
+                InternationalizationHelper.BEAN_NAME);
     ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 
     ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);

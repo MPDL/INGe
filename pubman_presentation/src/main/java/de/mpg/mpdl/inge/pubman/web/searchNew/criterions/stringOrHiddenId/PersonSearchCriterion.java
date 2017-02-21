@@ -82,8 +82,8 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
       cqlIndexForHiddenIdAdmin =
           new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
-      cqlIndexForSearchStringAdmin = new String[] {
-          "\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
+      cqlIndexForSearchStringAdmin =
+          new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
 
       return super.toCqlString(indexName);
     } else {

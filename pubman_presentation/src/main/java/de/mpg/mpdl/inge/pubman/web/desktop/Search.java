@@ -88,8 +88,8 @@ public class Search extends FacesBean {
        * catch (Exception e) { logger.error("Could not log statistical data", e); }
        */
 
-      getExternalContext()
-          .redirect("SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
+      getExternalContext().redirect(
+          "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));

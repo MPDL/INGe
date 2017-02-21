@@ -33,8 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
  * 
  */
 @SuppressWarnings("serial")
-public class CartItemsRetrieverRequestBean
-    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class CartItemsRetrieverRequestBean extends
+    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   public static final String BEAN_NAME = "CartItemsRetrieverRequestBean";
 
   private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
@@ -113,8 +113,9 @@ public class CartItemsRetrieverRequestBean
 
         String xmlItemList = "";
         if (loginHelper.getESciDocUserHandle() != null) {
-          xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
-              .retrieveItems(filter.toMap());
+          xmlItemList =
+              ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+                  filter.toMap());
         } else {
           xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
         }
@@ -125,8 +126,9 @@ public class CartItemsRetrieverRequestBean
             xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
 
         numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
-        returnList = CommonUtils
-            .convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
+        returnList =
+            CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
+                .getItemVOList());
       } else {
         numberOfRecords = 0;
       }

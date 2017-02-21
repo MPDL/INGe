@@ -77,21 +77,21 @@ public class SourceVOPresentation extends SourceVO {
       contentCategoryURI =
           SourceVOPresentation.class.getClassLoader().getResource("source_genres.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(SourceVOPresentation.class)
-            .info("Source genre properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(SourceVOPresentation.class).info(
+            "Source genre properties URI is " + contentCategoryURI.toString());
         InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();
-        Logger.getLogger(SourceVOPresentation.class)
-            .info("Source genre properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(SourceVOPresentation.class).info(
+            "Source genre properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(SourceVOPresentation.class)
-            .debug("Source genre properties file not found.");
+        Logger.getLogger(SourceVOPresentation.class).debug(
+            "Source genre properties file not found.");
       }
     } catch (Exception e) {
-      Logger.getLogger(SourceVOPresentation.class)
-          .warn("WARNING: Source genre properties not found: " + e.getMessage());
+      Logger.getLogger(SourceVOPresentation.class).warn(
+          "WARNING: Source genre properties not found: " + e.getMessage());
     }
     return properties;
   }

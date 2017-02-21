@@ -70,8 +70,9 @@ public class ListItem {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale = ((InternationalizationHelper) InternationalizedImpl
-        .getSessionBean(InternationalizationHelper.class)).getLocale();
+    String locale =
+        ((InternationalizationHelper) InternationalizedImpl
+            .getSessionBean(InternationalizationHelper.class)).getLocale();
     return CommonUtils.getConeLanguageName(value, locale);
   }
 

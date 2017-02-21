@@ -121,21 +121,21 @@ public class CreatorVOPresentation extends CreatorVO {
       contentCategoryURI =
           CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(CreatorVOPresentation.class)
-            .info("Author-Roles properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info(
+            "Author-Roles properties URI is " + contentCategoryURI.toString());
         InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();
-        Logger.getLogger(CreatorVOPresentation.class)
-            .info("Author-Roles properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info(
+            "Author-Roles properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(CreatorVOPresentation.class)
-            .debug("Author-Roles properties file not found.");
+        Logger.getLogger(CreatorVOPresentation.class).debug(
+            "Author-Roles properties file not found.");
       }
     } catch (Exception e) {
-      Logger.getLogger(CreatorVOPresentation.class)
-          .warn("WARNING: Author-Roles properties not found: " + e.getMessage());
+      Logger.getLogger(CreatorVOPresentation.class).warn(
+          "WARNING: Author-Roles properties not found: " + e.getMessage());
     }
     return properties;
   }
@@ -253,14 +253,14 @@ public class CreatorVOPresentation extends CreatorVO {
           }
         }
       } catch (NumberFormatException nfe) {
-        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class))
-            .getMessage("EntryIsNotANumber").replace("$1", getOuNumbers()));
+        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class)).getMessage(
+            "EntryIsNotANumber").replace("$1", getOuNumbers()));
       } catch (IndexOutOfBoundsException ioobe) {
-        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class))
-            .getMessage("EntryIsNotInValidRange").replace("$1", getOuNumbers()));
+        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class)).getMessage(
+            "EntryIsNotInValidRange").replace("$1", getOuNumbers()));
       } catch (Exception e) {
-        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class))
-            .getMessage("ErrorInOrganizationAssignment").replace("$1", getOuNumbers()));
+        FacesBean.error(((EditItem) FacesBean.getRequestBean(EditItem.class)).getMessage(
+            "ErrorInOrganizationAssignment").replace("$1", getOuNumbers()));
       }
       return result;
     } else {

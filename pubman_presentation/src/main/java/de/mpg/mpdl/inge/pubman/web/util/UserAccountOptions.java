@@ -81,13 +81,14 @@ public class UserAccountOptions extends FacesBean {
           this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
           SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
           formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-          String paramXml = "<param last-modification-date=\""
-              + formatter.format(this.loginHelper.getAccountUser().getLastModificationDate())
-              + "\"><password>" + this.getPassword() + "</password></param>";
+          String paramXml =
+              "<param last-modification-date=\""
+                  + formatter.format(this.loginHelper.getAccountUser().getLastModificationDate())
+                  + "\"><password>" + this.getPassword() + "</password></param>";
           UserAccountHandler userAccountHandler =
               ServiceLocator.getUserAccountHandler(this.loginHelper.getAccountUser().getHandle());
-          userAccountHandler.updatePassword(
-              this.loginHelper.getAccountUser().getReference().getObjectId(), paramXml);
+          userAccountHandler.updatePassword(this.loginHelper.getAccountUser().getReference()
+              .getObjectId(), paramXml);
           this.loginHelper.fetchAccountUser(this.loginHelper.getAccountUser().getHandle());
           info(getMessage("userAccountOptions_PasswordUpdated"));
         } else {

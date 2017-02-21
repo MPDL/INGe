@@ -143,8 +143,10 @@ public class EnumConverter implements Converter {
     }
 
 
-    logger.warn("ValueList for searchString '" + searchString
-        + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
+    logger
+        .warn("ValueList for searchString '"
+            + searchString
+            + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
 
     return null;
   }

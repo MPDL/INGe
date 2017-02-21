@@ -69,8 +69,8 @@ public class ReportWorkspaceBean extends FacesBean {
   private Map<String, String> configuration = null;
   List<String> childAffilList;
 
-  private static final Format JUS_REPORT_SNIPPET_FORMAT =
-      new Format("jus_report_snippet", "application/xml", "UTF-8");
+  private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet",
+      "application/xml", "UTF-8");
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
   private Format format;
 
@@ -106,10 +106,12 @@ public class ReportWorkspaceBean extends FacesBean {
       this.searchService =
           (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
       this.transformer = new TransformationBean();
-      this.xmlTransforming = (XmlTransforming) initialContext
-          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.citationStyleHandler = (CitationStyleHandler) initialContext
-          .lookup("java:global/pubman_ear/citationmanager/CitationStyleHandlerBean");
+      this.xmlTransforming =
+          (XmlTransforming) initialContext
+              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      this.citationStyleHandler =
+          (CitationStyleHandler) initialContext
+              .lookup("java:global/pubman_ear/citationmanager/CitationStyleHandlerBean");
       this.configuration = new HashMap<String, String>();
       this.childAffilList = new ArrayList<String>();
       Format[] targetFormats =
@@ -203,8 +205,9 @@ public class ReportWorkspaceBean extends FacesBean {
               (HttpServletResponse) FacesBean.getExternalContext().getResponse();
           resp.setContentType("text/html; charset=UTF-8");
 
-          String fileName = "text/html".equals(this.format.getType()) ? "Jus_Report.html"
-              : "Jus_Report_InDesign.xml";
+          String fileName =
+              "text/html".equals(this.format.getType()) ? "Jus_Report.html"
+                  : "Jus_Report_InDesign.xml";
           resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
           ServletOutputStream stream = resp.getOutputStream();
@@ -234,15 +237,18 @@ public class ReportWorkspaceBean extends FacesBean {
     String itemListAsString = null;
     int totalNrOfSerchResultItems = 0;
     // create an initial query with the given reportYear and the org id
-    String query = "(escidoc.publication.compound.dates=\"" + this.reportYear + "*\" OR "
-        + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR "
-        + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND "
-        +
+    String query =
+        "(escidoc.publication.compound.dates=\""
+            + this.reportYear
+            + "*\" OR "
+            + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR "
+            + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND "
+            +
 
-        "(escidoc.publication.creator.person.organization.identifier=\""
-        + this.organization.getIdentifier()
-        + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
-        + this.organization.getIdentifier() + "\" ";
+            "(escidoc.publication.creator.person.organization.identifier=\""
+            + this.organization.getIdentifier()
+            + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
+            + this.organization.getIdentifier() + "\" ";
     try {
       // get a list of children of the given org
       this.childAffilList = getChildOUs(this.organization.getIdentifier());
@@ -253,9 +259,10 @@ public class ReportWorkspaceBean extends FacesBean {
     // when there are children, concat the org ids to the query
     if (this.childAffilList.size() > 0) {
       for (String child : this.childAffilList) {
-        query = query + "OR escidoc.publication.creator.person.organization.identifier=\"" + child
-            + "\" OR escidoc.publication.source.creator.person.organization.identifier=\"" + child
-            + "\"";
+        query =
+            query + "OR escidoc.publication.creator.person.organization.identifier=\"" + child
+                + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
+                + child + "\"";
       }
     }
     // close the brackets of the query
@@ -283,8 +290,9 @@ public class ReportWorkspaceBean extends FacesBean {
   private byte[] doCitationStyle(String itemListAsString) {
     byte[] exportData = null;
     try {
-      exportData = citationStyleHandler.getOutput(itemListAsString,
-          new ExportFormatVO(FormatType.LAYOUT, csExportFormat, csOutputFormat));
+      exportData =
+          citationStyleHandler.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
+              csExportFormat, csOutputFormat));
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);
       error("Did not find Citation service");
@@ -308,8 +316,9 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      result = this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc",
-          configuration);
+      result =
+          this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc",
+              configuration);
     } catch (TransformationNotSupportedException e) {
       throw new RuntimeException(e);
     } catch (RuntimeException e) {

@@ -180,9 +180,8 @@ public class InternationalizationHelper implements Serializable {
         notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
         logger.debug("New locale: " + language + "_" + country + " : " + locale);
       } catch (Exception e) {
-        logger.error(
-            "unable to switch to locale using language = " + language + " and country = " + country,
-            e);
+        logger.error("unable to switch to locale using language = " + language + " and country = "
+            + country, e);
       }
       if (language.equals("de")) {
         selectedHelpPage = HELP_PAGE_DE;
@@ -231,9 +230,8 @@ public class InternationalizationHelper implements Serializable {
       userLocale = locale;
       logger.debug("New locale: " + language + "_" + country + " : " + locale);
     } catch (Exception e) {
-      logger.error(
-          "unable to switch to locale using language = " + language + " and country = " + country,
-          e);
+      logger.error("unable to switch to locale using language = " + language + " and country = "
+          + country, e);
     }
     if (language.equals("de")) {
       selectedHelpPage = HELP_PAGE_DE;
@@ -277,8 +275,9 @@ public class InternationalizationHelper implements Serializable {
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
       if (valuesWithoutNull[i] != null) {
-        SelectItem selectItem = new SelectItem(valuesWithoutNull[i].toString(),
-            getLabel(convertEnumToString(valuesWithoutNull[i])));
+        SelectItem selectItem =
+            new SelectItem(valuesWithoutNull[i].toString(),
+                getLabel(convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
 
@@ -504,8 +503,9 @@ public class InternationalizationHelper implements Serializable {
     int i = 0;
     for (Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
-      SelectItem selectItem = new SelectItem(entry.getValue(),
-          getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-")));
+      SelectItem selectItem =
+          new SelectItem(entry.getValue(), getLabel("ENUM_CONTENTCATEGORY_"
+              + entry.getKey().toLowerCase().replace("_", "-")));
       selectItems[i] = selectItem;
       i++;
     }
@@ -588,8 +588,7 @@ public class InternationalizationHelper implements Serializable {
    * 
    * @return array of SelectItems for SelectComponentAvailability
    */
-  public SelectItem[] getSelectedItemsComponentAvailability(
-      final boolean includeNoItemSelectedEntry) {
+  public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
     InternationalizationHelper.SelectComponentAvailability[] values =
         InternationalizationHelper.SelectComponentAvailability.values();
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
@@ -600,8 +599,7 @@ public class InternationalizationHelper implements Serializable {
    * 
    * @return array of SelectItems for SelectComponentAccessability
    */
-  public SelectItem[] getSelectedItemsComponentVisibility(
-      final boolean includeNoItemSelectedEntry) {
+  public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
     InternationalizationHelper.SelectComponentVisibility[] values =
         InternationalizationHelper.SelectComponentVisibility.values();
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
@@ -701,8 +699,8 @@ public class InternationalizationHelper implements Serializable {
       try {
         logger.debug("Creating new application bean: " + name);
         Object newBean = cls.newInstance();
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put(name,
-            newBean);
+        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
+            .put(name, newBean);
         return newBean;
       } catch (Exception e) {
         throw new RuntimeException("Error creating new bean of type " + cls, e);

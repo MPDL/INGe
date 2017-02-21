@@ -21,8 +21,8 @@ import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
  * 
  */
 @SuppressWarnings("serial")
-public class RevisionsRetrieverRequestBean
-    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class RevisionsRetrieverRequestBean extends
+    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
 
   private int numberOfRecords;
 
@@ -74,8 +74,9 @@ public class RevisionsRetrieverRequestBean
       for (RelationVOPresentation relationVO : relationVOList) {
         PubItemVO sourceItem = relationVO.getSourceItem();
 
-        if (sourceItem != null && sourceItem.getVersion().getState().toString()
-            .equals(PubItemVO.State.RELEASED.toString())) {
+        if (sourceItem != null
+            && sourceItem.getVersion().getState().toString()
+                .equals(PubItemVO.State.RELEASED.toString())) {
           pubItemVOList.add(sourceItem);
         }
 
@@ -88,8 +89,9 @@ public class RevisionsRetrieverRequestBean
 
       for (RelationVOPresentation relationVO : relationVOList2) {
         PubItemVO targetItem = relationVO.getTargetItem();
-        if (targetItem != null && targetItem.getVersion().getState().toString()
-            .equals(PubItemVO.State.RELEASED.toString())) {
+        if (targetItem != null
+            && targetItem.getVersion().getState().toString()
+                .equals(PubItemVO.State.RELEASED.toString())) {
           pubItemVOList.add(targetItem);
         }
 

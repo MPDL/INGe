@@ -257,9 +257,10 @@ public class AdvancedSearchEdit extends FacesBean {
       }
 
       // redirect to SearchResultPage which processes the query
-      getExternalContext().redirect("SearchResultListPage.jsp?"
-          + SearchRetrieverRequestBean.parameterCqlQuery + "=" + URLEncoder.encode(cql, "UTF-8")
-          + "&" + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
+      getExternalContext().redirect(
+          "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
+              + URLEncoder.encode(cql, "UTF-8") + "&"
+              + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
 
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
@@ -339,8 +340,7 @@ public class AdvancedSearchEdit extends FacesBean {
     return anyFieldCriterionCollection;
   }
 
-  public void setAnyFieldCriterionCollection(
-      AnyFieldCriterionCollection anyFieldCriterionCollection) {
+  public void setAnyFieldCriterionCollection(AnyFieldCriterionCollection anyFieldCriterionCollection) {
     this.anyFieldCriterionCollection = anyFieldCriterionCollection;
   }
 
@@ -384,8 +384,7 @@ public class AdvancedSearchEdit extends FacesBean {
     return languageCriterionCollection;
   }
 
-  public void setLanguageCriterionCollection(
-      LanguageCriterionCollection languageCriterionCollection) {
+  public void setLanguageCriterionCollection(LanguageCriterionCollection languageCriterionCollection) {
     this.languageCriterionCollection = languageCriterionCollection;
   }
 
@@ -421,8 +420,7 @@ public class AdvancedSearchEdit extends FacesBean {
   /**
    * @param localTagCriterionCollection the localTagCriterionCollection to set
    */
-  public void setLocalTagCriterionCollection(
-      LocalTagCriterionCollection localTagCriterionCollection) {
+  public void setLocalTagCriterionCollection(LocalTagCriterionCollection localTagCriterionCollection) {
     this.localTagCriterionCollection = localTagCriterionCollection;
   }
 

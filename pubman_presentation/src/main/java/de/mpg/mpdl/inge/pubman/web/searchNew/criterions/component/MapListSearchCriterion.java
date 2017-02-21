@@ -135,8 +135,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   }
 
 
-  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName,
-      String searchValue) {
+  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
     List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
     SearchCriterionBase flexSc =
         new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, searchValue), searchValue);

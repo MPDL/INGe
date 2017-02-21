@@ -509,12 +509,11 @@ public class GenreCriterionBean extends CriterionBean {
     return searchContributionToCollectedEdition;
   }
 
-  public void setSearchContributionToCollectedEdition(
-      boolean searchContributionToCollectedEdition) {
+  public void setSearchContributionToCollectedEdition(boolean searchContributionToCollectedEdition) {
     this.searchContributionToCollectedEdition = searchContributionToCollectedEdition;
     if (searchContributionToCollectedEdition == true) {
-      if (!genreCriterionVO.getGenre()
-          .contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION)) {
+      if (!genreCriterionVO.getGenre().contains(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION)) {
         genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
       }
     } else {
@@ -546,8 +545,7 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToCommentary(boolean searchContributionToCommentary) {
     this.searchContributionToCommentary = searchContributionToCommentary;
     if (searchContributionToCommentary == true) {
-      if (!genreCriterionVO.getGenre()
-          .contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
+      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
         genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
       }
     } else {
@@ -595,8 +593,7 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToFestschrift(boolean searchContributionToFestschrift) {
     this.searchContributionToFestschrift = searchContributionToFestschrift;
     if (searchContributionToFestschrift == true) {
-      if (!genreCriterionVO.getGenre()
-          .contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
+      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
         genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
       }
     } else {

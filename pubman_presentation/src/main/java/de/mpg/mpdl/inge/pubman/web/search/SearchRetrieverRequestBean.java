@@ -42,8 +42,8 @@ import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
  * 
  */
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean
-    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean extends
+    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   public static final String BEAN_NAME = "SearchRetrieverRequestBean";
 
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
@@ -267,8 +267,9 @@ public class SearchRetrieverRequestBean
 
       if ("admin".equals(getSearchType())) {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        result = this.searchService.searchForItemContainerAdmin(query,
-            loginHelper.getESciDocUserHandle());
+        result =
+            this.searchService.searchForItemContainerAdmin(query,
+                loginHelper.getESciDocUserHandle());
       } else {
         result = this.searchService.searchForItemContainer(query);
       }
@@ -327,9 +328,10 @@ public class SearchRetrieverRequestBean
   public String getRssFeedLink() throws PubManVersionNotAvailableException {
     String link = "";
     ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link = "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/rss_2.0/search?q="
-        + this.getNormalizedCqlQuery()
-        + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
+    link =
+        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/rss_2.0/search?q="
+            + this.getNormalizedCqlQuery()
+            + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
     return link;
   }
 
@@ -340,9 +342,10 @@ public class SearchRetrieverRequestBean
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
     String link = "";
     ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link = "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/atom_1.0/search?q="
-        + this.getNormalizedCqlQuery()
-        + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+    link =
+        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/atom_1.0/search?q="
+            + this.getNormalizedCqlQuery()
+            + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
     return link;
   }
 

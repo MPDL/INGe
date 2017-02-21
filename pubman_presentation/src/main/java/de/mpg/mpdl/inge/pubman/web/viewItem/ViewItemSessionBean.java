@@ -90,8 +90,9 @@ public class ViewItemSessionBean extends FacesBean {
       pubItemVO = this.getItemControllerSessionBean().retrieveItem(itemID);
     } catch (Exception e) {
       logger.error("Could not retrieve release with id " + itemID, e);
-      Login login = (Login) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-          .resolveVariable(FacesContext.getCurrentInstance(), "Login");
+      Login login =
+          (Login) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
+              .resolveVariable(FacesContext.getCurrentInstance(), "Login");
       try {
         login.forceLogout();
       } catch (Exception e2) {
