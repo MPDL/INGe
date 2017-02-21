@@ -167,7 +167,7 @@ public class Navigation extends FacesBean {
       viewItem.init();
     } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
       createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
-      createRevision.init();
+//      createRevision.init();
     } else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY)) {
       this.getItemVersionSessionBean().resetVersionLists();
       releaseHistory = (ReleaseHistory) getRequestBean(ReleaseHistory.class);

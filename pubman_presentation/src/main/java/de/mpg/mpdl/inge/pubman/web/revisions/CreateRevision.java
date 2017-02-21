@@ -110,7 +110,7 @@ public class CreateRevision extends FacesBean {
 
     // re-init RevisionList
     this.getSessionBean().setPubItemVO(this.getSessionBean().getPubItemVO());
-    this.init();
+ //   this.init();
 
     return CreateRevision.LOAD_CREATEREVISION;
   }
