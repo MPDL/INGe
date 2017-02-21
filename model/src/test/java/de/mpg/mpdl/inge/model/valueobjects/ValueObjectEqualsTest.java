@@ -36,11 +36,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.TestBase;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -112,9 +114,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentAlternativeTitleCount() {
-    AlternativeTitleVO altTitle =
-        mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
-    mds1.getAlternativeTitles().add(altTitle);
+    mds1.getAlternativeTitles().add(new AlternativeTitleVO("The Additional Alternative Title"));
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -125,8 +125,8 @@ public class ValueObjectEqualsTest extends TestBase {
   @Test
   public void equalsMdsPublicationVOWithDifferentAlternativeTitleOrder() {
     Collections.reverse(mds1.getAlternativeTitles());
-    assertFalse(mds1.equals(mds2));
-    assertFalse(mds2.equals(mds1));
+    assertTrue(mds1.equals(mds2));
+    assertTrue(mds2.equals(mds1));
   }
 
   /**
@@ -134,7 +134,9 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorsCount() {
-    CreatorVO creator = mds1.getCreators().get(mds1.getCreators().size() - 1);
+    PersonVO person = new PersonVO();
+    person.setCompleteName("Wendelin Überschuh");
+    CreatorVO creator = new CreatorVO(person, CreatorRole.AUTHOR);
     mds1.getCreators().add(creator);
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
@@ -146,8 +148,8 @@ public class ValueObjectEqualsTest extends TestBase {
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorsOrder() {
     Collections.reverse(mds1.getCreators());
-    assertFalse(mds1.equals(mds2));
-    assertFalse(mds2.equals(mds1));
+    assertTrue(mds1.equals(mds2));
+    assertTrue(mds2.equals(mds1));
   }
 
   /**
@@ -265,7 +267,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentSummaries() {
-    mds1.getAbstracts().add(mds1.getAbstracts().get(0));
+    mds1.getAbstracts().add(new AbstractVO("The new abstract"));
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -295,7 +297,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentIdentifiers() {
-    mds1.getIdentifiers().add(mds1.getIdentifiers().get(0));
+    mds1.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "newId"));
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -316,8 +318,8 @@ public class ValueObjectEqualsTest extends TestBase {
   @Test
   public void equalsMdsPublicationVOWithDifferentIdentifierOrder() {
     Collections.reverse(mds1.getIdentifiers());
-    assertFalse(mds1.equals(mds2));
-    assertFalse(mds2.equals(mds1));
+    assertTrue(mds1.equals(mds2));
+    assertTrue(mds2.equals(mds1));
   }
 
   /**
