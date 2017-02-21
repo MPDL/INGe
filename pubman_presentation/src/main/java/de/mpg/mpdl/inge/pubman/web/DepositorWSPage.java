@@ -76,6 +76,7 @@ public class DepositorWSPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
 
     FacesContext fc = FacesContext.getCurrentInstance();

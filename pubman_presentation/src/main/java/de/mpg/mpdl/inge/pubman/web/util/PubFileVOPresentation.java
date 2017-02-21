@@ -62,6 +62,7 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PubFileVOPresentation extends FacesBean {
 
   public static final String FILE_TYPE_FILE = "FILE";
@@ -76,16 +77,13 @@ public class PubFileVOPresentation extends FacesBean {
   private LoginHelper loginHelper;
   private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
 
-
-
   /**
    * Default constructor.
    */
   public PubFileVOPresentation() {
     this.file = new FileVO();
-
-    file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    init();
+    this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, boolean isLocator) {
@@ -93,28 +91,26 @@ public class PubFileVOPresentation extends FacesBean {
     this.index = fileIndex;
     this.isLocator = isLocator;
     if (isLocator) {
-      file.setStorage(FileVO.Storage.EXTERNAL_URL);
+      this.file.setStorage(FileVO.Storage.EXTERNAL_URL);
     } else {
-      file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+      this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     }
-    init();
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, FileVO file) {
     this.index = fileIndex;
     this.file = file;
 
-    init();
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, FileVO file, boolean isLocator) {
     this.index = fileIndex;
     this.file = file;
-
     this.isLocator = isLocator;
-    init();
+    this.init();
   }
-
 
   public void init() {
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -132,7 +128,6 @@ public class PubFileVOPresentation extends FacesBean {
         logger.debug("Couldn't find PubItemSimpleStatistics Service");
       }
     }
-
   }
 
   /**

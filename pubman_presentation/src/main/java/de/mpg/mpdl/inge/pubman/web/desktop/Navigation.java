@@ -62,17 +62,15 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 16.08.2007
  */
+@SuppressWarnings("serial")
 public class Navigation extends FacesBean {
-  private static Logger logger = Logger.getLogger(Navigation.class);
-
   public static final String BEAN_NAME = "Navigation";
-  private List<NavigationRule> navRules;
+  
+  private static final Logger logger = Logger.getLogger(Navigation.class);
 
+  private List<NavigationRule> navRules;
   private boolean showExportMenuOption;
 
-  /**
-   * Public constructor.
-   */
   public Navigation() {
     this.init();
   }
@@ -84,7 +82,7 @@ public class Navigation extends FacesBean {
   public void init() {
 
     // Perform initializations inherited from our superclass
-    super.init();
+   // super.init();
     // initially sets the navigation rules for redirecting after changing the language
     navRules = new ArrayList<NavigationRule>();
     this.navRules.add(new NavigationRule("/faces/HomePage.jsp", Home.LOAD_HOME));
@@ -151,8 +149,8 @@ public class Navigation extends FacesBean {
 
     if (requestURI.startsWith("/pubman")) {
       requestURI = requestURI.substring("/pubman".length());
-
     }
+    
     logger.debug("Resolving current page URI: " + requestURI);
     for (int i = 0; i < navRules.size(); i++) {
       if (requestURI.equals(navRules.get(i).getRequestURL())) {
@@ -160,12 +158,11 @@ public class Navigation extends FacesBean {
         break;
       }
     }
+    
     if (navigationString.equals(EditItem.LOAD_EDITITEM)) {
       editItem = (EditItem) getRequestBean(EditItem.class);
       editItem.init();
-    }
-
-    else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM)) {
+    } else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM)) {
       viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
       viewItem.init();
     } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
@@ -181,11 +178,11 @@ public class Navigation extends FacesBean {
       viewItemLog.init();
     } else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION)) {
       EasySubmission easy = (EasySubmission) getRequestBean(EasySubmission.class);
-
       easy.init();
     } else {
       navigationString = null;
     }
+    
     return navigationString;
   }
 
@@ -199,20 +196,19 @@ public class Navigation extends FacesBean {
       logger.debug("New Submission");
     }
 
-
     // if there is only one context for this user we can skip the
     // CreateItem-Dialog and create the new item directly
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0) {
       logger.warn("The user does not have privileges for any context.");
       return null;
     }
+    
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
       ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
       if (logger.isDebugEnabled()) {
         logger.debug("The user has only privileges for one context (ID: "
             + contextVO.getReference().getObjectId() + ")");
       }
-
       return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
           contextVO.getReference());
     } else {
@@ -236,7 +232,6 @@ public class Navigation extends FacesBean {
     return (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
         .get(name);
   }
-
 
   /**
    * Returns the AffiliationSessionBean.

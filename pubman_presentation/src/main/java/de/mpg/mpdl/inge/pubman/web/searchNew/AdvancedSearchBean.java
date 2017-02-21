@@ -193,7 +193,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     balanceMap.clear();
 
     initCriterionListWithEmptyValues();
-
   }
 
   private void initCriterionListWithEmptyValues() {

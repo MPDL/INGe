@@ -65,21 +65,16 @@ public class CreateItem extends FacesBean {
   public final static String LOAD_CREATEITEM = "loadCreateItem";
   private String target = EditItem.LOAD_EDITITEM;
   
-
-  /**
-   * Public constructor.
-   */
   public CreateItem() {
-    this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    super.init();
-  }
+//  /**
+//   * Callback method that is called whenever a page containing this page fragment is navigated to,
+//   * either directly via a URL, or indirectly via page navigation.
+//   */
+//  public void init() {
+//    //super.init();
+//  }
 
   public String confirmSelection() {
     return target;

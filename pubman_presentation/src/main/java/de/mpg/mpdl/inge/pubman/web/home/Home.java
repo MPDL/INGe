@@ -26,12 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.home;
 
-
 import java.util.List;
 
 import javax.ejb.EJB;
-
-import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
@@ -49,32 +46,27 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 08.02.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class Home extends FacesBean {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(Home.class);
   public static final String BEAN_NAME = "Home";
 
   // Faces navigation string
-  public final static String LOAD_HOME = "loadHome";
+  public static final String LOAD_HOME = "loadHome";
 
   @EJB
   private Search search;
 
-  /**
-   * Public constructor.
-   */
   public Home() {
-    this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+//  /**
+//   * Callback method that is called whenever a page containing this page fragment is navigated to,
+//   * either directly via a URL, or indirectly via page navigation.
+//   */
+//  public void init() {
+//    // Perform initializations inherited from our superclass
+//    //super.init();
+//  }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
     // SearchRetrieverRequestBean srrb =
@@ -89,6 +81,5 @@ public class Home extends FacesBean {
     List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
   }
-
 
 }

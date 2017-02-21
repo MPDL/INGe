@@ -85,24 +85,18 @@ public class ExportItems extends FacesBean {
   public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
   public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
 
-  /**
-   * Default constructor.
-   */
   public ExportItems() {
-    this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    logger.debug(" init ExportItems >>>");
-    super.init();
-    // setExportFormats();
-
-  }
-
+//  /**
+//   * Callback method that is called whenever a page containing this page fragment is navigated to,
+//   * either directly via a URL, or indirectly via page navigation.
+//   */
+//  public void init() {
+////    logger.debug(" init ExportItems >>>");
+//    //super.init();
+//    // setExportFormats();
+//  }
 
   /**
    * Returns the RightsManagementSessionBean.

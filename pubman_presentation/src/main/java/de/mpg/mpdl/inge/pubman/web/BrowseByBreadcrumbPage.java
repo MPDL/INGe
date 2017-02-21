@@ -33,13 +33,17 @@ public class BrowseByBreadcrumbPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "BrowseByBreadcrumbPage";
 
   public BrowseByBreadcrumbPage() {
-    super.init();
+    this.init();
   }
 
+  public void init() {
+    // Perform initializations inherited from our superclass
+    super.init();
+  }
+  
   @Override
   public boolean isItemSpecific() {
     return false;
   }
-
 
 }

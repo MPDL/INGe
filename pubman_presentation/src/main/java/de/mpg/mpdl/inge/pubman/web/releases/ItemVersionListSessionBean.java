@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.releases;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
@@ -46,10 +44,9 @@ import de.mpg.mpdl.inge.pubman.web.util.VersionHistoryVOPresentation;
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ItemVersionListSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ItemVersionListSessionBean";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(ItemVersionListSessionBean.class);
 
   private List<VersionHistoryVOPresentation> versionList =
       new ArrayList<VersionHistoryVOPresentation>();
@@ -60,12 +57,7 @@ public class ItemVersionListSessionBean extends FacesBean {
   private List<EventLogEntryVOPresentation> eventLogList =
       new ArrayList<EventLogEntryVOPresentation>();
 
-
-  /**
-   * Public constructor.
-   */
   public ItemVersionListSessionBean() {
-    this.init();
   }
 
   /**
@@ -92,15 +84,10 @@ public class ItemVersionListSessionBean extends FacesBean {
       this.versionList.add(new VersionHistoryVOPresentation(vEntry));
     }
 
-
     this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
-
     this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 
     for (VersionHistoryVOPresentation vEntry : versionList) {
-
-
-
       List<EventLogEntryVO> eventList = vEntry.getEvents();
       for (EventLogEntryVO eEntry : eventList) {
         // if state=released add to release list
@@ -111,23 +98,14 @@ public class ItemVersionListSessionBean extends FacesBean {
         // add all eventlog-entries to eventloglist
         eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
       }
-
-
-
     }
-
-
   }
 
   public void resetVersionLists() {
     this.versionList = null;
-
     this.releaseList = null;
-
     this.eventLogList = null;
   }
-
-
 
   public List<EventLogEntryVOPresentation> getEventLogList() {
     return eventLogList;
@@ -137,8 +115,6 @@ public class ItemVersionListSessionBean extends FacesBean {
     this.eventLogList = eventLogList;
   }
 
-
-
   public void setReleaseList(List<EventLogEntryVOPresentation> releaseList) {
     this.releaseList = releaseList;
   }
@@ -146,6 +122,5 @@ public class ItemVersionListSessionBean extends FacesBean {
   public List<EventLogEntryVOPresentation> getReleaseList() {
     return releaseList;
   }
-
 
 }

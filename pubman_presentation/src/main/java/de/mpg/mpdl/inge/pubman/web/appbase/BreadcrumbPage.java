@@ -34,7 +34,7 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    super.init();
+    //super.init();
 
     logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
 

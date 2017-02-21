@@ -61,9 +61,6 @@ public class YearbookArchiveRetrieverRequestBean extends
   @Override
   public void init() {
     pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-
-
-
   }
 
   @Override

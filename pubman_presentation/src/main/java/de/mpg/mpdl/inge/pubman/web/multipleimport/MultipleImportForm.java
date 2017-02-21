@@ -42,7 +42,7 @@ public class MultipleImportForm extends FacesBean {
   public static final String BEAN_NAME = "NewMultipleImport";
 
   public MultipleImportForm() {
-    super.init();
+    //super.init();
     try {
       ((MultipleImport) getSessionBean(MultipleImport.class)).initConfigParameters();
     } catch (Exception e) {

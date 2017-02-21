@@ -110,10 +110,8 @@ public class SearchRetrieverRequestBean extends
     return "SearchResult";
   }
 
-
   @Override
   public void init() {
-
   }
 
   /**

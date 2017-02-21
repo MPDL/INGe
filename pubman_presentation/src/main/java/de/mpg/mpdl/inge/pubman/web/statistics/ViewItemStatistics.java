@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.statistics;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +50,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ViewItemStatistics extends FacesBean {
-  private static Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);
-
+  private static final Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);
 
   /** The object Id of the current item */
   private String itemId;
@@ -61,18 +60,12 @@ public class ViewItemStatistics extends FacesBean {
   /** A List with all PubFileVOPresentation objects representing all files of the current item. */
   private List<PubFileVOPresentation> fileList;
 
-
-  // private HtmlAjaxRepeat fileIterator;
-
   /** The current pub item */
   private PubItemVO pubItem;
 
-
   public ViewItemStatistics() {
     this.init();
-
   }
-
 
   /**
    * Callback method that is called whenever a page containing this page fragment is navigated to,
@@ -80,9 +73,7 @@ public class ViewItemStatistics extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
-
-
+    //super.init();
 
     // get current PubItem and its ID
     pubItem = getItemControllerSessionBean().getCurrentPubItem();
@@ -98,40 +89,27 @@ public class ViewItemStatistics extends FacesBean {
     }
 
     fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
-
-    // Get Statistics handler
-
-    // create image
-
-
-
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
         SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
-
   }
 
   public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
         SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
-
   }
 
   public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
         SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
-
   }
 
   public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
         SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
-
   }
-
-
 
   public List<PubFileVOPresentation> getFileList() {
     return fileList;
@@ -140,8 +118,6 @@ public class ViewItemStatistics extends FacesBean {
   public void setFileList(List<PubFileVOPresentation> fileList) {
     this.fileList = fileList;
   }
-
-
 
   /**
    * Returns the ItemControllerSessionBean.
@@ -152,21 +128,17 @@ public class ViewItemStatistics extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-
   public PubItemVO getPubItem() {
     return pubItem;
   }
-
 
   public void setPubItem(PubItemVO pubItem) {
     this.pubItem = pubItem;
   }
 
-
   public String getItemID() {
     return itemId;
   }
-
 
   public void setItemID(String itemID) {
     this.itemId = itemID;
@@ -192,8 +164,6 @@ public class ViewItemStatistics extends FacesBean {
    * @return
    */
   public boolean getShowNIMSLink() {
-
-
     try {
       String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
       ItemControllerSessionBean icsb =
@@ -214,10 +184,6 @@ public class ViewItemStatistics extends FacesBean {
     }
 
     return false;
-
-
   }
-
-
 
 }

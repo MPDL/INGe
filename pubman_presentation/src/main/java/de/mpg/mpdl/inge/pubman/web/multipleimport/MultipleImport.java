@@ -141,7 +141,7 @@ public class MultipleImport extends FacesBean {
 
 
   public MultipleImport() {
-    super.init();
+    //super.init();
 
     // Standard formats
     importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));

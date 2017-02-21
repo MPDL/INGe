@@ -72,8 +72,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   private XmlTransforming xmlTransforming;
 
   public MyTasksRetrieverRequestBean() {
-    super();
-
   }
 
   @Override
@@ -81,7 +79,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     // affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     checkForLogin();
     initSelectionMenu();
-
   }
 
 

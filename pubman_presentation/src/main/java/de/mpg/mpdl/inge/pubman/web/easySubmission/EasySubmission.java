@@ -202,9 +202,6 @@ public class EasySubmission extends FacesBean {
   // Dummy for language autosuggest
   private String alternativeLanguageName;
 
-  /**
-   * Public constructor.
-   */
   public EasySubmission() {
 
     // InitialContext initialContext = new InitialContext();
@@ -219,7 +216,7 @@ public class EasySubmission extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    super.init();
+    //super.init();
     SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
     SUBMISSION_METHOD_FETCH_IMPORT =
         new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));

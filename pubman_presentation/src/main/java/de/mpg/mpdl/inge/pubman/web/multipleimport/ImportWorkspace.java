@@ -61,7 +61,17 @@ public class ImportWorkspace extends BreadcrumbPage {
    * Retrieves the sorting information from the request parameters.
    */
   public ImportWorkspace() {
+    this.init();
+  }
+
+  /**
+   * Callback method that is called whenever a page containing this page fragment is navigated to,
+   * either directly via a URL, or indirectly via page navigation.
+   */
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
+
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     AccountUserVO user = loginHelper.getAccountUser();
 
@@ -106,7 +116,7 @@ public class ImportWorkspace extends BreadcrumbPage {
           ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true, false);
     }
   }
-
+  
   /**
    * @return the imports
    */

@@ -54,17 +54,17 @@ public class AcceptItemPage extends BreadcrumbPage {
     super.init();
   }
 
-  /**
-   * Handle messages in fragments from here to please JSF life cycle.
-   * 
-   * @author: Michael Franke
-   */
-  @Override
-  public void prerender() {
-//    super.prerender();
-    AcceptItem fragment = (AcceptItem) getBean(AcceptItem.class);
-    fragment.handleMessage();
-  }
+//  /**
+//   * Handle messages in fragments from here to please JSF life cycle.
+//   * 
+//   * @author: Michael Franke
+//   */
+//  @Override
+//  public void prerender() {
+////    super.prerender();
+//    AcceptItem fragment = (AcceptItem) getRequestBean(AcceptItem.class);
+//    fragment.handleMessage();
+//  }
 
   @Override
   public boolean isItemSpecific() {

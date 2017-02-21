@@ -55,11 +55,7 @@ public class AffiliationDetailPage extends FacesBean {
   private AffiliationVOPresentation affiliation;
   private XmlTransforming xmlTransforming;
 
-  /**
-   * Construct a new Page bean instance.
-   */
   public AffiliationDetailPage() {
-    this.init();
     try {
       String ouXml = null;
       InitialContext initialContext = new InitialContext();
@@ -87,14 +83,9 @@ public class AffiliationDetailPage extends FacesBean {
 
   }
 
-
-  public void init() {}
-
-
   public void setAffiliation(AffiliationVOPresentation affiliation) {
     this.affiliation = affiliation;
   }
-
 
   public AffiliationVOPresentation getAffiliation() {
     return this.affiliation;

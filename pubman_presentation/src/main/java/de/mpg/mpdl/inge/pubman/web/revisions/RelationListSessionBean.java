@@ -47,11 +47,7 @@ public class RelationListSessionBean extends FacesBean {
   private PubItemVO pubItemVO = null;
   private String revisionDescription = new String();
 
-  /**
-   * Public constructor.
-   */
   public RelationListSessionBean() {
-    this.init();
   }
 
   /**

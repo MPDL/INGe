@@ -58,11 +58,6 @@ public class AffiliationTreePage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
-    // redirect to the referring GUI Tool page if the application has been
-    // started as GUI Tool
-
-
   }
 
   // /**

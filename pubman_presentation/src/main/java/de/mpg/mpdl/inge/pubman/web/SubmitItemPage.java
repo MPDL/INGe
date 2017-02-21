@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 
 /**
  * BackingBean for SubmitItemPage.jsp. This one is empty because all code is implemented in the
@@ -38,31 +37,18 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
  */
 @SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
-  /**
-   * Public constructor.
-   */
   public SubmitItemPage() {
-    this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
-
-  /**
-   * Handle messages in fragments from here to please JSF life cycle.
-   * 
-   * @author: Michael Franke
-   */
-  @Override
-  public void prerender() {
-//    super.prerender();
-    SubmitItem fragment = (SubmitItem) getBean(SubmitItem.class);
-    fragment.handleMessage();
-  }
+//  /**
+//   * Handle messages in fragments from here to please JSF life cycle.
+//   * 
+//   * @author: Michael Franke
+//   */
+//  @Override
+//  public void prerender() {
+////    super.prerender();
+//    SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
+//    fragment.handleMessage();
+//  }
 }

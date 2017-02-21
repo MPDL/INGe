@@ -166,9 +166,6 @@ public class SwordUtil extends FacesBean {
   public String[] Packaging = {this.mdFormatEscidoc, this.mdFormatBibTex, this.mdFormatEndnote,
       this.mdFormatPeerTEI};
 
-  /**
-   * Public constructor.
-   */
   public SwordUtil() {
     this.init();
   }
@@ -180,7 +177,7 @@ public class SwordUtil extends FacesBean {
     // this.depositServlet = new PubManDepositServlet();
     this.setValidationPoint(ValidationPoint.DEFAULT);
     this.filenames.clear();
-    super.init();
+    //super.init();
   }
 
   /**

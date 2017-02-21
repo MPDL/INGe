@@ -96,8 +96,6 @@ public class MyItemsRetrieverRequestBean extends
   /**
    * Checks if the user is logged in. If not, redirects to the login page.
    */
-
-
   @Override
   public void init() {
     checkForLogin();
