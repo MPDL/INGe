@@ -53,16 +53,13 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   public String rollback() throws Exception {
     logger.info("Rollback to version " + this.getReference().getVersionNumber());
 
-    LoginHelper loginHelper =
-        (LoginHelper) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-            .get(LoginHelper.BEAN_NAME);
+    LoginHelper loginHelper = (LoginHelper) FacesContext.getCurrentInstance().getExternalContext()
+        .getSessionMap().get(LoginHelper.BEAN_NAME);
     InitialContext initialContext = new InitialContext();
-    XmlTransforming xmlTransforming =
-        (XmlTransforming) initialContext
-            .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-    PubItemDepositing pubItemDepositingBean =
-        (PubItemDepositing) initialContext
-            .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+    XmlTransforming xmlTransforming = (XmlTransforming) initialContext
+        .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+    PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext
+        .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
 
     // Get the two versions
@@ -103,9 +100,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
             .getSessionMap().get(ItemControllerSessionBean.BEAN_NAME);
     itemControllerSessionBean.setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
 
-    ViewItemFull viewItemFull =
-        (ViewItemFull) FacesContext.getCurrentInstance().getExternalContext().getRequestMap()
-            .get(ViewItemFull.BEAN_NAME);
+    ViewItemFull viewItemFull = (ViewItemFull) FacesContext.getCurrentInstance()
+        .getExternalContext().getRequestMap().get(ViewItemFull.BEAN_NAME);
     viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
     viewItemFull.init();
 

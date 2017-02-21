@@ -41,9 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 public class ViewItemLogPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemLogPage";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemLogPage() {
     this.init();
   }

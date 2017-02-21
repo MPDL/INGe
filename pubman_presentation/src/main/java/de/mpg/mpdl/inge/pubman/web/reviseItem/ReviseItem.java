@@ -67,9 +67,6 @@ public class ReviseItem extends FacesBean {
 
   private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public ReviseItem() {
     this.init();
   }
@@ -146,11 +143,9 @@ public class ReviseItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        fc.getExternalContext().redirect(request.getContextPath()
+            + "/faces/viewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -213,13 +208,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_SIMPLE);
   }
 
   public String getReviseComment() {

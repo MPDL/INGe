@@ -125,10 +125,9 @@ public class ImportLogItem extends ImportLog {
   public String getLink() {
     if (link == null) {
       try {
-        link =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern");
+        link = PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+            + PropertyReader.getProperty("escidoc.pubman.item.pattern");
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

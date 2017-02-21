@@ -90,8 +90,8 @@ public class Login extends FacesBean {
    * 
    * @return String empty navigation string for reloading the page
    */
-  public String loginLogout() throws ServletException, IOException, ServiceException,
-      URISyntaxException {
+  public String loginLogout()
+      throws ServletException, IOException, ServiceException, URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     String token = loginHelper.getAuthenticationToken();
@@ -161,9 +161,8 @@ public class Login extends FacesBean {
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
 
     try {
-      fc.getExternalContext().redirect(
-          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
-              + request.getRequestURL().toString());
+      fc.getExternalContext().redirect(PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
+          + request.getRequestURL().toString());
     } catch (IOException e) {
       logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
@@ -181,9 +180,8 @@ public class Login extends FacesBean {
     // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
-      fc.getExternalContext().redirect(
-          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
-              + URLEncoder.encode(targetUrl, "UTF-8"));
+      fc.getExternalContext().redirect(PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
+          + URLEncoder.encode(targetUrl, "UTF-8"));
       // fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
     } catch (Exception e) {
       logger.error("Could not redirect to Fremework login page", e);

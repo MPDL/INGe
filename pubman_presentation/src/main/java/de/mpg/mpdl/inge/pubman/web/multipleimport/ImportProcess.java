@@ -120,8 +120,8 @@ public class ImportProcess extends Thread {
   private String itemContentModel;
   private Map<String, String> configuration = null;
   private boolean failed = false;
-  private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item",
-      "application/xml", "utf-8");
+  private static final Format ESCIDOC_FORMAT =
+      new Format("eSciDoc-publication-item", "application/xml", "utf-8");
   private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
   private static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "utf-8");
   private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
@@ -133,10 +133,10 @@ public class ImportProcess extends Thread {
   private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
   public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
 
-  private static final Format MARC21_FORMAT = new Format("marc21viaxml", "application/marc",
-      "UTF-8");
-  private static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
-      "UTF-8");
+  private static final Format MARC21_FORMAT =
+      new Format("marc21viaxml", "application/marc", "UTF-8");
+  private static final Format MARCXML_FORMAT =
+      new Format("marcxml", "application/marcxml+xml", "UTF-8");
   private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
 
@@ -208,15 +208,12 @@ public class ImportProcess extends Thread {
       this.rollback = rollback;
       this.duplicateStrategy = duplicateStrategy;
       InitialContext context = new InitialContext();
-      this.itemValidating =
-          (ItemValidating) context
-              .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
-      this.xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.pubItemDepositing =
-          (PubItemDepositing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+      this.itemValidating = (ItemValidating) context
+          .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
+      this.xmlTransforming = (XmlTransforming) context
+          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      this.pubItemDepositing = (PubItemDepositing) context
+          .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       this.search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
       this.itemContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
@@ -401,9 +398,8 @@ public class ImportProcess extends Thread {
             if (this.format.getName().equalsIgnoreCase("zfn_tei")) {
               try {
                 // Set file
-                FileVO file =
-                    ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration,
-                        this.user);
+                FileVO file = ((ZfNProcessor) this.formatProcessor)
+                    .getFileforImport(this.configuration, this.user);
                 item.getItemVO().getFiles().add(file);
               } catch (Exception e) {
                 log.addDetail(ErrorLevel.WARNING, "Could not fetch file for import");
@@ -500,9 +496,8 @@ public class ImportProcess extends Thread {
       HttpClient client = new HttpClient();
       ProxyHelper.setProxy(client, fwUrl);
 
-      StringBuilder sb =
-          new StringBuilder(ResourceUtil.getResourceAsString(
-              "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
+      StringBuilder sb = new StringBuilder(ResourceUtil.getResourceAsString(
+          "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
       replace("$01", escape(this.escidocContext.getObjectId()), sb);
       replace("$02", escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
       replace("$03", escape("Import Task Item for import " + name + " "), sb);
@@ -588,8 +583,8 @@ public class ImportProcess extends Thread {
     if (string == null) {
       return null;
     } else {
-      return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
-          .replace(">", "&gt;");
+      return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;").replace(">",
+          "&gt;");
     }
   }
 
@@ -608,10 +603,9 @@ public class ImportProcess extends Thread {
     try {
 
       if (configuration != null && transformation instanceof Configurable) {
-        esidocXml =
-            new String(((Configurable) transformation).transform(
-                singleItem.getBytes(this.format.getEncoding()), this.format, ESCIDOC_FORMAT,
-                "escidoc", configuration), ESCIDOC_FORMAT.getEncoding());
+        esidocXml = new String(((Configurable) transformation).transform(
+            singleItem.getBytes(this.format.getEncoding()), this.format, ESCIDOC_FORMAT, "escidoc",
+            configuration), ESCIDOC_FORMAT.getEncoding());
       } else {
         esidocXml =
             new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
@@ -800,9 +794,8 @@ public class ImportProcess extends Thread {
         ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
         boolean first = true;
         for (IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
-          MetadataSearchCriterion criterion =
-              new MetadataSearchCriterion(CriterionType.IDENTIFIER, identifierVO.getId(),
-                  (first ? LogicalOperator.AND : LogicalOperator.OR));
+          MetadataSearchCriterion criterion = new MetadataSearchCriterion(CriterionType.IDENTIFIER,
+              identifierVO.getId(), (first ? LogicalOperator.AND : LogicalOperator.OR));
           first = false;
           criteria.add(criterion);
         }
@@ -818,14 +811,16 @@ public class ImportProcess extends Thread {
               PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
                 log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected");
-                log.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion().getObjectId()
-                    + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                log.addDetail(ErrorLevel.PROBLEM,
+                    duplicatePubItemVO.getVersion().getObjectId() + " \""
+                        + duplicatePubItemVO.getMetadata().getTitle() + "\"",
                     duplicatePubItemVO.getVersion().getObjectId());
                 return true;
               } else {
                 log.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected");
-                log.addDetail(ErrorLevel.WARNING, duplicatePubItemVO.getVersion().getObjectId()
-                    + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                log.addDetail(ErrorLevel.WARNING,
+                    duplicatePubItemVO.getVersion().getObjectId() + " \""
+                        + duplicatePubItemVO.getMetadata().getTitle() + "\"",
                     duplicatePubItemVO.getVersion().getObjectId());
               }
             } else {

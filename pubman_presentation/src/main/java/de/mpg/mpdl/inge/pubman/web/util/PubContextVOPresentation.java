@@ -22,8 +22,8 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
-public class PubContextVOPresentation extends ContextVO implements
-    Comparable<PubContextVOPresentation> {
+public class PubContextVOPresentation extends ContextVO
+    implements Comparable<PubContextVOPresentation> {
 
   private boolean selected = false;
   private boolean details = false;
@@ -88,10 +88,11 @@ public class PubContextVOPresentation extends ContextVO implements
     EasySubmissionSessionBean easySubmissionSessionBean =
         (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
 
-    ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(
-        EasySubmission.LOAD_EASYSUBMISSION, getReference());
+    ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class))
+        .createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
     easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
-    if (easySubmissionSessionBean.getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {
+    if (easySubmissionSessionBean
+        .getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {
       return "loadNewFetchMetadata";
     } else {
       return "loadNewEasySubmission";

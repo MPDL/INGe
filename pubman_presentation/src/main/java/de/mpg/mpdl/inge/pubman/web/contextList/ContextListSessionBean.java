@@ -72,9 +72,6 @@ public class ContextListSessionBean extends FacesBean {
 
   // private UIXIterator contextIterator = new UIXIterator();
 
-  /**
-   * Public constructor.
-   */
   public ContextListSessionBean() {
     this.init();
   }

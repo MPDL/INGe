@@ -63,9 +63,6 @@ public class DepositorWSPage extends BreadcrumbPage {
   public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
   public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
 
-  /**
-   * Public constructor.
-   */
   public DepositorWSPage() {
     this.init();
   }

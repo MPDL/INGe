@@ -70,9 +70,8 @@ public class Home extends FacesBean {
   public List<PubItemVOPresentation> getLatest() throws Exception {
     // SearchRetrieverRequestBean srrb =
     // (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
-    String cqlQuery =
-        "escidoc.content-model.objid="
-            + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    String cqlQuery = "escidoc.content-model.objid="
+        + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
     SearchQuery cql = new PlainCqlQuery(cqlQuery);
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);

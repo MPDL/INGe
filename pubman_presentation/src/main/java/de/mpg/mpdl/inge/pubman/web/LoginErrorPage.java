@@ -36,9 +36,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class LoginErrorPage extends BreadcrumbPage {
-  /**
-   * Public constructor
-   */
   public LoginErrorPage() {
     this.init();
   }

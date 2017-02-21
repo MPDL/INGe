@@ -43,8 +43,8 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    * @param refreshAlways Set this flag to true if the list should be refreshed any time the page is
    *        called, not only if a get parameter has changed.
    */
-  public BaseListRetrieverRequestBean(
-      BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
+  public BaseListRetrieverRequestBean(BasePaginatorListSessionBean<ListElementType, FilterType> plb,
+      boolean refreshAlways) {
     // super.init();
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
@@ -59,8 +59,8 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     if (refreshAlways) {
       getBasePaginatorListSessionBean().setNoListUpdate(false);
     }
-    init();
 
+    init();
 
     /*
      * else { getBasePaginatorListSessionBean().saveState(); }

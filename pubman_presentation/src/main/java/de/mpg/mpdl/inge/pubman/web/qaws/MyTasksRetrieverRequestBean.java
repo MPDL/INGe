@@ -102,9 +102,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();
 
-      Filter f2 =
-          filter.new FrameworkItemTypeFilter(
-              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+      Filter f2 = filter.new FrameworkItemTypeFilter(
+          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
       filter.getFilterList().add(f2);
       Filter latestVersionFilter = filter.new StandardFilter("/isLatestVersion", "true");
       filter.getFilterList().add(latestVersionFilter);
@@ -178,17 +177,15 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
 
-      String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
-              filter.toMap());
+      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
+          .retrieveItems(filter.toMap());
 
       ItemVOListWrapper pubItemList =
           xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
 
       numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
-      returnList =
-          CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
-              .getItemVOList());
+      returnList = CommonUtils
+          .convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
     } catch (Exception e) {
       logger.error("Error in retrieving items", e);
       error("Error in retrieving items");
@@ -318,8 +315,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    */
   public String getSelectedOrgUnitLabel() {
     AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-    return (getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap()
-        .get(getSelectedOrgUnit()).getNamePath());
+    return (getSelectedOrgUnit() == null ? ""
+        : affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath());
 
   }
 
@@ -331,8 +328,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   @Override
   public List<SelectItem> getItemStateSelectItems() {
     List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
-    itemStateSelectItems.add(new SelectItem("all",
-        getLabel("ItemList_filterAllExceptPendingWithdrawn")));
+    itemStateSelectItems
+        .add(new SelectItem("all", getLabel("ItemList_filterAllExceptPendingWithdrawn")));
     itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(),
         getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.SUBMITTED))));
     itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(),
@@ -402,9 +399,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       ResultSet resultSet = statement.executeQuery();
 
       while (resultSet.next()) {
-        SelectItem selectItem =
-            new SelectItem(resultSet.getString("name") + " "
-                + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+        SelectItem selectItem = new SelectItem(resultSet.getString("name") + " "
+            + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
       resultSet.close();
@@ -508,8 +504,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     // 1 right angle
     prefix += '\u2514';
     for (AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
-          + aff.getName()));
+      affSelectItems
+          .add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
       AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
       affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {

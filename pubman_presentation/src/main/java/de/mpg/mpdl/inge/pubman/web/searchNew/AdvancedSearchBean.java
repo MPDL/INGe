@@ -372,13 +372,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // General
     criterionTypeList
         .add(new SelectItem(SearchCriterion.TITLE, getLabel("adv_search_lblRgbTitle")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.KEYWORD,
-        getLabel("adv_search_lblRgbTopic")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.CLASSIFICATION,
-        getLabel("adv_search_lblClassification")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.KEYWORD, getLabel("adv_search_lblRgbTopic")));
+    criterionTypeList.add(
+        new SelectItem(SearchCriterion.CLASSIFICATION, getLabel("adv_search_lblClassification")));
     criterionTypeList.add(new SelectItem(SearchCriterion.ANY, getLabel("adv_search_lblRgbAny")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT,
-        getLabel("adv_search_lblRgbAnyFulltext")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.ANYFULLTEXT, getLabel("adv_search_lblRgbAnyFulltext")));
 
 
 
@@ -391,10 +391,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL,
           getLabel("adv_search_lblItemLastModificationDate")));
 
-      adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY,
-          getLabel("adv_search_lblItemCreatedBy")));
-      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY,
-          getLabel("adv_search_lblItemModifiedBy")));
+      adminGroupList
+          .add(new SelectItem(SearchCriterion.CREATED_BY, getLabel("adv_search_lblItemCreatedBy")));
+      adminGroupList.add(
+          new SelectItem(SearchCriterion.MODIFIED_BY, getLabel("adv_search_lblItemModifiedBy")));
 
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);
@@ -403,8 +403,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     // Persons
     List<SelectItem> personGroupList = new ArrayList<SelectItem>();
-    personGroupList.add(new SelectItem(SearchCriterion.ANYPERSON,
-        getLabel("adv_search_lblSearchPerson")));
+    personGroupList
+        .add(new SelectItem(SearchCriterion.ANYPERSON, getLabel("adv_search_lblSearchPerson")));
 
     for (CreatorRole role : CreatorRole.values()) {
       personGroupList.add(new SelectItem(SearchCriterion.valueOf(role.name()),
@@ -442,24 +442,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 
     // Organisation
-    criterionTypeList.add(new SelectItem(SearchCriterion.ORGUNIT,
-        getLabel("adv_search_lbHeaderOrgan")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.ORGUNIT, getLabel("adv_search_lbHeaderOrgan")));
 
     // Dates
     List<SelectItem> dateGroupList = new ArrayList<SelectItem>();
     dateGroupList.add(new SelectItem(SearchCriterion.ANYDATE, getLabel("adv_search_lbHeaderDate")));
     dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHEDPRINT,
         getLabel("adv_search_lblChkType_abb_publishedpr")));
-    dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHED,
-        getLabel("adv_search_lblChkType_publishedon")));
-    dateGroupList.add(new SelectItem(SearchCriterion.ACCEPTED,
-        getLabel("adv_search_lblChkType_accepted")));
-    dateGroupList.add(new SelectItem(SearchCriterion.SUBMITTED,
-        getLabel("adv_search_lblChkType_submitted")));
-    dateGroupList.add(new SelectItem(SearchCriterion.MODIFIED,
-        getLabel("adv_search_lblChkType_modified")));
-    dateGroupList.add(new SelectItem(SearchCriterion.CREATED,
-        getLabel("adv_search_lblChkType_created")));
+    dateGroupList.add(
+        new SelectItem(SearchCriterion.PUBLISHED, getLabel("adv_search_lblChkType_publishedon")));
+    dateGroupList
+        .add(new SelectItem(SearchCriterion.ACCEPTED, getLabel("adv_search_lblChkType_accepted")));
+    dateGroupList.add(
+        new SelectItem(SearchCriterion.SUBMITTED, getLabel("adv_search_lblChkType_submitted")));
+    dateGroupList
+        .add(new SelectItem(SearchCriterion.MODIFIED, getLabel("adv_search_lblChkType_modified")));
+    dateGroupList
+        .add(new SelectItem(SearchCriterion.CREATED, getLabel("adv_search_lblChkType_created")));
 
     SelectItemGroup dateGroup = new SelectItemGroup(getLabel("adv_search_lbHeaderDate"));
     dateGroup.setSelectItems(dateGroupList.toArray(new SelectItem[0]));
@@ -483,34 +483,34 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 
     // Genre
-    criterionTypeList.add(new SelectItem(SearchCriterion.GENRE,
-        getLabel("adv_search_lbHeaderGenre")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.GENRE, getLabel("adv_search_lbHeaderGenre")));
 
-    criterionTypeList.add(new SelectItem(SearchCriterion.REVIEW_METHOD,
-        getLabel("ViewItemFull_lblRevisionMethod")));
+    criterionTypeList.add(
+        new SelectItem(SearchCriterion.REVIEW_METHOD, getLabel("ViewItemFull_lblRevisionMethod")));
 
     // Language
-    criterionTypeList.add(new SelectItem(SearchCriterion.LANG,
-        getLabel("adv_search_lblLanguageTerm")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.LANG, getLabel("adv_search_lblLanguageTerm")));
 
     // Source
-    criterionTypeList.add(new SelectItem(SearchCriterion.SOURCE,
-        getLabel("adv_search_lbHeaderSource")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.JOURNAL, " - "
-        + getLabel("adv_search_lblSourceJournal")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.SOURCE, getLabel("adv_search_lbHeaderSource")));
+    criterionTypeList.add(
+        new SelectItem(SearchCriterion.JOURNAL, " - " + getLabel("adv_search_lblSourceJournal")));
 
     // LocalTag
-    criterionTypeList.add(new SelectItem(SearchCriterion.LOCAL,
-        getLabel("adv_search_lbHeaderLocalTag")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.LOCAL, getLabel("adv_search_lbHeaderLocalTag")));
 
     // Identifier
-    criterionTypeList.add(new SelectItem(SearchCriterion.IDENTIFIER,
-        getLabel("adv_search_lbHeaderIdent")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.IDENTIFIER, getLabel("adv_search_lbHeaderIdent")));
 
 
     // Collection
-    criterionTypeList.add(new SelectItem(SearchCriterion.COLLECTION,
-        getLabel("adv_search_lbHeaderCollection")));
+    criterionTypeList
+        .add(new SelectItem(SearchCriterion.COLLECTION, getLabel("adv_search_lbHeaderCollection")));
 
     // ProjectInfo
     criterionTypeList.add(new SelectItem(SearchCriterion.PROJECT_INFO, getLabel("g_project_info")));
@@ -523,12 +523,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     List<SelectItem> operatorTypeList = new ArrayList<SelectItem>();
 
     // General
-    operatorTypeList.add(new SelectItem(SearchCriterion.AND_OPERATOR,
-        getLabel("adv_search_logicop_and")));
-    operatorTypeList.add(new SelectItem(SearchCriterion.OR_OPERATOR,
-        getLabel("adv_search_logicop_or")));
-    operatorTypeList.add(new SelectItem(SearchCriterion.NOT_OPERATOR,
-        getLabel("adv_search_logicop_not")));
+    operatorTypeList
+        .add(new SelectItem(SearchCriterion.AND_OPERATOR, getLabel("adv_search_logicop_and")));
+    operatorTypeList
+        .add(new SelectItem(SearchCriterion.OR_OPERATOR, getLabel("adv_search_logicop_or")));
+    operatorTypeList
+        .add(new SelectItem(SearchCriterion.NOT_OPERATOR, getLabel("adv_search_logicop_not")));
 
 
     return operatorTypeList;
@@ -563,8 +563,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public void copyValuesFromOldToNew(SearchCriterionBase oldSc, SearchCriterionBase newSc) {
     if (oldSc instanceof PersonSearchCriterion && newSc instanceof PersonSearchCriterion) {
-      ((PersonSearchCriterion) newSc).setSearchString(((PersonSearchCriterion) oldSc)
-          .getSearchString());
+      ((PersonSearchCriterion) newSc)
+          .setSearchString(((PersonSearchCriterion) oldSc).getSearchString());
       ((PersonSearchCriterion) newSc).setHiddenId(((PersonSearchCriterion) oldSc).getHiddenId());
     }
 
@@ -576,11 +576,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     else if (oldSc instanceof StandardSearchCriterion && newSc instanceof StandardSearchCriterion
         && !(oldSc instanceof CollectionSearchCriterion)
         && !(newSc instanceof CollectionSearchCriterion)) {
-      ((StandardSearchCriterion) newSc).setSearchString(((StandardSearchCriterion) oldSc)
-          .getSearchString());
+      ((StandardSearchCriterion) newSc)
+          .setSearchString(((StandardSearchCriterion) oldSc).getSearchString());
 
-    } else if ((oldSc instanceof CreatedBySearchCriterion && newSc instanceof ModifiedBySearchCriterion)
-        || (oldSc instanceof ModifiedBySearchCriterion && newSc instanceof CreatedBySearchCriterion)) {
+    } else if ((oldSc instanceof CreatedBySearchCriterion
+        && newSc instanceof ModifiedBySearchCriterion)
+        || (oldSc instanceof ModifiedBySearchCriterion
+            && newSc instanceof CreatedBySearchCriterion)) {
       ((StringOrHiddenIdSearchCriterion) newSc)
           .setHiddenId(((StringOrHiddenIdSearchCriterion) oldSc).getHiddenId());
       ((StringOrHiddenIdSearchCriterion) newSc)
@@ -885,16 +887,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       BreadcrumbItemHistorySessionBean bihsb =
           (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
       if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage")) {
-        bihsb.getCurrentItem().setPage(
-            "AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+        bihsb.getCurrentItem()
+            .setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
       } else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage")) {
-        bihsb.getCurrentItem().setPage(
-            "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+        bihsb.getCurrentItem()
+            .setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
       }
-      getExternalContext().redirect(
-          "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8") + "&q="
-              + URLEncoder.encode(query, "UTF-8") + "&"
-              + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
+      getExternalContext().redirect("SearchResultListPage.jsp?cql="
+          + URLEncoder.encode(cql, "UTF-8") + "&q=" + URLEncoder.encode(query, "UTF-8") + "&"
+          + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
     } catch (Exception e) {
       logger.error("Error while redirecting to search result page", e);
     }
@@ -984,7 +985,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
 
-  public void setLocatorAvailableSearchCriterion(SearchCriterionBase locatorAvailableSearchCriterion) {
+  public void setLocatorAvailableSearchCriterion(
+      SearchCriterionBase locatorAvailableSearchCriterion) {
     this.locatorAvailableSearchCriterion = locatorAvailableSearchCriterion;
   }
 

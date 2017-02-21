@@ -63,9 +63,8 @@ public class AffiliationTree extends FacesBean {
    */
   public AffiliationTree() throws Exception {
     affiliationMap = new HashMap<String, AffiliationVOPresentation>();
-    affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-            .searchTopLevelAffiliations());
+    affiliations = CommonUtils.convertToAffiliationVOPresentationList(
+        getItemControllerSessionBean().searchTopLevelAffiliations());
     timestamp = new Date().getTime();
 
   }
@@ -89,9 +88,8 @@ public class AffiliationTree extends FacesBean {
    * @throws Exception Any exception
    */
   public String getResetMessage() throws Exception {
-    affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-            .searchTopLevelAffiliations());
+    affiliations = CommonUtils.convertToAffiliationVOPresentationList(
+        getItemControllerSessionBean().searchTopLevelAffiliations());
     affiliationSelectItems = null;
     timestamp = new Date().getTime();
     return getMessage("Affiliations_reloaded");
@@ -168,8 +166,8 @@ public class AffiliationTree extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
-          + aff.getName()));
+      affSelectItems
+          .add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
       affiliationMap.put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {
         addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);

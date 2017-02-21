@@ -88,10 +88,10 @@ public class CommonUtils extends InternationalizedImpl {
   private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
   // HTML escaped characters mapping
-  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n",
-      "\r", "\t"};
-  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
-      "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
+  private static final String[] PROBLEMATIC_CHARACTERS =
+      {"&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"};
+  private static final String[] ESCAPED_CHARACTERS =
+      {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
 
 
@@ -192,9 +192,8 @@ public class CommonUtils extends InternationalizedImpl {
     Map<String, String> result = new LinkedHashMap<String, String>();
     try {
       HttpClient httpClient = new HttpClient();
-      GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+      GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+          + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
       if (getMethod.getStatusCode() == 200) {
         String line;
@@ -205,8 +204,8 @@ public class CommonUtils extends InternationalizedImpl {
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        logger.error("Error while retrieving languages from CoNE. Status code "
-            + getMethod.getStatusCode());
+        logger.error(
+            "Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
     } catch (Exception e) {
       return new SelectItem[0];
@@ -283,10 +282,9 @@ public class CommonUtils extends InternationalizedImpl {
         code = code.trim().split(" ")[0];
       }
 
-      GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang="
-              + locale);
+      GetMethod getMethod = new GetMethod(
+          PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/"
+              + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
       String response = getMethod.getResponseBodyAsString();
       Pattern pattern =
@@ -308,9 +306,8 @@ public class CommonUtils extends InternationalizedImpl {
     if (name != null && !"".equals(name.trim())) {
 
       HttpClient client = new HttpClient();
-      GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-3/query?q=\"" + URLEncoder.encode(name, "ISO-8859-1") + "\"&format=options");
+      GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+          + "iso639-3/query?q=\"" + URLEncoder.encode(name, "ISO-8859-1") + "\"&format=options");
       client.executeMethod(getMethod);
       String response = getMethod.getResponseBodyAsString();
 
@@ -400,9 +397,8 @@ public class CommonUtils extends InternationalizedImpl {
       FacesContext.getCurrentInstance().setViewRoot(viewRoot);
     }
 
-    String id =
-        viewRoot.createUniqueId() + "_" + uiComponent.getClass().getSimpleName() + "_"
-            + uiComponent.hashCode() + "_" + Calendar.getInstance().getTimeInMillis();
+    String id = viewRoot.createUniqueId() + "_" + uiComponent.getClass().getSimpleName() + "_"
+        + uiComponent.hashCode() + "_" + Calendar.getInstance().getTimeInMillis();
 
     return id;
   }

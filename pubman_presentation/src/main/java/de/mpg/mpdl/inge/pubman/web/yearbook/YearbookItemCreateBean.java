@@ -93,13 +93,9 @@ public class YearbookItemCreateBean extends FacesBean {
       String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
-      filterParams
-          .put(
-              "query",
-              new String[] {"\"/properties/context/id\"="
-                  + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
-                  + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"="
-                  + orgId});
+      filterParams.put("query", new String[] {"\"/properties/context/id\"="
+          + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
+          + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       String xmlItemList = itemHandler.retrieveItems(filterParams);
       SearchRetrieveResponseVO result =
@@ -161,8 +157,8 @@ public class YearbookItemCreateBean extends FacesBean {
   }
 
   public String addContext() {
-    contextIds.add(getContextPosition() + 1, new ContextRO((String) getContextSelectItems().get(0)
-        .getValue()));
+    contextIds.add(getContextPosition() + 1,
+        new ContextRO((String) getContextSelectItems().get(0).getValue()));
     return "";
   }
 
@@ -223,10 +219,10 @@ public class YearbookItemCreateBean extends FacesBean {
       loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
       ItemHandler ih = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
       PubItemVO pubItem = new PubItemVO();
-      pubItem.setContentModel(PropertyReader
-          .getProperty("escidoc.pubman.yearbook.content-model.id"));
-      pubItem.setContext(new ContextRO(PropertyReader
-          .getProperty("escidoc.pubman.yearbook.context.id")));
+      pubItem
+          .setContentModel(PropertyReader.getProperty("escidoc.pubman.yearbook.content-model.id"));
+      pubItem.setContext(
+          new ContextRO(PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")));
       MdsYearbookVO mds = new MdsYearbookVO();
       pubItem.getMetadataSets().add(mds);
       // Metadata set title
@@ -252,9 +248,10 @@ public class YearbookItemCreateBean extends FacesBean {
       String yearbookContextId = PropertyReader.getProperty("escidoc.pubman.yearbook.context.id");
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
-      filterParams.put("query", new String[] {"\"/properties/context/id\"=" + yearbookContextId
-          + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"="
-          + getAffiliation().getReference().getObjectId()});
+      filterParams.put("query",
+          new String[] {"\"/properties/context/id\"=" + yearbookContextId
+              + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"="
+              + getAffiliation().getReference().getObjectId()});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       String xmlItemList = ih.retrieveItems(filterParams);
       SearchRetrieveResponseVO result =
@@ -266,13 +263,15 @@ public class YearbookItemCreateBean extends FacesBean {
           if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
             if (yearbookPubItem.getYearbookMetadata().getYear() != null
                 && yearbookPubItem.getYearbookMetadata().getYear().equals(this.getYear())) {
-              error("A yearbook related to this organization object id already exists for this Year");
+              error(
+                  "A yearbook related to this organization object id already exists for this Year");
               return "";
             } else if (yearbookPubItem.getYearbookMetadata().getYear() != null
                 && yearbookPubItem.getYearbookMetadata().getYear()
                     .equals(Integer.toString((Integer.valueOf(this.getYear()) - 1)))
                 && !yearbookPubItem.getPublicStatus().equals(ItemVO.State.RELEASED)) {
-              error("A yearbook related to this organization object id already exists for the previous year and has not been released until now");
+              error(
+                  "A yearbook related to this organization object id already exists for the previous year and has not been released until now");
               return "";
             }
           }
@@ -388,8 +387,8 @@ public class YearbookItemCreateBean extends FacesBean {
       AccountUserVO userVO = (AccountUserVO) rec.getData();
       if (!userVO.getReference().getObjectId()
           .equals(loginHelper.getAccountUser().getReference().getObjectId())) {
-        userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
-            .getName() + " (" + userVO.getUserid() + ")"));
+        userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(),
+            userVO.getName() + " (" + userVO.getUserid() + ")"));
         this.possibleCollaboratorsList.add(userVO);
       }
     }
@@ -406,8 +405,8 @@ public class YearbookItemCreateBean extends FacesBean {
     ContextListSessionBean clsb =
         (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
     for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
-          .getName() + " (" + context.getReference().getObjectId() + ")"));
+      this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(),
+          context.getName() + " (" + context.getReference().getObjectId() + ")"));
     }
   }
 

@@ -40,8 +40,8 @@ public class HTMLSubSupShortTitleConverter implements Converter {
       return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, LENGTH, tags)
           + "...";
     } else {
-      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,
-          snippet.length(), tags);
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(),
+          tags);
     }
 
 

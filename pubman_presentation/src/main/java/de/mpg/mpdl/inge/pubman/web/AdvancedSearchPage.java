@@ -40,9 +40,6 @@ public class AdvancedSearchPage extends BreadcrumbPage {
   @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(AdvancedSearchPage.class);
 
-  /**
-   * Public constructor.
-   */
   public AdvancedSearchPage() {
     this.init();
   }

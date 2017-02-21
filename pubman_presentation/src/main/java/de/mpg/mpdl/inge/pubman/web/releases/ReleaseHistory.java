@@ -48,9 +48,6 @@ public class ReleaseHistory extends FacesBean {
   // Faces navigation string
   public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
-  /**
-   * Public constructor.
-   */
   public ReleaseHistory() {
     this.init();
   }
@@ -63,9 +60,8 @@ public class ReleaseHistory extends FacesBean {
     // super.init();
 
     if (this.getSessionBean().getVersionList() == null) {
-      this.getSessionBean().initVersionLists(
-          getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-              .getObjectId()));
+      this.getSessionBean().initVersionLists(getVersionHistory(
+          this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
     }
   }
 

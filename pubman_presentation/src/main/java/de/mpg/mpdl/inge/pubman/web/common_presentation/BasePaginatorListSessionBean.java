@@ -37,8 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  */
 @SuppressWarnings("serial")
 public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> extends FacesBean {
-
-  private static Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
+  private static final Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
 
   /**
    * The GET parameter name for the elements per page value
@@ -93,7 +92,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * The current paginator page number
    */
   private int currentPageNumber;
-
 
   /**
    * The current value of the 'go to' input fields
@@ -159,7 +157,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     setParameterMap(new HashMap<String, String>());
     setOldRedirectParameterMap(new HashMap<String, String>());
 
-
     elementsPerPageSelectItems = new ArrayList<SelectItem>();
     elementsPerPageSelectItems.add(new SelectItem("10", "10"));
     elementsPerPageSelectItems.add(new SelectItem("25", "25")); // --default: 25
@@ -168,10 +165,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     elementsPerPageSelectItems.add(new SelectItem("250", "250"));
 
     paginatorPageList = new ArrayList<PaginatorPage>();
-
-
   }
-
 
   /**
    * This method is called by the corresponding BaseListRetrieverRequestBean whenever the list has
@@ -180,8 +174,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * finally calls listUpdated on implementing subclasses.
    */
   public void update() {
-
-
     String elementsPerP =
         getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
 
@@ -203,18 +195,16 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     // logger.info("No List update: "+noListUpdate);
     if (!getNoListUpdate() && getPaginatorListRetriever() != null) {
-      currentPartList =
-          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-              getAdditionalFilters());
+      currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+          getAdditionalFilters());
       totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
       if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
         setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList =
-            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-                getAdditionalFilters());
+        currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+            getAdditionalFilters());
         totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -227,7 +217,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     }
 
     saveOldParameters();
-
   }
 
   public void update(final int pageNumber, final int elementsPerP) {
@@ -236,18 +225,16 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     // logger.info("No List update: "+noListUpdate);
     if (!getNoListUpdate()) {
-      currentPartList =
-          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-              getAdditionalFilters());
+      currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+          getAdditionalFilters());
       totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
       if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
         setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList =
-            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-                getAdditionalFilters());
+        currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
+            getAdditionalFilters());
         totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -285,7 +272,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   //
   // }
 
-
   /**
    * Implementing subclasses have to read out and set GET parameters within this method. If
    * parameters are set, please do not forget to add them to the parameterMap of this class.
@@ -293,13 +279,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   protected abstract void readOutParameters();
 
-
   /**
    * Called whenever a new list is retrieved and set.
    */
   protected abstract void listUpdated();
-
-
 
   /**
    * Returns the corresponding BaseListRetrieverRequestBean.
@@ -317,7 +300,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public List<ListElementType> getCurrentPartList() {
     return currentPartList;
-
   }
 
   /**
@@ -330,7 +312,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   }
 
   // protected abstract List<ListElementType> getPartList(int offset, int limit);
-
 
   /**
    * Returns the total number of elements, without offset and limit filters. Drawn from
@@ -347,11 +328,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     return ((currentPageNumber - 1) * elementsPerPage);
   }
 
-
   /*
    * public abstract String getAdditionalParameterUrl();
    */
-
 
   /**
    * Sets the current value for 'element per pages'
@@ -362,8 +341,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     this.elementsPerPageBottom = elementsPerPage;
     getParameterMap().put(parameterElementsPerPage, String.valueOf(elementsPerPage));
   }
-
-
 
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For setting the
@@ -385,7 +362,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   @Deprecated
   public void setElementsPerPageBottom(int elementsPerPageBottom) {
     this.elementsPerPageBottom = elementsPerPageBottom;
-
   }
 
   /**
@@ -419,7 +395,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     return elementsPerPage;
   }
 
-
   /**
    * Used as action when the user changes the upper number of elements menu.
    * 
@@ -427,14 +402,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public String changeElementsPerPageTop() throws Exception {
-
     setElementsPerPage(getElementsPerPageTop());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
     redirect();
 
     return "";
-
   }
 
   /**
@@ -444,14 +417,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public String changeElementsPerPageBottom() throws Exception {
-
     setElementsPerPage(getElementsPerPageBottom());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
     redirect();
 
     return "";
-
   }
 
   /**
@@ -461,7 +432,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public String goToPageTop() {
-
     try {
       int goToPage = Integer.parseInt(getGoToPageTop());
 
@@ -471,15 +441,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
       } else {
         error(getMessage("listError_goTo"));
       }
-
     } catch (Exception e) {
       error(getMessage("listError_goTo"));
     }
 
-
     redirect();
-
-
 
     return "";
   }
@@ -491,28 +457,22 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public String goToPageBottom() {
-
     try {
       int goToPage = Integer.parseInt(getGoToPageBottom());
-
       if (goToPage > 0 && goToPage <= getPaginatorPageSize()) {
         setCurrentPageNumber(goToPage);
         setGoToPageTop(String.valueOf(goToPage));
       } else {
         error(getMessage("listError_goTo"));
       }
-
     } catch (Exception e) {
       error(getMessage("listError_goTo"));
     }
 
-
     redirect();
-
 
     return "";
   }
-
 
   /**
    * Returns the current page number of the paginator
@@ -523,7 +483,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     return currentPageNumber;
   }
 
-
   /**
    * Returns a list with the paginator pages. Used from jsf to iterate over the numbers
    * 
@@ -532,7 +491,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   public List<PaginatorPage> getPaginatorPages() {
     return paginatorPageList;
   }
-
 
   /**
    * Returns the number of all paginator pages, not only the visible ones
@@ -577,7 +535,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     return elementsPerPageSelectItems;
   }
 
-
   /**
    * 
    * Inner class pf which an instance represents an paginator button. Used by the iterator in jsf.
@@ -593,12 +550,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     private int number;
 
-
-
     public PaginatorPage(int number) {
       this.number = number;
     }
-
 
     /**
      * Sets the page number of the paginator button
@@ -609,7 +563,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
       this.number = number;
     }
 
-
     /**
      * Returns the page number of the paginator button
      * 
@@ -618,7 +571,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     public int getNumber() {
       return number;
     }
-
 
     /**
      * Returns the link that is used as output link of the paginator page button
@@ -644,13 +596,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     }
   }
 
-
   /**
    * Method is called before a redirection. Subclasses can save states here.
    */
   protected abstract void beforeRedirect();
-
-
 
   /**
    * Returns the GET parameters from the parameter map as string that can be appended to the URL
@@ -664,9 +613,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     for (Entry<String, String> entrySet : getParameterMap().entrySet()) {
       try {
         if (entrySet.getValue() != null) {
-          parameterUrl =
-              parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
-                  + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
+          parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
+              + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
         }
       } catch (UnsupportedEncodingException e) {
         throw new RuntimeException(e);
@@ -703,7 +651,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   public Map<String, String> getParameterMap() {
     return redirectParameterMap;
   }
-
 
   /**
    * Returns a link of which one GET parameter is modified
@@ -756,7 +703,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     return getModifiedLink(parameterPageNumber, String.valueOf(getPaginatorPageSize()));
   }
 
-
   /**
    * Sets the current paginator page number
    * 
@@ -786,7 +732,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public abstract FilterType getAdditionalFilters();
 
-
   /**
    * Returns the pageType, a String that describes the current page with which this list is used.
    * 
@@ -809,7 +754,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * if (!pageType.equals(oldPageType)) { pageTypeChanged(); setGoToPage("");
      * getParameterMap().clear(); oldRedirectParameterMap.clear(); }
      */
-
   }
 
   /**
@@ -817,8 +761,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * here, e.g.
    */
   protected abstract void pageTypeChanged();
-
-
 
   public void setListPageName(String listPageName) {
     String oldPageName = this.listPageName;

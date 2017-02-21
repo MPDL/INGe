@@ -298,13 +298,12 @@ public class EditItemBean extends FacesBean {
     if (getCreators().size() >= 1) {
       CreatorVOPresentation creatorVO = getCreators().get(getCreators().size() - 1);
       // creator is a person
-      if (creatorVO.isPersonType()
-          && creatorVO.getPerson() != null
+      if (creatorVO.isPersonType() && creatorVO.getPerson() != null
           && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
           && (creatorVO.getPerson().getOrganizations().isEmpty()
-              || creatorVO.getPerson().getOrganizations().get(0).getName() == null || ""
-                .equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
+              || creatorVO.getPerson().getOrganizations().get(0).getName() == null
+              || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
         getCreators().remove(creatorVO);
       }
       // creator is an organisation

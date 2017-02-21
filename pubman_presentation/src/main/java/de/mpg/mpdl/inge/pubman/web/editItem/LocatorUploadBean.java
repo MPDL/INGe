@@ -44,14 +44,12 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
-  private static final long serialVersionUID = 1L;
+  private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
-  private Logger logger = Logger.getLogger(LocatorUploadBean.class);
   public EditItem editItem = new EditItem();
   String error = null; // Error Message
-
-
 
   /**
    * Populates the FileVO.
@@ -83,7 +81,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       list.add(pubFile);
       this.editItem.getEditItemSessionBean().setFiles(list);
     } catch (Exception e) {
-      this.logger.error(e);
+      logger.error(e);
       this.error = getMessage("errorLocatorUploadFW");
     }
   }
@@ -124,6 +122,5 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       }
     }
   }
-
 
 }

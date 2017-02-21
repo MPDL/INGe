@@ -72,8 +72,9 @@ public class GenreSpecificItemManager {
           fullClassAttribute = map.get(mapKey);
           // check if the property should be available in this genre or not
           if (map.get(baseKey + "display").equals("false")
-              && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
-                  baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
+              && (map.get(baseKey + "form_id").equals(this.submissionMethod)
+                  || map.get(baseKey + "form_id")
+                      .equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
             objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
           }
         }
@@ -122,9 +123,8 @@ public class GenreSpecificItemManager {
               result.add(method);
             }
           } else {
-            method =
-                baseObject.getClass().getMethod("set" + renamedAttribute,
-                    new Class[] {javaObjectToNullify.getClass()});
+            method = baseObject.getClass().getMethod("set" + renamedAttribute,
+                new Class[] {javaObjectToNullify.getClass()});
             method.invoke(baseObject, new Object[] {null});
             result.add(method);
           }
@@ -135,7 +135,8 @@ public class GenreSpecificItemManager {
     return result;
   }
 
-  private Object getObject(Object object, String mapString) throws Exception, NoSuchMethodException {
+  private Object getObject(Object object, String mapString)
+      throws Exception, NoSuchMethodException {
     Method method = null;
     Object javaObject = null;
     String renamedAttribute = "";

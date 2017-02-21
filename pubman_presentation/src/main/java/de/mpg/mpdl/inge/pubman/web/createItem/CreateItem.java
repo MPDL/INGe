@@ -98,8 +98,8 @@ public class CreateItem extends FacesBean {
     this.getEditItemSessionBean().initEmptyComponents();
 
     // set the current submission method for edit item to full submission (for GUI purpose)
-    this.getEditItemSessionBean().setCurrentSubmission(
-        EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
+    this.getEditItemSessionBean()
+        .setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
 
 
     // if there is only one context for this user we can skip the CreateItem-Dialog and
@@ -116,9 +116,8 @@ public class CreateItem extends FacesBean {
         logger.debug("The user has only privileges for one context (ID: "
             + contextVO.getReference().getObjectId() + ")");
       }
-      navigateTo =
-          this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
-              contextVO.getReference());
+      navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
+          contextVO.getReference());
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
@@ -143,9 +142,8 @@ public class CreateItem extends FacesBean {
             + this.getContextListSessionBean().getDepositorContextList().size()
             + " different contexts.");
       }
-      navigateTo =
-          this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
-              this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
+      navigateTo = this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
+          this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {

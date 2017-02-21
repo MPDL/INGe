@@ -68,10 +68,6 @@ public class ErrorPage extends BreadcrumbPage {
   private String summary = null;
   private String detail = null;
 
-
-  /**
-   * Public constructor.
-   */
   public ErrorPage() {
     this.init();
   }

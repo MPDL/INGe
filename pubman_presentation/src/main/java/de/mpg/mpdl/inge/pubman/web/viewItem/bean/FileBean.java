@@ -86,7 +86,7 @@ public class FileBean extends FacesBean {
   private boolean fileAccessGranted = false;
 
   /**
-   * Public constructor
+   * Public constructor with parameters
    * 
    * @param file
    * @param position
@@ -145,27 +145,21 @@ public class FileBean extends FacesBean {
               int startPosition = 0;
               int endPosition = 0;
 
-              startPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getStartIndex();
-              endPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getEndIndex() + 1;
+              startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList()
+                  .get(0).getStartIndex();
+              endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList()
+                  .get(0).getEndIndex() + 1;
 
-              beforeSearchHitString =
-                  "..."
-                      + searchHitList.get(i).getTextFragmentList().get(j).getData()
-                          .substring(0, startPosition);
-              searchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(startPosition, endPosition);
+              beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j)
+                  .getData().substring(0, startPosition);
+              searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData()
+                  .substring(startPosition, endPosition);
               afterSearchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(endPosition)
+                  searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition)
                       + "...";
 
-              this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString,
-                  afterSearchHitString));
+              this.searchHits.add(
+                  new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
           }
 
@@ -188,18 +182,17 @@ public class FileBean extends FacesBean {
         FilterTaskParamVO filter = new FilterTaskParamVO();
 
         Filter accountUserFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", loginHelper
-                .getAccountUser().getReference().getObjectId(), "=", "AND");
+            filter.new StandardFilter("http://escidoc.de/core/01/properties/user",
+                loginHelper.getAccountUser().getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(accountUserFilter);
 
-        Filter notAudienceRoleFilter =
-            filter.new StandardFilter("/properties/role/id",
-                GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
+        Filter notAudienceRoleFilter = filter.new StandardFilter("/properties/role/id",
+            GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
         filter.getFilterList().add(notAudienceRoleFilter);
 
         Filter assignedOnFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on", file
-                .getReference().getObjectId(), "=", "AND");
+            filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on",
+                file.getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(assignedOnFilter);
 
         Filter notRevokedFilter =
@@ -218,8 +211,9 @@ public class FileBean extends FacesBean {
         this.fileAccessGranted = false;
       }
     } catch (Exception e) {
-      logger.error("Problem getting audience-grants for file [" + file.getReference().getObjectId()
-          + "]", e);
+      logger.error(
+          "Problem getting audience-grants for file [" + file.getReference().getObjectId() + "]",
+          e);
     }
   }
 
@@ -231,9 +225,8 @@ public class FileBean extends FacesBean {
   public String downloadFile() {
 
     try {
-      LoginHelper loginHelper =
-          (LoginHelper) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-              .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+      LoginHelper loginHelper = (LoginHelper) FacesContext.getCurrentInstance().getApplication()
+          .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
 
 
       String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
@@ -321,12 +314,9 @@ public class FileBean extends FacesBean {
    * @return a reference to the scoped data bean (ItemControllerSessionBean)
    */
   protected ItemControllerSessionBean getItemControllerSessionBean() {
-    ItemControllerSessionBean itemControllerSessionBean =
-        (ItemControllerSessionBean) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(), ItemControllerSessionBean.BEAN_NAME);
+    ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean) FacesContext
+        .getCurrentInstance().getApplication().getVariableResolver()
+        .resolveVariable(FacesContext.getCurrentInstance(), ItemControllerSessionBean.BEAN_NAME);
     return itemControllerSessionBean;
   }
 
@@ -350,11 +340,11 @@ public class FileBean extends FacesBean {
 
     if (this.file.getContentCategory() != null) {
 
-      for (Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap().entrySet()) {
+      for (Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
+          .entrySet()) {
         if (contcat.getValue().equals(this.file.getContentCategory())) {
-          contentCategory =
-              internationalized.getLabel("ENUM_CONTENTCATEGORY_"
-                  + contcat.getKey().toLowerCase().replace("_", "-"));
+          contentCategory = internationalized
+              .getLabel("ENUM_CONTENTCATEGORY_" + contcat.getKey().toLowerCase().replace("_", "-"));
           break;
         }
       }
@@ -373,9 +363,8 @@ public class FileBean extends FacesBean {
     String visibility = "";
     InternationalizedImpl internationalized = new InternationalizedImpl();
     if (this.file.getVisibility() != null) {
-      visibility =
-          internationalized.getLabel(this.getI18nHelper().convertEnumToString(
-              this.file.getVisibility()));
+      visibility = internationalized
+          .getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
     return visibility;
   }
@@ -466,9 +455,10 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getLocatorIsLink() {
-    return ((getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (getFile().getContent()
-        .startsWith("http://") || getFile().getContent().startsWith("https://") || getFile()
-        .getContent().startsWith("ftp://")));
+    return ((getFile().getStorage() == FileVO.Storage.EXTERNAL_URL)
+        && (getFile().getContent().startsWith("http://")
+            || getFile().getContent().startsWith("https://")
+            || getFile().getContent().startsWith("ftp://")));
   }
 
   public boolean getIsVisible() {

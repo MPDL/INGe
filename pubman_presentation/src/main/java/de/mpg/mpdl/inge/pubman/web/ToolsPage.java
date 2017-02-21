@@ -40,9 +40,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 public class ToolsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ToolsPage";
 
-  /**
-   * Public constructor.
-   */
   public ToolsPage() {
     this.init();
   }

@@ -40,9 +40,6 @@ public class WorkspacesPage extends BreadcrumbPage {
   // The referring GUI Tool Page
   // public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
 
-  /**
-   * Public constructor.
-   */
   public WorkspacesPage() {
     this.init();
   }

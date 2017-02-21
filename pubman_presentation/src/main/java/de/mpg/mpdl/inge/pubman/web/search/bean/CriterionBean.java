@@ -7,16 +7,13 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 
-
-
 /**
  * Abstract bean with common criterion behaviour.
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public abstract class CriterionBean extends FacesBean {
-  private static final long serialVersionUID = 1L;
-
   protected boolean collapsed = false;
   private String logicOperator;
 

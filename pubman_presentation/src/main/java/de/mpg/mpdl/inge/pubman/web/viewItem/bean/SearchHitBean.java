@@ -38,7 +38,7 @@ public class SearchHitBean {
   private String afterSearchHitString;
 
   /**
-   * Public constructor
+   * Public constructor with parameters
    * 
    * @param beforeSearchHitString
    * @param searchHitString

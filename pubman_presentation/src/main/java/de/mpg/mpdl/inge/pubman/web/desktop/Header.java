@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class Header extends FacesBean {
   /** Logo for dev environment. */
   private static final String LOGO_DEV = "overlayDev";
@@ -45,9 +46,6 @@ public class Header extends FacesBean {
 
   private String type;
 
-  /**
-   * Public constructor.
-   */
   public Header() {}
 
   // /**

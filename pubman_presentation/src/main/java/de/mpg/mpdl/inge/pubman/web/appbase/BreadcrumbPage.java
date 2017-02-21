@@ -63,24 +63,19 @@ public abstract class BreadcrumbPage extends FacesBean {
     }
     BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
         (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-    breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction,
-        isItemSpecific()));
+    breadcrumbItemHistorySessionBean
+        .push(new BreadcrumbItem(pageName, page, defaultAction, isItemSpecific()));
     previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
-    UIComponent bcComponent =
-        FacesContext.getCurrentInstance().getViewRoot()
-            .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
+    UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot()
+        .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
     if (bcComponent == null) {
-      bcComponent =
-          FacesContext.getCurrentInstance().getViewRoot()
-              .findComponent("Breadcrumb:BreadcrumbNavigation");
+      bcComponent = FacesContext.getCurrentInstance().getViewRoot()
+          .findComponent("Breadcrumb:BreadcrumbNavigation");
     }
     if (bcComponent != null) {
       ValueExpression value =
-          FacesContext
-              .getCurrentInstance()
-              .getApplication()
-              .getExpressionFactory()
+          FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
               .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
                   "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
       bcComponent.setValueExpression("value", value);
@@ -100,12 +95,8 @@ public abstract class BreadcrumbPage extends FacesBean {
   public String cancel() {
     String result = previousItem.getPage();
     try {
-      FacesContext
-          .getCurrentInstance()
-          .getExternalContext()
-          .redirect(
-              ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext()
-                  + result);
+      FacesContext.getCurrentInstance().getExternalContext().redirect(
+          ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }

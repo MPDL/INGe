@@ -50,7 +50,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       case ESCIDOC_ALL:
         return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
       case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
+        return new String[] {
+            "\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
     }
     return null;
   }

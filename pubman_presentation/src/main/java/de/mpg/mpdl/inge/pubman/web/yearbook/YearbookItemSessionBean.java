@@ -106,8 +106,7 @@ public class YearbookItemSessionBean extends FacesBean {
     filterParams.put("version", new String[] {"1.1"});
     String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
     // String orgId = "escidoc:persistent25";
-    filterParams.put(
-        "query",
+    filterParams.put("query",
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
@@ -125,9 +124,9 @@ public class YearbookItemSessionBean extends FacesBean {
         yearbookPubItem = (PubItemVO) yearbookRecord.getData();
         if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
           if (yearbookPubItem.getYearbookMetadata().getYear() != null
-              && (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
-                  .getYearbookMetadata().getYear()
-                  .equals(Integer.toString((Integer.valueOf(year) - 1))))
+              && (yearbookPubItem.getYearbookMetadata().getYear().equals(year)
+                  || yearbookPubItem.getYearbookMetadata().getYear()
+                      .equals(Integer.toString((Integer.valueOf(year) - 1))))
               && !yearbookPubItem.getPublicStatus().equals(ItemVO.State.RELEASED)) {
             this.setYearbookItem(yearbookPubItem);
             ContextHandler contextHandler =
@@ -222,10 +221,8 @@ public class YearbookItemSessionBean extends FacesBean {
   private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
     String filter = "<param last-modification-date=\"" + JiBXHelper.serializeDate(lmd) + "\">";
     for (ItemRO rel : relList) {
-      filter +=
-          "<relation><targetId>"
-              + rel.getObjectId()
-              + "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
+      filter += "<relation><targetId>" + rel.getObjectId()
+          + "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
     }
     filter += "</param>";
     return filter;
@@ -293,12 +290,12 @@ public class YearbookItemSessionBean extends FacesBean {
       // this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.DEFAULT);
       if (rep.getItems().size() > 0) {
         validItemMap.remove(pubItem.getVersion().getObjectId());
-        invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem
-            .getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(
+            pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       } else {
         invalidItemMap.remove(pubItem.getVersion().getObjectId());
-        validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem
-            .getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(
+            pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       }
       return rep.isValid();
     }

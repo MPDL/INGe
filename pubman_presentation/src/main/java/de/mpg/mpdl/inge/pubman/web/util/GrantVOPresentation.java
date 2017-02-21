@@ -5,18 +5,15 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean;
 
+@SuppressWarnings("serial")
 public class GrantVOPresentation extends FacesBean {
   public static final String GRANT_TYPE_USER_GROUP = "user-group";
+
   private GrantVO grant;
   private int index;
   private int fileIndex;
 
-  /**
-   * Public constructor
-   */
-  public GrantVOPresentation() {
-
-  }
+  public GrantVOPresentation() {}
 
   /**
    * Public constructor with parameters
@@ -45,23 +42,17 @@ public class GrantVOPresentation extends FacesBean {
     AudienceSessionBean asb = this.getAudienceSessionBean();
     asb.getFileListNew().get(this.fileIndex).getGrantList().remove(this);
     if (asb.getFileListNew().get(this.fileIndex).getGrantList().size() < 1) {
-      asb.getFileListNew()
-          .get(this.fileIndex)
-          .getGrantList()
-          .add(
-              new GrantVOPresentation(new GrantVO(), asb.getFileListNew().get(this.fileIndex)
-                  .getGrantList().size(), this.fileIndex));
+      asb.getFileListNew().get(this.fileIndex).getGrantList()
+          .add(new GrantVOPresentation(new GrantVO(),
+              asb.getFileListNew().get(this.fileIndex).getGrantList().size(), this.fileIndex));
     }
   }
 
   public void removeGrantForAllFiles() {
     this.getAudienceSessionBean().getGrantsForAllFiles().remove(this);
     if (this.getAudienceSessionBean().getGrantsForAllFiles().size() < 1) {
-      this.getAudienceSessionBean()
-          .getGrantsForAllFiles()
-          .add(
-              new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean()
-                  .getGrantsForAllFiles().size()));
+      this.getAudienceSessionBean().getGrantsForAllFiles().add(new GrantVOPresentation(
+          new GrantVO(), this.getAudienceSessionBean().getGrantsForAllFiles().size()));
     }
   }
 
@@ -98,6 +89,5 @@ public class GrantVOPresentation extends FacesBean {
   public void setIndex(int index) {
     this.index = index;
   }
-
 
 }

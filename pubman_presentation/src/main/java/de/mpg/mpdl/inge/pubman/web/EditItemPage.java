@@ -44,9 +44,6 @@ public class EditItemPage extends FacesBean {
   // The referring GUI Tool Page
   // public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
 
-  /**
-   * Public constructor.
-   */
   public EditItemPage() {
     this.init();
   }

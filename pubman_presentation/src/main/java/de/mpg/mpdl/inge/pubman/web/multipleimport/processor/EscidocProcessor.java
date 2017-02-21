@@ -60,9 +60,8 @@ public class EscidocProcessor extends FormatProcessor {
   public EscidocProcessor() {
     try {
       InitialContext context = new InitialContext();
-      xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      xmlTransforming = (XmlTransforming) context
+          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
     } catch (Exception e) {
       throw new RuntimeException("Error initializing XmlTransforming", e);
     }

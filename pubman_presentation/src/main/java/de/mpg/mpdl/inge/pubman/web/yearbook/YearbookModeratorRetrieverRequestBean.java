@@ -49,8 +49,8 @@ public class YearbookModeratorRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
 
-  private static final Logger logger = Logger
-      .getLogger(YearbookModeratorRetrieverRequestBean.class);
+  private static final Logger logger =
+      Logger.getLogger(YearbookModeratorRetrieverRequestBean.class);
 
   private String selectedSortOrder;
 
@@ -84,7 +84,6 @@ public class YearbookModeratorRetrieverRequestBean extends
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
     // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
     // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
-
   }
 
   @Override
@@ -187,9 +186,8 @@ public class YearbookModeratorRetrieverRequestBean extends
       filter.getFilterList().add(f8);
       Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
-      String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
-              filter.toMap());
+      String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())
+          .retrieveItems(filter.toMap());
 
       SearchRetrieveResponseVO result =
           xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
@@ -287,8 +285,8 @@ public class YearbookModeratorRetrieverRequestBean extends
         String paramXml = null;
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
           if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            param =
-                new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
+            param = new TaskParamVO(yearbookItem.getModificationDate(),
+                "Send yearbook back for rework");
             paramXml = xmlTransforming.transformToTaskParam(param);
             itemHandler.revise(yearbookItem.getVersion().getObjectId(), paramXml);
           } else {

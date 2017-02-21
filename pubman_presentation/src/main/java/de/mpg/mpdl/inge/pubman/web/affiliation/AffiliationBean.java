@@ -272,9 +272,9 @@ public class AffiliationBean extends FacesBean {
   public String startSearchForAffiliation(AffiliationVO affiliation) {
     try {
       ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-      criteria.add(new MetadataSearchCriterion(
-          MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, affiliation.getReference()
-              .getObjectId()));
+      criteria
+          .add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
+              affiliation.getReference().getObjectId()));
       criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
           "item", MetadataSearchCriterion.LogicalOperator.AND));
 
@@ -297,10 +297,9 @@ public class AffiliationBean extends FacesBean {
        */
 
       // redirect to SearchResultPage which processes the query
-      getExternalContext().redirect(
-          "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
-              + URLEncoder.encode(cql) + "&" + SearchRetrieverRequestBean.parameterSearchType
-              + "=org");
+      getExternalContext().redirect("SearchResultListPage.jsp?"
+          + SearchRetrieverRequestBean.parameterCqlQuery + "=" + URLEncoder.encode(cql) + "&"
+          + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
     } catch (Exception e) {
       logger.error("Could not search for items." + "\n" + e.toString());

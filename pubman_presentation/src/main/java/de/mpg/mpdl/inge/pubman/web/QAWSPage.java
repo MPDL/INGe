@@ -49,9 +49,6 @@ public class QAWSPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(QAWSPage.class);
   public static final String BEAN_NAME = "QAWSPage";
 
-  /**
-   * Public constructor.
-   */
   public QAWSPage() {
     this.init();
   }

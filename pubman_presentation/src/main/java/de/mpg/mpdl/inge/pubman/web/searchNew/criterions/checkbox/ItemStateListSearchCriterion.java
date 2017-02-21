@@ -66,7 +66,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   @Override
-  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
+  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName,
+      String searchValue) {
     List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
 
     if (!"withdrawn".equals(searchValue)) {
@@ -81,8 +82,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     // exclude public status withdrawn
     if (!"withdrawn".equals(searchValue)) {
       scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
-      scList.add(new FlexibleStandardSearchCriterion(
-          new String[] {"\"/properties/public-status\""}, "withdrawn"));
+      scList.add(new FlexibleStandardSearchCriterion(new String[] {"\"/properties/public-status\""},
+          "withdrawn"));
       scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
     }
 

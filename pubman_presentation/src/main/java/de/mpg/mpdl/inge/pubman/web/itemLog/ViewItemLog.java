@@ -52,9 +52,6 @@ public class ViewItemLog extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(ViewItemLog.class);
 
-  /**
-   * Public constructor.
-   */
   public ViewItemLog() {
     this.init();
   }
@@ -67,9 +64,8 @@ public class ViewItemLog extends FacesBean {
     // super.init();
 
     if (this.getSessionBean().getVersionList() == null) {
-      this.getSessionBean().initVersionLists(
-          getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-              .getObjectId()));
+      this.getSessionBean().initVersionLists(getVersionHistory(
+          this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
     }
   }
 

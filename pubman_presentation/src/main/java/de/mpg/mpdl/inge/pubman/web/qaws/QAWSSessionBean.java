@@ -79,9 +79,6 @@ public class QAWSSessionBean extends FacesBean {
   private List<SelectItem> orgUnitSelectItems;
 
 
-  /**
-   * Public constructor.
-   */
   public QAWSSessionBean() {}
 
   // /**

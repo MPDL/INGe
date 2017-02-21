@@ -110,10 +110,6 @@ public class ApplicationBean extends FacesBean {
   private String shortVersion;
   private String cslEditorInstanceUrl;
 
-
-  /**
-   * Public constructor.
-   */
   public ApplicationBean() {
     // set the system type of the application
     try {
@@ -323,21 +319,22 @@ public class ApplicationBean extends FacesBean {
     // First append the standard PubMan Stylesheet
     try {
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.apply"))) {
-        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(
-            ALTERNATE_STYLESHEET)) {
-          styleTags.append("<link href=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url")
-              + "\" id=\"Standard\" type=\"text/css\" title=\""
-              + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                  .getString("styleTheme_lblPubMan") + "\" rel=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") + "\"/>");
-        } else {
-          StylesheetStandard =
-              "<link href=\""
-                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url")
+        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type")
+            .equals(ALTERNATE_STYLESHEET)) {
+          styleTags.append(
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url")
                   + "\" id=\"Standard\" type=\"text/css\" title=\""
                   + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                      .getString("styleTheme_lblPubMan") + "\" rel=\""
+                      .getString("styleTheme_lblPubMan")
+                  + "\" rel=\""
+                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") + "\"/>");
+        } else {
+          StylesheetStandard =
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url")
+                  + "\" id=\"Standard\" type=\"text/css\" title=\""
+                  + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
+                      .getString("styleTheme_lblPubMan")
+                  + "\" rel=\""
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") + "\"/>";
         }
       }
@@ -346,21 +343,22 @@ public class ApplicationBean extends FacesBean {
       // Then append the high contrast Stylesheet
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply"))) {
-        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(
-            ALTERNATE_STYLESHEET)) {
-          styleTags.append("<link href=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url")
-              + "\" id=\"HighContrast\" type=\"text/css\" title=\""
-              + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                  .getString("styleTheme_lblHighContrast") + "\" rel=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") + "\"/>");
-        } else {
-          StylesheetContrast =
-              "<link href=\""
-                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url")
+        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type")
+            .equals(ALTERNATE_STYLESHEET)) {
+          styleTags.append(
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url")
                   + "\" id=\"HighContrast\" type=\"text/css\" title=\""
                   + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                      .getString("styleTheme_lblHighContrast") + "\" rel=\""
+                      .getString("styleTheme_lblHighContrast")
+                  + "\" rel=\""
+                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") + "\"/>");
+        } else {
+          StylesheetContrast =
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url")
+                  + "\" id=\"HighContrast\" type=\"text/css\" title=\""
+                  + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
+                      .getString("styleTheme_lblHighContrast")
+                  + "\" rel=\""
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") + "\"/>";
         }
       }
@@ -369,21 +367,22 @@ public class ApplicationBean extends FacesBean {
       // Then append the classic Stylesheet
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply"))) {
-        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(
-            ALTERNATE_STYLESHEET)) {
-          styleTags.append("<link href=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url")
-              + "\" id=\"Classic\" type=\"text/css\" title=\""
-              + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                  .getString("styleTheme_lblClassic") + "\" rel=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") + "\"/>");
-        } else {
-          StylesheetClassic =
-              "<link href=\""
-                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url")
+        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type")
+            .equals(ALTERNATE_STYLESHEET)) {
+          styleTags.append(
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url")
                   + "\" id=\"Classic\" type=\"text/css\" title=\""
                   + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                      .getString("styleTheme_lblClassic") + "\" rel=\""
+                      .getString("styleTheme_lblClassic")
+                  + "\" rel=\""
+                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") + "\"/>");
+        } else {
+          StylesheetClassic =
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url")
+                  + "\" id=\"Classic\" type=\"text/css\" title=\""
+                  + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
+                      .getString("styleTheme_lblClassic")
+                  + "\" rel=\""
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") + "\"/>";
         }
       }
@@ -392,21 +391,22 @@ public class ApplicationBean extends FacesBean {
       // Then append the special Stylesheet
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.apply"))) {
-        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type").equals(
-            ALTERNATE_STYLESHEET)) {
-          styleTags.append("<link href=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url")
-              + "\" id=\"Special\" type=\"text/css\" title=\""
-              + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                  .getString("styleTheme_lblSpecial") + "\" rel=\""
-              + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") + "\"/>");
-        } else {
-          StylesheetSpecial =
-              "<link href=\""
-                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url")
+        if (PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type")
+            .equals(ALTERNATE_STYLESHEET)) {
+          styleTags.append(
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url")
                   + "\" id=\"Special\" type=\"text/css\" title=\""
                   + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
-                      .getString("styleTheme_lblSpecial") + "\" rel=\""
+                      .getString("styleTheme_lblSpecial")
+                  + "\" rel=\""
+                  + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") + "\"/>");
+        } else {
+          StylesheetSpecial =
+              "<link href=\"" + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url")
+                  + "\" id=\"Special\" type=\"text/css\" title=\""
+                  + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en")
+                      .getString("styleTheme_lblSpecial")
+                  + "\" rel=\""
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") + "\"/>";
         }
       }

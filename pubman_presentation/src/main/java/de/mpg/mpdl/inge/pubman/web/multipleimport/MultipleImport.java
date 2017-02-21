@@ -73,8 +73,8 @@ public class MultipleImport extends FacesBean {
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
 
-  public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item",
-      "application/xml", "UTF-8");
+  public static final Format ESCIDOC_FORMAT =
+      new Format("escidoc-publication-item", "application/xml", "UTF-8");
   public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
   public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
   public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
@@ -86,8 +86,8 @@ public class MultipleImport extends FacesBean {
   public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
   public static final Format MARC21_FORMAT =
       new Format("marc21viaxml", "application/marc", "UTF-8");
-  public static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
-      "UTF-8");
+  public static final Format MARCXML_FORMAT =
+      new Format("marcxml", "application/marcxml+xml", "UTF-8");
   public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
 
@@ -210,10 +210,9 @@ public class MultipleImport extends FacesBean {
      */
 
 
-    importProcess =
-        new ImportProcess(name, uploadedImportFile.getFileName(), uploadedFile, format,
-            context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy,
-            configuration);
+    importProcess = new ImportProcess(name, uploadedImportFile.getFileName(), uploadedFile, format,
+        context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy,
+        configuration);
     importProcess.start();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -393,9 +392,8 @@ public class MultipleImport extends FacesBean {
    */
   public void setName(String name) {
     this.name = name;
-    this.name =
-        name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe")
-            .replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
+    this.name = name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe")
+        .replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
   }
 
   /**

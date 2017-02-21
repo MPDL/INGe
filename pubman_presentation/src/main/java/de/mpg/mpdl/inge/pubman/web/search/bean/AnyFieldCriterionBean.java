@@ -16,6 +16,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class AnyFieldCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "AnyFieldCriterionBean";
 

@@ -71,9 +71,6 @@ public class SubmitItem extends FacesBean {
 
   // private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public SubmitItem() {
     this.init();
   }
@@ -107,8 +104,8 @@ public class SubmitItem extends FacesBean {
 
     if (logger.isDebugEnabled()) {
       if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger.debug("Item that is being submitted: "
-            + this.getPubItem().getVersion().getObjectId());
+        logger
+            .debug("Item that is being submitted: " + this.getPubItem().getVersion().getObjectId());
       } else {
         logger.error("NO ITEM GIVEN");
       }
@@ -146,7 +143,8 @@ public class SubmitItem extends FacesBean {
         this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
+      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+          .getState() == ItemVO.State.SUBMITTED) {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       }
       // distinguish between simple and standard workflow
@@ -163,11 +161,9 @@ public class SubmitItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        fc.getExternalContext().redirect(request.getContextPath()
+            + "/faces/viewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -191,8 +187,8 @@ public class SubmitItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
-      fc.getExternalContext().redirect(
-          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      fc.getExternalContext()
+          .redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
@@ -221,12 +217,12 @@ public class SubmitItem extends FacesBean {
   public boolean getHasRightsInformation() {
     PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
     for (FileVO file : pubItemVO.getFiles()) {
-      if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
-          .getDefaultMetadata().getCopyrightDate()))
-          || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
-              .getDefaultMetadata().getLicense()))
-          || (file.getDefaultMetadata().getRights() != null && !"".equals(file.getDefaultMetadata()
-              .getRights()))) {
+      if ((file.getDefaultMetadata().getCopyrightDate() != null
+          && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
+          || (file.getDefaultMetadata().getLicense() != null
+              && !"".equals(file.getDefaultMetadata().getLicense()))
+          || (file.getDefaultMetadata().getRights() != null
+              && !"".equals(file.getDefaultMetadata().getRights()))) {
         return true;
       }
     }
@@ -299,16 +295,17 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_SIMPLE);
   }
 
   public boolean getIsSubmitted() {
-    return getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
+    return getItemControllerSessionBean().getCurrentPubItem().getVersion()
+        .getState() == ItemVO.State.SUBMITTED;
   }
 }

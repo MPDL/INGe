@@ -58,8 +58,8 @@ public class BrowseByPage extends BreadcrumbPage {
   private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
   private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
   private final String pubYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ISSUED();
-  private final String pubOnlineYearSearchIndex = MetadataSearchCriterion
-      .getINDEX_DATE_PUBLISHED_ONLINE();
+  private final String pubOnlineYearSearchIndex =
+      MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE();
   private final String anyYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ANY();
   private final String queryPerson = "foaf:family_name";
   private final String queryDdc = "dc:title";
@@ -69,9 +69,6 @@ public class BrowseByPage extends BreadcrumbPage {
   private List<String> subjects;
   private SelectItem[] dateOptions;
 
-  /**
-   * Public constructor
-   */
   public BrowseByPage() {
     this.init();
   }
@@ -122,10 +119,9 @@ public class BrowseByPage extends BreadcrumbPage {
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
         localLang = "en";
       }
-      URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + type
-              + "/query?f=options&" + this.bbBean.getQuery() + "=\""
-              + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
+      URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + type
+          + "/query?f=options&" + this.bbBean.getQuery() + "=\""
+          + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
       URLConnection conn = coneUrl.openConnection();
       HttpURLConnection httpConn = (HttpURLConnection) conn;
       int responseCode = httpConn.getResponseCode();
@@ -134,8 +130,8 @@ public class BrowseByPage extends BreadcrumbPage {
           logger.debug("Cone Service responded with 200.");
           break;
         default:
-          throw new RuntimeException("An error occurred while calling Cone Service: "
-              + responseCode + ": " + httpConn.getResponseMessage());
+          throw new RuntimeException("An error occurred while calling Cone Service: " + responseCode
+              + ": " + httpConn.getResponseMessage());
       }
       InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
       BufferedReader bReader = new BufferedReader(isReader);
@@ -252,9 +248,8 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public SelectItem[] getDateOptions() {
-    dateOptions =
-        new SelectItem[] {new SelectItem("published", getLabel("dateOptionPublished")),
-            new SelectItem("any", getLabel("dateOptionAny"))};
+    dateOptions = new SelectItem[] {new SelectItem("published", getLabel("dateOptionPublished")),
+        new SelectItem("any", getLabel("dateOptionAny"))};
     return dateOptions;
   }
 

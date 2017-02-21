@@ -263,8 +263,8 @@ public class PubManSwordServer {
    * @throws URISyntaxException
    * @throws IOException
    */
-  public String doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException,
-      ParserConfigurationException, TransformerException {
+  public String doServiceDocument(ServiceDocumentRequest sdr)
+      throws SWORDAuthenticationException, ParserConfigurationException, TransformerException {
     SwordUtil util = new SwordUtil();
     List<PubContextVOPresentation> contextList = null;
     ContextListSessionBean contextListBean =
@@ -336,9 +336,8 @@ public class PubManSwordServer {
     document.appendChild(service);
 
     // Transform to xml
-    Transformer transformer =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-            .newTransformer();
+    Transformer transformer = TransformerFactory
+        .newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     StreamResult result = new StreamResult(new StringWriter());
     DOMSource source = new DOMSource(document);

@@ -63,9 +63,8 @@ public class OrganizationCriterionCollection {
 
       AffiliationVO affiliation;
       try {
-        affiliation =
-            ItemControllerSessionBean.retrieveAffiliation(criterion.getAffiliation().getReference()
-                .getObjectId());
+        affiliation = ItemControllerSessionBean
+            .retrieveAffiliation(criterion.getAffiliation().getReference().getObjectId());
 
         AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
@@ -172,9 +171,10 @@ public class OrganizationCriterionCollection {
   public List<OrganizationCriterion> getFilledCriterion() {
     List<OrganizationCriterion> returnList = new ArrayList<OrganizationCriterion>();
     for (OrganizationCriterion vo : parentVO) {
-      if (((vo.getSearchString() != null && vo.getSearchString().length() > 0) || (vo
-          .getAffiliation() != null && vo.getAffiliation().getReference().getObjectId() != null && !""
-            .equals(vo.getAffiliation().getReference().getObjectId())))) {
+      if (((vo.getSearchString() != null && vo.getSearchString().length() > 0)
+          || (vo.getAffiliation() != null
+              && vo.getAffiliation().getReference().getObjectId() != null
+              && !"".equals(vo.getAffiliation().getReference().getObjectId())))) {
         returnList.add(vo);
       }
     }

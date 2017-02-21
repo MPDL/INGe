@@ -40,9 +40,6 @@ public class NavigationRule {
   // the faces navigation string
   private String navigationString;
 
-  /**
-   * Public constructor
-   */
   public NavigationRule() {}
 
   /**

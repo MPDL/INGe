@@ -89,9 +89,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
           // breadcrumbs.remove(lastItem);
 
           // in particular for ViewItemFullPage, when an ID is added to the URL
-          keepold =
-              lastItem.getPage().startsWith(newItem.getPage())
-                  && !newItem.getPage().contains("itemId=");
+          keepold = lastItem.getPage().startsWith(newItem.getPage())
+              && !newItem.getPage().contains("itemId=");
         }
       }
 
@@ -234,16 +233,17 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public boolean getPreviousPageIsListPage() {
     if (breadcrumbs.size() > 1) {
       for (int i = 0; i < this.itemListPages.length; i++) {
-        if (this.itemListPages[i].equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue())) {
+        if (this.itemListPages[i]
+            .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue())) {
           return true;
-        } else if ((breadcrumbs.size() > 2 && this.itemListPages[i].equals(breadcrumbs.get(
-            breadcrumbs.size() - 3).getDisplayValue()))
-            && ("viewItemFullPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()) || "viewItemOverviewPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()))
-            && ("viewItemFullPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()) || "viewItemOverviewPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()))) {
+        } else if ((breadcrumbs.size() > 2 && this.itemListPages[i]
+            .equals(breadcrumbs.get(breadcrumbs.size() - 3).getDisplayValue()))
+            && ("viewItemFullPage".equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue())
+                || "viewItemOverviewPage"
+                    .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()))
+            && ("viewItemFullPage".equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue())
+                || "viewItemOverviewPage"
+                    .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()))) {
           return true;
         }
       }

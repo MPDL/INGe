@@ -39,9 +39,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 public class ViewItemReleaseHistoryPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemReleaseHistoryPage";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemReleaseHistoryPage() {
     this.init();
   }

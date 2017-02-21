@@ -59,9 +59,8 @@ public class AffiliationDetailPage extends FacesBean {
     try {
       String ouXml = null;
       InitialContext initialContext = new InitialContext();
-      this.xmlTransforming =
-          (XmlTransforming) initialContext
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+      this.xmlTransforming = (XmlTransforming) initialContext
+          .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
       String affiliationId =
           getFacesContext().getExternalContext().getRequestParameterMap().get("id");

@@ -38,9 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 public class NoSearchResultsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "NoSearchResultsPage";
 
-  /**
-   * Public constructor.
-   */
   public NoSearchResultsPage() {
     this.init();
   }

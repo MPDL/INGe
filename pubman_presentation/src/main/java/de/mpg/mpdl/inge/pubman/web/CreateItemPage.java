@@ -35,9 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  */
 @SuppressWarnings("serial")
 public class CreateItemPage extends FacesBean {
-  /**
-   * Public constructor
-   */
   public CreateItemPage() {
     this.init();
   }

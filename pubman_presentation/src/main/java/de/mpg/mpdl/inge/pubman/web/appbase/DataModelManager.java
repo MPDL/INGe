@@ -88,8 +88,8 @@ public abstract class DataModelManager<T> {
     }
     CriterionBean criterionBean = (CriterionBean) objectList.get(0);
     return criterionBean.getCriterionVO() != null
-        && (criterionBean.getCriterionVO().getSearchString() == null || !"".equals(criterionBean
-            .getCriterionVO().getSearchString()));
+        && (criterionBean.getCriterionVO().getSearchString() == null
+            || !"".equals(criterionBean.getCriterionVO().getSearchString()));
   }
 
   /**

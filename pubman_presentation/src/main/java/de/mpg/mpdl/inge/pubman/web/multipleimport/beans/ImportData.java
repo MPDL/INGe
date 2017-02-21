@@ -63,7 +63,8 @@ public class ImportData extends FacesBean {
       this.importId = Integer.parseInt(idString);
     }
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper.getAccountUser() != null && loginHelper.getAccountUser().getReference() != null) {
+    if (loginHelper.getAccountUser() != null
+        && loginHelper.getAccountUser().getReference() != null) {
       this.userid = loginHelper.getAccountUser().getReference().getObjectId();
       this.userHandle = loginHelper.getAccountUser().getHandle();
     }

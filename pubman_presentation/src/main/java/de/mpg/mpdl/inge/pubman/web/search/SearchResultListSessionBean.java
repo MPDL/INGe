@@ -55,12 +55,8 @@ public class SearchResultListSessionBean extends FacesBean {
   // Affiliation in case of affiliation search
   private AffiliationVO affiliation;
 
-
   private SearchType type;
 
-  /**
-   * Public constructor.
-   */
   public SearchResultListSessionBean() {}
 
   // /**

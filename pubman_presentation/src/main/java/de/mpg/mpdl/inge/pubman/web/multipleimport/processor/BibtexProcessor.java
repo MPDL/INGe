@@ -94,9 +94,8 @@ public class BibtexProcessor extends FormatProcessor {
   private void initialize() {
     init = true;
     try {
-      BufferedReader bufferedReader =
-          new BufferedReader(new InputStreamReader(new FileInputStream(getSourceFile()),
-              getEncoding()));
+      BufferedReader bufferedReader = new BufferedReader(
+          new InputStreamReader(new FileInputStream(getSourceFile()), getEncoding()));
       String line = null;
       ArrayList<String> itemList = new ArrayList<String>();
       StringWriter stringWriter = new StringWriter();

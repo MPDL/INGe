@@ -5,8 +5,8 @@ import java.util.Calendar;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 
-public class StatisticReportRecordVOPresentation implements
-    Comparable<StatisticReportRecordVOPresentation> {
+public class StatisticReportRecordVOPresentation
+    implements Comparable<StatisticReportRecordVOPresentation> {
   private StatisticReportRecordVO statisticReportRecordVO;
 
   public StatisticReportRecordVOPresentation(StatisticReportRecordVO rr) {

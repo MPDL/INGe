@@ -592,10 +592,10 @@ public class ImportLog {
    * @param errorLevel the errorLevel to set
    */
   public void setErrorLevel(ErrorLevel errorLevel) {
-    if (this.errorLevel == null
-        || errorLevel == ErrorLevel.FATAL
+    if (this.errorLevel == null || errorLevel == ErrorLevel.FATAL
         || (errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
-        || (errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
+        || (errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL
+            && this.errorLevel != ErrorLevel.ERROR)
         || (errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
             && this.errorLevel != ErrorLevel.ERROR && this.errorLevel != ErrorLevel.PROBLEM)) {
       this.errorLevel = errorLevel;
@@ -723,10 +723,9 @@ public class ImportLog {
   private synchronized void saveLog() {
     try {
       PreparedStatement statement =
-          this.connection
-              .prepareStatement("insert into escidoc_import_log "
-                  + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
-                  + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+          this.connection.prepareStatement("insert into escidoc_import_log "
+              + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
 
       statement.setString(1, this.status.toString());
       statement.setString(2, this.errorLevel.toString());
@@ -760,11 +759,10 @@ public class ImportLog {
 
   private synchronized void updateLog() {
     try {
-      PreparedStatement statement =
-          this.connection.prepareStatement("update escidoc_import_log set " + "status = ?, "
-              + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "action = ?, "
-              + "userid = ?, " + "name = ?, " + "context = ?, " + "format = ?, "
-              + "percentage = ? " + "where id = ?");
+      PreparedStatement statement = this.connection
+          .prepareStatement("update escidoc_import_log set " + "status = ?, " + "errorlevel = ?, "
+              + "startdate = ?, " + "enddate = ?, " + "action = ?, " + "userid = ?, " + "name = ?, "
+              + "context = ?, " + "format = ?, " + "percentage = ? " + "where id = ?");
 
       statement.setString(1, this.status.toString());
       statement.setString(2, this.errorLevel.toString());
@@ -874,9 +872,8 @@ public class ImportLog {
       statement.executeUpdate();
       // statement.close();
 
-      statement =
-          this.connection
-              .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
+      statement = this.connection
+          .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next()) {
         detail.setStoredId(resultSet.getInt("maxid"));
@@ -946,9 +943,8 @@ public class ImportLog {
     Connection connection = getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    String query =
-        "select id from escidoc_import_log where action = ? and userid = ? " + "order by "
-            + sortBy.toSQL() + " " + dir.toSQL();
+    String query = "select id from escidoc_import_log where action = ? and userid = ? "
+        + "order by " + sortBy.toSQL() + " " + dir.toSQL();
     try {
       statement = connection.prepareStatement(query);
       statement.setString(1, action);
@@ -1052,12 +1048,10 @@ public class ImportLog {
       statement.close();
 
       if (loadDetails) {
-        query =
-            "select escidoc_import_log_detail.* "
-                + "from escidoc_import_log_item, escidoc_import_log_detail "
-                + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-                + "and escidoc_import_log_item.parent = ? "
-                + "order by escidoc_import_log_detail.id";
+        query = "select escidoc_import_log_detail.* "
+            + "from escidoc_import_log_item, escidoc_import_log_detail "
+            + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
+            + "and escidoc_import_log_item.parent = ? " + "order by escidoc_import_log_detail.id";
         statement = connection.prepareStatement(query);
         statement.setInt(1, id);
         resultSet = statement.executeQuery();
@@ -1174,13 +1168,12 @@ public class ImportLog {
     List<ImportLogItem> details = new ArrayList<ImportLogItem>();
     Connection connection = getConnection();
 
-    String query =
-        "select escidoc_import_log_detail.* "
-            + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
-            + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-            + "and escidoc_import_log_item.parent = escidoc_import_log.id "
-            + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
-            + "order by escidoc_import_log_detail.id";
+    String query = "select escidoc_import_log_detail.* "
+        + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
+        + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
+        + "and escidoc_import_log_item.parent = escidoc_import_log.id "
+        + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
+        + "order by escidoc_import_log_detail.id";
     try {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
@@ -1346,12 +1339,11 @@ public class ImportLog {
    */
   public String getLocalizedMessage() {
     FacesContext ctx = FacesContext.getCurrentInstance();
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) ctx.getExternalContext().getSessionMap()
-            .get(InternationalizationHelper.BEAN_NAME);
+    InternationalizationHelper i18nHelper = (InternationalizationHelper) ctx.getExternalContext()
+        .getSessionMap().get(InternationalizationHelper.BEAN_NAME);
     try {
-      return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(
-          getMessage());
+      return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle())
+          .getString(getMessage());
     } catch (MissingResourceException mre) {
       // No message entry for this message, it's probably raw data.
       return getMessage();
@@ -1368,9 +1360,8 @@ public class ImportLog {
     try {
       Connection conn = getConnection();
 
-      String query =
-          "delete from escidoc_import_log_detail where parent in "
-              + "(select id from escidoc_import_log_item where parent = ?)";
+      String query = "delete from escidoc_import_log_detail where parent in "
+          + "(select id from escidoc_import_log_item where parent = ?)";
       PreparedStatement statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
       statement.executeUpdate();

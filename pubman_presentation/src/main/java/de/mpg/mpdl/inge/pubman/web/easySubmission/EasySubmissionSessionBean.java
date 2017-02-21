@@ -121,9 +121,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String creatorParseString;
   private String radioSelectReferenceValue;
 
-  /**
-   * Public constructor.
-   */
   public EasySubmissionSessionBean() {
     this.currentSubmissionStep = ES_STEP1;
     this.importSourceRefresh = false;
@@ -332,10 +329,9 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public SelectItem[] getREFERENCE_OPTIONS() {
-    this.REFERENCE_OPTIONS =
-        new SelectItem[] {
-            new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
-            new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))};
+    this.REFERENCE_OPTIONS = new SelectItem[] {
+        new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
+        new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))};
     return this.REFERENCE_OPTIONS;
   }
 

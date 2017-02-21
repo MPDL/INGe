@@ -322,8 +322,8 @@ public class PubManDepositServlet extends HttpServlet {
     return deposit;
   }
 
-  public boolean checkChecksum(InputStream fis, String md5) throws NoSuchAlgorithmException,
-      IOException {
+  public boolean checkChecksum(InputStream fis, String md5)
+      throws NoSuchAlgorithmException, IOException {
     boolean check = false;
     byte[] buffer = new byte[1024];
     String checkCalc = "";

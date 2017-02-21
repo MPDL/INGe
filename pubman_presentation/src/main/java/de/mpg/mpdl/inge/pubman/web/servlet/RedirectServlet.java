@@ -71,8 +71,8 @@ public class RedirectServlet extends HttpServlet {
    * {@inheritDoc}
    */
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     String id = req.getPathInfo().substring(1);
     boolean download = ("download".equals(req.getParameter("mode")));
     boolean tme = ("tme".equals(req.getParameter("mode")));
@@ -169,9 +169,8 @@ public class RedirectServlet extends HttpServlet {
     String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
     String url = null;
     try {
-      url =
-          frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
-              + "/content";
+      url = frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
+          + "/content";
       logger.debug("Calling " + url);
     } catch (Exception e) {
       throw new ServletException("Error getting framework url", e);
@@ -191,10 +190,9 @@ public class RedirectServlet extends HttpServlet {
     InputStream input;
 
     if (method.getStatusCode() == 302) {
-      String servletUrl =
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-              + PropertyReader.getProperty("escidoc.pubman.item.pattern");
+      String servletUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
+          + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+          + PropertyReader.getProperty("escidoc.pubman.item.pattern");
       servletUrl = servletUrl.replace("$1", "");
 
       String loginUrl = frameworkUrl + "/aa/login?target=" + URLEncoder.encode(url, "ASCII");
@@ -220,8 +218,8 @@ public class RedirectServlet extends HttpServlet {
   }
 
 
-  private String getTechnicalMetadataByTika(InputStream input) throws IOException, SAXException,
-      TikaException {
+  private String getTechnicalMetadataByTika(InputStream input)
+      throws IOException, SAXException, TikaException {
     StringBuffer b = new StringBuffer(2048);
     Metadata metadata = new Metadata();
     AutoDetectParser parser = new AutoDetectParser();
@@ -242,8 +240,8 @@ public class RedirectServlet extends HttpServlet {
    * {@inheritDoc}
    */
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     // No post action
     return;
   }

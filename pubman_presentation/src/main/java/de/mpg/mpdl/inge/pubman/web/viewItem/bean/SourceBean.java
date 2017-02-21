@@ -157,7 +157,8 @@ public class SourceBean extends FacesBean {
         // if there is affiliated organization for this creator
         if (creator1.getPerson().getOrganizations().size() > 0) {
           // add each affiliated organization of the creator to the temporary organization list
-          for (int listSize = 0; listSize < creator1.getPerson().getOrganizations().size(); listSize++) {
+          for (int listSize = 0; listSize < creator1.getPerson().getOrganizations()
+              .size(); listSize++) {
             tempOrganizationList.add(creator1.getPerson().getOrganizations().get(listSize));
           }
 
@@ -169,16 +170,14 @@ public class SourceBean extends FacesBean {
               // if the temporary organization is to be added to the sorted set of organizations
               sortOrganizationList.add(tempOrganizationList.get(j));
               // create new Organization view object
-              this.getSourceOrganizationList().add(
-                  ViewItemFull.formatCreatorOrganization(tempOrganizationList.get(j),
-                      affiliationPosition));
+              this.getSourceOrganizationList().add(ViewItemFull
+                  .formatCreatorOrganization(tempOrganizationList.get(j), affiliationPosition));
             }
           }
         }
 
-        formattedCreator =
-            formatter.formatCreator(creator1,
-                ViewItemFull.formatCreatorOrganizationIndex(creator1, sortOrganizationList));
+        formattedCreator = formatter.formatCreator(creator1,
+            ViewItemFull.formatCreatorOrganizationIndex(creator1, sortOrganizationList));
         creatorDisplay.setFormattedDisplay(formattedCreator);
 
         if (creator1.getPerson().getIdentifier() != null
@@ -204,8 +203,8 @@ public class SourceBean extends FacesBean {
         creatorOrganization.setOrganizationName(formattedCreator);
         creatorOrganization.setPosition(new Integer(counterOrganization).toString());
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
-        creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization()
-            .getAddress());
+        creatorOrganization.setOrganizationInfoPage(formattedCreator,
+            creator1.getOrganization().getAddress());
         creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
         this.sourceCreatorOrganizationsArray.add(creatorOrganization);
         creator.setCreatorType(Type.ORGANIZATION.toString());
@@ -218,13 +217,11 @@ public class SourceBean extends FacesBean {
       this.setSourceAffiliatedOrganizationsList(sortOrganizationList);
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
-        String name =
-            sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName()
-                : "";
-        formattedOrganization =
-            "<p>" + (k + 1) + ": " + name + "</p>" + "<p>"
-                + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
-                + sortOrganizationList.get(k).getIdentifier() + "</p>";
+        String name = sortOrganizationList.get(k).getName() != null
+            ? sortOrganizationList.get(k).getName() : "";
+        formattedOrganization = "<p>" + (k + 1) + ": " + name + "</p>" + "<p>"
+            + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
+            + sortOrganizationList.get(k).getIdentifier() + "</p>";
         this.sourceOrganizationArray.add(formattedOrganization);
       }
     } // end for each creator in the list
@@ -263,11 +260,12 @@ public class SourceBean extends FacesBean {
       }
 
       // Comma
-      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo()
-          .getEdition().trim().equals(""))
-          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo()
-              .getPlace().trim().equals("")) || (source.getPublishingInfo().getPublisher() != null && !source
-              .getPublishingInfo().getPublisher().trim().equals("")))) {
+      if ((source.getPublishingInfo().getEdition() != null
+          && !source.getPublishingInfo().getEdition().trim().equals(""))
+          && ((source.getPublishingInfo().getPlace() != null
+              && !source.getPublishingInfo().getPlace().trim().equals(""))
+              || (source.getPublishingInfo().getPublisher() != null
+                  && !source.getPublishingInfo().getPublisher().trim().equals("")))) {
         publishingInfo.append(", ");
       }
 
@@ -316,8 +314,8 @@ public class SourceBean extends FacesBean {
 
   public String getGenre() {
     InternationalizedImpl internationalized = new InternationalizedImpl();
-    return internationalized.getLabel(this.getI18nHelper().convertEnumToString(
-        this.source.getGenre()));
+    return internationalized
+        .getLabel(this.getI18nHelper().convertEnumToString(this.source.getGenre()));
   }
 
   public String getIdentifiers() {

@@ -77,9 +77,8 @@ public class UserAccountSuggest extends FacesBean {
           if (!"".equals(queryString)) {
             queryString += " and ";
           }
-          queryString +=
-              "(\"/properties/name\"=\"%" + snippet + "%\"  or \"/properties/login-name\"=\"%"
-                  + snippet + "%\")";
+          queryString += "(\"/properties/name\"=\"%" + snippet
+              + "%\"  or \"/properties/login-name\"=\"%" + snippet + "%\")";
         }
 
 

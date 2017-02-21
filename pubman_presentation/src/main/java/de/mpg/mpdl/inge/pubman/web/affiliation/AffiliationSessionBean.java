@@ -63,12 +63,7 @@ public class AffiliationSessionBean extends FacesBean {
   protected String organizationParentValueBinding = new String();
   protected int indexComponent;
 
-  /**
-   * Public constructor.
-   */
-  public AffiliationSessionBean() {
-    // this.init();
-  }
+  public AffiliationSessionBean() {}
 
   // /**
   // * This method is called when this bean is initially added to session scope. Typically, this

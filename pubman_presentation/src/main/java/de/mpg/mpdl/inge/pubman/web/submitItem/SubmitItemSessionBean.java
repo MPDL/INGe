@@ -44,9 +44,6 @@ public class SubmitItemSessionBean extends FacesBean {
 
   private String message;
 
-  /**
-   * Public constructor.
-   */
   public SubmitItemSessionBean() {}
 
   // /**

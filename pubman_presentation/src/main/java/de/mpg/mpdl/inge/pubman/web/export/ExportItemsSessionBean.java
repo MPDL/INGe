@@ -88,14 +88,9 @@ public class ExportItemsSessionBean extends FacesBean {
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD =
       "escidoc.pubman_presentation.email.authenticationpwd";
 
-
-  /**
-   * Public constructor.
-   */
   public ExportItemsSessionBean() {
     this.init();
   }
-
 
   /**
    * This method is called when this bean is initially added to session scope. Typically, this

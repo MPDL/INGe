@@ -56,9 +56,6 @@ public class HomePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(HomePage.class);
   public static final String BEAN_NAME = "HomePage";
 
-  /**
-   * Public constructor.
-   */
   public HomePage() {
     this.init();
   }
@@ -92,8 +89,8 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
     } catch (Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
+      HomePage.logger
+          .error("Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
     }
 
     return url;
@@ -110,8 +107,8 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.url");
     } catch (Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
+      HomePage.logger
+          .error("Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
     }
     return url;
   }
@@ -124,8 +121,8 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.title");
     } catch (Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
+      HomePage.logger
+          .error("Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
     }
     return url;
   }
@@ -138,8 +135,8 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.text");
     } catch (Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
+      HomePage.logger
+          .error("Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
     }
     return url;
   }
@@ -178,9 +175,8 @@ public class HomePage extends BreadcrumbPage {
   public List<PubItemVOPresentation> getLatest() throws Exception {
     InitialContext ictx = new InitialContext();
     Search search = (Search) ictx.lookup("java:global/pubman_ear/search/SearchBean");
-    String cqlQuery =
-        "escidoc.objecttype=item and escidoc.content-model.objid="
-            + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    String cqlQuery = "escidoc.objecttype=item and escidoc.content-model.objid="
+        + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
     SearchQuery cql = new PlainCqlQuery(cqlQuery);
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);

@@ -114,8 +114,8 @@ public class ExportItems extends FacesBean {
    * @return
    */
   public boolean getVisibleExport() {
-    return !this.getRightsManagementSessionBean().isDisabled(
-        getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+    return !this.getRightsManagementSessionBean()
+        .isDisabled(getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
             + this.FUNCTION_EXPORT);
   }
 
@@ -146,10 +146,9 @@ public class ExportItems extends FacesBean {
     // SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE,
     // EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP,
     // EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-    SelectItem[] EXPORTFORMAT_OPTIONS =
-        new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
-            EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP,
-            EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
+    SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] {EXPORTFORMAT_MARCXML,
+        EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA,
+        EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
     return EXPORTFORMAT_OPTIONS;
   }
 
@@ -174,9 +173,8 @@ public class ExportItems extends FacesBean {
     // SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
     // SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled",
     // getLabel("Export_FileFormat_HTML_STYLED"));
-    SelectItem[] FILEFORMAT_OPTIONS =
-        new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN,
-            FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
+    SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX,
+        FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
     return FILEFORMAT_OPTIONS;
   }
 
@@ -336,10 +334,9 @@ public class ExportItems extends FacesBean {
     String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
 
     try {
-      status =
-          this.getItemControllerSessionBean().sendEmail(smtpHost, withAuth, usr, pwd,
-              senderAddress, recipientsAddresses, recipientsCCAddresses, null, replyToAddresses,
-              subject, text, attachments);
+      status = this.getItemControllerSessionBean().sendEmail(smtpHost, withAuth, usr, pwd,
+          senderAddress, recipientsAddresses, recipientsCCAddresses, null, replyToAddresses,
+          subject, text, attachments);
       cleanUpEmailFields();
     } catch (TechnicalException e) {
       logger.error("Could not send the export formats." + "\n" + e.toString());

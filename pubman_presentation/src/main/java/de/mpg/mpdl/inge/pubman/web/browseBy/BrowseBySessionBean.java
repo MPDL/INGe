@@ -93,9 +93,6 @@ public class BrowseBySessionBean extends FacesBean {
   @EJB
   private Search search;
 
-  /**
-   * Public constructor.
-   */
   public BrowseBySessionBean() {
     try {
       this.pubContentModel =
@@ -213,9 +210,8 @@ public class BrowseBySessionBean extends FacesBean {
     List<LinkVO> links = new ArrayList<LinkVO>();
 
     try {
-      URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + this.selectedValue
-              + "/all?format=options&lang=en");
+      URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url")
+          + this.selectedValue + "/all?format=options&lang=en");
       URLConnection conn = coneUrl.openConnection();
       HttpURLConnection httpConn = (HttpURLConnection) conn;
       int responseCode = httpConn.getResponseCode();
@@ -225,8 +221,8 @@ public class BrowseBySessionBean extends FacesBean {
           logger.debug("Cone Service responded with 200.");
           break;
         default:
-          throw new RuntimeException("An error occurred while calling Cone Service: "
-              + responseCode + ": " + httpConn.getResponseMessage());
+          throw new RuntimeException("An error occurred while calling Cone Service: " + responseCode
+              + ": " + httpConn.getResponseMessage());
       }
 
       InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
@@ -350,9 +346,8 @@ public class BrowseBySessionBean extends FacesBean {
     String yearStr = "";
     int year = -1;
 
-    PlainCqlQuery query =
-        new PlainCqlQuery("escidoc.content-model.objid=" + this.getPubContentModel() + " and "
-            + index + " > ''");
+    PlainCqlQuery query = new PlainCqlQuery(
+        "escidoc.content-model.objid=" + this.getPubContentModel() + " and " + index + " > ''");
     query.setSortKeysAndOrder("sort." + index, SortingOrder.ASCENDING);
     query.setStartRecord("1");
     query.setMaximumRecords("1");

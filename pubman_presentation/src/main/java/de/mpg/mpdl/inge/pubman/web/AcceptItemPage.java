@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -38,9 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class AcceptItemPage extends BreadcrumbPage {
-  /**
-   * Public constructor.
-   */
   public AcceptItemPage() {
     this.init();
   }

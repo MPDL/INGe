@@ -43,12 +43,7 @@ public class PubItemVOWrapper extends ValueObjectWrapper {
   private int itemView = PubItemVOWrapper.SHOW_AS_SHORT;
   private boolean expanded = true;
 
-  /**
-   * Public constructor.
-   */
-  public PubItemVOWrapper() {
-    super();
-  }
+  public PubItemVOWrapper() {}
 
   public PubItemVOWrapper(PubItemVO pubItemVO) {
     super(pubItemVO);

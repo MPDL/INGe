@@ -42,9 +42,6 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
   // Faces navigation string
   public static final String LOAD_VIEWREVISIONS = "loadViewRevisions";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemRevisionsPage() {
     this.init();
   }

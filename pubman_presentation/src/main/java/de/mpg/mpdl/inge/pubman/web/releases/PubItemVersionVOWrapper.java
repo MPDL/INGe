@@ -39,12 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.util.ValueObjectWrapper;
 public class PubItemVersionVOWrapper extends ValueObjectWrapper {
   protected VersionHistoryEntryVO version = null;
 
-  /**
-   * Public constructor.
-   */
-  public PubItemVersionVOWrapper() {
-    super();
-  }
+  public PubItemVersionVOWrapper() {}
 
   public PubItemVersionVOWrapper(VersionHistoryEntryVO pubItemVersionVO) {
     this.version = pubItemVersionVO;

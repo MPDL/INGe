@@ -44,9 +44,6 @@ public class AcceptItemSessionBean extends FacesBean {
 
   private String message;
 
-  /**
-   * Public constructor.
-   */
   public AcceptItemSessionBean() {}
 
   // /**

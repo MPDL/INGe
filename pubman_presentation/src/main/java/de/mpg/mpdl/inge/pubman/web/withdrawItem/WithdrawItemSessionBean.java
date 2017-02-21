@@ -42,9 +42,6 @@ public class WithdrawItemSessionBean extends FacesBean {
   // navigationString to go back to the list where withdrawItem has been called from
   private String navigationStringToGoBack = null;
 
-  /**
-   * Public constructor.
-   */
   public WithdrawItemSessionBean() {}
 
   // /**

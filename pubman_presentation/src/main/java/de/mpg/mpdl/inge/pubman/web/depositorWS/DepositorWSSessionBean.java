@@ -48,9 +48,6 @@ public class DepositorWSSessionBean extends FacesBean {
   private boolean depositorWS = false;
   private boolean newSubmission = false;
 
-  /**
-   * Public constructor.
-   */
   public DepositorWSSessionBean() {}
 
   // /**

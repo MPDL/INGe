@@ -47,9 +47,6 @@ public class ReportWorkspacePage extends BreadcrumbPage {
   // The referring GUI Tool Page
   // public static final String GT_REPORT_WORKSPACE_PAGE = "GTReportWorkspacePage.jsp";
 
-  /**
-   * Public constructor.
-   */
   public ReportWorkspacePage() {
     this.init();
   }

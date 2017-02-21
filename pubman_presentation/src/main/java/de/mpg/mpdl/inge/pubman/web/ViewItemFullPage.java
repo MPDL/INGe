@@ -48,9 +48,6 @@ public class ViewItemFullPage extends BreadcrumbPage {
   // // The referring GUI Tool Page
   // public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemFullPage() {
     this.init();
   }

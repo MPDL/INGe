@@ -43,9 +43,6 @@ public class SubmissionPage extends BreadcrumbPage {
   @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(SubmissionPage.class);
 
-  /**
-   * Public constructor
-   */
   public SubmissionPage() {
     this.init();
   }

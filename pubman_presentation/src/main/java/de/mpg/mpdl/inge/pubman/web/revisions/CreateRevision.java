@@ -56,9 +56,6 @@ public class CreateRevision extends FacesBean {
   HtmlPanelGroup panDynamicRevisionList = new HtmlPanelGroup();
   HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();
 
-  /**
-   * Public constructor.
-   */
   public CreateRevision() {}
 
   // /**

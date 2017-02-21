@@ -164,8 +164,8 @@ public class OrganizationSuggest extends EditItemBean {
       logger.warn("Unexpectedly more than one ou with the id '" + affiliationRO.getObjectId()
           + "' was found.");
     } else {
-      ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getOuList().add(
-          resultList.get(0));
+      ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getOuList()
+          .add(resultList.get(0));
       return resultList.get(0);
     }
 

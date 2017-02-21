@@ -216,27 +216,21 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
               int startPosition = 0;
               int endPosition = 0;
 
-              startPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getStartIndex();
-              endPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getEndIndex() + 1;
+              startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList()
+                  .get(0).getStartIndex();
+              endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList()
+                  .get(0).getEndIndex() + 1;
 
-              beforeSearchHitString =
-                  "..."
-                      + searchHitList.get(i).getTextFragmentList().get(j).getData()
-                          .substring(0, startPosition);
-              searchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(startPosition, endPosition);
+              beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j)
+                  .getData().substring(0, startPosition);
+              searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData()
+                  .substring(startPosition, endPosition);
               afterSearchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(endPosition)
+                  searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition)
                       + "...";
 
-              this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString,
-                  afterSearchHitString));
+              this.searchHits.add(
+                  new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
 
           }
@@ -361,13 +355,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getAlternativeTitleTypes() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
+    InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+        .getCurrentInstance().getApplication().getVariableResolver()
+        .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
     ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 
     ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
@@ -376,8 +366,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
 
     for (SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
-      selectItemList.add(new SelectItem(type.toString(), labelBundle
-          .getString("ENUM_ALTERNATIVETITLETYPE_" + type.toString())));
+      selectItemList.add(new SelectItem(type.toString(),
+          labelBundle.getString("ENUM_ALTERNATIVETITLETYPE_" + type.toString())));
     }
     return selectItemList.toArray(new SelectItem[] {});
   }
@@ -402,8 +392,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     if (this.getMetadata().getEvent() != null
         && this.getMetadata().getEvent().getAlternativeTitles() != null
         && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
-      this.getMetadata().getEvent().getAlternativeTitles()
-          .add((index + 1), new AlternativeTitleVO());
+      this.getMetadata().getEvent().getAlternativeTitles().add((index + 1),
+          new AlternativeTitleVO());
     }
     return null;
   }
@@ -581,7 +571,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     } else if (getMetadata().getDateModified() != null
         && !"".equals(getMetadata().getDateModified())) {
       return getMetadata().getDateModified() + ", " + getLabel("ViewItem_lblDateModified");
-    } else if (getMetadata().getDateCreated() != null && !"".equals(getMetadata().getDateCreated())) {
+    } else if (getMetadata().getDateCreated() != null
+        && !"".equals(getMetadata().getDateCreated())) {
       return getMetadata().getDateCreated() + ", " + getLabel("ViewItem_lblDateCreated");
     } else {
       return null;
@@ -665,8 +656,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return String the genre group of the item
    */
   public String getGenreGroup() {
-    return ResourceBundle.getBundle("Genre_" + this.getMetadata().getGenre()).getString(
-        "genre_group_value");
+    return ResourceBundle.getBundle("Genre_" + this.getMetadata().getGenre())
+        .getString("genre_group_value");
   }
 
   /**
@@ -752,12 +743,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
 
     // Comma
-    if ((getMetadata().getPublishingInfo().getEdition() != null && !getMetadata()
-        .getPublishingInfo().getEdition().trim().equals(""))
-        && ((getMetadata().getPublishingInfo().getPlace() != null && !getMetadata()
-            .getPublishingInfo().getPlace().trim().equals("")) || (getMetadata()
-            .getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo()
-            .getPublisher().trim().equals("")))) {
+    if ((getMetadata().getPublishingInfo().getEdition() != null
+        && !getMetadata().getPublishingInfo().getEdition().trim().equals(""))
+        && ((getMetadata().getPublishingInfo().getPlace() != null
+            && !getMetadata().getPublishingInfo().getPlace().trim().equals(""))
+            || (getMetadata().getPublishingInfo().getPublisher() != null
+                && !getMetadata().getPublishingInfo().getPublisher().trim().equals("")))) {
       publishingInfo.append(", ");
     }
 
@@ -802,12 +793,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
       }
 
       // Comma
-      if ((this.firstSource.getPublishingInfo().getEdition() != null && !this.firstSource
-          .getPublishingInfo().getEdition().trim().equals(""))
-          && ((this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource
-              .getPublishingInfo().getPlace().trim().equals("")) || (this.firstSource
-              .getPublishingInfo().getPublisher() != null && !this.firstSource.getPublishingInfo()
-              .getPublisher().trim().equals("")))) {
+      if ((this.firstSource.getPublishingInfo().getEdition() != null
+          && !this.firstSource.getPublishingInfo().getEdition().trim().equals(""))
+          && ((this.firstSource.getPublishingInfo().getPlace() != null
+              && !this.firstSource.getPublishingInfo().getPlace().trim().equals(""))
+              || (this.firstSource.getPublishingInfo().getPublisher() != null
+                  && !this.firstSource.getPublishingInfo().getPublisher().trim().equals("")))) {
         publishingInfoSource.append(", ");
       }
 
@@ -942,10 +933,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    */
   public void bindComponentLabel(UIComponent component, String placeholder) {
     ValueExpression value =
-        FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getExpressionFactory()
+        FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
             .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
                 "#{lbl." + placeholder + "}", String.class);
     component.setValueExpression("value", value);
@@ -1138,8 +1126,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
   public String getLink() throws Exception {
     if (this.getVersion() != null && this.getVersion().getObjectId() != null) {
-      return CommonUtils.getGenericItemLink(this.getVersion().getObjectId(), this.getVersion()
-          .getVersionNumber());
+      return CommonUtils.getGenericItemLink(this.getVersion().getObjectId(),
+          this.getVersion().getVersionNumber());
     } else {
       return null;
     }
@@ -1147,8 +1135,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
   public String getLinkLatestRelease() throws Exception {
     if (this.getLatestRelease() != null && this.getLatestRelease().getObjectId() != null) {
-      return CommonUtils.getGenericItemLink(this.getLatestRelease().getObjectId(), this
-          .getLatestRelease().getVersionNumber());
+      return CommonUtils.getGenericItemLink(this.getLatestRelease().getObjectId(),
+          this.getLatestRelease().getVersionNumber());
     } else {
       return null;
     }
@@ -1442,8 +1430,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (FileBean file : this.fileBeanList) {
-        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file
-            .getFile().getContentCategory())) {
+        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
+            .equals(file.getFile().getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1463,14 +1451,14 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     if (this.fileBeanList != null) {
       for (FileBean file : this.fileBeanList) {
         if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(
-                file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(
-                    file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(
-                    file.getFile().getContentCategory()) || PubFileVOPresentation
-                .getContentCategoryUri("PUBLISHER_VERSION").equals(
-                    file.getFile().getContentCategory()))) {
+            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT")
+                .equals(file.getFile().getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT")
+                    .equals(file.getFile().getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT")
+                    .equals(file.getFile().getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION")
+                    .equals(file.getFile().getContentCategory()))) {
           fulltexts.add(file);
         }
       }
@@ -1487,8 +1475,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (FileBean file : this.fileBeanList) {
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(
-            file.getFile().getContentCategory())) {
+        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL")
+            .equals(file.getFile().getContentCategory())) {
           supplementaryMaterial.add(file);
         }
       }
@@ -1508,8 +1496,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     if (this.fileBeanList != null) {
       for (FileBean file : this.fileBeanList) {
         if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(
-                file.getFile().getContentCategory())) {
+            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL")
+                .equals(file.getFile().getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1530,29 +1518,25 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     descriptionMetaTag =
         getLabel("ENUM_CREATORROLE_" + getMetadata().getCreators().get(0).getRoleString()) + ": ";
     if (getMetadata().getCreators().get(0).getPerson() != null)
-      descriptionMetaTag +=
-          getMetadata().getCreators().get(0).getPerson().getFamilyName() + ", "
-              + getMetadata().getCreators().get(0).getPerson().getGivenName();
+      descriptionMetaTag += getMetadata().getCreators().get(0).getPerson().getFamilyName() + ", "
+          + getMetadata().getCreators().get(0).getPerson().getGivenName();
     else
       descriptionMetaTag += getMetadata().getCreators().get(0).getOrganization().getName();
     if (getMetadata().getCreators().size() > 1)
       descriptionMetaTag += " et al.";
     // add genre information
-    descriptionMetaTag +=
-        "; " + getLabel("ViewItemFull_lblGenre") + ": "
-            + getLabel("ENUM_GENRE_" + getMetadata().getGenre());
+    descriptionMetaTag += "; " + getLabel("ViewItemFull_lblGenre") + ": "
+        + getLabel("ENUM_GENRE_" + getMetadata().getGenre());
     // add published print date
     if (getMetadata().getDatePublishedInPrint() != null
         && getMetadata().getDatePublishedInPrint() != "")
-      descriptionMetaTag +=
-          "; " + getLabel("ViewItemShort_lblDatePublishedInPrint") + ": "
-              + getMetadata().getDatePublishedInPrint();
+      descriptionMetaTag += "; " + getLabel("ViewItemShort_lblDatePublishedInPrint") + ": "
+          + getMetadata().getDatePublishedInPrint();
     // add published online date if no publisched print date
     else if (getMetadata().getDatePublishedOnline() != null
         && getMetadata().getDatePublishedOnline() != "")
-      descriptionMetaTag +=
-          "; " + getLabel("ViewItemShort_lblDatePublishedOnline") + ": "
-              + getMetadata().getDatePublishedOnline();
+      descriptionMetaTag += "; " + getLabel("ViewItemShort_lblDatePublishedOnline") + ": "
+          + getMetadata().getDatePublishedOnline();
 
     // add open access component
     if (getFileBeanList() != null && getFileBeanList().size() > 0) {

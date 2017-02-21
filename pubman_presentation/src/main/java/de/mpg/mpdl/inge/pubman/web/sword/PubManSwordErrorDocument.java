@@ -51,12 +51,7 @@ public class PubManSwordErrorDocument {
   // [500]
   private static String InternalError = "http://purl.org/escidoc/sword/error/InternalError";
 
-  /**
-   * Public constructor.
-   */
-  public PubManSwordErrorDocument() {
-
-  }
+  public PubManSwordErrorDocument() {}
 
   /**
    * Poosible errors during sword deposit.
@@ -106,9 +101,8 @@ public class PubManSwordErrorDocument {
     document.appendChild(error);
 
     // Transform to xml
-    Transformer transformer =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-            .newTransformer();
+    Transformer transformer = TransformerFactory
+        .newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     StreamResult result = new StreamResult(new StringWriter());
     DOMSource source = new DOMSource(document);

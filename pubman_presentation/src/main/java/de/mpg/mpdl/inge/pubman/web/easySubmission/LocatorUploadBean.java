@@ -47,11 +47,10 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final long serialVersionUID = 1L;
 
-  private Logger logger = Logger.getLogger(LocatorUploadBean.class);
+  private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
+
   public EasySubmission easySubmission = new EasySubmission();
   String error = null; // Error Message
-
-
 
   /**
    * Populates the FileVO.
@@ -83,7 +82,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       list.add(pubFile);
       this.easySubmission.setFiles(list);
     } catch (Exception e) {
-      this.logger.error(e);
+      logger.error(e);
       this.error = getMessage("errorLocatorUploadFW");
     }
   }

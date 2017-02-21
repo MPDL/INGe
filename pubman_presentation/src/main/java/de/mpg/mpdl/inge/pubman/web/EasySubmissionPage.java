@@ -40,9 +40,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 public class EasySubmissionPage extends FacesBean {
   public static final String BEAN_NAME = "EasySubmissionPage";
 
-  /**
-   * Public constructor.
-   */
   public EasySubmissionPage() {
     this.init();
   }

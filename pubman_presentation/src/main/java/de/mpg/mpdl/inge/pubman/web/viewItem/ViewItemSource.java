@@ -46,9 +46,6 @@ public class ViewItemSource {
   // the next node of the source's structure with all the sources in it
   private ArrayList<ViewItemSource> viewItemSourceEmbedded;
 
-  /**
-   * Public constructor
-   */
   public ViewItemSource() {}
 
   /**

@@ -53,12 +53,7 @@ public class AudienceSessionBean extends FacesBean {
 
   private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
 
-  /**
-   * Public constructor.
-   */
-  public AudienceSessionBean() {
-    // this.init();
-  }
+  public AudienceSessionBean() {}
 
   // /**
   // * Callback method that is called whenever a page containing this page fragment is navigated to,

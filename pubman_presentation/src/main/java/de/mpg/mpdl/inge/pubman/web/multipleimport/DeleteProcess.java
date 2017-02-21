@@ -59,9 +59,8 @@ public class DeleteProcess extends Thread {
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process");
     try {
       InitialContext context = new InitialContext();
-      this.pubItemDepositing =
-          (PubItemDepositing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+      this.pubItemDepositing = (PubItemDepositing) context
+          .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       user = new AccountUserVO();
       user.setHandle(log.getUserHandle());
       user.setUserid(log.getUser());

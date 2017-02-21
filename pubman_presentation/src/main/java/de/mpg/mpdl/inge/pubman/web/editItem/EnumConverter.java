@@ -46,13 +46,10 @@ public class EnumConverter implements Converter {
 
   private Object[] valueList = null;
 
-  /**
-   * Public constructor.
-   */
   public EnumConverter() {}
 
   /**
-   * Public constructor.
+   * Public constructor with parameters
    * 
    * @param valueList the list with possible values of the enum
    */
@@ -146,10 +143,8 @@ public class EnumConverter implements Converter {
     }
 
 
-    logger
-        .warn("ValueList for searchString '"
-            + searchString
-            + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
+    logger.warn("ValueList for searchString '" + searchString
+        + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
 
     return null;
   }

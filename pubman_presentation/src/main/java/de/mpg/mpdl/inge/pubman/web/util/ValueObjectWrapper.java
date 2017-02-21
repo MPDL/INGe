@@ -38,9 +38,6 @@ public class ValueObjectWrapper {
   protected ValueObject valueObject = null;
   protected boolean selected = false;
 
-  /**
-   * Public constructor.
-   */
   public ValueObjectWrapper() {}
 
   /**
