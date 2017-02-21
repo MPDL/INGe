@@ -60,7 +60,7 @@ public class ReleaseHistory extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    //super.init();
+    // super.init();
 
     if (this.getSessionBean().getVersionList() == null) {
       this.getSessionBean().initVersionLists(

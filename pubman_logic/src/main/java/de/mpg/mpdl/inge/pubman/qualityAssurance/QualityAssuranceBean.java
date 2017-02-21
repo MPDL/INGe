@@ -127,7 +127,7 @@ public class QualityAssuranceBean implements QualityAssurance {
 
     String xmlItemList = itemHandler.retrieveItems(new HashMap<String, String[]>()); // todo
     List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
-    
+
     return pubItemList;
   }
 

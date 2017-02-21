@@ -53,7 +53,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 @SuppressWarnings("serial")
 public class ContextListSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ContextListSessionBean";
-  
+
   private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList =

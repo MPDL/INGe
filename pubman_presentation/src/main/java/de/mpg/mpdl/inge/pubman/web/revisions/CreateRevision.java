@@ -59,20 +59,19 @@ public class CreateRevision extends FacesBean {
   /**
    * Public constructor.
    */
-  public CreateRevision() {
-  }
+  public CreateRevision() {}
 
-//  /**
-//   * Callback method that is called whenever a page containing this page fragment is navigated to,
-//   * either directly via a URL, or indirectly via page navigation.
-//   */
-//  public void init() {
-//    //super.init();
-//
-//    if (logger.isDebugEnabled()) {
-//      logger.debug("CreateRevision.init()");
-//    }
-//  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // //super.init();
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("CreateRevision.init()");
+  // }
+  // }
 
   public String confirm() {
     return CreateRevision.LOAD_CHOOSECOLLECTION;
@@ -110,7 +109,7 @@ public class CreateRevision extends FacesBean {
 
     // re-init RevisionList
     this.getSessionBean().setPubItemVO(this.getSessionBean().getPubItemVO());
- //   this.init();
+    // this.init();
 
     return CreateRevision.LOAD_CREATEREVISION;
   }

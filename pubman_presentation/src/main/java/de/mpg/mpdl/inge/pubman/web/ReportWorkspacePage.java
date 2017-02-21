@@ -61,7 +61,7 @@ public class ReportWorkspacePage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    
+
     checkLogin();
   }
 

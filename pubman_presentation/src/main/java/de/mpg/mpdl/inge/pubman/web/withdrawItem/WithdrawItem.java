@@ -78,7 +78,7 @@ public class WithdrawItem extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();

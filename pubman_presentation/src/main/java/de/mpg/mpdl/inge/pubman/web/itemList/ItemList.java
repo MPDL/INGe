@@ -46,8 +46,7 @@ public class ItemList extends FacesBean {
   /**
    * This is just for testing purpose!
    */
-  public ItemList() {
-  }
+  public ItemList() {}
 
   //
   // /**
@@ -70,14 +69,14 @@ public class ItemList extends FacesBean {
   // return pubItemVOWrapper;
   // }
 
-//  /**
-//   * Callback method that is called whenever a page containing this page fragment is navigated to,
-//   * either directly via a URL, or indirectly via page navigation.
-//   */
-//  public void init() {
-//    // Perform initializations inherited from our superclass
-//    //super.init();
-//  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public HtmlPanelGroup getPanDynamicItemList() {
     return panDynamicItemList;

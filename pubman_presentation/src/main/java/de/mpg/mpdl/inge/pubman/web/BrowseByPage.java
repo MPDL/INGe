@@ -83,7 +83,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    
+
     this.bbBean = (BrowseBySessionBean) getSessionBean(BrowseBySessionBean.class);
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();

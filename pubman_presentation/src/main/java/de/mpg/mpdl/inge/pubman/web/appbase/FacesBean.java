@@ -67,7 +67,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   // * Dummy method to please derived classes.
   // */
   // protected void prerender() {
-  //// logger.debug("prerender");
+  // // logger.debug("prerender");
   // }
 
   // /**
@@ -144,8 +144,9 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
       throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
     }
 
-    Object bean = FacesContext.getCurrentInstance().getApplication()
-        .createValueBinding("#{" + name + "}").getValue(FacesContext.getCurrentInstance());
+    Object bean =
+        FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
+            .getValue(FacesContext.getCurrentInstance());
 
     return bean;
   }
@@ -337,8 +338,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void message(String summary, String detail, UIComponent component,
-      Severity severity) {
+  public static void message(String summary, String detail, UIComponent component, Severity severity) {
     FacesMessage fm = new FacesMessage(severity, summary, detail);
 
     if (component == null) {

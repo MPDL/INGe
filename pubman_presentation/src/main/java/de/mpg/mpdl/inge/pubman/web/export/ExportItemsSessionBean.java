@@ -104,7 +104,7 @@ public class ExportItemsSessionBean extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
 
     if (exportFormatType.equals("LAYOUT")) {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);

@@ -40,7 +40,7 @@ public class BrowseByBreadcrumbPage extends BreadcrumbPage {
     // Perform initializations inherited from our superclass
     super.init();
   }
-  
+
   @Override
   public boolean isItemSpecific() {
     return false;

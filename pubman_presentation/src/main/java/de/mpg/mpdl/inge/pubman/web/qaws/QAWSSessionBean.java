@@ -82,18 +82,17 @@ public class QAWSSessionBean extends FacesBean {
   /**
    * Public constructor.
    */
-  public QAWSSessionBean() {
-  }
+  public QAWSSessionBean() {}
 
-//  /**
-//   * This method is called when this bean is initially added to session scope. Typically, this
-//   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-//   * the managed bean facility to instantiate this bean and store it into session scope.
-//   */
-//  public void init() {
-//    // Perform initializations inherited from our superclass
-//    //super.init();
-//  }
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public List<PubItemVO> getPubItemList() {
     return pubItemList;

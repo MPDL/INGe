@@ -168,7 +168,7 @@ public class OrganizationSuggest extends EditItemBean {
           resultList.get(0));
       return resultList.get(0);
     }
-    
+
     return null;
   }
 

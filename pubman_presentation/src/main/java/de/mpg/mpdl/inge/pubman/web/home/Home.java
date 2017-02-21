@@ -56,17 +56,16 @@ public class Home extends FacesBean {
   @EJB
   private Search search;
 
-  public Home() {
-  }
+  public Home() {}
 
-//  /**
-//   * Callback method that is called whenever a page containing this page fragment is navigated to,
-//   * either directly via a URL, or indirectly via page navigation.
-//   */
-//  public void init() {
-//    // Perform initializations inherited from our superclass
-//    //super.init();
-//  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
     // SearchRetrieverRequestBean srrb =

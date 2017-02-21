@@ -53,17 +53,17 @@ public class ReviseItemPage extends BreadcrumbPage {
     super.init();
   }
 
-//  /**
-//   * Handle messages in fragments from here to please JSF life cycle.
-//   * 
-//   * @author: Michael Franke
-//   */
-//  @Override
-//  public void prerender() {
-////    super.prerender();
-//    SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
-//    fragment.handleMessage();
-//  }
+  // /**
+  // * Handle messages in fragments from here to please JSF life cycle.
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
+  // fragment.handleMessage();
+  // }
 
   @Override
   public boolean isItemSpecific() {

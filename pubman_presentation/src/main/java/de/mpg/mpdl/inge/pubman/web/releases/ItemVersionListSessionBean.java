@@ -57,8 +57,7 @@ public class ItemVersionListSessionBean extends FacesBean {
   private List<EventLogEntryVOPresentation> eventLogList =
       new ArrayList<EventLogEntryVOPresentation>();
 
-  public ItemVersionListSessionBean() {
-  }
+  public ItemVersionListSessionBean() {}
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).

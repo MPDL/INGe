@@ -101,13 +101,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String radioSelectFulltext;
 
   private boolean importSourceRefresh = false;
-  
+
   private SelectItem[] FULLTEXT_OPTIONS;
   private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
   private SelectItem[] REFERENCE_OPTIONS;
 
   private String genreBundle = "Genre_ARTICLE";
-  
+
   /**
    * A creator bean that holds the data from the author copy&paste organizations
    */

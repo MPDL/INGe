@@ -75,7 +75,7 @@ public class HomePage extends BreadcrumbPage {
     } else if (parameters.containsKey("logout")) {
       info(getMessage("LogoutMessage"));
     }
-    
+
     // Perform initializations inherited from our superclass
     super.init();
   }

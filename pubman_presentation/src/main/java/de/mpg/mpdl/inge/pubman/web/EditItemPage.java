@@ -57,7 +57,7 @@ public class EditItemPage extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
     checkForLogin();
     // redirect to the referring GUI Tool page if the application has been started as GUI Tool
   }

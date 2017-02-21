@@ -116,7 +116,7 @@ public class ImportWorkspace extends BreadcrumbPage {
           ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true, false);
     }
   }
-  
+
   /**
    * @return the imports
    */

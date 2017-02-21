@@ -111,8 +111,7 @@ public class SearchRetrieverRequestBean extends
   }
 
   @Override
-  public void init() {
-  }
+  public void init() {}
 
   /**
    * Reads out the qql query and the search type from HTTP-GET parameeters. If cql is null, an error

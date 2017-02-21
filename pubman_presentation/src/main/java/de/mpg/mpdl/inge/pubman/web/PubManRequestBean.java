@@ -34,9 +34,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class PubManRequestBean extends FacesBean {
   public static final String BEAN_NAME = "PubManRequestBean";
-  
+
   private static Logger logger = Logger.getLogger(PubManRequestBean.class);
-  
+
   private String helpAnchor = "";
   private String requestedPage = "";
 
@@ -52,7 +52,7 @@ public class PubManRequestBean extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    //super.init();
+    // super.init();
     FacesContext fc = FacesContext.getCurrentInstance();
     if (fc.getExternalContext().getRequestPathInfo() != null) {
       this.helpAnchor = fc.getExternalContext().getRequestPathInfo().replace("/", "");

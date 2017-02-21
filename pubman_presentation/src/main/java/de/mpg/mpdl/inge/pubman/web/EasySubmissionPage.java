@@ -53,7 +53,7 @@ public class EasySubmissionPage extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
     checkForLogin();
   }
 

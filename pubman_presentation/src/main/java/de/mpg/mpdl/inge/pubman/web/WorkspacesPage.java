@@ -55,7 +55,7 @@ public class WorkspacesPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    
+
     checkForLogin();
   }
 

@@ -56,7 +56,7 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    
+
     this.getViewItemSessionBean().setHasBeenRedirected(true);
   }
 

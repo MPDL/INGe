@@ -58,17 +58,18 @@ public class ExportEmailPage extends BreadcrumbPage {
     sb.setEnableExport(false);
   }
 
-//  /*
-//   * Handle messages in fragments from here to please JSF life cycle. Used to remove the last shown
-//   * msg
-//   * 
-//   * @author: Michael Franke
-//   */
-//  @Override
-//  public void prerender() {
-////    super.prerender();
-//    // fragment.handleMessage();
-//  }
+  // /*
+  // * Handle messages in fragments from here to please JSF life cycle. Used to remove the last
+  // shown
+  // * msg
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // // fragment.handleMessage();
+  // }
 
   @Override
   public boolean isItemSpecific() {

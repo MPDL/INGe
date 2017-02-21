@@ -73,7 +73,7 @@ public class ViewItemStatistics extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
 
     // get current PubItem and its ID
     pubItem = getItemControllerSessionBean().getCurrentPubItem();

@@ -71,8 +71,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   @EJB
   private XmlTransforming xmlTransforming;
 
-  public MyTasksRetrieverRequestBean() {
-  }
+  public MyTasksRetrieverRequestBean() {}
 
   @Override
   public void init() {

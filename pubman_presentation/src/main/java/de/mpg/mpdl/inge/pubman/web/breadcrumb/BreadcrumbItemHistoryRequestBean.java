@@ -7,8 +7,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 @SuppressWarnings("serial")
 public class BreadcrumbItemHistoryRequestBean extends FacesBean {
 
-  public BreadcrumbItemHistoryRequestBean() {
-  }
+  public BreadcrumbItemHistoryRequestBean() {}
 
   public List<BreadcrumbItem> getNavigation() {
     BreadcrumbItemHistorySessionBean bcHistory =

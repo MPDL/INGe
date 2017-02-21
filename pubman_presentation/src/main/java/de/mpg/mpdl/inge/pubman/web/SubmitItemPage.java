@@ -37,18 +37,17 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  */
 @SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
-  public SubmitItemPage() {
-  }
+  public SubmitItemPage() {}
 
-//  /**
-//   * Handle messages in fragments from here to please JSF life cycle.
-//   * 
-//   * @author: Michael Franke
-//   */
-//  @Override
-//  public void prerender() {
-////    super.prerender();
-//    SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
-//    fragment.handleMessage();
-//  }
+  // /**
+  // * Handle messages in fragments from here to please JSF life cycle.
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // SubmitItem fragment = (SubmitItem) getRequestBean(SubmitItem.class);
+  // fragment.handleMessage();
+  // }
 }

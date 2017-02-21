@@ -48,7 +48,7 @@ public class PubManSessionBean extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    //super.init();
+    // super.init();
     InternationalizationHelper i18nHelper = this.getI18nHelper();
     this.locale = i18nHelper.getLocale();
   }

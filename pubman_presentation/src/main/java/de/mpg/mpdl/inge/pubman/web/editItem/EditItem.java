@@ -193,7 +193,7 @@ public class EditItem extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    //super.init();
+    // super.init();
     // this.fileTable = new CoreTable();
     // enables the commandlinks
     this.enableLinks();

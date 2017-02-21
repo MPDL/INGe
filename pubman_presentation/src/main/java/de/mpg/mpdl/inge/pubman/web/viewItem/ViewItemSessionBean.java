@@ -67,14 +67,14 @@ public class ViewItemSessionBean extends FacesBean {
     this.subMenu = "ACTIONS";
   }
 
-//  /**
-//   * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-//   * indirectly via page navigation.
-//   */
-//  public void init() {
-//    // Perform initializations inherited from our superclass
-//    //super.init();
-//  }
+  // /**
+  // * Callback method that is called whenever a page is navigated to, either directly via a URL, or
+  // * indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   /**
    * View the selected item.

@@ -47,8 +47,7 @@ public class RelationListSessionBean extends FacesBean {
   private PubItemVO pubItemVO = null;
   private String revisionDescription = new String();
 
-  public RelationListSessionBean() {
-  }
+  public RelationListSessionBean() {}
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).

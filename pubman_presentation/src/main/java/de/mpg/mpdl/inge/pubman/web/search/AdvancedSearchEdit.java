@@ -112,13 +112,13 @@ public class AdvancedSearchEdit extends FacesBean {
     localTagCriterionCollection = new LocalTagCriterionCollection();
   }
 
-//  /**
-//   * Callback method that is called whenever a page containing this page fragment is navigated to,
-//   * either directly via a URL, or indirectly via page navigation.
-//   */
-//  public void init() {
-//    //super.init();
-//  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // //super.init();
+  // }
 
   public void clearAndInitializeAllForms() {
     contextCriterionCollection = new ContextCriterionCollection();

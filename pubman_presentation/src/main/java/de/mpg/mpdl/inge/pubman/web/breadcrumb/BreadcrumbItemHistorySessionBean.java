@@ -71,7 +71,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
     BreadcrumbItem lastItem = null;
     boolean keepold = false;
-    
+
     if (breadcrumbs.size() >= 1) {
       boolean remove = false;
 
@@ -96,7 +96,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
       }
 
       if (remove) {
-        
+
         lastItem = breadcrumbs.get(position);
         boolean specialListTreatment = false;
         // special case for list after watching an item
@@ -121,7 +121,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
           breadcrumbs.remove(position);
           keepold = false;
         }
-        
+
       }
 
     }
@@ -172,7 +172,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
         breadcrumbs.remove(index);
       }
     }
-    
+
     return returnItem;
   }
 
@@ -248,7 +248,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
         }
       }
     }
-    
+
     return false;
   }
 

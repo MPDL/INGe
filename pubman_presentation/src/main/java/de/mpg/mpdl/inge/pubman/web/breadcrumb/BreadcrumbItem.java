@@ -143,7 +143,7 @@ public class BreadcrumbItem extends FacesBean {
         logger.error("Error executing default action", e);
       }
     }
-    
+
     return null;
   }
 

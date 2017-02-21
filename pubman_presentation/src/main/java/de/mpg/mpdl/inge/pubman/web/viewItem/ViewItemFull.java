@@ -301,7 +301,7 @@ public class ViewItemFull extends FacesBean {
   public void init() {
     // Perform initializations inherited from our superclass
     // long start = System.currentTimeMillis();
-    //super.init();
+    // super.init();
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";
