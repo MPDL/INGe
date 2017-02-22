@@ -28,7 +28,7 @@ public class InternationalizedImpl implements Internationalized {
   private InternationalizationHelper i18nHelper;
 
   public InternationalizedImpl() {
-    i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+    this.i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
   }
 
   /*
@@ -143,7 +143,7 @@ public class InternationalizedImpl implements Internationalized {
   }
 
   public InternationalizationHelper getI18nHelper() {
-    return i18nHelper;
+    return this.i18nHelper;
   }
 
   public void setI18nHelper(InternationalizationHelper i18nHelper) {

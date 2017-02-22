@@ -89,7 +89,7 @@ public class SessionTimeoutFilter implements Filter {
             && !"/AffiliationDetailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/ExportEmailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/OrganizationSuggest.jsp".equals(httpServletRequest.getPathInfo())
-            && !"/viewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo())
+            && !"/ViewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo())
             && httpServletRequest.getRequestedSessionId() != null
             && httpServletRequest.getParameter("expired") == null
             && httpServletRequest.getParameter("logout") == null
