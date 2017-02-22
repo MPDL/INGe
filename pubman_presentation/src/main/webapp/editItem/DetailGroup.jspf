@@ -52,7 +52,7 @@
 					<h:commandButton id="btnAddLanguageOfPublication" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addLang}" action="#{language.addItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}">
 						<f:ajax render="form1:editDetail" execute="@form"/>
 					</h:commandButton>
-					<h:commandButton id="btnRemoveLanguageOfPublication" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeLang}" disabled="#{! language.moreThanOne}" action="#{language.removeItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}">
+					<h:commandButton id="btnRemoveLanguageOfPublication" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeLang}" disabled="#{!language.moreThanOne}" action="#{language.removeItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}">
 						<f:ajax render="form1:editDetail" execute="@form"/>
 					</h:commandButton>
 				</span>
