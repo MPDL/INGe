@@ -61,7 +61,7 @@ public class ExportItems extends FacesBean {
   private final String FUNCTION_EXPORT = "export";
 
   // binded components in JSP
-//  private HtmlMessages valMessage = new HtmlMessages();
+  // private HtmlMessages valMessage = new HtmlMessages();
   // private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
 
@@ -282,13 +282,13 @@ public class ExportItems extends FacesBean {
     sb.setExportEmailReplyToAddr(null);
   }
 
-//  public HtmlMessages getValMessage() {
-//    return valMessage;
-//  }
-//
-//  public void setValMessage(HtmlMessages valMessage) {
-//    this.valMessage = valMessage;
-//  }
+  // public HtmlMessages getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(HtmlMessages valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   /**
    * Adds and removes messages concerning item lists.

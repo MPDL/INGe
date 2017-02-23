@@ -175,7 +175,7 @@ public class SwordUtil extends FacesBean {
    */
   public void init() {
     // this.depositServlet = new PubManDepositServlet();
-//    this.setValidationPoint(ValidationPoint.SIMPLE);
+    // this.setValidationPoint(ValidationPoint.SIMPLE);
     this.filenames.clear();
     // super.init();
   }

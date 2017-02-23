@@ -515,7 +515,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws PubItemNotFoundException
    */
   // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
-  // TODO: submissionComment entweder rauswerfen oder verwenden! 
+  // TODO: submissionComment entweder rauswerfen oder verwenden!
   public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user)
       throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
       TechnicalException {

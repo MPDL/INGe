@@ -454,7 +454,8 @@ public class ViewItemFull extends FacesBean {
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
               .getVersionNumber();
       this.isStateWithdrawn =
-          this.getPubItem().getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+          this.getPubItem().getPublicStatus().toString()
+              .equals(PubItemVO.State.WITHDRAWN.toString());
       this.isStateSubmitted =
           this.getPubItem().getVersion().getState().toString()
               .equals(PubItemVO.State.SUBMITTED.toString())
@@ -477,8 +478,8 @@ public class ViewItemFull extends FacesBean {
 
       // display a warn message if the item version is not the latest
       if (this.isLatestVersion == false
-          && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem().getLatestRelease()
-              .getVersionNumber() && this.isLoggedIn) {
+          && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
+              .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
         String link = null;
         try {
           link =
@@ -495,8 +496,8 @@ public class ViewItemFull extends FacesBean {
         warn(getMessage("itemIsNotLatestVersion") + "<br/><a href=\"" + (link != null ? link : "")
             + "\" >" + (link != null ? link : "") + "</a>");
       } else if (this.isLatestVersion == false
-          && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem().getVersion()
-              .getVersionNumber()) {
+          && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem()
+              .getVersion().getVersionNumber()) {
         String link = null;
         try {
           link =
@@ -2374,8 +2375,8 @@ public class ViewItemFull extends FacesBean {
   public String getLinkForActionsView() {
     String url =
         "viewItemFullPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
-            + this.getPubItem().getVersion().getObjectIdAndVersion() + "&" + PARAMETERNAME_MENU_VIEW
-            + "=ACTIONS";
+            + this.getPubItem().getVersion().getObjectIdAndVersion() + "&"
+            + PARAMETERNAME_MENU_VIEW + "=ACTIONS";
     return url;
   }
 

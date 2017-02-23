@@ -100,8 +100,8 @@ public class WithdrawItem extends FacesBean {
 
     if (logger.isDebugEnabled()) {
       if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger
-            .debug("Item that is being withdrawn: " + this.getPubItem().getVersion().getObjectId());
+        logger.debug("Item that is being withdrawn: "
+            + this.getPubItem().getVersion().getObjectId());
       } else {
         logger.error("NO ITEM GIVEN");
       }
@@ -145,9 +145,11 @@ public class WithdrawItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        fc.getExternalContext().redirect(request.getContextPath()
-            + "/faces/viewItemFullPage.jsp?itemId="
-            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+        fc.getExternalContext().redirect(
+            request.getContextPath()
+                + "/faces/viewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -175,8 +177,8 @@ public class WithdrawItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
-      fc.getExternalContext()
-          .redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      fc.getExternalContext().redirect(
+          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);

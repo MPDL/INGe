@@ -136,7 +136,7 @@ public class Navigation extends FacesBean {
 
     ViewItemFull viewItem;
     EditItem editItem;
-//    CreateRevision createRevision;
+    // CreateRevision createRevision;
     ReleaseHistory releaseHistory;
     ViewItemLog viewItemLog;
 
@@ -165,7 +165,7 @@ public class Navigation extends FacesBean {
       viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
       viewItem.init();
     } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
-//      createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
+      // createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
       // createRevision.init();
     } else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY)) {
       this.getItemVersionSessionBean().resetVersionLists();
