@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.export;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -51,6 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007
  */
+@SuppressWarnings("serial")
 public class ExportItems extends FacesBean {
   private static Logger logger = Logger.getLogger(ExportItems.class);
 
@@ -61,7 +61,7 @@ public class ExportItems extends FacesBean {
   private final String FUNCTION_EXPORT = "export";
 
   // binded components in JSP
-  private HtmlMessages valMessage = new HtmlMessages();
+//  private HtmlMessages valMessage = new HtmlMessages();
   // private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
 
@@ -282,13 +282,13 @@ public class ExportItems extends FacesBean {
     sb.setExportEmailReplyToAddr(null);
   }
 
-  public HtmlMessages getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(HtmlMessages valMessage) {
-    this.valMessage = valMessage;
-  }
+//  public HtmlMessages getValMessage() {
+//    return valMessage;
+//  }
+//
+//  public void setValMessage(HtmlMessages valMessage) {
+//    this.valMessage = valMessage;
+//  }
 
   /**
    * Adds and removes messages concerning item lists.

@@ -11,7 +11,7 @@ public interface ItemValidating {
   public static final String SERVICE_NAME =
       "ejb/de/mpg/escidoc/services/inge_validation/ItemValidating";
 
-  void validateItemObject(final ItemVO itemVO) throws ValidationException, ItemInvalidException;
+//  void validateItemObject(final ItemVO itemVO) throws ValidationException, ItemInvalidException;
 
   void validateItemObject(final ItemVO itemVO, final ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException;

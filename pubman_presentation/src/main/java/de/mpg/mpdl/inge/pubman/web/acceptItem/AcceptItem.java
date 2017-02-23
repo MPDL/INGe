@@ -81,7 +81,7 @@ public class AcceptItem extends FacesBean {
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -169,7 +169,7 @@ public class AcceptItem extends FacesBean {
     try {
       fc.getExternalContext().redirect(
           request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+              + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
@@ -182,8 +182,7 @@ public class AcceptItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -265,8 +264,7 @@ public class AcceptItem extends FacesBean {
    * @return boolean true if at least one of the files has visibility Audience
    */
   public boolean getHasAudienceFiles() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }

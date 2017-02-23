@@ -85,7 +85,7 @@ public class SubmitItem extends FacesBean {
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -119,7 +119,7 @@ public class SubmitItem extends FacesBean {
    * @return the item that is currently edited
    */
   public final PubItemVO getPubItem() {
-    return (this.getItemControllerSessionBean().getCurrentPubItem());
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
   /**
@@ -143,7 +143,7 @@ public class SubmitItem extends FacesBean {
         this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
+      if (this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       }
       // distinguish between simple and standard workflow
@@ -190,7 +190,7 @@ public class SubmitItem extends FacesBean {
     try {
       fc.getExternalContext().redirect(
           request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+              + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
@@ -216,8 +216,7 @@ public class SubmitItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -236,8 +235,7 @@ public class SubmitItem extends FacesBean {
    * @return boolean true if at least one of the files has visibility Audience
    */
   public boolean getHasAudienceFiles() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }
@@ -306,6 +304,6 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsSubmitted() {
-    return getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
+    return this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
   }
 }

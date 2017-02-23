@@ -37,20 +37,20 @@ public class ValidationService {
 
   public ValidationService() {}
 
-  public void doValidation(final ItemVO itemVO) throws ValidationException, ItemInvalidException {
-    this.doValidation(itemVO, ValidationPoint.SIMPLE);
-  }
+//  public void doValidation(final ItemVO itemVO) throws ValidationException, ItemInvalidException {
+//    this.doValidation(itemVO, ValidationPoint.SIMPLE);
+//  }
 
-  public void doValidation(final ItemVO itemVO, String vp)
-      throws ValidationException, ItemInvalidException {
-    ValidationPoint validationPoint = ValidationPoint.valueOf(vp);
-
-    if (validationPoint == null) {
-      throw new ValidationException("unknown validation point");
-    }
-
-    this.doValidation(itemVO, validationPoint);
-  }
+//  public void doValidation(final ItemVO itemVO, String vp)
+//      throws ValidationException, ItemInvalidException {
+//    ValidationPoint validationPoint = ValidationPoint.valueOf(vp);
+//
+//    if (validationPoint == null) {
+//      throw new ValidationException("unknown validation point");
+//    }
+//
+//    this.doValidation(itemVO, validationPoint);
+//  }
 
   public void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {

@@ -55,14 +55,14 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  */
 @SuppressWarnings("serial")
 public class ReviseItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(ReviseItem.class);
+  private static final Logger logger = Logger.getLogger(ReviseItem.class);
   // Faces navigation string
   public static final String LOAD_REVISEITEM = "loadReviseItem";
   // public static final String JSP_NAME = "ReviseItemPage.jsp";
 
   private String reviseComment;
 
-  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
 
   private String navigationStringToGoBack;
@@ -143,11 +143,9 @@ public class ReviseItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        fc.getExternalContext().redirect(request.getContextPath()
+            + "/faces/viewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -185,13 +183,13 @@ public class ReviseItem extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;
@@ -210,13 +208,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+    return getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemDepositing.WORKFLOW_SIMPLE);
   }
 
   public String getReviseComment() {
