@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +23,6 @@ public class TransformerFactory {
   public enum FORMAT {
 
     BMC_XML, ENDNOTE_STRING, ENDNOTE_XML, BIBTEX_STRING, MARC_21_STRING, MARC_XML, ESCIDOC_ITEM_V3_XML, ESCIDOC_ITEM_V2_XML, ESCIDOC_ITEM_V1_XML, ESCIDOC_ITEMLIST_V1_XML, ESCIDOC_ITEMLIST_V2_XML, ESCIDOC_ITEMLIST_V3_XML, ESCIDOC_COMPONENT_XML, ESCIDOC_ITEM_VO, COINS_STRING, DOI_METADATA_XML, ZIM_XML, EDOC_XML, MAB_STRING, MAB_XML, RIS_STRING, RIS_XML, WOS_STRING, WOS_XML, JUS_SNIPPET_XML, JUS_INDESIGN_XML, JUS_HTML_XML, DC_XML, HTML_METATAGS_DC_XML, HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, OAI_DC, MODS_XML, PEER_TEI_XML, ZFN_TEI_XML, ARXIV_OAIPMH_XML, BMC_OAIPMH_XML, PMC_OAIPMH_XML, SPIRES_XML
-
-
 
   }
 
@@ -93,9 +92,82 @@ public class TransformerFactory {
       } catch (Exception e) {
         throw new TransformationException("Could not initialize transformer.", e);
       }
+    }
+  }
 
+  public static FORMAT[] getAllTargetFormatsFor(FORMAT sourceFormat) {
+
+    Set<FORMAT> targetFormats = new HashSet<FORMAT>();
+    Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
+
+    Set<Class<?>> transformerModuleClasses = refl.getTypesAnnotatedWith(TransformerModule.class);
+    Set<Class<?>> transformerModulesClasses = refl.getTypesAnnotatedWith(TransformerModules.class);
+
+    for (Class<?> t : transformerModuleClasses) {
+
+      Class<Transformer> transformerClass = (Class<Transformer>) t;
+      TransformerModule tm = transformerClass.getAnnotation(TransformerModule.class);
+
+      if (tm.sourceFormat() == sourceFormat) {
+        if (logger.isDebugEnabled())
+          logger.debug("Adding <" + tm.targetFormat());
+        targetFormats.add(tm.targetFormat());
+      }
     }
 
+    for (Class<?> t : transformerModulesClasses) {
+
+      Class<Transformer> transformerClass = (Class<Transformer>) t;
+
+      TransformerModules tms = transformerClass.getAnnotation(TransformerModules.class);
+      for (TransformerModule tm : tms.value()) {
+        if (tm.sourceFormat() == sourceFormat) {
+          if (logger.isDebugEnabled())
+            logger.debug("Adding <" + tm.targetFormat());
+          targetFormats.add(tm.targetFormat());
+        }
+      }
+    }
+
+    return (FORMAT[]) targetFormats.toArray(new FORMAT[targetFormats.size()]);
+  }
+
+  public static FORMAT[] getAllSourceFormatsFor(FORMAT targetFormat) {
+
+    Set<FORMAT> sourceFormats = new HashSet<FORMAT>();
+    Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
+
+    Set<Class<?>> transformerModuleClasses = refl.getTypesAnnotatedWith(TransformerModule.class);
+    Set<Class<?>> transformerModulesClasses = refl.getTypesAnnotatedWith(TransformerModules.class);
+
+    for (Class<?> t : transformerModuleClasses) {
+
+      Class<Transformer> transformerClass = (Class<Transformer>) t;
+      TransformerModule tm = transformerClass.getAnnotation(TransformerModule.class);
+
+      if (tm.targetFormat() == targetFormat) {
+        if (logger.isDebugEnabled())
+          logger.debug("Adding <" + tm.sourceFormat());
+        sourceFormats.add(tm.sourceFormat());
+      }
+    }
+
+
+    for (Class<?> t : transformerModulesClasses) {
+
+      Class<Transformer> transformerClass = (Class<Transformer>) t;
+
+      TransformerModules tms = transformerClass.getAnnotation(TransformerModules.class);
+      for (TransformerModule tm : tms.value()) {
+        if (tm.targetFormat() == targetFormat) {
+          if (logger.isDebugEnabled())
+            logger.debug("Adding <" + tm.sourceFormat());
+          sourceFormats.add(tm.sourceFormat());
+        }
+      }
+    }
+
+    return (FORMAT[]) sourceFormats.toArray(new FORMAT[sourceFormats.size()]);
   }
 
 
