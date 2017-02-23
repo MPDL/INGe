@@ -1974,7 +1974,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+      this.itemValidating.validateItemObject(pubItem, ValidationPoint.STANDARD);
     } catch (ValidationException e) {
       throw e;
     } catch (ItemInvalidException e) {

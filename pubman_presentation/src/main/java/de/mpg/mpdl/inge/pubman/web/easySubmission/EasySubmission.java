@@ -604,7 +604,7 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
     this.setFromEasySubmission(true);
     // info(getMessage("easy_submission_preview_hint"));
-    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "validate") == null) {
+    if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
     }
     EditItem editItem = (EditItem) getRequestBean(EditItem.class);
@@ -1344,7 +1344,7 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
 
     // validate
-    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "loadEditItem") == null) {
+    if (validate(ValidationPoint.STANDARD, "loadEditItem") == null) {
       return "";
     } else {
       // this.getEasySubmissionSessionBean().bindOrganizationsToCreators();

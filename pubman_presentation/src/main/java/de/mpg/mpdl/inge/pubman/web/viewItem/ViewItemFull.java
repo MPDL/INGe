@@ -945,7 +945,7 @@ public class ViewItemFull extends FacesBean {
   public String submitItem() {
     try {
       this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
-          ValidationPoint.SUBMIT_ITEM);
+          ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -1000,7 +1000,7 @@ public class ViewItemFull extends FacesBean {
   public String acceptItem() {
     try {
       this.itemValidating.validateItemObject(new PubItemVO(getPubItem()),
-          ValidationPoint.ACCEPT_ITEM);
+          ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;

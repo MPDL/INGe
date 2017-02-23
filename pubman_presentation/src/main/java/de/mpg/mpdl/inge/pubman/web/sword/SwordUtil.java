@@ -175,7 +175,7 @@ public class SwordUtil extends FacesBean {
    */
   public void init() {
     // this.depositServlet = new PubManDepositServlet();
-    this.setValidationPoint(ValidationPoint.DEFAULT);
+    this.setValidationPoint(ValidationPoint.SIMPLE);
     this.filenames.clear();
     // super.init();
   }
@@ -692,17 +692,17 @@ public class SwordUtil extends FacesBean {
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {
-      this.setValidationPoint(ValidationPoint.ACCEPT_ITEM);
+      this.setValidationPoint(ValidationPoint.STANDARD);
       return "RELEASE";
     }
 
     if ((isStatePending || isStateInRevision) && isWorkflowStandard && isOwner) {
-      this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
+      this.setValidationPoint(ValidationPoint.STANDARD);
       return "SAVE_SUBMIT";
     }
 
     if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator)) {
-      this.setValidationPoint(ValidationPoint.SUBMIT_ITEM);
+      this.setValidationPoint(ValidationPoint.STANDARD);
       return "SUBMIT";
     }
 
