@@ -38,12 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.util.ValueObjectWrapper;
 public class PubContextVOWrapper extends ValueObjectWrapper {
   private boolean expanded = false;
 
-  /**
-   * Public constructor.
-   */
-  public PubContextVOWrapper() {
-    super();
-  }
+  public PubContextVOWrapper() {}
 
   /**
    * Constructor using a given context.

@@ -26,15 +26,18 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
+@SuppressWarnings("serial")
 public class BrowseBySelectPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(BrowseBySelectPage.class);
   public static final String BEAN_NAME = "BrowseBySelectPage";
 
   public BrowseBySelectPage() {
+    this.init();
+  }
+
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
   }
 
@@ -42,6 +45,5 @@ public class BrowseBySelectPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 
 }

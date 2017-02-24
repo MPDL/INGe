@@ -26,16 +26,14 @@
 package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 
 /**
  * Superclass for keeping the attributes used d�ring the session by ExportItems.
@@ -44,6 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007 - Comments for the get- and
  *           set-methods are missing! ToDo StG.
  */
+@SuppressWarnings("serial")
 public class ExportItemsSessionBean extends FacesBean {
   // private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
   public static final String BEAN_NAME = "ExportItemsSessionBean";
@@ -51,7 +50,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   private String exportFormatType = "LAYOUT";
   private String exportFormatName = "APA";
-  private String fileFormat = FileFormatVO.PDF_NAME;
+  // private String fileFormat = FileFormatVO.PDF_NAME;
   private ExportFormatVO curExportFormatVO = new ExportFormatVO();
   private FileFormatVO curFileFormatVO = new FileFormatVO();
 
@@ -89,14 +88,9 @@ public class ExportItemsSessionBean extends FacesBean {
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD =
       "escidoc.pubman_presentation.email.authenticationpwd";
 
-
-  /**
-   * Public constructor.
-   */
   public ExportItemsSessionBean() {
     this.init();
   }
-
 
   /**
    * This method is called when this bean is initially added to session scope. Typically, this
@@ -105,7 +99,7 @@ public class ExportItemsSessionBean extends FacesBean {
    */
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
 
     if (exportFormatType.equals("LAYOUT")) {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
@@ -197,7 +191,7 @@ public class ExportItemsSessionBean extends FacesBean {
     )
       fileFormat = FileFormatVO.TEXT_NAME;
 
-    this.fileFormat = fileFormat;
+    // this.fileFormat = fileFormat;
 
     curFileFormatVO.setName(fileFormat);
     curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));

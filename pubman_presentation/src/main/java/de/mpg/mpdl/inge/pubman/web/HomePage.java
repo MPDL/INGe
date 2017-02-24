@@ -51,18 +51,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(HomePage.class);
   public static final String BEAN_NAME = "HomePage";
 
-  /**
-   * Public constructor.
-   */
   public HomePage() {
     this.init();
-
   }
-
 
   /**
    * Callback method that is called whenever a page containing this page fragment is navigated to,
@@ -76,9 +72,9 @@ public class HomePage extends BreadcrumbPage {
     } else if (parameters.containsKey("logout")) {
       info(getMessage("LogoutMessage"));
     }
+
     // Perform initializations inherited from our superclass
     super.init();
-
   }
 
 

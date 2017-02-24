@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -325,6 +324,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
     return null;
   }
 
+  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user)
       throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
       PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
@@ -514,6 +514,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws PubItemStatusInvalidException
    * @throws PubItemNotFoundException
    */
+  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
+  // TODO: submissionComment entweder rauswerfen oder verwenden!
   public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user)
       throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
       TechnicalException {
@@ -631,16 +633,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
   // return pubItem;
   // }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @author Peter Broszeit
-   * @throws ValidationException
-   * @throws ItemInvalidException
-   * @throws TechnicalException
-   * @throws SecurityException
-   * @throws PubItemNotFoundException
-   */
+  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
       throws PubItemNotFoundException, SecurityException, TechnicalException {
 
@@ -791,16 +784,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
     return copiedPubItem;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws PubItemStatusInvalidException
-   * @throws PubItemNotFoundException
-   * @throws TechnicalException
-   * @throws SecurityException
-   * @throws ValidationException
-   * @throws ItemInvalidException
-   */
+  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment,
       AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
       SecurityException, TechnicalException {

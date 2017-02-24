@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
+@SuppressWarnings("serial")
 public class PublishingException extends PubManException {
   /**
    * The reference of the pubitem.

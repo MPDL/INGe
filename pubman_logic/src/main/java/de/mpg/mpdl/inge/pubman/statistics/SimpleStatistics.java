@@ -66,8 +66,6 @@ import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
-
-
 /**
  * 
  * Implementation of PubItemSimpleStatistics
@@ -129,8 +127,8 @@ public class SimpleStatistics implements PubItemSimpleStatistics {
     // String repDefId =
     // ReportDefinitionStorage.getInstance().getReportDefinitionMap().get(reportDefinitionType);
 
-    if (reportDefinitionId == null)
-      throw new Exception("Reportdefinition does not exist: " + reportDefinitionId);
+    // if (reportDefinitionId == null)
+    // throw new Exception("Reportdefinition does not exist: " + reportDefinitionId);
 
     StatisticReportParamsVO repParams = new StatisticReportParamsVO();
     repParams.setReportDefinitionId(reportDefinitionId);
@@ -478,7 +476,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics {
     List<OrganizationVO> tempOrganizationList = new ArrayList<OrganizationVO>();
     List<OrganizationVO> sortOrganizationList = new ArrayList<OrganizationVO>();
     tempCreatorList = pubItem.getMetadata().getCreators();
-    int affiliationPosition = 0;
+    // int affiliationPosition = 0;
     for (int i = 0; i < tempCreatorList.size(); i++) {
       CreatorVO creator = new CreatorVO();
       creator = tempCreatorList.get(i);
@@ -491,7 +489,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics {
             // if the organization is not in the list already, put
             // it in.
             if (!sortOrganizationList.contains(tempOrganizationList.get(j))) {
-              affiliationPosition++;
+              // affiliationPosition++;
               sortOrganizationList.add(tempOrganizationList.get(j));
             }
           }

@@ -32,13 +32,11 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.rmi.RemoteException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -51,18 +49,7 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
-import de.escidoc.core.common.exceptions.application.invalid.TmeException;
-import de.escidoc.core.common.exceptions.application.invalid.XmlCorruptedException;
-import de.escidoc.core.common.exceptions.application.invalid.XmlSchemaValidationException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
-import de.escidoc.www.services.tme.JhoveHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -76,6 +63,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class RedirectServlet extends HttpServlet {
   private static final Logger logger = Logger.getLogger(RedirectServlet.class);
 
@@ -126,13 +114,13 @@ public class RedirectServlet extends HttpServlet {
 
           byte[] buffer = new byte[2048];
           int numRead;
-          long numWritten = 0;
+          // long numWritten = 0;
           OutputStream out = resp.getOutputStream();
           while ((numRead = input.read(buffer)) != -1) {
             logger.debug(numRead + " bytes read.");
             out.write(buffer, 0, numRead);
             resp.flushBuffer();
-            numWritten += numRead;
+            // numWritten += numRead;
 
           }
 

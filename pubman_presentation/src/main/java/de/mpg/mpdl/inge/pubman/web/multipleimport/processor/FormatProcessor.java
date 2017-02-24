@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Iterator;
 
 /**

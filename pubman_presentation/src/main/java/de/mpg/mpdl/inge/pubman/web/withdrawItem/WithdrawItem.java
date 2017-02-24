@@ -54,20 +54,18 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  */
 @SuppressWarnings("serial")
 public class WithdrawItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(WithdrawItem.class);
+  private static final Logger logger = Logger.getLogger(WithdrawItem.class);
+
   // Faces navigation string
   public static final String LOAD_WITHDRAWITEM = "loadWithdrawItem";
 
   private String withdrawalComment;
 
-  private String valMessage;
+  // private String valMessage;
   private String creators;
 
   private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public WithdrawItem() {
     this.init();
   }
@@ -76,9 +74,9 @@ public class WithdrawItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
@@ -194,7 +192,7 @@ public class WithdrawItem extends FacesBean {
    * @return a reference to the scoped data bean
    */
   public final ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   /**
@@ -214,13 +212,13 @@ public class WithdrawItem extends FacesBean {
     this.withdrawalComment = withdrawalComment;
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;

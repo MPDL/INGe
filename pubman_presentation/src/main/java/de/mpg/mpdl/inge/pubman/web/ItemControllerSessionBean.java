@@ -42,7 +42,6 @@ import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingE
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
@@ -124,17 +123,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 25.04.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {
-
   public static final String BEAN_NAME = "ItemControllerSessionBean";
 
-  private static final long serialVersionUID = 8235607890711998557L;
-
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
-
-  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
   @EJB
   private PubItemDepositing pubItemDepositing;
@@ -157,27 +153,23 @@ public class ItemControllerSessionBean extends FacesBean {
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
 
+  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
   // private ValidationReportVO currentItemValidationReport_ = null;
   private PubItemVOPresentation currentPubItem = null;
   private ContextVO currentContext = null;
 
-  /**
-   * Public constructor, initializing used Beans.
-   */
-  public ItemControllerSessionBean() {
-    this.init();
-  }
+  public ItemControllerSessionBean() {}
 
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
-  @Override
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   /**
    * Creates a new PubItem and handles navigation afterwards.
@@ -189,10 +181,6 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String createNewPubItem(final String navigationRuleWhenSuccessful,
       final ContextRO pubContextRO) {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Creating a new PubItem.");
-    }
-
     try {
       // creating a new item
       PubItemVOPresentation newPubItem = this.createNewPubItem(pubContextRO);
@@ -1966,7 +1954,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     } catch (Exception e) {
       logger.error("Could not accept item." + "\n" + e.toString(), e);
-      ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -1990,7 +1978,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(pubItem, ValidationPoint.ACCEPT_ITEM);
+      this.itemValidating.validateItemObject(pubItem, ValidationPoint.STANDARD);
     } catch (ValidationException e) {
       throw e;
     } catch (ItemInvalidException e) {
@@ -2260,16 +2248,8 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Revising PubItem: " + currentPubItem.getVersion().getObjectId());
-        logger.debug("Revising item...");
-      }
-
-      // delete the item
       this.qualityAssurance.revisePubItem(currentPubItem.getVersion(), reviseComment,
           loginHelper.getAccountUser());
-
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);

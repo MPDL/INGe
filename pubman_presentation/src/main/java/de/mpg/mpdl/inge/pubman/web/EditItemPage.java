@@ -26,16 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.desktop.Navigation;
 
 /**
  * BackingBean for EditItemPage.jsp. This one is empty because all code is implemented in the
@@ -44,16 +35,15 @@ import de.mpg.mpdl.inge.pubman.web.desktop.Navigation;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class EditItemPage extends FacesBean {
-  private static Logger logger = Logger.getLogger(EditItemPage.class);
   public static final String BEAN_NAME = "EditItemPage";
 
-  // The referring GUI Tool Page
-  public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
+  // private static final Logger logger = Logger.getLogger(EditItemPage.class);
 
-  /**
-   * Public constructor.
-   */
+  // The referring GUI Tool Page
+  // public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
+
   public EditItemPage() {
     this.init();
   }
@@ -62,30 +52,28 @@ public class EditItemPage extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation.
    */
-  @Override
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
     checkForLogin();
     // redirect to the referring GUI Tool page if the application has been started as GUI Tool
-
   }
 
-  /**
-   * Redirects to the referring GUI Tool page.
-   * 
-   * @author Tobias Schraut
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_EDIT_ITEM_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-    }
-    return "";
-  }
+  // /**
+  // * Redirects to the referring GUI Tool page.
+  // *
+  // * @author Tobias Schraut
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // fc.getExternalContext().redirect(GT_EDIT_ITEM_PAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
+  // }
+  // return "";
+  // }
 
   /*
    * @Override protected Method getDefaultAction() throws NoSuchMethodException { return
@@ -93,6 +81,4 @@ public class EditItemPage extends FacesBean {
    * 
    * @Override public boolean isItemSpecific() { return true; }
    */
-
-
 }

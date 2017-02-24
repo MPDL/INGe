@@ -5,18 +5,15 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean;
 
+@SuppressWarnings("serial")
 public class GrantVOPresentation extends FacesBean {
   public static final String GRANT_TYPE_USER_GROUP = "user-group";
+
   private GrantVO grant;
   private int index;
   private int fileIndex;
 
-  /**
-   * Public constructor
-   */
-  public GrantVOPresentation() {
-
-  }
+  public GrantVOPresentation() {}
 
   /**
    * Public constructor with parameters
@@ -98,6 +95,5 @@ public class GrantVOPresentation extends FacesBean {
   public void setIndex(int index) {
     this.index = index;
   }
-
 
 }

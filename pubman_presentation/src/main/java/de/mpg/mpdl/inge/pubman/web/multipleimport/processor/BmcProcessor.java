@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
-import static org.w3c.dom.Node.ELEMENT_NODE;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

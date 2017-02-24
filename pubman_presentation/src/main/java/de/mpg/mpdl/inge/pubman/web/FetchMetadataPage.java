@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.lang.reflect.Method;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 
@@ -40,14 +38,10 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
  * @author: $Author: mfranke$
  * @version: $Revision: 4295 $ $LastChangedDate: 2011-03-14 16:32:34 +0100 (Mo, 14 Mrz 2011) $
  */
+@SuppressWarnings("serial")
 public class FetchMetadataPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(FetchMetadataPage.class);
-
   public static final String BEAN_NAME = "FetchMetadataPage";
 
-  /**
-   * Public constructor.
-   */
   public FetchMetadataPage() {
     this.init();
   }
@@ -60,6 +54,7 @@ public class FetchMetadataPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
+
     checkForLogin();
   }
 

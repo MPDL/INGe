@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -102,45 +103,43 @@ public class ImportProcess extends Thread {
     NO_CHECK, CHECK, ROLLBACK
   }
 
-  private ImportLog log;
-  private File file;
-  private Transformation transformation;
-  private ItemValidating itemValidating;
-  private XmlTransforming xmlTransforming;
-  private PubItemDepositing pubItemDepositing;
-  private Search search;
-  private Format format;
-  private ContextRO escidocContext;
-  private String publicationContentModel;
-  private AccountUserVO user;
-  private FormatProcessor formatProcessor;
-  private String fileName;
-  private boolean rollback;
-  private DuplicateStrategy duplicateStrategy;
-  private String itemContentModel;
-  private Map<String, String> configuration = null;
-  private boolean failed = false;
-  private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item",
-      "application/xml", "utf-8");
-  private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
-  private static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "utf-8");
-  private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
   private static final Format ARXIV_FORMAT = new Format("arxiv", "application/xml", "utf-8");
+  private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
+  private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
   private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
   private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "utf-8");
-  private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
-  private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
+  private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
+  private static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "utf-8");
+  private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item",
+      "application/xml", "utf-8");
   private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
-  public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
-
   private static final Format MARC21_FORMAT = new Format("marc21viaxml", "application/marc",
       "UTF-8");
   private static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
       "UTF-8");
-  private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
+  private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
+  private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
+  private static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
 
-
+  private AccountUserVO user;
+  private ContextRO escidocContext;
+  private DuplicateStrategy duplicateStrategy;
+  private File file;
+  private Format format;
+  private FormatProcessor formatProcessor;
+  private ImportLog log;
+  private ItemValidating itemValidating;
+  private Map<String, String> configuration = null;
+  private PubItemDepositing pubItemDepositing;
+  private Search search;
+  private String fileName;
+  private String itemContentModel;
   private String name;
+  private String publicationContentModel;
+  private Transformation transformation;
+  private XmlTransforming xmlTransforming;
+  private boolean failed = false;
+  private boolean rollback;
   private long lastBeat = 0;
 
   public ImportProcess(String name, String fileName, File file, Format format,
@@ -155,13 +154,11 @@ public class ImportProcess extends Thread {
     }
 
     log = new ImportLog("import", user.getReference().getObjectId(), format.getName());
-
     log.setUserHandle(user.getHandle());
-
     log.setPercentage(5);
-    // Say Hello
     log.startItem("import_process_started");
     log.finishItem();
+
     DuplicateStrategy strategy;
     if (duplicateStrategy == 1) {
       strategy = DuplicateStrategy.NO_CHECK;
@@ -172,17 +169,19 @@ public class ImportProcess extends Thread {
     } else {
       throw new RuntimeException("Invalid value " + duplicateStrategy + " for DuplicateStrategy");
     }
-    // Initialize
+
     initialize(name, fileName, file, format, escidocContext, user, rollback, strategy,
         configuration);
+
     log.setPercentage(7);
     if (log.isDone()) {
       return;
     }
-    // Validate
+
     if (!validate(file, format)) {
       return;
     }
+
     log.setPercentage(10);
   }
 
@@ -194,19 +193,25 @@ public class ImportProcess extends Thread {
       ContextRO escidocContext, AccountUserVO user, boolean rollback,
       DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
     log.startItem("import_process_initialize");
+
     try {
       log.setMessage(name);
       log.setContext(escidocContext.getObjectId());
       log.setFormat(format.getName());
-      this.name = name;
+
+      this.configuration = configuration;
+      this.duplicateStrategy = duplicateStrategy;
+      this.escidocContext = escidocContext;
+      this.file = file;
       this.fileName = fileName;
       this.format = format;
-      this.escidocContext = escidocContext;
-      this.user = user;
-      this.transformation = new TransformationBean();
-      this.file = file;
+      this.itemContentModel =
+          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      this.name = name;
       this.rollback = rollback;
-      this.duplicateStrategy = duplicateStrategy;
+      this.transformation = new TransformationBean();
+      this.user = user;
+
       InitialContext context = new InitialContext();
       this.itemValidating =
           (ItemValidating) context
@@ -218,14 +223,12 @@ public class ImportProcess extends Thread {
           (PubItemDepositing) context
               .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       this.search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
-      this.itemContentModel =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-      this.configuration = configuration;
     } catch (Exception e) {
       log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
       log.addDetail(ErrorLevel.FATAL, e);
       fail();
     }
+
     log.finishItem();
   }
 
@@ -235,6 +238,7 @@ public class ImportProcess extends Thread {
    */
   private boolean validate(File file, Format format) {
     log.startItem("import_process_validate");
+
     if (file == null) {
       log.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable");
       fail();
@@ -242,6 +246,7 @@ public class ImportProcess extends Thread {
     } else {
       log.addDetail(ErrorLevel.FINE, "import_process_inputstream_available");
     }
+
     if (format == null) {
       log.addDetail(ErrorLevel.FATAL, "import_process_format_unavailable");
       fail();
@@ -249,6 +254,7 @@ public class ImportProcess extends Thread {
     } else {
       log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
+
     Format[] allSourceFormats = transformation.getSourceFormats(ESCIDOC_FORMAT);
 
     boolean found = false;
@@ -264,6 +270,7 @@ public class ImportProcess extends Thread {
         break;
       }
     }
+
     if (!found) {
       log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
       fail();
@@ -627,16 +634,16 @@ public class ImportProcess extends Thread {
       pubItemVO.getLocalTags().add("multiple_import");
       pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
 
-      // Default Validation
+      // Simple Validation
       log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
       try {
-        this.itemValidating.validateItemObject(pubItemVO);
+        this.itemValidating.validateItemObject(pubItemVO, ValidationPoint.SIMPLE);
         log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
 
         // Release Validation
         log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
         try {
-          this.itemValidating.validateItemObject(pubItemVO);
+          this.itemValidating.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
           log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
 
           log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
@@ -656,14 +663,12 @@ public class ImportProcess extends Thread {
           } else {
             log.suspendItem();
           }
-
         } catch (ItemInvalidException e2) { // Release Validation
           log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
           for (ValidationReportItemVO item : e2.getReport().getItems()) {
             log.addDetail(ErrorLevel.WARNING, item.getContent());
           }
         }
-
       } catch (ItemInvalidException e) { // Default Validation
         log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
         for (ValidationReportItemVO item : e.getReport().getItems()) {
@@ -671,9 +676,7 @@ public class ImportProcess extends Thread {
         }
         log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
         log.finishItem();
-
       }
-
     } catch (Exception e) {
       logger.error("Error while multiple import", e);
       log.addDetail(ErrorLevel.ERROR, e);

@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
@@ -42,44 +41,37 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
  * @author: Thomas Diebäcker, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
+@SuppressWarnings("serial")
 public class ViewItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ViewItemSessionBean";
-  @SuppressWarnings("unused")
+
   private static Logger logger = Logger.getLogger(ViewItemSessionBean.class);
+
   // navigationString to go back to the list where viewItem has been called
   // from
   private String navigationStringToGoBack = null;
-  // navigationString to go back to the list where viewItem has been called
-  // from
-  private String itemIdViaURLParam = null;
-
-
+  // // navigationString to go back to the list where viewItem has been called
+  // // from
+  // private String itemIdViaURLParam = null;
 
   // Flag if view item has already been redirected
   private boolean hasBeenRedirected = false;
 
   private String subMenu;
-
   private boolean detailedMode = false;
 
-
-
-  /**
-   * Public constructor.
-   */
   public ViewItemSessionBean() {
-    this.init();
-    subMenu = "ACTIONS";
+    this.subMenu = "ACTIONS";
   }
 
-  /**
-   * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-   * indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page is navigated to, either directly via a URL, or
+  // * indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   /**
    * View the selected item.
@@ -140,7 +132,7 @@ public class ViewItemSessionBean extends FacesBean {
    * @return a reference to the scoped data bean (ItemControllerSessionBean)
    */
   protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   // Getters and Setters
@@ -152,13 +144,13 @@ public class ViewItemSessionBean extends FacesBean {
     this.navigationStringToGoBack = navigationStringToGoBack;
   }
 
-  public String getItemIdViaURLParam() {
-    return itemIdViaURLParam;
-  }
-
-  public void setItemIdViaURLParam(String itemIdViaURLParam) {
-    this.itemIdViaURLParam = itemIdViaURLParam;
-  }
+  // public String getItemIdViaURLParam() {
+  // return itemIdViaURLParam;
+  // }
+  //
+  // public void setItemIdViaURLParam(String itemIdViaURLParam) {
+  // this.itemIdViaURLParam = itemIdViaURLParam;
+  // }
 
 
   public boolean isHasBeenRedirected() {
@@ -168,7 +160,6 @@ public class ViewItemSessionBean extends FacesBean {
   public void setHasBeenRedirected(boolean hasBeenRedirected) {
     this.hasBeenRedirected = hasBeenRedirected;
   }
-
 
   public void setSubMenu(String subMenu) {
     this.subMenu = subMenu;

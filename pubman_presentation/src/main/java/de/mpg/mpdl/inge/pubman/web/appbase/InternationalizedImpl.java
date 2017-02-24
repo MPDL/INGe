@@ -28,7 +28,7 @@ public class InternationalizedImpl implements Internationalized {
   private InternationalizationHelper i18nHelper;
 
   public InternationalizedImpl() {
-    i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+    this.i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
   }
 
   /*
@@ -137,13 +137,13 @@ public class InternationalizedImpl implements Internationalized {
     }
 
     FacesContext context = FacesContext.getCurrentInstance();
+
     return cls
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-
   }
 
   public InternationalizationHelper getI18nHelper() {
-    return i18nHelper;
+    return this.i18nHelper;
   }
 
   public void setI18nHelper(InternationalizationHelper i18nHelper) {

@@ -49,38 +49,31 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
  * @author: $Author$ last modification
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
+  public static final String BEAN_NAME = "CreateItem";
+
+  private static final Logger logger = Logger.getLogger(CreateItem.class);
 
   public enum SubmissionMethod {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION
   }
 
-  public static final String BEAN_NAME = "CreateItem";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(CreateItem.class);
-
-  private String target = EditItem.LOAD_EDITITEM;
-
   private SubmissionMethod method = SubmissionMethod.FULL_SUBMISSION;
 
   // Faces navigation string
   public final static String LOAD_CREATEITEM = "loadCreateItem";
+  private String target = EditItem.LOAD_EDITITEM;
 
-  /**
-   * Public constructor.
-   */
-  public CreateItem() {
-    this.init();
-  }
+  public CreateItem() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    super.init();
-
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // //super.init();
+  // }
 
   public String confirmSelection() {
     return target;
@@ -92,7 +85,6 @@ public class CreateItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String newSubmission() {
-
     target = EditItem.LOAD_EDITITEM;
     method = SubmissionMethod.FULL_SUBMISSION;
     String genreBundle = "Genre_ARTICLE";

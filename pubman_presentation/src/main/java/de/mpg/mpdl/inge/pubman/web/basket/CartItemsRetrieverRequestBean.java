@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -21,8 +21,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 
 /**
@@ -34,15 +32,17 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class CartItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   public static final String BEAN_NAME = "CartItemsRetrieverRequestBean";
-  private int numberOfRecords;
+
+  private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED =
       "deleteItemsFromBasket_NoItemSelected";
 
-  Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+  private int numberOfRecords;
 
   @EJB
   XmlTransforming xmlTransforming;
@@ -193,9 +193,7 @@ public class CartItemsRetrieverRequestBean extends
           getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
-
   }
-
 
   /**
    * Called when the export format list should be updated. Workaround. Method needs to be called
@@ -205,7 +203,6 @@ public class CartItemsRetrieverRequestBean extends
   public void updateExportOptions() {
     ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
     exportItemsBean.updateExportFormats();
-
   }
 
 }

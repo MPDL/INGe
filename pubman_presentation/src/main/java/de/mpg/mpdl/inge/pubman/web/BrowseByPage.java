@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(BrowseByPage.class);
   public static final String BEAN_NAME = "BrowseByPage";
@@ -68,9 +69,6 @@ public class BrowseByPage extends BreadcrumbPage {
   private List<String> subjects;
   private SelectItem[] dateOptions;
 
-  /**
-   * Public constructor
-   */
   public BrowseByPage() {
     this.init();
   }
@@ -82,6 +80,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
+
     this.bbBean = (BrowseBySessionBean) getSessionBean(BrowseBySessionBean.class);
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
@@ -150,7 +149,7 @@ public class BrowseByPage extends BreadcrumbPage {
       isReader.close();
       httpConn.disconnect();
     } catch (Exception e) {
-      this.logger.warn("An error occurred while calling the Cone service.", e);
+      logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
     return links;
@@ -308,7 +307,7 @@ public class BrowseByPage extends BreadcrumbPage {
       String link = PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
       return link;
     } catch (Exception e) {
-      this.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+      logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
     return "";
   }
@@ -318,7 +317,7 @@ public class BrowseByPage extends BreadcrumbPage {
       String link = PropertyReader.getProperty("escidoc.cone.service.url");
       return link;
     } catch (Exception e) {
-      this.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+      logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
     return "";
   }

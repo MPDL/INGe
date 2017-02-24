@@ -10,17 +10,18 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
 import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
 
+@SuppressWarnings("serial")
 public class EditItemBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(EditItemBean.class);
 
@@ -47,7 +48,7 @@ public class EditItemBean extends FacesBean {
   private List<Integer> usedOrganizations = new ArrayList<Integer>();
 
   public List<CreatorVOPresentation> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(List<CreatorVOPresentation> creators) {
@@ -55,7 +56,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public List<OrganizationVOPresentation> getCreatorOrganizations() {
-    return creatorOrganizations;
+    return this.creatorOrganizations;
   }
 
   public void setCreatorOrganizations(List<OrganizationVOPresentation> creatorOrganizations) {
@@ -66,8 +67,8 @@ public class EditItemBean extends FacesBean {
   public void initOrganizationsFromCreators() {
     List<OrganizationVOPresentation> creatorOrganizations =
         new ArrayList<OrganizationVOPresentation>();
-    int counter = 1;
-    for (CreatorVOPresentation creator : creators) {
+    // int counter = 1;
+    for (CreatorVOPresentation creator : this.creators) {
 
       if (creator.getType() == CreatorType.PERSON) {
 
@@ -82,8 +83,7 @@ public class EditItemBean extends FacesBean {
                 organizationPresentation.setName("");
               }
               creatorOrganizations.add(organizationPresentation);
-              counter++;
-
+              // counter++;
             }
           }
         }
@@ -99,16 +99,16 @@ public class EditItemBean extends FacesBean {
     this.creatorOrganizations = creatorOrganizations;
   }
 
-  public int getCreatorsSize() {
-    return creators.size();
-  }
+  // public int getCreatorsSize() {
+  // return creators.size();
+  // }
 
   /**
    * Returns the content(set by javascript) from a hidden input field that indicates whether the
    * author copy&paste elements are to be displayed or not.
    */
   public String getShowAuthorCopyPaste() {
-    return showAuthorCopyPaste;
+    return this.showAuthorCopyPaste;
   }
 
   /**
@@ -124,7 +124,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public boolean getOverwriteCreators() {
-    return overwriteCreators;
+    return this.overwriteCreators;
   }
 
   /**
@@ -149,7 +149,6 @@ public class EditItemBean extends FacesBean {
   }
 
   public boolean bindOrganizationsToCreators() {
-
     usedOrganizations.clear();
     for (CreatorVOPresentation creator : getCreators()) {
       if (!bindOrganizationsToCreator(creator)) {
@@ -233,8 +232,6 @@ public class EditItemBean extends FacesBean {
         error(getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
         return false;
       }
-
-
     }
     return true;
   }
@@ -317,7 +314,6 @@ public class EditItemBean extends FacesBean {
       }
     }
 
-
     // add authors to creator collection
     for (Author author : authorList) {
       CreatorVOPresentation creator = new CreatorVOPresentation(getCreators(), this);
@@ -335,10 +331,7 @@ public class EditItemBean extends FacesBean {
 
       creator.setRole(CreatorRole.AUTHOR);
       creator.setType(CreatorType.PERSON);
-
     }
-
   }
-
 
 }

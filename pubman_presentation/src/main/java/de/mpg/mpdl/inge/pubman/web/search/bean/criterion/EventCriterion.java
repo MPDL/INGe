@@ -27,11 +27,8 @@
 package de.mpg.mpdl.inge.pubman.web.search.bean.criterion;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import net.sf.saxon.event.MetaTagAdjuster;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DateCriterion.DateType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;

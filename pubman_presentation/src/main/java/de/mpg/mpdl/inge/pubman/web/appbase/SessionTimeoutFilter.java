@@ -38,8 +38,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -51,9 +49,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class SessionTimeoutFilter implements Filter {
-  private static final Logger logger = Logger.getLogger(SessionTimeoutFilter.class);
-
-  public static String LOGOUT_URL = "/aa/logout/clear.jsp";
+  public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   /*
    * (non-Javadoc)
@@ -93,7 +89,7 @@ public class SessionTimeoutFilter implements Filter {
             && !"/AffiliationDetailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/ExportEmailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/OrganizationSuggest.jsp".equals(httpServletRequest.getPathInfo())
-            && !"/viewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo())
+            && !"/ViewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo())
             && httpServletRequest.getRequestedSessionId() != null
             && httpServletRequest.getParameter("expired") == null
             && httpServletRequest.getParameter("logout") == null

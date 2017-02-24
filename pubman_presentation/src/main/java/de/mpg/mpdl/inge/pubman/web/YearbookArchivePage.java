@@ -24,8 +24,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -36,11 +34,21 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookArchivePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(YearbookArchivePage.class);
   public static final String BEAN_NAME = "YearbookArchivePage";
 
   public YearbookArchivePage() {
+    this.init();
+  }
+
+  /**
+   * Callback method that is called whenever a page containing this page fragment is navigated to,
+   * either directly via a URL, or indirectly via page navigation.
+   */
+  @Override
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
   }
 

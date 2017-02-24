@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -43,7 +42,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
@@ -51,11 +49,9 @@ import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
-import de.mpg.mpdl.inge.pubman.web.audience.AudienceBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /**
@@ -66,6 +62,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PubFileVOPresentation extends FacesBean {
 
   public static final String FILE_TYPE_FILE = "FILE";
@@ -80,16 +77,13 @@ public class PubFileVOPresentation extends FacesBean {
   private LoginHelper loginHelper;
   private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
 
-
-
   /**
    * Default constructor.
    */
   public PubFileVOPresentation() {
     this.file = new FileVO();
-
-    file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    init();
+    this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, boolean isLocator) {
@@ -97,28 +91,26 @@ public class PubFileVOPresentation extends FacesBean {
     this.index = fileIndex;
     this.isLocator = isLocator;
     if (isLocator) {
-      file.setStorage(FileVO.Storage.EXTERNAL_URL);
+      this.file.setStorage(FileVO.Storage.EXTERNAL_URL);
     } else {
-      file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+      this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     }
-    init();
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, FileVO file) {
     this.index = fileIndex;
     this.file = file;
 
-    init();
+    this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, FileVO file, boolean isLocator) {
     this.index = fileIndex;
     this.file = file;
-
     this.isLocator = isLocator;
-    init();
+    this.init();
   }
-
 
   public void init() {
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -136,7 +128,6 @@ public class PubFileVOPresentation extends FacesBean {
         logger.debug("Couldn't find PubItemSimpleStatistics Service");
       }
     }
-
   }
 
   /**
@@ -247,7 +238,7 @@ public class PubFileVOPresentation extends FacesBean {
     String contentCategory = null;
     if (this.file.getContentCategory() != null) {
       @SuppressWarnings({"unchecked", "rawtypes"})
-      Map<String, String> propertiesMap = new HashMap<String, String>((Map) this.properties);
+      Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
       for (Map.Entry<String, String> entry : propertiesMap.entrySet()) {
         if (entry.getValue().equals(this.file.getContentCategory())) {
           contentCategory =

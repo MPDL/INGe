@@ -2,12 +2,10 @@ package de.mpg.mpdl.inge.pubman.web.init;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -26,8 +24,6 @@ public class GenreHandler extends ShortContentHandler {
   private LinkedHashMap<String, String> map = null;
   private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
 
-  private Logger logger = Logger.getLogger(GenreHandler.class);
-
   String formID = "";
   String groupID = "";
 
@@ -35,8 +31,6 @@ public class GenreHandler extends ShortContentHandler {
     this.dir = dir;
     File dirFile = new File(dir);
     dirFile.mkdirs();
-
-
   }
 
   @Override

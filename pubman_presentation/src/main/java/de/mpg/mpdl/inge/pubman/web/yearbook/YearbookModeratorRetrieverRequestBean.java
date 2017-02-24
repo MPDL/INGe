@@ -1,31 +1,25 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -50,23 +44,25 @@ import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookModeratorRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
+  public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
+
   private static final Logger logger = Logger
       .getLogger(YearbookModeratorRetrieverRequestBean.class);
-  public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
+
   private String selectedSortOrder;
+
   /**
    * This workspace's user.
    */
   AccountUserVO userVO;
 
-
   /**
    * org unit filter.
    */
   private static String parameterSelectedOrgUnit = "orgUnit";
-
 
   /**
    * The total number of records
@@ -88,7 +84,6 @@ public class YearbookModeratorRetrieverRequestBean extends
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
     // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
     // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
-
   }
 
   @Override
@@ -97,8 +92,6 @@ public class YearbookModeratorRetrieverRequestBean extends
     // HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
     //
     // yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-
-
   }
 
   @Override
@@ -114,10 +107,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   public void readOutParameters() {
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
-
       setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
-
-
     } else {
       setSelectedOrgUnit(orgUnit);
     }
@@ -168,14 +158,12 @@ public class YearbookModeratorRetrieverRequestBean extends
   }
 
   public String getSelectedSortOrder() {
-    return selectedSortOrder;
+    return this.selectedSortOrder;
   }
 
   public void setSelectedSortOrder(String selectedSortOrder) {
     this.selectedSortOrder = selectedSortOrder;
   }
-
-
 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
@@ -217,6 +205,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       error("Error in retrieving items");
       numberOfRecords = 0;
     }
+
     return returnList;
   }
 
@@ -232,12 +221,10 @@ public class YearbookModeratorRetrieverRequestBean extends
           if (!query.equals("")) {
             query += " OR ";
           }
+
           query += " ( " + mdQuery.getCqlQuery() + " ) ";
         }
-
       }
-
-
 
       ItemContainerSearchResult result =
           this.searchService.searchForItemContainer(new PlainCqlQuery(query));
@@ -251,7 +238,6 @@ public class YearbookModeratorRetrieverRequestBean extends
     }
 
     return "";
-
   }
 
   /**
@@ -282,6 +268,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       logger.error("Could not release Yearbook Item", e);
     }
     pilsb.redirect();
+
     return "";
   }
 
@@ -318,6 +305,7 @@ public class YearbookModeratorRetrieverRequestBean extends
     }
     this.pilsb.update();
     this.pilsb.redirect();
+
     return "";
   }
 }

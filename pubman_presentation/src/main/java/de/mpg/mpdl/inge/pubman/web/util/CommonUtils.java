@@ -33,7 +33,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,8 +63,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.utils.Utils;
-import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -471,47 +468,47 @@ public class CommonUtils extends InternationalizedImpl {
     }
   }
 
-  /**
-   * Changes all occurrences of oldPat to newPat.
-   * 
-   * @param in A String that might contain problematic HTML characters.
-   * @param oldPat the old pattern to be escaped.
-   * @param newPat the new pattern to escape with.
-   * 
-   * @return The escaped string.
-   * 
-   * @deprecated I do not see any advantage over String.replace
-   */
-  @Deprecated
-  private static String change(String in, String oldPat, String newPat) {
-    if (in == null) {
-      return null;
-    }
-    if (oldPat.length() == 0) {
-      return in;
-    }
-    if (oldPat.length() == 1 && newPat.length() == 1) {
-      return in.replace(oldPat.charAt(0), newPat.charAt(0));
-    }
-    if (in.indexOf(oldPat) < 0) {
-      return in;
-    }
-    int lastIndex = 0;
-    int newIndex = 0;
-    StringBuffer newString = new StringBuffer();
-    for (;;) {
-      newIndex = in.indexOf(oldPat, lastIndex);
-      if (newIndex != -1) {
-        newString.append(in.substring(lastIndex, newIndex) + newPat);
-        lastIndex = newIndex + oldPat.length();
-
-      } else {
-        newString.append(in.substring(lastIndex));
-        break;
-      }
-    }
-    return newString.toString();
-  }
+  // /**
+  // * Changes all occurrences of oldPat to newPat.
+  // *
+  // * @param in A String that might contain problematic HTML characters.
+  // * @param oldPat the old pattern to be escaped.
+  // * @param newPat the new pattern to escape with.
+  // *
+  // * @return The escaped string.
+  // *
+  // * @deprecated I do not see any advantage over String.replace
+  // */
+  // @Deprecated
+  // private static String change(String in, String oldPat, String newPat) {
+  // if (in == null) {
+  // return null;
+  // }
+  // if (oldPat.length() == 0) {
+  // return in;
+  // }
+  // if (oldPat.length() == 1 && newPat.length() == 1) {
+  // return in.replace(oldPat.charAt(0), newPat.charAt(0));
+  // }
+  // if (in.indexOf(oldPat) < 0) {
+  // return in;
+  // }
+  // int lastIndex = 0;
+  // int newIndex = 0;
+  // StringBuffer newString = new StringBuffer();
+  // for (;;) {
+  // newIndex = in.indexOf(oldPat, lastIndex);
+  // if (newIndex != -1) {
+  // newString.append(in.substring(lastIndex, newIndex) + newPat);
+  // lastIndex = newIndex + oldPat.length();
+  //
+  // } else {
+  // newString.append(in.substring(lastIndex));
+  // break;
+  // }
+  // }
+  // return newString.toString();
+  // }
 
   /**
    * Converts an array of SelectItems to a SelectItemUI. This is used for items for comboboxes.

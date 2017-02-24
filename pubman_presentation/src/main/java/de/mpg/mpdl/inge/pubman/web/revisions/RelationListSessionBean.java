@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -41,20 +39,15 @@ import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
  * @author: Thomas Diebäcker, created 22.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class RelationListSessionBean extends FacesBean {
   public static final String BEAN_NAME = "RelationListSessionBean";
-  private static Logger logger = Logger.getLogger(RelationListSessionBean.class);
 
   private List<RelationVOPresentation> relationList = null;
   private PubItemVO pubItemVO = null;
   private String revisionDescription = new String();
 
-  /**
-   * Public constructor.
-   */
-  public RelationListSessionBean() {
-    this.init();
-  }
+  public RelationListSessionBean() {}
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).

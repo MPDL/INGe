@@ -27,9 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -53,7 +51,6 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
@@ -66,6 +63,7 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class MultipleImport extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(MultipleImport.class);
@@ -143,7 +141,7 @@ public class MultipleImport extends FacesBean {
 
 
   public MultipleImport() {
-    super.init();
+    // super.init();
 
     // Standard formats
     importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
@@ -194,8 +192,8 @@ public class MultipleImport extends FacesBean {
       return null;
     }
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+    // InternationalizationHelper i18nHelper =
+    // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
 
     Map<String, String> configuration = null;
 
@@ -224,10 +222,10 @@ public class MultipleImport extends FacesBean {
     return null;
   }
 
-  private void cleanUp() {
-    this.configParameters = null;
-    this.parametersValues = null;
-  }
+  // private void cleanUp() {
+  // this.configParameters = null;
+  // this.parametersValues = null;
+  // }
 
   /**
    * JSF action that is triggered from the submission menu.

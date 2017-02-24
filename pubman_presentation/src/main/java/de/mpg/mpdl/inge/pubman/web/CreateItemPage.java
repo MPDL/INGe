@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -35,13 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class CreateItemPage extends FacesBean {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(CreateItemPage.class);
-
-  /**
-   * Public constructor
-   */
   public CreateItemPage() {
     this.init();
   }
@@ -50,12 +43,9 @@ public class CreateItemPage extends FacesBean {
    * Callback method that is called whenever a page is navigated to, either directly via a URL, or
    * indirectly via page navigation.
    */
-  @Override
   public void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
     checkForLogin();
-
   }
-
 }

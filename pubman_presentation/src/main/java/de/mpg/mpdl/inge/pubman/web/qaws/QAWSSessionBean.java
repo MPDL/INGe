@@ -33,10 +33,8 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-
 
 /**
  * TODO Session Bean for the Quality Assurance Workspace, keeps all attributes
@@ -46,6 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class QAWSSessionBean extends FacesBean {
   public static final String BEAN_NAME = "QAWSSessionBean";
   @SuppressWarnings("unused")
@@ -54,7 +53,7 @@ public class QAWSSessionBean extends FacesBean {
   /** value for the selected collection */
   private String selectedContextId = null;
 
-  private AffiliationVO selectedAffiliationVO;
+  // private AffiliationVO selectedAffiliationVO;
 
   /** value for the selected organizational unit */
   private String selectedOUId = null;
@@ -80,24 +79,17 @@ public class QAWSSessionBean extends FacesBean {
   private List<SelectItem> orgUnitSelectItems;
 
 
-  /**
-   * Public constructor.
-   */
-  public QAWSSessionBean() {
+  public QAWSSessionBean() {}
 
-  }
-
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
-
-
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public List<PubItemVO> getPubItemList() {
     return pubItemList;

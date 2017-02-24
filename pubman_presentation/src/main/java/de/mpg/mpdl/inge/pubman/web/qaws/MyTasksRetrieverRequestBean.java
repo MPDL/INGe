@@ -6,22 +6,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.StandardFilter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationTree;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
@@ -32,8 +28,6 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -48,6 +42,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   public static String BEAN_NAME = "MyTasksRetrieverRequestBean";
   private static Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
@@ -71,22 +66,18 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   // Faces navigation string
   public static final String LOAD_QAWS = "loadQAWSPage";
 
-  private Map<String, AffiliationVOPresentation> affiliationMap;
+  // private Map<String, AffiliationVOPresentation> affiliationMap;
 
   @EJB
   private XmlTransforming xmlTransforming;
 
-  public MyTasksRetrieverRequestBean() {
-    super();
-
-  }
+  public MyTasksRetrieverRequestBean() {}
 
   @Override
   public void init() {
     // affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     checkForLogin();
     initSelectionMenu();
-
   }
 
 
@@ -208,30 +199,30 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   }
 
-  /**
-   * Adds organization filters to the given FilterTaskParam for the given affiliation and
-   * recursively for all its children.
-   * 
-   * @param aff
-   * @param filter
-   */
-  private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter) {
-    try {
-      AffiliationVOPresentation affiliation = aff;
-      Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
-      filter.getFilterList().add(f);
-
-      if (aff.getHasChildren()) {
-        for (AffiliationVOPresentation childAff : aff.getChildren()) {
-          addOrgFiltersRecursive(childAff, filter);
-        }
-      }
-    } catch (Exception e) {
-      logger.error("Error in retrieving organizations", e);
-      error("Couldn't retrieve all organizational units for the filter menu");
-    }
-
-  }
+  // /**
+  // * Adds organization filters to the given FilterTaskParam for the given affiliation and
+  // * recursively for all its children.
+  // *
+  // * @param aff
+  // * @param filter
+  // */
+  // private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter) {
+  // try {
+  // AffiliationVOPresentation affiliation = aff;
+  // Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
+  // filter.getFilterList().add(f);
+  //
+  // if (aff.getHasChildren()) {
+  // for (AffiliationVOPresentation childAff : aff.getChildren()) {
+  // addOrgFiltersRecursive(childAff, filter);
+  // }
+  // }
+  // } catch (Exception e) {
+  // logger.error("Error in retrieving organizations", e);
+  // error("Couldn't retrieve all organizational units for the filter menu");
+  // }
+  //
+  // }
 
   /**
    * Reads out the parameters from HTTP-GET request for the selected item state and the selected
@@ -372,7 +363,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
      * setItemStateSelectItems(itemStateSelectItems);
      */
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // Contexts (Collections)
     ContextListSessionBean clsb =

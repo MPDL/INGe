@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
@@ -58,11 +56,11 @@ public class ErrorPage extends BreadcrumbPage {
   // Faces navigation string
   public final static String LOAD_ERRORPAGE = "loadErrorPage";
   // Faces navigation string for GUI Tool
-  public final static String GT_LOAD_ERRORPAGE = "loadGTErrorPage";
+  // public final static String GT_LOAD_ERRORPAGE = "loadGTErrorPage";
   // The referring GUI Tool Page
-  public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
+  // public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
   // JSP-Name for avoiding JSF-Navigation
-  public final static String JSP_NAME = "ErrorPage.jsp";
+  // public final static String JSP_NAME = "ErrorPage.jsp";
 
   private Exception exception = null;
   private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();
@@ -70,10 +68,6 @@ public class ErrorPage extends BreadcrumbPage {
   private String summary = null;
   private String detail = null;
 
-
-  /**
-   * Public constructor.
-   */
   public ErrorPage() {
     this.init();
   }
@@ -88,8 +82,6 @@ public class ErrorPage extends BreadcrumbPage {
 
     // show the pageAlert
     this.createPageAlert();
-
-
   }
 
   /**
@@ -143,21 +135,21 @@ public class ErrorPage extends BreadcrumbPage {
     this.panPageAlert.getChildren().add(pageAlert);
   }
 
-  /**
-   * Redirects to the referring GUI Tool page.
-   * 
-   * @author Tobias Schraut
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_ERRORPAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool ErrorPage." + "\n" + e.toString());
-    }
-    return "";
-  }
+  // /**
+  // * Redirects to the referring GUI Tool page.
+  // *
+  // * @author Tobias Schraut
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // fc.getExternalContext().redirect(GT_ERRORPAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool ErrorPage." + "\n" + e.toString());
+  // }
+  // return "";
+  // }
 
   public String getStackTrace() {
     StringBuffer buffer = new StringBuffer();

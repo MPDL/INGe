@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -38,14 +36,13 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision: 4287 $ $LastChangedDate: 2011-03-10 14:23:22 +0100 (Do, 10 Mrz 2011) $
  * 
  */
+@SuppressWarnings("serial")
 public class MultipleImportForm extends FacesBean {
-
-  private static final Logger logger = Logger.getLogger(MultipleImportForm.class);
 
   public static final String BEAN_NAME = "NewMultipleImport";
 
   public MultipleImportForm() {
-    super.init();
+    // super.init();
     try {
       ((MultipleImport) getSessionBean(MultipleImport.class)).initConfigParameters();
     } catch (Exception e) {

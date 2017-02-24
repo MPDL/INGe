@@ -38,8 +38,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.log4j.Logger;
-
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
@@ -86,15 +84,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Interceptors({LogStartEndInterceptor.class, LogMethodDurationInterceptor.class})
 public class QualityAssuranceBean implements QualityAssurance {
 
-  private static final Logger logger = Logger.getLogger(QualityAssuranceBean.class);
-
   /**
    * A XmlTransforming instance.
    */
   @EJB
   private XmlTransforming xmlTransforming;
-
-
 
   public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user)
       throws TechnicalException, ServiceException, MissingMethodParameterException,
@@ -103,14 +97,10 @@ public class QualityAssuranceBean implements QualityAssurance {
 
     ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
 
-
     FilterTaskParamVO filter = new FilterTaskParamVO();
-
-
 
     Filter f1 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(state));
     filter.getFilterList().add(f1);
-
 
     Filter f3 =
         filter.new FrameworkItemTypeFilter(
@@ -119,7 +109,6 @@ public class QualityAssuranceBean implements QualityAssurance {
 
     Filter f4 = filter.new ContextFilter(contextobjId);
     filter.getFilterList().add(f4);
-
 
     // every public state except withdrawn
     Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
@@ -134,15 +123,12 @@ public class QualityAssuranceBean implements QualityAssurance {
     Filter f9 = filter.new LimitFilter("0");
     filter.getFilterList().add(f9);
 
-    String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
-
-    logger.debug("Filter: " + xmlFilter);
+    xmlTransforming.transformToFilterTaskParam(filter);
 
     String xmlItemList = itemHandler.retrieveItems(new HashMap<String, String[]>()); // todo
     List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
+
     return pubItemList;
-
-
   }
 
   /**
@@ -176,7 +162,7 @@ public class QualityAssuranceBean implements QualityAssurance {
        */
 
       // ... and transform filter to xml
-      String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+      xmlTransforming.transformToFilterTaskParam(filterParam);
 
       HashMap<String, String[]> filterMap = filterParam.toMap();
 
@@ -264,7 +250,7 @@ public class QualityAssuranceBean implements QualityAssurance {
        */
 
       // ... and transform filter to xml
-      String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+      xmlTransforming.transformToFilterTaskParam(filterParam);
 
       HashMap<String, String[]> filterMap = filterParam.toMap();
 
@@ -313,7 +299,7 @@ public class QualityAssuranceBean implements QualityAssurance {
        */
 
       // ... and transform filter to xml
-      String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+      xmlTransforming.transformToFilterTaskParam(filterParam);
 
       HashMap<String, String[]> filterMap = filterParam.toMap();
 

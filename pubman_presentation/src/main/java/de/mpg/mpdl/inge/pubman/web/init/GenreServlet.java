@@ -26,9 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.init;
 
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
@@ -36,13 +34,12 @@ import javax.servlet.http.HttpServlet;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
+@SuppressWarnings("serial")
 public class GenreServlet extends HttpServlet {
 
   @Override

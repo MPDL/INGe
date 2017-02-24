@@ -232,6 +232,7 @@ public class TransformerFactoryTest {
   }
 
   @Test
+  @Ignore
   public void testBmcXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -249,6 +250,7 @@ public class TransformerFactoryTest {
   }
 
   @Test
+  @Ignore
   public void testEdocXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -265,6 +267,7 @@ public class TransformerFactoryTest {
   }
 
   @Test
+  @Ignore
   public void testEndnoteXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -551,6 +554,37 @@ public class TransformerFactoryTest {
     }
 
     assertTrue("Difference in assert <" + xmlComparator.listErrors() + ">", xmlComparator.equal());
+  }
+
+  // ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @Test
+  public void testGetAllSourceFormatsFor() {
+    FORMAT[] sourceForESCIDOC_ITEM_V3_XML =
+        {FORMAT.ARXIV_OAIPMH_XML, FORMAT.BIBTEX_STRING, FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML,
+            FORMAT.EDOC_XML, FORMAT.ENDNOTE_XML, FORMAT.MAB_XML, FORMAT.MARC_XML, FORMAT.MODS_XML,
+            FORMAT.PEER_TEI_XML, FORMAT.PMC_OAIPMH_XML, FORMAT.RIS_XML, FORMAT.SPIRES_XML,
+            FORMAT.WOS_XML, FORMAT.ZFN_TEI_XML};
+
+
+    assertTrue(Arrays.asList(TransformerFactory.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
+        .containsAll(Arrays.asList(sourceForESCIDOC_ITEM_V3_XML)));
+
+
+  }
+
+  @Test
+  public void testGetAllTargetFormatsFor() {
+    FORMAT[] targetForESCIDOC_ITEM_V3_XML =
+        {FORMAT.DOI_METADATA_XML, FORMAT.ZIM_XML, FORMAT.EDOC_XML, FORMAT.OAI_DC,
+            FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.HTML_METATAGS_DC_XML,
+            FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FORMAT.ENDNOTE_STRING,};
+
+
+    assertTrue(Arrays.asList(TransformerFactory.getAllTargetFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
+        .containsAll(Arrays.asList(targetForESCIDOC_ITEM_V3_XML)));
+
+
   }
 
 }

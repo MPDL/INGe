@@ -35,13 +35,11 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Hugo Niedermaier, created 24.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class AdvancedSearchPage extends BreadcrumbPage {
   @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(AdvancedSearchPage.class);
 
-  /**
-   * Public constructor.
-   */
   public AdvancedSearchPage() {
     this.init();
   }

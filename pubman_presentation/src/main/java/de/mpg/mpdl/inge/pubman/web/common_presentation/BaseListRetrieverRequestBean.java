@@ -25,8 +25,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @param <ListElementType> The Type of the list elements managed by this bean
  * @param <FilterType> The type of filters managed by this bean
  */
+@SuppressWarnings("serial")
 public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean {
-  private static Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
+  private static final Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
+
   private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
   private String unapiURLview;
 
@@ -43,7 +45,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    */
   public BaseListRetrieverRequestBean(
       BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
-    super.init();
+    // super.init();
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
     } catch (Exception e) {
@@ -57,8 +59,8 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     if (refreshAlways) {
       getBasePaginatorListSessionBean().setNoListUpdate(false);
     }
-    init();
 
+    init();
 
     /*
      * else { getBasePaginatorListSessionBean().saveState(); }

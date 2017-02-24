@@ -26,11 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
-
 
 /**
  * Backing Bean for ViewItemLogPage.jsp
@@ -40,14 +37,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ViewItemLogPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(ViewItemLogPage.class);
-
   public static final String BEAN_NAME = "ViewItemLogPage";
 
-  /**
-   * Public constructor.
-   */
   public ViewItemLogPage() {
     this.init();
   }
@@ -69,7 +62,7 @@ public class ViewItemLogPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

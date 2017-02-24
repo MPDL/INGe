@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
@@ -55,7 +56,6 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -65,13 +65,14 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PubItemListSessionBean extends
     BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static Logger logger = Logger.getLogger(PubItemListSessionBean.class);
+  public static final String BEAN_NAME = "PubItemListSessionBean";
 
-  public static String BEAN_NAME = "PubItemListSessionBean";
-  public static int MAXIMUM_CART_ITEMS = 2800;
+  private static final Logger logger = Logger.getLogger(PubItemListSessionBean.class);
 
+  public static final int MAXIMUM_CART_ITEMS = 2800;
 
   /**
    * An enumeration that contains the index for the search service and the sorting filter for the
@@ -92,7 +93,8 @@ public class PubItemListSessionBean extends
         OrderFilter.ORDER_DESCENDING), CREATOR(
         "sort.escidoc.publication.compound.publication-creator-names",
         "/sort/md-records/md-record/publication/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name when
+        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name
+                                      // when
                                       // complete name is filled!!
     PUBLISHING_INFO("sort.escidoc.publication.publishing-info.publisher",
         "/sort/md-records/md-record/publication/source/publishing-info/publisher",
@@ -111,8 +113,6 @@ public class PubItemListSessionBean extends
         "/properties/created-by/xLinkTitle", OrderFilter.ORDER_ASCENDING), COLLECTION(
         "sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
         OrderFilter.ORDER_ASCENDING);
-
-
 
     /**
      * The search sorting index
@@ -190,9 +190,6 @@ public class PubItemListSessionBean extends
     public String getSortOrder() {
       return sortOrder;
     }
-
-
-
   }
 
   /**
@@ -244,11 +241,10 @@ public class PubItemListSessionBean extends
   private final LoginHelper loginHelper;
 
   public PubItemListSessionBean() {
-    super();
+    // super();
     loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     selectedItemRefs = new HashMap<String, ItemRO>();
   }
-
 
   /**
    * Called by JSF when the items should be sorted by their state. Redirects to the same page with
@@ -265,8 +261,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -276,7 +272,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByTitle() {
-
     try {
       setSelectedSortBy("TITLE");
       setCurrentPageNumber(1);
@@ -285,8 +280,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -296,7 +291,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByGenre() {
-
     try {
       setSelectedSortBy("GENRE");
       setCurrentPageNumber(1);
@@ -305,8 +299,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -316,7 +310,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByDate() {
-
     try {
       setSelectedSortBy("DATE");
       setCurrentPageNumber(1);
@@ -325,8 +318,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -336,7 +329,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByCreator() {
-
     try {
       setSelectedSortBy("CREATOR");
       setCurrentPageNumber(1);
@@ -345,8 +337,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -356,7 +348,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByFile() {
-
     try {
       setSelectedSortBy("FILE");
       setCurrentPageNumber(1);
@@ -376,7 +367,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeToSortByCreationDate() {
-
     try {
       setSelectedSortBy("CREATION_DATE");
       setCurrentPageNumber(1);
@@ -408,8 +398,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -425,8 +415,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -435,7 +425,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeSubmenuToView() {
-
     try {
       setSubMenu("VIEW");
       setNoListUpdate(true);
@@ -443,8 +432,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -453,7 +442,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeSubmenuToExport() {
-
     try {
       setSubMenu("EXPORT");
       setNoListUpdate(true);
@@ -461,8 +449,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -471,7 +459,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeSubmenuToFilter() {
-
     try {
       setSubMenu("FILTER");
       setNoListUpdate(true);
@@ -479,8 +466,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -489,7 +476,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeSubmenuToSorting() {
-
     try {
       setSubMenu("SORTING");
       setNoListUpdate(true);
@@ -497,8 +483,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -507,7 +493,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeListTypeToBib() {
-
     try {
       setListType("BIB");
       setNoListUpdate(true);
@@ -515,8 +500,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -525,7 +510,6 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String changeListTypeToGrid() {
-
     try {
       setListType("GRID");
       setNoListUpdate(true);
@@ -533,8 +517,8 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -545,7 +529,6 @@ public class PubItemListSessionBean extends
   public boolean getIsAscending() {
     return selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING);
   }
-
 
   /**
    * Sets the menu entries for the sorting criteria menu
@@ -562,7 +545,6 @@ public class PubItemListSessionBean extends
   public List<SelectItem> getSortBySelectItems() {
     sortBySelectItems = new ArrayList<SelectItem>();
 
-
     // the last three should not be in if not logged in
     if (!loginHelper.isLoggedIn()) {
       for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
@@ -574,7 +556,6 @@ public class PubItemListSessionBean extends
             || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
           sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
         }
-
       }
     } else {
       for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
@@ -586,7 +567,6 @@ public class PubItemListSessionBean extends
           sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
         }
       }
-
     }
 
     return sortBySelectItems;
@@ -601,7 +581,6 @@ public class PubItemListSessionBean extends
   public void setSelectedSortBy(String selectedSortBy) {
     this.selectedSortBy = selectedSortBy;
     getParameterMap().put(parameterSelectedSortBy, selectedSortBy);
-
   }
 
   /**
@@ -623,9 +602,9 @@ public class PubItemListSessionBean extends
     if (!getSelectedSortBy().equals("all")) {
       returnString = getLabel("ENUM_CRITERIA_" + getSelectedSortBy());
     }
+
     return returnString;
   }
-
 
   /**
    * Returns the current sort order ("ascending" or "descending")
@@ -633,7 +612,6 @@ public class PubItemListSessionBean extends
   public String getSelectedSortOrder() {
     return selectedSortOrder;
   }
-
 
   /**
    * Sets the current sort order ("ascending" or "descending")
@@ -644,8 +622,6 @@ public class PubItemListSessionBean extends
     this.selectedSortOrder = selectedSortOrder;
     getParameterMap().put(parameterSelectedSortOrder, selectedSortOrder);
   }
-
-
 
   /**
    * Reads out additional parmaeters from GET request for sorting criteria and sort order and sets
@@ -660,7 +636,6 @@ public class PubItemListSessionBean extends
     } else if (getSelectedSortBy() != null) {
       // do nothing
     } else {
-
       // This is commented out due to PUBMAN-1907
       // if(getPageType().equals("SearchResult"))
       // {
@@ -670,7 +645,6 @@ public class PubItemListSessionBean extends
       // {
       setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
       // }
-
     }
 
     String sortOrder =
@@ -680,16 +654,9 @@ public class PubItemListSessionBean extends
     } else if (getSelectedSortOrder() != null) {
       // do nothing
     } else {
-
       setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
-
     }
-
-
-
   }
-
-
 
   /**
    * Returns the currently selected sorting criteria which is used as an additional filter
@@ -698,9 +665,9 @@ public class PubItemListSessionBean extends
   public SORT_CRITERIA getAdditionalFilters() {
     SORT_CRITERIA sc = SORT_CRITERIA.valueOf(getSelectedSortBy());
     sc.setSortOrder(getSelectedSortOrder());
+
     return sc;
   }
-
 
   /**
    * Sets the submenu
@@ -711,7 +678,6 @@ public class PubItemListSessionBean extends
     this.subMenu = subMenu;
   }
 
-
   /**
    * Returns a string describing the curently selected submenu
    * 
@@ -721,23 +687,18 @@ public class PubItemListSessionBean extends
     return subMenu;
   }
 
-
   /**
    * Resets the submenus, clears parameters from the map
    */
   @Override
   protected void pageTypeChanged() {
-
     if (getPageType().equals("MyItems") || getPageType().equals("MyTasks")) {
       subMenu = "FILTER";
     } else {
       subMenu = "VIEW";
     }
-
     getSelectedItemRefs().clear();
-
   }
-
 
   /**
    * Sets the list type ("BIB" or "GRID")
@@ -748,7 +709,6 @@ public class PubItemListSessionBean extends
     this.listType = listType;
   }
 
-
   /**
    * Returns the list type ("BIB" or "GRID")
    * 
@@ -757,7 +717,6 @@ public class PubItemListSessionBean extends
   public String getListType() {
     return listType;
   }
-
 
   /**
    * Returns the currently selected pub items of the displayed list page
@@ -771,6 +730,7 @@ public class PubItemListSessionBean extends
         selectedPubItems.add(pubItem);
       }
     }
+
     return selectedPubItems;
   }
 
@@ -802,7 +762,6 @@ public class PubItemListSessionBean extends
             + PubItemListSessionBean.MAXIMUM_CART_ITEMS + ")");
         break;
       }
-
     }
 
     if (selectedPubItems.size() == 0) {
@@ -834,8 +793,6 @@ public class PubItemListSessionBean extends
    * Saves the references of currently selected pub items into a map.
    */
   private void saveSelections() {
-
-
     for (PubItemVOPresentation pubItem : getCurrentPartList()) {
       if (pubItem.getSelected()) {
         getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(),
@@ -937,8 +894,6 @@ public class PubItemListSessionBean extends
     return itemList;
   }
 
-
-
   /**
    * Exports the given items and displays them
    * 
@@ -968,7 +923,7 @@ public class PubItemListSessionBean extends
             new String(icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList)));
       } catch (TechnicalException e) {
-        ((ErrorPage) this.getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED) {
@@ -986,8 +941,6 @@ public class PubItemListSessionBean extends
       return "";
     }
   }
-
-
 
   /**
    * Exports the given pub items and shows the email page.
@@ -1103,7 +1056,6 @@ public class PubItemListSessionBean extends
     return "";
   }
 
-
   /**
    * Returns a map that contains references of the selected pub items of the last page
    * 
@@ -1117,8 +1069,8 @@ public class PubItemListSessionBean extends
     if (SORT_CRITERIA.RELEVANCE.name().equals(getSelectedSortBy())) {
       return false;
     }
-    return true;
 
+    return true;
   }
 
   /**
@@ -1323,7 +1275,7 @@ public class PubItemListSessionBean extends
     if (newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements()) {
       itemPosition = newItemPosition;
     } else {
-      this.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
+      error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
     }
   }
 

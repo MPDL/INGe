@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
-
 /**
  * Backing Bean for ViewStatisticsPage.jsp
  * 
@@ -38,13 +37,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ViewItemStatisticsPage extends BreadcrumbPage {
   public static final String LOAD_VIEWSTATISTICS = "loadViewStatistics";
 
-
-  /**
-   * Public constructor.
-   */
   public ViewItemStatisticsPage() {
     this.init();
   }
@@ -56,9 +52,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
   }
-
 
   /**
    * Returns the ViewItemSessionBean.
@@ -66,7 +60,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   /**

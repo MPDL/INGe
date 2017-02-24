@@ -50,9 +50,11 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
  * @author: Thomas Diebäcker, created 12.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ContextListSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ContextListSessionBean";
-  private static Logger logger = Logger.getLogger(ContextListSessionBean.class);
+
+  private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList =
       new ArrayList<PubContextVOPresentation>();
@@ -70,12 +72,10 @@ public class ContextListSessionBean extends FacesBean {
 
   // private UIXIterator contextIterator = new UIXIterator();
 
-  /**
-   * Public constructor.
-   */
-  public ContextListSessionBean() {}
+  public ContextListSessionBean() {
+    this.init();
+  }
 
-  @Override
   public void init() {
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     try {
@@ -84,7 +84,6 @@ public class ContextListSessionBean extends FacesBean {
       logger.error("Could not create context list.", e);
     }
   }
-
 
   /**
    * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
@@ -130,7 +129,6 @@ public class ContextListSessionBean extends FacesBean {
     } else {
       return depositorContextList.size();
     }
-
   }
 
   public void setDepositorContextList(List<PubContextVOPresentation> contextList) {
@@ -156,7 +154,6 @@ public class ContextListSessionBean extends FacesBean {
     } else {
       return moderatorContextList.size();
     }
-
   }
 
   public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList) {
@@ -184,7 +181,6 @@ public class ContextListSessionBean extends FacesBean {
     } else {
       return yearbookContextList.size();
     }
-
   }
 
   public int getYearbookModeratorContextListSize() {
@@ -193,7 +189,6 @@ public class ContextListSessionBean extends FacesBean {
     } else {
       return yearbookModeratorContextList.size();
     }
-
   }
 
   public void setYearbookModeratorContextList(

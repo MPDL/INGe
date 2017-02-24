@@ -44,15 +44,11 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
   private static Logger logger = Logger.getLogger(QAWSPage.class);
   public static final String BEAN_NAME = "QAWSPage";
 
-
-
-  /**
-   * Public constructor.
-   */
   public QAWSPage() {
     this.init();
   }
@@ -63,6 +59,7 @@ public class QAWSPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -96,7 +93,7 @@ public class QAWSPage extends BreadcrumbPage {
    * @return a reference to the scoped data bean (ViewItemSessionBean)
    */
   protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   public boolean getIsModerator() {

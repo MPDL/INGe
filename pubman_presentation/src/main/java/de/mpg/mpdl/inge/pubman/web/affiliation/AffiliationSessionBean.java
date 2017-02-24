@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.affiliation;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.html.HtmlPanelGrid;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
@@ -65,22 +63,17 @@ public class AffiliationSessionBean extends FacesBean {
   protected String organizationParentValueBinding = new String();
   protected int indexComponent;
 
-  /**
-   * Public constructor.
-   */
-  public AffiliationSessionBean() {
-    this.init();
-  }
+  public AffiliationSessionBean() {}
 
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public List<AffiliationVOPresentation> getCurrentAffiliationList() {
     return currentAffiliationList;
@@ -97,8 +90,6 @@ public class AffiliationSessionBean extends FacesBean {
   public void setBrowseByAffiliation(boolean browseByAffiliation) {
     this.browseByAffiliation = browseByAffiliation;
   }
-
-
 
   /**
    * NiH: returns the list of OrganizationVO's selected in EditItem page

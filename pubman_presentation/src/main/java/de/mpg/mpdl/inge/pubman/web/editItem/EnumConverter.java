@@ -46,13 +46,10 @@ public class EnumConverter implements Converter {
 
   private Object[] valueList = null;
 
-  /**
-   * Public constructor.
-   */
   public EnumConverter() {}
 
   /**
-   * Public constructor.
+   * Public constructor with parameters
    * 
    * @param valueList the list with possible values of the enum
    */

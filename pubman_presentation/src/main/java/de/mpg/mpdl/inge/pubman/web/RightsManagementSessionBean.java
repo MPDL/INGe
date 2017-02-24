@@ -38,8 +38,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: (First draft version) Thomas Diebäcker, created 25.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class RightsManagementSessionBean extends FacesBean {
   public static final String BEAN_NAME = "RightsManagementSessionBean";
+
   private static Logger logger = Logger.getLogger(RightsManagementSessionBean.class);
 
   // prefix for disableing functions in properties file (has to be followed by ".<functionname>")
@@ -48,10 +50,7 @@ public class RightsManagementSessionBean extends FacesBean {
   // constant for the string that marks a function as disabled
   private static final String DISABLED_STRING = "true";
 
-  // Public constructor
-  public RightsManagementSessionBean() {
-    this.init();
-  }
+  public RightsManagementSessionBean() {}
 
   /**
    * Checks if a given function is marked as disabled in the escidoc properties file.

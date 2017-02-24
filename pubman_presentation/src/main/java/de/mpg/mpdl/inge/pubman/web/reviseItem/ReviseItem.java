@@ -53,22 +53,20 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ReviseItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(ReviseItem.class);
+  private static final Logger logger = Logger.getLogger(ReviseItem.class);
   // Faces navigation string
   public static final String LOAD_REVISEITEM = "loadReviseItem";
-  public static final String JSP_NAME = "ReviseItemPage.jsp";
+  // public static final String JSP_NAME = "ReviseItemPage.jsp";
 
   private String reviseComment;
 
-  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
 
   private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public ReviseItem() {
     this.init();
   }
@@ -79,7 +77,7 @@ public class ReviseItem extends FacesBean {
    */
   public final void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
@@ -187,13 +185,13 @@ public class ReviseItem extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;

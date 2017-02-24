@@ -48,11 +48,11 @@ import de.mpg.mpdl.inge.search.query.SearchQuery;
  * @author franke
  * 
  */
+@SuppressWarnings("serial")
 public class OrganizationSuggest extends EditItemBean {
+  private static final Logger logger = Logger.getLogger(OrganizationSuggest.class);
 
-  Logger logger = Logger.getLogger(OrganizationSuggest.class);
-
-  Search search;
+  private Search search;
 
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
@@ -168,6 +168,7 @@ public class OrganizationSuggest extends EditItemBean {
           resultList.get(0));
       return resultList.get(0);
     }
+
     return null;
   }
 

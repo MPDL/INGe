@@ -40,17 +40,14 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ReleaseHistory extends FacesBean {
   public static final String BEAN_NAME = "ReleaseHistory";
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(ReleaseHistory.class);
 
   // Faces navigation string
   public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
-  /**
-   * Public constructor.
-   */
   public ReleaseHistory() {
     this.init();
   }
@@ -60,7 +57,7 @@ public class ReleaseHistory extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    super.init();
+    // super.init();
 
     if (this.getSessionBean().getVersionList() == null) {
       this.getSessionBean().initVersionLists(

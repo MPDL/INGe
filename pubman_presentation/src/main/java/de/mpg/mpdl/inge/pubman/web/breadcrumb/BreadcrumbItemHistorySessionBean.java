@@ -37,8 +37,11 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author Mario Wagner
  * @version:
  */
+@SuppressWarnings("serial")
 public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public static final String BEAN_NAME = "BreadcrumbItemHistorySessionBean";
+
+  private static final Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
 
   // a List of all pages with item-lists
   private final String[] itemListPages = {"SearchResultListPage", "DepositorWSPage", "QAWSPage",
@@ -47,14 +50,10 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   // the List of BreadCrumbs representing JSP's that have been viewed
   private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
 
-
-  private static Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
-
   /**
    * Initializes this BreadcrumbItemHistory.
    */
   public void clear() {
-    logger.debug("Clearing BC");
     breadcrumbs.clear();
   }
 
@@ -72,6 +71,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
     BreadcrumbItem lastItem = null;
     boolean keepold = false;
+
     if (breadcrumbs.size() >= 1) {
       boolean remove = false;
 
@@ -96,6 +96,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
       }
 
       if (remove) {
+
         lastItem = breadcrumbs.get(position);
         boolean specialListTreatment = false;
         // special case for list after watching an item
@@ -109,7 +110,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
                 specialListTreatment = true;
               }
             }
-
           }
         }
 
@@ -133,8 +133,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
       breadcrumbs.add(lastItem);
       logger.debug("Pushing breadcrumb item: " + lastItem);
     }
-
-
 
     breadcrumbs.get(breadcrumbs.size() - 1).setIsLast(true);
   }
@@ -174,9 +172,9 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
         breadcrumbs.remove(index);
       }
     }
+
     return returnItem;
   }
-
 
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
     logger.debug("Accessing BC:" + breadcrumbs + ":" + this);
@@ -249,10 +247,9 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
           return true;
         }
       }
-      return false;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
 }

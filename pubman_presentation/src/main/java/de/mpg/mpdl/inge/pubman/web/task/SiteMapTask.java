@@ -46,13 +46,13 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Thread that creates Sitemap files.
@@ -151,7 +151,7 @@ public class SiteMapTask extends Thread {
         }
         fileWriter = new FileWriter(SITEMAP_PATH + "sitemap.xml");
 
-        File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
+        // File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
         this.copySiteMap(files.get(0), finalFile, (int) files.get(0).length(), true);
       } else {
         String currentDate = dateFormat.format(new Date());

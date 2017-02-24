@@ -37,20 +37,21 @@ public class ValidationService {
 
   public ValidationService() {}
 
-  public void doValidation(final ItemVO itemVO) throws ValidationException, ItemInvalidException {
-    doValidation(itemVO, ValidationPoint.DEFAULT);
-  }
+  // public void doValidation(final ItemVO itemVO) throws ValidationException, ItemInvalidException
+  // {
+  // this.doValidation(itemVO, ValidationPoint.SIMPLE);
+  // }
 
-  public void doValidation(final ItemVO itemVO, String vp) throws ValidationException,
-      ItemInvalidException {
-    ValidationPoint validationPoint = ValidationPoint.valueOf(vp);
-
-    if (validationPoint == null) {
-      throw new ValidationException("unknown validation point");
-    }
-
-    doValidation(itemVO, validationPoint);
-  }
+  // public void doValidation(final ItemVO itemVO, String vp)
+  // throws ValidationException, ItemInvalidException {
+  // ValidationPoint validationPoint = ValidationPoint.valueOf(vp);
+  //
+  // if (validationPoint == null) {
+  // throw new ValidationException("unknown validation point");
+  // }
+  //
+  // this.doValidation(itemVO, validationPoint);
+  // }
 
   public void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
@@ -63,16 +64,66 @@ public class ValidationService {
 
     switch (validationPoint) {
 
-      case DEFAULT:
-        FluentValidator v =
+      case SAVE:
+        FluentValidator vSave =
+            FluentValidator.checkAll().failOver()
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
+
+        ComplexResult resultSave =
+            vSave.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+        System.out.println(resultSave);
+
+        this.checkResult(resultSave);
+
+        break;
+
+      case SIMPLE:
+        FluentValidator vSimple =
             FluentValidator
                 .checkAll()
                 .failOver()
+                .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
+                .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
+                .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
                 .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-                .on(pubItemVO.getFiles(), new UriAsLocatorValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new PublicationCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+
+        ComplexResult resultSimple =
+            vSimple.doValidate().result(
+                com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+        System.out.println(resultSimple);
+
+        this.checkResult(resultSimple);
+
+        break;
+
+      case STANDARD:
+        FluentValidator vStandard =
+            FluentValidator
+                .checkAll()
+                .failOver()
+                .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
                 .on(pubItemVO.getMetadata(), new DateRequiredValidator())
                 .when(
                     !MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre())
@@ -81,15 +132,14 @@ public class ValidationService {
                         && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata()
                             .getGenre())
                         && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()))
-                .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-                .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
-                .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
-                .on(pubItemVO.getMetadata().getCreators(),
-                    new PublicationCreatorsRoleRequiredValidator())
                 .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
                 .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
                 .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-                .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
+                .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new PublicationCreatorsRoleRequiredValidator())
                 .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
                 .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
                 .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator())
@@ -102,25 +152,66 @@ public class ValidationService {
                         || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata()
                             .getGenre()))
                 .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-                .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
-        ComplexResult complexResult =
-            v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+        ComplexResult resultStandard =
+            vStandard.doValidate().result(
+                com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(complexResult);
+        System.out.println(resultStandard);
 
-        checkResult(complexResult);
+        this.checkResult(resultStandard);
 
-        // TODO
-      case ACCEPT_ITEM:
-        throw new ValidationException("undefined validation for validation point:"
-            + validationPoint);
+        break;
 
-        // TODO
-      case SUBMIT_ITEM:
-        throw new ValidationException("undefined validation for validation point:"
-            + validationPoint);
+      case EASY_SUBMISSION_STEP_3:
+        FluentValidator vEasy3 =
+            FluentValidator.checkAll().failOver()
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+
+        ComplexResult resultEasy3 =
+            vEasy3.doValidate()
+                .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+        System.out.println(resultEasy3);
+
+        this.checkResult(resultEasy3);
+
+        break;
+
+      case EASY_SUBMISSION_STEP_4:
+        FluentValidator vEasy4 =
+            FluentValidator
+                .checkAll()
+                .failOver()
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new PublicationCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+
+        ComplexResult resultEasy4 =
+            vEasy4.doValidate()
+                .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
+
+        System.out.println(resultEasy4);
+
+        this.checkResult(resultEasy4);
+
+        break;
 
       default:
         throw new ValidationException("undefined validation for validation point:"

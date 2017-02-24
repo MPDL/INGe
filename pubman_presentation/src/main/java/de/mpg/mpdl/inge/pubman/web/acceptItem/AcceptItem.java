@@ -53,22 +53,20 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@SuppressWarnings("serial")
 public class AcceptItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(AcceptItem.class);
+  private static final Logger logger = Logger.getLogger(AcceptItem.class);
+
   // Faces navigation string
   public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
-  public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
+  // public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String acceptanceComment = null;
-
-  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
 
-  private String navigationStringToGoBack;
+  // private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public AcceptItem() {
     this.init();
   }
@@ -79,11 +77,11 @@ public class AcceptItem extends FacesBean {
    */
   public final void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -101,14 +99,14 @@ public class AcceptItem extends FacesBean {
     }
     this.creators = creators.toString();
 
-    if (logger.isDebugEnabled()) {
-      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger
-            .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
-      } else {
-        logger.error("NO ITEM GIVEN");
-      }
-    }
+    // if (logger.isDebugEnabled()) {
+    // if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
+    // logger
+    // .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
+    // } else {
+    // logger.error("NO ITEM GIVEN");
+    // }
+    // }
   }
 
   /**
@@ -130,7 +128,7 @@ public class AcceptItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal;
-    String navigateTo = getSessionBean().getNavigationStringToGoBack();
+    String navigateTo = getAcceptItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
@@ -157,8 +155,6 @@ public class AcceptItem extends FacesBean {
       }
     }
 
-
-
     return retVal;
   }
 
@@ -173,7 +169,7 @@ public class AcceptItem extends FacesBean {
     try {
       fc.getExternalContext().redirect(
           request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+              + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
@@ -186,8 +182,7 @@ public class AcceptItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -206,13 +201,11 @@ public class AcceptItem extends FacesBean {
    * @author Michael Franke
    */
   public void handleMessage() {
-
-    String message = this.getSessionBean().getMessage();
-
-    this.valMessage = message;
+    // String message = this.getAcceptItemSessionBean().getMessage();
+    // this.valMessage = message;
 
     // keep the message just once
-    this.getSessionBean().setMessage(null);
+    this.getAcceptItemSessionBean().setMessage(null);
   }
 
   /**
@@ -229,7 +222,7 @@ public class AcceptItem extends FacesBean {
    * 
    * @return a reference to the scoped data bean (AcceptItemSessionBean)
    */
-  protected final AcceptItemSessionBean getSessionBean() {
+  protected final AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
@@ -241,24 +234,24 @@ public class AcceptItem extends FacesBean {
     this.acceptanceComment = acceptanceComment;
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
-
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+  // public final String getNavigationStringToGoBack() {
+  // return navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {
@@ -271,8 +264,7 @@ public class AcceptItem extends FacesBean {
    * @return boolean true if at least one of the files has visibility Audience
    */
   public boolean getHasAudienceFiles() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }

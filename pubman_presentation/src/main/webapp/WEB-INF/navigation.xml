@@ -36,7 +36,7 @@
 		<navigation-case>
 			<from-outcome>loadViewItemOverview</from-outcome>
 			<to-view-id>
-			/viewItemOverviewPage.jsp</to-view-id>
+			/ViewItemOverviewPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -45,7 +45,7 @@
 		<navigation-case>
 			<from-outcome>loadViewItem</from-outcome>
 			<to-view-id>
-			/viewItemFullPage.jsp</to-view-id>
+			/ViewItemFullPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -55,15 +55,6 @@
 			<from-outcome>loadHome</from-outcome>
 			<to-view-id>
 			/HomePage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>showOrganizationInformation</from-outcome>
-			<to-view-id>
-			/viewItem/viewItemOrganizationInformationPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -123,24 +114,6 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
-			<from-outcome>noItemsFound</from-outcome>
-			<to-view-id>
-			/NoSearchResultsPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>showAffiliationSearchResults</from-outcome>
-			<to-view-id>
-			/AffiliationSearchResultListPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
 			<from-outcome>displaySearchPage</from-outcome>
 			<to-view-id>
 			/AdvancedSearchPage.jsp</to-view-id>
@@ -153,25 +126,6 @@
 			<from-outcome>displayExportEmailPage</from-outcome>
 			<to-view-id>
 			/ExportEmailPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>viewItemFileDownload</from-outcome>
-			<to-view-id>
-			/viewItem/viewItemFileDownloadPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>loadLoginErrorPage</from-outcome>
-			<to-view-id>
-			/LoginErrorPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -199,15 +153,6 @@
 			<from-outcome>loadErrorPage</from-outcome>
 			<to-view-id>
 			/ErrorPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>loadGTErrorPage</from-outcome>
-			<to-view-id>
-			/GTErrorPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -290,16 +235,6 @@
 			<to-view-id>
 			/ReviseItemPage.jsp</to-view-id>
 		</navigation-case>
-	</navigation-rule>
-		<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>loadExportPage</from-outcome>
-			<to-view-id>
-			/ExportPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
 		*</from-view-id>
@@ -361,15 +296,6 @@
 			<from-outcome>loadBrowseByPage</from-outcome>
 			<to-view-id>
 			/BrowseByPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-		*</from-view-id>
-		<navigation-case>
-			<from-outcome>loadYearbookInvalidItemsPage</from-outcome>
-			<to-view-id>
-			/YearbookInvalidItemsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>

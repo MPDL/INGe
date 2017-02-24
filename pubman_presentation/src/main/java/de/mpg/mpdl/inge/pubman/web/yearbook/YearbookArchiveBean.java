@@ -10,17 +10,16 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
@@ -33,30 +32,31 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
   private final String MAXIMUM_RECORDS = "5000";
   public static final String BEAN_NAME = "YearbookArchiveBean";
   private static final Logger logger = Logger.getLogger(YearbookArchiveBean.class);
 
-  private YearbookItemSessionBean yearbookItemSessionBean;
+  // private YearbookItemSessionBean yearbookItemSessionBean;
   private LoginHelper loginHelper;
   private XmlTransforming xmlTransforming;
-  private PubItemVO activeYearbookItem;
-  private MdsYearbookVO yearbookMetadata;
+  // private PubItemVO activeYearbookItem;
+  // private MdsYearbookVO yearbookMetadata;
   private List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
 
   public YearbookArchiveBean() throws Exception {
-    this.yearbookItemSessionBean =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    // this.yearbookItemSessionBean =
+    // (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
     this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
     InitialContext initialContext = new InitialContext();
     this.xmlTransforming =
         (XmlTransforming) initialContext
             .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-    this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
+    // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();

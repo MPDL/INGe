@@ -26,15 +26,22 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
+@SuppressWarnings("serial")
 public class ViewRevisionsPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(CartItemsPage.class);
   public static final String BEAN_NAME = "ViewRevisionsPage";
 
   public ViewRevisionsPage() {
+    this.init();
+  }
+
+  /**
+   * Callback method that is called whenever a page containing this page fragment is navigated to,
+   * either directly via a URL, or indirectly via page navigation.
+   */
+  public void init() {
+    // Perform initializations inherited from our superclass
     super.init();
   }
 
@@ -42,6 +49,5 @@ public class ViewRevisionsPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 
 }

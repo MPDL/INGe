@@ -26,12 +26,11 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 public class RenderResponsePhaseListener implements PhaseListener {
   public PhaseId getPhaseId() {
     return PhaseId.RENDER_RESPONSE;
@@ -40,9 +39,9 @@ public class RenderResponsePhaseListener implements PhaseListener {
   public void afterPhase(PhaseEvent event) {}
 
   public void beforePhase(PhaseEvent event) {
-    FacesContext facesContext = event.getFacesContext();
-    HttpServletResponse response =
-        (HttpServletResponse) facesContext.getExternalContext().getResponse();
+    // FacesContext facesContext = event.getFacesContext();
+    // HttpServletResponse response =
+    // (HttpServletResponse) facesContext.getExternalContext().getResponse();
     // response.addHeader("Pragma", "no-cache");
     // response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     // response.addHeader("Expires", "-1"); // some date in the past Mon, 8 Aug 2006 10:00:00 GMT

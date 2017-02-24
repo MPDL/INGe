@@ -25,12 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -40,11 +34,10 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Tobias Schraut, created 14.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 13.09.2007
  */
+@SuppressWarnings("serial")
 public class AffiliationTreePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
-
   // The referring GUI Tool Page
-  public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
+  // public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
 
   /**
    * Construct a new Page bean instance.
@@ -52,7 +45,6 @@ public class AffiliationTreePage extends BreadcrumbPage {
   public AffiliationTreePage() {
     this.init();
     getSessionBean(ItemControllerSessionBean.class);
-
   }
 
   /**
@@ -66,27 +58,22 @@ public class AffiliationTreePage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
-    // redirect to the referring GUI Tool page if the application has been
-    // started as GUI Tool
-
-
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool Affiliation tree page." + "\n" + e.toString());
-    }
-    return "";
-  }
+  // /**
+  // * Redirets to the referring GUI Tool page.
+  // *
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool Affiliation tree page." + "\n" + e.toString());
+  // }
+  // return "";
+  // }
 
 
 

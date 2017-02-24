@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.audience;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.GrantVOPresentation;
@@ -42,8 +40,8 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * 
  * @author: Tobias Schraut, 2009-05-20
  */
+@SuppressWarnings("serial")
 public class AudienceSessionBean extends FacesBean {
-  private static Logger logger = Logger.getLogger(AudienceSessionBean.class);
   public static final String BEAN_NAME = "AudienceSessionBean";
   // the original file list with the original grants retrieved from core-service and which will be
   // applied if user clicks on cancel
@@ -55,21 +53,16 @@ public class AudienceSessionBean extends FacesBean {
 
   private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
 
-  /**
-   * Public constructor.
-   */
-  public AudienceSessionBean() {
-    this.init();
-  }
+  public AudienceSessionBean() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public final void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public void cleanUp() {
     this.fileListNew = new ArrayList<PubFileVOPresentation>();

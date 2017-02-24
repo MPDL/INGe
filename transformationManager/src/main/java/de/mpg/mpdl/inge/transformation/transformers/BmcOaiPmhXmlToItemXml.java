@@ -11,8 +11,7 @@ import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.BMC_OAIPMH_XML,
-    targetFormat = FORMAT.ESCIDOC_COMPONENT_XML)
+@TransformerModule(sourceFormat = FORMAT.BMC_OAIPMH_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 public class BmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
 

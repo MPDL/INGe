@@ -56,22 +56,21 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@SuppressWarnings("serial")
 public class SubmitItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(SubmitItem.class);
+  private static final Logger logger = Logger.getLogger(SubmitItem.class);
+
   // Faces navigation string
   public static final String LOAD_SUBMITITEM = "loadSubmitItem";
-  public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
+
+  // public static final String JSP_NAME = "SubmitItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String submissionComment;
-
-  private String valMessage = null;
+  // private String valMessage = null;
   private String creators;
 
-  private String navigationStringToGoBack;
+  // private String navigationStringToGoBack;
 
-  /**
-   * Public constructor.
-   */
   public SubmitItem() {
     this.init();
   }
@@ -82,11 +81,11 @@ public class SubmitItem extends FacesBean {
    */
   public final void init() {
     // Perform initializations inherited from our superclass
-    super.init();
+    // super.init();
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -120,7 +119,7 @@ public class SubmitItem extends FacesBean {
    * @return the item that is currently edited
    */
   public final PubItemVO getPubItem() {
-    return (this.getItemControllerSessionBean().getCurrentPubItem());
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
   /**
@@ -144,7 +143,7 @@ public class SubmitItem extends FacesBean {
         this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
+      if (this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       }
       // distinguish between simple and standard workflow
@@ -191,14 +190,12 @@ public class SubmitItem extends FacesBean {
     try {
       fc.getExternalContext().redirect(
           request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+              + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
-
-
 
   /**
    * Adds and removes messages on this page, if any.
@@ -206,13 +203,11 @@ public class SubmitItem extends FacesBean {
    * @author Michael Franke
    */
   public void handleMessage() {
-
-    String message = this.getSessionBean().getMessage();
-
-    this.valMessage = message;
+    // String message = this.getSessionBean().getMessage();
+    // this.valMessage = message;
 
     // keep the message just once
-    this.getSessionBean().setMessage(null);
+    this.getSubmitItemSessionBean().setMessage(null);
   }
 
   /**
@@ -221,8 +216,7 @@ public class SubmitItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -241,8 +235,7 @@ public class SubmitItem extends FacesBean {
    * @return boolean true if at least one of the files has visibility Audience
    */
   public boolean getHasAudienceFiles() {
-    PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
-    for (FileVO file : pubItemVO.getFiles()) {
+    for (FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }
@@ -259,42 +252,41 @@ public class SubmitItem extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-
   /**
    * Returns the DepositorWSSessionBean.
    * 
    * @return a reference to the scoped data bean (DepositorWSSessionBean)
    */
-  protected final SubmitItemSessionBean getSessionBean() {
-    return (SubmitItemSessionBean) getBean(SubmitItemSessionBean.class);
+  protected final SubmitItemSessionBean getSubmitItemSessionBean() {
+    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
   }
 
   public String getSubmissionComment() {
-    return submissionComment;
+    return this.submissionComment;
   }
 
   public void setSubmissionComment(String submissionComment) {
     this.submissionComment = submissionComment;
   }
 
-  public String getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(String valMessage) {
-    this.valMessage = valMessage;
-  }
-
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+  // public String getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(String valMessage) {
+  // this.valMessage = valMessage;
+  // }
+  //
+  // public final String getNavigationStringToGoBack() {
+  // return navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {
@@ -312,6 +304,6 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsSubmitted() {
-    return getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
+    return this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
   }
 }

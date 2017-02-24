@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
@@ -38,17 +36,11 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ExportEmailPage extends BreadcrumbPage {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(ExportEmailPage.class);
-
-  /**
-   * Public constructor
-   */
   public ExportEmailPage() {
     this.init();
   }
-
 
   /**
    * Callback method that is called whenever a page is navigated to, either directly via a URL, or
@@ -66,18 +58,18 @@ public class ExportEmailPage extends BreadcrumbPage {
     sb.setEnableExport(false);
   }
 
-  /*
-   * Handle messages in fragments from here to please JSF life cycle. Used to remove the last shown
-   * msg
-   * 
-   * @author: Michael Franke
-   */
-  @Override
-  public void prerender() {
-    super.prerender();
-    // fragment.handleMessage();
-
-  }
+  // /*
+  // * Handle messages in fragments from here to please JSF life cycle. Used to remove the last
+  // shown
+  // * msg
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // // fragment.handleMessage();
+  // }
 
   @Override
   public boolean isItemSpecific() {

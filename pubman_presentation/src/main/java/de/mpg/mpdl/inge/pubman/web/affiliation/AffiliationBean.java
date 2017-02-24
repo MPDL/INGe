@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.affiliation;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.el.ValueExpression;
@@ -42,7 +41,7 @@ public class AffiliationBean extends FacesBean {
   AffiliationVOPresentation selectedAffiliation = null;
   private String source = null;
   private Object cache = null;
-  private long timestamp;
+  // private long timestamp;
 
   private TreeNode rootTreeNode;
 
@@ -54,7 +53,7 @@ public class AffiliationBean extends FacesBean {
    */
   public AffiliationBean() throws Exception {
     // tree = new ChildPropertyTreeModel(getAffiliations(), "children");
-    timestamp = new Date().getTime();
+    // timestamp = new Date().getTime();
     this.setTopLevelAffs(getTopLevelAffiliations());
 
 
@@ -174,9 +173,9 @@ public class AffiliationBean extends FacesBean {
     return null;
   }
 
-  private AffiliationSessionBean getAffiliationSessionBean() {
-    return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
-  }
+  // private AffiliationSessionBean getAffiliationSessionBean() {
+  // return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
+  // }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);

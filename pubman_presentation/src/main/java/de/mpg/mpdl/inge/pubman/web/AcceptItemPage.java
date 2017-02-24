@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -36,10 +35,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
+@SuppressWarnings("serial")
 public class AcceptItemPage extends BreadcrumbPage {
-  /**
-   * Public constructor.
-   */
   public AcceptItemPage() {
     this.init();
   }
@@ -53,22 +50,21 @@ public class AcceptItemPage extends BreadcrumbPage {
     super.init();
   }
 
-  /**
-   * Handle messages in fragments from here to please JSF life cycle.
-   * 
-   * @author: Michael Franke
-   */
-  @Override
-  public void prerender() {
-    super.prerender();
-    AcceptItem fragment = (AcceptItem) getBean(AcceptItem.class);
-    fragment.handleMessage();
-  }
+  // /**
+  // * Handle messages in fragments from here to please JSF life cycle.
+  // *
+  // * @author: Michael Franke
+  // */
+  // @Override
+  // public void prerender() {
+  // // super.prerender();
+  // AcceptItem fragment = (AcceptItem) getRequestBean(AcceptItem.class);
+  // fragment.handleMessage();
+  // }
 
   @Override
   public boolean isItemSpecific() {
     return true;
   }
-
 
 }

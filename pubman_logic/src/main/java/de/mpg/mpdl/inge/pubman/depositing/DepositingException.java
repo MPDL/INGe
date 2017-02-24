@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class DepositingException extends PubManException {
   /**
    * The reference of the pubitem.

@@ -36,9 +36,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
 public class ObjectFormatter extends InternationalizedImpl {
-  /**
-   * Public constructor.
-   */
   public ObjectFormatter() {}
 
   /**

@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;

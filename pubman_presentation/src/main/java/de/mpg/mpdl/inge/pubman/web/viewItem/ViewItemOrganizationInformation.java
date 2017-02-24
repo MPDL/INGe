@@ -34,20 +34,16 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Tobias Schraut, created 20.02.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
+@SuppressWarnings("serial")
 public class ViewItemOrganizationInformation extends FacesBean {
-  /**
-   * Public constructor
-   */
-  public ViewItemOrganizationInformation() {
-    this.init();
-  }
+  public ViewItemOrganizationInformation() {}
 
-  /**
-   * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-   * indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page is navigated to, either directly via a URL, or
+  // * indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 }

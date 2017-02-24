@@ -180,43 +180,23 @@
 										<include>**/*.properties</include>
 									</includes>
 								</resource>
+								<resource>
+									<targetPath></targetPath>
+									<directory>${project.basedir}/src/main/webapp/home/mpg</directory>
+									<includes>
+										<include>StartPageLoggedIn.jspf</include>
+										<include>StartPageLoggedOut.jspf</include>
+									</includes>
+								</resource>
 							</webResources>
 						</configuration>
 					</plugin>
 
 
-
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedIn.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf"
-											encoding="UTF-8" outputencoding="UTF-8" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/mpg/StartPageLoggedOut.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf"
-											encoding="UTF-8" outputencoding="UTF-8" />
-										<!-- delete dir="${project.build.directory}/main/webapp/home/mpg"/ -->
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
+		
 		<profile>
 			<id>env-opensource</id>
 			<activation>
@@ -278,35 +258,20 @@
 							<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
 							<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
 							<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
+							<webResources>
+								<resource>
+									<targetPath></targetPath>
+									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
+									<includes>
+										<include>StartPageLoggedIn.jspf</include>
+										<include>StartPageLoggedOut.jspf</include>
+									</includes>
+								</resource>
+							</webResources>
 						</configuration>
 					</plugin>
 
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedIn.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedOut.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<!-- delete dir="${project.build.directory}/main/webapp/home/opensource"/ -->
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+					
 				</plugins>
 			</build>
 		</profile>
@@ -368,33 +333,17 @@
 							<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
 							<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
 							<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
+							<webResources>
+								<resource>
+									<targetPath></targetPath>
+									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
+									<includes>
+										<include>StartPageLoggedIn.jspf</include>
+										<include>StartPageLoggedOut.jspf</include>
+									</includes>
+								</resource>
+							</webResources>
 						</configuration>
-					</plugin>
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<delete
-											file="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedIn.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedIn.jspf" />
-										<copy
-											file="${project.basedir}/src/main/webapp/home/opensource/StartPageLoggedOut.jspf"
-											tofile="${project.basedir}/src/main/webapp/home/StartPageLoggedOut.jspf" />
-										<!-- delete dir="${project.build.directory}/main/webapp/home/opensource"/ -->
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>

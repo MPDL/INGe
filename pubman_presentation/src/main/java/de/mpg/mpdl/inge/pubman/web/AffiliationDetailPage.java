@@ -31,11 +31,11 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * 
@@ -55,11 +55,7 @@ public class AffiliationDetailPage extends FacesBean {
   private AffiliationVOPresentation affiliation;
   private XmlTransforming xmlTransforming;
 
-  /**
-   * Construct a new Page bean instance.
-   */
   public AffiliationDetailPage() {
-    this.init();
     try {
       String ouXml = null;
       InitialContext initialContext = new InitialContext();
@@ -87,14 +83,9 @@ public class AffiliationDetailPage extends FacesBean {
 
   }
 
-
-  public void init() {}
-
-
   public void setAffiliation(AffiliationVOPresentation affiliation) {
     this.affiliation = affiliation;
   }
-
 
   public AffiliationVOPresentation getAffiliation() {
     return this.affiliation;

@@ -38,12 +38,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
@@ -196,7 +193,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     balanceMap.clear();
 
     initCriterionListWithEmptyValues();
-
   }
 
   private void initCriterionListWithEmptyValues() {
@@ -716,7 +712,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     int balanceCounter = 0;
     boolean lookForClosingParenthesis = false;
     int startParenthesisBalance = 0;
-    int pos = 0;
+    // int pos = 0;
 
     this.numberOfSearchCriterions = 0;
 
@@ -753,7 +749,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
           && !DisplayType.PARENTHESIS.equals(sc.getSearchCriterion().getDisplayType())) {
         this.numberOfSearchCriterions++;
       }
-      pos++;
+      // pos++;
     }
 
     // logger.info("number of search criterions: " + numberOfSearchCriterions);

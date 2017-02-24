@@ -38,8 +38,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 16.08.2007
  */
+@SuppressWarnings("serial")
 public class BreadcrumbItem extends FacesBean {
-  private static Logger logger = Logger.getLogger(BreadcrumbItem.class);
+  private static final Logger logger = Logger.getLogger(BreadcrumbItem.class);
 
   // The String that should be displayed in the breadcrumb menu, e.g. "ViewItem"
   private String displayValue;
@@ -125,7 +126,7 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public boolean getIsLast() {
-    return isLast;
+    return this.isLast;
   }
 
   public void setIsLast(boolean isLast) {
@@ -141,8 +142,8 @@ public class BreadcrumbItem extends FacesBean {
       } catch (Exception e) {
         logger.error("Error executing default action", e);
       }
-
     }
+
     return null;
   }
 

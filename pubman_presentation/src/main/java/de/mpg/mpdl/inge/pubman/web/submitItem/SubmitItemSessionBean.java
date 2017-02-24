@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.submitItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -37,33 +35,26 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class SubmitItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "SubmitItemSessionBean";
-
-  @SuppressWarnings("unused")
-  private static final Logger LOGGER = Logger.getLogger(SubmitItemSessionBean.class);
 
   // navigationString to go back to the list where submitItem has been called from
   private String navigationStringToGoBack = null;
 
   private String message;
 
-  /**
-   * Public constructor.
-   */
-  public SubmitItemSessionBean() {
-    this.init();
-  }
+  public SubmitItemSessionBean() {}
 
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
-  public final void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * This method is called when this bean is initially added to session scope. Typically, this
+  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
+  // * the managed bean facility to instantiate this bean and store it into session scope.
+  // */
+  // public final void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;

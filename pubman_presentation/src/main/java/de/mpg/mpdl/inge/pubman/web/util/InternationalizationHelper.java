@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -54,7 +53,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -63,18 +61,20 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 04.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
+@SuppressWarnings("serial")
 public class InternationalizationHelper implements Serializable {
-
   public static final String BEAN_NAME = "InternationalizationHelper";
-  private static Logger logger = Logger.getLogger(InternationalizationHelper.class);
+
+  private static final Logger logger = Logger.getLogger(InternationalizationHelper.class);
+
   public static final String LABEL_BUNDLE = "Label";
   public static final String MESSAGES_BUNDLE = "Messages";
   public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
   public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
+
   private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
-
 
   private List<LanguageChangeObserver> languageChangeObservers =
       new ArrayList<LanguageChangeObserver>();

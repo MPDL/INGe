@@ -17,13 +17,13 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
@@ -46,11 +46,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookCandidatesRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
+  public static final String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
+
   private static final Logger logger = Logger
       .getLogger(YearbookCandidatesRetrieverRequestBean.class);
-  public static final String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
 
   private String selectedSortOrder;
 
@@ -76,7 +78,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private int numberOfRecords;
 
   private YearbookItemSessionBean yisb;
-  private PubItemListSessionBean pilsb;
+  // private PubItemListSessionBean pilsb;
 
   @EJB
   private Search searchService;
@@ -85,16 +87,12 @@ public class YearbookCandidatesRetrieverRequestBean extends
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
     // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
     // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
-
   }
 
   @Override
   public void init() {
-    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-
+    // pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-
-
   }
 
   @Override
@@ -330,16 +328,16 @@ public class YearbookCandidatesRetrieverRequestBean extends
      * 
      * MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
      */
-    String orgUnit = "";
+    // String orgUnit = "";
     String contextQuery = "";
-    if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-        .getIdentifier() != null) {
-      orgUnit =
-          MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
-              + "=\""
-              + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-                  .getIdentifier() + "\"";
-    }
+    // if (yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+    // .getIdentifier() != null) {
+    // orgUnit =
+    // MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
+    // + "=\""
+    // + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
+    // .getIdentifier() + "\"";
+    // }
 
     if (yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts() != null
         && yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts().size() > 0) {

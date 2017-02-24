@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -36,17 +34,9 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @author Tobias Schraut, created 28.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class ViewItemMedium extends FacesBean {
 
-
-
-  /**
-   * Public constructor.
-   */
-  public ViewItemMedium() {
-
-  }
-
-
+  public ViewItemMedium() {}
 
 }

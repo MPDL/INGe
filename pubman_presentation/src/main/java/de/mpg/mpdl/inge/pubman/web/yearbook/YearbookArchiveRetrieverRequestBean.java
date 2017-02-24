@@ -5,31 +5,25 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.search.Search;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook
@@ -41,10 +35,13 @@ import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@SuppressWarnings("serial")
 public class YearbookArchiveRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
   public static final String BEAN_NAME = "YearbookArchiveRetrieverRequestBean";
+
+  private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
+
   private String selectedSortOrder;
   private static String parameterSelectedOrgUnit = "orgUnit";
   private int numberOfRecords;
@@ -58,15 +55,11 @@ public class YearbookArchiveRetrieverRequestBean extends
 
   public YearbookArchiveRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
-
   }
 
   @Override
   public void init() {
     pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-
-
-
   }
 
   @Override

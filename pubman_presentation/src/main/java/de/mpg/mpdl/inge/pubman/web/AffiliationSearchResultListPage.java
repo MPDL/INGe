@@ -25,12 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -40,12 +34,13 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @author: Tobias Schraut, created 14.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 13.09.2007
  */
+@SuppressWarnings("serial")
 public class AffiliationSearchResultListPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(AffiliationSearchResultListPage.class);
+  // private static Logger logger = Logger.getLogger(AffiliationSearchResultListPage.class);
 
-  // The referring GUI Tool Page
-  public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE =
-      "GTAffiliationSearchResultListPage.jsp";
+  // // The referring GUI Tool Page
+  // public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE =
+  // "GTAffiliationSearchResultListPage.jsp";
 
   /**
    * Construct a new Page bean instance.
@@ -65,28 +60,23 @@ public class AffiliationSearchResultListPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-
-    // redirect to the referring GUI Tool page if the application has been
-    // started as GUI Tool
-
-
   }
 
-  /**
-   * Redirets to the referring GUI Tool page.
-   * 
-   * @return a navigation string
-   */
-  protected String redirectToGUITool() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    try {
-      fc.getExternalContext().redirect(GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
-    } catch (IOException e) {
-      logger.error("Could not redirect to GUI Tool Affiliation Search result list page." + "\n"
-          + e.toString());
-    }
-    return "";
-  }
+  // /**
+  // * Redirets to the referring GUI Tool page.
+  // *
+  // * @return a navigation string
+  // */
+  // protected String redirectToGUITool() {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // try {
+  // fc.getExternalContext().redirect(GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
+  // } catch (IOException e) {
+  // logger.error("Could not redirect to GUI Tool Affiliation Search result list page." + "\n"
+  // + e.toString());
+  // }
+  // return "";
+  // }
 
   @Override
   public boolean isItemSpecific() {

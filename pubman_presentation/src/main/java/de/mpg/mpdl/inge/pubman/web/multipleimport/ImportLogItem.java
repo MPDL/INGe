@@ -26,12 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Date;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;

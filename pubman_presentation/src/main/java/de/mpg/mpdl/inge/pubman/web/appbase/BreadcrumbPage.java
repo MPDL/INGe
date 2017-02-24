@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.appbase;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -25,10 +24,9 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
-
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(BreadcrumbPage.class);
+  private static final Logger logger = Logger.getLogger(BreadcrumbPage.class);
 
   private BreadcrumbItem previousItem = null;
 
@@ -36,8 +34,7 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-
-    super.init();
+    // super.init();
 
     logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
 
@@ -46,15 +43,13 @@ public abstract class BreadcrumbPage extends FacesBean {
     String pageName = page.substring(0, page.lastIndexOf("."));
 
     // -----
-    Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
-
+    // Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
 
     HttpServletRequest requ = (HttpServletRequest) fc.getExternalContext().getRequest();
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
     if (requ.getQueryString() != null && !pageName.equals("HomePage")) {
       page += "?" + requ.getQueryString();
     }
-
 
     /*
      * String itemId = parameterMap.get("itemId"); if (itemId!=null) { page += "?itemId="+itemId; }
@@ -94,7 +89,6 @@ public abstract class BreadcrumbPage extends FacesBean {
     }
   }
 
-
   public String getPreviousPageURI() {
     return previousItem.getPage();
   }
@@ -115,13 +109,13 @@ public abstract class BreadcrumbPage extends FacesBean {
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }
+
     return null;
   }
 
   protected Method getDefaultAction() throws NoSuchMethodException {
     return null;
   }
-
 
   public abstract boolean isItemSpecific();
 

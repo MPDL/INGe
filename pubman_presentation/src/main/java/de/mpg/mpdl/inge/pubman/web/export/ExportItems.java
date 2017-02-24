@@ -27,16 +27,13 @@ package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
-import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean;
@@ -53,6 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007
  */
+@SuppressWarnings("serial")
 public class ExportItems extends FacesBean {
   private static Logger logger = Logger.getLogger(ExportItems.class);
 
@@ -63,7 +61,7 @@ public class ExportItems extends FacesBean {
   private final String FUNCTION_EXPORT = "export";
 
   // binded components in JSP
-  private HtmlMessages valMessage = new HtmlMessages();
+  // private HtmlMessages valMessage = new HtmlMessages();
   // private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
 
@@ -87,24 +85,17 @@ public class ExportItems extends FacesBean {
   public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
   public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
 
-  /**
-   * Default constructor.
-   */
-  public ExportItems() {
-    this.init();
-  }
+  public ExportItems() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    logger.debug(" init ExportItems >>>");
-    super.init();
-    // setExportFormats();
-
-  }
-
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // logger.debug(" init ExportItems >>>");
+  // //super.init();
+  // // setExportFormats();
+  // }
 
   /**
    * Returns the RightsManagementSessionBean.
@@ -235,8 +226,8 @@ public class ExportItems extends FacesBean {
         || "CSL".equalsIgnoreCase(selExportFormat)) {
       // set default fileFormat for APA or AJP to pdf
       String fileFormat = sb.getFileFormat();
-      if (fileFormat != null || fileFormat.trim().equals("")
-          || fileFormat.trim().equals(FileFormatVO.TEXT_NAME))
+      if (fileFormat != null || fileFormat != null && fileFormat.trim().equals("")
+          || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TEXT_NAME))
         sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
     } else {
       String fileFormat = null;
@@ -291,13 +282,13 @@ public class ExportItems extends FacesBean {
     sb.setExportEmailReplyToAddr(null);
   }
 
-  public HtmlMessages getValMessage() {
-    return valMessage;
-  }
-
-  public void setValMessage(HtmlMessages valMessage) {
-    this.valMessage = valMessage;
-  }
+  // public HtmlMessages getValMessage() {
+  // return valMessage;
+  // }
+  //
+  // public void setValMessage(HtmlMessages valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   /**
    * Adds and removes messages concerning item lists.

@@ -116,21 +116,12 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class EasySubmission extends FacesBean {
   public static final String BEAN_NAME = "EasySubmission";
-  private static Logger logger = Logger.getLogger(EasySubmission.class);
-  // Import Service
-  private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
-  // Transformation Service
-  private Transformation transformer = null;
-  // XML Transforming Service
-  @EJB
-  private XmlTransforming xmlTransforming;
-  // Validation Service
-  @EJB
-  private ItemValidating itemValidating;
-  private HtmlSelectOneRadio radioSelect;
-  private HtmlSelectOneMenu dateSelect;
+
+  private static final Logger logger = Logger.getLogger(EasySubmission.class);
+
   // constants for the submission method
   public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL",
       getLabel("easy_submission_method_manual"));
@@ -154,16 +145,38 @@ public class EasySubmission extends FacesBean {
   public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED,
       this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE,
       this.DATE_MODIFIED};
+
   public final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
+
   // Faces navigation string
   public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
+
+  // Import Service
+  private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
+
+  // Transformation Service
+  private Transformation transformer = null;
+
+  // XML Transforming Service
+  @EJB
+  private XmlTransforming xmlTransforming;
+
+  // Validation Service
+  @EJB
+  private ItemValidating itemValidating;
+
+  private HtmlSelectOneRadio radioSelect;
+  private HtmlSelectOneMenu dateSelect;
+
   private UploadedFile uploadedFile;
+
   /*
    * private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat(); private HtmlAjaxRepeat
    * locatorIterator = new HtmlAjaxRepeat(); private HtmlAjaxRepeat creatorIterator = new
    * HtmlAjaxRepeat();
    */
-  public SelectItem[] locatorVisibilities;
+
+  private SelectItem[] locatorVisibilities;
   private IdentifierCollection identifierCollection;
   private String selectedDate;
   private boolean fromEasySubmission = false;
@@ -171,12 +184,12 @@ public class EasySubmission extends FacesBean {
   private List<DataSourceVO> dataSources = new ArrayList<DataSourceVO>();
   private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
   // private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
-  public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-  public SelectItem[] FULLTEXT_OPTIONS;
-  public SelectItem[] REFERENCE_OPTIONS;
+  private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+  private SelectItem[] FULLTEXT_OPTIONS;
+  private SelectItem[] REFERENCE_OPTIONS;
   private String serviceID;
   private boolean overwriteCreators;
-  private HtmlMessages valMessage = new HtmlMessages();
+  // private HtmlMessages valMessage = new HtmlMessages();
   private String suggestConeUrl = null;
   private String hiddenAlternativeTitlesField;
   private String hiddenIdsField;
@@ -189,10 +202,6 @@ public class EasySubmission extends FacesBean {
   // Dummy for language autosuggest
   private String alternativeLanguageName;
 
-
-  /**
-   * Public constructor.
-   */
   public EasySubmission() {
 
     // InitialContext initialContext = new InitialContext();
@@ -207,7 +216,7 @@ public class EasySubmission extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    super.init();
+    // super.init();
     SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
     SUBMISSION_METHOD_FETCH_IMPORT =
         new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
@@ -330,7 +339,7 @@ public class EasySubmission extends FacesBean {
     } else {
       this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
     }
-    this.setBibTexInfo();
+    // this.setBibTexInfo();
     if (getItem() != null && getItem().getMetadata() != null && getSource() != null
         && getSource().getGenre() != null && getSource().getGenre().equals(SourceVO.Genre.JOURNAL)) {
     }
@@ -530,9 +539,9 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  public String saveValues() {
-    return null;
-  }
+  // public String saveValues() {
+  // return null;
+  // }
 
   public String saveLocator() {
     // EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
@@ -595,7 +604,7 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
     this.setFromEasySubmission(true);
     // info(getMessage("easy_submission_preview_hint"));
-    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "validate") == null) {
+    if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
     }
     EditItem editItem = (EditItem) getRequestBean(EditItem.class);
@@ -823,14 +832,14 @@ public class EasySubmission extends FacesBean {
     if (file != null && file.getSize() > 0) {
       try {
         // upload the file
-        LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
         if (url != null) {
           contentURL = url.toString();
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
         // force JSF to load the ErrorPage
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
@@ -1023,7 +1032,7 @@ public class EasySubmission extends FacesBean {
           byte[] ba =
               dataHandler.doFetch(this.getEasySubmissionSessionBean()
                   .getCurrentExternalServiceType(), getServiceID(), formats.toArray(arrFormats));
-          LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
+          LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
           ByteArrayInputStream in = new ByteArrayInputStream(ba);
           URL fileURL =
               this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());
@@ -1085,7 +1094,7 @@ public class EasySubmission extends FacesBean {
                   FileVO newFile = new FileVO();
                   byte[] content =
                       dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                  LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
+                  LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
                   ByteArrayInputStream in = new ByteArrayInputStream(content);
                   URL fileURL;
                   fileURL =
@@ -1158,7 +1167,7 @@ public class EasySubmission extends FacesBean {
               .addAll(itemVO.getFiles());
           // Reset info for next call
           // this.setImportSourcesInfo(); Commented out because of browser back button problem.
-          this.setBibTexInfo();
+          // this.setBibTexInfo();
         } catch (TechnicalException e) {
           logger.warn("Error transforming item to pubItem.");
           error(getMessage("easy_submission_import_from_external_service_error"));
@@ -1300,9 +1309,8 @@ public class EasySubmission extends FacesBean {
     }
     // additionally map the dates if the user comes from Step5
     /*
-     * if
-     * (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean
-     * .ES_STEP5)) { mapSelectedDate(); }
+     * if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(
+     * EasySubmissionSessionBean .ES_STEP5)) { mapSelectedDate(); }
      */
     // FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -1336,7 +1344,7 @@ public class EasySubmission extends FacesBean {
     parseAndSetAlternativeSourceTitlesAndIds();
 
     // validate
-    if (validate(ValidationPoint.EASY_SUBMISSION_STEP_5, "loadEditItem") == null) {
+    if (validate(ValidationPoint.STANDARD, "loadEditItem") == null) {
       return "";
     } else {
       // this.getEasySubmissionSessionBean().bindOrganizationsToCreators();
@@ -1585,12 +1593,12 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  private void setBibTexInfo() {
-    // this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
-    // new SelectItem[] { new SelectItem(this.REFERENCE_FILE,
-    // getLabel("easy_submission_lblReference_file")),
-    // new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
-  }
+  // private void setBibTexInfo() {
+  // // this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
+  // // new SelectItem[] { new SelectItem(this.REFERENCE_FILE,
+  // // getLabel("easy_submission_lblReference_file")),
+  // // new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
+  // }
 
   /**
    * This method selects the import method 'fetch metadata from external systems'
@@ -1611,7 +1619,7 @@ public class EasySubmission extends FacesBean {
    * @return String navigation string
    */
   public String selectImportBibtex() {
-    this.setBibTexInfo();
+    // this.setBibTexInfo();
     // this.getEasySubmissionSessionBean().setFulltext(false);
     this.getEasySubmissionSessionBean().setImportMethod(
         EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
@@ -2098,7 +2106,7 @@ public class EasySubmission extends FacesBean {
     // ==
     // null){
     // LegalCaseVO legalCase = new LegalCaseVO();
-    // logger.info("create new legal case  " );
+    // logger.info("create new legal case " );
     // this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setLegalCase(legalCase);
     // }
     // return
@@ -2107,7 +2115,7 @@ public class EasySubmission extends FacesBean {
   }
 
   public void setLegalCaseCourtName(String legalCaseCourtName) {
-    // logger.info("legalCAse Court  " + legalCaseCourtName);
+    // logger.info("legalCAse Court " + legalCaseCourtName);
     // this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setCourtName(legalCaseCourtName);
   }
 
@@ -2123,12 +2131,10 @@ public class EasySubmission extends FacesBean {
 
   // source identifier
   public void setSourceIdentifierType(String typeString) {
-    logger.debug("typeString " + typeString);
     if (typeString != null) {
       PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
       pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setTypeString(typeString);
     }
-
   }
 
   public String getSourceIdentifierType() {
@@ -2143,6 +2149,7 @@ public class EasySubmission extends FacesBean {
   }
 
   /* JUS END */
+
   /**
    * localized creation of SelectItems for the source genres available
    * 
@@ -2198,13 +2205,13 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  public HtmlMessages getValMessage() {
-    return this.valMessage;
-  }
-
-  public void setValMessage(HtmlMessages valMessage) {
-    this.valMessage = valMessage;
-  }
+  // public HtmlMessages getValMessage() {
+  // return this.valMessage;
+  // }
+  //
+  // public void setValMessage(HtmlMessages valMessage) {
+  // this.valMessage = valMessage;
+  // }
 
   public boolean getFromEasySubmission() {
     return this.fromEasySubmission;
@@ -2511,6 +2518,5 @@ public class EasySubmission extends FacesBean {
   public void clearBibtexFile(ActionEvent evt) {
     getEasySubmissionSessionBean().setUploadedBibtexFile(null);
   }
-
 
 }

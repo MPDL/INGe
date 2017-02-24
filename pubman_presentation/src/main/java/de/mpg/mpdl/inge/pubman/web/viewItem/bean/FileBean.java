@@ -46,9 +46,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
@@ -57,17 +55,15 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationTree;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
-import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -77,21 +73,20 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class FileBean extends FacesBean {
-  private static Logger logger = Logger.getLogger(FileBean.class);
-  private FileVO file;
+  private static final Logger logger = Logger.getLogger(FileBean.class);
 
+  private FileVO file;
   private State itemState;
-  private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
+  // private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
   private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
   private LoginHelper loginHelper;
   // weather the user holds an audience Grant for the current file or not
   private boolean fileAccessGranted = false;
 
-
-
   /**
-   * Public constructor
+   * Public constructor with parameters
    * 
    * @param file
    * @param position
@@ -118,12 +113,11 @@ public class FileBean extends FacesBean {
     loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     this.file = file;
     this.itemState = itemState;
-    this.searchHitList = searchHitList;
+    // this.searchHitList = searchHitList;
     initialize(file, itemState, searchHitList);
     if (loginHelper.getLoggedIn() == true) {
       initializeFileAccessGranted();
     }
-
   }
 
   /**
@@ -283,11 +277,11 @@ public class FileBean extends FacesBean {
             if (this.file.getDefaultMetadata() != null) {
               buffer = new byte[this.file.getDefaultMetadata().getSize()];
               int numRead;
-              long numWritten = 0;
+              // long numWritten = 0;
               while ((numRead = input.read(buffer)) != -1) {
                 out.write(buffer, 0, numRead);
                 out.flush();
-                numWritten += numRead;
+                // numWritten += numRead;
               }
               facesContext.responseComplete();
             }
@@ -616,34 +610,34 @@ public class FileBean extends FacesBean {
     return this.fileAccessGranted;
   }
 
-  /**
-   * Helper method for checking audience rights
-   * 
-   * @param aff
-   * @param objid
-   * @return
-   * @throws Exception
-   */
-  private static boolean checkAffiliationId(AffiliationRO aff, String objid) throws Exception {
-    logger.info("Check affiliation id" + aff.getObjectId() + " with " + objid);
-    if (aff.getObjectId().equals(objid)) {
-      return true;
-    } else {
-      AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-      affTree.getAffiliationSelectItems();
-      AffiliationVOPresentation affVO = affTree.getAffiliationMap().get(aff.getObjectId());
-
-      if (affVO != null && affVO.getChildren() != null) {
-
-        for (AffiliationVO childAffVO : affVO.getChildren()) {
-          return checkAffiliationId(childAffVO.getReference(), objid);
-        }
-      }
-
-    }
-    return false;
-
-  }
+  // /**
+  // * Helper method for checking audience rights
+  // *
+  // * @param aff
+  // * @param objid
+  // * @return
+  // * @throws Exception
+  // */
+  // private static boolean checkAffiliationId(AffiliationRO aff, String objid) throws Exception {
+  // logger.info("Check affiliation id" + aff.getObjectId() + " with " + objid);
+  // if (aff.getObjectId().equals(objid)) {
+  // return true;
+  // } else {
+  // AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+  // affTree.getAffiliationSelectItems();
+  // AffiliationVOPresentation affVO = affTree.getAffiliationMap().get(aff.getObjectId());
+  //
+  // if (affVO != null && affVO.getChildren() != null) {
+  //
+  // for (AffiliationVO childAffVO : affVO.getChildren()) {
+  // return checkAffiliationId(childAffVO.getReference(), objid);
+  // }
+  // }
+  //
+  // }
+  // return false;
+  //
+  // }
 
   /**
    * Generate a string for displaying file sizes. Added by FrM to compute a better result for values

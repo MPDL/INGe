@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class Header extends FacesBean {
   /** Logo for dev environment. */
   private static final String LOGO_DEV = "overlayDev";
@@ -45,21 +46,16 @@ public class Header extends FacesBean {
 
   private String type;
 
-  /**
-   * Public constructor.
-   */
-  public Header() {
-    this.init();
-  }
+  public Header() {}
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    // Perform initializations inherited from our superclass
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // // Perform initializations inherited from our superclass
+  // //super.init();
+  // }
 
   /**
    * Getter for the logo definition f the type of the server. E.g a dev server gets another logo

@@ -49,8 +49,8 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.ObjectCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined by
@@ -59,8 +59,9 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
  * @author Hugo Niedermaier, endres
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class AdvancedSearchEdit extends FacesBean {
-  private static Logger logger = Logger.getLogger(AdvancedSearchEdit.class);
+  private static final Logger logger = Logger.getLogger(AdvancedSearchEdit.class);
 
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
@@ -109,18 +110,15 @@ public class AdvancedSearchEdit extends FacesBean {
     fileCriterionCollection = new FileCriterionCollection();
     languageCriterionCollection = new LanguageCriterionCollection();
     localTagCriterionCollection = new LocalTagCriterionCollection();
-
-    this.init();
-
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    super.init();
-  }
+  // /**
+  // * Callback method that is called whenever a page containing this page fragment is navigated to,
+  // * either directly via a URL, or indirectly via page navigation.
+  // */
+  // public void init() {
+  // //super.init();
+  // }
 
   public void clearAndInitializeAllForms() {
     contextCriterionCollection = new ContextCriterionCollection();

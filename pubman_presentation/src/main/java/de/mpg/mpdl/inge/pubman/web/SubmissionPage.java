@@ -38,13 +38,11 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class SubmissionPage extends BreadcrumbPage {
   @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(SubmissionPage.class);
 
-  /**
-   * Public constructor
-   */
   public SubmissionPage() {
     this.init();
   }
@@ -57,8 +55,8 @@ public class SubmissionPage extends BreadcrumbPage {
   public void init() {
     // Perform initializations inherited from our superclass
     super.init();
-    checkForLogin();
 
+    checkForLogin();
   }
 
   @Override

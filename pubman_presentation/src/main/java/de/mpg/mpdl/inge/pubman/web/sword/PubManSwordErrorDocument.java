@@ -12,10 +12,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * This class implements the SWORD error document.
@@ -51,12 +51,7 @@ public class PubManSwordErrorDocument {
   // [500]
   private static String InternalError = "http://purl.org/escidoc/sword/error/InternalError";
 
-  /**
-   * Public constructor.
-   */
-  public PubManSwordErrorDocument() {
-
-  }
+  public PubManSwordErrorDocument() {}
 
   /**
    * Poosible errors during sword deposit.

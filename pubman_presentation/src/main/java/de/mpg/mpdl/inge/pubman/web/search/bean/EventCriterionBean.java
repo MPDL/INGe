@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.EventCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DateCriterion.DateType;
 
 /**
  * POJO bean to deal with one EventCriterionVO.
