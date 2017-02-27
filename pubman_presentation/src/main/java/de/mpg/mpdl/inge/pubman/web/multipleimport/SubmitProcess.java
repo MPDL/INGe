@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 
 /**
@@ -49,7 +50,7 @@ public class SubmitProcess extends Thread {
 
   private ImportLog log;
   private PubItemDepositing pubItemDepositing;
-  // private PubItemPublishing pubItemPublishing;
+  private PubItemPublishing pubItemPublishing;
   private XmlTransforming xmlTransforming; //
   private ItemHandler itemHandler; //
   // private ContextHandler contextHandler;
@@ -76,9 +77,9 @@ public class SubmitProcess extends Thread {
       this.pubItemDepositing =
           (PubItemDepositing) context
               .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-      // this.pubItemPublishing =
-      // (PubItemPublishing) context
-      // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+       this.pubItemPublishing =
+       (PubItemPublishing) context
+       .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
@@ -137,7 +138,9 @@ public class SubmitProcess extends Thread {
 
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            pubItemDepositing.submitAndReleasePubItem(itemVO, "Batch submit/release from import "
+            itemVO = pubItemDepositing.submitPubItem(itemVO, "Batch submit/release from import "
+                + log.getMessage(), user);
+            pubItemPublishing.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(), "Batch submit/release from import "
                 + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
 

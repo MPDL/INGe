@@ -17,23 +17,25 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
+@SuppressWarnings("serial")
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
-  Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);
+  private static final Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);
+  
   private List<EventLogEntryVOPresentation> eventLogEntries;
 
   public VersionHistoryVOPresentation(VersionHistoryEntryVO versionHistoryEntryVO) {
-    eventLogEntries = new ArrayList<EventLogEntryVOPresentation>();
-
+    this.eventLogEntries = new ArrayList<EventLogEntryVOPresentation>();
     this.setEvents(versionHistoryEntryVO.getEvents());
     this.setModificationDate(versionHistoryEntryVO.getModificationDate());
     this.setReference(versionHistoryEntryVO.getReference());
     this.setState(versionHistoryEntryVO.getState());
 
     for (EventLogEntryVO event : getEvents()) {
-      eventLogEntries.add(new EventLogEntryVOPresentation(event, this));
+      this.eventLogEntries.add(new EventLogEntryVOPresentation(event, this));
     }
   }
 
@@ -42,7 +44,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   }
 
   public List<EventLogEntryVOPresentation> getEventLogEntries() {
-    return eventLogEntries;
+    return this.eventLogEntries;
   }
 
   /**
@@ -56,13 +58,21 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     LoginHelper loginHelper =
         (LoginHelper) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
             .get(LoginHelper.BEAN_NAME);
+    
     InitialContext initialContext = new InitialContext();
+    
     XmlTransforming xmlTransforming =
         (XmlTransforming) initialContext
             .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+    
     PubItemDepositing pubItemDepositingBean =
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+    
+    PubItemPublishing pubItemPublishingBean =
+        (PubItemPublishing) initialContext
+            .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+    
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
 
     // Get the two versions
@@ -88,11 +98,16 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
     xmlItemNewVersion = itemHandler.update(this.getReference().getObjectId(), xmlItemNewVersion);
     PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+    
     if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED
         && pubItemVONewVersion.getVersion().getState() == State.PENDING) {
-      pubItemDepositingBean.submitAndReleasePubItem(pubItemVONewVersion,
+      pubItemVONewVersion = pubItemDepositingBean.submitPubItem(pubItemVONewVersion,
           "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAccountUser());
+      pubItemPublishingBean.releasePubItem(pubItemVONewVersion.getVersion(), pubItemVONewVersion.getModificationDate(),
+          "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
+          loginHelper.getAccountUser());
+      
       xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
       pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
     }

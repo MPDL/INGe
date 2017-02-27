@@ -93,8 +93,9 @@ public class PubItemPublishingBean implements PubItemPublishing {
   /**
    * {@inheritDoc}
    */
-  public void releasePubItem(final ItemRO pubItemRef, final Date lastModificationDate,
-      final String releaseComment, final AccountUserVO user) throws TechnicalException,
+  // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, QualityassuranceBean)
+  public PubItemVO releasePubItem(final ItemRO pubItemRef, final Date lastModificationDate,
+      final String comment, final AccountUserVO user) throws TechnicalException,
       PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException,
       SecurityException {
     long gstart = System.currentTimeMillis();
@@ -103,107 +104,93 @@ public class PubItemPublishingBean implements PubItemPublishing {
       throw new IllegalArgumentException(getClass() + ".releasePubItem: pubItem reference is null.");
     }
 
+    if (user == null) {
+      throw new IllegalArgumentException(getClass() + ".releasePubItem: user is null.");
+    }
+
     if (pubItemRef.getObjectId() == null) {
       throw new IllegalArgumentException(getClass()
           + ".releasePubItem: pubItem reference does not contain an objectId.");
     }
 
+    ItemHandler itemHandler;
+    try {
+      itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+    } catch (Exception e) {
+      throw new TechnicalException(e);
+    }
+    
     LOGGER.info("*** start release of <" + pubItemRef.getObjectId() + "> ");
 
-    if (user == null) {
-      throw new IllegalArgumentException(getClass() + ".releasePubItem: user is null.");
-    }
-
+    PubItemVO actualItemVO = null;
     try {
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-      // ItemHandler adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
-      String actualItem;
-      PubItemVO actualItemVO;
-      String url;
-      PidTaskParamVO pidParam;
-      String result = null;
-      String paramXml;
-
-      actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
+      String actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
       actualItemVO = xmlTransforming.transformToPubItem(actualItem);
 
+      PidTaskParamVO pidParam;
+      String paramXml;
+      String url;
+      String result = null;
+      
       // Floating PID assignment.
-
       if (actualItemVO.getPid() == null || actualItemVO.getPid().equals("")) {
         long start = System.currentTimeMillis();
-        // Build PidParam
         url =
             PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                 + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
                     pubItemRef.getObjectId());
 
-        LOGGER.debug("URL given to PID resolver: " + url);
-
         pidParam = new PidTaskParamVO(lastModificationDate, url);
         paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
         try {
-          // Assign floating PID
           result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
-
-          LOGGER.debug("Floating PID assigned: " + result);
         } catch (Exception e) {
-          System.out.println(e.getClass());
           LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId()
               + " failed. It probably already has one.");
-          LOGGER.debug("Stacktrace:", e);
         }
         long end = System.currentTimeMillis();
         LOGGER.info("assign object PID for <" + pubItemRef.getObjectId() + "> needed <"
             + (end - start) + "> msec");
+        
         // Retrieve the item to get last modification date
         actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-
         actualItemVO = xmlTransforming.transformToPubItem(actualItem);
       }
-
 
       if (actualItemVO.getVersion().getPid() == null
           || actualItemVO.getVersion().getPid().equals("")) {
         long start = System.currentTimeMillis();
-        // Build PidParam
         url =
             PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                 + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
                     pubItemRef.getObjectId() + ":" + actualItemVO.getVersion().getVersionNumber());
 
-        LOGGER.debug("URL given to PID resolver: " + url);
-
         pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
         paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
         try {
-          // Assign version PID
           result =
               itemHandler.assignVersionPid(actualItemVO.getVersion().getObjectId() + ":"
                   + actualItemVO.getVersion().getVersionNumber(), paramXml);
-
-
-
-          LOGGER.debug("Version PID assigned: " + result);
         } catch (Exception e) {
           LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId()
               + " failed. It probably already has one.", e);
         }
+        
         long end = System.currentTimeMillis();
         LOGGER.info("assign version PID for <" + pubItemRef.getObjectId() + "> needed <"
             + (end - start) + "> msec");
       }
 
-
       // Loop over files
       for (FileVO file : actualItemVO.getFiles()) {
+        
         if ((file.getPid() == null || file.getPid().equals(""))
             && file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
           long start = System.currentTimeMillis();
-          // Build PidParam
           url =
               PropertyReader.getProperty("escidoc.pubman.instance.url")
                   + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
@@ -212,30 +199,26 @@ public class PubItemPublishingBean implements PubItemPublishing {
                       .replaceAll("\\$2", file.getReference().getObjectId())
                       .replaceAll("\\$3", CommonUtils.urlEncode(file.getName()));
 
-          LOGGER.debug("URL given to PID resolver: " + url);
-          // LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
-
           try {
-
             ResultVO resultVO = xmlTransforming.transformToResult(result);
             pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
             paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
-            // Assign component PID
             result =
                 itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(), file
                     .getReference().getObjectId(), paramXml);
 
             LOGGER.info("Component PID assigned: " + result);
           } catch (Exception e) {
-
             LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId()
                 + " failed. It probably already has one.", e);
           }
+          
           long end = System.currentTimeMillis();
           LOGGER.info("assign content PID for " + pubItemRef.getObjectId() + "> needed <"
               + (end - start) + "> msec");
         }
+        
       }
 
       // Retrieve the item to get last modification date
@@ -243,20 +226,12 @@ public class PubItemPublishingBean implements PubItemPublishing {
       actualItemVO = xmlTransforming.transformToPubItem(actualItem);
 
       // Release the item
-      TaskParamVO param = new TaskParamVO(actualItemVO.getModificationDate(), releaseComment);
-      paramXml = xmlTransforming.transformToTaskParam(param);
-
       long s = System.currentTimeMillis();
-      itemHandler.release(pubItemRef.getObjectId(), paramXml);
+      TaskParamVO param = new TaskParamVO(actualItemVO.getModificationDate(), comment);
+      itemHandler.release(pubItemRef.getObjectId(), xmlTransforming.transformToTaskParam(param));
       long e = System.currentTimeMillis();
       LOGGER.info("pure itemHandler.release item " + pubItemRef.getObjectId() + "> needed <"
           + (e - s) + "> msec");
-
-      if (LOGGER.isDebugEnabled()) {
-        // Retrieve the item for debugging purpose
-        actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-        LOGGER.debug("New Item: " + actualItem);
-      }
 
       ApplicationLog
           .info(PMLogicMessages.PUBITEM_RELEASED, new Object[] {pubItemRef.getObjectId()});
@@ -273,13 +248,15 @@ public class PubItemPublishingBean implements PubItemPublishing {
     long gend = System.currentTimeMillis();
     LOGGER.info("*** total release of <" + pubItemRef.getObjectId() + "> needed <"
         + (gend - gstart) + "> msec");
+    
+    return actualItemVO;
   }
 
   /**
    * {@inheritDoc}
    */
   public final void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
-      final String withdrawalComment, final AccountUserVO user)
+      final String comment, final AccountUserVO user)
       throws MissingWithdrawalCommentException, PubItemNotFoundException,
       PubItemStatusInvalidException, TechnicalException, PubItemLockedException, SecurityException {
 
@@ -297,22 +274,21 @@ public class PubItemPublishingBean implements PubItemPublishing {
       throw new IllegalArgumentException(getClass() + ".withdrawPubItem: user is null.");
     }
 
-    LOGGER.debug(user.getReference().getObjectId() + "=" + pubItem.getOwner().getObjectId() + "?");
-
     if (user.getGrants().contains(
         new GrantVO("escidoc:role-administrator", pubItem.getContext().getObjectId()))) {
       throw new SecurityException();
     }
 
     // Check the withdrawal comment - must not be null or empty.
-    if (withdrawalComment == null || withdrawalComment.trim().length() == 0) {
+    if (comment == null || comment.trim().length() == 0) {
       throw new MissingWithdrawalCommentException(pubItem.getVersion());
     }
 
     try {
-      TaskParamVO param = new TaskParamVO(lastModificationDate, withdrawalComment);
+      TaskParamVO param = new TaskParamVO(lastModificationDate, comment);
       ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
           xmlTransforming.transformToTaskParam(param));
+      
       ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN, new Object[] {
           pubItem.getVersion().getObjectId(), user.getUserid()});
     } catch (LockingException e) {

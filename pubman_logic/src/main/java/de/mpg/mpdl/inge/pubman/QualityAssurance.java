@@ -61,31 +61,31 @@ public interface QualityAssurance {
    */
   public static String SERVICE_NAME = "ejb/de/mpg/escidoc/services/common/QualityAssurance";
 
-  /**
-   * Searches for publication items that matches the given context object id, the given
-   * organizational unit id and the given item state
-   * 
-   * @param searchString The search query.
-   * @param searchInFiles If true, search is also executed in files.
-   * @param greaterDate items which are greater than this date matches
-   * @return The list of PubItemResultVOs that matched the query.
-   * @throws TechnicalException
-   */
-  public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user)
-      throws TechnicalException, ServiceException, MissingMethodParameterException,
-      ContextNotFoundException, InvalidXmlException, AuthenticationException,
-      AuthorizationException, SystemException, RemoteException, URISyntaxException;
+//  /**
+//   * Searches for publication items that matches the given context object id, the given
+//   * organizational unit id and the given item state
+//   * 
+//   * @param searchString The search query.
+//   * @param searchInFiles If true, search is also executed in files.
+//   * @param greaterDate items which are greater than this date matches
+//   * @return The list of PubItemResultVOs that matched the query.
+//   * @throws TechnicalException
+//   */
+//  public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user)
+//      throws TechnicalException, ServiceException, MissingMethodParameterException,
+//      ContextNotFoundException, InvalidXmlException, AuthenticationException,
+//      AuthorizationException, SystemException, RemoteException, URISyntaxException;
 
-  /**
-   * retrieves all Contexts for which the given user is Moderator
-   * 
-   * @param user
-   * @return
-   * @throws SecurityException
-   * @throws TechnicalException
-   */
-  public List<ContextVO> retrievePubContextsForModerator(AccountUserVO user)
-      throws SecurityException, TechnicalException;
+//  /**
+//   * retrieves all Contexts for which the given user is Moderator
+//   * 
+//   * @param user
+//   * @return
+//   * @throws SecurityException
+//   * @throws TechnicalException
+//   */
+//  public List<ContextVO> retrievePubContextsForModerator(AccountUserVO user)
+//      throws SecurityException, TechnicalException;
 
   /**
    * Revises a PubItem in the state submitted to state "in revision".
@@ -99,25 +99,25 @@ public interface QualityAssurance {
       throws ServiceException, TechnicalException, PubItemStatusInvalidException,
       SecurityException, PubItemNotFoundException;
 
-  /**
-   * Retrieves all contexts of type "yearbook" for which the user has depositor rights
-   * 
-   * @param user
-   * @return
-   * @throws SecurityException
-   * @throws TechnicalException
-   */
-  public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException,
-      TechnicalException;
+//  /**
+//   * Retrieves all contexts of type "yearbook" for which the user has depositor rights
+//   * 
+//   * @param user
+//   * @return
+//   * @throws SecurityException
+//   * @throws TechnicalException
+//   */
+//  public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException,
+//      TechnicalException;
 
-  /**
-   * Retrieves all contexts of type "yearbook" for which the user has moderator rights
-   * 
-   * @param user
-   * @return
-   * @throws SecurityException
-   * @throws TechnicalException
-   */
-  public List<ContextVO> retrieveYearbookContextForModerator(AccountUserVO user)
-      throws SecurityException, TechnicalException;
+//  /**
+//   * Retrieves all contexts of type "yearbook" for which the user has moderator rights
+//   * 
+//   * @param user
+//   * @return
+//   * @throws SecurityException
+//   * @throws TechnicalException
+//   */
+//  public List<ContextVO> retrieveYearbookContextForModerator(AccountUserVO user)
+//      throws SecurityException, TechnicalException;
 }

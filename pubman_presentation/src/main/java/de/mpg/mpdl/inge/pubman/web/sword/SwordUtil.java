@@ -88,6 +88,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -96,6 +97,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.depositing.DepositingException;
 import de.mpg.mpdl.inge.pubman.depositing.PubItemMandatoryAttributesMissingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
@@ -141,7 +143,7 @@ public class SwordUtil extends FacesBean {
   private String depositXml = "";
   // private String depositXmlFileName;
 
-  private ValidationPoint validationPoint;
+//  private ValidationPoint validationPoint;
 
   // Packaging Format
   private final String acceptedFormat = "application/zip";
@@ -620,6 +622,9 @@ public class SwordUtil extends FacesBean {
     PubItemDepositing depositBean =
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
+    PubItemPublishing publishingBean =
+        (PubItemPublishing) initialContext
+            .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
 
     String method = this.getMethod(item);
 
@@ -638,7 +643,8 @@ public class SwordUtil extends FacesBean {
 
     if (method.equals("RELEASE")) {
       depositedItem = depositBean.savePubItem(item, user);
-      depositedItem = depositBean.submitAndReleasePubItem(depositedItem, "", user);
+      depositedItem = depositBean.submitPubItem(depositedItem, "", user);
+      depositedItem = publishingBean.releasePubItem(depositedItem.getVersion(), depositedItem.getModificationDate(), "", user);
     }
 
     return depositedItem;
@@ -672,10 +678,10 @@ public class SwordUtil extends FacesBean {
     boolean isStateInRevision = false;
 
     if (item != null && item.getVersion() != null && item.getVersion().getState() != null) {
-      isStatePending = item.getVersion().getState().equals(PubItemVO.State.PENDING);
-      isStateSubmitted = item.getVersion().getState().equals(PubItemVO.State.SUBMITTED);
-      // isStateReleased = item.getVersion().getState().equals(PubItemVO.State.RELEASED);
-      isStateInRevision = item.getVersion().getState().equals(PubItemVO.State.IN_REVISION);
+      isStatePending = item.getVersion().getState().equals(State.PENDING);
+      isStateSubmitted = item.getVersion().getState().equals(State.SUBMITTED);
+      // isStateReleased = item.getVersion().getState().equals(State.RELEASED);
+      isStateInRevision = item.getVersion().getState().equals(State.IN_REVISION);
     }
 
     isWorkflowStandard =
@@ -692,17 +698,17 @@ public class SwordUtil extends FacesBean {
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {
-      this.setValidationPoint(ValidationPoint.STANDARD);
+//      this.setValidationPoint(ValidationPoint.STANDARD);
       return "RELEASE";
     }
 
     if ((isStatePending || isStateInRevision) && isWorkflowStandard && isOwner) {
-      this.setValidationPoint(ValidationPoint.STANDARD);
+//      this.setValidationPoint(ValidationPoint.STANDARD);
       return "SAVE_SUBMIT";
     }
 
     if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator)) {
-      this.setValidationPoint(ValidationPoint.STANDARD);
+//      this.setValidationPoint(ValidationPoint.STANDARD);
       return "SUBMIT";
     }
 
@@ -721,10 +727,10 @@ public class SwordUtil extends FacesBean {
     boolean isWorkflowSimple =
         pubContext.getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
 
-
     if (isWorkflowStandard) {
       return "Standard Workflow";
     }
+    
     if (isWorkflowSimple) {
       return "Simple Workflow";
     } else {
@@ -952,10 +958,10 @@ public class SwordUtil extends FacesBean {
         (ItemValidating) initialContext
             .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
 
-    // To set the validation point
-    this.getMethod(item);
+//    // To set the validation point
+//    this.getMethod(item);
 
-    itemValidating.validateItemObject(item, this.getValidationPoint());
+    itemValidating.validateItemObject(item, ValidationPoint.STANDARD);
   }
 
   public boolean checkMetadatFormat(String format) {
@@ -969,13 +975,13 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  public ValidationPoint getValidationPoint() {
-    return this.validationPoint;
-  }
-
-  public void setValidationPoint(ValidationPoint validationPoint) {
-    this.validationPoint = validationPoint;
-  }
+//  public ValidationPoint getValidationPoint() {
+//    return this.validationPoint;
+//  }
+//
+//  public void setValidationPoint(ValidationPoint validationPoint) {
+//    this.validationPoint = validationPoint;
+//  }
 
   public String getAcceptedFormat() {
     return this.acceptedFormat;

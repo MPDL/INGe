@@ -56,13 +56,14 @@ public interface PubItemPublishing {
    * @param pubItemRef The reference of the publication item.
    * @param lastModificationDate The date of last modification.
    * @param user The user (Necessary for authentication, authorization and logging)
+   * @return 
    * @throws TechnicalException
    * @throws PubItemStatusInvalidException
    * @throws PubItemNotFoundException
    * @throws PubItemLockedException
    * @throws SecurityException
    */
-  public void releasePubItem(ItemRO pubItemRef, java.util.Date lastModificationDate,
+  public PubItemVO releasePubItem(ItemRO pubItemRef, java.util.Date lastModificationDate,
       String releaseComment, AccountUserVO user) throws TechnicalException,
       PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException,
       SecurityException;
