@@ -164,9 +164,20 @@ public class ViewItemFull extends FacesBean {
 
   // private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
 
-  // Validation Service
+  @EJB
+  private ItemExporting itemExporting;
+
   @EJB
   private ItemValidating itemValidating;
+
+  @EJB
+  private PubItemDepositing pubItemDepositing;
+
+  @EJB
+  private PubItemSimpleStatistics pubManStatistics;
+
+  @EJB
+  private XmlTransforming xmlTransforming;
 
   private PubItemVOPresentation pubItem = null;
   // private HtmlMessages valMessage = new HtmlMessages();
@@ -234,16 +245,11 @@ public class ViewItemFull extends FacesBean {
   private boolean isOwner;
   private boolean isModifyDisabled;
   private boolean isCreateNewRevisionDisabled;
-
-  @EJB
-  private PubItemDepositing pubItemDepositing;
   private boolean isWorkflowStandard;
   private boolean isWorkflowSimple;
   private boolean isStateInRevision;
   // private boolean hasRevision;
 
-  @EJB
-  private PubItemSimpleStatistics pubManStatistics;
   private boolean isPublicStateReleased;
 
   private YearbookItemSessionBean yisb;
@@ -273,12 +279,7 @@ public class ViewItemFull extends FacesBean {
   private boolean isStateWasReleased = false;
   private Transformation transformer;
 
-  @EJB
-  private XmlTransforming xmlTransforming;
   private String languages;
-
-  @EJB
-  private ItemExporting itemExporting;
 
   public ViewItemFull() {}
 
@@ -707,17 +708,17 @@ public class ViewItemFull extends FacesBean {
     if (this.ssrnContexts != null
         && this.ssrnContexts.contains(this.getPubItem().getContext().getObjectId())) {
       return true;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   public boolean isSsrnTagged() {
     if (this.getPubItem().getLocalTags().contains(ViewItemFull.SSRN_LOCAL_TAG)) {
       return true;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   public String addSsrnTag() {
@@ -754,6 +755,7 @@ public class ViewItemFull extends FacesBean {
     if (pubItemListSessionBean != null) {
       pubItemListSessionBean.update();
     }
+
     return returnValue;
   }
 

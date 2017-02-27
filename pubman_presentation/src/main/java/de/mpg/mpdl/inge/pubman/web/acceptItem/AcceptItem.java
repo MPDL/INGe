@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.acceptItem;
 
 import java.io.IOException;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -97,6 +98,7 @@ public class AcceptItem extends FacesBean {
         }
       }
     }
+
     this.creators = creators.toString();
 
     // if (logger.isDebugEnabled()) {
@@ -126,8 +128,10 @@ public class AcceptItem extends FacesBean {
    */
   public final String accept() {
     FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String retVal;
+    ExternalContext extContext = fc.getExternalContext();
+    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
+
+    // TODO: siehe SubmitItem
     String navigateTo = getAcceptItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
@@ -135,7 +139,7 @@ public class AcceptItem extends FacesBean {
 
     logger.debug("Now acceptting, then go to " + navigateTo);
 
-    retVal =
+    String retVal =
         this.getItemControllerSessionBean().acceptCurrentPubItem(acceptanceComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
@@ -145,11 +149,8 @@ public class AcceptItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -165,14 +166,16 @@ public class AcceptItem extends FacesBean {
    */
   public final String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    ExternalContext extContext = fc.getExternalContext();
+    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
+
     try {
-      fc.getExternalContext().redirect(
-          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getPubItem().getVersion().getObjectId());
+      extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+          + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
+
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
@@ -192,6 +195,7 @@ public class AcceptItem extends FacesBean {
         return true;
       }
     }
+
     return false;
   }
 
@@ -227,7 +231,7 @@ public class AcceptItem extends FacesBean {
   }
 
   public String getAcceptanceComment() {
-    return acceptanceComment;
+    return this.acceptanceComment;
   }
 
   public void setAcceptanceComment(String acceptanceComment) {
@@ -269,6 +273,7 @@ public class AcceptItem extends FacesBean {
         return true;
       }
     }
+
     return false;
   }
 
