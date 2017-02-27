@@ -1002,7 +1002,7 @@ public class EditItem extends FacesBean {
         // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
         // (save removed there)
         this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-        this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+        this.getItemControllerSessionBean().onlySubmitCurrentPubItem(
             "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
         try {
           this.getItemControllerSessionBean().setCurrentPubItem(
@@ -1450,7 +1450,7 @@ public class EditItem extends FacesBean {
         // (save removed there)
         this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         retVal =
-            this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+            this.getItemControllerSessionBean().onlySubmitCurrentPubItem(
                 "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
       } else {
         // only save it

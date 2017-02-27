@@ -167,9 +167,9 @@ public class QualityAssuranceBean implements QualityAssurance {
    * {@inheritDoc}
    */
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, PubItemPublishingBean)
-  public PubItemVO revisePubItem(ItemRO pubItemRef, String comment, AccountUserVO user)
-      throws ServiceException, TechnicalException, PubItemStatusInvalidException, SecurityException,
-      PubItemNotFoundException {
+  public PubItemVO revisePubItem(final ItemRO pubItemRef, String comment, final AccountUserVO user)
+      throws ServiceException, TechnicalException, PubItemStatusInvalidException,
+      SecurityException, PubItemNotFoundException {
 
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
@@ -194,8 +194,8 @@ public class QualityAssuranceBean implements QualityAssurance {
       String item = itemHandler.retrieve(pubItemRef.getObjectId());
       pubItemActual = xmlTransforming.transformToPubItem(item);
 
-      ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED,
-          new Object[] {pubItemRef.getObjectId(), user.getUserid()});
+      ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED, new Object[] {pubItemRef.getObjectId(),
+          user.getUserid()});
     } catch (InvalidStatusException e) {
       throw new PubItemStatusInvalidException(pubItemRef, e);
     } catch (ItemNotFoundException e) {

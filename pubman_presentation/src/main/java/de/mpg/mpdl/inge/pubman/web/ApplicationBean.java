@@ -58,7 +58,9 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
+
   /** system type enum */
   public enum SystemType {
     /** profile for developer machines */
@@ -74,8 +76,8 @@ public class ApplicationBean extends FacesBean {
   }
 
   public static final String BEAN_NAME = "ApplicationBean";
-  public static final String DEFAULT_STYLESHEET_URL = "";
-  private static Logger logger = Logger.getLogger(ApplicationBean.class);
+  // public static final String DEFAULT_STYLESHEET_URL = "";
+  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 
   /** system type of this application instance */
   private SystemType systemType;
@@ -140,11 +142,8 @@ public class ApplicationBean extends FacesBean {
 
   public void loadProperties() {
     try {
-
-
       Properties solProperties = CommonUtils.getProperties(PROPERTY_FILENAME);
       this.version = solProperties.getProperty("escidoc.pubman.version");
-
       this.shortVersion = "";
       int whereToCut;
       try {
@@ -156,7 +155,6 @@ public class ApplicationBean extends FacesBean {
         logger.warn("The version of the application cannot be retrieved.");
       }
 
-
       this.appTitle = getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
       if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server)
@@ -165,9 +163,6 @@ public class ApplicationBean extends FacesBean {
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-
-
-
       this.commonPresentationUrl =
           PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
       if (this.commonPresentationUrl == null) {

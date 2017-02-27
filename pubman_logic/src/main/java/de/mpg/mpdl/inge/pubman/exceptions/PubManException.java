@@ -41,8 +41,7 @@ public class PubManException extends BusinessException {
   /**
    * Creates a new instance.
    */
-  public PubManException() {
-  }
+  public PubManException() {}
 
   /**
    * Creates a new instance with the given cause.

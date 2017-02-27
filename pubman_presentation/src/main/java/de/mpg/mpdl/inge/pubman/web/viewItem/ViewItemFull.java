@@ -738,7 +738,7 @@ public class ViewItemFull extends FacesBean {
       } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
-            icsb.saveAndSubmitCurrentPubItem("Submission during adding SSRN-Tag.",
+            icsb.onlySubmitCurrentPubItem("Submission during adding SSRN-Tag.",
                 AcceptItem.LOAD_ACCEPTITEM);
       } else {
         returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
@@ -775,7 +775,7 @@ public class ViewItemFull extends FacesBean {
       } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
-            icsb.saveAndSubmitCurrentPubItem("Submission during removing SSRN-Tag.",
+            icsb.onlySubmitCurrentPubItem("Submission during removing SSRN-Tag.",
                 AcceptItem.LOAD_ACCEPTITEM);
       } else {
         returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
@@ -2927,7 +2927,7 @@ public class ViewItemFull extends FacesBean {
           (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
       icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      icsb.saveAndSubmitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+      icsb.onlySubmitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
       returnValue =
           icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {

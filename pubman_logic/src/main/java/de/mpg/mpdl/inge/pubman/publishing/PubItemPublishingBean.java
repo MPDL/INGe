@@ -96,7 +96,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
    */
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, QualityassuranceBean)
   public PubItemVO releasePubItem(final ItemRO pubItemRef, final Date lastModificationDate,
-      final String comment, final AccountUserVO user) throws TechnicalException,
+      String comment, final AccountUserVO user) throws TechnicalException,
       PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException,
       SecurityException {
     long gstart = System.currentTimeMillis();
@@ -257,7 +257,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
    * {@inheritDoc}
    */
   public final void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
-      final String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
+      String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
       PubItemNotFoundException, PubItemStatusInvalidException, TechnicalException,
       PubItemLockedException, SecurityException {
 

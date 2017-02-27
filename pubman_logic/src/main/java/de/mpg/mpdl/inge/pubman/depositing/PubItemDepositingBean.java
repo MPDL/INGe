@@ -126,7 +126,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws TechnicalException
    * @throws SecurityException
    */
-  public PubItemVO createPubItem(ContextRO pubCollectionRef, AccountUserVO user)
+  public PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
       throws PubCollectionNotFoundException, SecurityException, TechnicalException {
 
     if (pubCollectionRef == null) {
@@ -180,9 +180,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws TechnicalException
    * @throws SecurityException
    */
-  public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws PubItemLockedException,
-      PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
-      TechnicalException {
+  public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
+      throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
+      SecurityException, TechnicalException {
 
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".deletePubItem: pubItem reference is null.");
@@ -199,7 +199,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
     try {
       ItemInterfaceConnectorFactory.getInstance().deleteItem(pubItemRef.getObjectId());
-//      ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
+      // ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
@@ -222,7 +222,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws TechnicalException
    * @throws SecurityException
    */
-  public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
+  public List<ContextVO> getPubCollectionListForDepositing(final AccountUserVO user)
       throws SecurityException, TechnicalException {
 
     if (user == null) {
@@ -326,7 +326,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
   }
 
   // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
-  public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user)
+  public PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
       throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
       PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
       PubItemStatusInvalidException, TechnicalException, AuthorizationException {
@@ -516,7 +516,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
    */
   // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   // TODO: submissionComment verwenden! (-> siehe auch QualityAssuranceBean, PubItemPublishingBean)
-  public PubItemVO submitPubItem(PubItemVO pubItem, String comment, AccountUserVO user)
+  public PubItemVO submitPubItem(final PubItemVO pubItem, String comment, final AccountUserVO user)
       throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
       TechnicalException {
 
@@ -730,8 +730,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * de.mpg.mpdl.inge.model.valueobjects.ContextVO,
    * de.mpg.mpdl.inge.model.valueobjects.AccountUserVO)
    */
-  public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment,
-      ContextRO pubCollection, AccountUserVO owner) {
+  public PubItemVO createRevisionOfItem(final PubItemVO originalPubItem, String relationComment,
+      final ContextRO pubCollection, final AccountUserVO owner) {
 
     // Create an empty new item.
     PubItemVO copiedPubItem = new PubItemVO();
