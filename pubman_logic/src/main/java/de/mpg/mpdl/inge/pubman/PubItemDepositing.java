@@ -64,23 +64,24 @@ public interface PubItemDepositing {
 
   public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/PubItemDepositing";
 
-//  /**
-//   * Accepts the given pubItem. A save operation is done before the accept operation: Afterwards it
-//   * is released.
-//   * 
-//   * @param pubItem
-//   * @param acceptComment
-//   * @param user
-//   * @exception TechnicalException,
-//   * @exception SecurityException,
-//   * @exception DepositingException,
-//   * @exception PubItemNotFoundException,
-//   * @exception PubManException
-//   * @throws ValidationException
-//   * @throws ItemInvalidException
-//   */
-//  public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
-//      throws PubItemNotFoundException, SecurityException, TechnicalException;
+  // /**
+  // * Accepts the given pubItem. A save operation is done before the accept operation: Afterwards
+  // it
+  // * is released.
+  // *
+  // * @param pubItem
+  // * @param acceptComment
+  // * @param user
+  // * @exception TechnicalException,
+  // * @exception SecurityException,
+  // * @exception DepositingException,
+  // * @exception PubItemNotFoundException,
+  // * @exception PubManException
+  // * @throws ValidationException
+  // * @throws ItemInvalidException
+  // */
+  // public PubItemVO acceptPubItem(PubItemVO pubItem, String acceptComment, AccountUserVO user)
+  // throws PubItemNotFoundException, SecurityException, TechnicalException;
 
   /**
    * Creates an new PubItemVO object with the default metadata of the given Collection. The PubItem
@@ -199,25 +200,25 @@ public interface PubItemDepositing {
       ContextRO pubCollection, AccountUserVO user);
 
 
-//  /**
-//   * Submits and releases the given pubItem. As on submit, a new version must be created (which is
-//   * not done by the framework), a save operation is done before the submit operation: If the
-//   * pubItem already exists an update is executed, otherwise the item is created. Afterwards it is
-//   * submitted and released.
-//   * 
-//   * @param item
-//   * @param submissionComment
-//   * @param user
-//   * @throws PubItemStatusInvalidException
-//   * @exception TechnicalException,
-//   * @exception SecurityException,
-//   * @exception DepositingException,
-//   * @exception PubItemNotFoundException,
-//   * @throws ValidationException
-//   * @throws ItemInvalidException
-//   * @exception PubManException
-//   */
-//  public PubItemVO releasePubItem(PubItemVO pubItem, String submissionComment,
-//      AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
-//      SecurityException, TechnicalException;
+  // /**
+  // * Submits and releases the given pubItem. As on submit, a new version must be created (which is
+  // * not done by the framework), a save operation is done before the submit operation: If the
+  // * pubItem already exists an update is executed, otherwise the item is created. Afterwards it is
+  // * submitted and released.
+  // *
+  // * @param item
+  // * @param submissionComment
+  // * @param user
+  // * @throws PubItemStatusInvalidException
+  // * @exception TechnicalException,
+  // * @exception SecurityException,
+  // * @exception DepositingException,
+  // * @exception PubItemNotFoundException,
+  // * @throws ValidationException
+  // * @throws ItemInvalidException
+  // * @exception PubManException
+  // */
+  // public PubItemVO releasePubItem(PubItemVO pubItem, String submissionComment,
+  // AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
+  // SecurityException, TechnicalException;
 }

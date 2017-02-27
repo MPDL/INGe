@@ -128,13 +128,13 @@ public class PubItemDepositingBean implements PubItemDepositing {
       throws PubCollectionNotFoundException, SecurityException, TechnicalException {
 
     if (pubCollectionRef == null) {
-      throw new IllegalArgumentException(
-          getClass() + ".createPubItem: pubCollection reference is null.");
+      throw new IllegalArgumentException(getClass()
+          + ".createPubItem: pubCollection reference is null.");
     }
 
     if (pubCollectionRef.getObjectId() == null) {
-      throw new IllegalArgumentException(
-          getClass() + ".createPubItem: pubCollection reference does not contain an objectId.");
+      throw new IllegalArgumentException(getClass()
+          + ".createPubItem: pubCollection reference does not contain an objectId.");
     }
 
     if (user == null) {
@@ -144,8 +144,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
     ContextVO collection = null;
     try {
       // TODO remove replace
-      collection = ContextInterfaceConnectorFactory.getInstance()
-          .readContext(pubCollectionRef.getObjectId());
+      collection =
+          ContextInterfaceConnectorFactory.getInstance()
+              .readContext(pubCollectionRef.getObjectId());
     } catch (ContextNotFoundException e) {
       throw new PubCollectionNotFoundException(pubCollectionRef, e);
     } catch (Exception e) {
@@ -177,17 +178,17 @@ public class PubItemDepositingBean implements PubItemDepositing {
    * @throws TechnicalException
    * @throws SecurityException
    */
-  public void deletePubItem(ItemRO pubItemRef, AccountUserVO user)
-      throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
-      SecurityException, TechnicalException {
+  public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws PubItemLockedException,
+      PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
+      TechnicalException {
 
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".deletePubItem: pubItem reference is null.");
     }
 
     if (pubItemRef.getObjectId() == null) {
-      throw new IllegalArgumentException(
-          getClass() + ".deletePubItem: pubItem reference does not contain an objectId.");
+      throw new IllegalArgumentException(getClass()
+          + ".deletePubItem: pubItem reference does not contain an objectId.");
     }
 
     if (user == null) {
@@ -197,8 +198,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
     try {
       ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
 
-      ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED,
-          new Object[] {pubItemRef.getObjectId(), user.getUserid()});
+      ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
+          user.getUserid()});
 
     } catch (LockingException e) {
       throw new PubItemLockedException(pubItemRef, e);
@@ -223,8 +224,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
       throws SecurityException, TechnicalException {
 
     if (user == null) {
-      throw new IllegalArgumentException(
-          getClass() + ".getPubCollectionListForDepositing: user is null.");
+      throw new IllegalArgumentException(getClass()
+          + ".getPubCollectionListForDepositing: user is null.");
     }
 
     if (user.getReference() == null || user.getReference().getObjectId() == null) {
@@ -234,8 +235,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
 
     try {
       List<ContextVO> contextList = new ArrayList<ContextVO>();
-      String xmlGrants = ServiceLocator.getUserAccountHandler(user.getHandle())
-          .retrieveCurrentGrants(user.getReference().getObjectId());
+      String xmlGrants =
+          ServiceLocator.getUserAccountHandler(user.getHandle()).retrieveCurrentGrants(
+              user.getReference().getObjectId());
 
       List<GrantVO> grants = xmlTransforming.transformToGrantVOList(xmlGrants);
 
@@ -276,8 +278,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
       // Get context list
       String xmlContextList =
           ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-      contextList = (List<ContextVO>) xmlTransforming
-          .transformSearchRetrieveResponseToContextList(xmlContextList);
+      contextList =
+          (List<ContextVO>) xmlTransforming
+              .transformSearchRetrieveResponseToContextList(xmlContextList);
 
       return contextList;
 
@@ -289,8 +292,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
     return null;
   }
 
-  public List<ContextVO> getPubCollectionListForDepositing()
-      throws SecurityException, TechnicalException {
+  public List<ContextVO> getPubCollectionListForDepositing() throws SecurityException,
+      TechnicalException {
     try {
       // Create filter
       FilterTaskParamVO filterParam = new FilterTaskParamVO();
@@ -307,8 +310,9 @@ public class PubItemDepositingBean implements PubItemDepositing {
       // Get context list
       String xmlContextList = ServiceLocator.getContextHandler().retrieveContexts(filterMap);
       // ... and transform to PubCollections.
-      List<ContextVO> contextList = (List<ContextVO>) xmlTransforming
-          .transformSearchRetrieveResponseToContextList(xmlContextList);
+      List<ContextVO> contextList =
+          (List<ContextVO>) xmlTransforming
+              .transformSearchRetrieveResponseToContextList(xmlContextList);
 
       return contextList;
 
@@ -326,13 +330,12 @@ public class PubItemDepositingBean implements PubItemDepositing {
       PubItemStatusInvalidException, TechnicalException, AuthorizationException {
 
     if (pubItem == null) {
-      throw new IllegalArgumentException(
-          getClass().getSimpleName() + ".savePubItem: pubItem is null.");
+      throw new IllegalArgumentException(getClass().getSimpleName()
+          + ".savePubItem: pubItem is null.");
     }
 
     if (user == null) {
-      throw new IllegalArgumentException(
-          getClass().getSimpleName() + ".savePubItem: user is null.");
+      throw new IllegalArgumentException(getClass().getSimpleName() + ".savePubItem: user is null.");
     }
 
     try {
@@ -528,8 +531,8 @@ public class PubItemDepositingBean implements PubItemDepositing {
       ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
           pubItem.getVersion().getObjectId());
 
-      ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED,
-          new Object[] {savedPubItem.getVersion().getObjectId(), user.getUserid()});
+      ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] {
+          savedPubItem.getVersion().getObjectId(), user.getUserid()});
     } catch (InvalidStatusException e) {
       throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
     } catch (ItemNotFoundException e) {
@@ -783,7 +786,7 @@ public class PubItemDepositingBean implements PubItemDepositing {
   //
   // PubItemVO pubItemActual = null;
   // try {
-  //// pubItemActual = this.submitPubItem(pubItem, submissionComment, user);
+  // // pubItemActual = this.submitPubItem(pubItem, submissionComment, user);
   // this.pmPublishing.releasePubItem(pubItem.getVersion(),
   // pubItem.getModificationDate(), submissionComment, user);
   // // Retrieve item once again.

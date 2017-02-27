@@ -453,23 +453,18 @@ public class ViewItemFull extends FacesBean {
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
               .getVersionNumber();
       this.isStateWithdrawn =
-          this.getPubItem().getPublicStatus().toString()
-              .equals(State.WITHDRAWN.toString());
+          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
       this.isStateSubmitted =
-          this.getPubItem().getVersion().getState().toString()
-              .equals(State.SUBMITTED.toString())
+          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
               && !this.isStateWithdrawn;;
       this.isStateReleased =
-          this.getPubItem().getVersion().getState().toString()
-              .equals(State.RELEASED.toString())
+          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
               && !this.isStateWithdrawn;
       this.isStatePending =
-          this.getPubItem().getVersion().getState().toString()
-              .equals(State.PENDING.toString())
+          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
               && !this.isStateWithdrawn;;
       this.isStateInRevision =
-          this.getPubItem().getVersion().getState().toString()
-              .equals(State.IN_REVISION.toString())
+          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
               && !this.isStateWithdrawn;;
       this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
       this.isStateWasReleased =
@@ -740,8 +735,7 @@ public class ViewItemFull extends FacesBean {
         || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
       if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
         returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      } else if (isModerator
-          && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
+      } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during adding SSRN-Tag.",
@@ -778,8 +772,7 @@ public class ViewItemFull extends FacesBean {
         || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
       if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
         returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      } else if (isModerator
-          && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
+      } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during removing SSRN-Tag.",

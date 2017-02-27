@@ -143,7 +143,7 @@ public class SwordUtil extends FacesBean {
   private String depositXml = "";
   // private String depositXmlFileName;
 
-//  private ValidationPoint validationPoint;
+  // private ValidationPoint validationPoint;
 
   // Packaging Format
   private final String acceptedFormat = "application/zip";
@@ -644,7 +644,9 @@ public class SwordUtil extends FacesBean {
     if (method.equals("RELEASE")) {
       depositedItem = depositBean.savePubItem(item, user);
       depositedItem = depositBean.submitPubItem(depositedItem, "", user);
-      depositedItem = publishingBean.releasePubItem(depositedItem.getVersion(), depositedItem.getModificationDate(), "", user);
+      depositedItem =
+          publishingBean.releasePubItem(depositedItem.getVersion(),
+              depositedItem.getModificationDate(), "", user);
     }
 
     return depositedItem;
@@ -698,17 +700,17 @@ public class SwordUtil extends FacesBean {
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {
-//      this.setValidationPoint(ValidationPoint.STANDARD);
+      // this.setValidationPoint(ValidationPoint.STANDARD);
       return "RELEASE";
     }
 
     if ((isStatePending || isStateInRevision) && isWorkflowStandard && isOwner) {
-//      this.setValidationPoint(ValidationPoint.STANDARD);
+      // this.setValidationPoint(ValidationPoint.STANDARD);
       return "SAVE_SUBMIT";
     }
 
     if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator)) {
-//      this.setValidationPoint(ValidationPoint.STANDARD);
+      // this.setValidationPoint(ValidationPoint.STANDARD);
       return "SUBMIT";
     }
 
@@ -730,7 +732,7 @@ public class SwordUtil extends FacesBean {
     if (isWorkflowStandard) {
       return "Standard Workflow";
     }
-    
+
     if (isWorkflowSimple) {
       return "Simple Workflow";
     } else {
@@ -958,8 +960,8 @@ public class SwordUtil extends FacesBean {
         (ItemValidating) initialContext
             .lookup("java:global/pubman_ear/inge_validation/ItemValidatingBean");
 
-//    // To set the validation point
-//    this.getMethod(item);
+    // // To set the validation point
+    // this.getMethod(item);
 
     itemValidating.validateItemObject(item, ValidationPoint.STANDARD);
   }
@@ -975,13 +977,13 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-//  public ValidationPoint getValidationPoint() {
-//    return this.validationPoint;
-//  }
-//
-//  public void setValidationPoint(ValidationPoint validationPoint) {
-//    this.validationPoint = validationPoint;
-//  }
+  // public ValidationPoint getValidationPoint() {
+  // return this.validationPoint;
+  // }
+  //
+  // public void setValidationPoint(ValidationPoint validationPoint) {
+  // this.validationPoint = validationPoint;
+  // }
 
   public String getAcceptedFormat() {
     return this.acceptedFormat;

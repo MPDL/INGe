@@ -56,7 +56,7 @@ public interface PubItemPublishing {
    * @param pubItemRef The reference of the publication item.
    * @param lastModificationDate The date of last modification.
    * @param user The user (Necessary for authentication, authorization and logging)
-   * @return 
+   * @return
    * @throws TechnicalException
    * @throws PubItemStatusInvalidException
    * @throws PubItemNotFoundException

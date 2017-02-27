@@ -164,8 +164,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 
     if (this.getVersion() != null && this.getVersion().getState() != null) {
-      this.released =
-          this.getVersion().getState().toString().equals(State.RELEASED.toString());
+      this.released = this.getVersion().getState().toString().equals(State.RELEASED.toString());
     }
 
     // get the first source of the item (if available)

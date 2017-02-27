@@ -73,94 +73,95 @@ public class QualityAssuranceBean implements QualityAssurance {
   @EJB
   private XmlTransforming xmlTransforming;
 
-//  public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user)
-//      throws TechnicalException, ServiceException, MissingMethodParameterException,
-//      ContextNotFoundException, InvalidXmlException, AuthenticationException,
-//      AuthorizationException, SystemException, RemoteException, URISyntaxException {
-//
-//    ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-//
-//    FilterTaskParamVO filter = new FilterTaskParamVO();
-//
-//    Filter f1 = filter.new ItemStatusFilter(State.valueOf(state));
-//    filter.getFilterList().add(f1);
-//
-//    Filter f3 =
-//        filter.new FrameworkItemTypeFilter(
-//            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-//    filter.getFilterList().add(f3);
-//
-//    Filter f4 = filter.new ContextFilter(contextobjId);
-//    filter.getFilterList().add(f4);
-//
-//    // every public state except withdrawn
-//    Filter f5 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
-//    filter.getFilterList().add(f5);
-//    Filter f6 = filter.new ItemPublicStatusFilter(State.PENDING);
-//    filter.getFilterList().add(f6);
-//    Filter f7 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
-//    filter.getFilterList().add(f7);
-//    Filter f8 = filter.new ItemPublicStatusFilter(State.RELEASED);
-//    filter.getFilterList().add(f8);
-//
-//    Filter f9 = filter.new LimitFilter("0");
-//    filter.getFilterList().add(f9);
-//
-//    xmlTransforming.transformToFilterTaskParam(filter);
-//
-//    String xmlItemList = itemHandler.retrieveItems(new HashMap<String, String[]>()); // todo
-//    List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
-//
-//    return pubItemList;
-//  }
+  // public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO
+  // user)
+  // throws TechnicalException, ServiceException, MissingMethodParameterException,
+  // ContextNotFoundException, InvalidXmlException, AuthenticationException,
+  // AuthorizationException, SystemException, RemoteException, URISyntaxException {
+  //
+  // ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+  //
+  // FilterTaskParamVO filter = new FilterTaskParamVO();
+  //
+  // Filter f1 = filter.new ItemStatusFilter(State.valueOf(state));
+  // filter.getFilterList().add(f1);
+  //
+  // Filter f3 =
+  // filter.new FrameworkItemTypeFilter(
+  // PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+  // filter.getFilterList().add(f3);
+  //
+  // Filter f4 = filter.new ContextFilter(contextobjId);
+  // filter.getFilterList().add(f4);
+  //
+  // // every public state except withdrawn
+  // Filter f5 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
+  // filter.getFilterList().add(f5);
+  // Filter f6 = filter.new ItemPublicStatusFilter(State.PENDING);
+  // filter.getFilterList().add(f6);
+  // Filter f7 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
+  // filter.getFilterList().add(f7);
+  // Filter f8 = filter.new ItemPublicStatusFilter(State.RELEASED);
+  // filter.getFilterList().add(f8);
+  //
+  // Filter f9 = filter.new LimitFilter("0");
+  // filter.getFilterList().add(f9);
+  //
+  // xmlTransforming.transformToFilterTaskParam(filter);
+  //
+  // String xmlItemList = itemHandler.retrieveItems(new HashMap<String, String[]>()); // todo
+  // List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
+  //
+  // return pubItemList;
+  // }
 
-//  /**
-//   * {@inheritDoc}
-//   */
-//  public List<ContextVO> retrievePubContextsForModerator(AccountUserVO user)
-//      throws SecurityException, TechnicalException {
-//    if (user == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user is null.");
-//    }
-//    if (user.getReference() == null || user.getReference().getObjectId() == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
-//    }
-//
-//    try {
-//      // Create filter
-//      FilterTaskParamVO filterParam = new FilterTaskParamVO();
-//
-//      RoleFilter roleFilter =
-//          filterParam.new RoleFilter("escidoc:role-moderator", user.getReference());
-//      filterParam.getFilterList().add(roleFilter);
-//      FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
-//      filterParam.getFilterList().add(typeFilter);
-//
-//      /*
-//       * PubCollectionStatusFilter statusFilter = filterParam.new
-//       * PubCollectionStatusFilter(ContextVO.State.OPENED);
-//       * filterParam.getFilterList().add(statusFilter);
-//       */
-//
-//      // ... and transform filter to xml
-//      xmlTransforming.transformToFilterTaskParam(filterParam);
-//
-//      HashMap<String, String[]> filterMap = filterParam.toMap();
-//
-//      // Get context list
-//      String contextList =
-//          ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-//      // ... and transform to PubCollections.
-//      return xmlTransforming.transformToContextList(contextList);
-//
-//    } catch (Exception e) {
-//      // No business exceptions expected.
-//      ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
-//      throw new TechnicalException(e);
-//    }
-//  }
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public List<ContextVO> retrievePubContextsForModerator(AccountUserVO user)
+  // throws SecurityException, TechnicalException {
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user is null.");
+  // }
+  // if (user.getReference() == null || user.getReference().getObjectId() == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+  // }
+  //
+  // try {
+  // // Create filter
+  // FilterTaskParamVO filterParam = new FilterTaskParamVO();
+  //
+  // RoleFilter roleFilter =
+  // filterParam.new RoleFilter("escidoc:role-moderator", user.getReference());
+  // filterParam.getFilterList().add(roleFilter);
+  // FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
+  // filterParam.getFilterList().add(typeFilter);
+  //
+  // /*
+  // * PubCollectionStatusFilter statusFilter = filterParam.new
+  // * PubCollectionStatusFilter(ContextVO.State.OPENED);
+  // * filterParam.getFilterList().add(statusFilter);
+  // */
+  //
+  // // ... and transform filter to xml
+  // xmlTransforming.transformToFilterTaskParam(filterParam);
+  //
+  // HashMap<String, String[]> filterMap = filterParam.toMap();
+  //
+  // // Get context list
+  // String contextList =
+  // ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
+  // // ... and transform to PubCollections.
+  // return xmlTransforming.transformToContextList(contextList);
+  //
+  // } catch (Exception e) {
+  // // No business exceptions expected.
+  // ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
+  // throw new TechnicalException(e);
+  // }
+  // }
 
   /**
    * {@inheritDoc}
@@ -169,11 +170,11 @@ public class QualityAssuranceBean implements QualityAssurance {
   public PubItemVO revisePubItem(ItemRO pubItemRef, String comment, AccountUserVO user)
       throws ServiceException, TechnicalException, PubItemStatusInvalidException,
       SecurityException, PubItemNotFoundException {
-    
+
     if (pubItemRef == null) {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: pubItem is null.");
     }
-    
+
     if (user == null) {
       throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
     }
@@ -189,10 +190,10 @@ public class QualityAssuranceBean implements QualityAssurance {
     try {
       TaskParamVO taskParam = new TaskParamVO(pubItemRef.getModificationDate(), comment);
       itemHandler.revise(pubItemRef.getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
-      
+
       String item = itemHandler.retrieve(pubItemRef.getObjectId());
       pubItemActual = xmlTransforming.transformToPubItem(item);
-      
+
       ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
     } catch (InvalidStatusException e) {
@@ -202,105 +203,105 @@ public class QualityAssuranceBean implements QualityAssurance {
     } catch (Exception e) {
       ExceptionHandler.handleException(e, "QualityAssuranceBean.revisePubItem");
     }
-    
+
     return pubItemActual;
   }
 
-//  /**
-//   * {@inheritDoc}
-//   */
-//  public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException,
-//      TechnicalException {
-//    if (user == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user is null.");
-//    }
-//    if (user.getReference() == null || user.getReference().getObjectId() == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
-//    }
-//
-//    try {
-//      // Create filter
-//      FilterTaskParamVO filterParam = new FilterTaskParamVO();
-//
-//      RoleFilter roleFilter =
-//          filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
-//      filterParam.getFilterList().add(roleFilter);
-//      FrameworkContextTypeFilter typeFilter =
-//          filterParam.new FrameworkContextTypeFilter("yearbook");
-//      filterParam.getFilterList().add(typeFilter);
-//
-//      /*
-//       * PubCollectionStatusFilter statusFilter = filterParam.new
-//       * PubCollectionStatusFilter(ContextVO.State.OPENED);
-//       * filterParam.getFilterList().add(statusFilter);
-//       */
-//
-//      // ... and transform filter to xml
-//      xmlTransforming.transformToFilterTaskParam(filterParam);
-//
-//      HashMap<String, String[]> filterMap = filterParam.toMap();
-//
-//      // Get context list
-//      String contextList =
-//          ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-//      // ... and transform to PubCollections.
-//      return xmlTransforming.transformToContextList(contextList);
-//
-//    } catch (Exception e) {
-//      // No business exceptions expected.
-//      ExceptionHandler.handleException(e, "PubItemDepositing.retrieveYearbookContexts");
-//      throw new TechnicalException(e);
-//    }
-//  }
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException,
+  // TechnicalException {
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user is null.");
+  // }
+  // if (user.getReference() == null || user.getReference().getObjectId() == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+  // }
+  //
+  // try {
+  // // Create filter
+  // FilterTaskParamVO filterParam = new FilterTaskParamVO();
+  //
+  // RoleFilter roleFilter =
+  // filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
+  // filterParam.getFilterList().add(roleFilter);
+  // FrameworkContextTypeFilter typeFilter =
+  // filterParam.new FrameworkContextTypeFilter("yearbook");
+  // filterParam.getFilterList().add(typeFilter);
+  //
+  // /*
+  // * PubCollectionStatusFilter statusFilter = filterParam.new
+  // * PubCollectionStatusFilter(ContextVO.State.OPENED);
+  // * filterParam.getFilterList().add(statusFilter);
+  // */
+  //
+  // // ... and transform filter to xml
+  // xmlTransforming.transformToFilterTaskParam(filterParam);
+  //
+  // HashMap<String, String[]> filterMap = filterParam.toMap();
+  //
+  // // Get context list
+  // String contextList =
+  // ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
+  // // ... and transform to PubCollections.
+  // return xmlTransforming.transformToContextList(contextList);
+  //
+  // } catch (Exception e) {
+  // // No business exceptions expected.
+  // ExceptionHandler.handleException(e, "PubItemDepositing.retrieveYearbookContexts");
+  // throw new TechnicalException(e);
+  // }
+  // }
 
-//  /**
-//   * {@inheritDoc}
-//   */
-//  public List<ContextVO> retrieveYearbookContextForModerator(AccountUserVO user)
-//      throws SecurityException, TechnicalException {
-//    if (user == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user is null.");
-//    }
-//    if (user.getReference() == null || user.getReference().getObjectId() == null) {
-//      throw new IllegalArgumentException(getClass()
-//          + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
-//    }
-//
-//    try {
-//      // Create filter
-//      FilterTaskParamVO filterParam = new FilterTaskParamVO();
-//
-//      RoleFilter roleFilter =
-//          filterParam.new RoleFilter("escidoc:role-moderator", user.getReference());
-//      filterParam.getFilterList().add(roleFilter);
-//      FrameworkContextTypeFilter typeFilter =
-//          filterParam.new FrameworkContextTypeFilter("yearbook");
-//      filterParam.getFilterList().add(typeFilter);
-//
-//      /*
-//       * PubCollectionStatusFilter statusFilter = filterParam.new
-//       * PubCollectionStatusFilter(ContextVO.State.OPENED);
-//       * filterParam.getFilterList().add(statusFilter);
-//       */
-//
-//      // ... and transform filter to xml
-//      xmlTransforming.transformToFilterTaskParam(filterParam);
-//
-//      HashMap<String, String[]> filterMap = filterParam.toMap();
-//
-//      // Get context list
-//      String contextList =
-//          ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-//      // ... and transform to PubCollections.
-//      return xmlTransforming.transformToContextList(contextList);
-//
-//    } catch (Exception e) {
-//      // No business exceptions expected.
-//      ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
-//      throw new TechnicalException(e);
-//    }
-//  }
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public List<ContextVO> retrieveYearbookContextForModerator(AccountUserVO user)
+  // throws SecurityException, TechnicalException {
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user is null.");
+  // }
+  // if (user.getReference() == null || user.getReference().getObjectId() == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+  // }
+  //
+  // try {
+  // // Create filter
+  // FilterTaskParamVO filterParam = new FilterTaskParamVO();
+  //
+  // RoleFilter roleFilter =
+  // filterParam.new RoleFilter("escidoc:role-moderator", user.getReference());
+  // filterParam.getFilterList().add(roleFilter);
+  // FrameworkContextTypeFilter typeFilter =
+  // filterParam.new FrameworkContextTypeFilter("yearbook");
+  // filterParam.getFilterList().add(typeFilter);
+  //
+  // /*
+  // * PubCollectionStatusFilter statusFilter = filterParam.new
+  // * PubCollectionStatusFilter(ContextVO.State.OPENED);
+  // * filterParam.getFilterList().add(statusFilter);
+  // */
+  //
+  // // ... and transform filter to xml
+  // xmlTransforming.transformToFilterTaskParam(filterParam);
+  //
+  // HashMap<String, String[]> filterMap = filterParam.toMap();
+  //
+  // // Get context list
+  // String contextList =
+  // ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
+  // // ... and transform to PubCollections.
+  // return xmlTransforming.transformToContextList(contextList);
+  //
+  // } catch (Exception e) {
+  // // No business exceptions expected.
+  // ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
+  // throw new TechnicalException(e);
+  // }
+  // }
 }

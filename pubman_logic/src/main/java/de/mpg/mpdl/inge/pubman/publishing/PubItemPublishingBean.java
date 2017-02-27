@@ -119,7 +119,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
     } catch (Exception e) {
       throw new TechnicalException(e);
     }
-    
+
     LOGGER.info("*** start release of <" + pubItemRef.getObjectId() + "> ");
 
     PubItemVO actualItemVO = null;
@@ -131,7 +131,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
       String paramXml;
       String url;
       String result = null;
-      
+
       // Floating PID assignment.
       if (actualItemVO.getPid() == null || actualItemVO.getPid().equals("")) {
         long start = System.currentTimeMillis();
@@ -153,7 +153,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
         long end = System.currentTimeMillis();
         LOGGER.info("assign object PID for <" + pubItemRef.getObjectId() + "> needed <"
             + (end - start) + "> msec");
-        
+
         // Retrieve the item to get last modification date
         actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
         actualItemVO = xmlTransforming.transformToPubItem(actualItem);
@@ -179,7 +179,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
           LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId()
               + " failed. It probably already has one.", e);
         }
-        
+
         long end = System.currentTimeMillis();
         LOGGER.info("assign version PID for <" + pubItemRef.getObjectId() + "> needed <"
             + (end - start) + "> msec");
@@ -187,7 +187,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
 
       // Loop over files
       for (FileVO file : actualItemVO.getFiles()) {
-        
+
         if ((file.getPid() == null || file.getPid().equals(""))
             && file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
           long start = System.currentTimeMillis();
@@ -213,12 +213,12 @@ public class PubItemPublishingBean implements PubItemPublishing {
             LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId()
                 + " failed. It probably already has one.", e);
           }
-          
+
           long end = System.currentTimeMillis();
           LOGGER.info("assign content PID for " + pubItemRef.getObjectId() + "> needed <"
               + (end - start) + "> msec");
         }
-        
+
       }
 
       // Retrieve the item to get last modification date
@@ -248,7 +248,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
     long gend = System.currentTimeMillis();
     LOGGER.info("*** total release of <" + pubItemRef.getObjectId() + "> needed <"
         + (gend - gstart) + "> msec");
-    
+
     return actualItemVO;
   }
 
@@ -256,9 +256,9 @@ public class PubItemPublishingBean implements PubItemPublishing {
    * {@inheritDoc}
    */
   public final void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
-      final String comment, final AccountUserVO user)
-      throws MissingWithdrawalCommentException, PubItemNotFoundException,
-      PubItemStatusInvalidException, TechnicalException, PubItemLockedException, SecurityException {
+      final String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
+      PubItemNotFoundException, PubItemStatusInvalidException, TechnicalException,
+      PubItemLockedException, SecurityException {
 
     if (pubItem == null) {
       throw new IllegalArgumentException(getClass()
@@ -288,7 +288,7 @@ public class PubItemPublishingBean implements PubItemPublishing {
       TaskParamVO param = new TaskParamVO(lastModificationDate, comment);
       ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
           xmlTransforming.transformToTaskParam(param));
-      
+
       ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN, new Object[] {
           pubItem.getVersion().getObjectId(), user.getUserid()});
     } catch (LockingException e) {

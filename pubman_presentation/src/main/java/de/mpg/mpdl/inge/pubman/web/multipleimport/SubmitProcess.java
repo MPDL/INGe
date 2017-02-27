@@ -77,9 +77,9 @@ public class SubmitProcess extends Thread {
       this.pubItemDepositing =
           (PubItemDepositing) context
               .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-       this.pubItemPublishing =
-       (PubItemPublishing) context
-       .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+      this.pubItemPublishing =
+          (PubItemPublishing) context
+              .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
@@ -138,10 +138,11 @@ public class SubmitProcess extends Thread {
 
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            itemVO = pubItemDepositing.submitPubItem(itemVO, "Batch submit/release from import "
-                + log.getMessage(), user);
-            pubItemPublishing.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(), "Batch submit/release from import "
-                + log.getMessage(), user);
+            itemVO =
+                pubItemDepositing.submitPubItem(itemVO,
+                    "Batch submit/release from import " + log.getMessage(), user);
+            pubItemPublishing.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(),
+                "Batch submit/release from import " + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
 
           } else {

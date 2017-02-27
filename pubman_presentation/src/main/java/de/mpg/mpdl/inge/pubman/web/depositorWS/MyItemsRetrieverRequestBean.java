@@ -264,16 +264,16 @@ public class MyItemsRetrieverRequestBean extends
   public List<SelectItem> getItemStateSelectItems() {
     itemStateSelectItems = new ArrayList<SelectItem>();
     itemStateSelectItems.add(new SelectItem("all", getLabel("ItemList_filterAllExceptWithdrawn")));
-    itemStateSelectItems.add(new SelectItem(State.PENDING.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.PENDING))));
-    itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.SUBMITTED))));
-    itemStateSelectItems.add(new SelectItem(State.RELEASED.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.RELEASED))));
-    itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.WITHDRAWN))));
-    itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.IN_REVISION))));
+    itemStateSelectItems.add(new SelectItem(State.PENDING.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.PENDING))));
+    itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.SUBMITTED))));
+    itemStateSelectItems.add(new SelectItem(State.RELEASED.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.RELEASED))));
+    itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.WITHDRAWN))));
+    itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.IN_REVISION))));
 
     return itemStateSelectItems;
   }
@@ -323,8 +323,7 @@ public class MyItemsRetrieverRequestBean extends
     String returnString = "";
     if (getSelectedItemState() != null && !getSelectedItemState().equals("all")) {
       returnString =
-          getLabel(getI18nHelper().convertEnumToString(
-              State.valueOf(getSelectedItemState())));
+          getLabel(getI18nHelper().convertEnumToString(State.valueOf(getSelectedItemState())));
     }
     return returnString;
 

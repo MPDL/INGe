@@ -986,7 +986,7 @@ public class EditItem extends FacesBean {
         ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
-      
+
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
         logger.warn("Item has not been changed.");
         // create a validation report
@@ -1403,8 +1403,8 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.SAVE);
+      this.itemValidating
+          .validateItemObject(new PubItemVO(this.getPubItem()), ValidationPoint.SAVE);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -1423,7 +1423,7 @@ public class EditItem extends FacesBean {
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
-    
+
     if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
       if (newPubItem.getVersion().getState() == State.RELEASED) {
         logger.warn("Item has not been changed.");
@@ -1440,7 +1440,7 @@ public class EditItem extends FacesBean {
         return AcceptItem.LOAD_ACCEPTITEM;
       }
     }
-    
+
     String retVal = "";
     // If item is released, submit it additionally (because it is pending after the save)
     try {
@@ -1941,11 +1941,9 @@ public class EditItem extends FacesBean {
     if (this.getPubItem() != null && this.getPubItem().getVersion() != null
         && this.getPubItem().getVersion().getState() != null) {
       isStatePending = this.getPubItem().getVersion().getState().equals(State.PENDING);
-      isStateSubmitted =
-          this.getPubItem().getVersion().getState().equals(State.SUBMITTED);
+      isStateSubmitted = this.getPubItem().getVersion().getState().equals(State.SUBMITTED);
       isStateReleased = this.getPubItem().getVersion().getState().equals(State.RELEASED);
-      isStateInRevision =
-          this.getPubItem().getVersion().getState().equals(State.IN_REVISION);
+      isStateInRevision = this.getPubItem().getVersion().getState().equals(State.IN_REVISION);
       isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
     }
     boolean isModerator = false;

@@ -76,8 +76,7 @@ public class RevisionsRetrieverRequestBean extends
         PubItemVO sourceItem = relationVO.getSourceItem();
 
         if (sourceItem != null
-            && sourceItem.getVersion().getState().toString()
-                .equals(State.RELEASED.toString())) {
+            && sourceItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
           pubItemVOList.add(sourceItem);
         }
 
@@ -91,8 +90,7 @@ public class RevisionsRetrieverRequestBean extends
       for (RelationVOPresentation relationVO : relationVOList2) {
         PubItemVO targetItem = relationVO.getTargetItem();
         if (targetItem != null
-            && targetItem.getVersion().getState().toString()
-                .equals(State.RELEASED.toString())) {
+            && targetItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
           pubItemVOList.add(targetItem);
         }
 

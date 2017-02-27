@@ -334,14 +334,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
     itemStateSelectItems.add(new SelectItem("all",
         getLabel("ItemList_filterAllExceptPendingWithdrawn")));
-    itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.SUBMITTED))));
-    itemStateSelectItems.add(new SelectItem(State.RELEASED.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.RELEASED))));
-    itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.IN_REVISION))));
-    itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(),
-        getLabel(getI18nHelper().convertEnumToString(State.WITHDRAWN))));
+    itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.SUBMITTED))));
+    itemStateSelectItems.add(new SelectItem(State.RELEASED.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.RELEASED))));
+    itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.IN_REVISION))));
+    itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(), getLabel(getI18nHelper()
+        .convertEnumToString(State.WITHDRAWN))));
     setItemStateSelectItems(itemStateSelectItems);
 
     return itemStateSelectItems;
@@ -356,9 +356,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
      * //item states List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
      * itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
      * itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(),
-     * getLabel(i18nHelper.convertEnumToString(State.SUBMITTED))));
-     * itemStateSelectItems.add(new SelectItem(State.RELEASED.name(),
-     * getLabel(i18nHelper.convertEnumToString(State.RELEASED))));
+     * getLabel(i18nHelper.convertEnumToString(State.SUBMITTED)))); itemStateSelectItems.add(new
+     * SelectItem(State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(State.RELEASED))));
      * itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(),
      * getLabel(i18nHelper.convertEnumToString(State.IN_REVISION))));
      * setItemStateSelectItems(itemStateSelectItems);
