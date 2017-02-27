@@ -65,6 +65,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
+@SuppressWarnings("serial")
 public class PubItemVOPresentation extends PubItemVO implements Internationalized {
 
   private boolean selected = false;
@@ -164,7 +165,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
     if (this.getVersion() != null && this.getVersion().getState() != null) {
       this.released =
-          this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+          this.getVersion().getState().toString().equals(State.RELEASED.toString());
     }
 
     // get the first source of the item (if available)
@@ -268,7 +269,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
       // add files
       else {
         if (searchHitList != null && searchHitList.size() > 0
-            && !getVersion().getState().equals(PubItemVO.State.WITHDRAWN)) {
+            && !getVersion().getState().equals(State.WITHDRAWN)) {
           this.fileBeanList.add(new FileBean(file, getVersion().getState(), searchHitList));
         } else {
           this.fileBeanList.add(new FileBean(file, getVersion().getState()));
@@ -1202,7 +1203,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return Boolean true if item is withdrawn
    */
   public boolean getIsStateWithdrawn() {
-    return this.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+    return this.getPublicStatus().toString().equals(State.WITHDRAWN.toString());
   }
 
   /**
@@ -1212,7 +1213,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return Boolean true if item is submitted
    */
   public boolean getIsStateSubmitted() {
-    return this.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+    return this.getVersion().getState().toString().equals(State.SUBMITTED.toString());
   }
 
   /**
@@ -1222,7 +1223,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return Boolean true if item is released
    */
   public boolean getIsStateReleased() {
-    return this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+    return this.getVersion().getState().toString().equals(State.RELEASED.toString());
   }
 
   /**
@@ -1232,7 +1233,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return Boolean true if item is pending
    */
   public boolean getIsStatePending() {
-    return this.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+    return this.getVersion().getState().toString().equals(State.PENDING.toString());
   }
 
   /**
@@ -1242,7 +1243,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return Boolean true if item is in revision
    */
   public boolean getIsStateInRevision() {
-    return this.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+    return this.getVersion().getState().toString().equals(State.IN_REVISION.toString());
   }
 
 

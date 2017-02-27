@@ -63,7 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
@@ -986,6 +986,7 @@ public class EditItem extends FacesBean {
         ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
+      
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
         logger.warn("Item has not been changed.");
         // create a validation report
@@ -998,7 +999,8 @@ public class EditItem extends FacesBean {
         this.showValidationMessages(changedReport);
         return null;
       } else {
-        // TODO: 2x saven???
+        // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
+        // (save removed there)
         this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
         this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
             "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
@@ -1137,7 +1139,7 @@ public class EditItem extends FacesBean {
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+        if (newPubItem.getVersion().getState() == State.RELEASED) {
           logger.warn("Item has not been changed.");
           // create a validation report
           ValidationReportVO changedReport = new ValidationReportVO();
@@ -1237,7 +1239,7 @@ public class EditItem extends FacesBean {
   // return ErrorPage.LOAD_ERRORPAGE;
   // }
   // if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-  // if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+  // if (newPubItem.getVersion().getState() == State.RELEASED) {
   // logger.warn("Item has not been changed.");
   // // create a validation report
   // ValidationReportVO changedReport = new ValidationReportVO();
@@ -1402,7 +1404,7 @@ public class EditItem extends FacesBean {
 
     try {
       this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+          ValidationPoint.SAVE);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -1421,8 +1423,9 @@ public class EditItem extends FacesBean {
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
+    
     if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-      if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+      if (newPubItem.getVersion().getState() == State.RELEASED) {
         logger.warn("Item has not been changed.");
         // create a validation report
         ValidationReportVO changedReport = new ValidationReportVO();
@@ -1436,19 +1439,15 @@ public class EditItem extends FacesBean {
       } else {
         return AcceptItem.LOAD_ACCEPTITEM;
       }
-    } else {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Item was changed.");
-      }
     }
+    
     String retVal = "";
     // If item is released, submit it additionally (because it is pending after the save)
     try {
       if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
-          .equals(ItemVO.State.RELEASED)) {
+          .equals(State.RELEASED)) {
         // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
-        // (save
-        // removed there)
+        // (save removed there)
         this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         retVal =
             this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
@@ -1527,7 +1526,7 @@ public class EditItem extends FacesBean {
   // return ErrorPage.LOAD_ERRORPAGE;
   // }
   // if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-  // if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED) {
+  // if (newPubItem.getVersion().getState() == State.RELEASED) {
   // logger.warn("Item has not been changed.");
   // // create a validation report
   // ValidationReportVO changedReport = new ValidationReportVO();
@@ -1550,7 +1549,7 @@ public class EditItem extends FacesBean {
   // // If item is released, submit it additionally (because it is pending after the save)
   // try {
   // if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
-  // .equals(ItemVO.State.RELEASED)) {
+  // .equals(State.RELEASED)) {
   // // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
   // // (save
   // // removed there)
@@ -1941,13 +1940,13 @@ public class EditItem extends FacesBean {
       isItem = true;
     if (this.getPubItem() != null && this.getPubItem().getVersion() != null
         && this.getPubItem().getVersion().getState() != null) {
-      isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
+      isStatePending = this.getPubItem().getVersion().getState().equals(State.PENDING);
       isStateSubmitted =
-          this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
-      isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+          this.getPubItem().getVersion().getState().equals(State.SUBMITTED);
+      isStateReleased = this.getPubItem().getVersion().getState().equals(State.RELEASED);
       isStateInRevision =
-          this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
-      isPublicStateReleased = this.getPubItem().getPublicStatus() == PubItemVO.State.RELEASED;
+          this.getPubItem().getVersion().getState().equals(State.IN_REVISION);
+      isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
     }
     boolean isModerator = false;
     if (loginHelper.getAccountUser() != null && this.getPubItem() != null) {
@@ -2031,8 +2030,8 @@ public class EditItem extends FacesBean {
   // */
   // private boolean isInModifyMode() {
   // boolean isModifyMode = this.getPubItem().getVersion().getState() != null
-  // && (this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED)
-  // || this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED));
+  // && (this.getPubItem().getVersion().getState().equals(State.SUBMITTED)
+  // || this.getPubItem().getVersion().getState().equals(State.RELEASED));
   // return isModifyMode;
   // }
 

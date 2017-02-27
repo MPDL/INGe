@@ -63,7 +63,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -455,24 +454,24 @@ public class ViewItemFull extends FacesBean {
               .getVersionNumber();
       this.isStateWithdrawn =
           this.getPubItem().getPublicStatus().toString()
-              .equals(PubItemVO.State.WITHDRAWN.toString());
+              .equals(State.WITHDRAWN.toString());
       this.isStateSubmitted =
           this.getPubItem().getVersion().getState().toString()
-              .equals(PubItemVO.State.SUBMITTED.toString())
+              .equals(State.SUBMITTED.toString())
               && !this.isStateWithdrawn;;
       this.isStateReleased =
           this.getPubItem().getVersion().getState().toString()
-              .equals(PubItemVO.State.RELEASED.toString())
+              .equals(State.RELEASED.toString())
               && !this.isStateWithdrawn;
       this.isStatePending =
           this.getPubItem().getVersion().getState().toString()
-              .equals(PubItemVO.State.PENDING.toString())
+              .equals(State.PENDING.toString())
               && !this.isStateWithdrawn;;
       this.isStateInRevision =
           this.getPubItem().getVersion().getState().toString()
-              .equals(PubItemVO.State.IN_REVISION.toString())
+              .equals(State.IN_REVISION.toString())
               && !this.isStateWithdrawn;;
-      this.isPublicStateReleased = this.getPubItem().getPublicStatus() == PubItemVO.State.RELEASED;
+      this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
       this.isStateWasReleased =
           this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
@@ -628,8 +627,8 @@ public class ViewItemFull extends FacesBean {
           }
 
           try {
-            if (ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState())
-                || ItemVO.State.IN_REVISION.equals(yisb.getYearbookItem().getVersion().getState())) {
+            if (State.PENDING.equals(yisb.getYearbookItem().getVersion().getState())
+                || State.IN_REVISION.equals(yisb.getYearbookItem().getVersion().getState())) {
               this.isCandidateOfYearbook =
                   yisb.isCandidate(this.pubItem.getVersion().getObjectId());
               if (!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers() > 0) {
@@ -731,18 +730,18 @@ public class ViewItemFull extends FacesBean {
         (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     String returnValue = "";
     this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
-    if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState())
-        || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
+    if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
+        || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
       returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnAddedSuccessfully"));
       }
-    } else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
-        || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
-      if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
+    } else if ((State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
+        || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
+      if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
         returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       } else if (isModerator
-          && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
+          && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during adding SSRN-Tag.",
@@ -769,18 +768,18 @@ public class ViewItemFull extends FacesBean {
         (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     String returnValue = "";
     this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
-    if ((ItemVO.State.PENDING).equals(this.getPubItem().getVersion().getState())
-        || (ItemVO.State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
+    if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
+        || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
       returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
       }
-    } else if ((ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
-        || ((ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
-      if (isModerator && (ItemVO.State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
+    } else if ((State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
+        || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
+      if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
         returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       } else if (isModerator
-          && (ItemVO.State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
+          && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
         icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
         returnValue =
             icsb.saveAndSubmitCurrentPubItem("Submission during removing SSRN-Tag.",
@@ -1539,7 +1538,7 @@ public class ViewItemFull extends FacesBean {
     if (this.getPubItem().getPublicStatus().equals(State.WITHDRAWN)) {
       return false;
     }
-    return this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+    return this.getPubItem().getVersion().getState().equals(State.RELEASED);
   }
 
   public String getDates() {
@@ -1595,7 +1594,7 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getItemIsWithdrawn() {
-    if (this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN)) {
+    if (this.pubItem.getVersion().getState().equals(State.WITHDRAWN)) {
       return true;
     } else {
       return false;
@@ -1609,7 +1608,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String getWithdrawalDate() {
     String date = "";
-    if (this.pubItem.getPublicStatus().equals(PubItemVO.State.WITHDRAWN)) {
+    if (this.pubItem.getPublicStatus().equals(State.WITHDRAWN)) {
       if (this.pubItem.getModificationDate() != null) {
         date = CommonUtils.format(this.pubItem.getModificationDate());
       }

@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
@@ -143,7 +144,7 @@ public class SubmitItem extends FacesBean {
         this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      if (this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED) {
+      if (this.getPubItem().getVersion().getState() == State.SUBMITTED) {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       }
       // distinguish between simple and standard workflow
@@ -155,7 +156,6 @@ public class SubmitItem extends FacesBean {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
       }
     }
-
 
     // redirect to the view item page afterwards (if no error occured)
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
@@ -304,6 +304,6 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsSubmitted() {
-    return this.getPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
+    return this.getPubItem().getVersion().getState() == State.SUBMITTED;
   }
 }

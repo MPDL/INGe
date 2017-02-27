@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -123,7 +124,7 @@ public class DoiRestService {
   public static boolean isDoiReady(PubItemVO pubItem) {
     boolean doiReady = false;
     // Item must be released to create a DOI
-    if (pubItem.getVersion().getState() != ItemVO.State.RELEASED) {
+    if (pubItem.getVersion().getState() != State.RELEASED) {
       return false;
     }
     // Item must not contain any DOI to create a DOI

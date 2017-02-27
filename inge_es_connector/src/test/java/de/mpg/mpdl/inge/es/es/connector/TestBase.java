@@ -16,7 +16,6 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
@@ -172,7 +171,7 @@ public class TestBase {
     responsible.setTitle("testTitle");
     vo.getResponsibleAffiliations().add(responsible);
 
-    vo.setState(State.CLOSED);
+    vo.setState(ContextVO.State.CLOSED);
     vo.setType("testType");
 
     // ValidationPoints

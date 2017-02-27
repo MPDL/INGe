@@ -42,6 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
 public class ItemVO extends ValueObject implements Searchable {
   /**

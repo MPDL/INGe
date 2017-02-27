@@ -21,7 +21,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
@@ -44,6 +44,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@SuppressWarnings("serial")
 public class YearbookItemSessionBean extends FacesBean {
   enum YBWORKSPACE {
     CANDIDATES, MEMBERS, INVALID, NON_CANDIDATES
@@ -128,7 +129,7 @@ public class YearbookItemSessionBean extends FacesBean {
               && (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
                   .getYearbookMetadata().getYear()
                   .equals(Integer.toString((Integer.valueOf(year) - 1))))
-              && !yearbookPubItem.getPublicStatus().equals(ItemVO.State.RELEASED)) {
+              && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
             this.setYearbookItem(yearbookPubItem);
             ContextHandler contextHandler =
                 ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());

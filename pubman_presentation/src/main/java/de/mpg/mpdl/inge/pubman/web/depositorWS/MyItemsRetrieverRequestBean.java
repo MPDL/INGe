@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
@@ -37,6 +38,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class MyItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
@@ -167,31 +169,31 @@ public class MyItemsRetrieverRequestBean extends
 
       if (selectedItemState.toLowerCase().equals("withdrawn")) {
         // use public status instead of version status here
-        Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
+        Filter f3 = filter.new ItemPublicStatusFilter(State.WITHDRAWN);
         filter.getFilterList().add(0, f3);
       } else if (selectedItemState.toLowerCase().equals("all")) {
         // all public status except withdrawn
-        Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+        Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
         filter.getFilterList().add(0, f4);
-        Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+        Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
         filter.getFilterList().add(0, f5);
-        Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+        Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
         filter.getFilterList().add(0, f6);
-        Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+        Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
         filter.getFilterList().add(0, f7);
       } else {
         // the selected version status filter
-        Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
+        Filter f3 = filter.new ItemStatusFilter(State.valueOf(selectedItemState));
         filter.getFilterList().add(0, f3);
 
         // all public status except withdrawn
-        Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+        Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
         filter.getFilterList().add(0, f4);
-        Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+        Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
         filter.getFilterList().add(0, f5);
-        Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+        Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
         filter.getFilterList().add(0, f6);
-        Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+        Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
         filter.getFilterList().add(0, f7);
       }
 
@@ -262,16 +264,16 @@ public class MyItemsRetrieverRequestBean extends
   public List<SelectItem> getItemStateSelectItems() {
     itemStateSelectItems = new ArrayList<SelectItem>();
     itemStateSelectItems.add(new SelectItem("all", getLabel("ItemList_filterAllExceptWithdrawn")));
-    itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(),
-        getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.PENDING))));
-    itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(),
-        getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.SUBMITTED))));
-    itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(),
-        getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.RELEASED))));
-    itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(),
-        getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.WITHDRAWN))));
-    itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(),
-        getLabel(getI18nHelper().convertEnumToString(PubItemVO.State.IN_REVISION))));
+    itemStateSelectItems.add(new SelectItem(State.PENDING.name(),
+        getLabel(getI18nHelper().convertEnumToString(State.PENDING))));
+    itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(),
+        getLabel(getI18nHelper().convertEnumToString(State.SUBMITTED))));
+    itemStateSelectItems.add(new SelectItem(State.RELEASED.name(),
+        getLabel(getI18nHelper().convertEnumToString(State.RELEASED))));
+    itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(),
+        getLabel(getI18nHelper().convertEnumToString(State.WITHDRAWN))));
+    itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(),
+        getLabel(getI18nHelper().convertEnumToString(State.IN_REVISION))));
 
     return itemStateSelectItems;
   }
@@ -322,7 +324,7 @@ public class MyItemsRetrieverRequestBean extends
     if (getSelectedItemState() != null && !getSelectedItemState().equals("all")) {
       returnString =
           getLabel(getI18nHelper().convertEnumToString(
-              PubItemVO.State.valueOf(getSelectedItemState())));
+              State.valueOf(getSelectedItemState())));
     }
     return returnString;
 

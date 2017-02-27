@@ -34,10 +34,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
@@ -90,7 +90,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
     assertNotNull(entry0);
     assertEquals(3, entry0.getReference().getVersionNumber());
     assertNotNull(entry0.getModificationDate());
-    assertEquals(ItemVO.State.RELEASED, entry0.getState());
+    assertEquals(State.RELEASED, entry0.getState());
     assertNotNull(entry0.getEvents());
     assertEquals("Accepted", entry0.getReference().getLastMessage());
 
@@ -131,7 +131,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
     assertNotNull(entry0);
     assertEquals(8, entry0.getReference().getVersionNumber());
     assertNotNull(entry0.getModificationDate());
-    assertEquals(ItemVO.State.RELEASED, entry0.getState());
+    assertEquals(State.RELEASED, entry0.getState());
     assertNotNull(entry0.getEvents());
     assertEquals("TestKommentar", entry0.getReference().getLastMessage());
 

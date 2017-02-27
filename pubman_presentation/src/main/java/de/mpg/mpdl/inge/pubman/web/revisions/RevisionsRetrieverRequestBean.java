@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
@@ -76,7 +77,7 @@ public class RevisionsRetrieverRequestBean extends
 
         if (sourceItem != null
             && sourceItem.getVersion().getState().toString()
-                .equals(PubItemVO.State.RELEASED.toString())) {
+                .equals(State.RELEASED.toString())) {
           pubItemVOList.add(sourceItem);
         }
 
@@ -91,7 +92,7 @@ public class RevisionsRetrieverRequestBean extends
         PubItemVO targetItem = relationVO.getTargetItem();
         if (targetItem != null
             && targetItem.getVersion().getState().toString()
-                .equals(PubItemVO.State.RELEASED.toString())) {
+                .equals(State.RELEASED.toString())) {
           pubItemVOList.add(targetItem);
         }
 

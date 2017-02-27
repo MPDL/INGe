@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -77,7 +77,7 @@ public class YearbookArchiveBean extends FacesBean {
       for (SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
         recordPubItem = (PubItemVO) yearbookRecord.getData();
         if (recordPubItem != null && recordPubItem.getYearbookMetadata() != null) {
-          if (ItemVO.State.RELEASED.equals(recordPubItem.getVersion().getState())) {
+          if (State.RELEASED.equals(recordPubItem.getVersion().getState())) {
             this.archivedYearbooks.add(recordPubItem);
           }
         }

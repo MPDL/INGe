@@ -31,19 +31,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.LimitFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.RoleFilter;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 
 /**
  * Test cases for FilterTaskParamVO.
@@ -161,13 +157,13 @@ public class FilterTaskParamVOTest {
     filter.getFilterList().add(f2);
 
     // all public status except withdrawn
-    Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+    Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
     filter.getFilterList().add(0, f4);
-    Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+    Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
     filter.getFilterList().add(0, f5);
-    Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+    Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
     filter.getFilterList().add(0, f6);
-    Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+    Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
     filter.getFilterList().add(0, f7);
 
 

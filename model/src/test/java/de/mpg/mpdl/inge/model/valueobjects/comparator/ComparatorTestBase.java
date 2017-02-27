@@ -33,6 +33,7 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
@@ -76,7 +77,7 @@ public class ComparatorTestBase {
   protected PubItemVO getPubItemVO1() {
     PubItemVO item = new PubItemVO();
     // State
-    item.getVersion().setState(PubItemVO.State.PENDING);
+    item.getVersion().setState(State.PENDING);
     // RO
     ItemRO ref = new ItemRO();
     ref.setObjectId("1");
@@ -124,7 +125,7 @@ public class ComparatorTestBase {
   protected PubItemVO getPubItemVO2() {
     PubItemVO item = new PubItemVO();
     // State
-    item.getVersion().setState(PubItemVO.State.PENDING);
+    item.getVersion().setState(State.PENDING);
     // RO
     ItemRO ref = new ItemRO();
     ref.setObjectId("2");
@@ -170,7 +171,7 @@ public class ComparatorTestBase {
   protected PubItemVO getPubItemVO3() {
     PubItemVO item = new PubItemVO();
     // State
-    item.getVersion().setState(PubItemVO.State.PENDING);
+    item.getVersion().setState(State.PENDING);
     // RO
     ItemRO ref = new ItemRO();
     ref.setObjectId("3");
@@ -226,7 +227,7 @@ public class ComparatorTestBase {
   protected PubItemVO getPubItemVO4() {
     PubItemVO item = new PubItemVO();
     // State
-    item.getVersion().setState(PubItemVO.State.PENDING);
+    item.getVersion().setState(State.PENDING);
     // RO
     ItemRO ref = new ItemRO();
     ref.setObjectId("4");

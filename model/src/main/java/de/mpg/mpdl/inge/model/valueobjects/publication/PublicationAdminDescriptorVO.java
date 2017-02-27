@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements Validatable {
 
   public enum Workflow {

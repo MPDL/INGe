@@ -36,6 +36,7 @@ import java.util.Date;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 05.09.2007
  */
+@SuppressWarnings("serial")
 public class TaskParamVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -78,7 +79,6 @@ public class TaskParamVO extends ValueObject {
     this.lastModificationDate = lastModificationDate;
     this.comment = comment;
   }
-
 
   /**
    * Delivers the last modification date.

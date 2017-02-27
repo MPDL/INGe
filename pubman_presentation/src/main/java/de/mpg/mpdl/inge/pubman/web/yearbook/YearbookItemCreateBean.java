@@ -23,7 +23,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@SuppressWarnings("serial")
 public class YearbookItemCreateBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
   private static final String MAXIMUM_RECORDS = "5000";
@@ -271,7 +272,7 @@ public class YearbookItemCreateBean extends FacesBean {
             } else if (yearbookPubItem.getYearbookMetadata().getYear() != null
                 && yearbookPubItem.getYearbookMetadata().getYear()
                     .equals(Integer.toString((Integer.valueOf(this.getYear()) - 1)))
-                && !yearbookPubItem.getPublicStatus().equals(ItemVO.State.RELEASED)) {
+                && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
               error("A yearbook related to this organization object id already exists for the previous year and has not been released until now");
               return "";
             }
