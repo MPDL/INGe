@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.submitItem;
 
 import java.io.IOException;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +36,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -86,7 +86,7 @@ public class SubmitItem extends FacesBean {
 
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
+    for (CreatorVO creator : this.getCurrentPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -101,12 +101,13 @@ public class SubmitItem extends FacesBean {
         creators.append(creator.getOrganization().getName());
       }
     }
+    
     this.creators = creators.toString();
 
     if (logger.isDebugEnabled()) {
-      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
+      if (this.getCurrentPubItem() != null && this.getCurrentPubItem().getVersion() != null) {
         logger.debug("Item that is being submitted: "
-            + this.getPubItem().getVersion().getObjectId());
+            + this.getCurrentPubItem().getVersion().getObjectId());
       } else {
         logger.error("NO ITEM GIVEN");
       }
@@ -119,7 +120,7 @@ public class SubmitItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getPubItem() {
+  public final PubItemVO getCurrentPubItem() {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
@@ -130,8 +131,9 @@ public class SubmitItem extends FacesBean {
    */
   public final String submit() {
     FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String retVal;
+    ExternalContext extContext = fc.getExternalContext();
+    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
+    
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     /*
      * String navigateTo = getSessionBean().getNavigationStringToGoBack();
@@ -140,11 +142,11 @@ public class SubmitItem extends FacesBean {
      */
     logger.debug("Now submitting, then go to " + navigateTo);
 
-    retVal =
+    String retVal =
         this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      if (this.getPubItem().getVersion().getState() == State.SUBMITTED) {
+      if (this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED) {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       }
       // distinguish between simple and standard workflow
@@ -160,7 +162,7 @@ public class SubmitItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        fc.getExternalContext().redirect(
+        extContext.redirect(
             request.getContextPath()
                 + "/faces/viewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
@@ -190,25 +192,26 @@ public class SubmitItem extends FacesBean {
     try {
       fc.getExternalContext().redirect(
           request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getPubItem().getVersion().getObjectId());
+              + this.getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
+    
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
-  /**
-   * Adds and removes messages on this page, if any.
-   * 
-   * @author Michael Franke
-   */
-  public void handleMessage() {
-    // String message = this.getSessionBean().getMessage();
-    // this.valMessage = message;
-
-    // keep the message just once
-    this.getSubmitItemSessionBean().setMessage(null);
-  }
+//  /**
+//   * Adds and removes messages on this page, if any.
+//   * 
+//   * @author Michael Franke
+//   */
+//  public void handleMessage() {
+//    // String message = this.getSessionBean().getMessage();
+//    // this.valMessage = message;
+//
+//    // keep the message just once
+//    this.getSubmitItemSessionBean().setMessage(null);
+//  }
 
   /**
    * Checks is the current item has at least one rights information field filled.
@@ -216,7 +219,7 @@ public class SubmitItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    for (FileVO file : this.getPubItem().getFiles()) {
+    for (FileVO file : this.getCurrentPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -226,6 +229,7 @@ public class SubmitItem extends FacesBean {
         return true;
       }
     }
+    
     return false;
   }
 
@@ -235,11 +239,12 @@ public class SubmitItem extends FacesBean {
    * @return boolean true if at least one of the files has visibility Audience
    */
   public boolean getHasAudienceFiles() {
-    for (FileVO file : this.getPubItem().getFiles()) {
+    for (FileVO file : this.getCurrentPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }
     }
+    
     return false;
   }
 
@@ -304,6 +309,6 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsSubmitted() {
-    return this.getPubItem().getVersion().getState() == State.SUBMITTED;
+    return this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED;
   }
 }
