@@ -26,10 +26,13 @@
 
 package de.mpg.mpdl.inge.pubman.exceptions;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import java.util.List;
+
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
 /**
- * Exception class used for item which are locked.
+ * Exception class used to determine that the content for a given file could not be found.
  * 
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
@@ -37,26 +40,28 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @revised by MuJ: 19.09.2007
  */
 @SuppressWarnings("serial")
-public class PubItemLockedException extends DepositingException {
+public class PubFileContentNotFoundException extends TechnicalException {
   /**
-   * The reference of the pubitem that is locked.
+   * The list of files containing the file whose content was not found.
    */
-  private ItemRO pubItemRef;
+  private List<FileVO> pubFiles;
 
   /**
-   * Creates a new instance with the given pubItemRef and cause.
+   * Creates a new instance, sets the according member variable.
    * 
-   * @param pubItemRef The reference of the pubitem that is locked.
-   * @param cause The throwable which caused this exception.
+   * @param files The list of files containing the file whose content was not found.
+   * @param cause The throwable that caused this exception.
    */
-  public PubItemLockedException(ItemRO pubItemRef, Throwable cause) {
-    super(pubItemRef, cause);
+  public PubFileContentNotFoundException(List<FileVO> files, Throwable cause) {
+    super(cause);
+    this.pubFiles = files;
   }
 
   /**
-   * @return The reference of the pubitem that is locked.
+   * @return The list of files containing the file whose content was not found.
    */
-  public ItemRO getPubItemRef() {
-    return pubItemRef;
+  public List<FileVO> getPubFiles() {
+    return pubFiles;
   }
+
 }

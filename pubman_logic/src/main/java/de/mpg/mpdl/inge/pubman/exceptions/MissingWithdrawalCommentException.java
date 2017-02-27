@@ -29,34 +29,40 @@ package de.mpg.mpdl.inge.pubman.exceptions;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
 /**
- * Exception class used for item which are locked.
+ * Exception class used to indicate that the required reason for withdrawal is missing.
  * 
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * @revised by MuJ: 19.09.2007
+ * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
 @SuppressWarnings("serial")
-public class PubItemLockedException extends DepositingException {
+public class MissingWithdrawalCommentException extends PublishingException {
   /**
-   * The reference of the pubitem that is locked.
+   * Creates a new instance with the given pubitem reference.
+   * 
+   * @param pubItemRef The reference of the pubitem.
    */
-  private ItemRO pubItemRef;
+  public MissingWithdrawalCommentException(ItemRO pubItemRef) {
+    super(pubItemRef);
+  }
+
+  /**
+   * Creates a new instance with the given cause.
+   * 
+   * @param cause The throwable which caused this exception.
+   */
+  public MissingWithdrawalCommentException(Throwable cause) {
+    super(cause);
+  }
 
   /**
    * Creates a new instance with the given pubItemRef and cause.
    * 
-   * @param pubItemRef The reference of the pubitem that is locked.
+   * @param pubItemRef The reference of the pubitem.
    * @param cause The throwable which caused this exception.
    */
-  public PubItemLockedException(ItemRO pubItemRef, Throwable cause) {
+  public MissingWithdrawalCommentException(ItemRO pubItemRef, Throwable cause) {
     super(pubItemRef, cause);
   }
 
-  /**
-   * @return The reference of the pubitem that is locked.
-   */
-  public ItemRO getPubItemRef() {
-    return pubItemRef;
-  }
 }

@@ -50,7 +50,7 @@ public class ApplicationLog {
   /**
    * Logger instance
    */
-  private static Logger logger = Logger.getLogger(APPLICATION_LOGGER_NAME);
+  private static final Logger logger = Logger.getLogger(APPLICATION_LOGGER_NAME);
 
   /**
    * Logs the message to the application logger with log level INFO.

@@ -38,7 +38,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.ejb.EJB;
-import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -610,7 +609,7 @@ public class EasySubmission extends FacesBean {
     EditItem editItem = (EditItem) getRequestBean(EditItem.class);
     editItem.setFromEasySubmission(true);
     String returnValue =
-        (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM));
+        this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
     if (returnValue != null && !"".equals(returnValue)) {
       getEasySubmissionSessionBean().cleanup();
     }

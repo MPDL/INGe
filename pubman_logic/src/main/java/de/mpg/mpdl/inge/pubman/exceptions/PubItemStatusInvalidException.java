@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class PubItemStatusInvalidException extends PubManException {
   /**
    * The reference of the pubitem with invalid status.

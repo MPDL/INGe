@@ -26,11 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -39,7 +36,6 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
-import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -49,9 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -100,13 +94,9 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
 import de.mpg.mpdl.inge.search.Search;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
-import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -124,30 +114,30 @@ public class ItemControllerSessionBean extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
-  private static final String PROPERTY_CONTENT_MODEL =
-      "escidoc.framework_access.content-model.id.publication";
+//  private static final String PROPERTY_CONTENT_MODEL =
+//      "escidoc.framework_access.content-model.id.publication";
 
+  @EJB
+  private DataGathering dataGathering;
+  @EJB
+  private EmailHandling emailHandling;
+  @EJB
+  private ItemExporting itemExporting;
+  @EJB
+  private ItemValidating itemValidating;
   @EJB
   private PubItemDepositing pubItemDepositing;
   @EJB
   private PubItemPublishing pubItemPublishing;
+  @EJB
+  private PubItemSimpleStatistics pubItemStatistic;
   @EJB
   private QualityAssurance qualityAssurance;
   @EJB
   private Search search;
   @EJB
   private XmlTransforming xmlTransforming;
-  @EJB
-  private ItemValidating itemValidating;
-  @EJB
-  private ItemExporting itemExporting;
-  @EJB
-  private EmailHandling emailHandling;
-  @EJB
-  private DataGathering dataGathering;
-  @EJB
-  private PubItemSimpleStatistics pubItemStatistic;
-
+  
   private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
   // private ValidationReportVO currentItemValidationReport_ = null;
@@ -1340,78 +1330,78 @@ public class ItemControllerSessionBean extends FacesBean {
 
   }
 
-  /**
-   * Returns all items for a user depending on the selected itemState.
-   * 
-   * @param selectedItemState the item state for which the items should be returned
-   * @return all items for a user in the selected state
-   * @throws Exception if framework access fails
-   */
-  public ArrayList<PubItemVO> retrieveItems(final String selectedItemState) throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving Items for state: " + selectedItemState);
-    }
-
-    // define the filter criteria
-    FilterTaskParamVO filter = new FilterTaskParamVO();
-
-    Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
-    filter.getFilterList().add(f1);
-
-
-    Filter f2 =
-        filter.new FrameworkItemTypeFilter(
-            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    filter.getFilterList().add(f2);
-
-    if (selectedItemState.toLowerCase().equals("withdrawn")) {
-      Filter f3 = filter.new ItemPublicStatusFilter(State.WITHDRAWN);
-      filter.getFilterList().add(f3);
-    } else {
-      if (!"all".equals(selectedItemState)) {
-        Filter f3 = filter.new ItemStatusFilter(State.valueOf(selectedItemState));
-        filter.getFilterList().add(f3);
-      }
-
-      Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
-      filter.getFilterList().add(f4);
-      Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
-      filter.getFilterList().add(f5);
-      Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
-      filter.getFilterList().add(f6);
-      Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
-      filter.getFilterList().add(f7);
-    }
-
-    Filter f8 = filter.new LimitFilter("0");
-    filter.getFilterList().add(f8);
-
-    // retrieve the items applying the filter criteria
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving items...");
-    }
-    String xmlItemList = "";
-    try {
-      xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
-              filter.toMap());
-    } catch (AuthenticationException e) {
-      logger.debug(e.toString());
-      Login login = (Login) getSessionBean(Login.class);
-      login.forceLogout();
-      throw e;
-    }
-
-    // transform the itemList
-    if (logger.isDebugEnabled()) {
-      logger.debug("Transforming items...");
-    }
-    ArrayList<PubItemVO> itemList =
-        (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(
-            xmlItemList).getItemVOList();
-
-    return itemList;
-  }
+//  /**
+//   * Returns all items for a user depending on the selected itemState.
+//   * 
+//   * @param selectedItemState the item state for which the items should be returned
+//   * @return all items for a user in the selected state
+//   * @throws Exception if framework access fails
+//   */
+//  public ArrayList<PubItemVO> retrieveItems(final String selectedItemState) throws Exception {
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Retrieving Items for state: " + selectedItemState);
+//    }
+//
+//    // define the filter criteria
+//    FilterTaskParamVO filter = new FilterTaskParamVO();
+//
+//    Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
+//    filter.getFilterList().add(f1);
+//
+//
+//    Filter f2 =
+//        filter.new FrameworkItemTypeFilter(
+//            PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+//    filter.getFilterList().add(f2);
+//
+//    if (selectedItemState.toLowerCase().equals("withdrawn")) {
+//      Filter f3 = filter.new ItemPublicStatusFilter(State.WITHDRAWN);
+//      filter.getFilterList().add(f3);
+//    } else {
+//      if (!"all".equals(selectedItemState)) {
+//        Filter f3 = filter.new ItemStatusFilter(State.valueOf(selectedItemState));
+//        filter.getFilterList().add(f3);
+//      }
+//
+//      Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
+//      filter.getFilterList().add(f4);
+//      Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
+//      filter.getFilterList().add(f5);
+//      Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
+//      filter.getFilterList().add(f6);
+//      Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
+//      filter.getFilterList().add(f7);
+//    }
+//
+//    Filter f8 = filter.new LimitFilter("0");
+//    filter.getFilterList().add(f8);
+//
+//    // retrieve the items applying the filter criteria
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Retrieving items...");
+//    }
+//    String xmlItemList = "";
+//    try {
+//      xmlItemList =
+//          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+//              filter.toMap());
+//    } catch (AuthenticationException e) {
+//      logger.debug(e.toString());
+//      Login login = (Login) getSessionBean(Login.class);
+//      login.forceLogout();
+//      throw e;
+//    }
+//
+//    // transform the itemList
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Transforming items...");
+//    }
+//    ArrayList<PubItemVO> itemList =
+//        (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(
+//            xmlItemList).getItemVOList();
+//
+//    return itemList;
+//  }
 
   /**
    * Returns all items in a list of item ids.
@@ -1420,7 +1410,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return all items for a user with the given ids
    * @throws Exception if framework access fails
    */
-  public ArrayList<PubItemVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
+  private ArrayList<PubItemVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
     if (logger.isDebugEnabled()) {
       logger.debug("Retrieving Item list for: " + (itemRefs != null ? itemRefs : "empty List"));
     }
@@ -1532,97 +1522,97 @@ public class ItemControllerSessionBean extends FacesBean {
     return new PubItemVOPresentation(ItemInterfaceConnectorFactory.getInstance().readItem(itemID));
   }
 
-  /**
-   * Returns all items which contain the searchString as List.
-   * 
-   * @param searchString the string which should be searched for
-   * @param includeFiles determines if the search should include the files of the items
-   * @return all items which contain the searchString
-   * @throws Exception if framework access fails
-   */
-  public ItemContainerSearchResult searchItems(ArrayList<MetadataSearchCriterion> criteria)
-      throws Exception {
-    // ArrayList<String> contentTypes2 = new ArrayList<String>();
-    // String contentTypeIdPublication2 = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
-    // contentTypes2.add( contentTypeIdPublication2 );
-    //
-    //
-    // OrgUnitsSearchResult resultTest = null;
-    // try
-    // {
-    // String testTitle = "MPS";
-    // MetadataSearchQuery query = new MetadataSearchQuery( contentTypes2 );
-    // query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, testTitle,
-    // LogicalOperator.AND));
-    //
-    // resultTest = this.search.searchForOrganizationalUnits(query);
-    // }
-    // catch (ParseException e)
-    // {
-    // }
-    //
+//  /**
+//   * Returns all items which contain the searchString as List.
+//   * 
+//   * @param searchString the string which should be searched for
+//   * @param includeFiles determines if the search should include the files of the items
+//   * @return all items which contain the searchString
+//   * @throws Exception if framework access fails
+//   */
+//  public ItemContainerSearchResult searchItems(ArrayList<MetadataSearchCriterion> criteria)
+//      throws Exception {
+//    // ArrayList<String> contentTypes2 = new ArrayList<String>();
+//    // String contentTypeIdPublication2 = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+//    // contentTypes2.add( contentTypeIdPublication2 );
+//    //
+//    //
+//    // OrgUnitsSearchResult resultTest = null;
+//    // try
+//    // {
+//    // String testTitle = "MPS";
+//    // MetadataSearchQuery query = new MetadataSearchQuery( contentTypes2 );
+//    // query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, testTitle,
+//    // LogicalOperator.AND));
+//    //
+//    // resultTest = this.search.searchForOrganizationalUnits(query);
+//    // }
+//    // catch (ParseException e)
+//    // {
+//    // }
+//    //
+//
+//    ArrayList<String> contentTypes = new ArrayList<String>();
+//    String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
+//    contentTypes.add(contentTypeIdPublication);
+//
+//    MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
+//    // we get items and containers from the search service
+//    ItemContainerSearchResult result = this.search.searchForItemContainer(query);
+//    return result;
+//  }
 
-    ArrayList<String> contentTypes = new ArrayList<String>();
-    String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
-    contentTypes.add(contentTypeIdPublication);
-
-    MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
-    // we get items and containers from the search service
-    ItemContainerSearchResult result = this.search.searchForItemContainer(query);
-    return result;
-  }
-
-  /**
-   * Returns all top-level affiliations.
-   * 
-   * @deprecated Use searchTopLevelAffiliations instead.
-   * 
-   * @return all top-level affiliations
-   * @throws Exception if framework access fails
-   */
-  @Deprecated
-  public ArrayList<AffiliationVO> retrieveTopLevelAffiliations() throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving top-level affiliations");
-    }
-
-    // define the filter criteria
-    FilterTaskParamVO filter = new FilterTaskParamVO();
-    Filter f1 = filter.new TopLevelAffiliationFilter();
-    filter.getFilterList().add(f1);
-
-    // retrieve the affiliations applying the filter criteria
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving affiliations...");
-    }
-    String xmlAffiliationList = "";
-    try {
-      xmlAffiliationList =
-          ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter.toMap());
-    } catch (AuthenticationException e) {
-      logger.debug(e.toString());
-      Login login = (Login) getSessionBean(Login.class);
-      login.forceLogout();
-      throw e;
-    }
-
-    // transform the affiliationList
-    if (logger.isDebugEnabled()) {
-      logger.debug("Transforming affiliations...");
-    }
-    ArrayList<AffiliationVO> affiliationList =
-        (ArrayList<AffiliationVO>) this.xmlTransforming
-            .transformToAffiliationList(xmlAffiliationList);
-    ArrayList<AffiliationVO> cleanedItemList = new ArrayList<AffiliationVO>();
-    for (AffiliationVO affiliationVO : affiliationList) {
-      if (!"created".equals(affiliationVO.getPublicStatus())) {
-        cleanedItemList.add(affiliationVO);
-      }
-    }
-
-
-    return cleanedItemList;
-  }
+//  /**
+//   * Returns all top-level affiliations.
+//   * 
+//   * @deprecated Use searchTopLevelAffiliations instead.
+//   * 
+//   * @return all top-level affiliations
+//   * @throws Exception if framework access fails
+//   */
+//  @Deprecated
+//  public ArrayList<AffiliationVO> retrieveTopLevelAffiliations() throws Exception {
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Retrieving top-level affiliations");
+//    }
+//
+//    // define the filter criteria
+//    FilterTaskParamVO filter = new FilterTaskParamVO();
+//    Filter f1 = filter.new TopLevelAffiliationFilter();
+//    filter.getFilterList().add(f1);
+//
+//    // retrieve the affiliations applying the filter criteria
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Retrieving affiliations...");
+//    }
+//    String xmlAffiliationList = "";
+//    try {
+//      xmlAffiliationList =
+//          ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter.toMap());
+//    } catch (AuthenticationException e) {
+//      logger.debug(e.toString());
+//      Login login = (Login) getSessionBean(Login.class);
+//      login.forceLogout();
+//      throw e;
+//    }
+//
+//    // transform the affiliationList
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Transforming affiliations...");
+//    }
+//    ArrayList<AffiliationVO> affiliationList =
+//        (ArrayList<AffiliationVO>) this.xmlTransforming
+//            .transformToAffiliationList(xmlAffiliationList);
+//    ArrayList<AffiliationVO> cleanedItemList = new ArrayList<AffiliationVO>();
+//    for (AffiliationVO affiliationVO : affiliationList) {
+//      if (!"created".equals(affiliationVO.getPublicStatus())) {
+//        cleanedItemList.add(affiliationVO);
+//      }
+//    }
+//
+//
+//    return cleanedItemList;
+//  }
 
   /**
    * Returns all top-level affiliations.
@@ -1707,27 +1697,27 @@ public class ItemControllerSessionBean extends FacesBean {
     return status;
   }
 
-  /**
-   * Returns the available export formats (structured formats and citation layout styles) contained
-   * in exportFrrmatVO. It calls the proper external services for the retrieval of the export
-   * formats.
-   * 
-   * @author: StG
-   * @param searchString the string which should be serached for
-   * @param includeFiles determines if the search should include the files of the items
-   * @return all items which contain the searchString
-   * @throws Exception if interface didnt work
-   */
-  public List<ExportFormatVO> retrieveExportFormats() throws TechnicalException {
-
-    // retrieve the export formats calling the interface method
-    List<ExportFormatVO> exportFormatList = this.itemExporting.explainExportFormats();
-
-    /*
-     * for (ExportFormatVO formatVO : exportFormatList) { logger.debug(formatVO); }
-     */
-    return exportFormatList;
-  }
+//  /**
+//   * Returns the available export formats (structured formats and citation layout styles) contained
+//   * in exportFrrmatVO. It calls the proper external services for the retrieval of the export
+//   * formats.
+//   * 
+//   * @author: StG
+//   * @param searchString the string which should be serached for
+//   * @param includeFiles determines if the search should include the files of the items
+//   * @return all items which contain the searchString
+//   * @throws Exception if interface didnt work
+//   */
+//  public List<ExportFormatVO> retrieveExportFormats() throws TechnicalException {
+//
+//    // retrieve the export formats calling the interface method
+//    List<ExportFormatVO> exportFormatList = this.itemExporting.explainExportFormats();
+//
+//    /*
+//     * for (ExportFormatVO formatVO : exportFormatList) { logger.debug(formatVO); }
+//     */
+//    return exportFormatList;
+//  }
 
   /**
    * Returns the export data stream with the selelcted items in the proper export format
@@ -1781,59 +1771,59 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
 
-  /**
-   * Returns all child affiliations for a parent affiliation.
-   * 
-   * @return all child affiliations
-   * @throws Exception if framework access fails
-   */
-  public List<AffiliationVOPresentation> retrieveChildAffiliations(
-      AffiliationVOPresentation parentAffiliation) throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving child affiliations for affiliation: "
-          + parentAffiliation.getDetails().getName());
-    }
-
-    String xmlChildAffiliationList = "";
-    try {
-      xmlChildAffiliationList =
-          ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(
-              parentAffiliation.getReference().getObjectId());
-    } catch (AuthenticationException e) {
-      logger.debug(e.toString());
-      Login login = (Login) getSessionBean(Login.class);
-      login.forceLogout();
-      throw e;
-    }
-
-    // transform the affiliationList
-    if (logger.isDebugEnabled()) {
-      logger.debug("Transforming child affiliations...");
-    }
-    List<AffiliationVO> affiliationList =
-        this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
-
-    List<AffiliationVO> cleanedAffiliationList = new ArrayList<AffiliationVO>();
-
-    // Remove opened affiliations
-    for (AffiliationVO affiliationVO : affiliationList) {
-      if (!"created".equals(affiliationVO.getPublicStatus())) {
-        cleanedAffiliationList.add(affiliationVO);
-      }
-    }
-
-    List<AffiliationVOPresentation> wrappedAffiliationList =
-        CommonUtils.convertToAffiliationVOPresentationList(cleanedAffiliationList);
-
-    for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
-      affiliationVOPresentation.setParent(parentAffiliation);
-      affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", "
-          + parentAffiliation.getNamePath());
-      affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId()
-          + " " + parentAffiliation.getIdPath());
-    }
-    return wrappedAffiliationList;
-  }
+//  /**
+//   * Returns all child affiliations for a parent affiliation.
+//   * 
+//   * @return all child affiliations
+//   * @throws Exception if framework access fails
+//   */
+//  public List<AffiliationVOPresentation> retrieveChildAffiliations(
+//      AffiliationVOPresentation parentAffiliation) throws Exception {
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Retrieving child affiliations for affiliation: "
+//          + parentAffiliation.getDetails().getName());
+//    }
+//
+//    String xmlChildAffiliationList = "";
+//    try {
+//      xmlChildAffiliationList =
+//          ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(
+//              parentAffiliation.getReference().getObjectId());
+//    } catch (AuthenticationException e) {
+//      logger.debug(e.toString());
+//      Login login = (Login) getSessionBean(Login.class);
+//      login.forceLogout();
+//      throw e;
+//    }
+//
+//    // transform the affiliationList
+//    if (logger.isDebugEnabled()) {
+//      logger.debug("Transforming child affiliations...");
+//    }
+//    List<AffiliationVO> affiliationList =
+//        this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+//
+//    List<AffiliationVO> cleanedAffiliationList = new ArrayList<AffiliationVO>();
+//
+//    // Remove opened affiliations
+//    for (AffiliationVO affiliationVO : affiliationList) {
+//      if (!"created".equals(affiliationVO.getPublicStatus())) {
+//        cleanedAffiliationList.add(affiliationVO);
+//      }
+//    }
+//
+//    List<AffiliationVOPresentation> wrappedAffiliationList =
+//        CommonUtils.convertToAffiliationVOPresentationList(cleanedAffiliationList);
+//
+//    for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
+//      affiliationVOPresentation.setParent(parentAffiliation);
+//      affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", "
+//          + parentAffiliation.getNamePath());
+//      affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId()
+//          + " " + parentAffiliation.getIdPath());
+//    }
+//    return wrappedAffiliationList;
+//  }
 
   /**
    * Returns an affiliation retrieved by its ID.
@@ -1894,32 +1884,32 @@ public class ItemControllerSessionBean extends FacesBean {
     return context;
   }
 
-  /**
-   * Returns all contexts for a user.
-   * 
-   * @return the list of contexts
-   * @throws Exception if framework access fails
-   */
-  public List<ContextVO> retrieveCollections() throws Exception {
-    List<ContextVO> allCollections = new ArrayList<ContextVO>();
-
-    try {
-      if (loginHelper.getAccountUser() != null
-          && loginHelper.getAccountUser().getReference() != null
-          && loginHelper.getAccountUser().getReference().getObjectId() != null
-          && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals("")) {
-        allCollections =
-            this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
-      }
-    } catch (Exception e) {
-      logger.debug(e.toString());
-      // Login login = (Login) getSessionBean(Login.class);
-      // login.forceLogout();
-      throw e;
-    }
-
-    return allCollections;
-  }
+//  /**
+//   * Returns all contexts for a user.
+//   * 
+//   * @return the list of contexts
+//   * @throws Exception if framework access fails
+//   */
+//  public List<ContextVO> retrieveCollections() throws Exception {
+//    List<ContextVO> allCollections = new ArrayList<ContextVO>();
+//
+//    try {
+//      if (loginHelper.getAccountUser() != null
+//          && loginHelper.getAccountUser().getReference() != null
+//          && loginHelper.getAccountUser().getReference().getObjectId() != null
+//          && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals("")) {
+//        allCollections =
+//            this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
+//      }
+//    } catch (Exception e) {
+//      logger.debug(e.toString());
+//      // Login login = (Login) getSessionBean(Login.class);
+//      // login.forceLogout();
+//      throw e;
+//    }
+//
+//    return allCollections;
+//  }
 
   /**
    * Accepts an item.

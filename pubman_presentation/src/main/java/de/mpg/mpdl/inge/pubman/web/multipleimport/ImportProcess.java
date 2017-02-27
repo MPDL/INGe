@@ -589,8 +589,6 @@ public class ImportProcess extends Thread {
     }
   }
 
-
-
   private String escape(String string) {
     if (string == null) {
       return null;

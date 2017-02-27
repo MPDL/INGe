@@ -52,6 +52,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class SourceBean extends FacesBean {
   private SourceVO source;
   /**

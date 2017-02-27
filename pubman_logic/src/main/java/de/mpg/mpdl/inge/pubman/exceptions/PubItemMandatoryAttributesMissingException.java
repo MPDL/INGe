@@ -26,10 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.exceptions;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * Exception class used for item which are locked.
+ * Exception used for publication item with missing attributes.
  * 
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
@@ -37,26 +37,46 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @revised by MuJ: 19.09.2007
  */
 @SuppressWarnings("serial")
-public class PubItemLockedException extends DepositingException {
+public class PubItemMandatoryAttributesMissingException extends DepositingException {
   /**
-   * The reference of the pubitem that is locked.
+   * The invalid pubitem
    */
-  private ItemRO pubItemRef;
+  private PubItemVO invalidPubItem;
 
   /**
-   * Creates a new instance with the given pubItemRef and cause.
+   * Creates a new instance with the given pubitem.
    * 
-   * @param pubItemRef The reference of the pubitem that is locked.
-   * @param cause The throwable which caused this exception.
+   * @param pubItem The invalid pubItem.
    */
-  public PubItemLockedException(ItemRO pubItemRef, Throwable cause) {
-    super(pubItemRef, cause);
+  public PubItemMandatoryAttributesMissingException(PubItemVO pubItem) {
+    super(pubItem != null ? pubItem.getVersion() : null);
+    invalidPubItem = pubItem;
   }
 
   /**
-   * @return The reference of the pubitem that is locked.
+   * Creates a new instance with the given cause.
+   * 
+   * @param cause The throwable which caused this exception.
    */
-  public ItemRO getPubItemRef() {
-    return pubItemRef;
+  public PubItemMandatoryAttributesMissingException(Throwable cause) {
+    super(cause);
+  }
+
+  /**
+   * Creates a new instance with the given pubItem and cause.
+   * 
+   * @param pubItem The invalid pubItem.
+   * @param cause The throwable which caused this exception.
+   */
+  public PubItemMandatoryAttributesMissingException(PubItemVO pubItem, Throwable cause) {
+    this(pubItem);
+    this.initCause(cause);
+  }
+
+  /**
+   * @return the invalid pubItem
+   */
+  public PubItemVO getInvalidPubItem() {
+    return invalidPubItem;
   }
 }

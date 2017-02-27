@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class PubCollectionNotFoundException extends PubManException {
   /**
    * The reference of the collection that could not be found.

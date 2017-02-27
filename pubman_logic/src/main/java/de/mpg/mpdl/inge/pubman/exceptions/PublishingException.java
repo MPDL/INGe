@@ -29,34 +29,65 @@ package de.mpg.mpdl.inge.pubman.exceptions;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
 /**
- * Exception class used for item which are locked.
+ * Exception base class for publishing errors.
  * 
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * @revised by MuJ: 19.09.2007
+ * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
 @SuppressWarnings("serial")
-public class PubItemLockedException extends DepositingException {
+public class PublishingException extends PubManException {
   /**
-   * The reference of the pubitem that is locked.
+   * The reference of the pubitem.
    */
   private ItemRO pubItemRef;
 
   /**
-   * Creates a new instance with the given pubItemRef and cause.
+   * Creates a new instance with the given pubitem reference.
    * 
-   * @param pubItemRef The reference of the pubitem that is locked.
-   * @param cause The throwable which caused this exception.
+   * @param pubItemRef The reference of the pubitem.
    */
-  public PubItemLockedException(ItemRO pubItemRef, Throwable cause) {
-    super(pubItemRef, cause);
+  public PublishingException(ItemRO pubItemRef) {
+    super();
+    this.pubItemRef = pubItemRef;
   }
 
   /**
-   * @return The reference of the pubitem that is locked.
+   * Creates a new instance with the given cause.
+   * 
+   * @param cause The throwable which caused this exception.
+   */
+  public PublishingException(Throwable cause) {
+    super(cause);
+  }
+
+  /**
+   * Creates a new instance with the given pubItemRef and cause.
+   * 
+   * @param pubItemRef The reference of the pubitem.
+   * @param cause The throwable which caused this exception.
+   */
+  public PublishingException(ItemRO pubItemRef, Throwable cause) {
+    super(cause);
+    this.pubItemRef = pubItemRef;
+  }
+
+  /**
+   * Returns the item reference.
+   * 
+   * @return the reference of the pubitem
    */
   public ItemRO getPubItemRef() {
     return pubItemRef;
   }
+
+  /**
+   * Sets the reference of the pubitem
+   * 
+   * @param pubItemRef the pubItemRef to set
+   */
+  public void setPubItemRef(ItemRO pubItemRef) {
+    this.pubItemRef = pubItemRef;
+  }
+
 }

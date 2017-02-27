@@ -36,12 +36,12 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.BusinessException;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 19.09.2007
  */
+@SuppressWarnings("serial")
 public class PubManException extends BusinessException {
   /**
    * Creates a new instance.
    */
   public PubManException() {
-
   }
 
   /**

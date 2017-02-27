@@ -82,8 +82,10 @@ import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubFileContentNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
+import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
@@ -196,11 +198,11 @@ public class PubItemDepositingBean implements PubItemDepositing {
     }
 
     try {
-      ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
+      ItemInterfaceConnectorFactory.getInstance().deleteItem(pubItemRef.getObjectId());
+//      ServiceLocator.getItemHandler(user.getHandle()).delete(pubItemRef.getObjectId());
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
-
     } catch (LockingException e) {
       throw new PubItemLockedException(pubItemRef, e);
     } catch (ItemNotFoundException e) {
