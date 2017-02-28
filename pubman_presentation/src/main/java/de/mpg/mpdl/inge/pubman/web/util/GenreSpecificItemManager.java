@@ -50,27 +50,24 @@ public class GenreSpecificItemManager {
   }
 
   public PubItemVO cleanupItem() throws Exception {
-    // First get the Genre of the item
-    String genre = "";
-    ResourceBundle genreBundle = null;
     List<Object> objs = new ArrayList<Object>();
     LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+
     if (this.pubItem != null && this.pubItem.getMetadata() != null
         && this.pubItem.getMetadata().getGenre() != null) {
-      genre = this.pubItem.getMetadata().getGenre().name();
-      genreBundle = this.getGenreBundle(genre);
-      String key = "";
-      String baseKey = "";
-      String fullClassAttribute = "";
+      String genre = this.pubItem.getMetadata().getGenre().name();
+      ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
       Object javaObject = this.pubItem;
+
       for (Enumeration keys = genreBundle.getKeys(); keys.hasMoreElements();) {
-        key = keys.nextElement().toString();
+        String key = keys.nextElement().toString();
         map.put(key, genreBundle.getString(key));
       }
+
       for (String mapKey : map.keySet()) {
         if (mapKey.endsWith("class_attribute")) {
-          baseKey = mapKey.replace("class_attribute", "");
-          fullClassAttribute = map.get(mapKey);
+          String baseKey = mapKey.replace("class_attribute", "");
+          String fullClassAttribute = map.get(mapKey);
           // check if the property should be available in this genre or not
           if (map.get(baseKey + "display").equals("false")
               && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
@@ -80,6 +77,7 @@ public class GenreSpecificItemManager {
         }
       }
     }
+
     return this.pubItem;
   }
 
@@ -88,9 +86,11 @@ public class GenreSpecificItemManager {
     List<Object> result = new ArrayList<Object>();
     // first get all values in the class attribute String and eliminate the "."
     String[] attributes = mappingString.split("\\.");
+
     if (baseObject != null) {
       Object subObject = getObject(baseObject, attributes[0]);
       int index = mappingString.indexOf(".");
+
       if (index > 0) {
         mappingString = mappingString.substring(index + 1);
         if (subObject instanceof List) {
@@ -102,12 +102,10 @@ public class GenreSpecificItemManager {
           result.addAll(getMappedObject(subObject, mappingString));
         }
       } else {
-        String renamedAttribute = "";
-        String firstCharacter = "";
         // prepare the string for a method call
-        renamedAttribute = mappingString;
+        String renamedAttribute = mappingString;
         // save the first character
-        firstCharacter = renamedAttribute.substring(0, 1);
+        String firstCharacter = renamedAttribute.substring(0, 1);
         // remove the first character
         renamedAttribute = renamedAttribute.substring(1);
         // add the first character in upper case
@@ -115,6 +113,7 @@ public class GenreSpecificItemManager {
         // get the desired object first to examine the type of it
         Object javaObjectToNullify = getObject(baseObject, attributes[0]);
         Method method = null;
+
         if (javaObjectToNullify != null) {
           if (javaObjectToNullify instanceof List) {
             if (((List) javaObjectToNullify).size() > 0) {
@@ -133,24 +132,22 @@ public class GenreSpecificItemManager {
         // result.add(subObject);
       }
     }
+
     return result;
   }
 
   private Object getObject(Object object, String mapString) throws Exception, NoSuchMethodException {
-    Method method = null;
-    Object javaObject = null;
-    String renamedAttribute = "";
-    String firstCharacter = "";
     // prepare the string for a method call
-    renamedAttribute = mapString;
+    String renamedAttribute = mapString;
     // save the first character
-    firstCharacter = renamedAttribute.substring(0, 1);
+    String firstCharacter = renamedAttribute.substring(0, 1);
     // remove the first character
     renamedAttribute = renamedAttribute.substring(1);
     // add the first character in upper case
     renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-    method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
-    javaObject = method.invoke(object, new Object[] {});
+    Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
+    Object javaObject = method.invoke(object, new Object[] {});
+
     return javaObject;
   }
 
@@ -174,7 +171,7 @@ public class GenreSpecificItemManager {
   // }
   // }
 
-  public ResourceBundle getGenreBundle(String genre) {
-    return ResourceBundle.getBundle("Genre_" + genre);
-  }
+  // public ResourceBundle getGenreBundle(String genre) {
+  // return ResourceBundle.getBundle("Genre_" + genre);
+  // }
 }
