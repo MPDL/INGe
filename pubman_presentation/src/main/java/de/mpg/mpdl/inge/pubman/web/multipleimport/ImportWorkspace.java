@@ -54,7 +54,6 @@ public class ImportWorkspace extends BreadcrumbPage {
 
   private List<ImportLog> imports = null;
 
-
   /**
    * Default constructor.
    * 
@@ -112,7 +111,7 @@ public class ImportWorkspace extends BreadcrumbPage {
     }
 
     if (user != null) {
-      imports =
+      this.imports =
           ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true, false);
     }
   }
@@ -121,7 +120,7 @@ public class ImportWorkspace extends BreadcrumbPage {
    * @return the imports
    */
   public List<ImportLog> getImports() {
-    return imports;
+    return this.imports;
   }
 
   /**
@@ -135,7 +134,7 @@ public class ImportWorkspace extends BreadcrumbPage {
    * @return the sortColumn
    */
   public ImportLog.SortColumn getSortColumn() {
-    return sortColumn;
+    return this.sortColumn;
   }
 
   /**

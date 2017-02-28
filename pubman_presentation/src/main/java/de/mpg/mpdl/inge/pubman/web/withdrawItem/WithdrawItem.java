@@ -64,7 +64,7 @@ public class WithdrawItem extends FacesBean {
   // private String valMessage;
   private String creators;
 
-  private String navigationStringToGoBack;
+  // private String navigationStringToGoBack;
 
   public WithdrawItem() {
     this.init();
@@ -205,7 +205,7 @@ public class WithdrawItem extends FacesBean {
   }
 
   public String getWithdrawalComment() {
-    return withdrawalComment;
+    return this.withdrawalComment;
   }
 
   public void setWithdrawalComment(String withdrawalComment) {
@@ -220,16 +220,16 @@ public class WithdrawItem extends FacesBean {
   // this.valMessage = valMessage;
   // }
 
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+  // public final String getNavigationStringToGoBack() {
+  // return this.navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {

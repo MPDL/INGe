@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.createItem;
 
-import java.util.List;
-
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
@@ -40,7 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 
 /**
  * Fragment class for CreateItem.
@@ -76,7 +73,7 @@ public class CreateItem extends FacesBean {
   // }
 
   public String confirmSelection() {
-    return target;
+    return this.target;
   }
 
   /**
@@ -85,14 +82,11 @@ public class CreateItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String newSubmission() {
-    target = EditItem.LOAD_EDITITEM;
-    method = SubmissionMethod.FULL_SUBMISSION;
-    String genreBundle = "Genre_ARTICLE";
+    this.target = EditItem.LOAD_EDITITEM;
+    this.method = SubmissionMethod.FULL_SUBMISSION;
 
+    String genreBundle = "Genre_ARTICLE";
     String navigateTo = "";
-    if (logger.isDebugEnabled()) {
-      logger.debug("New Submission");
-    }
 
     // first clear the EditItemSessionBean
     this.getEditItemSessionBean().initEmptyComponents();
@@ -100,7 +94,6 @@ public class CreateItem extends FacesBean {
     // set the current submission method for edit item to full submission (for GUI purpose)
     this.getEditItemSessionBean().setCurrentSubmission(
         EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
-
 
     // if there is only one context for this user we can skip the CreateItem-Dialog and
     // create the new item directly
@@ -112,10 +105,6 @@ public class CreateItem extends FacesBean {
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
       ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has only privileges for one context (ID: "
-            + contextVO.getReference().getObjectId() + ")");
-      }
       navigateTo =
           this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
               contextVO.getReference());
@@ -130,19 +119,15 @@ public class CreateItem extends FacesBean {
           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
               .setGenre(MdsPublicationVO.Genre.ARTICLE);
         }
+
         this.getEditItemSessionBean().setGenreBundle(genreBundle);
         this.getEditItem().setItem(null);
         this.getEditItem().getGenreSelect().resetValue();
         this.getEditItem().init();
       }
-      return navigateTo;
+      // return navigateTo;
     } else {
       // more than one context exists for this user; let him choose the right one
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has privileges for "
-            + this.getContextListSessionBean().getDepositorContextList().size()
-            + " different contexts.");
-      }
       navigateTo =
           this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
               this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
@@ -156,8 +141,10 @@ public class CreateItem extends FacesBean {
         // this.getEditItem().setIdentifierIterator(new UIRepeat());
         this.getEditItem().init();
       }
-      return navigateTo;
+      // return navigateTo;
     }
+
+    return navigateTo;
   }
 
   /**
@@ -169,14 +156,14 @@ public class CreateItem extends FacesBean {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  /**
-   * Returns the ContextListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ContextListSessionBean)
-   */
-  protected ContextListSessionBean getSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
+  // /**
+  // * Returns the ContextListSessionBean.
+  // *
+  // * @return a reference to the scoped data bean (ContextListSessionBean)
+  // */
+  // protected ContextListSessionBean getSessionBean() {
+  // return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  // }
 
   /**
    * Returns the ItemListSessionBean.
@@ -206,9 +193,9 @@ public class CreateItem extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  public List<PubContextVOPresentation> getCurrentCollectionList() {
-    return getSessionBean().getDepositorContextList();
-  }
+  // public List<PubContextVOPresentation> getCurrentCollectionList() {
+  // return getSessionBean().getDepositorContextList();
+  // }
 
   public boolean getMultiple() {
     return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);

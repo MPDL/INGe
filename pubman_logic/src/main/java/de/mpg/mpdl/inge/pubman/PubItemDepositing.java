@@ -113,15 +113,15 @@ public interface PubItemDepositing {
       PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
       TechnicalException;
 
-  /**
-   * Returns all open PubCollections for which the given user is in the role "Depositor".
-   * 
-   * @param user
-   * @exception TechnicalException,
-   * @exception SecurityException
-   */
-  public java.util.List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
-      throws SecurityException, TechnicalException;
+  // /**
+  // * Returns all open PubCollections for which the given user is in the role "Depositor".
+  // *
+  // * @param user
+  // * @exception TechnicalException,
+  // * @exception SecurityException
+  // */
+  // public java.util.List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
+  // throws SecurityException, TechnicalException;
 
   /**
    * Returns all PubContexts.

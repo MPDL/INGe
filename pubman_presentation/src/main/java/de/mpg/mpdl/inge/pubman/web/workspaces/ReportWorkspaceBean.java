@@ -44,11 +44,12 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * @author Gergana Stoyanova
  * 
  */
+@SuppressWarnings("serial")
 public class ReportWorkspaceBean extends FacesBean {
+  private static final Logger logger = Logger.getLogger(ReportWorkspaceBean.class);
 
-  private static final long serialVersionUID = 1L;
-
-  private static Logger logger = Logger.getLogger(ReportWorkspaceBean.class);
+  private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet",
+      "application/xml", "UTF-8");
 
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
@@ -61,16 +62,14 @@ public class ReportWorkspaceBean extends FacesBean {
   // Citation Style Handler
   private CitationStyleHandler citationStyleHandler;
 
-  String cqlQuery = null;
-  String csExportFormat = "JUS_Report";
-  String csOutputFormat = "escidoc_snippet";
-  String index = "escidoc_all";
+  // String cqlQuery = null;
+  private String csExportFormat = "JUS_Report";
+  private String csOutputFormat = "escidoc_snippet";
+  // String index = "escidoc_all";
 
   private Map<String, String> configuration = null;
   List<String> childAffilList;
 
-  private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet",
-      "application/xml", "UTF-8");
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
   private Format format;
 
@@ -81,28 +80,24 @@ public class ReportWorkspaceBean extends FacesBean {
         String[] parts = value.split("[\\[\\,\\]]");
         if (parts.length > 3) {
           return new Format(parts[1], parts[2], parts[3]);
-        } else {
-          return null;
         }
-      } else {
-        return null;
       }
+
+      return null;
     }
 
     public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
       if (format instanceof Format) {
         return ((Format) format).toString();
-      } else {
-        return null;
       }
+
+      return null;
     }
   };
 
-
   public ReportWorkspaceBean() {
-    InitialContext initialContext;
     try {
-      initialContext = new InitialContext();
+      InitialContext initialContext = new InitialContext();
       this.searchService =
           (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
       this.transformer = new TransformationBean();
@@ -126,11 +121,10 @@ public class ReportWorkspaceBean extends FacesBean {
     } catch (NamingException e) {
       throw new RuntimeException("Search service not initialized", e);
     }
-
   }
 
   public OrganizationVOPresentation getOrganization() {
-    return organization;
+    return this.organization;
   }
 
   public void setOrganization(OrganizationVOPresentation organization) {
@@ -138,7 +132,7 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public String getReportYear() {
-    return reportYear;
+    return this.reportYear;
   }
 
   public void setReportYear(String reportYear) {
@@ -146,7 +140,7 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public Format getFormat() {
-    return format;
+    return this.format;
   }
 
   public void setFormat(Format format) {
@@ -154,7 +148,7 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public List<SelectItem> getOutputFormats() {
-    return outputFormats;
+    return this.outputFormats;
   }
 
   public void setOutputFormats(List<SelectItem> outputFormats) {
@@ -165,7 +159,7 @@ public class ReportWorkspaceBean extends FacesBean {
    * @return the formatConverter
    */
   public Converter getFormatConverter() {
-    return formatConverter;
+    return this.formatConverter;
   }
 
   /**
@@ -175,17 +169,17 @@ public class ReportWorkspaceBean extends FacesBean {
     this.formatConverter = formatConverter;
   }
 
-
   public String generateReport() {
     String itemLsitSearchResult = null;
     byte[] itemListCS = null;
     byte[] itemListReportTransformed = null;
+
     if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null) {
       error(getMessage("ReportOrgIdNotProvided"));
-      return null;
+      // return null;
     } else if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
       error(getMessage("ReportYearNotProvided"));
-      return null;
+      // return null;
     } else {
       try {
         logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
@@ -227,9 +221,10 @@ public class ReportWorkspaceBean extends FacesBean {
         logger.error("Error while generatiring report output file.", e);
         error("Error while generatiring output file.");
       }
-      return null;
+      // return null;
     }
 
+    return null;
   }
 
 
@@ -249,6 +244,7 @@ public class ReportWorkspaceBean extends FacesBean {
             + this.organization.getIdentifier()
             + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
             + this.organization.getIdentifier() + "\" ";
+
     try {
       // get a list of children of the given org
       this.childAffilList = getChildOUs(this.organization.getIdentifier());
@@ -256,6 +252,7 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.error("Error when trying to get the children of the given organization.", e);
       e.printStackTrace();
     }
+
     // when there are children, concat the org ids to the query
     if (this.childAffilList.size() > 0) {
       for (String child : this.childAffilList) {
@@ -265,6 +262,7 @@ public class ReportWorkspaceBean extends FacesBean {
                 + child + "\"";
       }
     }
+
     // close the brackets of the query
     query = query + ")";
 
@@ -284,6 +282,7 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.error("Error when trying to find search service.", e);
       error("Did not find Search service");
     }
+
     return itemListAsString;
   }
 
@@ -297,6 +296,7 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.error("Error when trying to find citation service.", e);
       error("Did not find Citation service");
     }
+
     return exportData;
   }
 
@@ -326,7 +326,6 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     return result;
-
   }
 
   public List<String> getChildOUs(String orgId) throws Exception {
@@ -334,9 +333,9 @@ public class ReportWorkspaceBean extends FacesBean {
     OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
     String topLevelOU = ouHandler.retrieve(orgId);
     AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
-
     AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
+
     // if (aff.getChildren()!= null && aff.getChildren().size() > 0){
     if (aff.getHasChildren()) {
       affList.addAll(aff.getChildren());
@@ -346,9 +345,8 @@ public class ReportWorkspaceBean extends FacesBean {
         affListAsString.add(childId);
       }
     }
+
     return affListAsString;
   }
-
-
 
 }

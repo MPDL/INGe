@@ -77,6 +77,7 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   @EJB
   private PubItemPublishing pubItemPublishing;
+
   // private YearbookItemSessionBean yisb;
   private PubItemListSessionBean pilsb;
 

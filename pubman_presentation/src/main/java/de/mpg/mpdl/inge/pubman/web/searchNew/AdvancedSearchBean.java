@@ -82,10 +82,11 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@SuppressWarnings("serial")
 public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
   public static final String BEAN_NAME = "AdvancedSearchBean";
 
-  private static Logger logger = Logger.getLogger(AdvancedSearchBean.class);
+  private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;
 
@@ -134,9 +135,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private SearchCriterionBase publicationStatusListSearchCriterion;
 
-
-
   private Parenthesis currentlyOpenedParenthesis;
+
   private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap =
       new HashMap<SearchCriterionBase, Boolean>();
 
@@ -155,8 +155,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   @EJB
   private PubItemDepositing pubItemDepositing;
 
-
-
   public AdvancedSearchBean() {
 
   }
@@ -170,7 +168,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public void preDestroy() {
     getI18nHelper().removeLanguageChangeObserver(this);
   }
-
 
   public void clearAndInit() {
     this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
@@ -952,14 +949,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 
 
-  public static Logger getLogger() {
-    return logger;
-  }
-
-
-  public static void setLogger(Logger logger) {
-    AdvancedSearchBean.logger = logger;
-  }
+  // public static Logger getLogger() {
+  // return logger;
+  // }
+  //
+  //
+  // public static void setLogger(Logger logger) {
+  // AdvancedSearchBean.logger = logger;
+  // }
 
 
 

@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -57,14 +56,17 @@ public class YearbookItemSessionBean extends FacesBean {
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;
   private LoginHelper loginHelper;
-  @EJB
-  private XmlTransforming xmlTransforming;
   private ItemHandler itemHandler;
   private ContextVO yearbookContext;
+
+  @EJB
+  private XmlTransforming xmlTransforming;
+
   @EJB
   private Search searchService;
-  @EJB
-  private ItemValidating itemValidating;
+
+  // @EJB
+  // private ItemValidating itemValidating;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap =

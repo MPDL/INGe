@@ -36,7 +36,6 @@ import org.apache.log4j.Logger;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -139,20 +138,28 @@ public class ItemControllerSessionBean extends FacesBean {
 
   @EJB
   private DataGathering dataGathering;
+
   @EJB
   private EmailHandling emailHandling;
+
   @EJB
   private ItemExporting itemExporting;
-  @EJB
-  private ItemValidating itemValidating;
+
+  // @EJB
+  // private ItemValidating itemValidating;
+
   @EJB
   private PubItemDepositing pubItemDepositing;
+
   @EJB
   private PubItemPublishing pubItemPublishing;
+
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
+
   @EJB
   private QualityAssurance qualityAssurance;
+
   @EJB
   private Search search;
 

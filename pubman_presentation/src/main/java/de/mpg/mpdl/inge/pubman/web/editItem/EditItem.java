@@ -35,6 +35,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
@@ -143,7 +144,6 @@ public class EditItem extends FacesBean {
   // public final static String VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS =
   // "EditItem.pubItem.metadata.identifiers";
 
-  // Validation Service
   @EJB
   private ItemValidating itemValidating = null;
 
@@ -708,19 +708,15 @@ public class EditItem extends FacesBean {
       try {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        ExternalContext extContext = fc.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
         if (isFromEasySubmission()) {
-          fc.getExternalContext().redirect(
-              request.getContextPath()
-                  + "/faces/viewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId() + "&fromEasySub=true");
+          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()
+              + "&fromEasySub=true");
         } else {
-          fc.getExternalContext().redirect(
-              request.getContextPath()
-                  + "/faces/viewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId());
+          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
         }
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);

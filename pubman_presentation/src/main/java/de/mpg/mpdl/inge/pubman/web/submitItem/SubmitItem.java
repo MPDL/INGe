@@ -101,7 +101,7 @@ public class SubmitItem extends FacesBean {
         creators.append(creator.getOrganization().getName());
       }
     }
-    
+
     this.creators = creators.toString();
 
     if (logger.isDebugEnabled()) {
@@ -133,7 +133,7 @@ public class SubmitItem extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
-    
+
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     /*
      * String navigateTo = getSessionBean().getNavigationStringToGoBack();
@@ -162,11 +162,8 @@ public class SubmitItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        extContext.redirect(
-            request.getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -196,22 +193,22 @@ public class SubmitItem extends FacesBean {
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
-    
+
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
-//  /**
-//   * Adds and removes messages on this page, if any.
-//   * 
-//   * @author Michael Franke
-//   */
-//  public void handleMessage() {
-//    // String message = this.getSessionBean().getMessage();
-//    // this.valMessage = message;
-//
-//    // keep the message just once
-//    this.getSubmitItemSessionBean().setMessage(null);
-//  }
+  // /**
+  // * Adds and removes messages on this page, if any.
+  // *
+  // * @author Michael Franke
+  // */
+  // public void handleMessage() {
+  // // String message = this.getSessionBean().getMessage();
+  // // this.valMessage = message;
+  //
+  // // keep the message just once
+  // this.getSubmitItemSessionBean().setMessage(null);
+  // }
 
   /**
    * Checks is the current item has at least one rights information field filled.
@@ -229,7 +226,7 @@ public class SubmitItem extends FacesBean {
         return true;
       }
     }
-    
+
     return false;
   }
 
@@ -244,7 +241,7 @@ public class SubmitItem extends FacesBean {
         return true;
       }
     }
-    
+
     return false;
   }
 

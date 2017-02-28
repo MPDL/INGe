@@ -34,9 +34,10 @@ import java.util.ResourceBundle;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class GenreSpecificItemManager {
-  public static final String SUBMISSION_METHOD_ALL = "all";
   public static final String SUBMISSION_METHOD_EASY = "easy-submission";
   public static final String SUBMISSION_METHOD_FULL = "full-submission";
+
+  private static final String SUBMISSION_METHOD_ALL = "all";
 
   private PubItemVO pubItem;
   private String submissionMethod;

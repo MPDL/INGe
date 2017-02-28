@@ -75,6 +75,4 @@ public class SearchHitBean {
     this.afterSearchHitString = afterSearchHitString;
   }
 
-
-
 }

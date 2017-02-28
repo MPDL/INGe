@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.task.SiteMapTask;
 
+@SuppressWarnings("serial")
 public class InitializerServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(InitializerServlet.class);

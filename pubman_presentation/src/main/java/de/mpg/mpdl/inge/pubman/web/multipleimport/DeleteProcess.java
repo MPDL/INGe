@@ -62,9 +62,9 @@ public class DeleteProcess extends Thread {
       this.pubItemDepositing =
           (PubItemDepositing) context
               .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-      user = new AccountUserVO();
-      user.setHandle(log.getUserHandle());
-      user.setUserid(log.getUser());
+      this.user = new AccountUserVO();
+      this.user.setHandle(log.getUserHandle());
+      this.user.setUserid(log.getUser());
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_delete_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -79,45 +79,44 @@ public class DeleteProcess extends Thread {
    * First schedule all imported items for deletion, then delete them.
    */
   public void run() {
-
     int itemCount = 0;
-    for (ImportLogItem item : log.getItems()) {
+    for (ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         itemCount++;
-        log.activateItem(item);
-        log.addDetail(ErrorLevel.FINE, "import_process_schedule_delete");
-        log.suspendItem();
+        this.log.activateItem(item);
+        this.log.addDetail(ErrorLevel.FINE, "import_process_schedule_delete");
+        this.log.suspendItem();
       }
     }
 
     this.log.setPercentage(10);
     int counter = 0;
 
-    for (ImportLogItem item : log.getItems()) {
+    for (ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
-        log.activateItem(item);
-        log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
+        this.log.activateItem(item);
+        this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
         ItemRO itemRO = new ItemRO(item.getItemId());
         try {
-          this.pubItemDepositing.deletePubItem(itemRO, user);
-          log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
-          log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
+          this.pubItemDepositing.deletePubItem(itemRO, this.user);
+          this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
+          this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);
-          log.finishItem();
+          this.log.finishItem();
         } catch (Exception e) {
-          log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed");
-          log.addDetail(ErrorLevel.WARNING, e);
-          log.finishItem();
+          this.log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed");
+          this.log.addDetail(ErrorLevel.WARNING, e);
+          this.log.finishItem();
         }
         counter++;
-        log.setPercentage(85 * counter / itemCount + 10);
+        this.log.setPercentage(85 * counter / itemCount + 10);
       }
     }
 
-    log.startItem("import_process_delete_finished");
-    log.finishItem();
-    log.close();
-    log.closeConnection();
+    this.log.startItem("import_process_delete_finished");
+    this.log.finishItem();
+    this.log.close();
+    this.log.closeConnection();
   }
 
 }

@@ -23,7 +23,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook
@@ -47,8 +46,8 @@ public class YearbookArchiveRetrieverRequestBean extends
   private int numberOfRecords;
   private PubItemListSessionBean pilsb;
 
-  @EJB
-  private Search searchService;
+  // @EJB
+  // private Search searchService;
 
   @EJB
   private XmlTransforming xmlTransforming;

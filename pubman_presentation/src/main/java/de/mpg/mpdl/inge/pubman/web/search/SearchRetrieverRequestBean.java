@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -84,8 +83,8 @@ public class SearchRetrieverRequestBean extends
   @EJB
   private Search searchService;
 
-  @EJB
-  private XmlTransforming xmlTransforming;
+  // @EJB
+  // private XmlTransforming xmlTransforming;
 
   /**
    * The type of the search (simple, advanced, ...)

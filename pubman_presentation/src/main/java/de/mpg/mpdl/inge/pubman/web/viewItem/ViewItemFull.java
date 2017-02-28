@@ -77,8 +77,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -170,11 +168,11 @@ public class ViewItemFull extends FacesBean {
   @EJB
   private ItemValidating itemValidating;
 
-  @EJB
-  private PubItemDepositing pubItemDepositing;
+  // @EJB
+  // private PubItemDepositing pubItemDepositing;
 
-  @EJB
-  private PubItemSimpleStatistics pubManStatistics;
+  // @EJB
+  // private PubItemSimpleStatistics pubManStatistics;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -722,10 +720,13 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addSsrnTag() {
+    String returnValue = "";
+
     ItemControllerSessionBean icsb =
         (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    String returnValue = "";
+
     this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+
     if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
         || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
       returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -744,14 +745,17 @@ public class ViewItemFull extends FacesBean {
       } else {
         returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
       }
+
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnAddedSuccessfully"));
       }
     } else {
       error(getMessage("ViewItem_ssrnAddingProblem"));
     }
+
     PubItemListSessionBean pubItemListSessionBean =
         (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+
     if (pubItemListSessionBean != null) {
       pubItemListSessionBean.update();
     }
@@ -760,10 +764,13 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeSsrnTag() {
+    String returnValue = "";
+
     ItemControllerSessionBean icsb =
         (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    String returnValue = "";
+
     this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
+
     if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
         || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
       returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -783,17 +790,21 @@ public class ViewItemFull extends FacesBean {
         returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
         // returnValue = icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
       }
+
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
       }
     } else {
       error(getMessage("ViewItem_ssrnRemovingProblem"));
     }
+
     PubItemListSessionBean pubItemListSessionBean =
         (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+
     if (pubItemListSessionBean != null) {
       pubItemListSessionBean.update();
     }
+
     return returnValue;
   }
 
@@ -2920,6 +2931,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String addDoi() {
     String returnValue = "";
+
     try {
       // get a new DOI including a consistency check
       String doi = DoiRestService.getNewDoi(this.getPubItem());
@@ -2927,11 +2939,15 @@ public class ViewItemFull extends FacesBean {
       // update and release the current item with the new DOI
       ItemControllerSessionBean icsb =
           (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
+
       icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
       icsb.onlySubmitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+
       returnValue =
           icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
+
       if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
         info(getMessage("ViewItem_doiAddedSuccessfully"));
       }
@@ -2939,14 +2955,15 @@ public class ViewItemFull extends FacesBean {
       // update Lists with current item version
       PubItemListSessionBean pubItemListSessionBean =
           (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+
       if (pubItemListSessionBean != null) {
         pubItemListSessionBean.update();
       }
-
     } catch (Exception e) {
       logger.error("Error creating new DOI", e);
       error(getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
+
     return returnValue;
   }
 

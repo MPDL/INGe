@@ -65,7 +65,6 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @SuppressWarnings("serial")
 public class MultipleImport extends FacesBean {
-
   private static final Logger logger = Logger.getLogger(MultipleImport.class);
 
   public static final String BEAN_NAME = "MultipleImport";
@@ -90,14 +89,10 @@ public class MultipleImport extends FacesBean {
       "UTF-8");
   public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
-
   private List<SelectItem> importFormats = new ArrayList<SelectItem>();
   private UploadedFile uploadedImportFile;
   private String fixedFileName;
   private File uploadedFile;
-
-  private ImportProcess importProcess = null;
-
   private ContextVO context;
   private Format format;
   private String name;
@@ -122,20 +117,18 @@ public class MultipleImport extends FacesBean {
         String[] parts = value.split("[\\[\\,\\]]");
         if (parts.length > 3) {
           return new Format(parts[1], parts[2], parts[3]);
-        } else {
-          return null;
         }
-      } else {
-        return null;
       }
+
+      return null;
     }
 
     public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
       if (format instanceof Format) {
         return ((Format) format).toString();
-      } else {
-        return null;
       }
+
+      return null;
     }
   };
 
@@ -144,17 +137,17 @@ public class MultipleImport extends FacesBean {
     // super.init();
 
     // Standard formats
-    importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
-    importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
-    importFormats.add(new SelectItem(RIS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_RIS")));
-    importFormats.add(new SelectItem(WOS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_WOS")));
-    importFormats.add(new SelectItem(MAB_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MAB")));
-    importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
-    importFormats.add(new SelectItem(ZFN_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-    importFormats.add(new SelectItem(MARC21_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC21")));
-    importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
-    importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
+    this.importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
+    this.importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
+    this.importFormats.add(new SelectItem(RIS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_RIS")));
+    this.importFormats.add(new SelectItem(WOS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_WOS")));
+    this.importFormats.add(new SelectItem(MAB_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MAB")));
+    this.importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
+    this.importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
+    this.importFormats.add(new SelectItem(ZFN_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ZFN")));
+    this.importFormats.add(new SelectItem(MARC21_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC21")));
+    this.importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
+    this.importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
 
     // Specialized formats
     // importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));
@@ -166,12 +159,13 @@ public class MultipleImport extends FacesBean {
       error(getMessage("UploadFileNotProvided"));
       return null;
     }
+
     return LOAD_MULTIPLE_IMPORT_FORM;
   }
 
   public String getFileSize() {
     if (this.uploadedFile != null) {
-      long size = uploadedFile.length();
+      long size = this.uploadedFile.length();
       System.out.println(size);
       if (size < 1024) {
         return size + "B";
@@ -180,28 +174,30 @@ public class MultipleImport extends FacesBean {
       } else {
         return Math.round(size / (1024 * 1024)) + "MB";
       }
-
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   public String startImport() throws Exception {
-    if ("".equals(name)) {
+    if ("".equals(this.name)) {
       error(getMessage("ImportNameNotProvided"));
       return null;
     }
+
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     // InternationalizationHelper i18nHelper =
     // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
 
     Map<String, String> configuration = null;
 
-    if (configParameters.size() > 0)
+    if (configParameters.size() > 0) {
       configuration = new LinkedHashMap<String, String>();
+    }
 
-    for (SelectItem si : configParameters)
+    for (SelectItem si : configParameters) {
       configuration.put(si.getLabel(), si.getValue().toString());
+    }
 
     /*
      * InputStream fileIs = null; if(uploadedImportFile.isTempFile()) { fileIs = new
@@ -209,11 +205,10 @@ public class MultipleImport extends FacesBean {
      * ByteArrayInputStream(uploadedImportFile.getData()); }
      */
 
-
-    importProcess =
-        new ImportProcess(name, uploadedImportFile.getFileName(), uploadedFile, format,
-            context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy,
-            configuration);
+    ImportProcess importProcess =
+        new ImportProcess(this.name, uploadedImportFile.getFileName(), this.uploadedFile,
+            this.format, this.context.getReference(), loginHelper.getAccountUser(), rollback,
+            duplicateStrategy, configuration);
     importProcess.start();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -269,14 +264,15 @@ public class MultipleImport extends FacesBean {
   public List<SelectItem> initConfigParameters() throws Exception {
     TransformationBean transformation = new TransformationBean();
     Map<String, String> config = null;
-    if (format != null) {
-      config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
+    if (this.format != null) {
+      config = transformation.getConfiguration(this.format, ESCIDOC_FORMAT);
     }
     configParameters = new ArrayList<SelectItem>();
     parametersValues = new LinkedHashMap<String, List<SelectItem>>();
     if (config != null) {
       for (String key : config.keySet()) {
-        List<String> values = transformation.getConfigurationValues(format, ESCIDOC_FORMAT, key);
+        List<String> values =
+            transformation.getConfigurationValues(this.format, ESCIDOC_FORMAT, key);
         List<SelectItem> list = new ArrayList<SelectItem>();
         if (values != null) {
           for (String str : values)
@@ -312,7 +308,7 @@ public class MultipleImport extends FacesBean {
    * @return the context
    */
   public ContextVO getContext() {
-    return context;
+    return this.context;
   }
 
   /**
@@ -326,7 +322,7 @@ public class MultipleImport extends FacesBean {
    * @return the importFormats
    */
   public List<SelectItem> getImportFormats() {
-    return importFormats;
+    return this.importFormats;
   }
 
   /**
@@ -340,7 +336,7 @@ public class MultipleImport extends FacesBean {
    * @return the format
    */
   public Format getFormat() {
-    return format;
+    return this.format;
   }
 
   /**
@@ -385,7 +381,7 @@ public class MultipleImport extends FacesBean {
    * @return the name
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -394,7 +390,7 @@ public class MultipleImport extends FacesBean {
   public void setName(String name) {
     this.name = name;
     this.name =
-        name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe")
+        this.name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe")
             .replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
   }
 
@@ -416,7 +412,7 @@ public class MultipleImport extends FacesBean {
    * @return the formatConverter
    */
   public Converter getFormatConverter() {
-    return formatConverter;
+    return this.formatConverter;
   }
 
   /**
@@ -430,8 +426,8 @@ public class MultipleImport extends FacesBean {
     try {
       this.uploadedImportFile = evt.getFile();
       this.fixedFileName = CommonUtils.fixURLEncoding(uploadedImportFile.getFileName());
-      uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
-      FileOutputStream fos = new FileOutputStream(uploadedFile);
+      this.uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
+      FileOutputStream fos = new FileOutputStream(this.uploadedFile);
       InputStream is = uploadedImportFile.getInputstream();
       IOUtils.copy(is, fos);
       fos.flush();
@@ -447,7 +443,7 @@ public class MultipleImport extends FacesBean {
   }
 
   public String getFixedFileName() {
-    return fixedFileName;
+    return this.fixedFileName;
   }
 
   public void setFixedFileName(String fixedFileName) {

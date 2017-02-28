@@ -151,9 +151,7 @@ public class ImportLog {
   /**
    * Implicit constructor for inheriting classes.
    */
-  protected ImportLog() {
-
-  }
+  protected ImportLog() {}
 
   /**
    * Constructor.
@@ -231,7 +229,6 @@ public class ImportLog {
 
         updateLog();
 
-
         // this.connection.close();
       }
     } catch (Exception e) {
@@ -249,7 +246,6 @@ public class ImportLog {
     this.status = Status.PENDING;
 
     updateLog();
-
   }
 
   /**
@@ -404,7 +400,6 @@ public class ImportLog {
     this.currentItem.getItems().add(newDetail);
 
     saveDetail(newDetail);
-
   }
 
   /**

@@ -136,6 +136,7 @@ public class SubmitProcess extends Thread {
           //
           // log.addDetail(ErrorLevel.FINE, "Workflow is " + workflow.toString());
 
+          // TODO save???
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
             itemVO =

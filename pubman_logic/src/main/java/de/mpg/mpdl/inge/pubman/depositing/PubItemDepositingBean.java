@@ -30,7 +30,6 @@ package de.mpg.mpdl.inge.pubman.depositing;
 import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_CREATED;
 import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,19 +54,13 @@ import de.escidoc.core.common.exceptions.application.violated.AlreadyPublishedEx
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -79,7 +72,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.logging.LogMethodDurationInterceptor;
 import de.mpg.mpdl.inge.model.xmltransforming.logging.LogStartEndInterceptor;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubFileContentNotFoundException;
@@ -101,31 +93,15 @@ public class PubItemDepositingBean implements PubItemDepositing {
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
-  /**
-   * A XmlTransforming instance.
-   */
   @EJB
   private XmlTransforming xmlTransforming;
 
-  /**
-   * A PubItemPublishing instance.
-   */
-  @EJB
-  private PubItemPublishing pmPublishing;
+  // @EJB
+  // private PubItemPublishing pmPublishing;
 
-  /**
-   * A ItemValidating instance.
-   */
-  @EJB
-  private ItemValidating itemValidating;
+  // @EJB
+  // private ItemValidating itemValidating;
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws PubCollectionNotFoundException
-   * @throws TechnicalException
-   * @throws SecurityException
-   */
   public PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
       throws PubCollectionNotFoundException, SecurityException, TechnicalException {
 
@@ -171,15 +147,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws PubItemLockedException
-   * @throws PubItemNotFoundException
-   * @throws PubItemStatusInvalidException
-   * @throws TechnicalException
-   * @throws SecurityException
-   */
   public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
       throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
       SecurityException, TechnicalException {
@@ -216,83 +183,83 @@ public class PubItemDepositingBean implements PubItemDepositing {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws TechnicalException
-   * @throws SecurityException
-   */
-  public List<ContextVO> getPubCollectionListForDepositing(final AccountUserVO user)
-      throws SecurityException, TechnicalException {
-
-    if (user == null) {
-      throw new IllegalArgumentException(getClass()
-          + ".getPubCollectionListForDepositing: user is null.");
-    }
-
-    if (user.getReference() == null || user.getReference().getObjectId() == null) {
-      throw new IllegalArgumentException(getClass()
-          + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
-    }
-
-    try {
-      List<ContextVO> contextList = new ArrayList<ContextVO>();
-      String xmlGrants =
-          ServiceLocator.getUserAccountHandler(user.getHandle()).retrieveCurrentGrants(
-              user.getReference().getObjectId());
-
-      List<GrantVO> grants = xmlTransforming.transformToGrantVOList(xmlGrants);
-
-      if (grants.size() == 0) {
-        return contextList;
-      }
-
-      // Create filter
-      FilterTaskParamVO filterParam = new FilterTaskParamVO();
-
-      FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("Pubman");
-      filterParam.getFilterList().add(typeFilter);
-
-      ItemRefFilter itmRefFilter = filterParam.new ItemRefFilter();
-      filterParam.getFilterList().add(itmRefFilter);
-
-      boolean hasGrants = false;
-
-      for (GrantVO grant : grants) {
-        if (PredefinedRoles.DEPOSITOR.frameworkValue().equals(grant.getRole())) {
-          if (grant.getObjectRef() != null) {
-            itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
-            hasGrants = true;
-          }
-        }
-      }
-
-      if (!hasGrants) {
-        return contextList;
-      }
-
-      PubCollectionStatusFilter statusFilter =
-          filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
-      filterParam.getFilterList().add(statusFilter);
-
-      HashMap<String, String[]> filterMap = filterParam.toMap();
-
-      // Get context list
-      String xmlContextList =
-          ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
-      contextList =
-          (List<ContextVO>) xmlTransforming
-              .transformSearchRetrieveResponseToContextList(xmlContextList);
-
-      return contextList;
-
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e,
-          "getPubCollectionListForDepositing for user <" + user.getUserid() + ">");
-    }
-
-    return null;
-  }
+  // /**
+  // * {@inheritDoc}
+  // *
+  // * @throws TechnicalException
+  // * @throws SecurityException
+  // */
+  // public List<ContextVO> getPubCollectionListForDepositing(final AccountUserVO user)
+  // throws SecurityException, TechnicalException {
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user is null.");
+  // }
+  //
+  // if (user.getReference() == null || user.getReference().getObjectId() == null) {
+  // throw new IllegalArgumentException(getClass()
+  // + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+  // }
+  //
+  // try {
+  // List<ContextVO> contextList = new ArrayList<ContextVO>();
+  // String xmlGrants =
+  // ServiceLocator.getUserAccountHandler(user.getHandle()).retrieveCurrentGrants(
+  // user.getReference().getObjectId());
+  //
+  // List<GrantVO> grants = xmlTransforming.transformToGrantVOList(xmlGrants);
+  //
+  // if (grants.size() == 0) {
+  // return contextList;
+  // }
+  //
+  // // Create filter
+  // FilterTaskParamVO filterParam = new FilterTaskParamVO();
+  //
+  // FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("Pubman");
+  // filterParam.getFilterList().add(typeFilter);
+  //
+  // ItemRefFilter itmRefFilter = filterParam.new ItemRefFilter();
+  // filterParam.getFilterList().add(itmRefFilter);
+  //
+  // boolean hasGrants = false;
+  //
+  // for (GrantVO grant : grants) {
+  // if (PredefinedRoles.DEPOSITOR.frameworkValue().equals(grant.getRole())) {
+  // if (grant.getObjectRef() != null) {
+  // itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
+  // hasGrants = true;
+  // }
+  // }
+  // }
+  //
+  // if (!hasGrants) {
+  // return contextList;
+  // }
+  //
+  // PubCollectionStatusFilter statusFilter =
+  // filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
+  // filterParam.getFilterList().add(statusFilter);
+  //
+  // HashMap<String, String[]> filterMap = filterParam.toMap();
+  //
+  // // Get context list
+  // String xmlContextList =
+  // ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
+  // contextList =
+  // (List<ContextVO>) xmlTransforming
+  // .transformSearchRetrieveResponseToContextList(xmlContextList);
+  //
+  // return contextList;
+  //
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e,
+  // "getPubCollectionListForDepositing for user <" + user.getUserid() + ">");
+  // }
+  //
+  // return null;
+  // }
 
   public List<ContextVO> getPubCollectionListForDepositing() throws SecurityException,
       TechnicalException {
@@ -325,7 +292,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
     return null;
   }
 
-  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   public PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
       throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
       PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
@@ -504,17 +470,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
   // }
   // }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws ValidationException
-   * @throws ItemInvalidException
-   * @throws TechnicalException
-   * @throws SecurityException
-   * @throws PubItemStatusInvalidException
-   * @throws PubItemNotFoundException
-   */
-  // ACHTUNG: Das uebergebene pubItem muß vorher auf Validitaet geprueft worden sein!
   // TODO: submissionComment verwenden! (-> siehe auch QualityAssuranceBean, PubItemPublishingBean)
   public PubItemVO submitPubItem(final PubItemVO pubItem, String comment, final AccountUserVO user)
       throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
@@ -722,14 +677,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
   // return pubItem;
   // }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services
-   * .common.valueobjects.PubItemVO, java.lang.String,
-   * de.mpg.mpdl.inge.model.valueobjects.ContextVO,
-   * de.mpg.mpdl.inge.model.valueobjects.AccountUserVO)
-   */
   public PubItemVO createRevisionOfItem(final PubItemVO originalPubItem, String relationComment,
       final ContextRO pubCollection, final AccountUserVO owner) {
 
@@ -763,7 +710,6 @@ public class PubItemDepositingBean implements PubItemDepositing {
     if (originalPubItem.getMetadata().getFreeKeywords() != null) {
       copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
     }
-
     // copy subjects
     if (originalPubItem.getMetadata().getSubjects() != null) {
       for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {

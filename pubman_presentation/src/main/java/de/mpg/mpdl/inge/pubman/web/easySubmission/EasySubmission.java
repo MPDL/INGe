@@ -156,11 +156,9 @@ public class EasySubmission extends FacesBean {
   // Transformation Service
   private Transformation transformer = null;
 
-  // XML Transforming Service
   @EJB
   private XmlTransforming xmlTransforming;
 
-  // Validation Service
   @EJB
   private ItemValidating itemValidating;
 

@@ -79,21 +79,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors({LogStartEndInterceptor.class, LogMethodDurationInterceptor.class})
 public class PubItemPublishingBean implements PubItemPublishing {
-
-  /**
-   * Logger for this class.
-   */
   private static final Logger LOGGER = Logger.getLogger(PubItemPublishingBean.class);
 
-  /**
-   * A XmlTransforming instance.
-   */
   @EJB
   private XmlTransforming xmlTransforming;
 
-  /**
-   * {@inheritDoc}
-   */
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, QualityassuranceBean)
   public PubItemVO releasePubItem(final ItemRO pubItemRef, final Date lastModificationDate,
       String comment, final AccountUserVO user) throws TechnicalException,
@@ -253,9 +243,6 @@ public class PubItemPublishingBean implements PubItemPublishing {
     return actualItemVO;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public final void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
       String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
       PubItemNotFoundException, PubItemStatusInvalidException, TechnicalException,

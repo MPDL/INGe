@@ -83,8 +83,7 @@ public class QAWSPage extends BreadcrumbPage {
       logger.error("Could not login." + "\n" + e.toString());
     }
 
-    this.getViewItemSessionBean().setHasBeenRedirected(true);
-
+    // this.getViewItemSessionBean().setHasBeenRedirected(true);
   }
 
   /**

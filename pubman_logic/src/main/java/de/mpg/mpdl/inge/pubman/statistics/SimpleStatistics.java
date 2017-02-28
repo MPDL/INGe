@@ -89,9 +89,6 @@ public class SimpleStatistics implements PubItemSimpleStatistics {
 
   // private HashMap<String, String> reportDefinitionMap;
 
-  @EJB
-  private StatisticLogger statisticLogger;
-
   public static String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS;
   public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS;
   public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS;
@@ -99,13 +96,11 @@ public class SimpleStatistics implements PubItemSimpleStatistics {
   public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS;
   public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS;
 
+  @EJB
+  private StatisticLogger statisticLogger;
 
-  /**
-   * A XmlTransforming instance.
-   */
   @EJB
   private XmlTransforming xmlTransforming;
-
 
   public List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionId,
       String objectId, AccountUserVO accountUser) throws Exception {

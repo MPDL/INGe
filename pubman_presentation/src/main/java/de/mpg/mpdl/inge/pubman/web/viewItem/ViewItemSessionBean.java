@@ -26,14 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 
 /**
  * Keeps all attributes that are used for the whole session by ViewItem.
@@ -45,7 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 public class ViewItemSessionBean extends FacesBean {
   public static final String BEAN_NAME = "ViewItemSessionBean";
 
-  private static Logger logger = Logger.getLogger(ViewItemSessionBean.class);
+  // private static Logger logger = Logger.getLogger(ViewItemSessionBean.class);
 
   // navigationString to go back to the list where viewItem has been called
   // from
@@ -54,11 +47,12 @@ public class ViewItemSessionBean extends FacesBean {
   // // from
   // private String itemIdViaURLParam = null;
 
-  // Flag if view item has already been redirected
-  private boolean hasBeenRedirected = false;
+  // // Flag if view item has already been redirected
+  // private boolean hasBeenRedirected = false;
 
   private String subMenu;
-  private boolean detailedMode = false;
+
+  // private boolean detailedMode = false;
 
   public ViewItemSessionBean() {
     this.subMenu = "ACTIONS";
@@ -73,67 +67,67 @@ public class ViewItemSessionBean extends FacesBean {
   // //super.init();
   // }
 
-  /**
-   * View the selected item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String viewRelease() {
-    String itemID = getFacesParamValue("itemID").substring(13).replace("-", ":");
+  // /**
+  // * View the selected item.
+  // *
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String viewRelease() {
+  // String itemID = getFacesParamValue("itemID").substring(13).replace("-", ":");
+  //
+  // PubItemVOPresentation pubItemVO = null;
+  //
+  // // set the reload flag to false to force a redirecting to get a proper URL
+  // this.hasBeenRedirected = false;
+  //
+  // try {
+  // pubItemVO = this.getItemControllerSessionBean().retrieveItem(itemID);
+  // } catch (Exception e) {
+  // logger.error("Could not retrieve release with id " + itemID, e);
+  // Login login =
+  // (Login) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
+  // .resolveVariable(FacesContext.getCurrentInstance(), "Login");
+  // try {
+  // login.forceLogout();
+  // } catch (Exception e2) {
+  // logger.error("Error logging out user", e2);
+  // }
+  // return "";
+  // }
+  //
+  // this.getItemControllerSessionBean().setCurrentPubItem(pubItemVO);
+  //
+  // return ViewItemFull.LOAD_VIEWITEM;
+  // }
 
-    PubItemVOPresentation pubItemVO = null;
+  // /**
+  // * gets the parameters out of the faces context
+  // *
+  // * @param name name of the parameter in the faces context
+  // * @return the value of the parameter as string
+  // */
+  // public static String getFacesParamValue(String name) {
+  // return (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+  // .get(name);
+  // }
 
-    // set the reload flag to false to force a redirecting to get a proper URL
-    this.hasBeenRedirected = false;
+  // /**
+  // * Returns the ViewItemFull bean.
+  // *
+  // * @return a reference to the scoped data bean (ViewItemFull)
+  // */
+  // protected ViewItemFull getViewItemFull() {
+  // return (ViewItemFull) getBean(ViewItemFull.class);
+  // }
 
-    try {
-      pubItemVO = this.getItemControllerSessionBean().retrieveItem(itemID);
-    } catch (Exception e) {
-      logger.error("Could not retrieve release with id " + itemID, e);
-      Login login =
-          (Login) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-              .resolveVariable(FacesContext.getCurrentInstance(), "Login");
-      try {
-        login.forceLogout();
-      } catch (Exception e2) {
-        logger.error("Error logging out user", e2);
-      }
-      return "";
-    }
-
-    this.getItemControllerSessionBean().setCurrentPubItem(pubItemVO);
-
-    return ViewItemFull.LOAD_VIEWITEM;
-  }
-
-  /**
-   * gets the parameters out of the faces context
-   * 
-   * @param name name of the parameter in the faces context
-   * @return the value of the parameter as string
-   */
-  public static String getFacesParamValue(String name) {
-    return (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-        .get(name);
-  }
-
-  /**
-   * Returns the ViewItemFull bean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemFull)
-   */
-  protected ViewItemFull getViewItemFull() {
-    return (ViewItemFull) getBean(ViewItemFull.class);
-  }
-
-  /**
-   * Returns the ItemControllerSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemControllerSessionBean)
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
+  // /**
+  // * Returns the ItemControllerSessionBean.
+  // *
+  // * @return a reference to the scoped data bean (ItemControllerSessionBean)
+  // */
+  // protected ItemControllerSessionBean getItemControllerSessionBean() {
+  // return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  // }
 
   // Getters and Setters
   public String getNavigationStringToGoBack() {
@@ -153,33 +147,31 @@ public class ViewItemSessionBean extends FacesBean {
   // }
 
 
-  public boolean isHasBeenRedirected() {
-    return hasBeenRedirected;
-  }
-
-  public void setHasBeenRedirected(boolean hasBeenRedirected) {
-    this.hasBeenRedirected = hasBeenRedirected;
-  }
+  // public boolean isHasBeenRedirected() {
+  // return hasBeenRedirected;
+  // }
+  //
+  // public void setHasBeenRedirected(boolean hasBeenRedirected) {
+  // this.hasBeenRedirected = hasBeenRedirected;
+  // }
 
   public void setSubMenu(String subMenu) {
     this.subMenu = subMenu;
   }
 
   public String getSubMenu() {
-    return subMenu;
-
+    return this.subMenu;
   }
 
   public void itemChanged() {
-    subMenu = "ACTIONS";
-
+    this.subMenu = "ACTIONS";
   }
 
-  public void setDetailedMode(boolean detailedMode) {
-    this.detailedMode = detailedMode;
-  }
-
-  public boolean isDetailedMode() {
-    return this.detailedMode;
-  }
+  // public void setDetailedMode(boolean detailedMode) {
+  // this.detailedMode = detailedMode;
+  // }
+  //
+  // public boolean isDetailedMode() {
+  // return this.detailedMode;
+  // }
 }

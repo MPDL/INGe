@@ -65,21 +65,12 @@ import net.sf.jasperreports.engine.JRException;
 public class ItemExportingBean implements ItemExporting {
   private static Logger logger = Logger.getLogger(ItemExportingBean.class);
 
-  /**
-   * A XmlTransforming instance.
-   */
   @EJB
   private XmlTransforming xmlTransforming;
 
-  /**
-   * A CitationStyleHandler instance.
-   */
   @EJB
   private CitationStyleHandler citationStyleHandler;
 
-  /**
-   * A EndnodeExportHandler instance.
-   */
   @EJB
   private StructuredExportHandler structuredExportHandler;
 

@@ -67,9 +67,6 @@ import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
 @Interceptors({LogStartEndInterceptor.class, LogMethodDurationInterceptor.class})
 public class QualityAssuranceBean implements QualityAssurance {
 
-  /**
-   * A XmlTransforming instance.
-   */
   @EJB
   private XmlTransforming xmlTransforming;
 
@@ -163,9 +160,6 @@ public class QualityAssuranceBean implements QualityAssurance {
   // }
   // }
 
-  /**
-   * {@inheritDoc}
-   */
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, PubItemPublishingBean)
   public PubItemVO revisePubItem(final ItemRO pubItemRef, String comment, final AccountUserVO user)
       throws ServiceException, TechnicalException, PubItemStatusInvalidException,

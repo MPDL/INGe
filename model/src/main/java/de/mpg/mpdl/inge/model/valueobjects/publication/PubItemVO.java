@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
+@SuppressWarnings("serial")
 public class PubItemVO extends ItemVO {
 
   private static Logger logger = Logger.getLogger(PubItemVO.class);
@@ -38,7 +39,6 @@ public class PubItemVO extends ItemVO {
   public Object clone() {
     return new PubItemVO(this);
   }
-
 
   public MdsPublicationVO getMetadata() {
     if (getMetadataSets() != null && getMetadataSets().size() > 0

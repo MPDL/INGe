@@ -51,7 +51,7 @@ public class ViewItemReleaseHistoryPage extends BreadcrumbPage {
     // Perform initializations inherited from our superclass
     super.init();
 
-    this.getViewItemSessionBean().setHasBeenRedirected(true);
+    // this.getViewItemSessionBean().setHasBeenRedirected(true);
   }
 
 

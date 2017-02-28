@@ -121,11 +121,11 @@ public class ItemVO extends ValueObject implements Searchable {
   private String publicStatusComment;
 
   public String getPublicStatusComment() {
-    return publicStatusComment;
+    return this.publicStatusComment;
   }
 
-  public void setPublicStatusComment(String publicStatusComment) {
-    this.publicStatusComment = publicStatusComment;
+  public void setPublicStatusComment(String comment) {
+    this.publicStatusComment = comment;
   }
 
   /**
