@@ -72,15 +72,11 @@ public class ViewItemStatistics extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
-
-    // get current PubItem and its ID
-    pubItem = getItemControllerSessionBean().getCurrentPubItem();
-    itemId = pubItem.getVersion().getObjectId();
+    this.pubItem = getItemControllerSessionBean().getCurrentPubItem();
+    this.itemId = pubItem.getVersion().getObjectId();
 
     // get all files, remove Locators, convert to presentation objects and add them to the list
-    List<FileVO> files = pubItem.getFiles();
+    List<FileVO> files = this.pubItem.getFiles();
     List<FileVO> realFiles = new ArrayList<FileVO>();
 
     for (FileVO fileVO : files) {
@@ -88,7 +84,7 @@ public class ViewItemStatistics extends FacesBean {
         realFiles.add(fileVO);
     }
 
-    fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
+    this.fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
@@ -112,24 +108,19 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public List<PubFileVOPresentation> getFileList() {
-    return fileList;
+    return this.fileList;
   }
 
   public void setFileList(List<PubFileVOPresentation> fileList) {
     this.fileList = fileList;
   }
 
-  /**
-   * Returns the ItemControllerSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemControllerSessionBean)
-   */
   protected ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   public PubItemVO getPubItem() {
-    return pubItem;
+    return this.pubItem;
   }
 
   public void setPubItem(PubItemVO pubItem) {
@@ -137,7 +128,7 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public String getItemID() {
-    return itemId;
+    return this.itemId;
   }
 
   public void setItemID(String itemID) {
@@ -145,7 +136,7 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public boolean getFilesAvailable() {
-    return fileList.size() > 0;
+    return this.fileList.size() > 0;
   }
 
   public String getNimsLink() {
@@ -155,7 +146,6 @@ public class ViewItemStatistics extends FacesBean {
       logger.error("Could not read escidoc.pubman.statistics.nims.link from properties");
       return null;
     }
-
   }
 
   /**
@@ -180,10 +170,8 @@ public class ViewItemStatistics extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
-      return false;
     }
 
     return false;
   }
-
 }

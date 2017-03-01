@@ -38,5 +38,4 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 public class ViewItemMedium extends FacesBean {
 
   public ViewItemMedium() {}
-
 }

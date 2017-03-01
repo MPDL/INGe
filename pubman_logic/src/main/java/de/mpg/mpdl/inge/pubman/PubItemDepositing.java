@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman;
 import java.net.URISyntaxException;
 
 import javax.ejb.Remote;
+import javax.xml.rpc.ServiceException;
 
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -40,6 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
+import de.mpg.mpdl.inge.pubman.exceptions.MissingWithdrawalCommentException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
@@ -199,6 +201,55 @@ public interface PubItemDepositing {
   public PubItemVO createRevisionOfItem(PubItemVO pubItem, String relationComment,
       ContextRO pubCollection, AccountUserVO user);
 
+
+  /**
+   * Revises a PubItem in the state submitted to state "in revision".
+   * 
+   * @param user
+   * @return
+   * @throws SecurityException
+   * @throws TechnicalException
+   */
+  public PubItemVO revisePubItem(ItemRO pubItemRef, String reviseComment, AccountUserVO user)
+      throws ServiceException, TechnicalException, PubItemStatusInvalidException,
+      SecurityException, PubItemNotFoundException;
+
+  /**
+   * Releases the publication item identified by the given pubItemRef.
+   * 
+   * @param pubItemRef The reference of the publication item.
+   * @param lastModificationDate The date of last modification.
+   * @param user The user (Necessary for authentication, authorization and logging)
+   * @return
+   * @throws TechnicalException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemNotFoundException
+   * @throws PubItemLockedException
+   * @throws SecurityException
+   */
+  public PubItemVO releasePubItem(ItemRO pubItemRef, java.util.Date lastModificationDate,
+      String releaseComment, AccountUserVO user) throws TechnicalException,
+      PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException,
+      SecurityException;
+
+  /**
+   * Withdraws the publication item identified by the given pubItemRef.
+   * 
+   * @param pubItemRef The reference of the publication item.
+   * @param lastModificationDate The date of last modification.
+   * @param withdrawalComment The reason for the withdrawal. Must not be null or empty.
+   * @param user The user (Necessary for authentication, authorization and logging)
+   * @throws TechnicalException
+   * @throws PubItemStatusInvalidException
+   * @throws PubItemNotFoundException
+   * @throws SecurityException
+   * @throws PubItemLockedException
+   * @throws MissingWithdrawalCommentException if the given withdrawal comment is null or empty.
+   */
+  public void withdrawPubItem(PubItemVO pubItem, java.util.Date lastModificationDate,
+      String withdrawalComment, AccountUserVO user) throws TechnicalException,
+      PubItemNotFoundException, PubItemStatusInvalidException, SecurityException,
+      PubItemLockedException, MissingWithdrawalCommentException;
 
   // /**
   // * Submits and releases the given pubItem. As on submit, a new version must be created (which is

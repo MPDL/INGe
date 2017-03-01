@@ -97,7 +97,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
@@ -619,12 +618,12 @@ public class SwordUtil extends FacesBean {
 
     PubItemVO depositedItem = null;
     InitialContext initialContext = new InitialContext();
-    PubItemDepositing depositBean =
+    PubItemDepositing depositingBean =
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-    PubItemPublishing publishingBean =
-        (PubItemPublishing) initialContext
-            .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+    // PubItemPublishing publishingBean =
+    // (PubItemPublishing) initialContext
+    // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
 
     String method = this.getMethod(item);
 
@@ -637,15 +636,15 @@ public class SwordUtil extends FacesBean {
     // }
 
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
-      depositedItem = depositBean.savePubItem(item, user);
-      depositedItem = depositBean.submitPubItem(depositedItem, "", user);
+      depositedItem = depositingBean.savePubItem(item, user);
+      depositedItem = depositingBean.submitPubItem(depositedItem, "", user);
     }
 
     if (method.equals("RELEASE")) {
-      depositedItem = depositBean.savePubItem(item, user);
-      depositedItem = depositBean.submitPubItem(depositedItem, "", user);
+      depositedItem = depositingBean.savePubItem(item, user);
+      depositedItem = depositingBean.submitPubItem(depositedItem, "", user);
       depositedItem =
-          publishingBean.releasePubItem(depositedItem.getVersion(),
+          depositingBean.releasePubItem(depositedItem.getVersion(),
               depositedItem.getModificationDate(), "", user);
     }
 

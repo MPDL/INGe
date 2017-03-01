@@ -49,14 +49,12 @@ public class ViewItemCreatorOrganization {
   private String organizationAddress;
   // the html code of the organization info page popup window
   private String organizationInfoPage;
-
   private String identifier;
 
   public ViewItemCreatorOrganization() {}
 
-  // Getters and setters
   public String getOrganizationName() {
-    return organizationName;
+    return this.organizationName;
   }
 
   public void setOrganizationName(String organizationName) {
@@ -64,7 +62,7 @@ public class ViewItemCreatorOrganization {
   }
 
   public String getPosition() {
-    return position;
+    return this.position;
   }
 
   public void setPosition(String position) {
@@ -72,7 +70,7 @@ public class ViewItemCreatorOrganization {
   }
 
   public String getOrganizationAddress() {
-    return organizationAddress;
+    return this.organizationAddress;
   }
 
   public void setOrganizationAddress(String organizationAddress) {
@@ -80,11 +78,11 @@ public class ViewItemCreatorOrganization {
   }
 
   public String getOrganizationInfoPage() {
-    return organizationInfoPage;
+    return this.organizationInfoPage;
   }
 
   public String getIdentifier() {
-    return identifier;
+    return this.identifier;
   }
 
   public void setIdentifier(String identifier) {
@@ -97,6 +95,7 @@ public class ViewItemCreatorOrganization {
     if (organizationAddress != null) {
       addr = organizationAddress;
     }
+
     this.organizationInfoPage =
         "'<html><head><title>Organisation</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
             + CommonUtils.htmlEscape(organizationName)

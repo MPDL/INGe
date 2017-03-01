@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.structuredexportmanager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
@@ -51,7 +50,7 @@ public class StructuredExportHandlerBean implements StructuredExportHandler {
   /**
    * Logger for this class.
    */
-  private static Logger logger = Logger.getLogger(StructuredExportHandlerBean.class);
+  private static final Logger logger = Logger.getLogger(StructuredExportHandlerBean.class);
 
   /**
    * {@inheritDoc}

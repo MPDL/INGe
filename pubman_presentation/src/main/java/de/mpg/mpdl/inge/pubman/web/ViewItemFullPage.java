@@ -26,13 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
@@ -43,11 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class ViewItemFullPage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(ViewItemFullPage.class);
-
-  // // The referring GUI Tool Page
-  // public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
-
   public ViewItemFullPage() {
     this.init();
   }
@@ -61,13 +50,9 @@ public class ViewItemFullPage extends BreadcrumbPage {
     // Perform initializations inherited from our superclass
     super.init();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("UserHandle: " + userHandle);
-    }
+    // FacesContext fc = FacesContext.getCurrentInstance();
+    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    // String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     /*
      * LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); if(loginHelper ==
@@ -77,27 +62,6 @@ public class ViewItemFullPage extends BreadcrumbPage {
      */
   }
 
-  // /**
-  // * Redirets to the referring GUI Tool page.
-  // *
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  // try {
-  // this.getViewItemSessionBean().setHasBeenRedirected(true);
-  // fc.getExternalContext().redirect(GT_VIEW_ITEM_FULL_PAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-  // }
-  // return "";
-  // }
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
   protected ViewItemSessionBean getViewItemSessionBean() {
     return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
@@ -106,5 +70,4 @@ public class ViewItemFullPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return true;
   }
-
 }

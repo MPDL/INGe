@@ -52,7 +52,7 @@ public class ViewItemOrganization {
   /** the display in View Item pages */
 
   public String getOrganizationAddress() {
-    return organizationAddress;
+    return this.organizationAddress;
   }
 
   public void setOrganizationAddress(String organizationAddress) {
@@ -60,7 +60,7 @@ public class ViewItemOrganization {
   }
 
   public String getOrganizationName() {
-    return organizationName;
+    return this.organizationName;
   }
 
   public void setOrganizationName(String organizationName) {
@@ -68,7 +68,7 @@ public class ViewItemOrganization {
   }
 
   public String getPosition() {
-    return position;
+    return this.position;
   }
 
   public void setPosition(String position) {
@@ -76,7 +76,7 @@ public class ViewItemOrganization {
   }
 
   public String getOrganizationIdentifier() {
-    return organizationIdentifier;
+    return this.organizationIdentifier;
   }
 
   public void setOrganizationIdentifier(String organizationIdentifier) {
@@ -84,10 +84,8 @@ public class ViewItemOrganization {
   }
 
   public String getOrganizationInfoPage() {
-    return organizationInfoPage;
+    return this.organizationInfoPage;
   }
-
-
 
   // the information page (popup window)
   public void setOrganizationInfoPage(String organizationName, String organizationAddress) {
@@ -105,13 +103,13 @@ public class ViewItemOrganization {
   public boolean getHasOrganizationalIdentifier() {
     if (this.organizationIdentifier == null || this.organizationIdentifier.equals("")) {
       return false;
-    } else
-      return true;
+    }
+
+    return true;
   }
 
   public void setOrganizationDescription(String organizationName, String organizationAddress,
       String organizationIdentifier) {
-
     String addr = organizationName;
     if (organizationAddress != null && organizationAddress != "") {
       addr = addr + ", " + organizationAddress;
@@ -122,11 +120,9 @@ public class ViewItemOrganization {
     }
 
     this.organizationDescription = addr;
-
   }
 
   public String getOrganizationDescription() {
-    return organizationDescription;
+    return this.organizationDescription;
   }
-
 }

@@ -58,15 +58,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 public class AcceptItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(AcceptItem.class);
 
-  // Faces navigation string
   public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
-  // public static final String JSP_NAME = "AcceptItemPage.jsp"; // DiT: to avoid JSF-Navigation
 
   private String acceptanceComment = null;
-  // private String valMessage = null;
   private String creators;
-
-  // private String navigationStringToGoBack;
 
   public AcceptItem() {
     this.init();
@@ -77,9 +72,6 @@ public class AcceptItem extends FacesBean {
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
   public final void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
-
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
@@ -100,15 +92,6 @@ public class AcceptItem extends FacesBean {
     }
 
     this.creators = creators.toString();
-
-    // if (logger.isDebugEnabled()) {
-    // if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-    // logger
-    // .debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
-    // } else {
-    // logger.error("NO ITEM GIVEN");
-    // }
-    // }
   }
 
   /**
@@ -121,11 +104,6 @@ public class AcceptItem extends FacesBean {
     return (this.getItemControllerSessionBean().getCurrentPubItem());
   }
 
-  /**
-   * Accepts the item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public final String accept() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
@@ -137,8 +115,6 @@ public class AcceptItem extends FacesBean {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
 
-    logger.debug("Now acceptting, then go to " + navigateTo);
-
     String retVal =
         this.getItemControllerSessionBean().acceptCurrentPubItem(acceptanceComment, navigateTo);
 
@@ -146,7 +122,6 @@ public class AcceptItem extends FacesBean {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
     }
 
-    // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
         extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
@@ -159,11 +134,6 @@ public class AcceptItem extends FacesBean {
     return retVal;
   }
 
-  /**
-   * Cancels the editing.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public final String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
@@ -199,33 +169,10 @@ public class AcceptItem extends FacesBean {
     return false;
   }
 
-  /**
-   * Adds and removes messages on this page, if any.
-   * 
-   * @author Michael Franke
-   */
-  public void handleMessage() {
-    // String message = this.getAcceptItemSessionBean().getMessage();
-    // this.valMessage = message;
-
-    // keep the message just once
-    this.getAcceptItemSessionBean().setMessage(null);
-  }
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
   public final ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  /**
-   * Returns the AcceptItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (AcceptItemSessionBean)
-   */
   protected final AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
@@ -238,22 +185,6 @@ public class AcceptItem extends FacesBean {
     this.acceptanceComment = acceptanceComment;
   }
 
-  // public String getValMessage() {
-  // return valMessage;
-  // }
-  //
-  // public void setValMessage(String valMessage) {
-  // this.valMessage = valMessage;
-  // }
-
-  // public final String getNavigationStringToGoBack() {
-  // return navigationStringToGoBack;
-  // }
-  //
-  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-  // this.navigationStringToGoBack = navigationStringToGoBack;
-  // }
-
   public String getCreators() {
     return this.creators;
   }
@@ -262,11 +193,6 @@ public class AcceptItem extends FacesBean {
     this.creators = creators;
   }
 
-  /**
-   * Checks if the item to submit has files with visibility Audience
-   * 
-   * @return boolean true if at least one of the files has visibility Audience
-   */
   public boolean getHasAudienceFiles() {
     for (FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
@@ -276,5 +202,4 @@ public class AcceptItem extends FacesBean {
 
     return false;
   }
-
 }

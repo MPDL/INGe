@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
+import de.mpg.mpdl.inge.pubman.PubItemDepositing;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -76,7 +76,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   private XmlTransforming xmlTransforming;
 
   @EJB
-  private PubItemPublishing pubItemPublishing;
+  private PubItemDepositing pubItemDepositing;
 
   // private YearbookItemSessionBean yisb;
   private PubItemListSessionBean pilsb;
@@ -252,7 +252,7 @@ public class YearbookModeratorRetrieverRequestBean extends
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            pubItemPublishing.releasePubItem(yearbookItem.getVersion(),
+            pubItemDepositing.releasePubItem(yearbookItem.getVersion(),
                 yearbookItem.getModificationDate(), "Releasing pubItem",
                 loginHelper.getAccountUser());
           } else {

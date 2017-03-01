@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.citationmanager;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Interface for managing of the Citation Styles. It includes 1) methods for CRUD operations 2)
@@ -38,6 +37,7 @@ import java.io.OutputStream;
  * 
  **/
 public interface CitationStyleManager {
+
   /**
    * Compile Citation Style
    * 

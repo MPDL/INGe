@@ -72,9 +72,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
-import de.mpg.mpdl.inge.pubman.QualityAssurance;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
@@ -151,14 +149,14 @@ public class ItemControllerSessionBean extends FacesBean {
   @EJB
   private PubItemDepositing pubItemDepositing;
 
-  @EJB
-  private PubItemPublishing pubItemPublishing;
+  // @EJB
+  // private PubItemPublishing pubItemPublishing;
 
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
 
-  @EJB
-  private QualityAssurance qualityAssurance;
+  // @EJB
+  // private QualityAssurance qualityAssurance;
 
   @EJB
   private Search search;
@@ -203,7 +201,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.cleanUpItem(pubItem);
 
       PubItemVO acceptedPubItem =
-          this.pubItemPublishing.releasePubItem(pubItem.getVersion(),
+          this.pubItemDepositing.releasePubItem(pubItem.getVersion(),
               pubItem.getModificationDate(), comment, loginHelper.getAccountUser());
 
       ItemRO pubItemRO = acceptedPubItem.getVersion();
@@ -1447,14 +1445,14 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * saves and submits a pub item
+   * submits a pub item
    * 
    * @param comment A comment
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String onlySubmitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  public String submitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
         TechnicalException technicalException =
@@ -1949,7 +1947,7 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-      this.qualityAssurance.revisePubItem(currentPubItem.getVersion(), reviseComment,
+      this.pubItemDepositing.revisePubItem(currentPubItem.getVersion(), reviseComment,
           loginHelper.getAccountUser());
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
@@ -2115,17 +2113,22 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * Submits a PubItem and handles navigation afterwards.
+   * Releases a PubItem and handles navigation afterwards.
    * 
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
    * @param comment Optional comment.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String submitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  public String releaseCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
         throw new TechnicalException("No current PubItem is set.");
+      }
+
+      // TODO
+      if (this.currentPubItem.getVersion().getState() != State.SUBMITTED) {
+        throw new TechnicalException("Invalid state.");
       }
 
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
@@ -2133,22 +2136,9 @@ public class ItemControllerSessionBean extends FacesBean {
       this.cleanUpItem(pubItem);
 
       ItemRO pubItemRO = null;
-      if (pubItem.getVersion().getState() == State.SUBMITTED) {
-        this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
-            comment, loginHelper.getAccountUser());
-        pubItemRO = new PubItemVO().getVersion();
-      } else {
-        pubItem =
-            this.pubItemDepositing.submitPubItem(pubItem, comment, loginHelper.getAccountUser());
-
-        if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
-          pubItem =
-              this.pubItemPublishing.releasePubItem(pubItem.getVersion(),
-                  pubItem.getModificationDate(), comment, loginHelper.getAccountUser());
-        }
-
-        pubItemRO = pubItem.getVersion();
-      }
+      this.pubItemDepositing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+          comment, loginHelper.getAccountUser());
+      pubItemRO = new PubItemVO().getVersion();
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
         return null;
@@ -2163,7 +2153,7 @@ public class ItemControllerSessionBean extends FacesBean {
             tE);
       }
     } catch (Exception e) {
-      logger.error("Could not submit item.", e);
+      logger.error("Could not release item.", e);
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -2171,6 +2161,64 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return navigationRuleWhenSuccessfull;
   }
+
+  // /**
+  // * Submits a PubItem and handles navigation afterwards.
+  // *
+  // * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
+  // * operation is successful.
+  // * @param comment Optional comment.
+  // * @return string, identifying the page that should be navigated to after this methodcall
+  // */
+  // public String submitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  // try {
+  // if (this.currentPubItem == null) {
+  // throw new TechnicalException("No current PubItem is set.");
+  // }
+  //
+  // PubItemVO pubItem = new PubItemVO(this.currentPubItem);
+  //
+  // this.cleanUpItem(pubItem);
+  //
+  // ItemRO pubItemRO = null;
+  // // if (pubItem.getVersion().getState() == State.SUBMITTED) {
+  // // this.pubItemDepositing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+  // // comment, loginHelper.getAccountUser());
+  // // pubItemRO = new PubItemVO().getVersion();
+  // // } else {
+  // pubItem =
+  // this.pubItemDepositing.submitPubItem(pubItem, comment, loginHelper.getAccountUser());
+  //
+  // if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE)) {
+  // pubItem =
+  // this.pubItemDepositing.releasePubItem(pubItem.getVersion(),
+  // pubItem.getModificationDate(), comment, loginHelper.getAccountUser());
+  // }
+  //
+  // pubItemRO = pubItem.getVersion();
+  // // }
+  //
+  // if (pubItemRO == this.currentPubItem.getVersion()) {
+  // return null;
+  // }
+  // } catch (TechnicalException tE) {
+  // if (tE.getCause() instanceof OptimisticLockingException) {
+  // logger.error(
+  // "Could not submit or release item because it has been changed by another user in the meantime."
+  // + "\n" + tE.toString(), tE);
+  // throw new RuntimeException(
+  // "Could not submit or release item because it has been changed by another user in the meantime.",
+  // tE);
+  // }
+  // } catch (Exception e) {
+  // logger.error("Could not submit item.", e);
+  // ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+  //
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  //
+  // return navigationRuleWhenSuccessfull;
+  // }
 
   /**
    * Submits a PubItem and handles navigation afterwards.
@@ -2190,7 +2238,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
 
-      this.pubItemPublishing.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
+      this.pubItemDepositing.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
           loginHelper.getAccountUser());
     } catch (Exception e) {
       logger.error("Could not withdraw item." + "\n" + e.toString());

@@ -227,7 +227,7 @@ public class EditItemSessionBean extends EditItemBean {
   // }
 
   public String getCurrentSubmission() {
-    return currentSubmission;
+    return this.currentSubmission;
   }
 
   public void setCurrentSubmission(String currentSubmission) {
@@ -235,7 +235,7 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public boolean isFilesInitialized() {
-    return filesInitialized;
+    return this.filesInitialized;
   }
 
   public void setFilesInitialized(boolean filesInitialized) {

@@ -47,10 +47,9 @@ import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 public class ViewItemLog extends FacesBean {
   public static final String BEAN_NAME = "ViewItemLog";
 
-  // Faces navigation string
-  public static final String LOAD_ITEM_LOG = "loadViewItemLog";
-
   private static final Logger logger = Logger.getLogger(ViewItemLog.class);
+
+  public static final String LOAD_ITEM_LOG = "loadViewItemLog";
 
   public ViewItemLog() {
     this.init();
@@ -61,8 +60,6 @@ public class ViewItemLog extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // super.init();
-
     if (this.getSessionBean().getVersionList() == null) {
       this.getSessionBean().initVersionLists(
           getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()

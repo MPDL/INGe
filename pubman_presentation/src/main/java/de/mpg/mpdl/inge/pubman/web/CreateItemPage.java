@@ -44,8 +44,6 @@ public class CreateItemPage extends FacesBean {
    * indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
     checkForLogin();
   }
 }

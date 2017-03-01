@@ -17,7 +17,6 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.PubItemDepositing;
-import de.mpg.mpdl.inge.pubman.PubItemPublishing;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
@@ -69,9 +68,9 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
 
-    PubItemPublishing pubItemPublishingBean =
-        (PubItemPublishing) initialContext
-            .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
+    // PubItemPublishing pubItemPublishingBean =
+    // (PubItemPublishing) initialContext
+    // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
 
     ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
 
@@ -105,7 +104,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
           pubItemDepositingBean.submitPubItem(pubItemVONewVersion,
               "Submit and release after rollback to version "
                   + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
-      pubItemPublishingBean.releasePubItem(pubItemVONewVersion.getVersion(),
+      pubItemDepositingBean.releasePubItem(pubItemVONewVersion.getVersion(),
           pubItemVONewVersion.getModificationDate(),
           "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAccountUser());

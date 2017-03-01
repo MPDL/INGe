@@ -52,35 +52,21 @@ public class CreateItem extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(CreateItem.class);
 
+  public final static String LOAD_CREATEITEM = "loadCreateItem";
+
   public enum SubmissionMethod {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION
   }
 
   private SubmissionMethod method = SubmissionMethod.FULL_SUBMISSION;
-
-  // Faces navigation string
-  public final static String LOAD_CREATEITEM = "loadCreateItem";
   private String target = EditItem.LOAD_EDITITEM;
 
   public CreateItem() {}
-
-  // /**
-  // * Callback method that is called whenever a page containing this page fragment is navigated to,
-  // * either directly via a URL, or indirectly via page navigation.
-  // */
-  // public void init() {
-  // //super.init();
-  // }
 
   public String confirmSelection() {
     return this.target;
   }
 
-  /**
-   * Starts a new submission.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String newSubmission() {
     this.target = EditItem.LOAD_EDITITEM;
     this.method = SubmissionMethod.FULL_SUBMISSION;
@@ -125,7 +111,6 @@ public class CreateItem extends FacesBean {
         this.getEditItem().getGenreSelect().resetValue();
         this.getEditItem().init();
       }
-      // return navigateTo;
     } else {
       // more than one context exists for this user; let him choose the right one
       navigateTo =
@@ -138,64 +123,29 @@ public class CreateItem extends FacesBean {
             .setGenre(Genre.ARTICLE);
         this.getEditItemSessionBean().setGenreBundle(genreBundle);
         this.getEditItem().setItem(null);
-        // this.getEditItem().setIdentifierIterator(new UIRepeat());
         this.getEditItem().init();
       }
-      // return navigateTo;
     }
 
     return navigateTo;
   }
 
-  /**
-   * Returns the ContextListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ContextListSessionBean)
-   */
   protected ContextListSessionBean getContextListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  // /**
-  // * Returns the ContextListSessionBean.
-  // *
-  // * @return a reference to the scoped data bean (ContextListSessionBean)
-  // */
-  // protected ContextListSessionBean getSessionBean() {
-  // return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  // }
-
-  /**
-   * Returns the ItemListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemListSessionBean)
-   */
   protected EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
   }
 
-  /**
-   * Returns the EditItem.
-   * 
-   * @return a reference to the scoped data bean (EditItem)
-   */
   protected EditItem getEditItem() {
     return (EditItem) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
         .resolveVariable(FacesContext.getCurrentInstance(), EditItem.BEAN_NAME);
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
   protected ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
-
-  // public List<PubContextVOPresentation> getCurrentCollectionList() {
-  // return getSessionBean().getDepositorContextList();
-  // }
 
   public boolean getMultiple() {
     return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
@@ -228,5 +178,4 @@ public class CreateItem extends FacesBean {
   public void setMethod(SubmissionMethod method) {
     this.method = method;
   }
-
 }

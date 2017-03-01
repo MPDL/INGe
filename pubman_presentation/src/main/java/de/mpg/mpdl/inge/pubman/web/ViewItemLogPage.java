@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
  * Backing Bean for ViewItemLogPage.jsp
@@ -50,19 +49,7 @@ public class ViewItemLogPage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
-
-    // this.getViewItemSessionBean().setHasBeenRedirected(true);
-  }
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

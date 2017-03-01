@@ -41,8 +41,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class MyItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
-  public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
+  public static final String BEAN_NAME = "MyItemsRetrieverRequestBean";
+
+  private static final Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
+
   public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
 
   /**

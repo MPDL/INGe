@@ -26,11 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman;
 
-import java.util.List;
-
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Interface for retrieving of export formats as well as an export file containing and presenting an
@@ -48,17 +46,17 @@ public interface ItemExporting {
    */
   public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/ItemExporting";
 
-  /**
-   * Returns a list of ExportFormatsVO representing the existing export formats (layout and
-   * structered) as well as their file formats.
-   */
-  public List<ExportFormatVO> explainExportFormats() throws TechnicalException;
-
-  /**
-   * Returns a list of ExportFormatsXML representing the existing export formats (layout and
-   * structered) as well as their file formats.
-   */
-  public String explainExportFormatsXML() throws TechnicalException;
+  // /**
+  // * Returns a list of ExportFormatsVO representing the existing export formats (layout and
+  // * structered) as well as their file formats.
+  // */
+  // public List<ExportFormatVO> explainExportFormats() throws TechnicalException;
+  //
+  // /**
+  // * Returns a list of ExportFormatsXML representing the existing export formats (layout and
+  // * structered) as well as their file formats.
+  // */
+  // public String explainExportFormatsXML() throws TechnicalException;
 
   /**
    * This method provides the formatted output in the specified export format.

@@ -17,7 +17,7 @@ public class ViewItemCreators {
   public ViewItemCreators() {}
 
   public String getCreatorType() {
-    return creatorType;
+    return this.creatorType;
   }
 
   public void setCreatorType(String creatorType) {
@@ -25,7 +25,7 @@ public class ViewItemCreators {
   }
 
   public Object getCreatorObj() {
-    return creatorObj;
+    return this.creatorObj;
   }
 
   public void setCreatorObj(Object creatorObj) {
