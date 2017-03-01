@@ -39,14 +39,13 @@ import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
  */
 public enum PMLogicMessages implements Messages {
   // DEBUG AND INFO MESSAGES
-  PUBITEM_CREATED("The PubItem with ID {0} has been created by user {1}."), PUBITEM_UPDATED(
-      "The PubItem with ID {0} has been updated by user {1}."), PUBITEM_DELETED(
-      "The PubItem with ID {0} has been deleted by user {1}."), PUBITEM_SUBMITTED(
-      "The PubItem with ID {0} has been submitted by user {1}."), PUBITEM_RELEASED(
-      "The PubItem with ID {0} has been released."), PUBITEM_WITHDRAWN(
-      "The PubItem with ID {0} has been withdrawn by user {1}."), PUBITEM_REVISED(
-      "The PubItem with ID {0} has been revised by user {1}."),
-
+  PUBITEM_CREATED("The PubItem with ID {0} has been created by user {1}."), //
+  PUBITEM_UPDATED("The PubItem with ID {0} has been updated by user {1}."), //
+  PUBITEM_DELETED("The PubItem with ID {0} has been deleted by user {1}."), //
+  PUBITEM_SUBMITTED("The PubItem with ID {0} has been submitted by user {1}."), //
+  PUBITEM_RELEASED("The PubItem with ID {0} has been released."), //
+  PUBITEM_WITHDRAWN("The PubItem with ID {0} has been withdrawn by user {1}."), //
+  PUBITEM_REVISED("The PubItem with ID {0} has been revised by user {1}."), //
   // ERROR AND WARN MESSAGES
   SEARCH_TOO_MANY_RESULT_MESSAGES(
       "The search result for query {0} delivered a record with more than one message.");

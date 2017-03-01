@@ -23,6 +23,7 @@
  */
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,67 +46,33 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
 public class ItemVO extends ValueObject implements Searchable {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
   public enum ItemAction {
     RETRIEVE, SUBMIT, RELEASE, EXPORT
   }
 
-  /**
-   * The possible states of an item.
-   * 
-   * @updated 21-Nov-2007 11:52:58
-   */
   public enum State {
     PENDING, SUBMITTED, RELEASED, WITHDRAWN, IN_REVISION
   }
 
-  /**
-   * The possible lock status of an item.
-   * 
-   * @updated 21-Nov-2007 11:52:58
-   */
   public enum LockStatus {
     LOCKED, UNLOCKED
   }
 
-  private java.util.List<FileVO> files = new java.util.ArrayList<FileVO>();
-  private java.util.List<String> localTags = new java.util.ArrayList<String>();
-  private List<MetadataSetVO> metadataSets = new java.util.ArrayList<MetadataSetVO>();
-
-  private String baseUrl;
-
   private AccountUserRO owner;
-  /**
-   * The persistent identifier of the released item.
-   */
-  private String pid;
   private ContextRO contextRO;
-
-  private String contentModel;
-
-  /**
-   * Version information of this item version.
-   */
-  private ItemRO version = new ItemRO();
-
-  /**
-   * Version information of the latest version of this item.
-   */
-  private ItemRO latestVersion = new ItemRO();
-
-  /**
-   * Version information of the latest release of this item.
-   */
+  private Date creationDate;
   private ItemRO latestRelease = new ItemRO();
+  private ItemRO latestVersion = new ItemRO();
+  private ItemRO version = new ItemRO();
+  private ItemVO.LockStatus lockStatus;
+  private ItemVO.State publicStatus;
+  private List<FileVO> files = new ArrayList<FileVO>();
+  private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
+  private List<String> localTags = new ArrayList<String>();
+  private String baseUrl;
+  private String contentModel;
+  private String pid;
+  private String publicStatusComment;
 
   /**
    * This list of relations is a quickfix and cannot be found in the model yet. The reason for this
@@ -115,27 +82,12 @@ public class ItemVO extends ValueObject implements Searchable {
    */
   private List<ItemRelationVO> relations = new java.util.ArrayList<ItemRelationVO>();
 
-  private java.util.Date creationDate;
-  private ItemVO.LockStatus lockStatus;
-  private ItemVO.State publicStatus;
-  private String publicStatusComment;
-
-  public String getPublicStatusComment() {
-    return this.publicStatusComment;
-  }
-
-  public void setPublicStatusComment(String comment) {
-    this.publicStatusComment = comment;
-  }
-
   /**
    * Public constructor.
    * 
    * @author Thomas Diebaecker
    */
-  public ItemVO() {
-    super();
-  }
+  public ItemVO() {}
 
   /**
    * Copy constructor.
@@ -145,44 +97,54 @@ public class ItemVO extends ValueObject implements Searchable {
    */
   public ItemVO(ItemVO other) {
     this.setCreationDate(other.getCreationDate());
-
     this.setBaseUrl(other.getBaseUrl());
 
     for (FileVO file : other.getFiles()) {
       this.getFiles().add((FileVO) file.clone());
     }
+
     this.setLockStatus(other.getLockStatus());
     this.setPublicStatus(other.getPublicStatus());
     this.setPublicStatusComment(other.getPublicStatusComment());
+
     for (MetadataSetVO mds : other.getMetadataSets()) {
       this.getMetadataSets().add(mds.clone());
     }
+
     if (other.getOwner() != null) {
       this.setOwner((AccountUserRO) other.getOwner().clone());
     }
+
     this.setPid(other.getPid());
+
     if (other.getContext() != null) {
       this.setContext((ContextRO) other.getContext().clone());
     }
+
     if (other.getContentModel() != null) {
       this.setContentModel(other.getContentModel());
     }
+
     try {
       if (other.getVersion() != null) {
         this.setVersion((ItemRO) other.getVersion().clone());
       }
+
       if (other.getLatestVersion() != null) {
         this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
       }
+
       if (other.getLatestRelease() != null) {
         this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
       }
+
       for (ItemRelationVO relation : other.getRelations()) {
         this.getRelations().add((ItemRelationVO) relation.clone());
       }
     } catch (CloneNotSupportedException cnse) {
       throw new RuntimeException(cnse);
     }
+
     for (String localTag : other.getLocalTags()) {
       this.localTags.add(localTag);
     }
@@ -196,6 +158,14 @@ public class ItemVO extends ValueObject implements Searchable {
   @Override
   public Object clone() {
     return new ItemVO(this);
+  }
+
+  public String getPublicStatusComment() {
+    return this.publicStatusComment;
+  }
+
+  public void setPublicStatusComment(String comment) {
+    this.publicStatusComment = comment;
   }
 
   /**
@@ -237,7 +207,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * Delivers the list of files in this item.
    */
   public java.util.List<FileVO> getFiles() {
-    return files;
+    return this.files;
   }
 
   /**
@@ -245,42 +215,42 @@ public class ItemVO extends ValueObject implements Searchable {
    */
   @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
-    return metadataSets;
+    return this.metadataSets;
   }
 
   /**
    * Delivers the owner of the item.
    */
   public AccountUserRO getOwner() {
-    return owner;
+    return this.owner;
   }
 
   /**
    * Delivers the persistent identifier of the item.
    */
   public String getPid() {
-    return pid;
+    return this.pid;
   }
 
   /**
    * Delivers the reference of the collection the item is contained in.
    */
   public ContextRO getContext() {
-    return contextRO;
+    return this.contextRO;
   }
 
   /**
    * Delivers the reference of the item.
    */
   public ItemRO getVersion() {
-    return version;
+    return this.version;
   }
 
   /**
    * Delivers the list of relations in this item.
    */
   public java.util.List<ItemRelationVO> getRelations() {
-    return relations;
+    return this.relations;
   }
 
   /**
@@ -289,7 +259,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setOwner(AccountUserRO newVal) {
-    owner = newVal;
+    this.owner = newVal;
   }
 
   /**
@@ -298,7 +268,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setPid(String newVal) {
-    pid = newVal;
+    this.pid = newVal;
   }
 
   /**
@@ -307,7 +277,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setContext(ContextRO newVal) {
-    contextRO = newVal;
+    this.contextRO = newVal;
   }
 
   /**
@@ -316,21 +286,21 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setVersion(ItemRO newVal) {
-    version = newVal;
+    this.version = newVal;
   }
 
   /**
    * Delivers the date when the item was created.
    */
   public java.util.Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   /**
    * Delivers the lock status of the item.
    */
   public LockStatus getLockStatus() {
-    return lockStatus;
+    return this.lockStatus;
   }
 
   /**
@@ -339,7 +309,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setCreationDate(java.util.Date newVal) {
-    creationDate = newVal;
+    this.creationDate = newVal;
   }
 
   /**
@@ -357,9 +327,9 @@ public class ItemVO extends ValueObject implements Searchable {
   public String getWithdrawalComment() {
     if (getPublicStatus() == ItemVO.State.WITHDRAWN) {
       return getPublicStatusComment();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   /**
@@ -370,13 +340,13 @@ public class ItemVO extends ValueObject implements Searchable {
   public Date getModificationDate() {
     if (getVersion() != null) {
       return getVersion().getModificationDate();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   public ItemRO getLatestVersion() {
-    return latestVersion;
+    return this.latestVersion;
   }
 
   public void setLatestVersion(ItemRO latestVersion) {
@@ -384,7 +354,7 @@ public class ItemVO extends ValueObject implements Searchable {
   }
 
   public ItemRO getLatestRelease() {
-    return latestRelease;
+    return this.latestRelease;
   }
 
   public void setLatestRelease(ItemRO latestRelease) {
@@ -392,7 +362,7 @@ public class ItemVO extends ValueObject implements Searchable {
   }
 
   public String getContentModel() {
-    return contentModel;
+    return this.contentModel;
   }
 
   public void setContentModel(String contentModel) {
@@ -403,9 +373,11 @@ public class ItemVO extends ValueObject implements Searchable {
     if (contentModelHref == null) {
       return;
     }
+
     if (contentModelHref.contains("/")) {
       contentModelHref = contentModelHref.substring(contentModelHref.lastIndexOf("/") + 1);
     }
+
     this.setContentModel(contentModelHref);
   }
 
@@ -418,11 +390,11 @@ public class ItemVO extends ValueObject implements Searchable {
   }
 
   public java.util.List<String> getLocalTags() {
-    return localTags;
+    return this.localTags;
   }
 
   public String getBaseUrl() {
-    return baseUrl;
+    return this.baseUrl;
   }
 
   public void setBaseUrl(String baseUrl) {
@@ -573,5 +545,4 @@ public class ItemVO extends ValueObject implements Searchable {
 
     return true;
   }
-
 }
