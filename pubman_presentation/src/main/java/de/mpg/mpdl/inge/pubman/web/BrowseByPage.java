@@ -53,8 +53,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(BrowseByPage.class);
   public static final String BEAN_NAME = "BrowseByPage";
+
+  private static final Logger logger = Logger.getLogger(BrowseByPage.class);
+
   private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
   private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
   private final String pubYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ISSUED();
@@ -78,7 +80,6 @@ public class BrowseByPage extends BreadcrumbPage {
    * indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     this.bbBean = (BrowseBySessionBean) getSessionBean(BrowseBySessionBean.class);
@@ -100,6 +101,7 @@ public class BrowseByPage extends BreadcrumbPage {
     List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
     this.bbBean.setCurrentCharacter(curChar);
     this.bbBean.setSearchResults(links);
+
     return "loadBrowseByPage";
   }
 
@@ -114,8 +116,6 @@ public class BrowseByPage extends BreadcrumbPage {
     List<LinkVO> links = new ArrayList<LinkVO>();
     try {
       String localLang = Locale.getDefault().getLanguage();
-      // if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja") ||
-      // localLang.equals("es")))
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
         localLang = "en";
       }
@@ -152,6 +152,7 @@ public class BrowseByPage extends BreadcrumbPage {
       logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
+
     return links;
   }
 
@@ -173,6 +174,7 @@ public class BrowseByPage extends BreadcrumbPage {
    */
   public String loadBrowseBy() {
     this.bbBean.clear();
+
     return "loadBrowseBy";
   }
 
@@ -184,6 +186,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public String loadAffiliationTree() {
     this.setSelectedValue("org");
     ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
+
     return "loadAffiliationTree";
   }
 
@@ -201,6 +204,7 @@ public class BrowseByPage extends BreadcrumbPage {
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
     this.bbBean.setQuery(this.queryPerson);
+
     return "loadBrowseByPage";
   }
 
@@ -210,7 +214,6 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return String navigation string (JSF navigation) to load the browse by subject page.
    */
   public String loadBrowseBySubject(String selSubject) {
-
     String curSubject = selSubject;
     this.setSelectedValue(curSubject);
     this.setSearchIndex(this.subSearchIndex);
@@ -220,6 +223,7 @@ public class BrowseByPage extends BreadcrumbPage {
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
     this.bbBean.setQuery(this.queryDdc);
+
     return "loadBrowseByPage";
   }
 
@@ -245,14 +249,16 @@ public class BrowseByPage extends BreadcrumbPage {
       this.bbBean.setDateType("published");
     }
     this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
+
     return "loadBrowseByPage";
   }
 
   public SelectItem[] getDateOptions() {
-    dateOptions =
+    this.dateOptions =
         new SelectItem[] {new SelectItem("published", getLabel("dateOptionPublished")),
             new SelectItem("any", getLabel("dateOptionAny"))};
-    return dateOptions;
+
+    return this.dateOptions;
   }
 
   public String getSelectedValue() {
@@ -271,14 +277,8 @@ public class BrowseByPage extends BreadcrumbPage {
     this.bbBean.setSearchIndex(index);
   }
 
-  @Override
-  public boolean isItemSpecific() {
-    return false;
-  }
-
-
   public String getCurrentCharacter() {
-    return currentCharacter;
+    return this.currentCharacter;
   }
 
   public void setCurrentCharacter(String currentCharacter) {
@@ -286,7 +286,7 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public List<String> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(List<String> creators) {
@@ -294,13 +294,12 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public List<String> getSubjects() {
-    return subjects;
+    return this.subjects;
   }
 
   public void setSubjects(List<String> subjects) {
     this.subjects = subjects;
   }
-
 
   public String getPortfolioLink() {
     try {
@@ -309,6 +308,7 @@ public class BrowseByPage extends BreadcrumbPage {
     } catch (Exception e) {
       logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
+
     return "";
   }
 
@@ -319,18 +319,24 @@ public class BrowseByPage extends BreadcrumbPage {
     } catch (Exception e) {
       logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
+
     return "";
   }
 
   public String getPubYearSearchIndex() {
-    return pubYearSearchIndex;
+    return this.pubYearSearchIndex;
   }
 
   public String getPubOnlineYearSearchIndex() {
-    return pubOnlineYearSearchIndex;
+    return this.pubOnlineYearSearchIndex;
   }
 
   public String getAnyYearSearchIndex() {
-    return anyYearSearchIndex;
+    return this.anyYearSearchIndex;
+  }
+
+  @Override
+  public boolean isItemSpecific() {
+    return false;
   }
 }

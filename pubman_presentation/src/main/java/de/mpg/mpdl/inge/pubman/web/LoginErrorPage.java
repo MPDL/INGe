@@ -45,7 +45,6 @@ public class LoginErrorPage extends BreadcrumbPage {
    * indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 

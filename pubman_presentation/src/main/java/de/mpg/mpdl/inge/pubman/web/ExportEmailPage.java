@@ -47,7 +47,6 @@ public class ExportEmailPage extends BreadcrumbPage {
    * indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     ExportItemsSessionBean sb =
@@ -58,22 +57,8 @@ public class ExportEmailPage extends BreadcrumbPage {
     sb.setEnableExport(false);
   }
 
-  // /*
-  // * Handle messages in fragments from here to please JSF life cycle. Used to remove the last
-  // shown
-  // * msg
-  // *
-  // * @author: Michael Franke
-  // */
-  // @Override
-  // public void prerender() {
-  // // super.prerender();
-  // // fragment.handleMessage();
-  // }
-
   @Override
   public boolean isItemSpecific() {
     return false;
   }
-
 }

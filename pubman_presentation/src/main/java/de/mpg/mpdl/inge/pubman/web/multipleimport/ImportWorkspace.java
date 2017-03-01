@@ -68,7 +68,6 @@ public class ImportWorkspace extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -214,5 +213,4 @@ public class ImportWorkspace extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

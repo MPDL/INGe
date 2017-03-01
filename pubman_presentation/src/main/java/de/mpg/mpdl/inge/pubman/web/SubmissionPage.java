@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -40,9 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class SubmissionPage extends BreadcrumbPage {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(SubmissionPage.class);
-
   public SubmissionPage() {
     this.init();
   }
@@ -53,7 +48,6 @@ public class SubmissionPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     checkForLogin();
@@ -63,5 +57,4 @@ public class SubmissionPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

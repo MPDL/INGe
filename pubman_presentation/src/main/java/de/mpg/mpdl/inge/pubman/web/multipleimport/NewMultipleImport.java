@@ -45,7 +45,6 @@ public class NewMultipleImport extends BreadcrumbPage {
   }
 
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 
@@ -53,5 +52,4 @@ public class NewMultipleImport extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

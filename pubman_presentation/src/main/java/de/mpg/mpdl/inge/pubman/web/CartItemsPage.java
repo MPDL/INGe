@@ -37,7 +37,6 @@ public class CartItemsPage extends BreadcrumbPage {
   }
 
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 
@@ -45,5 +44,4 @@ public class CartItemsPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

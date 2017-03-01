@@ -60,5 +60,4 @@ public class PubCollectionNotFoundException extends PubManException {
   public ContextRO getPubCollectionRef() {
     return pubCollectionRef;
   }
-
 }

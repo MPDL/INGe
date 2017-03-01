@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -37,9 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
  */
 @SuppressWarnings("serial")
 public class AdvancedSearchPage extends BreadcrumbPage {
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(AdvancedSearchPage.class);
-
   public AdvancedSearchPage() {
     this.init();
   }
@@ -49,7 +44,6 @@ public class AdvancedSearchPage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 
@@ -57,5 +51,4 @@ public class AdvancedSearchPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

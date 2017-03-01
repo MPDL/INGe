@@ -26,14 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
  * BackingBean for DepositorWSPage.jsp.
@@ -43,11 +38,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class DepositorWSPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(DepositorWSPage.class);
   public static final String BEAN_NAME = "DepositorWSPage";
 
-  // the referring GUI Tool Page
-  // public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
+  private static final Logger logger = Logger.getLogger(DepositorWSPage.class);
+
   // constants for error and status messages
   public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
   public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
@@ -73,66 +67,17 @@ public class DepositorWSPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("UserHandle: " + userHandle);
-    }
-
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper == null) {
-      loginHelper = new LoginHelper();
-    }
-
     try {
-      // loginHelper.checkLogin();
       checkForLogin();
     } catch (Exception e) {
       logger.error("Could not login." + "\n" + e.toString());
     }
-
-    // this.getViewItemSessionBean().setHasBeenRedirected(true);
-  }
-
-
-
-  // /**
-  // * Redirets to the referring GUI Tool page.
-  // *
-  // * @author Tobias Schraut
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  //
-  // try {
-  // fc.getExternalContext().redirect(GT_DEPOSITOR_WORKSPACE_PAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-  // }
-  //
-  // return "";
-  // }
-
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override
   public boolean isItemSpecific() {
     return false;
   }
-
-
 }

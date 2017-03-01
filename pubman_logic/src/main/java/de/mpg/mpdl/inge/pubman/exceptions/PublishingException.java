@@ -89,5 +89,4 @@ public class PublishingException extends PubManException {
   public void setPubItemRef(ItemRO pubItemRef) {
     this.pubItemRef = pubItemRef;
   }
-
 }

@@ -53,8 +53,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(HomePage.class);
   public static final String BEAN_NAME = "HomePage";
+
+  private static final Logger logger = Logger.getLogger(HomePage.class);
 
   public HomePage() {
     this.init();
@@ -73,11 +74,8 @@ public class HomePage extends BreadcrumbPage {
       info(getMessage("LogoutMessage"));
     }
 
-    // Perform initializations inherited from our superclass
     super.init();
   }
-
-
 
   /**
    * Reads the blog URL from the properties file. Needed for blogintegration on homepage
@@ -110,6 +108,7 @@ public class HomePage extends BreadcrumbPage {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
     }
+
     return url;
   }
 
@@ -124,6 +123,7 @@ public class HomePage extends BreadcrumbPage {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
     }
+
     return url;
   }
 
@@ -138,6 +138,7 @@ public class HomePage extends BreadcrumbPage {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
     }
+
     return url;
   }
 
@@ -152,24 +153,20 @@ public class HomePage extends BreadcrumbPage {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.styles' from properties file.", e);
     }
+
     return url;
   }
 
-
-
   public boolean isDepositor() {
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
     return loginHelper.getAccountUser().isDepositor();
   }
 
   public boolean isModerator() {
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    return loginHelper.getAccountUser().isModerator();
-  }
 
-  @Override
-  public boolean isItemSpecific() {
-    return false;
+    return loginHelper.getAccountUser().isModerator();
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
@@ -184,5 +181,10 @@ public class HomePage extends BreadcrumbPage {
     ItemContainerSearchResult icsr = search.searchForItemContainer(cql);
     List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
+  }
+
+  @Override
+  public boolean isItemSpecific() {
+    return false;
   }
 }

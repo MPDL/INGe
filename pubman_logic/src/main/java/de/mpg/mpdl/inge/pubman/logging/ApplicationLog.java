@@ -42,22 +42,10 @@ import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
  * @Revised by BrP: 20.09.2007
  */
 public class ApplicationLog {
-  /**
-   * Name of the application logger
-   */
   public static final String APPLICATION_LOGGER_NAME = "de.mpg.escidoc.pubman.application";
 
-  /**
-   * Logger instance
-   */
   private static final Logger logger = Logger.getLogger(APPLICATION_LOGGER_NAME);
 
-  /**
-   * Logs the message to the application logger with log level INFO.
-   * 
-   * @param message the log message template
-   * @param messageArgs the log message parameters
-   */
   public static void info(Messages message, Object[] messageArgs) {
     logger.info(MessageCreator.getMessage(message, messageArgs));
   }

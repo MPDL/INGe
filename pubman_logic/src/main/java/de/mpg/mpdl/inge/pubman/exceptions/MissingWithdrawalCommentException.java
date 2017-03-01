@@ -64,5 +64,4 @@ public class MissingWithdrawalCommentException extends PublishingException {
   public MissingWithdrawalCommentException(ItemRO pubItemRef, Throwable cause) {
     super(pubItemRef, cause);
   }
-
 }

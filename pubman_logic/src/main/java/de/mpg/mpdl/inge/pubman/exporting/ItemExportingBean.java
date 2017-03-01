@@ -60,8 +60,6 @@ import net.sf.jasperreports.engine.JRException;
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ItemExportingBean implements ItemExporting {
-  // private static final Logger logger = Logger.getLogger(ItemExportingBean.class);
-
   @EJB
   private XmlTransforming xmlTransforming;
 
@@ -71,55 +69,19 @@ public class ItemExportingBean implements ItemExporting {
   @EJB
   private StructuredExportHandler structuredExportHandler;
 
-  // private java.lang.String structuredFormat = "ENDNOTE";
-
-  // /**
-  // * {@inheritDoc}
-  // */
-  // public List<ExportFormatVO> explainExportFormats() throws TechnicalException {
-  // String layoutFormats;
-  // try {
-  // layoutFormats = citationStyleHandler.explainStyles();
-  //
-  // } catch (CitationStyleManagerException e) {
-  // throw new TechnicalException(e);
-  // }
-  // List<ExportFormatVO> result = null;
-  // result = xmlTransforming.transformToExportFormatVOList(layoutFormats);
-  // appendStructuredFormat(result);
-  // return result;
-  // }
-
   /**
    * {@inheritDoc}
    */
   public byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
       throws TechnicalException {
-    // if (exportFormat == null)
-    // logger.debug(">>>  getOutput with ExportFormatVO NULL!");
-    // else if (logger.isDebugEnabled()) {
-    // logger.debug(">>>  getOutput in Format " + exportFormat.getName() + " "
-    // + exportFormat.getSelectedFileFormat().getName());
-    // }
-    //
     String itemList = xmlTransforming.transformToItemList(pubItemVOList);
 
     byte[] exportData = null;
     try {
-      /*
-       * if (exportFormat.getFormatType() == FormatType.LAYOUT_CSL) { if (logger.isDebugEnabled())
-       * logger.debug(">>> start cslManager " + itemList); exportData =
-       * csl_manager.getOutput(exportFormat, itemList); } else {
-       */
       exportData = getOutput(itemList, exportFormat);
-      // }
     } catch (Exception e) {
       throw new TechnicalException(e);
     }
-
-    // if (logger.isDebugEnabled()) {
-    // logger.debug("getOutput result: " + new String(exportData));
-    // }
 
     return exportData;
   }
@@ -146,58 +108,14 @@ public class ItemExportingBean implements ItemExporting {
 
     byte[] exportData = null;
 
-    // structured export
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
-      // if (logger.isDebugEnabled())
-      // logger.debug(">>> start citationStyleHandler " + itemList);
       exportData = citationStyleHandler.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
-      // if (logger.isDebugEnabled())
-      // logger.debug(">>> start structuredExportHandler " + itemList);
       exportData = structuredExportHandler.getOutput(itemList, exportFormat.getName());
     } else
-      // no export format found!!!
       throw new TechnicalException("format Type: " + exportFormat.getFormatType()
           + " is not supported");
 
     return exportData;
   }
-
-  // /**
-  // * {@inheritDoc}
-  // */
-  // public String explainExportFormatsXML() throws TechnicalException {
-  // String structuredFormats;
-  // try {
-  // structuredFormats = structuredExportHandler.explainFormats();
-  // } catch (StructuredExportManagerException e) {
-  // throw new TechnicalException(e);
-  // } catch (IOException e) {
-  // throw new TechnicalException(e);
-  // }
-  // return structuredFormats;
-  // }
-
-  // /**
-  // * Appends an export structured format to a list of ExportFormatVOs and returns it.
-  // *
-  // * @param listExportFormatVO the list of export formats to which a structured export format
-  // should
-  // * be added.
-  // */
-  // private List<ExportFormatVO> appendStructuredFormat(List<ExportFormatVO> listExportFormatVO) {
-  //
-  // ExportFormatVO exportFormat = new ExportFormatVO();
-  // exportFormat.setName(structuredFormat);
-  // FileFormatVO fileFormat = new FileFormatVO();
-  // fileFormat.setName(FileFormatVO.TEXT_NAME);
-  // fileFormat.setMimeType(FileFormatVO.TEXT_MIMETYPE);
-  // exportFormat.setSelectedFileFormat(fileFormat);
-  // exportFormat.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-  //
-  // listExportFormatVO.add(exportFormat);
-  //
-  // return listExportFormatVO;
-  // }
-
 }

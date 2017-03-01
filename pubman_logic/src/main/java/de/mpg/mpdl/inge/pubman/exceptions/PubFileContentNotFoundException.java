@@ -63,5 +63,4 @@ public class PubFileContentNotFoundException extends TechnicalException {
   public List<FileVO> getPubFiles() {
     return pubFiles;
   }
-
 }

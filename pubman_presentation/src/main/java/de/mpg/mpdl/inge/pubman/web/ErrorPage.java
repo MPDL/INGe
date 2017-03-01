@@ -43,28 +43,16 @@ import de.mpg.mpdl.inge.search.parser.ParseException;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@SuppressWarnings("serial")
 public class ErrorPage extends BreadcrumbPage {
-  /**
-     * 
-     */
-  private static final long serialVersionUID = 1L;
+  public static final String BEAN_NAME = "ErrorPage";
 
-  private static Logger logger = Logger.getLogger(ErrorPage.class);
+  private static final Logger logger = Logger.getLogger(ErrorPage.class);
 
-  // used by calling components to get this Bean
-  public final static String BEAN_NAME = "ErrorPage";
-  // Faces navigation string
-  public final static String LOAD_ERRORPAGE = "loadErrorPage";
-  // Faces navigation string for GUI Tool
-  // public final static String GT_LOAD_ERRORPAGE = "loadGTErrorPage";
-  // The referring GUI Tool Page
-  // public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
-  // JSP-Name for avoiding JSF-Navigation
-  // public final static String JSP_NAME = "ErrorPage.jsp";
+  public static final String LOAD_ERRORPAGE = "loadErrorPage";
 
   private Exception exception = null;
   private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();
-
   private String summary = null;
   private String detail = null;
 
@@ -77,7 +65,6 @@ public class ErrorPage extends BreadcrumbPage {
    * indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     // show the pageAlert
@@ -135,22 +122,6 @@ public class ErrorPage extends BreadcrumbPage {
     this.panPageAlert.getChildren().add(pageAlert);
   }
 
-  // /**
-  // * Redirects to the referring GUI Tool page.
-  // *
-  // * @author Tobias Schraut
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  // try {
-  // fc.getExternalContext().redirect(GT_ERRORPAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool ErrorPage." + "\n" + e.toString());
-  // }
-  // return "";
-  // }
-
   public String getStackTrace() {
     StringBuffer buffer = new StringBuffer();
     if (exception != null) {
@@ -166,24 +137,18 @@ public class ErrorPage extends BreadcrumbPage {
     return buffer.toString();
   }
 
-
-  /**
-   * Returns the panel with the pageAlert.
-   * 
-   * @return the panel with the pageAlert
-   */
   public HtmlPanelGrid getPanPageAlert() {
     this.createPageAlert();
 
-    return panPageAlert;
+    return this.panPageAlert;
   }
 
   public String getSummary() {
-    return summary;
+    return this.summary;
   }
 
   public String getDetail() {
-    return detail;
+    return this.detail;
   }
 
   /**
@@ -201,7 +166,7 @@ public class ErrorPage extends BreadcrumbPage {
    * @return the exception of the pageAlert
    */
   public Exception getException() {
-    return exception;
+    return this.exception;
   }
 
   /**
@@ -218,6 +183,4 @@ public class ErrorPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return true;
   }
-
-
 }

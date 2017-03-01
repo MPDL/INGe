@@ -47,19 +47,7 @@ public class ViewItemFullPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
-
-    // FacesContext fc = FacesContext.getCurrentInstance();
-    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    // String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-
-    /*
-     * LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); if(loginHelper ==
-     * null) { loginHelper = new LoginHelper(); //NBU: Moved inside loginHelper check as no needed
-     * to re-insert Login once the user is logged-in try { loginHelper.insertLogin(); } catch
-     * (Exception e) { logger.error("Could not login." + "\n" + e.toString()); } }
-     */
   }
 
   protected ViewItemSessionBean getViewItemSessionBean() {

@@ -88,5 +88,4 @@ public class DepositingException extends PubManException {
   public void setPubItemRef(ItemRO pubItemRef) {
     this.pubItemRef = pubItemRef;
   }
-
 }

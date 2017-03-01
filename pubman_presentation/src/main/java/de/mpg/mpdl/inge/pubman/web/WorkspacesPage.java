@@ -37,9 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 public class WorkspacesPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "WorkspacesPage";
 
-  // The referring GUI Tool Page
-  // public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
-
   public WorkspacesPage() {
     this.init();
   }
@@ -50,26 +47,10 @@ public class WorkspacesPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     checkForLogin();
   }
-
-  // /**
-  // * Redirets to the referring GUI Tool page.
-  // *
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  // try {
-  // fc.getExternalContext().redirect(GT_WORKSPACES_PAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-  // }
-  // return "";
-  // }
 
   /**
    * Returns the ViewItemSessionBean.
@@ -84,5 +65,4 @@ public class WorkspacesPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

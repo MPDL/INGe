@@ -87,6 +87,7 @@ public class ExceptionHandler {
       logger.debug(MessageCreator.getMessage(CommonLogicMessages.FRAMEWORK_SYSTEM_ERROR,
           new Object[] {methodname}), e);
     }
+
     throw new TechnicalException(e.toString(), e);
   }
 }

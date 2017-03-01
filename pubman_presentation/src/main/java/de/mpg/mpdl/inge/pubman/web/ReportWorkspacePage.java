@@ -31,9 +31,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.desktop.Login;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
-
-
 
 /**
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
@@ -41,11 +38,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(ReportWorkspacePage.class);
   public static final String BEAN_NAME = "ReportWorkspacePage";
 
-  // The referring GUI Tool Page
-  // public static final String GT_REPORT_WORKSPACE_PAGE = "GTReportWorkspacePage.jsp";
+  private static Logger logger = Logger.getLogger(ReportWorkspacePage.class);
 
   public ReportWorkspacePage() {
     this.init();
@@ -56,7 +51,6 @@ public class ReportWorkspacePage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     checkLogin();
@@ -78,36 +72,8 @@ public class ReportWorkspacePage extends BreadcrumbPage {
     }
   }
 
-  // /**
-  // * Redirets to the referring GUI Tool page.
-  // *
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  // try {
-  // fc.getExternalContext().redirect(GT_REPORT_WORKSPACE_PAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-  // }
-  // return "";
-  // }
-
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-  }
-
-
   @Override
   public boolean isItemSpecific() {
     return false;
   }
-
-
 }

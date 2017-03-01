@@ -34,26 +34,17 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    // super.init();
-
     logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
 
     FacesContext fc = FacesContext.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
     String pageName = page.substring(0, page.lastIndexOf("."));
 
-    // -----
-    // Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
-
-    HttpServletRequest requ = (HttpServletRequest) fc.getExternalContext().getRequest();
+    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
-    if (requ.getQueryString() != null && !pageName.equals("HomePage")) {
-      page += "?" + requ.getQueryString();
+    if (request.getQueryString() != null && !pageName.equals("HomePage")) {
+      page += "?" + request.getQueryString();
     }
-
-    /*
-     * String itemId = parameterMap.get("itemId"); if (itemId!=null) { page += "?itemId="+itemId; }
-     */
 
     Method defaultAction = null;
     try {
@@ -61,21 +52,22 @@ public abstract class BreadcrumbPage extends FacesBean {
     } catch (NoSuchMethodException e) {
       logger.error("Error getting default action", e);
     }
+
     BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
         (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
     breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction,
         isItemSpecific()));
-    previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
+    this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
     UIComponent bcComponent =
         FacesContext.getCurrentInstance().getViewRoot()
             .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
+
     if (bcComponent == null) {
       bcComponent =
           FacesContext.getCurrentInstance().getViewRoot()
               .findComponent("Breadcrumb:BreadcrumbNavigation");
-    }
-    if (bcComponent != null) {
+    } else {
       ValueExpression value =
           FacesContext
               .getCurrentInstance()
@@ -84,21 +76,19 @@ public abstract class BreadcrumbPage extends FacesBean {
               .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
                   "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
       bcComponent.setValueExpression("value", value);
-    } else {
-      logger.debug("Breadcrumb navigation not found.");
     }
   }
 
   public String getPreviousPageURI() {
-    return previousItem.getPage();
+    return this.previousItem.getPage();
   }
 
   public String getPreviousPageName() {
-    return previousItem.getPageLabel();
+    return this.previousItem.getPageLabel();
   }
 
   public String cancel() {
-    String result = previousItem.getPage();
+    String result = this.previousItem.getPage();
     try {
       FacesContext
           .getCurrentInstance()
@@ -118,5 +108,4 @@ public abstract class BreadcrumbPage extends FacesBean {
   }
 
   public abstract boolean isItemSpecific();
-
 }

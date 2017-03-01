@@ -50,7 +50,6 @@ public class ToolsPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 

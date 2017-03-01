@@ -48,7 +48,6 @@ public class YearbookPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 

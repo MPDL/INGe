@@ -51,5 +51,4 @@ public class PubManException extends BusinessException {
   public PubManException(Throwable cause) {
     super(cause);
   }
-
 }

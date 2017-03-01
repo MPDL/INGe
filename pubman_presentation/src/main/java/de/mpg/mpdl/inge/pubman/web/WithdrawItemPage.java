@@ -46,7 +46,6 @@ public class WithdrawItemPage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
   }
 

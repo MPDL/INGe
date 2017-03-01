@@ -49,17 +49,6 @@ public class EasySubmissionPage extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
     checkForLogin();
   }
-
-  /*
-   * @Override protected Method getDefaultAction() throws NoSuchMethodException { EasySubmission
-   * easySubmission = (EasySubmission) getRequestBean(EasySubmission.class); return
-   * easySubmission.getClass().getMethod("newEasySubmission", null); }
-   * 
-   * @Override public boolean isItemSpecific() { // TODO Auto-generated method stub return true; }
-   */
-
 }

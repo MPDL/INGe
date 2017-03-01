@@ -56,5 +56,4 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return true;
   }
-
 }

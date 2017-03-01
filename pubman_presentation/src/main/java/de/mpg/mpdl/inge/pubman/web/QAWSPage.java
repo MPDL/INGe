@@ -33,8 +33,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
-
 
 /**
  * BackingBean for Quality Assurance Page (QAWSPage.jsp).
@@ -59,7 +57,6 @@ public class QAWSPage extends BreadcrumbPage {
    */
   @Override
   public void init() {
-    // Perform initializations inherited from our superclass
     super.init();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -70,29 +67,11 @@ public class QAWSPage extends BreadcrumbPage {
       logger.debug("UserHandle: " + userHandle);
     }
 
-    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    // if(loginHelper == null)
-    // {
-    // loginHelper = new LoginHelper();
-    // }
-
     try {
-      // loginHelper.checkLogin();
       checkForLogin();
     } catch (Exception e) {
       logger.error("Could not login." + "\n" + e.toString());
     }
-
-    // this.getViewItemSessionBean().setHasBeenRedirected(true);
-  }
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   public boolean getIsModerator() {
@@ -104,13 +83,10 @@ public class QAWSPage extends BreadcrumbPage {
     }
 
     return isModerator;
-
-
   }
 
   @Override
   public boolean isItemSpecific() {
     return false;
   }
-
 }

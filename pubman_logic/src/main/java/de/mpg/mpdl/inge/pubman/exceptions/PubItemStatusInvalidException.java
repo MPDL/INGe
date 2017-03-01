@@ -60,5 +60,4 @@ public class PubItemStatusInvalidException extends PubManException {
   public ItemRO getPubItemRef() {
     return pubItemRef;
   }
-
 }

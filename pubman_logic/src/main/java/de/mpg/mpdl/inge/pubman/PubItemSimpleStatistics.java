@@ -28,11 +28,7 @@ package de.mpg.mpdl.inge.pubman;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.ItemAction;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-
 
 /**
  * Service Interface for the retrieval of simple statistic records according to fixed statistic
@@ -111,7 +107,6 @@ public interface PubItemSimpleStatistics {
   public static final String SERVICE_NAME =
       "ejb/de/mpg/escidoc/services/pubman/PubItemSimpleStatistics";
 
-
   /**
    * Retrieves a statistic report for an item from the Framework according to the specified report
    * definition type. Sums up the statistic data from the different versions of the specified
@@ -146,12 +141,9 @@ public interface PubItemSimpleStatistics {
   public List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType,
       String objectId, AccountUserVO accountUser) throws Exception;
 
-  public void logPubItemAction(PubItemVO pubItem, String ip, String userAgent, ItemAction action,
-      String sessionId, boolean loggedIn, String referer) throws Exception;
+  // public void logPubItemAction(PubItemVO pubItem, String ip, String userAgent, ItemAction action,
+  // String sessionId, boolean loggedIn, String referer) throws Exception;
 
-  public void logPubItemExport(PubItemVO pubItem, String ip, String userAgent, String sessionId,
-      boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception;
-
-  // public void logUser(HttpServletRequest requ, HttpSession session) throws Exception;
-
+  // public void logPubItemExport(PubItemVO pubItem, String ip, String userAgent, String sessionId,
+  // boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception;
 }

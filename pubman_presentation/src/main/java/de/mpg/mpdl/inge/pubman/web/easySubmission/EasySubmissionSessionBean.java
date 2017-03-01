@@ -56,50 +56,39 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
   public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
 
-  public static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
-
   public static final String ES_STEP1 = "STEP1";
   public static final String ES_STEP2 = "STEP2";
   public static final String ES_STEP3 = "STEP3";
   public static final String ES_STEP4 = "STEP4";
   public static final String ES_STEP5 = "STEP5";
 
-  public final String FULLTEXT_NONE = "NONE";
-  public final String FULLTEXT_ALL = "ALL";
-  public final String FULLTEXT_DEFAULT = "FORMAT";
+  public static final String FULLTEXT_NONE = "NONE";
+  public static final String FULLTEXT_ALL = "ALL";
+  public static final String FULLTEXT_DEFAULT = "FORMAT";
 
-  private final String REFERENCE_FILE = "FILE";
-  private final String REFERENCE_LOCATOR = "LOCATOR";
+  private static final String REFERENCE_FILE = "FILE";
+  private static final String REFERENCE_LOCATOR = "LOCATOR";
+
+  private static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
 
   private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
-
   private String currentSubmissionStep = ES_STEP1;
-
   private String currentDateType = DATE_PUBLISHED_IN_PRINT;
-
-  private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
+  private String importMethod = IMPORT_METHOD_EXTERNAL;
 
   private OrganizationVO currentlySelecting = null;
-
   private ContextVO context;
 
-  // private PubItemVO currentItem;
-
   private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-
   private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-
 
   private UploadedFile uploadedBibtexFile;
   private String selectedDate;
 
-  // For import service
   private String currentExternalServiceType = "";
   private String currentFTLabel = "";
   private boolean fulltext = true;
-
   private String radioSelectFulltext;
-
   private boolean importSourceRefresh = false;
 
   private SelectItem[] FULLTEXT_OPTIONS;
@@ -124,8 +113,8 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public EasySubmissionSessionBean() {
     this.currentSubmissionStep = ES_STEP1;
     this.importSourceRefresh = false;
+    this.radioSelectReferenceValue = REFERENCE_LOCATOR;
     initAuthorCopyPasteCreatorBean();
-    this.radioSelectReferenceValue = this.REFERENCE_LOCATOR;
   }
 
   /**
@@ -146,7 +135,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getCurrentSubmissionMethod() {
-    return currentSubmissionMethod;
+    return this.currentSubmissionMethod;
   }
 
   public void setCurrentSubmissionMethod(String currentSubmissionMethod) {
@@ -154,7 +143,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getCurrentSubmissionStep() {
-    return currentSubmissionStep;
+    return this.currentSubmissionStep;
   }
 
   public void setCurrentSubmissionStep(String currentSubmissionStep) {
@@ -162,22 +151,15 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public ContextVO getContext() {
-    return context;
+    return this.context;
   }
 
   public void setContext(ContextVO context) {
     this.context = context;
   }
 
-  /*
-   * public PubItemVO getCurrentItem() { return currentItem; }
-   * 
-   * 
-   * public void setCurrentItem(PubItemVO currentItem) { this.currentItem = currentItem; }
-   */
-
   public List<PubFileVOPresentation> getFiles() {
-    return files;
+    return this.files;
   }
 
   public void setFiles(List<PubFileVOPresentation> files) {
@@ -185,7 +167,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public List<PubFileVOPresentation> getLocators() {
-    return locators;
+    return this.locators;
   }
 
   public void setLocators(List<PubFileVOPresentation> locators) {
@@ -193,7 +175,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getCurrentDateType() {
-    return currentDateType;
+    return this.currentDateType;
   }
 
   public void setCurrentDateType(String currentDateType) {
@@ -201,7 +183,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getImportMethod() {
-    return importMethod;
+    return this.importMethod;
   }
 
   public void setImportMethod(String importMethod) {
@@ -209,7 +191,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getCurrentExternalServiceType() {
-    return currentExternalServiceType;
+    return this.currentExternalServiceType;
   }
 
   public void setCurrentExternalServiceType(String currentExternalServiceType) {
@@ -217,7 +199,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public OrganizationVO getCurrentlySelecting() {
-    return currentlySelecting;
+    return this.currentlySelecting;
   }
 
   public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
@@ -225,7 +207,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getSelectedDate() {
-    return selectedDate;
+    return this.selectedDate;
   }
 
   public void setSelectedDate(String selectedDate) {
@@ -233,7 +215,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getCurrentFTLabel() {
-    return currentFTLabel;
+    return this.currentFTLabel;
   }
 
   public void setCurrentFTLabel(String currentFTLabel) {
@@ -241,7 +223,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public boolean isImportSourceRefresh() {
-    return importSourceRefresh;
+    return this.importSourceRefresh;
   }
 
   public void setImportSourceRefresh(boolean importSourceRefresh) {
@@ -251,32 +233,32 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public SelectItem[] getFULLTEXT_OPTIONS() {
     // TODO Workaround cause Labels are set before the language change is done. Could be done better
     // if there are performance issues (see EasySubmission.java)
-    for (int i = 0; i < FULLTEXT_OPTIONS.length; i++) {
-      if (FULLTEXT_OPTIONS[i].getValue().equals(this.FULLTEXT_ALL)) {
-        FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_all"));
-      } else if (FULLTEXT_OPTIONS[i].getValue().equals(this.FULLTEXT_NONE)) {
-        FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_none"));
+    for (int i = 0; i < this.FULLTEXT_OPTIONS.length; i++) {
+      if (this.FULLTEXT_OPTIONS[i].getValue().equals(FULLTEXT_ALL)) {
+        this.FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_all"));
+      } else if (this.FULLTEXT_OPTIONS[i].getValue().equals(FULLTEXT_NONE)) {
+        this.FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_none"));
       } else {
-        FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
+        this.FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
       }
     }
-    return FULLTEXT_OPTIONS;
+    return this.FULLTEXT_OPTIONS;
   }
 
   public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
-    FULLTEXT_OPTIONS = fulltext_options;
+    this.FULLTEXT_OPTIONS = fulltext_options;
   }
 
   public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
-    return EXTERNAL_SERVICE_OPTIONS;
+    return this.EXTERNAL_SERVICE_OPTIONS;
   }
 
   public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
-    EXTERNAL_SERVICE_OPTIONS = external_service_options;
+    this.EXTERNAL_SERVICE_OPTIONS = external_service_options;
   }
 
   public String getRadioSelectFulltext() {
-    return radioSelectFulltext;
+    return this.radioSelectFulltext;
   }
 
   public void setRadioSelectFulltext(String radioSelectFulltext) {
@@ -292,7 +274,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getGenreBundle() {
-    return genreBundle;
+    return this.genreBundle;
   }
 
   public void setGenreBundle(String genreBundle) {
@@ -305,7 +287,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
-    return authorCopyPasteOrganizationsCreatorBean;
+    return this.authorCopyPasteOrganizationsCreatorBean;
   }
 
   @Override
@@ -315,12 +297,12 @@ public class EasySubmissionSessionBean extends EditItemBean {
 
   @Override
   public String getShowAuthorCopyPaste() {
-    return showAuthorCopyPaste;
+    return this.showAuthorCopyPaste;
   }
 
   @Override
   public String getCreatorParseString() {
-    return creatorParseString;
+    return this.creatorParseString;
   }
 
   @Override
@@ -331,13 +313,14 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public SelectItem[] getREFERENCE_OPTIONS() {
     this.REFERENCE_OPTIONS =
         new SelectItem[] {
-            new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
-            new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))};
+            new SelectItem(REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
+            new SelectItem(REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))};
+
     return this.REFERENCE_OPTIONS;
   }
 
   public boolean isFulltext() {
-    return fulltext;
+    return this.fulltext;
   }
 
   public void setFulltext(boolean fulltext) {
@@ -353,15 +336,15 @@ public class EasySubmissionSessionBean extends EditItemBean {
   }
 
   public String getREFERENCE_FILE() {
-    return this.REFERENCE_FILE;
+    return REFERENCE_FILE;
   }
 
   public String getREFERENCE_LOCATOR() {
-    return this.REFERENCE_LOCATOR;
+    return REFERENCE_LOCATOR;
   }
 
   public UploadedFile getUploadedBibtexFile() {
-    return uploadedBibtexFile;
+    return this.uploadedBibtexFile;
   }
 
   public void setUploadedBibtexFile(UploadedFile uploadedBibtexFile) {
