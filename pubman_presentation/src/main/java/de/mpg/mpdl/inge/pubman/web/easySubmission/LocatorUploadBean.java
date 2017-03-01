@@ -44,13 +44,13 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
-  private static final long serialVersionUID = 1L;
-
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
   public EasySubmission easySubmission = new EasySubmission();
-  String error = null; // Error Message
+
+  // String error = null;
 
   /**
    * Populates the FileVO.
@@ -75,22 +75,26 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
       // The initinally created empty file has to be deleted
       this.removeEmptyFile();
+
       int index = this.easySubmission.getFiles().size();
 
       List<PubFileVOPresentation> list = this.easySubmission.getFiles();
       PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
       list.add(pubFile);
+
       this.easySubmission.setFiles(list);
     } catch (Exception e) {
       logger.error(e);
-      this.error = getMessage("errorLocatorUploadFW");
+      // this.error = getMessage("errorLocatorUploadFW");
     }
   }
 
   public void removeEmptyFile() {
     List<PubFileVOPresentation> list = this.easySubmission.getFiles();
+
     for (int i = 0; i < list.size(); i++) {
       PubFileVOPresentation file = list.get(i);
+
       if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
         List<PubFileVOPresentation> listClean = this.easySubmission.getFiles();
         listClean.remove(i);
@@ -104,6 +108,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
    */
   public void removeLocator() {
     List<PubFileVOPresentation> list = this.easySubmission.getLocators();
+
     for (int i = 0; i < list.size(); i++) {
       PubFileVOPresentation locatorPres = list.get(i);
       if (locatorPres.getFile().getContent().equals(super.locator)) {
@@ -121,5 +126,4 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       }
     }
   }
-
 }
