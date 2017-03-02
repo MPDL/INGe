@@ -41,11 +41,11 @@ import de.mpg.mpdl.inge.pubman.web.EditItemBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class OrganizationVOPresentation extends OrganizationVO {
   private EditItemBean bean;
 
   public OrganizationVOPresentation() {
-    super();
     setName("");
   }
 

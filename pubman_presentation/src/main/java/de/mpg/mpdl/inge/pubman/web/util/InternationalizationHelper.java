@@ -373,8 +373,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorRole
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    Map<String, String> negativeRoles = appBean.getCreatorRoleMap();
+    Map<String, String> negativeRoles = this.getApplicationBean().getCreatorRoleMap();
 
     List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
     for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
@@ -494,10 +493,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    // PubFileVOPresentation.ContentCategory[] values =
-    // PubFileVOPresentation.ContentCategory.values();
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    Map<String, String> values = appBean.getContentCategoryMap();
+    Map<String, String> values = this.getApplicationBean().getContentCategoryMap();
 
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
@@ -718,4 +714,7 @@ public class InternationalizationHelper implements Serializable {
     this.languageChangeObservers = languageChangeObservers;
   }
 
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+  }
 }

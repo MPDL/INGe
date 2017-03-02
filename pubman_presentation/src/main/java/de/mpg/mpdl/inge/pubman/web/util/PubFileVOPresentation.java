@@ -48,11 +48,9 @@ import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-
 
 /**
  * Presentation wrapper for {@link FileVO}.
@@ -64,22 +62,19 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class PubFileVOPresentation extends FacesBean {
-
-  public static final String FILE_TYPE_FILE = "FILE";
-  public static final String FILE_TYPE_LOCATOR = "LOCATOR";
-  private static Properties properties;
-  private int index;
-  private FileVO file;
-  private boolean isLocator = false;
-  private String fileType;
-  private PubItemSimpleStatistics pubItemStatistics;
   private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
-  private LoginHelper loginHelper;
-  private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
 
-  /**
-   * Default constructor.
-   */
+  private static Properties properties;
+
+  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);;
+
+  private FileVO file;
+  private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
+  private PubItemSimpleStatistics pubItemStatistics;
+  private String fileType;
+  private boolean isLocator = false;
+  private int index;
+
   public PubFileVOPresentation() {
     this.file = new FileVO();
     this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
@@ -113,7 +108,6 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void init() {
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     setVisibility();
   }
 
@@ -214,8 +208,6 @@ public class PubFileVOPresentation extends FacesBean {
     this.file = file;
   }
 
-
-
   public boolean getIsLocator() {
     return isLocator;
   }
@@ -234,21 +226,17 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
-    InternationalizedImpl internationalized = new InternationalizedImpl();
-    String contentCategory = null;
     if (this.file.getContentCategory() != null) {
       @SuppressWarnings({"unchecked", "rawtypes"})
       Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
       for (Map.Entry<String, String> entry : propertiesMap.entrySet()) {
         if (entry.getValue().equals(this.file.getContentCategory())) {
-          contentCategory =
-              internationalized.getLabel("ENUM_CONTENTCATEGORY_"
-                  + entry.getKey().toLowerCase().replace("_", "-"));
-          break;
+          return getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-"));
         }
       }
     }
-    return contentCategory;
+
+    return "";
   }
 
   /**
@@ -257,11 +245,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The content category of the file.
    */
   public String getContentCategoryAsXmlString() {
-    return file.getContentCategory();
-    /*
-     * if (this.file.getContentCategory() != null) { return
-     * this.file.getContentCategory().toLowerCase().replace("_", "-"); } else { return null; }
-     */
+    return this.file.getContentCategory();
   }
 
   /**
@@ -279,19 +263,19 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The number of bytes.
    */
   public int getSize() {
-    int size = 0;
     if (this.file.getDefaultMetadata() != null) {
-      size = this.file.getDefaultMetadata().getSize();
+      return this.file.getDefaultMetadata().getSize();
     }
-    return size;
+
+    return 0;
   }
 
   public String getDescription() {
-    String description = "";
     if (this.file.getDefaultMetadata() != null) {
-      description = this.file.getDefaultMetadata().getDescription();
+      return this.file.getDefaultMetadata().getDescription();
     }
-    return description;
+
+    return "";
   }
 
   public void setDescription(String description) {
@@ -305,17 +289,13 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getVisibility() {
     String visibility = "";
-    InternationalizedImpl internationalized = new InternationalizedImpl();
     if (this.file.getVisibility() != null) {
-      visibility =
-          internationalized.getLabel(this.getI18nHelper().convertEnumToString(
-              this.file.getVisibility()));
+      visibility = getLabel(getI18nHelper().convertEnumToString(this.file.getVisibility()));
     } else {
       this.file.setVisibility(FileVO.Visibility.PUBLIC);
-      visibility =
-          internationalized.getLabel(this.getI18nHelper().convertEnumToString(
-              this.file.getVisibility()));
+      visibility = getLabel(getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
+
     return visibility;
   }
 
@@ -381,7 +361,6 @@ public class PubFileVOPresentation extends FacesBean {
     this.fileType = fileType;
   }
 
-
   public String removeFile() {
     EditItemSessionBean editItemSessionBean =
         (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
@@ -397,6 +376,7 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     editItemSessionBean.reorganizeFileIndexes();
+
     return null;
   }
 
@@ -415,51 +395,25 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     editItemSessionBean.reorganizeLocatorIndexes();
+
     return "loadEditItem";
   }
 
   public String removeFileEasySubmission() {
-    EasySubmission easySubmission = (EasySubmission) getSessionBean(EasySubmission.class);
-    EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
+    this.getEasySubmissionSessionBean().getFiles().remove(this.index);
+    this.getEasySubmission().reorganizeFileIndexes();
+    this.getEasySubmission().init();
 
-    easySubmissionSessionBean.getFiles().remove(this.index);
-    easySubmission.reorganizeFileIndexes();
-    // easySubmission.setFileIterator(new HtmlAjaxRepeat());
-    easySubmission.init();
     return "loadNewEasySubmission";
   }
 
   public String removeLocatorEasySubmission() {
-    EasySubmission easySubmission = (EasySubmission) getSessionBean(EasySubmission.class);
-    EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
+    this.getEasySubmissionSessionBean().getLocators().remove(this.index);
+    this.getEasySubmission().reorganizeLocatorIndexes();
+    this.getEasySubmission().init();
 
-    easySubmissionSessionBean.getLocators().remove(this.index);
-    easySubmission.reorganizeLocatorIndexes();
-    // easySubmission.setLocatorIterator(new HtmlAjaxRepeat());
-    easySubmission.init();
     return "loadNewEasySubmission";
   }
-
-  /**
-   * Returns the EasySubmissionSessionBean.
-   * 
-   * @return a reference to the scoped data bean (EasySubmissionSessionBean)
-   */
-  protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
-  }
-
-  /**
-   * Returns the ApplicationBean.
-   * 
-   * @return a reference to the scoped data bean (ApplicationBean)
-   */
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
-
-  }
-
-
 
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
     initStatisticService();
@@ -497,6 +451,7 @@ public class PubFileVOPresentation extends FacesBean {
       file.getDefaultMetadata().setEmbargoUntil(null);
       showEmbargoDate = false;
     }
+
     return showEmbargoDate;
   }
 
@@ -516,7 +471,7 @@ public class PubFileVOPresentation extends FacesBean {
    */
   public void setUpdateVisibility(ValueChangeEvent event) {
     Visibility newVisibility = (Visibility) event.getNewValue();
-    file.setVisibility(newVisibility);
+    this.file.setVisibility(newVisibility);
   }
 
   public List<GrantVOPresentation> getGrantList() {
@@ -531,6 +486,16 @@ public class PubFileVOPresentation extends FacesBean {
   public void setGrantList(List<GrantVOPresentation> grantList) {
     this.grantList = grantList;
   }
-
-
+  
+  protected EasySubmission getEasySubmission() {
+    return (EasySubmission) getSessionBean(EasySubmission.class);
+  }
+  
+  protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
+    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+  }
+  
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+  }  
 }

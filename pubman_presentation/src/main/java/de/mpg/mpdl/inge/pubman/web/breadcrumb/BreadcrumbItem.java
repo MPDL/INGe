@@ -154,5 +154,4 @@ public class BreadcrumbItem extends FacesBean {
   public void setItemSpecific(boolean isItemSpecific) {
     this.isItemSpecific = isItemSpecific;
   }
-
 }

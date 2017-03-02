@@ -90,17 +90,17 @@ public abstract class BreadcrumbPage extends FacesBean {
   public String cancel() {
     String result = this.previousItem.getPage();
     try {
-      FacesContext
-          .getCurrentInstance()
-          .getExternalContext()
-          .redirect(
-              ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext()
-                  + result);
+      FacesContext.getCurrentInstance().getExternalContext()
+          .redirect(this.getApplicationBean().getAppContext() + result);
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }
 
     return null;
+  }
+
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 
   protected Method getDefaultAction() throws NoSuchMethodException {

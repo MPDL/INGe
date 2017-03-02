@@ -32,34 +32,25 @@ import java.util.Map.Entry;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
+@SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {
-
-
-
   public ComponentContentCategoryListSearchCriterion() {
     super(getContentCategoryMap());
   }
 
   private static Map<String, String> getContentCategoryMap() {
-    ApplicationBean appBean = (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+    ApplicationBean applicationBean =
+        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
 
-    Map<String, String> ccMap = appBean.getContentCategoryMap();
+    Map<String, String> ccMap = applicationBean.getContentCategoryMap();
     Map<String, String> newMap = new HashMap<String, String>();
 
     for (Entry<String, String> entry : ccMap.entrySet()) {
       newMap.put(entry.getKey().toLowerCase().replace("_", "-"), entry.getValue());
     }
 
-
     return newMap;
   }
-
-
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return
-   * SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST; }
-   */
 
   @Override
   public String[] getCqlIndexes(Index indexName, String value) {
@@ -69,14 +60,12 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
       case ITEM_CONTAINER_ADMIN:
         return new String[] {"\"/components/component/properties/content-category\""};
     }
-    return null;
 
+    return null;
   }
 
   @Override
   public String getCqlValue(Index indexName, String value) {
     return value;
   }
-
-
 }

@@ -3,9 +3,7 @@ package de.mpg.mpdl.inge.inge_validation.exception;
 @SuppressWarnings("serial")
 public class ConeException extends Exception {
 
-  public ConeException() {
-    super();
-  }
+  public ConeException() {}
 
   public ConeException(String message) {
     super(message);

@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
+@SuppressWarnings("serial")
 public class PubContextVOPresentation extends ContextVO implements
     Comparable<PubContextVOPresentation> {
 

@@ -47,9 +47,7 @@ public class EventCriterion extends Criterion {
   /**
    * constructor.
    */
-  public EventCriterion() {
-    super();
-  }
+  public EventCriterion() {}
 
   public void setInvitationStatus(boolean invitationStatus) {
     this.invitationStatus = invitationStatus;

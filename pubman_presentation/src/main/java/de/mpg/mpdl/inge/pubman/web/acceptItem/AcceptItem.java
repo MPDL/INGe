@@ -169,11 +169,11 @@ public class AcceptItem extends FacesBean {
     return false;
   }
 
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private final ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  protected final AcceptItemSessionBean getAcceptItemSessionBean() {
+  private final AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 

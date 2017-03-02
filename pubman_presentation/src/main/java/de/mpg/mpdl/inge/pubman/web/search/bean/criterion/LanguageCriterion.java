@@ -42,9 +42,7 @@ public class LanguageCriterion extends Criterion {
   /**
    * constructor.
    */
-  public LanguageCriterion() {
-    super();
-  }
+  public LanguageCriterion() {}
 
   /**
    * {@inheritDoc}

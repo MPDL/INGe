@@ -640,10 +640,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getRedirectUrl() {
-    // ApplicationBean app = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-    // Sring appContext = app.getAppContext().substring(0,, endIndex)
-    // return getExternalContext().getRequestPathInfo().replaceAll("/", "") +
-    // getUrlParameterString();
     return getPaginatorListRetriever().getListPageName() + getUrlParameterString();
   }
 

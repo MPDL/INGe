@@ -30,15 +30,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
  * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by
@@ -46,7 +44,8 @@ import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
  * 
  * @author Mario Wagner
  */
-public class IdentifierCollection {
+@SuppressWarnings("serial")
+public class IdentifierCollection extends FacesBean {
   private List<IdentifierVO> parentVO;
   private IdentifierManager identifierManager;
 
@@ -75,16 +74,6 @@ public class IdentifierCollection {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-    ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-
-
     IdType[] typesToDisplay =
         new IdType[] {IdType.CONE, IdType.URI, IdType.ISBN, IdType.ISSN, IdType.DOI, IdType.URN,
             IdType.PII, IdType.EDOC, IdType.ESCIDOC, IdType.ISI, IdType.PND, IdType.ZDB,
@@ -95,13 +84,11 @@ public class IdentifierCollection {
     ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
 
     // constants for comboBoxes
-    selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
-
-
+    selectItemList.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
 
     for (IdentifierVO.IdType type : typesToDisplay) {
-      selectItemList.add(new SelectItem(type.toString(), labelBundle
-          .getString("ENUM_IDENTIFIERTYPE_" + type.toString())));
+      selectItemList.add(new SelectItem(type.toString(), getLabel("ENUM_IDENTIFIERTYPE_"
+          + type.toString())));
     }
 
     // Sort identifiers alphabetically
@@ -153,5 +140,4 @@ public class IdentifierCollection {
   public void setIdentifierManager(IdentifierManager identifierManager) {
     this.identifierManager = identifierManager;
   }
-
 }

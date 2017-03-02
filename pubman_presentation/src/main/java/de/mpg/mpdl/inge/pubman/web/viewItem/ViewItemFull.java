@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +47,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -153,20 +152,17 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
-  private PubItemVOPresentation pubItem = null;
-  private ContextVO context = null;
-  private AccountUserVO owner = null;
   private AccountUserVO latestModifier = null;
-  private int defaultSize = 20;
-  private YearbookItemSessionBean yisb;
-  private Transformation transformer;
+  private AccountUserVO owner = null;
+  private ContextVO context = null;
+  private PubItemVOPresentation pubItem = null;
   private String languages;
+  private Transformation transformer;
+  private YearbookItemSessionBean yisb;
+  private int defaultSize = 20;
 
   @EJB
   private ItemExporting itemExporting;
-
-  @EJB
-  private ItemValidating itemValidating;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -279,7 +275,7 @@ public class ViewItemFull extends FacesBean {
     // populate the core service Url
     this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
 
-    this.transformer = getApplicationBean().getTransformationService();
+    this.transformer = this.getApplicationBean().getTransformationService();
 
     this.defaultSize =
         Integer.parseInt(PropertyReader.getProperty(
@@ -895,7 +891,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String submitItem() {
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -912,7 +908,7 @@ public class ViewItemFull extends FacesBean {
 
   public String acceptItem() {
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -1211,13 +1207,13 @@ public class ViewItemFull extends FacesBean {
     return getIdentifierHtmlString(this.pubItem.getMetadata().getIdentifiers());
   }
 
-  public static String getIdentifierHtmlString(List<IdentifierVO> idList) {
+  public String getIdentifierHtmlString(List<IdentifierVO> idList) {
     StringBuffer identifiers = new StringBuffer();
     if (idList != null) {
       for (int i = 0; i < idList.size(); i++) {
         try {
           String labelKey = "ENUM_IDENTIFIERTYPE_" + idList.get(i).getTypeString();
-          identifiers.append(getLabelStatic(labelKey));
+          identifiers.append(getLabel(labelKey));
         } catch (MissingResourceException e) {
           logger.debug("Found no label for identifier type " + idList.get(i).getTypeString());
           identifiers.append(idList.get(i).getTypeString());
@@ -1245,12 +1241,6 @@ public class ViewItemFull extends FacesBean {
       }
     }
     return identifiers.toString();
-  }
-
-  public static String getLabelStatic(String placeholder) {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
   }
 
   /**
@@ -1634,46 +1624,6 @@ public class ViewItemFull extends FacesBean {
     return ReleaseHistory.LOAD_RELEASE_HISTORY;
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-  }
-
-  protected WithdrawItemSessionBean getWithdrawItemSessionBean() {
-    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
-  }
-
-  protected EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
-  protected SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
-  }
-
-  protected RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
-  }
-
-  protected ItemVersionListSessionBean getItemVersionListSessionBean() {
-    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
-  }
-
-  protected RelationListSessionBean getRelationListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
-  }
-
-  protected ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
-  }
-
   public PubItemVO getPubItem() {
     return this.pubItem;
   }
@@ -1716,8 +1666,7 @@ public class ViewItemFull extends FacesBean {
   public String getGenre() {
     String genre = "";
     if (this.pubItem.getMetadata().getGenre() != null) {
-      genre =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+      genre = getLabel(getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getGenre()));
     }
 
     return genre;
@@ -1727,8 +1676,8 @@ public class ViewItemFull extends FacesBean {
     String reviewMethod = "";
     if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getReviewMethod() != null) {
       reviewMethod =
-          getLabel(this.getI18nHelper().convertEnumToString(
-              this.pubItem.getMetadata().getReviewMethod()));
+          getLabel(getI18nHelper()
+              .convertEnumToString(this.pubItem.getMetadata().getReviewMethod()));
     }
 
     return reviewMethod;
@@ -1738,7 +1687,7 @@ public class ViewItemFull extends FacesBean {
     String degreeType = "";
     if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getDegree() != null) {
       degreeType =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getDegree()));
+          getLabel(getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getDegree()));
     }
 
     return degreeType;
@@ -1748,7 +1697,7 @@ public class ViewItemFull extends FacesBean {
     String itemState = "";
     if (this.pubItem.getVersion().getState() != null) {
       itemState =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getVersion().getState()));
+          getLabel(getI18nHelper().convertEnumToString(this.pubItem.getVersion().getState()));
     }
 
     return itemState;
@@ -1932,8 +1881,7 @@ public class ViewItemFull extends FacesBean {
   public String getItemPublicState() {
     String itemState = "";
     if (this.pubItem.getPublicStatus() != null) {
-      itemState =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getPublicStatus()));
+      itemState = getLabel(getI18nHelper().convertEnumToString(this.pubItem.getPublicStatus()));
     }
 
     return itemState;
@@ -2568,5 +2516,45 @@ public class ViewItemFull extends FacesBean {
     }
 
     return returnValue;
+  }
+
+  protected ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  protected ViewItemSessionBean getViewItemSessionBean() {
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+  }
+
+  protected WithdrawItemSessionBean getWithdrawItemSessionBean() {
+    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
+  }
+
+  protected EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  protected SubmitItemSessionBean getSubmitItemSessionBean() {
+    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
+  }
+
+  protected RightsManagementSessionBean getRightsManagementSessionBean() {
+    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
+  }
+
+  protected ItemVersionListSessionBean getItemVersionListSessionBean() {
+    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
+  }
+
+  protected RelationListSessionBean getRelationListSessionBean() {
+    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
+  }
+
+  protected ContextListSessionBean getCollectionListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  }
+
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

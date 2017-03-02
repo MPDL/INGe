@@ -2,8 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.appbase;
 
 import java.util.ResourceBundle;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
@@ -24,50 +22,25 @@ import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 public class InternationalizedImpl implements Internationalized {
   private static Logger logger = Logger.getLogger(InternationalizedImpl.class);
 
-  // get the selected language...
-  private InternationalizationHelper i18nHelper;
+  private final InternationalizationHelper i18nHelper =
+      (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);;
+  private final ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper
+      .getSelectedLabelBundle());
+  private final ResourceBundle messageBundle = ResourceBundle.getBundle(i18nHelper
+      .getSelectedMessagesBundle());
 
-  public InternationalizedImpl() {
-    this.i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-  }
+  public InternationalizedImpl() {}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getLabel(java.lang.String)
-   */
   public String getLabel(String placeholder) {
-
-    return ResourceBundle.getBundle(getI18nHelper().getSelectedLabelBundle())
-        .getString(placeholder);
+    return this.labelBundle.getString(placeholder);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getMessage(java.lang.String)
-   */
   public String getMessage(String placeholder) {
-
-    return ResourceBundle.getBundle(getI18nHelper().getSelectedMessagesBundle()).getString(
-        placeholder);
+    return this.messageBundle.getString(placeholder);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#bindComponentLabel(javax.faces.component.
-   * UIComponent, java.lang.String)
-   */
-  public void bindComponentLabel(UIComponent component, String placeholder) {
-    ValueExpression value =
-        FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getExpressionFactory()
-            .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
-                "#{lbl." + placeholder + "}", String.class);
-    component.setValueExpression("value", value);
+  public InternationalizationHelper getI18nHelper() {
+    return this.i18nHelper;
   }
 
   /**
@@ -141,13 +114,4 @@ public class InternationalizedImpl implements Internationalized {
     return cls
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
   }
-
-  public InternationalizationHelper getI18nHelper() {
-    return this.i18nHelper;
-  }
-
-  public void setI18nHelper(InternationalizationHelper i18nHelper) {
-    this.i18nHelper = i18nHelper;
-  }
-
 }

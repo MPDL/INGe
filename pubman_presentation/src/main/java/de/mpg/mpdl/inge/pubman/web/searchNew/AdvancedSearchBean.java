@@ -77,7 +77,6 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.Organiz
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -304,43 +303,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       }
     }
     languageChanged = false;
+
     return "";
-
-
   }
-
-
-  /**
-   * Dummy getter method which reads out query parameter form url;
-   * 
-   * @return
-   */
-
-
 
   private List<SelectItem> initComponentVisibilityListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectedItemsComponentVisibility(true));
+    return Arrays.asList(getI18nHelper().getSelectedItemsComponentVisibility(true));
   }
 
-
   private List<SelectItem> initContentCategoryListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsContentCategory(true));
+    return Arrays.asList(getI18nHelper().getSelectItemsContentCategory(true));
   }
 
   private List<SelectItem> initGenreListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsGenre());
+    return Arrays.asList(getI18nHelper().getSelectItemsGenre());
   }
 
   private List<SelectItem> initReviewMethodListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsReviewMethod());
+    return Arrays.asList(getI18nHelper().getSelectItemsReviewMethod());
   }
 
   private List<SelectItem> initSubjectTypesListMenu() {

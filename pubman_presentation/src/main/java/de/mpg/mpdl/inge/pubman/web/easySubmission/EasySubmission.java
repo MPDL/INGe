@@ -35,7 +35,6 @@ import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.ejb.EJB;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -57,7 +56,7 @@ import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -97,7 +96,6 @@ import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
@@ -169,18 +167,13 @@ public class EasySubmission extends FacesBean {
   private String suggestConeUrl = null;
   private Transformation transformer = null;
   private UploadedFile uploadedFile;
-  private boolean fromEasySubmission = false;
   private boolean overwriteCreators;
 
   @EJB
   private XmlTransforming xmlTransforming;
 
-  @EJB
-  private ItemValidating itemValidating;
-
   public EasySubmission() {
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    this.transformer = appBean.getTransformationService();
+    this.transformer = this.getApplicationBean().getTransformationService();
     this.init();
   }
 
@@ -195,7 +188,7 @@ public class EasySubmission extends FacesBean {
         new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
     this.SUBMISSION_METHOD_OPTIONS =
         new SelectItem[] {this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT};
-    this.locatorVisibilities = this.getI18nHelper().getSelectItemsVisibility(true);
+    this.locatorVisibilities = getI18nHelper().getSelectItemsVisibility(true);
 
     // if the user has reached Step 3, an item has already been created and must be set in the
     // EasySubmissionSessionBean for further manipulation
@@ -534,7 +527,7 @@ public class EasySubmission extends FacesBean {
 
     parseAndSetAlternativeSourceTitlesAndIds();
 
-    this.setFromEasySubmission(true);
+    // this.setFromEasySubmission(true);
 
     if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
@@ -1197,7 +1190,7 @@ public class EasySubmission extends FacesBean {
       }
 
       try {
-        this.itemValidating.validateItemObject(itemVO, validationPoint);
+        ItemValidatingService.validateItemObject(itemVO, validationPoint);
       } catch (ItemInvalidException e) {
         for (ValidationReportItemVO item : e.getReport().getItems()) {
           error(getMessage(item.getContent()));
@@ -1413,26 +1406,6 @@ public class EasySubmission extends FacesBean {
     return false;
   }
 
-  private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
-  }
-
-  private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-  }
-
   /**
    * localized creation of SelectItems for the genres available.
    * 
@@ -1446,7 +1419,7 @@ public class EasySubmission extends FacesBean {
     for (AdminDescriptorVO adminDescriptorVO : adminDescriptors) {
       if (adminDescriptorVO instanceof PublicationAdminDescriptorVO) {
         allowedGenres = ((PublicationAdminDescriptorVO) adminDescriptorVO).getAllowedGenres();
-        return this.getI18nHelper().getSelectItemsForEnum(false,
+        return getI18nHelper().getSelectItemsForEnum(false,
             allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
       }
     }
@@ -1572,7 +1545,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for visibility
    */
   public SelectItem[] getVisibilities() {
-    return this.getI18nHelper().getSelectItemsVisibility(false);
+    return getI18nHelper().getSelectItemsVisibility(false);
   }
 
   /**
@@ -1674,7 +1647,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for content category.
    */
   public SelectItem[] getContentCategories() {
-    return this.getI18nHelper().getSelectItemsContentCategory(true);
+    return getI18nHelper().getSelectItemsContentCategory(true);
   }
 
   /**
@@ -1811,24 +1784,13 @@ public class EasySubmission extends FacesBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-
-    ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-
-    Map<String, String> excludedSourceGenres = appBean.getExcludedSourceGenreMap();
+    Map<String, String> excludedSourceGenres =
+        this.getApplicationBean().getExcludedSourceGenreMap();
 
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
-    sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
+    sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
     for (SourceVO.Genre value : SourceVO.Genre.values()) {
-      sourceGenres.add(new SelectItem(value, bundleLabel.getString("ENUM_GENRE_" + value.name())));
+      sourceGenres.add(new SelectItem(value, getLabel("ENUM_GENRE_" + value.name())));
     }
 
     int i = 0;
@@ -1862,14 +1824,6 @@ public class EasySubmission extends FacesBean {
         && this.getItem().getMetadata().getSources().size() > 0) {
       this.getItem().getMetadata().getSources().set(0, source);
     }
-  }
-
-  public boolean getFromEasySubmission() {
-    return this.fromEasySubmission;
-  }
-
-  public void setFromEasySubmission(boolean fromEasySubmission) {
-    this.fromEasySubmission = fromEasySubmission;
   }
 
   public void setCreatorParseString(String creatorParseString) {
@@ -1940,7 +1894,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for degreeType
    */
   public SelectItem[] getDegreeTypes() {
-    return this.getI18nHelper().getSelectItemsDegreeType(true);
+    return getI18nHelper().getSelectItemsDegreeType(true);
   }
 
   public void setOverwriteCreators(boolean overwriteCreators) {
@@ -2099,5 +2053,29 @@ public class EasySubmission extends FacesBean {
    */
   public void setAlternativeLanguageName(String alternativeLanguageName) {
     this.alternativeLanguageName = alternativeLanguageName;
+  }
+
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+  }
+
+  protected ContextListSessionBean getContextListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  }
+
+  protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
+    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+  }
+
+  protected EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  protected ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  protected PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
   }
 }

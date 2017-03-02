@@ -29,15 +29,12 @@ package de.mpg.mpdl.inge.pubman.web.viewItem.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
@@ -54,7 +51,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
  */
 @SuppressWarnings("serial")
 public class SourceBean extends FacesBean {
-  private SourceVO source;
   /**
    * The list of formatted organzations in an ArrayList.
    */
@@ -80,17 +76,10 @@ public class SourceBean extends FacesBean {
    */
   private ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray;
 
-  /**
-   * The list of source creators as VO List.
-   */
-  // private ArrayList<ViewItemCreators> creators;
-
+  private SourceVO source;
   private String identifiers;
-
-  private String startEndPage;
-
   private String publishingInfo;
-
+  private String startEndPage;
 
   public SourceBean(SourceVO source) {
     this.source = source;
@@ -103,21 +92,19 @@ public class SourceBean extends FacesBean {
    * @param pubItemVO a pubitem
    */
   protected void initialize(SourceVO source) {
-
     if (source.getCreators().size() > 0) {
       createCreatorsList();
     }
 
     this.startEndPage = getStartEndPage(source);
     this.publishingInfo = getPublishingInfo(source);
-    if (source.getIdentifiers().size() > 0) {
-      this.identifiers = ViewItemFull.getIdentifierHtmlString(source.getIdentifiers());
-    }
 
+    if (source.getIdentifiers().size() > 0) {
+      this.identifiers = this.getViewItemFull().getIdentifierHtmlString(source.getIdentifiers());
+    }
   }
 
   private void createCreatorsList() {
-
     List<CreatorVO> tempCreatorList;
     List<OrganizationVO> tempOrganizationList = null;
     List<OrganizationVO> sortOrganizationList = null;
@@ -304,21 +291,8 @@ public class SourceBean extends FacesBean {
       return startEndPage.toString();
   }
 
-  /**
-   * Returns the ApplicationBean.
-   * 
-   * @return a reference to the scoped data bean (ApplicationBean)
-   */
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) FacesContext.getCurrentInstance().getApplication()
-        .getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
-  }
-
   public String getGenre() {
-    InternationalizedImpl internationalized = new InternationalizedImpl();
-    return internationalized.getLabel(this.getI18nHelper().convertEnumToString(
-        this.source.getGenre()));
+    return getLabel(getI18nHelper().convertEnumToString(this.source.getGenre()));
   }
 
   public String getIdentifiers() {
@@ -407,5 +381,13 @@ public class SourceBean extends FacesBean {
       return true;
     }
     return false;
+  }
+
+  private ViewItemFull getViewItemFull() {
+    return (ViewItemFull) getRequestBean(ViewItemFull.class);
+  }
+  
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

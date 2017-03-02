@@ -43,9 +43,7 @@ public class TopicCriterion extends Criterion {
   /**
    * constructor.
    */
-  public TopicCriterion() {
-    super();
-  }
+  public TopicCriterion() {}
 
   /**
    * {@inheritDoc}

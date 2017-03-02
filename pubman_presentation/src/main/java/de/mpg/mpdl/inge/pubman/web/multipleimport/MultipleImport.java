@@ -186,8 +186,6 @@ public class MultipleImport extends FacesBean {
     }
 
     LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    // InternationalizationHelper i18nHelper =
-    // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
 
     Map<String, String> configuration = null;
 

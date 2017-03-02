@@ -1,11 +1,8 @@
 package de.mpg.mpdl.inge.inge_validation.web;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class RefreshTask extends Thread {
@@ -27,10 +24,7 @@ public class RefreshTask extends Thread {
 
       while (!this.terminate) {
         LOG.info("Starting refresh of validation database.");
-        Context ctx = new InitialContext();
-        ItemValidating itemValidating =
-            (ItemValidating) ctx.lookup(Properties.JNDI_ITEM_VALIDATING_BEAN);
-        itemValidating.refreshValidationSchemaCache();
+        ItemValidatingService.refreshValidationSchemaCache();
         LOG.info("Finished refresh of validation database.");
         Thread.sleep(timeout * 60 * 1000);
       }

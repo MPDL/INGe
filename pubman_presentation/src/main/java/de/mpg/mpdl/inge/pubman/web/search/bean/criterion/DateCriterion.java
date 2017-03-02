@@ -56,9 +56,7 @@ public class DateCriterion extends Criterion {
   /**
    * constructor.
    */
-  public DateCriterion() {
-    super();
-  }
+  public DateCriterion() {}
 
   public String getFrom() {
     return from;

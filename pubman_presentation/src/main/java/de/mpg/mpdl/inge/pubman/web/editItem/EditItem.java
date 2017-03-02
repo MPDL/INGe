@@ -52,7 +52,7 @@ import com.sun.faces.facelets.component.UIRepeat;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -128,9 +128,6 @@ public class EditItem extends FacesBean {
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
   public static final String LOAD_EDITITEM = "loadEditItem";
-
-  @EJB
-  private ItemValidating itemValidating = null;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -536,7 +533,8 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()), ValidationPoint.STANDARD);
+      ItemValidatingService.validateItemObject(new PubItemVO(getPubItem()),
+          ValidationPoint.STANDARD);
       String message = getMessage("itemIsValid");
       info(message);
     } catch (ItemInvalidException e) {
@@ -576,8 +574,8 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating
-          .validateItemObject(new PubItemVO(this.getPubItem()), ValidationPoint.SAVE);
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
+          ValidationPoint.SAVE);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -671,7 +669,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -755,7 +753,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -932,7 +930,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());

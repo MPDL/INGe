@@ -57,6 +57,7 @@ public class DeleteProcess extends Thread {
     this.log.setPercentage(5);
     this.log.startItem("import_process_delete_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process");
+
     try {
       InitialContext context = new InitialContext();
       this.pubItemDepositing =
@@ -71,6 +72,7 @@ public class DeleteProcess extends Thread {
       this.log.close();
       throw new RuntimeException(e);
     }
+
     this.log.finishItem();
     this.log.setPercentage(5);
   }
@@ -90,8 +92,8 @@ public class DeleteProcess extends Thread {
     }
 
     this.log.setPercentage(10);
-    int counter = 0;
 
+    int counter = 0;
     for (ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         this.log.activateItem(item);
@@ -118,5 +120,4 @@ public class DeleteProcess extends Thread {
     this.log.close();
     this.log.closeConnection();
   }
-
 }

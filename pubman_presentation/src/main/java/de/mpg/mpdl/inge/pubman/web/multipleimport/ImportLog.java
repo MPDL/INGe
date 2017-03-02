@@ -41,8 +41,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -56,7 +54,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -117,36 +114,26 @@ public class ImportLog {
     }
   }
 
-  private static Logger logger = Logger.getLogger(ImportLog.class);
-
-  /**
-   * The data format that is used to display start- and end-date. Example: 2009-12-31 23:59
-   */
   public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-  private Date startDate;
-  private Date endDate;
+  private static final Logger logger = Logger.getLogger(ImportLog.class);
 
-  private Status status;
-  private ErrorLevel errorLevel;
-
-  private int percentage;
-
-  private int storedId;
   private Connection connection;
-
-  private String format;
+  private Date endDate;
+  private Date startDate;
+  private ErrorLevel errorLevel;
+  private ImportLogItem currentItem = null;
+  private List<ImportLogItem> items = new ArrayList<ImportLogItem>();
+  private Status status;
   private String action;
+  private String context;
+  private String format;
+  private String message;
   private String user;
   private String userHandle;
-  private String message;
-  private String context;
-
   private Workflow workflow;
-
-  private List<ImportLogItem> items = new ArrayList<ImportLogItem>();
-
-  private ImportLogItem currentItem = null;
+  private int percentage;
+  private int storedId;
 
   /**
    * Implicit constructor for inheriting classes.
@@ -169,7 +156,6 @@ public class ImportLog {
     this.user = user;
     this.format = format;
     this.action = action;
-
     this.connection = getConnection();
 
     saveLog();
@@ -194,10 +180,6 @@ public class ImportLog {
                   .replaceAll("\\$3", PropertyReader.getProperty("escidoc.import.database.name")),
               PropertyReader.getProperty("escidoc.import.database.user.name"),
               PropertyReader.getProperty("escidoc.import.database.user.password"));
-
-      // Context ctx = new InitialContext();
-      // DataSource dataSource = (DataSource) ctx.lookup("ImportLog");
-      // return dataSource.getConnection();
     } catch (Exception e) {
       throw new RuntimeException("Error creating database connection", e);
     }
@@ -222,26 +204,21 @@ public class ImportLog {
   public void close() {
     try {
       if (!this.connection.isClosed()) {
-
         this.endDate = new Date();
         this.status = Status.FINISHED;
         this.percentage = 100;
 
         updateLog();
-
-        // this.connection.close();
       }
     } catch (Exception e) {
       throw new RuntimeException("Error closing connection", e);
     }
-
   }
 
   /**
    * Called when this process shall continue.
    */
   public void reopen() {
-
     this.endDate = null;
     this.status = Status.PENDING;
 
@@ -386,7 +363,6 @@ public class ImportLog {
     }
 
     ImportLogItem newDetail = new ImportLogItem(currentItem);
-
     newDetail.setErrorLevel(errLevel);
     newDetail.setMessage(msg);
     newDetail.setStartDate(new Date());
@@ -431,6 +407,7 @@ public class ImportLog {
   private String getExceptionMessage(Throwable exception) {
     StringWriter stringWriter = new StringWriter();
     stringWriter.write(exception.getClass().getSimpleName());
+
     if (exception.getMessage() != null) {
       stringWriter.write(": ");
       stringWriter.write(exception.getMessage());
@@ -447,9 +424,11 @@ public class ImportLog {
     stringWriter.write(":");
     stringWriter.write(stackTraceElements[0].getLineNumber() + "");
     stringWriter.write(")\n");
+
     if (exception.getCause() != null) {
       stringWriter.write(getExceptionMessage(exception.getCause()));
     }
+
     return stringWriter.toString();
   }
 
@@ -474,7 +453,7 @@ public class ImportLog {
    * @return the startDate
    */
   public Date getStartDate() {
-    return startDate;
+    return this.startDate;
   }
 
   /**
@@ -483,9 +462,9 @@ public class ImportLog {
   public String getStartDateFormatted() {
     if (this.startDate != null) {
       return DATE_FORMAT.format(startDate);
-    } else {
-      return "";
     }
+
+    return "";
   }
 
   /**
@@ -499,7 +478,7 @@ public class ImportLog {
    * @return the endDate
    */
   public Date getEndDate() {
-    return endDate;
+    return this.endDate;
   }
 
   /**
@@ -508,9 +487,9 @@ public class ImportLog {
   public String getEndDateFormatted() {
     if (this.endDate != null) {
       return DATE_FORMAT.format(endDate);
-    } else {
-      return "";
     }
+
+    return "";
   }
 
   /**
@@ -524,7 +503,7 @@ public class ImportLog {
    * @return the status
    */
   public Status getStatus() {
-    return status;
+    return this.status;
   }
 
   /**
@@ -538,7 +517,7 @@ public class ImportLog {
    * @return the format
    */
   public String getFormat() {
-    return format;
+    return this.format;
   }
 
   /**
@@ -552,7 +531,7 @@ public class ImportLog {
    * @return the user
    */
   public String getUser() {
-    return user;
+    return this.user;
   }
 
   /**
@@ -566,7 +545,7 @@ public class ImportLog {
    * @return the context
    */
   public String getContext() {
-    return context;
+    return this.context;
   }
 
   /**
@@ -580,7 +559,7 @@ public class ImportLog {
    * @return the errorLevel
    */
   public ErrorLevel getErrorLevel() {
-    return errorLevel;
+    return this.errorLevel;
   }
 
   /**
@@ -588,13 +567,14 @@ public class ImportLog {
    */
   public void setErrorLevel(ErrorLevel errorLevel) {
     if (this.errorLevel == null
-        || errorLevel == ErrorLevel.FATAL
-        || (errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
-        || (errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
-        || (errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
+        || this.errorLevel == ErrorLevel.FATAL
+        || (this.errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
+        || (this.errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
+        || (this.errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
             && this.errorLevel != ErrorLevel.ERROR && this.errorLevel != ErrorLevel.PROBLEM)) {
       this.errorLevel = errorLevel;
     }
+
     if (this.connection != null) {
       updateLog();
     }
@@ -620,6 +600,7 @@ public class ImportLog {
         return true;
       }
     }
+
     return false;
   }
 
@@ -627,7 +608,7 @@ public class ImportLog {
    * @return the items
    */
   public List<ImportLogItem> getItems() {
-    return items;
+    return this.items;
   }
 
   /**
@@ -641,7 +622,7 @@ public class ImportLog {
    * @return the storedId
    */
   public int getStoredId() {
-    return storedId;
+    return this.storedId;
   }
 
   /**
@@ -655,7 +636,7 @@ public class ImportLog {
    * @return the action
    */
   public String getAction() {
-    return action;
+    return this.action;
   }
 
   /**
@@ -669,14 +650,14 @@ public class ImportLog {
    * @return the currentItem
    */
   public ImportLogItem getCurrentItem() {
-    return currentItem;
+    return this.currentItem;
   }
 
   /**
    * @return the message
    */
   public String getMessage() {
-    return message;
+    return this.message;
   }
 
   /**
@@ -690,7 +671,7 @@ public class ImportLog {
    * @return the userHandle
    */
   public String getUserHandle() {
-    return userHandle;
+    return this.userHandle;
   }
 
   /**
@@ -704,7 +685,7 @@ public class ImportLog {
    * @return the percentage
    */
   public int getPercentage() {
-    return percentage;
+    return this.percentage;
   }
 
   /**
@@ -712,12 +693,15 @@ public class ImportLog {
    */
   public void setPercentage(int percentage) {
     this.percentage = percentage;
+
     updateLog();
   }
 
   private synchronized void saveLog() {
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
     try {
-      PreparedStatement statement =
+      statement =
           this.connection
               .prepareStatement("insert into escidoc_import_log "
                   + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
@@ -733,21 +717,17 @@ public class ImportLog {
       statement.setString(8, this.format);
 
       statement.executeUpdate();
-      // statement.close();
 
       statement =
           this.connection.prepareStatement("select max(id) as maxid from escidoc_import_log");
-      ResultSet resultSet = statement.executeQuery();
+
+      resultSet = statement.executeQuery();
+
       if (resultSet.next()) {
         this.storedId = resultSet.getInt("maxid");
-        // resultSet.close();
-        // statement.close();
       } else {
-        // resultSet.close();
-        // statement.close();
         throw new RuntimeException("Error saving log");
       }
-
     } catch (Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
@@ -764,23 +744,22 @@ public class ImportLog {
       statement.setString(1, this.status.toString());
       statement.setString(2, this.errorLevel.toString());
       statement.setTimestamp(3, new Timestamp(this.startDate.getTime()));
+
       if (this.endDate != null) {
         statement.setTimestamp(4, new Timestamp(this.endDate.getTime()));
       } else {
         statement.setTimestamp(4, null);
       }
+
       statement.setString(5, this.action);
       statement.setString(6, this.user);
       statement.setString(7, this.message);
       statement.setString(8, this.context);
       statement.setString(9, this.format);
       statement.setInt(10, this.percentage);
-
       statement.setInt(11, this.storedId);
 
       statement.executeUpdate();
-      // statement.close();
-
     } catch (Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
@@ -802,21 +781,16 @@ public class ImportLog {
       statement.setString(7, item.getAction());
 
       statement.executeUpdate();
-      // statement.close();
 
       statement =
           this.connection.prepareStatement("select max(id) as maxid from escidoc_import_log_item");
       ResultSet resultSet = statement.executeQuery();
+
       if (resultSet.next()) {
         item.setStoredId(resultSet.getInt("maxid"));
-        // resultSet.close();
-        // statement.close();
       } else {
-        // resultSet.close();
-        // statement.close();
         throw new RuntimeException("Error saving log item");
       }
-
     } catch (Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
@@ -832,11 +806,13 @@ public class ImportLog {
       statement.setString(1, item.getStatus().toString());
       statement.setString(2, item.getErrorLevel().toString());
       statement.setTimestamp(3, new Timestamp(item.getStartDate().getTime()));
+
       if (item.getEndDate() != null) {
         statement.setTimestamp(4, new Timestamp(item.getEndDate().getTime()));
       } else {
         statement.setDate(4, null);
       }
+
       statement.setInt(5, this.storedId);
       statement.setString(6, item.getMessage());
       statement.setString(7, item.getItemId());
@@ -844,8 +820,6 @@ public class ImportLog {
       statement.setInt(9, item.getStoredId());
 
       statement.executeUpdate();
-      // statement.close();
-
     } catch (Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
@@ -867,22 +841,17 @@ public class ImportLog {
       statement.setString(7, detail.getAction());
 
       statement.executeUpdate();
-      // statement.close();
 
       statement =
           this.connection
               .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
       ResultSet resultSet = statement.executeQuery();
+
       if (resultSet.next()) {
         detail.setStoredId(resultSet.getInt("maxid"));
-        // resultSet.close();
-        // statement.close();
       } else {
-        // resultSet.close();
-        // statement.close();
         throw new RuntimeException("Error saving log item");
       }
-
     } catch (Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
@@ -902,6 +871,7 @@ public class ImportLog {
    */
   public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
       SortDirection dir) {
+
     return getImportLogs(action, user, sortBy, dir, true);
   }
 
@@ -920,6 +890,7 @@ public class ImportLog {
    */
   public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
       SortDirection dir, boolean loadDetails) {
+
     return getImportLogs(action, user, sortBy, dir, true, loadDetails);
   }
 
@@ -944,6 +915,7 @@ public class ImportLog {
     String query =
         "select id from escidoc_import_log where action = ? and userid = ? " + "order by "
             + sortBy.toSQL() + " " + dir.toSQL();
+
     try {
       statement = connection.prepareStatement(query);
       statement.setString(1, action);
@@ -958,17 +930,14 @@ public class ImportLog {
         result.add(log);
       }
     } catch (Exception e) {
-
       throw new RuntimeException("Error getting log", e);
     } finally {
       try {
-
         connection.close();
       } catch (Exception f) {
         logger.error("Error closing db connection", f);
       }
     }
-
 
     return result;
   }
@@ -1081,15 +1050,8 @@ public class ImportLog {
       }
 
     } catch (Exception e) {
-      try {
-        // resultSet.close();
-        // statement.close();
-        // connection.close();
-      } catch (Exception f) {
-      }
       throw new RuntimeException("Error getting detail", e);
     }
-
 
     return result;
   }
@@ -1112,6 +1074,7 @@ public class ImportLog {
     detail.setStoredId(resultSet.getInt("id"));
     detail.setItemId(resultSet.getString("item_id"));
     detail.setMessage(resultSet.getString("message"));
+
     return detail;
   }
 
@@ -1132,6 +1095,7 @@ public class ImportLog {
     item.setStoredId(resultSet.getInt("id"));
     item.setItemId(resultSet.getString("item_id"));
     item.setMessage(resultSet.getString("message"));
+
     return item;
   }
 
@@ -1141,8 +1105,7 @@ public class ImportLog {
    * @throws SQLException
    */
   private static ImportLog fillLog(ResultSet resultSet) throws SQLException {
-    ImportLog result;
-    result = new ImportLog();
+    ImportLog result = new ImportLog();
     result.setAction(resultSet.getString("action"));
     result.setEndDate(resultSet.getTimestamp("enddate"));
     result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
@@ -1154,6 +1117,7 @@ public class ImportLog {
     result.setUser(resultSet.getString("userid"));
     result.setMessage(resultSet.getString("name"));
     result.percentage = resultSet.getInt("percentage");
+
     return result;
   }
 
@@ -1284,41 +1248,7 @@ public class ImportLog {
     }
     writer.write("\t</items>\n");
     writer.write("</import-task>\n");
-
   }
-
-
-  /**
-   * @return An XML representation of this import. Used to store it in the repository.
-   */
-  /*
-   * public void toXML(XMLStreamWriter writer) throws XMLStreamException {
-   * 
-   * writer.writeStartElement("import-task"); writer.writeAttribute("status",
-   * this.status.toString()); writer.writeAttribute("error-level", this.errorLevel.toString());
-   * writer.writeAttribute("created-by", this.user);
-   * 
-   * writer.writeStartElement("name"); writer.writeCharacters(this.message);
-   * writer.writeEndElement();
-   * 
-   * writer.writeStartElement("context"); writer.writeCharacters(this.context);
-   * writer.writeEndElement();
-   * 
-   * writer.writeStartElement("start-date"); writer.writeCharacters(getStartDateFormatted());
-   * writer.writeEndElement();;
-   * 
-   * if (getEndDate() != null) { writer.writeStartElement("end-date");
-   * writer.writeCharacters(getEndDateFormatted()); writer.writeEndElement(); }
-   * 
-   * writer.writeStartElement("format"); writer.writeCharacters(this.format);
-   * writer.writeEndElement();
-   * 
-   * writer.writeStartElement("items"); for (ImportLogItem item : this.items) { item.toXML(writer);
-   * } writer.writeEndElement(); writer.writeEndElement();
-   * 
-   * 
-   * }
-   */
 
   /**
    * An XML-safe representation of the given string.
@@ -1334,25 +1264,19 @@ public class ImportLog {
     }
   }
 
-  /**
-   * Reads a localized message from the message resource bundle.
-   * 
-   * @return A string holding the localized message
-   */
-  public String getLocalizedMessage() {
-    FacesContext ctx = FacesContext.getCurrentInstance();
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) ctx.getExternalContext().getSessionMap()
-            .get(InternationalizationHelper.BEAN_NAME);
-    try {
-      return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(
-          getMessage());
-    } catch (MissingResourceException mre) {
-      // No message entry for this message, it's probably raw data.
-      return getMessage();
-    }
-
-  }
+  // /**
+  // * Reads a localized message from the message resource bundle.
+  // *
+  // * @return A string holding the localized message
+  // */
+  // public String getLocalizedMessage() {
+  // try {
+  // return this.messageBundle.getString(getMessage());
+  // } catch (MissingResourceException mre) {
+  // // No message entry for this message, it's probably raw data.
+  // return getMessage();
+  // }
+  // }
 
   /**
    * JSF action to remove an import from the database.
@@ -1403,6 +1327,7 @@ public class ImportLog {
    */
   public String deleteAll() {
     this.connection = getConnection();
+
     DeleteProcess deleteProcess = new DeleteProcess(this);
     deleteProcess.start();
 
@@ -1412,7 +1337,6 @@ public class ImportLog {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
 
     return null;
   }
@@ -1424,6 +1348,7 @@ public class ImportLog {
    */
   public String submitAll() {
     this.connection = getConnection();
+
     SubmitProcess submitProcess = new SubmitProcess(this, false);
     submitProcess.start();
 
@@ -1444,6 +1369,7 @@ public class ImportLog {
    */
   public String submitAndReleaseAll() {
     this.connection = getConnection();
+
     SubmitProcess submitProcess = new SubmitProcess(this, true);
     submitProcess.start();
 

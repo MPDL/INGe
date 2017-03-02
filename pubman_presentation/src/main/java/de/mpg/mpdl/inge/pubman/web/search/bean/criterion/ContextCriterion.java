@@ -7,12 +7,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 
 public class ContextCriterion extends Criterion {
-  // boolean flag for the full text search
-
-
-  public ContextCriterion() {
-    super();
-  }
+  public ContextCriterion() {}
 
   /**
    * {@inheritDoc}
@@ -22,8 +17,7 @@ public class ContextCriterion extends Criterion {
     MetadataSearchCriterion criterion = null;
     criterion = new MetadataSearchCriterion(CriterionType.CONTEXT_OBJECTID, getSearchString());
     criterions.add(criterion);
+
     return criterions;
-
   }
-
 }

@@ -43,9 +43,7 @@ public class TitleCriterion extends Criterion {
   /**
    * constructor.
    */
-  public TitleCriterion() {
-    super();
-  }
+  public TitleCriterion() {}
 
   /**
    * {@inheritDoc}

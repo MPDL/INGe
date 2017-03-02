@@ -45,13 +45,14 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ImportData extends FacesBean {
+  private static final Logger logger = Logger.getLogger(ImportData.class);
+
   private int importId = 0;
   private String userid = null;
   private String userHandle = null;
   private ImportLog log = null;
-
-  private static Logger logger = Logger.getLogger(ImportData.class);
 
   /**
    * Constructor extracting the import's id from the URL and setting user settings.

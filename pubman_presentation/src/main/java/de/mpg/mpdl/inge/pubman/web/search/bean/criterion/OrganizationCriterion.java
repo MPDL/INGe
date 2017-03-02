@@ -51,11 +51,9 @@ public class OrganizationCriterion extends Criterion {
   private boolean includePredecessorsAndSuccessors = false;
 
   public OrganizationCriterion() {
-    super();
     AffiliationVO affiliationVO = new AffiliationVO();
     affiliationVO.setReference(new AffiliationRO());
     affiliation = new AffiliationVOPresentation(affiliationVO);
-
   }
 
   /**

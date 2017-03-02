@@ -56,31 +56,6 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
 
   public FacesBean() {}
 
-  // /**
-  // * Dummy method to please derived classes.
-  // */
-  // protected void init() {
-  // getSessionBean(StatisticSessionBean.class);
-  // }
-  //
-  // /**
-  // * Dummy method to please derived classes.
-  // */
-  // protected void prerender() {
-  // // logger.debug("prerender");
-  // }
-
-  // /**
-  // * Return the <code>Application</code> instance for the current web application.
-  // *
-  // * @return <code>Application</code>
-  // */
-  // public static Application getApplication() {
-  // ApplicationFactory factory =
-  // (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-  // return factory.getApplication();
-  // }
-
   /**
    * Return the <code>FacesContext</code> instance for the current request.
    * 
@@ -98,31 +73,6 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   public static ExternalContext getExternalContext() {
     return getFacesContext().getExternalContext();
   }
-
-  // /**
-  // * Check if a user is already logged in.
-  // */
-  // protected void testLogin() {
-  // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-  // logger.debug("Checking login: " + loginHelper);
-  // if (!loginHelper.isLoggedIn()) {
-  // try {
-  // try {
-  // loginHelper.insertLogin();
-  // } catch (UnmarshallingException e) {
-  // logger.error(e.toString(), e);
-  // } catch (TechnicalException e) {
-  // logger.error(e.toString(), e);
-  // } catch (ServiceException e) {
-  // logger.error(e.toString(), e);
-  // } catch (URISyntaxException e) {
-  // logger.error(e.toString(), e);
-  // }
-  // } catch (IOException e1) {
-  // logger.debug(e1.toString());
-  // }
-  // }
-  // }
 
   /**
    * Return any bean stored in request, session or application scope under the specified name.

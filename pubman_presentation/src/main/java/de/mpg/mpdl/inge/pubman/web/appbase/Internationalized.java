@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.appbase;
 
-import javax.faces.component.UIComponent;
-
 /**
  * 
  * This interface defines the implementing class as internationalized. All localized messages should
@@ -30,12 +28,4 @@ public interface Internationalized {
    * @return The according localized label.
    */
   String getLabel(String placeholder);
-
-  /**
-   * Bind a localized label to a JSF component value.
-   * 
-   * @param component The JSF component.
-   * @param placeholder The label that should be localized.
-   */
-  void bindComponentLabel(UIComponent component, String placeholder);
 }

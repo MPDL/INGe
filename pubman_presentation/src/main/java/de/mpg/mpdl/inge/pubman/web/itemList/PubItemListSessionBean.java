@@ -241,7 +241,6 @@ public class PubItemListSessionBean extends
   private final LoginHelper loginHelper;
 
   public PubItemListSessionBean() {
-    // super();
     loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     selectedItemRefs = new HashMap<String, ItemRO>();
   }

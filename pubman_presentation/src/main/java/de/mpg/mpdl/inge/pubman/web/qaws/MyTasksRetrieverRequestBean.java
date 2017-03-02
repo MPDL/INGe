@@ -45,8 +45,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
-  public static String BEAN_NAME = "MyTasksRetrieverRequestBean";
+  public static final String BEAN_NAME = "MyTasksRetrieverRequestBean";
+
   private static Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
+
   private int numberOfRecords;
 
   /**

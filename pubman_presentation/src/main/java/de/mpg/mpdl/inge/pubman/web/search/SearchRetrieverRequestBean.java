@@ -281,9 +281,6 @@ public class SearchRetrieverRequestBean extends
     }
 
     return pubItemList;
-
-
-
   }
 
 
@@ -303,7 +300,7 @@ public class SearchRetrieverRequestBean extends
    * @return
    */
   public String getCqlQuery() {
-    return cqlQuery;
+    return this.cqlQuery;
   }
 
   /**
@@ -315,9 +312,9 @@ public class SearchRetrieverRequestBean extends
     String ret = this.cqlQuery;
     if (ret != null) {
       return java.net.URLEncoder.encode(ret);
-    } else {
-      return "";
     }
+
+    return "";
   }
 
   /**
@@ -325,13 +322,9 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getRssFeedLink() throws PubManVersionNotAvailableException {
-    String link = "";
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link =
-        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/rss_2.0/search?q="
-            + this.getNormalizedCqlQuery()
-            + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
-    return link;
+    return "<link href='" + this.getApplicationBean().getPubmanInstanceUrl()
+        + "/syndication/feed/rss_2.0/search?q=" + this.getNormalizedCqlQuery()
+        + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
   }
 
   /**
@@ -339,13 +332,9 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
-    String link = "";
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link =
-        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/atom_1.0/search?q="
-            + this.getNormalizedCqlQuery()
-            + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
-    return link;
+    return "<link href='" + this.getApplicationBean().getPubmanInstanceUrl()
+        + "/syndication/feed/atom_1.0/search?q=" + this.getNormalizedCqlQuery()
+        + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
   /**
@@ -372,6 +361,7 @@ public class SearchRetrieverRequestBean extends
         pubItemList.add(pubItemPres);
       }
     }
+
     return pubItemList;
   }
 
@@ -398,7 +388,7 @@ public class SearchRetrieverRequestBean extends
    * @return
    */
   public String getSearchType() {
-    return searchType;
+    return this.searchType;
   }
 
   /**
@@ -412,25 +402,22 @@ public class SearchRetrieverRequestBean extends
       error(getMessage("depositorWS_sortingNotSupported").replace("$1",
           getLabel("ENUM_CRITERIA_" + sc.name())));
     }
-
   }
 
   public String getQueryString() {
-    return queryString;
+    return this.queryString;
   }
 
   public String getUrlEncodedQueryString() {
     try {
       if (queryString != null) {
         return URLEncoder.encode(queryString, "UTF-8");
-      } else {
-        return "";
       }
-
     } catch (UnsupportedEncodingException e) {
       logger.error("Could not encode query string", e);
-      return "";
     }
+
+    return "";
   }
 
   public void setQueryString(String query) {
@@ -438,4 +425,7 @@ public class SearchRetrieverRequestBean extends
     getBasePaginatorListSessionBean().getParameterMap().put(parameterQuery, query);
   }
 
+  protected ApplicationBean getApplicationBean() {
+    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+  }
 }

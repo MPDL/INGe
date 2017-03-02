@@ -162,24 +162,22 @@ public class CommonUtils extends InternationalizedImpl {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
+    ApplicationBean applicationBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
+
     String locale = Locale.getDefault().getLanguage();
 
-    // if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") ||
-    // locale.equals("es")))
     if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja"))) {
       locale = "en";
     }
 
-    if (appBean.getLanguageSelectItems().get(locale) != null
-        && appBean.getLanguageSelectItems().get(locale).length > 0) {
-      return appBean.getLanguageSelectItems().get(locale);
+    if (applicationBean.getLanguageSelectItems().get(locale) != null
+        && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
+      return applicationBean.getLanguageSelectItems().get(locale);
     } else {
       SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
-      appBean.getLanguageSelectItems().put(locale, languageSelectItems);
+      applicationBean.getLanguageSelectItems().put(locale, languageSelectItems);
       return languageSelectItems;
     }
-
   }
 
   /**

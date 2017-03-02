@@ -27,68 +27,43 @@ package de.mpg.mpdl.inge.pubman.web;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 @SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {
   public static final String BEAN_NAME = "PubManSessionBean";
 
-  private String locale;
+  private String locale = getI18nHelper().getLocale();
 
-  /**
-   * Default constructor.
-   */
-  public PubManSessionBean() {
-    this.init();
-  }
-
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
-    // super.init();
-    InternationalizationHelper i18nHelper = this.getI18nHelper();
-    this.locale = i18nHelper.getLocale();
-  }
+  public PubManSessionBean() {}
 
   public void changeLanguage(ValueChangeEvent event) {
-    InternationalizationHelper i18nHelper = this.getI18nHelper();
     if (event != null) {
-      i18nHelper.changeLanguage(event);
+      getI18nHelper().changeLanguage(event);
     }
-    this.locale = i18nHelper.getLocale();
+
+    this.locale = getI18nHelper().getLocale();
   }
 
   public String getLocaleString() {
     return getLabel("ENUM_LANGUAGE_" + locale.toUpperCase());
   }
 
-  // Getters and Setters
-
   public String getLocale() {
-    return locale;
+    return this.locale;
   }
 
   public void setLocale(String locale) {
     this.locale = locale;
   }
 
-  /**
-   * Returns the LoginHelper.
-   * 
-   * @return a reference to the scoped data bean (LoginHelper)
-   */
-  protected LoginHelper getLoginHelper() {
-    return (LoginHelper) getSessionBean(LoginHelper.class);
-  }
-
-
-
   public boolean isLoggedIn() {
     LoginHelper loginHelper = this.getLoginHelper();
+
     return loginHelper.getLoggedIn();
   }
 
+  private LoginHelper getLoginHelper() {
+    return (LoginHelper) getSessionBean(LoginHelper.class);
+  }
 }

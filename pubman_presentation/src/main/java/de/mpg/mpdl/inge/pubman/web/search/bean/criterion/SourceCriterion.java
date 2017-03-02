@@ -44,9 +44,7 @@ public class SourceCriterion extends Criterion {
   /**
    * constructor.
    */
-  public SourceCriterion() {
-    super();
-  }
+  public SourceCriterion() {}
 
   /**
    * {@inheritDoc}

@@ -63,7 +63,6 @@ public class ValidationTest {
 
   private PubItemVO pubItemVO;
   private MdsPublicationVO mdsPublicationVO;
-  private ValidationService validationService;
   private ConeCache coneCache = ConeCache.getInstance(); // zur erstmaligen Befüllung des Caches
 
   @Before
@@ -71,8 +70,6 @@ public class ValidationTest {
     this.pubItemVO = new PubItemVO();
     this.mdsPublicationVO = new MdsPublicationVO();
     this.pubItemVO.setMetadata(this.mdsPublicationVO);
-
-    this.validationService = new ValidationService();
   }
 
   @After
