@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
 public class AffiliationVO extends ValueObject implements Searchable {
   /**

@@ -14,9 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
 import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
@@ -63,7 +61,6 @@ public class EditItemBean extends FacesBean {
     this.creatorOrganizations = creatorOrganizations;
   }
 
-
   public void initOrganizationsFromCreators() {
     List<OrganizationVOPresentation> creatorOrganizations =
         new ArrayList<OrganizationVOPresentation>();
@@ -99,10 +96,6 @@ public class EditItemBean extends FacesBean {
     this.creatorOrganizations = creatorOrganizations;
   }
 
-  // public int getCreatorsSize() {
-  // return creators.size();
-  // }
-
   /**
    * Returns the content(set by javascript) from a hidden input field that indicates whether the
    * author copy&paste elements are to be displayed or not.
@@ -133,8 +126,7 @@ public class EditItemBean extends FacesBean {
    * @return SelectItem[] with Strings representing creator roles.
    */
   public SelectItem[] getCreatorRoles() {
-    return ((InternationalizationHelper) EditItem.getSessionBean(InternationalizationHelper.class))
-        .getSelectItemsCreatorRole(true);
+    return getI18nHelper().getSelectItemsCreatorRole(true);
   }
 
   /**
@@ -143,9 +135,7 @@ public class EditItemBean extends FacesBean {
    * @return SelectItem[] with Strings representing creator types.
    */
   public SelectItem[] getCreatorTypes() {
-
-    return ((InternationalizationHelper) EditItem.getSessionBean(InternationalizationHelper.class))
-        .getSelectItemsCreatorType(false);
+    return getI18nHelper().getSelectItemsCreatorType(false);
   }
 
   public boolean bindOrganizationsToCreators() {
@@ -164,6 +154,7 @@ public class EditItemBean extends FacesBean {
         return false;
       }
     }
+
     return true;
   }
 
@@ -178,7 +169,6 @@ public class EditItemBean extends FacesBean {
       }
       creators.add(beanCreator);
     }
-
   }
 
   public void bindCreatorsToVO(List<CreatorVO> creators) {
@@ -233,6 +223,7 @@ public class EditItemBean extends FacesBean {
         return false;
       }
     }
+
     return true;
   }
 
@@ -243,11 +234,12 @@ public class EditItemBean extends FacesBean {
   public String readPastedOrganizations() {
     logger.debug("readPastedOrganizations");
     this.organizationPasted = false;
+
     return "";
   }
 
   public boolean isOrganizationPasted() {
-    return organizationPasted;
+    return this.organizationPasted;
   }
 
   public void setOrganizationPasted(boolean organizationPasted) {
@@ -267,7 +259,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public String getCreatorParseString() {
-    return creatorParseString;
+    return this.creatorParseString;
   }
 
   /**
@@ -333,5 +325,4 @@ public class EditItemBean extends FacesBean {
       creator.setType(CreatorType.PERSON);
     }
   }
-
 }

@@ -96,7 +96,6 @@ import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
@@ -627,8 +626,8 @@ public class EasySubmission extends FacesBean {
 
     if (file != null && file.getSize() > 0) {
       try {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+        URL url =
+            this.uploadFile(file, file.getContentType(), getLoginHelper().getESciDocUserHandle());
         if (url != null) {
           contentURL = url.toString();
         }
@@ -826,10 +825,10 @@ public class EasySubmission extends FacesBean {
           byte[] ba =
               dataHandler.doFetch(easySubmissionSessionBean.getCurrentExternalServiceType(),
                   getServiceID(), formats.toArray(arrFormats));
-          LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
           ByteArrayInputStream in = new ByteArrayInputStream(ba);
           URL fileURL =
-              this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());
+              this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                  .getESciDocUserHandle());
 
           if (fileURL != null && !fileURL.toString().trim().equals("")) {
             FileVO fileVO = dataHandler.getComponentVO();
@@ -892,12 +891,11 @@ public class EasySubmission extends FacesBean {
                   FileVO newFile = new FileVO();
                   byte[] content =
                       dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                  LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
                   ByteArrayInputStream in = new ByteArrayInputStream(content);
                   URL fileURL;
                   fileURL =
-                      this.uploadFile(in, dataHandler.getContentType(),
-                          loginHelper.getESciDocUserHandle());
+                      this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                          .getESciDocUserHandle());
 
                   if (fileURL != null && !fileURL.toString().trim().equals("")
                       && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {

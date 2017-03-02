@@ -36,36 +36,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-public class GenreLabelConverter implements Converter {
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
+public class GenreLabelConverter implements Converter {
   public static final String CONVERTER_ID = "GenreLabelConverter";
 
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesBean
+      .getSessionBean(InternationalizationHelper.class);
 
   public GenreLabelConverter() {}
 
   public String getAsString(FacesContext context, UIComponent c, Object object)
       throws ConverterException {
     final String textValue = (String) object;
-    InternationalizationHelper i18n =
-        (InternationalizationHelper) getBean(InternationalizationHelper.BEAN_NAME);
-    return i18n.getLabel(textValue);
+    return this.i18nHelper.getLabel(textValue);
   }
 
   public Object getAsObject(FacesContext context, UIComponent c, String text) {
     final String textValue = text;
-    InternationalizationHelper i18n =
-        (InternationalizationHelper) getBean(InternationalizationHelper.BEAN_NAME);
-    return i18n.getLabel(textValue);
-  }
-
-  /*
-   * protected Object getBean(String beanName) { return
-   * FacesContext.getCurrentInstance().getApplication
-   * ().createValueBinding(beanName).getValue(FacesContext.getCurrentInstance()); }
-   */
-
-  protected Object getBean(String name) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    return context.getApplication().getVariableResolver().resolveVariable(context, name);
+    return this.i18nHelper.getLabel(textValue);
   }
 }

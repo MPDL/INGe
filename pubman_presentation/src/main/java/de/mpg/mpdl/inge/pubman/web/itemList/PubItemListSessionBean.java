@@ -54,7 +54,6 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionB
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 
 /**
@@ -238,10 +237,7 @@ public class PubItemListSessionBean extends
    */
   private int itemPosition = 0;
 
-  private final LoginHelper loginHelper;
-
   public PubItemListSessionBean() {
-    loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     selectedItemRefs = new HashMap<String, ItemRO>();
   }
 
@@ -545,7 +541,7 @@ public class PubItemListSessionBean extends
     sortBySelectItems = new ArrayList<SelectItem>();
 
     // the last three should not be in if not logged in
-    if (!loginHelper.isLoggedIn()) {
+    if (!getLoginHelper().isLoggedIn()) {
       for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
         SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 

@@ -53,8 +53,8 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class CreatorVOPresentation extends CreatorVO {
-
   private static final Logger logger = Logger.getLogger(CreatorVOPresentation.class);
 
   private static Properties properties;

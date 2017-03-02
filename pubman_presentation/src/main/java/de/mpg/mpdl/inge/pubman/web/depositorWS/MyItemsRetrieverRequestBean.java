@@ -24,7 +24,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -103,15 +102,15 @@ public class MyItemsRetrieverRequestBean extends
   @Override
   public void init() {
     checkForLogin();
+
     // Init imports
     List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
     importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
-    if (!loginHelper.isLoggedIn())
+    if (!getLoginHelper().isLoggedIn())
       return;
 
-    this.userVO = loginHelper.getAccountUser();
+    this.userVO = getLoginHelper().getAccountUser();
 
     try {
       Connection connection = ImportLog.getConnection();
@@ -147,10 +146,9 @@ public class MyItemsRetrieverRequestBean extends
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // Return empty list if the user is not logged in, needed to avoid exceptions
-    if (!loginHelper.isLoggedIn())
+    if (!getLoginHelper().isLoggedIn())
       return returnList;
 
     try {
@@ -160,7 +158,7 @@ public class MyItemsRetrieverRequestBean extends
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();
 
-      Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
+      Filter f1 = filter.new OwnerFilter(getLoginHelper().getAccountUser().getReference());
       filter.getFilterList().add(f1);
       Filter f2 =
           filter.new FrameworkItemTypeFilter(
@@ -213,7 +211,7 @@ public class MyItemsRetrieverRequestBean extends
       filter.getFilterList().add(f9);
 
       String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
               filter.toMap());
 
 

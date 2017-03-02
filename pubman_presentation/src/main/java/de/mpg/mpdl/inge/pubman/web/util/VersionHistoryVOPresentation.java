@@ -24,6 +24,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   private static final Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);
 
+  private final LoginHelper loginHelper = (LoginHelper) FacesContext.getCurrentInstance()
+      .getExternalContext().getSessionMap().get(LoginHelper.BEAN_NAME);
+
   private List<EventLogEntryVOPresentation> eventLogEntries;
 
   public VersionHistoryVOPresentation(VersionHistoryEntryVO versionHistoryEntryVO) {
@@ -54,10 +57,6 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   public String rollback() throws Exception {
     logger.info("Rollback to version " + this.getReference().getVersionNumber());
 
-    LoginHelper loginHelper =
-        (LoginHelper) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-            .get(LoginHelper.BEAN_NAME);
-
     InitialContext initialContext = new InitialContext();
 
     XmlTransforming xmlTransforming =
@@ -68,11 +67,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
         (PubItemDepositing) initialContext
             .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
 
-    // PubItemPublishing pubItemPublishingBean =
-    // (PubItemPublishing) initialContext
-    // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
-
-    ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+    ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(this.loginHelper.getESciDocUserHandle());
 
     // Get the two versions
     String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
@@ -103,11 +99,11 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
       pubItemVONewVersion =
           pubItemDepositingBean.submitPubItem(pubItemVONewVersion,
               "Submit and release after rollback to version "
-                  + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
+                  + this.getReference().getVersionNumber(), this.loginHelper.getAccountUser());
       pubItemDepositingBean.releasePubItem(pubItemVONewVersion.getVersion(),
           pubItemVONewVersion.getModificationDate(),
           "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
-          loginHelper.getAccountUser());
+          this.loginHelper.getAccountUser());
 
       xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
       pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);

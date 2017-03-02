@@ -37,7 +37,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -56,7 +55,6 @@ public class YearbookItemEditBean extends FacesBean {
   private static final String MAXIMUM_RECORDS = "5000";
 
   private YearbookItemSessionBean yearbookItemSessionBean;
-  private LoginHelper loginHelper;
   private XmlTransformingBean xmlTransforming;
   private MdsYearbookVO yearbookMetadata;
   private String title;
@@ -82,7 +80,6 @@ public class YearbookItemEditBean extends FacesBean {
   public YearbookItemEditBean() throws Exception {
     this.yearbookItemSessionBean =
         (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     xmlTransforming = new XmlTransformingBean();
     initialize();
   }
@@ -137,7 +134,7 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public void initCollaborators() throws Exception {
     UserAccountHandler uah =
-        ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
     this.possibleCollaboratorsList = new ArrayList<AccountUserVO>();
     this.collaborators = new ArrayList<AccountUserRO>();
     collaboratorSelectItems = new ArrayList<SelectItem>();
@@ -154,7 +151,7 @@ public class YearbookItemEditBean extends FacesBean {
     for (SearchRetrieveRecordVO record : userAccounts.getRecords()) {
       AccountUserVO userVO = (AccountUserVO) record.getData();
       if (!userVO.getReference().getObjectId()
-          .equals(loginHelper.getAccountUser().getReference().getObjectId())) {
+          .equals(getLoginHelper().getAccountUser().getReference().getObjectId())) {
         collaboratorSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
             .getName() + " (" + userVO.getUserid() + ")"));
         this.possibleCollaboratorsList.add(userVO);
@@ -165,7 +162,7 @@ public class YearbookItemEditBean extends FacesBean {
 
   public void initUserGroups() throws Exception {
     UserGroupHandler userGroupHandler =
-        ServiceLocator.getUserGroupHandler(loginHelper.getESciDocUserHandle());
+        ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
     this.collaboratorUserIds = new ArrayList<String>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
@@ -218,9 +215,11 @@ public class YearbookItemEditBean extends FacesBean {
     this.selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
       boolean previousYearPossible = true;
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+      String orgId =
+          getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       filterParams
@@ -462,11 +461,12 @@ public class YearbookItemEditBean extends FacesBean {
 
   public String delete() {
     try {
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       itemHandler.delete(this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId());
       this.yearbookItemSessionBean.initYearbook();
       UserGroupHandler userGroupHandler =
-          ServiceLocator.getUserGroupHandler(loginHelper.getESciDocUserHandle());
+          ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
       userGroupHandler.delete(this.getUserGroup().getObjid());
       return "loadYearbookPage";
     } catch (Exception e) {

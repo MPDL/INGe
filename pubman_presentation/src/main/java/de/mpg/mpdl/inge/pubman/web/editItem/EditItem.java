@@ -101,7 +101,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.ListItem;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
@@ -175,9 +174,8 @@ public class EditItem extends FacesBean {
       return;
     }
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     if (getItem().getVersion() != null && getItem().getVersion().getObjectId() != null
-        && loginHelper.getIsYearbookEditor()) {
+        && getLoginHelper().getIsYearbookEditor()) {
       YearbookItemSessionBean yisb =
           (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
       if (yisb.getYearbookItem() != null
@@ -1055,10 +1053,10 @@ public class EditItem extends FacesBean {
     if (file != null) {
       try {
         // upload the file
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         URL url = null;
-        if (loginHelper.getAccountUser().isDepositor()) {
-          url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+        if (getLoginHelper().getAccountUser().isDepositor()) {
+          url =
+              this.uploadFile(file, file.getContentType(), getLoginHelper().getESciDocUserHandle());
         }
         // workarround for moderators who can modify released items but do not have the right to
         // upload files
@@ -1185,8 +1183,6 @@ public class EditItem extends FacesBean {
   }
 
   private void enableLinks() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
     boolean isStatePending = true;
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
@@ -1205,14 +1201,14 @@ public class EditItem extends FacesBean {
     boolean isOwner = true;
     if (this.getPubItem() != null && this.getPubItem().getOwner() != null) {
       isOwner =
-          (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser()
-              .getReference().getObjectId().equals(this.getPubItem().getOwner().getObjectId())
-              : false);
+          (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
+              .getAccountUser().getReference().getObjectId()
+              .equals(this.getPubItem().getOwner().getObjectId()) : false);
     }
 
     boolean isModerator = false;
-    if (loginHelper.getAccountUser() != null && this.getPubItem() != null) {
-      isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+    if (getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
+      isModerator = getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
     }
 
     boolean isWorkflowStandard = false;
@@ -1478,7 +1474,6 @@ public class EditItem extends FacesBean {
   }
 
   public String getOwner() throws Exception {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     UserAccountHandler userAccountHandler = null;
 
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -1489,7 +1484,8 @@ public class EditItem extends FacesBean {
       return null;
     }
 
-    userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+    userAccountHandler =
+        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
     String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
 
     SearchRetrieveResponseVO searchedObject =
@@ -1519,7 +1515,6 @@ public class EditItem extends FacesBean {
   }
 
   public String getLastModifier() throws Exception {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     UserAccountHandler userAccountHandler = null;
 
     if (this.item.getVersion().getModifiedByRO() != null
@@ -1530,7 +1525,8 @@ public class EditItem extends FacesBean {
           + this.item.getVersion().getModifiedByRO().getObjectId()});
 
       String searchResponse = null;
-      userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+      userAccountHandler =
+          ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
       searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
       SearchRetrieveResponseVO searchedObject =
           xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);

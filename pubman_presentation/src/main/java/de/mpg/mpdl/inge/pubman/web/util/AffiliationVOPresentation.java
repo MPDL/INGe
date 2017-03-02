@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -63,8 +62,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
       .getCurrentInstance().getExternalContext().getSessionMap()
       .get(InternationalizationHelper.BEAN_NAME);
-  private final ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper
-      .getSelectedLabelBundle());
 
   private AffiliationVOPresentation parent = null;
   private List<AffiliationVO> predecessors = new ArrayList<AffiliationVO>();
@@ -127,7 +124,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
     html.append("<html><head></head><body>");
     html.append("<div class=\"affDetails\"><h1>"
-        + this.labelBundle.getString("AffiliationTree_txtHeadlineDetails") + "</h1>");
+        + this.i18nHelper.getLabel("AffiliationTree_txtHeadlineDetails") + "</h1>");
     html.append("<div class=\"formField\">");
 
     if (getDetails().getDescriptions().size() > 0

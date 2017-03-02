@@ -27,7 +27,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -170,7 +169,6 @@ public class YearbookModeratorRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
       ContextListSessionBean clsb =
           (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
 
@@ -188,7 +186,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
       String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
               filter.toMap());
 
       SearchRetrieveResponseVO result =
@@ -249,12 +247,10 @@ public class YearbookModeratorRetrieverRequestBean extends
   public String releaseSelectedYearbooks() {
     try {
       if (this.pilsb.getSelectedItems().size() > 0) {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            pubItemDepositing.releasePubItem(yearbookItem.getVersion(),
-                yearbookItem.getModificationDate(), "Releasing pubItem",
-                loginHelper.getAccountUser());
+            pubItemDepositing.releasePubItem(yearbookItem.getVersion(), yearbookItem
+                .getModificationDate(), "Releasing pubItem", getLoginHelper().getAccountUser());
           } else {
             warn("\"" + yearbookItem.getFullTitle() + "\""
                 + getMessage("Yearbook_itemNotReleasedWarning"));
@@ -281,8 +277,8 @@ public class YearbookModeratorRetrieverRequestBean extends
   public String sendBackForRework() {
     try {
       if (this.pilsb.getSelectedItems().size() > 0) {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+        ItemHandler itemHandler =
+            ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
         TaskParamVO param = null;
         String paramXml = null;
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {

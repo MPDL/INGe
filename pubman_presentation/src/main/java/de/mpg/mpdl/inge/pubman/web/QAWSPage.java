@@ -44,8 +44,9 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  */
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(QAWSPage.class);
   public static final String BEAN_NAME = "QAWSPage";
+
+  private static Logger logger = Logger.getLogger(QAWSPage.class);
 
   public QAWSPage() {
     this.init();
@@ -75,11 +76,10 @@ public class QAWSPage extends BreadcrumbPage {
   }
 
   public boolean getIsModerator() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     boolean isModerator = false;
 
-    if (loginHelper.isLoggedIn()) {
-      isModerator = loginHelper.getAccountUser().isModerator();
+    if (getLoginHelper().isLoggedIn()) {
+      isModerator = getLoginHelper().getAccountUser().isModerator();
     }
 
     return isModerator;

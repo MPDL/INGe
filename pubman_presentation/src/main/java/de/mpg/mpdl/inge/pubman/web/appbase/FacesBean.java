@@ -360,11 +360,13 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   }
 
   protected void checkForLogin() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     // if not logged in redirect to login page
-    if (!loginHelper.isLoggedIn()) {
+    if (!getLoginHelper().isLoggedIn()) {
       info(getMessage("NotLoggedIn"));
     }
   }
 
+  public LoginHelper getLoginHelper() {
+    return (LoginHelper) getSessionBean(LoginHelper.class);
+  }
 }

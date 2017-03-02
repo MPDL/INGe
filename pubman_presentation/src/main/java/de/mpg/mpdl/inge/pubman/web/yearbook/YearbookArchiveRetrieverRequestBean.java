@@ -21,7 +21,6 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestB
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 
 /**
@@ -141,10 +140,8 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
       YearbookArchiveBean yearbookArchiveBean =
           (YearbookArchiveBean) getSessionBean(YearbookArchiveBean.class);
-
 
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -169,7 +166,7 @@ public class YearbookArchiveRetrieverRequestBean extends
       }
 
       String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
               filter.toMap());
 
       SearchRetrieveResponseVO result =

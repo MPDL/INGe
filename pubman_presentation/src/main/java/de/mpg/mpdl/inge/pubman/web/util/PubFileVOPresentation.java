@@ -66,8 +66,6 @@ public class PubFileVOPresentation extends FacesBean {
 
   private static Properties properties;
 
-  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);;
-
   private FileVO file;
   private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
   private PubItemSimpleStatistics pubItemStatistics;
@@ -422,7 +420,7 @@ public class PubFileVOPresentation extends FacesBean {
     String result =
         pubItemStatistics.getNumberOfItemOrFileRequests(
             SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
-            loginHelper.getAccountUser());
+            getLoginHelper().getAccountUser());
     return result;
   }
 
@@ -432,7 +430,7 @@ public class PubFileVOPresentation extends FacesBean {
     String result =
         pubItemStatistics.getNumberOfItemOrFileRequests(
             SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
-            loginHelper.getAccountUser());
+            getLoginHelper().getAccountUser());
     return result;
   }
 
@@ -486,16 +484,16 @@ public class PubFileVOPresentation extends FacesBean {
   public void setGrantList(List<GrantVOPresentation> grantList) {
     this.grantList = grantList;
   }
-  
+
   protected EasySubmission getEasySubmission() {
     return (EasySubmission) getSessionBean(EasySubmission.class);
   }
-  
+
   protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
     return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
   }
-  
+
   protected ApplicationBean getApplicationBean() {
     return (ApplicationBean) getApplicationBean(ApplicationBean.class);
-  }  
+  }
 }

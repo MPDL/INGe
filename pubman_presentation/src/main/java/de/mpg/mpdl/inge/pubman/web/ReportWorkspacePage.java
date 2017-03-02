@@ -30,7 +30,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.desktop.Login;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
@@ -40,7 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 public class ReportWorkspacePage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ReportWorkspacePage";
 
-  private static Logger logger = Logger.getLogger(ReportWorkspacePage.class);
+  private static final Logger logger = Logger.getLogger(ReportWorkspacePage.class);
 
   public ReportWorkspacePage() {
     this.init();
@@ -57,18 +56,16 @@ public class ReportWorkspacePage extends BreadcrumbPage {
   }
 
   protected void checkLogin() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     Login login = (Login) getSessionBean(Login.class);
 
     // if not logged in redirect to login page
-    if (!loginHelper.isLoggedIn()) {
+    if (!getLoginHelper().isLoggedIn()) {
       try {
         login.loginLogout();
       } catch (Exception e) {
         logger.error("Error during redirection.", e);
         error("Could not redirect to login!");
       }
-
     }
   }
 

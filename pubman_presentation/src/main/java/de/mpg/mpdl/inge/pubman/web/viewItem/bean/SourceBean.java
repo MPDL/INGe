@@ -386,7 +386,7 @@ public class SourceBean extends FacesBean {
   private ViewItemFull getViewItemFull() {
     return (ViewItemFull) getRequestBean(ViewItemFull.class);
   }
-  
+
   protected ApplicationBean getApplicationBean() {
     return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }

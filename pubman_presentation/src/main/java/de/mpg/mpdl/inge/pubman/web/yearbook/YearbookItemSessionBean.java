@@ -32,7 +32,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -55,7 +54,6 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;
-  private LoginHelper loginHelper;
   private ItemHandler itemHandler;
   private ContextVO yearbookContext;
 
@@ -77,23 +75,18 @@ public class YearbookItemSessionBean extends FacesBean {
   public YearbookItemSessionBean() {
     try {
       this.pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-      this.itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-
-
+      this.itemHandler = ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
-
     } catch (Exception e) {
       error("Error retrieving yearbook item!");
       logger.error("Error retrieving yearbook item!", e);
     }
   }
 
-
   @PostConstruct
   public void postConstruct() {
     try {
-      if (loginHelper.getIsYearbookEditor()) {
+      if (getLoginHelper().getIsYearbookEditor()) {
         initYearbook();
       }
     } catch (Exception e) {
@@ -107,7 +100,8 @@ public class YearbookItemSessionBean extends FacesBean {
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
-    String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    String orgId =
+        getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     // String orgId = "escidoc:persistent25";
     filterParams.put(
         "query",
@@ -134,7 +128,7 @@ public class YearbookItemSessionBean extends FacesBean {
               && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
             this.setYearbookItem(yearbookPubItem);
             ContextHandler contextHandler =
-                ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());
+                ServiceLocator.getContextHandler(getLoginHelper().getESciDocUserHandle());
             String contextXml =
                 contextHandler.retrieve(getYearbookItem().getContext().getObjectId());
             this.yearbookContext = xmlTransforming.transformToContext(contextXml);

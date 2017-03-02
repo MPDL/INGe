@@ -51,7 +51,6 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
@@ -185,8 +184,6 @@ public class MultipleImport extends FacesBean {
       return null;
     }
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
     Map<String, String> configuration = null;
 
     if (configParameters.size() > 0) {
@@ -205,7 +202,7 @@ public class MultipleImport extends FacesBean {
 
     ImportProcess importProcess =
         new ImportProcess(this.name, uploadedImportFile.getFileName(), this.uploadedFile,
-            this.format, this.context.getReference(), loginHelper.getAccountUser(), rollback,
+            this.format, this.context.getReference(), getLoginHelper().getAccountUser(), rollback,
             duplicateStrategy, configuration);
     importProcess.start();
 

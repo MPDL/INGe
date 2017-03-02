@@ -286,16 +286,6 @@ public class AffiliationBean extends FacesBean {
 
       String cql = query.getCqlQuery();
 
-      /*
-       * try { LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-       * InitialContext ic = new InitialContext(); StatisticLogger sl = (StatisticLogger)
-       * ic.lookup(StatisticLogger.SERVICE_NAME); sl.logSearch(getSessionId(), getIP(),
-       * affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman",
-       * AdminHelper.getAdminUserHandle()); }
-       * 
-       * catch (Exception e) { logger.error("Could not log statistical data", e); }
-       */
-
       // redirect to SearchResultPage which processes the query
       getExternalContext().redirect(
           "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="

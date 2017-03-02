@@ -108,8 +108,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorDisplay;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
@@ -192,8 +190,6 @@ public class ViewItemFull extends FacesBean {
   /** Context list, where SSRN-Button will be available */
   private List<String> ssrnContexts;
 
-  private LoginHelper loginHelper;
-
   /** The url used for the citation */
   private String citationURL;
 
@@ -270,7 +266,6 @@ public class ViewItemFull extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // populate the core service Url
     this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
@@ -281,12 +276,12 @@ public class ViewItemFull extends FacesBean {
         Integer.parseInt(PropertyReader.getProperty(
             "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
 
-    if (loginHelper != null) {
+    if (getLoginHelper() != null) {
       String viewId = getFacesContext().getViewRoot().getViewId();
       if ("/viewItemOverviewPage.jsp".equals(viewId)) {
-        loginHelper.setDetailedMode(false);
+        getLoginHelper().setDetailedMode(false);
       } else if ("/viewItemFullPage.jsp".equals(viewId)) {
-        loginHelper.setDetailedMode(true);
+        getLoginHelper().setDetailedMode(true);
       }
     }
 
@@ -307,7 +302,7 @@ public class ViewItemFull extends FacesBean {
         }
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
       } catch (AuthorizationException e) {
-        if (loginHelper.isLoggedIn()) {
+        if (getLoginHelper().isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
@@ -315,7 +310,7 @@ public class ViewItemFull extends FacesBean {
           login.forceLogout(itemID);
         }
       } catch (AuthenticationException e) {
-        if (loginHelper.isLoggedIn()) {
+        if (getLoginHelper().isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
@@ -377,25 +372,25 @@ public class ViewItemFull extends FacesBean {
 
       if (this.pubItem.getOwner() != null) {
         this.isOwner =
-            (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper
+            (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
                 .getAccountUser().getReference().getObjectId()
                 .equals(this.getPubItem().getOwner().getObjectId()) : false);
 
-        if (this.loginHelper.getAccountUser().getReference() != null
-            && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+        if (getLoginHelper().getAccountUser().getReference() != null
+            && getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
           this.isModerator = false;
           this.isPrivilegedViewer = false;
           this.isDepositor = false;
 
 
           this.isModerator =
-              this.loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
-          this.isDepositor = this.loginHelper.getIsDepositor();
+              getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
+          this.isDepositor = getLoginHelper().getIsDepositor();
           this.isPrivilegedViewer =
-              this.loginHelper.getAccountUser().isPrivilegedViewer(this.getPubItem().getContext());
+              getLoginHelper().getAccountUser().isPrivilegedViewer(this.getPubItem().getContext());
 
           if (!this.isOwner) {
-            for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
+            for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
               if (grant.getRole().equals("escidoc:role-system-administrator")) {
                 this.isOwner = true;
                 break;
@@ -406,7 +401,7 @@ public class ViewItemFull extends FacesBean {
       }
 
       // @author Markus Haarlaender - setting properties for Action Links
-      this.isLoggedIn = this.loginHelper.isLoggedIn();
+      this.isLoggedIn = getLoginHelper().isLoggedIn();
       this.isLatestVersion =
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
               .getVersionNumber();
@@ -499,12 +494,9 @@ public class ViewItemFull extends FacesBean {
           }
 
           String language = this.getPubItem().getMetadata().getLanguages().get(i);
-          InternationalizationHelper internationalizationHelper =
-              (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
           String languageName = null;
           try {
-            languageName =
-                CommonUtils.getConeLanguageName(language, internationalizationHelper.getLocale());
+            languageName = CommonUtils.getConeLanguageName(language, getI18nHelper().getLocale());
           } catch (Exception e) {
             logger.error("Cannot retrieve language information from CoNE", e);
           }
@@ -562,7 +554,7 @@ public class ViewItemFull extends FacesBean {
       // if item is currently part of invalid yearbook items, show Validation Messages
       // ContextListSessionBean clsb =
       // (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-      if (loginHelper.getIsYearbookEditor()) {
+      if (getLoginHelper().getIsYearbookEditor()) {
 
         yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
 
@@ -1362,7 +1354,7 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getShowSystemDetails() {
-    return this.loginHelper.isLoggedIn();
+    return getLoginHelper().isLoggedIn();
   }
 
   /**
@@ -2202,9 +2194,6 @@ public class ViewItemFull extends FacesBean {
       ExportFormatVO expFormat = new ExportFormatVO();
       expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
 
-      InternationalizationHelper ih =
-          (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-
       // Use special apa style if language is set to japanese
       boolean isJapanese = false;
 
@@ -2217,7 +2206,7 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
-      if (isJapanese || "ja".equalsIgnoreCase(ih.getLocale())) {
+      if (isJapanese || "ja".equalsIgnoreCase(getI18nHelper().getLocale())) {
         expFormat.setName("APA(CJK)");
       } else {
         expFormat.setName("APA6");

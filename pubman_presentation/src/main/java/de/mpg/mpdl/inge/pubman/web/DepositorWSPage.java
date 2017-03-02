@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 
 /**
@@ -39,8 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 @SuppressWarnings("serial")
 public class DepositorWSPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "DepositorWSPage";
-
-  private static final Logger logger = Logger.getLogger(DepositorWSPage.class);
 
   // constants for error and status messages
   public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
@@ -69,11 +65,7 @@ public class DepositorWSPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    try {
-      checkForLogin();
-    } catch (Exception e) {
-      logger.error("Could not login." + "\n" + e.toString());
-    }
+    checkForLogin();
   }
 
   @Override

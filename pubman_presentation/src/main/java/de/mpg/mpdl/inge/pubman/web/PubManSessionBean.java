@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 @SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {
@@ -58,12 +57,6 @@ public class PubManSessionBean extends FacesBean {
   }
 
   public boolean isLoggedIn() {
-    LoginHelper loginHelper = this.getLoginHelper();
-
-    return loginHelper.getLoggedIn();
-  }
-
-  private LoginHelper getLoginHelper() {
-    return (LoginHelper) getSessionBean(LoginHelper.class);
+    return getLoginHelper().getLoggedIn();
   }
 }

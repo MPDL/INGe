@@ -4,7 +4,6 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
@@ -28,8 +27,7 @@ public abstract class CriterionBean extends FacesBean {
 
   public SelectItem[] getLogicOptions() {
     LogicOptions[] values = LogicOptions.values();
-    return ((InternationalizationHelper) getSessionBean(InternationalizationHelper.class))
-        .getSelectItemsForEnum(false, values);
+    return getI18nHelper().getSelectItemsForEnum(false, values);
   }
 
   public abstract Criterion getCriterionVO();

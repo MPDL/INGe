@@ -19,9 +19,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
@@ -85,9 +83,6 @@ public class CartItemsRetrieverRequestBean extends
       PubItemStorageSessionBean pssb =
           (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
 
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
-
       List<ItemRO> idList = new ArrayList<ItemRO>();
       for (ItemRO id : pssb.getStoredPubItems().values()) {
         idList.add(id);
@@ -112,9 +107,9 @@ public class CartItemsRetrieverRequestBean extends
         filter.getFilterList().add(f9);
 
         String xmlItemList = "";
-        if (loginHelper.getESciDocUserHandle() != null) {
+        if (getLoginHelper().getESciDocUserHandle() != null) {
           xmlItemList =
-              ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
                   filter.toMap());
         } else {
           xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());

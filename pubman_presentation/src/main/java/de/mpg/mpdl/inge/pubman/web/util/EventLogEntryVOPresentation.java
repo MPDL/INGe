@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import java.util.ResourceBundle;
-
 import javax.faces.context.FacesContext;
 
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -47,8 +45,6 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
   private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
       .getCurrentInstance().getExternalContext().getSessionMap()
       .get(InternationalizationHelper.BEAN_NAME);
-  private final ResourceBundle labelbundle = ResourceBundle.getBundle(i18nHelper
-      .getSelectedLabelBundle());
 
   public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO,
       VersionHistoryEntryVO versionHistoryVO) {
@@ -62,19 +58,19 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
     if (getType() != null) {
       switch (getType()) {
         case CREATE:
-          return this.labelbundle.getString("ViewItemLog_lblCreate");
+          return this.i18nHelper.getLabel("ViewItemLog_lblCreate");
         case RELEASE:
-          return this.labelbundle.getString("ViewItemLog_lblRelease");
+          return this.i18nHelper.getLabel("ViewItemLog_lblRelease");
         case SUBMIT:
-          return this.labelbundle.getString("ViewItemLog_lblSubmit");
+          return this.i18nHelper.getLabel("ViewItemLog_lblSubmit");
         case UPDATE:
-          return this.labelbundle.getString("ViewItemLog_lblUpdate");
+          return this.i18nHelper.getLabel("ViewItemLog_lblUpdate");
         case WITHDRAW:
-          return this.labelbundle.getString("ViewItemLog_lblWithdraw");
+          return this.i18nHelper.getLabel("ViewItemLog_lblWithdraw");
         case IN_REVISION:
-          return this.labelbundle.getString("ViewItemLog_lblInRevision");
+          return this.i18nHelper.getLabel("ViewItemLog_lblInRevision");
         case ASSIGN_VERSION_PID:
-          return this.labelbundle.getString("ViewItemLog_lblAssignVersionPid");
+          return this.i18nHelper.getLabel("ViewItemLog_lblAssignVersionPid");
       }
     }
 

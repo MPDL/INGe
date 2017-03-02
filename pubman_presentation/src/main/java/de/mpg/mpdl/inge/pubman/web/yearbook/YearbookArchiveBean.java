@@ -18,7 +18,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.Search;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -34,24 +33,20 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
-  private final String MAXIMUM_RECORDS = "5000";
   public static final String BEAN_NAME = "YearbookArchiveBean";
+
   private static final Logger logger = Logger.getLogger(YearbookArchiveBean.class);
 
-  // private YearbookItemSessionBean yearbookItemSessionBean;
-  private LoginHelper loginHelper;
-  private XmlTransforming xmlTransforming;
-  // private PubItemVO activeYearbookItem;
-  // private MdsYearbookVO yearbookMetadata;
+  private static final String MAXIMUM_RECORDS = "5000";
+
   private List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
+  private XmlTransforming xmlTransforming;
 
   public YearbookArchiveBean() throws Exception {
-    // this.yearbookItemSessionBean =
-    // (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+    ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
     InitialContext initialContext = new InitialContext();
     this.xmlTransforming =
         (XmlTransforming) initialContext
@@ -59,7 +54,8 @@ public class YearbookArchiveBean extends FacesBean {
     // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    String orgId =
+        getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     filterParams.put(
@@ -67,7 +63,7 @@ public class YearbookArchiveBean extends FacesBean {
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-    filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
+    filterParams.put("maximumRecords", new String[] {MAXIMUM_RECORDS});
     String xmlItemList = itemHandler.retrieveItems(filterParams);
     SearchRetrieveResponseVO result =
         xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);

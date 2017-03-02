@@ -22,7 +22,6 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.Search;
@@ -265,10 +264,9 @@ public class SearchRetrieverRequestBean extends
       ItemContainerSearchResult result = null;
 
       if ("admin".equals(getSearchType())) {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         result =
-            this.searchService.searchForItemContainerAdmin(query,
-                loginHelper.getESciDocUserHandle());
+            this.searchService.searchForItemContainerAdmin(query, getLoginHelper()
+                .getESciDocUserHandle());
       } else {
         result = this.searchService.searchForItemContainer(query);
       }

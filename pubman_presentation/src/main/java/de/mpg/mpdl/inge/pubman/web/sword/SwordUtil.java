@@ -109,7 +109,6 @@ import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.transformation.Transformation;
@@ -181,23 +180,21 @@ public class SwordUtil extends FacesBean {
    */
   public AccountUserVO checkUser(ServiceDocumentRequest sdr) {
     AccountUserVO userVO = null;
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    String username;
-    String pwd;
 
     // Forward http authentification
     if (sdr.getUsername() != null && sdr.getPassword() != null) {
-      username = sdr.getUsername();
-      pwd = sdr.getPassword();
+      String username = sdr.getUsername();
+      String pwd = sdr.getPassword();
       try {
         String handle = AdminHelper.loginUser(username, pwd);
-        loginHelper.setESciDocUserHandle(handle);
-        userVO = loginHelper.getAccountUser();
+        getLoginHelper().setESciDocUserHandle(handle);
+        userVO = getLoginHelper().getAccountUser();
       } catch (Exception e) {
         this.logger.error(e);
         return null;
       }
     }
+
     return userVO;
   }
 
@@ -321,17 +318,15 @@ public class SwordUtil extends FacesBean {
    * @return AccountUserVO
    */
   public AccountUserVO getAccountUser(String user, String pwd) {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    String handle = "";
-
     try {
-      handle = AdminHelper.loginUser(user, pwd);
-      loginHelper.fetchAccountUser(handle);
+      String handle = AdminHelper.loginUser(user, pwd);
+      getLoginHelper().fetchAccountUser(handle);
     } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
-    return loginHelper.getAccountUser();
+
+    return getLoginHelper().getAccountUser();
   }
 
   /**
@@ -601,8 +596,6 @@ public class SwordUtil extends FacesBean {
   }
 
   public String getMethod(PubItemVO item) {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
     boolean isWorkflowStandard = false;
     boolean isWorkflowSimple = true;
 
@@ -623,12 +616,13 @@ public class SwordUtil extends FacesBean {
     isWorkflowSimple =
         getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
 
-    boolean isModerator = loginHelper.getAccountUser().isModerator(item.getContext());
+    boolean isModerator = getLoginHelper().getAccountUser().isModerator(item.getContext());
     boolean isOwner = true;
     if (item.getOwner() != null) {
       isOwner =
-          (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser()
-              .getReference().getObjectId().equals(item.getOwner().getObjectId()) : false);
+          (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
+              .getAccountUser().getReference().getObjectId().equals(item.getOwner().getObjectId())
+              : false);
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {

@@ -29,34 +29,27 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 
+@SuppressWarnings("serial")
 public class LanguageSearchCriterion extends StandardSearchCriterion {
+
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesBean
+      .getSessionBean(InternationalizationHelper.class);
 
   @Override
   public String[] getCqlIndexes(Index indexName) {
-
-
     switch (indexName) {
       case ESCIDOC_ALL:
         return new String[] {"escidoc.publication.language"};
       case ITEM_CONTAINER_ADMIN:
         return new String[] {"\"/md-records/md-record/publication/language\""};
     }
+
     return null;
-
-
-
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale =
-        ((InternationalizationHelper) FacesBean.getSessionBean(InternationalizationHelper.class))
-            .getLocale();
+    String locale = this.i18nHelper.getLocale();
+
     return CommonUtils.getConeLanguageName(getSearchString(), locale);
   }
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.LANG; }
-   */
-
-
 }

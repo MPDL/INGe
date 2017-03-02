@@ -38,41 +38,40 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
 public class YearbookItemCreateBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
-  private static final String MAXIMUM_RECORDS = "5000";
   public static final String BEAN_NAME = "YearbookItemCreateBean";
 
-  private String title;
-  private List<ContextRO> contextIds;
-  private String year;
-  private String startDate;
-  private String endDate;
-  private List<AccountUserRO> collaborators;
+  private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
+
+  private static final String MAXIMUM_RECORDS = "5000";
+
   private AffiliationVOPresentation affiliation;
+  private List<AccountUserRO> collaborators;
+  private List<AccountUserVO> possibleCollaboratorsList;
+  private List<ContextRO> contextIds;
   private List<SelectItem> contextSelectItems;
+  private List<SelectItem> selectableYears;
   private List<SelectItem> userAccountSelectItems;
+  private List<String> collaboratorUserIds;
   private String context;
-  private int contextPosition;
-  private int userPosition;
-  private LoginHelper loginHelper;
+  private String endDate;
+  private String startDate;
+  private String title;
+  private String year;
   private XmlTransforming xmlTransforming;
   private YearbookItemSessionBean yisb;
-  private List<AccountUserVO> possibleCollaboratorsList;
-  private List<String> collaboratorUserIds;
-  private List<SelectItem> selectableYears;
+  private int contextPosition;
+  private int userPosition;
 
   public YearbookItemCreateBean() throws Exception {
     xmlTransforming = new XmlTransformingBean();
     this.selectableYears = new ArrayList<SelectItem>();
-    loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    this.setAffiliation(loginHelper.getAccountUsersAffiliations().get(0));
+    this.setAffiliation(getLoginHelper().getAccountUsersAffiliations().get(0));
     this.yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
     initContextMenu();
     initUserAccountMenu();
@@ -89,9 +88,11 @@ public class YearbookItemCreateBean extends FacesBean {
     selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
       boolean previousYearPossible = true;
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+      String orgId =
+          getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       filterParams
@@ -221,8 +222,7 @@ public class YearbookItemCreateBean extends FacesBean {
 
   public String save() {
     try {
-      loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-      ItemHandler ih = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler ih = ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       PubItemVO pubItem = new PubItemVO();
       pubItem.setContentModel(PropertyReader
           .getProperty("escidoc.pubman.yearbook.content-model.id"));
@@ -369,7 +369,7 @@ public class YearbookItemCreateBean extends FacesBean {
 
   public void initUserAccountMenu() throws Exception {
     UserAccountHandler uah =
-        ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
     this.collaboratorUserIds = new ArrayList<String>();
     this.possibleCollaboratorsList = new ArrayList<AccountUserVO>();
     userAccountSelectItems = new ArrayList<SelectItem>();
@@ -388,7 +388,7 @@ public class YearbookItemCreateBean extends FacesBean {
     for (SearchRetrieveRecordVO rec : results) {
       AccountUserVO userVO = (AccountUserVO) rec.getData();
       if (!userVO.getReference().getObjectId()
-          .equals(loginHelper.getAccountUser().getReference().getObjectId())) {
+          .equals(getLoginHelper().getAccountUser().getReference().getObjectId())) {
         userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
             .getName() + " (" + userVO.getUserid() + ")"));
         this.possibleCollaboratorsList.add(userVO);

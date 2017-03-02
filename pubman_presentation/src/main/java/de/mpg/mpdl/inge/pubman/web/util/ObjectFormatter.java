@@ -38,35 +38,35 @@ import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
 public class ObjectFormatter extends InternationalizedImpl {
   public ObjectFormatter() {}
 
-  /**
-   * distinguish between organizations and persons as creators and formats them to present on jsp
-   * pages.
-   * 
-   * @return String formatted creator
-   * @param creatorObject unformatted creator VO
-   */
-  public String formatCreator(final CreatorVO creatorObject) {
-    StringBuffer creator = new StringBuffer();
-    if (creatorObject != null && creatorObject.getRoleString() != null
-        && !"".equals(creatorObject.getRoleString())) {
-
-      creator.append(getLabel("ENUM_CREATORROLE_" + creatorObject.getRoleString()));
-      creator.append(": ");
-    }
-    if (creatorObject.getPerson() != null) {
-      creator.append(creatorObject.getPerson().getFamilyName());
-      if (creatorObject.getPerson().getGivenName() != null) {
-        if (!creatorObject.getPerson().getGivenName().equals("")) {
-          creator.append(", " + creatorObject.getPerson().getGivenName());
-        }
-      }
-    }
-    if (creatorObject.getOrganization() != null
-        && creatorObject.getOrganization().getName() != null) {
-      creator.append(creatorObject.getOrganization().getName());
-    }
-    return creator.toString();
-  }
+  // /**
+  // * distinguish between organizations and persons as creators and formats them to present on jsp
+  // * pages.
+  // *
+  // * @return String formatted creator
+  // * @param creatorObject unformatted creator VO
+  // */
+  // public String formatCreator(final CreatorVO creatorObject) {
+  // StringBuffer creator = new StringBuffer();
+  // if (creatorObject != null && creatorObject.getRoleString() != null
+  // && !"".equals(creatorObject.getRoleString())) {
+  //
+  // creator.append(getLabel("ENUM_CREATORROLE_" + creatorObject.getRoleString()));
+  // creator.append(": ");
+  // }
+  // if (creatorObject.getPerson() != null) {
+  // creator.append(creatorObject.getPerson().getFamilyName());
+  // if (creatorObject.getPerson().getGivenName() != null) {
+  // if (!creatorObject.getPerson().getGivenName().equals("")) {
+  // creator.append(", " + creatorObject.getPerson().getGivenName());
+  // }
+  // }
+  // }
+  // if (creatorObject.getOrganization() != null
+  // && creatorObject.getOrganization().getName() != null) {
+  // creator.append(creatorObject.getOrganization().getName());
+  // }
+  // return creator.toString();
+  // }
 
   /**
    * distinguish between organizations and persons as creators and formats them to present on jsp

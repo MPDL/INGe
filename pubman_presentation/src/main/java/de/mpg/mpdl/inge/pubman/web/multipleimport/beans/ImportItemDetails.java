@@ -33,7 +33,6 @@ import javax.faces.context.FacesContext;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * A JSF bean class to hold data of an import item's details.
@@ -43,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ImportItemDetails extends FacesBean {
   private int itemId = 0;
   private List<ImportLogItem> details = null;
@@ -54,12 +54,13 @@ public class ImportItemDetails extends FacesBean {
   public ImportItemDetails() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+
     if (idString != null) {
       this.itemId = Integer.parseInt(idString);
     }
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper.getAccountUser() != null) {
-      this.userid = loginHelper.getAccountUser().getReference().getObjectId();
+
+    if (getLoginHelper().getAccountUser() != null) {
+      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
     }
   }
 

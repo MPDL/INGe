@@ -46,15 +46,14 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class UserAccountOptions extends FacesBean {
-  private static final long serialVersionUID = 1L;
   public static final String BEAN_NAME = "UserAccountOptionsBean";
-  private Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
-  private LoginHelper loginHelper;
+
+  private static final Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
 
   private String password;
   private String secondPassword;
-
 
   public String getPassword() {
     return this.password;
@@ -74,22 +73,19 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePassword() {
     try {
-      // InternationalizationHelper internationalizationHelper =
-      // (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
       if (this.password != null && !("").equals(this.password.trim())) {
         if (this.password.equals(this.secondPassword)) {
-          this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
           SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
           formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
           String paramXml =
               "<param last-modification-date=\""
-                  + formatter.format(this.loginHelper.getAccountUser().getLastModificationDate())
+                  + formatter.format(getLoginHelper().getAccountUser().getLastModificationDate())
                   + "\"><password>" + this.getPassword() + "</password></param>";
           UserAccountHandler userAccountHandler =
-              ServiceLocator.getUserAccountHandler(this.loginHelper.getAccountUser().getHandle());
-          userAccountHandler.updatePassword(this.loginHelper.getAccountUser().getReference()
+              ServiceLocator.getUserAccountHandler(getLoginHelper().getAccountUser().getHandle());
+          userAccountHandler.updatePassword(getLoginHelper().getAccountUser().getReference()
               .getObjectId(), paramXml);
-          this.loginHelper.fetchAccountUser(this.loginHelper.getAccountUser().getHandle());
+          getLoginHelper().fetchAccountUser(getLoginHelper().getAccountUser().getHandle());
           info(getMessage("userAccountOptions_PasswordUpdated"));
         } else {
           error(getMessage("userAccountOptions_DifferentPasswords"));
@@ -107,5 +103,4 @@ public class UserAccountOptions extends FacesBean {
 
     return "";
   }
-
 }

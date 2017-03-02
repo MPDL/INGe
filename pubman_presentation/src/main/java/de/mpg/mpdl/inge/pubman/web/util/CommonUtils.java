@@ -93,8 +93,6 @@ public class CommonUtils extends InternationalizedImpl {
   private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
       "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
-
-
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
    * This method is used to convert Enums into SelectItems for dropDownLists.

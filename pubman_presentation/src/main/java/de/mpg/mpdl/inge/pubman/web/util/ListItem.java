@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
@@ -36,6 +37,10 @@ public class ListItem {
   private String value;
   private List<String> stringList;
   private List<ListItem> itemList;
+
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+      .getCurrentInstance().getExternalContext().getSessionMap()
+      .get(InternationalizationHelper.BEAN_NAME);
 
   public int getIndex() {
     return index;
@@ -70,9 +75,8 @@ public class ListItem {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale =
-        ((InternationalizationHelper) InternationalizedImpl
-            .getSessionBean(InternationalizationHelper.class)).getLocale();
+    String locale = this.i18nHelper.getLocale();
+
     return CommonUtils.getConeLanguageName(value, locale);
   }
 

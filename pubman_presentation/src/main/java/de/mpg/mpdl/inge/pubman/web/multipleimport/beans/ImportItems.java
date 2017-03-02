@@ -35,7 +35,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * A JSF bean class to hold the data of the items of an import.
@@ -45,13 +44,15 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ImportItems extends FacesBean {
-  private int importId = 0;
-  private int page = 0;
-  private int itemsPerPage = 0;
-  private String userid = null;
-  private ImportLog log = null;
   private static final Logger logger = Logger.getLogger(ImportItems.class);
+
+  private ImportLog log = null;
+  private String userid = null;
+  private int importId = 0;
+  private int itemsPerPage = 0;
+  private int page = 0;
 
   /**
    * Constructor extracting the import's id and the pagination parameters from the URL and setting
@@ -74,9 +75,8 @@ public class ImportItems extends FacesBean {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper.getAccountUser() != null) {
-      this.userid = loginHelper.getAccountUser().getReference().getObjectId();
+    if (getLoginHelper().getAccountUser() != null) {
+      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
     }
   }
 

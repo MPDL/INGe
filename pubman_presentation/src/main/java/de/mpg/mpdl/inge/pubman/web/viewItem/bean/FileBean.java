@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -73,8 +72,6 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 @SuppressWarnings("serial")
 public class FileBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(FileBean.class);
-
-  private final LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);;
 
   private FileVO file;
   private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
@@ -91,7 +88,7 @@ public class FileBean extends FacesBean {
   public FileBean(FileVO file, State itemState) {
     this.file = file;
     this.itemState = itemState;
-    if (this.loginHelper.getLoggedIn() == true) {
+    if (getLoginHelper().getLoggedIn() == true) {
       initializeFileAccessGranted();
     }
   }
@@ -108,7 +105,7 @@ public class FileBean extends FacesBean {
     this.file = file;
     this.itemState = itemState;
     initialize(file, itemState, searchHitList);
-    if (this.loginHelper.getLoggedIn() == true) {
+    if (getLoginHelper().getLoggedIn() == true) {
       initializeFileAccessGranted();
     }
   }
@@ -176,12 +173,12 @@ public class FileBean extends FacesBean {
       if (file.getReference() != null && file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
         XmlTransformingBean transforming = new XmlTransformingBean();
         UserAccountHandler uah =
-            ServiceLocator.getUserAccountHandler(loginHelper.getAccountUser().getHandle());
+            ServiceLocator.getUserAccountHandler(getLoginHelper().getAccountUser().getHandle());
 
         FilterTaskParamVO filter = new FilterTaskParamVO();
 
         Filter accountUserFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", loginHelper
+            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", getLoginHelper()
                 .getAccountUser().getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(accountUserFilter);
 
@@ -244,9 +241,9 @@ public class FileBean extends FacesBean {
         try {
           GetMethod method = new GetMethod(fileLocation);
           method.setFollowRedirects(false);
-          if (loginHelper.getESciDocUserHandle() != null) {
+          if (getLoginHelper().getESciDocUserHandle() != null) {
             // downloading by account user
-            addHandleToMethod(method, loginHelper.getESciDocUserHandle());
+            addHandleToMethod(method, getLoginHelper().getESciDocUserHandle());
           }
 
           // Execute the method with HttpClient.
