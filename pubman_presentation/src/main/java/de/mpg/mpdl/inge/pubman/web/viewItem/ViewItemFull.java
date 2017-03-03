@@ -75,7 +75,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
-import de.mpg.mpdl.inge.pubman.ItemExporting;
+import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -158,9 +158,6 @@ public class ViewItemFull extends FacesBean {
   private Transformation transformer;
   private YearbookItemSessionBean yisb;
   private int defaultSize = 20;
-
-  @EJB
-  private ItemExporting itemExporting;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -2219,7 +2216,7 @@ public class ViewItemFull extends FacesBean {
       expFormat.setSelectedFileFormat(fileFormat);
 
       byte[] exportFileData = null;
-      exportFileData = itemExporting.getOutput(expFormat, pubItemList);
+      exportFileData = ItemExportingService.getOutput(expFormat, pubItemList);
 
       String exportHtml = new String(exportFileData, "UTF-8");
       try {

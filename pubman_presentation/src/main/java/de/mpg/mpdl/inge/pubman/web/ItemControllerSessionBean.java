@@ -70,7 +70,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.EmailHandling;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.pubman.ItemExporting;
+import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -135,9 +135,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
   @EJB
   private EmailHandling emailHandling;
-
-  @EJB
-  private ItemExporting itemExporting;
 
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
@@ -751,7 +748,7 @@ public class ItemControllerSessionBean extends FacesBean {
       pubItemList.add(new PubItemVO(pubItem));
     }
 
-    return this.itemExporting.getOutput(exportFormatVO, pubItemList);
+    return ItemExportingService.getOutput(exportFormatVO, pubItemList);
   }
 
   /**
