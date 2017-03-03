@@ -36,7 +36,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -46,7 +45,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
@@ -151,12 +150,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    */
   private String query = "";
 
-  @EJB
-  private PubItemDepositing pubItemDepositing;
-
-  public AdvancedSearchBean() {
-
-  }
+  public AdvancedSearchBean() {}
 
   @PostConstruct
   public void postConstruct() {
@@ -755,7 +749,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
       try {
 
-        List<ContextVO> contexts = pubItemDepositing.getPubCollectionListForDepositing();
+        List<ContextVO> contexts = PubItemService.getPubCollectionListForDepositing();
 
         contextListMenu = new ArrayList<SelectItem>();
 
@@ -765,20 +759,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
         Collections.sort(contextListMenu, new SelectItemComparator());
         contextListMenu.add(0, new SelectItem("", "--"));
-
-
-
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
 
-
     return contextListMenu;
-
-
   }
-
 
   public List<SelectItem> getOperatorTypeListMenu() {
     return operatorTypeListMenu;

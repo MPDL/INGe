@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -127,7 +127,7 @@ public class SubmitItem extends FacesBean {
     } else {
       retVal =
           this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
-      if (PubItemDepositing.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
+      if (PubItemService.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
           .getCurrentWorkflow())) {
         retVal =
             this.getItemControllerSessionBean()
@@ -221,12 +221,12 @@ public class SubmitItem extends FacesBean {
 
   public boolean getIsStandardWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+        PubItemService.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+        PubItemService.WORKFLOW_SIMPLE);
   }
 
   public boolean getIsSubmitted() {

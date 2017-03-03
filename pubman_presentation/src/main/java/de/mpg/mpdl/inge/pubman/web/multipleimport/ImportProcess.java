@@ -59,7 +59,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ArxivProcessor;
@@ -129,7 +129,6 @@ public class ImportProcess extends Thread {
   private FormatProcessor formatProcessor;
   private ImportLog log;
   private Map<String, String> configuration = null;
-  private PubItemDepositing pubItemDepositing;
   private Search search;
   private String fileName;
   private String itemContentModel;
@@ -215,9 +214,6 @@ public class ImportProcess extends Thread {
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.pubItemDepositing =
-          (PubItemDepositing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       this.search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
@@ -413,7 +409,7 @@ public class ImportProcess extends Thread {
 
             this.log.addDetail(ErrorLevel.FINE, "import_process_save_item");
 
-            PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
+            PubItemVO savedPubItem = PubItemService.savePubItem(item.getItemVO(), user);
             String objid = savedPubItem.getVersion().getObjectId();
             this.log.setItemId(objid);
             this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported");

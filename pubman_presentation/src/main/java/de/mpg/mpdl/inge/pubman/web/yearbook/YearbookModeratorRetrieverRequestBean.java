@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -74,24 +74,15 @@ public class YearbookModeratorRetrieverRequestBean extends
   @EJB
   private XmlTransforming xmlTransforming;
 
-  @EJB
-  private PubItemDepositing pubItemDepositing;
-
-  // private YearbookItemSessionBean yisb;
   private PubItemListSessionBean pilsb;
 
   public YearbookModeratorRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
-    // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
-    // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
   }
 
   @Override
   public void init() {
     pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-    // HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
-    //
-    // yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
   }
 
   @Override
@@ -249,7 +240,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       if (this.pilsb.getSelectedItems().size() > 0) {
         for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            pubItemDepositing.releasePubItem(yearbookItem.getVersion(), yearbookItem
+            PubItemService.releasePubItem(yearbookItem.getVersion(), yearbookItem
                 .getModificationDate(), "Releasing pubItem", getLoginHelper().getAccountUser());
           } else {
             warn("\"" + yearbookItem.getFullTitle() + "\""

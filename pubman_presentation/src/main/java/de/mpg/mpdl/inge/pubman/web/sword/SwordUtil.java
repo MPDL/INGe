@@ -51,7 +51,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
@@ -96,7 +95,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
@@ -507,7 +506,7 @@ public class SwordUtil extends FacesBean {
        * }
        */
 
-      // Set Version to null in order to force PubItemDepositingBean to create a new item.
+      // Set Version to null in order to force PubItemPubItemService to create a new item.
       itemVO.setVersion(null);
 
 
@@ -552,11 +551,6 @@ public class SwordUtil extends FacesBean {
       SecurityException, TechnicalException {
 
     PubItemVO depositedItem = null;
-    InitialContext initialContext = new InitialContext();
-    PubItemDepositing depositingBean =
-        (PubItemDepositing) initialContext
-            .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-
     String method = this.getMethod(item);
 
     if (method == null) {
@@ -564,15 +558,15 @@ public class SwordUtil extends FacesBean {
     }
 
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
-      depositedItem = depositingBean.savePubItem(item, user);
-      depositedItem = depositingBean.submitPubItem(depositedItem, "", user);
+      depositedItem = PubItemService.savePubItem(item, user);
+      depositedItem = PubItemService.submitPubItem(depositedItem, "", user);
     }
 
     if (method.equals("RELEASE")) {
-      depositedItem = depositingBean.savePubItem(item, user);
-      depositedItem = depositingBean.submitPubItem(depositedItem, "", user);
+      depositedItem = PubItemService.savePubItem(item, user);
+      depositedItem = PubItemService.submitPubItem(depositedItem, "", user);
       depositedItem =
-          depositingBean.releasePubItem(depositedItem.getVersion(),
+          PubItemService.releasePubItem(depositedItem.getVersion(),
               depositedItem.getModificationDate(), "", user);
     }
 

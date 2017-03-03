@@ -5,10 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.ContextCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
@@ -16,7 +15,7 @@ import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 
 public class ContextCriterionCollection {
   public static final String BEAN_NAME = "ContextCriterionCollection";
-  private PubItemDepositing pubItemDepositing = null;
+
   private List<ContextVO> contexts;
   private ContextCriterionBean contextCriterionBean;
   private List<SelectItem> contextList;
@@ -28,11 +27,6 @@ public class ContextCriterionCollection {
    */
   public ContextCriterionCollection() {
     try {
-      InitialContext initialContext = new InitialContext();
-      // initialize used Beans
-      this.pubItemDepositing =
-          (PubItemDepositing) initialContext
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       getContextList();
     } catch (Exception e) {
       e.printStackTrace();
@@ -44,8 +38,7 @@ public class ContextCriterionCollection {
   }
 
   public void getContexts() throws Exception {
-    // contexts = new ArrayList<ContextVO>();
-    this.contexts = this.pubItemDepositing.getPubCollectionListForDepositing();
+    this.contexts = PubItemService.getPubCollectionListForDepositing();
   }
 
   public List<SelectItem> getContextList() throws Exception {

@@ -26,11 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import javax.naming.InitialContext;
-
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 
 /**
@@ -43,7 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  */
 public class DeleteProcess extends Thread {
   private ImportLog log;
-  private PubItemDepositing pubItemDepositing;
   private AccountUserVO user;
 
   /**
@@ -59,10 +56,6 @@ public class DeleteProcess extends Thread {
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process");
 
     try {
-      InitialContext context = new InitialContext();
-      this.pubItemDepositing =
-          (PubItemDepositing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
       this.user = new AccountUserVO();
       this.user.setHandle(log.getUserHandle());
       this.user.setUserid(log.getUser());
@@ -100,7 +93,7 @@ public class DeleteProcess extends Thread {
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
         ItemRO itemRO = new ItemRO(item.getItemId());
         try {
-          this.pubItemDepositing.deletePubItem(itemRO, this.user);
+          PubItemService.deletePubItem(itemRO, this.user);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);

@@ -71,7 +71,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.ItemExporting;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -139,15 +139,6 @@ public class ItemControllerSessionBean extends FacesBean {
   @EJB
   private ItemExporting itemExporting;
 
-  // @EJB
-  // private ItemValidating itemValidating;
-
-  @EJB
-  private PubItemDepositing pubItemDepositing;
-
-  // @EJB
-  // private PubItemPublishing pubItemPublishing;
-
   @EJB
   private PubItemSimpleStatistics pubItemStatistic;
 
@@ -181,8 +172,8 @@ public class ItemControllerSessionBean extends FacesBean {
       this.cleanUpItem(pubItem);
 
       PubItemVO acceptedPubItem =
-          this.pubItemDepositing.releasePubItem(pubItem.getVersion(),
-              pubItem.getModificationDate(), comment, getLoginHelper().getAccountUser());
+          PubItemService.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+              comment, getLoginHelper().getAccountUser());
 
       ItemRO pubItemRO = acceptedPubItem.getVersion();
 
@@ -360,7 +351,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String createNewPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO) {
     try {
       PubItemVO newPubItem =
-          this.pubItemDepositing.createPubItem(pubContextRO, getLoginHelper().getAccountUser());
+          PubItemService.createPubItem(pubContextRO, getLoginHelper().getAccountUser());
       this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newPubItem)));
     } catch (Exception e) {
       logger.error("Could not create item." + "\n" + e.toString(), e);
@@ -387,8 +378,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       PubItemVO newRevision =
-          this.pubItemDepositing.createRevisionOfItem(pubItem, comment, pubContextRO,
-              getLoginHelper().getAccountUser());
+          PubItemService.createRevisionOfItem(pubItem, comment, pubContextRO, getLoginHelper()
+              .getAccountUser());
 
       // setting the returned item as new currentItem
       this.setCurrentPubItem(new PubItemVOPresentation(initializeItem(newRevision)));
@@ -421,7 +412,7 @@ public class ItemControllerSessionBean extends FacesBean {
         // if the item has not been saved before, there is no need to delete it
         logger.warn("Tried to delete an unsaved item. Do nothing instead.");
       } else {
-        this.pubItemDepositing.deletePubItem(this.currentPubItem.getVersion(), getLoginHelper()
+        PubItemService.deletePubItem(this.currentPubItem.getVersion(), getLoginHelper()
             .getAccountUser());
       }
     } catch (Exception e) {
@@ -461,12 +452,12 @@ public class ItemControllerSessionBean extends FacesBean {
     PublicationAdminDescriptorVO.Workflow workflow =
         getCurrentContext().getAdminDescriptor().getWorkflow();
     if (workflow == null || workflow == PublicationAdminDescriptorVO.Workflow.SIMPLE) {
-      return PubItemDepositing.WORKFLOW_SIMPLE;
+      return PubItemService.WORKFLOW_SIMPLE;
     } else if (workflow == PublicationAdminDescriptorVO.Workflow.STANDARD) {
-      return PubItemDepositing.WORKFLOW_STANDARD;
+      return PubItemService.WORKFLOW_STANDARD;
     }
 
-    return PubItemDepositing.WORKFLOW_SIMPLE;
+    return PubItemService.WORKFLOW_SIMPLE;
   }
 
   /**
@@ -709,7 +700,7 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      this.pubItemDepositing.submitPubItem(pubItem, comment, getLoginHelper().getAccountUser());
+      PubItemService.submitPubItem(pubItem, comment, getLoginHelper().getAccountUser());
     } catch (Exception e) {
       logger.error("Could not submit item." + "\n" + e.toString());
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
@@ -972,8 +963,8 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-      this.pubItemDepositing.revisePubItem(currentPubItem.getVersion(), reviseComment,
-          getLoginHelper().getAccountUser());
+      PubItemService.revisePubItem(currentPubItem.getVersion(), reviseComment, getLoginHelper()
+          .getAccountUser());
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
@@ -1000,7 +991,7 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      pubItem = this.pubItemDepositing.savePubItem(pubItem, getLoginHelper().getAccountUser());
+      pubItem = PubItemService.savePubItem(pubItem, getLoginHelper().getAccountUser());
 
       this.setCurrentPubItem(new PubItemVOPresentation(pubItem));
     } catch (TechnicalException tE) {
@@ -1137,8 +1128,8 @@ public class ItemControllerSessionBean extends FacesBean {
       this.cleanUpItem(pubItem);
 
       ItemRO pubItemRO = null;
-      this.pubItemDepositing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
-          comment, getLoginHelper().getAccountUser());
+      PubItemService.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(), comment,
+          getLoginHelper().getAccountUser());
       pubItemRO = new PubItemVO().getVersion();
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
@@ -1181,7 +1172,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
 
-      this.pubItemDepositing.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
+      PubItemService.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
           getLoginHelper().getAccountUser());
     } catch (Exception e) {
       logger.error("Could not withdraw item." + "\n" + e.toString());
