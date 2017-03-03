@@ -65,7 +65,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
+import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -129,9 +129,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return affiliation;
   }
-
-  @EJB
-  private DataGathering dataGathering;
 
   @EJB
   private Search search;
@@ -821,7 +818,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     if (getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList =
-          CommonUtils.convertToRelationVOPresentationList(this.dataGathering
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService
               .findParentItemsOfRevision(getLoginHelper().getESciDocUserHandle(),
                   pubItemVO.getVersion()));
     } else {
@@ -829,7 +826,7 @@ public class ItemControllerSessionBean extends FacesBean {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
       revisionVOList =
-          CommonUtils.convertToRelationVOPresentationList(this.dataGathering
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService
               .findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
     }
 
@@ -861,13 +858,13 @@ public class ItemControllerSessionBean extends FacesBean {
 
     if (getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList =
-          CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(
               getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
     } else {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
       revisionVOList =
-          CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(
               AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
     }
 
