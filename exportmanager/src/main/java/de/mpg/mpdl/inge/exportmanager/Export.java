@@ -65,8 +65,7 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -93,7 +92,7 @@ public class Export implements ExportHandler {
   };
 
   public static CitationStyleHandler csh = null;
-  public static StructuredExportHandler seh = null;
+  // public static StructuredExportHandler seh = null;
 
   public static String COMPONENTS_NS;
   public static String MDRECORDS_NS;
@@ -105,7 +104,7 @@ public class Export implements ExportHandler {
   public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
 
   public static final short BUFFER_SIZE = 1024;
-  private static final int NUMBER_OF_URL_TOKENS = 2;
+  // private static final int NUMBER_OF_URL_TOKENS = 2;
 
   private static String USER_ID;
   private static String PASSWORD;
@@ -118,7 +117,7 @@ public class Export implements ExportHandler {
   public Export() {
 
     csh = getCitationStyleHandler();
-    seh = getStructuredExportHandler();
+    // seh = getStructuredExportHandler();
     try {
       USER_ID = PropertyReader.getProperty("framework.admin.username");
       PASSWORD = PropertyReader.getProperty("framework.admin.password");
@@ -134,12 +133,12 @@ public class Export implements ExportHandler {
   }
 
 
-  private StructuredExportHandler getStructuredExportHandler() {
-    if (seh == null) {
-      seh = new StructuredExport();
-    }
-    return seh;
-  }
+  // private StructuredExportHandler getStructuredExportHandler() {
+  // if (seh == null) {
+  // seh = new StructuredExport();
+  // }
+  // return seh;
+  // }
 
   private CitationStyleHandler getCitationStyleHandler() {
     if (csh == null) {
@@ -166,7 +165,7 @@ public class Export implements ExportHandler {
 
     String structured;
     try {
-      structured = getStructuredExportHandler().explainFormats();
+      structured = StructuredExportService.explainFormats();
     } catch (Exception e) {
       throw new ExportManagerException("Cannot get structured exports explain", e);
     }
@@ -272,7 +271,7 @@ public class Export implements ExportHandler {
     byte[] ba = null;
     if (exportFormatType == ExportFormatTypes.STRUCTURED) {
       try {
-        ba = getStructuredExportHandler().getOutput(itemList, exportFormat);
+        ba = StructuredExportService.getOutput(itemList, exportFormat);
       } catch (Exception e) {
         throw new ExportManagerException("Cannot export structured format", e);
       }
@@ -824,7 +823,7 @@ public class Export implements ExportHandler {
     try {
       if (getCitationStyleHandler().isCitationStyle(exportFormat)) {
         return ExportFormatTypes.LAYOUT;
-      } else if (getStructuredExportHandler().isStructuredFormat(exportFormat)) {
+      } else if (StructuredExportService.isStructuredFormat(exportFormat)) {
         return ExportFormatTypes.STRUCTURED;
       }
     } catch (Exception e) {

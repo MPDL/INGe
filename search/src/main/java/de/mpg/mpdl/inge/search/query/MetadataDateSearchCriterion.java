@@ -24,10 +24,8 @@
  */
 package de.mpg.mpdl.inge.search.query;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.parser.ParseException;

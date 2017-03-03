@@ -48,7 +48,7 @@ import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the result.
@@ -69,11 +69,11 @@ public class RestServlet extends HttpServlet {
   private static final int MAX_SEARCHES_NUMBER = 30;
 
   private static CitationStyleHandler cse;
-  private static StructuredExport se;
+  private static StructuredExportService se;
 
   public RestServlet() {
     cse = CitationStyleHandlerFactory.getCitationStyleHandler();
-    se = new StructuredExport();
+    se = new StructuredExportService();
   }
 
   /**

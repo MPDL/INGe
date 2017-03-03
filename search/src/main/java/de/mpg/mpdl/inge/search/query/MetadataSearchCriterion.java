@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.ThisExpression;
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.CQLParser;

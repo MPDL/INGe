@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 import net.sf.jasperreports.engine.JRException;
@@ -57,9 +57,6 @@ public class ItemExportingService {
 
   @EJB
   private static CitationStyleHandler citationStyleHandler;
-
-  @EJB
-  private static StructuredExportHandler structuredExportHandler;
 
   /**
    * {@inheritDoc}
@@ -103,7 +100,7 @@ public class ItemExportingService {
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
       exportData = citationStyleHandler.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
-      exportData = structuredExportHandler.getOutput(itemList, exportFormat.getName());
+      exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
     } else
       throw new TechnicalException("format Type: " + exportFormat.getFormatType()
           + " is not supported");

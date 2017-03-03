@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 import gov.loc.www.zing.srw.RecordType;
@@ -70,9 +70,6 @@ public class SearchService {
 
   @EJB
   private static CitationStyleHandler citationStyleHandler;
-
-  @EJB
-  private static StructuredExportHandler structuredExportHandler;
 
   public SearchService() {}
 
@@ -314,7 +311,7 @@ public class SearchService {
     byte[] exportData = null;
 
     // structured export
-    if (structuredExportHandler.isStructuredFormat(exportFormat)) {
+    if (StructuredExportService.isStructuredFormat(exportFormat)) {
       exportData =
           getOutput(itemListAsString, new ExportFormatVO(FormatType.STRUCTURED, exportFormat, null));
       exportedResult.setExportedResults(exportData);
@@ -371,7 +368,7 @@ public class SearchService {
       logger.debug("Returning from citationStyleHandler");
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       logger.debug("Calling structuredExportHandler");
-      exportData = structuredExportHandler.getOutput(itemList, exportFormat.getName());
+      exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
       logger.debug("Returning from structuredExportHandler");
     } else {
       // no export format found!!!

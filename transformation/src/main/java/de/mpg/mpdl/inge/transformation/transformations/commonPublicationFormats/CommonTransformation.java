@@ -33,13 +33,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandlerBean;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.endnote.EndNoteTransformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
@@ -69,7 +67,6 @@ public class CommonTransformation {
     byte[] bib = null;
     try {
       XmlTransforming xmlTransforming = new XmlTransformingBean();
-      StructuredExportHandler structExport = new StructuredExportHandlerBean();
       String itemList = "";
       if (!list) {
         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
@@ -78,7 +75,7 @@ public class CommonTransformation {
       } else {
         itemList = new String(src, "UTF-8");
       }
-      bib = structExport.getOutput(itemList, "BIBTEX");
+      bib = StructuredExportService.getOutput(itemList, "BIBTEX");
 
     } catch (Exception e) {
       this.logger.error("An error occurred during a common publication transformation.", e);
@@ -102,7 +99,6 @@ public class CommonTransformation {
     byte[] endnote = null;
     try {
       XmlTransforming xmlTransforming = new XmlTransformingBean();
-      StructuredExportHandler structExport = new StructuredExportHandlerBean();
       String itemList = "";
       if (!list) {
         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
@@ -111,7 +107,7 @@ public class CommonTransformation {
       } else {
         itemList = new String(src, "UTF-8");
       }
-      endnote = structExport.getOutput(itemList, "ENDNOTE");
+      endnote = StructuredExportService.getOutput(itemList, "ENDNOTE");
     } catch (Exception e) {
       this.logger.error("An error occurred during a common publication transformation.", e);
       throw new RuntimeException(e);
