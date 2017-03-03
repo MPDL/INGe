@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import javax.ejb.EJB;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -44,12 +43,12 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ExportSearchQuery;
 import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExport;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the result.
@@ -61,12 +60,7 @@ public class RestServlet extends HttpServlet {
 
   /** Serial identifier. */
   private static final long serialVersionUID = 1L;
-  /** Logging instance. */
   private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
-
-  /** EJB instance of search service. */
-  @EJB
-  private Search itemContainerSearch;
 
   /** Counter for the concurrent searches */
   private static int searchCounter = 0;
@@ -74,10 +68,8 @@ public class RestServlet extends HttpServlet {
   /** Max number of the simultaneous concurrent searches */
   private static final int MAX_SEARCHES_NUMBER = 30;
 
-
   private static CitationStyleHandler cse;
   private static StructuredExport se;
-
 
   public RestServlet() {
     cse = CitationStyleHandlerFactory.getCitationStyleHandler();
@@ -208,7 +200,7 @@ public class RestServlet extends HttpServlet {
 
 
       // query the search service
-      ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
+      ExportSearchResult queryResult = SearchService.searchAndExportItems(query);
 
       byte[] result = queryResult.getExportedResults();
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -24,7 +23,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
@@ -75,15 +74,6 @@ public class SearchRetrieverRequestBean extends
    * The total number of records from the search request
    */
   private int numberOfRecords;
-
-  /**
-   * An instance of the search service.
-   */
-  @EJB
-  private Search searchService;
-
-  // @EJB
-  // private XmlTransforming xmlTransforming;
 
   /**
    * The type of the search (simple, advanced, ...)
@@ -265,10 +255,10 @@ public class SearchRetrieverRequestBean extends
 
       if ("admin".equals(getSearchType())) {
         result =
-            this.searchService.searchForItemContainerAdmin(query, getLoginHelper()
+            SearchService.searchForItemContainerAdmin(query, getLoginHelper()
                 .getESciDocUserHandle());
       } else {
-        result = this.searchService.searchForItemContainer(query);
+        result = SearchService.searchForItemContainer(query);
       }
 
       pubItemList = extractItemsOfSearchResult(result);

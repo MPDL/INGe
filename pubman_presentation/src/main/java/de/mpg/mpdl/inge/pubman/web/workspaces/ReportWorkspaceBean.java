@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.transformation.Configurable;
@@ -53,8 +53,6 @@ public class ReportWorkspaceBean extends FacesBean {
 
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
-  // Search Service
-  private Search searchService = null;
   // Transformation Service
   private Configurable transformer = null;
   // XML TransformingService
@@ -98,8 +96,6 @@ public class ReportWorkspaceBean extends FacesBean {
   public ReportWorkspaceBean() {
     try {
       InitialContext initialContext = new InitialContext();
-      this.searchService =
-          (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
       this.transformer = new TransformationBean();
       this.xmlTransforming =
           (XmlTransforming) initialContext
@@ -269,7 +265,7 @@ public class ReportWorkspaceBean extends FacesBean {
     PlainCqlQuery cqlQuery = new PlainCqlQuery(query);
     ItemContainerSearchResult result;
     try {
-      result = this.searchService.searchForItemContainer(cqlQuery);
+      result = SearchService.searchForItemContainer(cqlQuery);
       totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
       logger.info("Search result total nr: "
           + Integer.parseInt(result.getTotalNumberOfResults().toString()));

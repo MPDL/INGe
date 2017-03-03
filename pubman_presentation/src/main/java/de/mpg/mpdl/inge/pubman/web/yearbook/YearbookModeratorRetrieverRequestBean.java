@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
@@ -67,9 +67,6 @@ public class YearbookModeratorRetrieverRequestBean extends
    * The total number of records
    */
   private int numberOfRecords;
-
-  @EJB
-  private Search searchService;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -217,7 +214,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       }
 
       ItemContainerSearchResult result =
-          this.searchService.searchForItemContainer(new PlainCqlQuery(query));
+          SearchService.searchForItemContainer(new PlainCqlQuery(query));
 
       pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
       pilsb.downloadExportFile(pubItemList);

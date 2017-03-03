@@ -30,14 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
@@ -165,15 +164,13 @@ public class HomePage extends BreadcrumbPage {
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
-    InitialContext ictx = new InitialContext();
-    Search search = (Search) ictx.lookup("java:global/pubman_ear/search/SearchBean");
     String cqlQuery =
         "escidoc.objecttype=item and escidoc.content-model.objid="
             + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
     SearchQuery cql = new PlainCqlQuery(cqlQuery);
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-    ItemContainerSearchResult icsr = search.searchForItemContainer(cql);
+    ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
     List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
   }

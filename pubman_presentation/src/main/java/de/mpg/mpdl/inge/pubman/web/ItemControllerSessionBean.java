@@ -85,7 +85,7 @@ import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
@@ -129,9 +129,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return affiliation;
   }
-
-  @EJB
-  private Search search;
 
   @EJB
   private XmlTransforming xmlTransforming;
@@ -1022,7 +1019,7 @@ public class ItemControllerSessionBean extends FacesBean {
     PlainCqlQuery cqlQuery =
         new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId()
             + ")");
-    OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
+    OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     wrappedAffiliationList =
         CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
@@ -1048,7 +1045,7 @@ public class ItemControllerSessionBean extends FacesBean {
     PlainCqlQuery cqlQuery =
         new PlainCqlQuery(
             "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
-    OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
+    OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     return results.getResults();
   }

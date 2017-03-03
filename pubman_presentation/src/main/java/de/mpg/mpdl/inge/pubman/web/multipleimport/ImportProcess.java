@@ -75,7 +75,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MarcXmlProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.RisProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.WosProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ZfNProcessor;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
@@ -129,7 +129,6 @@ public class ImportProcess extends Thread {
   private FormatProcessor formatProcessor;
   private ImportLog log;
   private Map<String, String> configuration = null;
-  private Search search;
   private String fileName;
   private String itemContentModel;
   private String name;
@@ -214,7 +213,6 @@ public class ImportProcess extends Thread {
       this.xmlTransforming =
           (XmlTransforming) context
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -664,7 +662,7 @@ public class ImportProcess extends Thread {
           criteria.add(criterion);
         }
         MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
-        ItemContainerSearchResult searchResult = search.searchForItemContainer(query);
+        ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
         if (searchResult.getTotalNumberOfResults().equals(NonNegativeInteger.ZERO)) {
           this.log.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected");
           return false;

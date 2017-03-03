@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -123,13 +123,10 @@ public class YearbookArchiveBean extends FacesBean {
    * @return all Members of the choosen yearbook
    */
   public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
-    InitialContext initialContext = new InitialContext();
-    Search searchService =
-        (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getSelectedYearbook());
-    ItemContainerSearchResult result = searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
   }

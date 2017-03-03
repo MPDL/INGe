@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -24,7 +23,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
@@ -78,20 +77,13 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private int numberOfRecords;
 
   private YearbookItemSessionBean yisb;
-  // private PubItemListSessionBean pilsb;
-
-  @EJB
-  private Search searchService;
 
   public YearbookCandidatesRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
-    // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
-    // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
   }
 
   @Override
   public void init() {
-    // pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
   }
 
@@ -542,7 +534,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
           }
 
           System.out.println(query.getCqlQuery());
-          ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
+          ItemContainerSearchResult result = SearchService.searchForItemContainer(query);
 
           pubItemList = extractItemsOfSearchResult(result);
           this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());

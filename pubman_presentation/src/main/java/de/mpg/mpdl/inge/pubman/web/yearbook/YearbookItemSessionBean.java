@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
@@ -59,12 +59,6 @@ public class YearbookItemSessionBean extends FacesBean {
 
   @EJB
   private XmlTransforming xmlTransforming;
-
-  @EJB
-  private Search searchService;
-
-  // @EJB
-  // private ItemValidating itemValidating;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap =
@@ -240,7 +234,7 @@ public class YearbookItemSessionBean extends FacesBean {
     String cqlQuery = YearbookCandidatesRetrieverRequestBean.getCandidateQuery().getCqlQuery();
     cqlQuery += " AND " + MetadataSearchCriterion.getINDEX_OBJID() + "=\"" + id + "\"";
     ItemContainerSearchResult result =
-        this.searchService.searchForItemContainer(new PlainCqlQuery(cqlQuery));
+        SearchService.searchForItemContainer(new PlainCqlQuery(cqlQuery));
     return result.getTotalNumberOfResults().shortValue() == 1;
   }
 
@@ -248,7 +242,7 @@ public class YearbookItemSessionBean extends FacesBean {
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
     mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.OBJID, id, LogicalOperator.AND));
-    ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     return result.getTotalNumberOfResults().shortValue() == 1;
   }
 
@@ -256,7 +250,7 @@ public class YearbookItemSessionBean extends FacesBean {
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
-    ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
   }
@@ -398,6 +392,7 @@ public class YearbookItemSessionBean extends FacesBean {
       error(getMessage("Yearbook_reinitializeError"));
       logger.error("Could not reinitialize Yearbook", e);
     }
+
     return "";
   }
 
@@ -418,7 +413,7 @@ public class YearbookItemSessionBean extends FacesBean {
       }
 
       ItemContainerSearchResult result =
-          searchService.searchForItemContainer(new PlainCqlQuery(query));
+          SearchService.searchForItemContainer(new PlainCqlQuery(query));
 
       pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
       pilsb.downloadExportFile(pubItemList);
@@ -429,6 +424,5 @@ public class YearbookItemSessionBean extends FacesBean {
     }
 
     return "";
-
   }
 }

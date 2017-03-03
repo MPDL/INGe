@@ -31,15 +31,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
@@ -52,21 +50,11 @@ import de.mpg.mpdl.inge.search.query.SearchQuery;
 public class OrganizationSuggest extends EditItemBean {
   private static final Logger logger = Logger.getLogger(OrganizationSuggest.class);
 
-  private Search search;
-
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
     FacesContext context = FacesContext.getCurrentInstance();
     Map<String, String> parameters = context.getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
-
-    // Initialize search service
-    try {
-      InitialContext initialContext = new InitialContext();
-      this.search = (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
-    } catch (NamingException ne) {
-      throw new RuntimeException("Search service not initialized", ne);
-    }
 
     // Perform search request
     if (query != null) {
@@ -83,7 +71,7 @@ public class OrganizationSuggest extends EditItemBean {
       SearchQuery searchQuery = new PlainCqlQuery(queryString);
       searchQuery.setMaximumRecords("50");
 
-      OrgUnitsSearchResult searchResult = this.search.searchForOrganizationalUnits(searchQuery);
+      OrgUnitsSearchResult searchResult = SearchService.searchForOrganizationalUnits(searchQuery);
       for (AffiliationVO affiliationVO : searchResult.getResults()) {
         List<AffiliationVO> initList = new ArrayList<AffiliationVO>();
         initList.add(affiliationVO);
@@ -159,7 +147,7 @@ public class OrganizationSuggest extends EditItemBean {
     SearchQuery searchQuery =
         new PlainCqlQuery("(escidoc.objid=\"" + affiliationRO.getObjectId() + "\")");
 
-    OrgUnitsSearchResult searchResult = this.search.searchForOrganizationalUnits(searchQuery);
+    OrgUnitsSearchResult searchResult = SearchService.searchForOrganizationalUnits(searchQuery);
 
     List<AffiliationVO> resultList = searchResult.getResults();
 

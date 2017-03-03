@@ -38,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -47,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
@@ -66,7 +64,6 @@ public class SiteMapTask extends Thread {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
 
-  private Search search;
   private ArrayList<String> contentModels;
   private FileWriter fileWriter = null;
   private String instanceUrl;
@@ -96,13 +93,6 @@ public class SiteMapTask extends Thread {
 
     try {
       logger.info("Starting to create Sitemap.");
-
-
-      InitialContext context = new InitialContext();
-      // search = (Search) context.lookup(Search.SERVICE_NAME);
-
-      search = (Search) context.lookup("java:global/pubman_ear/search/SearchBean");
-
       instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
       contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
       itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
@@ -357,7 +347,7 @@ public class SiteMapTask extends Thread {
     itemQuery.setStartRecord(firstRecord + "");
     itemQuery.setMaximumRecords(maxItemsPerRetrieve + "");
     try {
-      ItemContainerSearchResult itemSearchResult = search.searchForItemContainer(itemQuery);
+      ItemContainerSearchResult itemSearchResult = SearchService.searchForItemContainer(itemQuery);
       return itemSearchResult;
     } catch (Exception e) {
       logger.error("Error getting items", e);
@@ -379,7 +369,7 @@ public class SiteMapTask extends Thread {
     ouQuery.setStartRecord(firstRecord + "");
     ouQuery.setMaximumRecords(maxItemsPerRetrieve + "");
     try {
-      OrgUnitsSearchResult ouSearchResult = search.searchForOrganizationalUnits(ouQuery);
+      OrgUnitsSearchResult ouSearchResult = SearchService.searchForOrganizationalUnits(ouQuery);
       return ouSearchResult;
     } catch (Exception e) {
       logger.error("Error getting ous", e);

@@ -67,9 +67,6 @@ public class DataGatheringService {
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember"; // "http://escidoc.de/core/01/structural-relations/member";
   private static final String OUTPUT_FORMAT = "RDF/XML";
 
-  /**
-   * Logger for this class.
-   */
   private static final Logger logger = Logger.getLogger(DataGatheringService.class);
 
   /**

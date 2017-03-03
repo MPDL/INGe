@@ -39,8 +39,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.ejb.EJB;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
@@ -49,7 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.LinkVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
@@ -65,33 +63,27 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class BrowseBySessionBean extends FacesBean {
   public static final String BEAN_NAME = "BrowseBySessionBean";
-  private final int maxDisplay = 100;
 
-  private static Logger logger = Logger.getLogger(BrowseBySessionBean.class);
-
-  private boolean showChars = true;
-  List<LinkVO> searchResults;
-  List<String> allResults;
-  private String currentCharacter = "A";
-  private String selectedValue = "persons";
-  private String searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
-  private int yearStart;
-  private String query = "q";
-  private String dateType = "published";
-  private String pubContentModel = "";
+  private static final Logger logger = Logger.getLogger(BrowseBySessionBean.class);
 
   public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();
 
-  String[] characters = null;
-
+  private List<LinkVO> searchResults;
   private List<String> browseByYears;
-
+  private String currentCharacter = "A";
   private String dateMode = "published";
-
-  @EJB
-  private Search search;
+  private String dateType = "published";
+  private String pubContentModel = "";
+  private String query = "q";
+  private String searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
+  private String selectedValue = "persons";
+  private String[] characters = null;
+  private boolean showChars = true;
+  private final int maxDisplay = 100;
+  private int yearStart;
 
   public BrowseBySessionBean() {
     try {
@@ -356,7 +348,7 @@ public class BrowseBySessionBean extends FacesBean {
 
     ItemContainerSearchResult result;
     try {
-      result = search.searchForItemContainer(query);
+      result = SearchService.searchForItemContainer(query);
       item = extractItemsOfSearchResult(result);
 
       // item = pubItemList.get(0);
