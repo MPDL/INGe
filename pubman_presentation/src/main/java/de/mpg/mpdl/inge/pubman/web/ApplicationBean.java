@@ -612,6 +612,4 @@ public class ApplicationBean extends FacesBean {
   public void setCslEditorInstanceUrl(String cslEditorInstanceUrl) {
     this.cslEditorInstanceUrl = cslEditorInstanceUrl;
   }
-
-
 }

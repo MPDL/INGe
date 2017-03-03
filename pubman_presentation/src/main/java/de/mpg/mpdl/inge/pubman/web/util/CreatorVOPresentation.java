@@ -321,7 +321,4 @@ public class CreatorVOPresentation extends CreatorVO {
   public boolean equals(Object obj) {
     return (this == obj);
   }
-
-
-
 }

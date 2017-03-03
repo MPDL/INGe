@@ -348,5 +348,4 @@ public class ReportWorkspaceBean extends FacesBean {
 
     return affListAsString;
   }
-
 }

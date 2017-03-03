@@ -411,5 +411,4 @@ public class MyItemsRetrieverRequestBean extends
   public void setImportSelectItems(List<SelectItem> importSelectItems) {
     this.importSelectItems = importSelectItems;
   }
-
 }

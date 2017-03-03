@@ -67,64 +67,38 @@ public class InternationalizationHelper implements Serializable {
 
   private static final Logger logger = Logger.getLogger(InternationalizationHelper.class);
 
+  public enum SelectMultipleItems {
+    SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
+  }
+
+  public enum SelectComponentAvailability {
+    SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS, SELECT_HAS_FILES_ONLY, SELECT_HAS_LOCATORS_ONLY
+  }
+
+  public enum SelectComponentVisibility {
+    SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC, SELECT_COMPONENT_RESTRICTED
+  }
+
   public static final String LABEL_BUNDLE = "Label";
   public static final String MESSAGES_BUNDLE = "Messages";
   public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
   public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
 
+  public List<String> test = new ArrayList<String>();
+
   private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
+  private String context = null;
+  private SelectItem NO_ITEM_SET = null;
+  private Locale userLocale;
 
   private List<LanguageChangeObserver> languageChangeObservers =
       new ArrayList<LanguageChangeObserver>();
 
-  public String getContext() {
-    return context;
-  }
-
-  public void setContext(String context) {
-    this.context = context;
-  }
-
-  private String context = null;
-
-  public List<String> test = new ArrayList<String>();
-
-  // entry when no item in the comboBox is selected
-  private SelectItem NO_ITEM_SET = null;
-
-  /**
-   * enum for select items.
-   */
-  public enum SelectMultipleItems {
-    SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
-  }
-
-  /**
-   * Enum for component visibility in the advanced search
-   * 
-   * @author endres
-   * 
-   */
-  public enum SelectComponentAvailability {
-    SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS, SELECT_HAS_FILES_ONLY, SELECT_HAS_LOCATORS_ONLY
-  }
-
-  /**
-   * Enum for component acccessability in the advanced search
-   * 
-   * @author endres
-   * 
-   */
-  public enum SelectComponentVisibility {
-    SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC, SELECT_COMPONENT_RESTRICTED
-  }
-
-  Locale userLocale;
-
   public InternationalizationHelper() {
-    userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+    this.userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+
     Iterator<Locale> supportedLocales =
         FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
 
@@ -136,128 +110,123 @@ public class InternationalizationHelper implements Serializable {
         break;
       }
     }
+
     if (!found) {
-      userLocale = new Locale("en");
+      this.userLocale = new Locale("en");
     }
 
-    if (userLocale.getLanguage().equals("de")) {
-      selectedHelpPage = HELP_PAGE_DE;
+    if (this.userLocale.getLanguage().equals("de")) {
+      this.selectedHelpPage = HELP_PAGE_DE;
     } else {
-      selectedHelpPage = HELP_PAGE_EN;
+      this.selectedHelpPage = HELP_PAGE_EN;
     }
-    locale = userLocale.getLanguage();
-    NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
+
+    this.locale = userLocale.getLanguage();
+
+    this.NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
   }
 
   // Getters and Setters
   public String getSelectedLabelBundle() {
-    return LABEL_BUNDLE + "_" + userLocale.getLanguage();
+    return LABEL_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
   public String getSelectedMessagesBundle() {
-    return MESSAGES_BUNDLE + "_" + userLocale.getLanguage();
+    return MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
   public String getSelectedHelpPage() {
-    return selectedHelpPage;
+    return this.selectedHelpPage;
+  }
+
+  public String getContext() {
+    return this.context;
+  }
+
+  public void setContext(String context) {
+    this.context = context;
   }
 
   public void changeLanguage(ValueChangeEvent event) {
     FacesContext fc = FacesContext.getCurrentInstance();
+
     if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue())) {
       Locale locale = null;
       String language = event.getNewValue().toString();
       String country = language.toUpperCase();
       this.locale = language;
+
       try {
         locale = new Locale(language, country);
         fc.getViewRoot().setLocale(locale);
         Locale.setDefault(locale);
-        userLocale = locale;
-        homeContent = "n/a";
-
-
+        this.userLocale = locale;
+        this.homeContent = "n/a";
         notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
         logger.debug("New locale: " + language + "_" + country + " : " + locale);
       } catch (Exception e) {
         logger.error("unable to switch to locale using language = " + language + " and country = "
             + country, e);
       }
+
       if (language.equals("de")) {
-        selectedHelpPage = HELP_PAGE_DE;
+        this.selectedHelpPage = HELP_PAGE_DE;
       } else {
-        selectedHelpPage = HELP_PAGE_EN;
+        this.selectedHelpPage = HELP_PAGE_EN;
       }
     }
   }
 
   public void notifyLanguageChanged(String oldLang, String newLang) {
-    for (LanguageChangeObserver obs : languageChangeObservers) {
+    for (LanguageChangeObserver obs : this.languageChangeObservers) {
       if (obs != null) {
         obs.languageChanged(oldLang, newLang);
       }
-
     }
-
   }
 
   public void addLanguageChangeObserver(LanguageChangeObserver obs) {
-    if (!languageChangeObservers.contains(obs)) {
-      languageChangeObservers.add(obs);
+    if (!this.languageChangeObservers.contains(obs)) {
+      this.languageChangeObservers.add(obs);
     }
   }
 
   public void removeLanguageChangeObserver(LanguageChangeObserver obs) {
-
-    languageChangeObservers.remove(obs);
-
+    this.languageChangeObservers.remove(obs);
   }
 
   public void toggleLocale(ActionEvent event) {
     FacesContext fc = FacesContext.getCurrentInstance();
-
-    //
-    // toggle the locale
     Locale locale = null;
     Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
     String language = (String) map.get("language");
     String country = (String) map.get("country");
     this.locale = language;
+
     try {
       locale = new Locale(language, country);
       fc.getViewRoot().setLocale(locale);
       Locale.setDefault(locale);
-      userLocale = locale;
+      this.userLocale = locale;
       logger.debug("New locale: " + language + "_" + country + " : " + locale);
     } catch (Exception e) {
       logger.error("unable to switch to locale using language = " + language + " and country = "
           + country, e);
     }
+
     if (language.equals("de")) {
-      selectedHelpPage = HELP_PAGE_DE;
+      this.selectedHelpPage = HELP_PAGE_DE;
     } else {
-      selectedHelpPage = HELP_PAGE_EN;
+      this.selectedHelpPage = HELP_PAGE_EN;
     }
   }
 
   public Locale getUserLocale() {
-    return userLocale;
+    return this.userLocale;
   }
 
   public void setUserLocale(final Locale userLocale) {
     this.userLocale = userLocale;
-  }
-
-  public List<String> getTest() {
-    if (test.isEmpty()) {
-      test.add("AAA");
-      test.add("BBB");
-    }
-    return test;
-  }
-
-  public void setTest(List<String> test) {
-    this.test = test;
   }
 
   /**
@@ -270,7 +239,6 @@ public class InternationalizationHelper implements Serializable {
   public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry,
       final Object[] values) {
     Object[] valuesWithoutNull = removeNullValues(values);
-
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
@@ -280,7 +248,6 @@ public class InternationalizationHelper implements Serializable {
                 getLabel(convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
-
     }
 
     if (includeNoItemSelectedEntry) {
@@ -291,7 +258,6 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private static Object[] removeNullValues(Object[] values) {
-
     List<Object> listWithoutNulls = new ArrayList<Object>();
     for (Object o : values) {
       if (o != null) {
@@ -329,14 +295,22 @@ public class InternationalizationHelper implements Serializable {
   public String convertEnumToString(final Object enumObject) {
     if (enumObject != null) {
       return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
-    } else {
-      return "ENUM_EMPTY";
     }
+
+    return "ENUM_EMPTY";
   }
 
   public String getLabel(String placeholder) {
     try {
       return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
+    } catch (MissingResourceException e) {
+      return "???" + placeholder + "???";
+    }
+  }
+
+  public String getMessage(String placeholder) {
+    try {
+      return ResourceBundle.getBundle(this.getSelectedMessagesBundle()).getString(placeholder);
     } catch (MissingResourceException e) {
       return "???" + placeholder + "???";
     }
@@ -494,9 +468,9 @@ public class InternationalizationHelper implements Serializable {
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
     Map<String, String> values = this.getApplicationBean().getContentCategoryMap();
-
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
+
     for (Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
       SelectItem selectItem =
@@ -572,7 +546,7 @@ public class InternationalizationHelper implements Serializable {
   }
 
   public String getLocale() {
-    return locale;
+    return this.locale;
   }
 
   public void setLocale(String locale) {
@@ -587,6 +561,7 @@ public class InternationalizationHelper implements Serializable {
   public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
     InternationalizationHelper.SelectComponentAvailability[] values =
         InternationalizationHelper.SelectComponentAvailability.values();
+
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
@@ -598,6 +573,7 @@ public class InternationalizationHelper implements Serializable {
   public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
     InternationalizationHelper.SelectComponentVisibility[] values =
         InternationalizationHelper.SelectComponentVisibility.values();
+
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
@@ -610,42 +586,38 @@ public class InternationalizationHelper implements Serializable {
    * @return
    */
   public String getHomeContent() {
-    if ("n/a".equals(homeContent)) {
+    if ("n/a".equals(this.homeContent)) {
       try {
         String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
 
         if (contentUrl != null && !contentUrl.equals("")) {
           // Try if there's a specific local version
-          homeContent = getContent(new URL(contentUrl + "." + getLocale()));
+          this.homeContent = getContent(new URL(contentUrl + "." + getLocale()));
 
           // If not try the url without locale
-          if (homeContent == null) {
-            homeContent = getContent(new URL(contentUrl));
+          if (this.homeContent == null) {
+            this.homeContent = getContent(new URL(contentUrl));
           }
-
-
         } else {
-          homeContent = null;
+          this.homeContent = null;
         }
 
       } catch (Exception e) {
         logger.error("Could not retrieve content for home page", e);
-        homeContent = null;
+        this.homeContent = null;
       }
     }
 
-    return homeContent;
+    return this.homeContent;
   }
 
   private String getContent(URL url) throws Exception {
-
     HttpClient httpClient = new HttpClient();
     GetMethod getMethod = new GetMethod(url.toExternalForm());
 
     httpClient.executeMethod(getMethod);
 
     if (getMethod.getStatusCode() == 200) {
-
       BufferedReader in =
           new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
@@ -662,59 +634,57 @@ public class InternationalizationHelper implements Serializable {
       in.close();
 
       return content;
-    } else {
-      return null;
     }
 
-
+    return null;
   }
 
-  /**
-   * Return any bean stored in application scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
-  public static synchronized Object getApplicationBean(final Class<?> cls) {
-    String name = null;
-
-    try {
-      name = (String) cls.getField("BEAN_NAME").get(new String());
-      if (FacesBean.class.getName().equals(name)) {
-        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("Error getting bean name of " + cls, e);
-    }
-    Object result =
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(name);
-
-    logger.debug("Getting bean " + name + ": " + result);
-
-    if (result == null) {
-      try {
-        logger.debug("Creating new application bean: " + name);
-        Object newBean = cls.newInstance();
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
-            .put(name, newBean);
-        return newBean;
-      } catch (Exception e) {
-        throw new RuntimeException("Error creating new bean of type " + cls, e);
-      }
-    } else {
-      return result;
-    }
-  }
+  // /**
+  // * Return any bean stored in application scope under the specified name.
+  // *
+  // * @param cls The bean class.
+  // * @return the actual or new bean instance
+  // */
+  // public static synchronized Object getApplicationBean(final Class<?> cls) {
+  // String name = null;
+  //
+  // try {
+  // name = (String) cls.getField("BEAN_NAME").get(new String());
+  // if (FacesBean.class.getName().equals(name)) {
+  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+  // }
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error getting bean name of " + cls, e);
+  // }
+  // Object result =
+  // FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(name);
+  //
+  // logger.debug("Getting bean " + name + ": " + result);
+  //
+  // if (result == null) {
+  // try {
+  // logger.debug("Creating new application bean: " + name);
+  // Object newBean = cls.newInstance();
+  // FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put(name,
+  // newBean);
+  // return newBean;
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error creating new bean of type " + cls, e);
+  // }
+  // } else {
+  // return result;
+  // }
+  // }
 
   public List<LanguageChangeObserver> getLanguageChangeObservers() {
-    return languageChangeObservers;
+    return this.languageChangeObservers;
   }
 
   public void setLanguageChangeObservers(List<LanguageChangeObserver> languageChangeObservers) {
     this.languageChangeObservers = languageChangeObservers;
   }
 
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+  private ApplicationBean getApplicationBean() {
+    return (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
   }
 }

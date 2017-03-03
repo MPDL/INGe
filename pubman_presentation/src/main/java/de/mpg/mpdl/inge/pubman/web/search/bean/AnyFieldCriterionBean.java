@@ -225,16 +225,4 @@ public class AnyFieldCriterionBean extends CriterionBean {
     // FacesContext context = FacesContext.getCurrentInstance();
     // context.renderResponse();
   }
-
-  // public String getSearchText()
-  // {
-  // return searchText;
-  // }
-  //
-  // public void setSearchText(String searchText)
-  // {
-  // this.searchText = searchText;
-  // getCriterionVO().setSearchString(searchText);
-  // }
-
 }

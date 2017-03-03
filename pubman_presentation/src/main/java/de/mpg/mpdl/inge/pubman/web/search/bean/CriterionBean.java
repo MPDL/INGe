@@ -43,7 +43,7 @@ public abstract class CriterionBean extends FacesBean {
   }
 
   public final String getLogicOperator() {
-    return logicOperator;
+    return this.logicOperator;
   }
 
   public final void setLogicOperator(String logicOperator) {
@@ -58,11 +58,10 @@ public abstract class CriterionBean extends FacesBean {
   }
 
   public final boolean isCollapsed() {
-    return collapsed;
+    return this.collapsed;
   }
 
   public final void setCollapsed(boolean collapsed) {
     this.collapsed = collapsed;
   }
-
 }

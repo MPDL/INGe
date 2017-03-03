@@ -68,7 +68,6 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     InternationalizationHelper i18nHelper =
         (InternationalizationHelper) FacesBean.getSessionBean(InternationalizationHelper.class);
     for (Genre g : Genre.values()) {
-
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 

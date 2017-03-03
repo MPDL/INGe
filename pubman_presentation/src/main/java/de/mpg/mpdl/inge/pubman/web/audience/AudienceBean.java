@@ -479,6 +479,4 @@ public class AudienceBean extends FacesBean {
   public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {
     this.getAudienceSessionBean().setGrantsForAllFiles(grantsForAllFiles);
   }
-
-
 }

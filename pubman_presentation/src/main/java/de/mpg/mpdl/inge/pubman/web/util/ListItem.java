@@ -30,8 +30,6 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
-
 public class ListItem {
   private int index;
   private String value;

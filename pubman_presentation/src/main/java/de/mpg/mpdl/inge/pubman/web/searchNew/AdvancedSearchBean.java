@@ -340,12 +340,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     return vocabs;
   }
 
-
-
   private List<SelectItem> initCriterionTypeListMenu(Index indexName) {
     List<SelectItem> criterionTypeList = new ArrayList<SelectItem>();
-
-
     // General
     criterionTypeList
         .add(new SelectItem(SearchCriterion.TITLE, getLabel("adv_search_lblRgbTitle")));
@@ -356,8 +352,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     criterionTypeList.add(new SelectItem(SearchCriterion.ANY, getLabel("adv_search_lblRgbAny")));
     criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT,
         getLabel("adv_search_lblRgbAnyFulltext")));
-
-
 
     // AdminStuff
     if (indexName == Index.ITEM_CONTAINER_ADMIN) {
@@ -376,7 +370,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);
     }
-
 
     // Persons
     List<SelectItem> personGroupList = new ArrayList<SelectItem>();
@@ -1227,5 +1220,4 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       SearchCriterionBase publicationStatusListSearchCriterion) {
     this.publicationStatusListSearchCriterion = publicationStatusListSearchCriterion;
   }
-
 }

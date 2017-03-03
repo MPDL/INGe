@@ -444,5 +444,4 @@ public class MultipleImport extends FacesBean {
   public void setFixedFileName(String fixedFileName) {
     this.fixedFileName = fixedFileName;
   }
-
 }

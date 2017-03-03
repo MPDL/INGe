@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.util;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
 
 /**
  * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp.
@@ -35,38 +34,8 @@ import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
  * @author: Tobias Schraut, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
-public class ObjectFormatter extends InternationalizedImpl {
+public class ObjectFormatter {
   public ObjectFormatter() {}
-
-  // /**
-  // * distinguish between organizations and persons as creators and formats them to present on jsp
-  // * pages.
-  // *
-  // * @return String formatted creator
-  // * @param creatorObject unformatted creator VO
-  // */
-  // public String formatCreator(final CreatorVO creatorObject) {
-  // StringBuffer creator = new StringBuffer();
-  // if (creatorObject != null && creatorObject.getRoleString() != null
-  // && !"".equals(creatorObject.getRoleString())) {
-  //
-  // creator.append(getLabel("ENUM_CREATORROLE_" + creatorObject.getRoleString()));
-  // creator.append(": ");
-  // }
-  // if (creatorObject.getPerson() != null) {
-  // creator.append(creatorObject.getPerson().getFamilyName());
-  // if (creatorObject.getPerson().getGivenName() != null) {
-  // if (!creatorObject.getPerson().getGivenName().equals("")) {
-  // creator.append(", " + creatorObject.getPerson().getGivenName());
-  // }
-  // }
-  // }
-  // if (creatorObject.getOrganization() != null
-  // && creatorObject.getOrganization().getName() != null) {
-  // creator.append(creatorObject.getOrganization().getName());
-  // }
-  // return creator.toString();
-  // }
 
   /**
    * distinguish between organizations and persons as creators and formats them to present on jsp

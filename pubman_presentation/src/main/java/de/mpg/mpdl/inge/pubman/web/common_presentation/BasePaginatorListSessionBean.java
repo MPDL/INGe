@@ -909,5 +909,4 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   protected ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
-
 }

@@ -120,7 +120,7 @@ public class IdentifierCollection extends FacesBean {
     }
 
     public List<IdentifierVO> getDataListFromVO() {
-      return parentVO;
+      return this.parentVO;
     }
 
     public void setParentVO(List<IdentifierVO> parentVO) {
@@ -134,7 +134,7 @@ public class IdentifierCollection extends FacesBean {
   }
 
   public IdentifierManager getIdentifierManager() {
-    return identifierManager;
+    return this.identifierManager;
   }
 
   public void setIdentifierManager(IdentifierManager identifierManager) {

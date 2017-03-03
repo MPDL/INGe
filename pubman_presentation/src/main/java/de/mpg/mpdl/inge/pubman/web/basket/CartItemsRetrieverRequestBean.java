@@ -199,5 +199,4 @@ public class CartItemsRetrieverRequestBean extends
     ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
     exportItemsBean.updateExportFormats();
   }
-
 }

@@ -50,7 +50,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.Internationalized;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.bean.FileBean;
@@ -65,14 +64,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubItemVOPresentation extends PubItemVO implements Internationalized {
+public class PubItemVOPresentation extends PubItemVO {
   private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
       .getCurrentInstance().getExternalContext().getSessionMap()
       .get(InternationalizationHelper.BEAN_NAME);
-  private final ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper
-      .getSelectedLabelBundle());
-  private final ResourceBundle messageBundle = ResourceBundle.getBundle(i18nHelper
-      .getSelectedMessagesBundle());
 
   private boolean selected = false;
   private boolean shortView = true;
@@ -895,24 +890,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     return sourceTitle;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getLabel(java.lang.String)
-   */
-  public String getLabel(String placeholder) {
-    return this.labelBundle.getString(placeholder);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getMessage(java.lang.String)
-   */
-  public String getMessage(String placeholder) {
-    return this.messageBundle.getString(placeholder);
-  }
-
   /**
    * This method examines the pubitem concerning its files and generates a display string for the
    * page according to the number of files detected.
@@ -1558,9 +1535,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
   }
 
   public ValidationReportVO getValidationReport() {
-    return validationReport;
+    return this.validationReport;
   }
-
 
   public String getPublicationStatus() {
     if (getMetadata().getDatePublishedInPrint() != null
@@ -1578,10 +1554,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     } else {
       return getLabel("ViewItem_lblPublicationState_not-specified");
     }
-
   }
 
   protected ApplicationBean getApplicationBean() {
     return (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+  }
+
+  private String getLabel(String placeholder) {
+    return this.i18nHelper.getLabel(placeholder);
   }
 }

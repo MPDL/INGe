@@ -39,6 +39,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
@@ -49,7 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version
  */
 @SuppressWarnings("serial")
-public class FacesBean extends InternationalizedImpl implements Serializable {
+public class FacesBean implements Serializable {
   public static final String BEAN_NAME = FacesBean.class.getName();
 
   private static final Logger logger = Logger.getLogger(FacesBean.class);
@@ -362,11 +363,95 @@ public class FacesBean extends InternationalizedImpl implements Serializable {
   protected void checkForLogin() {
     // if not logged in redirect to login page
     if (!getLoginHelper().isLoggedIn()) {
-      info(getMessage("NotLoggedIn"));
+      info(getI18nHelper().getMessage("NotLoggedIn"));
     }
   }
 
   public LoginHelper getLoginHelper() {
     return (LoginHelper) getSessionBean(LoginHelper.class);
+  }
+
+  public InternationalizationHelper getI18nHelper() {
+    return (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+  }
+
+  public String getMessage(String placeholder) {
+    return getI18nHelper().getMessage(placeholder);
+  }
+
+  public String getLabel(String placeholder) {
+    return getI18nHelper().getLabel(placeholder);
+  }
+
+  /**
+   * Return any bean stored in request scope under the specified name.
+   * 
+   * @param cls The bean class.
+   * @return the actual or new bean instance
+   */
+  public static Object getRequestBean(final Class<?> cls) {
+    String name = null;
+
+    try {
+      name = (String) cls.getField("BEAN_NAME").get(new String());
+      if (FacesBean.class.getName().equals(name)) {
+        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error getting bean name of " + cls, e);
+    }
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    return cls
+        .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+  }
+
+  /**
+   * Return any bean stored in session scope under the specified name.
+   * 
+   * @param cls The bean class.
+   * @return the actual or new bean instance
+   */
+  public static Object getSessionBean(final Class<?> cls) {
+    String name = null;
+
+    try {
+      name = (String) cls.getField("BEAN_NAME").get(new String());
+      if (FacesBean.class.getName().equals(name)) {
+        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error getting bean name of " + cls, e);
+    }
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    Object bean =
+        cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+
+    return bean;
+  }
+
+  /**
+   * Return any bean stored in application scope under the specified name.
+   * 
+   * @param cls The bean class.
+   * @return the actual or new bean instance
+   */
+  public static Object getApplicationBean(final Class<?> cls) {
+    String name = null;
+
+    try {
+      name = (String) cls.getField("BEAN_NAME").get(new String());
+      if (FacesBean.class.getName().equals(name)) {
+        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error getting bean name of " + cls, e);
+    }
+
+    FacesContext context = FacesContext.getCurrentInstance();
+
+    return cls
+        .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
   }
 }

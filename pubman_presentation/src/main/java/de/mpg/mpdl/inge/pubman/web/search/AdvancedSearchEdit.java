@@ -408,8 +408,6 @@ public class AdvancedSearchEdit extends FacesBean {
     this.fileCriterionCollection = fileCriterionCollection;
   }
 
-
-
   /**
    * @return the localTagCriterionCollection
    */
@@ -424,8 +422,6 @@ public class AdvancedSearchEdit extends FacesBean {
     this.localTagCriterionCollection = localTagCriterionCollection;
   }
 
-
-
   public DegreeCriterionCollection getDegreeCriterionCollection() {
     return degreeCriterionCollection;
   }
@@ -433,7 +429,4 @@ public class AdvancedSearchEdit extends FacesBean {
   public void setDegreeCriterionCollection(DegreeCriterionCollection degreeCriterionCollection) {
     this.degreeCriterionCollection = degreeCriterionCollection;
   }
-
-
-
 }

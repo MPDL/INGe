@@ -510,7 +510,7 @@ public class LoginHelper extends FacesBean {
       e.printStackTrace();
 
     }
+
     return null;
   }
-
 }
