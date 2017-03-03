@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
+import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -89,22 +89,22 @@ public class ViewItemStatistics extends FacesBean {
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
-        SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
+        SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
   }
 
   public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
-        SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
+        SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
   }
 
   public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
-        SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
   }
 
   public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
     return getItemControllerSessionBean().getStatisticValue(
-        SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
   }
 
   public List<PubFileVOPresentation> getFileList() {

@@ -72,7 +72,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
-import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
+import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
@@ -135,9 +135,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
   @EJB
   private EmailHandling emailHandling;
-
-  @EJB
-  private PubItemSimpleStatistics pubItemStatistic;
 
   @EJB
   private Search search;
@@ -471,7 +468,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
-    return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem
+    return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem
         .getVersion().getObjectId(), getLoginHelper().getAccountUser());
   }
 

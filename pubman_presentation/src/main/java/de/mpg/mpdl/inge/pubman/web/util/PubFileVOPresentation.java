@@ -35,8 +35,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.faces.event.ValueChangeEvent;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -44,8 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.pubman.PubItemSimpleStatistics;
-import de.mpg.mpdl.inge.pubman.statistics.SimpleStatistics;
+import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
@@ -68,7 +65,6 @@ public class PubFileVOPresentation extends FacesBean {
 
   private FileVO file;
   private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
-  private PubItemSimpleStatistics pubItemStatistics;
   private String fileType;
   private boolean isLocator = false;
   private int index;
@@ -107,19 +103,6 @@ public class PubFileVOPresentation extends FacesBean {
 
   public void init() {
     setVisibility();
-  }
-
-  private void initStatisticService() {
-    if (pubItemStatistics == null) {
-      try {
-        InitialContext initialContext = new InitialContext();
-        pubItemStatistics =
-            (PubItemSimpleStatistics) initialContext
-                .lookup("java:global/pubman_ear/pubman_logic/SimpleStatistics");
-      } catch (NamingException e) {
-        logger.debug("Couldn't find PubItemSimpleStatistics Service");
-      }
-    }
   }
 
   /**
@@ -170,22 +153,22 @@ public class PubFileVOPresentation extends FacesBean {
       contentCategoryURI =
           PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(PubFileVOPresentation.class).info(
-            "Content-category properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class)
+            .info("Content-category properties URI is " + contentCategoryURI.toString());
         InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();
 
-        Logger.getLogger(PubFileVOPresentation.class).info(
-            "Content-category properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class)
+            .info("Content-category properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(PubFileVOPresentation.class).debug(
-            "Content-category properties file not found.");
+        Logger.getLogger(PubFileVOPresentation.class)
+            .debug("Content-category properties file not found.");
       }
     } catch (Exception e) {
-      Logger.getLogger(PubFileVOPresentation.class).warn(
-          "WARNING: content-category properties not found: " + e.getMessage());
+      Logger.getLogger(PubFileVOPresentation.class)
+          .warn("WARNING: content-category properties not found: " + e.getMessage());
     }
     return properties;
   }
@@ -414,23 +397,19 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
-    initStatisticService();
     String fileID = file.getReference().getObjectId();
 
-    String result =
-        pubItemStatistics.getNumberOfItemOrFileRequests(
-            SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
-            getLoginHelper().getAccountUser());
+    String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
+        getLoginHelper().getAccountUser());
     return result;
   }
 
   public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
-    initStatisticService();
     String fileID = file.getReference().getObjectId();
-    String result =
-        pubItemStatistics.getNumberOfItemOrFileRequests(
-            SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
-            getLoginHelper().getAccountUser());
+    String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
+        getLoginHelper().getAccountUser());
     return result;
   }
 
