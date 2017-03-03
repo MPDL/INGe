@@ -62,7 +62,7 @@ import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
+import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
@@ -116,7 +116,7 @@ public class Export implements ExportHandler {
 
   public Export() {
 
-    csh = getCitationStyleHandler();
+    // csh = getCitationStyleHandler();
     // seh = getStructuredExportHandler();
     try {
       USER_ID = PropertyReader.getProperty("framework.admin.username");
@@ -140,12 +140,12 @@ public class Export implements ExportHandler {
   // return seh;
   // }
 
-  private CitationStyleHandler getCitationStyleHandler() {
-    if (csh == null) {
-      csh = CitationStyleHandlerFactory.getCitationStyleHandler();
-    }
-    return csh;
-  }
+  // private CitationStyleHandler getCitationStyleHandler() {
+  // if (csh == null) {
+  // csh = CitationStyleHandlerFactory.getCitationStyleHandler();
+  // }
+  // return csh;
+  // }
 
   /*
    * (non-Javadoc)
@@ -158,7 +158,7 @@ public class Export implements ExportHandler {
 
     String citStyles;
     try {
-      citStyles = getCitationStyleHandler().explainStyles();
+      citStyles = CitationStyleExecutor.explainStyles();
     } catch (Exception e) {
       throw new ExportManagerException("Cannot get citation styles explain", e);
     }
@@ -281,8 +281,8 @@ public class Export implements ExportHandler {
 
       try {
         ba =
-            getCitationStyleHandler().getOutput(itemList,
-                new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat));
+            CitationStyleExecutor.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
+                exportFormat, outputFormat));
       } catch (Exception e) {
         throw new ExportManagerException("Cannot export citation", e);
       }
@@ -552,7 +552,6 @@ public class Export implements ExportHandler {
       default:
         throw new ExportManagerException("Archive format " + archiveFormat + " is not supported");
     }
-
   }
 
   /**
@@ -589,6 +588,7 @@ public class Export implements ExportHandler {
         bis.close();
         zos.closeEntry();
       } else {
+        bis.close();
         throw new ExportManagerException("Wrong archive OutputStream: " + os);
       }
     }
@@ -821,7 +821,7 @@ public class Export implements ExportHandler {
       throw new ExportManagerException("Empty export format");
     }
     try {
-      if (getCitationStyleHandler().isCitationStyle(exportFormat)) {
+      if (CitationStyleExecutor.isCitationStyle(exportFormat)) {
         return ExportFormatTypes.LAYOUT;
       } else if (StructuredExportService.isStructuredFormat(exportFormat)) {
         return ExportFormatTypes.STRUCTURED;

@@ -40,8 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandlerFactory;
+import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -68,13 +67,7 @@ public class RestServlet extends HttpServlet {
   /** Max number of the simultaneous concurrent searches */
   private static final int MAX_SEARCHES_NUMBER = 30;
 
-  private static CitationStyleHandler cse;
-  private static StructuredExportService se;
-
-  public RestServlet() {
-    cse = CitationStyleHandlerFactory.getCitationStyleHandler();
-    se = new StructuredExportService();
-  }
+  public RestServlet() {}
 
   /**
    * {@inheritDoc}
@@ -122,12 +115,13 @@ public class RestServlet extends HttpServlet {
         exportFormat = "ENDNOTE";
         // if exportFormat is ENDNOTE set outputFormat forced to the
         // txt
-      } else if (!(cse.isCitationStyle(exportFormat) || se.isStructuredFormat(exportFormat))) {
+      } else if (!(CitationStyleExecutor.isCitationStyle(exportFormat) || StructuredExportService
+          .isStructuredFormat(exportFormat))) {
         resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
         return;
       }
 
-      if (se.isStructuredFormat(exportFormat)) {
+      if (StructuredExportService.isStructuredFormat(exportFormat)) {
 
         outputFormat =
             exportFormat.equalsIgnoreCase("XML") ? "xml" : exportFormat
@@ -145,7 +139,7 @@ public class RestServlet extends HttpServlet {
           outputFormat = FileFormatVO.DEFAULT_NAME;
         }
         // check output format consistency
-        else if (cse.getMimeType(exportFormat, outputFormat) == null) {
+        else if (CitationStyleExecutor.getMimeType(exportFormat, outputFormat) == null) {
           resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
               + " is not supported for the export format: " + exportFormat);
           return;
@@ -154,7 +148,7 @@ public class RestServlet extends HttpServlet {
       }
 
       // check the max number of the concurrent searches
-      if (cse.isCitationStyle(exportFormat)) {
+      if (CitationStyleExecutor.isCitationStyle(exportFormat)) {
         isCitationStyle = true;
         LOGGER.debug("Number of the concurrent searches 1:" + searchCounter);
         if (searchCounter > MAX_SEARCHES_NUMBER) {

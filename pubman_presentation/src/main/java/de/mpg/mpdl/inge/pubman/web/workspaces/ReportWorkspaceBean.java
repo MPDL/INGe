@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -57,8 +57,6 @@ public class ReportWorkspaceBean extends FacesBean {
   private Configurable transformer = null;
   // XML TransformingService
   private XmlTransforming xmlTransforming = null;
-  // Citation Style Handler
-  private CitationStyleHandler citationStyleHandler;
 
   // String cqlQuery = null;
   private String csExportFormat = "JUS_Report";
@@ -100,9 +98,6 @@ public class ReportWorkspaceBean extends FacesBean {
       this.xmlTransforming =
           (XmlTransforming) initialContext
               .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.citationStyleHandler =
-          (CitationStyleHandler) initialContext
-              .lookup("java:global/pubman_ear/citationmanager/CitationStyleHandlerBean");
       this.configuration = new HashMap<String, String>();
       this.childAffilList = new ArrayList<String>();
       Format[] targetFormats =
@@ -286,7 +281,7 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData =
-          citationStyleHandler.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
+          CitationStyleExecutor.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
               csExportFormat, csOutputFormat));
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);

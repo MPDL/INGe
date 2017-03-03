@@ -35,8 +35,7 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerDefaultImpl;
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageUtils;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
@@ -53,7 +52,7 @@ public class TestCitationStyleLanguageManager {
   private static final String PATH_CITATION_STYLE = "citationStyleChicago.xml";
   private static final String PATH_ESCDOC_ITEM = "escidocItemXml.xml";
   private static final String EXPORT_FORMAT_NAME = "CSL";
-  private String citationStyleXml = null;
+
   private String escidocItemXml = null;
   private ExportFormatVO exportFormat;
 
@@ -65,9 +64,9 @@ public class TestCitationStyleLanguageManager {
   @Before
   public void init() throws Exception {
     BasicConfigurator.configure();
-    this.citationStyleXml =
-        IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader()
-            .getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
+    IOUtils.toString(
+        TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(
+            PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader()
             .getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
@@ -99,16 +98,16 @@ public class TestCitationStyleLanguageManager {
   };
 
   /**
-   * testing the result of {@link CitationStyleLanguageManagerDefaultImpl}
+   * testing the result of {@link CitationStyleLanguageManagerService}
    * 
    * @throws Exception
    */
   @Test
   public void testDefaultImplementation() throws Exception {
-    CitationStyleLanguageManagerInterface cslManager =
-        new CitationStyleLanguageManagerDefaultImpl(this.citationStyleXml);
     String citationSnippet =
-        IOUtils.toString(cslManager.getOutput(this.exportFormat, this.escidocItemXml), "UTF-8");
+        IOUtils.toString(
+            CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml),
+            "UTF-8");
     assertEquals(
         "Walter, Matthias, Markus Haarländer, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. “CSL Test - Vortrag - Do Not Change!” Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana Wäldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <i>International Zoo Yearbook</i>. Habilitation Thesis presented at the EventTitel, EventOrt.",
         CitationStyleLanguageUtils.parseTagFromXml(citationSnippet, "bibliographicCitation",

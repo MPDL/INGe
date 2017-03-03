@@ -67,9 +67,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   private static XmlHelper xh = new XmlHelper();
 
-  private static CitationStyleExecutor cse = new CitationStyleExecutor();
-
-
   public void compile(String cs) throws CitationStyleManagerException {
     Utils.checkName(cs, "Citaion Style is not defined");
 
@@ -153,7 +150,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   public static void main(String args[]) throws IOException, CitationStyleManagerException,
       JRException {
-
     CitationStyleManager csm = new CitationStyleManagerImpl();
 
     String il = null;
@@ -197,16 +193,15 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
-          cse.getOutput(
-              ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader()),
-              new ExportFormatVO(FormatType.LAYOUT, cs, task));
+          CitationStyleExecutor
+              .getOutput(ResourceUtil.getResourceAsString(il,
+                  CitationStyleManagerImpl.class.getClassLoader()), new ExportFormatVO(
+                  FormatType.LAYOUT, cs, task));
       FileOutputStream fos = new FileOutputStream(outFile);
       fos.write(result);
       fos.close();
       System.out.println("OK");
     }
-
-
   }
 
   private static void usage() {
@@ -214,7 +209,5 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     System.out.println("\tjava CitationStyleManagerImpl -Ttask -CScitationstyle -ILitemlist");
     System.out
         .println("\tTasks : validate | compile | pdf | rtf | odt | txt | html_plain | html_styled | snippet | escidoc_snippet");
-
   }
-
 }

@@ -45,13 +45,11 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerDefaultImpl;
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
@@ -66,59 +64,22 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
-public class CitationStyleExecutor implements CitationStyleHandler {
-
-  private CitationStyleLanguageManagerInterface citationStyleLanguageManager =
-      new CitationStyleLanguageManagerDefaultImpl();
-
-  private static String pubManUrl = null;
-
+public class CitationStyleExecutor {
   private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);
 
-  // private static ProcessCitationStyles pcs = new ProcessCitationStyles();
-
-
-  /*
-   * Explains citation styles and output types for them
-   * 
-   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#explainStyles()
-   */
-  public String explainStyles() throws CitationStyleManagerException {
+  public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
-   */
-  public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
-    return XmlHelper.getOutputFormatsArray(cs);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getMimeType(java.lang.String,
-   * java.lang.String)
-   */
-  public String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
+  public static String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
     return XmlHelper.getMimeType(cs, ouf);
   }
 
-
-
-  public byte[] getOutput(String itemList, ExportFormatVO exportFormat)
+  public static byte[] getOutput(String itemList, ExportFormatVO exportFormat)
       throws CitationStyleManagerException {
-
     Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()),
         "Output format is not defined");
-
     Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
-
-
 
     String outputFormat = exportFormat.getSelectedFileFormat().getName();
     byte[] result = null;
@@ -133,7 +94,8 @@ public class CitationStyleExecutor implements CitationStyleHandler {
 
       if ("CSL".equals(exportFormat.getName())) {
         snippet =
-            new String(citationStyleLanguageManager.getOutput(exportFormat, itemList), "UTF-8");
+            new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
+                "UTF-8");
       } else {
 
         StringWriter sw = new StringWriter();
@@ -153,14 +115,10 @@ public class CitationStyleExecutor implements CitationStyleHandler {
         snippet = sw.toString();
       }
 
-
-
       // new edoc md set
       if ("escidoc_snippet".equals(outputFormat)) {
         result = snippet.getBytes("UTF-8");
-      }
-      // old edoc md set: back transformation
-      else if ("snippet".equals(outputFormat)) {
+      } else if ("snippet".equals(outputFormat)) { // old edoc md set: back transformation
         Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
         Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
@@ -177,14 +135,10 @@ public class CitationStyleExecutor implements CitationStyleHandler {
         result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
       } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
         String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
-
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
         XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
         MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
-        // mdp.addStyledParagraphOfText("Title", "Citation Style " + cs);
-
         List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
-
 
         // Remove line-height information for every paragraph
         for (Object xhtmlObject : xhtmlObjects) {
@@ -194,9 +148,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
           } catch (Exception e) {
             logger.error("Error while removing spacing information during docx export");
           }
-
         }
-
 
         mdp.getContent().addAll(xhtmlObjects);
 
@@ -212,57 +164,25 @@ public class CitationStyleExecutor implements CitationStyleHandler {
           FOSettings foSettings = Docx4J.createFOSettings();
           foSettings.setWmlPackage(wordOutputDoc);
           Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
-
         }
 
         bos.flush();
         result = bos.toByteArray();
-
-
-
       }
-
-
-      // logger.info( "snippet: " + extractBibliographicCitation(snippet) );
-
     } catch (Exception e) {
       throw new RuntimeException("Error by transformation:", e);
     }
-    //
+
     return result;
-    // return XmlHelper.outputString(itemListDoc).getBytes("UTF-8");
-
   }
 
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#getStyles()
-   */
-  public String[] getStyles() throws CitationStyleManagerException {
-    try {
-      return XmlHelper.getListOfStyles();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
-    }
-  }
-
-  public boolean isCitationStyle(String cs) throws CitationStyleManagerException {
+  public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
     return XmlHelper.isCitationStyle(cs);
   }
 
-  /**
-   * Generates custom HTML output
-   * 
-   * @param snippets
-   * @param html_format is linked format trigger, <code>false</code> by default
-   * @return String
-   */
-  private String generateHtmlOutput(String snippets, String html_format, String outputMethod,
-      boolean indent) {
+  private static String generateHtmlOutput(String snippets, String html_format,
+      String outputMethod, boolean indent) {
     StringWriter result = new StringWriter();
     try {
       Transformer transformer =
@@ -284,29 +204,26 @@ public class CitationStyleExecutor implements CitationStyleHandler {
     return result.toString();
   }
 
-
-  /**
-   * Resolves PubMan instance url
-   * 
-   * @return PubMan URL
-   */
   private static String getPubManUrl() {
-    if (pubManUrl == null) {
-      try {
-        String contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-        pubManUrl =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + (contextPath == null ? "" : contextPath);
-        return pubManUrl;
-      } catch (Exception e) {
-        throw new RuntimeException("Cannot get property:", e);
-      }
-    } else {
-      return pubManUrl;
+    try {
+      String contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+      return PropertyReader.getProperty("escidoc.pubman.instance.url")
+          + (contextPath == null ? "" : contextPath);
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot get property:", e);
     }
-
-
   }
 
+  public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
+    return XmlHelper.getOutputFormatsArray(cs);
+  }
 
+  public String[] getStyles() throws CitationStyleManagerException {
+    try {
+      return XmlHelper.getListOfStyles();
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
+    }
+  }
 }
