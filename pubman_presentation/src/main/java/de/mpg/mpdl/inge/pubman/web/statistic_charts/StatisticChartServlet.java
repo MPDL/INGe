@@ -139,15 +139,21 @@ public class StatisticChartServlet extends HttpServlet {
         new ArrayList<StatisticReportRecordVO>();
 
     if (type.equals("item")) {
-      reportListAllUsers = SimpleStatisticsService.getStatisticReportRecord(
-          SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id, null);
-      reportListAnonymousUsers = SimpleStatisticsService.getStatisticReportRecord(
-          SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id, null);
+      reportListAllUsers =
+          SimpleStatisticsService.getStatisticReportRecord(
+              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id,
+              null);
+      reportListAnonymousUsers =
+          SimpleStatisticsService.getStatisticReportRecord(
+              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id,
+              null);
     } else if (type.equals("file")) {
-      reportListAllUsers = SimpleStatisticsService.getStatisticReportRecord(
-          SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, id, null);
-      reportListAnonymousUsers = SimpleStatisticsService.getStatisticReportRecord(
-          SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, id, null);
+      reportListAllUsers =
+          SimpleStatisticsService.getStatisticReportRecord(
+              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, id, null);
+      reportListAnonymousUsers =
+          SimpleStatisticsService.getStatisticReportRecord(
+              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, id, null);
     }
 
     // Organize report records in map with month/year as key
@@ -226,7 +232,7 @@ public class StatisticChartServlet extends HttpServlet {
         true, // include legend
         false, // tooltips?
         false // URLs?
-    );
+        );
 
     // set the background color for the chart
     chart.setBackgroundPaint(Color.white);
@@ -263,8 +269,8 @@ public class StatisticChartServlet extends HttpServlet {
 
     // rotate labels on x-axis
     CategoryAxis domainAxis = plot.getDomainAxis();
-    domainAxis.setCategoryLabelPositions(
-        CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
+    domainAxis.setCategoryLabelPositions(CategoryLabelPositions
+        .createUpRotationLabelPositions(Math.PI / 6.0));
 
     return chart;
   }

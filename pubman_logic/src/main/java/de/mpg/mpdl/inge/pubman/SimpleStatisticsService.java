@@ -86,8 +86,9 @@ public class SimpleStatisticsService {
     StatisticReportParamsVO repParams = new StatisticReportParamsVO();
     repParams.setReportDefinitionId(reportDefinitionId);
 
-    StatisticReportRecordParamVO param = new StatisticReportRecordParamVO("object_id",
-        new StatisticReportRecordStringParamValueVO(objectId));
+    StatisticReportRecordParamVO param =
+        new StatisticReportRecordParamVO("object_id", new StatisticReportRecordStringParamValueVO(
+            objectId));
     repParams.getParamList().add(param);
 
     ReportHandler repHandler;
@@ -160,8 +161,9 @@ public class SimpleStatisticsService {
       if (aggregationTableName == null) {
         logger.info("No pubman aggregation definition found, creating one");
 
-        String aggregationDefinitionXml = ResourceUtil.getResourceAsString(
-            "pubman_object_stats_aggregation.xml", SimpleStatisticsService.class.getClassLoader());
+        String aggregationDefinitionXml =
+            ResourceUtil.getResourceAsString("pubman_object_stats_aggregation.xml",
+                SimpleStatisticsService.class.getClassLoader());
         String createdAggDefXml = adh.create(aggregationDefinitionXml);
 
         AggregationDefinitionVO aggCreated =
@@ -205,8 +207,9 @@ public class SimpleStatisticsService {
               + repDefFW.getSql());
         } else {// Report Definition does not exist yet
           // create and set
-          String repDefFileXML = xmlTransforming.transformToStatisticReportDefinition(repDefFile)
-              .replaceAll("pubman_object_stats", aggregationTableName);;
+          String repDefFileXML =
+              xmlTransforming.transformToStatisticReportDefinition(repDefFile).replaceAll(
+                  "pubman_object_stats", aggregationTableName);;
 
           String repDefFWXMLNew = repDefHandler.create(repDefFileXML);
 
@@ -214,8 +217,8 @@ public class SimpleStatisticsService {
               xmlTransforming.transformToStatisticReportDefinition(repDefFWXMLNew);
 
           repDefObjectId = repDefFWNew.getObjectId();
-          logger.info("Created new report definition and added to Map: " + repDefFWNew.getObjectId()
-              + " --- " + repDefFWNew.getSql());
+          logger.info("Created new report definition and added to Map: "
+              + repDefFWNew.getObjectId() + " --- " + repDefFWNew.getSql());
         }
 
         if (repDefFile.getName().equals("Item retrievals, all users")) {
@@ -233,16 +236,18 @@ public class SimpleStatisticsService {
         }
       }
     } catch (Exception e) {
-      logger.error(
-          "Statistic report definitions could not be initialized! Statistic system may not work properly. ",
-          e);
+      logger
+          .error(
+              "Statistic report definitions could not be initialized! Statistic system may not work properly. ",
+              e);
     }
   }
 
   private static List<StatisticReportDefinitionVO> retrieveReportDefinitionListFromFile()
       throws Exception {
-    String repDefListXML = ResourceUtil.getResourceAsString(REPORTDEFINITION_FILE,
-        SimpleStatisticsService.class.getClassLoader());
+    String repDefListXML =
+        ResourceUtil.getResourceAsString(REPORTDEFINITION_FILE,
+            SimpleStatisticsService.class.getClassLoader());
 
     String[] repDefs = repDefListXML.split("\n");
 

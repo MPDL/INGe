@@ -66,7 +66,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
-import de.mpg.mpdl.inge.model.xmltransforming.EmailHandling;
+import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
@@ -132,9 +132,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
   @EJB
   private DataGathering dataGathering;
-
-  @EJB
-  private EmailHandling emailHandling;
 
   @EJB
   private Search search;
@@ -468,8 +465,8 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
-    return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem
-        .getVersion().getObjectId(), getLoginHelper().getAccountUser());
+    return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType,
+        this.currentPubItem.getVersion().getObjectId(), getLoginHelper().getAccountUser());
   }
 
   /**
@@ -1083,7 +1080,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     String status = "not sent";
     status =
-        emailHandling.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
+        EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
             recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, subject, text,
             attachments);
 

@@ -153,22 +153,22 @@ public class PubFileVOPresentation extends FacesBean {
       contentCategoryURI =
           PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(PubFileVOPresentation.class)
-            .info("Content-category properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info(
+            "Content-category properties URI is " + contentCategoryURI.toString());
         InputStream in = contentCategoryURI.openStream();
         properties.load(in);
         properties.putAll(properties);
         in.close();
 
-        Logger.getLogger(PubFileVOPresentation.class)
-            .info("Content-category properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info(
+            "Content-category properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(PubFileVOPresentation.class)
-            .debug("Content-category properties file not found.");
+        Logger.getLogger(PubFileVOPresentation.class).debug(
+            "Content-category properties file not found.");
       }
     } catch (Exception e) {
-      Logger.getLogger(PubFileVOPresentation.class)
-          .warn("WARNING: content-category properties not found: " + e.getMessage());
+      Logger.getLogger(PubFileVOPresentation.class).warn(
+          "WARNING: content-category properties not found: " + e.getMessage());
     }
     return properties;
   }
@@ -399,17 +399,19 @@ public class PubFileVOPresentation extends FacesBean {
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
     String fileID = file.getReference().getObjectId();
 
-    String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
-        getLoginHelper().getAccountUser());
+    String result =
+        SimpleStatisticsService.getNumberOfItemOrFileRequests(
+            SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
+            getLoginHelper().getAccountUser());
     return result;
   }
 
   public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
     String fileID = file.getReference().getObjectId();
-    String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
-        getLoginHelper().getAccountUser());
+    String result =
+        SimpleStatisticsService.getNumberOfItemOrFileRequests(
+            SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
+            getLoginHelper().getAccountUser());
     return result;
   }
 

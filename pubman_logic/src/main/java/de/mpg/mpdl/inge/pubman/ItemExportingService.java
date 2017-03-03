@@ -54,7 +54,7 @@ import net.sf.jasperreports.engine.JRException;
 public class ItemExportingService {
   @EJB
   private static XmlTransforming xmlTransforming;
-  
+
   @EJB
   private static CitationStyleHandler citationStyleHandler;
 
@@ -105,8 +105,8 @@ public class ItemExportingService {
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       exportData = structuredExportHandler.getOutput(itemList, exportFormat.getName());
     } else
-      throw new TechnicalException(
-          "format Type: " + exportFormat.getFormatType() + " is not supported");
+      throw new TechnicalException("format Type: " + exportFormat.getFormatType()
+          + " is not supported");
 
     return exportData;
   }
