@@ -971,7 +971,7 @@ public class Util {
           .println("Util /tmp/source.xml eDoc application/xml UTF-8 eSciDoc application/xml UTF-8 /tmp/target.xml");
     } else {
       // Init
-      Transformation transformation = new TransformationBean(true);
+      Transformation transformation = new TransformationService(true);
       Format srcFormat = new Format(args[1], args[2], args[3]);
       Format trgFormat = new Format(args[4], args[5], args[6]);
       File srcFile = new File(args[0]);

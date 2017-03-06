@@ -42,8 +42,6 @@ import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundExce
 import net.sf.jasperreports.engine.JRException;
 
 /**
- * This class provides the ejb implementation of the {@link ItemExporting} interface.
- * 
  * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate: 2014-08-20 10:31:05 +0200 (Mi, 20 Aug 2014) $ Revised by

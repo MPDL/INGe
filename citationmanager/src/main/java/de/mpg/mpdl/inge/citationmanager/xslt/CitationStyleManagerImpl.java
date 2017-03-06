@@ -58,7 +58,6 @@ import net.sf.saxon.event.SaxonOutputKeys;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
 public class CitationStyleManagerImpl implements CitationStyleManager {
 
   public static enum TASKS {
@@ -93,9 +92,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     } catch (Exception e) {
       throw new RuntimeException("Cannot compile Citation Style " + cs, e);
     }
-
-
-
   }
 
   /**

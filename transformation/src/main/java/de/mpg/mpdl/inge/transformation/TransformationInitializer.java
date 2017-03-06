@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.transformation;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,16 +9,16 @@ import org.reflections.Reflections;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 
 public class TransformationInitializer {
-  private final Logger logger = Logger.getLogger(TransformationInitializer.class);
+  private static final Logger logger = Logger.getLogger(TransformationInitializer.class);
 
   private Set<Class<?>> transformationClasses = new HashSet<Class<?>>();
 
-  private boolean local = false;
-  private boolean init = false;
+  // private boolean local = false;
+  // private boolean init = false;
 
 
   public void initializeTransformationModules(boolean local) throws RuntimeException {
-    this.local = local;
+    // this.local = local;
     this.initializeTransformationModules();
   }
 
@@ -30,7 +29,7 @@ public class TransformationInitializer {
    */
   public void initializeTransformationModules() throws RuntimeException {
     try {
-      this.logger.debug("Classes which implement the transformation interface:");
+      logger.debug("Classes which implement the transformation interface:");
 
       transformationClasses =
           new Reflections("de.mpg.mpdl.inge.transformation")
@@ -68,47 +67,47 @@ public class TransformationInitializer {
        * entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName()); if
        * (entities != null) { entitiesV.addAll(entities); } } } } }
        * 
-       * for (int i = 0; i < entitiesV.size(); i++) { this.logger.debug(entitiesV.get(i));
+       * for (int i = 0; i < entitiesV.size(); i++) { logger.debug(entitiesV.get(i));
        * transformationClass = cl.loadClass(entitiesV.get(i).toString());
        * this.transformationClasses.add(transformationClass); }
        */
 
     } catch (Exception e) {
-      this.logger.error("An error occurred during the allocation of transformation classes.", e);
+      logger.error("An error occurred during the allocation of transformation classes.", e);
       throw new RuntimeException(e);
     }
   }
 
 
-  /**
-   * This method returns the path to the pubman_ear file in the jboss directory.
-   * 
-   * @return path to ear file
-   */
-  private String setJbossSearchPath() {
-    String path = "";
-    path = System.getProperty("jboss.server.home.dir");
-    path += "/tmp/deploy/";
-
-    File dir = new File(path);
-    String[] children = dir.list();
-
-    if (children != null) {
-      // Search children
-      for (int i = 0; i < children.length; i++) {
-        String filename = children[i];
-        if ((filename.contains("pubman_ear") || filename.contains("virr_ear") || filename
-            .contains("dataacquisition_ear")) && filename.contains("contents")) {
-          logger.debug("PubMan contents at: " + path + filename);
-          return path + filename;
-        }
-      }
-    }
-
-    logger.debug("PubMan contents at: " + path);
-
-    return path;
-  }
+  // /**
+  // * This method returns the path to the pubman_ear file in the jboss directory.
+  // *
+  // * @return path to ear file
+  // */
+  // private String setJbossSearchPath() {
+  // String path = "";
+  // path = System.getProperty("jboss.server.home.dir");
+  // path += "/tmp/deploy/";
+  //
+  // File dir = new File(path);
+  // String[] children = dir.list();
+  //
+  // if (children != null) {
+  // // Search children
+  // for (int i = 0; i < children.length; i++) {
+  // String filename = children[i];
+  // if ((filename.contains("pubman_ear") || filename.contains("virr_ear") || filename
+  // .contains("dataacquisition_ear")) && filename.contains("contents")) {
+  // logger.debug("PubMan contents at: " + path + filename);
+  // return path + filename;
+  // }
+  // }
+  // }
+  //
+  // logger.debug("PubMan contents at: " + path);
+  //
+  // return path;
+  // }
 
   public Set<Class<?>> getTransformationClasses() {
     return transformationClasses;

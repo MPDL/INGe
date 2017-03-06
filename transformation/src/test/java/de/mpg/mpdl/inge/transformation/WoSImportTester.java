@@ -28,7 +28,7 @@ public class WoSImportTester {
     // TODO Auto-generated method stub
     WoSImport imp = new WoSImport();
 
-    Transformation transformation = new TransformationBean();
+    Transformation transformation = new TransformationService();
     Format inputFormat = new Format("WoS", "text/plain", "UTF-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
 

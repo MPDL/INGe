@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
@@ -45,7 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecim
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.model.xmltransforming.StatisticLogger;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -70,9 +67,6 @@ public class SimpleStatisticsService {
   public static String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS;
 
   private static final String REPORTDEFINITION_FILE = "report-definition-list.xml";
-
-  @EJB
-  private static StatisticLogger statisticLogger;
 
   public static List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionId,
       String objectId, AccountUserVO accountUser) throws Exception {

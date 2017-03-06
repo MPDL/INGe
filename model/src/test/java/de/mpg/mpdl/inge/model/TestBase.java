@@ -79,6 +79,8 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
  * @revised by MuJ: 03.09.2007
  */
 public class TestBase {
+  private static final Logger logger = Logger.getLogger(TestBase.class);
+
   protected static final String TEST_FILE_ROOT = "target/test-classes/";
   protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
   protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr-springer.pdf";
@@ -92,30 +94,6 @@ public class TestBase {
           + "for your publication (metadata) and all relevant files. The MPS is the\n"
           + "responsible affiliation for this collection. Please contact\n"
           + "u.tschida@zim.mpg.de for any questions.";
-
-
-
-  /**
-   * Logger for this class.
-   */
-  private static final Logger logger = Logger.getLogger(TestBase.class);
-
-  /**
-   * Helper method to retrieve a EJB service instance. The name to be passed to the method is
-   * normally 'ServiceXY.SERVICE_NAME'.
-   * 
-   * @param serviceName The name of the service, e.g. "ejb.de.mpg.mpdl.inge.common.XXX"
-   * 
-   * @return instance of the EJB service
-   * 
-   * @throws NamingException Thrown if the service is not found.
-   */
-  protected static Object getService(String serviceName) throws NamingException {
-    InitialContext context = new InitialContext();
-    Object serviceInstance = context.lookup(serviceName);
-    assertNotNull(serviceInstance);
-    return serviceInstance;
-  }
 
   /**
    * Creates a well-defined PubItemVO without any files attached.
@@ -148,7 +126,6 @@ public class TestBase {
     version.setModificationDate(new Date());
 
     item.setVersion(version);
-
 
     return item;
   }

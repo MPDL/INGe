@@ -27,11 +27,11 @@ public class EndNoteImportTest {
       "UTF-8");
 
   /**
-   * Initializes the {@link TransformationBean}.
+   * Initializes the {@link TransformationService}.
    */
   @Before
   public void initTransformation() {
-    this.transformation = new TransformationBean(true);
+    this.transformation = new TransformationService(true);
   }
 
   @Test

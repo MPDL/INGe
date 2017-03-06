@@ -26,7 +26,7 @@ public class MABImportTester {
     // TODO Auto-generated method stub
     MABImport imp = new MABImport();
 
-    Transformation transformation = new TransformationBean();
+    Transformation transformation = new TransformationService();
     Format inputFormat = new Format("MAB", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
 

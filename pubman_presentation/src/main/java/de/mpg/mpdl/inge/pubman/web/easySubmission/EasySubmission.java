@@ -50,8 +50,8 @@ import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
@@ -144,7 +144,7 @@ public class EasySubmission extends FacesBean {
 
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
-  private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
+  private DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   private HtmlSelectOneMenu dateSelect;
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   private HtmlSelectOneRadio radioSelect;
@@ -776,7 +776,7 @@ public class EasySubmission extends FacesBean {
         return null;
       }
 
-      DataHandlerBean dataHandler = new DataHandlerBean();
+      DataHandlerService dataHandler = new DataHandlerService();
       PubItemVO itemVO = null;
       String service = easySubmissionSessionBean.getCurrentExternalServiceType();
       List<FileVO> fileVOs = new ArrayList<FileVO>();

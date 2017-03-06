@@ -111,7 +111,7 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -417,7 +417,7 @@ public class SwordUtil extends FacesBean {
       // TEI metadata.
       if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI)) {
         // Copyright information are imported from metadata file
-        Transformation transformer = new TransformationBean();
+        Transformation transformer = new TransformationService();
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
         Format escidocComponentFormat =
             new Format("eSciDoc-publication-component", "application/xml", "UTF-8");

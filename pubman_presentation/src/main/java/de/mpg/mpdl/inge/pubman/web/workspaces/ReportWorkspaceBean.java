@@ -34,7 +34,7 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
@@ -88,7 +88,7 @@ public class ReportWorkspaceBean extends FacesBean {
   };
 
   public ReportWorkspaceBean() {
-    this.transformer = new TransformationBean();
+    this.transformer = new TransformationService();
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
     Format[] targetFormats =

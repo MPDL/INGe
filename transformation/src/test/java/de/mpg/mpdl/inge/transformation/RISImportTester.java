@@ -26,7 +26,7 @@ public class RISImportTester {
     // TODO Auto-generated method stub
     RISImport imp = new RISImport();
 
-    Transformation transformation = new TransformationBean();
+    Transformation transformation = new TransformationService();
     Format inputFormat = new Format("RIS", "text/plain", "UTF-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
 

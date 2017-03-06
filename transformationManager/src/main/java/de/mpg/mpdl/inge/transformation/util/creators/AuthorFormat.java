@@ -449,11 +449,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       int closingBracketIndex = authorString.indexOf(")");
 
       if (openBracketIndex != -1 && closingBracketIndex != -1) {
-        String additionalInfo = authorString.substring(openBracketIndex + 1, closingBracketIndex);
+        // String additionalInfo = authorString.substring(openBracketIndex + 1,
+        // closingBracketIndex);
         authorString = authorString.substring(0, openBracketIndex);
       }
-
-
 
       // remove forbidden characters
       authorString = authorString.replaceAll(FORBIDDEN_CHARACTERS, "");

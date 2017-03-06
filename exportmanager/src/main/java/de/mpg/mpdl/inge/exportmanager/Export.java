@@ -62,7 +62,6 @@ import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
@@ -78,10 +77,11 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @version $Revision$ $LastChangedDate: 2010-06-14 15:42:50 +0200 (Mon, 14 Jun 2010) $
  * 
  */
+public class Export {
+  private static final Logger logger = Logger.getLogger(Export.class);
 
-public class Export implements ExportHandler {
-
-  private final static Logger logger = Logger.getLogger(Export.class);
+  public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
+  public static final short BUFFER_SIZE = 1024;
 
   public static enum ArchiveFormats {
     zip, tar, gzip
@@ -91,9 +91,6 @@ public class Export implements ExportHandler {
     STRUCTURED, LAYOUT
   };
 
-  public static CitationStyleHandler csh = null;
-  // public static StructuredExportHandler seh = null;
-
   public static String COMPONENTS_NS;
   public static String MDRECORDS_NS;
   public static String FILE_NS;
@@ -101,23 +98,10 @@ public class Export implements ExportHandler {
   public static String DCTERMS_NS;
   public static String PROPERTIES_NS;
 
-  public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
-
-  public static final short BUFFER_SIZE = 1024;
-  // private static final int NUMBER_OF_URL_TOKENS = 2;
-
   private static String USER_ID;
   private static String PASSWORD;
 
-  private String generateTmpFileName() {
-    Random r = new Random();
-    return Long.toString(Math.abs(r.nextLong()), 36);
-  }
-
   public Export() {
-
-    // csh = getCitationStyleHandler();
-    // seh = getStructuredExportHandler();
     try {
       USER_ID = PropertyReader.getProperty("framework.admin.username");
       PASSWORD = PropertyReader.getProperty("framework.admin.password");
@@ -132,20 +116,10 @@ public class Export implements ExportHandler {
     }
   }
 
-
-  // private StructuredExportHandler getStructuredExportHandler() {
-  // if (seh == null) {
-  // seh = new StructuredExport();
-  // }
-  // return seh;
-  // }
-
-  // private CitationStyleHandler getCitationStyleHandler() {
-  // if (csh == null) {
-  // csh = CitationStyleHandlerFactory.getCitationStyleHandler();
-  // }
-  // return csh;
-  // }
+  private String generateTmpFileName() {
+    Random r = new Random();
+    return Long.toString(Math.abs(r.nextLong()), 36);
+  }
 
   /*
    * (non-Javadoc)
@@ -200,13 +174,6 @@ public class Export implements ExportHandler {
     return result;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#getOutput(java.lang .String,
-   * java.lang.String, java.lang.String, java.lang.String)
-   */
-
   public byte[] getOutput(String exportFormat, String outputFormat, String archiveFormat,
       String itemList) throws ExportManagerException, IOException {
 
@@ -221,12 +188,6 @@ public class Export implements ExportHandler {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#getOutputFile(java .lang.String,
-   * java.lang.String, java.lang.String, java.lang.String)
-   */
   public File getOutputFile(String exportFormat, String outputFormat, String archiveFormat,
       String itemList) throws ExportManagerException, IOException {
     FileOutputStream fos = null;
@@ -303,7 +264,6 @@ public class Export implements ExportHandler {
       bis.close();
       bais.close();
     }
-
   }
 
   /**
@@ -316,12 +276,6 @@ public class Export implements ExportHandler {
     return af.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : af;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
-   * String) )
-   */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList) throws ExportManagerException, IOException {
 
@@ -344,12 +298,6 @@ public class Export implements ExportHandler {
     return tmpFile;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
-   * String, File) )
-   */
   public File generateArchiveFile(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList, File license) throws ExportManagerException, IOException {
 
@@ -403,12 +351,6 @@ public class Export implements ExportHandler {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
-   * String) )
-   */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList) throws ExportManagerException, IOException {
 
@@ -422,12 +364,6 @@ public class Export implements ExportHandler {
     return baos.toByteArray();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
-   * String, File) )
-   */
   public byte[] generateArchive(String exportFormat, String archiveFormat, byte[] description,
       String itemListFiltered, File license) throws ExportManagerException, IOException {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -440,32 +376,16 @@ public class Export implements ExportHandler {
     return baos.toByteArray();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String) )
-   */
   public byte[] generateArchive(String archiveFormat, String itemListFiltered)
       throws ExportManagerException, IOException {
     return generateArchive(null, archiveFormat, null, itemListFiltered);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, File) )
-   */
   public byte[] generateArchive(String archiveFormat, String itemListFiltered, File license)
       throws ExportManagerException, IOException {
     return generateArchive(null, archiveFormat, null, itemListFiltered, license);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.ExportHandler#generateArchive(String , String, byte[],
-   * String) )
-   */
   private void generateArchiveBase(String exportFormat, String archiveFormat, byte[] exportOut,
       String itemList, File license, BufferedOutputStream bos) throws ExportManagerException,
       IOException {
@@ -508,7 +428,7 @@ public class Export implements ExportHandler {
 
           // add files to the tar
           fetchComponentsDo(tos, itemList);
-          // logger.info("heapSize after  = " +
+          // logger.info("heapSize after = " +
           // Runtime.getRuntime().totalMemory());
           // logger.info("heapFreeSize after = " +
           // Runtime.getRuntime().freeMemory());
@@ -638,11 +558,6 @@ public class Export implements ExportHandler {
     return ni;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @seede.mpg.mpdl.inge.exportmanager.ExportHandler# calculateItemListFileSizes(String)
-   */
   public long calculateItemListFileSizes(String itemList) throws ExportManagerException {
     Document doc = parseDocument(itemList);
     NodeIterator ni = getFilteredNodes(new FileSizeNodeFilter(), doc);
@@ -797,7 +712,6 @@ public class Export implements ExportHandler {
         throw new ExportManagerException("Cannot close InputStream", e);
       }
     }
-
   }
 
   private void writeFromStreamToStream(InputStream is, OutputStream os) throws IOException {
@@ -831,7 +745,6 @@ public class Export implements ExportHandler {
     }
 
     return null;
-
   }
 
   // NodeFilters for XML Traversing
@@ -848,6 +761,7 @@ public class Export implements ExportHandler {
       if (parentIsFile && DC_NS.equals(e.getNamespaceURI()) && ("title".equals(e.getLocalName()))) {
         return FILTER_ACCEPT;
       }
+
       return FILTER_SKIP;
     }
   }
@@ -856,16 +770,15 @@ public class Export implements ExportHandler {
 
     public short acceptNode(Node n) {
       Element e = (Element) n;
-      // System.out.println(e.getNodeName());
 
       try {
-
         if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
           return FILTER_ACCEPT;
         }
       } catch (Exception ex) {
         throw new RuntimeException("Error evaluating export filter", ex);
       }
+
       return FILTER_SKIP;
     }
   }
@@ -877,9 +790,8 @@ public class Export implements ExportHandler {
       if (DCTERMS_NS.equals(e.getNamespaceURI()) && "extent".equals(e.getLocalName())) {
         return FILTER_ACCEPT;
       }
+
       return FILTER_SKIP;
     }
-
   }
-
 }

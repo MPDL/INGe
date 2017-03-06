@@ -48,7 +48,7 @@ import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SourceVOPresentation;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -120,7 +120,7 @@ public class ApplicationBean extends FacesBean {
       logger.warn("System type is not retrievable! Setting now to PRODUCTION");
       this.systemType = SystemType.Production_Server;
     }
-    this.transformationService = new TransformationBean();
+    this.transformationService = new TransformationService();
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
     this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();

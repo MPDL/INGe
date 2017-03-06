@@ -37,16 +37,7 @@ import com.sun.syndication.io.FeedException;
  * @author Vlad Makarenko (initial creation)
  * @author $Author$ (last modification) $Revision$ $LastChangedDate$
  */
-
-
 public interface SyndicationHandler {
-
-  /**
-   * The name to obtain this service.
-   */
-  String SERVICE_NAME = "ejb/de/mpg/escidoc/services/syndicationmanager/StructuredExportHandler";
-
-
   /**
    * Returns the XML representation of the specified feeds are available for the service
    * 
@@ -79,5 +70,4 @@ public interface SyndicationHandler {
    */
   public byte[] getFeed(String uri) throws SyndicationException, IOException, URISyntaxException,
       FeedException;
-
 }

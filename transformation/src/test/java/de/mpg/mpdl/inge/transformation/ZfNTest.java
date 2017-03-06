@@ -11,14 +11,14 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class ZfNTest {
-  public static TransformationBean trans;
+  public static TransformationService trans;
 
   /**
-   * Initializes the {@link TransformationBean}.
+   * Initializes the {@link TransformationService}.
    */
   @BeforeClass
   public static void initTransformation() {
-    trans = new TransformationBean(true);
+    trans = new TransformationService(true);
   }
 
   /*

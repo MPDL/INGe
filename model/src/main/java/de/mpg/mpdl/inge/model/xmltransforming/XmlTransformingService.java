@@ -108,8 +108,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.URLWrappe
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
- * EJB implementation of interface {@link XmlTransforming}.
- * 
  * @author Johannes Mueller (initial creation)
  * @version $Revision$ $LastChangedDate$Author: mfranke $
  * @revised by MuJ: 21.08.2007

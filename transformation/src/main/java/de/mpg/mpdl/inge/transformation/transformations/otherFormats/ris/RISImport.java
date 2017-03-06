@@ -1,25 +1,13 @@
 package de.mpg.mpdl.inge.transformation.transformations.otherFormats.ris;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * provides the import of a RIS file
@@ -30,17 +18,14 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 public class RISImport {
+  private static final Logger logger = Logger.getLogger(RISImport.class);
 
   private String url = null;
-  private Logger logger = Logger.getLogger(getClass());
 
   /**
    * Public Constructor RISImport.
    */
-  public RISImport() {
-
-
-  }
+  public RISImport() {}
 
   /**
    * reads the import file and transforms the items to XML

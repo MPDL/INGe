@@ -81,7 +81,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -203,7 +203,7 @@ public class ImportProcess extends Thread {
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       this.name = name;
       this.rollback = rollback;
-      this.transformation = new TransformationBean();
+      this.transformation = new TransformationService();
       this.user = user;
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");

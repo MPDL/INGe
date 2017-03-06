@@ -53,8 +53,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.AffiliationNotFoundExce
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
- * This class provides the ejb implementation of the {@link DataGathering} interface.
- * 
  * @author Johannes Mueller (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007

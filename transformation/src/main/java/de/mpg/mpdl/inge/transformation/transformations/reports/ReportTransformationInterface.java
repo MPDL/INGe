@@ -1,40 +1,15 @@
 package de.mpg.mpdl.inge.transformation.transformations.reports;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.OtherFormatsTransformation;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.escidoc.eSciDocVer1ToeSciDocVer2;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.escidoc.eSciDocVer2ToeSciDocVer1;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * The Report Transformation Interface.
@@ -44,8 +19,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class ReportTransformationInterface implements Transformation, Configurable {
-
-  private final Logger logger = Logger.getLogger(ReportTransformationInterface.class);
+  private static final Logger logger = Logger.getLogger(ReportTransformationInterface.class);
 
   private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet",
       "application/xml", "UTF-8");

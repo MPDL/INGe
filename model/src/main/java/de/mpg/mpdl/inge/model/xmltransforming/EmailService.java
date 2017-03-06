@@ -52,13 +52,10 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
- * EJB implementation of interface {@link EmailHandling}.
- * 
  * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
-
 public class EmailService {
   private static final Logger logger = Logger.getLogger(EmailService.class);
 

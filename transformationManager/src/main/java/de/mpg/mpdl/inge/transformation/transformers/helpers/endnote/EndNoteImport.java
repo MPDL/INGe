@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
 /**
@@ -20,10 +18,6 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
  * 
  */
 public class EndNoteImport {
-
-  private Logger logger = Logger.getLogger(getClass());
-
-
   /**
    * reads the import file and transforms the items to XML
    * 
@@ -44,6 +38,7 @@ public class EndNoteImport {
       List<Pair> itemPairs = getItemPairs(splitItemElements(itemList.get(0)));
       result = transformItemToXML(itemPairs);
     }
+
     return result;
   }
 

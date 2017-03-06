@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
@@ -257,7 +257,7 @@ public class MultipleImport extends FacesBean {
   }
 
   public List<SelectItem> initConfigParameters() throws Exception {
-    TransformationBean transformation = new TransformationBean();
+    TransformationService transformation = new TransformationService();
     Map<String, String> config = null;
     if (this.format != null) {
       config = transformation.getConfiguration(this.format, ESCIDOC_FORMAT);

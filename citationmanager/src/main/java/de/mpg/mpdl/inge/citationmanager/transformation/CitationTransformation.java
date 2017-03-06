@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Util.Styles;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
@@ -114,7 +114,7 @@ public class CitationTransformation {
    */
   public byte[] transformOutputFormat(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
-    Transformation transformer = new TransformationBean();
+    Transformation transformer = new TransformationService();
 
     // Create input format
     Styles style = Util.getStyleInfo(trgFormat);

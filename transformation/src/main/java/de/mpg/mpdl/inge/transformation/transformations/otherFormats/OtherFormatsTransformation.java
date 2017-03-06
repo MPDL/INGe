@@ -25,7 +25,6 @@
  */
 package de.mpg.mpdl.inge.transformation.transformations.otherFormats;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +34,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.transform.Transformer;
@@ -44,15 +42,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.TransformerFactoryImpl;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.mets.METSTransformation;
 import de.mpg.mpdl.inge.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import net.sf.saxon.TransformerFactoryImpl;
 
 /**
  * 

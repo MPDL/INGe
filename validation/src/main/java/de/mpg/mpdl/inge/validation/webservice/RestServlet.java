@@ -31,9 +31,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.ItemValidatingService;
 import de.mpg.mpdl.inge.validation.ValidationSchemaNotFoundException;
 
 /**
@@ -53,12 +50,9 @@ import de.mpg.mpdl.inge.validation.ValidationSchemaNotFoundException;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class RestServlet extends HttpServlet {
-
   private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
-
-  @EJB
-  private ItemValidating itemValidating;
 
   /**
    * {@inheritDoc}
@@ -101,7 +95,7 @@ public class RestServlet extends HttpServlet {
           if (validationPoint == null) {
             validationPoint = "default";
           }
-          out.println(itemValidating.validateItemXml(content, validationPoint));
+          out.println(ItemValidatingService.validateItemXml(content, validationPoint));
         }
         // validateItemXmlBySchema
         else if ("POST".equals(req.getMethod()) && "validateItemXmlBySchema".equals(command)) {
@@ -113,13 +107,13 @@ public class RestServlet extends HttpServlet {
           } else if (validationSchema == null) {
             throw new MissingParameterException("Parameter validation-schema is missing");
           } else {
-            out.println(itemValidating.validateItemXmlBySchema(content, validationPoint,
+            out.println(ItemValidatingService.validateItemXmlBySchema(content, validationPoint,
                 validationSchema));
           }
         }
         // refreshValidationSchemaCache
         else if ("GET".equals(req.getMethod()) && "refreshValidationSchemaCache".equals(command)) {
-          itemValidating.refreshValidationSchemaCache();
+          ItemValidatingService.refreshValidationSchemaCache();
         }
 
         // When someone arrives here with an unknown request, dispatch him to the info page.

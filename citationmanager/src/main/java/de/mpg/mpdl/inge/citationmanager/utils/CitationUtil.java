@@ -37,7 +37,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or
@@ -68,15 +68,15 @@ public class CitationUtil {
   public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
 
   // TransformationBean placeholder
-  private static TransformationBean tb = null;
+  private static TransformationService tb = null;
 
   /**
    * Returns TransformationBean (singleton)
    * 
    * @return TransformationBean
    */
-  public static TransformationBean getTransformationBean() {
-    return tb == null ? tb = new TransformationBean(true) : tb;
+  public static TransformationService getTransformationBean() {
+    return tb == null ? tb = new TransformationService(true) : tb;
   }
 
   /**

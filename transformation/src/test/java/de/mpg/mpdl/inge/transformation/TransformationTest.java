@@ -27,16 +27,16 @@ import de.mpg.mpdl.inge.util.XmlComparator;
 
 
 public class TransformationTest {
-  public static TransformationBean trans;
+  public static TransformationService trans;
   private final Logger logger = Logger.getLogger(TransformationTest.class);
 
 
   /**
-   * Initializes the {@link TransformationBean}.
+   * Initializes the {@link TransformationService}.
    */
   @BeforeClass
   public static void initTransformation() {
-    trans = new TransformationBean(true);
+    trans = new TransformationService(true);
   }
 
   @Test

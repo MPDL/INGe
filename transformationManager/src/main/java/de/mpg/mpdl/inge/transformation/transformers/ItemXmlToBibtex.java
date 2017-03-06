@@ -8,19 +8,15 @@ import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML,
     targetFormat = FORMAT.BIBTEX_STRING)
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.BIBTEX_STRING)
 public class ItemXmlToBibtex extends XslTransformer implements ChainableTransformer {
-
-
   @Override
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty("escidoc.transformation.escidoc2bibtex.stylesheet.filename",
@@ -41,7 +37,6 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
     return map;
   }
 
-
   @Override
   public URIResolver getURIResolver() {
     return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
@@ -51,6 +46,4 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
-
 }
