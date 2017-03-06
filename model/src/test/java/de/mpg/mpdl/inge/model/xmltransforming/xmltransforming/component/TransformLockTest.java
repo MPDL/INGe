@@ -32,11 +32,10 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.LockVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Test class for {@link XmlTransforming} methods for LockVo transformation.
@@ -46,8 +45,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @revised by MuJ: 03.09.2007
  */
 public class TransformLockTest extends TestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(TransformLockTest.class);
 
   /**
    * Test for {@link XmlTransforming#transformToLockVO(String)}.
@@ -59,7 +57,7 @@ public class TransformLockTest extends TestBase {
   @Test
   public void testTransformToLockVO() throws TechnicalException {
     logger.info("### testTransformToLockVO ###");
-    LockVO lock = xmlTransforming.transformToLockVO("lockInformation xml");
+    LockVO lock = XmlTransformingService.transformToLockVO("lockInformation xml");
     assertNotNull("Transforming of LockVO not implemented yet.", lock);
   }
 }

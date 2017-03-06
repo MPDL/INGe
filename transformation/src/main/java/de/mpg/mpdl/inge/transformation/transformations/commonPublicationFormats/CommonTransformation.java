@@ -34,8 +34,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
@@ -66,12 +65,11 @@ public class CommonTransformation {
       String service, boolean list) throws TransformationNotSupportedException, RuntimeException {
     byte[] bib = null;
     try {
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
       String itemList = "";
       if (!list) {
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(src, "UTF-8"));
         List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-        itemList = xmlTransforming.transformToItemList(pubitemList);
+        itemList = XmlTransformingService.transformToItemList(pubitemList);
       } else {
         itemList = new String(src, "UTF-8");
       }
@@ -98,12 +96,11 @@ public class CommonTransformation {
       String service, boolean list) throws RuntimeException {
     byte[] endnote = null;
     try {
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
       String itemList = "";
       if (!list) {
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(src, "UTF-8"));
         List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-        itemList = xmlTransforming.transformToItemList(pubitemList);
+        itemList = XmlTransformingService.transformToItemList(pubitemList);
       } else {
         itemList = new String(src, "UTF-8");
       }

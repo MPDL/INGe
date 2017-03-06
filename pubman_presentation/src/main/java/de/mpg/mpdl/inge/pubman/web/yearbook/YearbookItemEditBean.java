@@ -33,8 +33,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
@@ -55,7 +55,6 @@ public class YearbookItemEditBean extends FacesBean {
   private static final String MAXIMUM_RECORDS = "5000";
 
   private YearbookItemSessionBean yearbookItemSessionBean;
-  private XmlTransformingBean xmlTransforming;
   private MdsYearbookVO yearbookMetadata;
   private String title;
   private String year;
@@ -80,7 +79,6 @@ public class YearbookItemEditBean extends FacesBean {
   public YearbookItemEditBean() throws Exception {
     this.yearbookItemSessionBean =
         (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    xmlTransforming = new XmlTransformingBean();
     initialize();
   }
 
@@ -147,7 +145,7 @@ public class YearbookItemEditBean extends FacesBean {
             + this.getOrganization().getIdentifier()});
     String userAccountXml = uah.retrieveUserAccounts(filterParams);
     SearchRetrieveResponseVO userAccounts =
-        xmlTransforming.transformToSearchRetrieveResponseAccountUser(userAccountXml);
+        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(userAccountXml);
     for (SearchRetrieveRecordVO record : userAccounts.getRecords()) {
       AccountUserVO userVO = (AccountUserVO) record.getData();
       if (!userVO.getReference().getObjectId()
@@ -172,7 +170,7 @@ public class YearbookItemEditBean extends FacesBean {
         + getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
     String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
     SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
-        xmlTransforming.transformToSearchRetrieveResponseUserGroup(userGroupXml);
+        XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
     for (SearchRetrieveRecordVO record : userGroupSearchRetrieveResponse.getRecords()) {
       UserGroupVO userGroup = (UserGroupVO) record.getData();
@@ -232,7 +230,7 @@ public class YearbookItemEditBean extends FacesBean {
       filterParams.put("maximumRecords", new String[] {YearbookItemEditBean.MAXIMUM_RECORDS});
       String xmlItemList = itemHandler.retrieveItems(filterParams);
       SearchRetrieveResponseVO result =
-          xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;

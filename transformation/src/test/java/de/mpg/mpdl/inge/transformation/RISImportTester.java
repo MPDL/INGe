@@ -8,18 +8,15 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.ris.RISImport;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.ris.RISTransformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class RISImportTester {
+  private static final Logger logger = Logger.getLogger(RISImportTester.class);
 
-  private final Logger logger = Logger.getLogger(RISImportTester.class);
   RISTransformation risTransformer = new RISTransformation();
 
   /**
@@ -39,19 +36,18 @@ public class RISImportTester {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     byte[] buffer = new byte[2048];
     int read;
+
     while ((read = inputStream.read(buffer)) != -1) {
       baos.write(buffer, 0, read);
     }
-    byte[] result =
-        transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
 
-    String out = imp.transformRIS2XML(new String(baos.toByteArray(), "utf-8"));
-
+    transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
+    imp.transformRIS2XML(new String(baos.toByteArray(), "utf-8"));
   }
 
   @Test
   public void risListTransformation() throws Exception {
-    this.logger.info("Transform RIS list to xml format");
+    logger.info("Transform RIS list to xml format");
     Format inputFormat = new Format("RIS", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
     byte[] result =
@@ -60,9 +56,7 @@ public class RISImportTester {
                 RISImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat,
             outputFormat, "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    List<PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
-    this.logger.info("PubItemVO List successfully created.");
+    List<PubItemVO> itemVOList = XmlTransformingService.transformToPubItemList(new String(result));
+    logger.info("PubItemVO List successfully created.");
   }
-
 }

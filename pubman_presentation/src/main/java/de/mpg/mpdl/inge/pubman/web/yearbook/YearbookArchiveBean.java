@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
@@ -15,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
@@ -42,15 +41,10 @@ public class YearbookArchiveBean extends FacesBean {
   private List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
-  private XmlTransforming xmlTransforming;
 
   public YearbookArchiveBean() throws Exception {
     ItemHandler itemHandler =
         ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
-    InitialContext initialContext = new InitialContext();
-    this.xmlTransforming =
-        (XmlTransforming) initialContext
-            .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
     // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -66,7 +60,7 @@ public class YearbookArchiveBean extends FacesBean {
     filterParams.put("maximumRecords", new String[] {MAXIMUM_RECORDS});
     String xmlItemList = itemHandler.retrieveItems(filterParams);
     SearchRetrieveResponseVO result =
-        xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+        XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // check if years have to be excluded from selection
     if (result.getNumberOfRecords() > 0) {
       PubItemVO recordPubItem = null;

@@ -47,7 +47,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.naming.InitialContext;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -72,12 +71,11 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * This class provides the ejb implementation of the {@link DataHandler} interface.
@@ -340,11 +338,7 @@ public class DataHandlerBean implements DataHandler {
 
             if (componentBytes != null) {
               String componentXml = new String(componentBytes, this.enc);
-              InitialContext initialContext = new InitialContext();
-              de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming xmlTransforming =
-                  (de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming) initialContext
-                      .lookup(de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming.SERVICE_NAME);
-              this.componentVO = xmlTransforming.transformToFileVO(componentXml);
+              this.componentVO = XmlTransformingService.transformToFileVO(componentXml);
             }
           }
         } catch (Exception e) {
@@ -783,7 +777,6 @@ public class DataHandlerBean implements DataHandler {
     String itemXML = "";
     String coreservice = "";
     URLConnection contentUrl = null;
-    XmlTransforming xmlTransforming = new XmlTransformingBean();
     byte[] input = null;
 
     try {
@@ -798,7 +791,7 @@ public class DataHandlerBean implements DataHandler {
         coreservice = ft.getFtUrl().toString();
       }
 
-      PubItemVO itemVO = xmlTransforming.transformToPubItem(itemXML);
+      PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXML);
       contentUrl =
           ProxyHelper.openConnection(new URL(coreservice + itemVO.getFiles().get(0).getContent()));
       HttpURLConnection httpConn = (HttpURLConnection) contentUrl;

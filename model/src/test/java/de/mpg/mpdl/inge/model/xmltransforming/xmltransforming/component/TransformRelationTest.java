@@ -33,11 +33,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * Test of {@link XmlTransforming} methods for Relation transforming.
@@ -46,9 +45,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @version $Revision$ $LastChangedDate$
  */
 public class TransformRelationTest extends TestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+  private static final Logger logger = Logger.getLogger(TransformRelationTest.class);
 
-  private Logger logger = Logger.getLogger(getClass());
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformRelationTest/";
   private static String RELATIONS_SAMPLE_FILE1 = TEST_FILE_ROOT + "relations_sample1.xml";
   private static String RELATIONS_SAMPLE_FILE2 = TEST_FILE_ROOT + "relations_sample2.xml";
@@ -63,7 +61,7 @@ public class TransformRelationTest extends TestBase {
     logger.info("### testTransformToRelationList1 ###");
     // read relations[XML] from a file
     String relationsXml = readFile(RELATIONS_SAMPLE_FILE1);
-    List<RelationVO> relationList = xmlTransforming.transformToRelationVOList(relationsXml);
+    List<RelationVO> relationList = XmlTransformingService.transformToRelationVOList(relationsXml);
     assertEquals(relationList.size(), 2);
 
     RelationVO relation1 = relationList.get(0);
@@ -87,7 +85,7 @@ public class TransformRelationTest extends TestBase {
     logger.info("### testTransformToRelationList2 ###");
     // read relations[XML] from a file
     String relationsXml = readFile(RELATIONS_SAMPLE_FILE2);
-    List<RelationVO> relationList = xmlTransforming.transformToRelationVOList(relationsXml);
+    List<RelationVO> relationList = XmlTransformingService.transformToRelationVOList(relationsXml);
     assertEquals(relationList.size(), 2);
 
     RelationVO relation1 = relationList.get(0);

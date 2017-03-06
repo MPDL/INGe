@@ -21,7 +21,6 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>model</artifactId>
-	<packaging>ejb</packaging>
 	<name>model</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<scm>
@@ -239,4 +238,5 @@
 		</dependency>
 		<!-- END - xml_transforming dependencies -->
 	</dependencies>
+	<packaging>ejb</packaging>
 </project>

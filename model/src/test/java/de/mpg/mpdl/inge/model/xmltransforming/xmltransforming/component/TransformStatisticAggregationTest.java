@@ -28,25 +28,14 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationInfoFieldVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDateParamValueVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
@@ -58,9 +47,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * 
  */
 public class TransformStatisticAggregationTest extends XmlTransformingTestBase {
-  Logger logger = Logger.getLogger(this.getClass());
+  private static final Logger logger = Logger.getLogger(TransformStatisticAggregationTest.class);
 
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformStatisticAggregation/";
   private static String AGG_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT
       + "pubman_object_stats_aggregation.xml";
@@ -78,7 +66,7 @@ public class TransformStatisticAggregationTest extends XmlTransformingTestBase {
 
     String aggDefXml = readFile(AGG_DEFINITION_LIST_SAMPLE_FILE);
     AggregationDefinitionVO aggDefVO =
-        xmlTransforming.transformToStatisticAggregationDefinition(aggDefXml);
+        XmlTransformingService.transformToStatisticAggregationDefinition(aggDefXml);
 
     assertEquals("pubman item statistics without version", aggDefVO.getName());
     assertNotNull(aggDefVO.getScopeId());

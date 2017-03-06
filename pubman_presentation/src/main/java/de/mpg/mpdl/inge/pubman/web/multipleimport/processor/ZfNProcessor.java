@@ -55,7 +55,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -224,8 +224,7 @@ public class ZfNProcessor extends FormatProcessor {
     HttpClient client = new HttpClient();
     client.executeMethod(method);
     String response = method.getResponseBodyAsString();
-    XmlTransformingBean ctransforming = new XmlTransformingBean();
-    return ctransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   private void openFtpServer() throws Exception {

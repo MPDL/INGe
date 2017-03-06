@@ -5,12 +5,9 @@ package de.mpg.mpdl.inge.pidcache.process;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pidcache.Pid;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.pidcache.tables.Queue;
@@ -25,16 +22,13 @@ import de.mpg.mpdl.inge.pidcache.tables.Queue;
  */
 public class QueueProcess {
   private static final Logger logger = Logger.getLogger(QueueProcess.class);
-  private XmlTransforming xmlTransforming = null;
+
   private int blockSize = 1;
 
   /**
    * Default constructor
    */
-  public QueueProcess() throws Exception {
-
-    xmlTransforming = new XmlTransformingBean();
-  }
+  public QueueProcess() throws Exception {}
 
   /**
    * Empty the {@link Queue} if: - The service at the GWDG is available - And if: - the PID exists :
@@ -50,7 +44,7 @@ public class QueueProcess {
       while (pid != null) {
         try {
           String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
-          xmlTransforming.transformToPidServiceResponse(pidXml);
+          XmlTransformingService.transformToPidServiceResponse(pidXml);
           queue.remove(pid);
         } catch (Exception e) {
           logger.warn("Error, PID can not be updated on GWDG service.", e);
@@ -77,7 +71,7 @@ public class QueueProcess {
           String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
           logger.debug("emptyBlock updated pid <" + pid.getIdentifier() + "> url <" + pid.getUrl()
               + ">");
-          xmlTransforming.transformToPidServiceResponse(pidXml);
+          XmlTransformingService.transformToPidServiceResponse(pidXml);
           queue.remove(pid);
         } catch (Exception e) {
           logger.warn("Error, PID can not be updated on GWDG service.");

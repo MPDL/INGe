@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -82,7 +81,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -167,9 +166,6 @@ public class EasySubmission extends FacesBean {
   private Transformation transformer = null;
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   public EasySubmission() {
     this.transformer = this.getApplicationBean().getTransformationService();
@@ -673,7 +669,7 @@ public class EasySubmission extends FacesBean {
 
     fis.close();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   /**
@@ -698,7 +694,7 @@ public class EasySubmission extends FacesBean {
 
     String response = method.getResponseBodyAsString();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public String uploadBibtexFile() {
@@ -729,7 +725,7 @@ public class EasySubmission extends FacesBean {
           this.transformer.transform(content.toString().getBytes("UTF-8"), source, target,
               "escidoc");
 
-      PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
+      PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());
 
       // Check if reference has to be uploaded as file
@@ -873,7 +869,7 @@ public class EasySubmission extends FacesBean {
       // Generate item ValueObject
       if (fetchedItem != null && !fetchedItem.trim().equals("")) {
         try {
-          itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);
+          itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
 
           // Upload fulltexts from other escidoc repositories to current repository
           if (easySubmissionSessionBean.isFulltext()

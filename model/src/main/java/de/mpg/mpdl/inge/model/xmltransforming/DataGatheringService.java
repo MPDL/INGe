@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
@@ -74,13 +73,6 @@ public class DataGatheringService {
    */
   public static final String ORGANIZATION_NAME_SEPARATOR = ", ";
 
-  /**
-   * A XmlTransforming instance.
-   */
-  @EJB
-  private static XmlTransforming xmlTransforming;
-
-
   /*
    * (non-Javadoc)
    * 
@@ -107,7 +99,7 @@ public class DataGatheringService {
       } else {
         result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
       }
-      List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
+      List<RelationVO> relations = XmlTransformingService.transformToRelationVOList(result);
       return relations;
     } catch (Exception e) {
       logger.error("Error retrieving revisions.", e);
@@ -131,7 +123,7 @@ public class DataGatheringService {
     logger.debug("Param=" + param);
     try {
       String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
-      List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
+      List<RelationVO> relations = XmlTransformingService.transformToRelationVOList(result);
       return relations;
     } catch (Exception e) {
       logger.error("Error retrieving revisions.", e);
@@ -167,7 +159,7 @@ public class DataGatheringService {
       logger.debug("createOrganizationListFromAffiliation() - retrieved path list XML=\n"
           + affiliationPathListXML);
       List<AffiliationPathVO> affiliationPathVOList =
-          xmlTransforming.transformToAffiliationPathList(affiliationPathListXML);
+          XmlTransformingService.transformToAffiliationPathList(affiliationPathListXML);
 
       // cache already retrieved affiliations
       // every cache entry consists of key:objectId, value: corresponding affiliation
@@ -219,7 +211,7 @@ public class DataGatheringService {
             // if not, retrieve the affiliation from the framework and put it in the cache
             String newAffXML =
                 ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieve(newAffObjId);
-            newAff = xmlTransforming.transformToAffiliation(newAffXML);
+            newAff = XmlTransformingService.transformToAffiliation(newAffXML);
             affiliationCache.put(newAffObjId, newAff);
           }
           if (orgName.length() > 0) {
@@ -285,7 +277,7 @@ public class DataGatheringService {
     logger.debug("Param=" + param);
     try {
       String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
-      List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
+      List<RelationVO> relations = XmlTransformingService.transformToRelationVOList(result);
       return relations;
     } catch (Exception e) {
       logger.error("Error retrieving revisions.", e);

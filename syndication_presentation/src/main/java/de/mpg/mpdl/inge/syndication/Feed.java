@@ -32,10 +32,8 @@
 
 package de.mpg.mpdl.inge.syndication;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -70,20 +68,17 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
-
+@SuppressWarnings("serial")
 public class Feed extends SyndFeedImpl {
+  private static final Logger logger = Logger.getLogger(Feed.class);
 
-  private static final long serialVersionUID = 1L;
   private static final String FEEDS_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
-
-  private static final Logger logger = Logger.getLogger(Feed.class);
 
   // Search CQL query
   // see: http://www.escidoc-project.de/documentation/Soap_api_doc_SB_Search.pdf
@@ -115,9 +110,6 @@ public class Feed extends SyndFeedImpl {
 
   // Hash of the parameters/values
   private Map<String, String> paramHash = new HashMap<String, String>();
-
-  // XML transformation bean
-  private static XmlTransforming xt = new XmlTransformingBean();
 
   /**
    * Query getter.
@@ -598,7 +590,7 @@ public class Feed extends SyndFeedImpl {
 
     List<ItemVO> itemListVO = null;
     try {
-      itemListVO = (List<ItemVO>) xt.transformToItemList(itemListXml);
+      itemListVO = (List<ItemVO>) XmlTransformingService.transformToItemList(itemListXml);
     } catch (Exception e) {
       throw new SyndicationException("Cannot transform item list XML to List<ItemVO>:", e);
     }

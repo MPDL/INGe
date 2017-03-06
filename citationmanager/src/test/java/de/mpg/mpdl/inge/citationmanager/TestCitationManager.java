@@ -20,7 +20,6 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.TestHelper;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
@@ -43,7 +42,7 @@ public class TestCitationManager {
   private static HashMap<String, String> itemLists;
 
 
-  private static CitationStyleExecutor cse = new CitationStyleExecutor();
+  private static CitationStyleExecutorService cse = new CitationStyleExecutorService();
   private CitationStyleManagerImpl csm = new CitationStyleManagerImpl();
 
   /**

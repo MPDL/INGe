@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pidcache;
 import javax.naming.NamingException;
 
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * TODO Description
@@ -40,19 +38,15 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class Pid extends PidServiceResponseVO {
-  private XmlTransforming xmlTransforming = null;
 
   /**
    * Default constructor
    * 
    * @throws NamingException
    */
-  public Pid() throws NamingException {
-    super();
-    // InitialContext context = new InitialContext();
-    xmlTransforming = new XmlTransformingBean();
-  }
+  public Pid() throws NamingException {}
 
   /**
    * Constructor with parameters
@@ -62,7 +56,6 @@ public class Pid extends PidServiceResponseVO {
    * @throws NamingException
    */
   public Pid(String identifier, String url) throws NamingException {
-    this();
     this.identifier = identifier;
     this.url = url;
   }

@@ -2,18 +2,14 @@ package de.mpg.mpdl.inge.pidcache.process;
 
 import java.util.Date;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pidcache.Pid;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.pidcache.tables.Cache;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-
 
 /**
  * 
@@ -26,10 +22,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
 public class CacheProcess {
   private static String DUMMY_URL = null;
   private static final Logger logger = Logger.getLogger(CacheProcess.class);
-  private InitialContext context = null;
-
-  private XmlTransforming xmlTransforming;
-
 
   /**
    * Manage the cache
@@ -38,11 +30,6 @@ public class CacheProcess {
    */
   public CacheProcess() throws Exception {
     DUMMY_URL = PropertyReader.getProperty("escidoc.pidcache.dummy.url");
-    // context = new InitialContext();
-
-
-
-    xmlTransforming = new XmlTransformingBean();
   }
 
   /**
@@ -62,7 +49,7 @@ public class CacheProcess {
         current = new Date().getTime();
         String pidXml = gwdgPidService.create(DUMMY_URL.concat(Long.toString(current)));
         PidServiceResponseVO pidServiceResponseVO =
-            xmlTransforming.transformToPidServiceResponse(pidXml);
+            XmlTransformingService.transformToPidServiceResponse(pidXml);
         Pid pid = new Pid(pidServiceResponseVO.getIdentifier(), pidServiceResponseVO.getUrl());
         cache.add(pid);
         i++;
@@ -70,7 +57,6 @@ public class CacheProcess {
     } else {
       logger.warn("PID manager at GWDG not available.");
     }
-
   }
 
   public boolean isFull() throws Exception {

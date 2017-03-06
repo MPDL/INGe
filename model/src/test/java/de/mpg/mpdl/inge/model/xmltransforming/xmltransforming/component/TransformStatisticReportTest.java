@@ -34,7 +34,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDateParamValueVO;
@@ -42,7 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecim
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
@@ -54,9 +53,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * 
  */
 public class TransformStatisticReportTest extends XmlTransformingTestBase {
-  Logger logger = Logger.getLogger(this.getClass());
+  private static final Logger logger = Logger.getLogger(TransformStatisticReportTest.class);
 
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformStatisticReport/";
   private static String REPORT_SAMPLE_FILE = TEST_FILE_ROOT + "report_sample.xml";
   private static String REPORT_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT
@@ -74,7 +72,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     String reportXML = readFile(REPORT_SAMPLE_FILE);
 
     List<StatisticReportRecordVO> statisticReportRecordList =
-        xmlTransforming.transformToStatisticReportRecordList(reportXML);
+        XmlTransformingService.transformToStatisticReportRecordList(reportXML);
 
     assertEquals(9, statisticReportRecordList.size());
 
@@ -140,7 +138,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     repParamsVO.setReportDefinitionId("23");
     repParamsVO.setParamList(paramList);
 
-    String xmlRepParams = xmlTransforming.transformToStatisticReportParameters(repParamsVO);
+    String xmlRepParams = XmlTransformingService.transformToStatisticReportParameters(repParamsVO);
 
     assertNotNull(xmlRepParams);
     assertXMLValid(xmlRepParams);
@@ -156,7 +154,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     String reportDefXML = readFile(REPORT_DEFINITION_LIST_SAMPLE_FILE);
 
     List<StatisticReportDefinitionVO> statisticReportRecordList =
-        xmlTransforming.transformToStatisticReportDefinitionList(reportDefXML);
+        XmlTransformingService.transformToStatisticReportDefinitionList(reportDefXML);
 
     assertEquals(9, statisticReportRecordList.size());
 
@@ -206,21 +204,18 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     repDefVO.setScopeID(scopeId);
     repDefVO.setSql(sql);
 
-    String repDefVOXML = xmlTransforming.transformToStatisticReportDefinition(repDefVO);
+    String repDefVOXML = XmlTransformingService.transformToStatisticReportDefinition(repDefVO);
     assertNotNull(repDefVOXML);
     assertXMLValid(repDefVOXML);
     logger.info(repDefVOXML);
 
     StatisticReportDefinitionVO repDefVONew =
-        xmlTransforming.transformToStatisticReportDefinition(repDefVOXML);
+        XmlTransformingService.transformToStatisticReportDefinition(repDefVOXML);
 
     assertNotNull(repDefVONew);
     assertEquals(name, repDefVONew.getName());
     assertEquals(objid, repDefVONew.getObjectId());
     assertEquals(scopeId, repDefVONew.getScopeID());
     assertEquals(sql, repDefVONew.getSql());
-
   }
-
-
 }

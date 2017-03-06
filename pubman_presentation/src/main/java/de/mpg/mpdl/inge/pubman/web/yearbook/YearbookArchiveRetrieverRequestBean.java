@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -16,7 +15,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -44,12 +43,6 @@ public class YearbookArchiveRetrieverRequestBean extends
   private static String parameterSelectedOrgUnit = "orgUnit";
   private int numberOfRecords;
   private PubItemListSessionBean pilsb;
-
-  // @EJB
-  // private Search searchService;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   public YearbookArchiveRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
@@ -170,7 +163,7 @@ public class YearbookArchiveRetrieverRequestBean extends
               filter.toMap());
 
       SearchRetrieveResponseVO result =
-          xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
 
       List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
       for (SearchRetrieveRecordVO record : result.getRecords()) {
@@ -184,6 +177,7 @@ public class YearbookArchiveRetrieverRequestBean extends
       error("Error in retrieving items");
       numberOfRecords = 0;
     }
+
     return returnList;
   }
 

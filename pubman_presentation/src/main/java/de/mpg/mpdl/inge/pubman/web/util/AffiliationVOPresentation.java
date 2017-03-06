@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
@@ -42,7 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
@@ -373,16 +372,12 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     if (affiliations.size() == 0)
       return transformedAffs;
     try {
-      InitialContext initialContext = new InitialContext();
-      XmlTransforming xmlTransforming =
-          (XmlTransforming) initialContext
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
       if (affiliations.size() == 1) {
 
         String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
-        AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
+        AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
         transformedAffs.add(affVO);
         return transformedAffs;
       } else {
@@ -396,7 +391,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         }
 
         String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
-        transformedAffs = xmlTransforming.transformToAffiliationList(ouXml);
+        transformedAffs = XmlTransformingService.transformToAffiliationList(ouXml);
 
       }
     } catch (Exception e) {
@@ -444,11 +439,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   private void fetchSuccessors() {
     if (this.successors == null) {
       try {
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming =
-            (XmlTransforming) initialContext
-                .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
@@ -458,7 +448,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         String ouXml = ouHandler.retrieveSuccessors(reference.getObjectId());
         Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
         logger.debug(ouXml);
-        List<AffiliationRO> affROs = xmlTransforming.transformToSuccessorAffiliationList(ouXml);
+        List<AffiliationRO> affROs =
+            XmlTransformingService.transformToSuccessorAffiliationList(ouXml);
         this.successors = new ArrayList<AffiliationVO>();
         if (affROs != null && affROs.size() > 0) {
           List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);

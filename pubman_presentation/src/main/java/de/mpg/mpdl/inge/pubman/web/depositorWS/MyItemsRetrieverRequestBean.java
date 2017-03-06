@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -17,7 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -86,15 +85,11 @@ public class MyItemsRetrieverRequestBean extends
    */
   private String selectedItemState;
 
-  @EJB
-  private XmlTransforming xmlTransforming;
-
   public MyItemsRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
     // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
     // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
   }
-
 
   /**
    * Checks if the user is logged in. If not, redirects to the login page.
@@ -214,9 +209,8 @@ public class MyItemsRetrieverRequestBean extends
           ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
               filter.toMap());
 
-
       ItemVOListWrapper pubItemList =
-          xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+          XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
 
       numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
       returnList =
@@ -227,8 +221,8 @@ public class MyItemsRetrieverRequestBean extends
       error("Error in retrieving items");
       numberOfRecords = 0;
     }
-    return returnList;
 
+    return returnList;
   }
 
   /**

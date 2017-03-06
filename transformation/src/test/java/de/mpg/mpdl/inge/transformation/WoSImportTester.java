@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.transformation;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -11,17 +10,15 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.wos.WoSTransformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class WoSImportTester {
-
   private static final Logger logger = Logger.getLogger(WoSImportTester.class);
+
   WoSTransformation wosTransformer = new WoSTransformation();
 
   /**
@@ -45,7 +42,7 @@ public class WoSImportTester {
       baos.write(buffer, 0, read);
     }
     // String str = imp.readFile();
-    String out = imp.transformWoS2XML(new String(baos.toByteArray(), "UTF-8"));
+    imp.transformWoS2XML(new String(baos.toByteArray(), "UTF-8"));
     // String out = imp.transformWoS2XML(str);
     byte[] result =
         transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
@@ -56,7 +53,7 @@ public class WoSImportTester {
 
   @Test
   public void wosList1Transformation() throws Exception {
-    this.logger.info("Transform WoS list 1 to xml format");
+    logger.info("Transform WoS list 1 to xml format");
     Format inputFormat = new Format("WoS", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
     byte[] result =
@@ -65,17 +62,16 @@ public class WoSImportTester {
                 WoSImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat,
             outputFormat, "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    List<PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
+    List<PubItemVO> itemVOList = XmlTransformingService.transformToPubItemList(new String(result));
 
     assertEquals(1, itemVOList.size());
 
-    this.logger.info("PubItemVO List successfully created.");
+    logger.info("PubItemVO List successfully created.");
   }
 
   @Test
   public void wosList2Transformation() throws Exception {
-    this.logger.info("Transform WoS list 2 to xml format");
+    logger.info("Transform WoS list 2 to xml format");
     Format inputFormat = new Format("WoS", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
     byte[] result =
@@ -84,13 +80,10 @@ public class WoSImportTester {
                 WoSImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat,
             outputFormat, "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    List<PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
+    List<PubItemVO> itemVOList = XmlTransformingService.transformToPubItemList(new String(result));
 
     assertEquals(5, itemVOList.size());
 
-    this.logger.info("PubItemVO List successfully created.");
+    logger.info("PubItemVO List successfully created.");
   }
-
-
 }

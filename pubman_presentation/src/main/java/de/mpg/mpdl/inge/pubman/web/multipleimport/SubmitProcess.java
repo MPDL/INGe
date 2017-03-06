@@ -26,13 +26,11 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import javax.naming.InitialContext;
-
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 
@@ -46,8 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  */
 public class SubmitProcess extends Thread {
   private ImportLog log;
-  private XmlTransforming xmlTransforming; //
-  private ItemHandler itemHandler; //
+  private ItemHandler itemHandler;
   private AccountUserVO user;
   private boolean alsoRelease;
 
@@ -60,15 +57,10 @@ public class SubmitProcess extends Thread {
     this.log.startItem("import_process_submit_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process");
     try {
-
       user = new AccountUserVO();
       user.setHandle(log.getUserHandle());
       user.setUserid(log.getUser());
 
-      InitialContext context = new InitialContext();
-      this.xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
@@ -102,7 +94,7 @@ public class SubmitProcess extends Thread {
           log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
 
           String itemXml = this.itemHandler.retrieve(item.getItemId());
-          PubItemVO itemVO = this.xmlTransforming.transformToPubItem(itemXml);
+          PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXml);
           // ContextRO contextRO = itemVO.getContext();
           // ContextVO contextVO;
           // if (this.contexts.containsKey(contextRO.getObjectId()))

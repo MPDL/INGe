@@ -93,8 +93,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
@@ -417,7 +417,6 @@ public class SwordUtil extends FacesBean {
       // TEI metadata.
       if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI)) {
         // Copyright information are imported from metadata file
-        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         Transformation transformer = new TransformationBean();
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
         Format escidocComponentFormat =
@@ -426,7 +425,7 @@ public class SwordUtil extends FacesBean {
             new String(transformer.transform(this.depositXml.getBytes(), teiFormat,
                 escidocComponentFormat, "escidoc"), "UTF-8");
         try {
-          FileVO transformdedFileVO = xmlTransforming.transformToFileVO(fileXml);
+          FileVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
           for (FileVO pubItemFile : pubItem.getFiles()) {
             pubItemFile.getDefaultMetadata().setRights(
                 transformdedFileVO.getDefaultMetadata().getRights());
@@ -466,7 +465,7 @@ public class SwordUtil extends FacesBean {
     }
 
     try {
-      XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+      XmlTransformingService XmlTransformingService = new XmlTransformingService();
       Transformation transformer = this.getApplicationBean().getTransformationService();
 
       Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
@@ -494,7 +493,7 @@ public class SwordUtil extends FacesBean {
                 this.transformationService), "UTF-8");
       }
       // Create item
-      itemVO = xmlTransforming.transformToPubItem(item);
+      itemVO = XmlTransformingService.transformToPubItem(item);
 
 
       // REMOVE!!!
@@ -508,8 +507,6 @@ public class SwordUtil extends FacesBean {
 
       // Set Version to null in order to force PubItemPubItemService to create a new item.
       itemVO.setVersion(null);
-
-
       this.logger.debug("Item successfully created.");
     } catch (Exception e) {
       this.logger.error("Transformation to PubItem failed.", e);
@@ -799,9 +796,8 @@ public class SwordUtil extends FacesBean {
     HttpClient client = new HttpClient();
     client.executeMethod(method);
     String response = method.getResponseBodyAsString();
-    // InitialContext context = new InitialContext();
-    XmlTransformingBean ctransforming = new XmlTransformingBean();
-    return ctransforming.transformUploadResponseToFileURL(response);
+
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   // public SWORDEntry createResponseAtom(PubItemVO item, Deposit deposit, boolean valid) {

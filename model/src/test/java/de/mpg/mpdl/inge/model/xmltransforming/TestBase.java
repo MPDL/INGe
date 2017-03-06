@@ -45,8 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -142,24 +140,6 @@ public class TestBase {
   private static final Logger logger = Logger.getLogger(TestBase.class);
 
   /**
-   * Helper method to retrieve a EJB service instance. The name to be passed to the method is
-   * normally 'ServiceXY.SERVICE_NAME'.
-   * 
-   * @param serviceName The name of the service, e.g.
-   *        "ejb.de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming"
-   * 
-   * @return instance of the EJB service
-   * 
-   * @throws NamingException Thrown if the service is not found.
-   */
-  protected static Object getService(String serviceName) throws NamingException {
-    InitialContext context = new InitialContext();
-    Object serviceInstance = context.lookup(serviceName);
-    assertNotNull(serviceInstance);
-    return serviceInstance;
-  }
-
-  /**
    * Logs the user with the given userHandle out from the system.
    * 
    * @param userHandle The current user handle
@@ -183,17 +163,13 @@ public class TestBase {
   protected AccountUserVO getAccountUser(String userHandle) throws Exception {
     AccountUserVO accountUser = new AccountUserVO();
     String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-    accountUser =
-        ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
-            .transformToAccountUser(xmlUser);
+    accountUser = XmlTransformingService.transformToAccountUser(xmlUser);
     // add the user handle to the transformed account user
     accountUser.setHandle(userHandle);
     String userGrantXML =
         ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
             accountUser.getReference().getObjectId());
-    List<GrantVO> grants =
-        ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
-            .transformToGrantVOList(userGrantXML);
+    List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(userGrantXML);
     List<GrantVO> userGrants = accountUser.getGrants();
     for (GrantVO grant : grants) {
       userGrants.add(grant);
@@ -1186,8 +1162,7 @@ public class TestBase {
     String response = method.getResponseBodyAsString();
     assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
 
-    return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
-        .transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   /**

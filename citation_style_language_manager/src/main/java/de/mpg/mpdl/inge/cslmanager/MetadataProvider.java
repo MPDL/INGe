@@ -24,9 +24,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.csl.CSLItemData;
 import de.undercouch.citeproc.csl.CSLItemDataBuilder;
@@ -41,24 +40,17 @@ import de.undercouch.citeproc.csl.CSLType;
  * 
  */
 public class MetadataProvider implements ItemDataProvider {
+  private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
 
-  private final static Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
+  private static final String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
 
-  private final static String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
-
-  private XmlTransforming xmlTransformer;
   private List<PubItemVO> pubItemList;
   private List<String> ids = new ArrayList<String>();
 
   public MetadataProvider(String itemList) throws TechnicalException {
     try {
 
-      // initialization with new as we try to get rid of the EJBs
-      xmlTransformer = new XmlTransformingBean();
-      // Context context = new InitialContext();
-      // xmlTransformer= (XmlTransforming)
-      // context.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      pubItemList = xmlTransformer.transformToPubItemList(itemList);
+      pubItemList = XmlTransformingService.transformToPubItemList(itemList);
       for (PubItemVO pubItem : pubItemList) {
         ids.add(pubItem.getVersion().getObjectId());
       }

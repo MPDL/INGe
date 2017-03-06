@@ -17,14 +17,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.XmlComparator;
 
 
 public class TransformationTest {
@@ -94,8 +93,7 @@ public class TransformationTest {
     // .getBytes("UTF-8"), teiFormat, escidocComponentFormat, "escidoc");
     this.logger.debug(new String(result, "UTF-8"));
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
   }
@@ -129,9 +127,9 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bmc, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
     // System.out.println(new String(result, "UTF-8"));
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
 
@@ -140,7 +138,7 @@ public class TransformationTest {
             ResourceUtil.getResourceAsString("testFiles/externalSources/bmc.xml",
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bmc,
             escidocComponent, "escidoc");
-    FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
+    FileVO componentVO = XmlTransformingService.transformToFileVO(new String(result, "UTF-8"));
     this.logger.info("FileVO successfully created.");
   }
 
@@ -159,8 +157,8 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), arxivItem, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
 
@@ -170,7 +168,7 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), arxivItem,
             escidocComponent, "escidoc");
     System.out.println(new String(result, "UTF-8"));
-    FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
+    FileVO componentVO = XmlTransformingService.transformToFileVO(new String(result, "UTF-8"));
     Assert.assertNotNull(componentVO);
     this.logger.info("FileVO successfully created. ");
   }
@@ -188,8 +186,8 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), spires, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
   }
@@ -207,8 +205,8 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), bibtex, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
   }
@@ -241,8 +239,8 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), endnote, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
   }
@@ -398,7 +396,7 @@ public class TransformationTest {
     Format escidocComponent =
         new Format("escidoc-publication-component", "application/xml", "UTF-8");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+    XmlTransformingService XmlTransformingService = new XmlTransformingService();
 
     byte[] result;
     result =
@@ -407,7 +405,7 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), pmcItem, escidoc,
             "escidoc");
 
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     this.logger.info("PubItemVO successfully created.");
 
@@ -416,7 +414,7 @@ public class TransformationTest {
             ResourceUtil.getResourceAsString("testFiles/externalSources/pmc2.xml",
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), pmcItem,
             escidocComponent, "escidoc");
-    FileVO componentVO = xmlTransforming.transformToFileVO(new String(result, "UTF-8"));
+    FileVO componentVO = XmlTransformingService.transformToFileVO(new String(result, "UTF-8"));
     Assert.assertNotNull(componentVO);
     this.logger.info("FileVO successfully created.");
 
@@ -476,9 +474,8 @@ public class TransformationTest {
                 TransformationTest.class.getClassLoader()).getBytes("UTF-8"), mods, escidoc,
             "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
     List<PubItemVO> itemList =
-        (List<PubItemVO>) xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+        (List<PubItemVO>) XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemList);
     this.logger.info("PubItemVO successfully created.");
   }

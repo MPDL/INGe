@@ -51,13 +51,12 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.types.Validatable;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -107,11 +106,6 @@ public final class ValidationSchemaCache {
   private final Map<String, String> validationSchemaContextMap = new HashMap<String, String>();
 
   /**
-   * Common XML transforming functionalities.
-   */
-  private XmlTransforming xmlTransforming;
-
-  /**
    * XSLT transformer factory.
    */
   private static TransformerFactory factory = null;
@@ -123,11 +117,9 @@ public final class ValidationSchemaCache {
    * @throws Exception Anyexception.
    */
   public static void main(final String[] args) throws Exception {
-
     ValidationSchemaCache cache = ValidationSchemaCache.getInstance();
     cache.resetCache();
     cache.precompileAll();
-
   }
 
   /**
@@ -732,9 +724,6 @@ public final class ValidationSchemaCache {
    */
   private ValidationSchemaCache() {
     try {
-      // Context ctx = new InitialContext();
-      xmlTransforming = new XmlTransformingBean();
-
       factory = new net.sf.saxon.TransformerFactoryImpl();
       factory.setURIResolver(new LocalUriResolver());
       LOGGER.info("ValidationSchemaCache initialized.");
@@ -754,7 +743,7 @@ public final class ValidationSchemaCache {
   public String getValidationSchemaId(String context) throws Exception {
     if (!validationSchemaContextMap.containsKey(context)) {
       String contextXml = ServiceLocator.getContextHandler().retrieve(context);
-      ContextVO contextVO = xmlTransforming.transformToContext(contextXml);
+      ContextVO contextVO = XmlTransformingService.transformToContext(contextXml);
       AdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptors().get(0);
       if (adminDescriptorVO instanceof Validatable) {
         String validateSchemaId = ((Validatable) adminDescriptorVO).getValidationSchema();

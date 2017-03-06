@@ -11,10 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -66,9 +63,9 @@ public class EndNoteImportTest {
                 "testFiles/endnote/publikationsliste_2008_endnote2.txt",
                 EndNoteImportTest.class.getClassLoader()).getBytes(), this.inputFormatICE,
             this.outputFormat, "escidoc");
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
     List<PubItemVO> itemList =
-        (List<PubItemVO>) xmlTransforming.transformToPubItemList(new String(result, "UTF-8"));
+        (List<PubItemVO>) XmlTransformingService
+            .transformToPubItemList(new String(result, "UTF-8"));
     Assert.assertNotNull(itemList);
   }
 
@@ -87,12 +84,9 @@ public class EndNoteImportTest {
     // fos.write(result);
     // fos.close();
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
     List<PubItemVO> itemList =
-        (List<PubItemVO>) xmlTransforming.transformToPubItemList(new String(result, "UTF-8"));
+        (List<PubItemVO>) XmlTransformingService
+            .transformToPubItemList(new String(result, "UTF-8"));
     Assert.assertNotNull(itemList);
-
-    // logger.info(new String(result,"UTF-8"));
   }
-
 }

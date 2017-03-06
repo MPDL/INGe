@@ -40,15 +40,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class StructuredExportServiceTest {
+  private static final Logger logger = Logger.getLogger(StructuredExportServiceTest.class);
+
   private StructuredExportService export = new StructuredExportService();
-
-  private Logger logger = Logger.getLogger(StructuredExportServiceTest.class);
-
   private static HashMap<String, String> itemLists;
 
   public static final Map<String, String> ITEM_LISTS_FILE_MAMES = new HashMap<String, String>() {
@@ -167,10 +165,9 @@ public class StructuredExportServiceTest {
     String itemList =
         ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml",
             StructuredExportServiceTest.class.getClassLoader());
-    XmlTransforming xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemList);
     List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-    itemList = xmlTransforming.transformToItemList(pubitemList);
+    itemList = XmlTransformingService.transformToItemList(pubitemList);
     byte[] result = export.getOutput(itemList, "BIBTEX");
     assertNotNull(result);
     logger.info("BIBTEX (Book)");
@@ -179,9 +176,9 @@ public class StructuredExportServiceTest {
     itemList =
         ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml",
             StructuredExportServiceTest.class.getClassLoader());
-    itemVO = xmlTransforming.transformToPubItem(itemList);
+    itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
-    itemList = xmlTransforming.transformToItemList(pubitemList);
+    itemList = XmlTransformingService.transformToItemList(pubitemList);
     result = export.getOutput(itemList, "ENDNOTE");
     assertNotNull(result);
     logger.info("ENDNOTE (Book)");
@@ -190,10 +187,9 @@ public class StructuredExportServiceTest {
     itemList =
         ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml",
             StructuredExportServiceTest.class.getClassLoader());
-    xmlTransforming = new XmlTransformingBean();
-    itemVO = xmlTransforming.transformToPubItem(itemList);
+    itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
-    itemList = xmlTransforming.transformToItemList(pubitemList);
+    itemList = XmlTransformingService.transformToItemList(pubitemList);
     result = export.getOutput(itemList, "BIBTEX");
     assertNotNull(result);
     logger.info("BIBTEX (Thesis)");
@@ -202,9 +198,9 @@ public class StructuredExportServiceTest {
     itemList =
         ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml",
             StructuredExportServiceTest.class.getClassLoader());
-    itemVO = xmlTransforming.transformToPubItem(itemList);
+    itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
-    itemList = xmlTransforming.transformToItemList(pubitemList);
+    itemList = XmlTransformingService.transformToItemList(pubitemList);
     result = export.getOutput(itemList, "ENDNOTE");
     assertNotNull(result);
     logger.info("ENDNOTE (Thesis)");

@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * TODO Description
@@ -63,10 +63,11 @@ public class EscidocAaClientFinish extends FinalClient {
         UserAccountHandler userAccountHandler =
             ServiceLocator.getUserAccountHandler(escidocUserHandle);
         String accountData = userAccountHandler.retrieveCurrentUser();
-        AccountUserVO accountUserVO = new XmlTransformingBean().transformToAccountUser(accountData);
+        AccountUserVO accountUserVO =
+            new XmlTransformingService().transformToAccountUser(accountData);
         String grantData =
             userAccountHandler.retrieveCurrentGrants(accountUserVO.getReference().getObjectId());
-        List<GrantVO> grants = new XmlTransformingBean().transformToGrantVOList(grantData);
+        List<GrantVO> grants = new XmlTransformingService().transformToGrantVOList(grantData);
         if (grants != null) {
           accountUserVO.getGrants().addAll(grants);
         }

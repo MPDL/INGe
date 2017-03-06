@@ -31,13 +31,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.transformation.Util;
@@ -85,16 +84,15 @@ public class CitationTransformation {
       String service, boolean itemListBool) throws TransformationNotSupportedException,
       RuntimeException {
     try {
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
       String itemList = "";
       if (!itemListBool) {
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(src, "UTF-8"));
         List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-        itemList = xmlTransforming.transformToItemList(pubitemList);
+        itemList = XmlTransformingService.transformToItemList(pubitemList);
       } else {
         itemList = new String(src, "UTF-8");
       }
-      return CitationStyleExecutor.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
+      return CitationStyleExecutorService.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
           "snippet", trgFormat.getName().toUpperCase()));
     } catch (CitationStyleManagerException e) {
       throw new TransformationNotSupportedException(e);

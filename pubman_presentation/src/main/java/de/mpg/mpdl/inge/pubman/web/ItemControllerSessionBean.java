@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -67,9 +65,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
@@ -125,13 +122,10 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // transform the affiliation
-    AffiliationVO affiliation = new XmlTransformingBean().transformToAffiliation(xmlAffiliation);
+    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(xmlAffiliation);
 
     return affiliation;
   }
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   private PubItemVOPresentation currentPubItem = null;
   private ContextVO currentContext = null;
@@ -797,7 +791,7 @@ public class ItemControllerSessionBean extends FacesBean {
       logger.debug("Transforming items...");
     }
     ArrayList<PubItemVO> itemList =
-        (ArrayList<PubItemVO>) this.xmlTransforming.transformSearchRetrieveResponseToItemList(
+        (ArrayList<PubItemVO>) XmlTransformingService.transformSearchRetrieveResponseToItemList(
             xmlItemList).getItemVOList();
 
     return itemList;
@@ -935,7 +929,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     }
 
-    versionHistoryList = this.xmlTransforming.transformToEventVOList(xmlVersionHistoryList);
+    versionHistoryList = XmlTransformingService.transformToEventVOList(xmlVersionHistoryList);
 
     return versionHistoryList;
   }

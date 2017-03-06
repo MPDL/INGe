@@ -33,20 +33,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.validation.valueobjects.ValidationReportVO;
 import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
@@ -70,12 +68,6 @@ public class ItemValidatingBean implements ItemValidating {
    */
   private static final Logger LOGGER = Logger.getLogger(ItemValidatingBean.class);
 
-  /**
-   * A XmlTransforming instance.
-   */
-  @EJB
-  private XmlTransforming xmlTransforming;
-
   @EJB
   private ValidationTransforming validationTransforming;
 
@@ -86,7 +78,6 @@ public class ItemValidatingBean implements ItemValidating {
       throws ValidationSchemaNotFoundException, TechnicalException {
 
     return validateItemXml(itemXml, "default");
-
   }
 
   /**
@@ -187,7 +178,7 @@ public class ItemValidatingBean implements ItemValidating {
       throws ValidationSchemaNotFoundException, TechnicalException {
     if (itemVO instanceof ItemVO) {
       return transformXmlToValidationReport(validateItemXml(
-          xmlTransforming.transformToItem((ItemVO) itemVO), "default"));
+          XmlTransformingService.transformToItem((ItemVO) itemVO), "default"));
     } else {
       // TODO: Implementation for other content models.
       return null;
@@ -204,7 +195,7 @@ public class ItemValidatingBean implements ItemValidating {
 
     if (itemVO instanceof ItemVO) {
       return transformXmlToValidationReport(validateItemXml(
-          xmlTransforming.transformToItem((ItemVO) itemVO), validationPoint));
+          XmlTransformingService.transformToItem((ItemVO) itemVO), validationPoint));
     } else {
       // TODO: Implementation for other content models.
       return null;
@@ -221,7 +212,7 @@ public class ItemValidatingBean implements ItemValidating {
     LOGGER.debug("Validating a " + itemVO.getClass().getSimpleName());
 
     return transformXmlToValidationReport(validateItemXmlBySchema(
-        xmlTransforming.transformToItem((ItemVO) itemVO), validationPoint, validationSchema));
+        XmlTransformingService.transformToItem((ItemVO) itemVO), validationPoint, validationSchema));
 
   }
 
@@ -245,10 +236,6 @@ public class ItemValidatingBean implements ItemValidating {
 
   private ValidationTransforming getValidationTransforming() throws NamingException {
     return validationTransforming;
-    /*
-     * InitialContext context = new InitialContext(); return (ValidationTransforming)
-     * context.lookup("java:global/pubman_ear/validation/ValidationTransformingBean");
-     */
   }
 
   /**
@@ -264,5 +251,4 @@ public class ItemValidatingBean implements ItemValidating {
   public final Date getLastRefreshDate() throws TechnicalException {
     return ValidationSchemaCache.getInstance().getLastRefreshDate();
   }
-
 }

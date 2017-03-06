@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
@@ -80,7 +79,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.EditItemPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -127,9 +126,6 @@ public class EditItem extends FacesBean {
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
   public static final String LOAD_EDITITEM = "loadEditItem";
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
@@ -478,7 +474,7 @@ public class EditItem extends FacesBean {
     String response = method.getResponseBodyAsString();
     fis.close();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public List<ListItem> getLanguages() throws Exception {
@@ -1489,7 +1485,7 @@ public class EditItem extends FacesBean {
     String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
 
     SearchRetrieveResponseVO searchedObject =
-        xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
     if (searchedObject == null || searchedObject.getRecords() == null
         || searchedObject.getRecords().get(0) == null
         || searchedObject.getRecords().get(0).getData() == null) {
@@ -1529,7 +1525,7 @@ public class EditItem extends FacesBean {
           ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
       searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
       SearchRetrieveResponseVO searchedObject =
-          xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+          XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
 
       if (searchedObject == null || searchedObject.getRecords() == null
           || searchedObject.getRecords().get(0) == null

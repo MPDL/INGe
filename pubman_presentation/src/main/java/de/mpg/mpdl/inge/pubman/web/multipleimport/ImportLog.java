@@ -43,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
@@ -53,7 +52,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -1436,18 +1435,16 @@ public class ImportLog {
       try {
         ContextVO contextVO;
         ContextHandler contextHandler = ServiceLocator.getContextHandler();
-        InitialContext ctx = new InitialContext();
-        XmlTransforming xmlTransforming =
-            (XmlTransforming) ctx.lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
 
         String contextXml = contextHandler.retrieve(this.context);
-        contextVO = xmlTransforming.transformToContext(contextXml);
+        contextVO = XmlTransformingService.transformToContext(contextXml);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
     }
+
     return this.workflow;
   }
 

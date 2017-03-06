@@ -56,8 +56,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -171,7 +171,6 @@ public class FileBean extends FacesBean {
     // examine weather the user holds an audience Grant for the current file or not
     try {
       if (file.getReference() != null && file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
-        XmlTransformingBean transforming = new XmlTransformingBean();
         UserAccountHandler uah =
             ServiceLocator.getUserAccountHandler(getLoginHelper().getAccountUser().getHandle());
 
@@ -198,7 +197,7 @@ public class FileBean extends FacesBean {
 
         String userGrantXML = uah.retrieveGrants(filter.toMap());
         SearchRetrieveResponseVO searchResult =
-            transforming.transformToSearchRetrieveResponseGrantVO(userGrantXML);
+            XmlTransformingService.transformToSearchRetrieveResponseGrantVO(userGrantXML);
         if (searchResult.getNumberOfRecords() > 0) {
           this.fileAccessGranted = true;
         } else {

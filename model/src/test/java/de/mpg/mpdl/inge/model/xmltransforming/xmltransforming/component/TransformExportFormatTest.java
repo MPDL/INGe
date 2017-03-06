@@ -36,11 +36,10 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * Test of {@link XmlTransforming} methods for ExportFormat transforming.
@@ -51,9 +50,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @revised
  */
 public class TransformExportFormatTest extends TestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-
-  private Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(TransformExportFormatTest.class);
 
   /**
    * Test of {@link XmlTransforming#transformToExportFormatVOList(String)}.
@@ -70,7 +67,7 @@ public class TransformExportFormatTest extends TestBase {
     String exportFormatList =
         readFile("xmltransforming/component/transformExportFormatTest/export-format-list_sample1.xml");
     List<ExportFormatVO> formatList =
-        xmlTransforming.transformToExportFormatVOList(exportFormatList);
+        XmlTransformingService.transformToExportFormatVOList(exportFormatList);
     assertNotNull(formatList);
     assertFalse(formatList.isEmpty());
     assertEquals(2, formatList.size());

@@ -1,21 +1,17 @@
 package de.mpg.mpdl.inge.transformation;
 
 
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-
 
 public class ZfNTest {
   public static TransformationBean trans;
-
 
   /**
    * Initializes the {@link TransformationBean}.
@@ -24,7 +20,6 @@ public class ZfNTest {
   public static void initTransformation() {
     trans = new TransformationBean(true);
   }
-
 
   /*
    * test ZfN TEI to eSciDoc item transformation Will not work as junit test due to xslt path
@@ -44,10 +39,8 @@ public class ZfNTest {
 
     System.out.println(new String(result, "UTF-8"));
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     System.out.println("PubItemVO successfully created.");
   }
-
 }

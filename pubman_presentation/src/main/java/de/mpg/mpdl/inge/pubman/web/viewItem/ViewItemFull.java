@@ -38,7 +38,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,7 +71,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
@@ -158,9 +157,6 @@ public class ViewItemFull extends FacesBean {
   private Transformation transformer;
   private YearbookItemSessionBean yisb;
   private int defaultSize = 20;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   /**
    * The list of formatted organzations in an ArrayList.
@@ -2441,7 +2437,7 @@ public class ViewItemFull extends FacesBean {
 
   public String getHtmlMetaTags() {
     try {
-      String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
+      String itemXml = XmlTransformingService.transformToItem(new PubItemVO(pubItem));
 
       Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
       Format targetHighwire =

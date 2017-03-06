@@ -61,8 +61,8 @@ import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
@@ -158,7 +158,7 @@ public class Export implements ExportHandler {
 
     String citStyles;
     try {
-      citStyles = CitationStyleExecutor.explainStyles();
+      citStyles = CitationStyleExecutorService.explainStyles();
     } catch (Exception e) {
       throw new ExportManagerException("Cannot get citation styles explain", e);
     }
@@ -281,7 +281,7 @@ public class Export implements ExportHandler {
 
       try {
         ba =
-            CitationStyleExecutor.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
+            CitationStyleExecutorService.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
                 exportFormat, outputFormat));
       } catch (Exception e) {
         throw new ExportManagerException("Cannot export citation", e);
@@ -821,7 +821,7 @@ public class Export implements ExportHandler {
       throw new ExportManagerException("Empty export format");
     }
     try {
-      if (CitationStyleExecutor.isCitationStyle(exportFormat)) {
+      if (CitationStyleExecutorService.isCitationStyle(exportFormat)) {
         return ExportFormatTypes.LAYOUT;
       } else if (StructuredExportService.isStructuredFormat(exportFormat)) {
         return ExportFormatTypes.STRUCTURED;
