@@ -30,8 +30,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class RISTransformation implements Transformation, Configurable {
-
-  private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -41,9 +39,7 @@ public class RISTransformation implements Transformation, Configurable {
   private Map<String, List<String>> properties = null;
   private Map<String, String> configuration = null;
 
-  public RISTransformation() {
-    // TODO Auto-generated constructor stub
-  }
+  public RISTransformation() {}
 
   /**
    * Get all possible source formats.
@@ -73,17 +69,6 @@ public class RISTransformation implements Transformation, Configurable {
   }
 
   /**
-   * Get all possible source formats.
-   * 
-   * @return String: list of possible source formats as xml
-   * @throws RuntimeException
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-
-    return "";
-  }
-
-  /**
    * Get all possible target formats for a source format.
    * 
    * @param src A source value object
@@ -96,21 +81,6 @@ public class RISTransformation implements Transformation, Configurable {
     } else {
       return new Format[] {};
     }
-  }
-
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param srcFormatName The name of the source format
-   * @param srcType The type of the source
-   * @param srcEncoding The sources encoding
-   * @return String: list of possible target formats as xml
-   * @throws RuntimeException
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    // TODO Auto-generated method stub
-    return null;
   }
 
   /*
@@ -216,20 +186,12 @@ public class RISTransformation implements Transformation, Configurable {
             PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         transformer.setParameter("external-organization",
             PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-
         transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
-
         transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
-
       }
-
       return result.toString().getBytes("UTF-8");
-      // return output.getBytes();
-      // return ResourceUtil.getResourceAsString(src).getBytes("UTF-8");
     } catch (Exception e) {
       throw new RuntimeException("Error getting file content", e);
     }
   }
-
-
 }

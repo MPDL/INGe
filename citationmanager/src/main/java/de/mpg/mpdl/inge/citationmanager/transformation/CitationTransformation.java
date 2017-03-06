@@ -116,18 +116,18 @@ public class CitationTransformation {
       throws TransformationNotSupportedException, RuntimeException {
     Transformation transformer = new TransformationService();
 
-    // Create input format
     Styles style = Util.getStyleInfo(trgFormat);
     String formatName = "snippet";
+
     if (style == Styles.APA || style == Styles.AJP) {
       formatName += "_" + style.toString();
     }
+
     Format input = new Format(formatName, "application/xml", "UTF-8");
-    // Create output format
     Format output =
         new Format(this.getOutputFormat(trgFormat.getType()), trgFormat.getType(),
             trgFormat.getEncoding());
-    // Do the transformation
+
     return transformer.transform(src, input, output, service);
   }
 
@@ -135,15 +135,19 @@ public class CitationTransformation {
     if (type.toLowerCase().equals(this.typeHTML)) {
       return "html";
     }
+
     if (type.toLowerCase().equals(this.typeODT)) {
       return "odt";
     }
+
     if (type.toLowerCase().equals(this.typePDF)) {
       return "pdf";
     }
+
     if (type.toLowerCase().equals(this.typeRTF1) || type.toLowerCase().equals(this.typeRTF2)) {
       return "rtf";
     }
+
     if (type.toLowerCase().equals(this.typeSnippet)) {
       return "snippet";
     }

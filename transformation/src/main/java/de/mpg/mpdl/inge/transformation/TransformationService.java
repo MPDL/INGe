@@ -82,17 +82,10 @@ public class TransformationService implements Transformation, Configurable {
   /**
    * {@inheritDoc}
    */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] allFormats = this.getSourceFormats();
-    return Util.createFormatsXml(allFormats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
       throws RuntimeException {
     Format[] allFormats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
+
     return Util.createFormatsXml(allFormats);
   }
 
@@ -136,6 +129,7 @@ public class TransformationService implements Transformation, Configurable {
       throws TransformationNotSupportedException, RuntimeException {
     Format source = new Format(srcFormatName, srcType, srcEncoding);
     Format target = new Format(trgFormatName, trgType, trgEncoding);
+
     return this.transform(src, source, target, service);
   }
 
@@ -153,6 +147,7 @@ public class TransformationService implements Transformation, Configurable {
     if (service.toLowerCase().equals("escidoc")) {
       return this.escidocTransformService(src, srcFormat, trgFormat, service);
     }
+
     return null;
   }
 
@@ -161,8 +156,6 @@ public class TransformationService implements Transformation, Configurable {
     transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
     byte[] result = null;
     String methodName = "transform";
-
-
 
     if (transformationClass == null) {
       logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
@@ -193,8 +186,6 @@ public class TransformationService implements Transformation, Configurable {
 
     return result;
   }
-
-
 
   private Format[] callMethodOnTransformationModules(String methodName, Format param)
       throws RuntimeException {
@@ -300,6 +291,7 @@ public class TransformationService implements Transformation, Configurable {
     if (service.toLowerCase().equals("escidoc")) {
       return this.escidocTransformService(src, srcFormat, trgFormat, service, configuration);
     }
+
     return null;
   }
 
@@ -309,8 +301,6 @@ public class TransformationService implements Transformation, Configurable {
     transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
     byte[] result = null;
     String methodName = "transform";
-
-
 
     if (transformationClass == null) {
       logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
@@ -346,7 +336,6 @@ public class TransformationService implements Transformation, Configurable {
     }
 
     return result;
-
   }
 
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
@@ -364,10 +353,9 @@ public class TransformationService implements Transformation, Configurable {
         // Execute the method
         return (Map<String, String>) method.invoke(transformationClass.newInstance(), srcFormat,
             trgFormat);
-      } else {
-        return null;
       }
     }
+
     return null;
   }
 

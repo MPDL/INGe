@@ -161,7 +161,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Could not accept item." + "\n" + e.toString(), e);
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -334,7 +334,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newPubItem)));
     } catch (Exception e) {
       logger.error("Could not create item." + "\n" + e.toString(), e);
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -364,7 +364,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(initializeItem(newRevision)));
     } catch (Exception e) {
       logger.error("Could not create revision." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -396,7 +396,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Could not delete item." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -682,7 +682,7 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemService.submitPubItem(pubItem, comment, getLoginHelper().getAccountUser());
     } catch (Exception e) {
       logger.error("Could not submit item." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -946,7 +946,7 @@ public class ItemControllerSessionBean extends FacesBean {
           .getAccountUser());
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -985,7 +985,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Could not save item." + "\n" + e.toString(), e);
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -1125,7 +1125,7 @@ public class ItemControllerSessionBean extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Could not release item.", e);
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -1155,7 +1155,7 @@ public class ItemControllerSessionBean extends FacesBean {
           getLoginHelper().getAccountUser());
     } catch (Exception e) {
       logger.error("Could not withdraw item." + "\n" + e.toString());
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }

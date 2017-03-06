@@ -131,26 +131,19 @@ public class Navigation extends FacesBean {
   public String changeLanguage() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
     // initialize the nav string with null. if it won't be changed the page would just be reloaded
     String navigationString = "";
-
-    ViewItemFull viewItem;
-    EditItem editItem;
-    // CreateRevision createRevision;
-    ReleaseHistory releaseHistory;
-    ViewItemLog viewItemLog;
 
     // special re-initializaion for pages with dynamic page elements which
     // must be re-inited
 
-    // logger.debug("Resolving current page URI: " + request.getRequestURI());
     String requestURI = request.getRequestURI();
 
     if (requestURI.startsWith("/pubman")) {
       requestURI = requestURI.substring("/pubman".length());
     }
 
-    logger.debug("Resolving current page URI: " + requestURI);
     for (int i = 0; i < navRules.size(); i++) {
       if (requestURI.equals(navRules.get(i).getRequestURL())) {
         navigationString = navRules.get(i).getNavigationString();
@@ -159,25 +152,20 @@ public class Navigation extends FacesBean {
     }
 
     if (navigationString.equals(EditItem.LOAD_EDITITEM)) {
-      editItem = (EditItem) getRequestBean(EditItem.class);
-      editItem.init();
+      ((EditItem) getRequestBean(EditItem.class)).init();
     } else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM)) {
-      viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
-      viewItem.init();
-    } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
+      ((ViewItemFull) getRequestBean(ViewItemFull.class)).init();
+      // } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
       // createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
       // createRevision.init();
     } else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      releaseHistory = (ReleaseHistory) getRequestBean(ReleaseHistory.class);
-      releaseHistory.init();
+      ((ReleaseHistory) getRequestBean(ReleaseHistory.class)).init();
     } else if (navigationString.equals(ViewItemLog.LOAD_ITEM_LOG)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      viewItemLog = (ViewItemLog) getRequestBean(ViewItemLog.class);
-      viewItemLog.init();
+      ((ViewItemLog) getRequestBean(ViewItemLog.class)).init();
     } else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION)) {
-      EasySubmission easy = (EasySubmission) getRequestBean(EasySubmission.class);
-      easy.init();
+      ((EasySubmission) getRequestBean(EasySubmission.class)).init();
     } else {
       navigationString = null;
     }

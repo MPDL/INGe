@@ -75,7 +75,7 @@ public class CitationUtil {
    * 
    * @return TransformationBean
    */
-  public static TransformationService getTransformationBean() {
+  public static TransformationService getTransformationService() {
     return tb == null ? tb = new TransformationService(true) : tb;
   }
 

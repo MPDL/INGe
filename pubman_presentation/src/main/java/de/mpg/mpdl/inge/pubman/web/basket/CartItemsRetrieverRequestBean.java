@@ -188,7 +188,6 @@ public class CartItemsRetrieverRequestBean extends
    * order to save the selections in the list.
    */
   public void updateExportOptions() {
-    ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
-    exportItemsBean.updateExportFormats();
+    ((ExportItems) getRequestBean(ExportItems.class)).updateExportFormats();
   }
 }

@@ -55,8 +55,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transformation {
-
-
   private static final Format ESCIDOC_ITEM_LIST_V1_FORMAT = new Format(
       "escidoc-publication-item-list-v1", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_V1_FORMAT = new Format("escidoc-publication-item-v1",
@@ -65,9 +63,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
       "escidoc-publication-item-list-v2", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_V2_FORMAT = new Format("escidoc-publication-item-v2",
       "application/xml", "*");
-
   private static final String PATH = "transformations/otherFormats/xslt";
-
   private static final String XSLT_PATH = PATH
       + "/escidoc-publication-v2_2_escidoc-publication-v1.xsl";
 
@@ -90,15 +86,6 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
     }
   }
 
-
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getSourceFormatsAsXml() {
-    throw new RuntimeException("Not implemented");
-  }
-
   /**
    * {@inheritDoc}
    */
@@ -109,14 +96,6 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
     } else {
       return new Format[] {};
     }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) {
-    throw new RuntimeException("Not implemented");
   }
 
   /**
@@ -163,13 +142,8 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
       System.out.println("Finished!");
 
       return result.toString().getBytes(trgFormat.getEncoding());
-
     } catch (Exception e) {
       throw new RuntimeException("Error parsing edoc xml", e);
     }
-
   }
-
-
-
 }

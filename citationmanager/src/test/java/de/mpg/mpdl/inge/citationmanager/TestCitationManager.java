@@ -184,7 +184,7 @@ public class TestCitationManager {
     // It is in old MD set
     Format out = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
     Format in = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
-    TransformationService trans = CitationUtil.getTransformationBean();
+    TransformationService trans = CitationUtil.getTransformationService();
 
     byte[] v2 =
         trans.transform(

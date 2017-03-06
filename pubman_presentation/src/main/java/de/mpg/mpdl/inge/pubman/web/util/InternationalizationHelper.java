@@ -347,7 +347,8 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorRole
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    Map<String, String> negativeRoles = this.getApplicationBean().getCreatorRoleMap();
+    Map<String, String> negativeRoles =
+        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class)).getCreatorRoleMap();
 
     List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
     for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
@@ -467,7 +468,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    Map<String, String> values = this.getApplicationBean().getContentCategoryMap();
+    Map<String, String> values =
+        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class))
+            .getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 
@@ -639,52 +642,11 @@ public class InternationalizationHelper implements Serializable {
     return null;
   }
 
-  // /**
-  // * Return any bean stored in application scope under the specified name.
-  // *
-  // * @param cls The bean class.
-  // * @return the actual or new bean instance
-  // */
-  // public static synchronized Object getApplicationBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // if (FacesBean.class.getName().equals(name)) {
-  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-  // }
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  // Object result =
-  // FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(name);
-  //
-  // logger.debug("Getting bean " + name + ": " + result);
-  //
-  // if (result == null) {
-  // try {
-  // logger.debug("Creating new application bean: " + name);
-  // Object newBean = cls.newInstance();
-  // FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put(name,
-  // newBean);
-  // return newBean;
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error creating new bean of type " + cls, e);
-  // }
-  // } else {
-  // return result;
-  // }
-  // }
-
   public List<LanguageChangeObserver> getLanguageChangeObservers() {
     return this.languageChangeObservers;
   }
 
   public void setLanguageChangeObservers(List<LanguageChangeObserver> languageChangeObservers) {
     this.languageChangeObservers = languageChangeObservers;
-  }
-
-  private ApplicationBean getApplicationBean() {
-    return (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
   }
 }

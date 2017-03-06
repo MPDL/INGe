@@ -99,7 +99,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -163,12 +163,10 @@ public class EasySubmission extends FacesBean {
   private String selectedDate;
   private String serviceID;
   private String suggestConeUrl = null;
-  private Transformation transformer = null;
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
 
   public EasySubmission() {
-    this.transformer = this.getApplicationBean().getTransformationService();
     this.init();
   }
 
@@ -519,17 +517,13 @@ public class EasySubmission extends FacesBean {
   public String save() {
     // bind the temporary uploaded files to the files in the current item
     bindUploadedFiles();
-
     parseAndSetAlternativeSourceTitlesAndIds();
-
-    // this.setFromEasySubmission(true);
 
     if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
     }
 
-    EditItem editItem = (EditItem) getRequestBean(EditItem.class);
-    editItem.setFromEasySubmission(true);
+    ((EditItem) getRequestBean(EditItem.class)).setFromEasySubmission(true);
 
     String returnValue =
         this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -629,7 +623,7 @@ public class EasySubmission extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
@@ -722,8 +716,8 @@ public class EasySubmission extends FacesBean {
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
       byte[] result =
-          this.transformer.transform(content.toString().getBytes("UTF-8"), source, target,
-              "escidoc");
+          new TransformationService().transform(content.toString().getBytes("UTF-8"), source,
+              target, "escidoc");
 
       PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());
@@ -1779,7 +1773,7 @@ public class EasySubmission extends FacesBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     Map<String, String> excludedSourceGenres =
-        this.getApplicationBean().getExcludedSourceGenreMap();
+        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
 
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
@@ -1997,7 +1991,7 @@ public class EasySubmission extends FacesBean {
         return this.contextName;
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -2047,10 +2041,6 @@ public class EasySubmission extends FacesBean {
    */
   public void setAlternativeLanguageName(String alternativeLanguageName) {
     this.alternativeLanguageName = alternativeLanguageName;
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 
   protected ContextListSessionBean getContextListSessionBean() {

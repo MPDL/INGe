@@ -34,8 +34,8 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
+import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -50,13 +50,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class CitationTransformationInterface implements Transformation {
+  private static final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
 
-  private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
-
-  private final String EXPLAIN_FILE_PATH = "Transformations/";
-  private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
-
-  private Util util;
+  private static final String EXPLAIN_FILE_PATH = "Transformations/";
+  private static final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
 
   /**
    * Public constructor.
@@ -74,27 +71,29 @@ public class CitationTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
-          "An error occurred while reading transformations.xml for citation formats.", e);
+      logger.error("An error occurred while reading transformations.xml for citation formats.", e);
       throw new RuntimeException(e);
     }
+
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
+
     for (int i = 0; i < transformations.length; i++) {
       TransformationType transformation = transformations[i];
-      String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-      String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-      String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+      String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+      String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+      String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
       Format sourceFormat = new Format(name, type, encoding);
-
       sourceFormats.add(sourceFormat);
     }
-    sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+
+    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
+
     return sourceFormats.toArray(dummy);
   }
 
@@ -103,7 +102,8 @@ public class CitationTransformationInterface implements Transformation {
    */
   public String getSourceFormatsAsXml() throws RuntimeException {
     Format[] formats = this.getSourceFormats();
-    return this.util.createFormatsXml(formats);
+
+    return Util.createFormatsXml(formats);
   }
 
   /**
@@ -112,7 +112,8 @@ public class CitationTransformationInterface implements Transformation {
   public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
       throws RuntimeException {
     Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return this.util.createFormatsXml(formats);
+
+    return Util.createFormatsXml(formats);
   }
 
   /**
@@ -126,12 +127,11 @@ public class CitationTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
-          "An error occurred while reading transformations.xml for citation formats.", e);
+      logger.error("An error occurred while reading transformations.xml for citation formats.", e);
       throw new RuntimeException(e);
     }
 
@@ -139,21 +139,23 @@ public class CitationTransformationInterface implements Transformation {
     TransformationType[] transformations = transType.getTransformationArray();
     for (TransformationType transformation : transformations) {
       Format source =
-          new Format(this.util.simpleLiteralTostring(transformation.getSource().getName()),
-              this.util.simpleLiteralTostring(transformation.getSource().getType()),
-              this.util.simpleLiteralTostring(transformation.getSource().getEncoding()));
+          new Format(Util.simpleLiteralTostring(transformation.getSource().getName()),
+              Util.simpleLiteralTostring(transformation.getSource().getType()),
+              Util.simpleLiteralTostring(transformation.getSource().getEncoding()));
       // Only get Target if source is given source
-      if (this.util.isFormatEqual(source, src)) {
-        String name = this.util.simpleLiteralTostring(transformation.getTarget().getName());
-        String type = this.util.simpleLiteralTostring(transformation.getTarget().getType());
-        String encoding = this.util.simpleLiteralTostring(transformation.getTarget().getEncoding());
+      if (Util.isFormatEqual(source, src)) {
+        String name = Util.simpleLiteralTostring(transformation.getTarget().getName());
+        String type = Util.simpleLiteralTostring(transformation.getTarget().getType());
+        String encoding = Util.simpleLiteralTostring(transformation.getTarget().getEncoding());
         Format sourceFormat = new Format(name, type, encoding);
 
         targetFormats.add(sourceFormat);
       }
     }
-    targetFormats = this.util.getRidOfDuplicatesInVector(targetFormats);
+
+    targetFormats = Util.getRidOfDuplicatesInVector(targetFormats);
     Format[] dummy = new Format[targetFormats.size()];
+
     return targetFormats.toArray(dummy);
   }
 
@@ -165,6 +167,7 @@ public class CitationTransformationInterface implements Transformation {
       throws TransformationNotSupportedException {
     Format source = new Format(srcFormatName, srcType, srcEncoding);
     Format target = new Format(trgFormatName, trgType, trgEncoding);
+
     return this.transform(src, source, target, service);
   }
 
@@ -198,11 +201,11 @@ public class CitationTransformationInterface implements Transformation {
         }
       }
     } catch (Exception e) {
-      this.logger.error("An error occurred during a citation transformation.", e);
+      logger.error("An error occurred during a citation transformation.", e);
       throw new RuntimeException(e);
     }
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -222,35 +225,37 @@ public class CitationTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for common publication formats.", e);
       throw new RuntimeException(e);
     }
 
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
+
     for (TransformationType transformation : transformations) {
       Format target =
-          new Format(this.util.simpleLiteralTostring(transformation.getTarget().getName()),
-              this.util.simpleLiteralTostring(transformation.getTarget().getType()),
-              this.util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
+          new Format(Util.simpleLiteralTostring(transformation.getTarget().getName()),
+              Util.simpleLiteralTostring(transformation.getTarget().getType()),
+              Util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
       // Only get Target if source is given source
-      if (this.util.isFormatEqual(target, trg)) {
-        String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-        String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-        String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+      if (Util.isFormatEqual(target, trg)) {
+        String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+        String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+        String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
         Format format = new Format(name, type, encoding);
 
         sourceFormats.add(format);
       }
     }
-    sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+
+    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
+
     return sourceFormats.toArray(dummy);
   }
-
 }

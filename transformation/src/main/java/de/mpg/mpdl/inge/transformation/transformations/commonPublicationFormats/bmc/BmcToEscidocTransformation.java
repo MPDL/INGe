@@ -57,8 +57,8 @@ import org.xml.sax.XMLReader;
 
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
+import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
@@ -75,11 +75,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class BmcToEscidocTransformation implements Transformation, Configurable {
+  private static final Logger logger = Logger.getLogger(BmcToEscidocTransformation.class);
 
   private Boolean runInTestmode = false; // changes behavior of the stylesheet to return fixed
                                          // values for volatile fields (e.g. dateTime)
-
-  private Logger logger = Logger.getLogger(getClass());
 
   private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
@@ -319,25 +318,12 @@ public class BmcToEscidocTransformation implements Transformation, Configurable 
   }
 
   @Override
-  @Deprecated
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    return null;
-  }
-
-  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (BMC_FORMAT.equals(src)) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
     } else {
       return new Format[] {};
     }
-  }
-
-  @Override
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    return null;
   }
 
   @Override

@@ -186,7 +186,7 @@ public class SourceBean extends EditItemBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     Map<String, String> excludedSourceGenres =
-        this.getApplicationBean().getExcludedSourceGenreMap();
+        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
     for (SourceVO.Genre value : SourceVO.Genre.values()) {
@@ -359,9 +359,5 @@ public class SourceBean extends EditItemBean {
 
   public void setList(List<SourceBean> list) {
     this.list = list;
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

@@ -332,6 +332,4 @@ public class AffiliationBean extends FacesBean {
   public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs) {
     this.topLevelAffs = topLevelAffs;
   }
-
-
 }

@@ -71,14 +71,6 @@ public interface Transformation {
   public Format[] getSourceFormats(Format trg) throws RuntimeException;
 
   /**
-   * Get all possible source formats.
-   * 
-   * @return String: list of possible source formats as xml
-   * @throws RuntimeException
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException;
-
-  /**
    * Get all possible target formats for a source format.
    * 
    * @param src A source value object
@@ -86,18 +78,6 @@ public interface Transformation {
    * @throws RuntimeException
    */
   public Format[] getTargetFormats(Format src) throws RuntimeException;
-
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param srcFormatName The name of the source format
-   * @param srcType The type of the source
-   * @param srcEncoding The sources encoding
-   * @return String: list of possible target formats as xml
-   * @throws RuntimeException
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException;
 
   /**
    * Transforms a source object into a target object.
@@ -131,5 +111,4 @@ public interface Transformation {
    */
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException;
-
 }

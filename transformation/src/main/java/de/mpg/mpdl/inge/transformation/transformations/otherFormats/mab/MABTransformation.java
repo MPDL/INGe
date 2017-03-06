@@ -20,28 +20,13 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class MABTransformation implements Transformation {
-
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
       "application/xml", "*");
   private static final Format MAB_FORMAT = new Format("MAB", "text/plain", "UTF-8");
 
-
-  public MABTransformation() {
-    // TODO Auto-generated constructor stub
-  }
-
-  /**
-   * Get all possible source formats.
-   * 
-   * @return Format[]: list of possible source formats as value object
-   * @throws RuntimeException
-   */
-  public Format[] getSourceFormats() throws RuntimeException {
-    return new Format[] {MAB_FORMAT};
-  }
+  public MABTransformation() {}
 
   /**
    * Get all possible source formats for a target format.
@@ -61,17 +46,6 @@ public class MABTransformation implements Transformation {
   }
 
   /**
-   * Get all possible source formats.
-   * 
-   * @return String: list of possible source formats as xml
-   * @throws RuntimeException
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-
-    return "";
-  }
-
-  /**
    * Get all possible target formats for a source format.
    * 
    * @param src A source value object
@@ -84,21 +58,6 @@ public class MABTransformation implements Transformation {
     } else {
       return new Format[] {};
     }
-  }
-
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param srcFormatName The name of the source format
-   * @param srcType The type of the source
-   * @param srcEncoding The sources encoding
-   * @return String: list of possible target formats as xml
-   * @throws RuntimeException
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    // TODO Auto-generated method stub
-    return null;
   }
 
   /*
@@ -165,8 +124,6 @@ public class MABTransformation implements Transformation {
       }
 
       return result.toString().getBytes("UTF-8");
-      // return output.getBytes();
-      // return ResourceUtil.getResourceAsString(src).getBytes("UTF-8");
     } catch (Exception e) {
       throw new RuntimeException("Error getting file content", e);
     }
@@ -185,5 +142,9 @@ public class MABTransformation implements Transformation {
     return transform(arg0, new Format(arg1, arg2, arg3), new Format(arg4, arg5, arg6), arg7);
   }
 
-
+  @Override
+  public Format[] getSourceFormats() throws RuntimeException {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

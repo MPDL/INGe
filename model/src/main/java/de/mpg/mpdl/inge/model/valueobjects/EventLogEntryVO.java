@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.Date;
 
+@SuppressWarnings("serial")
 public class EventLogEntryVO extends ValueObject {
 
   public enum EventType {

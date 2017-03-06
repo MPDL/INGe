@@ -68,7 +68,6 @@ public class ReportTransformationInterface implements Transformation, Configurab
     } else {
       return new Format[] {};
     }
-
   }
 
   /**
@@ -88,6 +87,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
       throws TransformationNotSupportedException, RuntimeException {
     Format source = new Format(srcFormatName, srcType, srcEncoding);
     Format target = new Format(trgFormatName, trgType, trgEncoding);
+
     return this.transform(src, source, target, service);
   }
 
@@ -96,7 +96,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
    */
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
-    this.logger.warn("Transformation without parameter institutsId is not supported: \n"
+    logger.warn("Transformation without parameter institutsId is not supported: \n"
         + srcFormat.getName() + ", " + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n"
         + trgFormat.getName() + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
     throw new TransformationNotSupportedException();
@@ -118,7 +118,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
               this.transformer.reportTransform(srcFormatName, trgFormat, new String(src, "UTF-8"),
                   configuration);
         } else {
-          this.logger.warn("Transformation without parameter institutsId is not supported: \n"
+          logger.warn("Transformation without parameter institutsId is not supported: \n"
               + srcFormat.getName() + ", " + srcFormat.getType() + ", " + srcFormat.getEncoding()
               + "\n" + trgFormat.getName() + ", " + trgFormat.getType() + ", "
               + trgFormat.getEncoding());
@@ -126,17 +126,18 @@ public class ReportTransformationInterface implements Transformation, Configurab
         }
         result = transformedXml.getBytes("UTF-8");
       } catch (Exception e) {
-        this.logger.warn("An error occurred during transformation with jusXslt.", e);
+        logger.warn("An error occurred during transformation with jusXslt.", e);
       }
       supported = true;
     }
 
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
     }
+
     return result;
   }
 
@@ -154,7 +155,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     logger.info("get config values " + JUS_REPORT_SNIPPET_FORMAT);
+
     return null;
   }
-
 }

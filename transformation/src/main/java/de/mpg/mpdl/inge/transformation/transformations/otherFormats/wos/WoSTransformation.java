@@ -30,8 +30,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class WoSTransformation implements Transformation, Configurable {
-
-  private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -41,9 +39,7 @@ public class WoSTransformation implements Transformation, Configurable {
   private Map<String, List<String>> properties = null;
   private Map<String, String> configuration = null;
 
-  public WoSTransformation() {
-    // TODO Auto-generated constructor stub
-  }
+  public WoSTransformation() {}
 
   /**
    * Get all possible source formats.
@@ -73,17 +69,6 @@ public class WoSTransformation implements Transformation, Configurable {
   }
 
   /**
-   * Get all possible source formats.
-   * 
-   * @return String: list of possible source formats as xml
-   * @throws RuntimeException
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-
-    return "";
-  }
-
-  /**
    * Get all possible target formats for a source format.
    * 
    * @param src A source value object
@@ -96,21 +81,6 @@ public class WoSTransformation implements Transformation, Configurable {
     } else {
       return new Format[] {};
     }
-  }
-
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param srcFormatName The name of the source format
-   * @param srcType The type of the source
-   * @param srcEncoding The sources encoding
-   * @return String: list of possible target formats as xml
-   * @throws RuntimeException
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    // TODO Auto-generated method stub
-    return null;
   }
 
   /*
@@ -139,11 +109,11 @@ public class WoSTransformation implements Transformation, Configurable {
   }
 
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
-    if (configuration == null) {
+    if (this.configuration == null) {
       init();
     }
 
-    return configuration;
+    return this.configuration;
   }
 
   private void init() throws IOException, FileNotFoundException, URISyntaxException {
@@ -169,11 +139,11 @@ public class WoSTransformation implements Transformation, Configurable {
 
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
-    if (properties == null) {
+    if (this.properties == null) {
       init();
     }
 
-    return properties.get(key);
+    return this.properties.get(key);
   }
 
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
@@ -185,8 +155,6 @@ public class WoSTransformation implements Transformation, Configurable {
       StringWriter result = new StringWriter();
 
       if (srcFormat.matches(WOS_FORMAT)) {
-
-        // StreamSource stylesheet = new StreamSource(new
         // FileInputStream(ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/wosxml2escidoc.xsl")));
         String wosSource = new String(src, "UTF-8");
         WoSImport wos = new WoSImport();
@@ -208,12 +176,10 @@ public class WoSTransformation implements Transformation, Configurable {
           xslPath = "transformations/otherFormats/xslt/wosxml2escidoc.xsl";
         }
 
-
         factory.setURIResolver(new LocalUriResolver(xslDir));
         InputStream stylesheet =
             ResourceUtil.getResourceAsStream(xslPath, WoSTransformation.class.getClassLoader());
         Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-        // Transformer transformer = factory.newTransformer(stylesheet);
 
         if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT)) {
           transformer.setParameter("is-item-list", Boolean.TRUE);
@@ -223,6 +189,7 @@ public class WoSTransformation implements Transformation, Configurable {
           throw new TransformationNotSupportedException("The requested target format ("
               + trgFormat.toString() + ") is not supported");
         }
+
         if (configuration != null) {
           for (String key : configuration.keySet()) {
             System.out.println("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
@@ -234,17 +201,11 @@ public class WoSTransformation implements Transformation, Configurable {
             PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         transformer.setParameter("external-organization",
             PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-
         transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
         transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
-
-        // throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
-
       }
 
       return result.toString().getBytes("UTF-8");
-      // return output.getBytes();
-      // return ResourceUtil.getResourceAsString(src).getBytes("UTF-8");
     } catch (Exception e) {
       throw new RuntimeException("Error getting file content", e);
     }

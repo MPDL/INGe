@@ -104,7 +104,6 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingExcep
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -465,9 +464,6 @@ public class SwordUtil extends FacesBean {
     }
 
     try {
-      XmlTransformingService XmlTransformingService = new XmlTransformingService();
-      Transformation transformer = this.getApplicationBean().getTransformationService();
-
       Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
       Format trgFormat = null;
       Boolean transform = false;
@@ -477,24 +473,27 @@ public class SwordUtil extends FacesBean {
         trgFormat = new Format("peer_tei", "application/xml", "UTF-8");
         transform = true;
       }
+
       // Transform from bibtex to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatBibTex)) {
         trgFormat = new Format("bibtex", "text/plain", "*");
         transform = true;
       }
+
       // Transform from endnote to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatEndnote)) {
         trgFormat = new Format("endnote", "text/plain", "UTF-8");
         transform = true;
       }
+
       if (transform) {
         item =
-            new String(transformer.transform(item.getBytes("UTF-8"), trgFormat, escidocFormat,
-                this.transformationService), "UTF-8");
+            new String(new TransformationService().transform(item.getBytes("UTF-8"), trgFormat,
+                escidocFormat, this.transformationService), "UTF-8");
       }
+
       // Create item
       itemVO = XmlTransformingService.transformToPubItem(item);
-
 
       // REMOVE!!!
       /*
@@ -888,10 +887,6 @@ public class SwordUtil extends FacesBean {
 
   public void setCurrentDeposit(Deposit currentDeposit) {
     this.currentDeposit = currentDeposit;
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 
   protected ItemControllerSessionBean getItemControllerSessionBean() {

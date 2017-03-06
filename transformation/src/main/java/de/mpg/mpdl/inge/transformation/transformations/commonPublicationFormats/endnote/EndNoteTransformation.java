@@ -19,8 +19,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
@@ -33,11 +31,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class EndNoteTransformation implements Transformation, Configurable {
-
-  private Logger logger = Logger.getLogger(getClass());
-
   private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",

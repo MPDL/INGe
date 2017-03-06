@@ -43,7 +43,6 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @TransformationModule
 public class TestTransformation implements Transformation {
-
   public static final Format SOURCE_FORMAT = new Format("test-src", "text/plain", "UTF-8");
   public static final Format TARGET_FORMAT = new Format("test-trg", "text/plain", "UTF-8");
 

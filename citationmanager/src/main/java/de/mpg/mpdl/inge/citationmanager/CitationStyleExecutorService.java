@@ -121,7 +121,7 @@ public class CitationStyleExecutorService {
         Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
         Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
-        TransformationService trans = CitationUtil.getTransformationBean();
+        TransformationService trans = CitationUtil.getTransformationService();
 
         byte[] v1 = null;
         try {

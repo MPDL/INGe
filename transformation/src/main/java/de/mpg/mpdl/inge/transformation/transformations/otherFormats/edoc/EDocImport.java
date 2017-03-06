@@ -73,11 +73,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class EDocImport extends DefaultHandler implements Transformation, Configurable {
-
-  private StringWriter newXml = new StringWriter();
-  private boolean inCreatorstring = false;
-  private StringWriter creatorString = null;
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -87,6 +82,10 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
 
   private Map<String, List<String>> properties = null;
   private Map<String, String> configuration = null;
+
+  private StringWriter newXml = new StringWriter();
+  private boolean inCreatorstring = false;
+  private StringWriter creatorString = null;
 
   /**
    * {@inheritDoc}
@@ -109,14 +108,6 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
   /**
    * {@inheritDoc}
    */
-  @Deprecated
-  public String getSourceFormatsAsXml() {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null && (src.matches(EDOC_FORMAT) || src.matches(EDOC_FORMAT_AEI))) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
@@ -128,19 +119,12 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
   /**
    * {@inheritDoc}
    */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
     Format srcFormat = new Format(srcFormatName, srcType, srcEncoding);
     Format trgFormat = new Format(trgFormatName, trgType, trgEncoding);
+
     return transform(src, srcFormat, trgFormat, service);
   }
 
@@ -178,7 +162,6 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         xslDir = ".";
         xslPath = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
       }
-
 
       factory.setURIResolver(new LocalUriResolver(xslDir));
       InputStream stylesheet =
@@ -220,15 +203,9 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     } catch (TransformerException te) {
       throw new RuntimeException("Error while transforming edoc xml: " + te.getLocationAsString()
           + "\n" + te.getLocator(), te);
-
     } catch (Exception e) {
       throw new RuntimeException("Error parsing edoc xml", e);
     }
-  }
-
-  private String getResult() {
-
-    return newXml.toString();
   }
 
   @Override
@@ -298,9 +275,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         || "bookcreatorfn".equals(name)) {
       inCreatorstring = true;
       creatorString = new StringWriter();
-
     } else {
-
       newXml.append("<");
       newXml.append(name);
       for (int i = 0; i < attributes.getLength(); i++) {
@@ -311,12 +286,10 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         newXml.append("\"");
       }
       newXml.append(">");
-
     }
-
   }
 
-  public String escape(String input) {
+  private String escape(String input) {
     if (input != null) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
@@ -369,6 +342,4 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
 
     return properties.get(key);
   }
-
-
 }
