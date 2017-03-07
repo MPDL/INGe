@@ -31,6 +31,7 @@
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -50,6 +51,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<profiles>
 		<profile>
 			<id>env-release-build</id>
@@ -60,6 +62,7 @@
 			</build>
 		</profile>
 	</profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -156,8 +159,7 @@
 			<artifactId>jasperreports</artifactId>
 			<version>3.5.1</version>
 		</dependency>
-
-		 <dependency>
+		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.5.6</version>

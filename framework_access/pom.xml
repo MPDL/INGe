@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- CDDL HEADER START
-
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
-
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.org/license.
- See the License for the specific language governing permissions
- and limitations under the License.
-
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
-
- CDDL HEADER END
-
-
- Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!-- CDDL HEADER START The contents of this file are subject to the terms 
+	of the Common Development and Distribution License, Version 1.0 only (the 
+	"License"). You may not use this file except in compliance with the License. 
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
+	See the License for the specific language governing permissions and limitations 
+	under the License. When distributing Covered Code, include this CDDL HEADER 
+	in each file and include the License file at license/ESCIDOC.LICENSE. If 
+	applicable, add the following below this CDDL HEADER, with the fields enclosed 
+	by brackets "[]" replaced with your own identifying information: Portions 
+	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2010 
+	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
+	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
+	e.V. All rights reserved. Use is subject to license terms. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
@@ -41,15 +27,17 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/framework_access</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/framework_access</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>axistools-maven-plugin</artifactId>
-				<!-- Set to fixed version 1.3 because latest version 1.4-SNAPSHOT makes trouble -->
-				
+				<!-- Set to fixed version 1.3 because latest version 1.4-SNAPSHOT makes 
+					trouble -->
+
 				<executions>
 					<execution>
 						<goals>
@@ -197,6 +185,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>env-testing-continuum</id>
@@ -216,10 +205,18 @@
 								</goals>
 								<configuration>
 									<tasks>
-                                        <!-- copy over the stylesheets --> 
-										<scp file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt" todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/item_container_admin" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" /> 													
-                                                            
-										<scp file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt" todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/escidoc_all" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<!-- copy over the stylesheets -->
+										<scp
+											file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt"
+											todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/item_container_admin"
+											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
+											passphrase="" trust="true" verbose="true" />
+
+										<scp
+											file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt"
+											todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/escidoc_all"
+											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
+											passphrase="" trust="true" verbose="true" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -241,15 +238,16 @@
 			</build>
 		</profile>
 	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>inge_util</artifactId>
-			</dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_util</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>

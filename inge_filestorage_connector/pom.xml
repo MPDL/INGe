@@ -10,9 +10,11 @@
 	</parent>
 	<artifactId>inge_filestorage_connector</artifactId>
 	<name>inge_filestorage_connector</name>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

@@ -24,15 +24,16 @@
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
 	<version>8.0.0-SNAPSHOT</version>
+	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_ear</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_ear</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
+	
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
@@ -92,7 +93,7 @@
 							<contextRoot>/pidcache</contextRoot>
 							<excluded>${exclude.module}</excluded>
 						</webModule>
-						
+
 						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search</artifactId>
@@ -123,12 +124,8 @@
 							<artifactId>transformation</artifactId>
 						</jarModule>
 					</modules>
-
 				</configuration>
-
-
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
@@ -169,8 +166,8 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<dependencies>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -290,7 +287,6 @@
 	</dependencies>
 
 	<profiles>
-
 		<profile>
 			<id>env-pure</id>
 			<activation>
@@ -492,7 +488,6 @@
 								<artifactId>jsch</artifactId>
 								<version>0.1.53</version>
 							</dependency>
-
 						</dependencies>
 					</plugin>
 				</plugins>

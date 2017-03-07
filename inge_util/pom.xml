@@ -8,17 +8,15 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-
 	<artifactId>inge_util</artifactId>
-	<packaging>jar</packaging>
 	<name>inge_util</name>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_util</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_util</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
-	  </scm>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +37,7 @@
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
@@ -50,25 +48,22 @@
 			<version>8.7</version>
 		</dependency>
 		<dependency>
-  			<groupId>org.apache.commons</groupId>
-  			<artifactId>commons-lang3</artifactId>
-		</dependency>	
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-collections4</artifactId>
-		    <version>4.1</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
 		</dependency>
-
-
 	</dependencies>
 </project>

@@ -435,6 +435,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
@@ -480,7 +481,6 @@
 					<artifactId>maven-ear-plugin</artifactId>
 					<version>2.9</version>
 				</plugin>
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
@@ -506,7 +506,6 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.10</version>
 				</plugin>
-
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
@@ -554,7 +553,6 @@
 					<preparationGoals>clean verify</preparationGoals>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
@@ -563,7 +561,6 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -582,7 +579,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
 				<artifactId>maven-java-formatter-plugin</artifactId>
@@ -604,7 +600,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 
 		<extensions>
@@ -633,8 +628,6 @@
 
 	<reporting>
 		<plugins>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
-				<version>2.9.1</version> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -669,8 +662,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- JavaNCSS - A Source Measurement Suite for Java -->
-				<!-- http://www.kclee.de/clemens/java/javancss/ -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
 				<version>2.1</version>
@@ -683,8 +674,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- A Java package dependency analyzer that generates design quality 
-					metrics http://clarkware.com/software/JDepend.html -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
 				<version>2.0</version>
@@ -916,7 +905,6 @@
 		<escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
 		<escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
 
-
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -1003,7 +991,6 @@
 		<framework.editor.id>escidoc:3003</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
-
 	</properties>
 
 	<profiles>

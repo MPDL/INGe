@@ -10,15 +10,18 @@
 	</parent>
 	<artifactId>inge_services</artifactId>
 	<name>inge_services</name>
+
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_services</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_services</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -32,6 +35,5 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-	
 	</dependencies>
 </project>

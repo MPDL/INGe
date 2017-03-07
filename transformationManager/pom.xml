@@ -8,9 +8,7 @@
 	</parent>
 	<artifactId>transformationManager</artifactId>
 
-
 	<dependencies>
-
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
@@ -20,7 +18,6 @@
 			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>
-		<!-- Required for resolving catalog entities -->
 		<dependency>
 			<groupId>xml-resolver</groupId>
 			<artifactId>xml-resolver</artifactId>
@@ -30,8 +27,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-
-		<!-- Required for searching for annoted classes -->
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
@@ -64,7 +59,6 @@
 			<version>1.3</version>
 		</dependency>
 		<dependency>
-			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.7.3</version>
