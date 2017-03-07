@@ -64,13 +64,11 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-discovery</groupId>
 			<artifactId>commons-discovery</artifactId>
 			<version>0.2</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>bcel</groupId>
@@ -80,12 +78,10 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
@@ -99,24 +95,19 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<scope>compile</scope>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>transformation</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
@@ -128,13 +119,11 @@
 			<groupId>xmlbeans</groupId>
 			<artifactId>mods_3.3</artifactId>
 			<version>3.3</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>mets_1.7</artifactId>
 			<version>1.7</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
@@ -146,7 +135,6 @@
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
 			<version>2.3.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -157,32 +145,22 @@
 			<groupId>external</groupId>
 			<artifactId>java_assist</artifactId>
 			<version>3.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>xbean</artifactId>
-			<version>2.4.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>xbean_xpath</artifactId>
 			<version>2.4.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>3.5.1</version>
-			<scope>compile</scope>
 		</dependency>
 
 		 <dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.5.6</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xalan</groupId>
@@ -221,11 +199,6 @@
 			<groupId>javabib</groupId>
 			<artifactId>javabib</artifactId>
 			<version>20040801</version>
-			<scope>compile</scope>
 		</dependency>
-
-
-		<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>citationmanager</artifactId> 
-			<version>1.0.38-SNAPSHOT</version> <scope>compile</scope> </dependency> -->
 	</dependencies>
 </project>

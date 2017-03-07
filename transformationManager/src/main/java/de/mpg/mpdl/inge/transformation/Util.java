@@ -49,7 +49,7 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.apache.xerces.jaxp.DocumentBuilderFactoryImpl;
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.w3c.dom.Document;

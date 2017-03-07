@@ -36,7 +36,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>validation</artifactId>
 	<name>validation</name>
-	<packaging>ejb</packaging>
 	<version>1.0.102-SNAPSHOT</version>
 
 	<scm>
@@ -48,13 +47,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<configuration>
-					<ejbVersion>3.1</ejbVersion>
-				</configuration>
-			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -144,7 +136,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -157,7 +148,6 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -172,4 +162,5 @@
 		</dependency>
 		
 	</dependencies>
+	<packaging>maven-plugin</packaging>
 </project>

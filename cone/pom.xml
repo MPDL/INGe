@@ -75,7 +75,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
@@ -103,7 +102,6 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_logic</artifactId>
 			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

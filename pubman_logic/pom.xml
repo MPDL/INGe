@@ -94,7 +94,6 @@
 			<groupId>xmlbeans</groupId>
 			<artifactId>transformation</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -119,13 +118,11 @@
 			<groupId>sword</groupId>
 			<artifactId>swordcommon</artifactId>
 			<version>1.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>sword</groupId>
 			<artifactId>xom</artifactId>
 			<version>1.2.1</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

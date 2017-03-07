@@ -101,7 +101,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>framework_access</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
@@ -114,18 +113,15 @@
 			<version>2.7.1</version>
 			<!--			Do not forget to change to the provided!!! -->
 <!--						<scope>provided</scope> -->
-			<scope>compile</scope>
 		</dependency>		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		 <groupId>javax.mail</groupId>
 		 <artifactId>mail</artifactId>
 		 <version>1.4</version>
-		 <scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -139,7 +135,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

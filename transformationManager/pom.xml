@@ -1,64 +1,57 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>de.mpg.mpdl.inge</groupId>
-    <artifactId>INGe</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>transformationManager</artifactId>
-  
-  
-  <dependencies>
- 
-  		<dependency>
-			<groupId>saxon</groupId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.mpg.mpdl.inge</groupId>
+		<artifactId>INGe</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>transformationManager</artifactId>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
-			<version>8.7</version>
 		</dependency>
-  		<dependency>
+		<dependency>
 			<groupId>saxon</groupId>
 			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>
-		<dependency>
-		    <groupId>xerces</groupId>
-		    <artifactId>xercesImpl</artifactId>
-		</dependency>
 		<!-- Required for resolving catalog entities -->
 		<dependency>
-		    <groupId>xml-resolver</groupId>
-		    <artifactId>xml-resolver</artifactId>
+			<groupId>xml-resolver</groupId>
+			<artifactId>xml-resolver</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
-    		<groupId>commons-io</groupId>
-    		<artifactId>commons-io</artifactId>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
 		</dependency>
 
 		<!-- Required for searching for annoted classes -->
 		<dependency>
-		    <groupId>org.reflections</groupId>
-		    <artifactId>reflections</artifactId>
-		    <version>0.9.10</version>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.10</version>
 		</dependency>
-	    <dependency>
+		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.marc4j</groupId>
@@ -66,9 +59,9 @@
 			<version>2.6.5</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.apache.tika</groupId>
-		  <artifactId>tika-core</artifactId>
-		  <version>1.3</version>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>1.3</version>
 		</dependency>
 		<dependency>
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
@@ -77,9 +70,9 @@
 			<version>1.7.3</version>
 		</dependency>
 		<dependency>
-		  <groupId>javabib</groupId>
-		  <artifactId>javabib</artifactId>
-		  <version>20040801</version>
-  		</dependency>
-  </dependencies>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
+			<version>20040801</version>
+		</dependency>
+	</dependencies>
 </project>

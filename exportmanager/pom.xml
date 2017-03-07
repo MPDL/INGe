@@ -36,7 +36,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>exportmanager</artifactId>
     <name>exportmanager</name>
-	<packaging>ejb</packaging>
 	<version>1.0.94-SNAPSHOT</version>
 
 	<scm>

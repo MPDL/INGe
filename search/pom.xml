@@ -102,18 +102,15 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.dspace</groupId>
 			<artifactId>cql-java</artifactId>
 			<version>1.3</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

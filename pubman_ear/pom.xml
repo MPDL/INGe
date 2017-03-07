@@ -49,12 +49,6 @@
 					<!-- <jboss> <data-sources> <data-source>validation-ds.xml</data-source> 
 						<data-source>pid-cache-ds.xml</data-source> </data-sources> </jboss> -->
 					<modules>
-						<!-- Make hsqldb jar a module in main ear directory, in order to use 
-							it as driver -->
-						<!-- <jarModule> <groupId>org.hsqldb</groupId> <artifactId>hsqldb</artifactId> 
-							<bundleDir>.</bundleDir> <includeInApplicationXml>true</includeInApplicationXml> 
-							</jarModule> -->
-
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>inge_validation_presentation</artifactId>
@@ -85,8 +79,6 @@
 							<artifactId>syndication_presentation</artifactId>
 							<contextRoot>/syndication</contextRoot>
 						</webModule>
-						<!-- <webModule> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>validation_presentation</artifactId> 
-							<contextRoot>/validation</contextRoot> </webModule> -->
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>dataacquisition_presentation</artifactId>
@@ -100,37 +92,36 @@
 							<contextRoot>/pidcache</contextRoot>
 							<excluded>${exclude.module}</excluded>
 						</webModule>
-						<ejbModule>
+						
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search</artifactId>
-						</ejbModule>
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>dataacquisition</artifactId>
-						</ejbModule>
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_logic</artifactId>
 							<moduleId>pubman_logic</moduleId>
-						</ejbModule>
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>citationmanager</artifactId>
-						</ejbModule>
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>structuredexportmanager</artifactId>
-						</ejbModule>
-						<!-- <ejbModule> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>validation</artifactId> 
-							</ejbModule> -->
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>inge_validation</artifactId>
-						</ejbModule>
-						<ejbModule>
+						</jarModule>
+						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>transformation</artifactId>
-						</ejbModule>
+						</jarModule>
 					</modules>
 
 				</configuration>
@@ -197,30 +188,22 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<type>ejb</type>
 		</dependency>
-		<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>validation</artifactId> 
-			<type>ejb</type> </dependency> <dependency> <groupId>de.mpg.mpdl.inge</groupId> 
-			<artifactId>validation_presentation</artifactId> <type>war</type> </dependency> -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -235,7 +218,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone</artifactId>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -245,7 +227,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformation</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -255,7 +236,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search</artifactId>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -271,61 +251,42 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>8.0.0-SNAPSHOT</version>
-			<scope>compile</scope>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<version>8.0.0-SNAPSHOT</version>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
-			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
-		<!-- <dependency> <groupId>de.mpg.escidoc.services.wildfly</groupId> <artifactId>sword_presentation</artifactId> 
-			<version>1.0.68-SNAPSHOT</version> <scope>compile</scope> <type>war</type> 
-			</dependency> -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
 			<type>war</type>
 		</dependency>
-		
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_services</artifactId>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_es_connector</artifactId>
-			<type>jar</type>
 		</dependency>
-
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-
 		<dependency>
 			<!-- Override managed version for Jsoup -->
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.7.3</version>
 		</dependency>
-		<dependency>
-			<!-- Override managed version for Jsoup -->
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.7.3</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
 		</dependency>
-
 	</dependencies>
 
 	<profiles>

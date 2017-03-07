@@ -27,7 +27,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>dataacquisition</artifactId>
 	<name>dataacquisition</name>
-	<packaging>ejb</packaging>
 	<version>1.0.91-SNAPSHOT</version>
 
 	<scm>
@@ -117,7 +116,6 @@
 			<groupId>commons-discovery</groupId>
 			<artifactId>commons-discovery</artifactId>
 			<version>0.2</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>bcel</groupId>
@@ -127,12 +125,10 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
@@ -142,25 +138,21 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformation</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
 			<version>2.3.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>xbean</artifactId>
 			<version>2.4.0</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>xbean_xpath</artifactId>
 			<version>2.1.0</version>
-			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
