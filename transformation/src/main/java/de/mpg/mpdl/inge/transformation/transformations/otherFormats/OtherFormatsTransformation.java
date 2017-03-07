@@ -25,7 +25,6 @@
  */
 package de.mpg.mpdl.inge.transformation.transformations.otherFormats;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -63,7 +62,7 @@ public class OtherFormatsTransformation {
   private final Logger logger = Logger.getLogger(OtherFormatsTransformation.class);
 
   private final String METADATA_XSLT_LOCATION = "transformations/otherFormats/xslt";
-  private static final String PROPERTY_FILENAME = "pubman.properties";
+  // private static final String PROPERTY_FILENAME = "pubman.properties";
   private static Properties properties;
 
   /**
@@ -127,7 +126,6 @@ public class OtherFormatsTransformation {
    * @throws URISyntaxException
    */
   public String getProperty(String key) throws IOException, URISyntaxException {
-    String propertiesFile = null;
     Properties solProperties = new Properties();
 
     InputStream in = getInputStream("transformation.properties");
@@ -162,9 +160,11 @@ public class OtherFormatsTransformation {
         instream = url.openStream();
       }
     }
+
     if (instream == null) {
       throw new FileNotFoundException(filepath);
     }
+
     return instream;
   }
 
@@ -175,9 +175,8 @@ public class OtherFormatsTransformation {
         + "2" + formatTo.toLowerCase().trim() + ".xsl");
     try {
 
-      File transformFile =
-          ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION + "/" + xsltUri,
-              OtherFormatsTransformation.class.getClassLoader());
+      ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION + "/" + xsltUri,
+          OtherFormatsTransformation.class.getClassLoader());
       check = true;
 
     } catch (FileNotFoundException e) {
@@ -187,5 +186,4 @@ public class OtherFormatsTransformation {
 
     return check;
   }
-
 }

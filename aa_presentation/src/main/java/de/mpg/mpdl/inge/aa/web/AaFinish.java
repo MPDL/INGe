@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.aa.crypto.RSAEncoder;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class AaFinish extends HttpServlet {
 
   @Override

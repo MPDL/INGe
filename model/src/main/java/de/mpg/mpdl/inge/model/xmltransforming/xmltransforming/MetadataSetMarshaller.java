@@ -19,20 +19,19 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
 
   private static final String NAME_ATTRIBUTE_NAME = "name";
   private static final String RECORD_ELEMENT_NAME = "md-record";
-  private static final String DEFAULT_NAME = "escidoc";
+  // private static final String DEFAULT_NAME = "escidoc";
+  // private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
+  // private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
+  // private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
+  // private static final String XSI_NAMESPACE_PREFIX = "xsi";
+  // private static final String XSD_NAMESPACE_PREFIX = "xsd";
+  // private static final String[] SCHEMA_NAMESPACE_PREFIXES = {XSI_NAMESPACE_PREFIX,
+  // XSD_NAMESPACE_PREFIX};
+  // private static final String XSD_PREFIX_LEAD = "xsd:";
 
   private String m_uri;
   private int m_index;
   private String m_name;
-
-  private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
-  private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
-  private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
-  private static final String XSI_NAMESPACE_PREFIX = "xsi";
-  private static final String XSD_NAMESPACE_PREFIX = "xsd";
-  private static final String[] SCHEMA_NAMESPACE_PREFIXES = {XSI_NAMESPACE_PREFIX,
-      XSD_NAMESPACE_PREFIX};
-  private static final String XSD_PREFIX_LEAD = "xsd:";
 
   public MetadataSetMarshaller() {
     m_uri = null;

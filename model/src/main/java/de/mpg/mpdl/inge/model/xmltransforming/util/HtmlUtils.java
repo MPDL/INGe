@@ -203,7 +203,7 @@ public class HtmlUtils {
 
   private class SubSupTag {
 
-    private int startPosition;
+    // private int startPosition;
 
     private int endPosition;
 
@@ -214,36 +214,35 @@ public class HtmlUtils {
 
 
     public SubSupTag(String tagContent, TagType tagType, int startPosition, int endPosition) {
-      this.startPosition = startPosition;
+      // this.startPosition = startPosition;
       this.endPosition = endPosition;
       this.tagContent = tagContent;
       this.tagType = tagType;
     }
 
-    public int getStartPosition() {
-      return startPosition;
-    }
-
-    public void setStartPosition(int startPosition) {
-      this.startPosition = startPosition;
-    }
+    // public int getStartPosition() {
+    // return startPosition;
+    // }
+    //
+    // public void setStartPosition(int startPosition) {
+    // this.startPosition = startPosition;
+    // }
 
     public int getEndPosition() {
       return endPosition;
     }
 
-    public void setEndPosition(int endPosition) {
-      this.endPosition = endPosition;
-    }
-
+    // public void setEndPosition(int endPosition) {
+    // this.endPosition = endPosition;
+    // }
 
     public TagType getTagType() {
       return tagType;
     }
 
-    public void setTagType(TagType tagType) {
-      this.tagType = tagType;
-    }
+    // public void setTagType(TagType tagType) {
+    // this.tagType = tagType;
+    // }
 
     public String toHtml() {
       StringBuffer buffer = new StringBuffer();
@@ -261,12 +260,10 @@ public class HtmlUtils {
       return tagContent;
     }
 
-    public void setTagContent(String tagContent) {
-      this.tagContent = tagContent;
-    }
-
+    // public void setTagContent(String tagContent) {
+    // this.tagContent = tagContent;
+    // }
   }
-
 
   public static void main(String[] args) {
 

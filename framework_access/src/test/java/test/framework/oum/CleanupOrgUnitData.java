@@ -24,16 +24,9 @@
  */
 package test.framework.oum;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import test.framework.TestBase;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Testcases to show all stored organizational units.
@@ -45,34 +38,35 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
  */
 public class CleanupOrgUnitData extends TestBase {
   private static final String FILTER_ALL = "<param></param>";
-  private static final String FILTER_TOP_LEVEL =
-      "<param><filter name=\"top-level-organizational-units\"/></param>";
 
-  private Logger logger = Logger.getLogger(getClass());
+  // private static final String FILTER_TOP_LEVEL =
+  // "<param><filter name=\"top-level-organizational-units\"/></param>";
 
-  private void deleteUnits(String units, String line) throws Exception {
-    final String xPath = "//organizational-unit-list/organizational-unit";
-    final String attributes[] = {"objid"};
-    final String nodes[] = {"name"};
-    Document doc = getDocument(units, false);
-    NodeList list = selectNodeList(doc, xPath);
-    logger.info(list.getLength() + " Organizational Units:");
-    for (int n = 1; n <= list.getLength(); ++n) {
-      logger.info(line);
-      for (int i = 0; i < attributes.length; ++i) {
-        logger.info(attributes[i] + "=" + getAttributeValue(doc, xPath, attributes[i]));
-      }
-      String id = getAttributeValue(list.item(n - 1), xPath + "[" + n + "]", "objid");
-      for (int i = 0; i < nodes.length; ++i) {
-        Node node =
-            selectSingleNode(doc, xPath + "[" + n + "]" + "/organization-details/" + nodes[i]);
-        logger.info(nodes[i] + "=" + node.getTextContent());
-      }
-      // String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildren(id);
-      // logger.debug("children=" + children);
-      // deleteUnits(children,line+LINE);
-    }
-  }
+  // private Logger logger = Logger.getLogger(getClass());
+
+  // private void deleteUnits(String units, String line) throws Exception {
+  // final String xPath = "//organizational-unit-list/organizational-unit";
+  // final String attributes[] = {"objid"};
+  // final String nodes[] = {"name"};
+  // Document doc = getDocument(units, false);
+  // NodeList list = selectNodeList(doc, xPath);
+  // logger.info(list.getLength() + " Organizational Units:");
+  // for (int n = 1; n <= list.getLength(); ++n) {
+  // logger.info(line);
+  // for (int i = 0; i < attributes.length; ++i) {
+  // logger.info(attributes[i] + "=" + getAttributeValue(doc, xPath, attributes[i]));
+  // }
+  // String id = getAttributeValue(list.item(n - 1), xPath + "[" + n + "]", "objid");
+  // for (int i = 0; i < nodes.length; ++i) {
+  // Node node =
+  // selectSingleNode(doc, xPath + "[" + n + "]" + "/organization-details/" + nodes[i]);
+  // logger.info(nodes[i] + "=" + node.getTextContent());
+  // }
+  // // String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildren(id);
+  // // logger.debug("children=" + children);
+  // // deleteUnits(children,line+LINE);
+  // }
+  // }
 
   /*
    * (non-Javadoc)

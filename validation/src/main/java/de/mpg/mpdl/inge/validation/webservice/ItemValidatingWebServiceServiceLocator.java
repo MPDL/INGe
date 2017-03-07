@@ -44,6 +44,7 @@ import org.apache.axis.EngineConfiguration;
 import org.apache.axis.client.Service;
 import org.apache.axis.client.Stub;
 
+@SuppressWarnings("serial")
 public class ItemValidatingWebServiceServiceLocator extends Service implements
     ItemValidatingWebServiceService {
   public ItemValidatingWebServiceServiceLocator() {}

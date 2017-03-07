@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.jibx.runtime.IAliasable;
 import org.jibx.runtime.IMarshaller;
 import org.jibx.runtime.IMarshallingContext;
@@ -15,51 +14,37 @@ import org.jibx.runtime.impl.UnmarshallingContext;
 import de.mpg.mpdl.inge.model.valueobjects.TocDivVO;
 import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
 
-public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasable // ,
-// IUnmarshaller
-{
-  private static Logger logger = Logger.getLogger(JibXTocDivMarshaller.class);
-
-
+public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasable {
   private static final String DIV_ID_ATTRIBUTE_NAME = "ID";
   private static final String DIV_ORDER_ATTRIBUTE_NAME = "ORDER";
   private static final String DIV_ORDERLABEL_ATTRIBUTE_NAME = "ORDERLABEL";
   private static final String DIV_LABEL_ATTRIBUTE_NAME = "LABEL";
   private static final String DIV_TYPE_ATTRIBUTE_NAME = "TYPE";
   private static final String DIV_VISIBLE_ATTRIBUTE_NAME = "visible";
-
-
   private static final String DIV_ELEMENT_NAME = "div";
   private static final String PTR_ELEMENT_NAME = "ptr";
-
   private static final String PTR_ID_ATTRIBUTE_NAME = "ID";
   private static final String PTR_LOCTYPE_ATTRIBUTE_NAME = "LOCTYPE";
   private static final String PTR_USE_ATTRIBUTE_NAME = "USE";
   private static final String PTR_MIMETYPE_ATTRIBUTE_NAME = "MIMETYPE";
-
   private static final String PTR_REFTYPE_ATTRIBUTE_NAME = "type";
   private static final String PTR_REFTITLE_ATTRIBUTE_NAME = "title";
   private static final String PTR_REFLINK_ATTRIBUTE_NAME = "href";
-
-
+  // private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
+  // private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
+  private static final String TABLE_OF_CONTENT_NS =
+      "http://www.escidoc.de/schemas/tableofcontent/0.1";
+  private static final String XLINK_NS = "http://www.w3.org/1999/xlink";
+  // private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
+  // private static final String XSI_NAMESPACE_PREFIX = "xsi";
+  // private static final String XSD_NAMESPACE_PREFIX = "xsd";
+  // private static final String[] SCHEMA_NAMESPACE_PREFIXES =
+  // {XSI_NAMESPACE_PREFIX, XSD_NAMESPACE_PREFIX};
+  // private static final String XSD_PREFIX_LEAD = "xsd:";
 
   private String m_uri;
   private int m_index;
   private String m_name;
-
-  private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
-  private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
-  private static final String TABLE_OF_CONTENT_NS =
-      "http://www.escidoc.de/schemas/tableofcontent/0.1";
-  private static final String XLINK_NS = "http://www.w3.org/1999/xlink";
-
-
-  private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
-  private static final String XSI_NAMESPACE_PREFIX = "xsi";
-  private static final String XSD_NAMESPACE_PREFIX = "xsd";
-  private static final String[] SCHEMA_NAMESPACE_PREFIXES = {XSI_NAMESPACE_PREFIX,
-      XSD_NAMESPACE_PREFIX};
-  private static final String XSD_PREFIX_LEAD = "xsd:";
 
   public JibXTocDivMarshaller() {
     m_uri = null;

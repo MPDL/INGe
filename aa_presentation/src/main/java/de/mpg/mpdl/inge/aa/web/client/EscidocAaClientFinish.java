@@ -63,15 +63,13 @@ public class EscidocAaClientFinish extends FinalClient {
         UserAccountHandler userAccountHandler =
             ServiceLocator.getUserAccountHandler(escidocUserHandle);
         String accountData = userAccountHandler.retrieveCurrentUser();
-        AccountUserVO accountUserVO =
-            new XmlTransformingService().transformToAccountUser(accountData);
+        AccountUserVO accountUserVO = XmlTransformingService.transformToAccountUser(accountData);
         String grantData =
             userAccountHandler.retrieveCurrentGrants(accountUserVO.getReference().getObjectId());
-        List<GrantVO> grants = new XmlTransformingService().transformToGrantVOList(grantData);
+        List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(grantData);
         if (grants != null) {
           accountUserVO.getGrants().addAll(grants);
         }
-
 
         AuthenticationVO authenticationVO = new AuthenticationVO();
         authenticationVO.setType(Type.USER);

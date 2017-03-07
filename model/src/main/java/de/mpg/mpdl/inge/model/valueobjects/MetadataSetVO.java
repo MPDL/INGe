@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-
 /**
  * The super class for the different metadata sets for the different types of items (Publication,
  * Transcription, etc.)

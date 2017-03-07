@@ -447,7 +447,8 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       int closingBracketIndex = authorString.indexOf(")");
 
       if (openBracketIndex != -1 && closingBracketIndex != -1) {
-        String additionalInfo = authorString.substring(openBracketIndex + 1, closingBracketIndex);
+        // String additionalInfo = authorString.substring(openBracketIndex + 1,
+        // closingBracketIndex);
         authorString = authorString.substring(0, openBracketIndex);
       }
 
@@ -512,8 +513,8 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
     for (String authorString : authors) {
       Author author = new Author();
       String[] parts = null;
-      String identifier = null;
-      String affiliation = null;
+      // String identifier = null;
+      // String affiliation = null;
       if (authorString.indexOf(",") != -1) {
         parts = authorString.split(",");
       } else if (authorString.indexOf(";") != -1) {
@@ -521,18 +522,18 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       } else {
         if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1
             && authorString.indexOf("{") < authorString.indexOf("}")) {
-          identifier =
-              authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
+          // identifier =
+          // authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
           if (authorString.indexOf("{", authorString.indexOf("}")) != -1
               && authorString.indexOf("}", authorString.indexOf("}")) != -1
               && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}",
                   authorString.indexOf("}"))) {
-            affiliation =
-                authorString
-                    .substring(
-                        authorString.indexOf("{", authorString.indexOf("}")) + 1,
-                        authorString.indexOf("}",
-                            authorString.indexOf("{", authorString.indexOf("}"))));
+            // affiliation =
+            // authorString
+            // .substring(
+            // authorString.indexOf("{", authorString.indexOf("}")) + 1,
+            // authorString.indexOf("}",
+            // authorString.indexOf("{", authorString.indexOf("}"))));
           }
           authorString = authorString.substring(0, authorString.indexOf("{"));
         }

@@ -57,7 +57,7 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable {
   private static final String RDF_PREDICATE_ELEMENT_NAME_IS_REVISION_OF = "isRevisionOf";
 
   private String m_uri;
-  private int m_index;
+  // private int m_index;
   private String m_name;
 
   /**
@@ -65,7 +65,7 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable {
    */
   public JiBXRelationVOUnmarshaller() {
     m_uri = null;
-    m_index = 0;
+    // m_index = 0;
     m_name = "hashmap";
   }
 
@@ -78,7 +78,7 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable {
    */
   public JiBXRelationVOUnmarshaller(String uri, int index, String name) {
     m_uri = uri;
-    m_index = index;
+    // m_index = index;
     m_name = name;
   }
 

@@ -83,7 +83,7 @@ public class RISImport {
         file = file + "\n" + str;
       }
     } catch (Exception e) {
-      this.logger.error("An error occurred while reading RIS file.", e);
+      logger.error("An error occurred while reading RIS file.", e);
       throw new RuntimeException(e);
     }
     return file;

@@ -36,8 +36,6 @@ package de.mpg.mpdl.inge.model.valueobjects;
  */
 public class ContextFilterParamVO extends FilterParamVO {
 
-  private static final long serialVersionUID = 1L;
-
   /**
    * The context state to filter for.
    */

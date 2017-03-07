@@ -25,7 +25,6 @@
 
 package de.mpg.mpdl.inge.structuredexportmanager;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -46,9 +45,9 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public class StructuredExportServiceTest {
   private static final Logger logger = Logger.getLogger(StructuredExportServiceTest.class);
 
-  private StructuredExportService export = new StructuredExportService();
   private static HashMap<String, String> itemLists;
 
+  @SuppressWarnings("serial")
   public static final Map<String, String> ITEM_LISTS_FILE_MAMES = new HashMap<String, String>() {
     String pref = "target/test-classes/";
     {
@@ -112,7 +111,7 @@ public class StructuredExportServiceTest {
    */
   @Test
   public final void testExplainExport() throws Exception {
-    String result = export.explainFormats();
+    String result = StructuredExportService.explainFormats();
     assertNotNull("explain formats file is null", result);
     logger.info("explain formats: " + result);
   }
@@ -124,7 +123,7 @@ public class StructuredExportServiceTest {
    */
   @Test
   public final void testFormatList() throws Exception {
-    String[] fl = export.getFormatsList();
+    String[] fl = StructuredExportService.getFormatsList();
     assertTrue("The list of export formats is empty", fl.length > 0);
     for (String f : fl)
       logger.info("Export format: " + f);
@@ -149,7 +148,7 @@ public class StructuredExportServiceTest {
       // logger.info("Test item list:\n" + itemList);
 
       start = System.currentTimeMillis();
-      byte[] result = export.getOutput(itemList, f);
+      byte[] result = StructuredExportService.getOutput(itemList, f);
       logger.info("Processing time: " + (System.currentTimeMillis() - start));
       logger.info("---------------------------------------------------");
       assertFalse(f + " output is empty", result == null || result.length == 0);
@@ -168,7 +167,7 @@ public class StructuredExportServiceTest {
     PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemList);
     List<PubItemVO> pubitemList = Arrays.asList(itemVO);
     itemList = XmlTransformingService.transformToItemList(pubitemList);
-    byte[] result = export.getOutput(itemList, "BIBTEX");
+    byte[] result = StructuredExportService.getOutput(itemList, "BIBTEX");
     assertNotNull(result);
     logger.info("BIBTEX (Book)");
     logger.info(new String(result));
@@ -179,7 +178,7 @@ public class StructuredExportServiceTest {
     itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
     itemList = XmlTransformingService.transformToItemList(pubitemList);
-    result = export.getOutput(itemList, "ENDNOTE");
+    result = StructuredExportService.getOutput(itemList, "ENDNOTE");
     assertNotNull(result);
     logger.info("ENDNOTE (Book)");
     logger.info(new String(result));
@@ -190,7 +189,7 @@ public class StructuredExportServiceTest {
     itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
     itemList = XmlTransformingService.transformToItemList(pubitemList);
-    result = export.getOutput(itemList, "BIBTEX");
+    result = StructuredExportService.getOutput(itemList, "BIBTEX");
     assertNotNull(result);
     logger.info("BIBTEX (Thesis)");
     logger.info(new String(result));
@@ -201,7 +200,7 @@ public class StructuredExportServiceTest {
     itemVO = XmlTransformingService.transformToPubItem(itemList);
     pubitemList = Arrays.asList(itemVO);
     itemList = XmlTransformingService.transformToItemList(pubitemList);
-    result = export.getOutput(itemList, "ENDNOTE");
+    result = StructuredExportService.getOutput(itemList, "ENDNOTE");
     assertNotNull(result);
     logger.info("ENDNOTE (Thesis)");
     logger.info(new String(result));
@@ -217,8 +216,6 @@ public class StructuredExportServiceTest {
   @Test(expected = StructuredExportManagerException.class)
   @Ignore
   public final void testBadItemsListEndNoteExport() throws Exception {
-    byte[] result = export.getOutput(itemLists.get("BAD_ITEM_LIST"), "ENDNOTE");
+    StructuredExportService.getOutput(itemLists.get("BAD_ITEM_LIST"), "ENDNOTE");
   }
-
-
 }

@@ -175,6 +175,7 @@ public class ShortContentHandler extends DefaultHandler {
    * @author $Author: mfranke $ (last modification)
    * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
    */
+  @SuppressWarnings("serial")
   public class XMLStack extends Stack<String> {
     /**
      * @return A String representation of the Stack in an XPath like way (e.g.

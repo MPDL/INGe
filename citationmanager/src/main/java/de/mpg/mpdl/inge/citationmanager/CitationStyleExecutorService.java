@@ -213,11 +213,11 @@ public class CitationStyleExecutorService {
     }
   }
 
-  public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
+  public static String[] getOutputFormats(String cs) throws CitationStyleManagerException {
     return XmlHelper.getOutputFormatsArray(cs);
   }
 
-  public String[] getStyles() throws CitationStyleManagerException {
+  public static String[] getStyles() throws CitationStyleManagerException {
     try {
       return XmlHelper.getListOfStyles();
     } catch (Exception e) {

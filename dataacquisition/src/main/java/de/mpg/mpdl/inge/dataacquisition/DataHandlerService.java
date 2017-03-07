@@ -38,12 +38,10 @@ import java.net.URLConnection;
 import java.rmi.AccessException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.SortedMap;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.activation.DataHandler;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -612,10 +610,10 @@ public class DataHandlerService {
         // Step 3: Construct fop with desired output format
         Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputPdf);
 
-        SortedMap map =
-            (new org.apache.fop.tools.fontlist.FontListGenerator()).listFonts(fopFactory,
-                MimeConstants.MIME_PDF, new org.apache.fop.fonts.FontEventAdapter(
-                    new org.apache.fop.events.DefaultEventBroadcaster()));
+        // SortedMap map =
+        // (new org.apache.fop.tools.fontlist.FontListGenerator()).listFonts(fopFactory,
+        // MimeConstants.MIME_PDF, new org.apache.fop.fonts.FontEventAdapter(
+        // new org.apache.fop.events.DefaultEventBroadcaster()));
 
         // Step 4: Setup JAXP using identity transformer
         TransformerFactory factory =

@@ -2,12 +2,10 @@ package de.mpg.mpdl.inge.transformation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.ris.RISImport;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.ris.RISTransformation;
@@ -56,7 +54,7 @@ public class RISImportTester {
                 RISImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat,
             outputFormat, "escidoc");
 
-    List<PubItemVO> itemVOList = XmlTransformingService.transformToPubItemList(new String(result));
+    XmlTransformingService.transformToPubItemList(new String(result));
     logger.info("PubItemVO List successfully created.");
   }
 }

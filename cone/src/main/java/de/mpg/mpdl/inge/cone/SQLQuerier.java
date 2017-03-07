@@ -372,16 +372,6 @@ public class SQLQuerier implements Querier {
     return getSubqueries(modelName, searchPairs, null, level, 0);
   }
 
-  private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate)
-      throws ConeException {
-    return getSubqueries(searchPairs, parentPredicate, 0);
-  }
-
-  private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate, int level)
-      throws ConeException {
-    return getSubqueries(null, searchPairs, parentPredicate, level, 0);
-  }
-
   private String[] getSubqueries(String modelName, Pair<String>[] searchPairs,
       Predicate parentPredicate, int level, int counter) throws ConeException {
     String fromExtension = "";
@@ -391,7 +381,7 @@ public class SQLQuerier implements Querier {
     String order2 = "";
     boolean first = true;
 
-    ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
+    // ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
 
     for (Pair<String> pair : searchPairs) {
       String table = "triples" + counter + "_" + level;

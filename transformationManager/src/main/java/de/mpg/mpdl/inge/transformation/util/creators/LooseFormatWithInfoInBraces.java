@@ -84,7 +84,6 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   private String[] prepareAuthorsLooseFormat(String authorsString) {
     List<String> parts = new ArrayList<String>();
     String currentString = "";
-    String currentStringWithoutBracketContent = "";
 
     // remove last comma or semicolon
 

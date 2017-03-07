@@ -32,7 +32,7 @@ public class ZfNTest {
     Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
 
     byte[] result =
-        this.trans.transform(
+        trans.transform(
             ResourceUtil.getResourceAsString("testFiles/zfn/ZNC-1988-43c-0979_b.header.tei.xml",
                 ZfNTest.class.getClassLoader()).getBytes("UTF-8"), teiFormat, escidocFormat,
             "escidoc");

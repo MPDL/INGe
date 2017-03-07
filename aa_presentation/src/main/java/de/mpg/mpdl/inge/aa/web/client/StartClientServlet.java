@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.aa.Config;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class StartClientServlet extends HttpServlet {
 
   @Override
@@ -54,7 +55,6 @@ public class StartClientServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     try {
       String clientClassName = Config.getProperty("escidoc.aa.client.class");
       if (clientClassName == null) {
@@ -67,7 +67,6 @@ public class StartClientServlet extends HttpServlet {
         FinalClient client = (FinalClient) clientClass.newInstance();
         client.process(request, response);
       }
-
     } catch (Exception e) {
       throw new ServletException(e);
     }

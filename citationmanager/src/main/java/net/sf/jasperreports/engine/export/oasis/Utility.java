@@ -29,8 +29,6 @@
  */
 package net.sf.jasperreports.engine.export.oasis;
 
-import java.util.StringTokenizer;
-
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)

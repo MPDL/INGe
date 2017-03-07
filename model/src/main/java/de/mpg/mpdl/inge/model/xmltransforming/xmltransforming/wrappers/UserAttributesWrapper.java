@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 
 /**

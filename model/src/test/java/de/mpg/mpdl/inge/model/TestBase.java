@@ -26,17 +26,12 @@
 
 package de.mpg.mpdl.inge.model;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
