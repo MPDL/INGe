@@ -33,9 +33,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,33 +47,23 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
-import org.apache.tika.Tika;
-import org.apache.xmlbeans.XmlOptions;
-import org.apache.xmlbeans.XmlString;
-import org.jsoup.Jsoup;
-import org.jsoup.examples.HtmlToPlainText;
 import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 // Only for DOM Debugging
 
@@ -114,44 +102,44 @@ public class Util {
     return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
   }
 
-  /**
-   * Creates a format xml out of a format array.
-   * 
-   * @param formats as Format[]
-   * @return xml as String
-   */
-  public static String createFormatsXml(Format[] formats) {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try {
-      FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
-      FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
-      for (int i = 0; i < formats.length; i++) {
-        Format format = formats[i];
-        FormatType xmlFormat = xmlFormats.addNewFormat();
-        SimpleLiteral name = xmlFormat.addNewName();
-        XmlString formatName = XmlString.Factory.newInstance();
-        formatName.setStringValue(format.getName());
-        name.set(formatName);
-        SimpleLiteral type = xmlFormat.addNewType();
-        XmlString formatType = XmlString.Factory.newInstance();
-        formatType.setStringValue(format.getType());
-        type.set(formatType);
-        SimpleLiteral enc = xmlFormat.addNewEncoding();
-        XmlString formatEnc = XmlString.Factory.newInstance();
-        formatEnc.setStringValue(format.getEncoding());
-        enc.set(formatEnc);
-
-      }
-      XmlOptions xOpts = new XmlOptions();
-      xOpts.setSavePrettyPrint();
-      xOpts.setSavePrettyPrintIndent(4);
-      xOpts.setUseDefaultNamespace();
-      xmlFormatsDoc.save(baos, xOpts);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    return baos.toString();
-  }
+  // /**
+  // * Creates a format xml out of a format array.
+  // *
+  // * @param formats as Format[]
+  // * @return xml as String
+  // */
+  // public static String createFormatsXml(Format[] formats) {
+  // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  // try {
+  // FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
+  // FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
+  // for (int i = 0; i < formats.length; i++) {
+  // Format format = formats[i];
+  // FormatType xmlFormat = xmlFormats.addNewFormat();
+  // SimpleLiteral name = xmlFormat.addNewName();
+  // XmlString formatName = XmlString.Factory.newInstance();
+  // formatName.setStringValue(format.getName());
+  // name.set(formatName);
+  // SimpleLiteral type = xmlFormat.addNewType();
+  // XmlString formatType = XmlString.Factory.newInstance();
+  // formatType.setStringValue(format.getType());
+  // type.set(formatType);
+  // SimpleLiteral enc = xmlFormat.addNewEncoding();
+  // XmlString formatEnc = XmlString.Factory.newInstance();
+  // formatEnc.setStringValue(format.getEncoding());
+  // enc.set(formatEnc);
+  //
+  // }
+  // XmlOptions xOpts = new XmlOptions();
+  // xOpts.setSavePrettyPrint();
+  // xOpts.setSavePrettyPrintIndent(4);
+  // xOpts.setUseDefaultNamespace();
+  // xmlFormatsDoc.save(baos, xOpts);
+  // } catch (IOException e) {
+  // throw new RuntimeException(e);
+  // }
+  // return baos.toString();
+  // }
 
   /**
    * Checks if two Format Objects are equal.
@@ -288,87 +276,87 @@ public class Util {
     return thisMimetype;
   }
 
-  /**
-   * Queries CoNE service and returns the result as DOM node. The returned XML has the following
-   * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
-   * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
-   * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   * 
-   * @param authors
-   * @return
-   */
-  public static Node queryCone(String model, String query) {
-    DocumentBuilder documentBuilder;
-    String queryUrl = null;
-    try {
-      logger.info("queryCone: " + model + " query: " + query);
-
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
-
-      Document document = documentBuilder.newDocument();
-      Element element = document.createElement("cone");
-      document.appendChild(element);
-
-      queryUrl =
-          PropertyReader.getProperty("escidoc.cone.service.url") + model
-              + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
-      String detailsUrl =
-          PropertyReader.getProperty("escidoc.cone.service.url") + model
-              + "/resource/$1?format=rdf";
-      HttpClient client = new HttpClient();
-      client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      GetMethod method = new GetMethod(queryUrl);
-
-      String coneSession = getConeSession();
-
-      if (coneSession != null) {
-        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-      }
-      ProxyHelper.executeMethod(client, method);
-
-      if (method.getStatusCode() == 200) {
-        String[] results = method.getResponseBodyAsString().split("\n");
-        for (String result : results) {
-          if (!"".equals(result.trim())) {
-            String id = result.split("\\|")[1];
-            // TODO "&redirect=true" must be reinserted again
-            GetMethod detailMethod =
-                new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                    + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-            detailMethod.setFollowRedirects(true);
-
-
-            if (coneSession != null) {
-              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-            }
-            ProxyHelper.executeMethod(client, detailMethod);
-            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                + detailMethod.getResponseBodyAsString());
-
-            if (detailMethod.getStatusCode() == 200) {
-              Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
-              element.appendChild(document.importNode(details.getFirstChild(), true));
-            } else {
-              logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
-                  + detailMethod.getResponseBodyAsString());
-            }
-          }
-        }
-      } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n"
-            + method.getResponseBodyAsString());
-      }
-
-      return document;
-    } catch (Exception e) {
-      logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl
-          + ") .Otherwise it should be clarified if any measures have to be taken.", e);
-      logger.debug("Stacktrace", e);
-      return null;
-      // throw new RuntimeException(e);
-    }
-  }
+  // /**
+  // * Queries CoNE service and returns the result as DOM node. The returned XML has the following
+  // * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
+  // * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
+  // * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
+  // *
+  // * @param authors
+  // * @return
+  // */
+  // public static Node queryCone(String model, String query) {
+  // DocumentBuilder documentBuilder;
+  // String queryUrl = null;
+  // try {
+  // logger.info("queryCone: " + model + " query: " + query);
+  //
+  // documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+  //
+  // Document document = documentBuilder.newDocument();
+  // Element element = document.createElement("cone");
+  // document.appendChild(element);
+  //
+  // queryUrl =
+  // PropertyReader.getProperty("escidoc.cone.service.url") + model
+  // + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+  // String detailsUrl =
+  // PropertyReader.getProperty("escidoc.cone.service.url") + model
+  // + "/resource/$1?format=rdf";
+  // HttpClient client = new HttpClient();
+  // client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
+  // GetMethod method = new GetMethod(queryUrl);
+  //
+  // String coneSession = getConeSession();
+  //
+  // if (coneSession != null) {
+  // method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+  // }
+  // ProxyHelper.executeMethod(client, method);
+  //
+  // if (method.getStatusCode() == 200) {
+  // String[] results = method.getResponseBodyAsString().split("\n");
+  // for (String result : results) {
+  // if (!"".equals(result.trim())) {
+  // String id = result.split("\\|")[1];
+  // // TODO "&redirect=true" must be reinserted again
+  // GetMethod detailMethod =
+  // new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+  // + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+  // detailMethod.setFollowRedirects(true);
+  //
+  //
+  // if (coneSession != null) {
+  // detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+  // }
+  // ProxyHelper.executeMethod(client, detailMethod);
+  // logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
+  // + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
+  // + detailMethod.getResponseBodyAsString());
+  //
+  // if (detailMethod.getStatusCode() == 200) {
+  // Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+  // element.appendChild(document.importNode(details.getFirstChild(), true));
+  // } else {
+  // logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
+  // + detailMethod.getResponseBodyAsString());
+  // }
+  // }
+  // }
+  // } else {
+  // logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n"
+  // + method.getResponseBodyAsString());
+  // }
+  //
+  // return document;
+  // } catch (Exception e) {
+  // logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl
+  // + ") .Otherwise it should be clarified if any measures have to be taken.", e);
+  // logger.debug("Stacktrace", e);
+  // return null;
+  // // throw new RuntimeException(e);
+  // }
+  // }
 
   public static List<String> queryConeForJava(String model, String query) {
 
@@ -684,256 +672,256 @@ public class Util {
     }
   }
 
-  /**
-   * Queries CoNE service and returns the result as DOM node. The returned XML has the following
-   * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
-   * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
-   * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   * 
-   * @param Single instituteId for an institute without departments or list of Ids. Every department
-   *        has his own Id.
-   * @return
-   */
-  public static Node queryReportPersonCone(String model, String query) {
-    DocumentBuilder documentBuilder;
-    String queryUrl;
-    List<String> childIds = new ArrayList<String>();
-    // get the childOUs if any in the query
-    if (query.contains(" ")) {
-      String[] result = query.split("\\s+");
-      for (String s : result) {
-        childIds.add(s);
-      }
-    }
+  // /**
+  // * Queries CoNE service and returns the result as DOM node. The returned XML has the following
+  // * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
+  // * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
+  // * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
+  // *
+  // * @param Single instituteId for an institute without departments or list of Ids. Every
+  // department
+  // * has his own Id.
+  // * @return
+  // */
+  // public static Node queryReportPersonCone(String model, String query) {
+  // DocumentBuilder documentBuilder;
+  // String queryUrl;
+  // List<String> childIds = new ArrayList<String>();
+  // // get the childOUs if any in the query
+  // if (query.contains(" ")) {
+  // String[] result = query.split("\\s+");
+  // for (String s : result) {
+  // childIds.add(s);
+  // }
+  // }
+  //
+  // logger.info("queryReportPersonCone: " + model + " query: " + query);
+  // logger.info("childIds " + Arrays.toString(childIds.toArray()));
+  //
+  // try {
+  //
+  // documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+  //
+  // Document document = documentBuilder.newDocument();
+  // Element element = document.createElement("cone");
+  // document.appendChild(element);
+  //
+  // HttpClient client = new HttpClient();
+  // if (childIds.size() > 0) {
+  // // execute a method for every child ou
+  // for (String childId : childIds) {
+  // queryUrl =
+  // PropertyReader.getProperty("escidoc.cone.service.url") + model
+  // + "/query?format=jquery&"
+  // + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
+  // + URLEncoder.encode("\"" + childId + "\"", "UTF-8") + "&n=0";
+  // executeGetMethod(client, queryUrl, documentBuilder, document, element);
+  // }
+  // } else {
+  // // there are no child ous, methid is called once
+  // queryUrl =
+  // PropertyReader.getProperty("escidoc.cone.service.url") + model
+  // + "/query?format=jquery&"
+  // + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
+  // + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
+  // executeGetMethod(client, queryUrl, documentBuilder, document, element);
+  // }
+  //
+  // return document;
+  // } catch (Exception e) {
+  // logger.error("Error querying CoNE service. This is normal during unit tests. "
+  // + "Otherwise it should be clarified if any measures have to be taken.", e);
+  //
+  //
+  // return null;
+  // }
+  // }
 
-    logger.info("queryReportPersonCone: " + model + " query: " + query);
-    logger.info("childIds " + Arrays.toString(childIds.toArray()));
+  // /**
+  // * Execute the GET-method.
+  // *
+  // * @param client
+  // * @param queryUrl
+  // * @param documentBuilder
+  // * @param document
+  // * @param element
+  // * @return true if the array contains the format object, else false
+  // */
+  // private static void executeGetMethod(HttpClient client, String queryUrl,
+  // DocumentBuilder documentBuilder, Document document, Element element) {
+  // String previousUrl = null;
+  // try {
+  // logger.info("queryURL from executeGetMethod  " + queryUrl);
+  // GetMethod method = new GetMethod(queryUrl);
+  // ProxyHelper.executeMethod(client, method);
+  //
+  // if (method.getStatusCode() == 200) {
+  // String[] results = method.getResponseBodyAsString().split("\n");
+  // for (String result : results) {
+  // if (!"".equals(result.trim())) {
+  // String detailsUrl = result.split("\\|")[1];
+  // // if there is an alternative name, take only the first occurrence
+  // if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
+  // GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
+  // previousUrl = detailsUrl;
+  //
+  // if (logger.isDebugEnabled()) {
+  // logger.info(detailMethod.getPath());
+  // logger.info(detailMethod.getQueryString());
+  // }
+  //
+  // ProxyHelper.setProxy(client, detailsUrl);
+  // client.executeMethod(detailMethod);
+  //
+  // if (detailMethod.getStatusCode() == 200) {
+  // Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+  // element.appendChild(document.importNode(details.getFirstChild(), true));
+  // } else {
+  // logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
+  // + detailMethod.getPath() + "\n" + detailMethod.getResponseBodyAsString());
+  // }
+  // }
+  // }
+  // }
+  //
+  // } else {
+  // logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n"
+  // + method.getResponseBodyAsString());
+  // }
+  // } catch (Exception e) {
+  // logger.error("Error querying CoNE service. This is normal during unit tests. "
+  // + "Otherwise it should be clarified if any measures have to be taken.", e);
+  // }
+  // }
 
-    try {
+  // public static Node querySSRNId(String conePersonUrl) {
+  // DocumentBuilder documentBuilder;
+  // HttpClient client = new HttpClient();
+  //
+  // logger.info("querySSRNId: " + conePersonUrl);
+  //
+  // try {
+  // documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+  //
+  // Document document = documentBuilder.newDocument();
+  // Element element = document.createElement("cone");
+  // document.appendChild(element);
+  // GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
+  // ProxyHelper.setProxy(client, conePersonUrl);
+  // client.executeMethod(detailMethod);
+  // if (detailMethod.getStatusCode() == 200) {
+  // Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+  // element.appendChild(document.importNode(details.getFirstChild(), true));
+  // return document;
+  // } else {
+  // logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
+  // + detailMethod.getResponseBodyAsString());
+  // return null;
+  // }
+  //
+  // } catch (Exception e) {
+  // logger.error("Error querying CoNE service. This is normal during unit tests. "
+  // + "Otherwise it should be clarified if any measures have to be taken.", e);
+  // return null;
+  // }
+  //
+  // }
 
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+  // public static Node getSize(String url) {
+  // DocumentBuilder documentBuilder;
+  //
+  // HttpClient httpClient = new HttpClient();
+  // HeadMethod headMethod = new HeadMethod(url);
+  //
+  // try {
+  // logger.info("Getting size of " + url);
+  // ProxyHelper.executeMethod(httpClient, headMethod);
+  //
+  // if (headMethod.getStatusCode() != 200) {
+  // logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
+  // }
+  //
+  // documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+  // Document document = documentBuilder.newDocument();
+  // Element element = document.createElement("size");
+  // document.appendChild(element);
+  // Header header = headMethod.getResponseHeader("Content-Length");
+  // logger.info("HEAD Request to " + url + " returned Content-Length: "
+  // + (header != null ? header.getValue() : null));
+  // if (header != null) {
+  // element.setTextContent(header.getValue());
+  // return document;
+  // } else {
+  // // did not get length via HEAD request, try to do a GET request
+  // // workaround for biomed central, where HEAD requests sometimes return Content-Length,
+  // // sometimes not
+  //
+  // logger.info("GET request to " + url
+  // + " did not return any Content-Length. Trying GET request.");
+  // httpClient = new HttpClient();
+  // GetMethod getMethod = new GetMethod(url);
+  // ProxyHelper.executeMethod(httpClient, getMethod);
+  //
+  // if (getMethod.getStatusCode() != 200) {
+  // logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
+  // }
+  //
+  // InputStream is = getMethod.getResponseBodyAsStream();
+  // long size = 0;
+  //
+  // while (is.read() != -1) {
+  // size++;
+  // }
+  // is.close();
+  //
+  // logger.info("GET request to " + url + " returned a file with length: " + size);
+  // element.setTextContent(String.valueOf(size));
+  // return document;
+  // }
+  //
+  //
+  // } catch (Exception e) {
+  // throw new RuntimeException(e);
+  // }
+  // }
 
-      Document document = documentBuilder.newDocument();
-      Element element = document.createElement("cone");
-      document.appendChild(element);
-
-      HttpClient client = new HttpClient();
-      if (childIds.size() > 0) {
-        // execute a method for every child ou
-        for (String childId : childIds) {
-          queryUrl =
-              PropertyReader.getProperty("escidoc.cone.service.url") + model
-                  + "/query?format=jquery&"
-                  + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
-                  + URLEncoder.encode("\"" + childId + "\"", "UTF-8") + "&n=0";
-          executeGetMethod(client, queryUrl, documentBuilder, document, element);
-        }
-      } else {
-        // there are no child ous, methid is called once
-        queryUrl =
-            PropertyReader.getProperty("escidoc.cone.service.url") + model
-                + "/query?format=jquery&"
-                + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "="
-                + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
-        executeGetMethod(client, queryUrl, documentBuilder, document, element);
-      }
-
-      return document;
-    } catch (Exception e) {
-      logger.error("Error querying CoNE service. This is normal during unit tests. "
-          + "Otherwise it should be clarified if any measures have to be taken.", e);
-
-
-      return null;
-    }
-  }
-
-  /**
-   * Execute the GET-method.
-   * 
-   * @param client
-   * @param queryUrl
-   * @param documentBuilder
-   * @param document
-   * @param element
-   * @return true if the array contains the format object, else false
-   */
-  private static void executeGetMethod(HttpClient client, String queryUrl,
-      DocumentBuilder documentBuilder, Document document, Element element) {
-    String previousUrl = null;
-    try {
-      logger.info("queryURL from executeGetMethod  " + queryUrl);
-      GetMethod method = new GetMethod(queryUrl);
-      ProxyHelper.executeMethod(client, method);
-
-      if (method.getStatusCode() == 200) {
-        String[] results = method.getResponseBodyAsString().split("\n");
-        for (String result : results) {
-          if (!"".equals(result.trim())) {
-            String detailsUrl = result.split("\\|")[1];
-            // if there is an alternative name, take only the first occurrence
-            if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
-              GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
-              previousUrl = detailsUrl;
-
-              if (logger.isDebugEnabled()) {
-                logger.info(detailMethod.getPath());
-                logger.info(detailMethod.getQueryString());
-              }
-
-              ProxyHelper.setProxy(client, detailsUrl);
-              client.executeMethod(detailMethod);
-
-              if (detailMethod.getStatusCode() == 200) {
-                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
-                element.appendChild(document.importNode(details.getFirstChild(), true));
-              } else {
-                logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
-                    + detailMethod.getPath() + "\n" + detailMethod.getResponseBodyAsString());
-              }
-            }
-          }
-        }
-
-      } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n"
-            + method.getResponseBodyAsString());
-      }
-    } catch (Exception e) {
-      logger.error("Error querying CoNE service. This is normal during unit tests. "
-          + "Otherwise it should be clarified if any measures have to be taken.", e);
-
-    }
-  }
-
-  public static Node querySSRNId(String conePersonUrl) {
-    DocumentBuilder documentBuilder;
-    HttpClient client = new HttpClient();
-
-    logger.info("querySSRNId: " + conePersonUrl);
-
-    try {
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
-
-      Document document = documentBuilder.newDocument();
-      Element element = document.createElement("cone");
-      document.appendChild(element);
-      GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
-      ProxyHelper.setProxy(client, conePersonUrl);
-      client.executeMethod(detailMethod);
-      if (detailMethod.getStatusCode() == 200) {
-        Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
-        element.appendChild(document.importNode(details.getFirstChild(), true));
-        return document;
-      } else {
-        logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n"
-            + detailMethod.getResponseBodyAsString());
-        return null;
-      }
-
-    } catch (Exception e) {
-      logger.error("Error querying CoNE service. This is normal during unit tests. "
-          + "Otherwise it should be clarified if any measures have to be taken.", e);
-      return null;
-    }
-
-  }
-
-  public static Node getSize(String url) {
-    DocumentBuilder documentBuilder;
-
-    HttpClient httpClient = new HttpClient();
-    HeadMethod headMethod = new HeadMethod(url);
-
-    try {
-      logger.info("Getting size of " + url);
-      ProxyHelper.executeMethod(httpClient, headMethod);
-
-      if (headMethod.getStatusCode() != 200) {
-        logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
-      }
-
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
-      Document document = documentBuilder.newDocument();
-      Element element = document.createElement("size");
-      document.appendChild(element);
-      Header header = headMethod.getResponseHeader("Content-Length");
-      logger.info("HEAD Request to " + url + " returned Content-Length: "
-          + (header != null ? header.getValue() : null));
-      if (header != null) {
-        element.setTextContent(header.getValue());
-        return document;
-      } else {
-        // did not get length via HEAD request, try to do a GET request
-        // workaround for biomed central, where HEAD requests sometimes return Content-Length,
-        // sometimes not
-
-        logger.info("GET request to " + url
-            + " did not return any Content-Length. Trying GET request.");
-        httpClient = new HttpClient();
-        GetMethod getMethod = new GetMethod(url);
-        ProxyHelper.executeMethod(httpClient, getMethod);
-
-        if (getMethod.getStatusCode() != 200) {
-          logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
-        }
-
-        InputStream is = getMethod.getResponseBodyAsStream();
-        long size = 0;
-
-        while (is.read() != -1) {
-          size++;
-        }
-        is.close();
-
-        logger.info("GET request to " + url + " returned a file with length: " + size);
-        element.setTextContent(String.valueOf(size));
-        return document;
-      }
-
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static String getMimetype(String filename) {
-    /*
-     * try { String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
-     * "jquery/escidocmimetypes/query?q=" + URLEncoder.encode(suffix, "ISO-8859-15"); String
-     * detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
-     * "json/escidocmimetypes/details/"; HttpClient client = new HttpClient(); GetMethod method =
-     * new GetMethod(queryUrl); ProxyHelper.executeMethod(client, method); if
-     * (method.getStatusCode() == 200) { String[] results =
-     * method.getResponseBodyAsString().split("\n"); for (String result : results) { if
-     * (!"".equals(result.trim())) { String id = result.split("\\|")[1]; GetMethod detailMethod =
-     * new GetMethod(detailsUrl + id); ProxyHelper.executeMethod(client, detailMethod); if
-     * (detailMethod.getStatusCode() == 200) { String response =
-     * detailMethod.getResponseBodyAsString(); Pattern pattern =
-     * Pattern.compile("\"urn_cone_suffix\" : \"([^\"])\""); Matcher matcher =
-     * pattern.matcher(response); if (matcher.find()) { pattern =
-     * Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \"([^\"])\""); matcher =
-     * pattern.matcher(response); if (matcher.find()) { return matcher.group(1); } else {
-     * logger.warn("Found matching mimetype suffix but no mimetype: " + response); } } } else {
-     * logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" +
-     * detailMethod.getResponseBodyAsString()); } } } // Suffix not found, return default mimetype
-     * return "application/octet-stream"; } else { logger.error("Error querying CoNE: Status " +
-     * method.getStatusCode() + "\n" + method.getResponseBodyAsString()); } } catch (Exception e) {
-     * logger.error("Error getting mimetype", e); }
-     */
-
-
-    try {
-      Tika tika = new Tika();
-      String mimetype = tika.detect(filename);
-      return mimetype;
-    } catch (Exception e) {
-      logger.error("Error while detecting mimetype of filename: " + filename, e);
-    }
-
-    // Error querying CoNE, return default mimetype
-    return "application/octet-stream";
-  }
+  // public static String getMimetype(String filename) {
+  // /*
+  // * try { String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
+  // * "jquery/escidocmimetypes/query?q=" + URLEncoder.encode(suffix, "ISO-8859-15"); String
+  // * detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
+  // * "json/escidocmimetypes/details/"; HttpClient client = new HttpClient(); GetMethod method =
+  // * new GetMethod(queryUrl); ProxyHelper.executeMethod(client, method); if
+  // * (method.getStatusCode() == 200) { String[] results =
+  // * method.getResponseBodyAsString().split("\n"); for (String result : results) { if
+  // * (!"".equals(result.trim())) { String id = result.split("\\|")[1]; GetMethod detailMethod =
+  // * new GetMethod(detailsUrl + id); ProxyHelper.executeMethod(client, detailMethod); if
+  // * (detailMethod.getStatusCode() == 200) { String response =
+  // * detailMethod.getResponseBodyAsString(); Pattern pattern =
+  // * Pattern.compile("\"urn_cone_suffix\" : \"([^\"])\""); Matcher matcher =
+  // * pattern.matcher(response); if (matcher.find()) { pattern =
+  // * Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \"([^\"])\""); matcher =
+  // * pattern.matcher(response); if (matcher.find()) { return matcher.group(1); } else {
+  // * logger.warn("Found matching mimetype suffix but no mimetype: " + response); } } } else {
+  // * logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" +
+  // * detailMethod.getResponseBodyAsString()); } } } // Suffix not found, return default mimetype
+  // * return "application/octet-stream"; } else { logger.error("Error querying CoNE: Status " +
+  // * method.getStatusCode() + "\n" + method.getResponseBodyAsString()); } } catch (Exception e) {
+  // * logger.error("Error getting mimetype", e); }
+  // */
+  //
+  //
+  // try {
+  // Tika tika = new Tika();
+  // String mimetype = tika.detect(filename);
+  // return mimetype;
+  // } catch (Exception e) {
+  // logger.error("Error while detecting mimetype of filename: " + filename, e);
+  // }
+  //
+  // // Error querying CoNE, return default mimetype
+  // return "application/octet-stream";
+  // }
 
   /**
    * This methods reads out the style information from the format name.
@@ -951,9 +939,9 @@ public class Util {
       return Styles.Default;
   }
 
-  public static void log(String str) {
-    System.out.println(str);
-  }
+  // public static void log(String str) {
+  // System.out.println(str);
+  // }
 
   /**
    * Command line transformation.
@@ -1002,17 +990,14 @@ public class Util {
       // Stream back
       trgStream.write(result);
       trgStream.close();
-
     }
-
   }
 
-  public static String stripHtml(String text) {
-    if (text != null) {
-      return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
-    } else
-      return "";
-
-  }
-
+  // public static String stripHtml(String text) {
+  // if (text != null) {
+  // return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
+  // } else
+  // return "";
+  //
+  // }
 }

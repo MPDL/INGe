@@ -68,9 +68,7 @@ public class TransformationService implements Transformation, Configurable {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     Format[] allSourceFormats = null;
     String thisMethodName = "getSourceFormats";
@@ -79,19 +77,7 @@ public class TransformationService implements Transformation, Configurable {
     return allSourceFormats;
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] allFormats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-
-    return Util.createFormatsXml(allFormats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     Format[] allTargetFormats = null;
     String thisMethodName = "getTargetFormats";
@@ -104,9 +90,7 @@ public class TransformationService implements Transformation, Configurable {
     return allTargetFormats;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     // Normalize mimetype to avoid that e.g. application/xml and text/xml need two different
     // transformations
@@ -119,11 +103,7 @@ public class TransformationService implements Transformation, Configurable {
     return allSourceFormats;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws TransformationNotSupportedException
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -133,11 +113,7 @@ public class TransformationService implements Transformation, Configurable {
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @throws TransformationNotSupportedException
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     // Normalize mimetype to avoid that e.g. application/xml and text/xml need two different
@@ -260,13 +236,6 @@ public class TransformationService implements Transformation, Configurable {
     return null;
   }
 
-  /**
-   * Checks if a format can be transformed into another one.
-   * 
-   * @param from
-   * @param to
-   * @return true if 'from' can be transformed into 'to', else false
-   */
   public boolean checkTransformation(Format from, Format to) {
     boolean check = false;
 
@@ -281,6 +250,7 @@ public class TransformationService implements Transformation, Configurable {
     return check;
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException,
       RuntimeException {
@@ -338,6 +308,7 @@ public class TransformationService implements Transformation, Configurable {
     return result;
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
     transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
 
@@ -359,6 +330,7 @@ public class TransformationService implements Transformation, Configurable {
     return null;
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);

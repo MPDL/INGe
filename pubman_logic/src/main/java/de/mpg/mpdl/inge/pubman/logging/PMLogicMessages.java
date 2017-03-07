@@ -64,12 +64,8 @@ public enum PMLogicMessages implements Messages {
     this.message = messageTemplate;
   }
 
-  /**
-   * Get the messageTemplate.
-   * 
-   * @return the messageTemplate
-   */
+  @Override
   public String getMessage() {
-    return message;
+    return this.message;
   }
 }

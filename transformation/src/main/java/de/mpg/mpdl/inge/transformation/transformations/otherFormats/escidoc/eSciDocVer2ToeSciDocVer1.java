@@ -67,16 +67,12 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
   private static final String XSLT_PATH = PATH
       + "/escidoc-publication-v2_2_escidoc-publication-v1.xsl";
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() {
     return new Format[] {ESCIDOC_ITEM_LIST_V2_FORMAT, ESCIDOC_ITEM_V2_FORMAT};
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) {
     if (trg != null
         && (trg.matches(ESCIDOC_ITEM_LIST_V1_FORMAT) || trg.matches(ESCIDOC_ITEM_V1_FORMAT))) {
@@ -86,9 +82,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null
         && (src.matches(ESCIDOC_ITEM_LIST_V2_FORMAT) || src.matches(ESCIDOC_ITEM_V2_FORMAT))) {
@@ -98,9 +92,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -109,9 +101,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
     return transform(src, srcFormat, trgFormat, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     StringWriter result = new StringWriter();

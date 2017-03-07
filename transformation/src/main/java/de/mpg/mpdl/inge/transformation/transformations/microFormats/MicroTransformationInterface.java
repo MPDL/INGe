@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
+import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
@@ -49,7 +50,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 @TransformationModule
-public class MicroTransformationInterface implements de.mpg.mpdl.inge.transformation.Transformation {
+public class MicroTransformationInterface implements Transformation {
   private static final Logger logger = Logger.getLogger(MicroTransformationInterface.class);
 
   private static final String EXPLAIN_FILE_PATH = "transformations/microFormats/";
@@ -57,9 +58,7 @@ public class MicroTransformationInterface implements de.mpg.mpdl.inge.transforma
 
   public MicroTransformationInterface() {}
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -91,26 +90,7 @@ public class MicroTransformationInterface implements de.mpg.mpdl.inge.transforma
     return sourceFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] formats = this.getSourceFormats();
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     Vector<Format> targetFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -149,9 +129,7 @@ public class MicroTransformationInterface implements de.mpg.mpdl.inge.transforma
     return targetFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException {
@@ -160,9 +138,7 @@ public class MicroTransformationInterface implements de.mpg.mpdl.inge.transforma
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     byte[] result = null;
@@ -204,9 +180,7 @@ public class MicroTransformationInterface implements de.mpg.mpdl.inge.transforma
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;

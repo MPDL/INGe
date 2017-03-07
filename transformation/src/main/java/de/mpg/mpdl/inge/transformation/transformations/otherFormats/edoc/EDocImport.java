@@ -87,16 +87,12 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
   private boolean inCreatorstring = false;
   private StringWriter creatorString = null;
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() {
     return new Format[] {EDOC_FORMAT, EDOC_FORMAT_AEI};
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) {
     if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT))) {
       return new Format[] {EDOC_FORMAT, EDOC_FORMAT_AEI};
@@ -105,9 +101,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null && (src.matches(EDOC_FORMAT) || src.matches(EDOC_FORMAT_AEI))) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
@@ -116,9 +110,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -128,9 +120,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     return transform(src, srcFormat, trgFormat, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException {
     StringWriter result = new StringWriter();
@@ -300,11 +290,13 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     return input;
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, srcFormat, trgFormat, service, null);
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
     if (configuration == null) {
       init();
@@ -334,6 +326,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     if (properties == null) {

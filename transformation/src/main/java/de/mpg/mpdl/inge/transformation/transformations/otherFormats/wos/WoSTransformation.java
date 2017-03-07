@@ -41,23 +41,12 @@ public class WoSTransformation implements Transformation, Configurable {
 
   public WoSTransformation() {}
 
-  /**
-   * Get all possible source formats.
-   * 
-   * @return Format[]: list of possible source formats as value object
-   * @throws RuntimeException
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     return new Format[] {WOS_FORMAT};
   }
 
-  /**
-   * Get all possible source formats for a target format.
-   * 
-   * @param Format : the target format
-   * @return Format[]: list of possible source formats as value object
-   * @throws RuntimeException
-   */
+  @Override
   public Format[] getSourceFormats(Format targetFormat) throws RuntimeException {
     if (targetFormat != null
         && (targetFormat.matches(ESCIDOC_ITEM_FORMAT) || targetFormat
@@ -68,13 +57,7 @@ public class WoSTransformation implements Transformation, Configurable {
     }
   }
 
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param src A source value object
-   * @return Format[]: list of possible target formats as value object
-   * @throws RuntimeException
-   */
+  @Override
   public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException {
     if (WOS_FORMAT.equals(sourceFormat)) {
       return new Format[] {ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT};
@@ -83,31 +66,20 @@ public class WoSTransformation implements Transformation, Configurable {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, srcFormat, trgFormat, service, null);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] arg0, String arg1, String arg2, String arg3, String arg4,
       String arg5, String arg6, String arg7) throws TransformationNotSupportedException,
       RuntimeException {
     return transform(arg0, new Format(arg1, arg2, arg3), new Format(arg4, arg5, arg6), arg7);
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
     if (this.configuration == null) {
       init();
@@ -137,6 +109,7 @@ public class WoSTransformation implements Transformation, Configurable {
     }
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     if (this.properties == null) {
@@ -146,6 +119,7 @@ public class WoSTransformation implements Transformation, Configurable {
     return this.properties.get(key);
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException,
       RuntimeException {

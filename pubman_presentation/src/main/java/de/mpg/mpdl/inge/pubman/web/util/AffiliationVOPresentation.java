@@ -272,6 +272,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     return getPublicStatus().equals("closed");
   }
 
+  @Override
   public int compareTo(AffiliationVOPresentation other) {
     return getSortOrder().compareTo(other.getSortOrder());
   }

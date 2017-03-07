@@ -47,21 +47,12 @@ public class PubManSessionListener implements HttpSessionListener {
 
   public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
-   */
+  @Override
   public void sessionCreated(HttpSessionEvent arg0) {
     // Do nothing here
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
-   */
+  @Override
   public void sessionDestroyed(HttpSessionEvent event) {
     logger.debug("Session timed out.");
     Login login = (Login) event.getSession().getAttribute(Login.BEAN_NAME);

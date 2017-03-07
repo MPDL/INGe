@@ -1121,7 +1121,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.reviewMethodListMenu = reviewMethodListMenu;
   }
 
-
   @Override
   public void languageChanged(String oldLang, String newLang) {
     criterionTypeListMenu = initCriterionTypeListMenu(Index.ESCIDOC_ALL);
@@ -1143,8 +1142,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (Exception e) {
       logger.warn("Problem reading view id", e);
     }
-
-
   }
 
   public String getQuery() {

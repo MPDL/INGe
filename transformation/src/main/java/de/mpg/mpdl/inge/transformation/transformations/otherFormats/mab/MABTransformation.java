@@ -28,13 +28,7 @@ public class MABTransformation implements Transformation {
 
   public MABTransformation() {}
 
-  /**
-   * Get all possible source formats for a target format.
-   * 
-   * @param Format : the target format
-   * @return Format[]: list of possible source formats as value object
-   * @throws RuntimeException
-   */
+  @Override
   public Format[] getSourceFormats(Format targetFormat) throws RuntimeException {
     if (targetFormat != null
         && (targetFormat.matches(ESCIDOC_ITEM_FORMAT) || targetFormat
@@ -45,13 +39,7 @@ public class MABTransformation implements Transformation {
     }
   }
 
-  /**
-   * Get all possible target formats for a source format.
-   * 
-   * @param src A source value object
-   * @return Format[]: list of possible target formats as value object
-   * @throws RuntimeException
-   */
+  @Override
   public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException {
     if (MAB_FORMAT.equals(sourceFormat)) {
       return new Format[] {ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT};
@@ -60,13 +48,7 @@ public class MABTransformation implements Transformation {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     String output = "";
@@ -129,13 +111,7 @@ public class MABTransformation implements Transformation {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] arg0, String arg1, String arg2, String arg3, String arg4,
       String arg5, String arg6, String arg7) throws TransformationNotSupportedException,
       RuntimeException {
@@ -144,7 +120,6 @@ public class MABTransformation implements Transformation {
 
   @Override
   public Format[] getSourceFormats() throws RuntimeException {
-    // TODO Auto-generated method stub
     return null;
   }
 }

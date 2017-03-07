@@ -137,6 +137,7 @@ public class PubContextVOPresentation extends ContextVO implements
     }
   }
 
+  @Override
   public int compareTo(PubContextVOPresentation compareObject) {
     Collator collator = Collator.getInstance(Locale.getDefault());
     collator.setStrength(Collator.SECONDARY);

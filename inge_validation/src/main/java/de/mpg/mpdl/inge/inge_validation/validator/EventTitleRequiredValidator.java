@@ -28,7 +28,6 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
               || e.getPlace() != null && e.getPlace().trim().length() > 0 //
           || e.getStartDate() != null && e.getStartDate().trim().length() > 0)) {
         context.addErrorMsg(ErrorMessages.EVENT_TITLE_NOT_PROVIDED);
-
         return false;
       }
 
@@ -36,5 +35,4 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
 
     return true;
   }
-
 }

@@ -93,20 +93,11 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
     m_name = name;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.jibx.runtime.IMarshaller#isExtension(int)
-   */
   public boolean isExtension(int index) {
     return false;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.jibx.runtime.IMarshaller#marshal(Object, IMarshallingContext)
-   */
+  @Override
   public void marshal(Object obj, IMarshallingContext ictx) throws JiBXException {
 
     // make sure the parameters are as expected
@@ -320,8 +311,8 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
     this.m_uri = m_uri;
   }
 
+  @Override
   public boolean isExtension(String arg0) {
-    // TODO Auto-generated method stub
     return false;
   }
 }

@@ -71,20 +71,12 @@ public class Syndication implements SyndicationHandler {
     feeds = Feeds.readFeedsFromXml(FEEDS_DEFINITION_DIGESTER_RULES_FILE, FEEDS_DEFINITION_FILE);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#explainFeedsXML()
-   */
+  @Override
   public String explainFeedsXML() {
     return explainXML;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeedList()
-   */
+  @Override
   public String[] getFeedList() {
     List fs = feeds.getFeeds();
     String[] fl = new String[(int) fs.size()];
@@ -95,30 +87,17 @@ public class Syndication implements SyndicationHandler {
     return fl;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeedFormatList(java.lang.String)
-   */
+  @Override
   public String[] getFeedFormatList(String uri) {
     String ft = feeds.matchFeedByUri(uri).getFeedTypes();
     return ft.split(",");
   }
 
-  /**
-   * Getter of the <code>feeds</code>.
-   * 
-   * @return <code>feeds</code>
-   */
   public Feeds getFeeds() {
     return feeds;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.syndication.SyndicationHandler#getFeed(java.lang.String)
-   */
+  @Override
   public byte[] getFeed(String uri) throws SyndicationException, IOException, URISyntaxException,
       FeedException {
     Writer writer = new StringWriter();

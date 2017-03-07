@@ -122,9 +122,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    */
   public abstract String getWarning();
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public int compareTo(AuthorFormat o) {
     return getSignificance() - o.getSignificance();
   }

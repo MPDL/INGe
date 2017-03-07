@@ -41,64 +41,22 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @TransformationModule
 public class IdentityTransformation implements Transformation {
-  /**
-   * Don't return anything here.
-   * 
-   * @return Empty array
-   */
+  @Override
   public Format[] getSourceFormats() {
     return new Format[] {};
   }
 
-  /**
-   * Always return the target format.
-   * 
-   * @param trg Target format
-   * @return Identity
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) {
     return new Format[] {trg};
   }
 
-  /**
-   * Not implemented.
-   * 
-   * @return Nothing, never
-   */
-  @Deprecated
-  public String getSourceFormatsAsXml() {
-    throw new RuntimeException("Not implpemented");
-  }
-
-  /**
-   * Always return the source format.
-   * 
-   * @param src Source format
-   * 
-   * @return Identity
-   */
+  @Override
   public Format[] getTargetFormats(Format src) {
     return new Format[] {src};
   }
 
-  /**
-   * Not implemented.
-   * 
-   * @param srcFormatName Source format name
-   * @param srcType Source mime type
-   * @param srcEncoding Source encoding
-   * 
-   * @return Nothing, never
-   * 
-   */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) {
-    throw new RuntimeException("Not implpemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -107,9 +65,7 @@ public class IdentityTransformation implements Transformation {
     return transform(src, srcFormat, trgFormat, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     if (srcFormat != null && srcFormat.equals(trgFormat)) {

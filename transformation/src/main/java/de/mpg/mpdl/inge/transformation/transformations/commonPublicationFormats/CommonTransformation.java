@@ -48,7 +48,7 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * 
  */
 public class CommonTransformation {
-  private final Logger logger = Logger.getLogger(CommonTransformation.class);
+  private static final Logger logger = Logger.getLogger(CommonTransformation.class);
 
   /**
    * Transformation from esciDoc to bibtex format.
@@ -76,7 +76,7 @@ public class CommonTransformation {
       bib = StructuredExportService.getOutput(itemList, "BIBTEX");
 
     } catch (Exception e) {
-      this.logger.error("An error occurred during a common publication transformation.", e);
+      logger.error("An error occurred during a common publication transformation.", e);
       throw new RuntimeException(e);
     }
     return bib;
@@ -106,9 +106,10 @@ public class CommonTransformation {
       }
       endnote = StructuredExportService.getOutput(itemList, "ENDNOTE");
     } catch (Exception e) {
-      this.logger.error("An error occurred during a common publication transformation.", e);
+      logger.error("An error occurred during a common publication transformation.", e);
       throw new RuntimeException(e);
     }
+
     return endnote;
   }
 

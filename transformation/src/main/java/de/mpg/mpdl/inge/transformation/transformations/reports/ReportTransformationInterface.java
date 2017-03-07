@@ -33,16 +33,12 @@ public class ReportTransformationInterface implements Transformation, Configurab
     this.transformer = new ReportTransformation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     return new Format[] {JUS_REPORT_SNIPPET_FORMAT};
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     if (trg != null && (trg.matches(JUS_OUT_FORMAT_INDESIGN) || trg.matches(JUS_OUT_FORMAT_HTML))) {
       return new Format[] {JUS_REPORT_SNIPPET_FORMAT};
@@ -51,17 +47,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null && src.matches(JUS_REPORT_SNIPPET_FORMAT)) {
       return new Format[] {JUS_OUT_FORMAT_INDESIGN, JUS_OUT_FORMAT_HTML};
@@ -70,18 +56,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -91,9 +66,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     logger.warn("Transformation without parameter institutsId is not supported: \n"
@@ -102,6 +75,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
     throw new TransformationNotSupportedException();
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException,
       RuntimeException {
@@ -141,21 +115,14 @@ public class ReportTransformationInterface implements Transformation, Configurab
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
-    // TODO Auto-generated method stub
     return null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
-    logger.info("get config values " + JUS_REPORT_SNIPPET_FORMAT);
-
     return null;
   }
 }

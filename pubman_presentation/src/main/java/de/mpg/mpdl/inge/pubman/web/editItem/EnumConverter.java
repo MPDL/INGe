@@ -64,6 +64,7 @@ public class EnumConverter implements Converter {
    * @param uiComponent the uiComponent with the possible values
    * @param string the string value which should be converted
    */
+  @Override
   public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {
     Object retVal = null;
 
@@ -99,6 +100,7 @@ public class EnumConverter implements Converter {
    * @param uiComponent the uiComponent with the possible values
    * @param string the string value which should be converted
    */
+  @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) {
     if (object == null) {
       return "";

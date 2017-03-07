@@ -82,16 +82,12 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable {
     m_name = name;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public boolean isPresent(IUnmarshallingContext ctx) throws JiBXException {
     return ctx.isAt(m_uri, m_name);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Object unmarshal(Object obj, IUnmarshallingContext ictx) throws JiBXException {
 
     // make sure the parameters are as expected

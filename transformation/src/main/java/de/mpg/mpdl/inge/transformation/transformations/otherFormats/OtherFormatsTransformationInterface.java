@@ -61,16 +61,11 @@ public class OtherFormatsTransformationInterface implements Transformation {
 
   private OtherFormatsTransformation transformer;
 
-  /**
-   * Public constructor.
-   */
   public OtherFormatsTransformationInterface() {
     this.transformer = new OtherFormatsTransformation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -102,26 +97,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return sourceFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] formats = this.getSourceFormats();
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     Vector<Format> targetFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -160,9 +136,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return targetFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException {
@@ -171,9 +145,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     byte[] result = null;
@@ -242,9 +214,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -281,7 +251,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     }
     sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
+
     return sourceFormats.toArray(dummy);
   }
-
 }

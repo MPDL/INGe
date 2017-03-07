@@ -17,17 +17,16 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
  * 
  */
 public class HTMLSubSupShortTitleConverter implements Converter {
+  private static final int LENGTH = 80;
 
-  private static int LENGTH = 80;
+  public HTMLSubSupShortTitleConverter() {}
 
-  public HTMLSubSupShortTitleConverter() {
-
-  }
-
+  @Override
   public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
     return null;
   }
 
+  @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     String snippet = (String) object;
     List<String> tags = new ArrayList<String>();
@@ -43,10 +42,5 @@ public class HTMLSubSupShortTitleConverter implements Converter {
       return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,
           snippet.length(), tags);
     }
-
-
   }
-
-
-
 }

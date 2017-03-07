@@ -14,8 +14,7 @@ import org.jibx.runtime.impl.MarshallingContext;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
-public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnmarshaller
-{
+public class MetadataSetMarshaller implements IMarshaller, IAliasable {
   private static Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
 
   private static final String NAME_ATTRIBUTE_NAME = "name";
@@ -51,6 +50,7 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnma
     return false;
   }
 
+  @Override
   public void marshal(Object obj, IMarshallingContext ictx) throws JiBXException {
 
     // make sure the parameters are as expected
@@ -99,9 +99,8 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnma
     return ictx.isAt(m_uri, m_name);
   }
 
+  @Override
   public boolean isExtension(String arg0) {
-    // TODO Auto-generated method stub
     return false;
   }
-
 }

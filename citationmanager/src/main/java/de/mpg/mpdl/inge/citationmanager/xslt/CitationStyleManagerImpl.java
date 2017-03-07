@@ -66,6 +66,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   private static XmlHelper xh = new XmlHelper();
 
+  @Override
   public void compile(String cs) throws CitationStyleManagerException {
     Utils.checkName(cs, "Citaion Style is not defined");
 
@@ -94,6 +95,32 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     }
   }
 
+  @Override
+  public void create(String cs) {
+    // TODO Auto-generated method stub
+  }
+
+  @Override
+  public void delete(String cs) {
+    // TODO Auto-generated method stub
+  }
+
+  @Override
+  public void update(String cs, String newCs) {
+    // TODO Auto-generated method stub
+  }
+
+  @Override
+  public String validate(String cs) throws CitationStyleManagerException {
+    Utils.checkName(cs, "Citation Style is not defined");
+
+    try {
+      return xh.validateCitationStyleXML(cs);
+    } catch (IOException e) {
+      throw new CitationStyleManagerException(e);
+    }
+  }
+
   /**
    * Class to resolve the XMLs location URIs needed for compilation supported resources:
    * variables.xml (global) <CitationStyle>/variables.xml font-styles.xml
@@ -101,6 +128,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
    */
   class compilationURIResolver implements URIResolver {
 
+    @Override
     public Source resolve(String href, String base) throws TransformerException {
       InputStream is;
 
@@ -115,32 +143,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
         throw new TransformerException(e);
       }
       return new StreamSource(is);
-    }
-  }
-
-  public void create(String cs) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public void delete(String cs) {
-    // TODO Auto-generated method stub
-
-  }
-
-
-  public void update(String cs, String newCs) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public String validate(String cs) throws CitationStyleManagerException {
-    Utils.checkName(cs, "Citation Style is not defined");
-
-    try {
-      return xh.validateCitationStyleXML(cs);
-    } catch (IOException e) {
-      throw new CitationStyleManagerException(e);
     }
   }
 
