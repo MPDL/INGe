@@ -29,41 +29,31 @@ package de.mpg.mpdl.inge.pubman;
 import java.io.IOException;
 import java.util.List;
 
-import javax.ejb.EJB;
-
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 import net.sf.jasperreports.engine.JRException;
 
 /**
- * This class provides the ejb implementation of the {@link ItemExporting} interface.
- * 
  * @author Galina Stancheva (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate: 2014-08-20 10:31:05 +0200 (Mi, 20 Aug 2014) $ Revised by
  *          StG: 24.08.2007
  */
 public class ItemExportingService {
-  @EJB
-  private static XmlTransforming xmlTransforming;
-
-  @EJB
-  private static CitationStyleHandler citationStyleHandler;
-
   /**
    * {@inheritDoc}
    */
   public static byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
       throws TechnicalException {
-    String itemList = xmlTransforming.transformToItemList(pubItemVOList);
+    String itemList = XmlTransformingService.transformToItemList(pubItemVOList);
 
     byte[] exportData = null;
     try {
@@ -98,7 +88,7 @@ public class ItemExportingService {
     byte[] exportData = null;
 
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
-      exportData = citationStyleHandler.getOutput(itemList, exportFormat);
+      exportData = CitationStyleExecutorService.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
     } else

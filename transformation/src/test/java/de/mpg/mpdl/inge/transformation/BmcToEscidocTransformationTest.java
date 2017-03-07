@@ -38,7 +38,7 @@ import org.custommonkey.xmlunit.XMLTestCase;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -189,7 +189,7 @@ public class BmcToEscidocTransformationTest extends XMLTestCase {
 
   @Test
   public void testTransformationBean() {
-    TransformationBean transformationbean = new TransformationBean(true);
+    TransformationService transformationbean = new TransformationService(true);
 
     assertTrue(
         "missing ESCIDOC_ITEM_FORMAT_RECEIVE in transformationbean.getTargetFormats(BMC_FORMAT)",

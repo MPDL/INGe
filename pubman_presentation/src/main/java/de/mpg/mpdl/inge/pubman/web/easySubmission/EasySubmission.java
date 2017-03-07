@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -51,8 +50,8 @@ import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
@@ -82,7 +81,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -100,7 +99,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -145,7 +144,7 @@ public class EasySubmission extends FacesBean {
 
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
-  private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
+  private DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   private HtmlSelectOneMenu dateSelect;
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   private HtmlSelectOneRadio radioSelect;
@@ -164,15 +163,10 @@ public class EasySubmission extends FacesBean {
   private String selectedDate;
   private String serviceID;
   private String suggestConeUrl = null;
-  private Transformation transformer = null;
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
 
-  @EJB
-  private XmlTransforming xmlTransforming;
-
   public EasySubmission() {
-    this.transformer = this.getApplicationBean().getTransformationService();
     this.init();
   }
 
@@ -523,17 +517,13 @@ public class EasySubmission extends FacesBean {
   public String save() {
     // bind the temporary uploaded files to the files in the current item
     bindUploadedFiles();
-
     parseAndSetAlternativeSourceTitlesAndIds();
-
-    // this.setFromEasySubmission(true);
 
     if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
     }
 
-    EditItem editItem = (EditItem) getRequestBean(EditItem.class);
-    editItem.setFromEasySubmission(true);
+    ((EditItem) getRequestBean(EditItem.class)).setFromEasySubmission(true);
 
     String returnValue =
         this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -633,7 +623,7 @@ public class EasySubmission extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
@@ -673,7 +663,7 @@ public class EasySubmission extends FacesBean {
 
     fis.close();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   /**
@@ -698,7 +688,7 @@ public class EasySubmission extends FacesBean {
 
     String response = method.getResponseBodyAsString();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public String uploadBibtexFile() {
@@ -726,10 +716,10 @@ public class EasySubmission extends FacesBean {
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
       byte[] result =
-          this.transformer.transform(content.toString().getBytes("UTF-8"), source, target,
-              "escidoc");
+          new TransformationService().transform(content.toString().getBytes("UTF-8"), source,
+              target, "escidoc");
 
-      PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
+      PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());
 
       // Check if reference has to be uploaded as file
@@ -780,7 +770,7 @@ public class EasySubmission extends FacesBean {
         return null;
       }
 
-      DataHandlerBean dataHandler = new DataHandlerBean();
+      DataHandlerService dataHandler = new DataHandlerService();
       PubItemVO itemVO = null;
       String service = easySubmissionSessionBean.getCurrentExternalServiceType();
       List<FileVO> fileVOs = new ArrayList<FileVO>();
@@ -873,7 +863,7 @@ public class EasySubmission extends FacesBean {
       // Generate item ValueObject
       if (fetchedItem != null && !fetchedItem.trim().equals("")) {
         try {
-          itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);
+          itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
 
           // Upload fulltexts from other escidoc repositories to current repository
           if (easySubmissionSessionBean.isFulltext()
@@ -1783,7 +1773,7 @@ public class EasySubmission extends FacesBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     Map<String, String> excludedSourceGenres =
-        this.getApplicationBean().getExcludedSourceGenreMap();
+        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
 
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
@@ -2001,7 +1991,7 @@ public class EasySubmission extends FacesBean {
         return this.contextName;
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -2051,10 +2041,6 @@ public class EasySubmission extends FacesBean {
    */
   public void setAlternativeLanguageName(String alternativeLanguageName) {
     this.alternativeLanguageName = alternativeLanguageName;
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 
   protected ContextListSessionBean getContextListSessionBean() {

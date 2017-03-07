@@ -37,9 +37,9 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
@@ -58,7 +58,6 @@ import net.sf.saxon.event.SaxonOutputKeys;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
 public class CitationStyleManagerImpl implements CitationStyleManager {
 
   public static enum TASKS {
@@ -67,6 +66,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   private static XmlHelper xh = new XmlHelper();
 
+  @Override
   public void compile(String cs) throws CitationStyleManagerException {
     Utils.checkName(cs, "Citaion Style is not defined");
 
@@ -93,9 +93,32 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
     } catch (Exception e) {
       throw new RuntimeException("Cannot compile Citation Style " + cs, e);
     }
+  }
 
+  @Override
+  public void create(String cs) {
+    // TODO Auto-generated method stub
+  }
 
+  @Override
+  public void delete(String cs) {
+    // TODO Auto-generated method stub
+  }
 
+  @Override
+  public void update(String cs, String newCs) {
+    // TODO Auto-generated method stub
+  }
+
+  @Override
+  public String validate(String cs) throws CitationStyleManagerException {
+    Utils.checkName(cs, "Citation Style is not defined");
+
+    try {
+      return xh.validateCitationStyleXML(cs);
+    } catch (IOException e) {
+      throw new CitationStyleManagerException(e);
+    }
   }
 
   /**
@@ -105,6 +128,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
    */
   class compilationURIResolver implements URIResolver {
 
+    @Override
     public Source resolve(String href, String base) throws TransformerException {
       InputStream is;
 
@@ -119,32 +143,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
         throw new TransformerException(e);
       }
       return new StreamSource(is);
-    }
-  }
-
-  public void create(String cs) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public void delete(String cs) {
-    // TODO Auto-generated method stub
-
-  }
-
-
-  public void update(String cs, String newCs) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public String validate(String cs) throws CitationStyleManagerException {
-    Utils.checkName(cs, "Citation Style is not defined");
-
-    try {
-      return xh.validateCitationStyleXML(cs);
-    } catch (IOException e) {
-      throw new CitationStyleManagerException(e);
     }
   }
 
@@ -193,7 +191,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
-          CitationStyleExecutor
+          CitationStyleExecutorService
               .getOutput(ResourceUtil.getResourceAsString(il,
                   CitationStyleManagerImpl.class.getClassLoader()), new ExportFormatVO(
                   FormatType.LAYOUT, cs, task));

@@ -26,39 +26,21 @@
 
 package de.mpg.mpdl.inge.transformation.transformations.otherFormats;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
 import org.apache.log4j.Logger;
-import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
-import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.escidoc.eSciDocVer1ToeSciDocVer2;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.escidoc.eSciDocVer2ToeSciDocVer1;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -72,25 +54,18 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class OtherFormatsTransformationInterface implements Transformation {
-  private final Logger logger = Logger.getLogger(OtherFormatsTransformationInterface.class);
+  private static final Logger logger = Logger.getLogger(OtherFormatsTransformationInterface.class);
 
-  private final String EXPLAIN_FILE_PATH = "transformations/otherFormats/";
-  private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
-
-  private Util util;
+  private static final String EXPLAIN_FILE_PATH = "transformations/otherFormats/";
+  private static final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
 
   private OtherFormatsTransformation transformer;
 
-  /**
-   * Public constructor.
-   */
   public OtherFormatsTransformationInterface() {
     this.transformer = new OtherFormatsTransformation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -99,50 +74,30 @@ public class OtherFormatsTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               OtherFormatsTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error("An error occurred while reading transformations.xml for 'other' formats.",
-          e);
+      logger.error("An error occurred while reading transformations.xml for 'other' formats.", e);
       throw new RuntimeException(e);
     }
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
     for (int i = 0; i < transformations.length; i++) {
       TransformationType transformation = transformations[i];
-      String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-      String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-      String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+      String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+      String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+      String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
       Format sourceFormat = new Format(name, type, encoding);
 
       sourceFormats.add(sourceFormat);
     }
-    sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
     return sourceFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] formats = this.getSourceFormats();
-    return this.util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return this.util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     Vector<Format> targetFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -151,12 +106,11 @@ public class OtherFormatsTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               OtherFormatsTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error("An error occurred while reading transformations.xml for 'other' formats.",
-          e);
+      logger.error("An error occurred while reading transformations.xml for 'other' formats.", e);
       throw new RuntimeException(e);
     }
 
@@ -164,27 +118,25 @@ public class OtherFormatsTransformationInterface implements Transformation {
     TransformationType[] transformations = transType.getTransformationArray();
     for (TransformationType transformation : transformations) {
       Format source =
-          new Format(this.util.simpleLiteralTostring(transformation.getSource().getName()),
-              this.util.simpleLiteralTostring(transformation.getSource().getType()),
-              this.util.simpleLiteralTostring(transformation.getSource().getEncoding()));
+          new Format(Util.simpleLiteralTostring(transformation.getSource().getName()),
+              Util.simpleLiteralTostring(transformation.getSource().getType()),
+              Util.simpleLiteralTostring(transformation.getSource().getEncoding()));
       // Only get Target if source is given source
-      if (this.util.isFormatEqual(source, src)) {
-        String name = this.util.simpleLiteralTostring(transformation.getTarget().getName());
-        String type = this.util.simpleLiteralTostring(transformation.getTarget().getType());
-        String encoding = this.util.simpleLiteralTostring(transformation.getTarget().getEncoding());
+      if (Util.isFormatEqual(source, src)) {
+        String name = Util.simpleLiteralTostring(transformation.getTarget().getName());
+        String type = Util.simpleLiteralTostring(transformation.getTarget().getType());
+        String encoding = Util.simpleLiteralTostring(transformation.getTarget().getEncoding());
         Format sourceFormat = new Format(name, type, encoding);
 
         targetFormats.add(sourceFormat);
       }
     }
-    targetFormats = this.util.getRidOfDuplicatesInVector(targetFormats);
+    targetFormats = Util.getRidOfDuplicatesInVector(targetFormats);
     Format[] dummy = new Format[targetFormats.size()];
     return targetFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException {
@@ -193,9 +145,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     byte[] result = null;
@@ -207,7 +157,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     }
 
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -242,7 +192,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
         eSciDocVer1ToeSciDocVer2 escidocTransformer = new eSciDocVer1ToeSciDocVer2();
         result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
       } catch (Exception e) {
-        this.logger.warn("An error occurred during String Cast.", e);
+        logger.warn("An error occurred during String Cast.", e);
       }
       supported = true;
     } else if (trgFormatName.equals("escidoc-publication-item-list-v1")
@@ -251,12 +201,12 @@ public class OtherFormatsTransformationInterface implements Transformation {
         eSciDocVer2ToeSciDocVer1 escidocTransformer = new eSciDocVer2ToeSciDocVer1();
         result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
       } catch (Exception e) {
-        this.logger.warn("An error occurred during String Cast.", e);
+        logger.warn("An error occurred during String Cast.", e);
       }
       supported = true;
     }
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -264,9 +214,7 @@ public class OtherFormatsTransformationInterface implements Transformation {
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -275,11 +223,11 @@ public class OtherFormatsTransformationInterface implements Transformation {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               OtherFormatsTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for common publication formats.", e);
       throw new RuntimeException(e);
     }
@@ -288,22 +236,22 @@ public class OtherFormatsTransformationInterface implements Transformation {
     TransformationType[] transformations = transType.getTransformationArray();
     for (TransformationType transformation : transformations) {
       Format target =
-          new Format(this.util.simpleLiteralTostring(transformation.getTarget().getName()),
-              this.util.simpleLiteralTostring(transformation.getTarget().getType()),
-              this.util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
+          new Format(Util.simpleLiteralTostring(transformation.getTarget().getName()),
+              Util.simpleLiteralTostring(transformation.getTarget().getType()),
+              Util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
       // Only get Target if source is given source
-      if (this.util.isFormatEqual(target, trg)) {
-        String name = this.util.simpleLiteralTostring(transformation.getSource().getName());
-        String type = this.util.simpleLiteralTostring(transformation.getSource().getType());
-        String encoding = this.util.simpleLiteralTostring(transformation.getSource().getEncoding());
+      if (Util.isFormatEqual(target, trg)) {
+        String name = Util.simpleLiteralTostring(transformation.getSource().getName());
+        String type = Util.simpleLiteralTostring(transformation.getSource().getType());
+        String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
         Format format = new Format(name, type, encoding);
 
         sourceFormats.add(format);
       }
     }
-    sourceFormats = this.util.getRidOfDuplicatesInVector(sourceFormats);
+    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
+
     return sourceFormats.toArray(dummy);
   }
-
 }

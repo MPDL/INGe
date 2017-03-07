@@ -26,11 +26,8 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.component;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
@@ -42,12 +39,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * 
  */
 public class TransformSearchResultGrantList extends XmlTransformingTestBase {
-  private static final Logger logger = Logger.getLogger(TransformSearchResultGrantList.class);
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private static final String TEST_FILE_ROOT =
-      "xmltransforming/component/transformSearchResultGrantListTest/";
-  private static final String SAMPLE_FILE = TEST_FILE_ROOT + "searchRetrieveGrantList_sample.xml";
-
   @Test
   public void testContextListSearchRetrieveResponse() throws Exception {
     // TODO Add grant list handling

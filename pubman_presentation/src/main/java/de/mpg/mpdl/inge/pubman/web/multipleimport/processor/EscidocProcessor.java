@@ -32,13 +32,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.axis.encoding.Base64;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * TODO Description
@@ -55,19 +53,7 @@ public class EscidocProcessor extends FormatProcessor {
   private int length = -1;
   private byte[] originalData = null;
 
-  XmlTransforming xmlTransforming;
-
-  public EscidocProcessor() {
-    try {
-      InitialContext context = new InitialContext();
-      xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-    } catch (Exception e) {
-      throw new RuntimeException("Error initializing XmlTransforming", e);
-    }
-
-  }
+  public EscidocProcessor() {}
 
   /**
    * {@inheritDoc}
@@ -132,19 +118,18 @@ public class EscidocProcessor extends FormatProcessor {
         List<PubItemVO> itemList;
         String source = new String(this.originalData, "UTF-8");
         if (source.contains("item-list")) {
-          itemList = xmlTransforming.transformToPubItemList(source);
+          itemList = XmlTransformingService.transformToPubItemList(source);
         } else {
           itemList = new ArrayList<PubItemVO>();
-          PubItemVO itemVO = xmlTransforming.transformToPubItem(source);
+          PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
           itemList.add(itemVO);
         }
         this.items = new ArrayList<String>();
         for (ItemVO itemVO : itemList) {
-          this.items.add(xmlTransforming.transformToItem(itemVO));
+          this.items.add(XmlTransformingService.transformToItem(itemVO));
         }
         this.counter = 0;
         this.length = this.items.size();
-
       } catch (Exception e) {
         throw new RuntimeException("Error reading input stream", e);
       }
@@ -158,5 +143,4 @@ public class EscidocProcessor extends FormatProcessor {
   public void remove() {
     throw new RuntimeException("Not implemented");
   }
-
 }

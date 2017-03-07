@@ -196,7 +196,7 @@ public class ObjectComparator {
           return;
         }
         if (list1.size() > 0) {
-          Object listObject = list1.get(0);
+          // Object listObject = list1.get(0);
           // boolean isSimpleTypeList = isSimpleComparableType(listObject);
           for (int i = 0; i < list1.size(); i++) {
             if (!list2.contains(list1.get(i))) {

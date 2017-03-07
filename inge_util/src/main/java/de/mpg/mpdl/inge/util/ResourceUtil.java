@@ -53,15 +53,9 @@ import org.apache.log4j.Logger;
  * @version $Revision$ $LastChangedDate$
  */
 public class ResourceUtil {
+  private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 
-  private static Logger logger = Logger.getLogger(ResourceUtil.class);
-
-  /**
-   * Hidden constructor.
-   */
-  protected ResourceUtil() {
-
-  }
+  private ResourceUtil() {}
 
   /**
    * Gets a resource as InputStream.

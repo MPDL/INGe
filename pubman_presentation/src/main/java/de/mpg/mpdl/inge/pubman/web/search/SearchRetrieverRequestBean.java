@@ -299,7 +299,7 @@ public class SearchRetrieverRequestBean extends
   public String getNormalizedCqlQuery() {
     String ret = this.cqlQuery;
     if (ret != null) {
-      return java.net.URLEncoder.encode(ret);
+      return URLEncoder.encode(ret);
     }
 
     return "";
@@ -310,7 +310,8 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getRssFeedLink() throws PubManVersionNotAvailableException {
-    return "<link href='" + this.getApplicationBean().getPubmanInstanceUrl()
+    return "<link href='"
+        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
         + "/syndication/feed/rss_2.0/search?q=" + this.getNormalizedCqlQuery()
         + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
   }
@@ -320,7 +321,8 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
-    return "<link href='" + this.getApplicationBean().getPubmanInstanceUrl()
+    return "<link href='"
+        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
         + "/syndication/feed/atom_1.0/search?q=" + this.getNormalizedCqlQuery()
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
@@ -411,9 +413,5 @@ public class SearchRetrieverRequestBean extends
   public void setQueryString(String query) {
     this.queryString = query;
     getBasePaginatorListSessionBean().getParameterMap().put(parameterQuery, query);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

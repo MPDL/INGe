@@ -115,10 +115,9 @@ public class ExportItems extends FacesBean {
    */
   public boolean getVisibleExport() {
     return !this.getRightsManagementSessionBean().isDisabled(
-        getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+        RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
             + this.FUNCTION_EXPORT);
   }
-
 
   public SelectItem[] getEXPORTFORMAT_OPTIONS() {
     // constants for comboBoxes and HtmlSelectOneRadios

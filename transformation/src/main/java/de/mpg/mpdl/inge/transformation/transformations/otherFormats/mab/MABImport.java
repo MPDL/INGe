@@ -42,9 +42,6 @@ public class MABImport {
         getItemListFromString(file,
             "(\\n|\\r|\\r\\n)(\\s{4})([0-9]*.)?([0-9]*,[0-9]*)(\\n|\\r|\\r\\n)"); // extract items
                                                                                   // to array
-    for (String item : itemList) {
-      // System.out.print(item+"\n*******************************************");
-    }
     List<List<Pair>> items = new ArrayList<List<Pair>>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
@@ -52,9 +49,6 @@ public class MABImport {
         List<Pair> itemPairs =
             getItemPairs(getItemFromString(item,
                 "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
-        for (Pair p : itemPairs) {
-          // System.out.print(p.getKey()+" : "+p.getValue()+"\n");
-        }
         items.add(itemPairs);
       }
       result = transformItemListToXML(items);
@@ -99,7 +93,7 @@ public class MABImport {
    * @return
    */
   public List<String> getItemFromString(String string, String patternString) {
-    List<String> strArr = new ArrayList();
+    List<String> strArr = new ArrayList<String>();
     Pattern patternLine1 = Pattern.compile("(\\s{6})[###]\\s*(.*(\\n|\\r|\\r\\n))");
 
     Matcher matcherLine1 = patternLine1.matcher(string);
@@ -141,7 +135,7 @@ public class MABImport {
    */
   public List<Pair> getItemPairs(List<String> lines) {
 
-    List<Pair> pairList = new ArrayList();
+    List<Pair> pairList = new ArrayList<Pair>();
     if (lines != null && lines.size() > 0) {
       String line1 = lines.get(0);
       Pair pair1 = createMABPairByString(line1, "(\\s{6})###\\s*");

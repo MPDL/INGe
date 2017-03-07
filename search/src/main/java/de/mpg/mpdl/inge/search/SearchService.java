@@ -29,12 +29,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
@@ -42,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.search.parser.ParseException;
@@ -51,8 +49,8 @@ import de.mpg.mpdl.inge.search.query.ExportSearchResult;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
@@ -64,12 +62,6 @@ import net.sf.jasperreports.engine.JRException;
 
 public class SearchService {
   private static final Logger logger = Logger.getLogger(SearchService.class);
-
-  @EJB
-  private static XmlTransforming xmlTransforming;
-
-  @EJB
-  private static CitationStyleHandler citationStyleHandler;
 
   public SearchService() {}
 
@@ -258,7 +250,7 @@ public class SearchService {
           }
           logger.debug("Search result: " + searchResultItem);
           SearchResultElement itemResult =
-              xmlTransforming.transformToSearchResult(searchResultItem);
+              XmlTransformingService.transformToSearchResult(searchResultItem);
           resultList.add(itemResult);
         }
       }
@@ -295,7 +287,7 @@ public class SearchService {
     ExportSearchResult exportedResult =
         new ExportSearchResult(searchElements, cqlQuery, searchResult.getNumberOfRecords());
     String itemListAsString =
-        xmlTransforming.transformToItemList(transformtToItemVOListWrapper(exportedResult));
+        XmlTransformingService.transformToItemList(transformtToItemVOListWrapper(exportedResult));
 
     String outputFormat = query.getOutputFormat();
     String exportFormat = query.getExportFormat();
@@ -318,13 +310,13 @@ public class SearchService {
       return exportedResult;
     }
     // citation style
-    else if (citationStyleHandler.isCitationStyle(exportFormat)) {
+    else if (CitationStyleExecutorService.isCitationStyle(exportFormat)) {
       if (!checkValue(outputFormat)) {
         throw new TechnicalException("outputFormat should be not empty for exportFormat:"
             + exportFormat);
       }
       outputFormat = outputFormat.trim();
-      if (citationStyleHandler.getMimeType(exportFormat, outputFormat) == null) {
+      if (CitationStyleExecutorService.getMimeType(exportFormat, outputFormat) == null) {
         throw new TechnicalException("file output format: " + outputFormat + " for export format: "
             + exportFormat + " is not supported");
       }
@@ -364,7 +356,7 @@ public class SearchService {
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
       logger.debug("Calling citationStyleHandler");
 
-      exportData = citationStyleHandler.getOutput(itemList, exportFormat);
+      exportData = CitationStyleExecutorService.getOutput(itemList, exportFormat);
       logger.debug("Returning from citationStyleHandler");
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       logger.debug("Calling structuredExportHandler");
@@ -391,7 +383,7 @@ public class SearchService {
           String searchResultItem = messages[0].getAsString();
           logger.debug("Search result: " + searchResultItem);
           SearchResultElement searchResultElement =
-              xmlTransforming.transformToSearchResult(searchResultItem);
+              XmlTransformingService.transformToSearchResult(searchResultItem);
           AffiliationResultVO affiliationResultVO = (AffiliationResultVO) searchResultElement;
           resultList.add((AffiliationVO) affiliationResultVO);
 

@@ -48,8 +48,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.bean.FileBean;
@@ -1554,10 +1552,6 @@ public class PubItemVOPresentation extends PubItemVO {
     } else {
       return getLabel("ViewItem_lblPublicationState_not-specified");
     }
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
   }
 
   private String getLabel(String placeholder) {

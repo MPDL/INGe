@@ -44,9 +44,11 @@ public class MABImport {
         getItemListFromString(file,
             "(\\n|\\r|\\r\\n)(\\s{4})([0-9]*.)?([0-9]*,[0-9]*)(\\n|\\r|\\r\\n)"); // extract items
                                                                                   // to array
-    for (String item : itemList) {
-      // System.out.print(item+"\n*******************************************");
-    }
+                                                                                  // for (String
+                                                                                  // item :
+                                                                                  // itemList) {
+    // // System.out.print(item+"\n*******************************************");
+    // }
     List<List<Pair>> items = new ArrayList<List<Pair>>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
@@ -54,9 +56,9 @@ public class MABImport {
         List<Pair> itemPairs =
             getItemPairs(getItemFromString(item,
                 "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
-        for (Pair p : itemPairs) {
-          // System.out.print(p.getKey()+" : "+p.getValue()+"\n");
-        }
+        // for (Pair p : itemPairs) {
+        // // System.out.print(p.getKey()+" : "+p.getValue()+"\n");
+        // }
         items.add(itemPairs);
       }
       result = transformItemListToXML(items);
@@ -67,6 +69,7 @@ public class MABImport {
               "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
       result = transformItemToXML(item);
     }
+
     return result;
   }
 

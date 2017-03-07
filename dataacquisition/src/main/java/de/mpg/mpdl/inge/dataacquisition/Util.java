@@ -49,7 +49,7 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -67,7 +67,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  */
 public class Util {
 
-  private TransformationBean transformer;
+  private TransformationService transformer;
   private static final Logger logger = Logger.getLogger(Util.class);
   private static final String internalFormat = "eSciDoc-publication-item";
   private static final String transformationService = "escidoc";
@@ -83,7 +83,7 @@ public class Util {
    * Public constructor.
    */
   public Util() {
-    this.transformer = new TransformationBean();
+    this.transformer = new TransformationService();
   }
 
   /**
@@ -148,7 +148,7 @@ public class Util {
   public MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName,
       String trgFormatType, String trgFormatEndcoding) {
     MetadataVO sourceMd = null;
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     // First: check if format can be fetched directly
     for (int i = 0; i < source.getMdFormats().size(); i++) {
@@ -447,7 +447,7 @@ public class Util {
 
     List<DataSourceVO> sources;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     try {
       sources = sourceHandler.getSources();

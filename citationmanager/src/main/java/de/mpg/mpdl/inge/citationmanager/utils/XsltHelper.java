@@ -359,8 +359,6 @@ public class XsltHelper {
 
 
 class JusXmlHandler extends DefaultHandler {
-
-  private static final Logger logger = Logger.getLogger(JusXmlHandler.class);
   String currentElement = null;
   String citationStyle = null;
   String coneValue = null;

@@ -15,13 +15,14 @@ public class HTMLTitleSubSupConverter implements Converter {
 
   public HTMLTitleSubSupConverter() {}
 
+  @Override
   public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
     return null;
   }
 
+  @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     String snippet = (String) object;
     return HtmlUtils.removeSubSupIfBalanced(snippet);
   }
-
 }

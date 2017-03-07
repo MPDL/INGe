@@ -24,25 +24,8 @@
  */
 package test.framework.sb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.FileInputStream;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import test.framework.om.TestItemBase;
 
 /**
@@ -54,8 +37,6 @@ import test.framework.om.TestItemBase;
  * @revised by BrP: 04.09.2007
  */
 public class TestSimpleSearch extends TestItemBase {
-  private Logger logger = Logger.getLogger(getClass());
-
   /**
    * Searches by escidoc.publication.creator.person.organization.identifier.
    */
@@ -326,67 +307,67 @@ public class TestSimpleSearch extends TestItemBase {
     // }
   }
 
-  private void getItem() throws Exception {
-    String item = ServiceLocator.getItemHandler(userHandle).retrieve("escidoc:1");
-    logger.debug(item);
-  }
-
-  private String createReleasedItem() throws Exception {
-    String userHandle = loginScientist();
-    String item =
-        ServiceLocator.getItemHandler(userHandle).create(
-            readFile("src/test/resources/test/testsimplesearch/item1.xml"));
-    String id = getId(item);
-    String md = getModificationDate(item);
-    ServiceLocator.getItemHandler(userHandle).submit(id, createModificationDate(md));
-    item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
-    md = getModificationDate(item);
-    ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
-    return id;
-  }
-
-  private String createReleasedItemWithFile() throws Exception {
-    String userHandle = loginScientist();
-    // Prepare the HttpMethod.
-    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(
-        "src/test/resourcestest/testsimplesearch/Der_kleine_Prinz_Auszug.pdf")));
-    method.setRequestHeader("Content-Type", "application/pdf");
-    method.setRequestHeader("Cookie", "escidocCookie=Skip-Authorization");
-
-    // Execute the method with HttpClient.
-    HttpClient client = new HttpClient();
-    ProxyHelper.executeMethod(client, method);
-    logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE
-                                                      // 300 ???
-    assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-    String response = method.getResponseBodyAsString();
-    logger.debug("Response=" + response);
-
-    // Create a document from the response.
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-    Document document = docBuilder.parse(method.getResponseBodyAsStream());
-    document.getDocumentElement().normalize();
-
-    // Extract the file information.
-    String href = getValue(document, "/staging-file/@href");
-    assertNotNull(href);
-
-    // Create an item with the href in the component.
-    String item = readFile("src/test/resources/test/testsimplesearch/item1.xml");
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
-    logger.debug("Item=" + item);
-    item = ServiceLocator.getItemHandler(userHandle).create(item);
-    assertNotNull(item);
-    logger.debug("Item=" + item);
-
-    String id = getId(item);
-    String md = getModificationDate(item);
-    ServiceLocator.getItemHandler(userHandle).submit(id, createModificationDate(md));
-    item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
-    md = getModificationDate(item);
-    ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
-    return id;
-  }
+  // private void getItem() throws Exception {
+  // String item = ServiceLocator.getItemHandler(userHandle).retrieve("escidoc:1");
+  // logger.debug(item);
+  // }
+  //
+  // private String createReleasedItem() throws Exception {
+  // String userHandle = loginScientist();
+  // String item =
+  // ServiceLocator.getItemHandler(userHandle).create(
+  // readFile("src/test/resources/test/testsimplesearch/item1.xml"));
+  // String id = getId(item);
+  // String md = getModificationDate(item);
+  // ServiceLocator.getItemHandler(userHandle).submit(id, createModificationDate(md));
+  // item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+  // md = getModificationDate(item);
+  // ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
+  // return id;
+  // }
+  //
+  // private String createReleasedItemWithFile() throws Exception {
+  // String userHandle = loginScientist();
+  // // Prepare the HttpMethod.
+  // PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
+  // method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(
+  // "src/test/resourcestest/testsimplesearch/Der_kleine_Prinz_Auszug.pdf")));
+  // method.setRequestHeader("Content-Type", "application/pdf");
+  // method.setRequestHeader("Cookie", "escidocCookie=Skip-Authorization");
+  //
+  // // Execute the method with HttpClient.
+  // HttpClient client = new HttpClient();
+  // ProxyHelper.executeMethod(client, method);
+  // logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE
+  // // 300 ???
+  // assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
+  // String response = method.getResponseBodyAsString();
+  // logger.debug("Response=" + response);
+  //
+  // // Create a document from the response.
+  // DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+  // DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+  // Document document = docBuilder.parse(method.getResponseBodyAsStream());
+  // document.getDocumentElement().normalize();
+  //
+  // // Extract the file information.
+  // String href = getValue(document, "/staging-file/@href");
+  // assertNotNull(href);
+  //
+  // // Create an item with the href in the component.
+  // String item = readFile("src/test/resources/test/testsimplesearch/item1.xml");
+  // item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
+  // logger.debug("Item=" + item);
+  // item = ServiceLocator.getItemHandler(userHandle).create(item);
+  // assertNotNull(item);
+  // logger.debug("Item=" + item);
+  //
+  // String id = getId(item);
+  // String md = getModificationDate(item);
+  // ServiceLocator.getItemHandler(userHandle).submit(id, createModificationDate(md));
+  // item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+  // md = getModificationDate(item);
+  // ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
+  // return id;
+  // }
 }

@@ -559,11 +559,9 @@ public class XmlHelper {
         );
       }
       return outputFormatsHash;
-
     } else {
       return outputFormatsHash;
     }
-
   }
 
   /**
@@ -572,7 +570,6 @@ public class XmlHelper {
    * @return citationStylesHash
    */
   public static HashMap<String, HashMap<String, String[]>> getCitationStylesHash() {
-
     if (citationStylesHash == null) {
       NodeList nl;
       try {
@@ -610,14 +607,11 @@ public class XmlHelper {
         }
 
         citationStylesHash.put(exportFormat, formatsHash);
-
       }
       return citationStylesHash;
-
     } else {
       return citationStylesHash;
     }
-
   }
 
   /**
@@ -635,6 +629,7 @@ public class XmlHelper {
         return curNode;
       }
     }
+
     return null;
   }
 
@@ -706,13 +701,12 @@ public class XmlHelper {
       throw new RuntimeException("Cannot evaluate XPath:", e);
     }
   }
-
 }
 
 
 class OutputFormatNodeFilter implements NodeFilter {
-
   public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
+
   public String cs;
 
   public OutputFormatNodeFilter(String cs) {
@@ -720,11 +714,12 @@ class OutputFormatNodeFilter implements NodeFilter {
     this.cs = cs;
   }
 
+  @Override
   public short acceptNode(Node n) {
     Node parent = n.getParentNode();
     if ("output-format".equals(n.getLocalName()) && parent != null
         && "export-format".equals(parent.getLocalName())
-        && cs.equals(parent.getChildNodes().item(3).getTextContent()// name,
+        && this.cs.equals(parent.getChildNodes().item(3).getTextContent()// name,
             // style
             )) {
       // System.out.println("Matched-->" + n.getLocalName()
@@ -733,15 +728,16 @@ class OutputFormatNodeFilter implements NodeFilter {
       // );
       return FILTER_ACCEPT;
     }
+
     return FILTER_SKIP;
   }
 }
 
 
 class ExportFormatNodeFilter implements NodeFilter {
-
   public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
 
+  @Override
   public short acceptNode(Node n) {
     Node parent = n.getParentNode();
     // System.out.println("I am here!!!!-->" + n.getLocalName()
@@ -756,6 +752,7 @@ class ExportFormatNodeFilter implements NodeFilter {
       // );
       return FILTER_ACCEPT;
     }
+
     return FILTER_SKIP;
   }
 }

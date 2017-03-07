@@ -72,9 +72,7 @@ public class LocalUriResolver implements URIResolver {
     this.base = base;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public final Source resolve(String href, String altBase) throws TransformerException {
 
     String path = null;

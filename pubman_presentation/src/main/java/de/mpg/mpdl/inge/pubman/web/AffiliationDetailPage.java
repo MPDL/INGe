@@ -25,15 +25,13 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 
@@ -47,25 +45,19 @@ import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class AffiliationDetailPage extends FacesBean {
-  private static final long serialVersionUID = 1L;
   public static String BEAN_NAME = "AffiliationDetailPage";
 
-  private static Logger logger = Logger.getLogger(AffiliationDetailPage.class);
+  private static final Logger logger = Logger.getLogger(AffiliationDetailPage.class);
+
   private AffiliationVOPresentation affiliation;
-  private XmlTransforming xmlTransforming;
 
   public AffiliationDetailPage() {
     try {
       String ouXml = null;
-      InitialContext initialContext = new InitialContext();
-      this.xmlTransforming =
-          (XmlTransforming) initialContext
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-
       String affiliationId =
           getFacesContext().getExternalContext().getRequestParameterMap().get("id");
-
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
       try {
         ouXml = ouHandler.retrieve(affiliationId);
@@ -74,13 +66,12 @@ public class AffiliationDetailPage extends FacesBean {
         error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         return;
       }
-      AffiliationVO affVO = this.xmlTransforming.transformToAffiliation(ouXml);
+      AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
       this.affiliation = new AffiliationVOPresentation(affVO);
     } catch (Exception e) {
       error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
       throw new RuntimeException("Error getting affiliation details", e);
     }
-
   }
 
   public void setAffiliation(AffiliationVOPresentation affiliation) {

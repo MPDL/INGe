@@ -28,17 +28,10 @@ package de.mpg.mpdl.inge.reporting;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import de.mpg.mpdl.inge.reporting.ReportFHI;
 
 @Ignore
 public class ReportingTest {
@@ -48,24 +41,16 @@ public class ReportingTest {
 
   boolean DEBUG = false;
 
-  static ReportFHI rep;
-
-  @BeforeClass
-  public static void getReportInstance() throws IOException, URISyntaxException, ServiceException {
-    rep = new ReportFHI();
-  }
-
   @Test
   public final void testReport() throws Exception {
     if (DEBUG) {
-      for (String att : rep.generateReport()) {
+      for (String att : ReportFHI.generateReport()) {
         if (new File(att).length() == 0) {
           fail("Empty attachment file: " + att);
         }
       }
     } else {
-      rep.generateAndSendReport(true);
+      ReportFHI.generateAndSendReport(true);
     }
-
   }
 }

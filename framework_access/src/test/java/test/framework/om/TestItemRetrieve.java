@@ -58,14 +58,14 @@ public class TestItemRetrieve extends TestItemBase {
     return number;
   }
 
-  private int countItemRefs(String refs) throws Exception {
-    final String xPath = "//item-ref-list/item-ref";
-    Document doc = getDocument(refs, false);
-    NodeList list = selectNodeList(doc, xPath);
-    int number = list.getLength();
-    logger.debug("#Items=" + number);
-    return number;
-  }
+  // private int countItemRefs(String refs) throws Exception {
+  // final String xPath = "//item-ref-list/item-ref";
+  // Document doc = getDocument(refs, false);
+  // NodeList list = selectNodeList(doc, xPath);
+  // int number = list.getLength();
+  // logger.debug("#Items=" + number);
+  // return number;
+  // }
 
   /**
    * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.

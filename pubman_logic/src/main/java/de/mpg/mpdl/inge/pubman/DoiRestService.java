@@ -15,10 +15,10 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.doi.DoiMetadataTransformation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -57,9 +57,8 @@ public class DoiRestService {
 
     try {
       // Generate metadata xml for the DOI service
-      XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-      String itemXml = xmlTransforming.transformToItem(pubItem);
-      Transformation transformation = new TransformationBean();
+      String itemXml = XmlTransformingService.transformToItem(pubItem);
+      Transformation transformation = new TransformationService();
       String doiMetadataXml =
           new String(transformation.transform(itemXml.getBytes("UTF-8"),
               DoiMetadataTransformation.ESCIDOC_ITEM_FORMAT,

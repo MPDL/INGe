@@ -26,16 +26,8 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import java.util.Date;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 
 /**
  * Attributes of an user account

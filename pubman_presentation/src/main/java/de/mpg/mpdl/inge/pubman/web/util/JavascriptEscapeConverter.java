@@ -44,21 +44,16 @@ import javax.faces.convert.ConverterException;
  * 
  */
 public class JavascriptEscapeConverter implements Converter {
-
   public static final String CONVERTER_ID = "HTMLEscapeConverter";
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public String getAsString(FacesContext context, UIComponent c, Object object)
       throws ConverterException {
     final String textValue = object.toString();
     return CommonUtils.javascriptEscape(textValue);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Object getAsObject(FacesContext context, UIComponent c, String text) {
     return text;
   }

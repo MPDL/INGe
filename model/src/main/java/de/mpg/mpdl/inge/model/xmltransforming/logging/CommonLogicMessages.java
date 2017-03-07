@@ -62,11 +62,7 @@ public enum CommonLogicMessages implements Messages {
     this.message = messageTemplate;
   }
 
-  /**
-   * Delivers the message.
-   * 
-   * @return The message
-   */
+  @Override
   public String getMessage() {
     return message;
   }

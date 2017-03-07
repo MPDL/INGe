@@ -39,9 +39,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
-import de.mpg.mpdl.inge.util.XmlComparator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
@@ -51,11 +48,13 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.XmlComparator;
 
 /**
  * Test of {@link XmlTransforming} methods for transforming PubItemVOs to XML and back.
@@ -66,9 +65,8 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @revised by MuJ: 21.08.2007
  */
 public class TransformPubItemTest extends XmlTransformingTestBase {
+  private static final Logger logger = Logger.getLogger(TransformPubItemTest.class);
 
-  private Logger logger = Logger.getLogger(getClass());
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemTest/";
   private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
   private static String RELEASED_ITEM_FILE = TEST_FILE_ROOT
@@ -108,7 +106,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // transform the PubItemVO into an item
     long zeit = -System.currentTimeMillis();
-    String pubItemXML = xmlTransforming.transformToItem(pubItemVO);
+    String pubItemXML = XmlTransformingService.transformToItem(pubItemVO);
     zeit += System.currentTimeMillis();
     logger.info("transformToItem() (with component)->" + zeit + "ms");
     logger.info("PubItemVO with file transformed to item(XML).");
@@ -117,7 +115,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertXMLValid(pubItemXML);
 
     // transform the item(XML) back to a PubItemVO
-    PubItemVO roundtrippedPubItemVO = xmlTransforming.transformToPubItem(pubItemXML);
+    PubItemVO roundtrippedPubItemVO = XmlTransformingService.transformToPubItem(pubItemXML);
 
     assertEquals(IdType.CONE, roundtrippedPubItemVO.getMetadata().getCreators().get(0).getPerson()
         .getIdentifier().getType());
@@ -189,7 +187,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // transform the PubItemVO into an item
     long zeit = -System.currentTimeMillis();
-    String pubItemListXML = xmlTransforming.transformToItemList(pubItemList);
+    String pubItemListXML = XmlTransformingService.transformToItemList(pubItemList);
     zeit += System.currentTimeMillis();
     logger.info("transformToItemList()->" + zeit + "ms");
     logger.info("List<PubItemVO> transformed to item-list[XML].");
@@ -208,8 +206,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for
-   * {@link de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean#transformToItem(ItemVO)}
-   * ; checks whether the metadata part meets the requirements.
+   * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(ItemVO)} ;
+   * checks whether the metadata part meets the requirements.
    * 
    * @throws Exception
    */
@@ -222,7 +220,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // transform the PubItemVO into an item
     long zeit = -System.currentTimeMillis();
-    String itemXML = xmlTransforming.transformToItem(pubItem);
+    String itemXML = XmlTransformingService.transformToItem(pubItem);
     zeit += System.currentTimeMillis();
     logger.info("transformToItem()->" + zeit + "ms");
     logger.info("PubItemVO transformed to item[XML].");
@@ -242,7 +240,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for
-   * {@link de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}
+   * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
    * 
    * @throws Exception
@@ -257,7 +255,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     logger.info("Content: " + releasedPubItemXML);
     // transform the item directly into a PubItemVO
     long zeit = -System.currentTimeMillis();
-    ItemVO pubItemVO = xmlTransforming.transformToItem(releasedPubItemXML);
+    ItemVO pubItemVO = XmlTransformingService.transformToItem(releasedPubItemXML);
     assertNotNull(pubItemVO.getRelations());
     zeit += System.currentTimeMillis();
     logger.info("transformToPubItem()->" + zeit + "ms");
@@ -276,7 +274,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for
-   * {@link de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}
+   * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
    * 
    * @throws Exception
@@ -291,7 +289,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     logger.info("Content: " + releasedPubItemXML);
     // transform the item directly into a PubItemVO
 
-    ItemVO pubItemVO = xmlTransforming.transformToItem(releasedPubItemXML);
+    ItemVO pubItemVO = XmlTransformingService.transformToItem(releasedPubItemXML);
 
     assertNotNull("Local tags are null", pubItemVO.getLocalTags());
     assertEquals("There should be two local tags", 2, pubItemVO.getLocalTags().size());
@@ -304,7 +302,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for
-   * {@link de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}
+   * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
    * 
    * @throws Exception
@@ -318,7 +316,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     logger.info("Item[XML] read from file.");
     logger.info("Content: " + restPubItemXML);
     // transform the item directly into a PubItemVO
-    ItemVO pubItemVO = xmlTransforming.transformToItem(restPubItemXML);
+    ItemVO pubItemVO = XmlTransformingService.transformToItem(restPubItemXML);
 
     assertEquals("ObjectId not transformed correctly", "/ir/item/escidoc:149937", pubItemVO
         .getVersion().getObjectId());
@@ -348,7 +346,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
     pubItem.getLocalTags().add("ÃœmlÃ¤ut-TÃ¡g");
     pubItem.getLocalTags().add("Ã›mlÃ ut-TÃ„g");
-    String itemXml = xmlTransforming.transformToItem(pubItem);
+    String itemXml = XmlTransformingService.transformToItem(pubItem);
 
     logger.info(itemXml);
 
@@ -370,7 +368,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
 
     // transform the item into XML
-    String itemXml = xmlTransforming.transformToItem(pubItem);
+    String itemXml = XmlTransformingService.transformToItem(pubItem);
     logger.info("Transformed item(XML):\n" + itemXml);
     Node itemDoc = DOMUtilities.createDocument(new String(itemXml.getBytes(), "UTF-8"), false);
     // check validity of item
@@ -383,7 +381,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertXMLValid(toString(metadataXml, false));
     logger.info("Transformed item metadata is valid.");
 
-    PubItemVO roundtrippedPubItem = xmlTransforming.transformToPubItem(itemXml);
+    PubItemVO roundtrippedPubItem = XmlTransformingService.transformToPubItem(itemXml);
 
     // compare metadata before and after roundtripping
     ObjectComparator oc = null;
@@ -410,12 +408,12 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     String releasedPubItemXML = readFile(RELEASED_ITEM_FILE);
 
     // transform the item into XML
-    ItemVO itemVO = xmlTransforming.transformToItem(releasedPubItemXML);
+    ItemVO itemVO = XmlTransformingService.transformToItem(releasedPubItemXML);
     logger.debug("Transformed item(VO):\n" + itemVO);
 
     assertNotNull("ObjId lost.", itemVO.getVersion().getObjectId());
 
-    String roundtrippedPubItem = xmlTransforming.transformToItem(itemVO);
+    String roundtrippedPubItem = XmlTransformingService.transformToItem(itemVO);
 
     // compare metadata before and after roundtripping
     XmlComparator oc = null;
@@ -447,7 +445,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // transform the item directly into a PubItemVO
     long zeit = -System.currentTimeMillis();
-    PubItemVO savedItem = xmlTransforming.transformToPubItem(savedPubItemXML);
+    PubItemVO savedItem = XmlTransformingService.transformToPubItem(savedPubItemXML);
     zeit += System.currentTimeMillis();
     logger.info("transformToPubItem()->" + zeit + "ms");
     logger.info("Transformed item to PubItemVO.");
@@ -504,7 +502,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     // transform the item directly into a PubItemVO
     long zeit = -System.currentTimeMillis();
-    PubItemVO savedItem = xmlTransforming.transformToPubItem(savedPubItemXML);
+    PubItemVO savedItem = XmlTransformingService.transformToPubItem(savedPubItemXML);
     zeit += System.currentTimeMillis();
     logger.info("transformToPubItem()->" + zeit + "ms");
     logger.info("Transformed item to PubItemVO.");
@@ -531,7 +529,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     logger.debug("item-list[XML]:\n" + itemListXML);
 
     // transform to a list of PubItemVOs
-    List<PubItemVO> itemList = xmlTransforming.transformToPubItemList(itemListXML);
+    List<PubItemVO> itemList = XmlTransformingService.transformToPubItemList(itemListXML);
     assertNotNull(itemList);
   }
 
@@ -543,7 +541,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
     itemVO.getMetadataSets().add(mdsPublicationVO);
 
-    String itemXml = xmlTransforming.transformToItem(itemVO);
+    String itemXml = XmlTransformingService.transformToItem(itemVO);
 
     logger.info("XML: " + itemXml);
 
@@ -556,7 +554,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     PubItemVO pubItemYearbook = getYearbookPubItem();
 
-    String itemXml = xmlTransforming.transformToItem(pubItemYearbook);
+    String itemXml = XmlTransformingService.transformToItem(pubItemYearbook);
 
     logger.info("XML: " + itemXml);
 
@@ -573,7 +571,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     String yearbookPubItemXML = readFile(YEARBOOK_PUBITEM_FILE);
     logger.info("Item[XML] read from file.");
 
-    PubItemVO yearbookPubItem = xmlTransforming.transformToPubItem(yearbookPubItemXML);
+    PubItemVO yearbookPubItem = XmlTransformingService.transformToPubItem(yearbookPubItemXML);
 
     logger.info("Transformed item to PubItemVO.");
 
@@ -594,14 +592,14 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
 
     // transform the item into XML
-    String itemXml = xmlTransforming.transformToItem(pubItem);
+    String itemXml = XmlTransformingService.transformToItem(pubItem);
     logger.info("Transformed item(XML):\n" + itemXml);
 
     pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).setName("");
     pubItem.getMetadata().getCreators().get(0).getPerson().getOrganizations().get(0).setAddress("");
     pubItem.getMetadata().cleanup();
 
-    String itemXmlCleanedUp = xmlTransforming.transformToItem(pubItem);
+    String itemXmlCleanedUp = XmlTransformingService.transformToItem(pubItem);
     logger.info("-----------------------------------------------------");
     logger.info("Cleaned up item(XML):\n" + itemXmlCleanedUp);
 

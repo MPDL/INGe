@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -17,7 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationTree;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -46,7 +45,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   public static final String BEAN_NAME = "MyTasksRetrieverRequestBean";
 
-  private static Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
+  private static final Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
+
+  public static final String LOAD_QAWS = "loadQAWSPage";
 
   private int numberOfRecords;
 
@@ -64,12 +65,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * A list with menu entries for the context filter menu.
    */
   private List<SelectItem> contextSelectItems;
-
-  // Faces navigation string
-  public static final String LOAD_QAWS = "loadQAWSPage";
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   public MyTasksRetrieverRequestBean() {}
 
@@ -173,7 +168,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
               filter.toMap());
 
       ItemVOListWrapper pubItemList =
-          xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+          XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
 
       numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
       returnList =

@@ -38,7 +38,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,11 +71,10 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -116,7 +114,7 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -155,12 +153,8 @@ public class ViewItemFull extends FacesBean {
   private ContextVO context = null;
   private PubItemVOPresentation pubItem = null;
   private String languages;
-  private Transformation transformer;
   private YearbookItemSessionBean yisb;
   private int defaultSize = 20;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   /**
    * The list of formatted organzations in an ArrayList.
@@ -266,9 +260,6 @@ public class ViewItemFull extends FacesBean {
 
     // populate the core service Url
     this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-
-    this.transformer = this.getApplicationBean().getTransformationService();
-
     this.defaultSize =
         Integer.parseInt(PropertyReader.getProperty(
             "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
@@ -1997,7 +1988,7 @@ public class ViewItemFull extends FacesBean {
     try {
       exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
     } catch (TechnicalException e) {
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
     if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
@@ -2019,7 +2010,7 @@ public class ViewItemFull extends FacesBean {
       fos.write(exportFileData);
       fos.close();
     } catch (IOException e1) {
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e1);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
       return ErrorPage.LOAD_ERRORPAGE;
     }
     sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
@@ -2441,7 +2432,8 @@ public class ViewItemFull extends FacesBean {
 
   public String getHtmlMetaTags() {
     try {
-      String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
+      String itemXml = XmlTransformingService.transformToItem(new PubItemVO(pubItem));
+      TransformationService transformer = new TransformationService();
 
       Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
       Format targetHighwire =
@@ -2538,9 +2530,5 @@ public class ViewItemFull extends FacesBean {
 
   protected ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

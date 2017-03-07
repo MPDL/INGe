@@ -20,14 +20,13 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.TestHelper;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -43,7 +42,6 @@ public class TestCitationManager {
   private static HashMap<String, String> itemLists;
 
 
-  private static CitationStyleExecutor cse = new CitationStyleExecutor();
   private CitationStyleManagerImpl csm = new CitationStyleManagerImpl();
 
   /**
@@ -65,7 +63,7 @@ public class TestCitationManager {
 
     itemLists = new HashMap<String, String>();
 
-    for (String cs : cse.getStyles()) {
+    for (String cs : CitationStyleExecutorService.getStyles()) {
       if (!"CSL".equals(cs)) {
         String itemList =
             TestHelper.getCitationStyleTestXmlAsString(TestHelper.getTestProperties(cs)
@@ -85,7 +83,7 @@ public class TestCitationManager {
   @Test
   public final void testGetStyles() throws Exception {
     logger.info("List of citation styles: ");
-    for (String s : cse.getStyles())
+    for (String s : CitationStyleExecutorService.getStyles())
       logger.info("Citation Style: " + s);
   }
 
@@ -96,18 +94,17 @@ public class TestCitationManager {
    */
   @Test
   public final void testExplainStuff() throws Exception {
-    String explain = cse.explainStyles();
+    String explain = CitationStyleExecutorService.explainStyles();
     assertTrue("Empty explain xml", Utils.checkVal(explain));
     logger.info("Explain file:" + explain);
 
     logger.info("List of citation styles with output formats: ");
-    for (String s : cse.getStyles()) {
+    for (String s : CitationStyleExecutorService.getStyles()) {
       logger.info("Citation Style: " + s);
-      for (String of : cse.getOutputFormats(s)) {
+      for (String of : CitationStyleExecutorService.getOutputFormats(s)) {
         logger.info("--Output Format: " + of);
-        logger.info("--Mime Type: " + cse.getMimeType(s, of));
+        logger.info("--Mime Type: " + CitationStyleExecutorService.getMimeType(s, of));
       }
-
     }
   }
 
@@ -125,7 +122,6 @@ public class TestCitationManager {
     testOutput("Test", "pdf", "");
     testOutput("Test", "escidoc_snippet", "");
   }
-
 
   /**
    * Test Citation Style Test
@@ -150,7 +146,7 @@ public class TestCitationManager {
   @Test
   @Ignore
   public final void testCitationStyles() throws Exception {
-    for (String cs : cse.getStyles()) {
+    for (String cs : CitationStyleExecutorService.getStyles()) {
       if (!"CSL".equals(cs)) {
         testValidation(cs);
         testCompilation(cs);
@@ -162,16 +158,13 @@ public class TestCitationManager {
   @Test
   @Ignore
   public final void testOutputs() throws Exception {
-
-    for (String cs : cse.getStyles()) {
-      for (String format : cse.getOutputFormats(cs)) {
+    for (String cs : CitationStyleExecutorService.getStyles()) {
+      for (String format : CitationStyleExecutorService.getOutputFormats(cs)) {
         if (!"CSL".equals(cs))
           testOutput(cs, format);
       }
-
     }
   }
-
 
   /**
    * Test Sengbusch Collection output
@@ -185,7 +178,7 @@ public class TestCitationManager {
     // It is in old MD set
     Format out = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
     Format in = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
-    TransformationBean trans = CitationUtil.getTransformationBean();
+    TransformationService trans = CitationUtil.getTransformationService();
 
     byte[] v2 =
         trans.transform(
@@ -265,7 +258,8 @@ public class TestCitationManager {
     logger.info("Test Citation Style: " + cs);
 
     start = System.currentTimeMillis();
-    result = cse.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
+    result =
+        CitationStyleExecutorService.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
 
     logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
     assertTrue(ouf + " output should not be empty", result.length > 0);
@@ -288,7 +282,7 @@ public class TestCitationManager {
   }
 
   public final void testOutput(String cs) throws Exception {
-    for (String format : cse.getOutputFormats(cs)) {
+    for (String format : CitationStyleExecutorService.getOutputFormats(cs)) {
       testOutput(cs, format);
     }
 

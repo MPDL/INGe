@@ -21,17 +21,9 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
  * 
  */
 public class WoSImport {
+  private static final Logger logger = Logger.getLogger(WoSImport.class);
 
-  private String url = null;
-  private Logger logger = Logger.getLogger(getClass());
-
-
-  /**
-   * Public Constructor RISImport.
-   */
-  public WoSImport() {
-
-  }
+  public WoSImport() {}
 
   /**
    * reads the import file and transforms the items to XML
@@ -77,7 +69,7 @@ public class WoSImport {
         file = file + "\n" + str;
       }
     } catch (Exception e) {
-      this.logger.error("An error occurred while reading WoS file.", e);
+      logger.error("An error occurred while reading WoS file.", e);
       throw new RuntimeException(e);
     }
     return file;

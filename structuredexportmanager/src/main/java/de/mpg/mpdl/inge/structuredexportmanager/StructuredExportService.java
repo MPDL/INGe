@@ -71,6 +71,8 @@ public class StructuredExportService {
   private final static String PATH_TO_RESOURCES = "";
   private final static String PATH_TO_SCHEMAS = PATH_TO_RESOURCES + "schemas/";
   private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
+
+  @SuppressWarnings("serial")
   private static final Map<String, String> XSLT_FILE_LIST = new HashMap<String, String>() {
     {
       put("MARCXML", "pubman_to_marc.xsl");
@@ -85,7 +87,7 @@ public class StructuredExportService {
     }
   };
 
-  public StructuredExportService() {
+  private StructuredExportService() {
     // Use Saxon for XPath2.0 support
     // System.setProperty("javax.xml.transform.TransformerFactory",
     // "net.sf.saxon.TransformerFactoryImpl");

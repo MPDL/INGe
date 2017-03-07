@@ -281,21 +281,17 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public void setOuNumbers(String ouNumbers) {
     this.ouNumbers = ouNumbers;
-    // EditItem editItem = (EditItem) EditItem.getRequestBean(EditItem.class);
-    // editItem.bindOrganizationsToCreator(this);
   }
 
   private void init(CreatorType type) {
     if (CreatorType.PERSON == type) {
       setType(CreatorType.PERSON);
-      // setRole(CreatorRole.AUTHOR);
       setPerson(new PersonVO());
       getPerson().setIdentifier(new IdentifierVO());
       getPerson().getIdentifier().setType(IdType.CONE);
       getPerson().setOrganizations(new ArrayList<OrganizationVO>());
     } else if (CreatorType.ORGANIZATION == type) {
       setType(CreatorType.ORGANIZATION);
-      // setRole(CreatorRole.EDITOR);
       setOrganization(new OrganizationVO());
       getOrganization().setName("");
     }

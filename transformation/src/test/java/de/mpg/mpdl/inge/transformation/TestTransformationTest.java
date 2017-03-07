@@ -27,7 +27,7 @@
 package de.mpg.mpdl.inge.transformation;
 
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
 /**
@@ -47,7 +47,7 @@ public class TestTransformationTest {
    * @param args
    */
   public static void main(String[] args) throws Exception {
-    Transformation transformation = new TransformationBean(true);
+    Transformation transformation = new TransformationService(true);
     byte[] result =
         transformation
             .transform(args[0].getBytes("UTF-8"), SOURCE_FORMAT, TARGET_FORMAT, "escidoc");

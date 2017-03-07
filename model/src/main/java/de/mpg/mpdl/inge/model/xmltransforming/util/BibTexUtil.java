@@ -32,8 +32,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
@@ -45,9 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version $Revision$ $LastChangedDate$
  */
 public class BibTexUtil {
-
-  private static Logger logger = Logger.getLogger(BibTexUtil.class);
-
   public static final String ESCAPE_CHARACTERS = "$&%#_";
   public static final String HOPEFULLY_UNUSED_TOKEN = "<<<!!HOPEFULLY_UNUSED_TOKEN!!>>>";
 

@@ -39,20 +39,12 @@ import java.util.List;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
-import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class Feeds {
-
-  private static final Logger logger = Logger.getLogger(Feeds.class);
-
-  /* Comments for the entire feeds collection */
   private String comments;
-
-  /* Feed array */
   private List<Feed> feeds = new ArrayList<Feed>();
-
 
   /**
    * Comments getter
@@ -60,7 +52,7 @@ public class Feeds {
    * @return <code>comments
    */
   public String getComments() {
-    return comments;
+    return this.comments;
   }
 
   /**
@@ -78,7 +70,7 @@ public class Feeds {
    * @return feeds
    */
   public List<Feed> getFeeds() {
-    return feeds;
+    return this.feeds;
   }
 
   /**
@@ -96,7 +88,7 @@ public class Feeds {
    * @param feed
    */
   public void addFeed(Feed f) {
-    feeds.add(f);
+    this.feeds.add(f);
   }
 
   /*
@@ -106,7 +98,7 @@ public class Feeds {
    */
   public String toString() {
     String str = "";
-    for (Feed f : (List<Feed>) feeds)
+    for (Feed f : (List<Feed>) this.feeds)
       str += f.toString() + "\n";
     return str;
   }
@@ -118,9 +110,12 @@ public class Feeds {
    * @return
    */
   public Feed getFeedByUri(String feedId) {
-    for (Feed f : (List<Feed>) feeds)
-      if (feedId.equals(f.getUri()))
+    for (Feed f : (List<Feed>) this.feeds) {
+      if (feedId.equals(f.getUri())) {
         return f;
+      }
+    }
+
     return null;
   }
 
@@ -133,10 +128,11 @@ public class Feeds {
    * @return matched <code>feed</code>
    */
   public Feed matchFeedByUri(String uri) {
-    for (Feed f : (List<Feed>) feeds) {
+    for (Feed f : (List<Feed>) this.feeds) {
       if (uri.matches(f.getUriMatcher()))
         return f;
     }
+
     return null;
   }
 
@@ -167,6 +163,4 @@ public class Feeds {
 
     return fs;
   }
-
-
 }

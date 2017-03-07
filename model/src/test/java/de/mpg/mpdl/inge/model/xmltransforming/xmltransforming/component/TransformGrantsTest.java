@@ -34,10 +34,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -48,8 +47,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  */
 public class TransformGrantsTest extends TestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private static Logger logger = Logger.getLogger(TransformGrantsTest.class);
+  private static final Logger logger = Logger.getLogger(TransformGrantsTest.class);
 
   /**
    * Test for {@link XmlTransforming#transformToGrantVOList(String)}.
@@ -65,7 +63,7 @@ public class TransformGrantsTest extends TestBase {
             "xmltransforming/component/transformGrantsTest/current-grants.xml",
             TransformGrantsTest.class.getClassLoader());
 
-    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXml);
+    List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(grantsXml);
 
     assertNotNull("Grants are null", grants);
 

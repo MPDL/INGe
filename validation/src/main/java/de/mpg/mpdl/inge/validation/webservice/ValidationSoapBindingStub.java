@@ -33,7 +33,6 @@ package de.mpg.mpdl.inge.validation.webservice;
 
 import java.rmi.RemoteException;
 import java.util.Enumeration;
-import java.util.Vector;
 
 import javax.xml.namespace.QName;
 
@@ -50,12 +49,8 @@ import org.apache.axis.encoding.XMLType;
 import org.apache.axis.soap.SOAPConstants;
 import org.apache.axis.utils.JavaUtils;
 
-public class ValidationSoapBindingStub extends Stub implements
-    de.mpg.mpdl.inge.validation.webservice.ItemValidatingWebService {
-  private Vector cachedSerClasses = new Vector();
-  private Vector cachedSerQNames = new Vector();
-  private Vector cachedSerFactories = new Vector();
-  private Vector cachedDeserFactories = new Vector();
+public class ValidationSoapBindingStub extends Stub
+    implements de.mpg.mpdl.inge.validation.webservice.ItemValidatingWebService {
   static OperationDesc[] _operations;
   static {
     _operations = new OperationDesc[4];
@@ -67,13 +62,11 @@ public class ValidationSoapBindingStub extends Stub implements
     ParameterDesc param;
     oper = new OperationDesc();
     oper.setName("validateItemXml");
-    param =
-        new ParameterDesc(new QName("", "in0"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in0"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
-    param =
-        new ParameterDesc(new QName("", "in1"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in1"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
     oper.setReturnType(new QName("http://www.w3.org/2001/XMLSchema", "string"));
     oper.setReturnClass(String.class);
@@ -84,9 +77,8 @@ public class ValidationSoapBindingStub extends Stub implements
 
     oper = new OperationDesc();
     oper.setName("validateItemXml");
-    param =
-        new ParameterDesc(new QName("", "in0"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in0"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
     oper.setReturnType(new QName("http://www.w3.org/2001/XMLSchema", "string"));
     oper.setReturnClass(String.class);
@@ -97,17 +89,14 @@ public class ValidationSoapBindingStub extends Stub implements
 
     oper = new OperationDesc();
     oper.setName("validateItemXmlBySchema");
-    param =
-        new ParameterDesc(new QName("", "in0"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in0"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
-    param =
-        new ParameterDesc(new QName("", "in1"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in1"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
-    param =
-        new ParameterDesc(new QName("", "in2"), ParameterDesc.IN, new QName(
-            "http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
+    param = new ParameterDesc(new QName("", "in2"), ParameterDesc.IN,
+        new QName("http://www.w3.org/2001/XMLSchema", "string"), String.class, false, false);
     oper.addParameter(param);
     oper.setReturnType(new QName("http://www.w3.org/2001/XMLSchema", "string"));
     oper.setReturnClass(String.class);

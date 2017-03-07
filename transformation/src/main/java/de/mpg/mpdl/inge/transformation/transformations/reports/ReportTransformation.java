@@ -1,31 +1,25 @@
 package de.mpg.mpdl.inge.transformation.transformations.reports;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
-import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.OtherFormatsTransformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import net.sf.saxon.TransformerFactoryImpl;
 
 /**
  * The Report Transformation Class.

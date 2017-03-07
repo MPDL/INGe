@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -19,7 +18,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -67,9 +66,6 @@ public class YearbookModeratorRetrieverRequestBean extends
    * The total number of records
    */
   private int numberOfRecords;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   private PubItemListSessionBean pilsb;
 
@@ -178,7 +174,7 @@ public class YearbookModeratorRetrieverRequestBean extends
               filter.toMap());
 
       SearchRetrieveResponseVO result =
-          xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
 
       List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
       for (SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
@@ -273,7 +269,7 @@ public class YearbookModeratorRetrieverRequestBean extends
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             param =
                 new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
-            paramXml = xmlTransforming.transformToTaskParam(param);
+            paramXml = XmlTransformingService.transformToTaskParam(param);
             itemHandler.revise(yearbookItem.getVersion().getObjectId(), paramXml);
           } else {
             warn("\"" + yearbookItem.getFullTitle() + "\""

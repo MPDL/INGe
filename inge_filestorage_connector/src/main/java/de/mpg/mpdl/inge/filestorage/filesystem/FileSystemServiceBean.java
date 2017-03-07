@@ -99,16 +99,4 @@ public class FileSystemServiceBean implements FileStorageInterface {
       Files.delete(path);
     }
   }
-
-  /**
-   * Creates a Directoy in the file system if it is not already existing
-   * 
-   * @param directoryPath
-   * @return Path to the directory
-   */
-  private Path createDirectoryIfNessessary(Path directoryPath) {
-
-    return null;
-  }
-
 }

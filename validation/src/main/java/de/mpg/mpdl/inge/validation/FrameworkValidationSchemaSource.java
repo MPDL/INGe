@@ -34,14 +34,13 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongDateException;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.validation.util.CacheTuple;
 import de.mpg.mpdl.inge.validation.util.ShortContentHandler;
@@ -55,10 +54,8 @@ import de.mpg.mpdl.inge.validation.util.ShortContentHandler;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class FrameworkValidationSchemaSource extends ShortContentHandler implements
-    ValidationSchemaSource {
-  private static final Logger logger = Logger.getLogger(FrameworkValidationSchemaSource.class);
-
+public class FrameworkValidationSchemaSource extends ShortContentHandler
+    implements ValidationSchemaSource {
   private String targetContentModel;
   private String schemaName;
   private StringBuffer schema;
@@ -94,8 +91,8 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
       filterMap.clear();
       filterMap.put("operation", new String[] {"searchRetrieve"});
       filterMap.put("version", new String[] {"1.1"});
-      filterMap.put("query", new String[] {qContent + " and " + qOrderBy + " and " + qLimit
-          + " and " + qOffset});
+      filterMap.put("query",
+          new String[] {qContent + " and " + qOrderBy + " and " + qLimit + " and " + qOffset});
       String oneItem = itemHandler.retrieveItems(filterMap);
 
       resetHandler();
@@ -124,13 +121,14 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
   public void content(String uri, String localName, String name, String content) {
     super.content(uri, localName, name, content);
 
-    if ("item-list/item/properties/content-model-specific/usage-info/name".equals(getLocalStack()
-        .toString())) {
+    if ("item-list/item/properties/content-model-specific/usage-info/name"
+        .equals(getLocalStack().toString())) {
       schemaName = content;
     } else if ("item-list/item/properties/content-model-specific/usage-info/target-content-model"
         .equals(getLocalStack().toString())) {
       targetContentModel = content;
-    } else if (getLocalStack().toString().startsWith("item-list/item/md-records/md-record/schema")) {
+    } else if (getLocalStack().toString()
+        .startsWith("item-list/item/md-records/md-record/schema")) {
       schema.append(encodeContent(content));
     }
   }
@@ -145,8 +143,8 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
       lName = name;
     }
     if (getLocalStack().toString().startsWith("item-list/item/md-records/md-record/schema")
-        || ("item-list/item/md-records/md-record".equals(getLocalStack().toString()) && "schema"
-            .equals(lName))) {
+        || ("item-list/item/md-records/md-record".equals(getLocalStack().toString())
+            && "schema".equals(lName))) {
       schema.append("</");
       schema.append(name);
       schema.append(">");
@@ -162,8 +160,8 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
         modificationDate =
             JiBXHelper.deserializeDate(attributes.getValue("last-modification-date"));
       } catch (WrongDateException e) {
-        throw new SAXException("Error parsing modification date: "
-            + attributes.getValue("last-modification-date"));
+        throw new SAXException(
+            "Error parsing modification date: " + attributes.getValue("last-modification-date"));
       }
     } else if ("item-list/item/md-records/md-record/schema".equals(getLocalStack().toString())) {
       schema = new StringBuffer();
@@ -186,7 +184,8 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
         }
       }
       schema.append(">");
-    } else if (getLocalStack().toString().startsWith("item-list/item/md-records/md-record/schema/")) {
+    } else if (getLocalStack().toString()
+        .startsWith("item-list/item/md-records/md-record/schema/")) {
       schema.append("<");
       schema.append(name);
       for (int i = 0; i < attributes.getLength(); i++) {

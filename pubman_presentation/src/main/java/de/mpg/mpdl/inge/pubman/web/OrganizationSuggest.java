@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
@@ -138,7 +139,10 @@ public class OrganizationSuggest extends EditItemBean {
   }
 
   private AffiliationVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
-    for (AffiliationVO element : this.getApplicationBean().getOuList()) {
+    ApplicationBean applicationBean =
+        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+
+    for (AffiliationVO element : applicationBean.getOuList()) {
       if (element.getReference().equals(affiliationRO)) {
         return element;
       }
@@ -158,14 +162,10 @@ public class OrganizationSuggest extends EditItemBean {
       logger.warn("Unexpectedly more than one ou with the id '" + affiliationRO.getObjectId()
           + "' was found.");
     } else {
-      this.getApplicationBean().getOuList().add(resultList.get(0));
+      applicationBean.getOuList().add(resultList.get(0));
       return resultList.get(0);
     }
 
     return null;
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

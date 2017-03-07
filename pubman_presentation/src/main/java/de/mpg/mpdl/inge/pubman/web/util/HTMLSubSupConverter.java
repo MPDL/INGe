@@ -12,14 +12,14 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 public class HTMLSubSupConverter implements Converter {
   public static final String CONVERTER_ID = "HTMLSubSupConverter";
 
-  public HTMLSubSupConverter() {
+  public HTMLSubSupConverter() {}
 
-  }
-
+  @Override
   public Object getAsObject(FacesContext arg0, UIComponent arg1, String text) {
     return null;
   }
 
+  @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     String snippet = (String) object;
     List<String> tags = new ArrayList<String>();
@@ -27,10 +27,8 @@ public class HTMLSubSupConverter implements Converter {
     tags.add("sub");
     tags.add("SUB");
     tags.add("SUP");
+
     return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(),
         tags);
   }
-
-
-
 }

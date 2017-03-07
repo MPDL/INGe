@@ -49,8 +49,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.trans.DynamicError;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -59,7 +57,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
-import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
@@ -76,11 +73,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class EDocImport extends DefaultHandler implements Transformation, Configurable {
-
-  private StringWriter newXml = new StringWriter();
-  private boolean inCreatorstring = false;
-  private StringWriter creatorString = null;
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -91,16 +83,16 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
   private Map<String, List<String>> properties = null;
   private Map<String, String> configuration = null;
 
-  /**
-   * {@inheritDoc}
-   */
+  private StringWriter newXml = new StringWriter();
+  private boolean inCreatorstring = false;
+  private StringWriter creatorString = null;
+
+  @Override
   public Format[] getSourceFormats() {
     return new Format[] {EDOC_FORMAT, EDOC_FORMAT_AEI};
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) {
     if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT))) {
       return new Format[] {EDOC_FORMAT, EDOC_FORMAT_AEI};
@@ -109,17 +101,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getSourceFormatsAsXml() {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null && (src.matches(EDOC_FORMAT) || src.matches(EDOC_FORMAT_AEI))) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
@@ -128,28 +110,17 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
     Format srcFormat = new Format(srcFormatName, srcType, srcEncoding);
     Format trgFormat = new Format(trgFormatName, trgType, trgEncoding);
+
     return transform(src, srcFormat, trgFormat, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException {
     StringWriter result = new StringWriter();
@@ -181,7 +152,6 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         xslDir = ".";
         xslPath = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
       }
-
 
       factory.setURIResolver(new LocalUriResolver(xslDir));
       InputStream stylesheet =
@@ -223,15 +193,9 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     } catch (TransformerException te) {
       throw new RuntimeException("Error while transforming edoc xml: " + te.getLocationAsString()
           + "\n" + te.getLocator(), te);
-
     } catch (Exception e) {
       throw new RuntimeException("Error parsing edoc xml", e);
     }
-  }
-
-  private String getResult() {
-
-    return newXml.toString();
   }
 
   @Override
@@ -301,9 +265,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         || "bookcreatorfn".equals(name)) {
       inCreatorstring = true;
       creatorString = new StringWriter();
-
     } else {
-
       newXml.append("<");
       newXml.append(name);
       for (int i = 0; i < attributes.getLength(); i++) {
@@ -314,12 +276,10 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
         newXml.append("\"");
       }
       newXml.append(">");
-
     }
-
   }
 
-  public String escape(String input) {
+  private String escape(String input) {
     if (input != null) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
@@ -330,11 +290,13 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     return input;
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, srcFormat, trgFormat, service, null);
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
     if (configuration == null) {
       init();
@@ -364,6 +326,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     }
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     if (properties == null) {
@@ -372,6 +335,4 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
 
     return properties.get(key);
   }
-
-
 }

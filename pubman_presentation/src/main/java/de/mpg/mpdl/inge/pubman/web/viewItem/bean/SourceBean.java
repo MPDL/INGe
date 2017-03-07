@@ -33,7 +33,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
@@ -100,7 +99,9 @@ public class SourceBean extends FacesBean {
     this.publishingInfo = getPublishingInfo(source);
 
     if (source.getIdentifiers().size() > 0) {
-      this.identifiers = this.getViewItemFull().getIdentifierHtmlString(source.getIdentifiers());
+      this.identifiers =
+          ((ViewItemFull) getRequestBean(ViewItemFull.class)).getIdentifierHtmlString(source
+              .getIdentifiers());
     }
   }
 
@@ -381,13 +382,5 @@ public class SourceBean extends FacesBean {
       return true;
     }
     return false;
-  }
-
-  private ViewItemFull getViewItemFull() {
-    return (ViewItemFull) getRequestBean(ViewItemFull.class);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

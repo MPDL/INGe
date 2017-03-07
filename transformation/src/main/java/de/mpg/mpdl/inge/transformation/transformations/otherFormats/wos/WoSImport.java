@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-
 /**
  * provides the import of a RIS file
  * 
@@ -19,17 +18,9 @@ import org.apache.log4j.Logger;
  * 
  */
 public class WoSImport {
+  private static final Logger logger = Logger.getLogger(WoSImport.class);
 
-  private String url = null;
-  private Logger logger = Logger.getLogger(getClass());
-
-
-  /**
-   * Public Constructor RISImport.
-   */
-  public WoSImport() {
-
-  }
+  public WoSImport() {}
 
   /**
    * reads the import file and transforms the items to XML
@@ -40,20 +31,18 @@ public class WoSImport {
     String result = "";
 
     String[] itemList = getItemListFromString(file, "(\nER\n+EF\n)|(\nER\n)");
-    List<List<Pair>> items = new ArrayList();
+    List<List<Pair>> items = new ArrayList<List<Pair>>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
-
       for (String item : itemList) {
         List<Pair> itemPairs = getItemPairs(getItemFromString(item + "\n"));
-
         items.add(itemPairs);
       }
       result = transformItemListToXML(items);
-
     } else if (itemList != null && itemList.length == 1) {
       List<Pair> item = getItemPairs(getItemFromString(itemList[0] + "\n"));
       result = transformItemToXML(item);
     }
+
     return result;
   }
 
@@ -63,7 +52,6 @@ public class WoSImport {
    * @return List<String> with file lines
    */
   public String readFile() {
-
     String file = "";
     try {
       BufferedReader input =
@@ -75,9 +63,10 @@ public class WoSImport {
         file = file + "\n" + str;
       }
     } catch (Exception e) {
-      this.logger.error("An error occurred while reading WoS file.", e);
+      logger.error("An error occurred while reading WoS file.", e);
       throw new RuntimeException(e);
     }
+
     return file;
   }
 
@@ -97,7 +86,7 @@ public class WoSImport {
     // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
 
     Matcher matcher = pattern.matcher(itemStr);
-    List<String> lineStrArr = new ArrayList();
+    List<String> lineStrArr = new ArrayList<String>();
     while (matcher.find()) {
       lineStrArr.add(matcher.group());
     }
@@ -127,16 +116,14 @@ public class WoSImport {
    * @return String list with item key-value pairs
    */
   public List<Pair> getItemPairs(List<String> lines) {
-
-    List<Pair> pairList = new ArrayList();
+    List<Pair> pairList = new ArrayList<Pair>();
     if (lines != null) {
-
       for (String line : lines) {
         Pair pair = createWoSPairByString(line);
-
         pairList.add(pair);
       }
     }
+
     return pairList;
   }
 
@@ -147,7 +134,6 @@ public class WoSImport {
    * @return Pair - key-value pair created by string line
    */
   public Pair createWoSPairByString(String line) {
-
     String key = line.substring(0, 2);
     String value = line.substring(3);
     Pair pair = null;
@@ -163,11 +149,11 @@ public class WoSImport {
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    String xml = "";
     if (item != null && item.size() > 0) {
-      xml = createXMLElement("item", transformItemSubelementsToXML(item));
+      return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    return xml;
+
+    return "";
   }
 
   /**
@@ -180,12 +166,13 @@ public class WoSImport {
     String xml = "<item-list>";
 
     if (itemList != null && itemList.size() > 0) {
-
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
+
     xml = xml + "</item-list>";
+
     return xml;
   }
 
@@ -203,6 +190,7 @@ public class WoSImport {
         xml = xml + createXMLElement(pair.getKey(), pair.getValue());
       }
     }
+
     return xml;
   }
 
@@ -214,11 +202,11 @@ public class WoSImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    String element = "";
     if (tag != null && tag != "") {
-      element = "<" + tag + ">" + value + "</" + tag + ">";
+      return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    return element;
+
+    return "";
   }
 
   /**
@@ -234,8 +222,7 @@ public class WoSImport {
       input = input.replace(">", "&gt;");
       input = input.replace("\"", "&quot;");
     }
+
     return input;
   }
-
-
 }

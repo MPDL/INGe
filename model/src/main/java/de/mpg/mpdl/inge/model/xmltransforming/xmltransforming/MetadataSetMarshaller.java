@@ -14,26 +14,24 @@ import org.jibx.runtime.impl.MarshallingContext;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
-public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnmarshaller
-{
+public class MetadataSetMarshaller implements IMarshaller, IAliasable {
   private static Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
 
   private static final String NAME_ATTRIBUTE_NAME = "name";
   private static final String RECORD_ELEMENT_NAME = "md-record";
-  private static final String DEFAULT_NAME = "escidoc";
+  // private static final String DEFAULT_NAME = "escidoc";
+  // private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
+  // private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
+  // private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
+  // private static final String XSI_NAMESPACE_PREFIX = "xsi";
+  // private static final String XSD_NAMESPACE_PREFIX = "xsd";
+  // private static final String[] SCHEMA_NAMESPACE_PREFIXES = {XSI_NAMESPACE_PREFIX,
+  // XSD_NAMESPACE_PREFIX};
+  // private static final String XSD_PREFIX_LEAD = "xsd:";
 
   private String m_uri;
   private int m_index;
   private String m_name;
-
-  private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
-  private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
-  private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
-  private static final String XSI_NAMESPACE_PREFIX = "xsi";
-  private static final String XSD_NAMESPACE_PREFIX = "xsd";
-  private static final String[] SCHEMA_NAMESPACE_PREFIXES = {XSI_NAMESPACE_PREFIX,
-      XSD_NAMESPACE_PREFIX};
-  private static final String XSD_PREFIX_LEAD = "xsd:";
 
   public MetadataSetMarshaller() {
     m_uri = null;
@@ -51,6 +49,7 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnma
     return false;
   }
 
+  @Override
   public void marshal(Object obj, IMarshallingContext ictx) throws JiBXException {
 
     // make sure the parameters are as expected
@@ -99,9 +98,8 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable // , IUnma
     return ictx.isAt(m_uri, m_name);
   }
 
+  @Override
   public boolean isExtension(String arg0) {
-    // TODO Auto-generated method stub
     return false;
   }
-
 }

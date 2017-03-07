@@ -34,7 +34,6 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * @author franke
  */
 public abstract class TransformationTemplate implements Transformation {
-
   protected abstract Format getSourceFormat();
 
   protected abstract Format getTargetFormat();
@@ -74,5 +73,4 @@ public abstract class TransformationTemplate implements Transformation {
     return transform(input, new Format(srcName, srcType, srcEncoding), new Format(trgName, trgType,
         trgEncoding), service);
   }
-
 }

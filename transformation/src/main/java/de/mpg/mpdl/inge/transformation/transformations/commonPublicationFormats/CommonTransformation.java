@@ -34,8 +34,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
@@ -49,7 +48,7 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * 
  */
 public class CommonTransformation {
-  private final Logger logger = Logger.getLogger(CommonTransformation.class);
+  private static final Logger logger = Logger.getLogger(CommonTransformation.class);
 
   /**
    * Transformation from esciDoc to bibtex format.
@@ -66,19 +65,18 @@ public class CommonTransformation {
       String service, boolean list) throws TransformationNotSupportedException, RuntimeException {
     byte[] bib = null;
     try {
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
       String itemList = "";
       if (!list) {
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(src, "UTF-8"));
         List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-        itemList = xmlTransforming.transformToItemList(pubitemList);
+        itemList = XmlTransformingService.transformToItemList(pubitemList);
       } else {
         itemList = new String(src, "UTF-8");
       }
       bib = StructuredExportService.getOutput(itemList, "BIBTEX");
 
     } catch (Exception e) {
-      this.logger.error("An error occurred during a common publication transformation.", e);
+      logger.error("An error occurred during a common publication transformation.", e);
       throw new RuntimeException(e);
     }
     return bib;
@@ -98,20 +96,20 @@ public class CommonTransformation {
       String service, boolean list) throws RuntimeException {
     byte[] endnote = null;
     try {
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
       String itemList = "";
       if (!list) {
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(src, "UTF-8"));
         List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-        itemList = xmlTransforming.transformToItemList(pubitemList);
+        itemList = XmlTransformingService.transformToItemList(pubitemList);
       } else {
         itemList = new String(src, "UTF-8");
       }
       endnote = StructuredExportService.getOutput(itemList, "ENDNOTE");
     } catch (Exception e) {
-      this.logger.error("An error occurred during a common publication transformation.", e);
+      logger.error("An error occurred during a common publication transformation.", e);
       throw new RuntimeException(e);
     }
+
     return endnote;
   }
 

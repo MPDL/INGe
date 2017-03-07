@@ -76,33 +76,6 @@ public class FacesBean implements Serializable {
   }
 
   /**
-   * Return any bean stored in request, session or application scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   * 
-   * @Deprecated Use getRequestBean(), getSessionBean() or getApplicationBean instead.
-   */
-  @Deprecated
-  public static synchronized Object getBean(final Class<?> cls) {
-    String name = null;
-
-    try {
-      name = (String) cls.getField("BEAN_NAME").get(new String());
-    } catch (IllegalAccessException iae) {
-      throw new RuntimeException("Error getting bean name.", iae);
-    } catch (NoSuchFieldException nsfe) {
-      throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
-    }
-
-    Object bean =
-        FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
-            .getValue(FacesContext.getCurrentInstance());
-
-    return bean;
-  }
-
-  /**
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
@@ -389,6 +362,7 @@ public class FacesBean implements Serializable {
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
+  // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getRequestBean(final Class<?> cls) {
     String name = null;
 
@@ -412,6 +386,7 @@ public class FacesBean implements Serializable {
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
+  // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getSessionBean(final Class<?> cls) {
     String name = null;
 
@@ -437,6 +412,7 @@ public class FacesBean implements Serializable {
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
+  // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getApplicationBean(final Class<?> cls) {
     String name = null;
 
@@ -453,5 +429,33 @@ public class FacesBean implements Serializable {
 
     return cls
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
+  }
+
+  /**
+   * Return any bean stored in request, session or application scope under the specified name.
+   * 
+   * @param cls The bean class.
+   * @return the actual or new bean instance
+   * 
+   * @Deprecated Use getRequestBean(), getSessionBean() or getApplicationBean instead.
+   */
+  @Deprecated
+  // TODO: was ist der Unterschied zu den anderen getXXXBeans
+  public static synchronized Object getBean(final Class<?> cls) {
+    String name = null;
+
+    try {
+      name = (String) cls.getField("BEAN_NAME").get(new String());
+    } catch (IllegalAccessException iae) {
+      throw new RuntimeException("Error getting bean name.", iae);
+    } catch (NoSuchFieldException nsfe) {
+      throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
+    }
+
+    Object bean =
+        FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
+            .getValue(FacesContext.getCurrentInstance());
+
+    return bean;
   }
 }

@@ -14,9 +14,8 @@ import de.mpg.mpdl.inge.aa.Config;
  * @author haarlaender
  * 
  */
+@SuppressWarnings("serial")
 public class LogoutClientServlet extends HttpServlet {
-
-
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -26,9 +25,6 @@ public class LogoutClientServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    String context = request.getContextPath();
-
     try {
       String clientClassName = Config.getProperty("escidoc.aa.client.logout.class");
       if (clientClassName != null) {
@@ -39,10 +35,8 @@ public class LogoutClientServlet extends HttpServlet {
       } else {
         new LogoutClient().process(request, response);
       }
-
     } catch (Exception e) {
       throw new ServletException(e);
     }
   }
-
 }

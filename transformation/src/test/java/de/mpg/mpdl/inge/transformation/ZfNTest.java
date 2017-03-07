@@ -1,30 +1,25 @@
 package de.mpg.mpdl.inge.transformation;
 
 
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-
 
 public class ZfNTest {
-  public static TransformationBean trans;
-
+  public static TransformationService trans;
 
   /**
-   * Initializes the {@link TransformationBean}.
+   * Initializes the {@link TransformationService}.
    */
   @BeforeClass
   public static void initTransformation() {
-    trans = new TransformationBean(true);
+    trans = new TransformationService(true);
   }
-
 
   /*
    * test ZfN TEI to eSciDoc item transformation Will not work as junit test due to xslt path
@@ -37,17 +32,15 @@ public class ZfNTest {
     Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
 
     byte[] result =
-        this.trans.transform(
+        trans.transform(
             ResourceUtil.getResourceAsString("testFiles/zfn/ZNC-1988-43c-0979_b.header.tei.xml",
                 ZfNTest.class.getClassLoader()).getBytes("UTF-8"), teiFormat, escidocFormat,
             "escidoc");
 
     System.out.println(new String(result, "UTF-8"));
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+    PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result, "UTF-8"));
     Assert.assertNotNull(itemVO);
     System.out.println("PubItemVO successfully created.");
   }
-
 }

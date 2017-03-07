@@ -38,8 +38,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.naming.InitialContext;
-
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -58,7 +56,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
@@ -83,7 +81,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -134,7 +132,6 @@ public class ImportProcess extends Thread {
   private String name;
   private String publicationContentModel;
   private Transformation transformation;
-  private XmlTransforming xmlTransforming;
   private boolean failed = false;
   private boolean rollback;
   private long lastBeat = 0;
@@ -206,13 +203,8 @@ public class ImportProcess extends Thread {
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       this.name = name;
       this.rollback = rollback;
-      this.transformation = new TransformationBean();
+      this.transformation = new TransformationService();
       this.user = user;
-
-      InitialContext context = new InitialContext();
-      this.xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -501,7 +493,7 @@ public class ImportProcess extends Thread {
       client.executeMethod(method);
       is.close();
       String response = method.getResponseBodyAsString();
-      URL originalDataUrl = xmlTransforming.transformUploadResponseToFileURL(response);
+      URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
 
       replace("$04", escape(this.name), sb);
       replace("$05", escape(this.fileName), sb);
@@ -527,7 +519,7 @@ public class ImportProcess extends Thread {
       is.close();
 
       response = method2.getResponseBodyAsString();
-      URL logXmlUrl = xmlTransforming.transformUploadResponseToFileURL(response);
+      URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
 
       replace("$10", escape(this.name), sb);
       replace("$11", "importthis.log.xml", sb);
@@ -586,7 +578,7 @@ public class ImportProcess extends Thread {
 
       this.log.addDetail(ErrorLevel.FINE, esidocXml);
       this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
-      PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
+      PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(esidocXml);
       pubItemVO.setContext(escidocContext);
       pubItemVO.setContentModel(publicationContentModel);
       pubItemVO.getVersion().setObjectId(null);

@@ -24,12 +24,8 @@
  */
 package de.mpg.mpdl.inge.validation.web;
 
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
-import de.mpg.mpdl.inge.validation.ItemValidating;
-import de.mpg.mpdl.inge.validation.web.RefreshTask;
 
 /**
  * Starts the initialization process.
@@ -38,12 +34,9 @@ import de.mpg.mpdl.inge.validation.web.RefreshTask;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class InitializerServlet extends HttpServlet {
-
   RefreshTask refreshTask;
-
-  @EJB
-  private ItemValidating itemValidating;
 
   /**
    * {@inheritDoc}
@@ -52,12 +45,11 @@ public class InitializerServlet extends HttpServlet {
   public final void init() throws ServletException {
     super.init();
 
-    Thread thread = new Initializer(itemValidating);
+    Thread thread = new Initializer();
     thread.start();
 
     refreshTask = new RefreshTask();
     refreshTask.start();
-
   }
 
   /*
@@ -70,7 +62,4 @@ public class InitializerServlet extends HttpServlet {
     super.destroy();
     refreshTask.terminate();
   }
-
-
-
 }

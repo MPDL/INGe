@@ -39,10 +39,9 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
   }
 
   private static Map<String, String> getContentCategoryMap() {
-    ApplicationBean applicationBean =
-        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
-
-    Map<String, String> ccMap = applicationBean.getContentCategoryMap();
+    Map<String, String> ccMap =
+        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class))
+            .getContentCategoryMap();
     Map<String, String> newMap = new HashMap<String, String>();
 
     for (Entry<String, String> entry : ccMap.entrySet()) {

@@ -25,28 +25,19 @@
 
 package de.mpg.mpdl.inge.exportmanager;
 
-
 import static org.junit.Assert.assertFalse;
-
-import java.io.FileOutputStream;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.exportmanager.Export;
-import de.mpg.mpdl.inge.exportmanager.ExportHandler;
-
-
 public class ExportTest {
-  private ExportHandler export = new Export();
+  private static final Logger logger = Logger.getLogger(ExportTest.class);
+
+  private Export export = new Export();
   private String pubManItemList;
-  private static String facesItemList;
   private long start = 0;
 
-  private static Logger logger = Logger.getLogger(ExportTest.class);
-
-  private FileOutputStream fos;
 
   /**
    * Test generate output.
@@ -67,8 +58,5 @@ public class ExportTest {
       logger.info(ef + " export (" + start + "ms):\n" + new String(result));
 
     }
-
   }
-
-
 }

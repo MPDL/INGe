@@ -62,17 +62,14 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  * @version $Revision: 275 $ $LastChangedDate: 2013-05-24 20:08:05 +0200 (Fr, 24 Mai 2013) $
  */
-
 @TransformationModule
 public class MarcXMLToEscidocTransformation implements Transformation, Configurable {
-
-  private Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(MarcXMLToEscidocTransformation.class);
 
   private static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
       "UTF-8");
   private static final Format MARC21VIAXML_FORMAT = new Format("marc21viaxml", "application/marc",
       "UTF-8"); // this input format was preprocessed elsewhere to marcxml, Stf, 2013-03-19
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -224,11 +221,9 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
         transformer.transform(new StreamSource(source), new StreamResult(result));
 
         return result.toString().getBytes(trgEncoding);
-
       } catch (Exception e) {
         throw new RuntimeException("Error during transformation: " + e.toString(), e);
       }
-
     } else {
       throw new TransformationNotSupportedException("MarcXMLToEscidoc can't transform "
           + srcFormat.getName() + " to " + trgFormat.getName());
@@ -237,21 +232,21 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
 
   @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
-    if (configuration == null) {
+    if (this.configuration == null) {
       init();
     }
 
-    return configuration;
+    return this.configuration;
   }
 
   @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
-    if (properties == null) {
+    if (this.properties == null) {
       init();
     }
 
-    return properties.get(key);
+    return this.properties.get(key);
   }
 
   @Override
@@ -269,25 +264,12 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
   }
 
   @Override
-  @Deprecated
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    return null;
-  }
-
-  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (MARCXML_FORMAT.equals(src) || MARC21VIAXML_FORMAT.equals(src)) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
     } else {
       return new Format[] {};
     }
-  }
-
-  @Override
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    return null;
   }
 
   @Override
@@ -304,7 +286,7 @@ public class MarcXMLToEscidocTransformation implements Transformation, Configura
     if (configuration == null) {
       init();
     }
+
     return transform(src, srcFormat, trgFormat, service, configuration);
   }
-
 }

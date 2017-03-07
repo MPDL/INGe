@@ -38,18 +38,17 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
 
 /**
  * Test for pubCollection transforming of {@link XmlTransforming}.
@@ -68,12 +67,7 @@ public class TransformContextTest extends TestBase {
       + "context-list_sample_search_retrieve.xml";
   private static final String MEMBER_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "member-list_sample.xml";
 
-  private Logger logger = Logger.getLogger(getClass());
-
-  /**
-   * An instance of XmlTransforming.
-   */
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+  private static final Logger logger = Logger.getLogger(TransformContextTest.class);
 
   /**
    * Test for {@link XmlTransforming#transformToPubCollection(String)}. Reads pubCollection
@@ -93,7 +87,7 @@ public class TransformContextTest extends TestBase {
     logger.info("Context sample: " + context);
 
     // transform the pubCollection to ContextVO
-    ContextVO contextVO = xmlTransforming.transformToContext(context);
+    ContextVO contextVO = XmlTransformingService.transformToContext(context);
 
 
 
@@ -118,7 +112,7 @@ public class TransformContextTest extends TestBase {
     assertNotNull(context);
 
     // transform the pubCollection to ContextVO
-    ContextVO contextVO = xmlTransforming.transformToContext(context);
+    ContextVO contextVO = XmlTransformingService.transformToContext(context);
     assertNotNull(contextVO);
 
     // check results
@@ -155,7 +149,7 @@ public class TransformContextTest extends TestBase {
     logger.info("contextList:" + contextList);
 
     // transform the list to a List<ContextVO>
-    List<ContextVO> contextVOList = xmlTransforming.transformToContextList(contextList);
+    List<ContextVO> contextVOList = XmlTransformingService.transformToContextList(contextList);
     assertNotNull(contextVOList);
 
     // check results
@@ -191,7 +185,7 @@ public class TransformContextTest extends TestBase {
     logger.info("contextList:" + contextList);
 
     // transform the list to a List<ContextVO>
-    List<ContextVO> contextVOList = xmlTransforming.transformToContextList(contextList);
+    List<ContextVO> contextVOList = XmlTransformingService.transformToContextList(contextList);
     assertNotNull(contextVOList);
 
     // check results
@@ -221,7 +215,7 @@ public class TransformContextTest extends TestBase {
     logger.info("memberList:" + memberList);
 
     // transform the list to a MemberList
-    List<? extends ValueObject> mList = xmlTransforming.transformToMemberList(memberList);
+    List<? extends ValueObject> mList = XmlTransformingService.transformToMemberList(memberList);
     assertNotNull(mList);
 
     assertEquals(2, mList.size());

@@ -19,8 +19,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
@@ -33,11 +31,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @TransformationModule
 public class EndNoteTransformation implements Transformation, Configurable {
-
-  private Logger logger = Logger.getLogger(getClass());
-
   private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
-
   private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
       "eSciDoc-publication-item-list", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
@@ -67,6 +61,7 @@ public class EndNoteTransformation implements Transformation, Configurable {
     }
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
     if (properties == null) {
@@ -76,6 +71,7 @@ public class EndNoteTransformation implements Transformation, Configurable {
     return properties.get(key);
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
     if (configuration == null) {
       init();
@@ -84,13 +80,6 @@ public class EndNoteTransformation implements Transformation, Configurable {
     return configuration;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
   public byte[] endnoteTransform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException,
       RuntimeException {
@@ -171,23 +160,12 @@ public class EndNoteTransformation implements Transformation, Configurable {
     }
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats()
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     return new Format[] {ENDNOTE_FORMAT};
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT))) {
       return new Format[] {ENDNOTE_FORMAT};
@@ -196,24 +174,7 @@ public class EndNoteTransformation implements Transformation, Configurable {
     }
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormatsAsXml()
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (ENDNOTE_FORMAT.equals(src)) {
       return new Format[] {ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
@@ -222,52 +183,23 @@ public class EndNoteTransformation implements Transformation, Configurable {
     }
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
-   * java.lang.String, java.lang.String)
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException {
     return endnoteTransform(src, srcFormat, trgFormat, service, configuration);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return endnoteTransform(src, srcFormat, trgFormat, service, null);
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, new Format(srcFormatName, srcType, srcEncoding), new Format(
         trgFormatName, trgType, trgEncoding), service);
   }
-
 }

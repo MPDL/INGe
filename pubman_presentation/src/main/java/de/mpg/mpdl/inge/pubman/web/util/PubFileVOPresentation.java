@@ -43,7 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
@@ -59,8 +58,6 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
  */
 @SuppressWarnings("serial")
 public class PubFileVOPresentation extends FacesBean {
-  private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
-
   private static Properties properties;
 
   private FileVO file;
@@ -472,9 +469,5 @@ public class PubFileVOPresentation extends FacesBean {
 
   protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
     return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
   }
 }

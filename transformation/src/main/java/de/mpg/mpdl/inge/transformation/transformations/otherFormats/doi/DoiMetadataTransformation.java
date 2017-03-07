@@ -2,24 +2,18 @@ package de.mpg.mpdl.inge.transformation.transformations.otherFormats.doi;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.List;
-import java.util.Map;
 
-import javax.mail.util.ByteArrayDataSource;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.edoc.EDocImport;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -32,31 +26,18 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class DoiMetadataTransformation implements Transformation {
-
-  private static final String STYLESHEET_PROPERTY_NAME =
-      "escidoc.transformation.doi.stylesheet.filename";
   public static final Format ESCIDOC_ITEM_FORMAT =
       new Format("escidoc", "application/xml", "UTF-8");
   public static final Format DOI_ITEM_FORMAT = new Format("doi", "application/xml", "UTF-8");
 
+  private static final String STYLESHEET_PROPERTY_NAME =
+      "escidoc.transformation.doi.stylesheet.filename";
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats()
-   */
   @Override
   public Format[] getSourceFormats() throws RuntimeException {
     return new Format[] {ESCIDOC_ITEM_FORMAT};
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
   @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     if (DOI_ITEM_FORMAT.equals(trg)) {
@@ -66,22 +47,6 @@ public class DoiMetadataTransformation implements Transformation {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormatsAsXml()
-   */
-  @Override
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    return "";
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
   @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (ESCIDOC_ITEM_FORMAT.equals(src)) {
@@ -91,31 +56,9 @@ public class DoiMetadataTransformation implements Transformation {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
-   * java.lang.String, java.lang.String)
-   */
-  @Override
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    return "";
-  }
-
-
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
   @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
-    StringWriter doiXml = new StringWriter();
     StringWriter result = new StringWriter();
     try {
       System.out.print("Started xslt transformation...");
@@ -135,7 +78,6 @@ public class DoiMetadataTransformation implements Transformation {
         xslPath = "transformations/otherFormats/xslt/escidoc2doi.xsl";
       }
 
-
       factory.setURIResolver(new LocalUriResolver(xslDir));
       InputStream stylesheet =
           ResourceUtil.getResourceAsStream(xslPath,
@@ -152,26 +94,18 @@ public class DoiMetadataTransformation implements Transformation {
           result));
 
       return result.toString().getBytes(trgFormat.getEncoding());
-
     } catch (Exception e) {
       throw new RuntimeException("Error parsing edoc xml", e);
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
   @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
     Format srcFormat = new Format(srcFormatName, srcType, srcEncoding);
     Format trgFormat = new Format(trgFormatName, trgType, trgEncoding);
+
     return transform(src, srcFormat, trgFormat, service);
   }
-
 }

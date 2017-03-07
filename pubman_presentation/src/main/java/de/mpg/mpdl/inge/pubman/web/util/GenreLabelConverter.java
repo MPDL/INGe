@@ -46,12 +46,14 @@ public class GenreLabelConverter implements Converter {
 
   public GenreLabelConverter() {}
 
+  @Override
   public String getAsString(FacesContext context, UIComponent c, Object object)
       throws ConverterException {
     final String textValue = (String) object;
     return this.i18nHelper.getLabel(textValue);
   }
 
+  @Override
   public Object getAsObject(FacesContext context, UIComponent c, String text) {
     final String textValue = text;
     return this.i18nHelper.getLabel(textValue);

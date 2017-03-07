@@ -26,13 +26,10 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.TestBase;
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
@@ -51,11 +48,10 @@ public class AccountUserVOTest extends TestBase {
   @Ignore
   @Test
   public void testIsModeratorFunction() throws Exception {
-    String adminUserHandle = null; // loginSystemAdministrator();
+    // String adminUserHandle = null; // loginSystemAdministrator();
     // TODO for INGe
     // AccountUserVO admin = getAccountUser(adminUserHandle);
     //
     // assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
   }
-
 }

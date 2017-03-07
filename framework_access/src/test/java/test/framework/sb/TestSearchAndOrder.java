@@ -172,9 +172,9 @@ public class TestSearchAndOrder extends TestBase {
     return doCompare(results, new Character('<'));
   }
 
-  private boolean isDescending(List<String> results) {
-    return doCompare(results, new Character('>'));
-  }
+  // private boolean isDescending(List<String> results) {
+  // return doCompare(results, new Character('>'));
+  // }
 
   private boolean doCompare(List<String> results, Character c) {
     String last = null;

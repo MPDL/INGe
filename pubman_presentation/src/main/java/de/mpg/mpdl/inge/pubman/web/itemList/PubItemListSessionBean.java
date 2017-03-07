@@ -918,7 +918,7 @@ public class PubItemListSessionBean extends
             new String(icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList)));
       } catch (TechnicalException e) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED) {
@@ -961,7 +961,7 @@ public class PubItemListSessionBean extends
             icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList));
       } catch (TechnicalException e) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
@@ -983,7 +983,7 @@ public class PubItemListSessionBean extends
         fos.write(exportFileData);
         fos.close();
       } catch (IOException e1) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e1);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));

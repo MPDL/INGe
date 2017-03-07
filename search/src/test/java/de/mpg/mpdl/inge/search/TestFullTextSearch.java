@@ -21,9 +21,8 @@ import org.junit.Test;
 
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
@@ -49,8 +48,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeTy
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
@@ -61,16 +60,15 @@ import gov.loc.www.zing.srw.service.SRWPort;
 // TODO adjust to INGe
 @Ignore
 public class TestFullTextSearch {
+  private static final Logger logger = Logger.getLogger(TestFullTextSearch.class);
+
   private static String userHandle;
   private static ItemHandler itemHandler;
   private static AdminHandler adminHandler;
   private static SRWPort searchHandler_item_container_admin;
   private static SRWPort searchHandler_escidoc_all;
-  private static XmlTransforming xmlTransforming;
-
   private static HashSet<String> itemIdsForPurging;
 
-  private static Logger logger = Logger.getLogger(TestFullTextSearch.class);
 
   private static String query_item_container_admin =
       "\"/properties/content-model/id\"=\"YYY\" AND \"/fulltext\"=XXX";
@@ -97,9 +95,6 @@ public class TestFullTextSearch {
     searchHandler_escidoc_all =
         ServiceLocator.getSearchHandler("escidoc_all", new URL(PropertyReader.getFrameworkUrl()),
             userHandle);
-
-    xmlTransforming = new XmlTransformingBean();
-
     itemIdsForPurging = new HashSet<String>();
   }
 
@@ -246,11 +241,11 @@ public class TestFullTextSearch {
     PubItemVO actualItemVO = getComplexPubItemWithoutFiles();
 
     actualItemVO = addFileToItem(actualItemVO, "BGC1879.pdf");
-    String actualItem = xmlTransforming.transformToItem(actualItemVO);
+    String actualItem = XmlTransformingService.transformToItem(actualItemVO);
     long start = System.currentTimeMillis();
     actualItem = itemHandler.create(actualItem);
     long end = System.currentTimeMillis();
-    actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+    actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
     logger.info("Create item finished: <" + actualItemVO.getVersion().getObjectId() + "> needed |"
         + (end - start) + "| msec");
 
@@ -295,13 +290,13 @@ public class TestFullTextSearch {
     long end;
 
     param = new TaskParamVO(actualItemVO.getModificationDate(), "Submit Item");
-    paramXml = xmlTransforming.transformToTaskParam(param);
+    paramXml = XmlTransformingService.transformToTaskParam(param);
     start = System.currentTimeMillis();
     itemHandler.submit(actualItemVO.getVersion().getObjectId(), paramXml);
     end = System.currentTimeMillis();
 
     actualItem = itemHandler.retrieve(actualItemVO.getVersion().getObjectId());
-    actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+    actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
     logger.info("Submit item finished: <" + actualItemVO.getVersion().getObjectId() + "> needed |"
         + (end - start) + "| msec");
 
@@ -334,7 +329,7 @@ public class TestFullTextSearch {
 
 
       pidParam = new PidTaskParamVO(lastModificationDate, url);
-      paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+      paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
       try {
         // Assign floating PID
@@ -352,7 +347,7 @@ public class TestFullTextSearch {
       // Retrieve the item to get last modification date
       String actualItem = itemHandler.retrieve(objectId);
 
-      actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+      actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
     }
 
     if (actualItemVO.getVersion().getPid() == null || actualItemVO.getVersion().getPid().equals("")) {
@@ -367,7 +362,7 @@ public class TestFullTextSearch {
       logger.debug("URL given to PID resolver: " + url);
 
       pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-      paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+      paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
       try {
         // Assign version PID
@@ -403,9 +398,9 @@ public class TestFullTextSearch {
 
         try {
 
-          ResultVO resultVO = xmlTransforming.transformToResult(result);
+          ResultVO resultVO = XmlTransformingService.transformToResult(result);
           pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
-          paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+          paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
           // Assign component PID
           result =
@@ -426,11 +421,11 @@ public class TestFullTextSearch {
 
     // Retrieve the item to get last modification date
     String actualItem = itemHandler.retrieve(objectId);
-    actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+    actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
 
     // Release the item
     param = new TaskParamVO(actualItemVO.getModificationDate(), "this is the release comment");
-    paramXml = xmlTransforming.transformToTaskParam(param);
+    paramXml = XmlTransformingService.transformToTaskParam(param);
 
     start = System.currentTimeMillis();
     itemHandler.release(objectId, paramXml);
@@ -439,7 +434,7 @@ public class TestFullTextSearch {
         + "| msec");
 
     actualItem = itemHandler.retrieve(objectId);
-    actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+    actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
 
     return actualItemVO;
   }
@@ -447,12 +442,12 @@ public class TestFullTextSearch {
   private PubItemVO addComponentAndSubmit(PubItemVO pubItemVO, String fileName) throws Exception {
     pubItemVO = this.addFileToItem(pubItemVO, fileName);
 
-    String actualItem = xmlTransforming.transformToItem(pubItemVO);
+    String actualItem = XmlTransformingService.transformToItem(pubItemVO);
 
     itemHandler.update(pubItemVO.getVersion().getObjectId(), actualItem);
 
     String item = itemHandler.retrieve(pubItemVO.getVersion().getObjectId());
-    pubItemVO = xmlTransforming.transformToPubItem(item);
+    pubItemVO = XmlTransformingService.transformToPubItem(item);
 
     return this.submitItem(pubItemVO);
   }
@@ -465,12 +460,12 @@ public class TestFullTextSearch {
       pubItemVO.getFiles().remove(i);
     }
 
-    String actualItem = xmlTransforming.transformToItem(pubItemVO);
+    String actualItem = XmlTransformingService.transformToItem(pubItemVO);
 
     itemHandler.update(pubItemVO.getVersion().getObjectId(), actualItem);
 
     String item = itemHandler.retrieve(pubItemVO.getVersion().getObjectId());
-    pubItemVO = xmlTransforming.transformToPubItem(item);
+    pubItemVO = XmlTransformingService.transformToPubItem(item);
 
     return this.submitItem(pubItemVO);
   }
@@ -707,7 +702,7 @@ public class TestFullTextSearch {
     client.executeMethod(method);
     String response = method.getResponseBodyAsString();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
 
   }
 
@@ -748,10 +743,7 @@ public class TestFullTextSearch {
 
           for (MessageElement e : elements) {
             String msg = e.getAsString();
-            SearchResultElement sr = xmlTransforming.transformToSearchResult(msg); // search-result-record
-
-            float score = sr.getScore();
-
+            SearchResultElement sr = XmlTransformingService.transformToSearchResult(msg); // search-result-record
             String currentObjectId = ((ItemResultVO) sr).getLatestVersion().getObjectId();
             int currentVersion = ((ItemResultVO) sr).getVersion().getVersionNumber();
             logger.info("objId found <" + currentObjectId + "> searching <" + objectId + ">");
@@ -767,6 +759,7 @@ public class TestFullTextSearch {
         e.printStackTrace();
       }
     }
+
     return result;
   }
 

@@ -24,14 +24,11 @@
  */
 package de.mpg.mpdl.inge.test.gui.modules.login;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import de.mpg.mpdl.inge.test.gui.modules.EnumMatrix;
-import de.mpg.mpdl.inge.test.gui.modules.PubmanGuiModules;
 
 /**
  * @author endres

@@ -41,97 +41,41 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @TransformationModule
 public class ExcelTransformation extends DefaultHandler implements Transformation {
+  // private static final Format MS_EXCEL_XML_FORMAT = new Format("ms-excel-xml", "application/xml",
+  // "*");
+  // private static final Format CONE_PERSON_RDF_FORMAT = new Format("eSciDoc-publication-item",
+  // "application/xml", "*");
+  // private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
+  // private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
+  //
+  // private static final String XSLT_PATH =
+  // "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
 
-  private static final Format MS_EXCEL_XML_FORMAT = new Format("ms-excel-xml", "application/xml",
-      "*");
-  private static final Format CONE_PERSON_RDF_FORMAT = new Format("eSciDoc-publication-item",
-      "application/xml", "*");
-  private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
-  private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
-
-  private static final String XSLT_PATH = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats()
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
-    // TODO Auto-generated method stub
     return new Format[] {};
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
-    // TODO Auto-generated method stub
     return new Format[] {};
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormatsAsXml()
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    // TODO Auto-generated method stub
-    return "";
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
-    // TODO Auto-generated method stub
     return new Format[] {};
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormatsAsXml(java.lang.String,
-   * java.lang.String, java.lang.String)
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    // TODO Auto-generated method stub
-    return "";
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     // TODO Auto-generated method stub
     return null;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
-    // TODO Auto-generated method stub
     return null;
   }
-
-
-
 }

@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
@@ -45,8 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecim
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.model.xmltransforming.StatisticLogger;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -71,12 +68,6 @@ public class SimpleStatisticsService {
 
   private static final String REPORTDEFINITION_FILE = "report-definition-list.xml";
 
-  @EJB
-  private static StatisticLogger statisticLogger;
-
-  @EJB
-  private static XmlTransforming xmlTransforming;
-
   public static List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionId,
       String objectId, AccountUserVO accountUser) throws Exception {
     if (reportDefinitionId == null || objectId == null) {
@@ -97,10 +88,10 @@ public class SimpleStatisticsService {
     else
       repHandler = ServiceLocator.getReportHandler(accountUser.getHandle());
 
-    String xmlParams = xmlTransforming.transformToStatisticReportParameters(repParams);
+    String xmlParams = XmlTransformingService.transformToStatisticReportParameters(repParams);
     String xmlReport = repHandler.retrieve(xmlParams);
 
-    return xmlTransforming.transformToStatisticReportRecordList(xmlReport);
+    return XmlTransformingService.transformToStatisticReportRecordList(xmlReport);
   }
 
   /**
@@ -143,7 +134,7 @@ public class SimpleStatisticsService {
 
       String srwResponseXml = adh.retrieveAggregationDefinitions(new HashMap<String, String[]>());
       List<AggregationDefinitionVO> aggList =
-          xmlTransforming.transformToStatisticAggregationDefinitionList(srwResponseXml);
+          XmlTransformingService.transformToStatisticAggregationDefinitionList(srwResponseXml);
 
       String aggregationTableName = null;
       for (AggregationDefinitionVO aggDef : aggList) {
@@ -167,7 +158,7 @@ public class SimpleStatisticsService {
         String createdAggDefXml = adh.create(aggregationDefinitionXml);
 
         AggregationDefinitionVO aggCreated =
-            xmlTransforming.transformToStatisticAggregationDefinition(createdAggDefXml);
+            XmlTransformingService.transformToStatisticAggregationDefinition(createdAggDefXml);
 
         logger.info("Pubman aggregation definition created with id " + aggCreated.getObjectId());
         aggregationTableName = aggCreated.getAggregationTables().get(0).getName();
@@ -183,7 +174,7 @@ public class SimpleStatisticsService {
           repDefHandler.retrieveReportDefinitions(new HashMap<String, String[]>());
 
       List<StatisticReportDefinitionVO> repDefFrameworkList =
-          xmlTransforming.transformToStatisticReportDefinitionList(repDefFrameworkListXML);
+          XmlTransformingService.transformToStatisticReportDefinitionList(repDefFrameworkListXML);
 
       List<StatisticReportDefinitionVO> repDefFileList = retrieveReportDefinitionListFromFile();
 
@@ -208,13 +199,13 @@ public class SimpleStatisticsService {
         } else {// Report Definition does not exist yet
           // create and set
           String repDefFileXML =
-              xmlTransforming.transformToStatisticReportDefinition(repDefFile).replaceAll(
+              XmlTransformingService.transformToStatisticReportDefinition(repDefFile).replaceAll(
                   "pubman_object_stats", aggregationTableName);;
 
           String repDefFWXMLNew = repDefHandler.create(repDefFileXML);
 
           StatisticReportDefinitionVO repDefFWNew =
-              xmlTransforming.transformToStatisticReportDefinition(repDefFWXMLNew);
+              XmlTransformingService.transformToStatisticReportDefinition(repDefFWXMLNew);
 
           repDefObjectId = repDefFWNew.getObjectId();
           logger.info("Created new report definition and added to Map: "
@@ -254,7 +245,7 @@ public class SimpleStatisticsService {
     List<StatisticReportDefinitionVO> repDefVOList = new ArrayList<StatisticReportDefinitionVO>();
 
     for (String repDefXml : repDefs) {
-      repDefVOList.add(xmlTransforming.transformToStatisticReportDefinition(repDefXml));
+      repDefVOList.add(XmlTransformingService.transformToStatisticReportDefinition(repDefXml));
     }
 
     return repDefVOList;

@@ -20,13 +20,9 @@ import org.apache.commons.httpclient.HttpStatus;
 import de.mpg.mpdl.inge.pubman.web.task.SiteMapTask;
 
 public class SitemapFilter implements Filter {
-
-
-
   @Override
   public void destroy() {
     // TODO Auto-generated method stub
-
   }
 
   @Override

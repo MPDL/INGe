@@ -51,21 +51,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SessionTimeoutFilter implements Filter {
   public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.Filter#destroy()
-   */
+  @Override
   public void destroy() {
     // TODO Auto-generated method stub
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-   * javax.servlet.FilterChain)
-   */
+  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
@@ -108,11 +99,7 @@ public class SessionTimeoutFilter implements Filter {
     filterChain.doFilter(request, response);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-   */
+  @Override
   public void init(FilterConfig arg0) throws ServletException {
     // TODO Auto-generated method stub
   }

@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
@@ -38,8 +38,8 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   private final String idTypeEscidoc = "ESCIDOC";
   private final String idTypeUnknown = "UNKNOWN";
   private final Logger logger = Logger.getLogger(UnapiServlet.class);
-  private DataHandlerBean dataHandler = new DataHandlerBean();
-  private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+  private DataHandlerService dataHandler = new DataHandlerService();
+  private DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
   private boolean view = false; // default option is download
   private String filename = "unapi";
 
@@ -131,9 +131,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] unapi() {
     Util util = new Util();
     return util.createUnapiSourcesXml();
@@ -146,6 +144,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    * 
    * @throws DataaquisitionException
    */
+  @Override
   public byte[] unapi(String identifier, boolean show) throws DataaquisitionException {
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -212,9 +211,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     return baos.toByteArray();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] unapi(String identifier, String format) throws DataaquisitionException {
     this.filename = identifier;
 

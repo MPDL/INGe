@@ -43,25 +43,15 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @TransformationModule
 public class TestTransformation implements Transformation {
-
   public static final Format SOURCE_FORMAT = new Format("test-src", "text/plain", "UTF-8");
   public static final Format TARGET_FORMAT = new Format("test-trg", "text/plain", "UTF-8");
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats()
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     return new Format[] {SOURCE_FORMAT};
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     if (TARGET_FORMAT.equals(trg)) {
       return new Format[] {SOURCE_FORMAT};
@@ -70,19 +60,7 @@ public class TestTransformation implements Transformation {
     }
   }
 
-  /*
-   * Does not need to be implemented
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services
-   * .transformation.valueObjects.Format)
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (SOURCE_FORMAT.equals(src)) {
       return new Format[] {TARGET_FORMAT};
@@ -91,21 +69,7 @@ public class TestTransformation implements Transformation {
     }
   }
 
-  /*
-   * Does not need to be implemented
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[], java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
@@ -121,13 +85,7 @@ public class TestTransformation implements Transformation {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.transformation.Transformation#transform(byte[],
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format,
-   * de.mpg.mpdl.inge.transformation.valueObjects.Format, java.lang.String)
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, srcFormat.getName(), srcFormat.getType(), srcFormat.getEncoding(),

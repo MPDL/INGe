@@ -31,11 +31,6 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<build>
-		<plugins>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -58,7 +53,5 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
-
 </project>

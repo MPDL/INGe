@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
@@ -72,7 +71,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
@@ -98,9 +97,6 @@ public class PubItemService {
 
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
-
-  @EJB
-  private static XmlTransforming xmlTransforming;
 
   public static PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
       throws PubCollectionNotFoundException, SecurityException, TechnicalException {
@@ -200,7 +196,7 @@ public class PubItemService {
       String xmlContextList = ServiceLocator.getContextHandler().retrieveContexts(filterMap);
       // ... and transform to PubCollections.
       List<ContextVO> contextList =
-          (List<ContextVO>) xmlTransforming
+          (List<ContextVO>) XmlTransformingService
               .transformSearchRetrieveResponseToContextList(xmlContextList);
 
       return contextList;
@@ -377,10 +373,11 @@ public class PubItemService {
     PubItemVO pubItemActual = null;
     try {
       TaskParamVO taskParam = new TaskParamVO(pubItemRef.getModificationDate(), comment);
-      itemHandler.revise(pubItemRef.getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
+      itemHandler.revise(pubItemRef.getObjectId(),
+          XmlTransformingService.transformToTaskParam(taskParam));
 
       String item = itemHandler.retrieve(pubItemRef.getObjectId());
-      pubItemActual = xmlTransforming.transformToPubItem(item);
+      pubItemActual = XmlTransformingService.transformToPubItem(item);
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
@@ -428,7 +425,7 @@ public class PubItemService {
     PubItemVO actualItemVO = null;
     try {
       String actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-      actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+      actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
 
       PidTaskParamVO pidParam;
       String paramXml;
@@ -445,7 +442,7 @@ public class PubItemService {
                     pubItemRef.getObjectId());
 
         pidParam = new PidTaskParamVO(lastModificationDate, url);
-        paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+        paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
         try {
           result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
@@ -459,7 +456,7 @@ public class PubItemService {
 
         // Retrieve the item to get last modification date
         actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-        actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+        actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
       }
 
       if (actualItemVO.getVersion().getPid() == null
@@ -472,7 +469,7 @@ public class PubItemService {
                     pubItemRef.getObjectId() + ":" + actualItemVO.getVersion().getVersionNumber());
 
         pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-        paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+        paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
         try {
           result =
@@ -503,9 +500,9 @@ public class PubItemService {
                       .replaceAll("\\$3", CommonUtils.urlEncode(file.getName()));
 
           try {
-            ResultVO resultVO = xmlTransforming.transformToResult(result);
+            ResultVO resultVO = XmlTransformingService.transformToResult(result);
             pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
-            paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+            paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
             result =
                 itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(), file
@@ -526,12 +523,13 @@ public class PubItemService {
 
       // Retrieve the item to get last modification date
       actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-      actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+      actualItemVO = XmlTransformingService.transformToPubItem(actualItem);
 
       // Release the item
       long s = System.currentTimeMillis();
       TaskParamVO param = new TaskParamVO(actualItemVO.getModificationDate(), comment);
-      itemHandler.release(pubItemRef.getObjectId(), xmlTransforming.transformToTaskParam(param));
+      itemHandler.release(pubItemRef.getObjectId(),
+          XmlTransformingService.transformToTaskParam(param));
       long e = System.currentTimeMillis();
       logger.info("pure itemHandler.release item " + pubItemRef.getObjectId() + "> needed <"
           + (e - s) + "> msec");
@@ -587,7 +585,7 @@ public class PubItemService {
     try {
       TaskParamVO param = new TaskParamVO(lastModificationDate, comment);
       ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
-          xmlTransforming.transformToTaskParam(param));
+          XmlTransformingService.transformToTaskParam(param));
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN, new Object[] {
           pubItem.getVersion().getObjectId(), user.getUserid()});

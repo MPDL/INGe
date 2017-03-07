@@ -26,13 +26,9 @@
 
 package de.mpg.mpdl.inge.validation.web;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.validation.ItemValidating;
 
 /**
  * TODO Description
@@ -43,7 +39,6 @@ import de.mpg.mpdl.inge.validation.ItemValidating;
  * 
  */
 public class RefreshTask extends Thread {
-
   private static final Logger logger = Logger.getLogger(RefreshTask.class);
 
   private boolean signal = false;
@@ -60,12 +55,7 @@ public class RefreshTask extends Thread {
       while (!signal) {
         Thread.sleep(timeout * 60 * 1000);
         logger.info("Starting refresh of validation database.");
-        Context ctx = new InitialContext();
-        ItemValidating itemValidating =
-            (ItemValidating) ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-        itemValidating.refreshValidationSchemaCache();
         logger.info("Finished refresh of validation database.");
-
       }
       logger.info("Refresh task terminated.");
     } catch (Exception e) {
@@ -77,5 +67,4 @@ public class RefreshTask extends Thread {
     logger.info("Refresh task signalled to terminate.");
     signal = true;
   }
-
 }
