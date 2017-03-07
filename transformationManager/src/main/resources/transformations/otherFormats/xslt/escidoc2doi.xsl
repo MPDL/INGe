@@ -89,7 +89,7 @@
 	-->
     <xsl:template match="/">
         <doi:resource xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
-            <doi:identifier identifierType="DOI">dummyDOI</doi:identifier>
+            <doi:identifier identifierType="DOI"></doi:identifier>
             <xsl:apply-templates />
         </doi:resource>
     </xsl:template>
