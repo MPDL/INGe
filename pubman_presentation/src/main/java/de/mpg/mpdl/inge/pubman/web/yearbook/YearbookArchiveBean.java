@@ -45,7 +45,8 @@ public class YearbookArchiveBean extends FacesBean {
         getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
-    filterParams.put("query",
+    filterParams.put(
+        "query",
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});

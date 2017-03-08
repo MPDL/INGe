@@ -296,8 +296,10 @@ public class ExportItems extends FacesBean {
     String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
     String subject = this.getExportItemsSessionBean().getExportEmailSubject();
     String text = this.getExportItemsSessionBean().getExportEmailTxt();
-    String[] replyToAddresses = new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
-    String[] attachments = new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
+    String[] replyToAddresses =
+        new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
+    String[] attachments =
+        new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
     String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
     String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
 

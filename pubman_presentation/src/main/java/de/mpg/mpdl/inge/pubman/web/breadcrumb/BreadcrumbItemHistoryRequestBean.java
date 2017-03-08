@@ -11,7 +11,7 @@ public class BreadcrumbItemHistoryRequestBean extends FacesBean {
   public List<BreadcrumbItem> getNavigation() {
     BreadcrumbItemHistorySessionBean bcHistory =
         (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-    
+
     return bcHistory.getBreadcrumbItemHistory();
   }
 }

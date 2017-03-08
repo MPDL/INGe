@@ -149,8 +149,9 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      PubItemVO acceptedPubItem = PubItemService.releasePubItem(pubItem.getVersion(),
-          pubItem.getModificationDate(), comment, getLoginHelper().getAccountUser());
+      PubItemVO acceptedPubItem =
+          PubItemService.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
+              comment, getLoginHelper().getAccountUser());
 
       ItemRO pubItemRO = acceptedPubItem.getVersion();
 
@@ -181,10 +182,10 @@ public class ItemControllerSessionBean extends FacesBean {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
           // Cleanup MD
           pubItem.getFiles().get(i).getDefaultMetadata().cleanup();
-          if ((pubItem.getFiles().get(i).getName() == null
-              || pubItem.getFiles().get(i).getName().length() == 0)
-              && (pubItem.getFiles().get(i).getContent() == null
-                  || pubItem.getFiles().get(i).getContent().length() == 0)) {
+          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName()
+              .length() == 0)
+              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i)
+                  .getContent().length() == 0)) {
             pubItem.getFiles().remove(i);
           }
         }
@@ -201,14 +202,14 @@ public class ItemControllerSessionBean extends FacesBean {
         if (creator.getPerson() != null) {
           for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-              organization.setIdentifier(
-                  PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+              organization.setIdentifier(PropertyReader
+                  .getProperty("escidoc.pubman.external.organisation.id"));
             }
           }
         } else {
           if (creator.getOrganization() != null
-              && (creator.getOrganization().getIdentifier() == null
-                  || creator.getOrganization().getIdentifier().equals(""))) {
+              && (creator.getOrganization().getIdentifier() == null || creator.getOrganization()
+                  .getIdentifier().equals(""))) {
             creator.getOrganization().setIdentifier(
                 PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
           }
@@ -220,16 +221,15 @@ public class ItemControllerSessionBean extends FacesBean {
           for (CreatorVO creator : source.getCreators()) {
             if (creator.getPerson() != null) {
               for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-                if (organization.getIdentifier() == null
-                    || organization.getIdentifier().equals("")) {
-                  organization.setIdentifier(
-                      PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
+                  organization.setIdentifier(PropertyReader
+                      .getProperty("escidoc.pubman.external.organisation.id"));
                 }
               }
             } else {
               if (creator.getOrganization() != null
-                  && (creator.getOrganization().getIdentifier() == null
-                      || creator.getOrganization().getIdentifier().equals(""))) {
+                  && (creator.getOrganization().getIdentifier() == null || creator
+                      .getOrganization().getIdentifier().equals(""))) {
                 creator.getOrganization().setIdentifier(
                     PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
               }
@@ -326,8 +326,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param pubContextRO The eSciDoc context.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String createNewPubItem(String navigationRuleWhenSuccessful,
-      final ContextRO pubContextRO) {
+  public String createNewPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO) {
     try {
       PubItemVO newPubItem =
           PubItemService.createPubItem(pubContextRO, getLoginHelper().getAccountUser());
@@ -356,8 +355,9 @@ public class ItemControllerSessionBean extends FacesBean {
       final ContextRO pubContextRO, final PubItemVO pubItem, String comment) {
 
     try {
-      PubItemVO newRevision = PubItemService.createRevisionOfItem(pubItem, comment, pubContextRO,
-          getLoginHelper().getAccountUser());
+      PubItemVO newRevision =
+          PubItemService.createRevisionOfItem(pubItem, comment, pubContextRO, getLoginHelper()
+              .getAccountUser());
 
       // setting the returned item as new currentItem
       this.setCurrentPubItem(new PubItemVOPresentation(initializeItem(newRevision)));
@@ -390,8 +390,8 @@ public class ItemControllerSessionBean extends FacesBean {
         // if the item has not been saved before, there is no need to delete it
         logger.warn("Tried to delete an unsaved item. Do nothing instead.");
       } else {
-        PubItemService.deletePubItem(this.currentPubItem.getVersion(),
-            getLoginHelper().getAccountUser());
+        PubItemService.deletePubItem(this.currentPubItem.getVersion(), getLoginHelper()
+            .getAccountUser());
       }
     } catch (Exception e) {
       logger.error("Could not delete item." + "\n" + e.toString());
@@ -411,8 +411,9 @@ public class ItemControllerSessionBean extends FacesBean {
     // retrieve current context newly if the current item has changed or if the context has not been
     // retrieved so far
     if (this.currentPubItem != null) {
-      if (this.currentContext == null || !(this.currentContext.getReference().getObjectId()
-          .equals(this.currentPubItem.getContext().getObjectId()))) {
+      if (this.currentContext == null
+          || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem
+              .getContext().getObjectId()))) {
         ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
         this.setCurrentCollection(context);
       }
@@ -518,8 +519,8 @@ public class ItemControllerSessionBean extends FacesBean {
       newPerson.setIdentifier(new IdentifierVO());
       newPerson.getIdentifier().setType(IdType.CONE);
       OrganizationVO newPersonOrganization = new OrganizationVO();
-      newPersonOrganization
-          .setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+      newPersonOrganization.setIdentifier(PropertyReader
+          .getProperty("escidoc.pubman.external.organisation.id"));
       newPerson.getOrganizations().add(newPersonOrganization);
       newCreator.setPerson(newPerson);
       newPubItem.getMetadata().getCreators().add(newCreator);
@@ -624,8 +625,7 @@ public class ItemControllerSessionBean extends FacesBean {
       newPubItem.getMetadata().getProjectInfo().setFundingInfo(new FundingInfoVO());
     }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo()
-        .getFundingOrganization() == null) {
+    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization() == null) {
       newPubItem.getMetadata().getProjectInfo().getFundingInfo()
           .setFundingOrganization(new FundingOrganizationVO());
     }
@@ -763,8 +763,9 @@ public class ItemControllerSessionBean extends FacesBean {
     String xmlItemList = "";
     try {
       if (getLoginHelper().getESciDocUserHandle() != null) {
-        xmlItemList = ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle())
-            .retrieveItems(filter.toMap());
+        xmlItemList =
+            ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
+                filter.toMap());
       } else {
         xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
       }
@@ -779,8 +780,9 @@ public class ItemControllerSessionBean extends FacesBean {
     if (logger.isDebugEnabled()) {
       logger.debug("Transforming items...");
     }
-    ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) XmlTransformingService
-        .transformSearchRetrieveResponseToItemList(xmlItemList).getItemVOList();
+    ArrayList<PubItemVO> itemList =
+        (ArrayList<PubItemVO>) XmlTransformingService.transformSearchRetrieveResponseToItemList(
+            xmlItemList).getItemVOList();
 
     return itemList;
   }
@@ -796,15 +798,17 @@ public class ItemControllerSessionBean extends FacesBean {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (getLoginHelper().getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findParentItemsOfRevision(getLoginHelper().getESciDocUserHandle(),
-              pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService
+              .findParentItemsOfRevision(getLoginHelper().getESciDocUserHandle(),
+                  pubItemVO.getVersion()));
     } else {
       String adminHandle = AdminHelper.getAdminUserHandle();
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService
+              .findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
     }
 
     List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
@@ -834,13 +838,15 @@ public class ItemControllerSessionBean extends FacesBean {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (getLoginHelper().getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(DataGatheringService
-          .findRevisionsOfItem(getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(
+              getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
     } else {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(DataGatheringService
-          .findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
+      revisionVOList =
+          CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(
+              AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
     }
 
     List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
@@ -891,8 +897,9 @@ public class ItemControllerSessionBean extends FacesBean {
     // login with escidoc user handle
     if (getLoginHelper().getESciDocUserHandle() != null) {
       try {
-        xmlVersionHistoryList = ServiceLocator
-            .getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveVersionHistory(itemID);
+        xmlVersionHistoryList =
+            ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle())
+                .retrieveVersionHistory(itemID);
       } catch (AuthenticationException e) {
         logger.debug(e.toString());
         Login login = (Login) getSessionBean(Login.class);
@@ -925,8 +932,8 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-      PubItemService.revisePubItem(currentPubItem.getVersion(), reviseComment,
-          getLoginHelper().getAccountUser());
+      PubItemService.revisePubItem(currentPubItem.getVersion(), reviseComment, getLoginHelper()
+          .getAccountUser());
     } catch (Exception e) {
       logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
@@ -960,8 +967,7 @@ public class ItemControllerSessionBean extends FacesBean {
       if (tE.getCause() instanceof OptimisticLockingException) {
         logger.error(
             "Could not save item because it has been changed by another user in the meantime."
-                + "\n" + tE.toString(),
-            tE);
+                + "\n" + tE.toString(), tE);
         throw new RuntimeException(
             "Could not save item because it has been changed by another user in the meantime.", tE);
       } else {
@@ -994,8 +1000,9 @@ public class ItemControllerSessionBean extends FacesBean {
       return wrappedAffiliationList;
     }
 
-    PlainCqlQuery cqlQuery = new PlainCqlQuery(
-        "(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");
+    PlainCqlQuery cqlQuery =
+        new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId()
+            + ")");
     OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     wrappedAffiliationList =
@@ -1019,8 +1026,9 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchTopLevelAffiliations() throws Exception {
-    PlainCqlQuery cqlQuery = new PlainCqlQuery(
-        "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
+    PlainCqlQuery cqlQuery =
+        new PlainCqlQuery(
+            "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
     OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     return results.getResults();
@@ -1049,9 +1057,10 @@ public class ItemControllerSessionBean extends FacesBean {
       String[] attachments) throws TechnicalException {
 
     String status = "not sent";
-    status = EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
-        recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, subject, text,
-        attachments);
+    status =
+        EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
+            recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, subject, text,
+            attachments);
 
     return status;
   }
@@ -1099,8 +1108,7 @@ public class ItemControllerSessionBean extends FacesBean {
       if (tE.getCause() instanceof OptimisticLockingException) {
         logger.error(
             "Could not submit or release item because it has been changed by another user in the meantime."
-                + "\n" + tE.toString(),
-            tE);
+                + "\n" + tE.toString(), tE);
         throw new RuntimeException(
             "Could not submit or release item because it has been changed by another user in the meantime.",
             tE);

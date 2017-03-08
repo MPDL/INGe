@@ -100,10 +100,12 @@ public class YearbookCandidatesRetrieverRequestBean extends
   public void readOutParameters() {
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
-      if (getYearbookCandidatesSessionBean().getSelectedOrgUnit() != null || yisb.getYearbookItem() == null) {
+      if (getYearbookCandidatesSessionBean().getSelectedOrgUnit() != null
+          || yisb.getYearbookItem() == null) {
         setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
       } else {
-        setSelectedOrgUnit(getYearbookCandidatesSessionBean().getOrgUnitSelectItems().get(0).getValue().toString());
+        setSelectedOrgUnit(getYearbookCandidatesSessionBean().getOrgUnitSelectItems().get(0)
+            .getValue().toString());
       }
 
     } else {
