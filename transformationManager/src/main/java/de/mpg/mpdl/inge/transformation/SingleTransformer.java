@@ -3,7 +3,9 @@ package de.mpg.mpdl.inge.transformation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
@@ -29,6 +31,7 @@ public abstract class SingleTransformer implements Transformer {
 
   private Map<String, String> configuration;
 
+
   public Map<String, String> getConfiguration() {
     return configuration;
   }
@@ -53,25 +56,25 @@ public abstract class SingleTransformer implements Transformer {
     this.sourceFormat = sourceFormat;
   }
 
-  public static Map<String, String> getDefaultConfigurationFromProperty(String property,
+  protected static Map<String, String> getDefaultConfigurationFromProperty(String property,
       String defaultFile) throws TransformationException {
-    String stylesheetFileName = PropertyReader.getProperty(property);
+    String propertyFileName = PropertyReader.getProperty(property);
 
-    if (stylesheetFileName == null) {
-      logger.warn("No default configuration file found for Xml transformation. Property "
-          + property + " not set.");
+    if (propertyFileName == null) {
+      logger.warn("No property configuration file found for transformer. Property " + property
+          + " not set.");
       return null;
     } else {
       try {
         Map<String, String> config = new HashMap<String, String>();
-        InputStream stylesheetInputStram =
-            ResourceUtil.getResourceAsStream(stylesheetFileName,
+        InputStream propertyInputStram =
+            ResourceUtil.getResourceAsStream(propertyFileName,
                 SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
-        props.load(stylesheetInputStram);
-        stylesheetInputStram.close();
-        String[] confValues = props.getProperty("configuration").split(",");
-        for (String field : confValues) {
+        props.load(propertyInputStram);
+        propertyInputStram.close();
+        String[] defaultConfValues = props.getProperty("configuration").split(",");
+        for (String field : defaultConfValues) {
           String[] fieldArr = field.split("=", 2);
           config.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
         }
@@ -79,12 +82,44 @@ public abstract class SingleTransformer implements Transformer {
         return config;
       } catch (Exception e) {
         throw new TransformationException("Error while XML transformation configuration file "
-            + stylesheetFileName, e);
+            + propertyFileName, e);
       }
-
     }
+  }
 
+  protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property,
+      String defaultFile) throws TransformationException {
+    String propertyFileName = PropertyReader.getProperty(property);
 
+    if (propertyFileName == null) {
+      logger.warn("No property configuration file found for transformer. Property " + property
+          + " not set.");
+      return null;
+    } else {
+      try {
+        Map<String, List<String>> properties = new HashMap<String, List<String>>();
+        InputStream propertyInputStram =
+            ResourceUtil.getResourceAsStream(propertyFileName,
+                SingleTransformer.class.getClassLoader());
+        Properties props = new Properties();
+        props.load(propertyInputStram);
+        propertyInputStram.close();
+
+        for (Object key : props.keySet()) {
+
+          if (key.equals("configuration"))
+            continue;
+
+          String[] values = props.getProperty(key.toString()).split(",");
+          properties.put(key.toString(), Arrays.asList(values));
+        }
+
+        return properties;
+      } catch (Exception e) {
+        throw new TransformationException("Error while XML transformation configuration file "
+            + propertyFileName, e);
+      }
+    }
   }
 
   public static String getStringFromSource(TransformerSource transformerSource)
@@ -96,7 +131,6 @@ public abstract class SingleTransformer implements Transformer {
     } catch (Exception e) {
       throw new TransformationException("Wrong source type, expected a TransformerStreamSource", e);
     }
-
 
     Scanner scanner;
 

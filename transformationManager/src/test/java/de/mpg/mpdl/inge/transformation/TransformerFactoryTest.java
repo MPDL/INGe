@@ -205,11 +205,6 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromEscidocItemToZimXml.xml");
   }
 
-  //
-  // target ESCIDOC_ITEM_V3_XML);
-  //
-
-
   @Test
   public void testBibtexToItemXmlV3() throws TransformationException, IOException {
 
@@ -267,7 +262,6 @@ public class TransformerFactoryTest {
   }
 
   @Test
-  @Ignore
   public void testEndnoteXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -467,6 +461,26 @@ public class TransformerFactoryTest {
    * 
    * }
    */
+
+  //
+  // chain transformers
+  //
+  @Test
+  public void testEndnoteToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "endnote_item.txt")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
+  }
 
 
   //
