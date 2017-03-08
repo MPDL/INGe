@@ -188,8 +188,9 @@ public class SyndicationTest {
     logger.info("pubman base url:" + pubman_url);
 
     for (String ft : sh.getFeedFormatList(sh.getFeedList()[1])) {
-      uri = pubman_url + "/syndication/feed/" + ft
-          + "/publications/organization/escidoc:persistent22";
+      uri =
+          pubman_url + "/syndication/feed/" + ft
+              + "/publications/organization/escidoc:persistent22";
       logger.info("URL: " + uri);
       start = System.currentTimeMillis();
       result = new String(sh.getFeed(uri));
@@ -252,8 +253,10 @@ public class SyndicationTest {
     for (Map.Entry<String, String> entry : outm.entrySet()) {
       String key = entry.getKey();
       String value = entry.getValue();
-      selOrgUnit += "<option value=\"" + value + "\""
-          + (key.equals("External Organizations") ? " SELECTED" : "") + " >" + key + "</option>\n";
+      selOrgUnit +=
+          "<option value=\"" + value + "\""
+              + (key.equals("External Organizations") ? " SELECTED" : "") + " >" + key
+              + "</option>\n";
     }
 
     logger.info(selOrgUnit);

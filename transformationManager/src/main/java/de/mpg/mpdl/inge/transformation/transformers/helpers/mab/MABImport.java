@@ -26,8 +26,7 @@ public class MABImport {
   // TODO: da febhlt wohl noch was
   private static final String URL = null;
 
-  public MABImport() {
-  }
+  public MABImport() {}
 
   /**
    * reads the import file and transforms the items to XML
@@ -147,11 +146,11 @@ public class MABImport {
    */
   public String[] getItemListFromString(String string, String pattern) {
     // replace first empty lines and BOM
-    String s = 
+    String s =
         Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
             .replaceFirst("$1");
     String itemList[] = s.split(pattern);
-    
+
     return itemList;
   }
 
@@ -163,18 +162,18 @@ public class MABImport {
    */
   public List<Pair> getItemPairs(List<String> lines) {
     List<Pair> pairList = new ArrayList<Pair>();
-    
+
     if (lines != null && lines.size() > 0) {
       String line1 = lines.get(0);
       Pair pair1 = createMABPairByString(line1, "(\\s{6})###\\s*");
       pairList.add(pair1);
-      
+
       for (String line : lines) {
         Pair pair = createMABPairByString(line, "([0-9]{3}\\s{5}|[0-9]\\s[a-z]\\s{3})");
         pairList.add(pair);
       }
     }
-    
+
     return pairList;
   }
 
@@ -196,7 +195,7 @@ public class MABImport {
         // System.out.print(pair.getKey()+" ::: "+pair.getValue()+"\n");
       }
     }
-    
+
     return pair;
   }
 
@@ -210,7 +209,7 @@ public class MABImport {
     if (item != null && item.size() > 0) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    
+
     return "";
   }
 
@@ -228,9 +227,9 @@ public class MABImport {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
-    
+
     xml = xml + "</item-list>";
-    
+
     return xml;
   }
 
@@ -246,21 +245,21 @@ public class MABImport {
       for (Pair pair : item) {
         String key = "";
         String value = "";
-        
+
         if (pair != null) {
           if (pair.getKey() != null) {
             key = pair.getKey();
           }
-          
+
           if (pair.getValue() != null) {
             value = pair.getValue();
           }
         }
-        
+
         xml = xml + createXMLElement(key, escape(value));
       }
     }
-    
+
     return xml;
   }
 
@@ -275,7 +274,7 @@ public class MABImport {
     if (tag != null && tag != "") {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    
+
     return "";
   }
 
@@ -291,7 +290,7 @@ public class MABImport {
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");
     }
-    
+
     return input;
   }
 }

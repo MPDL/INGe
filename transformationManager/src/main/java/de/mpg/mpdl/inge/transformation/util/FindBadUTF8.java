@@ -57,7 +57,7 @@ public class FindBadUTF8 {
 
         offset += 1L;
       }
-      
+
       System.out.println("OK");
     } finally {
       if (inStream != null) {

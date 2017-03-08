@@ -96,7 +96,7 @@ public class WoSImport {
 
     return file;
   }
- 
+
   /**
    * identifies item lines from input string and stores it in a List<String>
    * 
@@ -141,14 +141,14 @@ public class WoSImport {
    */
   public List<Pair> getItemPairs(List<String> lines) {
     List<Pair> pairList = new ArrayList<Pair>();
-    
+
     if (lines != null) {
       for (String line : lines) {
         Pair pair = createWoSPairByString(line);
         pairList.add(pair);
       }
     }
-    
+
     return pairList;
   }
 
@@ -177,7 +177,7 @@ public class WoSImport {
     if (item != null && item.size() > 0) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    
+
     return "";
   }
 
@@ -195,9 +195,9 @@ public class WoSImport {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
-    
+
     xml = xml + "</item-list>";
-    
+
     return xml;
   }
 
@@ -214,7 +214,7 @@ public class WoSImport {
         xml = xml + createXMLElement(pair.getKey(), pair.getValue());
       }
     }
-    
+
     return xml;
   }
 
@@ -229,7 +229,7 @@ public class WoSImport {
     if (tag != null && tag != "") {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    
+
     return "";
   }
 
@@ -246,7 +246,7 @@ public class WoSImport {
       input = input.replace(">", "&gt;");
       input = input.replace("\"", "&quot;");
     }
-    
+
     return input;
   }
 }

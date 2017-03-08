@@ -26,8 +26,7 @@ public class RISImport {
   // TODO: da fehlt wohl noch was
   private static final String URL = null;
 
-  public RISImport() {
-  }
+  public RISImport() {}
 
   /**
    * reads the import file and transforms the items to XML
@@ -39,8 +38,9 @@ public class RISImport {
     List<String> itemList = getItemListFromString(file); // extract items to array
     List<List<Pair>> items = new ArrayList<List<Pair>>();
 
-    Pattern risLinePattern = Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)",
-        Pattern.DOTALL | Pattern.MULTILINE);
+    Pattern risLinePattern =
+        Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL
+            | Pattern.MULTILINE);
 
     if (itemList != null) { // transform items to XML
       for (String item : itemList) {
@@ -56,7 +56,7 @@ public class RISImport {
 
         items.add(itemPairs);
       }
-      
+
       result = transformItemListToXML(items);
 
     }
@@ -115,8 +115,9 @@ public class RISImport {
    */
   public List<String> getItemListFromString(String string) {
     // replace first empty lines and BOM
-    String s = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
-        .replaceFirst("$1");
+    String s =
+        Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
+            .replaceFirst("$1");
 
     Pattern risItemPattern = Pattern.compile("^TY  -.*?^ER  -", Pattern.DOTALL | Pattern.MULTILINE);
     Matcher risItemMatcher = risItemPattern.matcher(s);
@@ -139,14 +140,14 @@ public class RISImport {
   public Pair createRISPairByString(String line) {
     String[] lineArr = line.split("\\s-\\s");
     Pair pair = null;
-    
+
     if (lineArr.length > 1) {
       if (lineArr[0] != null && lineArr[1] != null) {
         pair = new Pair(lineArr[0].trim(), lineArr[1].trim());
 
       }
     }
-    
+
     return pair;
   }
 
@@ -160,7 +161,7 @@ public class RISImport {
     if (item != null && item.size() > 0) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    
+
     return "";
   }
 
@@ -178,9 +179,9 @@ public class RISImport {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
-    
+
     xml = xml + "</item-list>";
-    
+
     return xml;
   }
 
@@ -192,13 +193,13 @@ public class RISImport {
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    
+
     if (item != null && item.size() > 0) {
       for (Pair pair : item) {
         xml = xml + createXMLElement(pair.getKey(), escape(pair.getValue()));
       }
     }
-    
+
     return xml;
   }
 
@@ -213,7 +214,7 @@ public class RISImport {
     if (tag != null && tag != "") {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    
+
     return "";
   }
 
@@ -229,7 +230,7 @@ public class RISImport {
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");
     }
-    
+
     return input;
   }
 }
