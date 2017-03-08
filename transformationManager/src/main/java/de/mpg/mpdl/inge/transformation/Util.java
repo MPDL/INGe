@@ -133,9 +133,9 @@ public class Util {
       queryUrl =
           PropertyReader.getProperty("escidoc.cone.service.url") + model
               + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
-      String detailsUrl =
-          PropertyReader.getProperty("escidoc.cone.service.url") + model
-              + "/resource/$1?format=rdf";
+//      String detailsUrl =
+//          PropertyReader.getProperty("escidoc.cone.service.url") + model
+//              + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);

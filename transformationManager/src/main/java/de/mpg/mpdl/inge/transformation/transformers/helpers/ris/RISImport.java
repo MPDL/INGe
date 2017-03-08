@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.transformation.transformers.helpers.ris;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,16 +21,12 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
  * 
  */
 public class RISImport {
+  private static final Logger logger = Logger.getLogger(RISImport.class);
 
-  private String url = null;
-  private Logger logger = Logger.getLogger(getClass());
+  // TODO: da fehlt wohl noch was
+  private static final String URL = null;
 
-  /**
-   * Public Constructor RISImport.
-   */
   public RISImport() {
-
-
   }
 
   /**
@@ -39,32 +36,27 @@ public class RISImport {
    */
   public String transformRIS2XML(String file) {
     String result = "";
-
     List<String> itemList = getItemListFromString(file); // extract items to array
-
     List<List<Pair>> items = new ArrayList<List<Pair>>();
 
-    Pattern risLinePattern =
-        Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL
-            | Pattern.MULTILINE);
+    Pattern risLinePattern = Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)",
+        Pattern.DOTALL | Pattern.MULTILINE);
 
     if (itemList != null) { // transform items to XML
-
       for (String item : itemList) {
         List<Pair> itemPairs = new ArrayList<Pair>();
         Matcher risLineMatcher = risLinePattern.matcher(item);
         while (risLineMatcher.find()) {
-
           String line = risLineMatcher.group();
           if (line != null) {
             Pair pair = createRISPairByString(line);
             itemPairs.add(pair);
           }
-
         }
 
         items.add(itemPairs);
       }
+      
       result = transformItemListToXML(items);
 
     }
@@ -77,23 +69,43 @@ public class RISImport {
    * @return List<String> with file lines
    */
   public String readFile() {
-
     String file = "";
+    FileReader fileReader = null;
+    BufferedReader input = null;
+
     try {
-      BufferedReader input = new BufferedReader(new FileReader(this.url));
-      // string buffer for file reading
+      fileReader = new FileReader(URL);
+      input = new BufferedReader(fileReader);
+
       String str;
-      // reading line by line from file
       while ((str = input.readLine()) != null) {
         file = file + "\n" + str;
       }
-    } catch (Exception e) {
-      this.logger.error("An error occurred while reading RIS file.", e);
+    } catch (IOException e) {
+      logger.error("An error occurred while reading RIS file.", e);
       throw new RuntimeException(e);
+    } finally {
+      if (input != null) {
+        try {
+          input.close();
+        } catch (IOException e) {
+          logger.error("An error occurred while reading RIS file.", e);
+          throw new RuntimeException(e);
+        } finally {
+          if (fileReader != null) {
+            try {
+              fileReader.close();
+            } catch (IOException e) {
+              logger.error("An error occurred while reading RIS file.", e);
+              throw new RuntimeException(e);
+            }
+          }
+        }
+      }
     }
+
     return file;
   }
-
 
   /**
    * identifies RIS items from input string and stores it in an String Array
@@ -102,16 +114,12 @@ public class RISImport {
    * @return
    */
   public List<String> getItemListFromString(String string) {
-
-    // String s[] = string.split("ER\\s -");
-
     // replace first empty lines and BOM
-    string =
-        Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
-            .replaceFirst("$1");
+    String s = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
+        .replaceFirst("$1");
 
     Pattern risItemPattern = Pattern.compile("^TY  -.*?^ER  -", Pattern.DOTALL | Pattern.MULTILINE);
-    Matcher risItemMatcher = risItemPattern.matcher(string);
+    Matcher risItemMatcher = risItemPattern.matcher(s);
 
     List<String> itemStrings = new ArrayList<String>();
     while (risItemMatcher.find()) {
@@ -122,7 +130,6 @@ public class RISImport {
     return itemStrings;
   }
 
-
   /**
    * get a pair from line string (by regex string)
    * 
@@ -132,12 +139,14 @@ public class RISImport {
   public Pair createRISPairByString(String line) {
     String[] lineArr = line.split("\\s-\\s");
     Pair pair = null;
+    
     if (lineArr.length > 1) {
       if (lineArr[0] != null && lineArr[1] != null) {
         pair = new Pair(lineArr[0].trim(), lineArr[1].trim());
 
       }
     }
+    
     return pair;
   }
 
@@ -148,11 +157,11 @@ public class RISImport {
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    String xml = "";
     if (item != null && item.size() > 0) {
-      xml = createXMLElement("item", transformItemSubelementsToXML(item));
+      return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    return xml;
+    
+    return "";
   }
 
   /**
@@ -165,12 +174,13 @@ public class RISImport {
     String xml = "<item-list>";
 
     if (itemList != null && itemList.size() > 0) {
-
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
+    
     xml = xml + "</item-list>";
+    
     return xml;
   }
 
@@ -182,12 +192,13 @@ public class RISImport {
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
+    
     if (item != null && item.size() > 0) {
-
       for (Pair pair : item) {
         xml = xml + createXMLElement(pair.getKey(), escape(pair.getValue()));
       }
     }
+    
     return xml;
   }
 
@@ -199,11 +210,11 @@ public class RISImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    String element = "";
     if (tag != null && tag != "") {
-      element = "<" + tag + ">" + value + "</" + tag + ">";
+      return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    return element;
+    
+    return "";
   }
 
   /**
@@ -218,6 +229,7 @@ public class RISImport {
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");
     }
+    
     return input;
   }
 }
