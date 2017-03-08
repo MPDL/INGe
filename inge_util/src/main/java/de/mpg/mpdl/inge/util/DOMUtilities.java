@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -49,7 +48,7 @@ public class DOMUtilities {
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
-  public static DocumentBuilder createDocumentBuilder() throws ParserConfigurationException {
+  private static DocumentBuilder createDocumentBuilder() throws ParserConfigurationException {
     return createDocumentBuilder(false);
   }
 
@@ -59,9 +58,8 @@ public class DOMUtilities {
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
-  public static DocumentBuilder createDocumentBuilder(final boolean namespaceAwareness)
+  private static DocumentBuilder createDocumentBuilder(final boolean namespaceAwareness)
       throws ParserConfigurationException {
-
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     dbf.setIgnoringComments(true);
@@ -76,7 +74,7 @@ public class DOMUtilities {
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
    */
-  public static Document createDocument(final boolean namespaceAwareness)
+  private static Document createDocument(final boolean namespaceAwareness)
       throws ParserConfigurationException {
     return createDocumentBuilder(namespaceAwareness).newDocument();
   }
@@ -100,8 +98,8 @@ public class DOMUtilities {
    * @throws SAXException
    * @throws UnsupportedEncodingException
    */
-  public static Document createDocument(String xml) throws IOException,
-      ParserConfigurationException, SAXException {
+  public static Document createDocument(String xml)
+      throws IOException, ParserConfigurationException, SAXException {
 
     return createDocument(xml.getBytes("UTF-8"));
   }
@@ -120,9 +118,8 @@ public class DOMUtilities {
    */
   public static Document createDocument(final String xml, final boolean namespaceAwareness)
       throws ParserConfigurationException, UnsupportedEncodingException, IOException, SAXException {
-
-    return createDocumentBuilder(namespaceAwareness).parse(
-        new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
+    return createDocumentBuilder(namespaceAwareness)
+        .parse(new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
   }
 
   /**
@@ -134,9 +131,8 @@ public class DOMUtilities {
    * @throws IOExceptionS
    * @throws SAXException
    */
-  public static Document createDocument(byte[] xml) throws ParserConfigurationException,
-      SAXException, IOException {
-
+  private static Document createDocument(byte[] xml)
+      throws ParserConfigurationException, SAXException, IOException {
     return createDocumentBuilder().parse(new ByteArrayInputStream(xml), "UTF-8");
   }
 
@@ -157,18 +153,18 @@ public class DOMUtilities {
   }
 
 
-  /**
-   * Writes org.w3c.dom.Document to OutputStream
-   * 
-   * @param doc
-   * @throws IOException
-   */
-  public static OutputStream output(Document doc) throws IOException {
-    OutputStream baos = new ByteArrayOutputStream();
-    StreamResult streamResult = new StreamResult(baos);
-    outputBase(doc, streamResult);
-    return baos;
-  }
+  // /**
+  // * Writes org.w3c.dom.Document to OutputStream
+  // *
+  // * @param doc
+  // * @throws IOException
+  // */
+  // public static OutputStream output(Document doc) throws IOException {
+  // OutputStream baos = new ByteArrayOutputStream();
+  // StreamResult streamResult = new StreamResult(baos);
+  // outputBase(doc, streamResult);
+  // return baos;
+  // }
 
   /**
    * Writes org.w3c.dom.Document to XML file
@@ -184,17 +180,17 @@ public class DOMUtilities {
     outputBase(doc, streamResult);
   }
 
-  /**
-   * Writes org.w3c.dom.Document to OutputStream
-   * 
-   * @param doc
-   * @throws IOException
-   */
-  public static void output(Document doc, OutputStream os) throws IOException {
-
-    StreamResult streamResult = new StreamResult(os);
-    outputBase(doc, streamResult);
-  }
+  // /**
+  // * Writes org.w3c.dom.Document to OutputStream
+  // *
+  // * @param doc
+  // * @throws IOException
+  // */
+  // public static void output(Document doc, OutputStream os) throws IOException {
+  //
+  // StreamResult streamResult = new StreamResult(os);
+  // outputBase(doc, streamResult);
+  // }
 
   /**
    * Base procedure for xml serialization
@@ -203,7 +199,7 @@ public class DOMUtilities {
    * @param streamResult r
    * @throws IOException
    */
-  public static void outputBase(Document doc, StreamResult streamResult) throws IOException {
+  private static void outputBase(Document doc, StreamResult streamResult) throws IOException {
     DOMSource domSource = new DOMSource(doc);
     TransformerFactory tf =
         TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
@@ -228,10 +224,10 @@ public class DOMUtilities {
    * @throws IOException
    */
   public static String outputString(Document doc) throws IOException {
-
     StringWriter output = new StringWriter();
     StreamResult streamResult = new StreamResult(output);
     outputBase(doc, streamResult);
+
     return output.toString();
   }
 
@@ -294,62 +290,62 @@ public class DOMUtilities {
     }
   }
 
-  /**
-   * Return the text value of the selected attribute.
-   * 
-   * @param node The node.
-   * @param xPath The xpath to select the node containint the attribute,
-   * @param attributeName The name of the attribute.
-   * @return The text value of the selected attribute.
-   * @throws Exception If anything fails.
-   */
-  public static String getAttributeValue(final Node node, final String xPath,
-      final String attributeName) throws Exception {
-    if (node == null) {
-      throw new IllegalArgumentException("getAttributeValue:node is null");
+  // /**
+  // * Return the text value of the selected attribute.
+  // *
+  // * @param node The node.
+  // * @param xPath The xpath to select the node containint the attribute,
+  // * @param attributeName The name of the attribute.
+  // * @return The text value of the selected attribute.
+  // * @throws Exception If anything fails.
+  // */
+  // public static String getAttributeValue(final Node node, final String xPath,
+  // final String attributeName) throws Exception {
+  // if (node == null) {
+  // throw new IllegalArgumentException("getAttributeValue:node is null");
+  //
+  // }
+  // if (xPath == null) {
+  // throw new IllegalArgumentException("getAttributeValue:xPath is null");
+  // }
+  // if (attributeName == null) {
+  // throw new IllegalArgumentException("getAttributeValue:attributeName is null");
+  // }
+  // String result = null;
+  // Node attribute = selectSingleNode(node, xPath);
+  // if (attribute.hasAttributes()) {
+  // result = attribute.getAttributes().getNamedItem(attributeName).getTextContent();
+  // }
+  // return result;
+  // }
 
-    }
-    if (xPath == null) {
-      throw new IllegalArgumentException("getAttributeValue:xPath is null");
-    }
-    if (attributeName == null) {
-      throw new IllegalArgumentException("getAttributeValue:attributeName is null");
-    }
-    String result = null;
-    Node attribute = selectSingleNode(node, xPath);
-    if (attribute.hasAttributes()) {
-      result = attribute.getAttributes().getNamedItem(attributeName).getTextContent();
-    }
-    return result;
-  }
-
-  /**
-   * Gets the value of the specified attribute of the root element from the document.
-   * 
-   * @param document The document to retrieve the value from.
-   * @param attributeName The name of the attribute whose value shall be retrieved.
-   * @return Returns the attribute value.
-   * @throws Exception If anything fails.
-   * @throws TransformerException
-   */
-  public static String getRootElementAttributeValue(final Document document,
-      final String attributeName) throws Exception {
-    if (document == null) {
-      throw new IllegalArgumentException("getRootElementAttributeValue:document is null");
-    }
-    if (attributeName == null) {
-      throw new IllegalArgumentException("getRootElementAttributeValue:attributeName is null");
-    }
-    String xPath;
-    if (attributeName.startsWith("@")) {
-      xPath = "/*/" + attributeName;
-    } else {
-      xPath = "/*/@" + attributeName;
-    }
-
-    String value = selectSingleNode(document, xPath).getTextContent();
-    return value;
-  }
+  // /**
+  // * Gets the value of the specified attribute of the root element from the document.
+  // *
+  // * @param document The document to retrieve the value from.
+  // * @param attributeName The name of the attribute whose value shall be retrieved.
+  // * @return Returns the attribute value.
+  // * @throws Exception If anything fails.
+  // * @throws TransformerException
+  // */
+  // public static String getRootElementAttributeValue(final Document document,
+  // final String attributeName) throws Exception {
+  // if (document == null) {
+  // throw new IllegalArgumentException("getRootElementAttributeValue:document is null");
+  // }
+  // if (attributeName == null) {
+  // throw new IllegalArgumentException("getRootElementAttributeValue:attributeName is null");
+  // }
+  // String xPath;
+  // if (attributeName.startsWith("@")) {
+  // xPath = "/*/" + attributeName;
+  // } else {
+  // xPath = "/*/@" + attributeName;
+  // }
+  //
+  // String value = selectSingleNode(document, xPath).getTextContent();
+  // return value;
+  // }
 
   /**
    * Serialize the given Dom Object to a String.
@@ -382,24 +378,23 @@ public class DOMUtilities {
     return result;
   }
 
-  /**
-   * Assert that the Element/Attribute selected by the xPath exists.
-   * 
-   * @param message The message printed if assertion fails.
-   * @param node The Node.
-   * @param xPath The xPath.
-   * @throws Exception If anything fails.
-   */
-  public static boolean assertXMLExist(final Node node, final String xPath) throws Exception {
-
-    if (node == null) {
-      throw new IllegalArgumentException("assertXMLExist:node is null");
-    }
-    if (xPath == null) {
-      throw new IllegalArgumentException("assertXMLExist:xPath is null");
-    }
-    NodeList nodes = selectNodeList(node, xPath);
-    return (nodes.getLength() > 0 ? true : false);
-  }
-
+  // /**
+  // * Assert that the Element/Attribute selected by the xPath exists.
+  // *
+  // * @param message The message printed if assertion fails.
+  // * @param node The Node.
+  // * @param xPath The xPath.
+  // * @throws Exception If anything fails.
+  // */
+  // public static boolean assertXMLExist(final Node node, final String xPath) throws Exception {
+  //
+  // if (node == null) {
+  // throw new IllegalArgumentException("assertXMLExist:node is null");
+  // }
+  // if (xPath == null) {
+  // throw new IllegalArgumentException("assertXMLExist:xPath is null");
+  // }
+  // NodeList nodes = selectNodeList(node, xPath);
+  // return (nodes.getLength() > 0 ? true : false);
+  // }
 }

@@ -25,10 +25,6 @@
  */
 package de.mpg.mpdl.inge.model.valueobjects.statistics;
 
-import java.util.Date;
-
-import de.mpg.mpdl.inge.util.DateUtilities;
-
 /**
  * VO class representing a datevalue element of a statistic parameter
  * 
@@ -37,23 +33,21 @@ import de.mpg.mpdl.inge.util.DateUtilities;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class StatisticReportRecordDateParamValueVO extends StatisticReportRecordParamValueVO {
-  public StatisticReportRecordDateParamValueVO() {
-    super();
-  }
+  public StatisticReportRecordDateParamValueVO() {}
 
   public StatisticReportRecordDateParamValueVO(String value) {
     super(value);
-    // TODO Auto-generated constructor stub
   }
 
-  public Date getDateValue() {
-    try {
-      return DateUtilities.deserializeDate(value);
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return null;
-    }
-  }
+  // public Date getDateValue() {
+  // try {
+  // return DateUtilities.deserializeDate(value);
+  // } catch (Exception e) {
+  // // TODO Auto-generated catch block
+  // e.printStackTrace();
+  // return null;
+  // }
+  // }
 }

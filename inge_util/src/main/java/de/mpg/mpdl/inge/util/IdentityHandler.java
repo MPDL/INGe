@@ -54,15 +54,15 @@ public class IdentityHandler extends ShortContentHandler {
     return result.toString();
   }
 
-  /**
-   * Appends something to the result.
-   * 
-   * @param str The string to append
-   */
-  public void append(String str) {
-    result.append(str);
-    this.length += str.length();
-  }
+//  /**
+//   * Appends something to the result.
+//   * 
+//   * @param str The string to append
+//   */
+//  public void append(String str) {
+//    result.append(str);
+//    this.length += str.length();
+//  }
 
   /**
    * {@inheritDoc}
@@ -122,6 +122,7 @@ public class IdentityHandler extends ShortContentHandler {
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");
     }
+    
     return input;
   }
 
@@ -154,7 +155,7 @@ public class IdentityHandler extends ShortContentHandler {
     this.length += 2;
   }
 
-  public int getResultLength() {
-    return this.length;
-  }
+//  public int getResultLength() {
+//    return this.length;
+//  }
 }

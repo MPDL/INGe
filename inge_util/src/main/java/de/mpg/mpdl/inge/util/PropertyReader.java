@@ -54,17 +54,14 @@ import org.apache.log4j.Logger;
  * @revised by BrP: 03.09.2007
  */
 public class PropertyReader {
-  private static Properties properties;
-
+  private static Logger logger = Logger.getLogger(PropertyReader.class);
+  
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
+  private static Properties properties;
   private static URL solution;
-
   private static String fileLocation = "";
-
-  private static Logger logger = Logger.getLogger(PropertyReader.class);
-
-  static int counter = 0;
+  private static int counter = 0;
 
   private PropertyReader() {
     loadProperties();
@@ -85,6 +82,7 @@ public class PropertyReader {
 
   public static Properties getProperties() {
     PropertyReader.getInstance();
+    
     return PropertyReader.properties;
   }
 
@@ -101,17 +99,17 @@ public class PropertyReader {
     return getProperty("escidoc.framework_access.login.url");
   }
 
-  public static void setProperty(String key, String value) {
-
-    Object object = null;
-    if ((object = properties.getProperty(key)) != null) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Overwriting property (" + key + ", " + object.toString() + ")" + " with "
-            + value);
-      }
-    }
-    properties.setProperty(key, value);
-  }
+//  public static void setProperty(String key, String value) {
+//
+//    Object object = null;
+//    if ((object = properties.getProperty(key)) != null) {
+//      if (logger.isDebugEnabled()) {
+//        logger.debug("Overwriting property (" + key + ", " + object.toString() + ")" + " with "
+//            + value);
+//      }
+//    }
+//    properties.setProperty(key, value);
+//  }
 
   /**
    * Force the property file to be reloaded into the Properties object
@@ -241,9 +239,9 @@ public class PropertyReader {
     return counter;
   }
 
-  static void clean() {
-    properties = null;
-  }
+//  static void clean() {
+//    properties = null;
+//  }
 
   private static class PropertyReaderHolder {
     private static final PropertyReader instance = new PropertyReader();
