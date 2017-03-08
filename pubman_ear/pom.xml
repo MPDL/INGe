@@ -127,10 +127,7 @@
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>inge_validation</artifactId>
 						</ejbModule>
-						<ejbModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>transformation</artifactId>
-						</ejbModule>
+						
 					</modules>
 
 				</configuration>
@@ -214,9 +211,6 @@
 			<artifactId>structuredexportmanager</artifactId>
 			<type>ejb</type>
 		</dependency>
-		<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>validation</artifactId> 
-			<type>ejb</type> </dependency> <dependency> <groupId>de.mpg.mpdl.inge</groupId> 
-			<artifactId>validation_presentation</artifactId> <type>war</type> </dependency> -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
@@ -244,7 +238,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformation</artifactId>
+			<artifactId>transformationManager</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
@@ -282,9 +276,7 @@
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
-		<!-- <dependency> <groupId>de.mpg.escidoc.services.wildfly</groupId> <artifactId>sword_presentation</artifactId> 
-			<version>1.0.68-SNAPSHOT</version> <scope>compile</scope> <type>war</type> 
-			</dependency> -->
+	
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pid_cache_presentation</artifactId>

@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.dataacquisition;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,10 +38,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-
-import noNamespace.SourceType;
-import noNamespace.SourcesDocument;
-import noNamespace.SourcesType;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
@@ -49,10 +47,15 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import de.mpg.mpdl.inge.util.ResourceUtil;
+import noNamespace.SourceType;
+import noNamespace.SourcesDocument;
+import noNamespace.SourcesType;
 
 
 
@@ -67,24 +70,16 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  */
 public class Util {
 
-  private TransformationBean transformer;
   private static final Logger logger = Logger.getLogger(Util.class);
   private static final String internalFormat = "eSciDoc-publication-item";
   private static final String transformationService = "escidoc";
   private static final String dummyFormat = "unknown";
+  private static final String METADATA_XSLT_LOCATION = "transformations/thirdParty/xslt";
 
   // Cone
   private static final String coneMethod = "escidocmimetypes";
   private static final String coneRel1 = "/resource/";
   private static final String coneRel2 = "?format=rdf";
-
-
-  /**
-   * Public constructor.
-   */
-  public Util() {
-    this.transformer = new TransformationBean();
-  }
 
   /**
    * Retrieves the default encoding ("UTF-8").
@@ -92,8 +87,8 @@ public class Util {
    * @param formatName
    * @return default encoding
    */
-  public String getDefaultEncoding(String formatName) {
-    if (formatName.equalsIgnoreCase(this.getInternalFormat())) {
+  public static String getDefaultEncoding(String formatName) {
+    if (formatName.equalsIgnoreCase(getInternalFormat())) {
       return "UTF-8";
     }
     return "*";
@@ -103,7 +98,7 @@ public class Util {
    * @param formatName
    * @return default mimetype
    */
-  public String getDefaultMimeType(String formatName) {
+  public static String getDefaultMimeType(String formatName) {
     if ("apa".equalsIgnoreCase(formatName)) {
       return "text/html";
     }
@@ -173,14 +168,15 @@ public class Util {
     }
 
     // Second: check which format can be transformed into the given format
-    Format[] possibleFormats =
-        this.transformer.getSourceFormats(new Format(trgFormatName, trgFormatType,
-            trgFormatEndcoding));
+    de.mpg.mpdl.inge.transformation.util.Format oldFormat =
+        new de.mpg.mpdl.inge.transformation.util.Format(trgFormatName, trgFormatType,
+            trgFormatEndcoding);
+    FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(oldFormat.toFORMAT());
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
       for (int x = 0; x < possibleFormats.length; x++) {
-        Format possibleFormat = possibleFormats[x];
+        Format possibleFormat = Util.fromFORMAT(possibleFormats[x]);
         boolean fetchMd = true;
 
         if (!sourceMd.getName().equalsIgnoreCase(possibleFormat.getName())) {
@@ -218,12 +214,12 @@ public class Util {
     Format escidoc =
         new Format(this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()),
             this.getDefaultEncoding(this.getInternalFormat()));
-    Format[] formats;
+    FORMAT[] formats;
 
-    formats = this.transformer.getTargetFormats(escidoc);
+    formats = TransformerFactory.getAllTargetFormatsFor(escidoc.toFORMAT());
 
     for (int i = 0; i < formats.length; i++) {
-      if (this.isFormatEqual(target, formats[i])) {
+      if (this.isFormatEqual(target, Util.fromFORMAT(formats[i]))) {
         return true;
       }
     }
@@ -278,7 +274,7 @@ public class Util {
    * @param identifier
    * @return a trimed identifier
    */
-  public String trimIdentifier(DataSourceVO source, String identifier) {
+  public static String trimIdentifier(DataSourceVO source, String identifier) {
     List<String> idPrefVec = source.getIdentifier();
 
     for (int i = 0; i < idPrefVec.size(); i++) {
@@ -317,11 +313,11 @@ public class Util {
     for (int i = 0; i < fetchFormats.size(); i++) {
       MetadataVO md = fetchFormats.get(i);
       Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      Format[] formats = this.transformer.getTargetFormats(format);
-      formats = this.handleDuplicateFormatNames(formats);
+      FORMAT[] formats = TransformerFactory.getAllTargetFormatsFor(format.toFORMAT());
+      // formats = this.handleDuplicateFormatNames(formats);
       // Create MetadataVO
       for (int x = 0; x < formats.length; x++) {
-        Format formatTrans = formats[x];
+        Format formatTrans = Util.fromFORMAT(formats[x]);
         MetadataVO mdTrans = new MetadataVO();
         mdTrans.setName(formatTrans.getName());
         mdTrans.setMdFormat(formatTrans.getType());
@@ -346,9 +342,9 @@ public class Util {
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);
       Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      Format[] trgFormats = this.transformer.getTargetFormats(format);
+      FORMAT[] trgFormats = TransformerFactory.getAllTargetFormatsFor(format.toFORMAT());
       for (int x = 0; x < trgFormats.length; x++) {
-        Format trgFormat = trgFormats[x];
+        Format trgFormat = Util.fromFORMAT(trgFormats[x]);
         if (trgFormat.getName().equals(this.getInternalFormat())) {
           return true;
         }
@@ -516,7 +512,7 @@ public class Util {
    * @param identifier
    * @return trimmed sourceName as String
    */
-  public String trimSourceName(String sourceName, String identifier) {
+  public static String trimSourceName(String sourceName, String identifier) {
     if (identifier.startsWith("http://dev-pubman")) {
       sourceName = "escidocdev";
     }
@@ -540,7 +536,7 @@ public class Util {
    * @param identifier
    * @return escidoc identifier as String
    */
-  public String setEsciDocIdentifier(String identifier) {
+  public static String setEsciDocIdentifier(String identifier) {
     if (identifier.contains("/")) {
       String[] extracts = identifier.split("/");
       return extracts[extracts.length - 1];
@@ -553,30 +549,7 @@ public class Util {
     }
   }
 
-  /**
-   * This methods gets a List of formats, checks the formats names and adds the format type to the
-   * name, if the name occurs more than once in the list.
-   * 
-   * @param formats
-   * @return List of FormatVOs
-   */
-  private Format[] handleDuplicateFormatNames(Format[] formats) {
-    for (int i = 0; i < formats.length; i++) {
-      Format currentFormat = formats[i];
-      Format[] currentVector = formats;
-      for (int x = i + 1; x < currentVector.length; x++) {
-        Format compareFormat = currentVector[x];
-        if (currentFormat.getName().equalsIgnoreCase(compareFormat.getName())) {
-          Format updatedFormat =
-              new Format(currentFormat.getName() + "_" + currentFormat.getType(),
-                  currentFormat.getType(), currentFormat.getEncoding());
-          formats[i] = updatedFormat;
-        }
-      }
-    }
 
-    return formats;
-  }
 
   /**
    * Retrieves the fileending for a given mimetype from the cone service.
@@ -584,7 +557,7 @@ public class Util {
    * @param mimeType
    * @return fileending as String
    */
-  public String retrieveFileEndingFromCone(String mimeType) {
+  public static String retrieveFileEndingFromCone(String mimeType) {
     String suffix = null;
     URLConnection conn;
     InputStreamReader isReader;
@@ -626,7 +599,7 @@ public class Util {
     return suffix;
   }
 
-  public String getInternalFormat() {
+  public static String getInternalFormat() {
     return internalFormat;
   }
 
@@ -637,4 +610,57 @@ public class Util {
   public String getDummyFormat() {
     return dummyFormat;
   }
+
+  /**
+   * Reverts an enum FORMAT to a Format object.
+   * 
+   * @return Format object
+   */
+  public static Format fromFORMAT(FORMAT format) {
+
+    String type = "";
+    String name = "";
+
+    switch (format.toString().substring(0, 3)) {
+      case "PMC":
+        name = "pmc";
+        break;
+      case "BMC":
+        name = "bmc";
+        break;
+      case "SPI":
+        name = "spires";
+        break;
+      case "ARX":
+        name = "arxiv";
+        break;
+    }
+
+    if (format.toString().endsWith("XML")) {
+      type = "application/xml";
+    } else {
+      type = "application/pdf";
+    }
+
+    return new Format(name, type, "UTF-8");
+  }
+
+  public static boolean checkXsltTransformation(String formatFrom, String formatTo) {
+    String xsltUri = formatFrom.toLowerCase().trim() + "2" + formatTo.toLowerCase().trim() + ".xsl";
+    boolean check = false;
+
+    try {
+
+      File transformFile =
+          ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
+              Util.class.getClassLoader());
+      check = true;
+
+    } catch (FileNotFoundException e) {
+      logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);
+    }
+
+    return check;
+  }
+
 }

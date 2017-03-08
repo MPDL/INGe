@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,17 +19,17 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.TestHelper;
 import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
-import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -185,16 +186,15 @@ public class TestCitationManager {
     // It is in old MD set
     Format out = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
     Format in = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
-    TransformationBean trans = CitationUtil.getTransformationBean();
+    Transformer trans = TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
+    StringWriter wr = new StringWriter();
 
-    byte[] v2 =
-        trans.transform(
-            ResourceUtil.getResourceAsString("target/test-classes/testFiles/Sengbusch.xml",
-                CitationStyleManagerImpl.class.getClassLoader()).getBytes("UTF-8"), in, out,
-            "escidoc");
+    trans.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "target/test-classes/testFiles/Sengbusch.xml")), new TransformerStreamResult(wr));
 
 
-    testOutput("APA", "pdf", "Sengbusch", new String(v2, "UTF-8"));
+    testOutput("APA", "pdf", "Sengbusch", wr.toString());
 
   }
 

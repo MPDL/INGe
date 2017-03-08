@@ -25,11 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
-import java.io.IOException;
-
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  * Interface for retrieving an export file containing and presenting an item list in accordance of

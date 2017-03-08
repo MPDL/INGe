@@ -53,8 +53,6 @@ import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerDefaultImpl;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerInterface;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -158,21 +156,6 @@ public class CitationStyleExecutor implements CitationStyleHandler {
       // new edoc md set
       if ("escidoc_snippet".equals(outputFormat)) {
         result = snippet.getBytes("UTF-8");
-      }
-      // old edoc md set: back transformation
-      else if ("snippet".equals(outputFormat)) {
-        Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
-        Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
-
-        TransformationBean trans = CitationUtil.getTransformationBean();
-
-        byte[] v1 = null;
-        try {
-          v1 = trans.transform(snippet.getBytes("UTF-8"), in, out, "escidoc");
-        } catch (Exception e) {
-          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
-        }
-        result = v1;
       } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {
         result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
       } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
@@ -181,6 +164,7 @@ public class CitationStyleExecutor implements CitationStyleHandler {
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
         XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
         MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
+
         // mdp.addStyledParagraphOfText("Title", "Citation Style " + cs);
 
         List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
@@ -217,21 +201,12 @@ public class CitationStyleExecutor implements CitationStyleHandler {
 
         bos.flush();
         result = bos.toByteArray();
-
-
-
       }
-
-
-      // logger.info( "snippet: " + extractBibliographicCitation(snippet) );
-
     } catch (Exception e) {
       throw new RuntimeException("Error by transformation:", e);
     }
     //
     return result;
-    // return XmlHelper.outputString(itemListDoc).getBytes("UTF-8");
-
   }
 
 

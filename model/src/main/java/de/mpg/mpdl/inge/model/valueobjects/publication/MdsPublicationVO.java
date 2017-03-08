@@ -714,7 +714,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) //
+    else if (!identifiers.containsAll(other.identifiers)
         || !other.identifiers.containsAll(identifiers)) {
       return false;
     }

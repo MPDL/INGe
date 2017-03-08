@@ -47,8 +47,6 @@ import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SourceVOPresentation;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -90,9 +88,6 @@ public class ApplicationBean extends FacesBean {
 
   private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 
-  /** Initialization of the Transformation Service */
-  private Transformation transformationService;
-
   private Map<String, SelectItem[]> languageSelectItems;
   private Map<String, String> contentCategoryMap;
   private Map<String, String> excludedSourceGenreMap;
@@ -120,7 +115,6 @@ public class ApplicationBean extends FacesBean {
       logger.warn("System type is not retrievable! Setting now to PRODUCTION");
       this.systemType = SystemType.Production_Server;
     }
-    this.transformationService = new TransformationBean();
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
     this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
@@ -526,15 +520,6 @@ public class ApplicationBean extends FacesBean {
     return returnVal;
 
 
-  }
-
-
-  public Transformation getTransformationService() {
-    return this.transformationService;
-  }
-
-  public void setTransformationService(Transformation transformationService) {
-    this.transformationService = transformationService;
   }
 
   public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {

@@ -24,6 +24,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -119,8 +120,11 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -159,7 +163,7 @@ public class ViewItemFull extends FacesBean {
   private AccountUserVO latestModifier = null;
   private int defaultSize = 20;
   private YearbookItemSessionBean yisb;
-  private Transformation transformer;
+
   private String languages;
 
   @EJB
@@ -278,8 +282,6 @@ public class ViewItemFull extends FacesBean {
 
     // populate the core service Url
     this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-
-    this.transformer = getApplicationBean().getTransformationService();
 
     this.defaultSize =
         Integer.parseInt(PropertyReader.getProperty(
@@ -2509,16 +2511,39 @@ public class ViewItemFull extends FacesBean {
     try {
       String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
 
-      Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-      Format targetHighwire =
-          new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
-      byte[] resHighwire =
-          transformer.transform(itemXml.getBytes("UTF-8"), source, targetHighwire, "escidoc");
+      /*
+       * Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8"); Format
+       * targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html",
+       * "UTF-8");
+       */
+      StringWriter wr = new StringWriter();
 
-      Format targetDC = new Format("html-meta-tags-dc", "text/html", "UTF-8");
-      byte[] resDC = transformer.transform(itemXml.getBytes("UTF-8"), source, targetDC, "escidoc");
+      Transformer t1 =
+          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(
+              FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
 
-      String result = new String(resHighwire, "UTF-8") + new String(resDC, "UTF-8");
+      t1.transform(
+          new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+
+      String resHighwire = wr.toString();
+
+      /*
+       * Format targetDC = new Format("html-meta-tags-dc", "text/html", "UTF-8"); byte[] resDC =
+       * transformer.transform(itemXml.getBytes("UTF-8"), source, targetDC, "escidoc");
+       */
+      wr = new StringWriter();
+      Transformer t2 =
+          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(
+              FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
+
+      t2.transform(
+          new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+
+      String resDC = wr.toString();
+
+      String result = resHighwire + resDC;
       return result;
     } catch (Exception e1) {
       logger.error("could not create html metatags", e1);

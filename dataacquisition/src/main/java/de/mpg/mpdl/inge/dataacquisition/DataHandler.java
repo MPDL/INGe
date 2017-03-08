@@ -25,7 +25,8 @@ package de.mpg.mpdl.inge.dataacquisition;
 
 import java.rmi.AccessException;
 
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.util.Format;
+import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 
 /**
  * Interface for fetching data from external systems.

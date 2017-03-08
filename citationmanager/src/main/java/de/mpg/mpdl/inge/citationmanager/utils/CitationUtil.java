@@ -39,7 +39,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or
@@ -83,23 +82,6 @@ public class CitationUtil {
 
   public final static String CITATION_STYLE_XSL = "CitationStyle.xsl";
 
-
-
-  // TransformationBean placeholder
-  private static TransformationBean tb = null;
-
-
-  /**
-   * Returns TransformationBean (singleton)
-   * 
-   * @return TransformationBean
-   */
-  public static TransformationBean getTransformationBean() {
-    return tb == null ? tb = new TransformationBean(true) : tb;
-  }
-
-
-
   /**
    * Copies one bin file to other
    * 
@@ -127,18 +109,6 @@ public class CitationUtil {
    */
   public static String getPathToClasses() throws IOException {
     return "";
-    /*
-     * 
-     * String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
-     * 
-     * String result =
-     * ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString,
-     * "");
-     * 
-     * // jar context!!! //logger.debug("result:" + result); return result.indexOf(".jar!") == -1 ?
-     * //Decode necessary for windows paths URLDecoder.decode(result, "cp1253") :
-     * RESOURCES_DIRECTORY_JAR;
-     */
   }
 
 

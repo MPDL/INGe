@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.citationmanager.transformation;
 
+import java.io.ByteArrayInputStream;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,17 +36,18 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleHandlerBean;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Util.Styles;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 
 /**
  * Implements transformations for citation styles.
@@ -83,8 +86,7 @@ public class CitationTransformation {
    */
 
   public byte[] transformEscidocItemToCitation(byte[] src, Format srcFormat, Format trgFormat,
-      String service, boolean itemListBool) throws TransformationNotSupportedException,
-      RuntimeException {
+      String service, boolean itemListBool) throws TransformationException, RuntimeException {
 
     byte[] citation = null;
     try {
@@ -104,7 +106,7 @@ public class CitationTransformation {
           citeHandler.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "snippet",
               trgFormat.getName().toUpperCase()));
     } catch (CitationStyleManagerException e) {
-      throw new TransformationNotSupportedException(e);
+      throw new TransformationException(e);
     } catch (Exception e) {
       this.logger.error("An error occurred during a citation transformation.", e);
       throw new RuntimeException(e);
@@ -124,9 +126,8 @@ public class CitationTransformation {
    * @return
    */
   public byte[] transformOutputFormat(byte[] src, Format srcFormat, Format trgFormat, String service)
-      throws TransformationNotSupportedException, RuntimeException {
+      throws TransformationException, RuntimeException {
     byte[] result = null;
-    Transformation transformer = new TransformationBean();
 
     // Create input format
     Styles style = Util.getStyleInfo(trgFormat);
@@ -139,8 +140,15 @@ public class CitationTransformation {
     Format output =
         new Format(this.getOutputFormat(trgFormat.getType()), trgFormat.getType(),
             trgFormat.getEncoding());
-    // Do the transformation
-    return result = transformer.transform(src, input, output, service);
+
+    StringWriter wr = new StringWriter();
+    Transformer t =
+        de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(input.toFORMAT(),
+            output.toFORMAT());
+
+    t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
+        new TransformerStreamResult(wr));
+    return wr.toString().getBytes();
   }
 
   private String getOutputFormat(String type) {

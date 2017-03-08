@@ -64,8 +64,7 @@ public class DataAcquisitionUnitTest {
   @Test
   @Ignore
   public void fetchFromCone() throws Exception {
-    Util util = new Util();
-    String fileEnding = util.retrieveFileEndingFromCone("application/pdf");
+    String fileEnding = Util.retrieveFileEndingFromCone("application/pdf");
     Assert.assertNotNull(fileEnding);
   }
 

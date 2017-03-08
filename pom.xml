@@ -58,10 +58,13 @@
 		<module>search_presentation</module>
 		<module>structuredexportmanager</module>
 		<module>syndication_presentation</module>
+		<module>transformationManager</module>
+ 
 		<module>transformation</module>
+
 		<module>validation</module>
 		<module>validation_presentation</module>
- 		<module>transformationManager</module>
+ 		
  	</modules>
 
 	<licenses>
@@ -334,12 +337,13 @@
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-
+ 
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformation</artifactId>
 				<version>1.0.83-SNAPSHOT</version>
 			</dependency>
+			
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformation</artifactId>
@@ -347,6 +351,19 @@
 				<type>ejb</type>
 			</dependency>
 
+
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>transformationManager</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>transformationManager</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>ejb</type>
+			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
