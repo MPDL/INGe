@@ -87,12 +87,12 @@
 						</webModule>
 						<!-- <webModule> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>sword_presentation</artifactId> 
 							<contextRoot>/sword-app</contextRoot> </webModule> -->
-						<webModule>
+						<!-- <webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pid_cache_presentation</artifactId>
 							<contextRoot>/pidcache</contextRoot>
 							<excluded>${exclude.module}</excluded>
-						</webModule>
+						</webModule> -->
 
 						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
