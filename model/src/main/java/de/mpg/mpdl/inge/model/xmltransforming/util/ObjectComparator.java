@@ -188,8 +188,8 @@ public class ObjectComparator {
         }
       } else if (fieldValue1 instanceof List) {
         // Check type of list
-        List list1 = (List) fieldValue1;
-        List list2 = (List) fieldValue2;
+        List<?> list1 = (List<?>) fieldValue1;
+        List<?> list2 = (List<?>) fieldValue2;
         if (list1.size() != list2.size()) {
           diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(),
               list1.size(), list2.size()}));
@@ -236,7 +236,7 @@ public class ObjectComparator {
     }
   }
 
-  private void checkAllFieldsForClass(Class theClass, Object o1, Object o2)
+  private void checkAllFieldsForClass(Class<?> theClass, Object o1, Object o2)
       throws IllegalAccessException {
     for (Field field : theClass.getDeclaredFields()) {
 
@@ -253,7 +253,7 @@ public class ObjectComparator {
 
   private String getFieldNames() {
     StringBuffer s = new StringBuffer();
-    for (Iterator iter = fieldnames.iterator(); iter.hasNext();) {
+    for (Iterator<String> iter = fieldnames.iterator(); iter.hasNext();) {
       String element = (String) iter.next();
       if (element.length() > 0) {
         if (s.length() > 0 && (!element.startsWith("["))) {

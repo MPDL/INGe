@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.test.gui.modules;
  * @author endres
  * 
  */
-public class EnumMatrix<E extends Enum, T extends Enum> {
+public class EnumMatrix<E extends Enum<?>, T extends Enum<?>> {
   public boolean[][] array = null;
 
   public EnumMatrix(int initialSize) {

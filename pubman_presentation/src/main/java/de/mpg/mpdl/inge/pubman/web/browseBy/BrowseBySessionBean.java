@@ -180,7 +180,7 @@ public class BrowseBySessionBean extends FacesBean {
         this.characters = new String[characters.size()];
         int counter = 0;
 
-        for (Iterator iterator = characters.iterator(); iterator.hasNext();) {
+        for (Iterator<Character> iterator = characters.iterator(); iterator.hasNext();) {
           Character character = (Character) iterator.next();
           this.characters[counter] = character.toString();
           counter++;
@@ -296,7 +296,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public void setYearStartAny() {
-    List years = new ArrayList();
+    List<Integer> years = new ArrayList<Integer>();
     int yearPublishedPrint = -1;
     int yearPublishedOnline = -1;
     int yearAccepted = -1;

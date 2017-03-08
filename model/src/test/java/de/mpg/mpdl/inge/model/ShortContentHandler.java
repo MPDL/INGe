@@ -32,7 +32,7 @@ public class ShortContentHandler extends DefaultHandler {
     if ("".equals(stack.toString())) {
       currentNamespaces = new HashMap<String, String>();
     } else {
-      currentNamespaces = (HashMap) getNamespaces().clone();
+      currentNamespaces = (HashMap<String, String>) getNamespaces().clone();
     }
     stack.push(name);
     for (int i = 0; i < attributes.getLength(); i++) {

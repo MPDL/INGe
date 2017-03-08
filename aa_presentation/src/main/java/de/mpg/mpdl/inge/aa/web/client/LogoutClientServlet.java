@@ -29,7 +29,7 @@ public class LogoutClientServlet extends HttpServlet {
       String clientClassName = Config.getProperty("escidoc.aa.client.logout.class");
       if (clientClassName != null) {
 
-        Class clientClass = Class.forName(clientClassName);
+        Class<?> clientClass = Class.forName(clientClassName);
         LogoutClient client = (LogoutClient) clientClass.newInstance();
         client.process(request, response);
       } else {

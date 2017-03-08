@@ -59,7 +59,7 @@ public class GenreSpecificItemManager {
       ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
       Object javaObject = this.pubItem;
 
-      for (Enumeration keys = genreBundle.getKeys(); keys.hasMoreElements();) {
+      for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
         String key = keys.nextElement().toString();
         map.put(key, genreBundle.getString(key));
       }
@@ -94,7 +94,7 @@ public class GenreSpecificItemManager {
       if (index > 0) {
         mappingString = mappingString.substring(index + 1);
         if (subObject instanceof List) {
-          for (Object subObjectElement : (ArrayList) subObject) {
+          for (Object subObjectElement : (ArrayList<?>) subObject) {
             List<Object> subResult = getMappedObject(subObjectElement, mappingString);
             result.addAll(subResult);
           }
@@ -116,7 +116,7 @@ public class GenreSpecificItemManager {
 
         if (javaObjectToNullify != null) {
           if (javaObjectToNullify instanceof List) {
-            if (((List) javaObjectToNullify).size() > 0) {
+            if (((List<?>) javaObjectToNullify).size() > 0) {
               method = javaObjectToNullify.getClass().getMethod("clear", new Class[] {});
               method.invoke(javaObjectToNullify, new Object[] {});
               result.add(method);

@@ -32,7 +32,7 @@ public class ShortContentHandler extends DefaultHandler {
     if ("".equals(stack.toString())) {
       currentNamespaces = new HashMap<String, String>();
     } else {
-      currentNamespaces = (HashMap) getNamespaces().clone();
+      currentNamespaces = (HashMap<String, String>) getNamespaces().clone();
     }
     stack.push(name);
     for (int i = 0; i < attributes.getLength(); i++) {
@@ -98,7 +98,7 @@ public class ShortContentHandler extends DefaultHandler {
     public synchronized String toString() {
       StringWriter writer = new StringWriter();
       for (Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
-        String element = (String) iterator.next();
+        String element = iterator.next();
         writer.append(element);
         if (iterator.hasNext()) {
           writer.append("/");

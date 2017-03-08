@@ -586,7 +586,7 @@ public class Feed extends SyndFeedImpl {
    */
   private List<SyndEntry> transformToEntryList(String itemListXml) throws SyndicationException {
 
-    List<SyndEntry> entries = new ArrayList();
+    List<SyndEntry> entries = new ArrayList<SyndEntry>();
 
     List<ItemVO> itemListVO = null;
     try {

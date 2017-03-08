@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.CriterionBean;
  */
 public abstract class DataModelManager<T> {
   protected List<T> objectList = null;
-  protected DataModel objectDM = null;
+  protected DataModel<?> objectDM = null;
 
   // //////////////////////////////////////////////////////////////////////////
   //
@@ -60,7 +60,7 @@ public abstract class DataModelManager<T> {
   public void setObjectList(List<T> objectList) {
     this.objectList = objectList;
     if (objectDM == null) {
-      objectDM = new ListDataModel();
+      objectDM = new ListDataModel<Object>();
     }
     objectDM.setWrappedData(objectList);
   }
@@ -71,12 +71,12 @@ public abstract class DataModelManager<T> {
    * 
    * @return DataModel
    */
-  public DataModel getObjectDM() {
+  public DataModel<?> getObjectDM() {
     if (objectList == null) {
       objectList = new ArrayList<T>();
     }
     if (objectDM == null) {
-      objectDM = new ListDataModel();
+      objectDM = new ListDataModel<Object>();
       objectDM.setWrappedData(objectList);
     }
     return objectDM;
@@ -97,7 +97,7 @@ public abstract class DataModelManager<T> {
    * 
    * @param objectDM new DataModel
    */
-  public void setObjectDM(DataModel objectDM) {
+  public void setObjectDM(DataModel<?> objectDM) {
     this.objectDM = objectDM;
   }
 

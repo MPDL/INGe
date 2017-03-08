@@ -302,18 +302,19 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * The interface the various specialized filters are implementing.
    */
-  public interface Filter extends Serializable, Comparable {
+  public interface Filter extends Serializable, Comparable<Object> {
   }
 
 
 
-  public abstract class AbstractFilter implements Comparable {
+  public abstract class AbstractFilter implements Comparable<Object> {
     public int compareTo(Object o) {
       return o.getClass().getName().compareTo(this.getClass().getName());
     }
 
   }
 
+  @SuppressWarnings("serial")
   public class CqlFilter extends AbstractFilter implements Filter {
     private String cql;
 

@@ -340,8 +340,8 @@ public class JiBXHelper {
    * 
    * @return A new {@link ArrayList}.
    */
-  public static List adminDescriptorVOListFactory() {
-    return new ArrayList();
+  public static List<?> adminDescriptorVOListFactory() {
+    return new ArrayList<Object>();
   }
 
   /**
