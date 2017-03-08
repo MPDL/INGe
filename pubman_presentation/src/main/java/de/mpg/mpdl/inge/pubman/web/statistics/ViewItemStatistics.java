@@ -115,7 +115,7 @@ public class ViewItemStatistics extends FacesBean {
     this.fileList = fileList;
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 

@@ -105,7 +105,7 @@ public class PubContextVOPresentation extends ContextVO implements
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
-  public static synchronized Object getSessionBean(final Class<?> cls) {
+  private static synchronized Object getSessionBean(final Class<?> cls) {
 
     String name = null;
 

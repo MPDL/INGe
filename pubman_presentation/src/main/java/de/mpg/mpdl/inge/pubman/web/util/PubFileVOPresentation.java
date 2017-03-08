@@ -467,7 +467,7 @@ public class PubFileVOPresentation extends FacesBean {
     return (EasySubmission) getSessionBean(EasySubmission.class);
   }
 
-  protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
+  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
     return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
   }
 }

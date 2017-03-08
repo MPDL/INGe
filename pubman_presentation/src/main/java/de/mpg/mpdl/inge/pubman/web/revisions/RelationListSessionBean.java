@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
 
@@ -48,15 +47,6 @@ public class RelationListSessionBean extends FacesBean {
   private String revisionDescription = new String();
 
   public RelationListSessionBean() {}
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
 
   public List<RelationVOPresentation> getRelationList() {
     return relationList;

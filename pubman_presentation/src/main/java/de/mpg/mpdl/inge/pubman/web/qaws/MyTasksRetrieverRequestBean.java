@@ -421,12 +421,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     return "";
   }
 
-  /**
-   * Returns the QAWSSessionBean.
-   * 
-   * @return a reference to the scoped data bean (QAWSSessionBean)
-   */
-  protected QAWSSessionBean getQAWSSessionBean() {
+  private QAWSSessionBean getQAWSSessionBean() {
     return (QAWSSessionBean) getSessionBean(QAWSSessionBean.class);
   }
 

@@ -74,7 +74,7 @@ public class SubmitItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : this.getCurrentPubItem().getMetadata().getCreators()) {
@@ -102,7 +102,7 @@ public class SubmitItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getCurrentPubItem() {
+  public PubItemVO getCurrentPubItem() {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
@@ -111,7 +111,7 @@ public class SubmitItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String submit() {
+  public String submit() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -160,7 +160,7 @@ public class SubmitItem extends FacesBean {
     return retVal;
   }
 
-  public final String cancel() {
+  public String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -199,7 +199,7 @@ public class SubmitItem extends FacesBean {
     return false;
   }
 
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 

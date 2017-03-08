@@ -92,8 +92,8 @@ public class CreateRevision extends FacesBean {
 
     if (selectedCollection != null) {
       return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM,
-          selectedCollection.getReference(), this.getSessionBean().getPubItemVO(),
-          this.getSessionBean().getRevisionDescription());
+          selectedCollection.getReference(), this.getRelationListSessionBean().getPubItemVO(),
+          this.getRelationListSessionBean().getRevisionDescription());
     } else {
       return null;
     }
@@ -105,36 +105,21 @@ public class CreateRevision extends FacesBean {
     }
 
     // re-init RevisionList
-    this.getSessionBean().setPubItemVO(this.getSessionBean().getPubItemVO());
+    this.getRelationListSessionBean().setPubItemVO(this.getRelationListSessionBean().getPubItemVO());
     // this.init();
 
     return CreateRevision.LOAD_CREATEREVISION;
   }
 
-  /**
-   * Returns the RevisionListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (RevisionListSessionBean)
-   */
-  protected RelationListSessionBean getSessionBean() {
+  private RelationListSessionBean getRelationListSessionBean() {
     return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  /**
-   * Returns the ContextListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ContextListSessionBean)
-   */
-  protected ContextListSessionBean getCollectionListSessionBean() {
+  private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 

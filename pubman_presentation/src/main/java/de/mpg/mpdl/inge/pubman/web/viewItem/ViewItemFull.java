@@ -903,7 +903,7 @@ public class ViewItemFull extends FacesBean {
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
-  protected AcceptItemSessionBean getAcceptItemSessionBean() {
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
@@ -2496,39 +2496,39 @@ public class ViewItemFull extends FacesBean {
     return returnValue;
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  protected ViewItemSessionBean getViewItemSessionBean() {
+  private ViewItemSessionBean getViewItemSessionBean() {
     return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
-  protected WithdrawItemSessionBean getWithdrawItemSessionBean() {
+  private WithdrawItemSessionBean getWithdrawItemSessionBean() {
     return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
   }
 
-  protected EditItemSessionBean getEditItemSessionBean() {
+  private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
   }
 
-  protected SubmitItemSessionBean getSubmitItemSessionBean() {
+  private SubmitItemSessionBean getSubmitItemSessionBean() {
     return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
   }
 
-  protected RightsManagementSessionBean getRightsManagementSessionBean() {
+  private RightsManagementSessionBean getRightsManagementSessionBean() {
     return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
   }
 
-  protected ItemVersionListSessionBean getItemVersionListSessionBean() {
+  private ItemVersionListSessionBean getItemVersionListSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 
-  protected RelationListSessionBean getRelationListSessionBean() {
+  private RelationListSessionBean getRelationListSessionBean() {
     return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
   }
 
-  protected ContextListSessionBean getCollectionListSessionBean() {
+  private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 }

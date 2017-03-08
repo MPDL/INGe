@@ -59,8 +59,8 @@ public class ReleaseHistory extends FacesBean {
   public void init() {
     // super.init();
 
-    if (this.getSessionBean().getVersionList() == null) {
-      this.getSessionBean().initVersionLists(
+    if (this.getItemVersionListSessionBean().getVersionList() == null) {
+      this.getItemVersionListSessionBean().initVersionLists(
           getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
               .getObjectId()));
     }
@@ -83,21 +83,11 @@ public class ReleaseHistory extends FacesBean {
     return null;
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  /**
-   * Returns the ItemVersionListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemVersionListSessionBean)
-   */
-  protected ItemVersionListSessionBean getSessionBean() {
+  private ItemVersionListSessionBean getItemVersionListSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 

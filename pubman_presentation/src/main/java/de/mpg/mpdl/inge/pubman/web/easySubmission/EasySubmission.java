@@ -2043,23 +2043,23 @@ public class EasySubmission extends FacesBean {
     this.alternativeLanguageName = alternativeLanguageName;
   }
 
-  protected ContextListSessionBean getContextListSessionBean() {
+  private ContextListSessionBean getContextListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  protected EasySubmissionSessionBean getEasySubmissionSessionBean() {
+  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
     return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
   }
 
-  protected EditItemSessionBean getEditItemSessionBean() {
+  private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  protected PubItemListSessionBean getPubItemListSessionBean() {
+  private PubItemListSessionBean getPubItemListSessionBean() {
     return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
   }
 }

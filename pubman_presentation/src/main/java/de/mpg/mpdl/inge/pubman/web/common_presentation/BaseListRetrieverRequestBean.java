@@ -138,13 +138,8 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     this.basePaginatorListSessionBean = basePaginatorListSessionBean;
   }
 
-  /**
-   * Returns the corresponding BasePaginatorListSessionBean
-   * 
-   * @return basePaginatorListSessionBean
-   */
   public BasePaginatorListSessionBean<ListElementType, FilterType> getBasePaginatorListSessionBean() {
-    return basePaginatorListSessionBean;
+    return this.basePaginatorListSessionBean;
   }
 
   public void setUnapiURLview(String unapiURLview) {
@@ -152,7 +147,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
   }
 
   public String getUnapiURLview() {
-    return unapiURLview;
+    return this.unapiURLview;
   }
 
 }

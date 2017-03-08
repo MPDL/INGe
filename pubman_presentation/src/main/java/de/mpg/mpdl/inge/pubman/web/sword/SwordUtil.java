@@ -889,7 +889,7 @@ public class SwordUtil extends FacesBean {
     this.currentDeposit = currentDeposit;
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  public ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 }

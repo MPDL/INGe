@@ -48,7 +48,6 @@ import de.mpg.mpdl.inge.pubman.web.home.Home;
 import de.mpg.mpdl.inge.pubman.web.itemLog.ViewItemLog;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
-import de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.NavigationRule;
@@ -98,10 +97,10 @@ public class Navigation extends FacesBean {
         ViewItemRevisionsPage.LOAD_VIEWREVISIONS));
     this.navRules.add(new NavigationRule("/faces/ViewItemReleaseHistoryPage.jsp",
         ReleaseHistory.LOAD_RELEASE_HISTORY));
-    this.navRules.add(new NavigationRule("/faces/AdvancedSearchPage.jsp",
-        AdvancedSearchEdit.LOAD_SEARCHPAGE));
-    this.navRules.add(new NavigationRule("/faces/EasySubmissionPage.jsp",
-        EasySubmission.LOAD_EASYSUBMISSION));
+    this.navRules.add(
+        new NavigationRule("/faces/AdvancedSearchPage.jsp", AdvancedSearchEdit.LOAD_SEARCHPAGE));
+    this.navRules.add(
+        new NavigationRule("/faces/EasySubmissionPage.jsp", EasySubmission.LOAD_EASYSUBMISSION));
   }
 
   /**
@@ -220,58 +219,16 @@ public class Navigation extends FacesBean {
         .get(name);
   }
 
-  /**
-   * Returns the AffiliationSessionBean.
-   * 
-   * @return a reference to the scoped data bean (AffiliationSessionBean)
-   */
-  protected AffiliationBean getAffiliationBean() {
-    return (AffiliationBean) getSessionBean(AffiliationBean.class);
-  }
-
-  /**
-   * Returns the ReleasesSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ReleasesSessionBean)
-   */
-  protected ItemVersionListSessionBean getItemVersionSessionBean() {
+  private ItemVersionListSessionBean getItemVersionSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 
-  /**
-   * Returns the RevisionListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (RevisionListSessionBean)
-   */
-  protected RelationListSessionBean getRevisionListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
-  }
-
-  /**
-   * Returns the ContextListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ContextListSessionBean)
-   */
-  protected ContextListSessionBean getCollectionListSessionBean() {
+  private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean.
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  /**
-   * Returns the AdvancedSearchEdit session bean.
-   * 
-   * @return AdvancedSearchEdit session bean.
-   */
-  protected AdvancedSearchEdit getAdvancedSearchEdit() {
-    return (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
   }
 
   public void setShowExportMenuOption(boolean showExportMenuOption) {
@@ -281,5 +238,4 @@ public class Navigation extends FacesBean {
   public boolean getShowExportMenuOption() {
     return showExportMenuOption;
   }
-
 }

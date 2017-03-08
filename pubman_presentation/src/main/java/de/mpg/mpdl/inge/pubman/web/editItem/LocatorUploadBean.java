@@ -48,8 +48,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
-  public EditItem editItem = new EditItem();
-  String error = null; // Error Message
+  String error = null;
 
   /**
    * Populates the FileVO.
@@ -74,12 +73,12 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
       // The initinally created empty file has to be deleted
       this.removeEmptyFile();
-      int index = this.editItem.getEditItemSessionBean().getFiles().size();
+      int index = this.getEditItemSessionBean().getFiles().size();
 
-      List<PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
+      List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
       PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
       list.add(pubFile);
-      this.editItem.getEditItemSessionBean().setFiles(list);
+      this.getEditItemSessionBean().setFiles(list);
     } catch (Exception e) {
       logger.error(e);
       this.error = getMessage("errorLocatorUploadFW");
@@ -87,13 +86,13 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   }
 
   public void removeEmptyFile() {
-    List<PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
+    List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
     for (int i = 0; i < list.size(); i++) {
       PubFileVOPresentation file = list.get(i);
       if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
-        List<PubFileVOPresentation> listClean = this.editItem.getEditItemSessionBean().getFiles();
+        List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getFiles();
         listClean.remove(i);
-        this.editItem.getEditItemSessionBean().setFiles(listClean);
+        this.getEditItemSessionBean().setFiles(listClean);
       }
     }
   }
@@ -102,25 +101,27 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
    * Removes the last added locator from the locator list.
    */
   public void removeLocator() {
-    List<PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getLocators();
+    List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
     for (int i = 0; i < list.size(); i++) {
       PubFileVOPresentation locatorPres = list.get(i);
       if (locatorPres.getFile().getContent().equals(super.locator)) {
-        List<PubFileVOPresentation> listClean =
-            this.editItem.getEditItemSessionBean().getLocators();
+        List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getLocators();
         listClean.remove(i);
-        this.editItem.getEditItemSessionBean().setLocators(listClean);
+        this.getEditItemSessionBean().setLocators(listClean);
 
         // Make sure at least one locator exists
         if (listClean.size() == 0) {
           FileVO newLocator = new FileVO();
           newLocator.getMetadataSets().add(new MdsFileVO());
           newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-          this.editItem.getEditItemSessionBean().getLocators()
+          this.getEditItemSessionBean().getLocators()
               .add(new PubFileVOPresentation(0, newLocator, true));
         }
       }
     }
   }
 
+  private EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
 }

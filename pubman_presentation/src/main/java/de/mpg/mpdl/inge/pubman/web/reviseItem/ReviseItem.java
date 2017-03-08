@@ -75,7 +75,7 @@ public class ReviseItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Perform initializations inherited from our superclass
     // super.init();
 
@@ -113,7 +113,7 @@ public class ReviseItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getPubItem() {
+  public PubItemVO getPubItem() {
     return (this.getItemControllerSessionBean().getCurrentPubItem());
   }
 
@@ -122,7 +122,7 @@ public class ReviseItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String revise() {
+  public String revise() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
@@ -159,24 +159,19 @@ public class ReviseItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String cancel() {
+  public String cancel() {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  public final String getNavigationStringToGoBack() {
+  public String getNavigationStringToGoBack() {
     return this.navigationStringToGoBack;
   }
 
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
     this.navigationStringToGoBack = navigationStringToGoBack;
   }
 

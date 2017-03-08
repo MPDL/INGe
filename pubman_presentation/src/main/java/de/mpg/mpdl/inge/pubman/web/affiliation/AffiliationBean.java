@@ -75,18 +75,6 @@ public class AffiliationBean extends FacesBean {
 
   }
 
-  /*
-   * public TreeModel getTree() { if (timestamp < ((AffiliationTree)
-   * getSessionBean(AffiliationTree.class)).getTimestamp()) { tree = new
-   * ChildPropertyTreeModel(getAffiliations(), "children"); List<SortCriterion> sortList = new
-   * ArrayList<SortCriterion>(); sortList.add(new SortCriterion("sortOrder", true));
-   * tree.setSortCriteria(sortList); timestamp = new Date().getTime(); } return tree; }
-   * 
-   * public void setTree(TreeModel tree) { this.tree = tree; }
-   * 
-   * public void select(SelectionEvent event) { logger.debug("SELECT: " + event); }
-   */
-
   public void selectNode(ActionEvent event) throws Exception {
     UIComponent component = event.getComponent();
     ValueExpression valueExpression = component.getValueExpression("text");
@@ -172,10 +160,6 @@ public class AffiliationBean extends FacesBean {
     }
     return null;
   }
-
-  // private AffiliationSessionBean getAffiliationSessionBean() {
-  // return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
-  // }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);

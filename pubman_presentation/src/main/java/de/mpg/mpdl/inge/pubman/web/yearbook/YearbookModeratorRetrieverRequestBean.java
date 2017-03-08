@@ -91,7 +91,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   public void readOutParameters() {
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
-      setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
+      setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
     } else {
       setSelectedOrgUnit(orgUnit);
     }
@@ -108,20 +108,20 @@ public class YearbookModeratorRetrieverRequestBean extends
   }
 
   public List<SelectItem> getOrgUnitSelectItems() {
-    return this.getSessionBean().getOrgUnitSelectItems();
+    return this.getYearbookCandidatesSessionBean().getOrgUnitSelectItems();
   }
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
-    this.getSessionBean().setSelectedOrgUnit(selectedOrgUnit);
+    this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
     getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit,
         selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
-    return this.getSessionBean().getSelectedOrgUnit();
+    return this.getYearbookCandidatesSessionBean().getSelectedOrgUnit();
   }
 
-  public YearbookCandidatesSessionBean getSessionBean() {
+  private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
     return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
   }
 

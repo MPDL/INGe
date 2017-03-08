@@ -1290,4 +1290,8 @@ public class PubItemListSessionBean extends
       e.printStackTrace();
     }
   }
+  
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
 }

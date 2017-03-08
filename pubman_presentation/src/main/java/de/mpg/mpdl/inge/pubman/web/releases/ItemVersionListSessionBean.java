@@ -32,7 +32,6 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.EventLogEntryVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.VersionHistoryVOPresentation;
@@ -58,15 +57,6 @@ public class ItemVersionListSessionBean extends FacesBean {
       new ArrayList<EventLogEntryVOPresentation>();
 
   public ItemVersionListSessionBean() {}
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
 
   public List<VersionHistoryVOPresentation> getVersionList() {
     return versionList;

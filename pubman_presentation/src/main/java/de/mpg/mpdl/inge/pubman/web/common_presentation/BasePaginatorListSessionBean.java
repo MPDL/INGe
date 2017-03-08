@@ -14,7 +14,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
@@ -899,14 +898,5 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
   public void setParameterMap(Map<String, String> redirectParameterMap) {
     this.redirectParameterMap = redirectParameterMap;
-  }
-
-  /**
-   * Returns the ItemControllerSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemControllerSessionBean)
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 }

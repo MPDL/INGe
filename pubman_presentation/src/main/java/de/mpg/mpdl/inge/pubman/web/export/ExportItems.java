@@ -103,7 +103,7 @@ public class ExportItems extends FacesBean {
    * @author StG
    * @return a reference to the scoped data bean (RightsManagementSessionBean)
    */
-  protected RightsManagementSessionBean getRightsManagementSessionBean() {
+  private RightsManagementSessionBean getRightsManagementSessionBean() {
     return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
   }
 
@@ -179,26 +179,13 @@ public class ExportItems extends FacesBean {
     return FILEFORMAT_OPTIONS;
   }
 
-
-
-  /*
-   * Gets the session bean.
-   */
-
-  public ExportItemsSessionBean getSessionBean() {
+  private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
-
-
 
   /*
    * Updates the GUI relatively the selected export format.
@@ -208,13 +195,13 @@ public class ExportItems extends FacesBean {
     // get the selected export format by the FacesBean
 
 
-    ExportItemsSessionBean sb = this.getSessionBean();
+    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
     // String selExportFormat = sb.getExportFormatType();
     String selExportFormat = sb.getExportFormatName();
 
     if (logger.isDebugEnabled()) {
       logger.debug(">>>  New export format: " + selExportFormat);
-      logger.debug("curExportFormat:" + this.getSessionBean().getCurExportFormatVO());
+      logger.debug("curExportFormat:" + sb.getCurExportFormatVO());
     }
 
     sb.setExportFormatName(selExportFormat);
@@ -262,7 +249,7 @@ public class ExportItems extends FacesBean {
    * @return String nav rule for loading the page the user came from
    */
   public String backToList() {
-    ExportItemsSessionBean sb = this.getSessionBean();
+    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
     cleanUpEmailFields();
     return sb.getNavigationStringToGoBack() != null ? sb.getNavigationStringToGoBack()
         : SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
@@ -272,7 +259,7 @@ public class ExportItems extends FacesBean {
    * Clean up some fields on the Email interface
    */
   private void cleanUpEmailFields() {
-    ExportItemsSessionBean sb = this.getSessionBean();
+    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
     // To
     sb.setEmailRecipients(null);
     // CC
@@ -302,17 +289,17 @@ public class ExportItems extends FacesBean {
   public String sendEMail() {
     logger.debug(">>>  sendEMail");
     String status = "not sent";
-    String smtpHost = this.getSessionBean().getEmailServernameProp();
-    String withAuth = this.getSessionBean().getEmailWithAuthProp();
-    String usr = this.getSessionBean().getEmailAuthUserProp();
-    String pwd = this.getSessionBean().getEmailAuthPwdProp();
-    String senderAddress = this.getSessionBean().getEmailSenderProp();// someone@web.de
-    String subject = this.getSessionBean().getExportEmailSubject();
-    String text = this.getSessionBean().getExportEmailTxt();
-    String[] replyToAddresses = new String[] {this.getSessionBean().getExportEmailReplyToAddr()};
-    String[] attachments = new String[] {this.getSessionBean().getAttExportFile().getPath()};
-    String recipientsAddressesStr = this.getSessionBean().getEmailRecipients();
-    String recipientsCCAddressesStr = this.getSessionBean().getEmailCCRecipients();
+    String smtpHost = this.getExportItemsSessionBean().getEmailServernameProp();
+    String withAuth = this.getExportItemsSessionBean().getEmailWithAuthProp();
+    String usr = this.getExportItemsSessionBean().getEmailAuthUserProp();
+    String pwd = this.getExportItemsSessionBean().getEmailAuthPwdProp();
+    String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
+    String subject = this.getExportItemsSessionBean().getExportEmailSubject();
+    String text = this.getExportItemsSessionBean().getExportEmailTxt();
+    String[] replyToAddresses = new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
+    String[] attachments = new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
+    String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
+    String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
 
     String[] recipientsAddresses = null;
     boolean OK = false;
