@@ -61,9 +61,7 @@
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon-dom</artifactId>
-			<version>8.7</version>
-			<scope>provided</scope>
+			<artifactId>saxon</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>

@@ -91,9 +91,8 @@
 			<artifactId>xmlunit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>saxon</groupId>
-			<artifactId>saxon</artifactId>
-			<version>8.7</version>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
