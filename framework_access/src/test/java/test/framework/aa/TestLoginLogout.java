@@ -65,18 +65,18 @@ public class TestLoginLogout {
     String handle1 =
         AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST),
             PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
-    String user = ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
+    ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
     String handle2 =
         AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST),
             PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
 
-    user = ServiceLocator.getUserAccountHandler(handle2).retrieve(scientistUserId);
+    ServiceLocator.getUserAccountHandler(handle2).retrieve(scientistUserId);
     // handle1 must still be valid
-    user = ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
+    ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
     // make handle2 invalid
     ServiceLocator.getUserManagementWrapper(handle2).logout();
     // handle1 must still be valid
-    user = ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
+    ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId);
   }
 
   /**

@@ -139,7 +139,7 @@ public class TestFile extends TestBase {
     ProxyHelper.executeMethod(client, method);
     logger.debug("Status=" + method.getStatusCode());
     assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-    Header contentTypeHeader = method.getResponseHeader("Content-Type");
+    method.getResponseHeader("Content-Type");
     // assertEquals(MIME_TYPE, contentTypeHeader.getValue());
     // returns currently html/text, becaus I cannot use InputStream !!!!
     // InputStream input = method.getResponseBodyAsStream();
