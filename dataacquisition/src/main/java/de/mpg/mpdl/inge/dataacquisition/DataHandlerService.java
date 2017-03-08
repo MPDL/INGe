@@ -166,6 +166,15 @@ public class DataHandlerService {
     return fetchedData;
   }
 
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public byte[] doFetch(String sourceName, String identifier, Format[] formats)
+  // throws DataaquisitionException {
+  // this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+  // identifier = this.util.trimIdentifier(this.currentSource, identifier);
+  // return this.fetchData(identifier, formats);
+  // }
 
   /**
    * {@inheritDoc}
@@ -213,6 +222,28 @@ public class DataHandlerService {
     return this.doFetch(sourceName, identifier, formatName, type, enc);
   }
 
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public String explainSources() throws DataaquisitionException {
+  // String explainXML = "";
+  // try {
+  // String sourcesXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
+  // logger.info("SourcesXml-Property: " + sourcesXmlPath);
+  // ClassLoader cl = this.getClass().getClassLoader();
+  // InputStream fileIn = cl.getResourceAsStream(sourcesXmlPath);
+  // BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, enc));
+  // String line = null;
+  // while ((line = br.readLine()) != null) {
+  // explainXML += line + "\n";
+  // }
+  //
+  // } catch (IOException e) {
+  // logger.error("An error occurred while accessing sources.xml.", e);
+  // throw new DataaquisitionException("An error occurred while accessing sources.xml.", e);
+  // }
+  // return explainXML;
+  // }
 
   /**
    * Operation for fetching data of type TEXTUALDATA.

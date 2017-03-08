@@ -110,10 +110,7 @@ public class CitationStyleLanguageManagerService {
       logger.error("Error getting output", e);
       throw new CitationStyleLanguageException("Error getting output", e);
     }
-    return result;
-  }
 
-  public static boolean isCitationStyle(String cs) {
-    return false;
+    return result;
   }
 }
