@@ -36,21 +36,6 @@ public class CitationStyleLanguageManagerService {
 
   private static String citationStyle = null;
 
-  /**
-   * default constructor
-   */
-  public CitationStyleLanguageManagerService() {}
-
-  /**
-   * constructor for setting an citation style explicit (not needed if you have a running CoNE
-   * instance and use the autosuggest)
-   * 
-   * @param citationStyleXml
-   */
-  public CitationStyleLanguageManagerService(String citationStyleXml) {
-    citationStyle = citationStyleXml;
-  }
-
   public static byte[] getOutput(ExportFormatVO exportFormat, String itemList)
       throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();

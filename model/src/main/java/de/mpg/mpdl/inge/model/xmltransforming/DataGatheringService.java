@@ -26,30 +26,13 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
-import java.net.URISyntaxException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.AffiliationNotFoundException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
@@ -130,122 +113,124 @@ public class DataGatheringService {
   }
 
 
-  /**
-   * {@inheritDoc}
-   */
-  public static List<OrganizationVO> createOrganizationListFromAffiliation(final String userHandle,
-      final AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException,
-      URISyntaxException {
-    logger.debug("createOrganizationListFromAffiliation(AffiliationVO)");
-    if (affiliation == null) {
-      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
-          + ":createOrganizationListFromAffiliation:affiliation is null");
-    }
-
-    final AffiliationRO affiliationRef = affiliation.getReference();
-    // initialize the result organization list
-    List<OrganizationVO> organizationList = new ArrayList<OrganizationVO>();
-    try {
-      // Get the affiliation paths for the given affiliation from the framework
-      OrganizationalUnitHandler ouHandler =
-          de.mpg.mpdl.inge.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
-      String affObjId = affiliationRef.getObjectId();
-      logger
-          .debug("createOrganizationListFromAffiliation(AffiliationVO) - trying to ouHandler.retrievePathList(affObjId) with affObjId="
-              + affObjId);
-      String affiliationPathListXML = ouHandler.retrievePathList(affObjId);
-      logger.debug("createOrganizationListFromAffiliation() - retrieved path list XML=\n"
-          + affiliationPathListXML);
-      List<AffiliationPathVO> affiliationPathVOList =
-          XmlTransformingService.transformToAffiliationPathList(affiliationPathListXML);
-
-      // cache already retrieved affiliations
-      // every cache entry consists of key:objectId, value: corresponding affiliation
-      // initialize cache with given affiliation
-      Map<String, AffiliationVO> affiliationCache = new HashMap<String, AffiliationVO>();
-      affiliationCache.put(affiliationRef.getObjectId(), affiliation);
-      // loop through the list of affiliation paths; every affiliation path yields one
-      // OrganizationVO
-      for (AffiliationPathVO affPathVO : affiliationPathVOList) {
-        // create a new OrganizationVO
-        OrganizationVO newOrg = new OrganizationVO();
-
-        // create and set organization ADDRESS (to the address of the given affiliation)
-        StringBuffer address = new StringBuffer();
-
-
-        // TODO FrM: Adapt this to new AffiliationVO structure
-
-        // appendAddressPart(affiliation.getAddress(), address);
-        // appendAddressPart(affiliation.getPostcode(), address);
-
-        if (affiliation.getMetadataSets().size() > 0
-            && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-          MdsOrganizationalUnitDetailsVO details =
-              (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
-          appendAddressPart(details.getCity(), address);
-          appendAddressPart(details.getCountryCode(), address);
-        }
-
-        if (address.length() > 0) {
-          newOrg.setAddress(address.toString());
-        }
-
-        // create and set organization ID (to the pid of the given affiliation)
-        if (affiliation.getReference() != null) {
-          newOrg.setIdentifier(affiliation.getReference().getObjectId());
-        }
-
-        // create and set organization NAME (to the concatenated list of organization names in the
-        // affiliation
-        // path)
-        // loop through the list of affiliationROs in the affiliation path
-        StringBuffer orgName = new StringBuffer();
-        for (AffiliationRO affRO : affPathVO.getAffiliationList()) {
-          String newAffObjId = affRO.getObjectId();
-          AffiliationVO newAff = affiliationCache.get(newAffObjId);
-          // check if affiliation(affRef) is already in the cache
-          if (newAff == null) {
-            // if not, retrieve the affiliation from the framework and put it in the cache
-            String newAffXML =
-                ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieve(newAffObjId);
-            newAff = XmlTransformingService.transformToAffiliation(newAffXML);
-            affiliationCache.put(newAffObjId, newAff);
-          }
-          if (orgName.length() > 0) {
-            orgName.append(ORGANIZATION_NAME_SEPARATOR);
-          }
-          if (newAff.getMetadataSets().size() > 0
-              && newAff.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-            MdsOrganizationalUnitDetailsVO details =
-                (MdsOrganizationalUnitDetailsVO) newAff.getMetadataSets().get(0);
-            orgName.append(details.getName());
-          }
-        }
-        newOrg.setName(orgName.toString());
-
-        // add the new OrganizationVO to the result list
-        organizationList.add(newOrg);
-      }
-    } catch (OrganizationalUnitNotFoundException e) {
-      logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-      throw new AffiliationNotFoundException(affiliationRef, e);
-    } catch (AuthenticationException e) {
-      logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-      throw new TechnicalException(e);
-    } catch (AuthorizationException e) {
-      logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-      throw new TechnicalException(e);
-    } catch (RemoteException e) {
-      logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-      throw new TechnicalException(e);
-    } catch (ServiceException e) {
-      logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-      throw new TechnicalException(e);
-    }
-
-    return organizationList;
-  }
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public static List<OrganizationVO> createOrganizationListFromAffiliation(final String
+  // userHandle,
+  // final AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException,
+  // URISyntaxException {
+  // logger.debug("createOrganizationListFromAffiliation(AffiliationVO)");
+  // if (affiliation == null) {
+  // throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
+  // + ":createOrganizationListFromAffiliation:affiliation is null");
+  // }
+  //
+  // final AffiliationRO affiliationRef = affiliation.getReference();
+  // // initialize the result organization list
+  // List<OrganizationVO> organizationList = new ArrayList<OrganizationVO>();
+  // try {
+  // // Get the affiliation paths for the given affiliation from the framework
+  // OrganizationalUnitHandler ouHandler =
+  // de.mpg.mpdl.inge.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
+  // String affObjId = affiliationRef.getObjectId();
+  // logger
+  // .debug("createOrganizationListFromAffiliation(AffiliationVO) - trying to
+  // ouHandler.retrievePathList(affObjId) with affObjId="
+  // + affObjId);
+  // String affiliationPathListXML = ouHandler.retrievePathList(affObjId);
+  // logger.debug("createOrganizationListFromAffiliation() - retrieved path list XML=\n"
+  // + affiliationPathListXML);
+  // List<AffiliationPathVO> affiliationPathVOList =
+  // XmlTransformingService.transformToAffiliationPathList(affiliationPathListXML);
+  //
+  // // cache already retrieved affiliations
+  // // every cache entry consists of key:objectId, value: corresponding affiliation
+  // // initialize cache with given affiliation
+  // Map<String, AffiliationVO> affiliationCache = new HashMap<String, AffiliationVO>();
+  // affiliationCache.put(affiliationRef.getObjectId(), affiliation);
+  // // loop through the list of affiliation paths; every affiliation path yields one
+  // // OrganizationVO
+  // for (AffiliationPathVO affPathVO : affiliationPathVOList) {
+  // // create a new OrganizationVO
+  // OrganizationVO newOrg = new OrganizationVO();
+  //
+  // // create and set organization ADDRESS (to the address of the given affiliation)
+  // StringBuffer address = new StringBuffer();
+  //
+  //
+  // // TODO FrM: Adapt this to new AffiliationVO structure
+  //
+  // // appendAddressPart(affiliation.getAddress(), address);
+  // // appendAddressPart(affiliation.getPostcode(), address);
+  //
+  // if (affiliation.getMetadataSets().size() > 0
+  // && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+  // MdsOrganizationalUnitDetailsVO details =
+  // (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
+  // appendAddressPart(details.getCity(), address);
+  // appendAddressPart(details.getCountryCode(), address);
+  // }
+  //
+  // if (address.length() > 0) {
+  // newOrg.setAddress(address.toString());
+  // }
+  //
+  // // create and set organization ID (to the pid of the given affiliation)
+  // if (affiliation.getReference() != null) {
+  // newOrg.setIdentifier(affiliation.getReference().getObjectId());
+  // }
+  //
+  // // create and set organization NAME (to the concatenated list of organization names in the
+  // // affiliation
+  // // path)
+  // // loop through the list of affiliationROs in the affiliation path
+  // StringBuffer orgName = new StringBuffer();
+  // for (AffiliationRO affRO : affPathVO.getAffiliationList()) {
+  // String newAffObjId = affRO.getObjectId();
+  // AffiliationVO newAff = affiliationCache.get(newAffObjId);
+  // // check if affiliation(affRef) is already in the cache
+  // if (newAff == null) {
+  // // if not, retrieve the affiliation from the framework and put it in the cache
+  // String newAffXML =
+  // ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieve(newAffObjId);
+  // newAff = XmlTransformingService.transformToAffiliation(newAffXML);
+  // affiliationCache.put(newAffObjId, newAff);
+  // }
+  // if (orgName.length() > 0) {
+  // orgName.append(ORGANIZATION_NAME_SEPARATOR);
+  // }
+  // if (newAff.getMetadataSets().size() > 0
+  // && newAff.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+  // MdsOrganizationalUnitDetailsVO details =
+  // (MdsOrganizationalUnitDetailsVO) newAff.getMetadataSets().get(0);
+  // orgName.append(details.getName());
+  // }
+  // }
+  // newOrg.setName(orgName.toString());
+  //
+  // // add the new OrganizationVO to the result list
+  // organizationList.add(newOrg);
+  // }
+  // } catch (OrganizationalUnitNotFoundException e) {
+  // logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
+  // throw new AffiliationNotFoundException(affiliationRef, e);
+  // } catch (AuthenticationException e) {
+  // logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
+  // throw new TechnicalException(e);
+  // } catch (AuthorizationException e) {
+  // logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
+  // throw new TechnicalException(e);
+  // } catch (RemoteException e) {
+  // logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
+  // throw new TechnicalException(e);
+  // } catch (ServiceException e) {
+  // logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
+  // throw new TechnicalException(e);
+  // }
+  //
+  // return organizationList;
+  // }
 
   /**
    * Appends a String to to a given StringBuffer. Add a comma followed by a blank as separator if
@@ -254,14 +239,14 @@ public class DataGatheringService {
    * @param addressPart
    * @param address
    */
-  private static void appendAddressPart(String addressPart, StringBuffer address) {
-    if (addressPart != null) {
-      if (address.length() > 0) {
-        address.append(", ");
-      }
-      address.append(addressPart);
-    }
-  }
+  // private static void appendAddressPart(String addressPart, StringBuffer address) {
+  // if (addressPart != null) {
+  // if (address.length() > 0) {
+  // address.append(", ");
+  // }
+  // address.append(addressPart);
+  // }
+  // }
 
   public static List<RelationVO> findParentContainer(String userHandle, String id)
       throws TechnicalException {

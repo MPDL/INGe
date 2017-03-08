@@ -409,47 +409,4 @@ public class DataSourceHandlerService {
     return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
   }
 
-  /**
-   * Print out source values for debug purpose.
-   * 
-   * @param source
-   */
-  public void printSourceXML(DataSourceVO source) {
-    String seperator = "____________________________________________________________________";
-    LOGGER.info(seperator);
-    LOGGER.info("Source Name        : " + source.getName());
-    LOGGER.info("Description        : " + source.getDescription());
-    LOGGER.info("Main URL           : " + java.net.URLDecoder.decode(source.getUrl().toString()));
-    LOGGER.info("Doc type           : " + source.getType());
-    LOGGER.info("Doc encoding       : " + source.getEncoding());
-    LOGGER.info("Identfier          : " + source.getIdentifier());
-    LOGGER.info("Harvest protocol   : " + source.getHarvestProtocol());
-    LOGGER.info("Timeout            : " + source.getTimeout());
-    LOGGER.info("Retry after        : " + source.getRetryAfter());
-    LOGGER.info("Number of tries    : " + source.getNumberOfTries());
-    LOGGER.info("Status             : " + source.getStatus());
-    LOGGER.info("License            : " + source.getLicense());
-    LOGGER.info("Copyright          : " + source.getCopyright());
-    LOGGER.info(seperator);
-    for (int i = 0; i < source.getMdFormats().size(); i++) {
-      MetadataVO md = source.getMdFormats().get(i);
-      LOGGER.info(seperator);
-      LOGGER.info("MD description     : " + md.getMdDesc());
-      LOGGER.info("MD format          : " + md.getMdFormat());
-      LOGGER.info("MD label           : " + md.getMdLabel());
-      LOGGER.info("MD URL             : " + java.net.URLDecoder.decode(md.getMdUrl().toString()));
-      LOGGER.info("MD default         : " + md.isMdDefault());
-      LOGGER.info(seperator);
-    }
-    for (int i = 0; i < source.getFtFormats().size(); i++) {
-      FullTextVO ft = source.getFtFormats().get(i);
-      LOGGER.info(seperator);
-      LOGGER.info("FT description     : " + ft.getFtDesc());
-      LOGGER.info("FT format          : " + ft.getFtFormat());
-      LOGGER.info("FT label           : " + ft.getFtLabel());
-      LOGGER.info("FT URL             : " + java.net.URLDecoder.decode(ft.getFtUrl().toString()));
-      LOGGER.info("FT default         : " + ft.isFtDefault());
-      LOGGER.info(seperator);
-    }
-  }
 }

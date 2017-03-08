@@ -78,6 +78,7 @@ public class CreateTripleStore {
       while ((line = bufferedReader.readLine()) != null) {
         pattern.add(line);
       }
+      bufferedReader.close();
       ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
       String query =
           "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model

@@ -67,6 +67,8 @@ public class BatchReplacer {
         replaceMap.put(key, value);
       }
     }
+    reader.close();
+
     for (String arg : args) {
       new BatchReplacer(new File(arg));
     }

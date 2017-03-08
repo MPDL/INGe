@@ -63,8 +63,6 @@ import net.sf.jasperreports.engine.JRException;
 public class SearchService {
   private static final Logger logger = Logger.getLogger(SearchService.class);
 
-  public SearchService() {}
-
   /** Coreservice identifier for the 'all' lucene index database. */
   public static final String INDEXDATABASE_ALL = "escidoc_all";
   /** Coreservice identifier for the 'item_container_admin' lucene index database. */

@@ -278,7 +278,7 @@ public class StructuredExportService {
    * @return
    * @throws StructuredExportManagerException
    */
-  public static HashMap<String, String> getFormatsHash() throws StructuredExportManagerException {
+  private static HashMap<String, String> getFormatsHash() throws StructuredExportManagerException {
     Document doc;
     try {
       doc = createDocumentBuilder().parse(new InputSource(new StringReader(explainFormats())));
@@ -310,7 +310,7 @@ public class StructuredExportService {
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
-  public static DocumentBuilder createDocumentBuilder() throws ParserConfigurationException {
+  private static DocumentBuilder createDocumentBuilder() throws ParserConfigurationException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     dbf.setIgnoringComments(true);

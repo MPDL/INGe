@@ -101,21 +101,12 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongEn
  * @revised by MuJ: 28.08.2007
  */
 public class JiBXHelper {
+  private JiBXHelper() {}
 
-  /**
-   * Hide default constructor.
-   */
-  private JiBXHelper() {
-
-  }
-
-  /**
-   * Logger for this class.
-   */
-  // private static final Logger logger = Logger.getLogger(JiBXHelper.class);
   public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
   public static final String IDTYPES_NAMESPACE_PREFIX = "eterms:";
   public static final String TYPES_NAMESPACE_PREFIX = "eterms:";
+
   /**
    * XML escaped characters mapping ("<" and "&" get escaped/unescaped automatically by JiBX) Note:
    * Only the characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and
