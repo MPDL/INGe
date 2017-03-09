@@ -48,7 +48,7 @@ public class TransformationService implements Transformation, Configurable {
   private static final Logger logger = Logger.getLogger(TransformationService.class);
 
   private static TransformationInitializer initializer = null;
-  private Class transformationClass = null;
+  private Class<?> transformationClass = null;
 
   /**
    * Public constructor.
@@ -201,7 +201,7 @@ public class TransformationService implements Transformation, Configurable {
     return Util.mergeFormats(allFormats);
   }
 
-  private Class getTransformationClassForTransformation(Format source, Format target)
+  private Class<?> getTransformationClassForTransformation(Format source, Format target)
       throws RuntimeException {
 
     Format[] targets;

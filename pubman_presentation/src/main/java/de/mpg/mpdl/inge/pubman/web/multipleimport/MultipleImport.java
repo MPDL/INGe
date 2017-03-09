@@ -64,9 +64,9 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  */
 @SuppressWarnings("serial")
 public class MultipleImport extends FacesBean {
-  private static final Logger logger = Logger.getLogger(MultipleImport.class);
-
   public static final String BEAN_NAME = "MultipleImport";
+
+  private static final Logger logger = Logger.getLogger(MultipleImport.class);
 
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
@@ -76,8 +76,6 @@ public class MultipleImport extends FacesBean {
   public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
   public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
   public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
-  // public static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml",
-  // "UTF-8");
   public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
   public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
   public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
@@ -88,24 +86,15 @@ public class MultipleImport extends FacesBean {
       "UTF-8");
   public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
+  private List<SelectItem> configParameters = null;
   private List<SelectItem> importFormats = new ArrayList<SelectItem>();
+  private Map<String, List<SelectItem>> parametersValues;
   private UploadedFile uploadedImportFile;
   private String fixedFileName;
   private File uploadedFile;
   private ContextVO context;
   private Format format;
   private String name;
-
-  /**
-   * A list of SelectItems representing the selected parameter values.
-   */
-  private List<SelectItem> configParameters = null;
-
-  /**
-   * A list of all available parameters and their values.
-   */
-  private Map<String, List<SelectItem>> parametersValues;
-
   private boolean rollback = true;
   private int duplicateStrategy = 3;
 
@@ -131,10 +120,7 @@ public class MultipleImport extends FacesBean {
     }
   };
 
-
   public MultipleImport() {
-    // super.init();
-
     // Standard formats
     this.importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
     this.importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
@@ -186,24 +172,18 @@ public class MultipleImport extends FacesBean {
 
     Map<String, String> configuration = null;
 
-    if (configParameters.size() > 0) {
+    if (this.configParameters.size() > 0) {
       configuration = new LinkedHashMap<String, String>();
     }
 
-    for (SelectItem si : configParameters) {
+    for (SelectItem si : this.configParameters) {
       configuration.put(si.getLabel(), si.getValue().toString());
     }
 
-    /*
-     * InputStream fileIs = null; if(uploadedImportFile.isTempFile()) { fileIs = new
-     * FileInputStream(uploadedImportFile.getFile()); } else { fileIs = new
-     * ByteArrayInputStream(uploadedImportFile.getData()); }
-     */
-
     ImportProcess importProcess =
-        new ImportProcess(this.name, uploadedImportFile.getFileName(), this.uploadedFile,
-            this.format, this.context.getReference(), getLoginHelper().getAccountUser(), rollback,
-            duplicateStrategy, configuration);
+        new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
+            this.format, this.context.getReference(), getLoginHelper().getAccountUser(), this.rollback,
+            this.duplicateStrategy, configuration);
     importProcess.start();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -212,11 +192,6 @@ public class MultipleImport extends FacesBean {
     return null;
   }
 
-  // private void cleanUp() {
-  // this.configParameters = null;
-  // this.parametersValues = null;
-  // }
-
   /**
    * JSF action that is triggered from the submission menu.
    * 
@@ -224,7 +199,6 @@ public class MultipleImport extends FacesBean {
    *         or multipleImport
    */
   public String newImport() {
-
     // clear the file
     this.uploadedImportFile = null;
 
@@ -259,11 +233,14 @@ public class MultipleImport extends FacesBean {
   public List<SelectItem> initConfigParameters() throws Exception {
     TransformationService transformation = new TransformationService();
     Map<String, String> config = null;
+    
     if (this.format != null) {
       config = transformation.getConfiguration(this.format, ESCIDOC_FORMAT);
     }
-    configParameters = new ArrayList<SelectItem>();
-    parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+    
+    this.configParameters = new ArrayList<SelectItem>();
+    this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+    
     if (config != null) {
       for (String key : config.keySet()) {
         List<String> values =
@@ -272,19 +249,19 @@ public class MultipleImport extends FacesBean {
         if (values != null) {
           for (String str : values)
             list.add(new SelectItem(str, str));
-          parametersValues.put(key, list);
+          this.parametersValues.put(key, list);
         }
-        configParameters.add(new SelectItem(config.get(key), key));
+        this.configParameters.add(new SelectItem(config.get(key), key));
       }
     }
 
-    return configParameters;
+    return this.configParameters;
   }
 
   public List<SelectItem> getConfigParameters() throws Exception {
-    if (configParameters == null)
+    if (this.configParameters == null)
       initConfigParameters();
-    return configParameters;
+    return this.configParameters;
   }
 
   public void setConfigParameters(List<SelectItem> list) {
@@ -292,7 +269,7 @@ public class MultipleImport extends FacesBean {
   }
 
   public Map<String, List<SelectItem>> getParametersValues() {
-    return parametersValues;
+    return this.parametersValues;
   }
 
   public void setParametersValues(Map<String, List<SelectItem>> parametersValues) {
@@ -348,7 +325,7 @@ public class MultipleImport extends FacesBean {
    * @return the uploadedImportFile
    */
   public UploadedFile getUploadedImportFile() {
-    return uploadedImportFile;
+    return this.uploadedImportFile;
   }
 
   /**
@@ -362,7 +339,7 @@ public class MultipleImport extends FacesBean {
    * @return the rollback
    */
   public boolean getRollback() {
-    return rollback;
+    return this.rollback;
   }
 
   /**
@@ -393,7 +370,7 @@ public class MultipleImport extends FacesBean {
    * @return the duplicateStrategy
    */
   public int getDuplicateStrategy() {
-    return duplicateStrategy;
+    return this.duplicateStrategy;
   }
 
   /**
@@ -420,10 +397,10 @@ public class MultipleImport extends FacesBean {
   public void fileUploaded(FileUploadEvent evt) {
     try {
       this.uploadedImportFile = evt.getFile();
-      this.fixedFileName = CommonUtils.fixURLEncoding(uploadedImportFile.getFileName());
-      this.uploadedFile = File.createTempFile(uploadedImportFile.getFileName(), ".tmp");
+      this.fixedFileName = CommonUtils.fixURLEncoding(this.uploadedImportFile.getFileName());
+      this.uploadedFile = File.createTempFile(this.uploadedImportFile.getFileName(), ".tmp");
       FileOutputStream fos = new FileOutputStream(this.uploadedFile);
-      InputStream is = uploadedImportFile.getInputstream();
+      InputStream is = this.uploadedImportFile.getInputstream();
       IOUtils.copy(is, fos);
       fos.flush();
       fos.close();

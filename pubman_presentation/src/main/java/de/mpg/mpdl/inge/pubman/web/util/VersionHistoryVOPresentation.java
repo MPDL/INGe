@@ -40,10 +40,6 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     }
   }
 
-  public String getFormattedModificationDate() {
-    return CommonUtils.format(getModificationDate());
-  }
-
   public List<EventLogEntryVOPresentation> getEventLogEntries() {
     return this.eventLogEntries;
   }
