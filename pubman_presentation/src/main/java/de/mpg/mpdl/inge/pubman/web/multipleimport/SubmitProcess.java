@@ -28,6 +28,10 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -56,11 +60,11 @@ public class SubmitProcess extends Thread {
     this.log.setPercentage(5);
     this.log.startItem("import_process_submit_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process");
+    
     try {
       user = new AccountUserVO();
       user.setHandle(log.getUserHandle());
       user.setUserid(log.getUser());
-
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
@@ -68,6 +72,7 @@ public class SubmitProcess extends Thread {
       this.log.close();
       throw new RuntimeException(e);
     }
+    
     this.log.finishItem();
     this.log.setPercentage(5);
   }
@@ -94,38 +99,28 @@ public class SubmitProcess extends Thread {
           log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
 
           String itemXml = this.itemHandler.retrieve(item.getItemId());
-          PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXml);
-          // ContextRO contextRO = itemVO.getContext();
-          // ContextVO contextVO;
-          // if (this.contexts.containsKey(contextRO.getObjectId()))
-          // {
-          // contextVO = this.contexts.get(contextRO.getObjectId());
-          // }
-          // else
-          // {
-          // log.addDetail(ErrorLevel.FINE, "import_process_retrieve_context");
-          // String contextXml = contextHandler.retrieve(contextRO.getObjectId());
-          // contextVO = xmlTransforming.transformToContext(contextXml);
-          // this.contexts.put(contextVO.getReference().getObjectId(), contextVO);
-          // }
-          // log.addDetail(ErrorLevel.FINE, "import_process_choose_workflow");
-          // Workflow workflow = contextVO.getAdminDescriptor().getWorkflow();
-          //
-          // log.addDetail(ErrorLevel.FINE, "Workflow is " + workflow.toString());
+          PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
 
-          // TODO save???
+          try {
+            ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
+          } catch (ItemInvalidException e) {
+            this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
+            for (ValidationReportItemVO v : e.getReport().getItems()) {
+              this.log.addDetail(ErrorLevel.WARNING, v.getContent());
+            }
+            throw e;
+          }
+
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            itemVO =
-                PubItemService.submitPubItem(itemVO,
-                    "Batch submit/release from import " + log.getMessage(), user);
-            PubItemService.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(),
+            pubItemVO = PubItemService.submitPubItem(pubItemVO,
+                "Batch submit/release from import " + log.getMessage(), user);
+            PubItemService.releasePubItem(pubItemVO.getVersion(), pubItemVO.getModificationDate(),
                 "Batch submit/release from import " + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
-
           } else {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            PubItemService.submitPubItem(itemVO, "Batch submit from import " + log.getMessage(),
+            PubItemService.submitPubItem(pubItemVO, "Batch submit from import " + log.getMessage(),
                 user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }
@@ -136,6 +131,7 @@ public class SubmitProcess extends Thread {
           log.addDetail(ErrorLevel.WARNING, e);
           log.finishItem();
         }
+        
         counter++;
         log.setPercentage(85 * counter / itemCount + 10);
       }
