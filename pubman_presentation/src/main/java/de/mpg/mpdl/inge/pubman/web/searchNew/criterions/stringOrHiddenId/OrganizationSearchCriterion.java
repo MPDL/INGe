@@ -28,7 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
@@ -50,7 +52,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       case ESCIDOC_ALL:
         return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
       case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
+        return new String[] {
+            "\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
     }
     return null;
   }
@@ -160,8 +163,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-
-    AffiliationVO affiliation = ItemControllerSessionBean.retrieveAffiliation(getHiddenId());
+    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(
+        ServiceLocator.getOrganizationalUnitHandler().retrieve(getHiddenId()));
     allAffs.add(affiliation);
 
     AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
