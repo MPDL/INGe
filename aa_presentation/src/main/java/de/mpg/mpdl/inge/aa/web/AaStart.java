@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.aa.web;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Date;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,10 +36,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
-
 import de.mpg.mpdl.inge.aa.Config;
-import de.mpg.mpdl.inge.aa.TanStore;
 
 /**
  * TODO Description
@@ -51,6 +46,7 @@ import de.mpg.mpdl.inge.aa.TanStore;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class AaStart extends HttpServlet {
 
   private static final Pattern authPattern = Pattern.compile("(\\?|&)auth=[^&]*(&auth=[^&]*)*");

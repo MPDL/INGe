@@ -9,12 +9,12 @@ import javax.faces.model.SelectItem;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.LanguageCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 
 /**
  * @author endres
  * 
  */
+@SuppressWarnings("serial")
 public class LanguageCriterionBean extends CriterionBean {
 
   public static final String BEAN_NAME = "LanguageCriterionBean";
@@ -88,8 +88,7 @@ public class LanguageCriterionBean extends CriterionBean {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale =
-        ((InternationalizationHelper) getSessionBean(InternationalizationHelper.class)).getLocale();
+    String locale = getI18nHelper().getLocale();
     return CommonUtils.getConeLanguageName(languageCriterionVO.getSearchString(), locale);
   }
 }

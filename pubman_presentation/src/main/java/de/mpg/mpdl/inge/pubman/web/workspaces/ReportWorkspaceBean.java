@@ -17,33 +17,34 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleHandler;
+
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.util.Format;
+
 
 /**
  * @author Gergana Stoyanova
@@ -58,14 +59,6 @@ public class ReportWorkspaceBean extends FacesBean {
 
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
-  // Search Service
-  private Search searchService = null;
-  // Transformation Service
-  // private Configurable transformer = null;
-  // XML TransformingService
-  private XmlTransforming xmlTransforming = null;
-  // Citation Style Handler
-  private CitationStyleHandler citationStyleHandler;
 
   // String cqlQuery = null;
   private String csExportFormat = "JUS_Report";
@@ -101,34 +94,20 @@ public class ReportWorkspaceBean extends FacesBean {
   };
 
   public ReportWorkspaceBean() {
-    try {
-      InitialContext initialContext = new InitialContext();
-      this.searchService =
-          (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
+    this.configuration = new HashMap<String, String>();
+    this.childAffilList = new ArrayList<String>();
+    FORMAT[] targetFormats =
+        de.mpg.mpdl.inge.transformation.TransformerFactory
+            .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
 
-      this.xmlTransforming =
-          (XmlTransforming) initialContext
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-      this.citationStyleHandler =
-          (CitationStyleHandler) initialContext
-              .lookup("java:global/pubman_ear/citationmanager/CitationStyleHandlerBean");
-      this.configuration = new HashMap<String, String>();
-      this.childAffilList = new ArrayList<String>();
-      FORMAT[] targetFormats =
-          de.mpg.mpdl.inge.transformation.TransformerFactory
-              .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
-
-      for (FORMAT f : targetFormats) {
-        Format formatObject = Util.fromFORMAT(f);
-        if (!JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
-          String formatName =
-              formatObject.getName() + "_"
-                  + ("text/html".equals(formatObject.getType()) ? "html" : "indesign");
-          outputFormats.add(new SelectItem(f, getLabel(formatName)));
-        }
+    for (FORMAT f : targetFormats) {
+      Format formatObject = Util.fromFORMAT(f);
+      if (!JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
+        String formatName =
+            formatObject.getName() + "_"
+                + ("text/html".equals(formatObject.getType()) ? "html" : "indesign");
+        outputFormats.add(new SelectItem(f, getLabel(formatName)));
       }
-    } catch (NamingException e) {
-      throw new RuntimeException("Search service not initialized", e);
     }
   }
 
@@ -278,12 +257,13 @@ public class ReportWorkspaceBean extends FacesBean {
     PlainCqlQuery cqlQuery = new PlainCqlQuery(query);
     ItemContainerSearchResult result;
     try {
-      result = this.searchService.searchForItemContainer(cqlQuery);
+      result = SearchService.searchForItemContainer(cqlQuery);
       totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
       logger.info("Search result total nr: "
           + Integer.parseInt(result.getTotalNumberOfResults().toString()));
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString = xmlTransforming.transformToItemList(result.extractItemsOfSearchResult());
+        itemListAsString =
+            XmlTransformingService.transformToItemList(result.extractItemsOfSearchResult());
       } else {
         info(getMessage("ReportNoItemsFound"));
       }
@@ -299,8 +279,8 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData =
-          citationStyleHandler.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
-              csExportFormat, csOutputFormat));
+          CitationStyleExecutorService.getOutput(itemListAsString, new ExportFormatVO(
+              FormatType.LAYOUT, csExportFormat, csOutputFormat));
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);
       error("Did not find Citation service");
@@ -351,7 +331,7 @@ public class ReportWorkspaceBean extends FacesBean {
     List<String> affListAsString = new ArrayList<String>();
     OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
     String topLevelOU = ouHandler.retrieve(orgId);
-    AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
+    AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
     AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 
@@ -367,5 +347,4 @@ public class ReportWorkspaceBean extends FacesBean {
 
     return affListAsString;
   }
-
 }

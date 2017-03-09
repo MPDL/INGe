@@ -51,9 +51,7 @@ public class PersonCriterion extends Criterion {
   /**
    * constructor.
    */
-  public PersonCriterion() {
-    super();
-  }
+  public PersonCriterion() {}
 
   public List<CreatorRole> getCreatorRole() {
     return creatorRole;

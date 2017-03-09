@@ -28,12 +28,10 @@ package de.mpg.mpdl.inge.pubman.web.home;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
@@ -52,9 +50,6 @@ public class Home extends FacesBean {
 
   // Faces navigation string
   public static final String LOAD_HOME = "loadHome";
-
-  @EJB
-  private Search search;
 
   public Home() {}
 
@@ -76,7 +71,7 @@ public class Home extends FacesBean {
     SearchQuery cql = new PlainCqlQuery(cqlQuery);
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-    ItemContainerSearchResult icsr = search.searchForItemContainer(cql);
+    ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
     List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
   }

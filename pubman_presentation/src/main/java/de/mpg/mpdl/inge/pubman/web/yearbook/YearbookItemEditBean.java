@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
@@ -33,11 +32,10 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -56,8 +54,6 @@ public class YearbookItemEditBean extends FacesBean {
   private static final String MAXIMUM_RECORDS = "5000";
 
   private YearbookItemSessionBean yearbookItemSessionBean;
-  private LoginHelper loginHelper;
-  private XmlTransformingBean xmlTransforming;
   private MdsYearbookVO yearbookMetadata;
   private String title;
   private String year;
@@ -82,8 +78,6 @@ public class YearbookItemEditBean extends FacesBean {
   public YearbookItemEditBean() throws Exception {
     this.yearbookItemSessionBean =
         (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    xmlTransforming = new XmlTransformingBean();
     initialize();
   }
 
@@ -137,7 +131,7 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public void initCollaborators() throws Exception {
     UserAccountHandler uah =
-        ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
     this.possibleCollaboratorsList = new ArrayList<AccountUserVO>();
     this.collaborators = new ArrayList<AccountUserRO>();
     collaboratorSelectItems = new ArrayList<SelectItem>();
@@ -150,11 +144,11 @@ public class YearbookItemEditBean extends FacesBean {
             + this.getOrganization().getIdentifier()});
     String userAccountXml = uah.retrieveUserAccounts(filterParams);
     SearchRetrieveResponseVO userAccounts =
-        xmlTransforming.transformToSearchRetrieveResponseAccountUser(userAccountXml);
+        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(userAccountXml);
     for (SearchRetrieveRecordVO record : userAccounts.getRecords()) {
       AccountUserVO userVO = (AccountUserVO) record.getData();
       if (!userVO.getReference().getObjectId()
-          .equals(loginHelper.getAccountUser().getReference().getObjectId())) {
+          .equals(getLoginHelper().getAccountUser().getReference().getObjectId())) {
         collaboratorSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
             .getName() + " (" + userVO.getUserid() + ")"));
         this.possibleCollaboratorsList.add(userVO);
@@ -165,7 +159,7 @@ public class YearbookItemEditBean extends FacesBean {
 
   public void initUserGroups() throws Exception {
     UserGroupHandler userGroupHandler =
-        ServiceLocator.getUserGroupHandler(loginHelper.getESciDocUserHandle());
+        ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
     this.collaboratorUserIds = new ArrayList<String>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
@@ -175,7 +169,7 @@ public class YearbookItemEditBean extends FacesBean {
         + getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
     String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
     SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
-        xmlTransforming.transformToSearchRetrieveResponseUserGroup(userGroupXml);
+        XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
     for (SearchRetrieveRecordVO record : userGroupSearchRetrieveResponse.getRecords()) {
       UserGroupVO userGroup = (UserGroupVO) record.getData();
@@ -218,9 +212,11 @@ public class YearbookItemEditBean extends FacesBean {
     this.selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
       boolean previousYearPossible = true;
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+      String orgId =
+          getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       filterParams
@@ -233,7 +229,7 @@ public class YearbookItemEditBean extends FacesBean {
       filterParams.put("maximumRecords", new String[] {YearbookItemEditBean.MAXIMUM_RECORDS});
       String xmlItemList = itemHandler.retrieveItems(filterParams);
       SearchRetrieveResponseVO result =
-          xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;
@@ -462,11 +458,12 @@ public class YearbookItemEditBean extends FacesBean {
 
   public String delete() {
     try {
-      ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+      ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       itemHandler.delete(this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId());
       this.yearbookItemSessionBean.initYearbook();
       UserGroupHandler userGroupHandler =
-          ServiceLocator.getUserGroupHandler(loginHelper.getESciDocUserHandle());
+          ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
       userGroupHandler.delete(this.getUserGroup().getObjid());
       return "loadYearbookPage";
     } catch (Exception e) {
@@ -581,40 +578,40 @@ public class YearbookItemEditBean extends FacesBean {
     return "loadYearbookPage";
   }
 
-  /**
-   * Return any bean stored in session scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
-  public static synchronized Object getSessionBean(final Class<?> cls) {
-
-    String name = null;
-
-    try {
-      name = (String) cls.getField("BEAN_NAME").get(new String());
-      if (FacesBean.class.getName().equals(name)) {
-        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("Error getting bean name of " + cls, e);
-    }
-    Object result =
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name);
-
-    logger.debug("Getting bean " + name + ": " + result);
-
-    if (result == null) {
-      try {
-        logger.debug("Creating new session bean: " + name);
-        Object newBean = cls.newInstance();
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(name, newBean);
-        return newBean;
-      } catch (Exception e) {
-        throw new RuntimeException("Error creating new bean of type " + cls, e);
-      }
-    } else {
-      return result;
-    }
-  }
+  // /**
+  // * Return any bean stored in session scope under the specified name.
+  // *
+  // * @param cls The bean class.
+  // * @return the actual or new bean instance
+  // */
+  // public static synchronized Object getSessionBean(final Class<?> cls) {
+  //
+  // String name = null;
+  //
+  // try {
+  // name = (String) cls.getField("BEAN_NAME").get(new String());
+  // if (FacesBean.class.getName().equals(name)) {
+  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+  // }
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error getting bean name of " + cls, e);
+  // }
+  // Object result =
+  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name);
+  //
+  // logger.debug("Getting bean " + name + ": " + result);
+  //
+  // if (result == null) {
+  // try {
+  // logger.debug("Creating new session bean: " + name);
+  // Object newBean = cls.newInstance();
+  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(name, newBean);
+  // return newBean;
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error creating new bean of type " + cls, e);
+  // }
+  // } else {
+  // return result;
+  // }
+  // }
 }

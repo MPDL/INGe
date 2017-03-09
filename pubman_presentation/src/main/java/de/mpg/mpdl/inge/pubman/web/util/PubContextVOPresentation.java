@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
+@SuppressWarnings("serial")
 public class PubContextVOPresentation extends ContextVO implements
     Comparable<PubContextVOPresentation> {
 
@@ -104,7 +105,7 @@ public class PubContextVOPresentation extends ContextVO implements
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
-  public static synchronized Object getSessionBean(final Class<?> cls) {
+  private static synchronized Object getSessionBean(final Class<?> cls) {
 
     String name = null;
 
@@ -136,6 +137,7 @@ public class PubContextVOPresentation extends ContextVO implements
     }
   }
 
+  @Override
   public int compareTo(PubContextVOPresentation compareObject) {
     Collator collator = Collator.getInstance(Locale.getDefault());
     collator.setStrength(Collator.SECONDARY);

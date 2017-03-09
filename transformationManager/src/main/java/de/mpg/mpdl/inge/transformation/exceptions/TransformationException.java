@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation.exceptions;
 
+@SuppressWarnings("serial")
 public class TransformationException extends Exception {
 
   public TransformationException() {

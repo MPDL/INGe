@@ -49,7 +49,6 @@ public class DepositingException extends PubManException {
    * @param pubItemRef The reference of the pubitem.
    */
   public DepositingException(ItemRO pubItemRef) {
-    super();
     this.pubItemRef = pubItemRef;
   }
 

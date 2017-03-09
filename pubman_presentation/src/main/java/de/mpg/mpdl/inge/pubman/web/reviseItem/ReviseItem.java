@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -75,7 +75,7 @@ public class ReviseItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Perform initializations inherited from our superclass
     // super.init();
 
@@ -113,7 +113,7 @@ public class ReviseItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getPubItem() {
+  public PubItemVO getPubItem() {
     return (this.getItemControllerSessionBean().getCurrentPubItem());
   }
 
@@ -122,24 +122,16 @@ public class ReviseItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String revise() {
+  public String revise() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String retVal;
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    /*
-     * String navigateTo = getSessionBean().getNavigationStringToGoBack();
-     * 
-     * if(navigateTo == null) { navigateTo = ViewItemFull.LOAD_VIEWITEM; }
-     */
-    logger.debug("Now revising, then go to " + navigateTo);
-
-    retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
+    String retVal =
+        this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
     }
-
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
@@ -167,42 +159,24 @@ public class ReviseItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String cancel() {
-
-
-
+  public String cancel() {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 
-
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  // public String getValMessage() {
-  // return valMessage;
-  // }
-  //
-  // public void setValMessage(String valMessage) {
-  // this.valMessage = valMessage;
-  // }
-
-  public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
+  public String getNavigationStringToGoBack() {
+    return this.navigationStringToGoBack;
   }
 
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
     this.navigationStringToGoBack = navigationStringToGoBack;
   }
 
   public String getCreators() {
-    return creators;
+    return this.creators;
   }
 
   public void setCreators(String creators) {
@@ -211,20 +185,19 @@ public class ReviseItem extends FacesBean {
 
   public boolean getIsStandardWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+        PubItemService.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+        PubItemService.WORKFLOW_SIMPLE);
   }
 
   public String getReviseComment() {
-    return reviseComment;
+    return this.reviseComment;
   }
 
   public void setReviseComment(String reviseComment) {
     this.reviseComment = reviseComment;
   }
-
 }

@@ -66,7 +66,7 @@ public class TestShowUserData extends TestBase {
     Document grantsDoc = getDocument(grants, false);
     NodeList nodelist = selectNodeList(grantsDoc, "//current-grants/grant");
     for (int i = 0; i < nodelist.getLength(); ++i) {
-      String xpath = "//grant[" + i + "]/properties/";
+      // String xpath = "//grant[" + i + "]/properties/";
       String roleId = getAttributeValue(nodelist.item(i), "properties/role", "objid");
       logger.info("Role[" + i + "]: " + roleId);
       try {

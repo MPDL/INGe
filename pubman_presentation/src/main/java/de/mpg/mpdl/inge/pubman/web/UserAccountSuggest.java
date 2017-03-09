@@ -32,8 +32,6 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
-
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -41,36 +39,23 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * @author franke
  * 
  */
+@SuppressWarnings("serial")
 public class UserAccountSuggest extends FacesBean {
-
-  Logger logger = Logger.getLogger(UserAccountSuggest.class);
-
   private List<AccountUserVO> userAccountList;
 
   public UserAccountSuggest() throws Exception {
-    // Get query from URL parameters
     FacesContext context = FacesContext.getCurrentInstance();
     Map<String, String> parameters = context.getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
 
-    // Initialize search service
-
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper.getESciDocUserHandle() != null) {
-      UserAccountHandler uag =
-          ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
-      XmlTransforming xmlt = new XmlTransformingBean();
-
-      // Perform search request
+    if (getLoginHelper().getESciDocUserHandle() != null) {
       if (query != null) {
         String queryString = "";
         for (String snippet : query.split(" ")) {
@@ -82,39 +67,33 @@ public class UserAccountSuggest extends FacesBean {
                   + snippet + "%\")";
         }
 
-
-
         FilterTaskParamVO filter = new FilterTaskParamVO();
         Filter f1 = filter.new CqlFilter(queryString);
         filter.getFilterList().add(f1);
         Filter f3 = filter.new LimitFilter("50");
         filter.getFilterList().add(f3);
 
-
-
+        UserAccountHandler uag =
+            ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
         String xmlUserList = uag.retrieveUserAccounts(filter.toMap());
         SearchRetrieveResponseVO resp =
-            xmlt.transformToSearchRetrieveResponseAccountUser(xmlUserList);
+            XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xmlUserList);
 
-        userAccountList = new ArrayList<AccountUserVO>();
-
+        this.userAccountList = new ArrayList<AccountUserVO>();
 
         if (resp.getRecords() != null) {
           for (SearchRetrieveRecordVO rec : resp.getRecords()) {
             if (rec != null) {
               getUserAccountList().add((AccountUserVO) rec.getData());
             }
-
           }
         }
-
-
       }
     }
   }
 
   public List<AccountUserVO> getUserAccountList() {
-    return userAccountList;
+    return this.userAccountList;
   }
 
   public void setUserAccountList(List<AccountUserVO> userAccountList) {
@@ -122,12 +101,10 @@ public class UserAccountSuggest extends FacesBean {
   }
 
   public int getUserAccountListSize() {
-    if (userAccountList != null) {
+    if (this.userAccountList != null) {
       return this.userAccountList.size();
     }
+
     return 0;
-
   }
-
-
 }

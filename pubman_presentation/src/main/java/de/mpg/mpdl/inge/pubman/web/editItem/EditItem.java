@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
@@ -52,7 +51,7 @@ import com.sun.faces.facelets.component.UIRepeat;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -80,12 +79,10 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.EditItemPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.PubManSessionBean;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationSessionBean;
@@ -101,7 +98,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.ListItem;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
@@ -128,12 +124,6 @@ public class EditItem extends FacesBean {
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
   public static final String LOAD_EDITITEM = "loadEditItem";
-
-  @EJB
-  private ItemValidating itemValidating = null;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
 
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
@@ -178,9 +168,8 @@ public class EditItem extends FacesBean {
       return;
     }
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     if (getItem().getVersion() != null && getItem().getVersion().getObjectId() != null
-        && loginHelper.getIsYearbookEditor()) {
+        && getLoginHelper().getIsYearbookEditor()) {
       YearbookItemSessionBean yisb =
           (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
       if (yisb.getYearbookItem() != null
@@ -230,7 +219,7 @@ public class EditItem extends FacesBean {
         return context.getName();
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -443,11 +432,11 @@ public class EditItem extends FacesBean {
     }
   }
 
-  protected SubmitItemSessionBean getSubmitItemSessionBean() {
+  private SubmitItemSessionBean getSubmitItemSessionBean() {
     return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
   }
 
-  protected AcceptItemSessionBean getAcceptItemSessionBean() {
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
@@ -483,7 +472,7 @@ public class EditItem extends FacesBean {
     String response = method.getResponseBodyAsString();
     fis.close();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public List<ListItem> getLanguages() throws Exception {
@@ -536,7 +525,8 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(getPubItem()), ValidationPoint.STANDARD);
+      ItemValidatingService.validateItemObject(new PubItemVO(getPubItem()),
+          ValidationPoint.STANDARD);
       String message = getMessage("itemIsValid");
       info(message);
     } catch (ItemInvalidException e) {
@@ -544,7 +534,7 @@ public class EditItem extends FacesBean {
       return null;
     } catch (Exception e) {
       logger.error("Could not validate item." + "\n" + e.toString(), e);
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -576,8 +566,8 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating
-          .validateItemObject(new PubItemVO(this.getPubItem()), ValidationPoint.SAVE);
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
+          ValidationPoint.SAVE);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -671,7 +661,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -755,7 +745,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -864,7 +854,7 @@ public class EditItem extends FacesBean {
     if (navString.equals(ViewItemFull.LOAD_VIEWITEM)) {
       try {
         BreadcrumbItemHistorySessionBean bihsb =
-            (BreadcrumbItemHistorySessionBean) getRequestBean(BreadcrumbItemHistorySessionBean.class);
+            (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         if ("ViewLocalTagsPage.jsp".equals(bihsb.getPreviousItem().getPage())) {
@@ -932,7 +922,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -1057,10 +1047,10 @@ public class EditItem extends FacesBean {
     if (file != null) {
       try {
         // upload the file
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         URL url = null;
-        if (loginHelper.getAccountUser().isDepositor()) {
-          url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+        if (getLoginHelper().getAccountUser().isDepositor()) {
+          url =
+              this.uploadFile(file, file.getContentType(), getLoginHelper().getESciDocUserHandle());
         }
         // workarround for moderators who can modify released items but do not have the right to
         // upload files
@@ -1072,7 +1062,7 @@ public class EditItem extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
@@ -1162,16 +1152,12 @@ public class EditItem extends FacesBean {
     return null;
   }
 
-  protected de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  protected de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean getEditItemSessionBean() {
+  private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
-  protected static PubManSessionBean getPubManSessionBean() {
-    return (PubManSessionBean) getSessionBean(PubManSessionBean.class);
   }
 
   private void showValidationMessages(ValidationReportVO report) {
@@ -1187,8 +1173,6 @@ public class EditItem extends FacesBean {
   }
 
   private void enableLinks() {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
     boolean isStatePending = true;
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
@@ -1207,14 +1191,14 @@ public class EditItem extends FacesBean {
     boolean isOwner = true;
     if (this.getPubItem() != null && this.getPubItem().getOwner() != null) {
       isOwner =
-          (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser()
-              .getReference().getObjectId().equals(this.getPubItem().getOwner().getObjectId())
-              : false);
+          (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
+              .getAccountUser().getReference().getObjectId()
+              .equals(this.getPubItem().getOwner().getObjectId()) : false);
     }
 
     boolean isModerator = false;
-    if (loginHelper.getAccountUser() != null && this.getPubItem() != null) {
-      isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+    if (getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
+      isModerator = getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
     }
 
     boolean isWorkflowStandard = false;
@@ -1272,13 +1256,14 @@ public class EditItem extends FacesBean {
 
     return !viewItemFull.getIsStateWithdrawn()
         && viewItemFull.getIsLatestVersion()
-        && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() && (viewItemFull
-            .getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull
-            .getIsOwner() && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateReleased() || viewItemFull
+        && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() //
+        && (viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull
+            .getIsOwner() //
+        && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateReleased() || viewItemFull
             .getIsStateInRevision())));
   }
 
-  protected AffiliationSessionBean getAffiliationSessionBean() {
+  private AffiliationSessionBean getAffiliationSessionBean() {
     return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
   }
 
@@ -1467,10 +1452,6 @@ public class EditItem extends FacesBean {
     return 0;
   }
 
-  public EditItemPage getEditItemPage() {
-    return (EditItemPage) getRequestBean(EditItemPage.class);
-  }
-
   public PubItemVO getItem() {
     return this.item;
   }
@@ -1480,7 +1461,6 @@ public class EditItem extends FacesBean {
   }
 
   public String getOwner() throws Exception {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     UserAccountHandler userAccountHandler = null;
 
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -1491,11 +1471,12 @@ public class EditItem extends FacesBean {
       return null;
     }
 
-    userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+    userAccountHandler =
+        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
     String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
 
     SearchRetrieveResponseVO searchedObject =
-        xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
     if (searchedObject == null || searchedObject.getRecords() == null
         || searchedObject.getRecords().get(0) == null
         || searchedObject.getRecords().get(0).getData() == null) {
@@ -1521,7 +1502,6 @@ public class EditItem extends FacesBean {
   }
 
   public String getLastModifier() throws Exception {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     UserAccountHandler userAccountHandler = null;
 
     if (this.item.getVersion().getModifiedByRO() != null
@@ -1532,10 +1512,11 @@ public class EditItem extends FacesBean {
           + this.item.getVersion().getModifiedByRO().getObjectId()});
 
       String searchResponse = null;
-      userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+      userAccountHandler =
+          ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
       searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
       SearchRetrieveResponseVO searchedObject =
-          xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+          XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
 
       if (searchedObject == null || searchedObject.getRecords() == null
           || searchedObject.getRecords().get(0) == null

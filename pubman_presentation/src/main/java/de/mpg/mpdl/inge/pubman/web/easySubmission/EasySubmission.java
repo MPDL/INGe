@@ -29,15 +29,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -52,12 +51,12 @@ import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -83,7 +82,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -97,14 +96,15 @@ import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -148,7 +148,7 @@ public class EasySubmission extends FacesBean {
 
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
-  private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
+  private DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   private HtmlSelectOneMenu dateSelect;
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   private HtmlSelectOneRadio radioSelect;
@@ -167,20 +167,10 @@ public class EasySubmission extends FacesBean {
   private String selectedDate;
   private String serviceID;
   private String suggestConeUrl = null;
-  private Transformation transformer = null;
   private UploadedFile uploadedFile;
-  private boolean fromEasySubmission = false;
   private boolean overwriteCreators;
 
-  @EJB
-  private XmlTransforming xmlTransforming;
-
-  @EJB
-  private ItemValidating itemValidating;
-
   public EasySubmission() {
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    this.transformer = appBean.getTransformationService();
     this.init();
   }
 
@@ -195,7 +185,7 @@ public class EasySubmission extends FacesBean {
         new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
     this.SUBMISSION_METHOD_OPTIONS =
         new SelectItem[] {this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT};
-    this.locatorVisibilities = this.getI18nHelper().getSelectItemsVisibility(true);
+    this.locatorVisibilities = getI18nHelper().getSelectItemsVisibility(true);
 
     // if the user has reached Step 3, an item has already been created and must be set in the
     // EasySubmissionSessionBean for further manipulation
@@ -531,17 +521,13 @@ public class EasySubmission extends FacesBean {
   public String save() {
     // bind the temporary uploaded files to the files in the current item
     bindUploadedFiles();
-
     parseAndSetAlternativeSourceTitlesAndIds();
-
-    this.setFromEasySubmission(true);
 
     if (validate(ValidationPoint.STANDARD, "validate") == null) {
       return null;
     }
 
-    EditItem editItem = (EditItem) getRequestBean(EditItem.class);
-    editItem.setFromEasySubmission(true);
+    ((EditItem) getRequestBean(EditItem.class)).setFromEasySubmission(true);
 
     String returnValue =
         this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -634,14 +620,14 @@ public class EasySubmission extends FacesBean {
 
     if (file != null && file.getSize() > 0) {
       try {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+        URL url =
+            this.uploadFile(file, file.getContentType(), getLoginHelper().getESciDocUserHandle());
         if (url != null) {
           contentURL = url.toString();
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         try {
           FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
@@ -681,7 +667,7 @@ public class EasySubmission extends FacesBean {
 
     fis.close();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   /**
@@ -706,7 +692,7 @@ public class EasySubmission extends FacesBean {
 
     String response = method.getResponseBodyAsString();
 
-    return xmlTransforming.transformUploadResponseToFileURL(response);
+    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public String uploadBibtexFile() {
@@ -733,11 +719,17 @@ public class EasySubmission extends FacesBean {
       // Transform from bibtex to escidoc pubItem
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
-      byte[] result =
-          this.transformer.transform(content.toString().getBytes("UTF-8"), source, target,
-              "escidoc");
 
-      PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
+      Transformer t = TransformerFactory.newInstance(source.toFORMAT(), target.toFORMAT());
+      StringWriter wr = new StringWriter();
+      t.transform(
+          new TransformerStreamSource(
+              new ByteArrayInputStream(content.toString().getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+
+      byte[] result = wr.toString().getBytes("UTF-8");
+
+      PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());
 
       // Check if reference has to be uploaded as file
@@ -788,7 +780,7 @@ public class EasySubmission extends FacesBean {
         return null;
       }
 
-      DataHandlerBean dataHandler = new DataHandlerBean();
+      DataHandlerService dataHandler = new DataHandlerService();
       PubItemVO itemVO = null;
       String service = easySubmissionSessionBean.getCurrentExternalServiceType();
       List<FileVO> fileVOs = new ArrayList<FileVO>();
@@ -833,10 +825,10 @@ public class EasySubmission extends FacesBean {
           byte[] ba =
               dataHandler.doFetch(easySubmissionSessionBean.getCurrentExternalServiceType(),
                   getServiceID(), formats.toArray(arrFormats));
-          LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
           ByteArrayInputStream in = new ByteArrayInputStream(ba);
           URL fileURL =
-              this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());
+              this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                  .getESciDocUserHandle());
 
           if (fileURL != null && !fileURL.toString().trim().equals("")) {
             FileVO fileVO = dataHandler.getComponentVO();
@@ -881,7 +873,7 @@ public class EasySubmission extends FacesBean {
       // Generate item ValueObject
       if (fetchedItem != null && !fetchedItem.trim().equals("")) {
         try {
-          itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);
+          itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
 
           // Upload fulltexts from other escidoc repositories to current repository
           if (easySubmissionSessionBean.isFulltext()
@@ -899,12 +891,11 @@ public class EasySubmission extends FacesBean {
                   FileVO newFile = new FileVO();
                   byte[] content =
                       dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                  LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
                   ByteArrayInputStream in = new ByteArrayInputStream(content);
                   URL fileURL;
                   fileURL =
-                      this.uploadFile(in, dataHandler.getContentType(),
-                          loginHelper.getESciDocUserHandle());
+                      this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                          .getESciDocUserHandle());
 
                   if (fileURL != null && !fileURL.toString().trim().equals("")
                       && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
@@ -1197,7 +1188,7 @@ public class EasySubmission extends FacesBean {
       }
 
       try {
-        this.itemValidating.validateItemObject(itemVO, validationPoint);
+        ItemValidatingService.validateItemObject(itemVO, validationPoint);
       } catch (ItemInvalidException e) {
         for (ValidationReportItemVO item : e.getReport().getItems()) {
           error(getMessage(item.getContent()));
@@ -1413,26 +1404,6 @@ public class EasySubmission extends FacesBean {
     return false;
   }
 
-  private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
-  }
-
-  private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-  }
-
   /**
    * localized creation of SelectItems for the genres available.
    * 
@@ -1446,7 +1417,7 @@ public class EasySubmission extends FacesBean {
     for (AdminDescriptorVO adminDescriptorVO : adminDescriptors) {
       if (adminDescriptorVO instanceof PublicationAdminDescriptorVO) {
         allowedGenres = ((PublicationAdminDescriptorVO) adminDescriptorVO).getAllowedGenres();
-        return this.getI18nHelper().getSelectItemsForEnum(false,
+        return getI18nHelper().getSelectItemsForEnum(false,
             allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
       }
     }
@@ -1572,7 +1543,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for visibility
    */
   public SelectItem[] getVisibilities() {
-    return this.getI18nHelper().getSelectItemsVisibility(false);
+    return getI18nHelper().getSelectItemsVisibility(false);
   }
 
   /**
@@ -1674,7 +1645,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for content category.
    */
   public SelectItem[] getContentCategories() {
-    return this.getI18nHelper().getSelectItemsContentCategory(true);
+    return getI18nHelper().getSelectItemsContentCategory(true);
   }
 
   /**
@@ -1811,24 +1782,13 @@ public class EasySubmission extends FacesBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-
-    ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-
-    Map<String, String> excludedSourceGenres = appBean.getExcludedSourceGenreMap();
+    Map<String, String> excludedSourceGenres =
+        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
 
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
-    sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
+    sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
     for (SourceVO.Genre value : SourceVO.Genre.values()) {
-      sourceGenres.add(new SelectItem(value, bundleLabel.getString("ENUM_GENRE_" + value.name())));
+      sourceGenres.add(new SelectItem(value, getLabel("ENUM_GENRE_" + value.name())));
     }
 
     int i = 0;
@@ -1862,14 +1822,6 @@ public class EasySubmission extends FacesBean {
         && this.getItem().getMetadata().getSources().size() > 0) {
       this.getItem().getMetadata().getSources().set(0, source);
     }
-  }
-
-  public boolean getFromEasySubmission() {
-    return this.fromEasySubmission;
-  }
-
-  public void setFromEasySubmission(boolean fromEasySubmission) {
-    this.fromEasySubmission = fromEasySubmission;
   }
 
   public void setCreatorParseString(String creatorParseString) {
@@ -1940,7 +1892,7 @@ public class EasySubmission extends FacesBean {
    * @return all options for degreeType
    */
   public SelectItem[] getDegreeTypes() {
-    return this.getI18nHelper().getSelectItemsDegreeType(true);
+    return getI18nHelper().getSelectItemsDegreeType(true);
   }
 
   public void setOverwriteCreators(boolean overwriteCreators) {
@@ -2049,7 +2001,7 @@ public class EasySubmission extends FacesBean {
         return this.contextName;
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -2099,5 +2051,25 @@ public class EasySubmission extends FacesBean {
    */
   public void setAlternativeLanguageName(String alternativeLanguageName) {
     this.alternativeLanguageName = alternativeLanguageName;
+  }
+
+  private ContextListSessionBean getContextListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  }
+
+  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
+    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+  }
+
+  private EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
   }
 }

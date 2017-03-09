@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PropertyInitializer extends HttpServlet {
   private static final Logger logger = Logger.getLogger(PropertyInitializer.class);
 

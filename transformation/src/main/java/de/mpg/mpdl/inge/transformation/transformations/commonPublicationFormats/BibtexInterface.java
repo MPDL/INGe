@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * TODO Description

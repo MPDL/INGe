@@ -36,8 +36,6 @@ public class GwdgPidService {
     GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.service.search.path");
     GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.service.update.path");
     GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
-    // Use to simulate non available gwdg
-    // GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
   }
 
   /**

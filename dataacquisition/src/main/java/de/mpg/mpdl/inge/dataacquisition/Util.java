@@ -39,6 +39,10 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import noNamespace.SourceType;
+import noNamespace.SourcesDocument;
+import noNamespace.SourcesType;
+
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
@@ -47,15 +51,14 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.util.Format;
+
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import noNamespace.SourceType;
-import noNamespace.SourcesDocument;
-import noNamespace.SourcesType;
 
 
 
@@ -70,6 +73,7 @@ import noNamespace.SourcesType;
  */
 public class Util {
 
+
   private static final Logger logger = Logger.getLogger(Util.class);
   private static final String internalFormat = "eSciDoc-publication-item";
   private static final String transformationService = "escidoc";
@@ -80,6 +84,13 @@ public class Util {
   private static final String coneMethod = "escidocmimetypes";
   private static final String coneRel1 = "/resource/";
   private static final String coneRel2 = "?format=rdf";
+
+  /**
+   * Public constructor.
+   */
+  public Util() {
+
+  }
 
   /**
    * Retrieves the default encoding ("UTF-8").
@@ -143,7 +154,7 @@ public class Util {
   public MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName,
       String trgFormatType, String trgFormatEndcoding) {
     MetadataVO sourceMd = null;
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     // First: check if format can be fetched directly
     for (int i = 0; i < source.getMdFormats().size(); i++) {
@@ -212,8 +223,8 @@ public class Util {
       String trgFormatEncoding) {
     Format target = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
     Format escidoc =
-        new Format(this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()),
-            this.getDefaultEncoding(this.getInternalFormat()));
+        new Format(getInternalFormat(), getDefaultMimeType(getInternalFormat()),
+            getDefaultEncoding(getInternalFormat()));
     FORMAT[] formats;
 
     formats = TransformerFactory.getAllTargetFormatsFor(escidoc.toFORMAT());
@@ -335,7 +346,7 @@ public class Util {
    * @return true if escidoc format can be transition format, else false
    */
   public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
-    if (identifier.toLowerCase().contains(this.getInternalFormat()))
+    if (identifier.toLowerCase().contains(getInternalFormat()))
       // Transition not possible for escidoc source
       return false;
 
@@ -345,7 +356,7 @@ public class Util {
       FORMAT[] trgFormats = TransformerFactory.getAllTargetFormatsFor(format.toFORMAT());
       for (int x = 0; x < trgFormats.length; x++) {
         Format trgFormat = Util.fromFORMAT(trgFormats[x]);
-        if (trgFormat.getName().equals(this.getInternalFormat())) {
+        if (trgFormat.getName().equals(getInternalFormat())) {
           return true;
         }
       }
@@ -443,7 +454,7 @@ public class Util {
 
     List<DataSourceVO> sources;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     try {
       sources = sourceHandler.getSources();

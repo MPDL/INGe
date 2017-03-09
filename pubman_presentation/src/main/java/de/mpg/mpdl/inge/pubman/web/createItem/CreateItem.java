@@ -130,11 +130,11 @@ public class CreateItem extends FacesBean {
     return navigateTo;
   }
 
-  protected ContextListSessionBean getContextListSessionBean() {
+  private ContextListSessionBean getContextListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  protected EditItemSessionBean getEditItemSessionBean() {
+  private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
   }
 
@@ -143,7 +143,7 @@ public class CreateItem extends FacesBean {
         .resolveVariable(FacesContext.getCurrentInstance(), EditItem.BEAN_NAME);
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 

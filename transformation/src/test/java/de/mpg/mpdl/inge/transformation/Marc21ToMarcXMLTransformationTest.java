@@ -34,7 +34,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.transformation.TransformationBean;
+import de.mpg.mpdl.inge.transformation.TransformationService;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.marc.Marc21ToMarcXMLTransformation;
@@ -156,7 +156,7 @@ public class Marc21ToMarcXMLTransformationTest {
 
   @Test
   public void testTransformationBean() {
-    TransformationBean transformationbean = new TransformationBean(true);
+    TransformationService transformationbean = new TransformationService(true);
 
     assertTrue("missing MARCXML_FORMAT in transformationbean.getTargetFormats(MARC21_FORMAT)",
         Util.containsFormat(transformationbean.getTargetFormats(MARC21_FORMAT),

@@ -34,6 +34,14 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -52,16 +60,6 @@ import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
-import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.transformation.Util;
-import de.mpg.mpdl.inge.transformation.Util.Styles;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
-import de.mpg.mpdl.inge.util.ResourceUtil;
-
 /**
  * Implements transformations for output formats.
  * 
@@ -71,12 +69,12 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 public class OutputTransformation {
-  // Output Formats enum
+  private static final Logger logger = Logger.getLogger(OutputTransformation.class);
+
   public static enum OutFormats {
     rtf, pdf, html, odt, snippet, txt
   };
 
-  private Logger logger = Logger.getLogger(OutputTransformation.class);
 
   /**
    * Public constructor.
@@ -104,7 +102,7 @@ public class OutputTransformation {
     Map<String, Object> params = new HashMap<String, Object>();
     Document document = null;
     JRExporter exporter = null;
-    Styles style = Util.getStyleInfo(srcFormat);
+    Util.getStyleInfo(srcFormat);
 
     ByteArrayInputStream bais = new ByteArrayInputStream(src);
     BufferedInputStream bis = new BufferedInputStream(bais);

@@ -37,17 +37,15 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * Test class for {@link XmlTransforming#transformToFilterTaskParam(FilterTaskParamVO)}.
@@ -58,8 +56,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
  * @revised by MuJ: 03.09.2007
  */
 public class TransformParamTest extends TestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(TransformParamTest.class);
 
   /**
    * Test for {@link XmlTransforming#transformToTaskParam(TaskParamVO)}.
@@ -76,7 +73,7 @@ public class TransformParamTest extends TestBase {
     Date date = cal.getTime();
     TaskParamVO taskVO = new TaskParamVO(date);
 
-    String xmlparam = xmlTransforming.transformToTaskParam(taskVO);
+    String xmlparam = XmlTransformingService.transformToTaskParam(taskVO);
     assertNotNull("XML Tranforming returns a null object!", xmlparam);
     logger.debug("TaskParam: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
@@ -110,7 +107,7 @@ public class TransformParamTest extends TestBase {
     filter.getFilterList().add(f1);
     filter.getFilterList().add(f2);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filter);
     assertNotNull("XML Tranforming returns a null object!", xmlparam);
     logger.debug("OwnerFilter + PubItemStatusFilter: " + xmlparam + "\n" + "Expected: "
         + expectedXML);
@@ -150,7 +147,7 @@ public class TransformParamTest extends TestBase {
     filter.getFilterList().add(f1);
     filter.getFilterList().add(f2);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filter);
     logger.debug("PubItemStatusFilter + PubItemStatusFilter: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
 
@@ -184,7 +181,7 @@ public class TransformParamTest extends TestBase {
     Filter filter = filterParam.new OwnerFilter(new AccountUserRO("escidoc:user1"));
     filterParam.getFilterList().add(filter);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filterParam);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filterParam);
     logger.debug("OwnerFilter: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
 
@@ -216,7 +213,7 @@ public class TransformParamTest extends TestBase {
     f1.getIdList().add(new ItemRO("escidoc:3"));
     filter.getFilterList().add(f1);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filter);
     logger.debug("ItemRefFilter: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
 
@@ -255,7 +252,7 @@ public class TransformParamTest extends TestBase {
     Filter filter = filterParam.new RoleFilter("Depositor", new AccountUserRO("objectId4711"));
     filterParam.getFilterList().add(filter);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filterParam);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filterParam);
     logger.debug("RoleFilter: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
 
@@ -288,7 +285,7 @@ public class TransformParamTest extends TestBase {
     Filter filter = filterParam.new FrameworkItemTypeFilter("escidoc:persistent4");
     filterParam.getFilterList().add(filter);
 
-    String xmlparam = xmlTransforming.transformToFilterTaskParam(filterParam);
+    String xmlparam = XmlTransformingService.transformToFilterTaskParam(filterParam);
     logger.debug("FrameworkItemTypeFilter: " + xmlparam);
     logger.debug("Expected: " + expectedXML);
 

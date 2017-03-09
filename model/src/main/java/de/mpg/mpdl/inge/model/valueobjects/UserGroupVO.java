@@ -3,8 +3,6 @@ package de.mpg.mpdl.inge.model.valueobjects;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resources;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 

@@ -25,12 +25,12 @@
  */
 package de.mpg.mpdl.inge.search;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.search.parser.ParseException;
@@ -46,8 +46,6 @@ import de.mpg.mpdl.inge.search.parser.QueryParser;
  * 
  */
 public class TestQueryParser {
-  private Logger logger = Logger.getLogger(TestQueryParser.class);
-
   @Test
   public void testQueryParserSimpleQuery() throws Exception {
     String query = ("test suche");;

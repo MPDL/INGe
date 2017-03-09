@@ -35,12 +35,10 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +47,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.ItemValidating;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -74,11 +72,10 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
-import de.mpg.mpdl.inge.pubman.ItemExporting;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
+import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -110,8 +107,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorDisplay;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
@@ -120,11 +115,13 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.util.Format;
+
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -157,23 +154,13 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
-  private PubItemVOPresentation pubItem = null;
-  private ContextVO context = null;
-  private AccountUserVO owner = null;
   private AccountUserVO latestModifier = null;
-  private int defaultSize = 20;
-  private YearbookItemSessionBean yisb;
-
+  private AccountUserVO owner = null;
+  private ContextVO context = null;
+  private PubItemVOPresentation pubItem = null;
   private String languages;
-
-  @EJB
-  private ItemExporting itemExporting;
-
-  @EJB
-  private ItemValidating itemValidating;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
+  private YearbookItemSessionBean yisb;
+  private int defaultSize = 20;
 
   /**
    * The list of formatted organzations in an ArrayList.
@@ -199,8 +186,6 @@ public class ViewItemFull extends FacesBean {
 
   /** Context list, where SSRN-Button will be available */
   private List<String> ssrnContexts;
-
-  private LoginHelper loginHelper;
 
   /** The url used for the citation */
   private String citationURL;
@@ -278,21 +263,19 @@ public class ViewItemFull extends FacesBean {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
     // populate the core service Url
     this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-
     this.defaultSize =
         Integer.parseInt(PropertyReader.getProperty(
             "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
 
-    if (loginHelper != null) {
+    if (getLoginHelper() != null) {
       String viewId = getFacesContext().getViewRoot().getViewId();
       if ("/viewItemOverviewPage.jsp".equals(viewId)) {
-        loginHelper.setDetailedMode(false);
+        getLoginHelper().setDetailedMode(false);
       } else if ("/viewItemFullPage.jsp".equals(viewId)) {
-        loginHelper.setDetailedMode(true);
+        getLoginHelper().setDetailedMode(true);
       }
     }
 
@@ -313,7 +296,7 @@ public class ViewItemFull extends FacesBean {
         }
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
       } catch (AuthorizationException e) {
-        if (loginHelper.isLoggedIn()) {
+        if (getLoginHelper().isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
@@ -321,7 +304,7 @@ public class ViewItemFull extends FacesBean {
           login.forceLogout(itemID);
         }
       } catch (AuthenticationException e) {
-        if (loginHelper.isLoggedIn()) {
+        if (getLoginHelper().isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
@@ -383,25 +366,25 @@ public class ViewItemFull extends FacesBean {
 
       if (this.pubItem.getOwner() != null) {
         this.isOwner =
-            (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper
+            (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
                 .getAccountUser().getReference().getObjectId()
                 .equals(this.getPubItem().getOwner().getObjectId()) : false);
 
-        if (this.loginHelper.getAccountUser().getReference() != null
-            && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+        if (getLoginHelper().getAccountUser().getReference() != null
+            && getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
           this.isModerator = false;
           this.isPrivilegedViewer = false;
           this.isDepositor = false;
 
 
           this.isModerator =
-              this.loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
-          this.isDepositor = this.loginHelper.getIsDepositor();
+              getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
+          this.isDepositor = getLoginHelper().getIsDepositor();
           this.isPrivilegedViewer =
-              this.loginHelper.getAccountUser().isPrivilegedViewer(this.getPubItem().getContext());
+              getLoginHelper().getAccountUser().isPrivilegedViewer(this.getPubItem().getContext());
 
           if (!this.isOwner) {
-            for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
+            for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
               if (grant.getRole().equals("escidoc:role-system-administrator")) {
                 this.isOwner = true;
                 break;
@@ -412,7 +395,7 @@ public class ViewItemFull extends FacesBean {
       }
 
       // @author Markus Haarlaender - setting properties for Action Links
-      this.isLoggedIn = this.loginHelper.isLoggedIn();
+      this.isLoggedIn = getLoginHelper().isLoggedIn();
       this.isLatestVersion =
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
               .getVersionNumber();
@@ -505,12 +488,9 @@ public class ViewItemFull extends FacesBean {
           }
 
           String language = this.getPubItem().getMetadata().getLanguages().get(i);
-          InternationalizationHelper internationalizationHelper =
-              (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
           String languageName = null;
           try {
-            languageName =
-                CommonUtils.getConeLanguageName(language, internationalizationHelper.getLocale());
+            languageName = CommonUtils.getConeLanguageName(language, getI18nHelper().getLocale());
           } catch (Exception e) {
             logger.error("Cannot retrieve language information from CoNE", e);
           }
@@ -568,7 +548,7 @@ public class ViewItemFull extends FacesBean {
       // if item is currently part of invalid yearbook items, show Validation Messages
       // ContextListSessionBean clsb =
       // (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-      if (loginHelper.getIsYearbookEditor()) {
+      if (getLoginHelper().getIsYearbookEditor()) {
 
         yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
 
@@ -897,7 +877,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String submitItem() {
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -914,7 +894,7 @@ public class ViewItemFull extends FacesBean {
 
   public String acceptItem() {
     try {
-      this.itemValidating.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -929,7 +909,7 @@ public class ViewItemFull extends FacesBean {
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
-  protected AcceptItemSessionBean getAcceptItemSessionBean() {
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
@@ -1213,13 +1193,13 @@ public class ViewItemFull extends FacesBean {
     return getIdentifierHtmlString(this.pubItem.getMetadata().getIdentifiers());
   }
 
-  public static String getIdentifierHtmlString(List<IdentifierVO> idList) {
+  public String getIdentifierHtmlString(List<IdentifierVO> idList) {
     StringBuffer identifiers = new StringBuffer();
     if (idList != null) {
       for (int i = 0; i < idList.size(); i++) {
         try {
           String labelKey = "ENUM_IDENTIFIERTYPE_" + idList.get(i).getTypeString();
-          identifiers.append(getLabelStatic(labelKey));
+          identifiers.append(getLabel(labelKey));
         } catch (MissingResourceException e) {
           logger.debug("Found no label for identifier type " + idList.get(i).getTypeString());
           identifiers.append(idList.get(i).getTypeString());
@@ -1247,12 +1227,6 @@ public class ViewItemFull extends FacesBean {
       }
     }
     return identifiers.toString();
-  }
-
-  public static String getLabelStatic(String placeholder) {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
   }
 
   /**
@@ -1374,7 +1348,7 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getShowSystemDetails() {
-    return this.loginHelper.isLoggedIn();
+    return getLoginHelper().isLoggedIn();
   }
 
   /**
@@ -1636,46 +1610,6 @@ public class ViewItemFull extends FacesBean {
     return ReleaseHistory.LOAD_RELEASE_HISTORY;
   }
 
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-  }
-
-  protected WithdrawItemSessionBean getWithdrawItemSessionBean() {
-    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
-  }
-
-  protected EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
-  protected SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
-  }
-
-  protected RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
-  }
-
-  protected ItemVersionListSessionBean getItemVersionListSessionBean() {
-    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
-  }
-
-  protected RelationListSessionBean getRelationListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
-  }
-
-  protected ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) getApplicationBean(ApplicationBean.class);
-  }
-
   public PubItemVO getPubItem() {
     return this.pubItem;
   }
@@ -1718,8 +1652,7 @@ public class ViewItemFull extends FacesBean {
   public String getGenre() {
     String genre = "";
     if (this.pubItem.getMetadata().getGenre() != null) {
-      genre =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+      genre = getLabel(getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getGenre()));
     }
 
     return genre;
@@ -1729,8 +1662,8 @@ public class ViewItemFull extends FacesBean {
     String reviewMethod = "";
     if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getReviewMethod() != null) {
       reviewMethod =
-          getLabel(this.getI18nHelper().convertEnumToString(
-              this.pubItem.getMetadata().getReviewMethod()));
+          getLabel(getI18nHelper()
+              .convertEnumToString(this.pubItem.getMetadata().getReviewMethod()));
     }
 
     return reviewMethod;
@@ -1740,7 +1673,7 @@ public class ViewItemFull extends FacesBean {
     String degreeType = "";
     if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getDegree() != null) {
       degreeType =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getDegree()));
+          getLabel(getI18nHelper().convertEnumToString(this.pubItem.getMetadata().getDegree()));
     }
 
     return degreeType;
@@ -1750,7 +1683,7 @@ public class ViewItemFull extends FacesBean {
     String itemState = "";
     if (this.pubItem.getVersion().getState() != null) {
       itemState =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getVersion().getState()));
+          getLabel(getI18nHelper().convertEnumToString(this.pubItem.getVersion().getState()));
     }
 
     return itemState;
@@ -1934,8 +1867,7 @@ public class ViewItemFull extends FacesBean {
   public String getItemPublicState() {
     String itemState = "";
     if (this.pubItem.getPublicStatus() != null) {
-      itemState =
-          getLabel(this.getI18nHelper().convertEnumToString(this.pubItem.getPublicStatus()));
+      itemState = getLabel(getI18nHelper().convertEnumToString(this.pubItem.getPublicStatus()));
     }
 
     return itemState;
@@ -2062,7 +1994,7 @@ public class ViewItemFull extends FacesBean {
     try {
       exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
     } catch (TechnicalException e) {
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
     if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
@@ -2084,7 +2016,7 @@ public class ViewItemFull extends FacesBean {
       fos.write(exportFileData);
       fos.close();
     } catch (IOException e1) {
-      ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e1);
+      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
       return ErrorPage.LOAD_ERRORPAGE;
     }
     sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
@@ -2256,9 +2188,6 @@ public class ViewItemFull extends FacesBean {
       ExportFormatVO expFormat = new ExportFormatVO();
       expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
 
-      InternationalizationHelper ih =
-          (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-
       // Use special apa style if language is set to japanese
       boolean isJapanese = false;
 
@@ -2271,7 +2200,7 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
-      if (isJapanese || "ja".equalsIgnoreCase(ih.getLocale())) {
+      if (isJapanese || "ja".equalsIgnoreCase(getI18nHelper().getLocale())) {
         expFormat.setName("APA(CJK)");
       } else {
         expFormat.setName("APA6");
@@ -2284,7 +2213,7 @@ public class ViewItemFull extends FacesBean {
       expFormat.setSelectedFileFormat(fileFormat);
 
       byte[] exportFileData = null;
-      exportFileData = itemExporting.getOutput(expFormat, pubItemList);
+      exportFileData = ItemExportingService.getOutput(expFormat, pubItemList);
 
       String exportHtml = new String(exportFileData, "UTF-8");
       try {
@@ -2509,8 +2438,7 @@ public class ViewItemFull extends FacesBean {
 
   public String getHtmlMetaTags() {
     try {
-      String itemXml = xmlTransforming.transformToItem(new PubItemVO(pubItem));
-
+      String itemXml = XmlTransformingService.transformToItem(new PubItemVO(pubItem));
       /*
        * Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8"); Format
        * targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html",
@@ -2593,5 +2521,41 @@ public class ViewItemFull extends FacesBean {
     }
 
     return returnValue;
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private ViewItemSessionBean getViewItemSessionBean() {
+    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+  }
+
+  private WithdrawItemSessionBean getWithdrawItemSessionBean() {
+    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
+  }
+
+  private EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  private SubmitItemSessionBean getSubmitItemSessionBean() {
+    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
+  }
+
+  private RightsManagementSessionBean getRightsManagementSessionBean() {
+    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
+  }
+
+  private ItemVersionListSessionBean getItemVersionListSessionBean() {
+    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
+  }
+
+  private RelationListSessionBean getRelationListSessionBean() {
+    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
+  }
+
+  private ContextListSessionBean getCollectionListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 }

@@ -26,13 +26,9 @@
 
 package de.mpg.mpdl.inge.transformation.transformations.microFormats;
 
-
-import javax.naming.InitialContext;
-
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * 
@@ -78,9 +74,7 @@ public class CoinsTransformation {
   public String getCOinS(byte[] source) {
     String coins = null;
     try {
-
-      XmlTransforming xmlTransforming = new XmlTransformingBean();
-      PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(source));
+      PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(source));
       coins = this.getCOinS(itemVO);
     } catch (Exception e) {
       throw new RuntimeException(e);

@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.util;
 
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean;
 
@@ -62,21 +61,7 @@ public class GrantVOPresentation extends FacesBean {
     }
   }
 
-  /**
-   * Returns the ItemControllerSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemControllerSessionBean)
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  /**
-   * Returns the AudienceSessionBean.
-   * 
-   * @return a reference to the scoped data bean (AudienceSessionBean)
-   */
-  protected AudienceSessionBean getAudienceSessionBean() {
+  private AudienceSessionBean getAudienceSessionBean() {
     return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
   }
 
@@ -95,5 +80,4 @@ public class GrantVOPresentation extends FacesBean {
   public void setIndex(int index) {
     this.index = index;
   }
-
 }

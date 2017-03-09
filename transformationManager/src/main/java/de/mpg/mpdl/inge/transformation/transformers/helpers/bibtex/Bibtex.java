@@ -70,13 +70,12 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
 import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Implementation of BibTex transformation.
@@ -1394,10 +1393,9 @@ public class Bibtex implements BibtexInterface {
         this.logger.debug("Comment found: " + ((BibtexToplevelComment) object).getContent());
       }
     }
-    XmlTransforming xmlTransforming = new XmlTransformingBean();
     try {
       if (entryFound) {
-        return xmlTransforming.transformToItem(itemVO);
+        return XmlTransformingService.transformToItem(itemVO);
       } else {
         this.logger.warn("No entry found in BibTex record.");
         throw new RuntimeException();

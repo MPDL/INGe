@@ -2,25 +2,19 @@ package de.mpg.mpdl.inge.transformation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationBean;
-import de.mpg.mpdl.inge.transformation.Util;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.mpdl.inge.transformation.transformations.otherFormats.mab.MABTransformation;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class MABImportTester {
-
   private static final Logger logger = Logger.getLogger(MABImportTester.class);
+
   MABTransformation mapTransformer = new MABTransformation();
 
   /**
@@ -30,7 +24,7 @@ public class MABImportTester {
     // TODO Auto-generated method stub
     MABImport imp = new MABImport();
 
-    Transformation transformation = new TransformationBean();
+    Transformation transformation = new TransformationService();
     Format inputFormat = new Format("MAB", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
 
@@ -59,7 +53,7 @@ public class MABImportTester {
 
   @Test
   public void mabListTransformation() throws Exception {
-    this.logger.info("Transform MAB list to xml format");
+    logger.info("Transform MAB list to xml format");
 
     Format inputFormat = new Format("MAB", "text/plain", "utf-8");
     Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
@@ -69,9 +63,7 @@ public class MABImportTester {
                 MABImportTester.class.getClassLoader()).getBytes("UTF-8"), inputFormat,
             outputFormat, "escidoc");
 
-    XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-    List<PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
-    this.logger.info("PubItemVO List successfully created.");
+    XmlTransformingService.transformToPubItemList(new String(result));
+    logger.info("PubItemVO List successfully created.");
   }
-
 }

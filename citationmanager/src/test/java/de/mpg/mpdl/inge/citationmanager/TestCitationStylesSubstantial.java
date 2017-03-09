@@ -51,7 +51,6 @@ import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.mpdl.inge.citationmanager.impl.CitationStyleExecutor;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
@@ -105,13 +104,9 @@ public class TestCitationStylesSubstantial {
 
   private static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
 
-  private static CitationStyleExecutor cse;
-
-
   @BeforeClass
   public static void setUp() throws Exception {
     filterMap.clear();
-    cse = new CitationStyleExecutor();
   }
 
   /**
@@ -123,7 +118,7 @@ public class TestCitationStylesSubstantial {
   @Ignore
   public final void testCitationStylesSnippetGeneration() throws Exception {
 
-    for (String cs : cse.getStyles()) {
+    for (String cs : CitationStyleExecutorService.getStyles()) {
       if (!"CSL".equals(cs)) {
         testCitationStyleSnippetGeneration(cs);
       }
@@ -179,8 +174,8 @@ public class TestCitationStylesSubstantial {
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
         String snippet =
-            new String(cse.getOutput(DOMUtilities.outputString(doc), new ExportFormatVO(
-                FormatType.LAYOUT, cs, "escidoc_snippet")));
+            new String(CitationStyleExecutorService.getOutput(DOMUtilities.outputString(doc),
+                new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
         Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet);

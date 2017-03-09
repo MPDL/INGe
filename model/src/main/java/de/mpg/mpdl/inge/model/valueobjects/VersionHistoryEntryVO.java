@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @created 17-Okt-2007 18:51:45
  */
+@SuppressWarnings("serial")
 public class VersionHistoryEntryVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -46,7 +47,6 @@ public class VersionHistoryEntryVO extends ValueObject {
    * 
    * @author Johannes Mueller
    */
-
 
   /**
    * Reference to the according item.

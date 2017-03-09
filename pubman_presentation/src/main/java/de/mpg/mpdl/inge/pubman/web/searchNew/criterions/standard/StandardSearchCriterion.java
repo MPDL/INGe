@@ -29,13 +29,9 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public abstract class StandardSearchCriterion extends SearchCriterionBase {
-
-
-
   private String searchString;
-
-
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
@@ -52,12 +48,10 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
     this.searchString = unescapeForQueryString(content);
   }
 
-
-
   public abstract String[] getCqlIndexes(Index indexName);
 
   public String getSearchString() {
-    return searchString;
+    return this.searchString;
   }
 
   public void setSearchString(String searchString) {
@@ -68,6 +62,4 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
   public boolean isEmpty(QueryType queryType) {
     return searchString == null || searchString.trim().isEmpty();
   }
-
-
 }

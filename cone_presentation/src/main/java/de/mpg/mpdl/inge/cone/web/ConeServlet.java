@@ -89,6 +89,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ConeServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(ConeServlet.class);

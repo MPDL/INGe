@@ -11,14 +11,13 @@ import javax.faces.model.SelectItem;
  * 
  */
 public class SelectItemComparator implements Comparator<SelectItem> {
-
+  @Override
   public int compare(SelectItem si1, SelectItem si2) {
 
     if (si1.getLabel() != null && si2.getLabel() != null) {
       return si1.getLabel().toLowerCase().compareTo(si2.getLabel().toLowerCase());
     }
+
     return 0;
-
   }
-
 }

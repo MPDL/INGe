@@ -35,7 +35,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * JSF bean class to hold an import's data.
@@ -45,13 +44,14 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ImportData extends FacesBean {
+  private static final Logger logger = Logger.getLogger(ImportData.class);
+
   private int importId = 0;
   private String userid = null;
   private String userHandle = null;
   private ImportLog log = null;
-
-  private static Logger logger = Logger.getLogger(ImportData.class);
 
   /**
    * Constructor extracting the import's id from the URL and setting user settings.
@@ -62,10 +62,10 @@ public class ImportData extends FacesBean {
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    if (loginHelper.getAccountUser() != null && loginHelper.getAccountUser().getReference() != null) {
-      this.userid = loginHelper.getAccountUser().getReference().getObjectId();
-      this.userHandle = loginHelper.getAccountUser().getHandle();
+    if (getLoginHelper().getAccountUser() != null
+        && getLoginHelper().getAccountUser().getReference() != null) {
+      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
+      this.userHandle = getLoginHelper().getAccountUser().getHandle();
     }
   }
 

@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-
-import org.apache.log4j.Logger;
-
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -34,32 +28,21 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
-  private final String MAXIMUM_RECORDS = "5000";
   public static final String BEAN_NAME = "YearbookArchiveBean";
-  private static final Logger logger = Logger.getLogger(YearbookArchiveBean.class);
+  private static final String MAXIMUM_RECORDS = "5000";
 
-  // private YearbookItemSessionBean yearbookItemSessionBean;
-  private LoginHelper loginHelper;
-  private XmlTransforming xmlTransforming;
-  // private PubItemVO activeYearbookItem;
-  // private MdsYearbookVO yearbookMetadata;
   private List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
 
   public YearbookArchiveBean() throws Exception {
-    // this.yearbookItemSessionBean =
-    // (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-    InitialContext initialContext = new InitialContext();
-    this.xmlTransforming =
-        (XmlTransforming) initialContext
-            .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
+    ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
     // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    String orgId =
+        getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     filterParams.put(
@@ -67,10 +50,10 @@ public class YearbookArchiveBean extends FacesBean {
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-    filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
+    filterParams.put("maximumRecords", new String[] {MAXIMUM_RECORDS});
     String xmlItemList = itemHandler.retrieveItems(filterParams);
     SearchRetrieveResponseVO result =
-        xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+        XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // check if years have to be excluded from selection
     if (result.getNumberOfRecords() > 0) {
       PubItemVO recordPubItem = null;
@@ -127,13 +110,10 @@ public class YearbookArchiveBean extends FacesBean {
    * @return all Members of the choosen yearbook
    */
   public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
-    InitialContext initialContext = new InitialContext();
-    Search searchService =
-        (Search) initialContext.lookup("java:global/pubman_ear/search/SearchBean");
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getSelectedYearbook());
-    ItemContainerSearchResult result = searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
   }
@@ -147,40 +127,40 @@ public class YearbookArchiveBean extends FacesBean {
     return "loadYearbookArchiveItemViewPage";
   }
 
-  /**
-   * Return any bean stored in session scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
-  public static synchronized Object getSessionBean(final Class<?> cls) {
-
-    String name = null;
-
-    try {
-      name = (String) cls.getField("BEAN_NAME").get(new String());
-      if (FacesBean.class.getName().equals(name)) {
-        logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("Error getting bean name of " + cls, e);
-    }
-    Object result =
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name);
-
-    logger.debug("Getting bean " + name + ": " + result);
-
-    if (result == null) {
-      try {
-        logger.debug("Creating new session bean: " + name);
-        Object newBean = cls.newInstance();
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(name, newBean);
-        return newBean;
-      } catch (Exception e) {
-        throw new RuntimeException("Error creating new bean of type " + cls, e);
-      }
-    } else {
-      return result;
-    }
-  }
+  // /**
+  // * Return any bean stored in session scope under the specified name.
+  // *
+  // * @param cls The bean class.
+  // * @return the actual or new bean instance
+  // */
+  // public static synchronized Object getSessionBean(final Class<?> cls) {
+  //
+  // String name = null;
+  //
+  // try {
+  // name = (String) cls.getField("BEAN_NAME").get(new String());
+  // if (FacesBean.class.getName().equals(name)) {
+  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+  // }
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error getting bean name of " + cls, e);
+  // }
+  // Object result =
+  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name);
+  //
+  // logger.debug("Getting bean " + name + ": " + result);
+  //
+  // if (result == null) {
+  // try {
+  // logger.debug("Creating new session bean: " + name);
+  // Object newBean = cls.newInstance();
+  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(name, newBean);
+  // return newBean;
+  // } catch (Exception e) {
+  // throw new RuntimeException("Error creating new bean of type " + cls, e);
+  // }
+  // } else {
+  // return result;
+  // }
+  // }
 }

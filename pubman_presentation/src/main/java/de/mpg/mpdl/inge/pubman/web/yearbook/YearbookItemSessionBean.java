@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 
 import org.apache.log4j.Logger;
 
@@ -27,14 +26,13 @@ import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
@@ -55,18 +53,8 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;
-  private LoginHelper loginHelper;
   private ItemHandler itemHandler;
   private ContextVO yearbookContext;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
-
-  @EJB
-  private Search searchService;
-
-  // @EJB
-  // private ItemValidating itemValidating;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap =
@@ -77,23 +65,18 @@ public class YearbookItemSessionBean extends FacesBean {
   public YearbookItemSessionBean() {
     try {
       this.pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-      this.itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-
-
+      this.itemHandler = ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
-
     } catch (Exception e) {
       error("Error retrieving yearbook item!");
       logger.error("Error retrieving yearbook item!", e);
     }
   }
 
-
   @PostConstruct
   public void postConstruct() {
     try {
-      if (loginHelper.getIsYearbookEditor()) {
+      if (getLoginHelper().getIsYearbookEditor()) {
         initYearbook();
       }
     } catch (Exception e) {
@@ -107,7 +90,8 @@ public class YearbookItemSessionBean extends FacesBean {
     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
-    String orgId = loginHelper.getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    String orgId =
+        getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     // String orgId = "escidoc:persistent25";
     filterParams.put(
         "query",
@@ -117,7 +101,7 @@ public class YearbookItemSessionBean extends FacesBean {
     filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
     String xmlItemList = itemHandler.retrieveItems(filterParams);
     SearchRetrieveResponseVO result =
-        xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+        XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // set current yearbook if already existent
     if (result.getNumberOfRecords() > 0) {
       PubItemVO yearbookPubItem = null;
@@ -134,10 +118,10 @@ public class YearbookItemSessionBean extends FacesBean {
               && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
             this.setYearbookItem(yearbookPubItem);
             ContextHandler contextHandler =
-                ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());
+                ServiceLocator.getContextHandler(getLoginHelper().getESciDocUserHandle());
             String contextXml =
                 contextHandler.retrieve(getYearbookItem().getContext().getObjectId());
-            this.yearbookContext = xmlTransforming.transformToContext(contextXml);
+            this.yearbookContext = XmlTransformingService.transformToContext(contextXml);
           }
         }
       }
@@ -203,22 +187,22 @@ public class YearbookItemSessionBean extends FacesBean {
   private void addRelations(List<ItemRO> relList) throws Exception {
     if (relList.size() > 0) {
       String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
       String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
       itemHandler.addContentRelations(yearbookItem.getVersion().getObjectId(), taskParam);
       updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     }
   }
 
   private void removeRelations(List<ItemRO> relList) throws Exception {
     if (relList.size() > 0) {
       String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
       String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
       itemHandler.removeContentRelations(yearbookItem.getVersion().getObjectId(), taskParam);
       updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     }
   }
 
@@ -246,7 +230,7 @@ public class YearbookItemSessionBean extends FacesBean {
     String cqlQuery = YearbookCandidatesRetrieverRequestBean.getCandidateQuery().getCqlQuery();
     cqlQuery += " AND " + MetadataSearchCriterion.getINDEX_OBJID() + "=\"" + id + "\"";
     ItemContainerSearchResult result =
-        this.searchService.searchForItemContainer(new PlainCqlQuery(cqlQuery));
+        SearchService.searchForItemContainer(new PlainCqlQuery(cqlQuery));
     return result.getTotalNumberOfResults().shortValue() == 1;
   }
 
@@ -254,7 +238,7 @@ public class YearbookItemSessionBean extends FacesBean {
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
     mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.OBJID, id, LogicalOperator.AND));
-    ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     return result.getTotalNumberOfResults().shortValue() == 1;
   }
 
@@ -262,7 +246,7 @@ public class YearbookItemSessionBean extends FacesBean {
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
-    ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
   }
@@ -389,7 +373,7 @@ public class YearbookItemSessionBean extends FacesBean {
       } else {
         TaskParamVO param =
             new TaskParamVO(getYearbookItem().getModificationDate(), "Submitting yearbook");
-        String paramXml = xmlTransforming.transformToTaskParam(param);
+        String paramXml = XmlTransformingService.transformToTaskParam(param);
         itemHandler.submit(getYearbookItem().getVersion().getObjectId(), paramXml);
         info(getMessage("Yearbook_SubmittedSuccessfully"));
       }
@@ -399,11 +383,12 @@ public class YearbookItemSessionBean extends FacesBean {
     }
     try {
       String yearbookXml = itemHandler.retrieve(getYearbookItem().getVersion().getObjectId());
-      this.setYearbookItem((PubItemVO) xmlTransforming.transformToPubItem(yearbookXml));
+      this.setYearbookItem((PubItemVO) XmlTransformingService.transformToPubItem(yearbookXml));
     } catch (Exception e) {
       error(getMessage("Yearbook_reinitializeError"));
       logger.error("Could not reinitialize Yearbook", e);
     }
+
     return "";
   }
 
@@ -424,7 +409,7 @@ public class YearbookItemSessionBean extends FacesBean {
       }
 
       ItemContainerSearchResult result =
-          searchService.searchForItemContainer(new PlainCqlQuery(query));
+          SearchService.searchForItemContainer(new PlainCqlQuery(query));
 
       pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
       pilsb.downloadExportFile(pubItemList);
@@ -435,6 +420,5 @@ public class YearbookItemSessionBean extends FacesBean {
     }
 
     return "";
-
   }
 }

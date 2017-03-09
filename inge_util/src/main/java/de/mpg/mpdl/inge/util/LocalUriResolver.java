@@ -49,19 +49,13 @@ import org.apache.log4j.Logger;
  * @version $Revision$$LastChangedDate$
  */
 public class LocalUriResolver implements URIResolver {
-
-  private String base = "";
+  private static final Logger logger = Logger.getLogger(LocalUriResolver.class);
 
   private static final String TRANS_PATH = "transformations/";
 
-  private static Logger logger = Logger.getLogger(LocalUriResolver.class);
+  private String base = "";
 
-  /**
-   * Default constructor.
-   */
-  public LocalUriResolver() {
-
-  }
+  public LocalUriResolver() {}
 
   /**
    * Field-based constructor.
@@ -72,9 +66,7 @@ public class LocalUriResolver implements URIResolver {
     this.base = base;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public final Source resolve(String href, String altBase) throws TransformerException {
 
     logger.debug("Trying to resolve <" + href + "> with base <" + altBase + ">");

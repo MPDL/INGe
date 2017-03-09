@@ -18,12 +18,14 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
+
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -61,17 +63,11 @@ public class DoiRestService {
 
     try {
       // Generate metadata xml for the DOI service
-      XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-      String itemXml = xmlTransforming.transformToItem(pubItem);
+      String itemXml = XmlTransformingService.transformToItem(pubItem);
       Transformer transformer =
           TransformerFactory.newInstance(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
               TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
-      /*
-       * String doiMetadataXml = new String(transformation.transform(itemXml.getBytes("UTF-8"),
-       * DoiMetadataTransformation.ESCIDOC_ITEM_FORMAT, DoiMetadataTransformation.DOI_ITEM_FORMAT,
-       * "escidoc"), "UTF-8");
-       */
 
       transformer.transform(new TransformerStreamSource(
           new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));

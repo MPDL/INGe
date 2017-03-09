@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -74,7 +74,7 @@ public class SubmitItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : this.getCurrentPubItem().getMetadata().getCreators()) {
@@ -102,7 +102,7 @@ public class SubmitItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getCurrentPubItem() {
+  public PubItemVO getCurrentPubItem() {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
@@ -111,7 +111,7 @@ public class SubmitItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String submit() {
+  public String submit() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -127,7 +127,7 @@ public class SubmitItem extends FacesBean {
     } else {
       retVal =
           this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
-      if (PubItemDepositing.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
+      if (PubItemService.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
           .getCurrentWorkflow())) {
         retVal =
             this.getItemControllerSessionBean()
@@ -160,7 +160,7 @@ public class SubmitItem extends FacesBean {
     return retVal;
   }
 
-  public final String cancel() {
+  public String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -199,7 +199,7 @@ public class SubmitItem extends FacesBean {
     return false;
   }
 
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
@@ -221,12 +221,12 @@ public class SubmitItem extends FacesBean {
 
   public boolean getIsStandardWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_STANDARD);
+        PubItemService.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
     return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemDepositing.WORKFLOW_SIMPLE);
+        PubItemService.WORKFLOW_SIMPLE);
   }
 
   public boolean getIsSubmitted() {

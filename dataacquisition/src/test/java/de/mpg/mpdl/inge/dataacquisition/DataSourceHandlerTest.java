@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 
 
@@ -30,7 +30,7 @@ public class DataSourceHandlerTest {
   @Test
   public void sourceRetrivalTest() throws Exception {
     this.logger.info("Testing processing of sources.xml");
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
     DataSourceVO test = null;
     List<DataSourceVO> testV = null;
 

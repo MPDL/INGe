@@ -34,8 +34,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerBean;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerBean;
+import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
+import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author Friederike Kleinfercher (initial creation)
  */
 public class DataAcquisitionUnitTest {
-  private DataHandlerBean datahandler = new DataHandlerBean();
+  private DataHandlerService datahandler = new DataHandlerService();
 
   private final static String arxivId = "arXiv:0904.3933";
   private final static String pmcId = "PMC2043518";
@@ -108,7 +108,7 @@ public class DataAcquisitionUnitTest {
    */
   @Test
   public void fetchItemInSpecificFormatTest() throws Exception {
-    DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
     DataSourceVO test = sourceHandler.getSourceByIdentifier("arXiv");
 
     List<MetadataVO> formats = test.getMdFormats();

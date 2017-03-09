@@ -48,7 +48,6 @@ import de.mpg.mpdl.inge.pubman.web.home.Home;
 import de.mpg.mpdl.inge.pubman.web.itemLog.ViewItemLog;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
-import de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.NavigationRule;
@@ -131,26 +130,19 @@ public class Navigation extends FacesBean {
   public String changeLanguage() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
     // initialize the nav string with null. if it won't be changed the page would just be reloaded
     String navigationString = "";
-
-    ViewItemFull viewItem;
-    EditItem editItem;
-    // CreateRevision createRevision;
-    ReleaseHistory releaseHistory;
-    ViewItemLog viewItemLog;
 
     // special re-initializaion for pages with dynamic page elements which
     // must be re-inited
 
-    // logger.debug("Resolving current page URI: " + request.getRequestURI());
     String requestURI = request.getRequestURI();
 
     if (requestURI.startsWith("/pubman")) {
       requestURI = requestURI.substring("/pubman".length());
     }
 
-    logger.debug("Resolving current page URI: " + requestURI);
     for (int i = 0; i < navRules.size(); i++) {
       if (requestURI.equals(navRules.get(i).getRequestURL())) {
         navigationString = navRules.get(i).getNavigationString();
@@ -159,25 +151,20 @@ public class Navigation extends FacesBean {
     }
 
     if (navigationString.equals(EditItem.LOAD_EDITITEM)) {
-      editItem = (EditItem) getRequestBean(EditItem.class);
-      editItem.init();
+      ((EditItem) getRequestBean(EditItem.class)).init();
     } else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM)) {
-      viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
-      viewItem.init();
-    } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
+      ((ViewItemFull) getRequestBean(ViewItemFull.class)).init();
+      // } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
       // createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
       // createRevision.init();
     } else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      releaseHistory = (ReleaseHistory) getRequestBean(ReleaseHistory.class);
-      releaseHistory.init();
+      ((ReleaseHistory) getRequestBean(ReleaseHistory.class)).init();
     } else if (navigationString.equals(ViewItemLog.LOAD_ITEM_LOG)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      viewItemLog = (ViewItemLog) getRequestBean(ViewItemLog.class);
-      viewItemLog.init();
+      ((ViewItemLog) getRequestBean(ViewItemLog.class)).init();
     } else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION)) {
-      EasySubmission easy = (EasySubmission) getRequestBean(EasySubmission.class);
-      easy.init();
+      ((EasySubmission) getRequestBean(EasySubmission.class)).init();
     } else {
       navigationString = null;
     }
@@ -232,58 +219,16 @@ public class Navigation extends FacesBean {
         .get(name);
   }
 
-  /**
-   * Returns the AffiliationSessionBean.
-   * 
-   * @return a reference to the scoped data bean (AffiliationSessionBean)
-   */
-  protected AffiliationBean getAffiliationBean() {
-    return (AffiliationBean) getSessionBean(AffiliationBean.class);
-  }
-
-  /**
-   * Returns the ReleasesSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ReleasesSessionBean)
-   */
-  protected ItemVersionListSessionBean getItemVersionSessionBean() {
+  private ItemVersionListSessionBean getItemVersionSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 
-  /**
-   * Returns the RevisionListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (RevisionListSessionBean)
-   */
-  protected RelationListSessionBean getRevisionListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
-  }
-
-  /**
-   * Returns the ContextListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ContextListSessionBean)
-   */
-  protected ContextListSessionBean getCollectionListSessionBean() {
+  private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean.
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  /**
-   * Returns the AdvancedSearchEdit session bean.
-   * 
-   * @return AdvancedSearchEdit session bean.
-   */
-  protected AdvancedSearchEdit getAdvancedSearchEdit() {
-    return (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
   }
 
   public void setShowExportMenuOption(boolean showExportMenuOption) {
@@ -293,5 +238,4 @@ public class Navigation extends FacesBean {
   public boolean getShowExportMenuOption() {
     return showExportMenuOption;
   }
-
 }

@@ -25,18 +25,12 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 
@@ -53,52 +47,20 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
  * 
  */
 public class CitationUtil {
-  private static final Logger logger = Logger.getLogger(CitationUtil.class);
-
-  public final static String CLASS_DIRECTORY = "target/classes/";
-
-  public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
-  // public final static String RESOURCES_DIRECTORY_LOCAL = "target/classes/";
-  // public final static String RESOURCES_DIRECTORY_JAR = "resources/";
-  public final static String RESOURCES_DIRECTORY_JAR = "";
-
-  // public final static String TEST_RESOURCES_DIRECTORY_LOCAL = "src/test/resources/";
-  public final static String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
-
-
-  public final static String DATASOURCES_DIRECTORY = "DataSources/";
-  public final static String CITATIONSTYLES_DIRECTORY = "CitationStyles/";
+  public static final String CITATIONSTYLES_DIRECTORY = "CitationStyles/";
+  public static final String CITATION_STYLE_PROCESSING_XSL = "escidoc-cscl2cs-processing.xsl";
+  public static final String CITATION_STYLE_XML = "CitationStyle.xml";
+  public static final String CITATION_STYLE_XSL = "CitationStyle.xsl";
+  public static final String CLASS_DIRECTORY = "target/classes/";
+  public static final String DATASOURCES_DIRECTORY = "DataSources/";
+  public static final String EXPLAIN_FILE = "explain-styles.xml";
+  public static final String FONTSTYLES_FILENAME = "FontStyles";
+  public static final String RESOURCES_DIRECTORY_JAR = "";
+  public static final String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
   public static final String SCHEMAS_DIRECTORY = "Schemas/";
   public static final String SORTINGS_DIRECTORY = "Transformations/";
+  public static final String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
   public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
-
-  public final static String FONTSTYLES_FILENAME = "FontStyles";
-
-  public final static String EXPLAIN_FILE = "explain-styles.xml";
-
-  public final static String CITATION_STYLE_PROCESSING_XSL = "escidoc-cscl2cs-processing.xsl";
-
-  public final static String CITATION_STYLE_XML = "CitationStyle.xml";
-
-  public final static String CITATION_STYLE_XSL = "CitationStyle.xsl";
-
-  /**
-   * Copies one bin file to other
-   * 
-   * @param in An input file
-   * @param out An output file
-   * @throws IOException
-   */
-  public static void copyFileToFile(File in, File out) throws IOException {
-    int b; // the byte read from the file
-    BufferedInputStream is = new BufferedInputStream(new FileInputStream(in));
-    BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(out));
-    while ((b = is.read()) != -1) {
-      os.write(b);
-    }
-    is.close();
-    os.close();
-  }
 
   /**
    * Returns path to the directory of the classes depending on the run context (TOBE implemented
@@ -110,7 +72,6 @@ public class CitationUtil {
   public static String getPathToClasses() throws IOException {
     return "";
   }
-
 
   /**
    * Returns path to the resources directory
@@ -132,7 +93,6 @@ public class CitationUtil {
     return getPathToClasses().replace(CLASS_DIRECTORY, TEST_RESOURCES_DIRECTORY_LOCAL);
   }
 
-
   /**
    * Returns path to the test resources directory of the citation style
    * 
@@ -143,7 +103,6 @@ public class CitationUtil {
   public static String getPathToCitationStyleTestResources(String cs) throws IOException {
     return getPathToTestResources() + CITATIONSTYLES_DIRECTORY + cs + "/";
   }
-
 
   /**
    * Returns path to the Citation Styles directory
@@ -188,7 +147,6 @@ public class CitationUtil {
     return getPathToCitationStyle(cs) + CITATION_STYLE_XSL;
   }
 
-
   /**
    * Returns path to the Data Sources directory
    * 
@@ -216,11 +174,8 @@ public class CitationUtil {
    * @throws IOException
    */
   public static String getPathToTransformations() throws IOException {
-    return
-    // getPathToResources()
-    getPathToClasses() + TRANSFORMATIONS_DIRECTORY;
+    return getPathToClasses() + TRANSFORMATIONS_DIRECTORY;
   }
-
 
   /**
    * Gets URI to the resources
@@ -232,7 +187,6 @@ public class CitationUtil {
     return RESOURCES_DIRECTORY_JAR.equals(getPathToClasses()) ? RESOURCES_DIRECTORY_JAR
         : RESOURCES_DIRECTORY_LOCAL;
   }
-
 
   /*
    * Explains citation styles and output types for them
@@ -269,6 +223,7 @@ public class CitationUtil {
             + path + fileName, CitationUtil.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
+
     return props;
   }
 
@@ -284,7 +239,6 @@ public class CitationUtil {
   public static Properties getProperties(String fileName) throws FileNotFoundException, IOException {
     return getProperties("", fileName);
   }
-
 
   /**
    * Returns list of Citation Styles according to the content of the <code>CitaionStyles</code>
@@ -329,62 +283,4 @@ public class CitationUtil {
       new File(path, f).delete();
     path.delete();
   }
-
-  /**
-   * Creates new CitationStyle directory on hand of existende CitationStyle
-   * 
-   * @param newName A name of CitationStyle to be created
-   * @param templName A name of template CitationStyle
-   * @throws Exception
-   * @throws JRException
-   * @throws IOException
-   * @throws CitationStyleManagerException
-   * @throws SAXException
-   * @throws CitationStyleManagerException
-   */
-  /*
-   * public static void createNewCitationStyle(ProcessCitationStyles pcs, String templName, String
-   * newName) throws JRException, IOException, CitationStyleManagerException, SAXException,
-   * CitationStyleManagerException { Utils.checkPcs(pcs); Utils.checkName(templName,
-   * "Empty name of the template citation style"); Utils.checkName(newName,
-   * "Empty name of the new citation style");
-   * 
-   * // create new CitationStyle directory String path = getPathToCitationStyles(); File newPath =
-   * new File(path, newName); File templPath = new File(path, templName); if (newPath.mkdir()) { //
-   * take only files!!! String[] files = templPath.list( new FilenameFilter() { public boolean
-   * accept(File dir, String name){ return !(new File(dir, name)).isDirectory() &&
-   * name.endsWith(".xml"); } } ); for (String fn : files) copyFileToFile(new File(templPath, fn),
-   * new File(newPath, fn));
-   * 
-   * } else { throw new IOException("Cannot create new directory for CitationStyle:" + newPath ); }
-   * //replace old name with new one Loaders.loadCitationStyleFromXml(pcs, newName);
-   * pcs.getCsc().getCitationStyleByName(templName).setName(newName);
-   * Writers.writeCitationStyleToXml(pcs, newName); } /*
-   * 
-   * /** Creates new CitationStyle directory on hand of DefaultCitationStyle XMLs
-   * 
-   * @param newName A name of CitationStyle to be created
-   * 
-   * @param templName A name of template CitationStyle
-   * 
-   * @throws Exception
-   * 
-   * @throws JRException
-   * 
-   * @throws SAXException
-   * 
-   * @throws IOException
-   * 
-   * @throws CitationStyleManagerException
-   */
-  /*
-   * 
-   * public static void createNewCitationStyle(ProcessCitationStyles pcs, String newName) throws
-   * JRException, CitationStyleManagerException, IOException, SAXException,
-   * CitationStyleManagerException { Utils.checkPcs(pcs); createNewCitationStyle(pcs,
-   * pcs.DEFAULT_STYLENAME, newName); }
-   */
-
-
-
 }

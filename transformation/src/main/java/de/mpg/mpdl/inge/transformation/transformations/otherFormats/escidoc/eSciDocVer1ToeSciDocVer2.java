@@ -55,8 +55,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transformation {
-
-
   private static final Format ESCIDOC_ITEM_LIST_V1_FORMAT = new Format(
       "escidoc-publication-item-list-v1", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_V1_FORMAT = new Format("escidoc-publication-item-v1",
@@ -65,20 +63,15 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
       "escidoc-publication-item-list-v2", "application/xml", "*");
   private static final Format ESCIDOC_ITEM_V2_FORMAT = new Format("escidoc-publication-item-v2",
       "application/xml", "*");
-
   private static final String XSLT_PATH =
       "transformations/otherFormats/xslt/escidoc-publication-v1_2_escidoc-publication-v2.xsl";
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() {
     return new Format[] {ESCIDOC_ITEM_LIST_V1_FORMAT, ESCIDOC_ITEM_V1_FORMAT};
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) {
     if (trg != null
         && (trg.matches(ESCIDOC_ITEM_LIST_V2_FORMAT) || trg.matches(ESCIDOC_ITEM_V2_FORMAT))) {
@@ -88,18 +81,7 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
     }
   }
 
-
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getSourceFormatsAsXml() {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (src != null
         && (src.matches(ESCIDOC_ITEM_LIST_V1_FORMAT) || src.matches(ESCIDOC_ITEM_V1_FORMAT))) {
@@ -109,28 +91,17 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) {
-    throw new RuntimeException("Not implemented");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException, RuntimeException {
     Format srcFormat = new Format(srcFormatName, srcType, srcEncoding);
     Format trgFormat = new Format(trgFormatName, trgType, trgEncoding);
+
     return transform(src, srcFormat, trgFormat, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException {
     StringWriter result = new StringWriter();
@@ -166,13 +137,8 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
       System.out.println("Finished!");
 
       return result.toString().getBytes(trgFormat.getEncoding());
-
     } catch (Exception e) {
       throw new RuntimeException("Error parsing edoc xml", e);
     }
-
   }
-
-
-
 }

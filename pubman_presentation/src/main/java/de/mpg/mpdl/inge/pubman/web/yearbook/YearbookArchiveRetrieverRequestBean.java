@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -16,12 +15,11 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 
 /**
@@ -46,12 +44,6 @@ public class YearbookArchiveRetrieverRequestBean extends
   private int numberOfRecords;
   private PubItemListSessionBean pilsb;
 
-  // @EJB
-  // private Search searchService;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
-
   public YearbookArchiveRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
   }
@@ -75,7 +67,7 @@ public class YearbookArchiveRetrieverRequestBean extends
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
 
-      setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
+      setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
 
 
     } else {
@@ -94,20 +86,20 @@ public class YearbookArchiveRetrieverRequestBean extends
   }
 
   public List<SelectItem> getOrgUnitSelectItems() {
-    return this.getSessionBean().getOrgUnitSelectItems();
+    return this.getYearbookCandidatesSessionBean().getOrgUnitSelectItems();
   }
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
-    this.getSessionBean().setSelectedOrgUnit(selectedOrgUnit);
+    this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
     getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit,
         selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
-    return this.getSessionBean().getSelectedOrgUnit();
+    return this.getYearbookCandidatesSessionBean().getSelectedOrgUnit();
   }
 
-  public YearbookCandidatesSessionBean getSessionBean() {
+  private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
     return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
   }
 
@@ -141,10 +133,8 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
       YearbookArchiveBean yearbookArchiveBean =
           (YearbookArchiveBean) getSessionBean(YearbookArchiveBean.class);
-
 
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -169,11 +159,11 @@ public class YearbookArchiveRetrieverRequestBean extends
       }
 
       String xmlItemList =
-          ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
               filter.toMap());
 
       SearchRetrieveResponseVO result =
-          xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
 
       List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
       for (SearchRetrieveRecordVO record : result.getRecords()) {
@@ -187,6 +177,7 @@ public class YearbookArchiveRetrieverRequestBean extends
       error("Error in retrieving items");
       numberOfRecords = 0;
     }
+
     return returnList;
   }
 

@@ -34,7 +34,6 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 
 /**
  * JSF bean class (request) to hold data for the import workspace.
@@ -46,12 +45,10 @@ import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
  */
 @SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
+  public static final String BEAN_NAME = "ImportWorkspace";
 
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
-
-  public static final String BEAN_NAME = "ImportWorkspace";
-
   private List<ImportLog> imports = null;
 
   /**
@@ -70,8 +67,7 @@ public class ImportWorkspace extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    AccountUserVO user = loginHelper.getAccountUser();
+    AccountUserVO user = getLoginHelper().getAccountUser();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
 

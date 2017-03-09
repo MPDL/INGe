@@ -8,8 +8,6 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public interface Transformer {
-
-
   public void transform(TransformerSource source, TransformerResult result)
       throws TransformationException;
 
@@ -24,7 +22,4 @@ public interface Transformer {
   public void setTargetFormat(FORMAT targetFormat);
 
   public FORMAT getTargetFormat();
-
-
-
 }

@@ -31,7 +31,6 @@ public class TestConeCache {
 
     for (Thread thread : list) {
       thread.start();
-
     }
   }
 

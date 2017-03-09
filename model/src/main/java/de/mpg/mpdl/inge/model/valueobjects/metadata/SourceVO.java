@@ -290,18 +290,18 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setGenre(Genre newVal) {
-    genre = newVal;
+    this.genre = newVal;
   }
 
   /**
    * Delivers the list of external Identifier of the source, e.g. ISSN, ISBN, URI.
    */
   public java.util.List<IdentifierVO> getIdentifiers() {
-    return identifiers;
+    return this.identifiers;
   }
 
   public String getTotalNumberOfPages() {
-    return totalNumberOfPages;
+    return this.totalNumberOfPages;
   }
 
   public void setTotalNumberOfPages(String totalNumberOfPages) {

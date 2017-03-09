@@ -47,9 +47,7 @@ public class DegreeCriterion extends Criterion {
   /**
    * constructor.
    */
-  public DegreeCriterion() {
-    super();
-  }
+  public DegreeCriterion() {}
 
   public List<MdsPublicationVO.DegreeType> getDegree() {
     return degreeList;

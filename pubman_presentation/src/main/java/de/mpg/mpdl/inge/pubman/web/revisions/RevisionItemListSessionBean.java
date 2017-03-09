@@ -38,7 +38,5 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 public class RevisionItemListSessionBean extends PubItemListSessionBean {
   public static final String BEAN_NAME = "RevisionItemListSessionBean";
 
-  public RevisionItemListSessionBean() {
-    super();
-  }
+  public RevisionItemListSessionBean() {}
 }

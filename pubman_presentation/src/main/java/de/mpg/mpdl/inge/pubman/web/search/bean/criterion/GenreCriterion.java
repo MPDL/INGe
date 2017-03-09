@@ -50,9 +50,7 @@ public class GenreCriterion extends Criterion {
   /**
    * constructor.
    */
-  public GenreCriterion() {
-    super();
-  }
+  public GenreCriterion() {}
 
   public List<MdsPublicationVO.Genre> getGenre() {
     return genreList;

@@ -24,17 +24,11 @@
  */
 package test.framework.om;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Testcases for the basic service IngestHandler.

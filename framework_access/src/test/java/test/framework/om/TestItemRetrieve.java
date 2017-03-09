@@ -43,10 +43,10 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  */
 public class TestItemRetrieve extends TestItemBase {
-  private static final String FILTER_NONE =
-      "<param><filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">"
-          + ILLEGAL_ID + "</filter></param>";
-
+  // private static final String FILTER_NONE =
+  // "<param><filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">"
+  // + ILLEGAL_ID + "</filter></param>";
+  //
   private Logger logger = Logger.getLogger(getClass());
 
   private int countItems(String items) throws Exception {
@@ -58,14 +58,14 @@ public class TestItemRetrieve extends TestItemBase {
     return number;
   }
 
-  private int countItemRefs(String refs) throws Exception {
-    final String xPath = "//item-ref-list/item-ref";
-    Document doc = getDocument(refs, false);
-    NodeList list = selectNodeList(doc, xPath);
-    int number = list.getLength();
-    logger.debug("#Items=" + number);
-    return number;
-  }
+  // private int countItemRefs(String refs) throws Exception {
+  // final String xPath = "//item-ref-list/item-ref";
+  // Document doc = getDocument(refs, false);
+  // NodeList list = selectNodeList(doc, xPath);
+  // int number = list.getLength();
+  // logger.debug("#Items=" + number);
+  // return number;
+  // }
 
   /**
    * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
@@ -250,7 +250,7 @@ public class TestItemRetrieve extends TestItemBase {
   @Test
   public void retrieveContentItemsOfTypePublication() throws Exception {
     logger.info(readFile(ITEM_FILE));
-    String item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
+    ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
     String query = "\"/properties/content-model/id\"=" + PUBITEM_TYPE_ID;
 
     filterMap.put(OPERATION, new String[] {SEARCH_RETRIEVE});
@@ -380,9 +380,9 @@ public class TestItemRetrieve extends TestItemBase {
   @Test
   @Ignore
   public void retrieveContentItemRefsNotExisting() throws Exception {
-    String filter = FILTER_NONE;
-    logger.debug("Filter=" + filter);
-    long zeit = -System.currentTimeMillis();
+    // String filter = FILTER_NONE;
+    // logger.debug("Filter=" + filter);
+    // long zeit = -System.currentTimeMillis();
     /*
      * String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter); zeit +=
      * System.currentTimeMillis(); logger.info("retrieveContentItemRefsNotExisting(" + filter +

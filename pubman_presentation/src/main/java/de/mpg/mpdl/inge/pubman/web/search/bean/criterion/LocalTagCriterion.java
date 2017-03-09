@@ -41,9 +41,7 @@ public class LocalTagCriterion extends Criterion {
   /**
    * constructor.
    */
-  public LocalTagCriterion() {
-    super();
-  }
+  public LocalTagCriterion() {}
 
   /**
    * {@inheritDoc}

@@ -16,7 +16,6 @@
 package de.mpg.mpdl.inge.cone.util;
 
 import java.io.FileWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,16 +60,16 @@ public class CreateJournalRdf {
     FileWriter fileWriter =
         new FileWriter(ResourceUtil.getResourceAsFile("src/main/resources/journals.rdf",
             CreateJournalRdf.class.getClassLoader()));
-    StringWriter stringWriter = new StringWriter();
+    // StringWriter stringWriter = new StringWriter();
     fileWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!DOCTYPE rdf:RDF>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
         + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
         + "xmlns:dcterms=\"http://purl.org/dc/terms/\" "
         + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">");
     while (rs.next()) {
-      int rm = rs.getInt("rm");
+      // int rm = rs.getInt("rm");
       String sfxId = rs.getString("sfxid");
-      String sfxTitle = rs.getString("sfxtitle");
+      // String sfxTitle = rs.getString("sfxtitle");
       String eDocTitle = rs.getString("edoctitle");
       String eDocAbbrev = rs.getString("edocabbrev");
       String sfxIssn = rs.getString("sfxIssn");

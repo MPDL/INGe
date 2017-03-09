@@ -58,6 +58,9 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
+  public static final String BEAN_NAME = "ApplicationBean";
+
+  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 
   /** system type enum */
   public enum SystemType {
@@ -73,20 +76,14 @@ public class ApplicationBean extends FacesBean {
     Production_Server
   }
 
-  public static final String BEAN_NAME = "ApplicationBean";
-  // public static final String DEFAULT_STYLESHEET_URL = "";
-  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
+  private static final String PROPERTY_FILENAME = "solution.properties";
+  private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 
   /** system type of this application instance */
   private SystemType systemType;
   private String appTitle = null;
   private String version = null;
   private String appContext = "";
-
-  /** filename of the ear-internal property file */
-  private static final String PROPERTY_FILENAME = "solution.properties";
-
-  private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 
   private Map<String, SelectItem[]> languageSelectItems;
   private Map<String, String> contentCategoryMap;
@@ -122,17 +119,6 @@ public class ApplicationBean extends FacesBean {
 
     loadProperties();
   }
-
-  // /**
-  // * This method is called when this bean is initially added to application scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into application scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // //
-  // }
 
   public void loadProperties() {
     try {
@@ -175,7 +161,6 @@ public class ApplicationBean extends FacesBean {
         logger.error("Error while building style tags", e);
       }
 
-
       this.cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
       if (this.cookieVersion == null) {
         this.cookieVersion = "";
@@ -201,7 +186,6 @@ public class ApplicationBean extends FacesBean {
         this.handlesActivated = false;
       }
 
-
       String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName");
       try {
         if (footerFileName != null && !footerFileName.isEmpty()) {
@@ -212,10 +196,7 @@ public class ApplicationBean extends FacesBean {
         logger.error("Error while reading footer file: " + footerFileName);
       }
 
-
       this.cslEditorInstanceUrl = PropertyReader.getProperty("escidoc.pubman.csl_editor.instance");
-
-
     } catch (Exception e) {
       logger.error("Error while reading properties", e);
     }
@@ -527,11 +508,11 @@ public class ApplicationBean extends FacesBean {
   }
 
   public Map<String, SelectItem[]> getLanguageSelectItems() {
-    return languageSelectItems;
+    return this.languageSelectItems;
   }
 
   public Set<AffiliationVO> getOuList() {
-    return ouList;
+    return this.ouList;
   }
 
   public void setOuList(Set<AffiliationVO> ouList) {
@@ -540,11 +521,9 @@ public class ApplicationBean extends FacesBean {
 
   public String getLogoUrl() {
     return this.logoUrl;
-
   }
 
   public String getAdditionalLogoCss() {
-
     return this.additionalLogoCss;
   }
 
@@ -555,6 +534,7 @@ public class ApplicationBean extends FacesBean {
     if (this.contentCategoryMap == null) {
       this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     }
+
     return this.contentCategoryMap;
   }
 
@@ -565,6 +545,7 @@ public class ApplicationBean extends FacesBean {
     if (this.excludedSourceGenreMap == null) {
       this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     }
+
     return this.excludedSourceGenreMap;
   }
 
@@ -575,6 +556,7 @@ public class ApplicationBean extends FacesBean {
     if (this.creatorRoleMap == null) {
       this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
     }
+
     return this.creatorRoleMap;
   }
 
@@ -583,7 +565,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public String getFooterSnippet() {
-    return footerSnippet;
+    return this.footerSnippet;
   }
 
   public void setFooterSnippet(String footerSnippet) {
@@ -591,12 +573,10 @@ public class ApplicationBean extends FacesBean {
   }
 
   public String getCslEditorInstanceUrl() {
-    return cslEditorInstanceUrl;
+    return this.cslEditorInstanceUrl;
   }
 
   public void setCslEditorInstanceUrl(String cslEditorInstanceUrl) {
     this.cslEditorInstanceUrl = cslEditorInstanceUrl;
   }
-
-
 }

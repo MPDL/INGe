@@ -29,9 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.editItem.bean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -49,26 +47,25 @@ import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 
 /**
  * POJO bean to deal with one source.
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class SourceBean extends EditItemBean {
   public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
   public static final String HIDDEN_INNER_DELIMITER = " @@~~@@ ";
   public static final String HIDDEN_IDTYPE_DELIMITER = "\\|";
-  private SourceVO source;
-  private CreatorCollection creatorCollection;
-  private IdentifierCollection identifierCollection;
-  private boolean autosuggestJournals = false;
-  // private CoreCommandButton btnChooseCollection = new CoreCommandButton();
-  private String hiddenAlternativeTitlesField;
-  private String hiddenIdsField;
 
+  private boolean autosuggestJournals = false;
+  private String hiddenIdsField;
+  private String hiddenAlternativeTitlesField;
+  private SourceVO source;
   private List<SourceBean> list;
+  private IdentifierCollection identifierCollection;
+  private CreatorCollection creatorCollection;
 
   /**
    * Create a source bean using a given {@link SourceVO}.
@@ -188,22 +185,12 @@ public class SourceBean extends EditItemBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-    ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    Map<String, String> excludedSourceGenres = appBean.getExcludedSourceGenreMap();
+    Map<String, String> excludedSourceGenres =
+        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
-    sourceGenres.add(new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET")));
+    sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
     for (SourceVO.Genre value : SourceVO.Genre.values()) {
-      sourceGenres.add(new SelectItem(value, bundleLabel.getString("ENUM_GENRE_" + value.name())));
+      sourceGenres.add(new SelectItem(value, getLabel("ENUM_GENRE_" + value.name())));
     }
 
     String uri = "";
@@ -219,23 +206,18 @@ public class SourceBean extends EditItemBean {
         i++;
       }
     }
+
     return sourceGenres.toArray(new SelectItem[sourceGenres.size()]);
   }
 
   public boolean getAutosuggestJournals() {
-    return autosuggestJournals;
+    return this.autosuggestJournals;
   }
 
   public void setAutosuggestJournals(boolean autosuggestJournals) {
     this.autosuggestJournals = autosuggestJournals;
   }
 
-  /*
-   * public CoreCommandButton getBtnChooseCollection() { return btnChooseCollection; }
-   * 
-   * public void setBtnChooseCollection(CoreCommandButton btnChooseCollection) {
-   * this.btnChooseCollection = btnChooseCollection; }
-   */
   /**
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
    * model. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format
@@ -378,5 +360,4 @@ public class SourceBean extends EditItemBean {
   public void setList(List<SourceBean> list) {
     this.list = list;
   }
-
 }

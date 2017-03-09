@@ -45,13 +45,10 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 
+@SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {
-
-
   private Map<Genre, Boolean> genreMap = new LinkedHashMap<Genre, Boolean>();
-
   private Map<DegreeType, Boolean> degreeMap = new LinkedHashMap<DegreeType, Boolean>();
-
 
   public GenreListSearchCriterion() {
     initGenreMap();
@@ -68,11 +65,10 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     // first create a map with genre as key and the label as value
     Map<Genre, String> genreLabelMap = new LinkedHashMap<Genre, String>();
-    InternationalizationHelper iHelper =
+    InternationalizationHelper i18nHelper =
         (InternationalizationHelper) FacesBean.getSessionBean(InternationalizationHelper.class);
     for (Genre g : Genre.values()) {
-
-      genreLabelMap.put(g, iHelper.getLabel("ENUM_GENRE_" + g.name()));
+      genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 
 

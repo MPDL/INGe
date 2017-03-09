@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
@@ -42,7 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
@@ -55,8 +54,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * @revised by MuJ: 03.09.2007
  */
 public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-  private static Logger logger = Logger.getLogger(TransformInvalidPubItemTest.class);
+  private static final Logger logger = Logger.getLogger(TransformInvalidPubItemTest.class);
 
   /**
    * @throws Exception
@@ -67,12 +65,12 @@ public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
     String pubItemXML;
 
     pubItemVO = getEmptyPubItemVO();
-    pubItemXML = xmlTransforming.transformToItem(pubItemVO);
+    pubItemXML = XmlTransformingService.transformToItem(pubItemVO);
     assertNotNull(pubItemXML);
     logger.debug(pubItemXML);
 
     pubItemVO = getSmallPubItemVOWithStateAndEmptyMdsAndMinimalCollection();
-    pubItemXML = xmlTransforming.transformToItem(pubItemVO);
+    pubItemXML = XmlTransformingService.transformToItem(pubItemVO);
     assertNotNull(pubItemXML);
     logger.debug(pubItemXML);
   }
@@ -191,12 +189,12 @@ public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
     String pubItemXML;
 
     pubItemVO = getPubItemVOWithIncompleteMD();
-    pubItemXML = xmlTransforming.transformToItem(pubItemVO);
+    pubItemXML = XmlTransformingService.transformToItem(pubItemVO);
     assertNotNull(pubItemXML);
     logger.debug(pubItemXML);
 
     pubItemVO = getSmallPubItemVOWithStateAndEmptyMdsAndMinimalCollection();
-    pubItemXML = xmlTransforming.transformToItem(pubItemVO);
+    pubItemXML = XmlTransformingService.transformToItem(pubItemVO);
     assertNotNull(pubItemXML);
     logger.debug(pubItemXML);
   }

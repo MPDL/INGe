@@ -71,7 +71,7 @@ public class AcceptItem extends FacesBean {
    * Callback method that is called whenever a page containing this page fragment is navigated to,
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
-  public final void init() {
+  public void init() {
     // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
@@ -100,11 +100,11 @@ public class AcceptItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getPubItem() {
-    return (this.getItemControllerSessionBean().getCurrentPubItem());
+  public PubItemVO getPubItem() {
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
-  public final String accept() {
+  public String accept() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -134,7 +134,7 @@ public class AcceptItem extends FacesBean {
     return retVal;
   }
 
-  public final String cancel() {
+  public String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
@@ -169,11 +169,11 @@ public class AcceptItem extends FacesBean {
     return false;
   }
 
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  protected final AcceptItemSessionBean getAcceptItemSessionBean() {
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
     return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 

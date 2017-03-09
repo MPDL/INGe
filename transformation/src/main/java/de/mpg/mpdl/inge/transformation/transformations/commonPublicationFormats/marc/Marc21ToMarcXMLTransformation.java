@@ -34,7 +34,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlWriter;
@@ -42,8 +41,8 @@ import org.marc4j.marc.Record;
 
 import de.mpg.mpdl.inge.transformation.Configurable;
 import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
+import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
@@ -54,28 +53,9 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * 
  * @version $Revision: 261 $ $LastChangedDate: 2013-04-30 20:57:29 +0200 (Di, 30 Apr 2013) $
  */
-
 @TransformationModule
 public class Marc21ToMarcXMLTransformation implements Configurable, Transformation {
-
-  private Logger logger = Logger.getLogger(getClass());
-
-  public static final Format MARC21_FORMAT = new Format("marc21", "application/marc", ""); // if no
-                                                                                           // encoding
-                                                                                           // is
-                                                                                           // given,
-                                                                                           // the
-                                                                                           // transformation
-                                                                                           // tries
-                                                                                           // to
-                                                                                           // detect
-                                                                                           // the
-                                                                                           // current
-                                                                                           // encoding.
-                                                                                           // See
-                                                                                           // http://www.tigris.org/files/documents/220/33576/tutorial.html#N101E4
-                                                                                           // (Stf,
-                                                                                           // 2013-03-06)
+  public static final Format MARC21_FORMAT = new Format("marc21", "application/marc", "");
   public static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml", "*");
 
   private Map<String, String> configuration = null;
@@ -101,25 +81,12 @@ public class Marc21ToMarcXMLTransformation implements Configurable, Transformati
   }
 
   @Override
-  @Deprecated
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    return null;
-  }
-
-  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     if (MARC21_FORMAT.equals(src)) {
       return new Format[] {MARCXML_FORMAT};
     } else {
       return new Format[] {};
     }
-  }
-
-  @Override
-  @Deprecated
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    return null;
   }
 
   @Override
@@ -206,11 +173,11 @@ public class Marc21ToMarcXMLTransformation implements Configurable, Transformati
 
   @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
-    if (configuration == null) {
+    if (this.configuration == null) {
       init();
     }
 
-    return configuration;
+    return this.configuration;
   }
 
   @Override
@@ -222,5 +189,4 @@ public class Marc21ToMarcXMLTransformation implements Configurable, Transformati
 
     return properties.get(key);
   }
-
 }

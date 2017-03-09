@@ -182,12 +182,7 @@ public class AudienceBean extends FacesBean {
   }
 
 
-  /**
-   * Returns the ItemControllerSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemControllerSessionBean)
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
@@ -452,7 +447,7 @@ public class AudienceBean extends FacesBean {
    * 
    * @return a reference to the scoped data bean (AudienceSessionBean)
    */
-  protected AudienceSessionBean getAudienceSessionBean() {
+  private AudienceSessionBean getAudienceSessionBean() {
     return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
   }
 
@@ -479,6 +474,4 @@ public class AudienceBean extends FacesBean {
   public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {
     this.getAudienceSessionBean().setGrantsForAllFiles(grantsForAllFiles);
   }
-
-
 }

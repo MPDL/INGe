@@ -36,7 +36,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -46,7 +45,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
@@ -77,7 +76,6 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.Organiz
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -152,12 +150,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    */
   private String query = "";
 
-  @EJB
-  private PubItemDepositing pubItemDepositing;
-
-  public AdvancedSearchBean() {
-
-  }
+  public AdvancedSearchBean() {}
 
   @PostConstruct
   public void postConstruct() {
@@ -304,43 +297,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       }
     }
     languageChanged = false;
+
     return "";
-
-
   }
-
-
-  /**
-   * Dummy getter method which reads out query parameter form url;
-   * 
-   * @return
-   */
-
-
 
   private List<SelectItem> initComponentVisibilityListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectedItemsComponentVisibility(true));
+    return Arrays.asList(getI18nHelper().getSelectedItemsComponentVisibility(true));
   }
 
-
   private List<SelectItem> initContentCategoryListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsContentCategory(true));
+    return Arrays.asList(getI18nHelper().getSelectItemsContentCategory(true));
   }
 
   private List<SelectItem> initGenreListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsGenre());
+    return Arrays.asList(getI18nHelper().getSelectItemsGenre());
   }
 
   private List<SelectItem> initReviewMethodListMenu() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    return Arrays.asList(i18nHelper.getSelectItemsReviewMethod());
+    return Arrays.asList(getI18nHelper().getSelectItemsReviewMethod());
   }
 
   private List<SelectItem> initSubjectTypesListMenu() {
@@ -360,12 +334,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     return vocabs;
   }
 
-
-
   private List<SelectItem> initCriterionTypeListMenu(Index indexName) {
     List<SelectItem> criterionTypeList = new ArrayList<SelectItem>();
-
-
     // General
     criterionTypeList
         .add(new SelectItem(SearchCriterion.TITLE, getLabel("adv_search_lblRgbTitle")));
@@ -376,8 +346,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     criterionTypeList.add(new SelectItem(SearchCriterion.ANY, getLabel("adv_search_lblRgbAny")));
     criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT,
         getLabel("adv_search_lblRgbAnyFulltext")));
-
-
 
     // AdminStuff
     if (indexName == Index.ITEM_CONTAINER_ADMIN) {
@@ -396,7 +364,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);
     }
-
 
     // Persons
     List<SelectItem> personGroupList = new ArrayList<SelectItem>();
@@ -782,7 +749,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
       try {
 
-        List<ContextVO> contexts = pubItemDepositing.getPubCollectionListForDepositing();
+        List<ContextVO> contexts = PubItemService.getPubCollectionListForDepositing();
 
         contextListMenu = new ArrayList<SelectItem>();
 
@@ -792,20 +759,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
         Collections.sort(contextListMenu, new SelectItemComparator());
         contextListMenu.add(0, new SelectItem("", "--"));
-
-
-
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
 
-
     return contextListMenu;
-
-
   }
-
 
   public List<SelectItem> getOperatorTypeListMenu() {
     return operatorTypeListMenu;
@@ -1161,7 +1121,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.reviewMethodListMenu = reviewMethodListMenu;
   }
 
-
   @Override
   public void languageChanged(String oldLang, String newLang) {
     criterionTypeListMenu = initCriterionTypeListMenu(Index.ESCIDOC_ALL);
@@ -1183,8 +1142,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (Exception e) {
       logger.warn("Problem reading view id", e);
     }
-
-
   }
 
   public String getQuery() {
@@ -1247,5 +1204,4 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       SearchCriterionBase publicationStatusListSearchCriterion) {
     this.publicationStatusListSearchCriterion = publicationStatusListSearchCriterion;
   }
-
 }

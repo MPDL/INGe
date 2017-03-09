@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServlet;
  * @author saquet
  * 
  */
+@SuppressWarnings("serial")
 public class InitializerServlet extends HttpServlet {
 
   RefreshTask refreshTask;
@@ -57,7 +58,4 @@ public class InitializerServlet extends HttpServlet {
     super.destroy();
     refreshTask.terminate();
   }
-
-
-
 }

@@ -44,6 +44,7 @@ public class BibTex {
   /*
    * UNICODE -> BibTex mapping not really comprehensive
    */
+  @SuppressWarnings("serial")
   public static final Map<String, String> ENTITIES = new HashMap<String, String>() {
     {
       /*

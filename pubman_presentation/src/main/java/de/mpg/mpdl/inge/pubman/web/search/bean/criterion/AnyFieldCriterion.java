@@ -47,8 +47,6 @@ public class AnyFieldCriterion extends Criterion {
    * constructor.
    */
   public AnyFieldCriterion() {
-    super();
-    // default behavior
     includeFiles = false;
   }
 

@@ -39,8 +39,6 @@ import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.log4j.Logger;
-
 
 /**
  * 
@@ -56,11 +54,6 @@ import org.apache.log4j.Logger;
  * 
  */
 public class ProxyHelper {
-  /**
-   * Logger for this class.
-   */
-  private static final Logger LOGGER = Logger.getLogger(ProxyHelper.class);
-
   static String proxyHost = null;
   static String proxyPort = null;
   static String nonProxyHosts = null;

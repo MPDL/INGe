@@ -17,7 +17,6 @@ package de.mpg.mpdl.inge.cone.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -36,7 +35,6 @@ import org.mulgara.itql.ItqlInterpreterException;
 import org.mulgara.query.Answer;
 import org.mulgara.query.TuplesException;
 
-import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -80,6 +78,7 @@ public class CreateTripleStore {
       while ((line = bufferedReader.readLine()) != null) {
         pattern.add(line);
       }
+      bufferedReader.close();
       ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
       String query =
           "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model

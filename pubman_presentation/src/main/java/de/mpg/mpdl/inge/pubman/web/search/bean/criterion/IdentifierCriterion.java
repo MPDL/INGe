@@ -43,9 +43,7 @@ public class IdentifierCriterion extends Criterion {
   /**
    * constructor.
    */
-  public IdentifierCriterion() {
-    super();
-  }
+  public IdentifierCriterion() {}
 
   /**
    * {@inheritDoc}

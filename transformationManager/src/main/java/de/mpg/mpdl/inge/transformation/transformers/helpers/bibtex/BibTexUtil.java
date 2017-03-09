@@ -32,8 +32,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
@@ -45,9 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version $Revision: 4134 $ $LastChangedDate: 2011-09-22 18:21:00 +0200 (Do, 22 Sep 2011) $
  */
 public class BibTexUtil {
-
-  private static Logger logger = Logger.getLogger(BibTexUtil.class);
-
   public static final String ESCAPE_CHARACTERS = "$&%#"; // underscore was here too, but this
                                                          // doesn't seem to have any sense
   public static final String HOPEFULLY_UNUSED_TOKEN = "<<<!!HOPEFULLY_UNUSED_TOKEN!!>>>";
@@ -79,11 +74,8 @@ public class BibTexUtil {
     genreMapping.put(BibTexUtil.Genre.proceedings, MdsPublicationVO.Genre.PROCEEDINGS);
     genreMapping.put(BibTexUtil.Genre.techreport, MdsPublicationVO.Genre.REPORT);
     genreMapping.put(BibTexUtil.Genre.unpublished, MdsPublicationVO.Genre.OTHER);
-
     genreMapping.put(BibTexUtil.Genre.webpage, MdsPublicationVO.Genre.OTHER);
-
     genreMapping.put(BibTexUtil.Genre.collection, MdsPublicationVO.Genre.PROCEEDINGS);
-
     genreMapping.put(BibTexUtil.Genre.talk, MdsPublicationVO.Genre.TALK_AT_EVENT);
     genreMapping.put(BibTexUtil.Genre.poster, MdsPublicationVO.Genre.POSTER);
   }

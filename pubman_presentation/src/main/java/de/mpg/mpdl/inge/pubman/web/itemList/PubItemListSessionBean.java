@@ -54,7 +54,6 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionB
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 
 /**
@@ -238,11 +237,7 @@ public class PubItemListSessionBean extends
    */
   private int itemPosition = 0;
 
-  private final LoginHelper loginHelper;
-
   public PubItemListSessionBean() {
-    // super();
-    loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     selectedItemRefs = new HashMap<String, ItemRO>();
   }
 
@@ -546,7 +541,7 @@ public class PubItemListSessionBean extends
     sortBySelectItems = new ArrayList<SelectItem>();
 
     // the last three should not be in if not logged in
-    if (!loginHelper.isLoggedIn()) {
+    if (!getLoginHelper().isLoggedIn()) {
       for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
         SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 
@@ -923,7 +918,7 @@ public class PubItemListSessionBean extends
             new String(icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList)));
       } catch (TechnicalException e) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED) {
@@ -966,7 +961,7 @@ public class PubItemListSessionBean extends
             icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList));
       } catch (TechnicalException e) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
@@ -988,7 +983,7 @@ public class PubItemListSessionBean extends
         fos.write(exportFileData);
         fos.close();
       } catch (IOException e1) {
-        ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e1);
+        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
@@ -1294,5 +1289,9 @@ public class PubItemListSessionBean extends
       logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 }

@@ -8,7 +8,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>inge_validation</artifactId>
 	<name>inge_validation</name>
-	<packaging>ejb</packaging>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_validation</connection>
@@ -19,9 +18,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-ejb-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -61,12 +57,6 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

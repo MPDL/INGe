@@ -61,27 +61,21 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @TransformationModule
 public class CommonTransformationInterface implements Transformation, Configurable {
+  private static final Logger logger = Logger.getLogger(CommonTransformationInterface.class);
 
-  private final Logger logger = Logger.getLogger(CommonTransformationInterface.class);
-
-  private final String EXPLAIN_FILE_PATH = "transformations/commonPublicationFormats/";
-  private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
+  private static final String EXPLAIN_FILE_PATH = "transformations/commonPublicationFormats/";
+  private static final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
 
   private CommonTransformation commonTrans;
 
   private Map<String, List<String>> properties = null;
   private Map<String, String> configuration = null;
 
-  /**
-   * Public constructor.
-   */
   public CommonTransformationInterface() {
     this.commonTrans = new CommonTransformation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats() throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -90,11 +84,11 @@ public class CommonTransformationInterface implements Transformation, Configurab
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CommonTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for common publication formats.", e);
       throw new RuntimeException(e);
     }
@@ -114,26 +108,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     return sourceFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] formats = this.getSourceFormats();
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getTargetFormats(Format src) throws RuntimeException {
     Vector<Format> targetFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -142,11 +117,11 @@ public class CommonTransformationInterface implements Transformation, Configurab
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CommonTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for standard publication formats.",
           e);
       throw new RuntimeException(e);
@@ -174,9 +149,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     return targetFormats.toArray(dummy);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
       throws TransformationNotSupportedException {
@@ -185,9 +158,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     return this.transform(src, source, target, service);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
       Map<String, String> configuration) throws TransformationNotSupportedException,
       RuntimeException {
@@ -205,7 +176,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     }
 
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n " + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n " + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -238,7 +209,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
       }
     }
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -261,7 +232,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
       }
     }
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationNotSupportedException();
@@ -269,9 +240,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  @Override
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
     Vector<Format> sourceFormats = new Vector<Format>();
     TransformationsDocument transDoc = null;
@@ -280,22 +249,24 @@ public class CommonTransformationInterface implements Transformation, Configurab
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CommonTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for common publication formats.", e);
       throw new RuntimeException(e);
     }
 
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
+
     for (TransformationType transformation : transformations) {
       Format target =
           new Format(Util.simpleLiteralTostring(transformation.getTarget().getName()),
               Util.simpleLiteralTostring(transformation.getTarget().getType()),
               Util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
+
       // Only get Target if source is given source
       if (Util.isFormatEqual(target, trg)) {
         String name = Util.simpleLiteralTostring(transformation.getSource().getName());
@@ -306,27 +277,31 @@ public class CommonTransformationInterface implements Transformation, Configurab
         sourceFormats.add(format);
       }
     }
+
     sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
+
     return sourceFormats.toArray(dummy);
   }
 
+  @Override
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
       throws TransformationNotSupportedException, RuntimeException {
     return transform(src, srcFormat, trgFormat, service, null);
   }
 
+  @Override
   public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception {
-    if (configuration == null) {
+    if (this.configuration == null) {
       init();
     }
 
-    return configuration;
+    return this.configuration;
   }
 
   private void init() throws IOException, FileNotFoundException, URISyntaxException {
-    configuration = new LinkedHashMap<String, String>();
-    properties = new HashMap<String, List<String>>();
+    this.configuration = new LinkedHashMap<String, String>();
+    this.properties = new HashMap<String, List<String>>();
     Properties props = new Properties();
     props.load(ResourceUtil.getResourceAsStream(
         PropertyReader.getProperty("escidoc.transformation.bibtex.configuration.filename"),
@@ -334,24 +309,24 @@ public class CommonTransformationInterface implements Transformation, Configurab
     for (Object key : props.keySet()) {
       if (!"configuration".equals(key.toString())) {
         String[] values = props.getProperty(key.toString()).split(",");
-        properties.put(key.toString(), Arrays.asList(values));
+        this.properties.put(key.toString(), Arrays.asList(values));
       } else {
         String[] confValues = props.getProperty("configuration").split(",");
         for (String field : confValues) {
           String[] fieldArr = field.split("=", 2);
-          configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
+          this.configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
         }
       }
     }
   }
 
+  @Override
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception {
-    if (properties == null) {
+    if (this.properties == null) {
       init();
     }
 
-    return properties.get(key);
+    return this.properties.get(key);
   }
-
 }

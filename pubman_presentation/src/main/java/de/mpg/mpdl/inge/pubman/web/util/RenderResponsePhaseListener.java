@@ -32,12 +32,15 @@ import javax.faces.event.PhaseListener;
 
 @SuppressWarnings("serial")
 public class RenderResponsePhaseListener implements PhaseListener {
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.RENDER_RESPONSE;
   }
 
+  @Override
   public void afterPhase(PhaseEvent event) {}
 
+  @Override
   public void beforePhase(PhaseEvent event) {
     // FacesContext facesContext = event.getFacesContext();
     // HttpServletResponse response =

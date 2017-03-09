@@ -45,7 +45,7 @@ import org.xml.sax.InputSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import de.mpg.mpdl.inge.validation.ItemValidating;
+import de.mpg.mpdl.inge.validation.ItemValidatingService;
 
 /**
  * This class initializes the validation cache database. It should be deactivated when there is a
@@ -56,39 +56,28 @@ import de.mpg.mpdl.inge.validation.ItemValidating;
  * @version $Revision$ $LastChangedDate$
  */
 public class Initializer extends Thread {
-
-  /**
-   * Logger for this class.
-   */
   private static final Logger LOGGER = Logger.getLogger(Initializer.class);
 
   public static final String SCHEMA_DIRECTORY = "validation_schema";
   public static final String SQL_DIRECTORY = "validation_sql";
 
-
-  private ItemValidating itemValidating;
-
-
-
   /**
    * Default constructor.
    */
-  public Initializer(ItemValidating itemValidating) {
-    this.itemValidating = itemValidating;
-  }
+  public Initializer() {}
 
   /**
    * {@inheritDoc}
    */
   @Override
   public void run() {
-    initializeDatabase(itemValidating);
+    initializeDatabase();
   }
 
   /**
    * This method executes the initialization.
    */
-  public static void initializeDatabase(ItemValidating itemValidating) {
+  public static void initializeDatabase() {
     LOGGER.info("Initializing validation database...");
     Connection conn = null;
     try {
@@ -103,13 +92,7 @@ public class Initializer extends Thread {
         LOGGER.info("Skipping validation schema creation.");
       }
 
-
-
-      // ItemValidating itemValidating = (ItemValidating)
-      // ctx.lookup("java:global/pubman_ear/validation/ItemValidatingBean");
-
-
-      itemValidating.refreshValidationSchemaCache();
+      ItemValidatingService.refreshValidationSchemaCache();
       /*
        * String contextsXml = FrameworkUtil.getAllContexts(); LOGGER.debug("Contexts: " +
        * contextsXml); String[] contextSnippets = contextsXml.split("<context:context"); Pattern
@@ -152,7 +135,8 @@ public class Initializer extends Thread {
     LOGGER.debug("fullScriptName:" + fullScriptName);
 
     String sql =
-        ResourceUtil.getResourceAsString(fullScriptName, ItemValidating.class.getClassLoader());
+        ResourceUtil.getResourceAsString(fullScriptName,
+            ItemValidatingService.class.getClassLoader());
     sql = replaceProperties(sql);
     LOGGER.debug("Executing script: " + sql);
     String[] commands = splitSqlScript(sql);

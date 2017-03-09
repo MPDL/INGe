@@ -36,18 +36,18 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 public class HTMLEscapeConverter implements Converter {
-
   public static final String CONVERTER_ID = "HTMLEscapeConverter";
-
 
   public HTMLEscapeConverter() {}
 
+  @Override
   public String getAsString(FacesContext context, UIComponent c, Object object)
       throws ConverterException {
     final String textValue = (String) object;
     return CommonUtils.htmlEscape(textValue);
   }
 
+  @Override
   public Object getAsObject(FacesContext context, UIComponent c, String text) {
     final String textValue = text;
     return CommonUtils.htmlEscape(textValue);

@@ -1,11 +1,14 @@
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+
 /**
  * 
  * @author yu
  * 
  */
-public class ViewItemCreators {
+@SuppressWarnings("serial")
+public class ViewItemCreators extends FacesBean {
   private String creatorType;
   private Object creatorObj;
   private String creatorRole;
@@ -37,6 +40,6 @@ public class ViewItemCreators {
   }
 
   public String getCreatorRole() {
-    return ViewItemFull.getLabelStatic("ENUM_CREATORROLE_" + creatorRole);
+    return getLabel("ENUM_CREATORROLE_" + creatorRole);
   }
 }

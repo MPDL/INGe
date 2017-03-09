@@ -41,7 +41,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -52,16 +51,17 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class Login extends FacesBean {
+  public static final String BEAN_NAME = "Login";
   public static String LOGIN_URL = "/aa/login";
   public static String LOGOUT_URL = "/aa/logout/clear.jsp";
-  final public static String BEAN_NAME = "Login";
+
+  private static final Logger logger = Logger.getLogger(Login.class);
+
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
-  private boolean loggedIn = false;
-  private static Logger logger = Logger.getLogger(Login.class);
-  // Username and password for login form
-  private String username = "";
   private String password = "";
+  private String username = "";
+  private boolean loggedIn = false;
 
   public Login() {}
 
@@ -93,12 +93,11 @@ public class Login extends FacesBean {
   public String loginLogout() throws ServletException, IOException, ServiceException,
       URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-    String token = loginHelper.getAuthenticationToken();
+    String token = getLoginHelper().getAuthenticationToken();
 
-    if (loginHelper.isLoggedIn() && loginHelper.getAuthenticationToken() != null) {
+    if (getLoginHelper().isLoggedIn() && getLoginHelper().getAuthenticationToken() != null) {
       // logout mechanism
-      loginHelper.setBtnLoginLogout("login_btLogin");
+      getLoginHelper().setBtnLoginLogout("login_btLogin");
       if (token != null) {
         long zeit = -System.currentTimeMillis();
 
@@ -118,17 +117,17 @@ public class Login extends FacesBean {
         session.invalidate();
       }
     } else {
-      login(loginHelper);
+      login();
     }
     return "";
   }
 
-  public void login(LoginHelper loginHelper) {
-    String token = loginHelper.obtainToken();
+  public void login() {
+    String token = getLoginHelper().obtainToken();
     if (token != null) {
       this.loggedIn = true;
       try {
-        loginHelper.insertLogin();
+        getLoginHelper().insertLogin();
       } catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -144,10 +143,8 @@ public class Login extends FacesBean {
    * @throws URISyntaxException
    */
   public void logout() throws IOException, ServiceException, URISyntaxException {
-    LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
     this.loggedIn = false;
-    loginHelper.logout("");
+    getLoginHelper().logout("");
 
   }
 

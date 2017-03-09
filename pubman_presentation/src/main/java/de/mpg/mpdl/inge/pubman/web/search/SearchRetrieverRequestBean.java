@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -22,10 +21,9 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
@@ -76,15 +74,6 @@ public class SearchRetrieverRequestBean extends
    * The total number of records from the search request
    */
   private int numberOfRecords;
-
-  /**
-   * An instance of the search service.
-   */
-  @EJB
-  private Search searchService;
-
-  // @EJB
-  // private XmlTransforming xmlTransforming;
 
   /**
    * The type of the search (simple, advanced, ...)
@@ -265,12 +254,11 @@ public class SearchRetrieverRequestBean extends
       ItemContainerSearchResult result = null;
 
       if ("admin".equals(getSearchType())) {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         result =
-            this.searchService.searchForItemContainerAdmin(query,
-                loginHelper.getESciDocUserHandle());
+            SearchService.searchForItemContainerAdmin(query, getLoginHelper()
+                .getESciDocUserHandle());
       } else {
-        result = this.searchService.searchForItemContainer(query);
+        result = SearchService.searchForItemContainer(query);
       }
 
       pubItemList = extractItemsOfSearchResult(result);
@@ -281,9 +269,6 @@ public class SearchRetrieverRequestBean extends
     }
 
     return pubItemList;
-
-
-
   }
 
 
@@ -303,7 +288,7 @@ public class SearchRetrieverRequestBean extends
    * @return
    */
   public String getCqlQuery() {
-    return cqlQuery;
+    return this.cqlQuery;
   }
 
   /**
@@ -314,10 +299,10 @@ public class SearchRetrieverRequestBean extends
   public String getNormalizedCqlQuery() {
     String ret = this.cqlQuery;
     if (ret != null) {
-      return java.net.URLEncoder.encode(ret);
-    } else {
-      return "";
+      return URLEncoder.encode(ret);
     }
+
+    return "";
   }
 
   /**
@@ -325,13 +310,10 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getRssFeedLink() throws PubManVersionNotAvailableException {
-    String link = "";
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link =
-        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/rss_2.0/search?q="
-            + this.getNormalizedCqlQuery()
-            + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
-    return link;
+    return "<link href='"
+        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
+        + "/syndication/feed/rss_2.0/search?q=" + this.getNormalizedCqlQuery()
+        + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
   }
 
   /**
@@ -339,13 +321,10 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
-    String link = "";
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
-    link =
-        "<link href='" + appBean.getPubmanInstanceUrl() + "/syndication/feed/atom_1.0/search?q="
-            + this.getNormalizedCqlQuery()
-            + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
-    return link;
+    return "<link href='"
+        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
+        + "/syndication/feed/atom_1.0/search?q=" + this.getNormalizedCqlQuery()
+        + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
   /**
@@ -372,6 +351,7 @@ public class SearchRetrieverRequestBean extends
         pubItemList.add(pubItemPres);
       }
     }
+
     return pubItemList;
   }
 
@@ -398,7 +378,7 @@ public class SearchRetrieverRequestBean extends
    * @return
    */
   public String getSearchType() {
-    return searchType;
+    return this.searchType;
   }
 
   /**
@@ -412,30 +392,26 @@ public class SearchRetrieverRequestBean extends
       error(getMessage("depositorWS_sortingNotSupported").replace("$1",
           getLabel("ENUM_CRITERIA_" + sc.name())));
     }
-
   }
 
   public String getQueryString() {
-    return queryString;
+    return this.queryString;
   }
 
   public String getUrlEncodedQueryString() {
     try {
       if (queryString != null) {
         return URLEncoder.encode(queryString, "UTF-8");
-      } else {
-        return "";
       }
-
     } catch (UnsupportedEncodingException e) {
       logger.error("Could not encode query string", e);
-      return "";
     }
+
+    return "";
   }
 
   public void setQueryString(String query) {
     this.queryString = query;
     getBasePaginatorListSessionBean().getParameterMap().put(parameterQuery, query);
   }
-
 }

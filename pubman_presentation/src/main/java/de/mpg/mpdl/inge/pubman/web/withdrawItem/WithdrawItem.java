@@ -114,7 +114,7 @@ public class WithdrawItem extends FacesBean {
    * 
    * @return the item that is currently edited
    */
-  public final PubItemVO getPubItem() {
+  public PubItemVO getPubItem() {
     return (this.getItemControllerSessionBean().getCurrentPubItem());
   }
 
@@ -125,7 +125,7 @@ public class WithdrawItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String withdraw() {
+  public String withdraw() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal;
@@ -173,7 +173,7 @@ public class WithdrawItem extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public final String cancel() {
+  public String cancel() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
@@ -191,7 +191,7 @@ public class WithdrawItem extends FacesBean {
    * 
    * @return a reference to the scoped data bean
    */
-  public final ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
@@ -200,7 +200,7 @@ public class WithdrawItem extends FacesBean {
    * 
    * @return a reference to the scoped data bean (WithdrawItemSessionBean)
    */
-  protected final WithdrawItemSessionBean getSessionBean() {
+  private WithdrawItemSessionBean getSessionBean() {
     return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
   }
 

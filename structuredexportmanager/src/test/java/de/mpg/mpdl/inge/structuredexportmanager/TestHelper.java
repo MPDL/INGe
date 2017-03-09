@@ -35,9 +35,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-
-// import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
-
 /**
  * Helper class for all test classes.
  * 
@@ -46,7 +43,6 @@ import java.net.URL;
  * @version $Revision$ $LastChangedDate$
  */
 public class TestHelper {
-
   public static final String ITEMS_LIMIT = "50";
 
   /**

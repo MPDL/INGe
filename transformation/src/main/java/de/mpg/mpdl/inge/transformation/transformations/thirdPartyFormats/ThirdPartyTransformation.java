@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.transformation.transformations.thirdPartyFormats;
 
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,13 +43,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.TransformerFactoryImpl;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import net.sf.saxon.TransformerFactoryImpl;
 
 /**
  * Handles all transformations for third party metadata records.
@@ -133,12 +131,9 @@ public class ThirdPartyTransformation {
     boolean check = false;
 
     try {
-
-      File transformFile =
-          ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION + "/" + xsltUri,
-              ThirdPartyTransformation.class.getClassLoader());
+      ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION + "/" + xsltUri,
+          ThirdPartyTransformation.class.getClassLoader());
       check = true;
-
     } catch (FileNotFoundException e) {
       this.logger.warn("No transformation file from format: " + formatFrom + " to format: "
           + formatTo);
@@ -156,7 +151,6 @@ public class ThirdPartyTransformation {
    * @throws URISyntaxException
    */
   public String getProperty(String key) throws IOException, URISyntaxException {
-    String propertiesFile = null;
     Properties solProperties = new Properties();
 
     InputStream in = getInputStream("transformation.properties");

@@ -3,14 +3,13 @@ package de.mpg.mpdl.inge.pidcache;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgClient;
 import de.mpg.mpdl.inge.pidcache.gwdg.GwdgPidService;
 import de.mpg.mpdl.inge.pidcache.process.CacheProcess;
 import de.mpg.mpdl.inge.pidcache.tables.Cache;
 import de.mpg.mpdl.inge.pidcache.tables.Queue;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
 
 /**
  * Implement the PID cache service
@@ -23,12 +22,8 @@ public class PidCacheService {
   private Cache cache = null;
   private Queue queue = null;
   private GwdgPidService gwdgPidService = null;
-  private XmlTransforming xmlTransforming = null;
-
   private int status = HttpServletResponse.SC_OK;
   private String location = "http://hdl.handle.net/XXX_LOCATION_XXX?noredirect";
-
-
 
   /**
    * Default constructor
@@ -39,10 +34,6 @@ public class PidCacheService {
     cache = new Cache();
     queue = new Queue();
     gwdgPidService = new GwdgPidService();
-    // context = new InitialContext();
-    // String appName = (String)context.lookup("java:app/AppName");
-    // String appName = "pid_cache_ear";
-    xmlTransforming = new XmlTransformingBean();
   }
 
   /**
@@ -136,19 +127,19 @@ public class PidCacheService {
     pidServiceResponseVO.setInstitute("institute");
     pid.setContact("jon@doe.xx");
     pidServiceResponseVO.setMessage("Web proxy view URL: " + this.location);
-    return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
+    return XmlTransformingService.transformToPidServiceResponse(pidServiceResponseVO);
   }
 
   public int getCacheSize() throws Exception {
-    return cache.size();
+    return this.cache.size();
   }
 
   public int getQueueSize() throws Exception {
-    return queue.size();
+    return this.queue.size();
   }
 
   public String getLocation() {
-    return location;
+    return this.location;
   }
 
   public void setLocation(String location) {
@@ -156,12 +147,10 @@ public class PidCacheService {
   }
 
   public int getStatus() {
-    return status;
+    return this.status;
   }
 
   public void setStatus(int status) {
     this.status = status;
   }
-
-
 }

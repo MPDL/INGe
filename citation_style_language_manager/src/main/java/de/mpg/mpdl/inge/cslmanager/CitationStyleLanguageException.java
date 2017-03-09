@@ -1,12 +1,7 @@
 package de.mpg.mpdl.inge.cslmanager;
 
+@SuppressWarnings("serial")
 public class CitationStyleLanguageException extends Exception {
-
-  /**
-	 * 
-	 */
-  private static final long serialVersionUID = 5226753065124292617L;
-
   public CitationStyleLanguageException() {
     super();
   }
@@ -22,5 +17,4 @@ public class CitationStyleLanguageException extends Exception {
   public CitationStyleLanguageException(final Throwable cause) {
     super(cause);
   }
-
 }

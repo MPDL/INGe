@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.citationmanager.transformation;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -35,12 +34,8 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
-import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.Util;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
-import de.mpg.mpdl.inge.transformation.results.TransformerResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -52,7 +47,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
 public class CitationTransformationInterface {
 
   private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
@@ -76,44 +70,27 @@ public class CitationTransformationInterface {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
-          "An error occurred while reading transformations.xml for citation formats.", e);
+      logger.error("An error occurred while reading transformations.xml for citation formats.", e);
       throw new RuntimeException(e);
     }
+
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
+
     for (int i = 0; i < transformations.length; i++) {
       TransformationType transformation = transformations[i];
       String name = Util.simpleLiteralTostring(transformation.getSource().getName());
       String type = Util.simpleLiteralTostring(transformation.getSource().getType());
       String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
       Format sourceFormat = new Format(name, type, encoding);
-
       sourceFormats.add(sourceFormat);
     }
     Format[] dummy = new Format[sourceFormats.size()];
     return sourceFormats.toArray(dummy);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getSourceFormatsAsXml() throws RuntimeException {
-    Format[] formats = this.getSourceFormats();
-    return Util.createFormatsXml(formats);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding)
-      throws RuntimeException {
-    Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-    return Util.createFormatsXml(formats);
   }
 
   /**
@@ -127,12 +104,11 @@ public class CitationTransformationInterface {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
-          "An error occurred while reading transformations.xml for citation formats.", e);
+      logger.error("An error occurred while reading transformations.xml for citation formats.", e);
       throw new RuntimeException(e);
     }
 
@@ -153,7 +129,9 @@ public class CitationTransformationInterface {
         targetFormats.add(sourceFormat);
       }
     }
+
     Format[] dummy = new Format[targetFormats.size()];
+
     return targetFormats.toArray(dummy);
   }
 
@@ -165,6 +143,7 @@ public class CitationTransformationInterface {
       throws TransformationException {
     Format source = new Format(srcFormatName, srcType, srcEncoding);
     Format target = new Format(trgFormatName, trgType, trgEncoding);
+
     return this.transform(src, source, target, service);
   }
 
@@ -198,11 +177,12 @@ public class CitationTransformationInterface {
         }
       }
     } catch (Exception e) {
-      this.logger.error("An error occurred during a citation transformation.", e);
+      logger.error("An error occurred during a citation transformation.", e);
       throw new RuntimeException(e);
     }
+
     if (!supported) {
-      this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
+      logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
       throw new TransformationException();
@@ -222,17 +202,18 @@ public class CitationTransformationInterface {
     java.io.InputStream in;
     try {
       in =
-          ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME,
+          ResourceUtil.getResourceAsStream(EXPLAIN_FILE_PATH + EXPLAIN_FILE_NAME,
               CitationTransformationInterface.class.getClassLoader());
       transDoc = TransformationsDocument.Factory.parse(in);
     } catch (Exception e) {
-      this.logger.error(
+      logger.error(
           "An error occurred while reading transformations.xml for common publication formats.", e);
       throw new RuntimeException(e);
     }
 
     transType = transDoc.getTransformations();
     TransformationType[] transformations = transType.getTransformationArray();
+
     for (TransformationType transformation : transformations) {
       Format target =
           new Format(Util.simpleLiteralTostring(transformation.getTarget().getName()),

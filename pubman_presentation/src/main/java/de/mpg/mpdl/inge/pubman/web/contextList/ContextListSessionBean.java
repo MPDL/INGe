@@ -38,10 +38,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 
 /**
@@ -66,7 +64,6 @@ public class ContextListSessionBean extends FacesBean {
       new ArrayList<PubContextVOPresentation>();
   private List<PubContextVOPresentation> allPrivilegedContextList =
       new ArrayList<PubContextVOPresentation>();
-  private LoginHelper loginHelper;
 
   private ContextServiceHandler contextServiceHandler;;
 
@@ -77,21 +74,11 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public void init() {
-    this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     try {
       retrieveAllContextsForUser();
     } catch (Exception e) {
       logger.error("Could not create context list.", e);
     }
-  }
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   public List<PubContextVOPresentation> getDepositorContextList() {
@@ -210,8 +197,8 @@ public class ContextListSessionBean extends FacesBean {
    * @throws TechnicalException
    */
   private void retrieveAllContextsForUser() throws SecurityException, TechnicalException {
-    if (this.loginHelper.isLoggedIn()
-        && this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+    if (getLoginHelper().isLoggedIn()
+        && getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
       try {
         /*
          * // Create filter FilterTaskParamVO filter = new FilterTaskParamVO(); ItemRefFilter
@@ -226,7 +213,7 @@ public class ContextListSessionBean extends FacesBean {
         boolean hasGrants = false;
 
         ArrayList<String> ctxIdList = new ArrayList<>();
-        for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
+        for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
           if (grant.getObjectRef() != null) {
             String id = grant.getObjectRef();
             ctxIdList.add(id);
@@ -272,7 +259,7 @@ public class ContextListSessionBean extends FacesBean {
           // At present it only provides this function for Moderator
           // and Privileged viewer
 
-          for (GrantVO grant : this.loginHelper.getAccountUser().getGrantsWithoutAudienceGrants()) {
+          for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
             if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
 
               if (!grant.getObjectRef().equals("")

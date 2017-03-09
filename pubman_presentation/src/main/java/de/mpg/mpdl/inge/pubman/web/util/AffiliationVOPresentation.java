@@ -28,10 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
@@ -43,7 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
@@ -52,22 +50,26 @@ import de.mpg.mpdl.inge.pubman.web.search.AffiliationDetail;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@SuppressWarnings("serial")
 public class AffiliationVOPresentation extends AffiliationVO implements
     Comparable<AffiliationVOPresentation> {
   private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
 
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
   private static final int SHORTENED_LEVEL_LENGTH = 5;
-  private List<AffiliationVOPresentation> children = null;
+
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+      .getCurrentInstance().getExternalContext().getSessionMap()
+      .get(InternationalizationHelper.BEAN_NAME);
+
   private AffiliationVOPresentation parent = null;
-  private String namePath;
-  private String idPath;
-  private boolean selectedForAuthor = false;
-
-  private List<AffiliationVO> predecessors = new java.util.ArrayList<AffiliationVO>();
-
+  private List<AffiliationVO> predecessors = new ArrayList<AffiliationVO>();
   private List<AffiliationVO> successors = null;
+  private List<AffiliationVOPresentation> children = null;
+  private String idPath;
+  private String namePath;
   private boolean hasChildren = false;
+  private boolean selectedForAuthor = false;
 
   public AffiliationVOPresentation(AffiliationVO affiliation) {
     super(affiliation);
@@ -75,19 +77,17 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     this.idPath = getReference().getObjectId();
     this.predecessors = getAffiliationVOfromRO(getPredecessorAffiliations());
     this.hasChildren = affiliation.getHasChildren();
-
   }
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
-
     if (children == null && isHasChildren()) {
       children =
           ((ItemControllerSessionBean) FacesBean.getSessionBean(ItemControllerSessionBean.class))
               .searchChildAffiliations(this);
     }
+
     return children;
   }
-
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
     if (getMetadataSets().size() > 0
@@ -110,7 +110,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public boolean getTopLevel() {
-    return (parent == null);
+    return (this.parent == null);
   }
 
   /**
@@ -119,21 +119,20 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return html description
    */
   public String getHtmlDescription() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext.getCurrentInstance().getExternalContext()
-            .getSessionMap().get(InternationalizationHelper.BEAN_NAME);
-    ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     StringBuffer html = new StringBuffer();
+
     html.append("<html><head></head><body>");
     html.append("<div class=\"affDetails\"><h1>"
-        + labelBundle.getString("AffiliationTree_txtHeadlineDetails") + "</h1>");
+        + this.i18nHelper.getLabel("AffiliationTree_txtHeadlineDetails") + "</h1>");
     html.append("<div class=\"formField\">");
+
     if (getDetails().getDescriptions().size() > 0
         && !"".equals(getDetails().getDescriptions().get(0))) {
       html.append("<div>");
       html.append(getDetails().getDescriptions().get(0));
       html.append("</div><br/>");
     }
+
     for (IdentifierVO identifier : getDetails().getIdentifiers()) {
       if (!identifier.getId().trim().equals("")) {
         html.append("<span>, &nbsp;");
@@ -141,8 +140,10 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         html.append("</span>");
       }
     }
+
     html.append("</div></div>");
     html.append("</body></html>");
+
     return html.toString();
   }
 
@@ -153,7 +154,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public AffiliationVOPresentation getParent() {
-    return parent;
+    return this.parent;
   }
 
   public void setParent(AffiliationVOPresentation parent) {
@@ -166,7 +167,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @param cls The bean class.
    * @return the actual or new bean instance
    */
-  public static synchronized Object getSessionBean(final Class<?> cls) {
+  private static synchronized Object getSessionBean(final Class<?> cls) {
     String name = null;
     try {
       name = (String) cls.getField("BEAN_NAME").get(new String());
@@ -192,7 +193,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * Returns the complete path to this affiliation as a string with the name of the affiliations.
    */
   public String getNamePath() {
-    return namePath;
+    return this.namePath;
   }
 
   public void setNamePath(String path) {
@@ -201,7 +202,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   /** Returns the complete path to this affiliation as a string with the ids of the affiliations */
   public String getIdPath() {
-    return idPath;
+    return this.idPath;
   }
 
   public void setIdPath(String idPath) {
@@ -226,18 +227,20 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     if (getMetadataSets().size() > 0
         && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   public String getShortenedName() {
     AffiliationVOPresentation aff = this;
     int level = 0;
+
     while (!aff.getTopLevel()) {
       aff = aff.getParent();
       level++;
     }
+
     if (getMetadataSets().size() > 0
         && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       if (((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().length() > (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) {
@@ -247,19 +250,21 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       } else {
         return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
       }
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   public List<String> getUris() {
     List<IdentifierVO> identifiers = getDefaultMetadata().getIdentifiers();
     List<String> uriList = new ArrayList<String>();
+
     for (IdentifierVO identifier : identifiers) {
       if (identifier.getType() != null && identifier.getType().equals(IdentifierVO.IdType.URI)) {
         uriList.add(identifier.getId());
       }
     }
+
     return uriList;
   }
 
@@ -267,6 +272,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     return getPublicStatus().equals("closed");
   }
 
+  @Override
   public int compareTo(AffiliationVOPresentation other) {
     return getSortOrder().compareTo(other.getSortOrder());
   }
@@ -354,7 +360,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     return retrieveAllOrganizationalUnits(affiliations);
   }
 
-
   /**
    * @Retrieves list of all contexts for which user has granted privileges @see
    *            LoginHelper.getUserGrants
@@ -368,16 +373,12 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     if (affiliations.size() == 0)
       return transformedAffs;
     try {
-      InitialContext initialContext = new InitialContext();
-      XmlTransforming xmlTransforming =
-          (XmlTransforming) initialContext
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
       if (affiliations.size() == 1) {
 
         String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
-        AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
+        AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
         transformedAffs.add(affVO);
         return transformedAffs;
       } else {
@@ -391,12 +392,12 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         }
 
         String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
-        transformedAffs = xmlTransforming.transformToAffiliationList(ouXml);
+        transformedAffs = XmlTransformingService.transformToAffiliationList(ouXml);
 
       }
     } catch (Exception e) {
-      return transformedAffs;
     }
+
     return transformedAffs;
   }
 
@@ -404,7 +405,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return the predecessors
    */
   public List<AffiliationVO> getPredecessors() {
-    return predecessors;
+    return this.predecessors;
   }
 
   /**
@@ -426,7 +427,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return the selectedForAuthor
    */
   public boolean getSelectedForAuthor() {
-    return selectedForAuthor;
+    return this.selectedForAuthor;
   }
 
   /**
@@ -439,11 +440,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   private void fetchSuccessors() {
     if (this.successors == null) {
       try {
-        InitialContext initialContext = new InitialContext();
-        XmlTransforming xmlTransforming =
-            (XmlTransforming) initialContext
-                .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
-
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
@@ -453,7 +449,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         String ouXml = ouHandler.retrieveSuccessors(reference.getObjectId());
         Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
         logger.debug(ouXml);
-        List<AffiliationRO> affROs = xmlTransforming.transformToSuccessorAffiliationList(ouXml);
+        List<AffiliationRO> affROs =
+            XmlTransformingService.transformToSuccessorAffiliationList(ouXml);
         this.successors = new ArrayList<AffiliationVO>();
         if (affROs != null && affROs.size() > 0) {
           List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);
@@ -462,8 +459,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       } catch (Exception e) {
         this.successors = new ArrayList<AffiliationVO>();
       }
-    } else {
-      return;
     }
   }
 
@@ -474,6 +469,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    */
   public boolean getHasSuccessors() {
     fetchSuccessors();
+
     return (this.successors.size() != 0);
   }
 
@@ -481,8 +477,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return the hasChildren
    */
   public boolean isHasChildren() {
-    return hasChildren;
+    return this.hasChildren;
   }
-
-
 }

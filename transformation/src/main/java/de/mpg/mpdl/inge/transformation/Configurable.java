@@ -32,7 +32,6 @@ import java.util.Map;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 
-
 /**
  * The Configurable interface.
  * 
@@ -42,7 +41,6 @@ import de.mpg.mpdl.inge.transformation.valueObjects.Format;
  * 
  */
 public interface Configurable {
-
   /**
    * Transforms a source object into a target object.
    * 
@@ -63,5 +61,4 @@ public interface Configurable {
 
   public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key)
       throws Exception;
-
 }

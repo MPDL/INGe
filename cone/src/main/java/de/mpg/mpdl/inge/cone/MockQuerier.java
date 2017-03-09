@@ -15,8 +15,6 @@
  */
 package de.mpg.mpdl.inge.cone;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;

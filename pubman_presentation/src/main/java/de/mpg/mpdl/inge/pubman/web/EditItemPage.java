@@ -39,11 +39,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 public class EditItemPage extends FacesBean {
   public static final String BEAN_NAME = "EditItemPage";
 
-  // private static final Logger logger = Logger.getLogger(EditItemPage.class);
-
-  // The referring GUI Tool Page
-  // public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
-
   public EditItemPage() {
     this.init();
   }
@@ -53,32 +48,6 @@ public class EditItemPage extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
     checkForLogin();
-    // redirect to the referring GUI Tool page if the application has been started as GUI Tool
   }
-
-  // /**
-  // * Redirects to the referring GUI Tool page.
-  // *
-  // * @author Tobias Schraut
-  // * @return a navigation string
-  // */
-  // protected String redirectToGUITool() {
-  // FacesContext fc = FacesContext.getCurrentInstance();
-  // try {
-  // fc.getExternalContext().redirect(GT_EDIT_ITEM_PAGE);
-  // } catch (IOException e) {
-  // logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-  // }
-  // return "";
-  // }
-
-  /*
-   * @Override protected Method getDefaultAction() throws NoSuchMethodException { return
-   * Navigation.class.getMethod("newSubmission", null); }
-   * 
-   * @Override public boolean isItemSpecific() { return true; }
-   */
 }

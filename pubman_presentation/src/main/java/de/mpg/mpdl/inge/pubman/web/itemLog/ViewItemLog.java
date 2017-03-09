@@ -84,21 +84,11 @@ public class ViewItemLog extends FacesBean {
     return null;
   }
 
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  protected ItemControllerSessionBean getItemControllerSessionBean() {
+  private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  /**
-   * Returns the ItemVersionListSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ItemVersionListSessionBean)
-   */
-  protected ItemVersionListSessionBean getSessionBean() {
+  private ItemVersionListSessionBean getSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 

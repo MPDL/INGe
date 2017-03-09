@@ -250,18 +250,18 @@ public class WriteMETSData {
     }
     // LOGICAL structMap
     else {
-      int childCount = 0;
+      // int childCount = 0;
       if (!ischild) {
         // DivType div = this.currentFather.insertNewDiv(0);
         DivType div = this.currentFather.addNewDiv();
         div.setID(divId);
         div.setTYPE(structElem);
-        childCount = 0;
+        // childCount = 0;
         this.currentDiv = div;
       } else {
         // DivType div = this.currentDiv.insertNewDiv(childCount);
         DivType div = this.currentDiv.addNewDiv();
-        childCount++;
+        // childCount++;
         div.setID(divId);
         div.setTYPE(structElem);
         // this.currentFather = this.currentDiv;

@@ -66,6 +66,7 @@ public class PWCallback implements CallbackHandler {
    * @see javax.security.auth.callback.CallbackHandler#handle
    *      (javax.security.auth.callback.Callback[])
    */
+  @Override
   public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
     for (int i = 0; i < callbacks.length; i++) {
       if (callbacks[i] instanceof WSPasswordCallback) {

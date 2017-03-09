@@ -39,6 +39,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    * Caches Faces Messages after the Invoke Application phase and clears the cache after the Render
    * Response phase
    */
+  @Override
   public synchronized void afterPhase(PhaseEvent event) {
     logger.trace(event.getPhaseId().toString() + " - After Phase");
     if (event.getPhaseId() == PhaseId.INVOKE_APPLICATION) {
@@ -51,6 +52,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
   /**
    * Restores the messages from the cache before the Restore View phase.
    */
+  @Override
   public synchronized void beforePhase(PhaseEvent event) {
     logger.trace(event.getPhaseId().toString() + " - Before Phase");
     if (event.getPhaseId() == PhaseId.RESTORE_VIEW) {
@@ -113,6 +115,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
   }

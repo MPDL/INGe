@@ -71,7 +71,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.InternationalizedImpl;
+import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.PubContextVOWrapper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -81,7 +81,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 25.04.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 07.08.2007
  */
-public class CommonUtils extends InternationalizedImpl {
+public class CommonUtils {
   private static Logger logger = Logger.getLogger(CommonUtils.class);
   private static final String NO_ITEM_SET = "-";
   private static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -92,8 +92,6 @@ public class CommonUtils extends InternationalizedImpl {
       "\r", "\t"};
   private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
       "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
-
-
 
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -162,24 +160,23 @@ public class CommonUtils extends InternationalizedImpl {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
+    ApplicationBean applicationBean =
+        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+
     String locale = Locale.getDefault().getLanguage();
 
-    // if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") ||
-    // locale.equals("es")))
     if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja"))) {
       locale = "en";
     }
 
-    if (appBean.getLanguageSelectItems().get(locale) != null
-        && appBean.getLanguageSelectItems().get(locale).length > 0) {
-      return appBean.getLanguageSelectItems().get(locale);
+    if (applicationBean.getLanguageSelectItems().get(locale) != null
+        && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
+      return applicationBean.getLanguageSelectItems().get(locale);
     } else {
       SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
-      appBean.getLanguageSelectItems().put(locale, languageSelectItems);
+      applicationBean.getLanguageSelectItems().put(locale, languageSelectItems);
       return languageSelectItems;
     }
-
   }
 
   /**
@@ -876,5 +873,4 @@ public class CommonUtils extends InternationalizedImpl {
   public static String getGenericItemLink(String objectId) throws Exception {
     return getGenericItemLink(objectId, 0);
   }
-
 }

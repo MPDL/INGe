@@ -26,14 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import javax.naming.InitialContext;
-
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.pubman.PubItemDepositing;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 
 /**
@@ -45,18 +43,10 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  * 
  */
 public class SubmitProcess extends Thread {
-  // private static final Logger logger = Logger.getLogger(SubmitProcess.class);
-
   private ImportLog log;
-  private PubItemDepositing pubItemDepositing;
-  // private PubItemPublishing pubItemPublishing;
-  private XmlTransforming xmlTransforming; //
-  private ItemHandler itemHandler; //
-  // private ContextHandler contextHandler;
+  private ItemHandler itemHandler;
   private AccountUserVO user;
   private boolean alsoRelease;
-
-  // private Map<String, ContextVO> contexts = new HashMap<String, ContextVO>();
 
   public SubmitProcess(ImportLog log, boolean alsoRelease) {
     this.log = log;
@@ -67,23 +57,11 @@ public class SubmitProcess extends Thread {
     this.log.startItem("import_process_submit_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process");
     try {
-
       user = new AccountUserVO();
       user.setHandle(log.getUserHandle());
       user.setUserid(log.getUser());
 
-      InitialContext context = new InitialContext();
-      this.pubItemDepositing =
-          (PubItemDepositing) context
-              .lookup("java:global/pubman_ear/pubman_logic/PubItemDepositingBean");
-      // this.pubItemPublishing =
-      // (PubItemPublishing) context
-      // .lookup("java:global/pubman_ear/pubman_logic/PubItemPublishingBean");
-      this.xmlTransforming =
-          (XmlTransforming) context
-              .lookup("java:global/pubman_ear/common_logic/XmlTransformingBean");
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-      // this.contextHandler = ServiceLocator.getContextHandler(this.user.getHandle());
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -116,7 +94,7 @@ public class SubmitProcess extends Thread {
           log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
 
           String itemXml = this.itemHandler.retrieve(item.getItemId());
-          PubItemVO itemVO = this.xmlTransforming.transformToPubItem(itemXml);
+          PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXml);
           // ContextRO contextRO = itemVO.getContext();
           // ContextVO contextVO;
           // if (this.contexts.containsKey(contextRO.getObjectId()))
@@ -139,15 +117,15 @@ public class SubmitProcess extends Thread {
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
             itemVO =
-                pubItemDepositing.submitPubItem(itemVO,
+                PubItemService.submitPubItem(itemVO,
                     "Batch submit/release from import " + log.getMessage(), user);
-            pubItemDepositing.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(),
+            PubItemService.releasePubItem(itemVO.getVersion(), itemVO.getModificationDate(),
                 "Batch submit/release from import " + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
 
           } else {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            pubItemDepositing.submitPubItem(itemVO, "Batch submit from import " + log.getMessage(),
+            PubItemService.submitPubItem(itemVO, "Batch submit from import " + log.getMessage(),
                 user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }

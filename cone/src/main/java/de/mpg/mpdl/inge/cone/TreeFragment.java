@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.cone;
 
-import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,6 +24,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObject>> implements
     LocalizedTripleObject {
   private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.# ";

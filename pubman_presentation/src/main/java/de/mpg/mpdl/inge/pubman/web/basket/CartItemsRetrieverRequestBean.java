@@ -3,8 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -12,16 +10,14 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
@@ -43,9 +39,6 @@ public class CartItemsRetrieverRequestBean extends
       "deleteItemsFromBasket_NoItemSelected";
 
   private int numberOfRecords;
-
-  @EJB
-  XmlTransforming xmlTransforming;
 
   public CartItemsRetrieverRequestBean() {
     // refreshAlways is needed due to workarround (latest-version problem, filter only retrieves
@@ -85,9 +78,6 @@ public class CartItemsRetrieverRequestBean extends
       PubItemStorageSessionBean pssb =
           (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
 
-      LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-
-
       List<ItemRO> idList = new ArrayList<ItemRO>();
       for (ItemRO id : pssb.getStoredPubItems().values()) {
         idList.add(id);
@@ -112,9 +102,9 @@ public class CartItemsRetrieverRequestBean extends
         filter.getFilterList().add(f9);
 
         String xmlItemList = "";
-        if (loginHelper.getESciDocUserHandle() != null) {
+        if (getLoginHelper().getESciDocUserHandle() != null) {
           xmlItemList =
-              ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(
+              ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
                   filter.toMap());
         } else {
           xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
@@ -123,7 +113,7 @@ public class CartItemsRetrieverRequestBean extends
         System.out.println(filter.toMap());
 
         ItemVOListWrapper pubItemList =
-            xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+            XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
 
         numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
         returnList =
@@ -146,10 +136,7 @@ public class CartItemsRetrieverRequestBean extends
       logger.error("Error while retrieving items for basket", e);
     }
     return returnList;
-
   }
-
-
 
   /**
    * Called from JSF when selected items in the list should be removed from the basket.
@@ -201,8 +188,6 @@ public class CartItemsRetrieverRequestBean extends
    * order to save the selections in the list.
    */
   public void updateExportOptions() {
-    ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
-    exportItemsBean.updateExportFormats();
+    ((ExportItems) getRequestBean(ExportItems.class)).updateExportFormats();
   }
-
 }

@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.transformation.transformations.standardFormats;
 
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,10 +34,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -48,17 +42,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.TransformerFactoryImpl;
-
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.transformation.Configurable;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.transformations.LocalUriResolver;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import net.sf.saxon.TransformerFactoryImpl;
 
 /**
  * Handles all transformations for standard metadata records.
@@ -67,15 +56,15 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 public class StandardTransformation {
-  private final Logger logger = Logger.getLogger(StandardTransformation.class);
+  private static final Logger logger = Logger.getLogger(StandardTransformation.class);
 
-  private final String METADATA_XSLT_LOCATION = "transformations/standardFormats/xslt";
-  private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
-      "eSciDoc-publication-item-list", "application/xml", "*");
-  private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
-      "application/xml", "*");
-  private static final Format ESCIDOC_COMPONENT_FORMAT = new Format(
-      "eSciDoc-publication-component", "application/xml", "*");
+  private static final String METADATA_XSLT_LOCATION = "transformations/standardFormats/xslt";
+  // private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format(
+  // "eSciDoc-publication-item-list", "application/xml", "*");
+  // private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item",
+  // "application/xml", "*");
+  // private static final Format ESCIDOC_COMPONENT_FORMAT = new Format(
+  // "eSciDoc-publication-component", "application/xml", "*");
 
   private static Properties properties;
 
@@ -105,7 +94,7 @@ public class StandardTransformation {
     InputStream in = null;
 
     try {
-      factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
+      factory.setURIResolver(new LocalUriResolver(METADATA_XSLT_LOCATION));
       if (formatFrom.equalsIgnoreCase("zfn_tei")) {
         xsltUri = PropertyReader.getProperty("escidoc.transformation.zfn.stylesheet.filename");
         if (xsltUri != null) {
@@ -114,7 +103,7 @@ public class StandardTransformation {
         }
       } else {
         xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
-        in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
+        in = cl.getResourceAsStream(METADATA_XSLT_LOCATION + "/" + xsltUri);
 
       }
 
@@ -163,15 +152,12 @@ public class StandardTransformation {
     boolean check = false;
 
     try {
-
-      File transformFile =
-          ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION + "/" + xsltUri,
-              StandardTransformation.class.getClassLoader());
+      ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
+          StandardTransformation.class.getClassLoader());
       check = true;
 
     } catch (FileNotFoundException e) {
-      this.logger.warn("No transformation file from format: " + formatFrom + " to format: "
-          + formatTo);
+      logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);
     }
 
     return check;
@@ -186,7 +172,6 @@ public class StandardTransformation {
    * @throws URISyntaxException
    */
   public String getProperty(String key) throws IOException, URISyntaxException {
-    String propertiesFile = null;
     Properties solProperties = new Properties();
 
     InputStream in = getInputStream("transformation.properties");
@@ -211,6 +196,7 @@ public class StandardTransformation {
    */
   private static InputStream getInputStream(String filepath) throws IOException {
     InputStream instream = null;
+
     // First try to search in file system
     try {
       instream = new FileInputStream(filepath);
@@ -221,11 +207,11 @@ public class StandardTransformation {
         instream = url.openStream();
       }
     }
+
     if (instream == null) {
       throw new FileNotFoundException(filepath);
     }
+
     return instream;
   }
-
-
 }

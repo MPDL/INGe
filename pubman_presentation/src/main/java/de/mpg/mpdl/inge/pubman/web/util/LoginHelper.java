@@ -67,36 +67,34 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class LoginHelper extends FacesBean {
+  public static final String BEAN_NAME = "LoginHelper";
+
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
-  public final static String BEAN_NAME = "LoginHelper";
+
+  private AccountUserVO accountUser = new AccountUserVO();
+  private List<AffiliationVOPresentation> userAccountAffiliations;
+  private List<GrantVO> userGrants;
+  private List<UserGroupVO> userAccountUserGroups;
+  private OrganizationServiceHandler organizationServiceHandler;
+  private String authenticationToken = null;
+  private String btnLoginLogout = "login_btLogin";
+  private String displayUserName = "";
   private String eSciDocUserHandle = null;
+  private String password = "";
+  private String username = "";
+  private boolean detailedMode = false;
+  private boolean loggedIn = false;
+  private boolean wasLoggedIn = false;
+
+  public LoginHelper() {}
 
   public String getESciDocUserHandle() {
-    return eSciDocUserHandle;
+    return this.eSciDocUserHandle;
   }
 
   public void setESciDocUserHandle(String eSciDocUserHandle) {
     this.eSciDocUserHandle = eSciDocUserHandle;
   }
-
-  private String authenticationToken = null;
-  private String btnLoginLogout = "login_btLogin";
-  private String displayUserName = "";
-  private String username = "";
-  private String password = "";
-  private boolean loggedIn = false;
-  private boolean wasLoggedIn = false;
-  private AccountUserVO accountUser = new AccountUserVO();
-  private List<AffiliationVOPresentation> userAccountAffiliations;
-
-  private List<UserGroupVO> userAccountUserGroups;
-  private List<GrantVO> userGrants;
-  private boolean detailedMode = false;
-
-
-  private OrganizationServiceHandler organizationServiceHandler;
-
-  public LoginHelper() {}
 
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.
@@ -108,18 +106,17 @@ public class LoginHelper extends FacesBean {
    */
   public String insertLogin() throws IOException, ServiceException, TechnicalException,
       URISyntaxException {
-    // FacesContext fc = FacesContext.getCurrentInstance();
-    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String token = this.obtainToken();
+
     if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       if (token != null) {
         this.authenticationToken = token;
         this.loggedIn = true;
         this.wasLoggedIn = true;
         this.setDetailedMode(true);
-
       }
     }
+
     if (this.authenticationToken != null && !this.authenticationToken.equals("")
         && this.wasLoggedIn) {
       fetchAccountUser(this.authenticationToken);
@@ -137,8 +134,8 @@ public class LoginHelper extends FacesBean {
       depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
       depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
     }
-    return "";
 
+    return "";
   }
 
   /**
@@ -513,7 +510,7 @@ public class LoginHelper extends FacesBean {
       e.printStackTrace();
 
     }
+
     return null;
   }
-
 }

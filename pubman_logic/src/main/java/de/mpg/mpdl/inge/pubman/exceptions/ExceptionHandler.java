@@ -81,9 +81,8 @@ public class ExceptionHandler {
         || e instanceof XmlSchemaValidationException || e instanceof InvalidXmlException
         || e instanceof MissingParameterException || e instanceof MissingMethodParameterException
         || e instanceof MalformedURLException || e instanceof ReadonlyElementViolationException
-        || e instanceof RemoteException || e instanceof ServiceException)
+        || e instanceof RemoteException || e instanceof ServiceException) {
 
-    {
       logger.debug(MessageCreator.getMessage(CommonLogicMessages.FRAMEWORK_SYSTEM_ERROR,
           new Object[] {methodname}), e);
     }

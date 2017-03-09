@@ -1,9 +1,5 @@
 package de.mpg.mpdl.inge.transformation.transformations.otherFormats.mets;
 
-import gov.loc.mets.DivType;
-import gov.loc.mods.v3.ModsDocument;
-import gov.loc.mods.v3.ModsType;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 
@@ -34,12 +27,15 @@ import de.escidoc.schemas.metadatarecords.x05.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
-import de.mpg.mpdl.inge.model.xmltransforming.DataGathering;
-import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.mpdl.inge.transformation.valueObjects.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import gov.loc.mets.DivType;
+import gov.loc.mods.v3.ModsDocument;
+import gov.loc.mods.v3.ModsType;
 
 /**
  * This class provides METS transformation for a escidoc objects.
@@ -56,23 +52,10 @@ public class METSTransformation {
   private int dmdIdCounter = 0;
   private int divCounter = 1;
   private String currentLogicalMetsDivId;
-
-  @EJB
-  private DataGathering dataGathering;
   private Div physicalRootDiv;
   private ModsType volumeMods;
 
-  /**
-   * Public Constructor METSTransformation.
-   */
-  public METSTransformation() {
-    try {
-      InitialContext initialContext = new InitialContext();
-      this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
-    } catch (NamingException e) {
-      this.logger.error("could not find data gathering service", e);
-    }
-  }
+  public METSTransformation() {}
 
   /**
    * transform To METS.
@@ -152,7 +135,7 @@ public class METSTransformation {
       volumeMods = retrieveMods(volumeContainerId);
 
       List<RelationVO> multiVolumeContainerRel =
-          this.dataGathering.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
+          DataGatheringService.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
       if (multiVolumeContainerRel != null && multiVolumeContainerRel.size() > 0) {
         String multiVolContainerId =
             multiVolumeContainerRel.get(0).getSourceItemRef().getObjectId();
@@ -249,7 +232,6 @@ public class METSTransformation {
    * @throws RuntimeException
    */
   private void createPhysicals(TocDocument tocDoc) throws RuntimeException {
-    int divId = 1;
     this.writeMETS.createStructMap(this.writeMETS.getTypePHYSICAL(), null, null);
     this.writeMETS.createFileSec();
     this.writeMETS.createFileGroup(this.writeMETS.getFileGrpDEFAULT());
@@ -294,7 +276,6 @@ public class METSTransformation {
         int order = Integer.parseInt(page.getORDER().toString());
         this.writeMETS.addToStructMap(this.writeMETS.getTypePHYSICAL(), ptrIds, order + "",
             page.getORDERLABEL(), page.getID(), page.getTYPE(), false);
-        divId++;
       }
     } catch (Exception e) {
       this.logger.error("Creation of physical parts for METS document failed.", e);

@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -24,7 +23,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
-import de.mpg.mpdl.inge.search.Search;
+import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
@@ -78,20 +77,13 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private int numberOfRecords;
 
   private YearbookItemSessionBean yisb;
-  // private PubItemListSessionBean pilsb;
-
-  @EJB
-  private Search searchService;
 
   public YearbookCandidatesRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
-    // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
-    // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
   }
 
   @Override
   public void init() {
-    // pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
   }
 
@@ -108,10 +100,12 @@ public class YearbookCandidatesRetrieverRequestBean extends
   public void readOutParameters() {
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
-      if (getSessionBean().getSelectedOrgUnit() != null || yisb.getYearbookItem() == null) {
-        setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
+      if (getYearbookCandidatesSessionBean().getSelectedOrgUnit() != null
+          || yisb.getYearbookItem() == null) {
+        setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
       } else {
-        setSelectedOrgUnit(getSessionBean().getOrgUnitSelectItems().get(0).getValue().toString());
+        setSelectedOrgUnit(getYearbookCandidatesSessionBean().getOrgUnitSelectItems().get(0)
+            .getValue().toString());
       }
 
     } else {
@@ -156,20 +150,20 @@ public class YearbookCandidatesRetrieverRequestBean extends
   }
 
   public List<SelectItem> getOrgUnitSelectItems() {
-    return this.getSessionBean().getOrgUnitSelectItems();
+    return this.getYearbookCandidatesSessionBean().getOrgUnitSelectItems();
   }
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
-    this.getSessionBean().setSelectedOrgUnit(selectedOrgUnit);
+    this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
     getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit,
         selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
-    return this.getSessionBean().getSelectedOrgUnit();
+    return this.getYearbookCandidatesSessionBean().getSelectedOrgUnit();
   }
 
-  public YearbookCandidatesSessionBean getSessionBean() {
+  private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
     return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
   }
 
@@ -542,7 +536,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
           }
 
           System.out.println(query.getCqlQuery());
-          ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
+          ItemContainerSearchResult result = SearchService.searchForItemContainer(query);
 
           pubItemList = extractItemsOfSearchResult(result);
           this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());

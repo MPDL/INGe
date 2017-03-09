@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import java.util.ResourceBundle;
-
 import javax.faces.context.FacesContext;
 
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -40,10 +38,13 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class EventLogEntryVOPresentation extends EventLogEntryVO {
   private VersionHistoryEntryVO versionHistoryVO;
-  private InternationalizationHelper i18nHelper;
 
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+      .getCurrentInstance().getExternalContext().getSessionMap()
+      .get(InternationalizationHelper.BEAN_NAME);
 
   public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO,
       VersionHistoryEntryVO versionHistoryVO) {
@@ -51,33 +52,28 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
     this.setDate(eventLogVO.getDate());
     this.setType(eventLogVO.getType());
     this.versionHistoryVO = versionHistoryVO;
-    i18nHelper =
-        (InternationalizationHelper) FacesContext.getCurrentInstance().getExternalContext()
-            .getSessionMap().get(InternationalizationHelper.BEAN_NAME);
-
   }
 
   public String getCurrentTypeLabel() {
-    ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     if (getType() != null) {
       switch (getType()) {
         case CREATE:
-          return labelBundle.getString("ViewItemLog_lblCreate");
+          return this.i18nHelper.getLabel("ViewItemLog_lblCreate");
         case RELEASE:
-          return labelBundle.getString("ViewItemLog_lblRelease");
+          return this.i18nHelper.getLabel("ViewItemLog_lblRelease");
         case SUBMIT:
-          return labelBundle.getString("ViewItemLog_lblSubmit");
+          return this.i18nHelper.getLabel("ViewItemLog_lblSubmit");
         case UPDATE:
-          return labelBundle.getString("ViewItemLog_lblUpdate");
+          return this.i18nHelper.getLabel("ViewItemLog_lblUpdate");
         case WITHDRAW:
-          return labelBundle.getString("ViewItemLog_lblWithdraw");
+          return this.i18nHelper.getLabel("ViewItemLog_lblWithdraw");
         case IN_REVISION:
-          return labelBundle.getString("ViewItemLog_lblInRevision");
+          return this.i18nHelper.getLabel("ViewItemLog_lblInRevision");
         case ASSIGN_VERSION_PID:
-          return labelBundle.getString("ViewItemLog_lblAssignVersionPid");
-
+          return this.i18nHelper.getLabel("ViewItemLog_lblAssignVersionPid");
       }
     }
+
     return "";
   }
 
@@ -87,7 +83,6 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
       return "Item updated";
     } else
       return getComment();
-
   }
 
   public String getFormattedDate() {
@@ -95,7 +90,7 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
   }
 
   public VersionHistoryEntryVO getVersionHistoryVO() {
-    return versionHistoryVO;
+    return this.versionHistoryVO;
   }
 
   public void setVersionHistoryVO(VersionHistoryEntryVO versionHistoryVO) {

@@ -37,8 +37,7 @@ import org.junit.Test;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 
 /**
@@ -51,18 +50,13 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * @revised by MuJ: 20.09.2007
  */
 public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
-  /**
-   * Logger for this class.
-   */
-  private Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(TransformPubItemVersionListTest.class);
 
   private static final String TEST_FILE_ROOT =
       "xmltransforming/component/transformPubItemVersionListTest/";
   private static final String VERSION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "version-list-sample.xml";
   private static final String VERSION_LIST_SAMPLE_FILE2 = TEST_FILE_ROOT
       + "version-list-sample2.xml";
-
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
   /**
    * @throws Exception
@@ -78,7 +72,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
     // transform the version history XML to a list of EventVOs
     long zeit = -System.currentTimeMillis();
     List<VersionHistoryEntryVO> versionList =
-        xmlTransforming.transformToEventVOList(itemVersionHistoryXml);
+        XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
     zeit += System.currentTimeMillis();
     logger.info("transformPubItemVersionList() -> " + zeit + "ms");
 
@@ -119,7 +113,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
     // transform the version history XML to a list of EventVOs
     long zeit = -System.currentTimeMillis();
     List<VersionHistoryEntryVO> versionList =
-        xmlTransforming.transformToEventVOList(itemVersionHistoryXml);
+        XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
     zeit += System.currentTimeMillis();
     logger.info("transformPubItemVersionList() -> " + zeit + "ms");
 

@@ -34,7 +34,7 @@
 	</h:panelGroup>
 		<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-		<b><h:outputText value="#{ReviseItem.itemControllerSessionBean.currentPubItem.metadata.title}" converter="HTMLSubSupConverter" escape="false"/></b>
+		<b><h:outputText value="#{ItemControllerSessionBean.currentPubItem.metadata.title}" converter="HTMLSubSupConverter" escape="false"/></b>
 	</h:panelGroup>
 </div>
 <div class="full_area0 itemBlock">
@@ -48,7 +48,7 @@
 				<h:outputText value="#{lbl.ReviseItem_lblPublication}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ReviseItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
+				<h:outputText value="#{ItemControllerSessionBean.currentPubItem.version.objectId}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">

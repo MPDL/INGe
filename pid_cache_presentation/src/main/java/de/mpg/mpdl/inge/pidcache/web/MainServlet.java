@@ -48,6 +48,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class MainServlet extends HttpServlet {
 
   Logger logger = Logger.getLogger(MainServlet.class);

@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
  * Backing bean for ViewItemFullPage.jsp (for viewing items in a full context).
@@ -48,10 +47,6 @@ public class ViewItemFullPage extends BreadcrumbPage {
   @Override
   public void init() {
     super.init();
-  }
-
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

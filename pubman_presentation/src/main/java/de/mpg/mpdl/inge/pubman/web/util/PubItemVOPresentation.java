@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -50,8 +48,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.Internationalized;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.bean.FileBean;
@@ -66,7 +62,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubItemVOPresentation extends PubItemVO implements Internationalized {
+public class PubItemVOPresentation extends PubItemVO {
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+      .getCurrentInstance().getExternalContext().getSessionMap()
+      .get(InternationalizationHelper.BEAN_NAME);
 
   private boolean selected = false;
   private boolean shortView = true;
@@ -144,13 +143,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    */
   private ValidationReportVO validationReport;
 
-  // For handling the resource bundles (i18n)
-  // private Application application = FacesContext.getCurrentInstance().getApplication();
-  // get the selected language...
-
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-      .getCurrentInstance().getApplication().getVariableResolver()
-      .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
   private float score;
 
   public PubItemVOPresentation(PubItemVO item) {
@@ -161,7 +153,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
       this.isSearchResult = true;
       this.score = ((PubItemResultVO) item).getScore();
     }
-
 
     if (this.getVersion() != null && this.getVersion().getState() != null) {
       this.released = this.getVersion().getState().toString().equals(State.RELEASED.toString());
@@ -361,24 +352,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getAlternativeTitleTypes() {
-    InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-    ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-
     ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
 
     // constants for comboBoxes
-    selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
+    selectItemList.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
 
     for (SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
-      selectItemList.add(new SelectItem(type.toString(), labelBundle
-          .getString("ENUM_ALTERNATIVETITLETYPE_" + type.toString())));
+      selectItemList.add(new SelectItem(type.toString(), this
+          .getLabel(("ENUM_ALTERNATIVETITLETYPE_" + type.toString()))));
     }
+
     return selectItemList.toArray(new SelectItem[] {});
   }
 
@@ -903,52 +886,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
       }
     }
     return sourceTitle;
-  }
-
-  /**
-   * Returns the ApplicationBean.
-   * 
-   * @return a reference to the scoped data bean (ApplicationBean)
-   */
-  protected ApplicationBean getApplicationBean() {
-    return (ApplicationBean) FacesContext.getCurrentInstance().getApplication()
-        .getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getLabel(java.lang.String)
-   */
-  public String getLabel(String placeholder) {
-    return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#getMessage(java.lang.String)
-   */
-  public String getMessage(String placeholder) {
-    return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(placeholder);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.appbase.Internationalized#bindComponentLabel(javax.faces.component.
-   * UIComponent, java.lang.String)
-   */
-  public void bindComponentLabel(UIComponent component, String placeholder) {
-    ValueExpression value =
-        FacesContext
-            .getCurrentInstance()
-            .getApplication()
-            .getExpressionFactory()
-            .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
-                "#{lbl." + placeholder + "}", String.class);
-    component.setValueExpression("value", value);
   }
 
   /**
@@ -1596,9 +1533,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
   }
 
   public ValidationReportVO getValidationReport() {
-    return validationReport;
+    return this.validationReport;
   }
-
 
   public String getPublicationStatus() {
     if (getMetadata().getDatePublishedInPrint() != null
@@ -1616,9 +1552,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     } else {
       return getLabel("ViewItem_lblPublicationState_not-specified");
     }
-
   }
 
-
-
+  private String getLabel(String placeholder) {
+    return this.i18nHelper.getLabel(placeholder);
+  }
 }

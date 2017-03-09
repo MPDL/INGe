@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -12,33 +11,21 @@ import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 
+@SuppressWarnings("serial")
 public class YearbookCandidatesSessionBean extends FacesBean {
   public static final String BEAN_NAME = "YearbookCandidatesSessionBean";
+
   private static final Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
 
-
-
   private String selectedOrgUnit;
-
-
-
-  /**
-   * A list with the menu entries for the org units filter menu.
-   */
   private List<SelectItem> orgUnitSelectItems;
-
   private final YearbookItemSessionBean yisb;
-
   private final PubItemListSessionBean pilsb;
-
-  @EJB
-  private XmlTransforming xmlTransforming;
-
 
   public YearbookCandidatesSessionBean() {
     yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
@@ -66,16 +53,15 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         String topLevelOU =
             ouHandler.retrieve(yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0)
                 .getOrganization().getIdentifier());
-        AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
+        AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
         List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
         affList.add(new AffiliationVOPresentation(affVO));
         addChildAffiliationsToMenu(affList, orgUnitSelectItems, 0);
       } catch (Exception e) {
         logger.error("Error retrieving org units", e);
       }
-
-
     }
+
     return orgUnitSelectItems;
   }
 
@@ -88,6 +74,7 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     if (affs == null) {
       return;
     }
+
     String prefix = "";
     for (int i = 0; i < level; i++) {
       // 2 save blanks

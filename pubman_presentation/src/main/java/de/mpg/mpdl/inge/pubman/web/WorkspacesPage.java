@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemSessionBean;
 
 /**
  * BackingBean for Workspaces Page (WorkspacesPage.jsp).
@@ -50,15 +49,6 @@ public class WorkspacesPage extends BreadcrumbPage {
     super.init();
 
     checkForLogin();
-  }
-
-  /**
-   * Returns the ViewItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (ViewItemSessionBean)
-   */
-  protected ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
   }
 
   @Override

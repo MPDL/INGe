@@ -42,8 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * Test of {@link XmlTransforming} methods for Affiliation transforming.
@@ -55,7 +54,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBea
 public class TransformAffiliationTest extends TestBase {
   private static final String REST_AFFILIATION_FILE = TEST_FILE_ROOT
       + "xmltransforming/component/transformAffiliationTest/organizational-unit_rest.xml";
-  private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
   private Logger logger = Logger.getLogger(getClass());
 
@@ -74,7 +72,7 @@ public class TransformAffiliationTest extends TestBase {
     assertXMLValid(organizationalUnitListXml);
     logger.info("The organizational unit list XML is valid");
     List<AffiliationVO> affList =
-        xmlTransforming.transformToAffiliationList(organizationalUnitListXml);
+        XmlTransformingService.transformToAffiliationList(organizationalUnitListXml);
     assertNotNull(affList);
     assertFalse(affList.isEmpty());
     assertEquals(2, affList.size());
@@ -100,7 +98,7 @@ public class TransformAffiliationTest extends TestBase {
             + "xmltransforming/component/transformAffiliationTest/organizational-unit-path-list_sample1.xml");
     assertXMLValid(organizationalUnitPathListXml);
     List<AffiliationPathVO> affPathList =
-        xmlTransforming.transformToAffiliationPathList(organizationalUnitPathListXml);
+        XmlTransformingService.transformToAffiliationPathList(organizationalUnitPathListXml);
     assertNotNull("Transforming delivered null.", affPathList);
     assertFalse("Transforming result list is empty.", affPathList.isEmpty());
     List<AffiliationRO> affPath = null;
@@ -127,7 +125,7 @@ public class TransformAffiliationTest extends TestBase {
             + "xmltransforming/component/transformAffiliationTest/parent-organizational-unit-list_sample1.xml");
     assertXMLValid(parentOrganizationalUnitListXml);
     List<AffiliationRO> affROList =
-        xmlTransforming.transformToParentAffiliationList(parentOrganizationalUnitListXml);
+        XmlTransformingService.transformToParentAffiliationList(parentOrganizationalUnitListXml);
     assertNotNull("Transforming delivered null.", affROList);
     assertFalse("Transforming result list is empty.", affROList.isEmpty());
 
@@ -155,7 +153,8 @@ public class TransformAffiliationTest extends TestBase {
     }
     logger.info("The organizational unit XML is valid");
 
-    AffiliationVO affiliation = xmlTransforming.transformToAffiliation(organizationalUnitXml);
+    AffiliationVO affiliation =
+        XmlTransformingService.transformToAffiliation(organizationalUnitXml);
     assertNotNull(affiliation);
     assertEqualsMPIWG(affiliation);
     logger
@@ -176,13 +175,14 @@ public class TransformAffiliationTest extends TestBase {
         readFile(TEST_FILE_ROOT
             + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
     assertXMLValid(organizationalUnitXml);
-    AffiliationVO affiliation = xmlTransforming.transformToAffiliation(organizationalUnitXml);
+    AffiliationVO affiliation =
+        XmlTransformingService.transformToAffiliation(organizationalUnitXml);
     assertNotNull(affiliation);
     assertEqualsMPIWG(affiliation);
 
     // transform it back to XML
     String roundTripOrganizationalUnitXml =
-        xmlTransforming.transformToOrganizationalUnit(affiliation);
+        XmlTransformingService.transformToOrganizationalUnit(affiliation);
     logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n"
         + organizationalUnitXml
         + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n"
@@ -191,7 +191,7 @@ public class TransformAffiliationTest extends TestBase {
 
   /**
    * Test method for
-   * {@link de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}
+   * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
    * 
    * @throws Exception
@@ -205,7 +205,7 @@ public class TransformAffiliationTest extends TestBase {
     logger.info("Affiliation[XML] read from file.");
     logger.info("Content: " + restAffiliationXML);
     // transform the xml directly into a AffiliationVO
-    AffiliationVO affiliationVO = xmlTransforming.transformToAffiliation(restAffiliationXML);
+    AffiliationVO affiliationVO = XmlTransformingService.transformToAffiliation(restAffiliationXML);
 
     assertEquals("ObjectId not transformed correctly", "/oum/organizational-unit/escidoc:830552",
         affiliationVO.getReference().getObjectId());

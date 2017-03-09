@@ -50,7 +50,6 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.apache.xerces.jaxp.DocumentBuilderFactoryImpl;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.jsoup.Jsoup;
@@ -64,11 +63,11 @@ import org.xml.sax.SAXException;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.mpdl.inge.transformation.Util.Styles;
 import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 // Only for DOM Debugging
 

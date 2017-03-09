@@ -55,11 +55,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.model.xmltransforming.emailhandling.EmailHandlingBean;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -83,27 +83,15 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  * @version $Revision:$ $LastChangedDate: $
  * 
  */
-
 public class ReportFHI {
+  private static final Logger logger = Logger.getLogger(ReportFHI.class);
 
-
-  private final static Logger logger = Logger.getLogger(ReportFHI.class);
-
-  private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
-
-  private static EmailHandlingBean emailHandler = new EmailHandlingBean();
-
+  private static final TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
   private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
-
   private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
 
-
-  // number of the last months to be processed
-
   private static String adminHandler;
-
   private static Properties rprops;
-
 
   public static String USER_NAME;
   public static String USER_PASSWD;
@@ -112,8 +100,6 @@ public class ReportFHI {
   public static String emailWithAuthProp;
   public static String emailAuthUserProp;
   public static String emailAuthPwdProp;
-
-
 
   public ReportFHI() throws IOException, URISyntaxException, ServiceException {
     USER_NAME = PropertyReader.getProperty("framework.admin.username");
@@ -131,16 +117,11 @@ public class ReportFHI {
     adminHandler = AdminHelper.loginUser(USER_NAME, USER_PASSWD);
 
     rprops = loadReportProperties();
-
-
-
   }
-
 
   // Generate time range query
   // Take all docs from the last months
   public static String[] getStartEndDateOfQuery() {
-
     SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-");
     int months;
     try {
@@ -167,12 +148,12 @@ public class ReportFHI {
   // Generate query for time range
   private static String getTimeRangeQuery() {
     String[] dd = getStartEndDateOfQuery();
+
     return "(\"/properties/creation-date\">=\"" + dd[0] + "\""
         + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
   }
 
   public static String getItemListFromFramework() {
-
     // Publications of the test context
     // Time range: previous month
 
@@ -209,7 +190,6 @@ public class ReportFHI {
       throw new RuntimeException("Cannot get item-list from framework:", e);
     }
 
-
     return itemList;
   }
 
@@ -221,9 +201,7 @@ public class ReportFHI {
   private static Document getXmlDataSource() {
     // getFilter from framework, FHI specific
     Document document = null;
-
     StringWriter sw = new StringWriter();
-
 
     // get item-list from framework
     Transformer transformer;
@@ -243,7 +221,6 @@ public class ReportFHI {
     logger.debug(sw.toString());
     logger.debug("*********************************************************************");
 
-
     try {
       document = JRXmlUtils.parse(new InputSource(new StringReader(sw.toString())));
     } catch (Exception e) {
@@ -251,10 +228,7 @@ public class ReportFHI {
     }
 
     return document;
-
-
   }
-
 
   /**
    * Generate month report files (formats are specified in properties)
@@ -263,7 +237,6 @@ public class ReportFHI {
    * @return list of paths to the generated reports
    */
   public static String[] generateReport() throws JRException {
-
     String[] formats = rprops.getProperty("FHI.report.formats").split(",");
 
     // GET REPORT FROM JRXMLs
@@ -311,7 +284,6 @@ public class ReportFHI {
     }
 
     return atts.toArray(new String[atts.size()]);
-
   }
 
   /**
@@ -327,7 +299,7 @@ public class ReportFHI {
     if (toEmails != null && !toEmails.trim().equals("")) {
       String[] timeRange = getStartEndDateOfQuery();
       try {
-        emailHandler.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp,
+        EmailService.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp,
             emailAuthPwdProp, rprops.getProperty("FHI.sender.address"), toEmails.split(","), rprops
                 .getProperty("FHI.recipients.cc.addresses").split(","),
             rprops.getProperty("FHI.recipients.bcc.addresses").split(","),
@@ -339,9 +311,7 @@ public class ReportFHI {
         throw new RuntimeException("Cannot send email:", e);
       }
     }
-
   }
-
 
   /**
    * Generate month report and send it per email
@@ -373,7 +343,6 @@ public class ReportFHI {
     return props;
   }
 
-
   /**
    * Joins the elements of the provided array into a single String containing the provided list of
    * elements. Separator will be put between the not null/empty elements
@@ -400,7 +369,6 @@ public class ReportFHI {
     return str;
   }
 
-
   public static String replaceAllTotal(String what, String expr, String replacement) {
     return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what)
         .replaceAll(replacement);
@@ -409,8 +377,6 @@ public class ReportFHI {
   public static String replaceAllTotal(String what, Pattern p, String replacement) {
     return p.matcher(what).replaceAll(replacement);
   }
-
-
 
   protected static void writeToFile(String fileName, byte[] content) throws IOException {
     FileOutputStream fos = new FileOutputStream(fileName);
@@ -422,26 +388,17 @@ public class ReportFHI {
     int ch;
     StringBuffer buff = new StringBuffer();
     FileInputStream fis = new FileInputStream(fileName);
+
     while ((ch = fis.read()) != -1)
       buff.append((char) ch);
     fis.close();
+
     return buff.toString();
   }
-
 
   // This is the main application called periodically by a cron job on continuum
   // configured in /usr/local/sbin/reporting
   public static void main(String args[]) throws Exception {
-    ReportFHI rep = new ReportFHI();
-
     ReportFHI.generateAndSendReport(false);
   }
-
-  private static void usage() {
-    System.out.println("ReportFHI usage:");
-    System.out.println("\tjava ReportFHI");
-  }
-
-
-
 }
