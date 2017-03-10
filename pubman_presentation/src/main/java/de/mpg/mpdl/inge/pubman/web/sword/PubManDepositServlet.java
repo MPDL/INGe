@@ -27,11 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.sword;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -59,17 +55,12 @@ import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
  * 
  * @author Friederike Kleinfercher
  */
+@SuppressWarnings("serial")
 public class PubManDepositServlet extends HttpServlet {
+  private static final Logger logger = Logger.getLogger(PubManDepositServlet.class);
 
-  private static final long serialVersionUID = 1L;
-  private Logger logger = Logger.getLogger(PubManDepositServlet.class);
-  // private String collection;
-  // PubManSwordServer pubManSwordServer;
-  // private String error = "";
   private PubManSwordErrorDocument errorDoc;
   private boolean validDeposit = true;
-
-  // private String md5Header = "";
 
   /**
    * Process the GET request. This will return an unimplemented response.
@@ -225,14 +216,13 @@ public class PubManDepositServlet extends HttpServlet {
         out.flush();
       }
     } catch (Exception e) {
-      this.logger.error("Error document could not be created.", e);
+      logger.error("Error document could not be created.", e);
       throw new RuntimeException();
     }
 
     pubManSwordServer.setCurrentUser(null);
     this.validDeposit = true;
   }
-
 
   /**
    * Utiliy method to return the username and password (separated by a colon).
@@ -255,8 +245,9 @@ public class PubManDepositServlet extends HttpServlet {
         }
       }
     } catch (Exception e) {
-      this.logger.debug(e.toString());
+      logger.debug(e.toString());
     }
+
     return null;
   }
 
@@ -283,13 +274,6 @@ public class PubManDepositServlet extends HttpServlet {
     } else {
       deposit.setVerbose(false);
     }
-
-    // // Set the MD5 Checksum header
-    // String checksum = request.getHeader("Content-MD5");
-    // if ((checksum != null) && (!checksum.equals("")))
-    // {
-    // this.md5Header = checksum;
-    // }
 
     // Check X-On-Behalf-Of header
     String mediation = request.getHeader("X-On-Behalf-Of");
@@ -320,59 +304,5 @@ public class PubManDepositServlet extends HttpServlet {
     }
 
     return deposit;
-  }
-
-  public boolean checkChecksum(InputStream fis, String md5) throws NoSuchAlgorithmException,
-      IOException {
-    boolean check = false;
-    byte[] buffer = new byte[1024];
-    String checkCalc = "";
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    int numRead;
-
-    do {
-      numRead = fis.read(buffer);
-      if (numRead > 0) {
-        md.update(buffer, 0, numRead);
-      }
-    } while (numRead != -1);
-    fis.close();
-
-    byte[] digest = md.digest();
-    BigInteger bigInt = new BigInteger(1, digest);
-    checkCalc = bigInt.toString(16);
-    while (checkCalc.length() < 32) {
-      checkCalc = "0" + checkCalc;
-    }
-
-    if (md5.equals(checkCalc)) {
-      check = true;
-    }
-
-    return check;
-  }
-
-  // public PubManSwordServer getPubMan() {
-  // return this.pubManSwordServer;
-  // }
-  //
-  // public void setPubMan(PubManSwordServer pubMan) {
-  // this.pubManSwordServer = pubMan;
-  // }
-
-  // public String getError() {
-  // return this.error;
-  // }
-  //
-  // public void setError(String error) {
-  // this.error = error;
-  // }
-
-  public PubManSwordErrorDocument getErrorDoc() {
-    return this.errorDoc;
-  }
-
-  public void setErrorDoc(PubManSwordErrorDocument errorDoc) {
-    this.errorDoc = errorDoc;
   }
 }
