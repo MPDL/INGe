@@ -44,7 +44,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
-
 /**
  * Backing bean for ReviseItem.jspf
  * 
@@ -56,15 +55,11 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @SuppressWarnings("serial")
 public class ReviseItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(ReviseItem.class);
-  // Faces navigation string
+
   public static final String LOAD_REVISEITEM = "loadReviseItem";
-  // public static final String JSP_NAME = "ReviseItemPage.jsp";
 
   private String reviseComment;
-
-  // private String valMessage = null;
   private String creators;
-
   private String navigationStringToGoBack;
 
   public ReviseItem() {
@@ -76,15 +71,12 @@ public class ReviseItem extends FacesBean {
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
-
-    // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
+
       if (creator.getType() == CreatorVO.CreatorType.PERSON) {
         creators.append(creator.getPerson().getFamilyName());
         if (creator.getPerson().getGivenName() != null) {
@@ -96,15 +88,8 @@ public class ReviseItem extends FacesBean {
         creators.append(creator.getOrganization().getName());
       }
     }
-    this.creators = creators.toString();
 
-    if (logger.isDebugEnabled()) {
-      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger.debug("Item that is being revised: " + this.getPubItem().getVersion().getObjectId());
-      } else {
-        logger.error("NO ITEM GIVEN");
-      }
-    }
+    this.creators = creators.toString();
   }
 
   /**
@@ -114,7 +99,7 @@ public class ReviseItem extends FacesBean {
    * @return the item that is currently edited
    */
   public PubItemVO getPubItem() {
-    return (this.getItemControllerSessionBean().getCurrentPubItem());
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
   /**
@@ -125,9 +110,9 @@ public class ReviseItem extends FacesBean {
   public String revise() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
+        this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment,
+            ViewItemFull.LOAD_VIEWITEM);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
@@ -145,11 +130,7 @@ public class ReviseItem extends FacesBean {
       }
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -161,10 +142,6 @@ public class ReviseItem extends FacesBean {
    */
   public String cancel() {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
-  }
-
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   public String getNavigationStringToGoBack() {
@@ -184,13 +161,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemService.WORKFLOW_STANDARD);
+    return this.getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemService.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemService.WORKFLOW_SIMPLE);
+    return this.getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemService.WORKFLOW_SIMPLE);
   }
 
   public String getReviseComment() {
@@ -199,5 +176,13 @@ public class ReviseItem extends FacesBean {
 
   public void setReviseComment(String reviseComment) {
     this.reviseComment = reviseComment;
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
   }
 }

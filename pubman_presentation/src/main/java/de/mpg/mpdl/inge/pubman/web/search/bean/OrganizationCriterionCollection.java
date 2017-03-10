@@ -65,10 +65,11 @@ public class OrganizationCriterionCollection {
 
       AffiliationVO affiliation;
       try {
-        affiliation = XmlTransformingService.transformToAffiliation(
-            ServiceLocator.getOrganizationalUnitHandler().retrieve(criterion.getAffiliation().getReference()
-                .getObjectId()));
-        
+        affiliation =
+            XmlTransformingService.transformToAffiliation(ServiceLocator
+                .getOrganizationalUnitHandler().retrieve(
+                    criterion.getAffiliation().getReference().getObjectId()));
+
         AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
         // AffiliationVOPresentation affiliation = criterion.getAffiliation();

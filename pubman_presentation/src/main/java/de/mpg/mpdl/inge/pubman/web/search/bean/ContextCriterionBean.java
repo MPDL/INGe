@@ -40,40 +40,18 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 /**
  * context criterion vo for the advanced search.
  */
+@SuppressWarnings("serial")
 public class ContextCriterionBean extends CriterionBean {
-
   private List<ContextVO> contexts;
-
   private ContextCriterion contextCriterionVO;
   private String context;
 
-  public String getContext() {
-    HttpServletRequest req =
-        (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    context = req.getParameter("collection");
-    if (context != null && context.length() > 0) {
-      for (ContextVO vo : contexts) {
-        if (vo.getReference().getObjectId().equals(context)) {
-          contextCriterionVO.setSearchString(vo.getReference().getObjectId());
-        }
-      }
-    }
-    return context;
-  }
-
-  public void setContext(String context) {
-    this.context = context;
-  }
-
-  /**
-   * constructor.
-   */
   public ContextCriterionBean(List<ContextVO> contexts) {
     this(new ContextCriterion());
     this.contexts = contexts;
-    if (contexts != null && contexts.size() > 0) {
 
-      contextCriterionVO.setSearchString("");
+    if (contexts != null && contexts.size() > 0) {
+      this.contextCriterionVO.setSearchString("");
     }
   }
 
@@ -81,15 +59,34 @@ public class ContextCriterionBean extends CriterionBean {
     setContextCriterionVO(contextCriterionVO);
   }
 
+  public String getContext() {
+    HttpServletRequest req =
+        (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    this.context = req.getParameter("collection");
+    if (this.context != null && context.length() > 0) {
+      for (ContextVO vo : this.contexts) {
+        if (vo.getReference().getObjectId().equals(this.context)) {
+          this.contextCriterionVO.setSearchString(vo.getReference().getObjectId());
+        }
+      }
+    }
+
+    return this.context;
+  }
+
+  public void setContext(String context) {
+    this.context = context;
+  }
+
   public String clearCriterion() {
-    contextCriterionVO.setSearchString("");
-    contextCriterionVO = new ContextCriterion();
+    this.contextCriterionVO.setSearchString("");
+    this.contextCriterionVO = new ContextCriterion();
+
     return null;
   }
 
   public Criterion getContextCriterionVO() {
-
-    return contextCriterionVO;
+    return this.contextCriterionVO;
   }
 
   public void setContextCriterionVO(ContextCriterion contextCriterionVO) {
@@ -97,7 +94,7 @@ public class ContextCriterionBean extends CriterionBean {
   }
 
   public List<ContextVO> getContexts() {
-    return contexts;
+    return this.contexts;
   }
 
   public void setContexts(List<ContextVO> contexts) {
@@ -105,8 +102,7 @@ public class ContextCriterionBean extends CriterionBean {
   }
 
   public Criterion getCriterionVO() {
-
-    return contextCriterionVO;
+    return this.contextCriterionVO;
   }
 
   public String getContextName() throws Exception {
@@ -115,10 +111,11 @@ public class ContextCriterionBean extends CriterionBean {
 
     for (SelectItem contextItem : advancedSearchEdit.getContextCriterionCollection()
         .getContextList()) {
-      if (contextItem.getValue().equals(contextCriterionVO.getSearchString())) {
+      if (contextItem.getValue().equals(this.contextCriterionVO.getSearchString())) {
         return contextItem.getLabel();
       }
     }
+
     return null;
   }
 }

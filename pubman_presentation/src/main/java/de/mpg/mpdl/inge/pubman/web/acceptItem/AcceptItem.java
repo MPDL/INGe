@@ -169,14 +169,6 @@ public class AcceptItem extends FacesBean {
     return false;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
-  }
-
   public String getAcceptanceComment() {
     return this.acceptanceComment;
   }
@@ -201,5 +193,13 @@ public class AcceptItem extends FacesBean {
     }
 
     return false;
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
+    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 }

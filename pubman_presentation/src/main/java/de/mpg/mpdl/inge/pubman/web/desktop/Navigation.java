@@ -219,6 +219,14 @@ public class Navigation extends FacesBean {
         .get(name);
   }
 
+  public void setShowExportMenuOption(boolean showExportMenuOption) {
+    this.showExportMenuOption = showExportMenuOption;
+  }
+
+  public boolean getShowExportMenuOption() {
+    return this.showExportMenuOption;
+  }
+
   private ItemVersionListSessionBean getItemVersionSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
@@ -229,13 +237,5 @@ public class Navigation extends FacesBean {
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  public void setShowExportMenuOption(boolean showExportMenuOption) {
-    this.showExportMenuOption = showExportMenuOption;
-  }
-
-  public boolean getShowExportMenuOption() {
-    return showExportMenuOption;
   }
 }

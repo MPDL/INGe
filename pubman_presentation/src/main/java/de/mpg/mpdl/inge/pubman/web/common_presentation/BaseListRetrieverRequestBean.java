@@ -45,33 +45,28 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    */
   public BaseListRetrieverRequestBean(
       BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
-    // super.init();
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
     } catch (Exception e) {
       logger.warn("Reading in unAPI server URL from properties failed.", e);
     }
 
-    this.setBasePaginatorListSessionBean(plb);
-    getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
-    getBasePaginatorListSessionBean().setPageType(getType());
-    getBasePaginatorListSessionBean().setListPageName(getListPageName());
+    this.basePaginatorListSessionBean = plb;
+    this.basePaginatorListSessionBean.setPaginatorListRetriever(this);
+    this.basePaginatorListSessionBean.setPageType(getType());
+    this.basePaginatorListSessionBean.setListPageName(getListPageName());
     if (refreshAlways) {
-      getBasePaginatorListSessionBean().setNoListUpdate(false);
+      this.basePaginatorListSessionBean.setNoListUpdate(false);
     }
 
     init();
-
-    /*
-     * else { getBasePaginatorListSessionBean().saveState(); }
-     */
   }
 
   @PostConstruct
   public void postConstruct() {
     if (getFacesContext().getRenderResponse()) {
       readOutParameters();
-      getBasePaginatorListSessionBean().update();
+      this.basePaginatorListSessionBean.update();
     }
   }
 
@@ -128,20 +123,6 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    */
   public abstract String getListPageName();
 
-  /**
-   * Sets the corresponding BasePaginatorListSessionBean
-   * 
-   * @return basePaginatorListSessionBean
-   */
-  public void setBasePaginatorListSessionBean(
-      BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean) {
-    this.basePaginatorListSessionBean = basePaginatorListSessionBean;
-  }
-
-  public BasePaginatorListSessionBean<ListElementType, FilterType> getBasePaginatorListSessionBean() {
-    return this.basePaginatorListSessionBean;
-  }
-
   public void setUnapiURLview(String unapiURLview) {
     this.unapiURLview = unapiURLview;
   }
@@ -150,4 +131,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     return this.unapiURLview;
   }
 
+  public BasePaginatorListSessionBean<ListElementType, FilterType> getBasePaginatorListSessionBean() {
+    return this.basePaginatorListSessionBean;
+  }
 }

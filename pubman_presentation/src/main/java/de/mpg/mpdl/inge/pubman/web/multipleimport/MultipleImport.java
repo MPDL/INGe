@@ -182,8 +182,8 @@ public class MultipleImport extends FacesBean {
 
     ImportProcess importProcess =
         new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
-            this.format, this.context.getReference(), getLoginHelper().getAccountUser(), this.rollback,
-            this.duplicateStrategy, configuration);
+            this.format, this.context.getReference(), getLoginHelper().getAccountUser(),
+            this.rollback, this.duplicateStrategy, configuration);
     importProcess.start();
 
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -233,14 +233,14 @@ public class MultipleImport extends FacesBean {
   public List<SelectItem> initConfigParameters() throws Exception {
     TransformationService transformation = new TransformationService();
     Map<String, String> config = null;
-    
+
     if (this.format != null) {
       config = transformation.getConfiguration(this.format, ESCIDOC_FORMAT);
     }
-    
+
     this.configParameters = new ArrayList<SelectItem>();
     this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
-    
+
     if (config != null) {
       for (String key : config.keySet()) {
         List<String> values =

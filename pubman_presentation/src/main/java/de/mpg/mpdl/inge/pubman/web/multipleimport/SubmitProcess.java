@@ -60,7 +60,7 @@ public class SubmitProcess extends Thread {
     this.log.setPercentage(5);
     this.log.startItem("import_process_submit_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process");
-    
+
     try {
       user = new AccountUserVO();
       user.setHandle(log.getUserHandle());
@@ -72,7 +72,7 @@ public class SubmitProcess extends Thread {
       this.log.close();
       throw new RuntimeException(e);
     }
-    
+
     this.log.finishItem();
     this.log.setPercentage(5);
   }
@@ -113,8 +113,9 @@ public class SubmitProcess extends Thread {
 
           if (this.alsoRelease) {
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            pubItemVO = PubItemService.submitPubItem(pubItemVO,
-                "Batch submit/release from import " + log.getMessage(), user);
+            pubItemVO =
+                PubItemService.submitPubItem(pubItemVO,
+                    "Batch submit/release from import " + log.getMessage(), user);
             PubItemService.releasePubItem(pubItemVO.getVersion(), pubItemVO.getModificationDate(),
                 "Batch submit/release from import " + log.getMessage(), user);
             log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
@@ -131,7 +132,7 @@ public class SubmitProcess extends Thread {
           log.addDetail(ErrorLevel.WARNING, e);
           log.finishItem();
         }
-        
+
         counter++;
         log.setPercentage(85 * counter / itemCount + 10);
       }

@@ -138,8 +138,9 @@ public class XmlComparator {
 
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace = getNamespaces()
-                .get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String namespace =
+                getNamespaces().get(
+                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
             String attributeName =
                 attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
@@ -201,8 +202,9 @@ public class XmlComparator {
 
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace = getNamespaces()
-                .get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String namespace =
+                getNamespaces().get(
+                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
             String tagName =
                 attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
@@ -222,8 +224,9 @@ public class XmlComparator {
       }
 
       if (name.contains(":")) {
-        xmlNode = new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
-            getNamespaces().get(name.substring(0, name.indexOf(":"))));
+        xmlNode =
+            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(
+                name.substring(0, name.indexOf(":"))));
       } else {
         xmlNode = new XmlNode(attributeMap, name, null);
       }
@@ -262,24 +265,28 @@ public class XmlComparator {
         return false;
       } else {
         for (String attributeName : this.attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:") && !attributeName.equals("xsi")
-              && !this.attributes.get(attributeName)
-                  .equals(((XmlNode) other).attributes.get(attributeName))) {
+          if (!attributeName.startsWith("xmlns:")
+              && !attributeName.equals("xsi")
+              && !this.attributes.get(attributeName).equals(
+                  ((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
         }
 
         for (String attributeName : ((XmlNode) other).attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:") && !((XmlNode) other).attributes
-              .get(attributeName).equals(this.attributes.get(attributeName))) {
+          if (!attributeName.startsWith("xmlns:")
+              && !((XmlNode) other).attributes.get(attributeName).equals(
+                  this.attributes.get(attributeName))) {
             return false;
           }
         }
 
-        boolean x1 = (this.name == null ? ((XmlNode) other).name == null
-            : this.name.equals(((XmlNode) other).name));
-        boolean x2 = (this.namespace == null ? ((XmlNode) other).namespace == null
-            : this.namespace.equals(((XmlNode) other).namespace));
+        boolean x1 =
+            (this.name == null ? ((XmlNode) other).name == null : this.name
+                .equals(((XmlNode) other).name));
+        boolean x2 =
+            (this.namespace == null ? ((XmlNode) other).namespace == null : this.namespace
+                .equals(((XmlNode) other).namespace));
 
         return (x1 && x2);
       }

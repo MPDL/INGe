@@ -150,8 +150,8 @@ public class SwordUtil extends FacesBean {
   /**
    * Accepted packagings.
    */
-  public String[] Packaging =
-      {this.mdFormatEscidoc, this.mdFormatBibTex, this.mdFormatEndnote, this.mdFormatPeerTEI};
+  public String[] Packaging = {this.mdFormatEscidoc, this.mdFormatBibTex, this.mdFormatEndnote,
+      this.mdFormatPeerTEI};
 
   public SwordUtil() {
     this.init();
@@ -223,8 +223,8 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    */
   @Deprecated
-  public String loginUser(String userid, String password)
-      throws HttpException, IOException, ServiceException, URISyntaxException {
+  public String loginUser(String userid, String password) throws HttpException, IOException,
+      ServiceException, URISyntaxException {
     String frameworkUrl = PropertyReader.getFrameworkUrl();
     StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
     if (tokens.countTokens() != NUMBER_OF_URL_TOKENS) {
@@ -292,10 +292,13 @@ public class SwordUtil extends FacesBean {
   public void logoutUser() throws IOException, ServiceException, URISyntaxException {
     FacesContext fc = FacesContext.getCurrentInstance();
 
-    fc.getExternalContext().redirect(PropertyReader.getFrameworkUrl() + LOGOUT_URL + "?target="
-        + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-            + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true",
-            "UTF-8"));
+    fc.getExternalContext().redirect(
+        PropertyReader.getFrameworkUrl()
+            + LOGOUT_URL
+            + "?target="
+            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + "?logout=true", "UTF-8"));
   }
 
   /**
@@ -369,8 +372,8 @@ public class SwordUtil extends FacesBean {
 
             // if not escidoc format, add as component
             if (!this.currentDeposit.getFormatNamespace().equals(this.mdFormatEscidoc)) {
-              attachements.add(convertToFileAndAdd(new ByteArrayInputStream(item.getBytes("UTF-8")),
-                  name, user, zipentry));
+              attachements.add(convertToFileAndAdd(
+                  new ByteArrayInputStream(item.getBytes("UTF-8")), name, user, zipentry));
             }
           }
         }
@@ -410,15 +413,16 @@ public class SwordUtil extends FacesBean {
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
         Format escidocComponentFormat =
             new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
-        String fileXml = new String(transformer.transform(this.depositXml.getBytes(), teiFormat,
-            escidocComponentFormat, "escidoc"), "UTF-8");
+        String fileXml =
+            new String(transformer.transform(this.depositXml.getBytes(), teiFormat,
+                escidocComponentFormat, "escidoc"), "UTF-8");
         try {
           FileVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
           for (FileVO pubItemFile : pubItem.getFiles()) {
-            pubItemFile.getDefaultMetadata()
-                .setRights(transformdedFileVO.getDefaultMetadata().getRights());
-            pubItemFile.getDefaultMetadata()
-                .setCopyrightDate(transformdedFileVO.getDefaultMetadata().getCopyrightDate());
+            pubItemFile.getDefaultMetadata().setRights(
+                transformdedFileVO.getDefaultMetadata().getRights());
+            pubItemFile.getDefaultMetadata().setCopyrightDate(
+                transformdedFileVO.getDefaultMetadata().getCopyrightDate());
           }
         } catch (TechnicalException e) {
           logger.error("File Xml could not be transformed into FileVO. ", e);
@@ -444,8 +448,8 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private PubItemVO createItem(String item, AccountUserVO user)
-      throws ItemInvalidException, ContentStreamNotFoundException, Exception {
+  private PubItemVO createItem(String item, AccountUserVO user) throws ItemInvalidException,
+      ContentStreamNotFoundException, Exception {
     PubItemVO itemVO = null;
 
     if (item == null) {
@@ -476,8 +480,9 @@ public class SwordUtil extends FacesBean {
       }
 
       if (transform) {
-        item = new String(new TransformationService().transform(item.getBytes("UTF-8"), trgFormat,
-            escidocFormat, this.transformationService), "UTF-8");
+        item =
+            new String(new TransformationService().transform(item.getBytes("UTF-8"), trgFormat,
+                escidocFormat, this.transformationService), "UTF-8");
       }
 
       // Create item
@@ -528,8 +533,8 @@ public class SwordUtil extends FacesBean {
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(AccountUserVO user, PubItemVO item)
-      throws NamingException, PubItemStatusInvalidException, AuthorizationException,
+  public PubItemVO doDeposit(AccountUserVO user, PubItemVO item) throws NamingException,
+      PubItemStatusInvalidException, AuthorizationException,
       PubItemMandatoryAttributesMissingException, PubItemLockedException,
       PubCollectionNotFoundException, PubItemNotFoundException, PubItemAlreadyReleasedException,
       SecurityException, TechnicalException {
@@ -549,8 +554,9 @@ public class SwordUtil extends FacesBean {
     if (method.equals("RELEASE")) {
       depositedItem = PubItemService.savePubItem(item, user);
       depositedItem = PubItemService.submitPubItem(depositedItem, "", user);
-      depositedItem = PubItemService.releasePubItem(depositedItem.getVersion(),
-          depositedItem.getModificationDate(), "", user);
+      depositedItem =
+          PubItemService.releasePubItem(depositedItem.getVersion(),
+              depositedItem.getModificationDate(), "", user);
     }
 
     return depositedItem;
@@ -560,13 +566,11 @@ public class SwordUtil extends FacesBean {
    * Returns the Workflow of the current context.
    */
   public PublicationAdminDescriptorVO.Workflow getWorkflow() {
-    if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD)) {
+    if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD)) {
       return Workflow.STANDARD;
     }
 
-    if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE)) {
+    if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE)) {
       return Workflow.SIMPLE;
     }
 
@@ -587,17 +591,18 @@ public class SwordUtil extends FacesBean {
       isStateInRevision = item.getVersion().getState().equals(State.IN_REVISION);
     }
 
-    isWorkflowStandard = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
-    isWorkflowSimple = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
+    isWorkflowStandard =
+        getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
+    isWorkflowSimple =
+        getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
 
     boolean isModerator = getLoginHelper().getAccountUser().isModerator(item.getContext());
     boolean isOwner = true;
     if (item.getOwner() != null) {
-      isOwner = (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
-          .getAccountUser().getReference().getObjectId().equals(item.getOwner().getObjectId())
-          : false);
+      isOwner =
+          (getLoginHelper().getAccountUser().getReference() != null ? getLoginHelper()
+              .getAccountUser().getReference().getObjectId().equals(item.getOwner().getObjectId())
+              : false);
     }
 
     if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner) {
@@ -622,10 +627,10 @@ public class SwordUtil extends FacesBean {
    * @return workflow type as string
    */
   public String getWorkflowAsString(PubContextVOPresentation pubContext) {
-    boolean isWorkflowStandard = pubContext.getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
-    boolean isWorkflowSimple = pubContext.getAdminDescriptor()
-        .getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
+    boolean isWorkflowStandard =
+        pubContext.getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
+    boolean isWorkflowSimple =
+        pubContext.getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
 
     if (isWorkflowStandard) {
       return "Standard Workflow";
@@ -694,8 +699,8 @@ public class SwordUtil extends FacesBean {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
             error("There is no content category available.");
-            Logger.getLogger(PubFileVOPresentation.class)
-                .warn("WARNING: no content-category has been defined in Genres.xml");
+            Logger.getLogger(PubFileVOPresentation.class).warn(
+                "WARNING: no content-category has been defined in Genres.xml");
           }
         }
         fileVO.setContentCategory(contentCategory);
@@ -709,8 +714,8 @@ public class SwordUtil extends FacesBean {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
             error("There is no content category available.");
-            Logger.getLogger(PubFileVOPresentation.class)
-                .warn("WARNING: no content-category has been defined in Genres.xml");
+            Logger.getLogger(PubFileVOPresentation.class).warn(
+                "WARNING: no content-category has been defined in Genres.xml");
           }
         }
         fileVO.setContentCategory(contentCategory);
@@ -798,8 +803,8 @@ public class SwordUtil extends FacesBean {
     return se;
   }
 
-  public void validateItem(PubItemVO item)
-      throws NamingException, ValidationException, ItemInvalidException {
+  public void validateItem(PubItemVO item) throws NamingException, ValidationException,
+      ItemInvalidException {
     ItemValidatingService.validateItemObject(item, ValidationPoint.STANDARD);
   }
 

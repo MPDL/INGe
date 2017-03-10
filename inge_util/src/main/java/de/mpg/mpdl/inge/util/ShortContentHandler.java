@@ -25,7 +25,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class ShortContentHandler extends DefaultHandler {
   protected XMLStack stack = new XMLStack();
   protected XMLStack localStack = new XMLStack();
-  
+
   private StringBuffer currentContent;
   private Map<String, Map<String, String>> namespacesMap =
       new HashMap<String, Map<String, String>>();
@@ -110,17 +110,17 @@ public class ShortContentHandler extends DefaultHandler {
     // Do nothing by default
   }
 
-//  /**
-//   * Encodes an XML attribute. Replaces characters that might break the XML into XML entities.
-//   * Includes &quot; and &apos;.
-//   * 
-//   * @param str The string that shall be encoded
-//   * @return The encoded string
-//   */
-//  public String encodeAttribute(String str) {
-//    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-//        .replace("\"", "&quot;").replace("'", "&apos;");
-//  }
+  // /**
+  // * Encodes an XML attribute. Replaces characters that might break the XML into XML entities.
+  // * Includes &quot; and &apos;.
+  // *
+  // * @param str The string that shall be encoded
+  // * @return The encoded string
+  // */
+  // public String encodeAttribute(String str) {
+  // return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+  // .replace("\"", "&quot;").replace("'", "&apos;");
+  // }
 
   /**
    * Encodes XML string content. Replaces characters that might break the XML into XML entities.
@@ -136,9 +136,9 @@ public class ShortContentHandler extends DefaultHandler {
     return stack;
   }
 
-//  public XMLStack getLocalStack() {
-//    return localStack;
-//  }
+  // public XMLStack getLocalStack() {
+  // return localStack;
+  // }
 
   public Map<String, String> getNamespaces() {
     return namespaces;

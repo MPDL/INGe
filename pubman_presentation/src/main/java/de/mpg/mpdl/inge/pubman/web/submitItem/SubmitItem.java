@@ -199,10 +199,6 @@ public class SubmitItem extends FacesBean {
     return false;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
   public String getSubmissionComment() {
     return this.submissionComment;
   }
@@ -220,16 +216,20 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemService.WORKFLOW_STANDARD);
+    return this.getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemService.WORKFLOW_STANDARD);
   }
 
   public boolean getIsSimpleWorkflow() {
-    return getItemControllerSessionBean().getCurrentWorkflow().equals(
-        PubItemService.WORKFLOW_SIMPLE);
+    return this.getItemControllerSessionBean().getCurrentWorkflow()
+        .equals(PubItemService.WORKFLOW_SIMPLE);
   }
 
   public boolean getIsSubmitted() {
     return this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED;
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 }

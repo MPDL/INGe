@@ -52,8 +52,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       case ESCIDOC_ALL:
         return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
       case ITEM_CONTAINER_ADMIN:
-        return new String[] {
-            "\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
+        return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
     }
     return null;
   }
@@ -163,8 +162,9 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(
-        ServiceLocator.getOrganizationalUnitHandler().retrieve(getHiddenId()));
+    AffiliationVO affiliation =
+        XmlTransformingService.transformToAffiliation(ServiceLocator.getOrganizationalUnitHandler()
+            .retrieve(getHiddenId()));
     allAffs.add(affiliation);
 
     AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);

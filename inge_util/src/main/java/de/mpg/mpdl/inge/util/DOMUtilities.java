@@ -98,8 +98,8 @@ public class DOMUtilities {
    * @throws SAXException
    * @throws UnsupportedEncodingException
    */
-  public static Document createDocument(String xml)
-      throws IOException, ParserConfigurationException, SAXException {
+  public static Document createDocument(String xml) throws IOException,
+      ParserConfigurationException, SAXException {
 
     return createDocument(xml.getBytes("UTF-8"));
   }
@@ -118,8 +118,8 @@ public class DOMUtilities {
    */
   public static Document createDocument(final String xml, final boolean namespaceAwareness)
       throws ParserConfigurationException, UnsupportedEncodingException, IOException, SAXException {
-    return createDocumentBuilder(namespaceAwareness)
-        .parse(new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
+    return createDocumentBuilder(namespaceAwareness).parse(
+        new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
   }
 
   /**
@@ -131,8 +131,8 @@ public class DOMUtilities {
    * @throws IOExceptionS
    * @throws SAXException
    */
-  private static Document createDocument(byte[] xml)
-      throws ParserConfigurationException, SAXException, IOException {
+  private static Document createDocument(byte[] xml) throws ParserConfigurationException,
+      SAXException, IOException {
     return createDocumentBuilder().parse(new ByteArrayInputStream(xml), "UTF-8");
   }
 

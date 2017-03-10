@@ -246,7 +246,7 @@ public class ResourceUtil {
   }
 
   public static void main(String[] args) {
-    System.out.println(resolveFileName(
-        "transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
+    System.out
+        .println(resolveFileName("transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
   }
 }

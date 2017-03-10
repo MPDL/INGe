@@ -54,7 +54,7 @@ import org.apache.log4j.Logger;
  */
 public class AdminHelper {
   private static final Logger logger = Logger.getLogger(AdminHelper.class);
-  
+
   private static String adminUserHandle = null;
   private static Date loginTime = null;
 
@@ -86,7 +86,7 @@ public class AdminHelper {
       host = frameworkUrl.substring(delim1 + 2);
       port = 80;
     }
-    
+
     HttpClient client = new HttpClient();
     client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 
@@ -126,7 +126,7 @@ public class AdminHelper {
     if (userHandle == null) {
       throw new ServiceException("User not logged in.");
     }
-    
+
     return userHandle;
   }
 
@@ -150,7 +150,7 @@ public class AdminHelper {
         logger.error("Exception logging on admin user.", e);
       }
     }
-    
+
     return adminUserHandle;
   }
 }

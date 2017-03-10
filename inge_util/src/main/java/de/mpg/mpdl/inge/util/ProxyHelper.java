@@ -110,8 +110,8 @@ public class ProxyHelper {
    * @throws IOException
    * @throws HttpException
    */
-  public static int executeMethod(HttpClient client, HttpMethod method)
-      throws HttpException, IOException {
+  public static int executeMethod(HttpClient client, HttpMethod method) throws HttpException,
+      IOException {
     setProxy(client, method.getURI().toString());
 
     return client.executeMethod(method);
