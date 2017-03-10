@@ -29,9 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.desktop;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -128,16 +125,13 @@ public class Navigation extends FacesBean {
    *         changing the language
    */
   public String changeLanguage() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-
     // initialize the nav string with null. if it won't be changed the page would just be reloaded
     String navigationString = "";
 
     // special re-initializaion for pages with dynamic page elements which
     // must be re-inited
 
-    String requestURI = request.getRequestURI();
+    String requestURI = getRequest().getRequestURI();
 
     if (requestURI.startsWith("/pubman")) {
       requestURI = requestURI.substring("/pubman".length());
@@ -209,14 +203,8 @@ public class Navigation extends FacesBean {
     }
   }
 
-  /**
-   * Gets the parameters out of the faces context.
-   * 
-   * @return The value
-   */
-  public static String getFacesParamValue(final String name) {
-    return (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-        .get(name);
+  public String getFacesParamValue(final String name) {
+    return (String) getExternalContext().getRequestParameterMap().get(name);
   }
 
   public void setShowExportMenuOption(boolean showExportMenuOption) {

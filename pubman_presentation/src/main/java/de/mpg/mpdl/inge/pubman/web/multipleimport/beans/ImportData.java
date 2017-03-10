@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -57,8 +55,7 @@ public class ImportData extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportData() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+    String idString = getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.importId = Integer.parseInt(idString);

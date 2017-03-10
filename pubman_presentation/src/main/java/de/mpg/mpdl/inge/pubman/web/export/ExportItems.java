@@ -350,7 +350,7 @@ public class ExportItems extends FacesBean {
       BreadcrumbItemHistorySessionBean bhsb =
           (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
       try {
-        getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
+        getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (IOException e) {
         error("Could not redirect!");
       }

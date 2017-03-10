@@ -28,9 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -110,8 +107,6 @@ public class WithdrawItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String withdraw() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal;
     String navigateTo = getWithDrawItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
@@ -129,8 +124,8 @@ public class WithdrawItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
+        getExternalContext().redirect(
+            getRequest().getContextPath()
                 + "/faces/viewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
@@ -154,11 +149,9 @@ public class WithdrawItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String cancel() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
-      fc.getExternalContext().redirect(
-          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      getExternalContext().redirect(
+          getRequest().getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);

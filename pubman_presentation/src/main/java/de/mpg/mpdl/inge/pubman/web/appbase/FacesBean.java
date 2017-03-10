@@ -35,6 +35,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -57,22 +58,37 @@ public class FacesBean implements Serializable {
 
   public FacesBean() {}
 
-  /**
-   * Return the <code>FacesContext</code> instance for the current request.
-   * 
-   * @return <code>FacesContext</code>
-   */
-  public static FacesContext getFacesContext() {
+  public FacesContext getFacesContext() {
     return FacesContext.getCurrentInstance();
   }
 
-  /**
-   * Return the <code>ExternalContext</code> instance for the current request.
-   * 
-   * @return <code>ExternalContext</code>
-   */
-  public static ExternalContext getExternalContext() {
+  public ExternalContext getExternalContext() {
     return getFacesContext().getExternalContext();
+  }
+
+  public HttpServletRequest getRequest() {
+    return (HttpServletRequest) getExternalContext().getRequest();
+  }
+
+  public HttpServletResponse getResponse() {
+    return (HttpServletResponse) getExternalContext().getResponse();
+  }
+
+  public String getIP() {
+    return getRequest().getRemoteAddr();
+  }
+
+  public String getSessionId() {
+    HttpSession session = (HttpSession) getExternalContext().getSession(false);
+    return session.getId();
+  }
+
+  public String getReferer() {
+    return getRequest().getHeader("Referer");
+  }
+
+  public String getUserAgent() {
+    return getRequest().getHeader("User-Agent");
   }
 
   /**
@@ -82,7 +98,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void info(String summary) {
+  public void info(String summary) {
     info(summary, null, null);
   }
 
@@ -93,7 +109,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void info(String summary, String detail) {
+  public void info(String summary, String detail) {
     info(summary, detail, null);
   }
 
@@ -105,7 +121,7 @@ public class FacesBean implements Serializable {
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
-  public static void info(UIComponent component, String summary) {
+  public void info(UIComponent component, String summary) {
     info(summary, null, component);
   }
 
@@ -116,7 +132,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void info(String summary, String detail, UIComponent component) {
+  public void info(String summary, String detail, UIComponent component) {
     message(summary, detail, component, FacesMessage.SEVERITY_INFO);
   }
 
@@ -127,7 +143,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void warn(String summary) {
+  public void warn(String summary) {
     warn(summary, null, null);
   }
 
@@ -138,7 +154,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void warn(String summary, String detail) {
+  public void warn(String summary, String detail) {
     warn(summary, detail, null);
   }
 
@@ -150,7 +166,7 @@ public class FacesBean implements Serializable {
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
-  public static void warn(UIComponent component, String summary) {
+  public void warn(UIComponent component, String summary) {
     warn(summary, null, component);
   }
 
@@ -161,7 +177,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void warn(String summary, String detail, UIComponent component) {
+  public void warn(String summary, String detail, UIComponent component) {
     message(summary, detail, component, FacesMessage.SEVERITY_WARN);
   }
 
@@ -183,7 +199,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void error(String summary, String detail) {
+  public void error(String summary, String detail) {
     error(summary, detail, null);
   }
 
@@ -195,7 +211,7 @@ public class FacesBean implements Serializable {
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
-  public static void error(UIComponent component, String summary) {
+  public void error(UIComponent component, String summary) {
     error(summary, null, component);
   }
 
@@ -217,7 +233,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void fatal(String summary) {
+  public void fatal(String summary) {
     fatal(summary, null, null);
   }
 
@@ -228,7 +244,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void fatal(String summary, String detail) {
+  public void fatal(String summary, String detail) {
     fatal(summary, detail, null);
   }
 
@@ -240,7 +256,7 @@ public class FacesBean implements Serializable {
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
-  public static void fatal(UIComponent component, String summary) {
+  public void fatal(UIComponent component, String summary) {
     fatal(summary, null, component);
   }
 
@@ -251,7 +267,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void fatal(String summary, String detail, UIComponent component) {
+  public void fatal(String summary, String detail, UIComponent component) {
     message(summary, detail, component, FacesMessage.SEVERITY_FATAL);
   }
 
@@ -266,9 +282,9 @@ public class FacesBean implements Serializable {
     FacesMessage fm = new FacesMessage(severity, summary, detail);
 
     if (component == null) {
-      getFacesContext().addMessage(null, fm);
+      FacesContext.getCurrentInstance().addMessage(null, fm);
     } else {
-      getFacesContext().addMessage(component.getId(), fm);
+      FacesContext.getCurrentInstance().addMessage(component.getId(), fm);
     }
   }
 
@@ -313,26 +329,6 @@ public class FacesBean implements Serializable {
     return number;
   }
 
-  public String getIP() {
-    HttpServletRequest requ = (HttpServletRequest) getExternalContext().getRequest();
-    return requ.getRemoteAddr();
-  }
-
-  public String getSessionId() {
-    HttpSession session = (HttpSession) getExternalContext().getSession(false);
-    return session.getId();
-  }
-
-  public String getReferer() {
-    HttpServletRequest requ = (HttpServletRequest) getExternalContext().getRequest();
-    return requ.getHeader("Referer");
-  }
-
-  public String getUserAgent() {
-    HttpServletRequest requ = (HttpServletRequest) getExternalContext().getRequest();
-    return requ.getHeader("User-Agent");
-  }
-
   protected void checkForLogin() {
     // if not logged in redirect to login page
     if (!getLoginHelper().isLoggedIn()) {
@@ -356,12 +352,6 @@ public class FacesBean implements Serializable {
     return getI18nHelper().getLabel(placeholder);
   }
 
-  /**
-   * Return any bean stored in request scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
   // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getRequestBean(final Class<?> cls) {
     String name = null;
@@ -380,12 +370,6 @@ public class FacesBean implements Serializable {
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
   }
 
-  /**
-   * Return any bean stored in session scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
   // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getSessionBean(final Class<?> cls) {
     String name = null;
@@ -406,12 +390,6 @@ public class FacesBean implements Serializable {
     return bean;
   }
 
-  /**
-   * Return any bean stored in application scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   */
   // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static Object getApplicationBean(final Class<?> cls) {
     String name = null;
@@ -431,14 +409,6 @@ public class FacesBean implements Serializable {
         .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
   }
 
-  /**
-   * Return any bean stored in request, session or application scope under the specified name.
-   * 
-   * @param cls The bean class.
-   * @return the actual or new bean instance
-   * 
-   * @Deprecated Use getRequestBean(), getSessionBean() or getApplicationBean instead.
-   */
   @Deprecated
   // TODO: was ist der Unterschied zu den anderen getXXXBeans
   public static synchronized Object getBean(final Class<?> cls) {

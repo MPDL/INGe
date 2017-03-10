@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
@@ -64,8 +62,7 @@ public class HomePage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    Map<String, String> parameters =
-        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
       error(getMessage("LoginErrorPage_loggedOffFromSystem"));
     } else if (parameters.containsKey("logout")) {

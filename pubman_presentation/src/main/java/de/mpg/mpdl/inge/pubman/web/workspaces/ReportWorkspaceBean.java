@@ -15,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -174,16 +173,14 @@ public class ReportWorkspaceBean extends FacesBean {
           logger.info("Transformed result: \n" + new String(itemListReportTransformed));
         }
         if (itemListReportTransformed != null) {
-          HttpServletResponse resp =
-              (HttpServletResponse) FacesBean.getExternalContext().getResponse();
-          resp.setContentType("text/html; charset=UTF-8");
+          getResponse().setContentType("text/html; charset=UTF-8");
 
           String fileName =
               "text/html".equals(this.format.getType()) ? "Jus_Report.html"
                   : "Jus_Report_InDesign.xml";
-          resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+          getResponse().addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
-          ServletOutputStream stream = resp.getOutputStream();
+          ServletOutputStream stream = getResponse().getOutputStream();
           ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
           BufferedInputStream buff = new BufferedInputStream(bais);
 
@@ -193,19 +190,16 @@ public class ReportWorkspaceBean extends FacesBean {
           }
           stream.close();
 
-          FacesContext faces = FacesContext.getCurrentInstance();
-          faces.responseComplete();
+          getFacesContext().responseComplete();
         }
       } catch (Exception e) {
         logger.error("Error while generatiring report output file.", e);
         error("Error while generatiring output file.");
       }
-      // return null;
     }
 
     return null;
   }
-
 
   private String doSearchItems() {
     String itemListAsString = null;

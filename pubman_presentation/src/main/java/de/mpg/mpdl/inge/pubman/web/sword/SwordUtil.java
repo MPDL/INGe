@@ -290,15 +290,16 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    */
   public void logoutUser() throws IOException, ServiceException, URISyntaxException {
-    FacesContext fc = FacesContext.getCurrentInstance();
-
-    fc.getExternalContext().redirect(
-        PropertyReader.getFrameworkUrl()
-            + LOGOUT_URL
-            + "?target="
-            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + "?logout=true", "UTF-8"));
+    FacesContext
+        .getCurrentInstance()
+        .getExternalContext()
+        .redirect(
+            PropertyReader.getFrameworkUrl()
+                + LOGOUT_URL
+                + "?target="
+                + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                    + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                    + "?logout=true", "UTF-8"));
   }
 
   /**

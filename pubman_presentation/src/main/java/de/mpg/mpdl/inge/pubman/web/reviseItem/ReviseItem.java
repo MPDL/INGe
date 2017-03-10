@@ -28,9 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.reviseItem;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -108,8 +105,6 @@ public class ReviseItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String revise() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal =
         this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment,
             ViewItemFull.LOAD_VIEWITEM);
@@ -120,8 +115,8 @@ public class ReviseItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
+        getExternalContext().redirect(
+            getRequest().getContextPath()
                 + "/faces/viewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());

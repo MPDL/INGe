@@ -38,9 +38,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -254,8 +251,6 @@ public class ViewItemFull extends FacesBean {
    * link for modify
    */
   public void init() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";
 
     // populate the core service Url
@@ -274,7 +269,7 @@ public class ViewItemFull extends FacesBean {
     }
 
     // Try to get a pubitem either via the controller session bean or an URL Parameter
-    itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
+    itemID = getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
     if (itemID != null) {
       try {
         this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
@@ -318,7 +313,7 @@ public class ViewItemFull extends FacesBean {
       this.pubItem = icsb.getCurrentPubItem();
     }
 
-    String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
+    String subMenu = getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
     if (subMenu != null)
       this.getViewItemSessionBean().setSubMenu(subMenu);
 
@@ -841,8 +836,7 @@ public class ViewItemFull extends FacesBean {
           if (bhsb.getBreadcrumbs().get(i - 1).isItemSpecific() == false
               && bhsb.getBreadcrumbs().get(i - 1).getDisplayValue()
                   .equalsIgnoreCase("CreateItemPage") == false) {
-            getFacesContext().getExternalContext().redirect(
-                bhsb.getBreadcrumbs().get(i - 1).getPage());
+            getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
             return retVal;
           }
         }
@@ -1947,24 +1941,21 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Cannot export item:", e);
     }
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpServletResponse response =
-        (HttpServletResponse) facesContext.getExternalContext().getResponse();
     String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-    response.setContentType(contentType);
+    getResponse().setContentType(contentType);
     String fileName =
         "export_" + curExportFormat.getName().toLowerCase() + "."
             + FileFormatVO.getExtensionByName(this.getExportItemsSessionBean().getFileFormat());
-    response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+    getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
-      OutputStream out = response.getOutputStream();
+      OutputStream out = getResponse().getOutputStream();
       out.write(exportFileData);
       out.flush();
       out.close();
     } catch (Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
-    facesContext.responseComplete();
+    getFacesContext().responseComplete();
 
     return "";
   }

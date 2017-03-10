@@ -38,7 +38,6 @@ import java.util.Map;
 
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -626,7 +625,7 @@ public class EasySubmission extends FacesBean {
         logger.error("Could not upload file." + "\n" + e.toString());
         ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
         try {
-          FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
+          getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
           logger.error(e.toString());
         }
@@ -1005,7 +1004,7 @@ public class EasySubmission extends FacesBean {
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
 
     try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+      getExternalContext().redirect("faces/SubmissionPage.jsp");
     } catch (Exception e) {
       logger
           .error(
@@ -1031,7 +1030,7 @@ public class EasySubmission extends FacesBean {
           EasySubmissionSessionBean.ES_STEP2);
     } else {
       try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+        getExternalContext().redirect("faces/SubmissionPage.jsp");
       } catch (Exception e) {
         logger.error("could not find context to redirect to SubmissionPage.jsp in Easy Submssion",
             e);

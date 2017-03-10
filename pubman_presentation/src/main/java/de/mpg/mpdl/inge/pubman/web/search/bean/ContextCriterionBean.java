@@ -28,9 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit;
@@ -60,9 +58,7 @@ public class ContextCriterionBean extends CriterionBean {
   }
 
   public String getContext() {
-    HttpServletRequest req =
-        (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    this.context = req.getParameter("collection");
+    this.context = getRequest().getParameter("collection");
     if (this.context != null && context.length() > 0) {
       for (ContextVO vo : this.contexts) {
         if (vo.getReference().getObjectId().equals(this.context)) {

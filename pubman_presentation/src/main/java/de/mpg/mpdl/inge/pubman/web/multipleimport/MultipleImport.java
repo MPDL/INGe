@@ -186,8 +186,7 @@ public class MultipleImport extends FacesBean {
             this.rollback, this.duplicateStrategy, configuration);
     importProcess.start();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
-    fc.getExternalContext().redirect("ImportWorkspace.jsp");
+    getExternalContext().redirect("ImportWorkspace.jsp");
 
     return null;
   }

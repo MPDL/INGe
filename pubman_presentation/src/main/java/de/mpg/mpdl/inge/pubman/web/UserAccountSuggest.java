@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -51,8 +49,7 @@ public class UserAccountSuggest extends FacesBean {
   private List<AccountUserVO> userAccountList;
 
   public UserAccountSuggest() throws Exception {
-    FacesContext context = FacesContext.getCurrentInstance();
-    Map<String, String> parameters = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
 
     if (getLoginHelper().getESciDocUserHandle() != null) {

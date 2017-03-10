@@ -7,7 +7,6 @@ import java.util.List;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -40,10 +39,9 @@ public abstract class BreadcrumbPage extends FacesBean {
     String page = fc.getViewRoot().getViewId().substring(1);
     String pageName = page.substring(0, page.lastIndexOf("."));
 
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
-    if (request.getQueryString() != null && !pageName.equals("HomePage")) {
-      page += "?" + request.getQueryString();
+    if (getRequest().getQueryString() != null && !pageName.equals("HomePage")) {
+      page += "?" + getRequest().getQueryString();
     }
 
     Method defaultAction = null;
@@ -90,12 +88,8 @@ public abstract class BreadcrumbPage extends FacesBean {
   public String cancel() {
     String result = this.previousItem.getPage();
     try {
-      FacesContext
-          .getCurrentInstance()
-          .getExternalContext()
-          .redirect(
-              ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext()
-                  + result);
+      getExternalContext().redirect(
+          ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }

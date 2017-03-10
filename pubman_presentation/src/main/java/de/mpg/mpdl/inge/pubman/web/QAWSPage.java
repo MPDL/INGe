@@ -26,9 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
@@ -60,9 +57,7 @@ public class QAWSPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    String userHandle = getRequest().getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     if (logger.isDebugEnabled()) {
       logger.debug("UserHandle: " + userHandle);

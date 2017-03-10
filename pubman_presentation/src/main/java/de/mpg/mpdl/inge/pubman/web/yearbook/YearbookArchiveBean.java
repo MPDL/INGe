@@ -126,41 +126,4 @@ public class YearbookArchiveBean extends FacesBean {
     }
     return "loadYearbookArchiveItemViewPage";
   }
-
-  // /**
-  // * Return any bean stored in session scope under the specified name.
-  // *
-  // * @param cls The bean class.
-  // * @return the actual or new bean instance
-  // */
-  // public static synchronized Object getSessionBean(final Class<?> cls) {
-  //
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // if (FacesBean.class.getName().equals(name)) {
-  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-  // }
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  // Object result =
-  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(name);
-  //
-  // logger.debug("Getting bean " + name + ": " + result);
-  //
-  // if (result == null) {
-  // try {
-  // logger.debug("Creating new session bean: " + name);
-  // Object newBean = cls.newInstance();
-  // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(name, newBean);
-  // return newBean;
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error creating new bean of type " + cls, e);
-  // }
-  // } else {
-  // return result;
-  // }
-  // }
 }

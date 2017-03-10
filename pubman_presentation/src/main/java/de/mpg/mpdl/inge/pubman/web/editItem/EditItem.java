@@ -34,10 +34,8 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -581,16 +579,18 @@ public class EditItem extends FacesBean {
       this.getEditItemSessionBean().setCurrentSubmission("");
       try {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext extContext = fc.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
         if (isFromEasySubmission()) {
-          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()
-              + "&fromEasySub=true");
+          getExternalContext().redirect(
+              getRequest().getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId() + "&fromEasySub=true");
         } else {
-          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+          getExternalContext().redirect(
+              getRequest().getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId());
         }
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
@@ -833,8 +833,6 @@ public class EditItem extends FacesBean {
 
     if (navString.equals(ViewItemFull.LOAD_VIEWITEM)) {
       try {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean()
             .getPreviousItem().getPage())) {
           String viewItemPage =
@@ -842,22 +840,21 @@ public class EditItem extends FacesBean {
                   + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                   + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1",
                       this.getPubItem().getVersion().getObjectId());
-          FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
+          getExternalContext().redirect(viewItemPage);
         } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
             .contains("viewItemFullPage.jsp")) {
-          fc.getExternalContext().redirect(
-              request.getContextPath() + "/faces/"
+          getExternalContext().redirect(
+              getRequest().getContextPath() + "/faces/"
                   + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
         } else {
-          FacesContext.getCurrentInstance().getExternalContext()
-              .redirect("faces/SubmissionPage.jsp");
+          getExternalContext().redirect("faces/SubmissionPage.jsp");
         }
       } catch (Exception e) {
         logger.error("Could not redirect to the previous page", e);
       }
     } else {
       try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+        getExternalContext().redirect("faces/SubmissionPage.jsp");
       } catch (Exception e) {
         logger
             .error(
@@ -1136,8 +1133,7 @@ public class EditItem extends FacesBean {
   public void showValidationMessages(FacesBean bean, ValidationReportVO report) {
     for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       ValidationReportItemVO element = iter.next();
-      FacesBean.error(bean.getMessage(element.getContent())
-          .replaceAll("\\$1", element.getElement()));
+      error(bean.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
     }
   }
 
