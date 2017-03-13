@@ -307,7 +307,7 @@ public class PubItemService {
     return pubItem;
   }
 
-  public static PubItemVO createRevisionOfItem(final PubItemVO originalPubItem,
+  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem,
       String relationComment, final ContextRO pubCollection, final AccountUserVO owner) {
     PubItemVO copiedPubItem = new PubItemVO();
     copiedPubItem.setOwner(owner.getReference());

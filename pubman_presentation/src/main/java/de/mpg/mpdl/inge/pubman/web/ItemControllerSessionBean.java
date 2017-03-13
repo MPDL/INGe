@@ -356,7 +356,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       PubItemVO newRevision =
-          PubItemService.createRevisionOfItem(pubItem, comment, pubContextRO, getLoginHelper()
+          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, getLoginHelper()
               .getAccountUser());
 
       // setting the returned item as new currentItem
