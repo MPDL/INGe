@@ -36,7 +36,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -76,15 +75,6 @@ public class FacesBean implements Serializable {
 
   public String getIP() {
     return getRequest().getRemoteAddr();
-  }
-
-  public String getSessionId() {
-    HttpSession session = (HttpSession) getExternalContext().getSession(false);
-    return session.getId();
-  }
-
-  public String getReferer() {
-    return getRequest().getHeader("Referer");
   }
 
   public String getUserAgent() {
@@ -278,7 +268,8 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void message(String summary, String detail, UIComponent component, Severity severity) {
+  public static void message(String summary, String detail, UIComponent component,
+      Severity severity) {
     FacesMessage fm = new FacesMessage(severity, summary, detail);
 
     if (component == null) {
@@ -422,9 +413,8 @@ public class FacesBean implements Serializable {
       throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
     }
 
-    Object bean =
-        FacesContext.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
-            .getValue(FacesContext.getCurrentInstance());
+    Object bean = FacesContext.getCurrentInstance().getApplication()
+        .createValueBinding("#{" + name + "}").getValue(FacesContext.getCurrentInstance());
 
     return bean;
   }

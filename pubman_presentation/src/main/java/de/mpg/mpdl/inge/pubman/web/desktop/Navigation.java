@@ -75,9 +75,6 @@ public class Navigation extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-
-    // Perform initializations inherited from our superclass
-    // super.init();
     // initially sets the navigation rules for redirecting after changing the language
     navRules = new ArrayList<NavigationRule>();
     this.navRules.add(new NavigationRule("/faces/HomePage.jsp", Home.LOAD_HOME));

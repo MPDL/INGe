@@ -37,25 +37,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class Header extends FacesBean {
-  /** Logo for dev environment. */
   private static final String LOGO_DEV = "overlayDev";
-  /** Logo for qa environment. */
   private static final String LOGO_QA = "overlayQA";
-  /** Logo for test environment. */
   private static final String LOGO_TEST = "overlayTest";
 
   private String type;
 
   public Header() {}
-
-  // /**
-  // * Callback method that is called whenever a page containing this page fragment is navigated to,
-  // * either directly via a URL, or indirectly via page navigation.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
 
   /**
    * Getter for the logo definition f the type of the server. E.g a dev server gets another logo
@@ -66,7 +54,6 @@ public class Header extends FacesBean {
   public String getServerLogo() {
     String serverLogo = "";
     try {
-
       if (getType().equals("dev")) {
         serverLogo = LOGO_DEV;
       } else if (getType().equals("test")) {
@@ -87,13 +74,12 @@ public class Header extends FacesBean {
    * @throws Exception Any exception from PropertyReader
    */
   public String getType() throws Exception {
-    if (type == null) {
-      type = PropertyReader.getProperty("escidoc.systemtype");
-      if (type == null) {
-        type = "";
+    if (this.type == null) {
+      this.type = PropertyReader.getProperty("escidoc.systemtype");
+      if (this.type == null) {
+        this.type = "";
       }
     }
-    return type;
+    return this.type;
   }
-
 }

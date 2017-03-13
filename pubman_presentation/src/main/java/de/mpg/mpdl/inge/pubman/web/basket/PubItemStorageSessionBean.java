@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PubItemStorageSessionBean extends FacesBean {
   public static String BEAN_NAME = "PubItemStorageSessionBean";
 

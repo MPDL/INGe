@@ -50,11 +50,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
   public EasySubmission easySubmission = new EasySubmission();
 
-  // String error = null;
-
-  /**
-   * Populates the FileVO.
-   */
+  @Override
   public void locatorUploaded() {
     try {
       FileVO fileVO = new FileVO();
@@ -85,10 +81,11 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       this.easySubmission.setFiles(list);
     } catch (Exception e) {
       logger.error(e);
-      // this.error = getMessage("errorLocatorUploadFW");
+      error = getMessage("errorLocatorUploadFW");
     }
   }
 
+  @Override
   public void removeEmptyFile() {
     List<PubFileVOPresentation> list = this.easySubmission.getFiles();
 
@@ -103,9 +100,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
     }
   }
 
-  /**
-   * Removes the last added locator from the locator list.
-   */
+  @Override
   public void removeLocator() {
     List<PubFileVOPresentation> list = this.easySubmission.getLocators();
 

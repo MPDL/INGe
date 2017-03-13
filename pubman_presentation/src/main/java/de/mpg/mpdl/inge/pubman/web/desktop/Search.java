@@ -181,7 +181,6 @@ public class Search extends FacesBean {
       error(getMessage("search_TechnicalError"));
       return "";
     }
-
   }
 
   public void setSearchString(String searchString) {
@@ -189,7 +188,7 @@ public class Search extends FacesBean {
   }
 
   public String getSearchString() {
-    return searchString;
+    return this.searchString;
   }
 
   public void setIncludeFiles(boolean includeFiles) {
@@ -197,6 +196,6 @@ public class Search extends FacesBean {
   }
 
   public boolean getIncludeFiles() {
-    return includeFiles;
+    return this.includeFiles;
   }
 }

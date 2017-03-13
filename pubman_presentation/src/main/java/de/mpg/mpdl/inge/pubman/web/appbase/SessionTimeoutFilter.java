@@ -53,7 +53,6 @@ public class SessionTimeoutFilter implements Filter {
 
   @Override
   public void destroy() {
-    // TODO Auto-generated method stub
   }
 
   @Override
@@ -90,17 +89,16 @@ public class SessionTimeoutFilter implements Filter {
               + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
           // httpServletResponse.sendRedirect(homePage + "?expired=true");
           return;
-
         }
       } catch (Exception e) {
         throw new ServletException("Error logging out", e);
       }
-    }
+   }
+    
     filterChain.doFilter(request, response);
   }
 
   @Override
   public void init(FilterConfig arg0) throws ServletException {
-    // TODO Auto-generated method stub
   }
 }

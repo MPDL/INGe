@@ -115,7 +115,8 @@ public class EasySubmission extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(EasySubmission.class);
 
-  public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
+  public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
+  public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
   public SelectItem SUBMISSION_METHOD_MANUAL =
       new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
@@ -123,7 +124,6 @@ public class EasySubmission extends FacesBean {
       new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
   public SelectItem[] SUBMISSION_METHOD_OPTIONS =
       new SelectItem[] {this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT};
-
   public SelectItem DATE_CREATED =
       new SelectItem("DATE_CREATED", getLabel("easy_submission_lblDateCreated"));
   public SelectItem DATE_SUBMITTED =
@@ -139,8 +139,6 @@ public class EasySubmission extends FacesBean {
   public SelectItem[] DATE_TYPE_OPTIONS =
       new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED, this.DATE_ACCEPTED,
           this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE, this.DATE_MODIFIED};
-
-  public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
   private DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   private HtmlSelectOneMenu dateSelect;

@@ -50,10 +50,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class Login extends FacesBean {
   public static final String BEAN_NAME = "Login";
+  
+  private static final Logger logger = Logger.getLogger(Login.class);
+  
   public static String LOGIN_URL = "/aa/login";
   public static String LOGOUT_URL = "/aa/logout/clear.jsp";
-
-  private static final Logger logger = Logger.getLogger(Login.class);
 
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
@@ -132,7 +133,6 @@ public class Login extends FacesBean {
   public void logout() throws IOException, ServiceException, URISyntaxException {
     this.loggedIn = false;
     getLoginHelper().logout("");
-
   }
 
   /**

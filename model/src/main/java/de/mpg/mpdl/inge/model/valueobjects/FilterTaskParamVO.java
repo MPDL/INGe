@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 28.08.2007
  */
+@SuppressWarnings("serial")
 public class FilterTaskParamVO extends ValueObject {
   private static final String RIGHT_PARANTHESIS = " ) ";
   private static final String LEFT_PARANTHESIS = " ( ";
@@ -314,7 +315,6 @@ public class FilterTaskParamVO extends ValueObject {
 
   }
 
-  @SuppressWarnings("serial")
   public class CqlFilter extends AbstractFilter implements Filter {
     private String cql;
 

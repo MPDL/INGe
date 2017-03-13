@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class AffiliationTree extends FacesBean {
   public static final String BEAN_NAME = "AffiliationTree";
   private List<AffiliationVOPresentation> affiliations;
