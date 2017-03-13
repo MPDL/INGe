@@ -54,14 +54,14 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 @SuppressWarnings("serial")
 public abstract class FileLocatorUploadBean extends FacesBean {
   private Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
-  
+
   protected String name; // File Name
   protected String locator; // File Location
   protected String error = null; // Error Message
 
   private int size;
   private String type; // File MimeType
-  
+
   public abstract void locatorUploaded();
 
   public abstract void removeEmptyFile();

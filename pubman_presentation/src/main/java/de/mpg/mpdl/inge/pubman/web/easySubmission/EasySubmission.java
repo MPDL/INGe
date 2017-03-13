@@ -118,27 +118,27 @@ public class EasySubmission extends FacesBean {
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
-  public SelectItem SUBMISSION_METHOD_MANUAL =
-      new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
-  public SelectItem SUBMISSION_METHOD_FETCH_IMPORT =
-      new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
-  public SelectItem[] SUBMISSION_METHOD_OPTIONS =
-      new SelectItem[] {this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT};
-  public SelectItem DATE_CREATED =
-      new SelectItem("DATE_CREATED", getLabel("easy_submission_lblDateCreated"));
-  public SelectItem DATE_SUBMITTED =
-      new SelectItem("DATE_SUBMITTED", getLabel("easy_submission_lblDateSubmitted"));
-  public SelectItem DATE_ACCEPTED =
-      new SelectItem("DATE_ACCEPTED", getLabel("easy_submission_lblDateAccepted"));
+  public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL",
+      getLabel("easy_submission_method_manual"));
+  public SelectItem SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT",
+      getLabel("easy_submission_method_fetch_import"));
+  public SelectItem[] SUBMISSION_METHOD_OPTIONS = new SelectItem[] {this.SUBMISSION_METHOD_MANUAL,
+      this.SUBMISSION_METHOD_FETCH_IMPORT};
+  public SelectItem DATE_CREATED = new SelectItem("DATE_CREATED",
+      getLabel("easy_submission_lblDateCreated"));
+  public SelectItem DATE_SUBMITTED = new SelectItem("DATE_SUBMITTED",
+      getLabel("easy_submission_lblDateSubmitted"));
+  public SelectItem DATE_ACCEPTED = new SelectItem("DATE_ACCEPTED",
+      getLabel("easy_submission_lblDateAccepted"));
   public SelectItem DATE_PUBLISHED_IN_PRINT = new SelectItem("DATE_PUBLISHED_IN_PRINT",
       getLabel("easy_submission_lblDatePublishedInPrint"));
-  public SelectItem DATE_PUBLISHED_ONLINE =
-      new SelectItem("DATE_PUBLISHED_ONLINE", getLabel("easy_submission_lblDatePublishedOnline"));
-  public SelectItem DATE_MODIFIED =
-      new SelectItem("DATE_MODIFIED", getLabel("easy_submission_lblDateModified"));
-  public SelectItem[] DATE_TYPE_OPTIONS =
-      new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED, this.DATE_ACCEPTED,
-          this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE, this.DATE_MODIFIED};
+  public SelectItem DATE_PUBLISHED_ONLINE = new SelectItem("DATE_PUBLISHED_ONLINE",
+      getLabel("easy_submission_lblDatePublishedOnline"));
+  public SelectItem DATE_MODIFIED = new SelectItem("DATE_MODIFIED",
+      getLabel("easy_submission_lblDateModified"));
+  public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED,
+      this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE,
+      this.DATE_MODIFIED};
 
   private DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   private HtmlSelectOneMenu dateSelect;
@@ -196,8 +196,8 @@ public class EasySubmission extends FacesBean {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
             error("There is no content category available.");
-            Logger.getLogger(PubFileVOPresentation.class)
-                .warn("WARNING: no content-category has been defined in Genres.xml");
+            Logger.getLogger(PubFileVOPresentation.class).warn(
+                "WARNING: no content-category has been defined in Genres.xml");
           }
         }
 
@@ -224,8 +224,8 @@ public class EasySubmission extends FacesBean {
       }
 
       if (this.getEasySubmissionSessionBean().getCreators().size() == 0) {
-        this.getEasySubmissionSessionBean()
-            .bindCreatorsToBean(getItem().getMetadata().getCreators());
+        this.getEasySubmissionSessionBean().bindCreatorsToBean(
+            getItem().getMetadata().getCreators());
       }
 
       if (this.getEasySubmissionSessionBean().getCreatorOrganizations().size() == 0) {
@@ -241,21 +241,18 @@ public class EasySubmission extends FacesBean {
 
     // Get informations about import sources if submission method = fetching import
     if ((this.getEasySubmissionSessionBean().getCurrentSubmissionStep()
-        .equals(EasySubmissionSessionBean.ES_STEP2)
-        || this.getEasySubmissionSessionBean().getCurrentSubmissionStep()
-            .equals(EasySubmissionSessionBean.ES_STEP3))
-        && this.getEasySubmissionSessionBean().getCurrentSubmissionMethod()
-            .equals("FETCH_IMPORT")) {
+        .equals(EasySubmissionSessionBean.ES_STEP2) || this.getEasySubmissionSessionBean()
+        .getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
+        && this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT")) {
 
       // Call source initialization only once
       if (!this.getEasySubmissionSessionBean().isImportSourceRefresh()) {
         this.getEasySubmissionSessionBean().setImportSourceRefresh(true);
         this.setImportSourcesInfo();
-      } else if (this.getServiceID() != null
-          && this.getServiceID().toLowerCase().equals("escidoc")) {
+      } else if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
         this.getEasySubmissionSessionBean();
-        this.getEasySubmissionSessionBean()
-            .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_ALL);
+        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+            EasySubmissionSessionBean.FULLTEXT_ALL);
       }
     } else {
       this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
@@ -308,22 +305,22 @@ public class EasySubmission extends FacesBean {
     if (depositorContextList != null && depositorContextList.size() > 1) {
       // create a dummy item in the first context to avoid an empty item
       depositorContextList.get(0).selectForEasySubmission();
-      this.getEasySubmissionSessionBean()
-          .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+      this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
+          EasySubmissionSessionBean.ES_STEP2);
     } else { // Skip Collection selection for Import & Easy Sub if only one Collection
       depositorContextList.get(0).selectForEasySubmission();
-      this.getEasySubmissionSessionBean()
-          .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+      this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
+          EasySubmissionSessionBean.ES_STEP3);
       this.init();
     }
 
     // set method to manual
-    this.getEasySubmissionSessionBean()
-        .setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL);
+    this.getEasySubmissionSessionBean().setCurrentSubmissionMethod(
+        EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL);
 
     // set the current submission method for edit item to easy submission (for GUI purpose)
-    this.getEditItemSessionBean()
-        .setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_EASY_SUBMISSION);
+    this.getEditItemSessionBean().setCurrentSubmission(
+        EditItemSessionBean.SUBMISSION_METHOD_EASY_SUBMISSION);
 
     return "loadNewEasySubmission";
   }
@@ -347,25 +344,25 @@ public class EasySubmission extends FacesBean {
     }
 
     // set method to import
-    this.getEasySubmissionSessionBean()
-        .setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT);
+    this.getEasySubmissionSessionBean().setCurrentSubmissionMethod(
+        EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT);
 
     // set the current submission step to step2
     if (depositorContextList != null && depositorContextList.size() > 1) {
-      this.getEasySubmissionSessionBean()
-          .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+      this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
+          EasySubmissionSessionBean.ES_STEP2);
       // set the current submission method for edit item to import (for GUI purpose)
-      this.getEditItemSessionBean()
-          .setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
+      this.getEditItemSessionBean().setCurrentSubmission(
+          EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
 
       return "loadNewFetchMetadata";
     } else { // Skip Collection selection for Import & Easy Sub if only one Collection
       depositorContextList.get(0).selectForEasySubmission();
-      this.getEasySubmissionSessionBean()
-          .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+      this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
+          EasySubmissionSessionBean.ES_STEP3);
       // set the current submission method for edit item to import (for GUI purpose)
-      this.getEditItemSessionBean()
-          .setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
+      this.getEditItemSessionBean().setCurrentSubmission(
+          EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
 
       this.init();
 
@@ -421,8 +418,8 @@ public class EasySubmission extends FacesBean {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
           error("There is no content category available.");
-          Logger.getLogger(PubFileVOPresentation.class)
-              .warn("WARNING: no content-category has been defined in Genres.xml");
+          Logger.getLogger(PubFileVOPresentation.class).warn(
+              "WARNING: no content-category has been defined in Genres.xml");
         }
       }
 
@@ -715,8 +712,9 @@ public class EasySubmission extends FacesBean {
       // Transform from bibtex to escidoc pubItem
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
-      byte[] result = new TransformationService().transform(content.toString().getBytes("UTF-8"),
-          source, target, "escidoc");
+      byte[] result =
+          new TransformationService().transform(content.toString().getBytes("UTF-8"), source,
+              target, "escidoc");
 
       PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());
@@ -760,8 +758,8 @@ public class EasySubmission extends FacesBean {
    */
   public String harvestData() {
     // Fetch data from external system
-    if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL
-        .equals(this.getEasySubmissionSessionBean().getImportMethod())) {
+    if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean()
+        .getImportMethod())) {
       if (getServiceID() == null || "".equals(getServiceID())) {
         warn(getMessage("easy_submission_external_service_no_id"));
         return null;
@@ -809,12 +807,13 @@ public class EasySubmission extends FacesBean {
           }
 
           String[] arrFormats = new String[formats.size()];
-          byte[] ba = dataHandler.doFetch(
-              this.getEasySubmissionSessionBean().getCurrentExternalServiceType(), getServiceID(),
-              formats.toArray(arrFormats));
+          byte[] ba =
+              dataHandler.doFetch(this.getEasySubmissionSessionBean()
+                  .getCurrentExternalServiceType(), getServiceID(), formats.toArray(arrFormats));
           ByteArrayInputStream in = new ByteArrayInputStream(ba);
-          URL fileURL = this.uploadFile(in, dataHandler.getContentType(),
-              getLoginHelper().getESciDocUserHandle());
+          URL fileURL =
+              this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                  .getESciDocUserHandle());
 
           if (fileURL != null && !fileURL.toString().trim().equals("")) {
             FileVO fileVO = dataHandler.getComponentVO();
@@ -822,8 +821,8 @@ public class EasySubmission extends FacesBean {
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(dataHandler.getVisibility());
             fileVO.setDefaultMetadata(fileMd);
-            fileVO.getDefaultMetadata()
-                .setTitle(this.replaceSlashes(getServiceID().trim() + dataHandler.getFileEnding()));
+            fileVO.getDefaultMetadata().setTitle(
+                this.replaceSlashes(getServiceID().trim() + dataHandler.getFileEnding()));
             fileVO.setMimeType(dataHandler.getContentType());
             fileVO
                 .setName(this.replaceSlashes(getServiceID().trim() + dataHandler.getFileEnding()));
@@ -880,8 +879,9 @@ public class EasySubmission extends FacesBean {
                       dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
                   ByteArrayInputStream in = new ByteArrayInputStream(content);
                   URL fileURL;
-                  fileURL = this.uploadFile(in, dataHandler.getContentType(),
-                      getLoginHelper().getESciDocUserHandle());
+                  fileURL =
+                      this.uploadFile(in, dataHandler.getContentType(), getLoginHelper()
+                          .getESciDocUserHandle());
 
                   if (fileURL != null && !fileURL.toString().trim().equals("")
                       && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
@@ -889,8 +889,8 @@ public class EasySubmission extends FacesBean {
                     newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                     newFile.setVisibility(file.getVisibility());
                     newFile.setDefaultMetadata(new MdsFileVO());
-                    newFile.getDefaultMetadata()
-                        .setTitle(this.replaceSlashes(file.getDefaultMetadata().getTitle()));
+                    newFile.getDefaultMetadata().setTitle(
+                        this.replaceSlashes(file.getDefaultMetadata().getTitle()));
                     newFile.setMimeType(file.getMimeType());
                     newFile.setName(this.replaceSlashes(file.getName()));
                     FormatVO formatVO = new FormatVO();
@@ -900,9 +900,9 @@ public class EasySubmission extends FacesBean {
                     newFile.setContent(fileURL.toString());
                     newFile.getDefaultMetadata().setSize(content.length);
                     if (file.getDescription() != null) {
-                      newFile.getDefaultMetadata()
-                          .setDescription(file.getDescription() + " File downloaded from " + service
-                              + " at " + CommonUtils.currentDate());
+                      newFile.getDefaultMetadata().setDescription(
+                          file.getDescription() + " File downloaded from " + service + " at "
+                              + CommonUtils.currentDate());
                     } else {
                       newFile.getDefaultMetadata().setDescription(
                           "File downloaded from " + service + " at " + CommonUtils.currentDate());
@@ -965,8 +965,8 @@ public class EasySubmission extends FacesBean {
       }
     }
     // Fetch data from provided file
-    else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX
-        .equals(this.getEasySubmissionSessionBean().getImportMethod())) {
+    else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this
+        .getEasySubmissionSessionBean().getImportMethod())) {
       String uploadResult = uploadBibtexFile();
       if (uploadResult == null) {
         return null;
@@ -1003,9 +1003,10 @@ public class EasySubmission extends FacesBean {
     try {
       getExternalContext().redirect("faces/SubmissionPage.jsp");
     } catch (Exception e) {
-      logger.error(
-          "Cancel error: could not find context to redirect to SubmissionPage.jsp in Full Submssion",
-          e);
+      logger
+          .error(
+              "Cancel error: could not find context to redirect to SubmissionPage.jsp in Full Submssion",
+              e);
     }
 
     return null;
@@ -1022,8 +1023,8 @@ public class EasySubmission extends FacesBean {
     List<PubContextVOPresentation> depositorContextList = this.getDepositorContextList();
 
     if (depositorContextList != null && depositorContextList.size() > 1) {
-      this.getEasySubmissionSessionBean()
-          .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+      this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
+          EasySubmissionSessionBean.ES_STEP2);
     } else {
       try {
         getExternalContext().redirect("faces/SubmissionPage.jsp");
@@ -1094,8 +1095,8 @@ public class EasySubmission extends FacesBean {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
             error("There is no content category available.");
-            Logger.getLogger(PubFileVOPresentation.class)
-                .warn("WARNING: no content-category has been defined in Genres.xml");
+            Logger.getLogger(PubFileVOPresentation.class).warn(
+                "WARNING: no content-category has been defined in Genres.xml");
           }
         }
 
@@ -1155,8 +1156,7 @@ public class EasySubmission extends FacesBean {
       PubItemVO pubItem = this.getItem();
 
       // write creators back to VO
-      if (this.getEasySubmissionSessionBean()
-          .getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4) {
+      if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4) {
         this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
       }
 
@@ -1212,8 +1212,8 @@ public class EasySubmission extends FacesBean {
           FullTextVO ft = ftFormats.get(x);
           if (ft.isFtDefault()) {
             this.getEasySubmissionSessionBean().setCurrentFTLabel(ft.getFtLabel());
-            this.getEasySubmissionSessionBean()
-                .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+            this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+                EasySubmissionSessionBean.FULLTEXT_DEFAULT);
           }
         }
 
@@ -1229,29 +1229,29 @@ public class EasySubmission extends FacesBean {
           .setEXTERNAL_SERVICE_OPTIONS(this.EXTERNAL_SERVICE_OPTIONS);
 
       if (currentSource.toLowerCase().equals("escidoc")) {
-        this.getEasySubmissionSessionBean()
-            .setFULLTEXT_OPTIONS(new SelectItem[] {
+        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+            new SelectItem[] {
                 new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL,
                     getLabel("easy_submission_lblFulltext_all")),
                 new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                     getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean()
-            .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_ALL);
+        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+            EasySubmissionSessionBean.FULLTEXT_ALL);
       } else {
         if (ftFormats.size() > 1) {
-          this.getEasySubmissionSessionBean()
-              .setFULLTEXT_OPTIONS(new SelectItem[] {
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT,
-                      this.getEasySubmissionSessionBean().getCurrentFTLabel()),
+          this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+              new SelectItem[] {
+                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                      .getEasySubmissionSessionBean().getCurrentFTLabel()),
                   new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL,
                       getLabel("easy_submission_lblFulltext_all")),
                   new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                       getLabel("easy_submission_lblFulltext_none"))});
         } else
-          this.getEasySubmissionSessionBean()
-              .setFULLTEXT_OPTIONS(new SelectItem[] {
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT,
-                      this.getEasySubmissionSessionBean().getCurrentFTLabel()),
+          this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+              new SelectItem[] {
+                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                      .getEasySubmissionSessionBean().getCurrentFTLabel()),
                   new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                       getLabel("easy_submission_lblFulltext_none"))});
       }
@@ -1279,8 +1279,8 @@ public class EasySubmission extends FacesBean {
         FullTextVO ft = ftFormats.get(x);
         if (ft.isFtDefault()) {
           this.getEasySubmissionSessionBean().setCurrentFTLabel(ft.getFtLabel());
-          this.getEasySubmissionSessionBean()
-              .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+          this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+              EasySubmissionSessionBean.FULLTEXT_DEFAULT);
         }
       }
     } else {
@@ -1290,42 +1290,42 @@ public class EasySubmission extends FacesBean {
 
     // This has to be set, because escidoc does not have a default fetching format for full texts
     if (currentSource.getName().toLowerCase().equals("escidoc")) {
-      this.getEasySubmissionSessionBean()
-          .setFULLTEXT_OPTIONS(new SelectItem[] {
+      this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+          new SelectItem[] {
               new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL,
                   getLabel("easy_submission_lblFulltext_all")),
               new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                   getLabel("easy_submission_lblFulltext_none"))});
-      this.getEasySubmissionSessionBean()
-          .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_ALL);
+      this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+          EasySubmissionSessionBean.FULLTEXT_ALL);
     } else {
       if (ftFormats.size() > 1) {
-        this.getEasySubmissionSessionBean()
-            .setFULLTEXT_OPTIONS(new SelectItem[] {
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT,
-                    this.getEasySubmissionSessionBean().getCurrentFTLabel()),
+        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+            new SelectItem[] {
+                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                    .getEasySubmissionSessionBean().getCurrentFTLabel()),
                 new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL,
                     getLabel("easy_submission_lblFulltext_all")),
                 new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                     getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean()
-            .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+            EasySubmissionSessionBean.FULLTEXT_DEFAULT);
       }
 
       if (ftFormats.size() == 1) {
-        this.getEasySubmissionSessionBean()
-            .setFULLTEXT_OPTIONS(new SelectItem[] {
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT,
-                    this.getEasySubmissionSessionBean().getCurrentFTLabel()),
+        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+            new SelectItem[] {
+                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                    .getEasySubmissionSessionBean().getCurrentFTLabel()),
                 new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE,
                     getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean()
-            .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+            EasySubmissionSessionBean.FULLTEXT_DEFAULT);
       }
 
       if (ftFormats.size() <= 0) {
-        this.getEasySubmissionSessionBean()
-            .setRadioSelectFulltext(EasySubmissionSessionBean.FULLTEXT_NONE);
+        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+            EasySubmissionSessionBean.FULLTEXT_NONE);
         this.getEasySubmissionSessionBean().setFulltext(false);
       }
     }
@@ -1346,8 +1346,8 @@ public class EasySubmission extends FacesBean {
    */
   public String selectImportExternal() {
     this.changeImportSource(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
-    this.getEasySubmissionSessionBean()
-        .setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+    this.getEasySubmissionSessionBean().setImportMethod(
+        EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
 
     return "loadNewEasySubmission";
   }
@@ -1358,8 +1358,8 @@ public class EasySubmission extends FacesBean {
    * @return String navigation string
    */
   public String selectImportBibtex() {
-    this.getEasySubmissionSessionBean()
-        .setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
+    this.getEasySubmissionSessionBean().setImportMethod(
+        EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
 
     return "loadNewEasySubmission";
   }
@@ -1919,8 +1919,8 @@ public class EasySubmission extends FacesBean {
         && !getHiddenAlternativeTitlesField().trim().equals("")) {
       SourceVO source = getSource();
       source.getAlternativeTitles().clear();
-      source.getAlternativeTitles()
-          .addAll(SourceBean.parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+      source.getAlternativeTitles().addAll(
+          SourceBean.parseAlternativeTitles(getHiddenAlternativeTitlesField()));
     }
 
     if (getHiddenIdsField() != null && !getHiddenIdsField().trim().equals("")) {
@@ -1982,8 +1982,9 @@ public class EasySubmission extends FacesBean {
   public String getContextName() {
     if (this.contextName == null) {
       try {
-        ContextVO context = this.getItemControllerSessionBean()
-            .retrieveContext(this.getItem().getContext().getObjectId());
+        ContextVO context =
+            this.getItemControllerSessionBean().retrieveContext(
+                this.getItem().getContext().getObjectId());
         this.contextName = context.getName();
         return this.contextName;
       } catch (Exception e) {

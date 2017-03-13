@@ -52,8 +52,7 @@ public class SessionTimeoutFilter implements Filter {
   public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   @Override
-  public void destroy() {
-  }
+  public void destroy() {}
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
@@ -93,12 +92,11 @@ public class SessionTimeoutFilter implements Filter {
       } catch (Exception e) {
         throw new ServletException("Error logging out", e);
       }
-   }
-    
+    }
+
     filterChain.doFilter(request, response);
   }
 
   @Override
-  public void init(FilterConfig arg0) throws ServletException {
-  }
+  public void init(FilterConfig arg0) throws ServletException {}
 }

@@ -56,7 +56,7 @@ public class AudienceBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(AudienceBean.class);
 
   public static final String LOAD_AUDIENCEPAGE = "loadAudiencePage";
-  
+
   public static final String DUMMY_REVOKE_COMMENT = "grant revoked";
   public static final String DUMMY_CREATE_COMMENT = "grant created";
 
