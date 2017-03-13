@@ -24,132 +24,124 @@
  */
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-
 public class GenreSpecificItemManager {
-  public static final String SUBMISSION_METHOD_EASY = "easy-submission";
-  public static final String SUBMISSION_METHOD_FULL = "full-submission";
+  // public static final String SUBMISSION_METHOD_EASY = "easy-submission";
+  // public static final String SUBMISSION_METHOD_FULL = "full-submission";
+  //
+  // private static final String SUBMISSION_METHOD_ALL = "all";
+  //
+  // private PubItemVO pubItem;
+  // private String submissionMethod;
+  //
+  // public GenreSpecificItemManager() {}
+  //
+  // public GenreSpecificItemManager(PubItemVO pubItem, String submissionMethod) {
+  // this.pubItem = pubItem;
+  // this.submissionMethod = submissionMethod;
+  // }
 
-  private static final String SUBMISSION_METHOD_ALL = "all";
+  // public PubItemVO cleanupItem() throws Exception {
+  // List<Object> objs = new ArrayList<Object>();
+  // LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+  //
+  // if (this.pubItem != null && this.pubItem.getMetadata() != null
+  // && this.pubItem.getMetadata().getGenre() != null) {
+  // String genre = this.pubItem.getMetadata().getGenre().name();
+  // ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
+  // Object javaObject = this.pubItem;
+  //
+  // for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
+  // String key = keys.nextElement().toString();
+  // map.put(key, genreBundle.getString(key));
+  // }
+  //
+  // for (String mapKey : map.keySet()) {
+  // if (mapKey.endsWith("class_attribute")) {
+  // String baseKey = mapKey.replace("class_attribute", "");
+  // String fullClassAttribute = map.get(mapKey);
+  // // check if the property should be available in this genre or not
+  // if (map.get(baseKey + "display").equals("false")
+  // && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
+  // baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
+  // objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
+  // }
+  // }
+  // }
+  // }
+  //
+  // return this.pubItem;
+  // }
 
-  private PubItemVO pubItem;
-  private String submissionMethod;
+  // private List<Object> getMappedObject(Object baseObject, String mappingString)
+  // throws NoSuchMethodException, Exception {
+  // List<Object> result = new ArrayList<Object>();
+  // // first get all values in the class attribute String and eliminate the "."
+  // String[] attributes = mappingString.split("\\.");
+  //
+  // if (baseObject != null) {
+  // Object subObject = getObject(baseObject, attributes[0]);
+  // int index = mappingString.indexOf(".");
+  //
+  // if (index > 0) {
+  // mappingString = mappingString.substring(index + 1);
+  // if (subObject instanceof List) {
+  // for (Object subObjectElement : (ArrayList<?>) subObject) {
+  // List<Object> subResult = getMappedObject(subObjectElement, mappingString);
+  // result.addAll(subResult);
+  // }
+  // } else {
+  // result.addAll(getMappedObject(subObject, mappingString));
+  // }
+  // } else {
+  // // prepare the string for a method call
+  // String renamedAttribute = mappingString;
+  // // save the first character
+  // String firstCharacter = renamedAttribute.substring(0, 1);
+  // // remove the first character
+  // renamedAttribute = renamedAttribute.substring(1);
+  // // add the first character in upper case
+  // renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
+  // // get the desired object first to examine the type of it
+  // Object javaObjectToNullify = getObject(baseObject, attributes[0]);
+  // Method method = null;
+  //
+  // if (javaObjectToNullify != null) {
+  // if (javaObjectToNullify instanceof List) {
+  // if (((List<?>) javaObjectToNullify).size() > 0) {
+  // method = javaObjectToNullify.getClass().getMethod("clear", new Class[] {});
+  // method.invoke(javaObjectToNullify, new Object[] {});
+  // result.add(method);
+  // }
+  // } else {
+  // method =
+  // baseObject.getClass().getMethod("set" + renamedAttribute,
+  // new Class[] {javaObjectToNullify.getClass()});
+  // method.invoke(baseObject, new Object[] {null});
+  // result.add(method);
+  // }
+  // }
+  // // result.add(subObject);
+  // }
+  // }
+  //
+  // return result;
+  // }
 
-  public GenreSpecificItemManager() {}
-
-  public GenreSpecificItemManager(PubItemVO pubItem, String submissionMethod) {
-    this.pubItem = pubItem;
-    this.submissionMethod = submissionMethod;
-  }
-
-  public PubItemVO cleanupItem() throws Exception {
-    List<Object> objs = new ArrayList<Object>();
-    LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-
-    if (this.pubItem != null && this.pubItem.getMetadata() != null
-        && this.pubItem.getMetadata().getGenre() != null) {
-      String genre = this.pubItem.getMetadata().getGenre().name();
-      ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
-      Object javaObject = this.pubItem;
-
-      for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
-        String key = keys.nextElement().toString();
-        map.put(key, genreBundle.getString(key));
-      }
-
-      for (String mapKey : map.keySet()) {
-        if (mapKey.endsWith("class_attribute")) {
-          String baseKey = mapKey.replace("class_attribute", "");
-          String fullClassAttribute = map.get(mapKey);
-          // check if the property should be available in this genre or not
-          if (map.get(baseKey + "display").equals("false")
-              && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
-                  baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
-            objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
-          }
-        }
-      }
-    }
-
-    return this.pubItem;
-  }
-
-  private List<Object> getMappedObject(Object baseObject, String mappingString)
-      throws NoSuchMethodException, Exception {
-    List<Object> result = new ArrayList<Object>();
-    // first get all values in the class attribute String and eliminate the "."
-    String[] attributes = mappingString.split("\\.");
-
-    if (baseObject != null) {
-      Object subObject = getObject(baseObject, attributes[0]);
-      int index = mappingString.indexOf(".");
-
-      if (index > 0) {
-        mappingString = mappingString.substring(index + 1);
-        if (subObject instanceof List) {
-          for (Object subObjectElement : (ArrayList<?>) subObject) {
-            List<Object> subResult = getMappedObject(subObjectElement, mappingString);
-            result.addAll(subResult);
-          }
-        } else {
-          result.addAll(getMappedObject(subObject, mappingString));
-        }
-      } else {
-        // prepare the string for a method call
-        String renamedAttribute = mappingString;
-        // save the first character
-        String firstCharacter = renamedAttribute.substring(0, 1);
-        // remove the first character
-        renamedAttribute = renamedAttribute.substring(1);
-        // add the first character in upper case
-        renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-        // get the desired object first to examine the type of it
-        Object javaObjectToNullify = getObject(baseObject, attributes[0]);
-        Method method = null;
-
-        if (javaObjectToNullify != null) {
-          if (javaObjectToNullify instanceof List) {
-            if (((List<?>) javaObjectToNullify).size() > 0) {
-              method = javaObjectToNullify.getClass().getMethod("clear", new Class[] {});
-              method.invoke(javaObjectToNullify, new Object[] {});
-              result.add(method);
-            }
-          } else {
-            method =
-                baseObject.getClass().getMethod("set" + renamedAttribute,
-                    new Class[] {javaObjectToNullify.getClass()});
-            method.invoke(baseObject, new Object[] {null});
-            result.add(method);
-          }
-        }
-        // result.add(subObject);
-      }
-    }
-
-    return result;
-  }
-
-  private Object getObject(Object object, String mapString) throws Exception, NoSuchMethodException {
-    // prepare the string for a method call
-    String renamedAttribute = mapString;
-    // save the first character
-    String firstCharacter = renamedAttribute.substring(0, 1);
-    // remove the first character
-    renamedAttribute = renamedAttribute.substring(1);
-    // add the first character in upper case
-    renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-    Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
-    Object javaObject = method.invoke(object, new Object[] {});
-
-    return javaObject;
-  }
+  // private Object getObject(Object object, String mapString) throws Exception,
+  // NoSuchMethodException {
+  // // prepare the string for a method call
+  // String renamedAttribute = mapString;
+  // // save the first character
+  // String firstCharacter = renamedAttribute.substring(0, 1);
+  // // remove the first character
+  // renamedAttribute = renamedAttribute.substring(1);
+  // // add the first character in upper case
+  // renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
+  // Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
+  // Object javaObject = method.invoke(object, new Object[] {});
+  //
+  // return javaObject;
+  // }
 
   // private void setObjectValue(Object object, String mapString, Object value) throws Exception,
   // NoSuchMethodException {
