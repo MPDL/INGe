@@ -1,5 +1,8 @@
 package de.mpg.mpdl.inge.pubman;
 
+import java.io.ByteArrayInputStream;
+import java.io.StringWriter;
+
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -17,9 +20,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.transformations.otherFormats.doi.DoiMetadataTransformation;
+
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -58,14 +64,16 @@ public class DoiRestService {
     try {
       // Generate metadata xml for the DOI service
       String itemXml = XmlTransformingService.transformToItem(pubItem);
-      Transformation transformation = new TransformationService();
-      String doiMetadataXml =
-          new String(transformation.transform(itemXml.getBytes("UTF-8"),
-              DoiMetadataTransformation.ESCIDOC_ITEM_FORMAT,
-              DoiMetadataTransformation.DOI_ITEM_FORMAT, "escidoc"), "UTF-8");
+      Transformer transformer =
+          TransformerFactory.newInstance(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+              TransformerFactory.FORMAT.DOI_METADATA_XML);
+      StringWriter wr = new StringWriter();
+
+      transformer.transform(new TransformerStreamSource(
+          new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));
 
       // REST request to the DOI service for creating a new DOI
-      RequestEntity xmlEntity = new StringRequestEntity(doiMetadataXml, "text/xml", "UTF-8");
+      RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams =
           "?url="
               + PropertyReader.getProperty("escidoc.pubman.instance.url")

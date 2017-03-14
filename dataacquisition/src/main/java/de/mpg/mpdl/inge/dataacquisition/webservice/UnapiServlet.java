@@ -169,11 +169,11 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     metadataV.addAll(util.getTransformFormats(metadataV));
     // get transformable formats via escidoc format
     if (util.checkEscidocTransition(metadataV, identifier)) {
-      String transitionFormatName = util.getInternalFormat();
+      String transitionFormatName = Util.getInternalFormat();
       MetadataVO transitionFormat = new MetadataVO();
       transitionFormat.setName(transitionFormatName);
-      transitionFormat.setEncoding(util.getDefaultEncoding(transitionFormatName));
-      transitionFormat.setMdFormat(util.getDefaultMimeType(transitionFormatName));
+      transitionFormat.setEncoding(Util.getDefaultEncoding(transitionFormatName));
+      transitionFormat.setMdFormat(Util.getDefaultMimeType(transitionFormatName));
       List<MetadataVO> transitionFormatV = new ArrayList<MetadataVO>();
       transitionFormatV.add(transitionFormat);
       // Call method with transition format escidoc

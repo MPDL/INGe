@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.transformation;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -49,17 +50,24 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
+import org.apache.xmlbeans.XmlOptions;
+import org.apache.xmlbeans.XmlString;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
+import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
+import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
+import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 // Only for DOM Debugging
 
@@ -736,30 +744,6 @@ public class Util {
   }
 
   public static String getMimetype(String filename) {
-    /*
-     * try { String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
-     * "jquery/escidocmimetypes/query?q=" + URLEncoder.encode(suffix, "ISO-8859-15"); String
-     * detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url") +
-     * "json/escidocmimetypes/details/"; HttpClient client = new HttpClient(); GetMethod method =
-     * new GetMethod(queryUrl); ProxyHelper.executeMethod(client, method); if
-     * (method.getStatusCode() == 200) { String[] results =
-     * method.getResponseBodyAsString().split("\n"); for (String result : results) { if
-     * (!"".equals(result.trim())) { String id = result.split("\\|")[1]; GetMethod detailMethod =
-     * new GetMethod(detailsUrl + id); ProxyHelper.executeMethod(client, detailMethod); if
-     * (detailMethod.getStatusCode() == 200) { String response =
-     * detailMethod.getResponseBodyAsString(); Pattern pattern =
-     * Pattern.compile("\"urn_cone_suffix\" : \"([^\"])\""); Matcher matcher =
-     * pattern.matcher(response); if (matcher.find()) { pattern =
-     * Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \"([^\"])\""); matcher =
-     * pattern.matcher(response); if (matcher.find()) { return matcher.group(1); } else {
-     * logger.warn("Found matching mimetype suffix but no mimetype: " + response); } } } else {
-     * logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" +
-     * detailMethod.getResponseBodyAsString()); } } } // Suffix not found, return default mimetype
-     * return "application/octet-stream"; } else { logger.error("Error querying CoNE: Status " +
-     * method.getStatusCode() + "\n" + method.getResponseBodyAsString()); } } catch (Exception e) {
-     * logger.error("Error getting mimetype", e); }
-     */
-
 
     try {
       Tika tika = new Tika();
@@ -773,20 +757,76 @@ public class Util {
     return "application/octet-stream";
   }
 
-
-
-  public static void log(String str) {
-    System.out.println(str);
-  }
-
-
-
   public static String stripHtml(String text) {
     if (text != null) {
       return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
     } else
       return "";
+  }
 
+  /**
+   * Converts a simpleLiteral Objects into a String Object.
+   * 
+   * @param sl as SimpleLiteral
+   * @return String
+   */
+  public static String simpleLiteralTostring(org.purl.dc.elements.x11.SimpleLiteral sl) {
+    return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
+  }
+
+  /**
+   * Creates a format xml out of a format array.
+   * 
+   * @param formats as Format[]
+   * @return xml as String
+   */
+  public static String createFormatsXml(Format[] formats) {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try {
+      FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
+      FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
+      for (int i = 0; i < formats.length; i++) {
+        Format format = formats[i];
+        FormatType xmlFormat = xmlFormats.addNewFormat();
+        SimpleLiteral name = xmlFormat.addNewName();
+        XmlString formatName = XmlString.Factory.newInstance();
+        formatName.setStringValue(format.getName());
+        name.set(formatName);
+        SimpleLiteral type = xmlFormat.addNewType();
+        XmlString formatType = XmlString.Factory.newInstance();
+        formatType.setStringValue(format.getType());
+        type.set(formatType);
+        SimpleLiteral enc = xmlFormat.addNewEncoding();
+        XmlString formatEnc = XmlString.Factory.newInstance();
+        formatEnc.setStringValue(format.getEncoding());
+        enc.set(formatEnc);
+
+      }
+      XmlOptions xOpts = new XmlOptions();
+      xOpts.setSavePrettyPrint();
+      xOpts.setSavePrettyPrintIndent(4);
+      xOpts.setUseDefaultNamespace();
+      xmlFormatsDoc.save(baos, xOpts);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return baos.toString();
+  }
+
+  /**
+   * This methods reads out the style information from the format name.
+   * 
+   * @param type
+   * @return type of style (APA | AJP | Default)
+   */
+  public static Styles getStyleInfo(Format format) {
+    if (format.getName().toLowerCase().contains("apa")) {
+      return Styles.APA;
+    }
+    if (format.getName().toLowerCase().contains("ajp")) {
+      return Styles.AJP;
+    } else
+      return Styles.Default;
   }
 
 }

@@ -29,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
@@ -97,8 +98,11 @@ import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -712,9 +716,15 @@ public class EasySubmission extends FacesBean {
       // Transform from bibtex to escidoc pubItem
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
-      byte[] result =
-          new TransformationService().transform(content.toString().getBytes("UTF-8"), source,
-              target, "escidoc");
+
+      Transformer t = TransformerFactory.newInstance(source.toFORMAT(), target.toFORMAT());
+      StringWriter wr = new StringWriter();
+      t.transform(
+          new TransformerStreamSource(
+              new ByteArrayInputStream(content.toString().getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+
+      byte[] result = wr.toString().getBytes("UTF-8");
 
       PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
       itemVO.setContext(getItem().getContext());

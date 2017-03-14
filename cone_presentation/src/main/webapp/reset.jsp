@@ -1,7 +1,4 @@
-
-<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.util.ArrayList"%><%--
+<%--
 
  CDDL HEADER START
 
@@ -30,16 +27,23 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@ page import="de.mpg.mpdl.inge.cone.util.TreeFragment" %>
-<%@ page import="de.mpg.mpdl.inge.cone.util.Pair" %>
-<%@ page import="java.util.List" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+%>
+
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
-<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Pair" %>
+<%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List" %>
 
 <%
-	
 	response.setHeader("Content-Type", "text/plain");
 
 	boolean loggedIn = Login.getLoggedIn(request);

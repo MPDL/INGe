@@ -42,6 +42,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:46:17
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
 public class GrantVO extends ValueObject {
   /**

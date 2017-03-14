@@ -5,6 +5,9 @@ package de.mpg.mpdl.inge.pubman.web.workspaces;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +22,9 @@ import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
+
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
+import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -31,11 +36,14 @@ import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.transformation.Configurable;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
+
 
 /**
  * @author Gergana Stoyanova
@@ -50,8 +58,6 @@ public class ReportWorkspaceBean extends FacesBean {
 
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
-  // Transformation Service
-  private Configurable transformer = null;
 
   // String cqlQuery = null;
   private String csExportFormat = "JUS_Report";
@@ -87,15 +93,18 @@ public class ReportWorkspaceBean extends FacesBean {
   };
 
   public ReportWorkspaceBean() {
-    this.transformer = new TransformationService();
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
-    Format[] targetFormats =
-        ((Transformation) this.transformer).getTargetFormats(JUS_REPORT_SNIPPET_FORMAT);
-    for (Format f : targetFormats) {
-      if (!JUS_REPORT_SNIPPET_FORMAT.matches(f)) {
+    FORMAT[] targetFormats =
+        de.mpg.mpdl.inge.transformation.TransformerFactory
+            .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
+
+    for (FORMAT f : targetFormats) {
+      Format formatObject = Util.fromFORMAT(f);
+      if (!JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
         String formatName =
-            f.getName() + "_" + ("text/html".equals(f.getType()) ? "html" : "indesign");
+            formatObject.getName() + "_"
+                + ("text/html".equals(formatObject.getType()) ? "html" : "indesign");
         outputFormats.add(new SelectItem(f, getLabel(formatName)));
       }
     }
@@ -278,7 +287,8 @@ public class ReportWorkspaceBean extends FacesBean {
     String childConfig = "";
     byte[] result = null;
 
-    // set the config for the transformation, the institut's name is used for CoNE
+    // set the config for the transformation, the institut's name is used
+    // for CoNE
     if (this.childAffilList.size() > 0) {
       for (String childId : this.childAffilList) {
         childConfig += childId + " ";
@@ -290,12 +300,21 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      result =
-          this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc",
-              configuration);
-    } catch (TransformationNotSupportedException e) {
+      StringWriter wr = new StringWriter();
+      Transformer t =
+          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(FORMAT.JUS_SNIPPET_XML,
+              FORMAT.ESCIDOC_ITEM_V3_XML);
+
+      t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
+          new TransformerStreamResult(wr));
+
+      result = wr.toString().getBytes("UTF-8");
+
+    } catch (TransformationException e) {
       throw new RuntimeException(e);
     } catch (RuntimeException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
       throw new RuntimeException(e);
     }
 

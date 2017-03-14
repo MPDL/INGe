@@ -25,19 +25,14 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.transformation.TransformationService;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or
@@ -66,36 +61,6 @@ public class CitationUtil {
   public static final String SORTINGS_DIRECTORY = "Transformations/";
   public static final String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
   public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
-
-  // TransformationBean placeholder
-  private static TransformationService tb = null;
-
-  /**
-   * Returns TransformationBean (singleton)
-   * 
-   * @return TransformationBean
-   */
-  public static TransformationService getTransformationService() {
-    return tb == null ? tb = new TransformationService(true) : tb;
-  }
-
-  /**
-   * Copies one bin file to other
-   * 
-   * @param in An input file
-   * @param out An output file
-   * @throws IOException
-   */
-  public static void copyFileToFile(File in, File out) throws IOException {
-    int b; // the byte read from the file
-    BufferedInputStream is = new BufferedInputStream(new FileInputStream(in));
-    BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(out));
-    while ((b = is.read()) != -1) {
-      os.write(b);
-    }
-    is.close();
-    os.close();
-  }
 
   /**
    * Returns path to the directory of the classes depending on the run context (TOBE implemented

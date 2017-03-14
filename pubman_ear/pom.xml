@@ -118,7 +118,7 @@
 						</jarModule>
 						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>transformation</artifactId>
+							<artifactId>transformationManager</artifactId>
 						</jarModule>
 					</modules>
 				</configuration>
@@ -220,7 +220,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformation</artifactId>
+			<artifactId>transformationManager</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

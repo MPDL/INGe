@@ -25,11 +25,13 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
@@ -79,10 +81,13 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.transformation.Configurable;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
+
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -131,7 +136,7 @@ public class ImportProcess extends Thread {
   private String itemContentModel;
   private String name;
   private String publicationContentModel;
-  private Transformation transformation;
+
   private boolean failed = false;
   private boolean rollback;
   private long lastBeat = 0;
@@ -204,7 +209,6 @@ public class ImportProcess extends Thread {
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       this.name = name;
       this.rollback = rollback;
-      this.transformation = new TransformationService();
       this.user = user;
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
@@ -238,11 +242,13 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    Format[] allSourceFormats = transformation.getSourceFormats(ESCIDOC_FORMAT);
+    FORMAT[] allSourceFormats =
+        de.mpg.mpdl.inge.transformation.TransformerFactory
+            .getAllSourceFormatsFor(de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
 
     boolean found = false;
-    for (Format sourceFormat : allSourceFormats) {
-      if (format.matches(sourceFormat)) {
+    for (FORMAT sourceFormat : allSourceFormats) {
+      if (format.equals(sourceFormat)) {
         found = true;
         if (setProcessor(format)) {
           this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
@@ -577,23 +583,22 @@ public class ImportProcess extends Thread {
     this.log.addDetail(ErrorLevel.FINE, "import_process_source_data_found");
     this.log.addDetail(ErrorLevel.FINE, singleItem);
     this.log.addDetail(ErrorLevel.FINE, "import_process_start_transformation");
-    String esidocXml = null;
+    String escidocXml = null;
 
     try {
-      if (configuration != null && transformation instanceof Configurable) {
-        esidocXml =
-            new String(((Configurable) transformation).transform(
-                singleItem.getBytes(this.format.getEncoding()), this.format, ESCIDOC_FORMAT,
-                "escidoc", configuration), ESCIDOC_FORMAT.getEncoding());
-      } else {
-        esidocXml =
-            new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
-                this.format, ESCIDOC_FORMAT, "escidoc"), ESCIDOC_FORMAT.getEncoding());
-      }
+      StringWriter wr = new StringWriter();
+      Transformer transformer =
+          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(format.toFORMAT(),
+              de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+      transformer.transform(
+          new TransformerStreamSource(new ByteArrayInputStream(singleItem.getBytes(this.format
+              .getEncoding()))), new TransformerStreamResult(wr));
 
-      this.log.addDetail(ErrorLevel.FINE, esidocXml);
+      escidocXml = wr.toString();
+
+      this.log.addDetail(ErrorLevel.FINE, escidocXml);
       this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
-      PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(esidocXml);
+      PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
       pubItemVO.setContext(escidocContext);
       pubItemVO.setContentModel(publicationContentModel);
       pubItemVO.getVersion().setObjectId(null);

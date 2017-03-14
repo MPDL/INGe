@@ -26,18 +26,17 @@
 
 package de.mpg.mpdl.inge.citationmanager.transformation;
 
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
-import de.mpg.mpdl.inge.transformation.Transformation;
-import de.mpg.mpdl.inge.transformation.Transformation.TransformationModule;
 import de.mpg.mpdl.inge.transformation.Util;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -48,18 +47,23 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@TransformationModule
-public class CitationTransformationInterface implements Transformation {
-  private static final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
+public class CitationTransformationInterface {
 
-  private static final String EXPLAIN_FILE_PATH = "Transformations/";
-  private static final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
+  private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
 
+  private final String EXPLAIN_FILE_PATH = "Transformations/";
+  private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
+
+  /**
+   * Public constructor.
+   */
   public CitationTransformationInterface() {}
 
-  @Override
+  /**
+   * {@inheritDoc}
+   */
   public Format[] getSourceFormats() throws RuntimeException {
-    Vector<Format> sourceFormats = new Vector<Format>();
+    Set<Format> sourceFormats = new HashSet<Format>();
     TransformationsDocument transDoc = null;
     TransformationsType transType = null;
 
@@ -85,16 +89,15 @@ public class CitationTransformationInterface implements Transformation {
       Format sourceFormat = new Format(name, type, encoding);
       sourceFormats.add(sourceFormat);
     }
-
-    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
-
     return sourceFormats.toArray(dummy);
   }
 
-  @Override
+  /**
+   * {@inheritDoc}
+   */
   public Format[] getTargetFormats(Format src) throws RuntimeException {
-    Vector<Format> targetFormats = new Vector<Format>();
+    Set<Format> targetFormats = new HashSet<Format>();
     TransformationsDocument transDoc = null;
     TransformationsType transType = null;
 
@@ -117,7 +120,7 @@ public class CitationTransformationInterface implements Transformation {
               Util.simpleLiteralTostring(transformation.getSource().getType()),
               Util.simpleLiteralTostring(transformation.getSource().getEncoding()));
       // Only get Target if source is given source
-      if (Util.isFormatEqual(source, src)) {
+      if (source.equals(src)) {
         String name = Util.simpleLiteralTostring(transformation.getTarget().getName());
         String type = Util.simpleLiteralTostring(transformation.getTarget().getType());
         String encoding = Util.simpleLiteralTostring(transformation.getTarget().getEncoding());
@@ -127,7 +130,6 @@ public class CitationTransformationInterface implements Transformation {
       }
     }
 
-    targetFormats = Util.getRidOfDuplicatesInVector(targetFormats);
     Format[] dummy = new Format[targetFormats.size()];
 
     return targetFormats.toArray(dummy);
@@ -138,16 +140,18 @@ public class CitationTransformationInterface implements Transformation {
    */
   public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding,
       String trgFormatName, String trgType, String trgEncoding, String service)
-      throws TransformationNotSupportedException {
+      throws TransformationException {
     Format source = new Format(srcFormatName, srcType, srcEncoding);
     Format target = new Format(trgFormatName, trgType, trgEncoding);
 
     return this.transform(src, source, target, service);
   }
 
-  @Override
+  /**
+   * {@inheritDoc}
+   */
   public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
-      throws TransformationNotSupportedException, RuntimeException {
+      throws TransformationException, RuntimeException {
     byte[] result = null;
     boolean supported = false;
     boolean list = false;
@@ -181,15 +185,17 @@ public class CitationTransformationInterface implements Transformation {
       logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", "
           + srcFormat.getType() + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName()
           + ", " + trgFormat.getType() + ", " + trgFormat.getEncoding());
-      throw new TransformationNotSupportedException();
+      throw new TransformationException();
     }
 
     return result;
   }
 
-  @Override
+  /**
+   * {@inheritDoc}
+   */
   public Format[] getSourceFormats(Format trg) throws RuntimeException {
-    Vector<Format> sourceFormats = new Vector<Format>();
+    Set<Format> sourceFormats = new HashSet<Format>();
     TransformationsDocument transDoc = null;
     TransformationsType transType = null;
 
@@ -214,7 +220,7 @@ public class CitationTransformationInterface implements Transformation {
               Util.simpleLiteralTostring(transformation.getTarget().getType()),
               Util.simpleLiteralTostring(transformation.getTarget().getEncoding()));
       // Only get Target if source is given source
-      if (Util.isFormatEqual(target, trg)) {
+      if (target.equals(trg)) {
         String name = Util.simpleLiteralTostring(transformation.getSource().getName());
         String type = Util.simpleLiteralTostring(transformation.getSource().getType());
         String encoding = Util.simpleLiteralTostring(transformation.getSource().getEncoding());
@@ -224,9 +230,7 @@ public class CitationTransformationInterface implements Transformation {
       }
     }
 
-    sourceFormats = Util.getRidOfDuplicatesInVector(sourceFormats);
     Format[] dummy = new Format[sourceFormats.size()];
-
     return sourceFormats.toArray(dummy);
   }
 }

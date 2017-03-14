@@ -51,8 +51,10 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.util.Format;
 
 /**
  * Session bean to hold data needed for an import of multiple items.
@@ -121,6 +123,7 @@ public class MultipleImport extends FacesBean {
   };
 
   public MultipleImport() {
+
     // Standard formats
     this.importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
     this.importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
@@ -134,8 +137,6 @@ public class MultipleImport extends FacesBean {
     this.importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
     this.importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
 
-    // Specialized formats
-    // importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));
   }
 
   public String uploadFile() {
@@ -230,20 +231,25 @@ public class MultipleImport extends FacesBean {
   }
 
   public List<SelectItem> initConfigParameters() throws Exception {
-    TransformationService transformation = new TransformationService();
+
+    Transformer transformer = null;
     Map<String, String> config = null;
 
     if (this.format != null) {
-      config = transformation.getConfiguration(this.format, ESCIDOC_FORMAT);
-    }
+      transformer =
+          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(format.toFORMAT(),
+              FORMAT.ESCIDOC_ITEM_V3_XML);
 
-    this.configParameters = new ArrayList<SelectItem>();
-    this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+      config = transformer.getConfiguration();
+    }
+    configParameters = new ArrayList<SelectItem>();
 
     if (config != null) {
+      parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+
       for (String key : config.keySet()) {
         List<String> values =
-            transformation.getConfigurationValues(this.format, ESCIDOC_FORMAT, key);
+            ((ImportUsableTransformer) transformer).getConfigurationValuesFor(key);
         List<SelectItem> list = new ArrayList<SelectItem>();
         if (values != null) {
           for (String str : values)

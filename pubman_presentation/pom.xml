@@ -84,7 +84,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformation</artifactId>
+			<artifactId>transformationManager</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

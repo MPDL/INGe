@@ -27,18 +27,22 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="java.util.List"%>
-<%@page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
-<%@page import="de.mpg.mpdl.inge.cone.ModelList"%>
-<%@page import="java.util.Set"%>
-<%@page import="de.mpg.mpdl.inge.cone.Querier"%>
-<%@page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
-<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
+<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Set"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<jsp:include page="header.jsp"/>
@@ -160,6 +164,7 @@
 		</div>
 	</body>
 </html>
+
 <%
 	querier.release();
 %>
