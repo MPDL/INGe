@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DegreeCriterion;
  * 
  * @author Friederike Kleinfercher
  */
+@SuppressWarnings("serial")
 public class DegreeCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "DegreeCriterionBean";
 

@@ -34,6 +34,7 @@ package de.mpg.mpdl.inge.pubman.web.exceptions;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class PubManVersionNotAvailableException extends Exception {
 
   /**

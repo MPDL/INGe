@@ -5,6 +5,7 @@ import java.util.Map;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 
+@SuppressWarnings("serial")
 public class PublicationStatusListSearchCriterion extends MapListSearchCriterion<String> {
 
 

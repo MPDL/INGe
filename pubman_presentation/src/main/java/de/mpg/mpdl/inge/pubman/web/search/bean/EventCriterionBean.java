@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.EventCriterion;
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class EventCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "EventCriterionBean";
   private EventCriterion eventCriterionVO;

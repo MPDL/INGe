@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;

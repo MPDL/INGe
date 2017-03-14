@@ -7,7 +7,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,6 @@ import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -36,7 +34,6 @@ import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;

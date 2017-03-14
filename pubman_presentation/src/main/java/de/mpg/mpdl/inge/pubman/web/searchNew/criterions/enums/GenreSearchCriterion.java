@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 
 
+@SuppressWarnings("serial")
 public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
 
 

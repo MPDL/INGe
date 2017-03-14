@@ -29,6 +29,7 @@ import java.util.Calendar;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public class DateSearchCriterion extends SearchCriterionBase {
 
   private String from;

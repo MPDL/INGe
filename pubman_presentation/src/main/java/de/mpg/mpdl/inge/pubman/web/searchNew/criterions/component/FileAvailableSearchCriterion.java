@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component;
 
+@SuppressWarnings("serial")
 public class FileAvailableSearchCriterion extends ComponentAvailableSearchCriterion {
 
   @Override

@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class OrganizationCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "OrganizationCriterionBean";
 

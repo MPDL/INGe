@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.GenreCriterion;
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class GenreCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "GenreCriterionBean";
 

@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCriterionBase {
 
   private T selectedEnum;

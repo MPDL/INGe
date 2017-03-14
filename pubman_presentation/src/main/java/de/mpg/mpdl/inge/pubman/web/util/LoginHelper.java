@@ -113,7 +113,7 @@ public class LoginHelper extends FacesBean {
         this.authenticationToken = token;
         this.loggedIn = true;
         this.wasLoggedIn = true;
-        this.setDetailedMode(true);
+        this.detailedMode = true;
       }
     }
 
@@ -149,8 +149,7 @@ public class LoginHelper extends FacesBean {
       SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
       TechnicalException, URISyntaxException {
 
-    JsonNode rawUser = null;
-    rawUser = this.obtainUser();
+    JsonNode rawUser = this.obtainUser();
     AccountUserRO userRO = new AccountUserRO();
     userRO.setObjectId("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
     userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
@@ -243,7 +242,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getAuthenticationToken() {
-    return authenticationToken;
+    return this.authenticationToken;
   }
 
   public void setAuthenticationToken(String authenticationToken) {
@@ -251,7 +250,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public AccountUserVO getAccountUser() {
-    return accountUser;
+    return this.accountUser;
   }
 
   public void setAccountUser(AccountUserVO accountUser) {
@@ -259,7 +258,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getBtnLoginLogout() {
-    return btnLoginLogout;
+    return this.btnLoginLogout;
   }
 
   public void setBtnLoginLogout(String btnLoginLogout) {
@@ -267,7 +266,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public boolean isWasLoggedIn() {
-    return wasLoggedIn;
+    return this.wasLoggedIn;
   }
 
   public void setWasLoggedIn(boolean wasLoggedIn) {
@@ -275,11 +274,11 @@ public class LoginHelper extends FacesBean {
   }
 
   public boolean isLoggedIn() {
-    return loggedIn;
+    return this.loggedIn;
   }
 
   public boolean getLoggedIn() {
-    return loggedIn;
+    return this.loggedIn;
   }
 
   public void setLoggedIn(boolean loggedIn) {
@@ -291,11 +290,11 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getLoginLogoutLabel() {
-    return getLabel(btnLoginLogout);
+    return getLabel(this.btnLoginLogout);
   }
 
   public String getDisplayUserName() {
-    return displayUserName;
+    return this.displayUserName;
   }
 
   public void setDisplayUserName(String displayUserName) {
@@ -303,7 +302,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getUsername() {
-    return username;
+    return this.username;
   }
 
   public void setUsername(String username) {
@@ -354,22 +353,22 @@ public class LoginHelper extends FacesBean {
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
-      organizationServiceHandler = new OrganizationServiceHandler();
-      userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
+      this.organizationServiceHandler = new OrganizationServiceHandler();
+      this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (UserAttributeVO ua : getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          AffiliationVO orgUnit = organizationServiceHandler.readOrganization(ua.getValue());
-          userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
+          AffiliationVO orgUnit = this.organizationServiceHandler.readOrganization(ua.getValue());
+          this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }
     }
-    return userAccountAffiliations;
+    return this.userAccountAffiliations;
 
   }
 
   // only active UserGroups!
   public List<UserGroupVO> getAccountUsersUserGroups() {
-    if (userAccountUserGroups == null && getAccountUser() != null
+    if (this.userAccountUserGroups == null && getAccountUser() != null
         && getAccountUser().getReference() != null) {
       HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
       filterParams.put("operation", new String[] {"searchRetrieve"});
@@ -387,7 +386,7 @@ public class LoginHelper extends FacesBean {
        * userAccountUserGroups = ugl.getUserGroupLists();
        */
     }
-    return userAccountUserGroups;
+    return this.userAccountUserGroups;
   }
 
   public boolean getIsYearbookEditor() {
@@ -414,7 +413,7 @@ public class LoginHelper extends FacesBean {
    * @return the userGrants (with inherited grants)
    */
   public List<GrantVO> getUserGrants() {
-    return this.getAccountUser().getGrants();
+    return this.accountUser.getGrants();
   }
 
   /**

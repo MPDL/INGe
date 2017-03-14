@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperato
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
 
+@SuppressWarnings("serial")
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 

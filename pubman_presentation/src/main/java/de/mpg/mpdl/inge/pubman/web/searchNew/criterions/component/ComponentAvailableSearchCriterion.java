@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public abstract class ComponentAvailableSearchCriterion extends SearchCriterionBase {
 
   private ComponentAvailability selectedAvailability = ComponentAvailability.WHATEVER;

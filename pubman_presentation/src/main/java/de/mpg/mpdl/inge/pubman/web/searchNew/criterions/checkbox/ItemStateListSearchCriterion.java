@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperato
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.FlexibleStandardSearchCriterion;
 
+@SuppressWarnings("serial")
 public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {
 
   public ItemStateListSearchCriterion() {

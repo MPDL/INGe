@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.util;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
+@SuppressWarnings("serial")
 public class RelationVOPresentation extends RelationVO {
 
   private PubItemVO sourceItem;

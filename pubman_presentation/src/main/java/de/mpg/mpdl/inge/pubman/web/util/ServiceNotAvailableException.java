@@ -32,6 +32,7 @@ package de.mpg.mpdl.inge.pubman.web.util;
  * @author: Tobias Schraut, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
+@SuppressWarnings("serial")
 public class ServiceNotAvailableException extends RuntimeException {
   /**
    * The name of the service which could not be retrieved.

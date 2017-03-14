@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 
 
+@SuppressWarnings("serial")
 public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
 
 

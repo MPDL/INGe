@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   private boolean withEmbargoDate = false;

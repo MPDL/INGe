@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchCriterionBase {
 
 

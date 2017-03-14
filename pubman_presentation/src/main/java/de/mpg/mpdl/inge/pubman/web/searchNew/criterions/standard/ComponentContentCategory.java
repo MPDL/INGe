@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+@SuppressWarnings("serial")
 public class ComponentContentCategory extends StandardSearchCriterion {
 
   @Override

@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.SourceCriterion;
  * 
  * @author Mario Wagner
  */
+@SuppressWarnings("serial")
 public class SourceCriterionBean extends CriterionBean {
   public static final String BEAN_NAME = "SourceCriterionBean";
 

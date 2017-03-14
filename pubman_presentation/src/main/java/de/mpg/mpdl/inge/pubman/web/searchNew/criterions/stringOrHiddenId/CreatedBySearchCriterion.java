@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
+@SuppressWarnings("serial")
 public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   public CreatedBySearchCriterion() {

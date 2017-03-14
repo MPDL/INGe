@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   private boolean invited = false;

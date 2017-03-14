@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
+@SuppressWarnings("serial")
 public class LogicalOperator extends SearchCriterionBase {
 
 

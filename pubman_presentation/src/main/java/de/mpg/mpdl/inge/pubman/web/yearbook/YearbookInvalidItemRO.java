@@ -5,6 +5,7 @@ import java.util.Date;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
+@SuppressWarnings("serial")
 public class YearbookInvalidItemRO extends ItemRO implements Comparable<ItemRO> {
 
   private ValidationReportVO validationReport;

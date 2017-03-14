@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 
+@SuppressWarnings("serial")
 public class AffiliatedContextListSearchCriterion extends
     MapListSearchCriterion<PubContextVOPresentation> {
 
