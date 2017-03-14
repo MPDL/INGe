@@ -27,6 +27,8 @@
 package de.mpg.mpdl.inge.transformation.util;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
@@ -41,6 +43,14 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 public class Format implements Serializable {
 
   private static final long serialVersionUID = 1L;
+  
+  private static Map<Format, FORMAT> map;
+  static
+  {
+    map = new HashMap<Format, FORMAT>();
+    map.put(new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"), FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+    map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"), FORMAT.ESCIDOC_ITEMLIST_V2_XML);
+  }
 
   private String name;
   private String type;
@@ -129,18 +139,7 @@ public class Format implements Serializable {
    */
   public FORMAT toFORMAT() {
 
-    for (FORMAT f : FORMAT.values()) {
-
-      if (this.name.startsWith(f.toString().toLowerCase().substring(0, 3))) {
-        if (this.type.endsWith("xml") && f.toString().endsWith("XML"))
-          return f;
-
-        if (this.type.endsWith("pdf") && f.toString().endsWith("STRING"))
-          return f;
-      }
-    }
-
-    return FORMAT.ESCIDOC_ITEM_V3_XML;
+    return map.get(this);
   }
 
 
@@ -161,6 +160,11 @@ public class Format implements Serializable {
           && (this.encoding == null ? ((Format) other).encoding == null : this.encoding
               .equalsIgnoreCase(((Format) other).encoding));
     }
+  }
+  
+  @Override
+  public int hashCode() {
+    return this.name.hashCode() * this.type.hashCode() * this.encoding.hashCode();
   }
 
   /**
