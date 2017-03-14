@@ -48,6 +48,7 @@ public class PublishingException extends PubManException {
    * @param pubItemRef The reference of the pubitem.
    */
   public PublishingException(ItemRO pubItemRef) {
+    super();
     this.pubItemRef = pubItemRef;
   }
 

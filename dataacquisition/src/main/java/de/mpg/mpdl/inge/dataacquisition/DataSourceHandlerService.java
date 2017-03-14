@@ -18,7 +18,6 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsTyp
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -33,7 +32,6 @@ public class DataSourceHandlerService {
 
   private ImportSourcesDocument sourceDoc = null;
   private ImportSourcesType sourceType = null;
-  private ThirdPartyTransformation thirdPartyTransformer = null;
   private String transformationFormat = null;
   private String sourceXmlPath = null;
 
@@ -62,7 +60,7 @@ public class DataSourceHandlerService {
       String xml = ResourceUtil.getStreamAsString(in);
 
       this.sourceDoc = ImportSourcesDocument.Factory.parse(xml);
-      this.thirdPartyTransformer = new ThirdPartyTransformation();
+
       this.sourceType = this.sourceDoc.getImportSources();
       ImportSourceType[] sources = this.sourceType.getImportSourceArray();
       for (int i = 0; i < sources.length; i++) {
@@ -143,10 +141,11 @@ public class DataSourceHandlerService {
             for (int x = 0; x < sourceVO.getMdFormats().size(); x++) {
               MetadataVO md = sourceVO.getMdFormats().get(x);
               if (md.isMdDefault()) {
-                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(),
-                    this.transformationFormat)
-                    || (this.transformationFormat.equalsIgnoreCase(md.getName()))) {
-                  sourceVec.add(sourceVO);
+                if (md.isMdDefault()) {
+                  if (Util.checkXsltTransformation(md.getName(), this.transformationFormat)
+                      || (this.transformationFormat.equalsIgnoreCase(md.getName()))) {
+                    sourceVec.add(sourceVO);
+                  }
                 }
               }
             }

@@ -138,7 +138,7 @@ public class CitationTransformation {
 
     t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
         new TransformerStreamResult(wr));
-    
+
     return wr.toString().getBytes();
   }
 

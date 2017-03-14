@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -45,8 +46,6 @@ import java.util.zip.ZipOutputStream;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -67,8 +66,12 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -120,17 +123,16 @@ public class DataHandlerService {
   public byte[] doFetch(String sourceName, String identifier, String trgFormatName,
       String trgFormatType, String trgFormatEncoding) throws DataaquisitionException {
     byte[] fetchedData = null;
-    this.setFileEnding(this.util.retrieveFileEndingFromCone(trgFormatType));
 
     try {
       if (sourceName.equalsIgnoreCase("escidoc")) {
         // necessary for escidoc sources
-        sourceName = this.util.trimSourceName(sourceName, identifier);
-        identifier = this.util.setEsciDocIdentifier(identifier);
+        sourceName = Util.trimSourceName(sourceName, identifier);
+        identifier = Util.setEsciDocIdentifier(identifier);
         this.currentSource = this.sourceHandler.getSourceByName(sourceName);
       } else {
         this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-        identifier = this.util.trimIdentifier(this.currentSource, identifier);
+        identifier = Util.trimIdentifier(this.currentSource, identifier);
       }
 
       String fetchType = this.getFetchingType(trgFormatName, trgFormatType, trgFormatEncoding);
@@ -148,13 +150,23 @@ public class DataHandlerService {
         fetchedData = this.fetchData(identifier, new Format[] {format});
       }
       if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
+
+        Format sourceFormat = new Format("eSciDoc-publication-item", "application/xml", enc);
+        Format targetFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+
         fetchedData =
             this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", enc)
                 .getBytes(enc);
-        TransformationService transformer = new TransformationService();
-        fetchedData =
-            transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", enc,
-                trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
+        Transformer t =
+            TransformerFactory.newInstance(sourceFormat.toFORMAT(), targetFormat.toFORMAT());
+        StringWriter wr = new StringWriter();
+
+        /*
+         * fetchedData = t.transform(fetchedData, "eSciDoc-publication-item", "application/xml",
+         * this.enc, trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
+         */
+        t.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedData)),
+            new TransformerStreamResult(wr));
         this.setContentType(trgFormatType);
       }
       if (fetchType.equals(fetchTypeUNKNOWN)) {
@@ -164,15 +176,17 @@ public class DataHandlerService {
       throw new DataaquisitionException(e);
     }
     return fetchedData;
+
   }
 
-  // /**
-  // * {@inheritDoc}
-  // */
+  /**
+   * {@inheritDoc}
+   */
+  //
   // public byte[] doFetch(String sourceName, String identifier, Format[] formats)
   // throws DataaquisitionException {
   // this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-  // identifier = this.util.trimIdentifier(this.currentSource, identifier);
+  // identifier = Util.trimIdentifier(this.currentSource, identifier);
   // return this.fetchData(identifier, formats);
   // }
 
@@ -183,18 +197,18 @@ public class DataHandlerService {
       throws DataaquisitionException {
     if (sourceName.equalsIgnoreCase("escidoc")) {
       // necessary for escidoc sources
-      sourceName = this.util.trimSourceName(sourceName, identifier);
-      identifier = this.util.setEsciDocIdentifier(identifier);
+      sourceName = Util.trimSourceName(sourceName, identifier);
+      identifier = Util.setEsciDocIdentifier(identifier);
     }
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-    identifier = this.util.trimIdentifier(this.currentSource, identifier);
+    identifier = Util.trimIdentifier(this.currentSource, identifier);
     Format[] formatsF = new Format[formats.length];
     Format format;
 
     for (int i = 0; i < formats.length; i++) {
       format =
-          new Format(formats[i], this.util.getDefaultMimeType(formats[i]),
-              this.util.getDefaultEncoding(formats[i]));
+          new Format(formats[i], Util.getDefaultMimeType(formats[i]),
+              Util.getDefaultEncoding(formats[i]));
       formatsF[i] = format;
     }
 
@@ -216,15 +230,15 @@ public class DataHandlerService {
       type = typeArr[1];
       enc = "*";
     } else {
-      type = this.util.getDefaultMimeType(formatName);
-      enc = this.util.getDefaultEncoding(formatName);
+      type = Util.getDefaultMimeType(formatName);
+      enc = Util.getDefaultEncoding(formatName);
     }
     return this.doFetch(sourceName, identifier, formatName, type, enc);
   }
 
-  // /**
-  // * {@inheritDoc}
-  // */
+  /**
+   * {@inheritDoc}
+   */
   // public String explainSources() throws DataaquisitionException {
   // String explainXML = "";
   // try {
@@ -237,7 +251,7 @@ public class DataHandlerService {
   // while ((line = br.readLine()) != null) {
   // explainXML += line + "\n";
   // }
-  //
+
   // } catch (IOException e) {
   // logger.error("An error occurred while accessing sources.xml.", e);
   // throw new DataaquisitionException("An error occurred while accessing sources.xml.", e);
@@ -245,14 +259,6 @@ public class DataHandlerService {
   // return explainXML;
   // }
 
-  /**
-   * Operation for fetching data of type TEXTUALDATA.
-   * 
-   * @param identifier
-   * @param format
-   * @return itemXML
-   * @throws DataaquisitionException
-   */
   private String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
       String trgFormatEncoding) throws DataaquisitionException {
     String fetchedItem = null;
@@ -272,22 +278,22 @@ public class DataHandlerService {
           java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
       md.setMdUrl(new URL(decoded));
       md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(regex, identifier.trim())));
-      this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
+      this.currentSource = this.sourceHandler.updateMdEntry(currentSource, md);
 
       // Select harvesting method
-      if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("oai-pmh")) {
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("oai-pmh")) {
         logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
         item = fetchOAIRecord(md);
         // Check the record for error codes
         protocolHandler.checkOAIRecord(item);
         supportedProtocol = true;
       }
-      if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
         logger.debug("Fetch record via EJB.");
         item = this.fetchEjbRecord(md, identifier);
         supportedProtocol = true;
       }
-      if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
         logger.debug("Fetch record via http.");
         item = this.fetchHttpRecord(md);
         supportedProtocol = true;
@@ -302,17 +308,21 @@ public class DataHandlerService {
 
       // Transform the itemXML if necessary
       if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase())) {
-        TransformationService transformer = new TransformationService();
 
         // Transform item metadata
-        Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
+        Format srcFormat = new Format(md.getName(), md.getMdFormat(), enc);
         Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
-        item =
-            new String(transformer.transform(item.getBytes(enc), srcFormat, trgFormat, "escidoc"),
-                enc);
-        if (this.currentSource.getItemUrl() != null) {
-          this.setItemUrl(new URL(this.currentSource.getItemUrl().toString()
+        Transformer transformer =
+            TransformerFactory.newInstance(srcFormat.toFORMAT(), trgFormat.toFORMAT());
+        StringWriter wr = new StringWriter();
+
+        transformer.transform(
+            new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(enc))),
+            new TransformerStreamResult(wr));
+
+        if (currentSource.getItemUrl() != null) {
+          this.setItemUrl(new URL(currentSource.getItemUrl().toString()
               .replace("GETID", identifier)));
         }
 
@@ -320,10 +330,15 @@ public class DataHandlerService {
           // Create component if supported
           String name = trgFormatName.replace("item", "component");
           Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
-          if (transformer.checkTransformation(srcFormat, trgFormatComponent)) {
-            byte[] componentBytes =
-                transformer.transform(fetchedItem.getBytes(enc), srcFormat, trgFormatComponent,
-                    "escidoc");
+
+          Transformer componentTransformer =
+              TransformerFactory.newInstance(srcFormat.toFORMAT(), trgFormatComponent.toFORMAT());
+          if (componentTransformer != null) {
+            wr = new StringWriter();
+
+            componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
+                fetchedItem.getBytes(enc))), new TransformerStreamResult(wr));
+            byte[] componentBytes = wr.toString().getBytes(enc);
 
             if (componentBytes != null) {
               String componentXml = new String(componentBytes, enc);
@@ -551,10 +566,14 @@ public class DataHandlerService {
         && fulltext.getFtFormat().equalsIgnoreCase("text/html")) {
       Format from = new Format("bmc_fulltext_xml", "application/xml", "*");
       Format to = new Format("bmc_fulltext_html", "text/html", "*");
-      TransformationService transformer = new TransformationService();
 
       try {
-        input = transformer.transform(input, from, to, "escidoc");
+        Transformer transformer = TransformerFactory.newInstance(from.toFORMAT(), to.toFORMAT());
+        StringWriter wr = new StringWriter();
+
+        transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
+            new TransformerStreamResult(wr));
+
       } catch (Exception e) {
         logger.error("Could not transform BMC fulltext", e);
       }
@@ -563,10 +582,15 @@ public class DataHandlerService {
       // pmc pdf is generated from oai-pmh-xml
       Format from = new Format("pmc_fulltext_xml", "application/xml", "*");
       Format to = new Format("pmc_fulltext_xslfo", "text/xsl", "*");
-      TransformationService transformer = new TransformationService();
+
       byte[] xslFo = null;
       try {
-        xslFo = transformer.transform(input, from, to, "escidoc");
+        StringWriter wr = new StringWriter();
+        Transformer transformer = TransformerFactory.newInstance(from.toFORMAT(), to.toFORMAT());
+
+        transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
+            new TransformerStreamResult(wr));
+        xslFo = wr.toString().getBytes();
 
       } catch (Exception e) {
         logger.error("Could not transform PMC fulltext", e);
@@ -615,10 +639,11 @@ public class DataHandlerService {
         // new org.apache.fop.events.DefaultEventBroadcaster()));
 
         // Step 4: Setup JAXP using identity transformer
-        TransformerFactory factory =
-            TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
-        Transformer xmlTransformer = factory.newTransformer(); // identity
-        // transformer
+        javax.xml.transform.TransformerFactory factory =
+            javax.xml.transform.TransformerFactory.newInstance(
+                "net.sf.saxon.TransformerFactoryImpl", null);
+        javax.xml.transform.Transformer xmlTransformer = factory.newTransformer(); // identity
+                                                                                   // transformer
 
         // Step 5: Setup input and output for XSLT transformation
         Source src = new StreamSource((InputStream) (new ByteArrayInputStream(xslFo)));
@@ -905,7 +930,7 @@ public class DataHandlerService {
     URLConnection contentUrl;
     byte[] input = null;
 
-    String sourceName = this.util.trimSourceName("escidoc", identifier);
+    String sourceName = Util.trimSourceName("escidoc", identifier);
     DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
 
     if (sourceName.equalsIgnoreCase("escidoc")) {
@@ -981,9 +1006,9 @@ public class DataHandlerService {
       return fetchTypeESCIDOCTRANS;
     }
     // Transformable formats
-    TransformationService transformer = new TransformationService();
-    Format[] trgFormats =
-        transformer.getTargetFormats(new Format(trgFormatName, trgFormatType, trgFormatEncoding));
+    FORMAT[] trgFormats =
+        TransformerFactory.getAllTargetFormatsFor((new Format(trgFormatName, trgFormatType,
+            trgFormatEncoding)).toFORMAT());
     if (trgFormats.length > 0) {
       return fetchTypeTEXTUALDATA;
     }

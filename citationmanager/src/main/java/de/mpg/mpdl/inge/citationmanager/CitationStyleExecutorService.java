@@ -25,6 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -50,8 +51,11 @@ import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformationService;
-import de.mpg.mpdl.inge.transformation.valueObjects.Format;
+
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -121,15 +125,18 @@ public class CitationStyleExecutorService {
         Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
         Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
-        TransformationService trans = CitationUtil.getTransformationService();
+        de.mpg.mpdl.inge.transformation.Transformer trans =
+            TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
+        StringWriter wr = new StringWriter();
 
-        byte[] v1 = null;
         try {
-          v1 = trans.transform(snippet.getBytes("UTF-8"), in, out, "escidoc");
+          trans.transform(
+              new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
+              new TransformerStreamResult(wr));
         } catch (Exception e) {
           throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
         }
-        result = v1;
+        result = wr.toString().getBytes("UTF-8");
       } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {
         result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
       } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
