@@ -55,8 +55,6 @@ import org.apache.log4j.Logger;
 public class ResourceUtil {
   private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 
-  private ResourceUtil() {}
-
   /**
    * Gets a resource as InputStream.
    * 
@@ -93,6 +91,7 @@ public class ResourceUtil {
         throw new FileNotFoundException("File '" + fileName + "' not found.");
       }
     }
+
     return file;
   }
 
@@ -134,10 +133,12 @@ public class ResourceUtil {
     BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
     String line = null;
     StringBuilder result = new StringBuilder();
+
     while ((line = br.readLine()) != null) {
       result.append(line);
       result.append("\n");
     }
+
     return result.toString();
   }
 
@@ -149,15 +150,16 @@ public class ResourceUtil {
    * @throws IOException Thrown if the resource cannot be located.
    */
   public static String getStreamAsString(final InputStream stream) throws IOException {
-
     BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     String line = null;
     StringBuilder result = new StringBuilder();
+
     while ((line = br.readLine()) != null) {
       result.append(line);
       result.append("\n");
     }
     stream.close();
+
     return result.toString();
   }
 
@@ -179,6 +181,7 @@ public class ResourceUtil {
     while ((read = fileIn.read(buffer)) != -1) {
       result.write(buffer, 0, read);
     }
+
     return result.toByteArray();
   }
 
@@ -195,24 +198,27 @@ public class ResourceUtil {
 
     if (dirFile == null) {
       return null;
-    } else if (!dirFile.isDirectory()) {
-      throw new IOException("The given path is not a directory.");
-    } else {
-      ArrayList<File> fileArray = new ArrayList<File>();
-      String[] fileNames = dirFile.list();
-
-      for (int i = 0; i < fileNames.length; i++) {
-        File file = new File(dirFile.getAbsolutePath() + "/" + fileNames[i]);
-
-        if (file.isFile()) {
-          fileArray.add(file);
-        } else {
-          fileArray.addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath(),
-              classLoader)));
-        }
-      }
-      return fileArray.toArray(new File[] {});
     }
+
+    if (!dirFile.isDirectory()) {
+      throw new IOException("The given path is not a directory.");
+    }
+
+    ArrayList<File> fileArray = new ArrayList<File>();
+    String[] fileNames = dirFile.list();
+
+    for (int i = 0; i < fileNames.length; i++) {
+      File file = new File(dirFile.getAbsolutePath() + "/" + fileNames[i]);
+
+      if (file.isFile()) {
+        fileArray.add(file);
+      } else {
+        fileArray
+            .addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath(), classLoader)));
+      }
+    }
+
+    return fileArray.toArray(new File[] {});
   }
 
   /**
@@ -243,5 +249,4 @@ public class ResourceUtil {
     System.out
         .println(resolveFileName("transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
   }
-
 }

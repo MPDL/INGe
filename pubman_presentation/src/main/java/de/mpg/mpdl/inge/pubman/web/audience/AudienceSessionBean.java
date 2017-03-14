@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 @SuppressWarnings("serial")
 public class AudienceSessionBean extends FacesBean {
   public static final String BEAN_NAME = "AudienceSessionBean";
+
   // the original file list with the original grants retrieved from core-service and which will be
   // applied if user clicks on cancel
   private List<PubFileVOPresentation> fileListOld = new ArrayList<PubFileVOPresentation>();
@@ -102,7 +103,4 @@ public class AudienceSessionBean extends FacesBean {
   public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {
     this.grantsForAllFiles = grantsForAllFiles;
   }
-
-
-
 }

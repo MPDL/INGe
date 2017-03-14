@@ -54,12 +54,11 @@ import org.apache.commons.httpclient.HttpMethod;
  * 
  */
 public class ProxyHelper {
-  static String proxyHost = null;
-  static String proxyPort = null;
-  static String nonProxyHosts = null;
-  static Pattern nonProxyPattern = null;
-
-  static boolean flag = false;
+  private static String proxyHost = null;
+  private static String proxyPort = null;
+  private static String nonProxyHosts = null;
+  private static Pattern nonProxyPattern = null;
+  private static boolean flag = false;
 
   /**
    * check if proxy has to get used for given url. If yes, set ProxyHost in httpClient
@@ -69,13 +68,10 @@ public class ProxyHelper {
    * @throws Exception
    */
   public static void setProxy(final HttpClient httpClient, final String url) {
-
     getProxyProperties();
 
     if (proxyHost != null) {
-
       HostConfiguration hc = httpClient.getHostConfiguration();
-
       if (findUrlInNonProxyHosts(url)) {
         hc.setProxyHost(null);
       } else {
@@ -117,6 +113,7 @@ public class ProxyHelper {
   public static int executeMethod(HttpClient client, HttpMethod method) throws HttpException,
       IOException {
     setProxy(client, method.getURI().toString());
+
     return client.executeMethod(method);
   }
 
@@ -130,18 +127,17 @@ public class ProxyHelper {
    * @return URLConnection
    */
   public static URLConnection openConnection(final URL url) throws IOException {
-
     return url.openConnection(getProxy(url.toString()));
   }
-
-
 
   /**
    * Read proxy properties, set nonProxyPattern
    */
   private static void getProxyProperties() {
-    if (flag)
+    if (flag) {
       return;
+    }
+
     try {
       proxyHost = PropertyReader.getProperty("http.proxyHost");
       proxyPort = PropertyReader.getProperty("http.proxyPort");
@@ -170,12 +166,9 @@ public class ProxyHelper {
 
     if (nonProxyPattern != null) {
       Matcher nonProxyMatcher = nonProxyPattern.matcher(url);
-
       return nonProxyMatcher.find();
-    } else {
-      return false;
     }
 
+    return false;
   }
-
 }

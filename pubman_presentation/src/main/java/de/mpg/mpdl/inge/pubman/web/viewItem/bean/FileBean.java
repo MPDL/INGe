@@ -36,9 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -223,17 +221,14 @@ public class FileBean extends FacesBean {
       System.out.println("MIME: " + contentType);
 
       // application/x-download
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      HttpServletResponse response =
-          (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setHeader("Content-disposition",
+      getResponse().setHeader("Content-disposition",
           "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
       if (this.file.getDefaultMetadata() != null) {
-        response.setContentLength(this.file.getDefaultMetadata().getSize());
+        getResponse().setContentLength(this.file.getDefaultMetadata().getSize());
       }
 
-      response.setContentType(contentType);
-      System.out.println("MIME: " + response.getContentType());
+      getResponse().setContentType(contentType);
+      System.out.println("MIME: " + getResponse().getContentType());
 
       byte[] buffer = null;
       if (this.file.getDefaultMetadata() != null) {
@@ -249,7 +244,7 @@ public class FileBean extends FacesBean {
           HttpClient client = new HttpClient();
           ProxyHelper.setProxy(client, fileLocation); // ????
           client.executeMethod(method);
-          OutputStream out = response.getOutputStream();
+          OutputStream out = getResponse().getOutputStream();
           InputStream input = method.getResponseBodyAsStream();
           try {
             if (this.file.getDefaultMetadata() != null) {
@@ -261,7 +256,7 @@ public class FileBean extends FacesBean {
                 out.flush();
                 // numWritten += numRead;
               }
-              facesContext.responseComplete();
+              getFacesContext().responseComplete();
             }
           } catch (IOException e1) {
             logger.debug("Download IO Error: " + e1.toString());
@@ -488,11 +483,8 @@ public class FileBean extends FacesBean {
    */
   public String displayChecksum() {
     if (file.getChecksum() != null && file.getChecksumAlgorithm() != null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      HttpServletResponse response =
-          (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setContentLength(file.getChecksum().length());
-      response.setContentType("text/plain");
+      getResponse().setContentLength(file.getChecksum().length());
+      getResponse().setContentType("text/plain");
       try {
         String filename = this.file.getName();
         if (filename != null) {
@@ -501,15 +493,16 @@ public class FileBean extends FacesBean {
           filename = "";
         }
 
-        response.setHeader("Content-disposition",
+        getResponse().setHeader(
+            "Content-disposition",
             "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "."
                 + getChecksumAlgorithmAsString().toLowerCase());
 
-        OutputStream out = response.getOutputStream();
+        OutputStream out = getResponse().getOutputStream();
         out.write(file.getChecksum().getBytes("UTF-8"));
         out.flush();
 
-        facesContext.responseComplete();
+        getFacesContext().responseComplete();
         out.close();
       } catch (Exception e) {
         error("Could not display checksum of file!");

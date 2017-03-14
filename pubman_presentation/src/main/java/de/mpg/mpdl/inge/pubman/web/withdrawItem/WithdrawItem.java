@@ -28,9 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -56,15 +53,10 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 public class WithdrawItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(WithdrawItem.class);
 
-  // Faces navigation string
   public static final String LOAD_WITHDRAWITEM = "loadWithdrawItem";
 
   private String withdrawalComment;
-
-  // private String valMessage;
   private String creators;
-
-  // private String navigationStringToGoBack;
 
   public WithdrawItem() {
     this.init();
@@ -75,15 +67,12 @@ public class WithdrawItem extends FacesBean {
    * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
    */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
-
-    // Fill creators property.
     StringBuffer creators = new StringBuffer();
     for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
+
       if (creator.getType() == CreatorVO.CreatorType.PERSON) {
         creators.append(creator.getPerson().getFamilyName());
         if (creator.getPerson().getGivenName() != null) {
@@ -96,16 +85,8 @@ public class WithdrawItem extends FacesBean {
         creators.append(name);
       }
     }
-    this.creators = creators.toString();
 
-    if (logger.isDebugEnabled()) {
-      if (this.getPubItem() != null && this.getPubItem().getVersion() != null) {
-        logger.debug("Item that is being withdrawn: "
-            + this.getPubItem().getVersion().getObjectId());
-      } else {
-        logger.error("NO ITEM GIVEN");
-      }
-    }
+    this.creators = creators.toString();
   }
 
   /**
@@ -115,7 +96,7 @@ public class WithdrawItem extends FacesBean {
    * @return the item that is currently edited
    */
   public PubItemVO getPubItem() {
-    return (this.getItemControllerSessionBean().getCurrentPubItem());
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
   /**
@@ -126,10 +107,8 @@ public class WithdrawItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String withdraw() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String retVal;
-    String navigateTo = getSessionBean().getNavigationStringToGoBack();
+    String navigateTo = getWithDrawItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
@@ -145,8 +124,8 @@ public class WithdrawItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        fc.getExternalContext().redirect(
-            request.getContextPath()
+        getExternalContext().redirect(
+            getRequest().getContextPath()
                 + "/faces/viewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
@@ -159,11 +138,7 @@ public class WithdrawItem extends FacesBean {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -174,34 +149,15 @@ public class WithdrawItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String cancel() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
-      fc.getExternalContext().redirect(
-          request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      getExternalContext().redirect(
+          getRequest().getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
+
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
-  }
-
-  /**
-   * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-   * 
-   * @return a reference to the scoped data bean
-   */
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  /**
-   * Returns the WithdrawItemSessionBean.
-   * 
-   * @return a reference to the scoped data bean (WithdrawItemSessionBean)
-   */
-  private WithdrawItemSessionBean getSessionBean() {
-    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
   }
 
   public String getWithdrawalComment() {
@@ -212,22 +168,6 @@ public class WithdrawItem extends FacesBean {
     this.withdrawalComment = withdrawalComment;
   }
 
-  // public String getValMessage() {
-  // return valMessage;
-  // }
-  //
-  // public void setValMessage(String valMessage) {
-  // this.valMessage = valMessage;
-  // }
-
-  // public final String getNavigationStringToGoBack() {
-  // return this.navigationStringToGoBack;
-  // }
-  //
-  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-  // this.navigationStringToGoBack = navigationStringToGoBack;
-  // }
-
   public String getCreators() {
     return this.creators;
   }
@@ -236,4 +176,15 @@ public class WithdrawItem extends FacesBean {
     this.creators = creators;
   }
 
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private WithdrawItemSessionBean getWithDrawItemSessionBean() {
+    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
+  }
+
+  private PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  }
 }

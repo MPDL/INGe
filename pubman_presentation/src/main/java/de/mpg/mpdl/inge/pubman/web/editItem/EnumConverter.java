@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
 public class EnumConverter implements Converter {
-  private static Logger logger = Logger.getLogger(EnumConverter.class);
+  private static final Logger logger = Logger.getLogger(EnumConverter.class);
 
   private Object[] valueList = null;
 

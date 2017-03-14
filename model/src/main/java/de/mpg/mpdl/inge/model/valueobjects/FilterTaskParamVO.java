@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 28.08.2007
  */
+@SuppressWarnings("serial")
 public class FilterTaskParamVO extends ValueObject {
   private static final String RIGHT_PARANTHESIS = " ) ";
   private static final String LEFT_PARANTHESIS = " ( ";
@@ -302,12 +303,12 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * The interface the various specialized filters are implementing.
    */
-  public interface Filter extends Serializable, Comparable {
+  public interface Filter extends Serializable, Comparable<Object> {
   }
 
 
 
-  public abstract class AbstractFilter implements Comparable {
+  public abstract class AbstractFilter implements Comparable<Object> {
     public int compareTo(Object o) {
       return o.getClass().getName().compareTo(this.getClass().getName());
     }

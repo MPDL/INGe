@@ -1208,8 +1208,6 @@ public class ImportLog {
    * @return An XML representation of this import. Used to store it in the repository.
    */
   public void toXML(Writer writer) throws Exception {
-    // StringWriter writer = new StringWriter();
-
     writer.write("<import-task ");
     writer.write("status=\"");
     writer.write(this.status.toString());
@@ -1262,20 +1260,6 @@ public class ImportLog {
       return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
     }
   }
-
-  // /**
-  // * Reads a localized message from the message resource bundle.
-  // *
-  // * @return A string holding the localized message
-  // */
-  // public String getLocalizedMessage() {
-  // try {
-  // return this.messageBundle.getString(getMessage());
-  // } catch (MissingResourceException mre) {
-  // // No message entry for this message, it's probably raw data.
-  // return getMessage();
-  // }
-  // }
 
   /**
    * JSF action to remove an import from the database.

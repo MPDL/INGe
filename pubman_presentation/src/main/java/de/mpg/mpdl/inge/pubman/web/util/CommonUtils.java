@@ -100,7 +100,7 @@ public class CommonUtils {
    * @param set the Set to be converted
    * @return an Array of SelectItems
    */
-  public static SelectItem[] convertToOptions(Set set) {
+  public static SelectItem[] convertToOptions(Set<?> set) {
     return convertToOptions(set, true);
   }
 
@@ -112,14 +112,14 @@ public class CommonUtils {
    * @param includeEmptyOption if TRUE an empty SelectItem is added at the beginning of the list
    * @return an Array of SelectItems
    */
-  public static SelectItem[] convertToOptions(Set set, boolean includeEmptyOption) {
+  public static SelectItem[] convertToOptions(Set<?> set, boolean includeEmptyOption) {
     List<SelectItem> options = new ArrayList<SelectItem>();
 
     if (includeEmptyOption) {
       options.add(new SelectItem("", NO_ITEM_SET));
     }
 
-    Iterator iter = set.iterator();
+    Iterator<?> iter = set.iterator();
     while (iter.hasNext()) {
       options.add(new SelectItem(iter.next()));
     }

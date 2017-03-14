@@ -34,10 +34,8 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -96,7 +94,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
@@ -170,14 +167,14 @@ public class EditItem extends FacesBean {
 
     if (getItem().getVersion() != null && getItem().getVersion().getObjectId() != null
         && getLoginHelper().getIsYearbookEditor()) {
-      YearbookItemSessionBean yisb =
-          (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-      if (yisb.getYearbookItem() != null
-          && yisb.getInvalidItemMap().get(getItem().getVersion().getObjectId()) != null) {
+      if (this.getYearbookItemSessionBean().getYearbookItem() != null
+          && this.getYearbookItemSessionBean().getInvalidItemMap()
+              .get(getItem().getVersion().getObjectId()) != null) {
         try {
-          yisb.validateItem(getItem());
+          this.getYearbookItemSessionBean().validateItem(getItem());
           YearbookInvalidItemRO invItem =
-              yisb.getInvalidItemMap().get(getItem().getVersion().getObjectId());
+              this.getYearbookItemSessionBean().getInvalidItemMap()
+                  .get(getItem().getVersion().getObjectId());
 
           if (invItem != null) {
             (this.getPubItem()).setValidationReport(invItem.getValidationReport());
@@ -432,14 +429,6 @@ public class EditItem extends FacesBean {
     }
   }
 
-  private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
-  }
-
   /**
    * Uploads a file to the staging servlet and returns the corresponding URL.
    * 
@@ -515,14 +504,14 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    // // cleanup item according to genre specific MD specification
+    // GenreSpecificItemManager itemManager =
+    // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    // try {
+    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    // } catch (Exception e) {
+    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    // }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(getPubItem()),
@@ -555,15 +544,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    // // cleanup item according to genre specific MD specification
+    // GenreSpecificItemManager itemManager =
+    // new GenreSpecificItemManager(this.getPubItem(),
+    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    // try {
+    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    // } catch (Exception e) {
+    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    // }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -589,25 +578,25 @@ public class EditItem extends FacesBean {
       this.getEditItemSessionBean().setCurrentSubmission("");
       try {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext extContext = fc.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
         if (isFromEasySubmission()) {
-          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()
-              + "&fromEasySub=true");
+          getExternalContext().redirect(
+              getRequest().getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId() + "&fromEasySub=true");
         } else {
-          extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+          getExternalContext().redirect(
+              getRequest().getContextPath()
+                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                      .getObjectId());
         }
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    pubItemListSessionBean.update();
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -621,7 +610,7 @@ public class EditItem extends FacesBean {
       return false;
     }
 
-    for (SourceBean sourceBean : getEditItemSessionBean().getSources()) {
+    for (SourceBean sourceBean : this.getEditItemSessionBean().getSources()) {
       if (!sourceBean.bindOrganizationsToCreators()) {
         return false;
       }
@@ -631,7 +620,7 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().bindCreatorsToVO(item.getMetadata().getCreators());
 
     // write source creators back to VO
-    for (SourceBean sourceBean : getEditItemSessionBean().getSources()) {
+    for (SourceBean sourceBean : this.getEditItemSessionBean().getSources()) {
       sourceBean.bindCreatorsToVO(sourceBean.getSource().getCreators());
     }
 
@@ -650,15 +639,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    // // cleanup item according to genre specific MD specification
+    // GenreSpecificItemManager itemManager =
+    // new GenreSpecificItemManager(this.getPubItem(),
+    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    // try {
+    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    // } catch (Exception e) {
+    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    // }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -707,11 +696,9 @@ public class EditItem extends FacesBean {
         } catch (Exception e) {
           throw new RuntimeException("Error retrieving submitted item", e);
         }
-        PubItemListSessionBean pubItemListSessionBean =
-            (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-        if (pubItemListSessionBean != null) {
-          pubItemListSessionBean.update();
-        }
+
+        this.getPubItemListSessionBean().update();
+
         return SubmitItem.LOAD_SUBMITITEM;
       }
     }
@@ -734,15 +721,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    // // cleanup item according to genre specific MD specification
+    // GenreSpecificItemManager itemManager =
+    // new GenreSpecificItemManager(this.getPubItem(),
+    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    // try {
+    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    // } catch (Exception e) {
+    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    // }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -798,18 +785,14 @@ public class EditItem extends FacesBean {
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       // set the current submission method to empty string (for GUI purpose)
       this.getEditItemSessionBean().setCurrentSubmission("");
-      getSubmitItemSessionBean().setNavigationStringToGoBack(
+      this.getSubmitItemSessionBean().setNavigationStringToGoBack(
           MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
       String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
       info(localMessage);
-      getSubmitItemSessionBean().setMessage(localMessage);
+      this.getSubmitItemSessionBean().setMessage(localMessage);
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -828,11 +811,7 @@ public class EditItem extends FacesBean {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -853,30 +832,28 @@ public class EditItem extends FacesBean {
 
     if (navString.equals(ViewItemFull.LOAD_VIEWITEM)) {
       try {
-        BreadcrumbItemHistorySessionBean bihsb =
-            (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-        if ("ViewLocalTagsPage.jsp".equals(bihsb.getPreviousItem().getPage())) {
+        if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean()
+            .getPreviousItem().getPage())) {
           String viewItemPage =
               PropertyReader.getProperty("escidoc.pubman.instance.url")
                   + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                   + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1",
                       this.getPubItem().getVersion().getObjectId());
-          FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
-        } else if (bihsb.getPreviousItem().getPage().contains("viewItemFullPage.jsp")) {
-          fc.getExternalContext().redirect(
-              request.getContextPath() + "/faces/" + bihsb.getPreviousItem().getPage());
+          getExternalContext().redirect(viewItemPage);
+        } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
+            .contains("viewItemFullPage.jsp")) {
+          getExternalContext().redirect(
+              getRequest().getContextPath() + "/faces/"
+                  + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
         } else {
-          FacesContext.getCurrentInstance().getExternalContext()
-              .redirect("faces/SubmissionPage.jsp");
+          getExternalContext().redirect("faces/SubmissionPage.jsp");
         }
       } catch (Exception e) {
         logger.error("Could not redirect to the previous page", e);
       }
     } else {
       try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+        getExternalContext().redirect("faces/SubmissionPage.jsp");
       } catch (Exception e) {
         logger
             .error(
@@ -911,15 +888,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    // // cleanup item according to genre specific MD specification
+    // GenreSpecificItemManager itemManager =
+    // new GenreSpecificItemManager(this.getPubItem(),
+    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    // try {
+    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    // } catch (Exception e) {
+    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    // }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -986,17 +963,13 @@ public class EditItem extends FacesBean {
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       // set the current submission method to empty string (for GUI purpose)
       this.getEditItemSessionBean().setCurrentSubmission("");
-      getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+      this.getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
       String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
       info(localMessage);
-      getAcceptItemSessionBean().setMessage(localMessage);
+      this.getAcceptItemSessionBean().setMessage(localMessage);
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -1152,14 +1125,6 @@ public class EditItem extends FacesBean {
     return null;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
   private void showValidationMessages(ValidationReportVO report) {
     showValidationMessages(this, report);
   }
@@ -1167,8 +1132,7 @@ public class EditItem extends FacesBean {
   public void showValidationMessages(FacesBean bean, ValidationReportVO report) {
     for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       ValidationReportItemVO element = iter.next();
-      FacesBean.error(bean.getMessage(element.getContent())
-          .replaceAll("\\$1", element.getElement()));
+      error(bean.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
     }
   }
 
@@ -1205,12 +1169,14 @@ public class EditItem extends FacesBean {
     boolean isWorkflowSimple = true;
 
     try {
-      if (getItemControllerSessionBean().getCurrentContext() != null
-          && getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
+      if (this.getItemControllerSessionBean().getCurrentContext() != null
+          && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
         isWorkflowStandard =
-            (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+            (this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
+                .getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
         isWorkflowSimple =
-            (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            (this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
+                .getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
       }
     } catch (Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -1261,10 +1227,6 @@ public class EditItem extends FacesBean {
             .getIsOwner() //
         && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateReleased() || viewItemFull
             .getIsStateInRevision())));
-  }
-
-  private AffiliationSessionBean getAffiliationSessionBean() {
-    return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
   }
 
   /**
@@ -1569,8 +1531,9 @@ public class EditItem extends FacesBean {
 
   public String addCreatorString() {
     try {
-      EditItemSessionBean eisb = getEditItemSessionBean();
-      eisb.parseCreatorString(eisb.getCreatorParseString(), null, eisb.getOverwriteCreators());
+      this.getEditItemSessionBean().parseCreatorString(
+          this.getEditItemSessionBean().getCreatorParseString(), null,
+          this.getEditItemSessionBean().getOverwriteCreators());
     } catch (Exception e) {
       logger.error("Could not parse creator string", e);
       error(getMessage("ErrorParsingCreatorString"));
@@ -1599,10 +1562,8 @@ public class EditItem extends FacesBean {
     ArrayList<SelectItem> result = new ArrayList<SelectItem>();
 
     ContextRO contextRO = getPubItem().getContext();
-    ContextListSessionBean contextListSessionBean =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-
-    for (PubContextVOPresentation context : contextListSessionBean.getDepositorContextList()) {
+    for (PubContextVOPresentation context : this.getContextListSessionBean()
+        .getDepositorContextList()) {
       if (context.getReference().equals(contextRO)) {
         PublicationAdminDescriptorVO adminDescriptorVO = context.getAdminDescriptor();
         List<SubjectClassification> list = adminDescriptorVO.getAllowedSubjectClassifications();
@@ -1663,7 +1624,7 @@ public class EditItem extends FacesBean {
   }
 
   public String loadEditLocalTags() {
-    getEditItemSessionBean().clean();
+    this.getEditItemSessionBean().clean();
 
     return "loadEditLocalTags";
   }
@@ -1722,5 +1683,41 @@ public class EditItem extends FacesBean {
 
   public void addNewIdentifier(List<IdentifierVO> idList, int pos) {
     idList.add(pos, new IdentifierVO());
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  private YearbookItemSessionBean getYearbookItemSessionBean() {
+    return (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+  }
+
+  private SubmitItemSessionBean getSubmitItemSessionBean() {
+    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
+  }
+
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
+    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
+  }
+
+  private PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  }
+
+  private BreadcrumbItemHistorySessionBean getBreadcrumbItemHistorySessionBean() {
+    return (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+  }
+
+  private AffiliationSessionBean getAffiliationSessionBean() {
+    return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
+  }
+
+  private ContextListSessionBean getContextListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 }

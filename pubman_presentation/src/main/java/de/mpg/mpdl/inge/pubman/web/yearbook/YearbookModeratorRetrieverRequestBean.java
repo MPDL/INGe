@@ -50,33 +50,18 @@ public class YearbookModeratorRetrieverRequestBean extends
   private static final Logger logger = Logger
       .getLogger(YearbookModeratorRetrieverRequestBean.class);
 
-  private String selectedSortOrder;
-
-  /**
-   * This workspace's user.
-   */
-  AccountUserVO userVO;
-
-  /**
-   * org unit filter.
-   */
   private static String parameterSelectedOrgUnit = "orgUnit";
 
-  /**
-   * The total number of records
-   */
+  private String selectedSortOrder;
+  AccountUserVO userVO;
   private int numberOfRecords;
-
-  private PubItemListSessionBean pilsb;
 
   public YearbookModeratorRetrieverRequestBean() {
     super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
   }
 
   @Override
-  public void init() {
-    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-  }
+  public void init() {}
 
   @Override
   public int getTotalNumberOfRecords() {
@@ -91,7 +76,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   public void readOutParameters() {
     String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
-      setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
+      setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
     } else {
       setSelectedOrgUnit(orgUnit);
     }
@@ -119,10 +104,6 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   public String getSelectedOrgUnit() {
     return this.getYearbookCandidatesSessionBean().getSelectedOrgUnit();
-  }
-
-  private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
-    return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
   }
 
   /**
@@ -153,15 +134,12 @@ public class YearbookModeratorRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      ContextListSessionBean clsb =
-          (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();
 
       // add all contexts for which the user has moderator rights (except the "all" item of the
       // menu)
-      for (ContextVO context : clsb.getYearbookModeratorContextList()) {
+      for (ContextVO context : this.getContextListSessionBean().getYearbookModeratorContextList()) {
         filter.getFilterList().add(filter.new ContextFilter(context.getReference().getObjectId()));
       }
       // add views per page limit
@@ -197,7 +175,8 @@ public class YearbookModeratorRetrieverRequestBean extends
       List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
       String query = "";
-      for (PubItemVO item : pilsb.getSelectedItems()) {
+      for (PubItemVO item : ((PubItemListSessionBean) getBasePaginatorListSessionBean())
+          .getSelectedItems()) {
         if (item.getRelations() != null && item.getRelations().size() > 0) {
           MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery(item);
 
@@ -213,7 +192,7 @@ public class YearbookModeratorRetrieverRequestBean extends
           SearchService.searchForItemContainer(new PlainCqlQuery(query));
 
       pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-      pilsb.downloadExportFile(pubItemList);
+      ((PubItemListSessionBean) getBasePaginatorListSessionBean()).downloadExportFile(pubItemList);
 
     } catch (Exception e) {
       error("Error while exporting");
@@ -230,8 +209,9 @@ public class YearbookModeratorRetrieverRequestBean extends
    */
   public String releaseSelectedYearbooks() {
     try {
-      if (this.pilsb.getSelectedItems().size() > 0) {
-        for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
+      if (((PubItemListSessionBean) getBasePaginatorListSessionBean()).getSelectedItems().size() > 0) {
+        for (PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) getBasePaginatorListSessionBean())
+            .getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             PubItemService.releasePubItem(yearbookItem.getVersion(), yearbookItem
                 .getModificationDate(), "Releasing pubItem", getLoginHelper().getAccountUser());
@@ -248,7 +228,8 @@ public class YearbookModeratorRetrieverRequestBean extends
       error(getMessage("Yearbook_ReleaseError"));
       logger.error("Could not release Yearbook Item", e);
     }
-    pilsb.redirect();
+
+    ((PubItemListSessionBean) getBasePaginatorListSessionBean()).redirect();
 
     return "";
   }
@@ -260,12 +241,13 @@ public class YearbookModeratorRetrieverRequestBean extends
    */
   public String sendBackForRework() {
     try {
-      if (this.pilsb.getSelectedItems().size() > 0) {
+      if (((PubItemListSessionBean) getBasePaginatorListSessionBean()).getSelectedItems().size() > 0) {
         ItemHandler itemHandler =
             ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
         TaskParamVO param = null;
         String paramXml = null;
-        for (PubItemVOPresentation yearbookItem : this.pilsb.getSelectedItems()) {
+        for (PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) getBasePaginatorListSessionBean())
+            .getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             param =
                 new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
@@ -284,9 +266,18 @@ public class YearbookModeratorRetrieverRequestBean extends
       error(getMessage("Yearbook_sendBackForReworkError"));
       logger.error("Could not send back Yearbook Item", e);
     }
-    this.pilsb.update();
-    this.pilsb.redirect();
+
+    ((PubItemListSessionBean) getBasePaginatorListSessionBean()).update();
+    ((PubItemListSessionBean) getBasePaginatorListSessionBean()).redirect();
 
     return "";
+  }
+
+  private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
+    return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
+  }
+
+  private ContextListSessionBean getContextListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
 }

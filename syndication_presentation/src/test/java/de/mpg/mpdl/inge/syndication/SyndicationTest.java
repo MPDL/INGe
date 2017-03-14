@@ -32,9 +32,6 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
-
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -42,9 +39,6 @@ import org.junit.Test;
 
 import com.sun.syndication.io.FeedException;
 
-import de.mpg.mpdl.inge.syndication.Syndication;
-import de.mpg.mpdl.inge.syndication.SyndicationException;
-import de.mpg.mpdl.inge.syndication.Utils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -56,12 +50,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class SyndicationTest {
-
-  private Logger logger = Logger.getLogger(SyndicationTest.class);
+  private static final Logger logger = Logger.getLogger(SyndicationTest.class);
 
   private static Syndication sh;
-
-  private static XPath xpath;
 
   /**
    * BeforeClass
@@ -72,9 +63,6 @@ public class SyndicationTest {
   @BeforeClass
   public static void init() throws SyndicationException, IOException {
     sh = new Syndication();
-    XPathFactory factory = XPathFactory.newInstance();
-    xpath = factory.newXPath();
-
   }
 
   /**

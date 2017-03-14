@@ -58,11 +58,11 @@ public class FinalClientServlet extends HttpServlet {
       String clientClassName = Config.getProperty("escidoc.aa.client.class");
       if (clientClassName == null) {
         clientClassName = Config.getProperty("escidoc.aa.client.finish.class");
-        Class clientClass = Class.forName(clientClassName);
+        Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
         client.process(request, response);
       } else {
-        Class clientClass = Class.forName(clientClassName);
+        Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
         client.process(request, response);
       }

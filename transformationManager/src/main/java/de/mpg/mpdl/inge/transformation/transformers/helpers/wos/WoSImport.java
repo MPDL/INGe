@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.transformation.transformers.helpers.wos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -10,7 +11,6 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
-
 
 /**
  * provides the import of a RIS file
@@ -23,6 +23,8 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 public class WoSImport {
   private static final Logger logger = Logger.getLogger(WoSImport.class);
 
+  private static final String URL = "/home/kurt/Dokumente/wok-isi-test.txt";
+
   public WoSImport() {}
 
   /**
@@ -34,7 +36,7 @@ public class WoSImport {
     String result = "";
 
     String[] itemList = getItemListFromString(file, "(\nER\n+EF\n)|(\nER\n)");
-    List<List<Pair>> items = new ArrayList();
+    List<List<Pair>> items = new ArrayList<List<Pair>>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
       for (String item : itemList) {
@@ -57,24 +59,43 @@ public class WoSImport {
    * @return List<String> with file lines
    */
   public String readFile() {
-
     String file = "";
+    FileReader fileReader = null;
+    BufferedReader input = null;
+
     try {
-      BufferedReader input =
-          new BufferedReader(new FileReader("/home/kurt/Dokumente/wok-isi-test.txt"));
-      // string buffer for file reading
+      fileReader = new FileReader(URL);
+      input = new BufferedReader(fileReader);
+
       String str;
-      // reading line by line from file
       while ((str = input.readLine()) != null) {
         file = file + "\n" + str;
       }
-    } catch (Exception e) {
-      logger.error("An error occurred while reading WoS file.", e);
+    } catch (IOException e) {
+      logger.error("An error occurred while reading WOS file.", e);
       throw new RuntimeException(e);
+    } finally {
+      if (input != null) {
+        try {
+          input.close();
+        } catch (IOException e) {
+          logger.error("An error occurred while reading WOS file.", e);
+          throw new RuntimeException(e);
+        } finally {
+          if (fileReader != null) {
+            try {
+              fileReader.close();
+            } catch (IOException e) {
+              logger.error("An error occurred while reading WOS file.", e);
+              throw new RuntimeException(e);
+            }
+          }
+        }
+      }
     }
+
     return file;
   }
-
 
   /**
    * identifies item lines from input string and stores it in a List<String>
@@ -83,7 +104,6 @@ public class WoSImport {
    * @return
    */
   public List<String> getItemFromString(String itemStr) {
-
     Pattern pattern =
         Pattern
             .compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
@@ -91,7 +111,7 @@ public class WoSImport {
     // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
 
     Matcher matcher = pattern.matcher(itemStr);
-    List<String> lineStrArr = new ArrayList();
+    List<String> lineStrArr = new ArrayList<String>();
     while (matcher.find()) {
       lineStrArr.add(matcher.group());
     }
@@ -106,7 +126,6 @@ public class WoSImport {
    * @return
    */
   public String[] getItemListFromString(String string, String pattern) {
-
     String strItemList[] = string.split(pattern);
     // strItemList[0] = "\n"+strItemList[0].split("(FN ISI Export Format)\\n(VR 1.0)\\n")[0]; // cut
     // file header
@@ -121,16 +140,15 @@ public class WoSImport {
    * @return String list with item key-value pairs
    */
   public List<Pair> getItemPairs(List<String> lines) {
+    List<Pair> pairList = new ArrayList<Pair>();
 
-    List<Pair> pairList = new ArrayList();
     if (lines != null) {
-
       for (String line : lines) {
         Pair pair = createWoSPairByString(line);
-
         pairList.add(pair);
       }
     }
+
     return pairList;
   }
 
@@ -141,7 +159,6 @@ public class WoSImport {
    * @return Pair - key-value pair created by string line
    */
   public Pair createWoSPairByString(String line) {
-
     String key = line.substring(0, 2);
     String value = line.substring(3);
     Pair pair = null;
@@ -157,11 +174,11 @@ public class WoSImport {
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    String xml = "";
     if (item != null && item.size() > 0) {
-      xml = createXMLElement("item", transformItemSubelementsToXML(item));
+      return createXMLElement("item", transformItemSubelementsToXML(item));
     }
-    return xml;
+
+    return "";
   }
 
   /**
@@ -174,12 +191,13 @@ public class WoSImport {
     String xml = "<item-list>";
 
     if (itemList != null && itemList.size() > 0) {
-
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
     }
+
     xml = xml + "</item-list>";
+
     return xml;
   }
 
@@ -192,11 +210,11 @@ public class WoSImport {
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
     if (item != null && item.size() > 0) {
-
       for (Pair pair : item) {
         xml = xml + createXMLElement(pair.getKey(), pair.getValue());
       }
     }
+
     return xml;
   }
 
@@ -208,11 +226,11 @@ public class WoSImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    String element = "";
     if (tag != null && tag != "") {
-      element = "<" + tag + ">" + value + "</" + tag + ">";
+      return "<" + tag + ">" + value + "</" + tag + ">";
     }
-    return element;
+
+    return "";
   }
 
   /**
@@ -228,8 +246,7 @@ public class WoSImport {
       input = input.replace(">", "&gt;");
       input = input.replace("\"", "&quot;");
     }
+
     return input;
   }
-
-
 }

@@ -30,9 +30,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
@@ -52,10 +50,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class Login extends FacesBean {
   public static final String BEAN_NAME = "Login";
-  public static String LOGIN_URL = "/aa/login";
-  public static String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   private static final Logger logger = Logger.getLogger(Login.class);
+
+  public static String LOGIN_URL = "/aa/login";
+  public static String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
@@ -65,15 +64,6 @@ public class Login extends FacesBean {
 
   public Login() {}
 
-  // /**
-  // * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-  // * indirectly via page navigation.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
-
   /**
    * gets the parameters out of the faces context
    * 
@@ -81,8 +71,7 @@ public class Login extends FacesBean {
    * @return String value of the faces context parameter
    */
   public String getFacesParamValue(String name) {
-    return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-        .get(name);
+    return getExternalContext().getRequestParameterMap().get(name);
   }
 
   /**
@@ -92,7 +81,6 @@ public class Login extends FacesBean {
    */
   public String loginLogout() throws ServletException, IOException, ServiceException,
       URISyntaxException {
-    FacesContext fc = FacesContext.getCurrentInstance();
     String token = getLoginHelper().getAuthenticationToken();
 
     if (getLoginHelper().isLoggedIn() && getLoginHelper().getAuthenticationToken() != null) {
@@ -113,7 +101,7 @@ public class Login extends FacesBean {
         // Logout mechanism
 
         logout();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) getExternalContext().getSession(false);
         session.invalidate();
       }
     } else {
@@ -145,7 +133,6 @@ public class Login extends FacesBean {
   public void logout() throws IOException, ServiceException, URISyntaxException {
     this.loggedIn = false;
     getLoginHelper().logout("");
-
   }
 
   /**
@@ -154,13 +141,10 @@ public class Login extends FacesBean {
    * @return String navigation string for loading the login error page
    */
   public String forceLogout() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-
     try {
-      fc.getExternalContext().redirect(
+      getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
-              + request.getRequestURL().toString());
+              + getRequest().getRequestURL().toString());
     } catch (IOException e) {
       logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
@@ -174,26 +158,20 @@ public class Login extends FacesBean {
    * @return String navigation string for loading the login error page
    */
   public String forceLogout(String itemID) {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    // HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
-      fc.getExternalContext().redirect(
+      getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
               + URLEncoder.encode(targetUrl, "UTF-8"));
-      // fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
     } catch (Exception e) {
       logger.error("Could not redirect to Fremework login page", e);
     }
 
-
-
     return "";
   }
 
-  // Getters and Setters
   public String getBtnLoginLogout() {
-    return btnLoginLogout;
+    return this.btnLoginLogout;
   }
 
   public void setBtnLoginLogout(String btnLoginLogout) {
@@ -201,11 +179,11 @@ public class Login extends FacesBean {
   }
 
   public boolean isLoggedIn() {
-    return loggedIn;
+    return this.loggedIn;
   }
 
   public boolean getLoggedIn() {
-    return loggedIn;
+    return this.loggedIn;
   }
 
   public void setLoggedIn(boolean loggedIn) {
@@ -213,7 +191,7 @@ public class Login extends FacesBean {
   }
 
   public String getDisplayUserName() {
-    return displayUserName;
+    return this.displayUserName;
   }
 
   public void setDisplayUserName(String displayUserName) {
@@ -221,7 +199,7 @@ public class Login extends FacesBean {
   }
 
   public String getUsername() {
-    return username;
+    return this.username;
   }
 
   public void setUsername(String username) {
@@ -229,34 +207,10 @@ public class Login extends FacesBean {
   }
 
   public String getPassword() {
-    return password;
+    return this.password;
   }
 
   public void setPassword(String password) {
     this.password = password;
   }
-
-  // private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException,
-  // ServiceException {
-  // BreadcrumbItemHistorySessionBean breadCrumbHistory =
-  // (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-  //
-  // String pubmanUrl =
-  // PropertyReader.getProperty("escidoc.pubman.instance.url")
-  // + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-  // if (!pubmanUrl.endsWith("/"))
-  // pubmanUrl = pubmanUrl + "/";
-  //
-  // // Use double URL encoding here because the login mechanism gives back the decoded URL
-  // // parameters.
-  // String url =
-  // PropertyReader.getLoginUrl()
-  // + LOGIN_URL
-  // + "?target="
-  // + pubmanUrl
-  // + "faces/"
-  // + URLEncoder.encode(
-  // URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"), "UTF-8");
-  // return url;
-  // }
 }

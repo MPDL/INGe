@@ -51,13 +51,12 @@ import org.xml.sax.SAXException;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
 public class XmlComparator {
-  public static Logger logger = Logger.getLogger(XmlComparator.class);
+  private static final Logger logger = Logger.getLogger(XmlComparator.class);
+
   private List<String> errors = new ArrayList<String>();
   private List<XmlNode> elementsToIgnore = new ArrayList<XmlNode>();
   private boolean omit = false;
-
 
   /**
    * Constructor taking 2 XML strings.
@@ -73,7 +72,6 @@ public class XmlComparator {
     parser.parse(new InputSource(new StringReader(xml1)), firstXmlHandler);
     parser.parse(new InputSource(new StringReader(xml2)), secondXmlHandler);
   }
-
 
   public XmlComparator(String xml1, String xml2, List<String> ignore) throws Exception {
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
@@ -97,9 +95,9 @@ public class XmlComparator {
   }
 
   private void addElementsToIgnore(List<String> elements) {
-
-    if (elements == null)
+    if (elements == null) {
       return;
+    }
 
     for (String e : elements) {
       String[] components = StringUtils.split(e, ",");
@@ -110,20 +108,15 @@ public class XmlComparator {
         String tag[] = StringUtils.split(components[1].trim(), "=");
         attributeMap.put(tag[0], tag[1]);
       }
+
       String nameSpace = components[2].trim();
-
       XmlNode node = new XmlNode(attributeMap, name, nameSpace);
-
       elementsToIgnore.add(node);
     }
   }
 
-
-
   private class FirstXmlHandler extends ShortContentHandler {
-
     private LinkedList<Node> nodeList = new LinkedList<Node>();
-
 
     @Override
     public void content(String uri, String localName, String name, String content)
@@ -176,12 +169,10 @@ public class XmlComparator {
     }
   }
 
-
-
   private class SecondXmlHandler extends ShortContentHandler {
     private FirstXmlHandler firstXmlHandler;
 
-    public SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
+    private SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
       this.firstXmlHandler = firstXmlHandler;
     }
 
@@ -227,9 +218,7 @@ public class XmlComparator {
         else if ("name".equals(attributes.getQName(i))
             && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
           // Do nothing
-
         } else {
-
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
         }
       }
@@ -240,7 +229,6 @@ public class XmlComparator {
                 name.substring(0, name.indexOf(":"))));
       } else {
         xmlNode = new XmlNode(attributeMap, name, null);
-
       }
 
       if (elementsToIgnore.contains(xmlNode)) {
@@ -256,12 +244,9 @@ public class XmlComparator {
     }
   }
 
-
-
   private interface Node {
     public boolean equals(Object other);
   }
-
 
   private class XmlNode implements Node {
     private Map<String, String> attributes;
@@ -279,10 +264,10 @@ public class XmlComparator {
       if (other == null || !(other instanceof XmlNode)) {
         return false;
       } else {
-        for (String attributeName : attributes.keySet()) {
+        for (String attributeName : this.attributes.keySet()) {
           if (!attributeName.startsWith("xmlns:")
               && !attributeName.equals("xsi")
-              && !attributes.get(attributeName).equals(
+              && !this.attributes.get(attributeName).equals(
                   ((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
@@ -291,21 +276,21 @@ public class XmlComparator {
         for (String attributeName : ((XmlNode) other).attributes.keySet()) {
           if (!attributeName.startsWith("xmlns:")
               && !((XmlNode) other).attributes.get(attributeName).equals(
-                  attributes.get(attributeName))) {
+                  this.attributes.get(attributeName))) {
             return false;
           }
         }
 
         boolean x1 =
-            (name == null ? ((XmlNode) other).name == null : name.equals(((XmlNode) other).name));
+            (this.name == null ? ((XmlNode) other).name == null : this.name
+                .equals(((XmlNode) other).name));
         boolean x2 =
-            (namespace == null ? ((XmlNode) other).namespace == null : namespace
+            (this.namespace == null ? ((XmlNode) other).namespace == null : this.namespace
                 .equals(((XmlNode) other).namespace));
 
         return (x1 && x2);
       }
     }
-
   }
 
   public class TextNode implements Node {
@@ -319,21 +304,18 @@ public class XmlComparator {
     public boolean equals(Object other) {
       if (other == null || !(other instanceof TextNode)) {
         return false;
-      } else if (content == null) {
+      } else if (this.content == null) {
         return (((TextNode) other).content == null);
-      } else if (content.matches("^\\s*$")) {
+      } else if (this.content.matches("^\\s*$")) {
         return (((TextNode) other).content == null || ((TextNode) other).content.matches("^\\s*$"));
       } else {
-        return content.equals(((TextNode) other).content);
+        return this.content.equals(((TextNode) other).content);
       }
     }
 
     @Override
     public String toString() {
-      return content;
+      return this.content;
     }
-
   }
-
-
 }

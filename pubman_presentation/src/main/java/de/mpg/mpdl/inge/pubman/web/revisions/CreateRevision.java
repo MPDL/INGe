@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 
 import javax.faces.component.html.HtmlPanelGroup;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -46,47 +44,24 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @SuppressWarnings("serial")
 public class CreateRevision extends FacesBean {
   public static final String BEAN_NAME = "CreateRevision";
-  private static Logger logger = Logger.getLogger(CreateRevision.class);
 
-  // Faces navigation string
-  public final static String LOAD_CREATEREVISION = "loadCreateRevision";
-  public final static String LOAD_CHOOSECOLLECTION = "loadChooseCollection";
+  public static final String LOAD_CREATEREVISION = "loadCreateRevision";
+  public static final String LOAD_CHOOSECOLLECTION = "loadChooseCollection";
 
-  // panel for dynamic components
   HtmlPanelGroup panDynamicRevisionList = new HtmlPanelGroup();
   HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();
 
   public CreateRevision() {}
-
-  // /**
-  // * Callback method that is called whenever a page containing this page fragment is navigated to,
-  // * either directly via a URL, or indirectly via page navigation.
-  // */
-  // public void init() {
-  // //super.init();
-  //
-  // if (logger.isDebugEnabled()) {
-  // logger.debug("CreateRevision.init()");
-  // }
-  // }
 
   public String confirm() {
     return CreateRevision.LOAD_CHOOSECOLLECTION;
   }
 
   public String cancel() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("cancel()");
-    }
-
     return ViewItemFull.LOAD_VIEWITEM;
   }
 
   public String confirmCollectionChoose() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("confirmCollectionChoose()");
-    }
-
     ContextVO selectedCollection =
         this.getCollectionListSessionBean().getSelectedDepositorContext();
 
@@ -100,16 +75,26 @@ public class CreateRevision extends FacesBean {
   }
 
   public String cancelCollectionChoose() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("cancelCollectionChoose()");
-    }
-
-    // re-init RevisionList
     this.getRelationListSessionBean()
         .setPubItemVO(this.getRelationListSessionBean().getPubItemVO());
-    // this.init();
 
     return CreateRevision.LOAD_CREATEREVISION;
+  }
+
+  public HtmlPanelGroup getPanDynamicRevisionList() {
+    return this.panDynamicRevisionList;
+  }
+
+  public void setPanDynamicRevisionList(HtmlPanelGroup panDynamicRevisionList) {
+    this.panDynamicRevisionList = panDynamicRevisionList;
+  }
+
+  public HtmlPanelGroup getPanDynamicCollectionList() {
+    return this.panDynamicCollectionList;
+  }
+
+  public void setPanDynamicCollectionList(HtmlPanelGroup panDynamicCollectionList) {
+    this.panDynamicCollectionList = panDynamicCollectionList;
   }
 
   private RelationListSessionBean getRelationListSessionBean() {
@@ -123,21 +108,4 @@ public class CreateRevision extends FacesBean {
   private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
   }
-
-  public HtmlPanelGroup getPanDynamicRevisionList() {
-    return panDynamicRevisionList;
-  }
-
-  public void setPanDynamicRevisionList(HtmlPanelGroup panDynamicRevisionList) {
-    this.panDynamicRevisionList = panDynamicRevisionList;
-  }
-
-  public HtmlPanelGroup getPanDynamicCollectionList() {
-    return panDynamicCollectionList;
-  }
-
-  public void setPanDynamicCollectionList(HtmlPanelGroup panDynamicCollectionList) {
-    this.panDynamicCollectionList = panDynamicCollectionList;
-  }
-
 }

@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -53,8 +51,7 @@ public class OrganizationSuggest extends EditItemBean {
 
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
-    FacesContext context = FacesContext.getCurrentInstance();
-    Map<String, String> parameters = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
 
     // Perform search request

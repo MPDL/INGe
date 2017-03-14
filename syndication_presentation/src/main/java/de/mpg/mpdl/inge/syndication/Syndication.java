@@ -78,10 +78,10 @@ public class Syndication implements SyndicationHandler {
 
   @Override
   public String[] getFeedList() {
-    List fs = feeds.getFeeds();
+    List<Feed> fs = feeds.getFeeds();
     String[] fl = new String[(int) fs.size()];
     int i = 0;
-    for (Feed f : (List<Feed>) fs) {
+    for (Feed f : fs) {
       fl[i++] = f.getUri();
     }
     return fl;

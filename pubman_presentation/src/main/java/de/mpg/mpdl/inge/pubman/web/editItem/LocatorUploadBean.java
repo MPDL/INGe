@@ -48,11 +48,7 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
-  String error = null;
-
-  /**
-   * Populates the FileVO.
-   */
+  @Override
   public void locatorUploaded() {
     try {
       FileVO fileVO = new FileVO();
@@ -81,10 +77,11 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       this.getEditItemSessionBean().setFiles(list);
     } catch (Exception e) {
       logger.error(e);
-      this.error = getMessage("errorLocatorUploadFW");
+      error = getMessage("errorLocatorUploadFW");
     }
   }
 
+  @Override
   public void removeEmptyFile() {
     List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
     for (int i = 0; i < list.size(); i++) {
@@ -97,9 +94,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
     }
   }
 
-  /**
-   * Removes the last added locator from the locator list.
-   */
+  @Override
   public void removeLocator() {
     List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
     for (int i = 0; i < list.size(); i++) {

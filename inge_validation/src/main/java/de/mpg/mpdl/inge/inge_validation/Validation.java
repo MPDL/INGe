@@ -34,10 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
-
-  public Validation() {}
-
-  public void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
+  public static void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
 
     if (itemVO instanceof PubItemVO == false) {
@@ -58,7 +55,7 @@ public class Validation {
 
         System.out.println(resultSave);
 
-        this.checkResult(resultSave);
+        checkResult(resultSave);
 
         break;
 
@@ -93,7 +90,7 @@ public class Validation {
 
         System.out.println(resultSimple);
 
-        this.checkResult(resultSimple);
+        checkResult(resultSimple);
 
         break;
 
@@ -145,7 +142,7 @@ public class Validation {
 
         System.out.println(resultStandard);
 
-        this.checkResult(resultStandard);
+        checkResult(resultStandard);
 
         break;
 
@@ -166,7 +163,7 @@ public class Validation {
 
         System.out.println(resultEasy3);
 
-        this.checkResult(resultEasy3);
+        checkResult(resultEasy3);
 
         break;
 
@@ -193,7 +190,7 @@ public class Validation {
 
         System.out.println(resultEasy4);
 
-        this.checkResult(resultEasy4);
+        checkResult(resultEasy4);
 
         break;
 
@@ -203,7 +200,7 @@ public class Validation {
     }
   }
 
-  private void checkResult(ComplexResult complexResult) throws ItemInvalidException {
+  private static void checkResult(ComplexResult complexResult) throws ItemInvalidException {
     ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {

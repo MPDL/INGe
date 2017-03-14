@@ -56,8 +56,7 @@ public class AffiliationDetailPage extends FacesBean {
   public AffiliationDetailPage() {
     try {
       String ouXml = null;
-      String affiliationId =
-          getFacesContext().getExternalContext().getRequestParameterMap().get("id");
+      String affiliationId = getExternalContext().getRequestParameterMap().get("id");
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
       try {
         ouXml = ouHandler.retrieve(affiliationId);

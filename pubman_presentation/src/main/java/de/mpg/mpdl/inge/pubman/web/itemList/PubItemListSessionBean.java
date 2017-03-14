@@ -36,9 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -1025,23 +1023,20 @@ public class PubItemListSessionBean extends
       } catch (TechnicalException e) {
         throw new RuntimeException("Cannot retrieve export data", e);
       }
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      HttpServletResponse response =
-          (HttpServletResponse) facesContext.getExternalContext().getResponse();
       String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-      response.setContentType(contentType);
+      getResponse().setContentType(contentType);
       String fileName =
           "export_" + curExportFormat.getName().toLowerCase() + "."
               + FileFormatVO.getExtensionByName(sb.getFileFormat());
-      response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+      getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
       try {
-        OutputStream out = response.getOutputStream();
+        OutputStream out = getResponse().getOutputStream();
         out.write(exportFileData);
         out.close();
       } catch (Exception e) {
         throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
       }
-      facesContext.responseComplete();
+      getFacesContext().responseComplete();
     } else {
       error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
 
@@ -1073,7 +1068,6 @@ public class PubItemListSessionBean extends
    */
   public void nextListItem() {
     PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
-    FacesContext fc = FacesContext.getCurrentInstance();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1084,7 +1078,7 @@ public class PubItemListSessionBean extends
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem + i + 1);
-            fc.getExternalContext().redirect(this.getCurrentPartList().get(i + 1).getLink());
+            getExternalContext().redirect(this.getCurrentPartList().get(i + 1).getLink());
             return;
           }
           // Case: last item of a part-list, but not the last of the whole list --> Get first item
@@ -1096,7 +1090,7 @@ public class PubItemListSessionBean extends
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem);
-            fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+            getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
             return;
           }
           // Case: last item of the whole list (also of the part-list) --> get first item of the
@@ -1107,7 +1101,7 @@ public class PubItemListSessionBean extends
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem);
-            fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+            getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
             return;
           }
         }
@@ -1124,7 +1118,6 @@ public class PubItemListSessionBean extends
    */
   public void previousListItem() {
     PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
-    FacesContext fc = FacesContext.getCurrentInstance();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1135,7 +1128,7 @@ public class PubItemListSessionBean extends
             positionFirstPartListItem =
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem + i - 1);
-            fc.getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
+            getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
             return;
           }
           // Case: first item of a part-list, but not the first of the whole list --> Get last item
@@ -1147,7 +1140,7 @@ public class PubItemListSessionBean extends
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()
                 - 1);
-            fc.getExternalContext().redirect(
+            getExternalContext().redirect(
                 this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
             return;
           }
@@ -1160,7 +1153,7 @@ public class PubItemListSessionBean extends
                 ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size()
                 - 1);
-            fc.getExternalContext().redirect(
+            getExternalContext().redirect(
                 this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
             return;
           }
@@ -1219,13 +1212,12 @@ public class PubItemListSessionBean extends
    */
   public void firstListItem() {
     try {
-      FacesContext fc = FacesContext.getCurrentInstance();
       this.setCurrentPageNumber(1);
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
       int positionFirstPartListItem =
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem);
-      fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+      getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
       return;
     } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
@@ -1238,13 +1230,12 @@ public class PubItemListSessionBean extends
    */
   public void lastListItem() {
     try {
-      FacesContext fc = FacesContext.getCurrentInstance();
       this.setCurrentPageNumber(this.getPaginatorPageSize());
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
       int positionFirstPartListItem =
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
-      fc.getExternalContext().redirect(
+      getExternalContext().redirect(
           this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
       return;
     } catch (Exception e) {
@@ -1275,13 +1266,12 @@ public class PubItemListSessionBean extends
   }
 
   public void listItemPosition() {
-    FacesContext fc = FacesContext.getCurrentInstance();
     try {
       this.setCurrentPageNumber((int) Math.ceil((double) itemPosition
           / (double) this.getElementsPerPage()));
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
       int positionInPartList = (itemPosition - 1) % this.getElementsPerPage();
-      fc.getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());
+      getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());
     } catch (IOException e) {
       logger.debug("Problem reading new itemPosition");
       e.printStackTrace();

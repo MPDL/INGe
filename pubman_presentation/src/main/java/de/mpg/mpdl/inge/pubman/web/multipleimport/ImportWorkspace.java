@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
@@ -69,26 +67,23 @@ public class ImportWorkspace extends BreadcrumbPage {
 
     AccountUserVO user = getLoginHelper().getAccountUser();
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-
     ImportLog.SortColumn currentColumn = null;
     ImportLog.SortDirection currentDirection = null;
     ImportLog.SortColumn newColumn = null;
 
-    String sortColumnString =
-        facesContext.getExternalContext().getRequestParameterMap().get("sortColumn");
+    String sortColumnString = getExternalContext().getRequestParameterMap().get("sortColumn");
     if (sortColumnString != null && !"".equals(sortColumnString)) {
       newColumn = SortColumn.valueOf(sortColumnString);
     }
 
-    String currentColumnString =
-        facesContext.getExternalContext().getRequestParameterMap().get("currentColumn");
+    String currentColumnString = getExternalContext().getRequestParameterMap().get("currentColumn");
     if (currentColumnString != null && !"".equals(currentColumnString)) {
       currentColumn = SortColumn.valueOf(currentColumnString);
     }
 
     String currentDirectionString =
-        facesContext.getExternalContext().getRequestParameterMap().get("currentDirection");
+        getExternalContext().getRequestParameterMap().get("currentDirection");
+
     if (currentDirectionString != null && !"".equals(currentDirectionString)) {
       currentDirection = SortDirection.valueOf(currentDirectionString);
     }

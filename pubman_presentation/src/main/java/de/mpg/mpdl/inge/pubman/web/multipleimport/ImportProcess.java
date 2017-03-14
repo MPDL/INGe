@@ -173,6 +173,7 @@ public class ImportProcess extends Thread {
         configuration);
 
     this.log.setPercentage(7);
+
     if (this.log.isDone()) {
       return;
     }
@@ -264,7 +265,9 @@ public class ImportProcess extends Thread {
       fail();
       return false;
     }
+
     this.log.finishItem();
+
     return true;
   }
 
@@ -272,7 +275,9 @@ public class ImportProcess extends Thread {
     try {
       if (format == null) {
         return false;
-      } else if (ENDNOTE_FORMAT.matches(format) || ENDNOTE_ICE_FORMAT.matches(format)) {
+      }
+
+      if (ENDNOTE_FORMAT.matches(format) || ENDNOTE_ICE_FORMAT.matches(format)) {
         this.formatProcessor = new EndnoteProcessor();
       } else if (RIS_FORMAT.matches(format)) {
         this.formatProcessor = new RisProcessor();
@@ -304,7 +309,9 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FATAL, e);
       fail();
     }
+
     this.formatProcessor.setEncoding(format.getEncoding());
+
     return true;
   }
 
@@ -313,10 +320,12 @@ public class ImportProcess extends Thread {
     this.log.finishItem();
     this.log.startItem(ErrorLevel.FATAL, "import_process_failed");
     this.log.finishItem();
+
     if (this.rollback) {
       this.log.setStatus(Status.ROLLBACK);
       rollback();
     }
+
     this.log.close();
   }
 
@@ -324,6 +333,7 @@ public class ImportProcess extends Thread {
     this.log.startItem(ErrorLevel.FINE, "import_process_rollback");
     this.log.finishItem();
     this.log.close();
+
     DeleteProcess deleteProcess = new DeleteProcess(log);
     deleteProcess.start();
   }
@@ -334,6 +344,7 @@ public class ImportProcess extends Thread {
   public void run() {
     int counter = 0;
     int itemCount = 1;
+
     if (!failed) {
       try {
         this.log.startItem("import_process_start_import");
@@ -375,15 +386,18 @@ public class ImportProcess extends Thread {
           fail();
         }
       }
+
       if (failed) {
         return;
       }
+
       this.log.finishItem();
       this.log.startItem("import_process_preparation_finished");
       this.log.addDetail(ErrorLevel.FINE, "import_process_no_more_items");
       this.log.finishItem();
       this.log.setPercentage(40);
       counter = 0;
+
       for (int i = 0; i < this.log.getItems().size(); i++) {
         ImportLogItem item = this.log.getItems().get(i);
         if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !failed) {
@@ -428,15 +442,16 @@ public class ImportProcess extends Thread {
         this.log.startItem("import_process_finished");
         this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
         this.log.finishItem();
+
         try {
           this.log.startItem("import_process_archive_log");
           this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-          // Store log in repository
           String taskItemXml = createTaskItemXml();
           ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
           String savedTaskItemXml = itemHandler.create(taskItemXml);
           Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
           Matcher matcher = pattern.matcher(savedTaskItemXml);
+
           if (matcher.find()) {
             String taskId = matcher.group(1);
             logger.info("Imported task item: " + taskId);
@@ -458,7 +473,7 @@ public class ImportProcess extends Thread {
       this.log.closeConnection();
     }
 
-    file.delete();
+    this.file.delete();
   }
 
   /**
@@ -466,9 +481,9 @@ public class ImportProcess extends Thread {
    */
   private void heartBeat() {
     long now = new Date().getTime();
-    if ((now - lastBeat) > 1000 * 60 * 30) {
+    if ((now - this.lastBeat) > 1000 * 60 * 30) {
       logger.info("Refreshing " + this.log.getUserHandle());
-      lastBeat = now;
+      this.lastBeat = now;
       try {
         ServiceLocator.getContextHandler(this.log.getUserHandle()).retrieve(this.log.getContext());
       } catch (Exception e) {
@@ -596,12 +611,11 @@ public class ImportProcess extends Thread {
         ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.SIMPLE);
         this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
 
-        // Release Validation
+        // Standard Validation
         this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
         try {
           ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
           this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
-
           this.log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
           this.log.setItemVO(pubItemVO);
           if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
@@ -619,13 +633,13 @@ public class ImportProcess extends Thread {
           } else {
             this.log.suspendItem();
           }
-        } catch (ItemInvalidException e2) { // Release Validation
+        } catch (ItemInvalidException e2) { // Standard Validation
           this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
           for (ValidationReportItemVO item : e2.getReport().getItems()) {
             this.log.addDetail(ErrorLevel.WARNING, item.getContent());
           }
         }
-      } catch (ItemInvalidException e) { // Default Validation
+      } catch (ItemInvalidException e) { // Simple Validation
         this.log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
         for (ValidationReportItemVO item : e.getReport().getItems()) {
           this.log.addDetail(ErrorLevel.PROBLEM, item.getContent());
@@ -689,13 +703,13 @@ public class ImportProcess extends Thread {
         return true;
       } else {
         this.log.addDetail(ErrorLevel.FINE, "import_process_no_identifier_for_duplicate_check");
-        return false;
       }
     } catch (Exception e) {
       this.log.addDetail(ErrorLevel.WARNING, e);
       // An error while checking for duplicates should not cause the item not to be imported.
       // this.log.finishItem();
-      return false;
     }
+
+    return false;
   }
 }

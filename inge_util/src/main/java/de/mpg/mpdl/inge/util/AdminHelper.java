@@ -43,7 +43,6 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
-
 /**
  * 
  * Utility class for pubman logic.
@@ -54,22 +53,10 @@ import org.apache.log4j.Logger;
  * 
  */
 public class AdminHelper {
+  private static final Logger logger = Logger.getLogger(AdminHelper.class);
+
   private static String adminUserHandle = null;
   private static Date loginTime = null;
-
-  /**
-   * Logger for this class.
-   */
-  private static final Logger LOGGER = Logger.getLogger(AdminHelper.class);
-
-
-
-  /**
-   * Hide the constructor.
-   */
-  protected AdminHelper() {}
-
-
 
   /**
    * Logs in the given user with the given password.
@@ -99,8 +86,8 @@ public class AdminHelper {
       host = frameworkUrl.substring(delim1 + 2);
       port = 80;
     }
-    HttpClient client = new HttpClient();
 
+    HttpClient client = new HttpClient();
     client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 
     PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
@@ -133,14 +120,13 @@ public class AdminHelper {
         int index = location.indexOf('=');
         userHandle =
             new String(Base64.getDecoder().decode(location.substring(index + 1, location.length())));
-        // System.out.println("location: "+location);
-        // System.out.println("handle: "+userHandle);
       }
     }
 
     if (userHandle == null) {
       throw new ServiceException("User not logged in.");
     }
+
     return userHandle;
   }
 
@@ -161,9 +147,10 @@ public class AdminHelper {
             loginUser(PropertyReader.getProperty("framework.admin.username"),
                 PropertyReader.getProperty("framework.admin.password"));
       } catch (Exception e) {
-        LOGGER.error("Exception logging on admin user.", e);
+        logger.error("Exception logging on admin user.", e);
       }
     }
+
     return adminUserHandle;
   }
 }

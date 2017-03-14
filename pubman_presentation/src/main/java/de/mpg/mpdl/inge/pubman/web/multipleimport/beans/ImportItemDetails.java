@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
@@ -52,8 +50,7 @@ public class ImportItemDetails extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportItemDetails() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+    String idString = getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.itemId = Integer.parseInt(idString);

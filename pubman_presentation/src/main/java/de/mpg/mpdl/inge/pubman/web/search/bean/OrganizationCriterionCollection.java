@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
@@ -64,8 +66,9 @@ public class OrganizationCriterionCollection {
       AffiliationVO affiliation;
       try {
         affiliation =
-            ItemControllerSessionBean.retrieveAffiliation(criterion.getAffiliation().getReference()
-                .getObjectId());
+            XmlTransformingService.transformToAffiliation(ServiceLocator
+                .getOrganizationalUnitHandler().retrieve(
+                    criterion.getAffiliation().getReference().getObjectId()));
 
         AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 

@@ -205,8 +205,8 @@ public class AdvancedSearchEdit extends FacesBean {
         ArrayList<MetadataSearchCriterion> newCriteria =
             transformToSearchCriteria(criterionList.get(i - 1), criterionList.get(i));
 
-        Class c = criterionList.get(i).getClass();
-        Class d = criterionList.get(i - 1).getClass();
+        Class<? extends Criterion> c = criterionList.get(i).getClass();
+        Class<? extends Criterion> d = criterionList.get(i - 1).getClass();
         if (c.equals(d)) {
           currentList.addAll(newCriteria);
         } else {

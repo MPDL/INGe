@@ -116,16 +116,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>ViewItemOrganizationInformation</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganizationInformation</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>ViewItemOrganizationInformationPage</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganizationInformationPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>ViewRevisionsPage</managed-bean-name>
 		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ViewRevisionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

@@ -15,10 +15,8 @@ public class ItemValidatingService {
   public static void validateItemObject(final ItemVO itemVO, final ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
 
-    Validation s = new Validation();
-
     try {
-      s.doValidation(itemVO, validationPoint);
+      Validation.doValidation(itemVO, validationPoint);
     } catch (ValidationException e) {
       LOG.error("validateItemObject:", e);
       throw e;

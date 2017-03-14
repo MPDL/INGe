@@ -125,7 +125,7 @@ public class Bibtex implements BibtexInterface {
     PubItemVO itemVO = new PubItemVO();
     MdsPublicationVO mds = new MdsPublicationVO();
     itemVO.setMetadata(mds);
-    List entries = file.getEntries();
+    List<?> entries = file.getEntries();
     boolean entryFound = false;
     if (entries == null || entries.size() == 0) {
       this.logger.warn("No entry found in BibTex record.");
@@ -151,7 +151,7 @@ public class Bibtex implements BibtexInterface {
         mds.setGenre(itemGenre);
         SourceVO sourceVO = new SourceVO();
         SourceVO secondSourceVO = new SourceVO();
-        Map fields = entry.getFields();
+        Map<?, ?> fields = entry.getFields();
         // Mapping of BibTeX Standard Entries
         // title
         if (fields.get("title") != null) {

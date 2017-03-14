@@ -102,13 +102,18 @@ public class ItemControllerSessionBean extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
+  private PubItemVOPresentation currentPubItem = null;
+  private ContextVO currentContext = null;
+
+  public ItemControllerSessionBean() {}
+
   /**
    * Returns an affiliation retrieved by its ID.
    * 
    * @return the requested affiliation
    * @throws Exception if framework access fails
    */
-  public static AffiliationVO retrieveAffiliation(String affiliationId) throws Exception {
+  public AffiliationVO retrieveAffiliation(String affiliationId) throws Exception {
     String xmlAffiliation = "";
 
     try {
@@ -125,11 +130,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return affiliation;
   }
-
-  private PubItemVOPresentation currentPubItem = null;
-  private ContextVO currentContext = null;
-
-  public ItemControllerSessionBean() {}
 
   /**
    * Accepts an item.
@@ -356,7 +356,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       PubItemVO newRevision =
-          PubItemService.createRevisionOfItem(pubItem, comment, pubContextRO, getLoginHelper()
+          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, getLoginHelper()
               .getAccountUser());
 
       // setting the returned item as new currentItem
@@ -976,7 +976,6 @@ public class ItemControllerSessionBean extends FacesBean {
     } catch (Exception e) {
       logger.error("Could not save item." + "\n" + e.toString(), e);
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
-
       return ErrorPage.LOAD_ERRORPAGE;
     }
 

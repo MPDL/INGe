@@ -28,10 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.acceptItem;
 
 import java.io.IOException;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -105,10 +101,6 @@ public class AcceptItem extends FacesBean {
   }
 
   public String accept() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    ExternalContext extContext = fc.getExternalContext();
-    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
-
     // TODO: siehe SubmitItem
     String navigateTo = getAcceptItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
@@ -124,8 +116,11 @@ public class AcceptItem extends FacesBean {
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+        getExternalContext().redirect(
+            getRequest().getContextPath()
+                + "/faces/viewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
@@ -135,13 +130,10 @@ public class AcceptItem extends FacesBean {
   }
 
   public String cancel() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    ExternalContext extContext = fc.getExternalContext();
-    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
-
     try {
-      extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
-          + this.getPubItem().getVersion().getObjectId());
+      getExternalContext().redirect(
+          getRequest().getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+              + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
@@ -169,14 +161,6 @@ public class AcceptItem extends FacesBean {
     return false;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
-  }
-
   public String getAcceptanceComment() {
     return this.acceptanceComment;
   }
@@ -201,5 +185,13 @@ public class AcceptItem extends FacesBean {
     }
 
     return false;
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+  }
+
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
+    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 }

@@ -38,7 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
 public class AffiliationTreePage extends BreadcrumbPage {
   public AffiliationTreePage() {
     this.init();
-    // getSessionBean(ItemControllerSessionBean.class);
   }
 
   /**

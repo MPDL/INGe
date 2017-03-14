@@ -39,9 +39,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -260,8 +257,6 @@ public class ViewItemFull extends FacesBean {
    * link for modify
    */
   public void init() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     String itemID = "";
 
     // populate the core service Url
@@ -280,19 +275,19 @@ public class ViewItemFull extends FacesBean {
     }
 
     // Try to get a pubitem either via the controller session bean or an URL Parameter
-    itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
+    itemID = getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
     if (itemID != null) {
       try {
         this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
         // if it is a new item reset ViewItemSessionBean
-        if (getItemControllerSessionBean().getCurrentPubItem() == null
+        if (this.getItemControllerSessionBean().getCurrentPubItem() == null
             || !pubItem
                 .getVersion()
                 .getObjectIdAndVersion()
                 .equals(
-                    getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                         .getObjectIdAndVersion())) {
-          getViewItemSessionBean().itemChanged();
+          this.getViewItemSessionBean().itemChanged();
         }
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
       } catch (AuthorizationException e) {
@@ -324,9 +319,9 @@ public class ViewItemFull extends FacesBean {
       this.pubItem = icsb.getCurrentPubItem();
     }
 
-    String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
+    String subMenu = getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
     if (subMenu != null)
-      getViewItemSessionBean().setSubMenu(subMenu);
+      this.getViewItemSessionBean().setSubMenu(subMenu);
 
     if (this.pubItem != null) {
       logger.info("Initializing view for item: " + pubItem.getVersion().getObjectIdAndVersion());
@@ -469,7 +464,7 @@ public class ViewItemFull extends FacesBean {
       }
 
       if (this.isStateWithdrawn) {
-        getViewItemSessionBean().itemChanged();
+        this.getViewItemSessionBean().itemChanged();
       }
 
       // set up some pre-requisites
@@ -517,9 +512,8 @@ public class ViewItemFull extends FacesBean {
 
       // the list of files
       // Check if the item is also in the search result list
-      PubItemListSessionBean pilsb =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-      List<PubItemVOPresentation> currentPubItemList = pilsb.getCurrentPartList();
+      List<PubItemVOPresentation> currentPubItemList =
+          this.getPubItemListSessionBean().getCurrentPartList();
 
       // removed unnecessary creation of new array list
       // List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
@@ -652,94 +646,6 @@ public class ViewItemFull extends FacesBean {
     return false;
   }
 
-  public String addSsrnTag() {
-    String returnValue = "";
-
-    ItemControllerSessionBean icsb =
-        (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-
-    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
-
-    if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
-        || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
-        info(getMessage("ViewItem_ssrnAddedSuccessfully"));
-      }
-    } else if ((State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
-        || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
-      if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
-        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
-        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
-        returnValue =
-            icsb.submitCurrentPubItem("Submission during adding SSRN-Tag.",
-                AcceptItem.LOAD_ACCEPTITEM);
-      } else {
-        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-      }
-
-      if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
-        info(getMessage("ViewItem_ssrnAddedSuccessfully"));
-      }
-    } else {
-      error(getMessage("ViewItem_ssrnAddingProblem"));
-    }
-
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
-
-    return returnValue;
-  }
-
-  public String removeSsrnTag() {
-    String returnValue = "";
-
-    ItemControllerSessionBean icsb =
-        (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-
-    this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
-
-    if ((State.PENDING).equals(this.getPubItem().getVersion().getState())
-        || (State.IN_REVISION).equals(this.getPubItem().getVersion().getState())) {
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
-        info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
-      }
-    } else if ((State.SUBMITTED).equals(this.getPubItem().getVersion().getState())
-        || ((State.RELEASED).equals(this.getPubItem().getVersion().getState()))) {
-      if (isModerator && (State.SUBMITTED).equals(this.getPubItem().getVersion().getState())) {
-        returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      } else if (isModerator && (State.RELEASED).equals(this.getPubItem().getVersion().getState())) {
-        icsb.saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
-        returnValue =
-            icsb.submitCurrentPubItem("Submission during removing SSRN-Tag.",
-                AcceptItem.LOAD_ACCEPTITEM);
-      } else {
-        returnValue = icsb.saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-      }
-
-      if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
-        info(getMessage("ViewItem_ssrnRemovedSuccessfully"));
-      }
-    } else {
-      error(getMessage("ViewItem_ssrnRemovingProblem"));
-    }
-
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
-
-    return returnValue;
-  }
-
   public String addToYearbookMember() {
     List<ItemRO> selected = new ArrayList<ItemRO>();
     selected.add(this.getPubItem().getVersion());
@@ -765,8 +671,8 @@ public class ViewItemFull extends FacesBean {
    */
   public String editItem() {
     // clear the list of locators and files when start editing an item
-    EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-    editItemSessionBean.clean();
+    this.getEditItemSessionBean().clean();
+
     return EditItem.LOAD_EDITITEM;
   }
 
@@ -776,9 +682,9 @@ public class ViewItemFull extends FacesBean {
    * @return Sring nav rule to load the withdraw item page
    */
   public String withdrawItem() {
-    WithdrawItemSessionBean withdrawItemSessionBean = getWithdrawItemSessionBean();
-    withdrawItemSessionBean.setNavigationStringToGoBack(getViewItemSessionBean()
-        .getNavigationStringToGoBack());
+    this.getWithdrawItemSessionBean().setNavigationStringToGoBack(
+        this.getViewItemSessionBean().getNavigationStringToGoBack());
+
     return WithdrawItem.LOAD_WITHDRAWITEM;
   }
 
@@ -789,8 +695,8 @@ public class ViewItemFull extends FacesBean {
    */
   public String modifyItem() {
     // clear the list of locators and files when start modifying an item
-    EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-    editItemSessionBean.clean();
+    this.getEditItemSessionBean().clean();
+
     return EditItem.LOAD_EDITITEM;
   }
 
@@ -802,8 +708,8 @@ public class ViewItemFull extends FacesBean {
    */
   public String createNewRevision() {
     // clear the list of locators and files when start creating a new revision
-    EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-    editItemSessionBean.clean();
+    this.getEditItemSessionBean().clean();
+
     // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one
     // context
     // if there is only one context for this user we can skip the CreateItem-Dialog and create the
@@ -846,6 +752,7 @@ public class ViewItemFull extends FacesBean {
   public String showRevisions() {
     this.getRelationListSessionBean().setPubItemVO(
         this.getItemControllerSessionBean().getCurrentPubItem());
+
     return ViewItemRevisionsPage.LOAD_VIEWREVISIONS;
   }
 
@@ -865,6 +772,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String showItemLog() {
     this.getItemVersionListSessionBean().resetVersionLists();
+
     return ViewItemLog.LOAD_ITEM_LOG;
   }
 
@@ -886,8 +794,8 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-    getSubmitItemSessionBean().setNavigationStringToGoBack(
-        getViewItemSessionBean().getNavigationStringToGoBack());
+    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
+        this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return SubmitItem.LOAD_SUBMITITEM;
   }
@@ -903,14 +811,10 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-    getAcceptItemSessionBean().setNavigationStringToGoBack(
-        getViewItemSessionBean().getNavigationStringToGoBack());
+    this.getAcceptItemSessionBean().setNavigationStringToGoBack(
+        this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return AcceptItem.LOAD_ACCEPTITEM;
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
   }
 
   /**
@@ -920,7 +824,7 @@ public class ViewItemFull extends FacesBean {
    * @return String nav rule to load the page the user came from
    */
   public String deleteItem() {
-    if (getViewItemSessionBean().getNavigationStringToGoBack() == null) {
+    if (this.getViewItemSessionBean().getNavigationStringToGoBack() == null) {
       getViewItemSessionBean().setNavigationStringToGoBack(
           MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
     }
@@ -938,8 +842,7 @@ public class ViewItemFull extends FacesBean {
           if (bhsb.getBreadcrumbs().get(i - 1).isItemSpecific() == false
               && bhsb.getBreadcrumbs().get(i - 1).getDisplayValue()
                   .equalsIgnoreCase("CreateItemPage") == false) {
-            getFacesContext().getExternalContext().redirect(
-                bhsb.getBreadcrumbs().get(i - 1).getPage());
+            getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
             return retVal;
           }
         }
@@ -948,6 +851,7 @@ public class ViewItemFull extends FacesBean {
         return "loadHome";
       }
     }
+
     return retVal;
   }
 
@@ -1448,14 +1352,15 @@ public class ViewItemFull extends FacesBean {
   public String getContextName() {
     String contextName = "";
     if (this.context == null) {
-      ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
       try {
         this.context =
-            itemControllerSessionBean.retrieveContext(this.pubItem.getContext().getObjectId());
+            this.getItemControllerSessionBean().retrieveContext(
+                this.pubItem.getContext().getObjectId());
       } catch (Exception e) {
         logger.error("Error retrieving context", e);
       }
     }
+
     if (this.context != null) {
       contextName = this.context.getName();
     }
@@ -1465,10 +1370,10 @@ public class ViewItemFull extends FacesBean {
 
   public AccountUserVO getOwner() {
     if (this.owner == null) {
-      ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
       try {
         this.owner =
-            itemControllerSessionBean.retrieveUserAccount(this.pubItem.getOwner().getObjectId());
+            this.getItemControllerSessionBean().retrieveUserAccount(
+                this.pubItem.getOwner().getObjectId());
       } catch (Exception e) {
         logger.error("Error retrieving owner", e);
       }
@@ -1482,7 +1387,7 @@ public class ViewItemFull extends FacesBean {
    */
   public ContextVO getContext() {
     if (this.context == null) {
-      this.context = getItemControllerSessionBean().getCurrentContext();
+      this.context = this.getItemControllerSessionBean().getCurrentContext();
     }
 
     return this.context;
@@ -1497,11 +1402,11 @@ public class ViewItemFull extends FacesBean {
     StringBuffer affiliations = new StringBuffer();
     List<AffiliationRO> affiliationRefList = new ArrayList<AffiliationRO>();
     List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
-    ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
     if (this.context == null) {
       try {
         this.context =
-            itemControllerSessionBean.retrieveContext(this.pubItem.getContext().getObjectId());
+            this.getItemControllerSessionBean().retrieveContext(
+                this.pubItem.getContext().getObjectId());
       } catch (Exception e) {
         logger.error("Error retrieving collection", e);
       }
@@ -1513,7 +1418,7 @@ public class ViewItemFull extends FacesBean {
     if (affiliationRefList != null) {
       for (int i = 0; i < affiliationRefList.size(); i++) {
         try {
-          affiliationList.add(new AffiliationVOPresentation(ItemControllerSessionBean
+          affiliationList.add(new AffiliationVOPresentation(this.getItemControllerSessionBean()
               .retrieveAffiliation(affiliationRefList.get(i).getObjectId())));
         } catch (Exception e) {
           logger.error("Error retrieving affiliation list", e);
@@ -1577,11 +1482,10 @@ public class ViewItemFull extends FacesBean {
   public AccountUserVO getLatestModifier() throws Exception {
     if (this.latestModifier == null && this.pubItem.getVersion().getModifiedByRO() != null
         && this.pubItem.getVersion().getModifiedByRO().getObjectId() != null) {
-      ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
       try {
         this.latestModifier =
-            itemControllerSessionBean.retrieveUserAccount(this.pubItem.getVersion()
-                .getModifiedByRO().getObjectId());
+            this.getItemControllerSessionBean().retrieveUserAccount(
+                this.pubItem.getVersion().getModifiedByRO().getObjectId());
       } catch (Exception e) {
         logger.error("Error retrieving latest modifier", e);
       }
@@ -1922,12 +1826,10 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addToBasket() {
-    PubItemStorageSessionBean pubItemStorage =
-        (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
-    if (!pubItemStorage.getStoredPubItems().containsKey(
-        this.getPubItem().getVersion().getObjectIdAndVersion())) {
-      pubItemStorage.getStoredPubItems().put(this.pubItem.getVersion().getObjectIdAndVersion(),
-          this.pubItem.getVersion());
+    if (!this.getPubItemStorageSessionBean().getStoredPubItems()
+        .containsKey(this.getPubItem().getVersion().getObjectIdAndVersion())) {
+      this.getPubItemStorageSessionBean().getStoredPubItems()
+          .put(this.pubItem.getVersion().getObjectIdAndVersion(), this.pubItem.getVersion());
       info(getMessage("basket_SingleAddedSuccessfully"));
     } else {
       error(getMessage("basket_SingleAlreadyInBasket"));
@@ -1939,9 +1841,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeFromBasket() {
-    PubItemStorageSessionBean pssb =
-        (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
-    pssb.getStoredPubItems().remove(this.pubItem.getVersion().getObjectIdAndVersion());
+    this.getPubItemStorageSessionBean().getStoredPubItems()
+        .remove(this.pubItem.getVersion().getObjectIdAndVersion());
     info(getMessage("basket_SingleRemovedSuccessfully"));
     this.canAddToBasket = true;
     this.canDeleteFromBasket = false;
@@ -1954,11 +1855,8 @@ public class ViewItemFull extends FacesBean {
       return false;
     }
 
-    PubItemStorageSessionBean pubItemStorage =
-        (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
-
-    return pubItemStorage.getStoredPubItems().containsKey(
-        this.pubItem.getVersion().getObjectIdAndVersion());
+    return this.getPubItemStorageSessionBean().getStoredPubItems()
+        .containsKey(this.pubItem.getVersion().getObjectIdAndVersion());
   }
 
   public String getLinkForActionsView() {
@@ -1981,31 +1879,30 @@ public class ViewItemFull extends FacesBean {
    * @author: StG
    */
   public String exportEmail() {
-    ItemControllerSessionBean icsb =
-        (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    // this.setSelectedItemsAndCurrentItem();
-    ExportItemsSessionBean sb =
-        (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
     List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
     pubItemList.add(this.getPubItem());
-    // gets the export format VO that holds the data.
-    ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    ExportFormatVO curExportFormat = this.getExportItemsSessionBean().getCurExportFormatVO();
     byte[] exportFileData;
+
     try {
-      exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+      exportFileData =
+          this.getItemControllerSessionBean().retrieveExportData(curExportFormat, pubItemList);
     } catch (TechnicalException e) {
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
+
     if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
       error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
       return "";
     }
+
     // YEAR + MONTH + DAY_OF_MONTH
     Calendar rightNow = Calendar.getInstance();
     String date =
         rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
             + rightNow.get(Calendar.MONTH) + "_";
+
     // create an attachment temp file from the byte[] stream
     File exportAttFile;
     try {
@@ -2019,11 +1916,13 @@ public class ViewItemFull extends FacesBean {
       ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
       return ErrorPage.LOAD_ERRORPAGE;
     }
-    sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
-    sb.setAttExportFileName(exportAttFile.getName());
-    sb.setAttExportFile(exportAttFile);
-    sb.setExportEmailSubject(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": "
-        + exportAttFile.getName());
+
+    this.getExportItemsSessionBean().setExportEmailTxt(
+        getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+    this.getExportItemsSessionBean().setAttExportFileName(exportAttFile.getName());
+    this.getExportItemsSessionBean().setAttExportFile(exportAttFile);
+    this.getExportItemsSessionBean().setExportEmailSubject(
+        getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": " + exportAttFile.getName());
     // hier call set the values on the exportEmailView - attachment file, subject, ....
 
     return "displayExportEmailPage";
@@ -2036,41 +1935,33 @@ public class ViewItemFull extends FacesBean {
    * @author: StG
    */
   public String exportDownload() {
-    ItemControllerSessionBean icsb =
-        (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    // set the currently selected items in the FacesBean
-    // this.setSelectedItemsAndCurrentItem();
-    ExportItemsSessionBean sb =
-        (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
     List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
     pubItemList.add(this.getPubItem());
     // export format and file format.
-    ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    ExportFormatVO curExportFormat = this.getExportItemsSessionBean().getCurExportFormatVO();
     byte[] exportFileData = null;
     try {
-      exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+      exportFileData =
+          this.getItemControllerSessionBean().retrieveExportData(curExportFormat, pubItemList);
     } catch (Exception e) {
       throw new RuntimeException("Cannot export item:", e);
     }
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpServletResponse response =
-        (HttpServletResponse) facesContext.getExternalContext().getResponse();
     String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-    response.setContentType(contentType);
+    getResponse().setContentType(contentType);
     String fileName =
         "export_" + curExportFormat.getName().toLowerCase() + "."
-            + FileFormatVO.getExtensionByName(sb.getFileFormat());
-    response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+            + FileFormatVO.getExtensionByName(this.getExportItemsSessionBean().getFileFormat());
+    getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
-      OutputStream out = response.getOutputStream();
+      OutputStream out = getResponse().getOutputStream();
       out.write(exportFileData);
       out.flush();
       out.close();
     } catch (Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
-    facesContext.responseComplete();
+    getFacesContext().responseComplete();
 
     return "";
   }
@@ -2480,11 +2371,6 @@ public class ViewItemFull extends FacesBean {
     return null;
   }
 
-  /**
-   * Adds a DOI and releases the Item again
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String addDoi() {
     String returnValue = "";
 
@@ -2492,35 +2378,96 @@ public class ViewItemFull extends FacesBean {
       // get a new DOI including a consistency check
       String doi = DoiRestService.getNewDoi(this.getPubItem());
 
-      // update and release the current item with the new DOI
-      ItemControllerSessionBean icsb =
-          (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
 
-      icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      icsb.submitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+      ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
+      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
+      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
 
-      returnValue =
-          icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
+      if (success) {
+        returnValue =
+            icsb.submitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
+        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
 
-      if (!"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue)) {
+        if (success) {
+          returnValue =
+              icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
+          success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+        }
+      }
+
+      if (success) {
         info(getMessage("ViewItem_doiAddedSuccessfully"));
+      } else {
+        error(getMessage("ViewItem_doiAddingProblem"));
       }
 
       // update Lists with current item version
-      PubItemListSessionBean pubItemListSessionBean =
-          (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-
-      if (pubItemListSessionBean != null) {
-        pubItemListSessionBean.update();
-      }
+      this.getPubItemListSessionBean().update();
     } catch (Exception e) {
       logger.error("Error creating new DOI", e);
       error(getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
     return returnValue;
+  }
+
+  public String addSsrnTag() {
+    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+
+    return getSsrnReturnValue("Submission during adding SSRN-Tag.",
+        "ViewItem_ssrnAddedSuccessfully", "ViewItem_ssrnAddingProblem");
+  }
+
+  public String removeSsrnTag() {
+    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+
+    return getSsrnReturnValue("Submission during removing SSRN-Tag.",
+        "ViewItem_ssrnRemovedSuccessfully", "ViewItem_ssrnRemovingProblem");
+  }
+
+  private String getSsrnReturnValue(String messageSubmit, String messageSuccess, String messageError) {
+    String navigationRuleWhenSucces = ViewItemFull.LOAD_VIEWITEM;
+
+    State state = this.getPubItem().getVersion().getState();
+
+    if (isModerator && State.RELEASED.equals(state)) {
+      navigationRuleWhenSucces = AcceptItem.LOAD_ACCEPTITEM;
+    } else if (State.SUBMITTED.equals(state) || State.RELEASED.equals(state)) {
+      navigationRuleWhenSucces = SubmitItem.LOAD_SUBMITITEM;
+    }
+
+    ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
+    String returnValue = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
+    boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+
+    if (success && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
+      returnValue = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
+      success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+    }
+
+    if (success) {
+      info(getMessage(messageSuccess));
+    } else {
+      error(getMessage(messageError));
+    }
+
+    this.getPubItemListSessionBean().update();
+
+    return returnValue;
+
+  }
+
+  private AcceptItemSessionBean getAcceptItemSessionBean() {
+    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
+  }
+
+  private PubItemListSessionBean getPubItemListSessionBean() {
+    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+  }
+
+  private PubItemStorageSessionBean getPubItemStorageSessionBean() {
+    return (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
@@ -2557,5 +2504,9 @@ public class ViewItemFull extends FacesBean {
 
   private ContextListSessionBean getCollectionListSessionBean() {
     return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  }
+
+  private ExportItemsSessionBean getExportItemsSessionBean() {
+    return (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
   }
 }

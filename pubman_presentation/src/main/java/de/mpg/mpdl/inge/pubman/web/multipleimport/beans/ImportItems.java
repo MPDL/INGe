@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -59,18 +57,15 @@ public class ImportItems extends FacesBean {
    * user settings.
    */
   public ImportItems() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+    String idString = getExternalContext().getRequestParameterMap().get("id");
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
-    String pageString = facesContext.getExternalContext().getRequestParameterMap().get("page");
+    String pageString = getExternalContext().getRequestParameterMap().get("page");
     if (pageString != null) {
       this.page = Integer.parseInt(pageString);
     }
-    String itemsPerPageString =
-        facesContext.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+    String itemsPerPageString = getExternalContext().getRequestParameterMap().get("itemsPerPage");
     if (itemsPerPageString != null) {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }

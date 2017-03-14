@@ -51,15 +51,22 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public abstract class FileLocatorUploadBean extends FacesBean {
-  private static final long serialVersionUID = 1L;
-
   private Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
-  private String type; // File MimeType
+
   protected String name; // File Name
   protected String locator; // File Location
+  protected String error = null; // Error Message
+
   private int size;
-  String error = null; // Error Message
+  private String type; // File MimeType
+
+  public abstract void locatorUploaded();
+
+  public abstract void removeEmptyFile();
+
+  public abstract void removeLocator();
 
   /**
    * Executes a HEAD request to the locator.
@@ -177,23 +184,6 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return input;
   }
 
-  /**
-   * Populates the FileVO.
-   */
-  public abstract void locatorUploaded();
-
-  public abstract void removeEmptyFile();
-
-  /**
-   * Removes the last added locator from the locator list.
-   */
-  public abstract void removeLocator();
-
-  /**
-   * 
-   * @param item
-   * @return
-   */
   public Vector<FileVO> getLocators(PubItemVO item) {
     Vector<FileVO> locators = new Vector<FileVO>();
 
@@ -208,10 +198,6 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return locators;
   }
 
-  /**
-   * 
-   * @return
-   */
   public FileVO uploadLocatorAsFile(FileVO locator) {
     FileVO fileVO = null;
 

@@ -24,8 +24,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -52,21 +50,15 @@ public class PubManRequestBean extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    // super.init();
-    FacesContext fc = FacesContext.getCurrentInstance();
-    if (fc.getExternalContext().getRequestPathInfo() != null) {
-      this.helpAnchor = fc.getExternalContext().getRequestPathInfo().replace("/", "");
+    if (getExternalContext().getRequestPathInfo() != null) {
+      this.helpAnchor = getExternalContext().getRequestPathInfo().replace("/", "");
       this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
       this.helpAnchor = "#" + this.helpAnchor.replaceAll(".jsp", "");
     }
-
   }
 
-
-  // Getters and Setters
-
   public String getHelpAnchor() {
-    return helpAnchor;
+    return this.helpAnchor;
   }
 
   public void setHelpAnchor(String helpAnchor) {
@@ -74,13 +66,12 @@ public class PubManRequestBean extends FacesBean {
   }
 
   public String getRequestedPage() {
-    return requestedPage;
+    return this.requestedPage;
   }
 
   public void setRequestedPage(String requestedPage) {
     this.requestedPage = requestedPage;
   }
-
 
   /**
    * Reads the policy URL from the properties file.
@@ -115,6 +106,4 @@ public class PubManRequestBean extends FacesBean {
 
     return url;
   }
-
-
 }

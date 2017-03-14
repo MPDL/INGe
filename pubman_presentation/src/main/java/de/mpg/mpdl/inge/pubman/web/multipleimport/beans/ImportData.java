@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
@@ -57,11 +55,12 @@ public class ImportData extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportData() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+    String idString = getExternalContext().getRequestParameterMap().get("id");
+
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
+
     if (getLoginHelper().getAccountUser() != null
         && getLoginHelper().getAccountUser().getReference() != null) {
       this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
@@ -88,11 +87,13 @@ public class ImportData extends FacesBean {
         logger.error("Error closing db connection", e);
       }
     }
+
     return this.log;
   }
 
   public String getRemove() {
     getImport().remove();
+
     return null;
   }
 
@@ -103,16 +104,18 @@ public class ImportData extends FacesBean {
 
   public String getSubmit() {
     getImport().submitAll();
+
     return null;
   }
 
   public String getRelease() {
     getImport().submitAndReleaseAll();
+
     return null;
   }
 
   public int getImportId() {
-    return importId;
+    return this.importId;
   }
 
   public void setImportId(int importId) {
@@ -123,5 +126,4 @@ public class ImportData extends FacesBean {
     System.out.println("WF: " + getImport().getSimpleWorkflow());
     return getImport().getSimpleWorkflow();
   }
-
 }

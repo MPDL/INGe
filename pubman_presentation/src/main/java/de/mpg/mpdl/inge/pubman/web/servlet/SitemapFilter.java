@@ -21,24 +21,17 @@ import de.mpg.mpdl.inge.pubman.web.task.SiteMapTask;
 
 public class SitemapFilter implements Filter {
   @Override
-  public void destroy() {
-    // TODO Auto-generated method stub
-  }
+  public void destroy() {}
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-
-
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
-
-
       HttpServletRequest req = (HttpServletRequest) request;
       HttpServletResponse resp = (HttpServletResponse) response;
       String filename = req.getServletPath();
 
       if (filename != null && filename.matches("^/sitemap\\d*\\.xml$")) {
-
         File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
 
         if (!sitemapFile.exists()) {
@@ -60,21 +53,13 @@ public class SitemapFilter implements Filter {
           out.flush();
           out.close();
           return;
-
         }
       }
-
-
     }
+
     chain.doFilter(request, response);
-
-
   }
 
   @Override
-  public void init(FilterConfig arg0) throws ServletException {
-    // TODO Auto-generated method stub
-
-  }
-
+  public void init(FilterConfig arg0) throws ServletException {}
 }

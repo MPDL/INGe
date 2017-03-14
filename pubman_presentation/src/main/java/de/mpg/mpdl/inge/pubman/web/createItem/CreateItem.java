@@ -130,21 +130,9 @@ public class CreateItem extends FacesBean {
     return navigateTo;
   }
 
-  private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-  }
-
-  private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-  }
-
   protected EditItem getEditItem() {
     return (EditItem) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
         .resolveVariable(FacesContext.getCurrentInstance(), EditItem.BEAN_NAME);
-  }
-
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
   public boolean getMultiple() {
@@ -177,5 +165,17 @@ public class CreateItem extends FacesBean {
    */
   public void setMethod(SubmissionMethod method) {
     this.method = method;
+  }
+
+  private ContextListSessionBean getContextListSessionBean() {
+    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+  }
+
+  private EditItemSessionBean getEditItemSessionBean() {
+    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+  }
+
+  private ItemControllerSessionBean getItemControllerSessionBean() {
+    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 }

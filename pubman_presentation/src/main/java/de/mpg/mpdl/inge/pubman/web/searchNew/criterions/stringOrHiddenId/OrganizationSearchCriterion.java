@@ -28,7 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
@@ -160,8 +162,9 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-
-    AffiliationVO affiliation = ItemControllerSessionBean.retrieveAffiliation(getHiddenId());
+    AffiliationVO affiliation =
+        XmlTransformingService.transformToAffiliation(ServiceLocator.getOrganizationalUnitHandler()
+            .retrieve(getHiddenId()));
     allAffs.add(affiliation);
 
     AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
