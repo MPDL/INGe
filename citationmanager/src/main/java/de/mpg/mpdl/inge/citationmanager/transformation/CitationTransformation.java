@@ -86,8 +86,7 @@ public class CitationTransformation {
    */
 
   public byte[] transformEscidocItemToCitation(byte[] src, Format srcFormat, Format trgFormat,
-      String service, boolean itemListBool) throws TransformationException,
-      RuntimeException {
+      String service, boolean itemListBool) throws TransformationException, RuntimeException {
     try {
       String itemList = "";
       if (!itemListBool) {
