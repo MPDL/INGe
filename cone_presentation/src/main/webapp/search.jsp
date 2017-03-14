@@ -27,30 +27,32 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<%@page import="de.mpg.mpdl.inge.cone.util.UrlHelper"%>
-<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@page import="de.mpg.mpdl.inge.cone.util.LocalizedString"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
-	
 %>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.Map" %>
+
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="de.mpg.mpdl.inge.cone.util.Pair" %>
-<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
-<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier.ModeType"%>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Describable"%>
+<%@ page import="de.mpg.mpdl.inge.cone.LocalizedString"%>
+<%@ page import="de.mpg.mpdl.inge.cone.Pair" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
+<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 
 <%
-	
 	List<? extends Describable> results = null;
 	String path = "search.jsp";
 	String queryString = "?";
@@ -94,10 +96,6 @@
 		querier.release();
 	}
 %>
-
-
-<%@page import="de.mpg.mpdl.inge.cone.Querier.ModeType"%>
-<%@page import="de.mpg.mpdl.inge.cone.util.Describable"%>
 
 <html>
 	<jsp:include page="header.jsp"/>

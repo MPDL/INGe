@@ -49,7 +49,6 @@
 		<module>inge_validation</module>
 		<module>inge_validation_presentation</module>
 		<module>model</module>
-		<!-- <module>pid_cache_presentation</module> -->
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
@@ -59,9 +58,6 @@
 		<module>structuredexportmanager</module>
 		<module>syndication_presentation</module>
 		<module>transformationManager</module>
-		<module>validation</module>
-		<module>validation_presentation</module>
- 		
  	</modules>
 
 	<licenses>

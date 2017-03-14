@@ -26,10 +26,8 @@
 
 package de.mpg.mpdl.inge.dataacquisition;
 
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,10 +37,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import noNamespace.SourceType;
-import noNamespace.SourcesDocument;
-import noNamespace.SourcesType;
-
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
@@ -51,16 +45,15 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.util.Format;
-
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-
-
+import noNamespace.SourceType;
+import noNamespace.SourcesDocument;
+import noNamespace.SourcesType;
 
 /**
  * 
@@ -84,13 +77,6 @@ public class Util {
   private static final String coneMethod = "escidocmimetypes";
   private static final String coneRel1 = "/resource/";
   private static final String coneRel2 = "?format=rdf";
-
-  /**
-   * Public constructor.
-   */
-  public Util() {
-
-  }
 
   /**
    * Retrieves the default encoding ("UTF-8").
@@ -151,7 +137,7 @@ public class Util {
    * @return Metadata Object of the format to fetch
    * @throws FormatNotAvailableException
    */
-  public MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName,
+  public static MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName,
       String trgFormatType, String trgFormatEndcoding) {
     MetadataVO sourceMd = null;
     DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
@@ -219,7 +205,7 @@ public class Util {
    * @param trgFormatEncoding
    * @return true if transformation is provided, else false
    */
-  public boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
+  public static boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
       String trgFormatEncoding) {
     Format target = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
     Format escidoc =
@@ -230,13 +216,12 @@ public class Util {
     formats = TransformerFactory.getAllTargetFormatsFor(escidoc.toFORMAT());
 
     for (int i = 0; i < formats.length; i++) {
-      if (this.isFormatEqual(target, Util.fromFORMAT(formats[i]))) {
+      if (isFormatEqual(target, Util.fromFORMAT(formats[i]))) {
         return true;
       }
     }
 
     return false;
-
   }
 
   /**
@@ -248,8 +233,8 @@ public class Util {
    * @param formatEncoding
    * @return Fulltext Object of the format to fetch
    */
-  public FullTextVO getFtObjectToFetch(DataSourceVO source, String formatName, String formatType,
-      String formatEncoding) {
+  public static FullTextVO getFtObjectToFetch(DataSourceVO source, String formatName,
+      String formatType, String formatEncoding) {
     FullTextVO ft = null;
 
     for (int i = 0; i < source.getFtFormats().size(); i++) {
@@ -274,6 +259,7 @@ public class Util {
         ft = null;
       }
     }
+
     return ft;
   }
 
@@ -318,7 +304,7 @@ public class Util {
    * @param fetchFormats
    * @return List of Metadata Value Objects
    */
-  public List<MetadataVO> getTransformFormats(List<MetadataVO> fetchFormats) {
+  public static List<MetadataVO> getTransformFormats(List<MetadataVO> fetchFormats) {
     List<MetadataVO> allFormats = new ArrayList<MetadataVO>();
 
     for (int i = 0; i < fetchFormats.size(); i++) {
@@ -336,6 +322,7 @@ public class Util {
         allFormats.add(mdTrans);
       }
     }
+
     return allFormats;
   }
 
@@ -345,7 +332,7 @@ public class Util {
    * @param metadataV
    * @return true if escidoc format can be transition format, else false
    */
-  public boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
+  public static boolean checkEscidocTransition(List<MetadataVO> metadataV, String identifier) {
     if (identifier.toLowerCase().contains(getInternalFormat()))
       // Transition not possible for escidoc source
       return false;
@@ -371,7 +358,7 @@ public class Util {
    * @param metadataV as MetadataVO List
    * @return List with unique entries
    */
-  public List<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
+  public static List<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
     List<MetadataVO> cleanVector = new ArrayList<MetadataVO>();
     MetadataVO format1;
     MetadataVO format2;
@@ -382,7 +369,7 @@ public class Util {
       format1 = (MetadataVO) metadataV.get(i);
       for (int x = i + 1; x < metadataV.size(); x++) {
         format2 = (MetadataVO) metadataV.get(x);
-        if (this.isMdFormatEqual(format1, format2)) {
+        if (isMdFormatEqual(format1, format2)) {
           duplicate = true;
         }
       }
@@ -401,10 +388,11 @@ public class Util {
    * @param src2
    * @return true if equal, else false
    */
-  public boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2) {
+  public static boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2) {
     if (!src1.getName().equalsIgnoreCase(src2.getName())) {
       return false;
     }
+
     if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) {
       return false;
     }
@@ -427,16 +415,19 @@ public class Util {
    * @param src2
    * @return true if equal, else false
    */
-  public boolean isFormatEqual(Format src1, Format src2) {
+  public static boolean isFormatEqual(Format src1, Format src2) {
     if (!src1.getName().equalsIgnoreCase(src2.getName())) {
       return false;
     }
+
     if (!src1.getType().equalsIgnoreCase(src2.getType())) {
       return false;
     }
+
     if ("*".equals(src1.getEncoding()) || "*".equals(src2.getEncoding())) {
       return true;
     }
+
     if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
       return false;
     } else {
@@ -449,7 +440,7 @@ public class Util {
    * 
    * @return xml as byte[]
    */
-  public byte[] createUnapiSourcesXml() {
+  public static byte[] createUnapiSourcesXml() {
     byte[] xml = null;
 
     List<DataSourceVO> sources;
@@ -614,11 +605,11 @@ public class Util {
     return internalFormat;
   }
 
-  public String getTransformationService() {
+  public static String getTransformationService() {
     return transformationService;
   }
 
-  public String getDummyFormat() {
+  public static String getDummyFormat() {
     return dummyFormat;
   }
 
@@ -661,10 +652,8 @@ public class Util {
     boolean check = false;
 
     try {
-
-      File transformFile =
-          ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
-              Util.class.getClassLoader());
+      ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
+          Util.class.getClassLoader());
       check = true;
 
     } catch (FileNotFoundException e) {
@@ -673,5 +662,4 @@ public class Util {
 
     return check;
   }
-
 }

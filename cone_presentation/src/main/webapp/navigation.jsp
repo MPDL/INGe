@@ -27,27 +27,23 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="de.mpg.mpdl.inge.aa.Aa"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+
+<%@ page import="de.escidoc.www.services.aa.UserAccountHandler" %>
+<%@ page import="de.mpg.mpdl.inge.aa.Aa"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="de.mpg.mpdl.inge.framework.ServiceLocator" %>
 <%@ page import="de.mpg.mpdl.inge.util.PropertyReader" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@page import="org.apache.commons.codec.binary.Base64"%>
-<%@ page import="de.mpg.mpdl.inge.framework.ServiceLocator" %>
-<%@ page import="de.escidoc.www.services.aa.UserAccountHandler" %>
-<%@ page import="de.mpg.mpdl.inge.common.valueobjects.AccountUserVO" %>
-<%@ page import="de.mpg.mpdl.inge.common.XmlTransforming" %>
-<%@ page import="de.mpg.mpdl.inge.common.xmltransforming.XmlTransformingBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="de.mpg.mpdl.inge.common.valueobjects.GrantVO" %>
-<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="org.apache.commons.codec.binary.Base64"%>
 
 <%
-
 	boolean showWarning = Login.checkLogin(request, true);
-	
 %>
+
 <style type="text/css">
 	.headerLogo {background-image: none; top: 0.5em;}
 </style>

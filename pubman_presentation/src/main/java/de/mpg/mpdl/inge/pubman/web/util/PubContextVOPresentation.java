@@ -8,8 +8,12 @@ import javax.faces.context.FacesContext;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
+import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
+import de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport;
 
 /**
  * Wrapper class for contexts to be used in the presentation.
@@ -28,12 +32,35 @@ public class PubContextVOPresentation extends ContextVO implements
     super(item);
   }
 
+  public boolean getDisabled() {
+    if (this.getState().equals(State.CLOSED)) {
+      return Boolean.TRUE;
+    } else {
+      return Boolean.FALSE;
+    }
+  }
+
   public boolean getSelected() {
     return this.selected;
   }
 
   public void setSelected(boolean selected) {
     this.selected = selected;
+  }
+
+  public String select() {
+    this.selected = true;
+
+    if (this.getCreateItem().getMethod() == SubmissionMethod.FULL_SUBMISSION) {
+      this.getItemControllerSessionBean().getCurrentPubItem().setContext(this.getReference());
+      return EditItem.LOAD_EDITITEM;
+    } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
+      MultipleImport multipleImport = (MultipleImport) getSessionBean(MultipleImport.class);
+      multipleImport.setContext(this);
+      return MultipleImport.LOAD_MULTIPLE_IMPORT;
+    } else {
+      throw new RuntimeException("Submission method not set or unknown");
+    }
   }
 
   public String selectForEasySubmission() {
@@ -104,5 +131,9 @@ public class PubContextVOPresentation extends ContextVO implements
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
     return ((EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class));
+  }
+
+  private CreateItem getCreateItem() {
+    return ((CreateItem) getSessionBean(CreateItem.class));
   }
 }

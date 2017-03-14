@@ -1,7 +1,8 @@
-<%@page import="de.mpg.mpdl.inge.aa.Aa"%>
-<%@page import="java.net.URLEncoder"%>
-<%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
+<%@ page import="de.mpg.mpdl.inge.aa.Aa"%>
+<%@ page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URLEncoder"%>
+
 <%
 	request.getSession().removeAttribute("user");
 	request.getSession().setAttribute("logged_in",Boolean.FALSE);

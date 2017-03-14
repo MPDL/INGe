@@ -27,37 +27,38 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="de.mpg.mpdl.inge.cone.web.Login"%>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
 	
 	response.setCharacterEncoding("UTF-8");
-	
 %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
-<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
+
+<%@ page import="de.mpg.mpdl.inge.aa.AuthenticationVO" %>
+<%@ page import="de.mpg.mpdl.inge.cone.LocalizedString" %>
+<%@ page import="de.mpg.mpdl.inge.cone.LocalizedTripleObject" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
-<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedString" %>
-<%@ page import="de.mpg.mpdl.inge.cone.util.TreeFragment" %>
-<%@ page import="de.mpg.mpdl.inge.cone.util.LocalizedTripleObject" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
+<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
+<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
+<%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.HashSet" %>
-<%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 <%@ page import="java.nio.charset.Charset" %>
-<%@ page import="de.mpg.mpdl.inge.aa.AuthenticationVO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="org.apache.log4j.Logger"%>
 
 <%!
