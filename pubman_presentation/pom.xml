@@ -147,7 +147,6 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -169,14 +168,6 @@
 									<directory>${project.basedir}/src/main/resources/mpg</directory>
 									<includes>
 										<include>**/*.properties</include>
-									</includes>
-								</resource>
-								<resource>
-									<targetPath></targetPath>
-									<directory>${project.basedir}/src/main/webapp/home/mpg</directory>
-									<includes>
-										<include>StartPageLoggedIn.jspf</include>
-										<include>StartPageLoggedOut.jspf</include>
 									</includes>
 								</resource>
 							</webResources>
