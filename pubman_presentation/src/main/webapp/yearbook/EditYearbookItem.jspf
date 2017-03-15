@@ -54,7 +54,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 					id="selSelectedOrgUnit" styleClass="xDouble_select replace"
-					value="#{YearbookItemEditBean.organization..name} (#{YearbookItemEditBean.organization.identifier})" />
+					value="#{YearbookItemEditBean.organization.name} (#{YearbookItemEditBean.organization.identifier})" />
 			</span>
 
 		</h:panelGroup> <h:panelGroup layout="block"

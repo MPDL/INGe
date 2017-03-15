@@ -193,6 +193,19 @@ public class EditItem extends FacesBean {
     this.contextName = this.getContextName();
   }
 
+  public String acceptLocalTags() {
+    getPubItem().writeBackLocalTags(null);
+    if (getPubItem().getVersion().getState().equals(State.RELEASED)) {
+      this.bindFilesAndLocators = false;
+      return saveAndAccept();
+    } else {
+      this.bindFilesAndLocators = false;
+      save();
+    }
+    
+    return null;
+  }
+  
   /**
    * Delivers a reference to the currently edited item. This is a shortCut for the method in the
    * ItemController.

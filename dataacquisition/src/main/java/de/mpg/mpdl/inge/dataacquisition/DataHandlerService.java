@@ -190,8 +190,9 @@ public class DataHandlerService {
     Format format;
 
     for (int i = 0; i < formats.length; i++) {
-      format = new Format(formats[i], Util.getDefaultMimeType(formats[i]),
-          Util.getDefaultEncoding(formats[i]));
+      format =
+          new Format(formats[i], Util.getDefaultMimeType(formats[i]),
+              Util.getDefaultEncoding(formats[i]));
       formatsF[i] = format;
     }
 
@@ -227,12 +228,13 @@ public class DataHandlerService {
     ProtocolHandler protocolHandler = new ProtocolHandler();
 
     try {
-      MetadataVO md = Util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
-          trgFormatEncoding);
+      MetadataVO md =
+          Util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
+              trgFormatEncoding);
       if (md == null) {
         return null;
       }
-      
+
       String decoded =
           java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
       md.setMdUrl(new URL(decoded));
@@ -247,26 +249,26 @@ public class DataHandlerService {
         protocolHandler.checkOAIRecord(item);
         supportedProtocol = true;
       }
-      
+
       if (currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
         logger.debug("Fetch record via EJB.");
         item = this.fetchEjbRecord(md, identifier);
         supportedProtocol = true;
       }
-      
+
       if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
         logger.debug("Fetch record via http.");
         item = this.fetchHttpRecord(md);
         supportedProtocol = true;
       }
-      
+
       if (!supportedProtocol) {
-        logger.warn(
-            "Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
-        throw new DataaquisitionException(
-            "Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
+        logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol()
+            + " not supported.");
+        throw new DataaquisitionException("Harvesting protocol "
+            + this.currentSource.getHarvestProtocol() + " not supported.");
       }
-      
+
       fetchedItem = item;
 
       // Transform the itemXML if necessary
@@ -285,8 +287,8 @@ public class DataHandlerService {
             new TransformerStreamResult(wr));
 
         if (currentSource.getItemUrl() != null) {
-          this.setItemUrl(
-              new URL(currentSource.getItemUrl().toString().replace("GETID", identifier)));
+          this.setItemUrl(new URL(currentSource.getItemUrl().toString()
+              .replace("GETID", identifier)));
         }
 
         try {
@@ -299,9 +301,8 @@ public class DataHandlerService {
           if (componentTransformer != null) {
             wr = new StringWriter();
 
-            componentTransformer.transform(
-                new TransformerStreamSource(new ByteArrayInputStream(fetchedItem.getBytes(enc))),
-                new TransformerStreamResult(wr));
+            componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
+                fetchedItem.getBytes(enc))), new TransformerStreamResult(wr));
             byte[] componentBytes = wr.toString().getBytes(enc);
 
             if (componentBytes != null) {
@@ -321,7 +322,7 @@ public class DataHandlerService {
     } catch (Exception e1) {
       throw new DataaquisitionException(e1);
     }
-    
+
     return item;
   }
 
@@ -349,8 +350,8 @@ public class DataHandlerService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException(
-                "Source responded with 503, retry after " + retryAfter + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after "
+                + retryAfter + ".");
           }
           break;
         case 302:
@@ -415,14 +416,16 @@ public class DataHandlerService {
       // Call fetch file for every given format
       for (int i = 0; i < formats.length; i++) {
         Format format = formats[i];
-        fulltext = Util.getFtObjectToFetch(this.currentSource, format.getName(), format.getType(),
-            format.getEncoding());
+        fulltext =
+            Util.getFtObjectToFetch(this.currentSource, format.getName(), format.getType(),
+                format.getEncoding());
         // Replace regex with identifier
-        String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(),
-            this.currentSource.getEncoding());
+        String decoded =
+            java.net.URLDecoder.decode(fulltext.getFtUrl().toString(),
+                this.currentSource.getEncoding());
         fulltext.setFtUrl(new URL(decoded));
-        fulltext
-            .setFtUrl(new URL(fulltext.getFtUrl().toString().replaceAll(regex, identifier.trim())));
+        fulltext.setFtUrl(new URL(fulltext.getFtUrl().toString()
+            .replaceAll(regex, identifier.trim())));
         logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
 
         // escidoc file
@@ -511,8 +514,8 @@ public class DataHandlerService {
           httpConn.disconnect();
           break;
         case 403:
-          throw new DataaquisitionException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
+          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
         default:
           throw new DataaquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": "
@@ -566,19 +569,20 @@ public class DataHandlerService {
 
       try {
         // Trying to load FOP-Configuration from the pubman.properties
-        fopFactory.setUserConfig(new File(
-            PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration")));
+        fopFactory.setUserConfig(new File(PropertyReader
+            .getProperty("escidoc.dataacquisition.resources.fop.configuration")));
       } catch (Exception e) {
         try {
-          logger.info("FopFactory configuration couldn't be loaded from '"
-              + PropertyReader.getProperty("escidoc.dataacquisition.resources.fop.configuration")
-              + "'", e);
+          logger.info(
+              "FopFactory configuration couldn't be loaded from '"
+                  + PropertyReader
+                      .getProperty("escidoc.dataacquisition.resources.fop.configuration") + "'", e);
 
           // loading in-EAR configuration an fonts
           String dataaquisitionUrl =
               DataHandlerService.class.getClassLoader().getResource("dataaquisition/").toString();
-          logger.info(
-              "Trying to load FopFactory from: '" + dataaquisitionUrl + "apache-fop-config.xml'");
+          logger.info("Trying to load FopFactory from: '" + dataaquisitionUrl
+              + "apache-fop-config.xml'");
           fopFactory.setUserConfig(dataaquisitionUrl + "apache-fop-config.xml");
           fopFactory.setBaseURL(dataaquisitionUrl);
           fopFactory.getFontManager().setFontBaseURL(dataaquisitionUrl + "fonts/");
@@ -601,8 +605,9 @@ public class DataHandlerService {
         // new org.apache.fop.events.DefaultEventBroadcaster()));
 
         // Step 4: Setup JAXP using identity transformer
-        javax.xml.transform.TransformerFactory factory = javax.xml.transform.TransformerFactory
-            .newInstance("net.sf.saxon.TransformerFactoryImpl", null);
+        javax.xml.transform.TransformerFactory factory =
+            javax.xml.transform.TransformerFactory.newInstance(
+                "net.sf.saxon.TransformerFactoryImpl", null);
         javax.xml.transform.Transformer xmlTransformer = factory.newTransformer(); // identity
                                                                                    // transformer
 
@@ -657,8 +662,8 @@ public class DataHandlerService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException(
-                "Source responded with 503, retry after " + retryAfter + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after "
+                + retryAfter + ".");
           } else {
             logger.debug("Source responded with 503, retry after "
                 + this.currentSource.getRetryAfter() + ".");
@@ -674,8 +679,8 @@ public class DataHandlerService {
           logger.info("Source responded with 200");
           break;
         case 403:
-          throw new AccessException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
+          throw new AccessException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
         default:
           throw new DataaquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": "
@@ -726,8 +731,7 @@ public class DataHandlerService {
       }
     } catch (ItemNotFoundException e) {
       logger.error("Item with identifier " + identifier + " was not found.");
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.",
-          e);
+      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     } finally {
@@ -776,8 +780,8 @@ public class DataHandlerService {
         case 503:
           // request was not processed by source
           logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
-          throw new DataaquisitionException(
-              "Import source " + this.currentSource.getName() + "did not provide file.");
+          throw new DataaquisitionException("Import source " + this.currentSource.getName()
+              + "did not provide file.");
 
         case 302:
           String alternativeLocation = contentUrl.getHeaderField("Location");
@@ -798,8 +802,8 @@ public class DataHandlerService {
           httpConn.disconnect();
           break;
         case 403:
-          throw new DataaquisitionException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
+          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
         default:
           throw new DataaquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": "
@@ -809,12 +813,10 @@ public class DataHandlerService {
 
     catch (ItemNotFoundException e) {
       logger.error("Item with identifier " + identifier + " was not found.", e);
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.",
-          e);
+      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
     } catch (IOException e) {
       logger.error("Item with identifier " + identifier + " was not found.", e);
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.",
-          e);
+      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     }
@@ -844,8 +846,8 @@ public class DataHandlerService {
         case 503:
           // request was not processed by source
           logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
-          throw new DataaquisitionException(
-              "Import source " + this.currentSource.getName() + "did not provide file.");
+          throw new DataaquisitionException("Import source " + this.currentSource.getName()
+              + "did not provide file.");
         case 302:
           String alternativeLocation = conn.getHeaderField("Location");
           md.setMdUrl(new URL(alternativeLocation));
@@ -855,8 +857,8 @@ public class DataHandlerService {
           logger.info("Source responded with 200");
           break;
         case 403:
-          throw new DataaquisitionException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
+          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
         default:
           throw new DataaquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": "
@@ -874,8 +876,8 @@ public class DataHandlerService {
       logger.error("Access denied.", e);
       throw new DataaquisitionException("Access denied " + this.currentSource.getName(), e);
     } catch (IOException e) {
-      throw new DataaquisitionException(
-          "Problem to get connection to " + this.currentSource.getName(), e);
+      throw new DataaquisitionException("Problem to get connection to "
+          + this.currentSource.getName(), e);
     }
     return item;
   }
@@ -906,8 +908,7 @@ public class DataHandlerService {
       }
     }
     if (sourceName.equalsIgnoreCase("escidocdev") || sourceName.equalsIgnoreCase("escidocqa")
-        || sourceName.equalsIgnoreCase("escidocprod")
-        || sourceName.equalsIgnoreCase("escidoctest")) {
+        || sourceName.equalsIgnoreCase("escidocprod") || sourceName.equalsIgnoreCase("escidoctest")) {
       // escidoc source has only one dummy ft record
       FullTextVO ft = source.getFtFormats().get(0);
       coreservice = ft.getFtUrl().toString();
@@ -939,8 +940,8 @@ public class DataHandlerService {
       }
     } catch (Exception e) {
       logger.error("An error occurred while retrieving the item " + identifier + ".", e);
-      throw new DataaquisitionException(
-          "An error occurred while retrieving the item " + identifier + ".", e);
+      throw new DataaquisitionException("An error occurred while retrieving the item " + identifier
+          + ".", e);
     }
 
     return input;
@@ -957,13 +958,13 @@ public class DataHandlerService {
       String trgFormatEncoding) {
 
     // Native metadata format
-    if (Util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
-        trgFormatEncoding) != null) {
+    if (Util
+        .getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null) {
       return fetchTypeTEXTUALDATA;
     }
     // Native Fulltext format
-    if (Util.getFtObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
-        trgFormatEncoding) != null) {
+    if (Util
+        .getFtObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null) {
       return fetchTypeFILEDATA;
     }
     // Transformations via escidoc format
@@ -971,8 +972,9 @@ public class DataHandlerService {
       return fetchTypeESCIDOCTRANS;
     }
     // Transformable formats
-    FORMAT[] trgFormats = TransformerFactory.getAllTargetFormatsFor(
-        (new Format(trgFormatName, trgFormatType, trgFormatEncoding)).toFORMAT());
+    FORMAT[] trgFormats =
+        TransformerFactory.getAllTargetFormatsFor((new Format(trgFormatName, trgFormatType,
+            trgFormatEncoding)).toFORMAT());
     if (trgFormats.length > 0) {
       return fetchTypeTEXTUALDATA;
     }

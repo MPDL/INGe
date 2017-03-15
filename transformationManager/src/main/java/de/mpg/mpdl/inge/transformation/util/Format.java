@@ -43,13 +43,14 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 public class Format implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  
+
   private static Map<Format, FORMAT> map;
-  static
-  {
+  static {
     map = new HashMap<Format, FORMAT>();
-    map.put(new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"), FORMAT.ESCIDOC_ITEMLIST_V1_XML);
-    map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"), FORMAT.ESCIDOC_ITEMLIST_V2_XML);
+    map.put(new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"),
+        FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+    map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
+        FORMAT.ESCIDOC_ITEMLIST_V2_XML);
   }
 
   private String name;
@@ -161,7 +162,7 @@ public class Format implements Serializable {
               .equalsIgnoreCase(((Format) other).encoding));
     }
   }
-  
+
   @Override
   public int hashCode() {
     return this.name.hashCode() * this.type.hashCode() * this.encoding.hashCode();

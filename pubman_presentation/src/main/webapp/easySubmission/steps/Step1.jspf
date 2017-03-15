@@ -62,7 +62,7 @@
 		<div>
 			
 			<div class="easySubmissionsBackSection deactivatedControl">
-			<h:commandLink id="lnkBack" title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}" onclick="fullItemReloadAjax();">
+			<h:commandLink id="lnkBack" title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancel}" onclick="fullItemReloadAjax();">
 				<h:panelGroup styleClass="easySubmissionBackButton"/>
 				<h:outputLabel id="lblBack" value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>

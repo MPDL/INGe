@@ -1590,6 +1590,16 @@ public class ViewItemFull extends FacesBean {
     return itemState;
   }
 
+  /**
+   * checks if the current item and user are cappable for creating a DOI (moderator, released and
+   * some needed Metadata)
+   * 
+   * @return if a doi can be created for this item
+   */
+  public boolean isDoiCappable() {
+    return (isModerator && DoiRestService.isDoiReady(this.getPubItem()));
+  }
+
   public String getCitationURL() {
     return this.citationURL;
   }
