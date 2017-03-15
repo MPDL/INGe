@@ -94,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
@@ -1172,14 +1173,14 @@ public class EasySubmission extends FacesBean {
 
       PubItemVO itemVO = new PubItemVO(pubItem);
 
-      // // cleanup item according to genre specific MD specification
-      // GenreSpecificItemManager itemManager =
-      // new GenreSpecificItemManager(itemVO, GenreSpecificItemManager.SUBMISSION_METHOD_EASY);
-      // try {
-      // itemVO = (PubItemVO) itemManager.cleanupItem();
-      // } catch (Exception e) {
-      // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-      // }
+      // cleanup item according to genre specific MD specification
+      GenreSpecificItemManager itemManager =
+          new GenreSpecificItemManager(itemVO, GenreSpecificItemManager.SUBMISSION_METHOD_EASY);
+      try {
+        itemVO = (PubItemVO) itemManager.cleanupItem();
+      } catch (Exception e) {
+        throw new RuntimeException("Error while cleaning up item genre specificly", e);
+      }
 
       try {
         ItemValidatingService.validateItemObject(itemVO, validationPoint);

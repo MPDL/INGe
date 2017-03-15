@@ -94,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
@@ -517,14 +518,14 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // // cleanup item according to genre specific MD specification
-    // GenreSpecificItemManager itemManager =
-    // new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    // try {
-    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    // } catch (Exception e) {
-    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    // }
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(getPubItem(), GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(getPubItem()),
@@ -557,15 +558,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // // cleanup item according to genre specific MD specification
-    // GenreSpecificItemManager itemManager =
-    // new GenreSpecificItemManager(this.getPubItem(),
-    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    // try {
-    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    // } catch (Exception e) {
-    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    // }
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(this.getPubItem(),
+            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -652,15 +653,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // // cleanup item according to genre specific MD specification
-    // GenreSpecificItemManager itemManager =
-    // new GenreSpecificItemManager(this.getPubItem(),
-    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    // try {
-    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    // } catch (Exception e) {
-    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    // }
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(this.getPubItem(),
+            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -734,15 +735,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // // cleanup item according to genre specific MD specification
-    // GenreSpecificItemManager itemManager =
-    // new GenreSpecificItemManager(this.getPubItem(),
-    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    // try {
-    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    // } catch (Exception e) {
-    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    // }
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(this.getPubItem(),
+            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
@@ -901,15 +902,15 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    // // cleanup item according to genre specific MD specification
-    // GenreSpecificItemManager itemManager =
-    // new GenreSpecificItemManager(this.getPubItem(),
-    // GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    // try {
-    // this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    // } catch (Exception e) {
-    // throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    // }
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager =
+        new GenreSpecificItemManager(this.getPubItem(),
+            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    try {
+      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
 
     try {
       ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
