@@ -37,8 +37,8 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerInterface;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
@@ -58,7 +58,7 @@ import net.sf.saxon.event.SaxonOutputKeys;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class CitationStyleManagerImpl implements CitationStyleManager {
+public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
 
   public static enum TASKS {
     validate, compile, pdf, rtf, odt, html_plain, html_styled, txt, snippet, escidoc_snippet
@@ -148,7 +148,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
 
   public static void main(String args[]) throws IOException, CitationStyleManagerException,
       JRException {
-    CitationStyleManager csm = new CitationStyleManagerImpl();
+    CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;
     String cs = null;
@@ -191,7 +191,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
-          CitationStyleExecutorService
+          CitationStyleManager
               .getOutput(ResourceUtil.getResourceAsString(il,
                   CitationStyleManagerImpl.class.getClassLoader()), new ExportFormatVO(
                   FormatType.LAYOUT, cs, task));

@@ -14,6 +14,7 @@ import java.util.HashMap;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -64,7 +65,7 @@ public class TestCitationManager {
 
     itemLists = new HashMap<String, String>();
 
-    for (String cs : CitationStyleExecutorService.getStyles()) {
+    for (String cs : CitationStyleManager.getStyles()) {
       if (!"CSL".equals(cs)) {
         String itemList =
             TestHelper.getCitationStyleTestXmlAsString(TestHelper.getTestProperties(cs)
@@ -84,7 +85,7 @@ public class TestCitationManager {
   @Test
   public final void testGetStyles() throws Exception {
     logger.info("List of citation styles: ");
-    for (String s : CitationStyleExecutorService.getStyles())
+    for (String s : CitationStyleManager.getStyles())
       logger.info("Citation Style: " + s);
   }
 
@@ -95,16 +96,16 @@ public class TestCitationManager {
    */
   @Test
   public final void testExplainStuff() throws Exception {
-    String explain = CitationStyleExecutorService.explainStyles();
+    String explain = CitationStyleManager.explainStyles();
     assertTrue("Empty explain xml", Utils.checkVal(explain));
     logger.info("Explain file:" + explain);
 
     logger.info("List of citation styles with output formats: ");
-    for (String s : CitationStyleExecutorService.getStyles()) {
+    for (String s : CitationStyleManager.getStyles()) {
       logger.info("Citation Style: " + s);
-      for (String of : CitationStyleExecutorService.getOutputFormats(s)) {
+      for (String of : CitationStyleManager.getOutputFormats(s)) {
         logger.info("--Output Format: " + of);
-        logger.info("--Mime Type: " + CitationStyleExecutorService.getMimeType(s, of));
+        logger.info("--Mime Type: " + CitationStyleManager.getMimeType(s, of));
       }
     }
   }
@@ -147,7 +148,7 @@ public class TestCitationManager {
   @Test
   @Ignore
   public final void testCitationStyles() throws Exception {
-    for (String cs : CitationStyleExecutorService.getStyles()) {
+    for (String cs : CitationStyleManager.getStyles()) {
       if (!"CSL".equals(cs)) {
         testValidation(cs);
         testCompilation(cs);
@@ -159,10 +160,12 @@ public class TestCitationManager {
   @Test
   @Ignore
   public final void testOutputs() throws Exception {
-    for (String cs : CitationStyleExecutorService.getStyles()) {
-      for (String format : CitationStyleExecutorService.getOutputFormats(cs)) {
-        if (!"CSL".equals(cs))
+    for (String cs : CitationStyleManager.getStyles()) {
+      for (String format : CitationStyleManager.getOutputFormats(cs)) {
+        if (!"CSL".equals(cs)) {
+          logger.info("citationStyle <" + cs + "> format <" + format);
           testOutput(cs, format);
+        }
       }
     }
   }
@@ -242,34 +245,44 @@ public class TestCitationManager {
   /**
    * Test service for all citation styles and all output formats
    * 
+   * @throws IOException
+   * 
    * @throws Exception Any exception.
    */
-
-
 
   /*
    * outPrefix == null: omit output file generation outPrefix == "": generate output file, file name
    * by default outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix
    */
-  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws Exception {
+  public final void testOutput(String cs, String ouf, String outPrefix, String il)
+      throws IOException {
 
     long start;
-    byte[] result;
+    byte[] result = null;
     logger.info("Test Citation Style: " + cs);
 
     start = System.currentTimeMillis();
-    result =
-        CitationStyleExecutorService.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
+    try {
+      result = CitationStyleManager.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
+    } catch (CitationStyleManagerException e) {
+      Assert.fail(e.getMessage());
+    }
 
     logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
     assertTrue(ouf + " output should not be empty", result.length > 0);
 
     logger.info(ouf + " length: " + result.length);
-    logger.info(ouf + " is OK");
+    if (result != null) {
+      logger.info(new String(result));
+    }
 
     if (outPrefix != null)
-      TestHelper.writeToFile("target/" + (!outPrefix.equals("") ? outPrefix + "_" : "") + cs + "_"
-          + ouf + "." + XmlHelper.getExtensionByName(ouf), result);
+      try {
+        TestHelper.writeToFile("target/" + (!outPrefix.equals("") ? outPrefix + "_" : "") + cs
+            + "_" + ouf + "." + XmlHelper.getExtensionByName(ouf), result);
+      } catch (CitationStyleManagerException e) {
+        Assert.fail(e.getMessage());
+      }
 
   }
 
@@ -282,7 +295,7 @@ public class TestCitationManager {
   }
 
   public final void testOutput(String cs) throws Exception {
-    for (String format : CitationStyleExecutorService.getOutputFormats(cs)) {
+    for (String format : CitationStyleManager.getOutputFormats(cs)) {
       testOutput(cs, format);
     }
 

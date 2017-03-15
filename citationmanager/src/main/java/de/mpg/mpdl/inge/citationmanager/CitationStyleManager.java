@@ -25,58 +25,211 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.util.List;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.log4j.Logger;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.in.xhtml.XHTMLImporter;
+import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
+import org.docx4j.convert.out.FOSettings;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.P;
+
+import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
+import de.mpg.mpdl.inge.citationmanager.utils.Utils;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.util.Format;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
- * Interface for managing of the Citation Styles. It includes 1) methods for CRUD operations 2)
- * validation 3) compilation 4) view
  * 
+ * Citation Style Executor Engine, XSLT-centric
  * 
- * @author Vlad Makarenko (initial creation) $Author$ (last modification) $Revision$
- *         $LastChangedDate$
+ * @author Initial creation: vmakarenko
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
- **/
-public interface CitationStyleManager {
+ */
+public class CitationStyleExecutorService {
+  private static final Logger logger = Logger.getLogger(CitationStyleExecutorService.class);
 
-  /**
-   * Compile Citation Style
-   * 
-   * @param cs - name of Citation Style to be compiled
-   * @throws CitationStyleManagerException
-   */
-  void compile(String cs) throws CitationStyleManagerException;
+  public static String explainStyles() throws CitationStyleManagerException {
+    return CitationUtil.getExplainStyles();
+  }
 
-  /**
-   * Validate Citation Style
-   * 
-   * @param cs - name of Citation Style to be validated
-   * @throws IOException
-   * @throws CitationStyleManagerException
-   * @throws CitationStyleManagerException
-   */
-  String validate(String cs) throws CitationStyleManagerException;
+  public static String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
+    return XmlHelper.getMimeType(cs, ouf);
+  }
 
-  /**
-   * Create Citation Style The method creates new Citation Style. Default Citation Style will be
-   * taken as start up version of it.
-   * 
-   * @param cs - name of Citation Style to be created
-   */
-  void create(String cs);
+  public static byte[] getOutput(String itemList, ExportFormatVO exportFormat)
+      throws CitationStyleManagerException {
+    Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()),
+        "Output format is not defined");
+    Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
 
-  /**
-   * Delete Citation Style
-   * 
-   * @param cs - name of Citation Style to be deleted
-   */
-  void delete(String cs);
+    String outputFormat = exportFormat.getSelectedFileFormat().getName();
+    byte[] result = null;
+    String snippet;
 
-  /**
-   * Update Citation Style
-   * 
-   * @param cs - name of Citation Style to be updated
-   * @param newCs - new definition for Citation Style
-   */
-  void update(String cs, String newCs);
+    long start = System.currentTimeMillis();
+    try {
+      if (!XmlHelper.citationStyleHasOutputFormat(exportFormat.getName(), outputFormat)) {
+        throw new CitationStyleManagerException("Output format: " + outputFormat
+            + " is not supported for Citation Style: " + exportFormat.getName());
+      }
 
+      if ("CSL".equals(exportFormat.getName())) {
+        snippet =
+            new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
+                "UTF-8");
+      } else {
+
+        StringWriter sw = new StringWriter();
+        String csXslPath = CitationUtil.getPathToCitationStyleXSL(exportFormat.getName());
+
+        /* get xslt from the templCache */
+        Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
+
+        // set parameters
+        transformer.setParameter("pubman_instance", getPubManUrl());
+
+        transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
+
+        logger.debug("Transformation item-list to snippet takes time: "
+            + (System.currentTimeMillis() - start));
+
+        snippet = sw.toString();
+      }
+
+      // new edoc md set
+      if ("escidoc_snippet".equals(outputFormat)) {
+        result = snippet.getBytes("UTF-8");
+      } else if ("snippet".equals(outputFormat)) { // old edoc md set: back transformation
+        Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
+        Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
+
+        de.mpg.mpdl.inge.transformation.Transformer trans =
+            TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
+        StringWriter wr = new StringWriter();
+
+        try {
+          trans.transform(
+              new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
+              new TransformerStreamResult(wr));
+        } catch (Exception e) {
+          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
+        }
+        result = wr.toString().getBytes("UTF-8");
+      } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {
+        result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
+      } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
+        String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
+        WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
+        XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
+        MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
+        List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
+
+        // Remove line-height information for every paragraph
+        for (Object xhtmlObject : xhtmlObjects) {
+          try {
+            P paragraph = (P) xhtmlObject;
+            paragraph.getPPr().setSpacing(null);
+          } catch (Exception e) {
+            logger.error("Error while removing spacing information during docx export");
+          }
+        }
+
+        mdp.getContent().addAll(xhtmlObjects);
+
+        // Set global space after each paragraph
+        mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing()
+            .setAfter(BigInteger.valueOf(400));
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        if ("docx".equals(outputFormat)) {
+          wordOutputDoc.save(bos);
+        } else if ("pdf".equals(outputFormat)) {
+          FOSettings foSettings = Docx4J.createFOSettings();
+          foSettings.setWmlPackage(wordOutputDoc);
+          Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
+        }
+
+        bos.flush();
+        result = bos.toByteArray();
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error by transformation:", e);
+    }
+
+    return result;
+  }
+
+
+  public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
+    return XmlHelper.isCitationStyle(cs);
+  }
+
+  private static String generateHtmlOutput(String snippets, String html_format,
+      String outputMethod, boolean indent) {
+    StringWriter result = new StringWriter();
+    try {
+      Transformer transformer =
+          XmlHelper.tryTemplCache(
+              CitationUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl")
+              .newTransformer();
+      transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
+      transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
+
+      transformer.setParameter("pubman_instance", getPubManUrl());
+      if ("html_linked".equals(html_format)) {
+        transformer.setParameter("html_linked", Boolean.TRUE);
+      }
+      transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot transform to html:", e);
+    }
+
+    return result.toString();
+  }
+
+  private static String getPubManUrl() {
+    try {
+      String contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+      return PropertyReader.getProperty("escidoc.pubman.instance.url")
+          + (contextPath == null ? "" : contextPath);
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot get property:", e);
+    }
+  }
+
+  public static String[] getOutputFormats(String cs) throws CitationStyleManagerException {
+    return XmlHelper.getOutputFormatsArray(cs);
+  }
+
+  public static String[] getStyles() throws CitationStyleManagerException {
+    try {
+      return XmlHelper.getListOfStyles();
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
+    }
+  }
 }

@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman;
 import java.io.IOException;
 import java.util.List;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
@@ -88,7 +88,7 @@ public class ItemExportingService {
     byte[] exportData = null;
 
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
-      exportData = CitationStyleExecutorService.getOutput(itemList, exportFormat);
+      exportData = CitationStyleManager.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
     } else
