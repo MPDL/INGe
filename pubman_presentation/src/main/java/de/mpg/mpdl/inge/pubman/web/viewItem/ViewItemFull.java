@@ -264,9 +264,9 @@ public class ViewItemFull extends FacesBean {
 
     if (getLoginHelper() != null) {
       String viewId = getFacesContext().getViewRoot().getViewId();
-      if ("/viewItemOverviewPage.jsp".equals(viewId)) {
+      if ("/ViewItemOverviewPage.jsp".equals(viewId)) {
         getLoginHelper().setDetailedMode(false);
-      } else if ("/viewItemFullPage.jsp".equals(viewId)) {
+      } else if ("/ViewItemFullPage.jsp".equals(viewId)) {
         getLoginHelper().setDetailedMode(true);
       }
     }
@@ -1867,13 +1867,13 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getLinkForActionsView() {
-    return "viewItemFullPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
+    return "ViewItemFullPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
         + this.getPubItem().getVersion().getObjectIdAndVersion() + "&" + PARAMETERNAME_MENU_VIEW
         + "=ACTIONS";
   }
 
   public String getLinkForExportView() {
-    return "viewItemFullPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
+    return "ViewItemFullPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
         + this.getPubItem().getVersion().getObjectIdAndVersion() + "&" + PARAMETERNAME_MENU_VIEW
         + "=EXPORT";
   }

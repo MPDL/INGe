@@ -528,7 +528,7 @@
 											<h:panelGroup styleClass="seperator" />
 											
 											<h:outputLink id="lnkViewItemPage" styleClass="free_area0"
-												value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}viewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
+												value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
 												<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 											</h:outputLink>
 											<h:panelGroup styleClass="seperator" />

@@ -118,7 +118,7 @@ public class AcceptItem extends FacesBean {
       try {
         getExternalContext().redirect(
             getRequest().getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
+                + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
       } catch (IOException e) {
@@ -132,7 +132,7 @@ public class AcceptItem extends FacesBean {
   public String cancel() {
     try {
       getExternalContext().redirect(
-          getRequest().getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+          getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);

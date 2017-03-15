@@ -82,7 +82,7 @@ public class Navigation extends FacesBean {
         MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS));
     this.navRules.add(new NavigationRule("/faces/EditItemPage.jsp", EditItem.LOAD_EDITITEM));
     this.navRules
-        .add(new NavigationRule("/faces/viewItemFullPage.jsp", ViewItemFull.LOAD_VIEWITEM));
+        .add(new NavigationRule("/faces/ViewItemFullPage.jsp", ViewItemFull.LOAD_VIEWITEM));
     this.navRules.add(new NavigationRule("/faces/SearchResultListPage.jsp",
         SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST));
     this.navRules.add(new NavigationRule("/faces/AffiliationTreePage.jsp",

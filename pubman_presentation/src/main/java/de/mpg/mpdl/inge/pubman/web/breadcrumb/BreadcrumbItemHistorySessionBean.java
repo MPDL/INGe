@@ -238,11 +238,11 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
           return true;
         } else if ((breadcrumbs.size() > 2 && this.itemListPages[i].equals(breadcrumbs.get(
             breadcrumbs.size() - 3).getDisplayValue()))
-            && ("viewItemFullPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()) || "viewItemOverviewPage"
+            && ("ViewItemFullPage"
+                .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()) || "ViewItemOverviewPage"
                 .equals(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue()))
-            && ("viewItemFullPage"
-                .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()) || "viewItemOverviewPage"
+            && ("ViewItemFullPage"
+                .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()) || "ViewItemOverviewPage"
                 .equals(breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue()))) {
           return true;
         }

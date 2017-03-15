@@ -117,7 +117,7 @@ public class ReviseItem extends FacesBean {
       try {
         getExternalContext().redirect(
             getRequest().getContextPath()
-                + "/faces/viewItemFullPage.jsp?itemId="
+                + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
       } catch (IOException e) {
