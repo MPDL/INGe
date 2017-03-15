@@ -32,7 +32,7 @@ import java.util.List;
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
@@ -308,13 +308,13 @@ public class SearchService {
       return exportedResult;
     }
     // citation style
-    else if (CitationStyleManager.isCitationStyle(exportFormat)) {
+    else if (CitationStyleExecuterService.isCitationStyle(exportFormat)) {
       if (!checkValue(outputFormat)) {
         throw new TechnicalException("outputFormat should be not empty for exportFormat:"
             + exportFormat);
       }
       outputFormat = outputFormat.trim();
-      if (CitationStyleManager.getMimeType(exportFormat, outputFormat) == null) {
+      if (CitationStyleExecuterService.getMimeType(exportFormat, outputFormat) == null) {
         throw new TechnicalException("file output format: " + outputFormat + " for export format: "
             + exportFormat + " is not supported");
       }
@@ -354,7 +354,7 @@ public class SearchService {
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
       logger.debug("Calling citationStyleHandler");
 
-      exportData = CitationStyleManager.getOutput(itemList, exportFormat);
+      exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
       logger.debug("Returning from citationStyleHandler");
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       logger.debug("Calling structuredExportHandler");
