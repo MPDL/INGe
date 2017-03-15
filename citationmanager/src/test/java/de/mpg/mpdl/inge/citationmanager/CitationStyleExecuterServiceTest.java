@@ -40,8 +40,8 @@ public class CitationStyleExecuterServiceTest {
      */
     try {
       exportData =
-          CitationStyleExecuterService.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "APA",
-              "pdf"));
+          CitationStyleExecuterService.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT,
+              "APA", "pdf"));
 
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);

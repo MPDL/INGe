@@ -8,13 +8,14 @@
 	<display-name>eSciDoc PID cache service</display-name>
 	
 	<servlet>
+		<display-name>MainServlet</display-name>
 		<servlet-name>MainServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pidcache.web.MainServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
-		<servlet-name>InitializerServlet</servlet-name>
 		<display-name>InitializerServlet</display-name>
+		<servlet-name>InitializerServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pidcache.init.InitializerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

@@ -8,8 +8,8 @@
 	<display-name>eSciDoc Dataacquisition WebService</display-name>
 
 	<servlet>
-		<servlet-name>UnapiServlet</servlet-name>
 		<display-name>UNAPI Servlet</display-name>
+		<servlet-name>UnapiServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.dataacquisition.webservice.UnapiServlet</servlet-class>
 	</servlet>
 

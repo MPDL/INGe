@@ -96,8 +96,9 @@ public class CitationStyleExecuterService {
       }
 
       if ("CSL".equals(exportFormat.getName())) {
-        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
-            "UTF-8");
+        snippet =
+            new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
+                "UTF-8");
       } else {
 
         StringWriter sw = new StringWriter();
@@ -133,8 +134,7 @@ public class CitationStyleExecuterService {
               new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
               new TransformerStreamResult(wr));
         } catch (Exception e) {
-          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:",
-              e);
+          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
         }
         result = wr.toString().getBytes("UTF-8");
       } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {

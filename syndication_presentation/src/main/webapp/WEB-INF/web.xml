@@ -12,21 +12,21 @@
 	</listener>
 
 	<servlet>
-		<servlet-name>AxisServlet</servlet-name>
 		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-name>AxisServlet</servlet-name>
 		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
 	</servlet>
 
 	<servlet>
-		<servlet-name>AdminServlet</servlet-name>
 		<display-name>Axis Admin Servlet</display-name>
+		<servlet-name>AdminServlet</servlet-name>
 		<servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
 		<load-on-startup>100</load-on-startup>
 	</servlet>
 
 	<servlet>
-		<servlet-name>SOAPMonitorService</servlet-name>
 		<display-name>SOAPMonitorService</display-name>
+		<servlet-name>SOAPMonitorService</servlet-name>
 		<servlet-class>org.apache.axis.monitor.SOAPMonitorService</servlet-class>
 		<init-param>
 			<param-name>SOAPMonitorPort</param-name>
@@ -92,8 +92,6 @@
 
 	<welcome-file-list id="WelcomeFileList">
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.jws</welcome-file>
 	</welcome-file-list>
 
 </web-app>

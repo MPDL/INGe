@@ -8,8 +8,8 @@
 	<display-name>Inge Validation WebService</display-name>
 
 	<servlet>
-		<servlet-name>InitializerServlet</servlet-name>
 		<display-name>InitializerServlet</display-name>
+		<servlet-name>InitializerServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.inge_validation.web.InitializerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
