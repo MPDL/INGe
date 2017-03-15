@@ -55,14 +55,17 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
       String identifier = null;
       String format = null;
       OutputStream outStream = response.getOutputStream();
+
       // Retrieve the command from the location path
       String command = request.getPathInfo();
       if (command != null && command.length() > 0) {
         command = command.substring(1);
       }
+
       if (request.getRequestURL().toString().contains("view")) {
         this.view = true;
       }
+
       // Handle Call
       if ("unapi".equals(command)) {
         identifier = request.getParameter("id");
@@ -141,15 +144,19 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
     List<MetadataVO> metadataV = new ArrayList<MetadataVO>();
     String[] tmp = identifier.split(":");
     DataSourceVO source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
+
     // No source for this identifier
     if (source == null) {
       return null;
     }
+
     FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
     FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
+
     if (show) {
       xmlFormats.setId(identifier);
     }
+
     fullTextV = source.getFtFormats();
     // get fetchable metadata formats
     metadataV = source.getMdFormats();
@@ -178,6 +185,7 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
         xmlFormat.setDocs(md.getMdDesc());
       }
     }
+
     // get fetchable file formats
     for (int i = 0; i < fullTextV.size(); i++) {
       FullTextVO ft = fullTextV.get(i);
@@ -187,6 +195,7 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
         xmlFormat.setType(ft.getFtFormat());
       }
     }
+
     try {
       XmlOptions xOpts = new XmlOptions();
       xOpts.setSavePrettyPrint();
@@ -196,6 +205,7 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
       this.logger.info("Error when creating output xml.", e);
       throw new DataaquisitionException(e);
     }
+
     return baos.toByteArray();
   }
 
@@ -216,9 +226,11 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
           return this.dataHandler.doFetch(sourceName, fullId, format);
         }
       }
+
       if (idType.equals(this.idTypeUrl)) {
         return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
       }
+
       if (idType.equals(this.idTypeUnknown) || sourceId == null) {
         this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
         throw new DataaquisitionException("The type of the identifier (" + identifier
@@ -229,6 +241,7 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
     } catch (MalformedURLException e) {
       throw new DataaquisitionException(identifier, e);
     }
+
     return null;
   }
 
@@ -238,6 +251,7 @@ public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
       this.view = false;
       return this.idTypeUrl;
     }
+
     return this.idTypeUri;
   }
 
