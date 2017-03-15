@@ -47,34 +47,34 @@
 		<ul>
 			<b>The four steps to fetch data:</b>
 				<p>
-			  		1. Choose the presentation of the data </br>
-					dataacquisition/view: 		Views the fetched data in the browser</br>
-					dataacquisition/download:	The fetched data will be provided as a download</br>
+			  		1. Choose the presentation of the data <br>
+					dataacquisition/view: 		Views the fetched data in the browser<br>
+					dataacquisition/download:	The fetched data will be provided as a download<br>
 				</p>
 				<p>
-			  		2. Call the unAPI service interface</br>
-					dataacquisition/view/unapi</br>
-					dataacquisition/download/unapi</br>
+			  		2. Call the unAPI service interface<br>
+					dataacquisition/view/unapi<br>
+					dataacquisition/download/unapi<br>
 				</p>
 				<p>
-			  		3. Provide the identifier of the item you want to fetch</br>
-					dataacquisition/view/unapi?id=escidoc:1234</br>
-					dataacquisition/download/unapi?id=escidoc:1234</br>
+			  		3. Provide the identifier of the item you want to fetch<br>
+					dataacquisition/view/unapi?id=escidoc:1234<br>
+					dataacquisition/download/unapi?id=escidoc:1234<br>
 				</p>
 				<p>
-			  		4. Provide the format you want the fetched item in</br>
-					dataacquisition/view/unapi?id=escidoc:1234&format=bibtex</br>
-					dataacquisition/download/unapi?id=escidoc:1234&format=bibtex</br>
+			  		4. Provide the format you want the fetched item in<br>
+					dataacquisition/view/unapi?id=escidoc:1234&format=bibtex<br>
+					dataacquisition/download/unapi?id=escidoc:1234&format=bibtex<br>
 				</p>
 				
 		</ul>
 		<ul>
 			<b>Supported Identifiers:</b>
 				<p>
-					1. A identifier from a supported source (explained in /dataacquisition).</br>
+					1. A identifier from a supported source (explained in /dataacquisition).<br>
 				</p>
 				<p>
-					2. A identifier = any URL (the eSciDoc DataAcquisition Service has no information about this source and can only try to call the given URL for the fetching request).</br>
+					2. A identifier = any URL (the eSciDoc DataAcquisition Service has no information about this source and can only try to call the given URL for the fetching request).<br>
 					   The format has to be set to "url". The response will be a zip file of the fetched content. The view option for url identifiers is disabled.
 				</p>
 		</ul>
