@@ -134,7 +134,7 @@
 			              	</h:panelGroup>
 							<div class="full_area0">
 								<table class="full_area0 itemList listBackground loggedIn"
-									rules="none" style="border-collapse: collapse;">
+									style="border-collapse: collapse;">
 									<thead style="text-align: left; vertical-align: top;">
 										<tr class="full_area0 listHeader">
 											<th class="tiny_area0">&#160;</th>
