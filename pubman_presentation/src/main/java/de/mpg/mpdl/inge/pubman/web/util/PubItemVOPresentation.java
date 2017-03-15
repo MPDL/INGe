@@ -1514,9 +1514,9 @@ public class PubItemVOPresentation extends PubItemVO {
     return descriptionMetaTag;
   }
 
-//  public void setDescriptionMetaTag(String descriptionMetaTag) {
-//    this.descriptionMetaTag = descriptionMetaTag;
-//  }
+  // public void setDescriptionMetaTag(String descriptionMetaTag) {
+  // this.descriptionMetaTag = descriptionMetaTag;
+  // }
 
 
 

@@ -270,8 +270,8 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData =
-          CitationStyleExecuterService.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
-              csExportFormat, csOutputFormat));
+          CitationStyleExecuterService.getOutput(itemListAsString, new ExportFormatVO(
+              FormatType.LAYOUT, csExportFormat, csOutputFormat));
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);
       error("Did not find Citation service");
