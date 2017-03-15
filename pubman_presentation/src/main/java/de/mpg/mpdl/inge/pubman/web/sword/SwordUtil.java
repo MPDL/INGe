@@ -146,7 +146,7 @@ public class SwordUtil extends FacesBean {
   private final String mdFormatEndnote = "EndNote";
   private final String mdFormatEscidoc = "http://purl.org/escidoc/metadata/schemas/0.1/publication";
   private final String mdFormatPeerTEI = "http://purl.org/net/sword-types/tei/peer";
-//  private final String transformationService = "escidoc";
+  // private final String transformationService = "escidoc";
   private final String treatmentText =
       "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
   private final String[] fileEndings = {".xml", ".bib", ".tei", ".enl"};
@@ -467,7 +467,7 @@ public class SwordUtil extends FacesBean {
     }
 
     try {
-//      Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+      // Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
       Format trgFormat = null;
       Boolean transform = false;
 

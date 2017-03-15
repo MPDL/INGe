@@ -67,8 +67,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class CitationStyleExecutorService {
-  private static final Logger logger = Logger.getLogger(CitationStyleExecutorService.class);
+public class CitationStyleManager {
+  private static final Logger logger = Logger.getLogger(CitationStyleManager.class);
 
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();

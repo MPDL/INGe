@@ -36,7 +36,7 @@ import java.io.IOException;
  *         $LastChangedDate$
  * 
  **/
-public interface CitationStyleManager {
+public interface CitationStyleManagerInterface {
 
   /**
    * Compile Citation Style
