@@ -40,7 +40,7 @@ public class CitationStyleExecuterServiceTest {
      */
     try {
       exportData =
-          CitationStyleManager.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "APA",
+          CitationStyleExecuterService.getOutput(itemList, new ExportFormatVO(FormatType.LAYOUT, "APA",
               "pdf"));
 
     } catch (Exception e) {

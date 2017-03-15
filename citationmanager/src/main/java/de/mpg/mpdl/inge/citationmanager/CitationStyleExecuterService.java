@@ -67,8 +67,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class CitationStyleManager {
-  private static final Logger logger = Logger.getLogger(CitationStyleManager.class);
+public class CitationStyleExecuterService {
+  private static final Logger logger = Logger.getLogger(CitationStyleExecuterService.class);
 
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();
@@ -96,9 +96,8 @@ public class CitationStyleManager {
       }
 
       if ("CSL".equals(exportFormat.getName())) {
-        snippet =
-            new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
-                "UTF-8");
+        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
+            "UTF-8");
       } else {
 
         StringWriter sw = new StringWriter();
@@ -134,7 +133,8 @@ public class CitationStyleManager {
               new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
               new TransformerStreamResult(wr));
         } catch (Exception e) {
-          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
+          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:",
+              e);
         }
         result = wr.toString().getBytes("UTF-8");
       } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {

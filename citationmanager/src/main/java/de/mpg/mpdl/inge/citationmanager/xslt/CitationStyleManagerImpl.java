@@ -37,7 +37,7 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerInterface;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
@@ -191,7 +191,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
-          CitationStyleManager
+          CitationStyleExecuterService
               .getOutput(ResourceUtil.getResourceAsString(il,
                   CitationStyleManagerImpl.class.getClassLoader()), new ExportFormatVO(
                   FormatType.LAYOUT, cs, task));

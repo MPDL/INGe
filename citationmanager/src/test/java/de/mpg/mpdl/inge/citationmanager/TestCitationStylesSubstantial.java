@@ -118,7 +118,7 @@ public class TestCitationStylesSubstantial {
   @Ignore
   public final void testCitationStylesSnippetGeneration() throws Exception {
 
-    for (String cs : CitationStyleManager.getStyles()) {
+    for (String cs : CitationStyleExecuterService.getStyles()) {
       if (!"CSL".equals(cs)) {
         testCitationStyleSnippetGeneration(cs);
       }
@@ -174,7 +174,7 @@ public class TestCitationStylesSubstantial {
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
         String snippet =
-            new String(CitationStyleManager.getOutput(DOMUtilities.outputString(doc),
+            new String(CitationStyleExecuterService.getOutput(DOMUtilities.outputString(doc),
                 new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
