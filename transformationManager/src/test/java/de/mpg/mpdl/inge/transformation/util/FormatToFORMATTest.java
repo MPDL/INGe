@@ -24,8 +24,6 @@ public class FormatToFORMATTest {
   @Test
   public void test2() {
 
-    assertTrue(new Format("escidoc-publication-item", "application/xml", "UTF-8").toFORMAT()
-        .equals(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML));
   }
 
 }

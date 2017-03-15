@@ -32,6 +32,8 @@ import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
+
+
 /**
  * This class describes a format object.
  * 
@@ -51,6 +53,10 @@ public class Format implements Serializable {
         FORMAT.ESCIDOC_ITEMLIST_V1_XML);
     map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
         FORMAT.ESCIDOC_ITEMLIST_V2_XML);
+    map.put(new Format("pmc", "application/xml", "UTF-8"), FORMAT.PMC_OAIPMH_XML);
+    map.put(new Format("arxiv", "application/xml", "UTF-8"), FORMAT.ARXIV_OAIPMH_XML);
+    map.put(new Format("bmc", "application/xml", "UTF-8"), FORMAT.BMC_XML);
+    map.put(new Format("spires", "application/xml", "UTF-8"), FORMAT.SPIRES_XML);
   }
 
   private String name;

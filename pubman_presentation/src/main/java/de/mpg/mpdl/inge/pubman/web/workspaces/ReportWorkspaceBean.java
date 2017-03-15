@@ -21,7 +21,7 @@ import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecutorService;
+import de.mpg.mpdl.inge.citationmanager.CitationStyleManager;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -270,8 +270,8 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData =
-          CitationStyleExecutorService.getOutput(itemListAsString, new ExportFormatVO(
-              FormatType.LAYOUT, csExportFormat, csOutputFormat));
+          CitationStyleManager.getOutput(itemListAsString, new ExportFormatVO(FormatType.LAYOUT,
+              csExportFormat, csOutputFormat));
     } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);
       error("Did not find Citation service");
