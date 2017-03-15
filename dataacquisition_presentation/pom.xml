@@ -38,5 +38,9 @@
 			<artifactId>dataacquisition</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,7 @@ import noNamespace.FormatsType;
  * 
  * @author Friederike Kleinfercher (initial creation)
  */
-public class UnapiServlet extends HttpServlet implements Unapi {
+public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
   private static final long serialVersionUID = 1L;
   private final String idTypeUri = "URI";
   private final String idTypeUrl = "URL";
@@ -43,35 +44,28 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   private boolean view = false; // default option is download
   private String filename = "unapi";
 
-  /**
-   * Http get method for unAPI interface.
-   * 
-   * @param request
-   * @param response
-   */
+  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) {
     this.doPost(request, response);
   }
 
-  /**
-   * Http post method for unAPI interface.
-   * 
-   * @param request
-   * @param response
-   */
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) {
     try {
       String identifier = null;
       String format = null;
       OutputStream outStream = response.getOutputStream();
+
       // Retrieve the command from the location path
       String command = request.getPathInfo();
       if (command != null && command.length() > 0) {
         command = command.substring(1);
       }
+
       if (request.getRequestURL().toString().contains("view")) {
         this.view = true;
       }
+
       // Handle Call
       if ("unapi".equals(command)) {
         identifier = request.getParameter("id");
@@ -133,8 +127,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 
   @Override
   public byte[] unapi() {
-    Util util = new Util();
-    return util.createUnapiSourcesXml();
+    return Util.createUnapiSourcesXml();
   }
 
   /**
@@ -146,29 +139,31 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    */
   @Override
   public byte[] unapi(String identifier, boolean show) throws DataaquisitionException {
-
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     List<FullTextVO> fullTextV = new ArrayList<FullTextVO>();
     List<MetadataVO> metadataV = new ArrayList<MetadataVO>();
-    Util util = new Util();
     String[] tmp = identifier.split(":");
     DataSourceVO source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
+
     // No source for this identifier
     if (source == null) {
       return null;
     }
+
     FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
     FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
+
     if (show) {
       xmlFormats.setId(identifier);
     }
+
     fullTextV = source.getFtFormats();
     // get fetchable metadata formats
     metadataV = source.getMdFormats();
     // get transformable formats
-    metadataV.addAll(util.getTransformFormats(metadataV));
+    metadataV.addAll(Util.getTransformFormats(metadataV));
     // get transformable formats via escidoc format
-    if (util.checkEscidocTransition(metadataV, identifier)) {
+    if (Util.checkEscidocTransition(metadataV, identifier)) {
       String transitionFormatName = Util.getInternalFormat();
       MetadataVO transitionFormat = new MetadataVO();
       transitionFormat.setName(transitionFormatName);
@@ -177,9 +172,9 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       List<MetadataVO> transitionFormatV = new ArrayList<MetadataVO>();
       transitionFormatV.add(transitionFormat);
       // Call method with transition format escidoc
-      metadataV.addAll(util.getTransformFormats(transitionFormatV));
+      metadataV.addAll(Util.getTransformFormats(transitionFormatV));
     }
-    metadataV = util.getRidOfDuplicatesInVector(metadataV);
+    metadataV = Util.getRidOfDuplicatesInVector(metadataV);
 
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);
@@ -190,15 +185,17 @@ public class UnapiServlet extends HttpServlet implements Unapi {
         xmlFormat.setDocs(md.getMdDesc());
       }
     }
+
     // get fetchable file formats
     for (int i = 0; i < fullTextV.size(); i++) {
       FullTextVO ft = fullTextV.get(i);
-      if (!ft.getName().equals(util.getDummyFormat())) {
+      if (!ft.getName().equals(Util.getDummyFormat())) {
         FormatType xmlFormat = xmlFormats.addNewFormat();
         xmlFormat.setName(ft.getName());
         xmlFormat.setType(ft.getFtFormat());
       }
     }
+
     try {
       XmlOptions xOpts = new XmlOptions();
       xOpts.setSavePrettyPrint();
@@ -208,6 +205,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
       this.logger.info("Error when creating output xml.", e);
       throw new DataaquisitionException(e);
     }
+
     return baos.toByteArray();
   }
 
@@ -228,14 +226,11 @@ public class UnapiServlet extends HttpServlet implements Unapi {
           return this.dataHandler.doFetch(sourceName, fullId, format);
         }
       }
+
       if (idType.equals(this.idTypeUrl)) {
         return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
       }
-      // if (idType.equals(this.idTypeEscidoc))
-      // {
-      // this.filename = trimmedId;
-      // return this.dataHandler.doFetch(sourceName, trimmedId, format);
-      // }
+
       if (idType.equals(this.idTypeUnknown) || sourceId == null) {
         this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
         throw new DataaquisitionException("The type of the identifier (" + identifier
@@ -246,20 +241,17 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     } catch (MalformedURLException e) {
       throw new DataaquisitionException(identifier, e);
     }
+
     return null;
   }
 
   private String checkIdentifier(String identifier, String format) {
-    // identifier = identifier.toLowerCase().trim();
-    // if (identifier.startsWith("escidoc"))
-    // {
-    // return this.idTypeEscidoc;
-    // }
     if (identifier.startsWith("http")) {
       // Fetch from url => only download possible
       this.view = false;
       return this.idTypeUrl;
     }
+
     return this.idTypeUri;
   }
 
