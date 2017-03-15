@@ -144,7 +144,7 @@ public class SubmitItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+        extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
             + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
@@ -165,7 +165,7 @@ public class SubmitItem extends FacesBean {
     ExternalContext extContext = fc.getExternalContext();
     HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
     try {
-      extContext.redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId="
+      extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
           + this.getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);

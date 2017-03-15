@@ -42,7 +42,7 @@
 <style type="text/css">
 	.fa { line-height: inherit; margin-right: 0.454545em; color: #004465;}
 </style>
-<script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
+<script type="text/javascript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 
 <link rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" />
 

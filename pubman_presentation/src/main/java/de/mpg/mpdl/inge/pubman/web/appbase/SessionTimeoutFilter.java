@@ -66,7 +66,7 @@ public class SessionTimeoutFilter implements Filter {
             PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
         // define some exceptions (pages that don't require a logged in user)
-        if (!"/viewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
+        if (!"/ViewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/HomePage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/AffiliationTreePage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/AdvancedSearchPage.jsp".equals(httpServletRequest.getPathInfo())

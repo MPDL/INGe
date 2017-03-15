@@ -193,6 +193,19 @@ public class EditItem extends FacesBean {
     this.contextName = this.getContextName();
   }
 
+  public String acceptLocalTags() {
+    getPubItem().writeBackLocalTags(null);
+    if (getPubItem().getVersion().getState().equals(State.RELEASED)) {
+      this.bindFilesAndLocators = false;
+      return saveAndAccept();
+    } else {
+      this.bindFilesAndLocators = false;
+      save();
+    }
+
+    return null;
+  }
+
   /**
    * Delivers a reference to the currently edited item. This is a shortCut for the method in the
    * ItemController.
@@ -581,13 +594,13 @@ public class EditItem extends FacesBean {
         if (isFromEasySubmission()) {
           getExternalContext().redirect(
               getRequest().getContextPath()
-                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + "/faces/ViewItemFullPage.jsp?itemId="
                   + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                       .getObjectId() + "&fromEasySub=true");
         } else {
           getExternalContext().redirect(
               getRequest().getContextPath()
-                  + "/faces/viewItemFullPage.jsp?itemId="
+                  + "/faces/ViewItemFullPage.jsp?itemId="
                   + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                       .getObjectId());
         }
@@ -841,7 +854,7 @@ public class EditItem extends FacesBean {
                       this.getPubItem().getVersion().getObjectId());
           getExternalContext().redirect(viewItemPage);
         } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
-            .contains("viewItemFullPage.jsp")) {
+            .contains("ViewItemFullPage.jsp")) {
           getExternalContext().redirect(
               getRequest().getContextPath() + "/faces/"
                   + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());

@@ -45,7 +45,7 @@
 				<meta http-equiv="Pragma" content="no-cache" />
 				<meta http-equiv="expires" content="0"/>
 				<ui:include src="header/ui/StandardImports.jspf" />
-				<script src="/cone/js/jquery.suggest.js"/>
+				<script src="/cone/js/jquery.suggest.js"></script>
 				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js"/>
 				
 				

@@ -63,13 +63,11 @@
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
-
+					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"></h:commandButton>
+				</span>
 			</h:panelGroup>
-
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				
 				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
 					<h:panelGroup layout="block" styleClass="small_area0">
 						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
@@ -79,7 +77,6 @@
 						<f:selectItems value="#{eventCriterionBean.logicOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
-
 			</h:panelGroup>
 
 		</ui:repeat>

@@ -42,7 +42,7 @@
 					</b>
 						<span class="free_area0 endline">
 						<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations xSmall_marginLExcl clear">
-							<h:inputText id="inporganizations_organization_name" styleClass="quad_txtInput organizationSuggest organizationName" value="#{ReportWorkspaceBean.organization..name}"/>
+							<h:inputText id="inporganizations_organization_name" styleClass="quad_txtInput organizationSuggest organizationName" value="#{ReportWorkspaceBean.organization.name}"/>
 							<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{ReportWorkspaceBean.organization.identifier}"/>
 						</h:panelGroup>
 						</span>

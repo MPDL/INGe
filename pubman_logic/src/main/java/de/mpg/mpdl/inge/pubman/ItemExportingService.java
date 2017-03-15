@@ -88,7 +88,7 @@ public class ItemExportingService {
     byte[] exportData = null;
 
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
-      exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
+      exportData = CitationStyleManager.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
       exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
     } else

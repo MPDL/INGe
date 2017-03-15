@@ -80,14 +80,14 @@ public class RedirectServlet extends HttpServlet {
     String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
 
-    // no component -> viewItemOverviewPage
+    // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       StringBuffer redirectUrl = new StringBuffer();
       LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
       if (loginHelper != null && loginHelper.isDetailedMode()) {
-        redirectUrl.append("/pubman/faces/viewItemFullPage.jsp?itemId=" + id);
+        redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
-        redirectUrl.append("/pubman/faces/viewItemOverviewPage.jsp?itemId=" + id);
+        redirectUrl.append("/pubman/faces/ViewItemOverviewPage.jsp?itemId=" + id);
       }
       if (userHandle != null) {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);
