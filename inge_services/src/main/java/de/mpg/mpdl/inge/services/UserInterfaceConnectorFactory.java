@@ -15,7 +15,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class UserInterfaceConnectorFactory {
-  private static final String CONNECTOR_CLASS_PROPERTY = "inge.inge_services.user_interface.connector_class";
+  private static final String CONNECTOR_CLASS_PROPERTY =
+      "inge.inge_services.user_interface.connector_class";
 
   public static UserInterface getInstance() throws InstantiationException, IllegalAccessException,
       ClassNotFoundException, IOException, URISyntaxException {

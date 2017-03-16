@@ -29,7 +29,7 @@
 <%@page session="true"%>
 <%@page import="java.io.PrintStream"%>
 
-<jsp:useBean id="ErrorPage" scope="session" class="de.mpg.escidoc.pubman.ErrorPage" />
+<jsp:useBean id="ErrorPage" scope="session" class="de.mpg.mpdl.inge.pubman.web.ErrorPage" />
 
 <%
 	Exception e = ErrorPage.getException();

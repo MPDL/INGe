@@ -524,7 +524,7 @@ public class FileBean extends FacesBean {
    * 
    * @return
    */
-  public boolean getIsAudience() {
+  public boolean isFileAccessGranted() {
     return this.fileAccessGranted;
   }
 
