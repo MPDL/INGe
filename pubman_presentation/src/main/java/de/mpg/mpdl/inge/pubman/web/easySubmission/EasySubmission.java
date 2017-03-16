@@ -1436,7 +1436,7 @@ public class EasySubmission extends FacesBean {
 
     if (newGenre != null && newGenre.trim().equals("")) {
       newGenre = "ARTICLE";
-      getItem().getMetadata().setGenre(Genre.ARTICLE);
+      this.getItem().getMetadata().setGenre(Genre.ARTICLE);
     }
 
     this.getEasySubmissionSessionBean().setGenreBundle("Genre_" + newGenre);
@@ -1478,8 +1478,8 @@ public class EasySubmission extends FacesBean {
     this.radioSelect = radioSelect;
   }
 
-  public PubItemVO getItem() {
-    return this.getItem();
+  public PubItemVOPresentation getItem() {
+    return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
   public void setItem(PubItemVOPresentation item) {
