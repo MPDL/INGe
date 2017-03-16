@@ -32,7 +32,7 @@ import noNamespace.FormatsType;
  * 
  * @author Friederike Kleinfercher (initial creation)
  */
-public class UnapiServlet extends HttpServlet implements Servlet, Unapi {
+public class UnapiServlet extends HttpServlet implements Unapi {
   private static final long serialVersionUID = 1L;
   private final String idTypeUri = "URI";
   private final String idTypeUrl = "URL";

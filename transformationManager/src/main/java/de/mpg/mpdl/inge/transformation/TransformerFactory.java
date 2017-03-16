@@ -40,8 +40,8 @@ public class TransformerFactory {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModule tm = transformerClass.getAnnotation(TransformerModule.class);
 
-      transformerEdges
-          .add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
+      transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
+          .targetFormat()));
 
     }
 
@@ -49,8 +49,8 @@ public class TransformerFactory {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModules tms = transformerClass.getAnnotation(TransformerModules.class);
       for (TransformerModule tm : tms.value()) {
-        transformerEdges
-            .add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
+        transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
+            .targetFormat()));
       }
 
 
@@ -63,8 +63,8 @@ public class TransformerFactory {
 
 
     if (edges == null || edges.size() == 0) {
-      throw new TransformationException(
-          "No transformation chain found for " + sourceFormat + " --> " + targetFormat);
+      throw new TransformationException("No transformation chain found for " + sourceFormat
+          + " --> " + targetFormat);
     } else if (edges.size() == 1) {
 
       try {
@@ -181,9 +181,8 @@ public class TransformerFactory {
           TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
       StringWriter wr = new StringWriter();
 
-      t.transform(
-          new TransformerStreamSource(
-              new FileInputStream("C:\\Users\\haarlae1\\Downloads\\export_escidoc_xml_v13.xml")),
+      t.transform(new TransformerStreamSource(new FileInputStream(
+          "C:\\Users\\haarlae1\\Downloads\\export_escidoc_xml_v13.xml")),
           new TransformerStreamResult(wr));
       System.out.println(wr.toString());
 
