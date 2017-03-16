@@ -51,14 +51,14 @@
 					<!-- Textual description of the supplementary material -->
 					<p class="double_area0">
 						<!-- Link (show or download) to the file -->
-						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
-						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<!-- Link for supplementary material searchhits with open pdf params-->
-						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 						</h:outputLink>
 						<!-- Text if publication is withdrawn -->

@@ -1106,7 +1106,7 @@ public class ViewItemFull extends FacesBean {
           identifiers.append(idList.get(i).getTypeString());
         }
         identifiers.append(": ");
-        if (CommonUtils.getisUriValidUrl(idList.get(i))) {
+        if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
           identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>"
               + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.DOI) {
@@ -1668,7 +1668,7 @@ public class ViewItemFull extends FacesBean {
     this.isModerator = isModerator;
   }
 
-  public boolean getisPrivilegedViewer() {
+  public boolean getIsPrivilegedViewer() {
     return this.isPrivilegedViewer;
   }
 

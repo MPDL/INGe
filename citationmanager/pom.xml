@@ -126,12 +126,11 @@
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>3.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.docx4j</groupId>
 			<artifactId>docx4j-ImportXHTML</artifactId>
-			<version>3.2.2</version>
+			<version>3.3.1</version>
 		</dependency>
 		<!-- Required for docx4j -->
 		<dependency>
@@ -142,6 +141,10 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>commons-digester</groupId>
+		    <artifactId>commons-digester</artifactId>
 		</dependency>
 	</dependencies>
 </project>

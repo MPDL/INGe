@@ -802,7 +802,7 @@ public class CommonUtils {
   }
 
 
-  public static boolean getisUriValidUrl(IdentifierVO id) {
+  public static boolean getIsUriValidUrl(IdentifierVO id) {
     boolean valid = false;
     try {
       if (id.getType() == null) {

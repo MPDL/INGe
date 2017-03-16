@@ -156,7 +156,6 @@
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>3.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
