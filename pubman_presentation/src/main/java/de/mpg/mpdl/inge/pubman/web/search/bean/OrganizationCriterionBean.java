@@ -5,7 +5,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
  * POJO bean to deal with one OrganizationCriterionVO.

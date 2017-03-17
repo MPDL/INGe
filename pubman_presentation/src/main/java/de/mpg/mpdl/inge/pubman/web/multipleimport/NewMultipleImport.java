@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
  * Session bean to hold data needed for an import of multiple items.

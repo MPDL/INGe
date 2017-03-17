@@ -36,14 +36,14 @@ import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums.GenreSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.DegreeSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 @SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {

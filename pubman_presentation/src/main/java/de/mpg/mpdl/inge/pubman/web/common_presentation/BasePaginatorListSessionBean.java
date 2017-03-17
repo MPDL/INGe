@@ -14,7 +14,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * This abstract bean class is used to manage lists with one or two paginators. It can work together

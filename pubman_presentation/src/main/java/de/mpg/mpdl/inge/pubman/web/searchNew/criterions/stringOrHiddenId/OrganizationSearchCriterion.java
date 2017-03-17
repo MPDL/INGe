@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
-import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 @SuppressWarnings("serial")
 public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion {

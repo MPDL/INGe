@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.home;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Fragment class for the corresponding Home-JSP.

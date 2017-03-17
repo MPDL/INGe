@@ -37,8 +37,8 @@ import javax.xml.rpc.ServiceException;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

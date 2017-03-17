@@ -40,13 +40,13 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
-import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper;
-import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.SourceVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

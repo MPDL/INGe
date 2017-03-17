@@ -39,12 +39,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.OrganizationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation. Only for

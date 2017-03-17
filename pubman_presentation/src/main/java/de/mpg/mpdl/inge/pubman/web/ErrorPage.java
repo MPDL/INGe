@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 
 /**

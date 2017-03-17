@@ -25,7 +25,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
  * Fragment class for the AffiliationSearchResultListPage. This class provides all functionality for

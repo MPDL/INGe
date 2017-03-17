@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.PersonCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the PersonCriterionCollection on a single jsp. A PersonCriterionCollection is

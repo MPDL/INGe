@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

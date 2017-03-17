@@ -32,7 +32,7 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the CreatorCollection on a single jsp. A CreatorCollection is represented by a

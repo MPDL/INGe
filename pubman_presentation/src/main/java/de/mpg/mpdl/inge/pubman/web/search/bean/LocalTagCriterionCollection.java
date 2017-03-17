@@ -3,8 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.LocalTagCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the LocalTagCriterionCollection on a single jsp. A LocalTagCriterionCollection is

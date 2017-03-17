@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 @SuppressWarnings("serial")
 public class BreadcrumbItemHistoryRequestBean extends FacesBean {

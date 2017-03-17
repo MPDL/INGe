@@ -29,8 +29,8 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.RelationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 
 /**
  * Keeps all attributes that are used for the whole session by the RevisionList.

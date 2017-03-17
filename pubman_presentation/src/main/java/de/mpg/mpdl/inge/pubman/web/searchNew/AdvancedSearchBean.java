@@ -46,7 +46,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.PubItemService;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
@@ -76,8 +75,9 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.Organiz
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
-import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
+import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")

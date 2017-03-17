@@ -34,7 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
-import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
 /**
  * Class to handle the file upload of locators.
@@ -44,7 +44,6 @@ import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
@@ -77,7 +76,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       this.getEditItemSessionBean().setFiles(list);
     } catch (Exception e) {
       logger.error(e);
-      error = getMessage("errorLocatorUploadFW");
+      error = getFacesBean().getMessage("errorLocatorUploadFW");
     }
   }
 
@@ -117,6 +116,6 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) getFacesBean().getSessionBean(EditItemSessionBean.class);
   }
 }

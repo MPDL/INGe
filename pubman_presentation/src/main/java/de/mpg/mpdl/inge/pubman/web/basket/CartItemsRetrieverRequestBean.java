@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses

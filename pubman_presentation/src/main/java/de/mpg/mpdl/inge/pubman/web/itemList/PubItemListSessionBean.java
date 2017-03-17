@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionB
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.

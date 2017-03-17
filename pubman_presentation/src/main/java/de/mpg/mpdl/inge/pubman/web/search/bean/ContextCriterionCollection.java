@@ -8,10 +8,10 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.pubman.PubItemService;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.ContextCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
-import de.mpg.mpdl.inge.pubman.web.util.SelectItemComparator;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 
 public class ContextCriterionCollection {
   public static final String BEAN_NAME = "ContextCriterionCollection";

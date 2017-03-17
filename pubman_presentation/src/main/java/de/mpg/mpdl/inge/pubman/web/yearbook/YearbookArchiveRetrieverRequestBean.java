@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestB
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook

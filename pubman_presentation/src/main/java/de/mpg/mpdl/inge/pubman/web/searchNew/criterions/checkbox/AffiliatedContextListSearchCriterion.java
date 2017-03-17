@@ -3,10 +3,10 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.PubContextVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 
 @SuppressWarnings("serial")
 public class AffiliatedContextListSearchCriterion extends

@@ -26,7 +26,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.event.ValueChangeEvent;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 @SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {

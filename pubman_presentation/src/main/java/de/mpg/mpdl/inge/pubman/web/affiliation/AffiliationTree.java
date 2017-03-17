@@ -34,10 +34,10 @@ import java.util.Map;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
  * Request bean to handle the organizational unit tree.

@@ -127,7 +127,7 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>LoginHelper</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.LoginHelper</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -592,7 +592,7 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>UserAccountOptions</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.UserAccountOptions</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.beans.UserAccountOptions</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -602,7 +602,7 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>InternationalizationHelper</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.InternationalizationHelper</managed-bean-class>
+		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 </faces-config>

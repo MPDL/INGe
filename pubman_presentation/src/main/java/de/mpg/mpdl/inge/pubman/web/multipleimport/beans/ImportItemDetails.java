@@ -28,9 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * A JSF bean class to hold data of an import item's details.

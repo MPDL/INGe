@@ -31,7 +31,7 @@
 	<filter>
 		<display-name>Sitemap Filter</display-name>
 		<filter-name>sitemap</filter-name>
-		<filter-class>de.mpg.mpdl.inge.pubman.web.servlet.SitemapFilter</filter-class>
+		<filter-class>de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -41,7 +41,7 @@
 
 	<filter>
 		<filter-name>SessionTimeoutFilter</filter-name>
-		<filter-class>de.mpg.mpdl.inge.pubman.web.appbase.SessionTimeoutFilter</filter-class>
+		<filter-class>de.mpg.mpdl.inge.pubman.web.util.filter.SessionTimeoutFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -54,7 +54,7 @@
 	</listener>
 	
 	<listener>
-		<listener-class>de.mpg.mpdl.inge.pubman.web.appbase.PubManSessionListener</listener-class>
+		<listener-class>de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener</listener-class>
 	</listener>
 
 	<mime-mapping>
@@ -69,7 +69,7 @@
 
 	<servlet>
 		<servlet-name>StatisticChartServlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.statistic_charts.StatisticChartServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.StatisticChartServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -79,7 +79,7 @@
 
 	<servlet>
 		<servlet-name>Genre Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.init.GenreServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -96,13 +96,13 @@
 
 	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.init.InitializerServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.InitializerServlet</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
 
 	<servlet>
 		<servlet-name>Redirect Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.servlet.RedirectServlet</servlet-class>
+		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

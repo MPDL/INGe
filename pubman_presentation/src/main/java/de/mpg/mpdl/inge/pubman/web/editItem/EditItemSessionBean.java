@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
-import de.mpg.mpdl.inge.pubman.web.util.PubFileVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.

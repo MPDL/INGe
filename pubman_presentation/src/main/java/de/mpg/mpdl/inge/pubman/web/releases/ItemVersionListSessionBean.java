@@ -32,9 +32,9 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.EventLogEntryVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.VersionHistoryVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.EventLogEntryVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.VersionHistoryVOPresentation;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and

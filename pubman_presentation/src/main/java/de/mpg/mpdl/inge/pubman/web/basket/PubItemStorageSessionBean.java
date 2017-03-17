@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Session Bean that stores the referneces of PubItems in a Map for the Basket session basket

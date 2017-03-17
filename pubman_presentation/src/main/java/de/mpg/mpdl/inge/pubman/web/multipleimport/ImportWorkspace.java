@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
 

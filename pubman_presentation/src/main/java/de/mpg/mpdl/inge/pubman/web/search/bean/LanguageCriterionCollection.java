@@ -6,8 +6,8 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.LanguageCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * @author endres

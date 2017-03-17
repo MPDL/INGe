@@ -27,7 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.releases;
 
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.pubman.web.util.ValueObjectWrapper;
+import de.mpg.mpdl.inge.pubman.web.util.vos.ValueObjectWrapper;
 
 /**
  * Wrapper for VersionHistoryEntryVOs that provides additional attributes for the presentation

@@ -41,7 +41,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 
 /**
  * Class to handle the file upload of locators.
@@ -51,8 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@SuppressWarnings("serial")
-public abstract class FileLocatorUploadBean extends FacesBean {
+public abstract class FileLocatorUploadBean {
   private Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
 
   protected String name; // File Name
@@ -62,11 +60,17 @@ public abstract class FileLocatorUploadBean extends FacesBean {
   private int size;
   private String type; // File MimeType
 
+  private FacesBean facesBean = new FacesBean();
+
   public abstract void locatorUploaded();
 
   public abstract void removeEmptyFile();
 
   public abstract void removeLocator();
+
+  protected FacesBean getFacesBean() {
+    return this.facesBean;
+  }
 
   /**
    * Executes a HEAD request to the locator.
@@ -92,34 +96,34 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 503:
-          this.error = getMessage("errorLocatorServiceUnavailable");
+          this.error = this.facesBean.getMessage("errorLocatorServiceUnavailable");
           return false;
         case 302:
-          this.error = getMessage("errorLocatorServiceUnavailable");
+          this.error = this.facesBean.getMessage("errorLocatorServiceUnavailable");
           return false;
         case 200:
           this.logger.debug("Source responded with 200.");
           break;
         case 403:
-          this.error = getMessage("errorLocatorAccessDenied");
+          this.error = this.facesBean.getMessage("errorLocatorAccessDenied");
           this.logger.warn("Access to url " + locator + " is restricted.");
           return false;
         default:
-          this.error = getMessage("errorLocatorTechnicalException");
+          this.error = this.facesBean.getMessage("errorLocatorTechnicalException");
           this.logger.warn("An error occurred during importing from external system: "
               + responseCode + ": " + httpConn.getResponseMessage() + ".");
           return false;
       }
     } catch (AccessException e) {
       this.logger.error("Access denied.", e);
-      this.error = getMessage("errorLocatorAccessDenied");
+      this.error = this.facesBean.getMessage("errorLocatorAccessDenied");
       return false;
     } catch (MalformedURLException e) {
-      this.error = getMessage("errorLocatorInvalidURL");
+      this.error = this.facesBean.getMessage("errorLocatorInvalidURL");
       this.logger.warn("Invalid locator URL:" + locator, e);
       return false;
     } catch (Exception e) {
-      this.error = getMessage("errorLocatorTechnicalException");
+      this.error = this.facesBean.getMessage("errorLocatorTechnicalException");
       return false;
     }
 
@@ -177,7 +181,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
           break;
       }
     } catch (Exception e) {
-      this.error = getMessage("errorLocatorTechnicalException");
+      this.error = this.facesBean.getMessage("errorLocatorTechnicalException");
       return null;
     }
 
@@ -221,12 +225,12 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
       } catch (Exception e) {
         this.logger.error(e);
-        this.error = getMessage("errorLocatorUploadFW");
+        this.error = this.facesBean.getMessage("errorLocatorUploadFW");
       }
     }
 
     if (this.getError() != null) {
-      error(getMessage("errorLocatorMain").replace("$1", this.getError()));
+      FacesBean.error(this.facesBean.getMessage("errorLocatorMain").replace("$1", this.getError()));
       return null;
     }
 

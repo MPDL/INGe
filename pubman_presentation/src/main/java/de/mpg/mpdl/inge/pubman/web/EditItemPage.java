@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * BackingBean for EditItemPage.jsp. This one is empty because all code is implemented in the

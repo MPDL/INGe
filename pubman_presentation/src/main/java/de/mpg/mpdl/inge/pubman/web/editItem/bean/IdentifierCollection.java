@@ -35,8 +35,8 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by

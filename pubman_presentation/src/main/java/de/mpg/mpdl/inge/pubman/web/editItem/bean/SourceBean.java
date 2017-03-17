@@ -46,7 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection.IdentifierManager;
-import de.mpg.mpdl.inge.pubman.web.util.CreatorVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 
 /**
  * POJO bean to deal with one source.

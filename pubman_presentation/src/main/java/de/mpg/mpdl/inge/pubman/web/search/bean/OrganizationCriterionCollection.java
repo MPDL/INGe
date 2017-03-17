@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
  * Bean to handle the OrganizationCriterionCollection on a single jsp. A

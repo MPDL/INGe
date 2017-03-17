@@ -31,8 +31,8 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * JSF bean class to hold an import's data.

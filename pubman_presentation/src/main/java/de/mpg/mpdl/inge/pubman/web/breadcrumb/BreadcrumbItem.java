@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Class for single breadcrumbs. Each breadcrumb is represented with this class.

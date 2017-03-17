@@ -38,9 +38,9 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.LinkVO;
+import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.util.PropertyReader;
 

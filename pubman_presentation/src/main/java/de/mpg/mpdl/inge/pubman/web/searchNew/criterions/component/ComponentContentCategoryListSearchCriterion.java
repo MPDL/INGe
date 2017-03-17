@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 @SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {

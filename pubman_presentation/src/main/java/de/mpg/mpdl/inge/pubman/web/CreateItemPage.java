@@ -25,7 +25,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp

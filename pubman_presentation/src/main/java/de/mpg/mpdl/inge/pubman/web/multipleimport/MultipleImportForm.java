@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Session bean to hold data needed for an import of multiple items.

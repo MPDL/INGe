@@ -3,9 +3,9 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DateCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DateCriterion.DateType;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the DateCriterionCollection on a single jsp. A DateCriterionCollection is

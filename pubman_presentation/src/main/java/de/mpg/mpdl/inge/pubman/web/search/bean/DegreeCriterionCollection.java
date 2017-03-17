@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DegreeCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the DegreeCriterionCollection on a single jsp. A DegreeCriterionCollection is

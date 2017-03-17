@@ -3,8 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.EventCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the EventCriterionCollection on a single jsp. A EventCriterionCollection is

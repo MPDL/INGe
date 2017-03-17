@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * BreadcrumbItem history is stored in this session bean for advanced page navigation.

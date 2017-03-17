@@ -27,7 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.web.util.ValueObjectWrapper;
+import de.mpg.mpdl.inge.pubman.web.util.vos.ValueObjectWrapper;
 
 /**
  * Wrapper for ContextVOs that provides additional attributes for the presentation layer.

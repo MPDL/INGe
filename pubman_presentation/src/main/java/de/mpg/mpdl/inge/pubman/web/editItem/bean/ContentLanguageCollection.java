@@ -31,8 +31,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the ContentLanguageCollection on a single jsp. A ContentLanguageCollection is

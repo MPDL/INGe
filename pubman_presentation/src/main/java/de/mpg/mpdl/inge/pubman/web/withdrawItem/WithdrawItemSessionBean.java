@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * Keeps all attributes that are used for the whole session by WithdrawItem.

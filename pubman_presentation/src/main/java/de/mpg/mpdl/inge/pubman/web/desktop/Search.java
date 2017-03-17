@@ -32,7 +32,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.Index;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
@@ -40,6 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperato
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldAndFulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 @SuppressWarnings("serial")
 public class Search extends FacesBean {

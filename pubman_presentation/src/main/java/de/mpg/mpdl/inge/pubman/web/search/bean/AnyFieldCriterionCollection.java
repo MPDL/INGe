@@ -3,9 +3,9 @@ package de.mpg.mpdl.inge.pubman.web.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.pubman.web.appbase.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.AnyFieldCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
+import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 
 /**
  * Bean to handle the AnyFieldCriterionCollection on a single jsp. A AnyFieldCriterionCollection is
