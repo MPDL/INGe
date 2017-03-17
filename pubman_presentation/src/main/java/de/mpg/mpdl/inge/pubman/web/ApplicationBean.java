@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
-  public static final String BEAN_NAME = "ApplicationBean";
+  // public static final String BEAN_NAME = "ApplicationBean";
 
   private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 
@@ -79,39 +79,31 @@ public class ApplicationBean extends FacesBean {
   private static final String PROPERTY_FILENAME = "solution.properties";
   private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 
-  /** system type of this application instance */
-  private SystemType systemType;
-  private String appTitle = null;
-  private String version = null;
-  private String appContext = "";
-
   private Map<String, SelectItem[]> languageSelectItems;
   private Map<String, String> contentCategoryMap;
-  private Map<String, String> excludedSourceGenreMap;
   private Map<String, String> creatorRoleMap;
+  private Map<String, String> excludedSourceGenreMap;
 
   private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
-  private String instanceContextPath;
-  private String footerSnippet;
-  private String pubmanInstanceUrl;
-  private String commonPresentationUrl;
-  private String pubmanBlogFeedUrl;
-  private String pubmanStyleTags;
-  private String cookieVersion;
-  private String logoUrl;
+
   private String additionalLogoCss;
-  private boolean handlesActivated;
-  private String shortVersion;
+  private String appContext = "";
+  private String appTitle = null;
+  private String commonPresentationUrl;
+  private String cookieVersion;
   private String cslEditorInstanceUrl;
+  private String footerSnippet;
+  private String instanceContextPath;
+  private String logoUrl;
+  private String pubmanBlogFeedUrl;
+  private String pubmanInstanceUrl;
+  private String pubmanStyleTags;
+  private String shortVersion;
+  private String version = null;
+
+  private boolean handlesActivated;
 
   public ApplicationBean() {
-    // set the system type of the application
-    try {
-      this.systemType = fetchSystemTypeFromProperty();
-    } catch (PubManVersionNotAvailableException e) {
-      logger.warn("System type is not retrievable! Setting now to PRODUCTION");
-      this.systemType = SystemType.Production_Server;
-    }
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
     this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
@@ -120,7 +112,7 @@ public class ApplicationBean extends FacesBean {
     loadProperties();
   }
 
-  public void loadProperties() {
+  private void loadProperties() {
     try {
       Properties solProperties = CommonUtils.getProperties(PROPERTY_FILENAME);
       this.version = solProperties.getProperty("escidoc.pubman.version");
@@ -139,16 +131,16 @@ public class ApplicationBean extends FacesBean {
       // hide the version information if system type is production
       if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server)
           && this.version != null) {
-        this.appTitle += " " + this.getVersion();
+        this.appTitle += " " + this.version;
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+
       this.commonPresentationUrl =
           PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
       if (this.commonPresentationUrl == null) {
         this.commonPresentationUrl = "";
       }
-
 
       this.pubmanBlogFeedUrl = PropertyReader.getProperty("escidoc.pubman.blog.news");
       if (this.pubmanBlogFeedUrl == null) {
@@ -202,17 +194,17 @@ public class ApplicationBean extends FacesBean {
     }
   }
 
-  /**
-   * Returns an appropriate character encoding based on the Locale defined for the current
-   * JavaServer Faces view. If no more suitable encoding can be found, return "UTF-8" as a general
-   * purpose default. The default implementation uses the implementation from our superclass,
-   * FacesBean.
-   * 
-   * @return the local character encoding
-   */
-  public String getLocaleCharacterEncoding() {
-    return System.getProperty("file.encoding"); // super.getLocaleCharacterEncoding();
-  }
+  // /**
+  // * Returns an appropriate character encoding based on the Locale defined for the current
+  // * JavaServer Faces view. If no more suitable encoding can be found, return "UTF-8" as a general
+  // * purpose default. The default implementation uses the implementation from our superclass,
+  // * FacesBean.
+  // *
+  // * @return the local character encoding
+  // */
+  // public String getLocaleCharacterEncoding() {
+  // return System.getProperty("file.encoding"); // super.getLocaleCharacterEncoding();
+  // }
 
   /**
    * Returns the title and version of the application, shown in the header.
@@ -220,19 +212,18 @@ public class ApplicationBean extends FacesBean {
    * @return applicationtitle, including version
    */
   public String getAppTitle() {
-    return appTitle;
+    return this.appTitle;
   }
 
-  /**
-   * Provides the escidoc version string.
-   * 
-   * @return the escidoc version
-   * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
-   */
-  private String getVersion() {
-    return version;
-
-  }
+  // /**
+  // * Provides the escidoc version string.
+  // *
+  // * @return the escidoc version
+  // * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
+  // */
+  // private String getVersion() {
+  // return this.version;
+  // }
 
   /**
    * Provides the escidoc version string without build date.
@@ -242,7 +233,7 @@ public class ApplicationBean extends FacesBean {
    */
   public String getShortVersion() {
 
-    return shortVersion;
+    return this.shortVersion;
   }
 
   /**
@@ -253,16 +244,15 @@ public class ApplicationBean extends FacesBean {
    */
   public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException {
     return this.pubmanInstanceUrl;
-
   }
 
-  /**
-   * Provides the url for common-presentation.
-   * 
-   */
-  public String getCommonPresentationUrl() {
-    return this.commonPresentationUrl;
-  }
+  // /**
+  // * Provides the url for common-presentation.
+  // *
+  // */
+  // public String getCommonPresentationUrl() {
+  // return this.commonPresentationUrl;
+  // }
 
   /**
    * Provides the url for the pubman blog feed.
@@ -279,7 +269,7 @@ public class ApplicationBean extends FacesBean {
    * 
    * @return the escidoc instance
    */
-  public String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
+  private String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
     StringBuffer styleTags = new StringBuffer();
     String StylesheetStandard = "";
     String StylesheetContrast = "";
@@ -308,7 +298,6 @@ public class ApplicationBean extends FacesBean {
         }
       }
 
-
       // Then append the high contrast Stylesheet
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply"))) {
@@ -331,7 +320,6 @@ public class ApplicationBean extends FacesBean {
         }
       }
 
-
       // Then append the classic Stylesheet
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply"))) {
@@ -353,7 +341,6 @@ public class ApplicationBean extends FacesBean {
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") + "\"/>";
         }
       }
-
 
       // Then append the special Stylesheet
 
@@ -396,13 +383,11 @@ public class ApplicationBean extends FacesBean {
     }
 
     return styleTags.toString();
-
   }
 
   public String getPubmanStyleTags() {
     return this.pubmanStyleTags;
   }
-
 
   /**
    * This method returns the cookie version for PubMan hold in the pubman.properties
@@ -412,11 +397,7 @@ public class ApplicationBean extends FacesBean {
    */
   public String getCookieVersion() throws PubManVersionNotAvailableException {
     return this.cookieVersion;
-
-
-
   }
-
 
   /**
    * Returns the current application context.
@@ -424,8 +405,7 @@ public class ApplicationBean extends FacesBean {
    * @return the application context
    */
   public String getAppContext() {
-
-    return appContext;
+    return this.appContext;
   }
 
   /**
@@ -443,7 +423,7 @@ public class ApplicationBean extends FacesBean {
    * @return the instance context path
    */
   public String getInstanceContextPath() {
-    return instanceContextPath;
+    return this.instanceContextPath;
   }
 
   /**
@@ -461,7 +441,7 @@ public class ApplicationBean extends FacesBean {
    * @return the escidoc instance
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
-  public SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException {
+  private SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException {
     String sysType = PropertyReader.getProperty("escidoc.systemtype");
 
     if (sysType.equals("workstation")) {
@@ -478,29 +458,25 @@ public class ApplicationBean extends FacesBean {
       throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
   }
 
-  public boolean getCheckSystemTypeProduction() {
-    if (systemType == SystemType.Production_Server)
-      return true;
-    else
-      return false;
-  }
+  // public boolean getCheckSystemTypeProduction() {
+  // if (systemType == SystemType.Production_Server) {
+  // return true;
+  // }
+  //
+  // return false;
+  // }
 
   public String getReloadResourceBundlesAndProperties() throws Exception {
-    String returnVal = "";
     ResourceBundle.clearCache();
     PropertyReader.forceReloadProperties();
     loadProperties();
-    languageSelectItems.clear();
+    this.languageSelectItems.clear();
     ouList.clear();
 
     // Renew Journal CitationStyles for JUS Exports
     XsltHelper.getJournalsXML();
 
-    returnVal =
-        "... Resource bundles and properties reloaded, language selection menu reset, Journal citation styles from CoNE reloaded.";
-    return returnVal;
-
-
+    return "... Resource bundles and properties reloaded, language selection menu reset, Journal citation styles from CoNE reloaded.";
   }
 
   public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
@@ -527,9 +503,6 @@ public class ApplicationBean extends FacesBean {
     return this.additionalLogoCss;
   }
 
-  /**
-   * @return the application wide contentCategoryMap
-   */
   public synchronized Map<String, String> getContentCategoryMap() {
     if (this.contentCategoryMap == null) {
       this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
@@ -538,9 +511,6 @@ public class ApplicationBean extends FacesBean {
     return this.contentCategoryMap;
   }
 
-  /**
-   * @return the application wide excludedSourceGenreMap
-   */
   public synchronized Map<String, String> getExcludedSourceGenreMap() {
     if (this.excludedSourceGenreMap == null) {
       this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
@@ -549,9 +519,6 @@ public class ApplicationBean extends FacesBean {
     return this.excludedSourceGenreMap;
   }
 
-  /**
-   * @return the creatorRoleMap
-   */
   public synchronized Map<String, String> getCreatorRoleMap() {
     if (this.creatorRoleMap == null) {
       this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();

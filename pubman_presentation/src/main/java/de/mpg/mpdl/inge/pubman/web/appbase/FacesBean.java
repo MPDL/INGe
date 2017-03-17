@@ -73,9 +73,9 @@ public class FacesBean implements Serializable {
     return (HttpServletResponse) getExternalContext().getResponse();
   }
 
-  public String getIP() {
-    return getRequest().getRemoteAddr();
-  }
+  // public String getIP() {
+  // return getRequest().getRemoteAddr();
+  // }
 
   public String getUserAgent() {
     return getRequest().getHeader("User-Agent");

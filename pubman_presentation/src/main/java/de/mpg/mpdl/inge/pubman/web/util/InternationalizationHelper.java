@@ -37,7 +37,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -46,11 +45,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -89,8 +86,10 @@ public class InternationalizationHelper implements Serializable {
   private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
-  private String context = null;
+  // private String context = null;
+
   private SelectItem NO_ITEM_SET = null;
+
   private Locale userLocale;
 
   private List<LanguageChangeObserver> languageChangeObservers =
@@ -126,12 +125,11 @@ public class InternationalizationHelper implements Serializable {
     this.NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
   }
 
-  // Getters and Setters
-  public String getSelectedLabelBundle() {
+  private String getSelectedLabelBundle() {
     return LABEL_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
-  public String getSelectedMessagesBundle() {
+  private String getSelectedMessagesBundle() {
     return MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
@@ -139,13 +137,13 @@ public class InternationalizationHelper implements Serializable {
     return this.selectedHelpPage;
   }
 
-  public String getContext() {
-    return this.context;
-  }
+  // public String getContext() {
+  // return this.context;
+  // }
 
-  public void setContext(String context) {
-    this.context = context;
-  }
+  // public void setContext(String context) {
+  // this.context = context;
+  // }
 
   public void changeLanguage(ValueChangeEvent event) {
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -195,31 +193,31 @@ public class InternationalizationHelper implements Serializable {
     this.languageChangeObservers.remove(obs);
   }
 
-  public void toggleLocale(ActionEvent event) {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    Locale locale = null;
-    Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
-    String language = (String) map.get("language");
-    String country = (String) map.get("country");
-    this.locale = language;
-
-    try {
-      locale = new Locale(language, country);
-      fc.getViewRoot().setLocale(locale);
-      Locale.setDefault(locale);
-      this.userLocale = locale;
-      logger.debug("New locale: " + language + "_" + country + " : " + locale);
-    } catch (Exception e) {
-      logger.error("unable to switch to locale using language = " + language + " and country = "
-          + country, e);
-    }
-
-    if (language.equals("de")) {
-      this.selectedHelpPage = HELP_PAGE_DE;
-    } else {
-      this.selectedHelpPage = HELP_PAGE_EN;
-    }
-  }
+  // public void toggleLocale(ActionEvent event) {
+  // FacesContext fc = FacesContext.getCurrentInstance();
+  // Locale locale = null;
+  // Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
+  // String language = (String) map.get("language");
+  // String country = (String) map.get("country");
+  // this.locale = language;
+  //
+  // try {
+  // locale = new Locale(language, country);
+  // fc.getViewRoot().setLocale(locale);
+  // Locale.setDefault(locale);
+  // this.userLocale = locale;
+  // logger.debug("New locale: " + language + "_" + country + " : " + locale);
+  // } catch (Exception e) {
+  // logger.error("unable to switch to locale using language = " + language + " and country = "
+  // + country, e);
+  // }
+  //
+  // if (language.equals("de")) {
+  // this.selectedHelpPage = HELP_PAGE_DE;
+  // } else {
+  // this.selectedHelpPage = HELP_PAGE_EN;
+  // }
+  // }
 
   public Locale getUserLocale() {
     return this.userLocale;
@@ -322,7 +320,7 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for genre
    */
-  public SelectItem[] getSelectItemsGenre(final boolean includeNoItemSelectedEntry) {
+  private SelectItem[] getSelectItemsGenre(final boolean includeNoItemSelectedEntry) {
     MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
 
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
@@ -376,14 +374,14 @@ public class InternationalizationHelper implements Serializable {
     return this.getSelectItemsGenre(false);
   }
 
-  /**
-   * Returns an array of SelectItems for the enum genre.
-   * 
-   * @return array of SelectItems for genre
-   */
-  public SelectItem[] getSelectItemsDegreeType() {
-    return this.getSelectItemsGenre(false);
-  }
+  // /**
+  // * Returns an array of SelectItems for the enum genre.
+  // *
+  // * @return array of SelectItems for genre
+  // */
+  // public SelectItem[] getSelectItemsDegreeType() {
+  // return this.getSelectItemsGenre(false);
+  // }
 
   /**
    * Returns an array of SelectItems for the enum DegreeType.
@@ -418,14 +416,14 @@ public class InternationalizationHelper implements Serializable {
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  /**
-   * Returns an array of SelectItems for the enum visibility.
-   * 
-   * @return array of SelectItems for visibility
-   */
-  public SelectItem[] getSelectItemsVisibility() {
-    return this.getSelectItemsVisibility(false);
-  }
+  // /**
+  // * Returns an array of SelectItems for the enum visibility.
+  // *
+  // * @return array of SelectItems for visibility
+  // */
+  // public SelectItem[] getSelectItemsVisibility() {
+  // return this.getSelectItemsVisibility(false);
+  // }
 
   /**
    * Returns an array of SelectItems for the enum visibility.
@@ -439,27 +437,26 @@ public class InternationalizationHelper implements Serializable {
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  /**
-   * Returns an array of SelectItems for the enum ContentCategory.
-   * 
-   * @return array of SelectItems for ContentCategory
-   */
-  public SelectItem[] getSelectItemsContentCategory() {
-    return this.getSelectItemsContentCategory(false);
-  }
+  // /**
+  // * Returns an array of SelectItems for the enum ContentCategory.
+  // *
+  // * @return array of SelectItems for ContentCategory
+  // */
+  // public SelectItem[] getSelectItemsContentCategory() {
+  // return this.getSelectItemsContentCategory(false);
+  // }
 
-  /**
-   * Returns an array of SelectItems for a list of user groups
-   * 
-   * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
-   * @return array of SelectItems for user groups
-   */
-  public SelectItem[] getSelectItemsUserGroups(final boolean includeNoItemSelectedEntry) {
-    FileVO.Visibility[] values = FileVO.Visibility.values();
-
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
-  }
-
+  // /**
+  // * Returns an array of SelectItems for a list of user groups
+  // *
+  // * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+  // * @return array of SelectItems for user groups
+  // */
+  // public SelectItem[] getSelectItemsUserGroups(final boolean includeNoItemSelectedEntry) {
+  // FileVO.Visibility[] values = FileVO.Visibility.values();
+  //
+  // return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+  // }
 
   /**
    * Returns an array of SelectItems for the content-categories.
@@ -490,14 +487,14 @@ public class InternationalizationHelper implements Serializable {
     return selectItems;
   }
 
-  /**
-   * Returns an array of SelectItems for the enum genre.
-   * 
-   * @return array of SelectItems for genre
-   */
-  public SelectItem[] getSelectItemsInvitationStatus() {
-    return this.getSelectItemsGenre(false);
-  }
+  // /**
+  // * Returns an array of SelectItems for the enum genre.
+  // *
+  // * @return array of SelectItems for genre
+  // */
+  // public SelectItem[] getSelectItemsInvitationStatus() {
+  // return this.getSelectItemsGenre(false);
+  // }
 
   /**
    * Returns an array of SelectItems for the enum InvitationStatus.
@@ -511,42 +508,42 @@ public class InternationalizationHelper implements Serializable {
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  /**
-   * Returns an array of SelectItems for the enum ItemState.
-   * 
-   * @return array of SelectItems for ItemState
-   */
-  public SelectItem[] getSelectItemsItemState() {
-    PubItemVO.State[] values = PubItemVO.State.values();
+  // /**
+  // * Returns an array of SelectItems for the enum ItemState.
+  // *
+  // * @return array of SelectItems for ItemState
+  // */
+  // public SelectItem[] getSelectItemsItemState() {
+  // PubItemVO.State[] values = PubItemVO.State.values();
+  //
+  // // TODO FrM: add an extra 'all', since it's not member of the enum
+  // // selectItems[0] = new SelectItem("all", getLabel("depositorWS_ItemState_all"));
+  //
+  // return getSelectItemsForEnum(false, values);
+  // }
 
-    // TODO FrM: add an extra 'all', since it's not member of the enum
-    // selectItems[0] = new SelectItem("all", getLabel("depositorWS_ItemState_all"));
+  // /**
+  // * Returns an array of SelectItems for the enum ItemListSortBy.
+  // *
+  // * @return array of SelectItems for ItemListSortBy
+  // */
+  // public SelectItem[] getSelectItemsItemListSortBy() {
+  // PubItemVOComparator.Criteria[] values = PubItemVOComparator.Criteria.values();
+  //
+  // return getSelectItemsForEnum(false, values);
+  // }
 
-    return getSelectItemsForEnum(false, values);
-  }
-
-  /**
-   * Returns an array of SelectItems for the enum ItemListSortBy.
-   * 
-   * @return array of SelectItems for ItemListSortBy
-   */
-  public SelectItem[] getSelectItemsItemListSortBy() {
-    PubItemVOComparator.Criteria[] values = PubItemVOComparator.Criteria.values();
-
-    return getSelectItemsForEnum(false, values);
-  }
-
-  /**
-   * Returns an array of SelectItems for the enum SelectMultipleItems.
-   * 
-   * @return array of SelectItems for SelectMultipleItems
-   */
-  public SelectItem[] getSelectItemsItemListSelectMultipleItems() {
-    InternationalizationHelper.SelectMultipleItems[] values =
-        InternationalizationHelper.SelectMultipleItems.values();
-
-    return getSelectItemsForEnum(false, values);
-  }
+  // /**
+  // * Returns an array of SelectItems for the enum SelectMultipleItems.
+  // *
+  // * @return array of SelectItems for SelectMultipleItems
+  // */
+  // public SelectItem[] getSelectItemsItemListSelectMultipleItems() {
+  // InternationalizationHelper.SelectMultipleItems[] values =
+  // InternationalizationHelper.SelectMultipleItems.values();
+  //
+  // return getSelectItemsForEnum(false, values);
+  // }
 
   public String getLocale() {
     return this.locale;
@@ -595,7 +592,7 @@ public class InternationalizationHelper implements Serializable {
 
         if (contentUrl != null && !contentUrl.equals("")) {
           // Try if there's a specific local version
-          this.homeContent = getContent(new URL(contentUrl + "." + getLocale()));
+          this.homeContent = getContent(new URL(contentUrl + "." + this.locale));
 
           // If not try the url without locale
           if (this.homeContent == null) {

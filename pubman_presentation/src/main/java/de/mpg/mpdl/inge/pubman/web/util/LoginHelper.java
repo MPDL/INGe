@@ -35,7 +35,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.xml.rpc.ServiceException;
@@ -72,16 +71,20 @@ public class LoginHelper extends FacesBean {
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
   private AccountUserVO accountUser = new AccountUserVO();
+
   private List<AffiliationVOPresentation> userAccountAffiliations;
   private List<GrantVO> userGrants;
   private List<UserGroupVO> userAccountUserGroups;
+
   private OrganizationServiceHandler organizationServiceHandler;
+
   private String authenticationToken = null;
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
   private String eSciDocUserHandle = null;
   private String password = "";
   private String username = "";
+
   private boolean detailedMode = false;
   private boolean loggedIn = false;
   private boolean wasLoggedIn = false;
@@ -196,7 +199,6 @@ public class LoginHelper extends FacesBean {
       }
     }
 
-
     // NOTE: The block below must not be removed, as it sets the this.accountUser grants
     List<GrantVO> setterGrants = this.accountUser.getGrants();
     if (this.userGrants != null && !this.userGrants.isEmpty()) {
@@ -207,30 +209,30 @@ public class LoginHelper extends FacesBean {
     }
   }
 
-  /**
-   * changes the language in the navigation menu (according to login state)
-   * 
-   * @param bundle the resource bundle of the currently selected language
-   */
-  public void changeLanguage(ResourceBundle bundle) {
-    // change the language for the Depositor WS navigation info
-    DepositorWSSessionBean depWSSessionBean =
-        (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
-    // change the button language
-
-    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
-      this.btnLoginLogout = "login_btLogin";
-    } else {
-      this.btnLoginLogout = "login_btLogout";
-      if (this.accountUser != null) {
-        if (this.accountUser.isDepositor()) {
-          depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
-          depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
-          depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
-        }
-      }
-    }
-  }
+  // /**
+  // * changes the language in the navigation menu (according to login state)
+  // *
+  // * @param bundle the resource bundle of the currently selected language
+  // */
+  // public void changeLanguage(ResourceBundle bundle) {
+  // // change the language for the Depositor WS navigation info
+  // DepositorWSSessionBean depWSSessionBean =
+  // (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
+  // // change the button language
+  //
+  // if (this.authenticationToken == null || this.authenticationToken.equals("")) {
+  // this.btnLoginLogout = "login_btLogin";
+  // } else {
+  // this.btnLoginLogout = "login_btLogout";
+  // if (this.accountUser != null) {
+  // if (this.accountUser.isDepositor()) {
+  // depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
+  // depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
+  // depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
+  // }
+  // }
+  // }
+  // }
 
   // Getters and Setters
   public void login(String userHandle) {
@@ -390,7 +392,6 @@ public class LoginHelper extends FacesBean {
   }
 
   public boolean getIsYearbookEditor() {
-
     // toDo: find better way how to do this
     ContextListSessionBean clsb =
         (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
@@ -442,9 +443,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String obtainToken() {
-
     try {
-
       URL url = new URL(PropertyReader.getProperty("auth.token.url"));
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
@@ -464,24 +463,17 @@ public class LoginHelper extends FacesBean {
 
       conn.disconnect();
       return token;
-
     } catch (MalformedURLException e) {
-
       e.printStackTrace();
-
     } catch (IOException e) {
-
       e.printStackTrace();
-
     }
-    return null;
 
+    return null;
   }
 
-  public JsonNode obtainUser() {
-
+  private JsonNode obtainUser() {
     try {
-
       URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
@@ -495,19 +487,12 @@ public class LoginHelper extends FacesBean {
       // rawUser.forEach((k, v) -> System.out.println("user map. " + k + " " + v));
 
       return rawUser;
-
     } catch (MalformedURLException e) {
-
       e.printStackTrace();
-
     } catch (JsonParseException e) {
-
       e.printStackTrace();
-
     } catch (IOException e) {
-
       e.printStackTrace();
-
     }
 
     return null;

@@ -60,19 +60,20 @@ public class Login extends FacesBean {
   private String displayUserName = "";
   private String password = "";
   private String username = "";
+
   private boolean loggedIn = false;
 
   public Login() {}
 
-  /**
-   * gets the parameters out of the faces context
-   * 
-   * @param name Name of the parameter that should be found in the faces context
-   * @return String value of the faces context parameter
-   */
-  public String getFacesParamValue(String name) {
-    return getExternalContext().getRequestParameterMap().get(name);
-  }
+  // /**
+  // * gets the parameters out of the faces context
+  // *
+  // * @param name Name of the parameter that should be found in the faces context
+  // * @return String value of the faces context parameter
+  // */
+  // public String getFacesParamValue(String name) {
+  // return getExternalContext().getRequestParameterMap().get(name);
+  // }
 
   /**
    * one method for login and logout according to the current login state
@@ -107,6 +108,7 @@ public class Login extends FacesBean {
     } else {
       login();
     }
+
     return "";
   }
 
