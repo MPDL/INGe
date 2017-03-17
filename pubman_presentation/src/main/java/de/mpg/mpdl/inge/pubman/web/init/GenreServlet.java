@@ -45,33 +45,10 @@ public class GenreServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     try {
-      /*
-       * InputStream is = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(
-       * "escidoc.pubman.genres.configuration"), GenreServlet.class.getClassLoader());
-       * 
-       * if(is == null) { is =
-       * GenreServlet.class.getResourceAsStream(ResourceUtil.resolveFileName(PropertyReader
-       * .getProperty("escidoc.pubman.genres.configuration"))); }
-       */
-
-      // InputStream defaultIs =
-      // GenreServlet.class.getResourceAsStream("WEB-INF/classes/Genres.xml");
-
-
-      // String dir = defaultFile.getAbsolutePath().substring(0,
-      // defaultFile.getAbsolutePath().lastIndexOf(File.separator));
-
-
-
       InputStream file =
           ResourceUtil.getResourceAsStream(
               PropertyReader.getProperty("escidoc.pubman.genres.configuration"),
               GenreServlet.class.getClassLoader());
-      // File defaultFile = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml",
-      // GenreServlet.class.getClassLoader());
-      // String dir = defaultFile.getAbsolutePath().substring(0,
-      // defaultFile.getAbsolutePath().lastIndexOf(File.separator));
-
 
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser parser = factory.newSAXParser();
@@ -87,5 +64,4 @@ public class GenreServlet extends HttpServlet {
       throw new ServletException(e);
     }
   }
-
 }

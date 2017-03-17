@@ -26,17 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.home;
 
-import java.util.List;
-
 import de.mpg.mpdl.inge.pubman.web.appbase.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Fragment class for the corresponding Home-JSP.
@@ -48,7 +38,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class Home extends FacesBean {
   public static final String BEAN_NAME = "Home";
 
-  // Faces navigation string
   public static final String LOAD_HOME = "loadHome";
 
   public Home() {}
@@ -62,18 +51,17 @@ public class Home extends FacesBean {
   // //super.init();
   // }
 
-  public List<PubItemVOPresentation> getLatest() throws Exception {
-    // SearchRetrieverRequestBean srrb =
-    // (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
-    String cqlQuery =
-        "escidoc.content-model.objid="
-            + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    SearchQuery cql = new PlainCqlQuery(cqlQuery);
-    cql.setMaximumRecords("4");
-    cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-    ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
-    List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
-    return list;
-  }
-
+  // public List<PubItemVOPresentation> getLatest() throws Exception {
+  // // SearchRetrieverRequestBean srrb =
+  // // (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
+  // String cqlQuery =
+  // "escidoc.content-model.objid="
+  // + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+  // SearchQuery cql = new PlainCqlQuery(cqlQuery);
+  // cql.setMaximumRecords("4");
+  // cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
+  // ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
+  // List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+  // return list;
+  // }
 }

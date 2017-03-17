@@ -54,7 +54,7 @@ public class Login extends FacesBean {
   private static final Logger logger = Logger.getLogger(Login.class);
 
   public static String LOGIN_URL = "/aa/login";
-  public static String LOGOUT_URL = "/aa/logout/clear.jsp";
+  // public static String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";

@@ -63,34 +63,33 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SiteMapTask extends Thread {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
+  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
+      + "/modules/pubman/main/sitemap/";
 
   private ArrayList<String> contentModels;
+
   private FileWriter fileWriter = null;
-  private String instanceUrl;
-  private String contextPath;
-  private String itemPattern;
-  private SimpleDateFormat dateFormat;
-  private String contentModel;
-
-  private int interval;
-
-  private int maxItemsPerFile;
-  private int maxItemsPerRetrieve;
-
-  private int retrievalTimeout;
-
-  private boolean signal = false;
 
   private List<File> files = new ArrayList<File>();
 
-  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
-      + "/modules/pubman/main/sitemap/";
+  private SimpleDateFormat dateFormat;
+
+  private String contentModel;
+  private String contextPath;
+  private String instanceUrl;
+  private String itemPattern;
+
+  private boolean signal = false;
+
+  private int interval;
+  private int maxItemsPerFile;
+  private int maxItemsPerRetrieve;
+  private int retrievalTimeout;
 
   /**
    * {@inheritDoc}
    */
   public void run() {
-
     try {
       logger.info("Starting to create Sitemap.");
       instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
@@ -184,10 +183,7 @@ public class SiteMapTask extends Thread {
         logger.debug("Renaming succeeded: " + success);
       }
 
-
       logger.info("Finished creating Sitemap.");
-
-
     } catch (Exception e) {
       logger.error("Error creating Sitemap", e);
     }
@@ -202,7 +198,6 @@ public class SiteMapTask extends Thread {
       Thread nextThread = new SiteMapTask();
       nextThread.start();
     }
-
   }
 
   private boolean copySiteMap(File src, File dest, int bufSize, boolean force) throws IOException {
@@ -241,19 +236,16 @@ public class SiteMapTask extends Thread {
         }
       }
     }
+
     return successful;
   }
 
-
   private int addViewItemPages() {
-
-
     int firstRecord = 0;
     int totalRecords = 0;
 
     // fileWriter.write("<ul>");
     do {
-
       try {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
@@ -278,15 +270,12 @@ public class SiteMapTask extends Thread {
       } catch (InterruptedException e) {
         logger.info("Sitemap task interrupted.");
       }
-
-
     } while (firstRecord <= totalRecords);
 
     return totalRecords;
   }
 
   private void addOUSearchResultPages(int alreadyWritten) {
-
     changeFile();
 
     int firstRecord = 0;
@@ -294,8 +283,6 @@ public class SiteMapTask extends Thread {
 
     // fileWriter.write("<ul>");
     do {
-
-
       OrgUnitsSearchResult ouSearchResult = getOUs(firstRecord);
       totalRecords = ouSearchResult.getTotalNumberOfResults().intValue();
       addOUsToSitemap(ouSearchResult);
@@ -311,9 +298,7 @@ public class SiteMapTask extends Thread {
       } catch (InterruptedException e) {
         logger.info("Sitemap task interrupted.");
       }
-
     } while (firstRecord <= totalRecords);
-
   }
 
   private void changeFile() {
@@ -327,7 +312,6 @@ public class SiteMapTask extends Thread {
       files.add(file);
 
       startSitemap();
-
     } catch (Exception e) {
       logger.error("Error creating sitemap file.", e);
     }
@@ -431,7 +415,6 @@ public class SiteMapTask extends Thread {
       } catch (Exception e) {
         logger.error("Error", e);
       }
-
     }
   }
 

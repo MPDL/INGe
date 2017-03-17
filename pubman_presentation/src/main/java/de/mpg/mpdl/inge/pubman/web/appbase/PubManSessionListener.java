@@ -42,10 +42,9 @@ import de.mpg.mpdl.inge.pubman.web.desktop.Login;
  * 
  */
 public class PubManSessionListener implements HttpSessionListener {
-
   private static final Logger logger = Logger.getLogger(PubManSessionListener.class);
 
-  public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
+  // public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
 
   @Override
   public void sessionCreated(HttpSessionEvent arg0) {

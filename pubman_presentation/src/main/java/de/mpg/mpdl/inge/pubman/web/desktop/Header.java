@@ -80,6 +80,7 @@ public class Header extends FacesBean {
         this.type = "";
       }
     }
+
     return this.type;
   }
 }

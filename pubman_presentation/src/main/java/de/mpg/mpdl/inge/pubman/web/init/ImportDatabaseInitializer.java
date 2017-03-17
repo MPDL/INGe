@@ -45,10 +45,9 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 public class ImportDatabaseInitializer {
-  private final static Logger logger = Logger.getLogger(ImportDatabaseInitializer.class);
+  private static final Logger logger = Logger.getLogger(ImportDatabaseInitializer.class);
 
   public ImportDatabaseInitializer() throws Exception {
-
     logger.info("Initializing import database");
 
     Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));

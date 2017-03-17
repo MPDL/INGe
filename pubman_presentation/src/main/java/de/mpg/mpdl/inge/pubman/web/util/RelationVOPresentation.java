@@ -5,15 +5,11 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 @SuppressWarnings("serial")
 public class RelationVOPresentation extends RelationVO {
-
   private PubItemVO sourceItem;
-
   private PubItemVO targetItem;
 
-
-
   public PubItemVO getTargetItem() {
-    return targetItem;
+    return this.targetItem;
   }
 
   public void setTargetItem(PubItemVO targetItem) {
@@ -25,11 +21,10 @@ public class RelationVOPresentation extends RelationVO {
   }
 
   public PubItemVO getSourceItem() {
-    return sourceItem;
+    return this.sourceItem;
   }
 
   public void setSourceItem(PubItemVO item) {
     this.sourceItem = item;
   }
-
 }

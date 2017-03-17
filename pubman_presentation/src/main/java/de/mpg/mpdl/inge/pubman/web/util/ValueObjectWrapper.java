@@ -40,17 +40,12 @@ public class ValueObjectWrapper {
 
   public ValueObjectWrapper() {}
 
-  /**
-   * Public constructor with given ValueObject.
-   * 
-   * @param valueObject the ValueObject that should be wrapped
-   */
   public ValueObjectWrapper(ValueObject valueObject) {
     this.valueObject = valueObject;
   }
 
   public ValueObject getValueObject() {
-    return valueObject;
+    return this.valueObject;
   }
 
   public void setValueObject(ValueObject valueObject) {
@@ -58,7 +53,7 @@ public class ValueObjectWrapper {
   }
 
   public boolean getSelected() {
-    return selected;
+    return this.selected;
   }
 
   public void setSelected(boolean selected) {

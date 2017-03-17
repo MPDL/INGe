@@ -42,11 +42,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 public class SourceVOPresentation extends SourceVO {
-  /**
-   * default serialVersionUID
-   */
-  private static final long serialVersionUID = 1L;
   private static Properties properties;
 
   /**

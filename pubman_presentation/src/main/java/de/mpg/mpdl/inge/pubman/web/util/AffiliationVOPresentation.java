@@ -58,16 +58,19 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
   private static final int SHORTENED_LEVEL_LENGTH = 5;
 
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-      .getCurrentInstance().getExternalContext().getSessionMap()
-      .get(InternationalizationHelper.BEAN_NAME);
+  // private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
+  // .getCurrentInstance().getExternalContext().getSessionMap()
+  // .get(InternationalizationHelper.BEAN_NAME);
 
   private AffiliationVOPresentation parent = null;
+
   private List<AffiliationVO> predecessors = new ArrayList<AffiliationVO>();
   private List<AffiliationVO> successors = null;
   private List<AffiliationVOPresentation> children = null;
+
   private String idPath;
   private String namePath;
+
   private boolean hasChildren = false;
   private boolean selectedForAuthor = false;
 
@@ -109,43 +112,43 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     }
   }
 
-  public boolean getTopLevel() {
+  private boolean getTopLevel() {
     return (this.parent == null);
   }
 
-  /**
-   * This returns a description of the affiliation in a html form.
-   * 
-   * @return html description
-   */
-  public String getHtmlDescription() {
-    StringBuffer html = new StringBuffer();
-
-    html.append("<html><head></head><body>");
-    html.append("<div class=\"affDetails\"><h1>"
-        + this.i18nHelper.getLabel("AffiliationTree_txtHeadlineDetails") + "</h1>");
-    html.append("<div class=\"formField\">");
-
-    if (getDetails().getDescriptions().size() > 0
-        && !"".equals(getDetails().getDescriptions().get(0))) {
-      html.append("<div>");
-      html.append(getDetails().getDescriptions().get(0));
-      html.append("</div><br/>");
-    }
-
-    for (IdentifierVO identifier : getDetails().getIdentifiers()) {
-      if (!identifier.getId().trim().equals("")) {
-        html.append("<span>, &nbsp;");
-        html.append(identifier.getId());
-        html.append("</span>");
-      }
-    }
-
-    html.append("</div></div>");
-    html.append("</body></html>");
-
-    return html.toString();
-  }
+  // /**
+  // * This returns a description of the affiliation in a html form.
+  // *
+  // * @return html description
+  // */
+  // public String getHtmlDescription() {
+  // StringBuffer html = new StringBuffer();
+  //
+  // html.append("<html><head></head><body>");
+  // html.append("<div class=\"affDetails\"><h1>"
+  // + this.i18nHelper.getLabel("AffiliationTree_txtHeadlineDetails") + "</h1>");
+  // html.append("<div class=\"formField\">");
+  //
+  // if (getDetails().getDescriptions().size() > 0
+  // && !"".equals(getDetails().getDescriptions().get(0))) {
+  // html.append("<div>");
+  // html.append(getDetails().getDescriptions().get(0));
+  // html.append("</div><br/>");
+  // }
+  //
+  // for (IdentifierVO identifier : getDetails().getIdentifiers()) {
+  // if (!identifier.getId().trim().equals("")) {
+  // html.append("<span>, &nbsp;");
+  // html.append(identifier.getId());
+  // html.append("</span>");
+  // }
+  // }
+  //
+  // html.append("</div></div>");
+  // html.append("</body></html>");
+  //
+  // return html.toString();
+  // }
 
   public String startSearch() {
     ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSelectedAffiliation(this);

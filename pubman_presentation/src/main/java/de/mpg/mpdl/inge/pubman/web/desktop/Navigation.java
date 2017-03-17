@@ -64,7 +64,8 @@ public class Navigation extends FacesBean {
   private static final Logger logger = Logger.getLogger(Navigation.class);
 
   private List<NavigationRule> navRules;
-  private boolean showExportMenuOption;
+
+  // private boolean showExportMenuOption;
 
   public Navigation() {
     this.init();
@@ -97,14 +98,14 @@ public class Navigation extends FacesBean {
         EasySubmission.LOAD_EASYSUBMISSION));
   }
 
-  /**
-   * loads the home page.
-   * 
-   * @return String navigation string (JSF navigation) to load the home page.
-   */
-  public String loadHome() {
-    return Home.LOAD_HOME;
-  }
+  // /**
+  // * loads the home page.
+  // *
+  // * @return String navigation string (JSF navigation) to load the home page.
+  // */
+  // public String loadHome() {
+  // return Home.LOAD_HOME;
+  // }
 
   /**
    * loads the help page.
@@ -200,17 +201,17 @@ public class Navigation extends FacesBean {
     }
   }
 
-  public String getFacesParamValue(final String name) {
-    return (String) getExternalContext().getRequestParameterMap().get(name);
-  }
+  // public String getFacesParamValue(final String name) {
+  // return (String) getExternalContext().getRequestParameterMap().get(name);
+  // }
 
-  public void setShowExportMenuOption(boolean showExportMenuOption) {
-    this.showExportMenuOption = showExportMenuOption;
-  }
+  // public void setShowExportMenuOption(boolean showExportMenuOption) {
+  // this.showExportMenuOption = showExportMenuOption;
+  // }
 
-  public boolean getShowExportMenuOption() {
-    return this.showExportMenuOption;
-  }
+  // public boolean getShowExportMenuOption() {
+  // return this.showExportMenuOption;
+  // }
 
   private ItemVersionListSessionBean getItemVersionSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);

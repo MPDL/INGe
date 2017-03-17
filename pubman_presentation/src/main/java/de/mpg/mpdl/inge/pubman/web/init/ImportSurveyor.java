@@ -137,5 +137,4 @@ public class ImportSurveyor extends Thread {
     logger.info("Import surveyor signalled to terminate.");
     signal = true;
   }
-
 }

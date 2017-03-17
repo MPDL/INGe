@@ -13,19 +13,21 @@ import de.mpg.mpdl.inge.pubman.web.util.ShortContentHandler;
 
 public class GenreHandler extends ShortContentHandler {
 
-  private String genre = null;
   private FileWriter fileWriter = null;
-  private Stack<String> stack = new Stack<String>();
-  private String dir = null;
-  private Map<String, String> contentCategories = new LinkedHashMap<String, String>();
+
+  private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
+  private LinkedHashMap<String, String> map = null;
+
   private Map<String, String> authorRoles = new LinkedHashMap<String, String>();
+  private Map<String, String> contentCategories = new LinkedHashMap<String, String>();
   private Map<String, String> sourceGenres = new LinkedHashMap<String, String>();
 
-  private LinkedHashMap<String, String> map = null;
-  private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
+  private Stack<String> stack = new Stack<String>();
 
-  String formID = "";
-  String groupID = "";
+  private String dir = null;
+  private String formID = "";
+  private String genre = null;
+  private String groupID = "";
 
   public GenreHandler(String dir) {
     this.dir = dir;
@@ -175,6 +177,4 @@ public class GenreHandler extends ShortContentHandler {
       throw new SAXException(e);
     }
   }
-
-
 }

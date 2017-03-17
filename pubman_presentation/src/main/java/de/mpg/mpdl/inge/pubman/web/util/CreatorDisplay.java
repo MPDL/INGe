@@ -40,7 +40,7 @@ public class CreatorDisplay {
   private String portfolioLink;
 
   public String getFormattedDisplay() {
-    return formattedDisplay;
+    return this.formattedDisplay;
   }
 
   public void setFormattedDisplay(String formattedDisplay) {
@@ -48,11 +48,10 @@ public class CreatorDisplay {
   }
 
   public String getPortfolioLink() {
-    return portfolioLink;
+    return this.portfolioLink;
   }
 
   public void setPortfolioLink(String portfolioLink) {
     this.portfolioLink = portfolioLink;
   }
-
 }

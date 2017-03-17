@@ -55,7 +55,7 @@ public class NavigationRule {
 
   // Getters and Setters
   public String getNavigationString() {
-    return navigationString;
+    return this.navigationString;
   }
 
   public void setNavigationString(String navigationString) {
@@ -63,7 +63,7 @@ public class NavigationRule {
   }
 
   public String getRequestURL() {
-    return requestURL;
+    return this.requestURL;
   }
 
   public void setRequestURL(String requestURL) {
