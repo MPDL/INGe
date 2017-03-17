@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.task;
+package de.mpg.mpdl.inge.pubman.web.util.threads;
 
 import java.io.File;
 import java.io.FileInputStream;

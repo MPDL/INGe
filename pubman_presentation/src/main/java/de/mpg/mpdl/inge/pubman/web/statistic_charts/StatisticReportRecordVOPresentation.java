@@ -19,6 +19,7 @@ public class StatisticReportRecordVOPresentation implements
         return Integer.parseInt(param.getParamValue().getValue());
       }
     }
+
     return 0;
   }
 
@@ -28,6 +29,7 @@ public class StatisticReportRecordVOPresentation implements
         return Integer.parseInt(param.getParamValue().getValue());
       }
     }
+
     return 0;
   }
 
@@ -37,6 +39,7 @@ public class StatisticReportRecordVOPresentation implements
         return Integer.parseInt(param.getParamValue().getValue());
       }
     }
+
     return 0;
   }
 
@@ -46,8 +49,6 @@ public class StatisticReportRecordVOPresentation implements
     int month2 = rep2.getMonth();
     int year2 = rep2.getYear();
 
-
-
     Calendar cal1 = Calendar.getInstance();
     cal1.set(year1, month1, 1);
 
@@ -55,9 +56,5 @@ public class StatisticReportRecordVOPresentation implements
     cal2.set(year2, month2, 1);
 
     return cal1.compareTo(cal2);
-
-
-
   }
-
 }

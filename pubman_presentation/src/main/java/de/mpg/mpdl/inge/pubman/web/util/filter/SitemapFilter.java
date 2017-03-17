@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpStatus;
 
-import de.mpg.mpdl.inge.pubman.web.task.SiteMapTask;
+import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 
 public class SitemapFilter implements Filter {
   @Override

@@ -45,39 +45,29 @@ import org.purl.sword.base.ServiceDocumentRequest;
  * 
  * @author Friederike Kleinfercher
  */
+@SuppressWarnings("serial")
 public class PubManServiceDocumentServlet extends HttpServlet {
-
-  private static final long serialVersionUID = 1L;
-  private Logger log = Logger.getLogger(PubManServiceDocumentServlet.class);
+  private static final Logger logger = Logger.getLogger(PubManServiceDocumentServlet.class);
 
   // private AccountUserVO currentUser;
   private PubManSwordServer swordServer = new PubManSwordServer();
 
-  /**
-   * Initialise the servlet.
-   */
+  @Override
   public void init() {
     // Instantiate the correct SWORD Server class
     String className = getServletContext().getInitParameter("server-class");
     if (className == null) {
-      this.log.fatal("Unable to read value of 'sword-server-class' from Servlet context");
+      logger.fatal("Unable to read value of 'sword-server-class' from Servlet context");
     } else {
       try {
         this.swordServer = (PubManSwordServer) Class.forName(className).newInstance();
       } catch (Exception e) {
-        this.log.fatal("Unable to instantiate class from 'sword-server-class': " + className);
+        logger.fatal("Unable to instantiate class from 'sword-server-class': " + className);
       }
     }
   }
 
-  /**
-   * Process the GET request.
-   * 
-   * @param HttpServletRequest
-   * @param HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
-   */
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // Create the ServiceDocumentRequest
@@ -117,18 +107,11 @@ public class PubManServiceDocumentServlet extends HttpServlet {
       response.setCharacterEncoding("UTF-8");
       // this.currentUser = null;
     } catch (Exception e) {
-      this.log.error(e);
+      logger.error(e);
     }
   }
 
-  /**
-   * Process the POST request. This will return an unimplemented response.
-   * 
-   * @param HttpServletRequest
-   * @param HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
-   */
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
@@ -155,8 +138,9 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         }
       }
     } catch (Exception e) {
-      this.log.debug(e.toString());
+      logger.debug(e.toString());
     }
+
     return null;
   }
 }

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.init;
+package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

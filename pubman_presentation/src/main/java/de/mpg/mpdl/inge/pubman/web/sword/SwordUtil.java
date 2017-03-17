@@ -126,35 +126,32 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class SwordUtil extends FacesBean {
-  public static final String BEAN_NAME = "SwordUtil";
-
+  // public static final String BEAN_NAME = "SwordUtil";
   private static final Logger logger = Logger.getLogger(SwordUtil.class);
 
-  public static String LOGIN_URL = "/aa/login";
-  public static String LOGOUT_URL = "/aa/logout/clear.jsp";
-
+  private static final String LOGIN_URL = "/aa/login";
+  private static final String LOGOUT_URL = "/aa/logout/clear.jsp";
   private static final int NUMBER_OF_URL_TOKENS = 2;
+
+  // private static final String acceptedFormat = "application/zip";
+  private static final String itemPath = "/pubman/item/";
+  private static final String mdFormatBibTex = "BibTex";
+  private static final String mdFormatEndnote = "EndNote";
+  private static final String mdFormatEscidoc =
+      "http://purl.org/escidoc/metadata/schemas/0.1/publication";
+  private static final String mdFormatPeerTEI = "http://purl.org/net/sword-types/tei/peer";
+  private static final String treatmentText =
+      "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
+  private static final String[] fileEndings = {".xml", ".bib", ".tei", ".enl"};
 
   private Deposit currentDeposit;
   private String depositXml = "";
   private List<String> filenames = new ArrayList<String>();
 
-  private final String acceptedFormat = "application/zip";
-  private final String itemPath = "/pubman/item/";
-  private final String mdFormatBibTex = "BibTex";
-  private final String mdFormatEndnote = "EndNote";
-  private final String mdFormatEscidoc = "http://purl.org/escidoc/metadata/schemas/0.1/publication";
-  private final String mdFormatPeerTEI = "http://purl.org/net/sword-types/tei/peer";
-  // private final String transformationService = "escidoc";
-  private final String treatmentText =
-      "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
-  private final String[] fileEndings = {".xml", ".bib", ".tei", ".enl"};
-
   /**
    * Accepted packagings.
    */
-  public String[] Packaging = {this.mdFormatEscidoc, this.mdFormatBibTex, this.mdFormatEndnote,
-      this.mdFormatPeerTEI};
+  public String[] packaging = {mdFormatEscidoc, mdFormatBibTex, mdFormatEndnote, mdFormatPeerTEI};
 
   public SwordUtil() {
     this.init();
@@ -211,6 +208,7 @@ public class SwordUtil extends FacesBean {
         return true;
       }
     }
+
     return false;
   }
 
@@ -356,9 +354,9 @@ public class SwordUtil extends FacesBean {
         boolean metadata = false;
 
         // check if the file is a metadata file
-        for (int i = 0; i < this.fileEndings.length; i++) {
+        for (int i = 0; i < fileEndings.length; i++) {
 
-          String ending = this.fileEndings[i];
+          String ending = fileEndings[i];
           if (name.endsWith(ending)) {
             metadata = true;
             // Retrieve the metadata
@@ -375,7 +373,7 @@ public class SwordUtil extends FacesBean {
             pubItem = createItem(item, user);
 
             // if not escidoc format, add as component
-            if (!this.currentDeposit.getFormatNamespace().equals(this.mdFormatEscidoc)) {
+            if (!this.currentDeposit.getFormatNamespace().equals(mdFormatEscidoc)) {
               attachements.add(convertToFileAndAdd(
                   new ByteArrayInputStream(item.getBytes("UTF-8")), name, user, zipentry));
             }
@@ -411,7 +409,7 @@ public class SwordUtil extends FacesBean {
 
       // If peer format, add additional copyright information to component. They are read from the
       // TEI metadata.
-      if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI)) {
+      if (this.currentDeposit.getFormatNamespace().equals(mdFormatPeerTEI)) {
         // Copyright information are imported from metadata file
         // InitialContext initialContext = new InitialContext();
 
@@ -471,19 +469,19 @@ public class SwordUtil extends FacesBean {
       Boolean transform = false;
 
       // Transform from tei to escidoc-publication-item
-      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatPeerTEI)) {
+      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(mdFormatPeerTEI)) {
         trgFormat = new Format("peer_tei", "application/xml", "UTF-8");
         transform = true;
       }
 
       // Transform from bibtex to escidoc-publication-item
-      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatBibTex)) {
+      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(mdFormatBibTex)) {
         trgFormat = new Format("bibtex", "text/plain", "*");
         transform = true;
       }
 
       // Transform from endnote to escidoc-publication-item
-      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatEndnote)) {
+      if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(mdFormatEndnote)) {
         trgFormat = new Format("endnote", "text/plain", "UTF-8");
         transform = true;
       }
@@ -792,7 +790,7 @@ public class SwordUtil extends FacesBean {
     // // Only set content if item was deposited
     if (!deposit.isNoOp() && item != null) {
       content.setSource(server.getCoreserviceURL() + "/ir/item/" + item.getVersion().getObjectId());
-      se.setId(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
+      se.setId(server.getBaseURL() + itemPath + item.getVersion().getObjectId());
     }
     se.setContent(content);
 
@@ -801,7 +799,7 @@ public class SwordUtil extends FacesBean {
     generator.setContent(server.getBaseURL());
     source.setGenerator(generator);
     se.setSource(source);
-    se.setTreatment(this.treatmentText);
+    se.setTreatment(treatmentText);
     se.setNoOp(deposit.isNoOp());
 
     Author author = new Author();
@@ -817,8 +815,8 @@ public class SwordUtil extends FacesBean {
   }
 
   public boolean checkMetadatFormat(String format) {
-    for (int i = 0; i < this.Packaging.length; i++) {
-      String pack = this.Packaging[i];
+    for (int i = 0; i < this.packaging.length; i++) {
+      String pack = this.packaging[i];
       if (format.equalsIgnoreCase(pack)) {
         return true;
       }
@@ -827,17 +825,17 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  public String getAcceptedFormat() {
-    return this.acceptedFormat;
-  }
+  // public String getAcceptedFormat() {
+  // return acceptedFormat;
+  // }
 
   public String getTreatmentText() {
-    return this.treatmentText;
+    return treatmentText;
   }
 
-  public Deposit getCurrentDeposit() {
-    return this.currentDeposit;
-  }
+  // public Deposit getCurrentDeposit() {
+  // return this.currentDeposit;
+  // }
 
   public void setCurrentDeposit(Deposit currentDeposit) {
     this.currentDeposit = currentDeposit;

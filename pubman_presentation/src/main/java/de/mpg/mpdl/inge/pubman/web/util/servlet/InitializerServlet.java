@@ -32,9 +32,9 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
-import de.mpg.mpdl.inge.pubman.web.init.ImportDatabaseInitializer;
-import de.mpg.mpdl.inge.pubman.web.task.SiteMapTask;
+import de.mpg.mpdl.inge.pubman.web.util.ImportDatabaseInitializer;
 import de.mpg.mpdl.inge.pubman.web.util.threads.ImportSurveyor;
+import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 
 @SuppressWarnings("serial")
 public class InitializerServlet extends HttpServlet {

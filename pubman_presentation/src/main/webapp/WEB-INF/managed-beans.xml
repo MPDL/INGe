@@ -31,11 +31,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd" version="2.2">
 
 	<managed-bean>
-		<managed-bean-name>SwordUtil</managed-bean-name>
-		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.sword.SwordUtil</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>ApplicationBean</managed-bean-name>
 		<managed-bean-class>de.mpg.mpdl.inge.pubman.web.ApplicationBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>

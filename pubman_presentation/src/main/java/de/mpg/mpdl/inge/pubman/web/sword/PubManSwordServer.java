@@ -84,7 +84,8 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
  * 
  */
 public class PubManSwordServer {
-  private Logger log = Logger.getLogger(PubManSwordServer.class);
+  private static final Logger logger = Logger.getLogger(PubManSwordServer.class);
+
   private AccountUserVO currentUser;
   private String verbose = "";
 
@@ -315,10 +316,10 @@ public class PubManSwordServer {
       collection.appendChild(treat);
 
       // static value
-      for (int x = 0; x < util.Packaging.length; x++) {
+      for (int x = 0; x < util.packaging.length; x++) {
         Element format = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
         format.setPrefix("sword");
-        format.setTextContent(util.Packaging[x]);
+        format.setTextContent(util.packaging[x]);
         collection.appendChild(format);
       }
 
@@ -368,7 +369,7 @@ public class PubManSwordServer {
     try {
       return PropertyReader.getProperty("escidoc.pubman.instance.url");
     } catch (Exception e) {
-      this.log.warn("Base URL could not be read from property file.", e);
+      logger.warn("Base URL could not be read from property file.", e);
     }
     return "";
   }
@@ -377,7 +378,7 @@ public class PubManSwordServer {
     try {
       return PropertyReader.getProperty("escidoc.framework_access.framework.url");
     } catch (Exception e) {
-      this.log.warn("Coreservice URL could not be read from property file.", e);
+      logger.warn("Coreservice URL could not be read from property file.", e);
     }
     return "";
   }
