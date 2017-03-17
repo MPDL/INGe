@@ -1,35 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" 
-                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-                xmlns:javaee="http://java.sun.com/xml/ns/javaee" 
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
-	 <context-param>
-	  <param-name>javax.faces.PROJECT_STAGE</param-name>
-	  <param-value>Production</param-value>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
 	</context-param>
-	
-     <context-param>     
-     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-     <param-value>.jsp</param-value>
-     </context-param>
-     
-     <context-param>
-        <param-name>facelets.VIEW_MAPPINGS</param-name>
-        <param-value>*.jsp</param-value>
-    </context-param> 
-	
-	<mime-mapping>
-	    <extension>jsp</extension>
-	    <mime-type>text/html</mime-type>
-  	</mime-mapping>
-  	
-  	<mime-mapping>
-	    <extension>jspf</extension>
-	    <mime-type>text/html</mime-type>
-  	</mime-mapping>
-	
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.jsp</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+		<param-value>*.jsp</param-value>
+	</context-param>
+
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
@@ -40,53 +28,45 @@
 		<param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
 	</context-param>
 
-	<!-- 
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>none</param-value>
-	</context-param>
-	-->
-	
 	<filter>
 		<display-name>Sitemap Filter</display-name>
 		<filter-name>sitemap</filter-name>
 		<filter-class>de.mpg.mpdl.inge.pubman.web.servlet.SitemapFilter</filter-class>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>sitemap</filter-name>
 		<servlet-name>default</servlet-name>
 	</filter-mapping>
 
-	<!-- 
 	<filter>
-		<display-name>RichFaces Filter</display-name>
-		<filter-name>richfaces</filter-name>
-		<filter-class>org.ajax4jsf.Filter</filter-class>
-		<init-param>
-			<param-name>createTempFiles</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>maxRequestSize</param-name>
-			<param-value>512000000</param-value>
-		</init-param>
+		<filter-name>SessionTimeoutFilter</filter-name>
+		<filter-class>de.mpg.mpdl.inge.pubman.web.appbase.SessionTimeoutFilter</filter-class>
 	</filter>
-	
-
 
 	<filter-mapping>
-		<filter-name>richfaces</filter-name>
+		<filter-name>SessionTimeoutFilter</filter-name>
 		<servlet-name>Faces Servlet</servlet-name>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
--->
+
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
+	
+	<listener>
+		<listener-class>de.mpg.mpdl.inge.pubman.web.appbase.PubManSessionListener</listener-class>
+	</listener>
 
-	<!-- chartservlet -->
+	<mime-mapping>
+		<extension>jsp</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>jspf</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+
 	<servlet>
 		<servlet-name>StatisticChartServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.statistic_charts.StatisticChartServlet</servlet-class>
@@ -97,106 +77,63 @@
 		<url-pattern>/statisticchart/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- END of chartservlet -->
-
-
-	<!-- Genre Servlet -->
 	<servlet>
 		<servlet-name>Genre Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.init.GenreServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<!-- Faces Servlet -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 
-	<!-- Initializer Servlet -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.init.InitializerServlet</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
-	<!-- resource loader servlet -->
-	<!-- <servlet> <servlet-name>resources</servlet-name> <servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class> 
-		</servlet> -->
+
 	<servlet>
 		<servlet-name>Redirect Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.servlet.RedirectServlet</servlet-class>
 	</servlet>
-
-	<listener>
-		<listener-class>de.mpg.mpdl.inge.pubman.web.appbase.PubManSessionListener</listener-class>
-	</listener>
-	 
-
-	<filter>
-		<filter-name>SessionTimeoutFilter</filter-name>
-		<filter-class>de.mpg.mpdl.inge.pubman.web.appbase.SessionTimeoutFilter</filter-class>
-	</filter>
-
-	<!-- This filter is always required; one of its functions is file upload. -->
-	<!-- <filter> <filter-name>trinidad</filter-name> <filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>trinidad</filter-name> <servlet-name>Faces 
-		Servlet</servlet-name> </filter-mapping> -->
-
-
-
-	<filter-mapping>
-		<filter-name>SessionTimeoutFilter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
-
-	<session-config>
-		<session-timeout>120</session-timeout>
-	</session-config>
-
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>Redirect Servlet</servlet-name>
 		<url-pattern>/item/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- <servlet-mapping> <servlet-name>resources</servlet-name> <url-pattern>/adf/*</url-pattern> 
-		</servlet-mapping> -->
-
-
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
 
 	<welcome-file-list>
 		<welcome-file>faces/HomePage.jsp</welcome-file>
 	</welcome-file-list>
-
-	<!-- <listener> -->
-	<!-- <listener-class> -->
-	<!-- com.sun.faces.config.ConfigureListener -->
-	<!-- </listener-class> -->
-	<!-- </listener> -->
-	<!-- <listener> -->
-	<!-- <listener-class> -->
-	<!-- com.sun.faces.application.WebappLifecycleListener -->
-	<!-- </listener-class> -->
-	<!-- </listener> -->
 
 	<!-- Start SWORD -->
 	<context-param>
 		<param-name>server-class</param-name>
 		<param-value>de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer</param-value>
 	</context-param>
+	
 	<context-param>
 		<param-name>authentication-method</param-name>
 		<param-value>Basic</param-value>
 	</context-param>
+	
 	<servlet>
 		<servlet-name>servicedocument</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>servicedocument</servlet-name>
 		<url-pattern>/sword-app/servicedocument</url-pattern>
@@ -206,11 +143,11 @@
 		<servlet-name>deposit</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>deposit</servlet-name>
 		<url-pattern>/sword-app/deposit</url-pattern>
 	</servlet-mapping>
 	<!-- End SWORD -->
-
 </web-app>
 
