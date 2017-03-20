@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -34,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @author Tobias Schraut, created 03.09.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ViewItemFullPage")
 @SuppressWarnings("serial")
 public class ViewItemFullPage extends BreadcrumbPage {
   public ViewItemFullPage() {

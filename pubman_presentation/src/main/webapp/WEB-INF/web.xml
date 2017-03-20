@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -52,7 +53,7 @@
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
-	
+
 	<listener>
 		<listener-class>de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener</listener-class>
 	</listener>
@@ -123,17 +124,17 @@
 		<param-name>server-class</param-name>
 		<param-value>de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>authentication-method</param-name>
 		<param-value>Basic</param-value>
 	</context-param>
-	
+
 	<servlet>
 		<servlet-name>servicedocument</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>servicedocument</servlet-name>
 		<url-pattern>/sword-app/servicedocument</url-pattern>
@@ -143,7 +144,7 @@
 		<servlet-name>deposit</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>deposit</servlet-name>
 		<url-pattern>/sword-app/deposit</url-pattern>

@@ -24,11 +24,14 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "PubManRequestBean")
 @SuppressWarnings("serial")
 public class PubManRequestBean extends FacesBean {
   public static final String BEAN_NAME = "PubManRequestBean";

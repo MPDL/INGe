@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.reviseItem;
 
 import java.io.IOException;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -49,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ReviseItem")
 @SuppressWarnings("serial")
 public class ReviseItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(ReviseItem.class);

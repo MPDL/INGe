@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -36,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: $Author: mfranke$
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "EasySubmissionPage")
 @SuppressWarnings("serial")
 public class EasySubmissionPage extends FacesBean {
   public static final String BEAN_NAME = "EasySubmissionPage";

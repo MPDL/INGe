@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -34,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @author: Tobias Schraut, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
+@ManagedBean(name = "LoginErrorPage")
 @SuppressWarnings("serial")
 public class LoginErrorPage extends BreadcrumbPage {
   public LoginErrorPage() {

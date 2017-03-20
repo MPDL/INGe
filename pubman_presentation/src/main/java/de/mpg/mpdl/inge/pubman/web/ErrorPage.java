@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
@@ -43,6 +44,7 @@ import de.mpg.mpdl.inge.search.parser.ParseException;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "ErrorPage")
 @SuppressWarnings("serial")
 public class ErrorPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ErrorPage";

@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
@@ -41,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ImportWorkspace")
 @SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
   public static final String BEAN_NAME = "ImportWorkspace";

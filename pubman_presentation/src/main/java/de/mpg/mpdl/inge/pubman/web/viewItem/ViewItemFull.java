@@ -39,6 +39,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
@@ -124,6 +125,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author Tobias Schraut, created 03.09.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ViewItemFull")
 @SuppressWarnings("serial")
 public class ViewItemFull extends FacesBean {
   public static final String BEAN_NAME = "ViewItemFull";

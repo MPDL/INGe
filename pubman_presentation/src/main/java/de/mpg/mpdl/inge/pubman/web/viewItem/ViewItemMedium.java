@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -34,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author Tobias Schraut, created 28.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ViewItemMedium")
 @SuppressWarnings("serial")
 public class ViewItemMedium extends FacesBean {
   public ViewItemMedium() {}

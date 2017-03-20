@@ -25,6 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
@@ -45,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "AffiliationDetailPage")
 @SuppressWarnings("serial")
 public class AffiliationDetailPage extends FacesBean {
   public static String BEAN_NAME = "AffiliationDetailPage";

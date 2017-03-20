@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.pubman.web.desktop;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -57,6 +59,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 16.08.2007
  */
+@ManagedBean(name = "Navigation")
 @SuppressWarnings("serial")
 public class Navigation extends FacesBean {
   public static final String BEAN_NAME = "Navigation";

@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -36,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ViewItemLogPage")
 @SuppressWarnings("serial")
 public class ViewItemLogPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemLogPage";

@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
@@ -114,6 +115,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "EasySubmission")
 @SuppressWarnings("serial")
 public class EasySubmission extends FacesBean {
   public static final String BEAN_NAME = "EasySubmission";

@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
@@ -42,6 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ImportData")
 @SuppressWarnings("serial")
 public class ImportData extends FacesBean {
   private static final Logger logger = Logger.getLogger(ImportData.class);

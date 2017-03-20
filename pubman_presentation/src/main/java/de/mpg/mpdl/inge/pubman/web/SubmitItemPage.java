@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -35,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
+@ManagedBean(name = "SubmitItemPage")
 @SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
   public SubmitItemPage() {}

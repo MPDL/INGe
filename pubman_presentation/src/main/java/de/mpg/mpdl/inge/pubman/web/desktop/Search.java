@@ -30,6 +30,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
@@ -41,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldSearchC
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
+@ManagedBean(name = "Search")
 @SuppressWarnings("serial")
 public class Search extends FacesBean {
   // private static final String PROPERTY_CONTENT_MODEL =

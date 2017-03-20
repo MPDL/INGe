@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -42,6 +43,7 @@ import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  * 
  */
+@ManagedBean(name = "YearbookModeratorRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class YearbookModeratorRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {

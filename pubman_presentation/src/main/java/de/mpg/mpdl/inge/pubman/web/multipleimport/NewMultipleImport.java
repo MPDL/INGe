@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -36,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @version $Revision: 4287 $ $LastChangedDate: 2011-03-10 14:23:22 +0100 (Do, 10 Mrz 2011) $
  * 
  */
+@ManagedBean(name = "NewMultipleImport")
 @SuppressWarnings("serial")
 public class NewMultipleImport extends BreadcrumbPage {
   public static final String BEAN_NAME = "NewMultipleImport";

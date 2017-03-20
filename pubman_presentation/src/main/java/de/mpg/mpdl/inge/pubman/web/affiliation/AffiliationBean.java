@@ -31,22 +31,22 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class AffiliationBean extends FacesBean {
   private static Logger logger = Logger.getLogger(AffiliationBean.class);
-  
+
   public static final String BEAN_NAME = "AffiliationBean";
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
-  
+
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
-  
+
   private AffiliationVOPresentation selectedAffiliation = null;
-  
+
   private List<AffiliationVOPresentation> selected = null;
   private List<AffiliationVOPresentation> topLevelAffs = null;
-  
+
   private Object cache = null;
   private String source = null;
   private TreeNode rootTreeNode;
-  
+
   /**
    * Default constructor.
    */

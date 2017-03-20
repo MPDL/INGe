@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
@@ -35,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.desktop.Login;
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
  * 
  */
+@ManagedBean(name = "ReportWorkspacePage")
 @SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ReportWorkspacePage";

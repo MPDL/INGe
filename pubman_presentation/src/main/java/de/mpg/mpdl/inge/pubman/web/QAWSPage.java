@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
@@ -39,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "QAWSPage")
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "QAWSPage";

@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.revisions;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlPanelGroup;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -41,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @author: Thomas Diebäcker, created 22.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "CreateRevision")
 @SuppressWarnings("serial")
 public class CreateRevision extends FacesBean {
   public static final String BEAN_NAME = "CreateRevision";

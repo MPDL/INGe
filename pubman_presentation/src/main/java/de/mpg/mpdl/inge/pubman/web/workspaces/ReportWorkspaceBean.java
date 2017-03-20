@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -46,6 +47,7 @@ import de.mpg.mpdl.inge.transformation.util.Format;
  * @author Gergana Stoyanova
  * 
  */
+@ManagedBean(name = "ReportWorkspaceBean")
 @SuppressWarnings("serial")
 public class ReportWorkspaceBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(ReportWorkspaceBean.class);

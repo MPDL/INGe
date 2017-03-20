@@ -30,6 +30,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
+import javax.faces.bean.ManagedBean;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
@@ -47,6 +48,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "UserAccountOptions")
 @SuppressWarnings("serial")
 public class UserAccountOptions extends FacesBean {
   public static final String BEAN_NAME = "UserAccountOptionsBean";

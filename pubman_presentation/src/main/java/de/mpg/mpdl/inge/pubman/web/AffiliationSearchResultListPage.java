@@ -25,6 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -34,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @author: Tobias Schraut, created 14.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 13.09.2007
  */
+@ManagedBean(name = "AffiliationSearchResultListPage")
 @SuppressWarnings("serial")
 public class AffiliationSearchResultListPage extends BreadcrumbPage {
   public AffiliationSearchResultListPage() {

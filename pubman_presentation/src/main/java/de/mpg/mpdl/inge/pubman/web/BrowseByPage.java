@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -51,6 +52,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "BrowseByPage")
 @SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "BrowseByPage";

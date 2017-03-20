@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -46,6 +48,7 @@ import de.mpg.mpdl.inge.search.query.SearchQuery;
  * @author franke
  * 
  */
+@ManagedBean(name = "OrganizationSuggest")
 @SuppressWarnings("serial")
 public class OrganizationSuggest extends EditItemBean {
   private static final Logger logger = Logger.getLogger(OrganizationSuggest.class);

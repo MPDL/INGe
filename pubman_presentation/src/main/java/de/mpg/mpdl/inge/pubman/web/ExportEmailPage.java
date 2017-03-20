@@ -25,6 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
@@ -36,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ExportEmailPage")
 @SuppressWarnings("serial")
 public class ExportEmailPage extends BreadcrumbPage {
   public ExportEmailPage() {

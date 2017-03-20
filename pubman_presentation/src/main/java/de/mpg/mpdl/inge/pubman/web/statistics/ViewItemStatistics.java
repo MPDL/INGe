@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.pubman.web.statistics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -50,6 +52,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ViewItemStatistics")
 @SuppressWarnings("serial")
 public class ViewItemStatistics extends FacesBean {
   private static final Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);

@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -34,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @author: Tobias Schraut, created 22.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ViewItemRevisionsPage")
 @SuppressWarnings("serial")
 public class ViewItemRevisionsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ViewItemRevisionsPage";

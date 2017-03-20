@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.acceptItem;
 
 import java.io.IOException;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -50,6 +52,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@ManagedBean(name = "AcceptItem")
 @SuppressWarnings("serial")
 public class AcceptItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(AcceptItem.class);

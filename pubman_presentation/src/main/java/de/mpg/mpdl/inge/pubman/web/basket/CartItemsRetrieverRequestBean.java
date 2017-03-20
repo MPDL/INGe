@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -28,6 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "CartItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class CartItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {

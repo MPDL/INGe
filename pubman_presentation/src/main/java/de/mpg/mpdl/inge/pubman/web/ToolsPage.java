@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -36,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @version $Revision: 4371 $ $LastChangedDate: 2011-03-23 13:25:53 +0100 (Mi, 23 Mrz 2011) $
  * 
  */
+@ManagedBean(name = "ToolsPage")
 @SuppressWarnings("serial")
 public class ToolsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "ToolsPage";

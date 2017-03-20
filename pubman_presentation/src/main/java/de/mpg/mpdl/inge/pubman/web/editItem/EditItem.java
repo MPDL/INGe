@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
@@ -114,6 +115,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@ManagedBean(name = "EditItem")
 @SuppressWarnings("serial")
 public class EditItem extends FacesBean {
   public static final String BEAN_NAME = "EditItem";

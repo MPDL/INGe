@@ -26,8 +26,11 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
+@ManagedBean(name = "CartItemsPage")
 @SuppressWarnings("serial")
 public class CartItemsPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "CartItemsPage";

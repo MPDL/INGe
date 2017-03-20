@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -40,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "ImportItemDetails")
 @SuppressWarnings("serial")
 public class ImportItemDetails extends FacesBean {
   private int itemId = 0;

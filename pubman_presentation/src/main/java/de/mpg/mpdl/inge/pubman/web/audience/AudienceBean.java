@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.audience;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -49,6 +50,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  * @author: Tobias Schraut, 2009-05-20
  */
+@ManagedBean(name = "AudienceBean")
 @SuppressWarnings("serial")
 public class AudienceBean extends FacesBean {
   public static final String BEAN_NAME = "AudienceBean";

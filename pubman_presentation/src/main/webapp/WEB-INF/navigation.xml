@@ -1,101 +1,89 @@
 <?xml version="1.0"?>
 
-<!-- 
-	CDDL HEADER START
-	
-	The contents of this file are subject to the terms of the
-	Common Development and Distribution License, Version 1.0 only
-	(the "License"). You may not use this file except in compliance
-	with the License.
-	
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE
-	or http://www.escidoc.org/license.
-	See the License for the specific language governing permissions
-	and limitations under the License.
-	
-	When distributing Covered Code, include this CDDL HEADER in each
-	file and include the License file at license/ESCIDOC.LICENSE.
-	If applicable, add the following below this CDDL HEADER, with the
-	fields enclosed by brackets "[]" replaced with your own identifying
-	information: Portions Copyright [yyyy] [name of copyright owner]
-	
-	CDDL HEADER END
-	
-	
-	Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-	für wissenschaftlich-technische Information mbH and Max-Planck-
-	Gesellschaft zur Förderung der Wissenschaft e.V.
-	All rights reserved. Use is subject to license terms.
--->
+<!-- CDDL HEADER START The contents of this file are subject to the terms 
+	of the Common Development and Distribution License, Version 1.0 only (the 
+	"License"). You may not use this file except in compliance with the License. 
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
+	See the License for the specific language governing permissions and limitations 
+	under the License. When distributing Covered Code, include this CDDL HEADER 
+	in each file and include the License file at license/ESCIDOC.LICENSE. If 
+	applicable, add the following below this CDDL HEADER, with the fields enclosed 
+	by brackets "[]" replaced with your own identifying information: Portions 
+	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2012 
+	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
+	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
+	e.V. All rights reserved. Use is subject to license terms. -->
 
-<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd" version="2.2">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewItemOverview</from-outcome>
 			<to-view-id>
-			/ViewItemOverviewPage.jsp</to-view-id>
+				/ViewItemOverviewPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewItem</from-outcome>
 			<to-view-id>
-			/ViewItemFullPage.jsp</to-view-id>
+				/ViewItemFullPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadHome</from-outcome>
 			<to-view-id>
-			/HomePage.jsp</to-view-id>
+				/HomePage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadEditItem</from-outcome>
 			<to-view-id>
-			/EditItemPage.jsp</to-view-id>
+				/EditItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadSubmitItem</from-outcome>
 			<to-view-id>
-			/SubmitItemPage.jsp</to-view-id>
+				/SubmitItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadAcceptItem</from-outcome>
 			<to-view-id>
-			/AcceptItemPage.jsp</to-view-id>
+				/AcceptItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadWithdrawItem</from-outcome>
 			<to-view-id>
-			/WithdrawItemPage.jsp</to-view-id>
+				/WithdrawItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadDepositorWS</from-outcome>
 			<to-view-id>/DepositorWSPage.jsp</to-view-id>
@@ -103,236 +91,236 @@
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>showSearchResults</from-outcome>
 			<to-view-id>
-			/SearchResultListPage.jsp</to-view-id>
+				/SearchResultListPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>displaySearchPage</from-outcome>
 			<to-view-id>
-			/AdvancedSearchPage.jsp</to-view-id>
+				/AdvancedSearchPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>displayExportEmailPage</from-outcome>
 			<to-view-id>
-			/ExportEmailPage.jsp</to-view-id>
+				/ExportEmailPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadAffiliationTree</from-outcome>
 			<to-view-id>
-			/AffiliationTreePage.jsp</to-view-id>
+				/AffiliationTreePage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadHelp</from-outcome>
 			<to-view-id>
-			/help/HelpPage.jsp</to-view-id>
+				/help/HelpPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadErrorPage</from-outcome>
 			<to-view-id>
-			/ErrorPage.jsp</to-view-id>
+				/ErrorPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadCreateItem</from-outcome>
 			<to-view-id>
-			/CreateItemPage.jsp</to-view-id>
+				/CreateItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadReleaseHistory</from-outcome>
 			<to-view-id>
-			/ViewItemReleaseHistoryPage.jsp</to-view-id>
+				/ViewItemReleaseHistoryPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewRevisions</from-outcome>
 			<to-view-id>
-			/ViewItemRevisionsPage.jsp</to-view-id>
+				/ViewItemRevisionsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadNewEasySubmission</from-outcome>
 			<to-view-id>
-			/EasySubmissionPage.jsp</to-view-id>
+				/EasySubmissionPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadNewFetchMetadata</from-outcome>
 			<to-view-id>
-			/FetchMetadataPage.jsp</to-view-id>
+				/FetchMetadataPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewStatistics</from-outcome>
 			<to-view-id>
-			/ViewItemStatisticsPage.jsp</to-view-id>
+				/ViewItemStatisticsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewItemLog</from-outcome>
 			<to-view-id>
-			/ViewItemLogPage.jsp</to-view-id>
+				/ViewItemLogPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadQAWSPage</from-outcome>
 			<to-view-id>
-			/QAWSPage.jsp</to-view-id>
+				/QAWSPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadReviseItem</from-outcome>
 			<to-view-id>
-			/ReviseItemPage.jsp</to-view-id>
+				/ReviseItemPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadViewLocalTags</from-outcome>
 			<to-view-id>
-			/ViewLocalTagsPage.jsp</to-view-id>
+				/ViewLocalTagsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadEditLocalTags</from-outcome>
 			<to-view-id>
-			/LocalTagsPage.jsp</to-view-id>
+				/LocalTagsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadMultipleImport</from-outcome>
 			<to-view-id>
-			/NewMultipleImport.jsp</to-view-id>
+				/NewMultipleImport.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadMultipleImportForm</from-outcome>
 			<to-view-id>
-			/MultipleImportForm.jsp</to-view-id>
+				/MultipleImportForm.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadAudiencePage</from-outcome>
 			<to-view-id>
-			/AudiencePage.jsp</to-view-id>
+				/AudiencePage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadBrowseBy</from-outcome>
 			<to-view-id>
-			/BrowseBySelect.jsp</to-view-id>
+				/BrowseBySelect.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadBrowseByPage</from-outcome>
 			<to-view-id>
-			/BrowseByPage.jsp</to-view-id>
+				/BrowseByPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadYearbookModeratorPage</from-outcome>
 			<to-view-id>
-			/YearbookModeratorPage.jsp</to-view-id>
+				/YearbookModeratorPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadYearbookArchiveItemViewPage</from-outcome>
 			<to-view-id>
-			/YearbookArchiveItemViewPage.jsp</to-view-id>
+				/YearbookArchiveItemViewPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadYearbookPage</from-outcome>
 			<to-view-id>
-			/YearbookPage.jsp</to-view-id>
+				/YearbookPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>
-		*</from-view-id>
+			*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadUserAccountOptionsPage</from-outcome>
 			<to-view-id>
-			/UserAccountOptions.jsp</to-view-id>
+				/UserAccountOptions.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.submitItem;
 
 import java.io.IOException;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented,
  *           cleaned.
  */
+@ManagedBean(name = "SubmitItem")
 @SuppressWarnings("serial")
 public class SubmitItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(SubmitItem.class);

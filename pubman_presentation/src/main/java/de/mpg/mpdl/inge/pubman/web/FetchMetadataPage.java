@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.lang.reflect.Method;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 
@@ -38,6 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
  * @author: $Author: mfranke$
  * @version: $Revision: 4295 $ $LastChangedDate: 2011-03-14 16:32:34 +0100 (Mo, 14 Mrz 2011) $
  */
+@ManagedBean(name = "FetchMetadataPage")
 @SuppressWarnings("serial")
 public class FetchMetadataPage extends BreadcrumbPage {
   public static final String BEAN_NAME = "FetchMetadataPage";

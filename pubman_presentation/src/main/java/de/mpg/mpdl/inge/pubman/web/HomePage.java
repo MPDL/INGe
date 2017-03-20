@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
@@ -47,6 +49,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "HomePage")
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
   public static final String BEAN_NAME = "HomePage";

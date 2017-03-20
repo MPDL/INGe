@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -21,6 +23,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "RevisionsRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class RevisionsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {

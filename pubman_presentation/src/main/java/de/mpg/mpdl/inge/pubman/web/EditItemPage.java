@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -35,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "EditItemPage")
 @SuppressWarnings("serial")
 public class EditItemPage extends FacesBean {
   public static final String BEAN_NAME = "EditItemPage";

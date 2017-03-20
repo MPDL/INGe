@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -35,6 +37,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "Header")
 @SuppressWarnings("serial")
 public class Header extends FacesBean {
   private static final String LOGO_DEV = "overlayDev";

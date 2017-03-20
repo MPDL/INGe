@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
@@ -38,6 +39,7 @@ import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class SearchRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {

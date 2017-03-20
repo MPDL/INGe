@@ -25,6 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -33,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  * @author: Hugo Niedermaier, created 24.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 14.08.2007
  */
+@ManagedBean(name = "AdvancedSearchPage")
 @SuppressWarnings("serial")
 public class AdvancedSearchPage extends BreadcrumbPage {
   public AdvancedSearchPage() {
