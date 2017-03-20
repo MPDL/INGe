@@ -60,8 +60,8 @@ public class ViewItemLog extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    if (this.getSessionBean().getVersionList() == null) {
-      this.getSessionBean().initVersionLists(
+    if (this.getItemVersionListSessionBean().getVersionList() == null) {
+      this.getItemVersionListSessionBean().initVersionLists(
           getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
               .getObjectId()));
     }
@@ -88,7 +88,7 @@ public class ViewItemLog extends FacesBean {
     return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
   }
 
-  private ItemVersionListSessionBean getSessionBean() {
+  private ItemVersionListSessionBean getItemVersionListSessionBean() {
     return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
   }
 

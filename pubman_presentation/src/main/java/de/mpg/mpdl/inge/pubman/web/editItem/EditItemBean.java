@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.ArrayList;
 import java.util.List;

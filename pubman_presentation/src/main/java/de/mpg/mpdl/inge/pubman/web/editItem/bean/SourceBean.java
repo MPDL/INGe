@@ -43,8 +43,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 

@@ -41,8 +41,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
-import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**

@@ -28,26 +28,25 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@SuppressWarnings("serial")
 public class AffiliationBean extends FacesBean {
-  private static final long serialVersionUID = 1L;
-
-  public static final String BEAN_NAME = "AffiliationBean";
-
   private static Logger logger = Logger.getLogger(AffiliationBean.class);
+  
+  public static final String BEAN_NAME = "AffiliationBean";
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
-  // private TreeModel tree;
-  private List<AffiliationVOPresentation> selected = null;
-  private List<AffiliationVOPresentation> topLevelAffs = null;
-  AffiliationVOPresentation selectedAffiliation = null;
-  private String source = null;
-  private Object cache = null;
-  // private long timestamp;
-
-  private TreeNode rootTreeNode;
-
+  
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
-
+  
+  private AffiliationVOPresentation selectedAffiliation = null;
+  
+  private List<AffiliationVOPresentation> selected = null;
+  private List<AffiliationVOPresentation> topLevelAffs = null;
+  
+  private Object cache = null;
+  private String source = null;
+  private TreeNode rootTreeNode;
+  
   /**
    * Default constructor.
    */

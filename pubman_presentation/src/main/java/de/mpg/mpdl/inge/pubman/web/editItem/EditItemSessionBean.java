@@ -30,7 +30,6 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.pubman.web.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 

@@ -31,7 +31,7 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.pubman.web.EditItemBean;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 
 /**
  * Presentation wrapper for OrganizationVO.

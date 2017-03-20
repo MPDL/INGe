@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
