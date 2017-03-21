@@ -102,10 +102,10 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingExcep
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.transformation.Transformer;

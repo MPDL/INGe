@@ -47,17 +47,12 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
 public class Search extends FacesBean {
-  // private static final String PROPERTY_CONTENT_MODEL =
-  // "escidoc.framework_access.content-model.id.publication";
-
-  private static Logger logger = Logger.getLogger(Search.class);
+  private static final Logger logger = Logger.getLogger(Search.class);
 
   private String searchString;
   private boolean includeFiles;
 
-
   public String startSearch() {
-
     String searchString = getSearchString();
     boolean includeFiles = getIncludeFiles();
 
@@ -76,9 +71,7 @@ public class Search extends FacesBean {
     // Bugfix for PUBMAN-2221: Remove Questionmark at the end
     if (searchString.trim().endsWith("?")) {
       searchString = searchString.trim().substring(0, searchString.length() - 1);
-
     }
-
 
     try {
       String cql = generateCQLRequest(searchString, includeFiles);

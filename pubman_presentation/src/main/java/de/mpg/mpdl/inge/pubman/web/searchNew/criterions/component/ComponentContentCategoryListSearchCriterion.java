@@ -29,8 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 @SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {

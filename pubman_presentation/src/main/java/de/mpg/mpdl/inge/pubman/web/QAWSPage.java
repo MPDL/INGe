@@ -31,8 +31,6 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 
 /**
  * BackingBean for Quality Assurance Page (QAWSPage.jsp).
@@ -45,7 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 @ManagedBean(name = "QAWSPage")
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
-  private static Logger logger = Logger.getLogger(QAWSPage.class);
+  private static final Logger logger = Logger.getLogger(QAWSPage.class);
 
   public QAWSPage() {
     this.init();
@@ -59,12 +57,6 @@ public class QAWSPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    String userHandle = FacesTools.getRequest().getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("UserHandle: " + userHandle);
-    }
-
     try {
       checkForLogin();
     } catch (Exception e) {
@@ -73,13 +65,11 @@ public class QAWSPage extends BreadcrumbPage {
   }
 
   public boolean getIsModerator() {
-    boolean isModerator = false;
-
     if (getLoginHelper().isLoggedIn()) {
-      isModerator = getLoginHelper().getAccountUser().isModerator();
+      return getLoginHelper().getAccountUser().isModerator();
     }
 
-    return isModerator;
+    return false;
   }
 
   @Override

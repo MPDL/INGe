@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.viewItem.bean;
+package de.mpg.mpdl.inge.pubman.web.viewItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
@@ -181,7 +176,7 @@ public class SourceBean extends FacesBean {
         }
 
         // this.sourceCreatorArray.add(creatorDisplay);
-        creator.setCreatorType(Type.PERSON.toString());
+        creator.setCreatorType(ViewItemCreators.Type.PERSON.toString());
         creator.setCreatorObj(creatorDisplay);
         creator.setCreatorRole(creator1.getRoleString());
         this.sourceCreatorArray.add(creator);
@@ -198,7 +193,7 @@ public class SourceBean extends FacesBean {
             .getAddress());
         creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
         this.sourceCreatorOrganizationsArray.add(creatorOrganization);
-        creator.setCreatorType(Type.ORGANIZATION.toString());
+        creator.setCreatorType(ViewItemCreators.Type.ORGANIZATION.toString());
         creator.setCreatorObj(creatorOrganization);
         creator.setCreatorRole(creator1.getRoleString());
         this.sourceCreatorArray.add(creator);

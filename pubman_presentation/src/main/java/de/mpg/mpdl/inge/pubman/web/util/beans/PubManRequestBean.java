@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import javax.faces.bean.ManagedBean;
 
@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "PubManRequestBean")
 @SuppressWarnings("serial")
 public class PubManRequestBean extends FacesBean {
-  private static Logger logger = Logger.getLogger(PubManRequestBean.class);
+  private static final Logger logger = Logger.getLogger(PubManRequestBean.class);
 
   private String helpAnchor = "";
   private String requestedPage = "";

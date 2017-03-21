@@ -34,12 +34,12 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Fragment class for CreateItem.
@@ -54,7 +54,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class CreateItem extends FacesBean {
   private static final Logger logger = Logger.getLogger(CreateItem.class);
 
-  public final static String LOAD_CREATEITEM = "loadCreateItem";
+  public static final String LOAD_CREATEITEM = "loadCreateItem";
 
   public enum SubmissionMethod {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION

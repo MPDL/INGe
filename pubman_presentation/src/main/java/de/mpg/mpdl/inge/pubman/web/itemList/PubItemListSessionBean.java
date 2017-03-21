@@ -48,13 +48,13 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**

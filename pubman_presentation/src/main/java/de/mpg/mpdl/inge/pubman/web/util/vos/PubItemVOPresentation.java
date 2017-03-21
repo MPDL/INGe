@@ -50,10 +50,10 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import de.mpg.mpdl.inge.pubman.web.viewItem.FileBean;
+import de.mpg.mpdl.inge.pubman.web.viewItem.SearchHitBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
-import de.mpg.mpdl.inge.pubman.web.viewItem.bean.FileBean;
-import de.mpg.mpdl.inge.pubman.web.viewItem.bean.SearchHitBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +73,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
+import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
@@ -739,10 +740,6 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   private ArrayList<PubItemVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving Item list for: " + (itemRefs != null ? itemRefs : "empty List"));
-    }
-
     if (itemRefs == null || itemRefs.isEmpty()) {
       return new ArrayList<PubItemVO>();
     }
@@ -753,9 +750,6 @@ public class ItemControllerSessionBean extends FacesBean {
     filter.getFilterList().add(f1);
 
     // retrieve the items applying the filter criteria
-    if (logger.isDebugEnabled()) {
-      logger.debug("Retrieving items...");
-    }
     String xmlItemList = "";
     try {
       if (getLoginHelper().getESciDocUserHandle() != null) {
@@ -772,9 +766,6 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // transform the itemList
-    if (logger.isDebugEnabled()) {
-      logger.debug("Transforming items...");
-    }
     ArrayList<PubItemVO> itemList =
         (ArrayList<PubItemVO>) XmlTransformingService.transformSearchRetrieveResponseToItemList(
             xmlItemList).getItemVOList();

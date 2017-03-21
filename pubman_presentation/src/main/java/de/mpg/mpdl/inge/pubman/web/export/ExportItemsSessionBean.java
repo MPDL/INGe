@@ -49,11 +49,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ExportItemsSessionBean extends FacesBean {
+  private static final Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
+
+  public String exportDisplayData = "No export data available";
+
   private String message = null;
 
   private String exportFormatType = "LAYOUT";
   private String exportFormatName = "APA";
-  // private String fileFormat = FileFormatVO.PDF_NAME;
   private ExportFormatVO curExportFormatVO = new ExportFormatVO();
   private FileFormatVO curFileFormatVO = new FileFormatVO();
 
@@ -77,9 +80,6 @@ public class ExportItemsSessionBean extends FacesBean {
   private String emailAuthPwdProp = "";
   private String citationStyleName = "";
 
-  public String exportDisplayData = "No export data available";
-
-  private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME =
       "escidoc.pubman_presentation.email.mailservername";
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER =
@@ -133,8 +133,6 @@ public class ExportItemsSessionBean extends FacesBean {
   public void setMessage(String message) {
     this.message = message;
   }
-
-
 
   public String getExportFormatType() {
     return this.exportFormatType;
@@ -215,15 +213,11 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setAttExportFile(File attFile) {
-
     this.attExportFile = new File(attFile.toURI());
-
   }
 
   public File getAttExportFile() {
-
     return this.attExportFile;
-
   }
 
   public void setCitationStyleName(String citationStyleName) {
@@ -243,15 +237,11 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setAttExportFileName(String fileName) {
-
     this.attExportFileName = fileName;
-
   }
 
   public String getAttExportFileName() {
-
     return this.attExportFileName;
-
   }
 
   public void setExportEmailSubject(String exportEmailSubject) {

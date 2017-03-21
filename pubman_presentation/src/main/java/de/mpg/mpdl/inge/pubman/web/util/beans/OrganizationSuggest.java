@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -22,7 +22,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

@@ -33,10 +33,10 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Fragment class for viewItemLog.jspf

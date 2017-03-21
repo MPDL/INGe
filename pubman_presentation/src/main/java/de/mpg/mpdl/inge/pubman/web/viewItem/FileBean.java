@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.viewItem.bean;
+package de.mpg.mpdl.inge.pubman.web.viewItem;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

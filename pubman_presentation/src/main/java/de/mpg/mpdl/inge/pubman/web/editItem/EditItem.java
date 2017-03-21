@@ -80,15 +80,12 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
@@ -96,6 +93,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
@@ -1700,7 +1698,7 @@ public class EditItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) FacesTools
+    return (de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean) FacesTools
         .findBean("ItemControllerSessionBean");
   }
 

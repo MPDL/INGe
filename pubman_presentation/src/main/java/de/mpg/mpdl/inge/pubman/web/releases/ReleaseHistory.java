@@ -33,9 +33,9 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Fragment class for Releasy history.
@@ -46,9 +46,9 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ReleaseHistory")
 @SuppressWarnings("serial")
 public class ReleaseHistory extends FacesBean {
-  private static Logger logger = Logger.getLogger(ReleaseHistory.class);
+  private static final Logger logger = Logger.getLogger(ReleaseHistory.class);
 
-  public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
+  public static final String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
   public ReleaseHistory() {
     this.init();

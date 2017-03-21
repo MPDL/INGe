@@ -78,6 +78,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
 public abstract class SearchCriterionBase implements Serializable {
+  private static final Logger logger = Logger.getLogger(SearchCriterionBase.class);
 
   public enum Index {
     ESCIDOC_ALL, ITEM_CONTAINER_ADMIN
@@ -135,7 +136,6 @@ public abstract class SearchCriterionBase implements Serializable {
         AffiliatedContextListSearchCriterion.class, null), PUBLICATION_STATUS_LIST(
         PublicationStatusListSearchCriterion.class, null),
 
-
     MODIFIED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE), CREATED_INTERNAL(
         DateSearchCriterion.class, DisplayType.DATE), CREATED_BY(CreatedBySearchCriterion.class,
         null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
@@ -148,27 +148,21 @@ public abstract class SearchCriterionBase implements Serializable {
 
     FLEXIBLE(FlexibleStandardSearchCriterion.class, null);
 
-
-
     private Class<?> relatedClass;
     private DisplayType displayType;
-
 
     SearchCriterion(Class<?> classToInstantiate, DisplayType dt) {
       this.relatedClass = classToInstantiate;
       this.displayType = dt;
     }
 
-
     public Class<?> getRelatedClass() {
       return relatedClass;
     }
 
-
     public void setRelatedClass(Class<?> relatedClass) {
       this.relatedClass = relatedClass;
     }
-
 
     public DisplayType getDisplayType() {
       return displayType;
@@ -192,8 +186,6 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-
-  private static Logger logger = Logger.getLogger(SearchCriterionBase.class);
 
   private static final String INDEX_CONTENT_MODEL = "escidoc.content-model.objid";
   private static final String INDEX_OBJECTTYPE = "escidoc.objecttype";

@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.viewItem.bean;
+package de.mpg.mpdl.inge.pubman.web.viewItem;
 
 /**
  * Simple bean to store the elements of the fulltext search hits.

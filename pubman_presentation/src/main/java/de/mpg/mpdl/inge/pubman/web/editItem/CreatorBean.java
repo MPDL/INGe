@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.editItem.bean;
+package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.List;
 
@@ -40,8 +40,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
-import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;

@@ -50,7 +50,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.util.PropertyReader;

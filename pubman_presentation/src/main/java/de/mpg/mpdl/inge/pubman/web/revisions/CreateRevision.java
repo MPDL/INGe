@@ -30,11 +30,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlPanelGroup;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**

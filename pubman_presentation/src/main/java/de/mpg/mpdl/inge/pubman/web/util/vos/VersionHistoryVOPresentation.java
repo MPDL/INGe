@@ -14,8 +14,8 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.PubItemService;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 

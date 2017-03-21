@@ -76,8 +76,6 @@ import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
@@ -105,11 +103,12 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
-import de.mpg.mpdl.inge.pubman.web.viewItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
@@ -716,20 +715,11 @@ public class ViewItemFull extends FacesBean {
       return null;
     } else if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
       ContextVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has only privileges for one collection (ID: "
-            + context.getReference().getObjectId() + ")");
-      }
       return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM,
           context.getReference(), this.getPubItem(), null);
     } else {
       ContextVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
       // more than one context exists for this user; let him choose the right one
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has privileges for "
-            + this.getCollectionListSessionBean().getDepositorContextList().size()
-            + " different contexts.");
-      }
       this.getRelationListSessionBean().setPubItemVO(
           this.getItemControllerSessionBean().getCurrentPubItem());
       // Set submission method for correct redirect

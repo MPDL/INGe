@@ -16,13 +16,13 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -81,8 +81,7 @@ public class SearchRetrieverRequestBean extends
    */
   private String searchType;
 
-  // Faces navigation string
-  public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
+  public static final String LOAD_SEARCHRESULTLIST = "showSearchResults";
 
   public SearchRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);

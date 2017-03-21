@@ -7,11 +7,11 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 
@@ -31,8 +31,7 @@ public class RevisionsRetrieverRequestBean extends
 
   private int numberOfRecords;
 
-  // Faces navigation string
-  public final static String LOAD_REVISION_LIST = "loadRevisionList";
+  public static final String LOAD_REVISION_LIST = "loadRevisionList";
 
   public RevisionsRetrieverRequestBean() {
     super((RevisionItemListSessionBean) FacesTools.findBean("RevisionItemListSessionBean"), true);

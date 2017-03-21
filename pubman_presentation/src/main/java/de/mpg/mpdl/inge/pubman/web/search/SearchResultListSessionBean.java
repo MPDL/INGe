@@ -47,13 +47,13 @@ public class SearchResultListSessionBean extends FacesBean {
   public enum SearchType {
     NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
   }
-  
+
   private AffiliationVO affiliation;
   private ArrayList<MetadataSearchCriterion> criteria;
   private SearchType type;
   private String searchString;
   private boolean includeFiles = false;
-  
+
   public SearchResultListSessionBean() {}
 
   public String getSearchString() {

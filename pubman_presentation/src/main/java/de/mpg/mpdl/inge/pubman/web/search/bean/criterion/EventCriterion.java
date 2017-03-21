@@ -41,12 +41,10 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
  * @version 1.0 Revised by NiH: 13.09.2007
  */
 public class EventCriterion extends Criterion {
-  private final static String INVITATION_SEARCH = "invited";
+  private static final String INVITATION_SEARCH = "invited";
+
   private boolean invitationStatus = false;
 
-  /**
-   * constructor.
-   */
   public EventCriterion() {}
 
   public void setInvitationStatus(boolean invitationStatus) {
@@ -64,12 +62,14 @@ public class EventCriterion extends Criterion {
     ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
     MetadataSearchCriterion criterion =
         new MetadataSearchCriterion(CriterionType.EVENT, getSearchString());
+
     if (getInvitationStatus()) {
       criterion.addSubCriteria(new MetadataSearchCriterion(CriterionType.EVENT_INVITATION_STATUS,
           EventCriterion.INVITATION_SEARCH, LogicalOperator.AND));
     }
 
     criterions.add(criterion);
+
     return criterions;
   }
 }

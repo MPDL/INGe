@@ -24,14 +24,12 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
+package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 

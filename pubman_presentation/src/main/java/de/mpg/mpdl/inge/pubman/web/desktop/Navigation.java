@@ -34,7 +34,6 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -51,6 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.NavigationRule;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -172,10 +172,6 @@ public class Navigation extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String newSubmission() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("New Submission");
-    }
-
     // if there is only one context for this user we can skip the
     // CreateItem-Dialog and create the new item directly
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0) {
@@ -185,20 +181,10 @@ public class Navigation extends FacesBean {
 
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
       ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has only privileges for one context (ID: "
-            + contextVO.getReference().getObjectId() + ")");
-      }
       return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
           contextVO.getReference());
     } else {
       // more than one context exists for this user; let him choose the right one
-      if (logger.isDebugEnabled()) {
-        logger.debug("The user has privileges for "
-            + this.getCollectionListSessionBean().getDepositorContextList().size()
-            + " different contexts.");
-      }
-
       return CreateItem.LOAD_CREATEITEM;
     }
   }

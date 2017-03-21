@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.multipleimport.beans;
+package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -33,7 +33,6 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 

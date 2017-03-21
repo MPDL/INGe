@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,7 +45,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;

@@ -4,7 +4,6 @@ import java.text.Collator;
 import java.util.Locale;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
@@ -13,6 +12,7 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.MultipleImport;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Wrapper class for contexts to be used in the presentation.

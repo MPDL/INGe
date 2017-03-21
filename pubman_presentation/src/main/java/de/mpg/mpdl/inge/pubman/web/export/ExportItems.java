@@ -37,12 +37,12 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 
 
 /**
@@ -57,7 +57,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ExportItems extends FacesBean {
-  private static Logger logger = Logger.getLogger(ExportItems.class);
+  private static final Logger logger = Logger.getLogger(ExportItems.class);
 
   // constant for the function export to check the rights and/or if the function has to be disabled
   // (DiT)
@@ -194,19 +194,8 @@ public class ExportItems extends FacesBean {
    * Updates the GUI relatively the selected export format.
    */
   public void updateExportFormats() {
-
-    // get the selected export format by the FacesBean
-
-
     ExportItemsSessionBean sb = this.getExportItemsSessionBean();
-    // String selExportFormat = sb.getExportFormatType();
     String selExportFormat = sb.getExportFormatName();
-
-    if (logger.isDebugEnabled()) {
-      logger.debug(">>>  New export format: " + selExportFormat);
-      logger.debug("curExportFormat:" + sb.getCurExportFormatVO());
-    }
-
     sb.setExportFormatName(selExportFormat);
 
     if ("APA".equalsIgnoreCase(selExportFormat) || "AJP".equalsIgnoreCase(selExportFormat)
@@ -361,6 +350,7 @@ public class ExportItems extends FacesBean {
       return "";
 
     }
+
     return status;
   }
 }

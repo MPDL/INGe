@@ -37,8 +37,8 @@ import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
-import de.mpg.mpdl.inge.pubman.web.editItem.bean.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
 /**
