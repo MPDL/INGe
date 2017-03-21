@@ -36,6 +36,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -59,10 +61,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 04.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
+@ManagedBean(name = "InternationalizationHelper")
+@SessionScoped
 @SuppressWarnings("serial")
 public class InternationalizationHelper implements Serializable {
-  public static final String BEAN_NAME = "InternationalizationHelper";
-
   private static final Logger logger = Logger.getLogger(InternationalizationHelper.class);
 
   public enum SelectMultipleItems {

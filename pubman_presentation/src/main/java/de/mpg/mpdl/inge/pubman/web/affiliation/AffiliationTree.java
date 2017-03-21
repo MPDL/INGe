@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
@@ -48,9 +50,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "AffiliationTree")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AffiliationTree extends FacesBean {
-  public static final String BEAN_NAME = "AffiliationTree";
   private List<AffiliationVOPresentation> affiliations;
   private long timestamp;
   private List<SelectItem> affiliationSelectItems;

@@ -8,12 +8,8 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.LocalTagCriterion;
  * 
  * @author Thomas Endres
  */
+@SuppressWarnings("serial")
 public class LocalTagCriterionBean extends CriterionBean {
-
-  private static final long serialVersionUID = 1L;
-
-  public static final String BEAN_NAME = "LocalTagCriterionBean";
-
   private LocalTagCriterion localTagCriterionVO;
 
   // collapsed by default

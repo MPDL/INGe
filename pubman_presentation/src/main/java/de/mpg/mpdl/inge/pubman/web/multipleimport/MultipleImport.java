@@ -34,6 +34,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -65,10 +67,10 @@ import de.mpg.mpdl.inge.transformation.util.Format;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "MultipleImport")
+@SessionScoped
 @SuppressWarnings("serial")
 public class MultipleImport extends FacesBean {
-  public static final String BEAN_NAME = "MultipleImport";
-
   private static final Logger logger = Logger.getLogger(MultipleImport.class);
 
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";

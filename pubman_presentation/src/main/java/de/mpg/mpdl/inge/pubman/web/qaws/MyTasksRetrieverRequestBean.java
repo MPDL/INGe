@@ -46,8 +46,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "MyTasksRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
-  public static final String BEAN_NAME = "MyTasksRetrieverRequestBean";
-
   private static final Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
 
   public static final String LOAD_QAWS = "loadQAWSPage";

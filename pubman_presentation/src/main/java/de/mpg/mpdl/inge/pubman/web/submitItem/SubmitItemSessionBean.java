@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.submitItem;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -35,10 +38,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "SubmitItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class SubmitItemSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "SubmitItemSessionBean";
-
   private String navigationStringToGoBack = null;
   private String message;
 

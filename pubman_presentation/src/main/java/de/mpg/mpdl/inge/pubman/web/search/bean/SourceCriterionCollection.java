@@ -13,8 +13,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class SourceCriterionCollection {
-  public static final String BEAN_NAME = "SourceCriterionCollection";
-
   private List<SourceCriterion> parentVO;
   private SourceCriterionManager sourceCriterionManager;
 

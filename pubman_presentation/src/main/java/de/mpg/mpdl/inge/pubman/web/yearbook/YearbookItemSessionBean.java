@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
@@ -42,6 +44,8 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "YearbookItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class YearbookItemSessionBean extends FacesBean {
   enum YBWORKSPACE {
@@ -49,8 +53,8 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   private static final Logger logger = Logger.getLogger(YearbookItemSessionBean.class);
+
   private final String MAXIMUM_RECORDS = "5000";
-  public static final String BEAN_NAME = "YearbookItemSessionBean";
 
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;

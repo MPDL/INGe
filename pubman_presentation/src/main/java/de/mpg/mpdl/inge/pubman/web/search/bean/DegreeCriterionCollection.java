@@ -14,8 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Friederike Kleinfercher
  */
 public class DegreeCriterionCollection {
-  public static final String BEAN_NAME = "DegreeCriterionCollection";
-
   private List<DegreeCriterion> parentVO;
   private DegreeCriterionManager degreeCriterionManager;
 

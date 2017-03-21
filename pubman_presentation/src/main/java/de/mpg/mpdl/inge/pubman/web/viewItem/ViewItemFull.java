@@ -129,8 +129,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "ViewItemFull")
 @SuppressWarnings("serial")
 public class ViewItemFull extends FacesBean {
-  public static final String BEAN_NAME = "ViewItemFull";
-
   private static final Logger logger = Logger.getLogger(ViewItemFull.class);
 
   public static final String LOAD_VIEWITEM = "loadViewItem";

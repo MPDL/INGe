@@ -10,7 +10,6 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.EventCriterion;
  */
 @SuppressWarnings("serial")
 public class EventCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "EventCriterionBean";
   private EventCriterion eventCriterionVO;
   // collapsed by default
   protected boolean collapsed = true;

@@ -29,6 +29,9 @@ package de.mpg.mpdl.inge.pubman.web.audience;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.GrantVOPresentation;
@@ -40,10 +43,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
  * 
  * @author: Tobias Schraut, 2009-05-20
  */
+@ManagedBean(name = "AudienceSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AudienceSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "AudienceSessionBean";
-
   // the original file list with the original grants retrieved from core-service and which will be
   // applied if user clicks on cancel
   private List<PubFileVOPresentation> fileListOld = new ArrayList<PubFileVOPresentation>();
@@ -55,15 +58,6 @@ public class AudienceSessionBean extends FacesBean {
   private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
 
   public AudienceSessionBean() {}
-
-  // /**
-  // * Callback method that is called whenever a page containing this page fragment is navigated to,
-  // * either directly via a URL, or indirectly via page navigation.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
 
   public void cleanUp() {
     this.fileListNew = new ArrayList<PubFileVOPresentation>();

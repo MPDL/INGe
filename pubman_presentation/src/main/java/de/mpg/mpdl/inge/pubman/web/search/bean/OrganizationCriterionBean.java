@@ -15,8 +15,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
  */
 @SuppressWarnings("serial")
 public class OrganizationCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "OrganizationCriterionBean";
-
   private OrganizationCriterion organizationCriterionVO;
 
 

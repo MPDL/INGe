@@ -14,8 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class DateCriterionCollection {
-  public static final String BEAN_NAME = "DateCriterionCollection";
-
   private List<DateCriterion> parentVO;
   private DateCriterionManager dateCriterionManager;
 

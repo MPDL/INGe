@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -17,10 +19,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
+@ManagedBean(name = "YearbookCandidatesSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class YearbookCandidatesSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "YearbookCandidatesSessionBean";
-
   private static final Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
 
   private String selectedOrgUnit;

@@ -39,6 +39,9 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
@@ -63,10 +66,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "BrowseBySessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class BrowseBySessionBean extends FacesBean {
-  public static final String BEAN_NAME = "BrowseBySessionBean";
-
   private static final Logger logger = Logger.getLogger(BrowseBySessionBean.class);
 
   public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();

@@ -16,9 +16,6 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
  */
 @SuppressWarnings("serial")
 public class LanguageCriterionBean extends CriterionBean {
-
-  public static final String BEAN_NAME = "LanguageCriterionBean";
-
   private LanguageCriterion languageCriterionVO = new LanguageCriterion();
 
   private String languageProposal = "";

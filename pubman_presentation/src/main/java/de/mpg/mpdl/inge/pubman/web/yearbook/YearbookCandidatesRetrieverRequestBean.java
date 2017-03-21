@@ -51,8 +51,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class YearbookCandidatesRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  public static final String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
-
   private static final Logger logger = Logger
       .getLogger(YearbookCandidatesRetrieverRequestBean.class);
 

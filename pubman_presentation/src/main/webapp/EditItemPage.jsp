@@ -44,8 +44,6 @@
 			
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
-				
 				
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>

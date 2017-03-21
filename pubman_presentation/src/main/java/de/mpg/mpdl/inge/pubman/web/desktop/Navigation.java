@@ -63,8 +63,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @ManagedBean(name = "Navigation")
 @SuppressWarnings("serial")
 public class Navigation extends FacesBean {
-  public static final String BEAN_NAME = "Navigation";
-
   private static final Logger logger = Logger.getLogger(Navigation.class);
 
   private List<NavigationRule> navRules;

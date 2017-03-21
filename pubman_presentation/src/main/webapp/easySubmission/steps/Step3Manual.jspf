@@ -32,7 +32,6 @@
 
 <div class="clear">
 	<div class="headerSection headerDistanceFix">
-	<h:outputText value="#{EasySubmissionBreadcrumbPage.beanName}" styleClass="noDisplay" />
 	<ui:include src="../../header/Breadcrumb.jspf" />
 
 		<div id="contentSkipLinkAnchor" class="clear headLine">

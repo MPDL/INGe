@@ -41,8 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ReportWorkspacePage")
 @SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "ReportWorkspacePage";
-
   private static final Logger logger = Logger.getLogger(ReportWorkspacePage.class);
 
   public ReportWorkspacePage() {

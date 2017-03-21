@@ -56,8 +56,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "BrowseByPage")
 @SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "BrowseByPage";
-
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
   private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();

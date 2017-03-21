@@ -119,8 +119,6 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 @ManagedBean(name = "EasySubmission")
 @SuppressWarnings("serial")
 public class EasySubmission extends FacesBean {
-  public static final String BEAN_NAME = "EasySubmission";
-
   private static final Logger logger = Logger.getLogger(EasySubmission.class);
 
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";

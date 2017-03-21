@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.depositorWS;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -34,10 +37,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@ManagedBean(name = "DepositorWSSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class DepositorWSSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "DepositorWSSessionBean";
-
   /** default value for the selected item state */
   private String selectedItemState = "PENDING";
 
@@ -49,16 +52,6 @@ public class DepositorWSSessionBean extends FacesBean {
   private boolean newSubmission = false;
 
   public DepositorWSSessionBean() {}
-
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // // super.init();
-  // }
 
   public String getSelectedItemState() {
     return selectedItemState;

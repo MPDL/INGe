@@ -29,6 +29,8 @@ package de.mpg.mpdl.inge.pubman.web.easySubmission;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.model.UploadedFile;
@@ -46,10 +48,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "EasySubmissionSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class EasySubmissionSessionBean extends EditItemBean {
-  public static final String BEAN_NAME = "EasySubmissionSessionBean";
-
   public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
   public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";
 

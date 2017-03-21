@@ -35,8 +35,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "PubManRequestBean")
 @SuppressWarnings("serial")
 public class PubManRequestBean extends FacesBean {
-  public static final String BEAN_NAME = "PubManRequestBean";
-
   private static Logger logger = Logger.getLogger(PubManRequestBean.class);
 
   private String helpAnchor = "";

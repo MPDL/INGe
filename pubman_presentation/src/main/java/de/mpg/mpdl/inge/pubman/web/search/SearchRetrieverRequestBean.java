@@ -44,8 +44,6 @@ import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 @SuppressWarnings("serial")
 public class SearchRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
-  public static final String BEAN_NAME = "SearchRetrieverRequestBean";
-
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**

@@ -55,8 +55,6 @@
 
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-			<h:outputText value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
-			<h:outputText value="#{SearchResultListPage.beanName}" styleClass="noDisplay" />
 			
 			
 			<div class="full wrapper">

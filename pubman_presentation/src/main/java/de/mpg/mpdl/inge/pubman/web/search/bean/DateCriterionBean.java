@@ -13,8 +13,6 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DateCriterion.DateType;
  */
 @SuppressWarnings("serial")
 public class DateCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "DateCriterionBean";
-
   private DateCriterion dateCriterionVO;
 
   // selection fields for the DateCriterionVO.DateType enum

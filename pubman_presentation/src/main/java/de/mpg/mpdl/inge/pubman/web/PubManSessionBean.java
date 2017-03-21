@@ -24,14 +24,16 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
+@ManagedBean(name = "PubManSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "PubManSessionBean";
-
   private String locale = getI18nHelper().getLocale();
 
   public PubManSessionBean() {}

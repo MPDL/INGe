@@ -42,11 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "MultipleImportForm")
 @SuppressWarnings("serial")
 public class MultipleImportForm extends FacesBean {
-
-  public static final String BEAN_NAME = "NewMultipleImport";
-
   public MultipleImportForm() {
-    // super.init();
     try {
       ((MultipleImport) FacesTools.findBean("MultipleImport.class")).initConfigParameters();
     } catch (Exception e) {

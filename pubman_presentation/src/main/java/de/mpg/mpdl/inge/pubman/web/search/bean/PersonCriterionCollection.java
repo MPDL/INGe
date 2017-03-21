@@ -14,8 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class PersonCriterionCollection {
-  public static final String BEAN_NAME = "PersonCriterionCollection";
-
   private List<PersonCriterion> parentVO;
   private PersonCriterionManager personCriterionManager;
 

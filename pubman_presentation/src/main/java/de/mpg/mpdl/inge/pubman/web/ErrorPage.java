@@ -47,8 +47,6 @@ import de.mpg.mpdl.inge.search.parser.ParseException;
 @ManagedBean(name = "ErrorPage")
 @SuppressWarnings("serial")
 public class ErrorPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "ErrorPage";
-
   private static final Logger logger = Logger.getLogger(ErrorPage.class);
 
   public static final String LOAD_ERRORPAGE = "loadErrorPage";

@@ -19,8 +19,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
  * @author Mario Wagner
  */
 public class OrganizationCriterionCollection {
-  public static final String BEAN_NAME = "OrganizationCriterionCollection";
-
   private static final Logger logger = Logger.getLogger(OrganizationCriterionCollection.class);
 
   private List<OrganizationCriterion> parentVO;

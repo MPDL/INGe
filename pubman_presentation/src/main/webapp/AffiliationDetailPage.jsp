@@ -42,7 +42,6 @@
 	
 				</h:head>
 				<body lang="${InternationalizationHelper.locale}">
-					<h:outputText value="#{AffiliationDetailPage.beanName}" styleClass="noDisplay" />
 					<h:form id="form1">
 					<div class="full wrapper withoutPageHeader">
 						<div id="content" class="full_area0 clear">

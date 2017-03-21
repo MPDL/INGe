@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
 import javax.xml.rpc.ServiceException;
 
@@ -66,10 +68,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 07.03.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
+@ManagedBean(name = "LoginHelper")
+@SessionScoped
 @SuppressWarnings("serial")
 public class LoginHelper extends FacesBean {
-  public static final String BEAN_NAME = "LoginHelper";
-
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
   private AccountUserVO accountUser = new AccountUserVO();

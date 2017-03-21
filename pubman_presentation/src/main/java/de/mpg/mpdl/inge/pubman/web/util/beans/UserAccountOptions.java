@@ -51,8 +51,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
 @ManagedBean(name = "UserAccountOptions")
 @SuppressWarnings("serial")
 public class UserAccountOptions extends FacesBean {
-  public static final String BEAN_NAME = "UserAccountOptionsBean";
-
   private static final Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
 
   private String password;

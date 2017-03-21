@@ -51,8 +51,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 @ManagedBean(name = "AffiliationDetailPage")
 @SuppressWarnings("serial")
 public class AffiliationDetailPage extends FacesBean {
-  public static String BEAN_NAME = "AffiliationDetailPage";
-
   private static final Logger logger = Logger.getLogger(AffiliationDetailPage.class);
 
   private AffiliationVOPresentation affiliation;

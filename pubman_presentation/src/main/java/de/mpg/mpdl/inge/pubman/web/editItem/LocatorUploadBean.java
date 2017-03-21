@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
 
@@ -77,7 +78,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       this.getEditItemSessionBean().setFiles(list);
     } catch (Exception e) {
       logger.error(e);
-      error = getFacesBean().getMessage("errorLocatorUploadFW");
+      error = getMessage("errorLocatorUploadFW");
     }
   }
 

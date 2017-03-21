@@ -51,7 +51,6 @@
 
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
 			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>

@@ -110,7 +110,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     }
   }
 
-  private boolean getTopLevel() {
+  public boolean getTopLevel() {
     return (this.parent == null);
   }
 

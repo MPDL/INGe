@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -26,9 +29,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "YearbookArchiveBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
-  public static final String BEAN_NAME = "YearbookArchiveBean";
   private static final String MAXIMUM_RECORDS = "5000";
 
   private List<PubItemVO> archivedYearbooks;

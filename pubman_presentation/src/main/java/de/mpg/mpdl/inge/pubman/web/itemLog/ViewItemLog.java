@@ -49,8 +49,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ViewItemLog")
 @SuppressWarnings("serial")
 public class ViewItemLog extends FacesBean {
-  public static final String BEAN_NAME = "ViewItemLog";
-
   private static final Logger logger = Logger.getLogger(ViewItemLog.class);
 
   public static final String LOAD_ITEM_LOG = "loadViewItemLog";

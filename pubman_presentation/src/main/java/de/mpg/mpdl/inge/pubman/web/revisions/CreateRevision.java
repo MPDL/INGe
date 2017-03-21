@@ -46,8 +46,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 @ManagedBean(name = "CreateRevision")
 @SuppressWarnings("serial")
 public class CreateRevision extends FacesBean {
-  public static final String BEAN_NAME = "CreateRevision";
-
   public static final String LOAD_CREATEREVISION = "loadCreateRevision";
   public static final String LOAD_CHOOSECOLLECTION = "loadChooseCollection";
 

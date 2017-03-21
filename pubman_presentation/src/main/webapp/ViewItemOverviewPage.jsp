@@ -102,8 +102,6 @@
 			</h:head>
 
 			<body lang="${InternationalizationHelper.locale}">
-				<h:outputText value="#{ViewItemFullPage.beanName}"
-					styleClass="noDisplay" />
 				<!-- The unAPI Identifier for this item -->
 				<h:outputText
 					value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;"

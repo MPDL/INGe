@@ -25,6 +25,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.search;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 /**
@@ -34,9 +37,9 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
  * @author: Hugo Niedermaier, created 24.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 14.08.2007
  */
+@ManagedBean(name = "AffiliationDetail")
+@SessionScoped
 public class AffiliationDetail {
-  public static final String BEAN_NAME = "AffiliationDetail";
-
   private AffiliationVO affiliationVO;
 
   // private boolean renderDetails = false;

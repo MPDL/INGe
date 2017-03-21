@@ -27,6 +27,9 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -39,10 +42,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
  * @author: Tobias Schraut, created 26.02.2007
  * @version: $Revision$ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13 Nov 2007) $
  */
+@ManagedBean(name = "EditItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class EditItemSessionBean extends EditItemBean {
-  public static final String BEAN_NAME = "EditItemSessionBean";
-
   public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
   public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
   public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
@@ -72,17 +75,6 @@ public class EditItemSessionBean extends EditItemBean {
   private String currentSubmission = "";
 
   public EditItemSessionBean() {}
-
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // // super.init();
-  // // initAuthorCopyPasteCreatorBean();
-  // }
 
   /**
    * This method clears the file and the locator list

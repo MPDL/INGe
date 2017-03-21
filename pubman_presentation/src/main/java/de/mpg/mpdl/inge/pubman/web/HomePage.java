@@ -53,8 +53,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "HomePage")
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "HomePage";
-
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
   public HomePage() {

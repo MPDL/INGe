@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.createItem;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -45,10 +48,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
  * @author: $Author$ last modification
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "CreateItem")
+@SessionScoped
 @SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
-  public static final String BEAN_NAME = "CreateItem";
-
   private static final Logger logger = Logger.getLogger(CreateItem.class);
 
   public final static String LOAD_CREATEITEM = "loadCreateItem";
@@ -130,8 +133,7 @@ public class CreateItem extends FacesBean {
   }
 
   protected EditItem getEditItem() {
-    return (EditItem) FacesTools.getCurrentInstance().getApplication().getVariableResolver()
-        .resolveVariable(FacesTools.getCurrentInstance(), EditItem.BEAN_NAME);
+    return (EditItem) FacesTools.findBean("EditItem");
   }
 
   public boolean getMultiple() {

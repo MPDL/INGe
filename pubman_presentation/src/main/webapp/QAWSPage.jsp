@@ -52,8 +52,6 @@
 
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-			<h:outputText value="#{MyTasksRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.isModerator}"/>
-			<h:outputText value="#{QAWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.isModerator}"/>
 			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>

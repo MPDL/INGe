@@ -28,6 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.affiliation;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -38,16 +41,15 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
  * @author: Hugo Niedermaier, Basics by Thomas Diebäcker, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by NiH: 13.08.2007
  */
+@SuppressWarnings("serial")
+@ManagedBean(name = "AffiliationSessionBean")
+@SessionScoped
 public class AffiliationSessionBean extends FacesBean {
-  static final long serialVersionUID = 1L;
-
   // NiH: store different modes for the affiliation selection
   // to distinguish between the actions add and select in the edit item mask
   private boolean add = false;
   // to distinguish between the use case browse by affiliation and add/select in edit item
   private boolean browseByAffiliation = false;
-
-  public static final String BEAN_NAME = "AffiliationSessionBean";
 
   // instance of the Affiliation Tree
   // private TreeModel treeAffiliation = new ChildPropertyTreeModel();
@@ -56,7 +58,6 @@ public class AffiliationSessionBean extends FacesBean {
   private List<AffiliationVOPresentation> currentAffiliationList =
       new ArrayList<AffiliationVOPresentation>();
 
-
   // NiH: list of OrganizationVO's selected in EditItem page
   protected List<OrganizationVO> organizationParentVO = new ArrayList<OrganizationVO>();
 
@@ -64,16 +65,6 @@ public class AffiliationSessionBean extends FacesBean {
   protected int indexComponent;
 
   public AffiliationSessionBean() {}
-
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
 
   public List<AffiliationVOPresentation> getCurrentAffiliationList() {
     return currentAffiliationList;
@@ -141,5 +132,4 @@ public class AffiliationSessionBean extends FacesBean {
   public void setWasInit(boolean wasInit) {
     this.wasInit = wasInit;
   }
-
 }

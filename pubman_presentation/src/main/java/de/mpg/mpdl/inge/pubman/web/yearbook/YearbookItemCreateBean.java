@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
@@ -42,10 +44,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "YearbookItemCreateBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class YearbookItemCreateBean extends FacesBean {
-  public static final String BEAN_NAME = "YearbookItemCreateBean";
-
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
 
   private static final String MAXIMUM_RECORDS = "5000";

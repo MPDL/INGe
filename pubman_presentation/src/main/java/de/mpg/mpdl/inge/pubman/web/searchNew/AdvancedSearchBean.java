@@ -36,6 +36,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -81,10 +83,10 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "AdvancedSearchBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
-  public static final String BEAN_NAME = "AdvancedSearchBean";
-
   private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;

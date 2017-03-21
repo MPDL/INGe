@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
@@ -48,20 +51,24 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
  * @author: Thomas Diebäcker, created 12.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ContextListSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ContextListSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "ContextListSessionBean";
-
   private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList =
       new ArrayList<PubContextVOPresentation>();
+
   private List<PubContextVOPresentation> moderatorContextList =
       new ArrayList<PubContextVOPresentation>();
+
   private List<PubContextVOPresentation> yearbookContextList =
       new ArrayList<PubContextVOPresentation>();
+
   private List<PubContextVOPresentation> yearbookModeratorContextList =
       new ArrayList<PubContextVOPresentation>();
+
   private List<PubContextVOPresentation> allPrivilegedContextList =
       new ArrayList<PubContextVOPresentation>();
 
@@ -84,6 +91,7 @@ public class ContextListSessionBean extends FacesBean {
   public List<PubContextVOPresentation> getDepositorContextList() {
     List<PubContextVOPresentation> newDepositorContextList =
         new ArrayList<PubContextVOPresentation>();
+
     if (getOpenContextsAvailable()) {
       for (PubContextVOPresentation context : this.depositorContextList) {
         if (context.getState() == State.OPENED) {
@@ -93,29 +101,32 @@ public class ContextListSessionBean extends FacesBean {
       Collections.sort(newDepositorContextList);
       setDepositorContextList(newDepositorContextList);
     }
+
     return this.depositorContextList;
   }
 
   public boolean getOpenContextsAvailable() {
     State state = State.CLOSED;
+
     for (PubContextVOPresentation context : this.depositorContextList) {
       if (context.getState() == State.OPENED) {
         state = State.OPENED;
       }
     }
+
     if (state == State.OPENED) {
       return true;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   public int getDepositorContextListSize() {
-    if (depositorContextList == null) {
+    if (this.depositorContextList == null) {
       return 0;
-    } else {
-      return depositorContextList.size();
     }
+
+    return this.depositorContextList.size();
   }
 
   public void setDepositorContextList(List<PubContextVOPresentation> contextList) {
@@ -123,24 +134,25 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public PubContextVOPresentation getSelectedDepositorContext() {
-    for (PubContextVOPresentation coll : depositorContextList) {
+    for (PubContextVOPresentation coll : this.depositorContextList) {
       if (coll.getSelected()) {
         return coll;
       }
     }
+
     return null;
   }
 
   public List<PubContextVOPresentation> getModeratorContextList() {
-    return moderatorContextList;
+    return this.moderatorContextList;
   }
 
   public int getModeratorContextListSize() {
-    if (moderatorContextList == null) {
+    if (this.moderatorContextList == null) {
       return 0;
-    } else {
-      return moderatorContextList.size();
     }
+
+    return moderatorContextList.size();
   }
 
   public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList) {
@@ -159,23 +171,23 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public List<PubContextVOPresentation> getYearbookContextList() {
-    return yearbookContextList;
+    return this.yearbookContextList;
   }
 
   public int getYearbookContextListSize() {
-    if (yearbookContextList == null) {
+    if (this.yearbookContextList == null) {
       return 0;
-    } else {
-      return yearbookContextList.size();
     }
+
+    return this.yearbookContextList.size();
   }
 
   public int getYearbookModeratorContextListSize() {
-    if (yearbookModeratorContextList == null) {
+    if (this.yearbookModeratorContextList == null) {
       return 0;
-    } else {
-      return yearbookModeratorContextList.size();
     }
+
+    return this.yearbookModeratorContextList.size();
   }
 
   public void setYearbookModeratorContextList(
@@ -184,7 +196,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public List<PubContextVOPresentation> getYearbookModeratorContextList() {
-    return yearbookModeratorContextList;
+    return this.yearbookModeratorContextList;
   }
 
   // TODO NBU: this method needs to be moved elsewhere here only to avoid
@@ -302,11 +314,10 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public List<PubContextVOPresentation> getAllPrivilegedContextList() {
-    return allPrivilegedContextList;
+    return this.allPrivilegedContextList;
   }
 
   public void setAllPrivilegedContextList(List<PubContextVOPresentation> allPrivilegedContextList) {
     this.allPrivilegedContextList = allPrivilegedContextList;
   }
-
 }

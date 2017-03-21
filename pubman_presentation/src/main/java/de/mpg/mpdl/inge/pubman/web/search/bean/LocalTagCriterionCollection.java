@@ -12,8 +12,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * 
  */
 public class LocalTagCriterionCollection {
-  public static final String BEAN_NAME = "LocalTagCriterionCollection";
-
   private List<LocalTagCriterion> parentVO;
   private LocalTagCriterionManager localTagCriterionManager;
 

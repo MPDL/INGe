@@ -33,6 +33,8 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -56,10 +58,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@ManagedBean(name = "ApplicationBean")
+@ApplicationScoped
 @SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
-  // public static final String BEAN_NAME = "ApplicationBean";
-
   private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 
   /** system type enum */

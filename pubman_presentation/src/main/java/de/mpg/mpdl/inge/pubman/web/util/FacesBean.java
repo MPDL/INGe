@@ -47,11 +47,13 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
  */
 @SuppressWarnings("serial")
 public class FacesBean implements Serializable {
-  public static final String BEAN_NAME = FacesBean.class.getName();
-
   private static final Logger logger = Logger.getLogger(FacesBean.class);
 
   public FacesBean() {}
+
+  // public String getBeanName() {
+  // return BEAN_NAME;
+  // }
 
   // public FacesContext getCurrentInstance() {
   // return FacesContext.getCurrentInstance();
@@ -278,15 +280,6 @@ public class FacesBean implements Serializable {
 
   public boolean getHasMessages() {
     return FacesTools.getCurrentInstance().getMessages().hasNext();
-  }
-
-  /**
-   * Get the name of the actual bean.
-   * 
-   * @return The name of the actual bean.
-   */
-  public String getBeanName() {
-    return BEAN_NAME;
   }
 
   public boolean getHasErrorMessages() {

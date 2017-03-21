@@ -40,7 +40,6 @@
 				<ui:include src="home/HomePageFeedLinks.jspf" />
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
 				
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>

@@ -33,8 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ViewRevisionsPage")
 @SuppressWarnings("serial")
 public class ViewRevisionsPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "ViewRevisionsPage";
-
   public ViewRevisionsPage() {
     this.init();
   }

@@ -46,10 +46,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ReleaseHistory")
 @SuppressWarnings("serial")
 public class ReleaseHistory extends FacesBean {
-  public static final String BEAN_NAME = "ReleaseHistory";
   private static Logger logger = Logger.getLogger(ReleaseHistory.class);
 
-  // Faces navigation string
   public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
   public ReleaseHistory() {

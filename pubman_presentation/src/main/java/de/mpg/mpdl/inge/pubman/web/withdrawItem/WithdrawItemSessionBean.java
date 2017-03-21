@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -35,31 +38,20 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented.
  */
+@ManagedBean(name = "WithdrawItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class WithdrawItemSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "WithdrawItemSessionBean";
-
   // navigationString to go back to the list where withdrawItem has been called from
   private String navigationStringToGoBack = null;
 
   public WithdrawItemSessionBean() {}
 
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
-
   public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
+    return this.navigationStringToGoBack;
   }
 
   public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
     this.navigationStringToGoBack = navigationStringToGoBack;
   }
-
 }

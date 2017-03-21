@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -34,10 +37,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: Thomas Diebäcker, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
+@ManagedBean(name = "ViewItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ViewItemSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "ViewItemSessionBean";
-
   private String navigationStringToGoBack = null;
   private String subMenu;
 

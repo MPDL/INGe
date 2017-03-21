@@ -38,8 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 @SuppressWarnings("serial")
 public class YearbookArchiveRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  public static final String BEAN_NAME = "YearbookArchiveRetrieverRequestBean";
-
   private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
 
   private String selectedSortOrder;

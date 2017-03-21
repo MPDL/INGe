@@ -47,8 +47,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ImportWorkspace")
 @SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "ImportWorkspace";
-
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
   private List<ImportLog> imports = null;

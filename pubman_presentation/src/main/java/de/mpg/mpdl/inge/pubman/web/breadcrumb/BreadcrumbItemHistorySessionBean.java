@@ -27,6 +27,9 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -37,10 +40,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author Mario Wagner
  * @version:
  */
+@ManagedBean(name = "BreadcrumbItemHistorySessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class BreadcrumbItemHistorySessionBean extends FacesBean {
-  public static final String BEAN_NAME = "BreadcrumbItemHistorySessionBean";
-
   private static final Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
 
   // a List of all pages with item-lists

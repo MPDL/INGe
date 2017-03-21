@@ -13,8 +13,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class IdentifierCriterionCollection {
-  public static final String BEAN_NAME = "IdentifierCriterionCollection";
-
   private List<IdentifierCriterion> parentVO;
   private IdentifierCriterionManager identifierCriterionManager;
 

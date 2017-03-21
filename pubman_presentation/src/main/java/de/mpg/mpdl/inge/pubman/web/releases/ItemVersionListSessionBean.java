@@ -29,6 +29,9 @@ package de.mpg.mpdl.inge.pubman.web.releases;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
@@ -43,10 +46,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.VersionHistoryVOPresentation;
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "ItemVersionListSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ItemVersionListSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "ItemVersionListSessionBean";
-
   private List<VersionHistoryVOPresentation> versionList =
       new ArrayList<VersionHistoryVOPresentation>();
 

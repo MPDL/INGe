@@ -10,8 +10,6 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.IdentifierCriterion;
  */
 @SuppressWarnings("serial")
 public class IdentifierCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "IdentifierCriterionBean";
-
   private IdentifierCriterion identifierCriterionVO;
 
   // collapsed by default

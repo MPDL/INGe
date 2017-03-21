@@ -14,8 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 
 public class ContextCriterionCollection {
-  public static final String BEAN_NAME = "ContextCriterionCollection";
-
   private List<ContextVO> contexts;
   private ContextCriterionBean contextCriterionBean;
   private List<SelectItem> contextList;

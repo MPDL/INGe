@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -63,11 +65,11 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "PubItemListSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class PubItemListSessionBean extends
     BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  public static final String BEAN_NAME = "PubItemListSessionBean";
-
   private static final Logger logger = Logger.getLogger(PubItemListSessionBean.class);
 
   public static final int MAXIMUM_CART_ITEMS = 2800;

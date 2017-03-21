@@ -36,15 +36,8 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.FileCriterion;
  * @author endres
  * 
  */
+@SuppressWarnings("serial")
 public class FileCriterionBean extends CriterionBean {
-
-  /**
-     * 
-     */
-  private static final long serialVersionUID = 1L;
-
-  public static final String BEAN_NAME = "FileCriterionBean";
-
   private FileCriterion fileCriterionVO;
 
   public FileCriterionBean() {

@@ -38,8 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class FileCriterionCollection {
-  public static final String BEAN_NAME = "FileCriterionCollection";
-
   private List<FileCriterion> parentVO;
   private FileCriterionManager fileCriterionManager;
 

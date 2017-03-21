@@ -52,8 +52,6 @@
 			<!-- Use onunload here in order to hinder browser to cache the page -->
 			<body lang="${InternationalizationHelper.locale}">
 			
-			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
-			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"/>
 			

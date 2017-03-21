@@ -54,8 +54,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "AudienceBean")
 @SuppressWarnings("serial")
 public class AudienceBean extends FacesBean {
-  public static final String BEAN_NAME = "AudienceBean";
-
   private static final Logger logger = Logger.getLogger(AudienceBean.class);
 
   public static final String LOAD_AUDIENCEPAGE = "loadAudiencePage";

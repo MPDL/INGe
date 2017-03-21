@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.export;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -51,11 +53,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007
  */
+@ManagedBean(name = "ExportItems")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ExportItems extends FacesBean {
   private static Logger logger = Logger.getLogger(ExportItems.class);
-
-  public static final String BEAN_NAME = "ExportItems";
 
   // constant for the function export to check the rights and/or if the function has to be disabled
   // (DiT)

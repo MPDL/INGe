@@ -27,6 +27,9 @@ package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.File;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -42,10 +45,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007 - Comments for the get- and
  *           set-methods are missing! ToDo StG.
  */
+@ManagedBean(name = "ExportItemsSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ExportItemsSessionBean extends FacesBean {
-  // private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
-  public static final String BEAN_NAME = "ExportItemsSessionBean";
   private String message = null;
 
   private String exportFormatType = "LAYOUT";
@@ -92,15 +95,7 @@ public class ExportItemsSessionBean extends FacesBean {
     this.init();
   }
 
-  /**
-   * This method is called when this bean is initially added to session scope. Typically, this
-   * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-   * the managed bean facility to instantiate this bean and store it into session scope.
-   */
   public void init() {
-    // Perform initializations inherited from our superclass
-    // super.init();
-
     if (exportFormatType.equals("LAYOUT")) {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
       // default format for STRUCTURED is pdf

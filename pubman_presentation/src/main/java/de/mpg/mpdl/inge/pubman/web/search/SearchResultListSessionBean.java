@@ -27,7 +27,8 @@ package de.mpg.mpdl.inge.pubman.web.search;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -39,38 +40,24 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
  * @author: Thomas Diebäcker; Tobias Schraut, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "SearchResultListSessionBean")
+@SessionScoped
+@SuppressWarnings("serial")
 public class SearchResultListSessionBean extends FacesBean {
-  private static final long serialVersionUID = 1L;
-
-  public static final String BEAN_NAME = "SearchResultListSessionBean";
-  @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(SearchResultListSessionBean.class);
-
-  private String searchString = new String();
-  private boolean includeFiles = false;
-
-  // Search criteria in case of advanced search
-  private ArrayList<MetadataSearchCriterion> criteria;
-
-  // Affiliation in case of affiliation search
+  public enum SearchType {
+    NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
+  }
+  
   private AffiliationVO affiliation;
-
+  private ArrayList<MetadataSearchCriterion> criteria;
   private SearchType type;
-
+  private String searchString;
+  private boolean includeFiles = false;
+  
   public SearchResultListSessionBean() {}
 
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
-
   public String getSearchString() {
-    return searchString;
+    return this.searchString;
   }
 
   public void setSearchString(String searchString) {
@@ -78,7 +65,7 @@ public class SearchResultListSessionBean extends FacesBean {
   }
 
   public boolean getIncludeFiles() {
-    return includeFiles;
+    return this.includeFiles;
   }
 
   public void setIncludeFiles(boolean includeFiles) {
@@ -86,15 +73,11 @@ public class SearchResultListSessionBean extends FacesBean {
   }
 
   public SearchType getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(SearchType type) {
     this.type = type;
-  }
-
-  public enum SearchType {
-    NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
   }
 
   public ArrayList<MetadataSearchCriterion> getSearchCriteria() {
@@ -106,11 +89,10 @@ public class SearchResultListSessionBean extends FacesBean {
   }
 
   public AffiliationVO getAffiliation() {
-    return affiliation;
+    return this.affiliation;
   }
 
   public void setAffiliation(AffiliationVO affiliation) {
     this.affiliation = affiliation;
   }
-
 }

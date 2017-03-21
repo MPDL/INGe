@@ -38,8 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  */
 @SuppressWarnings("serial")
 public class ItemList extends FacesBean {
-  public static final String BEAN_NAME = "itemListItemList";
-
   // panels for dynamic components
   private HtmlPanelGroup panDynamicItemList = new HtmlPanelGroup();
 

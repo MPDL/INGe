@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
@@ -48,10 +50,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "YearbookItemEditBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class YearbookItemEditBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemEditBean.class);
-  public static final String BEAN_NAME = "YearbookItemEditBean";
+
   private static final String MAXIMUM_RECORDS = "5000";
 
   private YearbookItemSessionBean yearbookItemSessionBean;

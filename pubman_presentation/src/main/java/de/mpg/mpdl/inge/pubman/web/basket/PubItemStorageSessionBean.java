@@ -3,6 +3,9 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
@@ -15,10 +18,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@ManagedBean(name = "PubItemStorageSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class PubItemStorageSessionBean extends FacesBean {
-  public static String BEAN_NAME = "PubItemStorageSessionBean";
-
   /**
    * A map with the current reference objects of the basket's items. The key is the object id with
    * version.
@@ -33,16 +36,13 @@ public class PubItemStorageSessionBean extends FacesBean {
    */
   private int diffDisplayNumber = 0;
 
-
   public PubItemStorageSessionBean() {
     storedPubItems = new HashMap<String, ItemRO>();
   }
 
-
   public int getStoredPubItemsSize() {
     return storedPubItems.size();
   }
-
 
   /**
    * Sets the map with the current reference objects of the basket's items. The key is the object id
@@ -52,7 +52,6 @@ public class PubItemStorageSessionBean extends FacesBean {
     this.storedPubItems = storedPubItems;
   }
 
-
   /**
    * Returns the map with the current reference objects of the basket's items. The key is the object
    * id with version.
@@ -61,11 +60,9 @@ public class PubItemStorageSessionBean extends FacesBean {
     return storedPubItems;
   }
 
-
   public void setDiffDisplayNumber(int diffDisplayNumber) {
     this.diffDisplayNumber = diffDisplayNumber;
   }
-
 
   public int getDiffDisplayNumber() {
     return diffDisplayNumber;
@@ -74,7 +71,4 @@ public class PubItemStorageSessionBean extends FacesBean {
   public int getDisplayNumber() {
     return getStoredPubItemsSize() - diffDisplayNumber;
   }
-
-
-
 }

@@ -54,7 +54,7 @@ public class PubManSessionListener implements HttpSessionListener {
   @Override
   public void sessionDestroyed(HttpSessionEvent event) {
     logger.debug("Session timed out.");
-    Login login = (Login) event.getSession().getAttribute(Login.BEAN_NAME);
+    Login login = (Login) event.getSession().getAttribute("Login");
     if (login != null) {
       try {
         login.logout();

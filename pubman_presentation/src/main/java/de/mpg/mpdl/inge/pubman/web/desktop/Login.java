@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
@@ -48,10 +50,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Tobias Schraut, created 31.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
+@ManagedBean(name = "Login")
+@SessionScoped
 @SuppressWarnings("serial")
 public class Login extends FacesBean {
-  public static final String BEAN_NAME = "Login";
-
   private static final Logger logger = Logger.getLogger(Login.class);
 
   public static String LOGIN_URL = "/aa/login";

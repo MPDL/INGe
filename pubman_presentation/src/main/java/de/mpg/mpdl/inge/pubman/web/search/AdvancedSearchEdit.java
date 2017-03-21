@@ -28,6 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.search;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -60,6 +63,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author Hugo Niedermaier, endres
  * @version $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "AdvancedSearchEdit")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AdvancedSearchEdit extends FacesBean {
   private static final Logger logger = Logger.getLogger(AdvancedSearchEdit.class);
@@ -67,8 +72,6 @@ public class AdvancedSearchEdit extends FacesBean {
   private static final String PROPERTY_CONTENT_MODEL =
       "escidoc.framework_access.content-model.id.publication";
 
-  public static final String BEAN_NAME = "AdvancedSearchEdit";
-  /** faces navigation string */
   public static final String LOAD_SEARCHPAGE = "displaySearchPage";
 
   // delegated internal collections

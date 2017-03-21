@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.acceptItem;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -35,26 +38,14 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author: $Author$
  * @version: $Revision$ $LastChangedDate$
  */
+@ManagedBean(name = "AcceptItemSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AcceptItemSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "AcceptItemSessionBean";
-
-  // navigationString to go back to the list where acceptItem has been called from
+  private String message;
   private String navigationStringToGoBack = null;
 
-  private String message;
-
   public AcceptItemSessionBean() {}
-
-  // /**
-  // * This method is called when this bean is initially added to session scope. Typically, this
-  // * occurs as a result of evaluating a value binding or method binding expression, which utilizes
-  // * the managed bean facility to instantiate this bean and store it into session scope.
-  // */
-  // public final void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
 
   public final String getNavigationStringToGoBack() {
     return navigationStringToGoBack;
@@ -71,5 +62,4 @@ public class AcceptItemSessionBean extends FacesBean {
   public void setMessage(String message) {
     this.message = message;
   }
-
 }

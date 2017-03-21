@@ -43,7 +43,6 @@
 				<ui:include src="header/ui/StandardImports.jspf" />
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-			<h:outputText value="#{YearbookItemEditBean.beanName}" styleClass="noDisplay" />
 			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>

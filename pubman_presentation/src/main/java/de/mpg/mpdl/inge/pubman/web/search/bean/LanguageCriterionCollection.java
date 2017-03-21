@@ -14,9 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * 
  */
 public class LanguageCriterionCollection {
-
-  public static final String BEAN_NAME = "LanguageCriterionCollection";
-
   private List<LanguageCriterion> parentVO;
   private LanguageCriterionManager languageCriterionManager;
 

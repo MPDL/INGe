@@ -13,8 +13,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class EventCriterionCollection {
-  public static final String BEAN_NAME = "EventCriterionCollection";
-
   private List<EventCriterion> parentVO;
   private EventCriterionManager eventCriterionManager;
 

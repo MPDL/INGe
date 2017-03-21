@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.el.ValueExpression;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 
@@ -28,11 +30,12 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "AffiliationBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class AffiliationBean extends FacesBean {
-  private static Logger logger = Logger.getLogger(AffiliationBean.class);
+  private static final Logger logger = Logger.getLogger(AffiliationBean.class);
 
-  public static final String BEAN_NAME = "AffiliationBean";
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
 
   private static final String PROPERTY_CONTENT_MODEL =

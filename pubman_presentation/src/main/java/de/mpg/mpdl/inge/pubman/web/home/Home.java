@@ -36,8 +36,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  */
 @SuppressWarnings("serial")
 public class Home extends FacesBean {
-  public static final String BEAN_NAME = "Home";
-
   public static final String LOAD_HOME = "loadHome";
 
   public Home() {}

@@ -15,9 +15,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class AnyFieldCriterionCollection {
-  public static final String BEAN_NAME = "AnyFieldCriterionCollection";
-
-  // private List<CriterionVO> parentVO;
   private AnyFieldCriterionManager anyFieldCriterionManager;
 
   /**

@@ -40,8 +40,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @ManagedBean(name = "EditItemPage")
 @SuppressWarnings("serial")
 public class EditItemPage extends FacesBean {
-  public static final String BEAN_NAME = "EditItemPage";
-
   public EditItemPage() {
     this.init();
   }

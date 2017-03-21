@@ -14,8 +14,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
  * @author Mario Wagner
  */
 public class GenreCriterionCollection {
-  public static final String BEAN_NAME = "GenreCriterionCollection";
-
   private List<GenreCriterion> parentVO;
   private GenreCriterionManager genreCriterionManager;
 

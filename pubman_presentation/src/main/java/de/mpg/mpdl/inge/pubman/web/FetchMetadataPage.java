@@ -44,8 +44,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "FetchMetadataPage")
 @SuppressWarnings("serial")
 public class FetchMetadataPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "FetchMetadataPage";
-
   public FetchMetadataPage() {
     this.init();
   }

@@ -13,8 +13,6 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.DegreeCriterion;
  */
 @SuppressWarnings("serial")
 public class DegreeCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "DegreeCriterionBean";
-
   private DegreeCriterion degreeCriterionVO;
 
   // selection fields for the MdsPublicationVO.Degree enum

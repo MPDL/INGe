@@ -125,7 +125,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class SwordUtil extends FacesBean {
-  // public static final String BEAN_NAME = "SwordUtil";
   private static final Logger logger = Logger.getLogger(SwordUtil.class);
 
   private static final String LOGIN_URL = "/aa/login";

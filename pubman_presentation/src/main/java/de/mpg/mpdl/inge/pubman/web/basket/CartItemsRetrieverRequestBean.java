@@ -35,8 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 @SuppressWarnings("serial")
 public class CartItemsRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
-  public static final String BEAN_NAME = "CartItemsRetrieverRequestBean";
-
   private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED =

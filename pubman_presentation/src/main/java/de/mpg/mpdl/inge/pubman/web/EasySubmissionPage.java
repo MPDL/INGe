@@ -41,8 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @ManagedBean(name = "EasySubmissionPage")
 @SuppressWarnings("serial")
 public class EasySubmissionPage extends FacesBean {
-  public static final String BEAN_NAME = "EasySubmissionPage";
-
   public EasySubmissionPage() {
     this.init();
   }

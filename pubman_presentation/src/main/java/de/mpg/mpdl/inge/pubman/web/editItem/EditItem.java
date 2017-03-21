@@ -118,8 +118,6 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
 @ManagedBean(name = "EditItem")
 @SuppressWarnings("serial")
 public class EditItem extends FacesBean {
-  public static final String BEAN_NAME = "EditItem";
-
   private static final Logger logger = Logger.getLogger(EditItem.class);
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";

@@ -26,6 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -38,11 +41,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: (First draft version) Thomas Diebäcker, created 25.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "RightsManagementSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class RightsManagementSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "RightsManagementSessionBean";
-
-  private static Logger logger = Logger.getLogger(RightsManagementSessionBean.class);
+  private static final Logger logger = Logger.getLogger(RightsManagementSessionBean.class);
 
   // prefix for disableing functions in properties file (has to be followed by ".<functionname>")
   public static final String PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS =

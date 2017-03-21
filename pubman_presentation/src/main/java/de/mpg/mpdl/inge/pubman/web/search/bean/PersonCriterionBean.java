@@ -16,8 +16,6 @@ import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.PersonCriterion;
  */
 @SuppressWarnings("serial")
 public class PersonCriterionBean extends CriterionBean {
-  public static final String BEAN_NAME = "PersonCriterionBean";
-
   private PersonCriterion personCriterionVO;
 
   // selection fields for the CreatorVO.CreatorRole enum

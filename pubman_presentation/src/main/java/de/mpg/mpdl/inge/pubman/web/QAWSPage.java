@@ -45,8 +45,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 @ManagedBean(name = "QAWSPage")
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "QAWSPage";
-
   private static Logger logger = Logger.getLogger(QAWSPage.class);
 
   public QAWSPage() {

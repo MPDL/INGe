@@ -41,8 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ViewItemLogPage")
 @SuppressWarnings("serial")
 public class ViewItemLogPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "ViewItemLogPage";
-
   public ViewItemLogPage() {
     this.init();
   }

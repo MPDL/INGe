@@ -24,6 +24,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.revisions;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 
 /**
@@ -34,9 +37,9 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
  * @author $Author: MWalter $ (last modification)
  * @version $Revision: 4777 $ $LastChangedDate: 2012-06-20 09:49:27 +0200 (Mi, 20 Jun 2012) $
  */
+@ManagedBean(name = "RevisionItemListSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class RevisionItemListSessionBean extends PubItemListSessionBean {
-  public static final String BEAN_NAME = "RevisionItemListSessionBean";
-
   public RevisionItemListSessionBean() {}
 }

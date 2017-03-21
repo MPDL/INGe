@@ -29,6 +29,9 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -97,10 +100,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author: Thomas Diebäcker, created 25.04.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
+@ManagedBean(name = "ItemControllerSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {
-  public static final String BEAN_NAME = "ItemControllerSessionBean";
-
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
   private PubItemVOPresentation currentPubItem = null;

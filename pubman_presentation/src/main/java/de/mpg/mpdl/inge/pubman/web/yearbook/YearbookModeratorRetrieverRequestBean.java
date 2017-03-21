@@ -48,8 +48,6 @@ import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 @SuppressWarnings("serial")
 public class YearbookModeratorRetrieverRequestBean extends
     BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  public static final String BEAN_NAME = "YearbookModeratorRetrieverRequestBean";
-
   private static final Logger logger = Logger
       .getLogger(YearbookModeratorRetrieverRequestBean.class);
 

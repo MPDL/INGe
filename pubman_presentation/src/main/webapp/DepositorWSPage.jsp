@@ -50,8 +50,6 @@
 				<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 			</h:head>
 			<body lang="${InternationalizationHelper.locale}">
-			<h:outputText value="#{MyItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
-			<h:outputText value="#{DepositorWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
 			
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
