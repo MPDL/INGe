@@ -56,6 +56,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -126,13 +127,13 @@ public class LoginHelper extends FacesBean {
       fetchAccountUser(this.authenticationToken);
       this.btnLoginLogout = "login_btLogout";
       // reinitialize ContextList
-      ((ContextListSessionBean) getSessionBean(ContextListSessionBean.class)).init();
+      ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
     }
 
     // enable the depositor links if necessary
     if (this.accountUser.isDepositor()) {
       DepositorWSSessionBean depWSSessionBean =
-          (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
+          (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
 
       depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
       depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
@@ -218,7 +219,7 @@ public class LoginHelper extends FacesBean {
   // public void changeLanguage(ResourceBundle bundle) {
   // // change the language for the Depositor WS navigation info
   // DepositorWSSessionBean depWSSessionBean =
-  // (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
+  // (DepositorWSSessionBean) FacesTools.findBean(DepositorWSSessionBean.class);
   // // change the button language
   //
   // if (this.authenticationToken == null || this.authenticationToken.equals("")) {
@@ -395,7 +396,7 @@ public class LoginHelper extends FacesBean {
   public boolean getIsYearbookEditor() {
     // toDo: find better way how to do this
     ContextListSessionBean clsb =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     if (this.getIsDepositor() && clsb.getYearbookContextListSize() > 0) {
       return true;
     }

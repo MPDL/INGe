@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Fragment class for Releasy history.
@@ -87,11 +88,11 @@ public class ReleaseHistory extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private ItemVersionListSessionBean getItemVersionListSessionBean() {
-    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
+    return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
   }
 
   public String getDummy() {

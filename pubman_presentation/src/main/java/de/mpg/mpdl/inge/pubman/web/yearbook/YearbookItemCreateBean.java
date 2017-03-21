@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -69,7 +70,7 @@ public class YearbookItemCreateBean extends FacesBean {
   public YearbookItemCreateBean() throws Exception {
     this.selectableYears = new ArrayList<SelectItem>();
     this.setAffiliation(getLoginHelper().getAccountUsersAffiliations().get(0));
-    this.yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     initContextMenu();
     initUserAccountMenu();
     initMetadata();
@@ -317,7 +318,8 @@ public class YearbookItemCreateBean extends FacesBean {
         info(getMessage("Yearbook_grantsAdded"));
       }
       yisb.initYearbook();
-      YearbookItemEditBean yieb = (YearbookItemEditBean) getSessionBean(YearbookItemEditBean.class);
+      YearbookItemEditBean yieb =
+          (YearbookItemEditBean) FacesTools.findBean("YearbookItemEditBean");
       if (yieb != null) {
         yieb.initialize();
       }
@@ -402,7 +404,7 @@ public class YearbookItemCreateBean extends FacesBean {
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
     ContextListSessionBean clsb =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
       this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
           .getName() + " (" + context.getReference().getObjectId() + ")"));

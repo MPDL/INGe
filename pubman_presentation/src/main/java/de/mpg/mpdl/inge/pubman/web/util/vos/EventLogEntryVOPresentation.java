@@ -26,11 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
-import javax.faces.context.FacesContext;
-
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 /**
@@ -44,9 +43,8 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 public class EventLogEntryVOPresentation extends EventLogEntryVO {
   private VersionHistoryEntryVO versionHistoryVO;
 
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-      .getCurrentInstance().getExternalContext().getSessionMap()
-      .get(InternationalizationHelper.BEAN_NAME);
+  private final InternationalizationHelper i18nHelper = FacesTools
+      .findBean("InternationalizationHelper");
 
   public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO,
       VersionHistoryEntryVO versionHistoryVO) {

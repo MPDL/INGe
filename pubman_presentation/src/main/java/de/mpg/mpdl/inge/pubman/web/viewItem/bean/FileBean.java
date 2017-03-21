@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -221,14 +222,14 @@ public class FileBean extends FacesBean {
       System.out.println("MIME: " + contentType);
 
       // application/x-download
-      getResponse().setHeader("Content-disposition",
+      FacesTools.getResponse().setHeader("Content-disposition",
           "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
       if (this.file.getDefaultMetadata() != null) {
-        getResponse().setContentLength(this.file.getDefaultMetadata().getSize());
+        FacesTools.getResponse().setContentLength(this.file.getDefaultMetadata().getSize());
       }
 
-      getResponse().setContentType(contentType);
-      System.out.println("MIME: " + getResponse().getContentType());
+      FacesTools.getResponse().setContentType(contentType);
+      System.out.println("MIME: " + FacesTools.getResponse().getContentType());
 
       byte[] buffer = null;
       if (this.file.getDefaultMetadata() != null) {
@@ -244,7 +245,7 @@ public class FileBean extends FacesBean {
           HttpClient client = new HttpClient();
           ProxyHelper.setProxy(client, fileLocation); // ????
           client.executeMethod(method);
-          OutputStream out = getResponse().getOutputStream();
+          OutputStream out = FacesTools.getResponse().getOutputStream();
           InputStream input = method.getResponseBodyAsStream();
           try {
             if (this.file.getDefaultMetadata() != null) {
@@ -256,7 +257,7 @@ public class FileBean extends FacesBean {
                 out.flush();
                 // numWritten += numRead;
               }
-              getFacesContext().responseComplete();
+              FacesTools.getCurrentInstance().responseComplete();
             }
           } catch (IOException e1) {
             logger.debug("Download IO Error: " + e1.toString());
@@ -483,8 +484,8 @@ public class FileBean extends FacesBean {
    */
   public String displayChecksum() {
     if (file.getChecksum() != null && file.getChecksumAlgorithm() != null) {
-      getResponse().setContentLength(file.getChecksum().length());
-      getResponse().setContentType("text/plain");
+      FacesTools.getResponse().setContentLength(file.getChecksum().length());
+      FacesTools.getResponse().setContentType("text/plain");
       try {
         String filename = this.file.getName();
         if (filename != null) {
@@ -493,16 +494,16 @@ public class FileBean extends FacesBean {
           filename = "";
         }
 
-        getResponse().setHeader(
+        FacesTools.getResponse().setHeader(
             "Content-disposition",
             "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "."
                 + getChecksumAlgorithmAsString().toLowerCase());
 
-        OutputStream out = getResponse().getOutputStream();
+        OutputStream out = FacesTools.getResponse().getOutputStream();
         out.write(file.getChecksum().getBytes("UTF-8"));
         out.flush();
 
-        getFacesContext().responseComplete();
+        FacesTools.getCurrentInstance().responseComplete();
         out.close();
       } catch (Exception e) {
         error("Could not display checksum of file!");

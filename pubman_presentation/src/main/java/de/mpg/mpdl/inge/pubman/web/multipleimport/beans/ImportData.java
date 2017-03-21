@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * JSF bean class to hold an import's data.
@@ -58,7 +59,7 @@ public class ImportData extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportData() {
-    String idString = getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.importId = Integer.parseInt(idString);

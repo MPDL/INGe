@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * 
@@ -32,15 +33,15 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
+    logger.debug("PAGE: " + FacesTools.getCurrentInstance().getViewRoot().getViewId());
 
-    FacesContext fc = FacesContext.getCurrentInstance();
+    FacesContext fc = FacesTools.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
     String pageName = page.substring(0, page.lastIndexOf("."));
 
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
-    if (getRequest().getQueryString() != null && !pageName.equals("HomePage")) {
-      page += "?" + getRequest().getQueryString();
+    if (FacesTools.getRequest().getQueryString() != null && !pageName.equals("HomePage")) {
+      page += "?" + FacesTools.getRequest().getQueryString();
     }
 
     Method defaultAction = null;
@@ -51,18 +52,18 @@ public abstract class BreadcrumbPage extends FacesBean {
     }
 
     BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
-        (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+        (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
     breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction,
         isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
     UIComponent bcComponent =
-        FacesContext.getCurrentInstance().getViewRoot()
+        FacesTools.getCurrentInstance().getViewRoot()
             .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
 
     if (bcComponent == null) {
       bcComponent =
-          FacesContext.getCurrentInstance().getViewRoot()
+          FacesTools.getCurrentInstance().getViewRoot()
               .findComponent("Breadcrumb:BreadcrumbNavigation");
     } else {
       ValueExpression value =
@@ -70,7 +71,7 @@ public abstract class BreadcrumbPage extends FacesBean {
               .getCurrentInstance()
               .getApplication()
               .getExpressionFactory()
-              .createValueExpression(FacesContext.getCurrentInstance().getELContext(),
+              .createValueExpression(FacesTools.getCurrentInstance().getELContext(),
                   "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
       bcComponent.setValueExpression("value", value);
     }
@@ -87,8 +88,8 @@ public abstract class BreadcrumbPage extends FacesBean {
   public String cancel() {
     String result = this.previousItem.getPage();
     try {
-      getExternalContext().redirect(
-          ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
+      FacesTools.getExternalContext().redirect(
+          ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getAppContext() + result);
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }

@@ -49,7 +49,6 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
@@ -106,6 +105,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.transformation.Transformer;
@@ -113,7 +113,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.util.Format;
-
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -199,7 +198,7 @@ public class SwordUtil extends FacesBean {
   public boolean checkCollection(String collection, AccountUserVO user) {
     List<PubContextVOPresentation> contextList = null;
     ContextListSessionBean contextListBean =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     contextListBean.init();
     contextList = contextListBean.getDepositorContextList();
     for (int i = 0; i < contextList.size(); i++) {
@@ -291,16 +290,13 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    */
   public void logoutUser() throws IOException, ServiceException, URISyntaxException {
-    FacesContext
-        .getCurrentInstance()
-        .getExternalContext()
-        .redirect(
-            PropertyReader.getFrameworkUrl()
-                + LOGOUT_URL
-                + "?target="
-                + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                    + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                    + "?logout=true", "UTF-8"));
+    FacesTools.getExternalContext().redirect(
+        PropertyReader.getFrameworkUrl()
+            + LOGOUT_URL
+            + "?target="
+            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + "?logout=true", "UTF-8"));
   }
 
   /**
@@ -842,6 +838,6 @@ public class SwordUtil extends FacesBean {
   }
 
   public ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 }

@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Class for single breadcrumbs. Each breadcrumb is represented with this class.
@@ -137,7 +138,7 @@ public class BreadcrumbItem extends FacesBean {
     if (defaultAction != null) {
       try {
         Class<?> beanClass = defaultAction.getDeclaringClass();
-        Object bean = getBean(beanClass);
+        Object bean = FacesTools.findBean(beanClass.getName());
         return defaultAction.invoke(bean, null).toString();
       } catch (Exception e) {
         logger.error("Error executing default action", e);

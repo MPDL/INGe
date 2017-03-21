@@ -33,6 +33,7 @@ import javax.faces.bean.ManagedBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * A JSF bean class to hold data of an import item's details.
@@ -53,7 +54,7 @@ public class ImportItemDetails extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportItemDetails() {
-    String idString = getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.itemId = Integer.parseInt(idString);

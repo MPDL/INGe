@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
@@ -81,12 +82,12 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private YearbookItemSessionBean yisb;
 
   public YearbookCandidatesRetrieverRequestBean() {
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
   public void init() {
-    yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
   }
 
   @Override
@@ -100,7 +101,8 @@ public class YearbookCandidatesRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+    String orgUnit =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
       if (getYearbookCandidatesSessionBean().getSelectedOrgUnit() != null
           || yisb.getYearbookItem() == null) {
@@ -127,7 +129,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   public String addSelectedToYearbook() {
     YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     List<ItemRO> selected = new ArrayList<ItemRO>();
     for (PubItemVOPresentation item : ((PubItemListSessionBean) getBasePaginatorListSessionBean())
         .getSelectedItems()) {
@@ -140,7 +142,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   public String removeSelectedFromYearbook() {
     YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     List<ItemRO> selected = new ArrayList<ItemRO>();
     for (PubItemVOPresentation item : ((PubItemListSessionBean) getBasePaginatorListSessionBean())
         .getSelectedItems()) {
@@ -166,7 +168,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
   }
 
   private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
-    return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
+    return (YearbookCandidatesSessionBean) FacesTools.findBean("YearbookCandidatesSessionBean");
   }
 
   /**
@@ -208,7 +210,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   public static SearchQuery getCandidateQuery() throws Exception {
     YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     ArrayList<String> contentTypes = new ArrayList<String>();
     String contentTypeIdPublication =
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
@@ -442,7 +444,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
   private SearchQuery getInvalidMembersQuery() throws Exception {
 
     YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
     if (yisb.getInvalidItemMap().size() > 0) {
       ArrayList<String> contentTypes = new ArrayList<String>();

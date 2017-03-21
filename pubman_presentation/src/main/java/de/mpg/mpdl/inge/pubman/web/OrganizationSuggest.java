@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
@@ -55,7 +55,7 @@ public class OrganizationSuggest extends EditItemBean {
 
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
-    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
 
     // Perform search request
@@ -140,8 +140,7 @@ public class OrganizationSuggest extends EditItemBean {
   }
 
   private AffiliationVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
-    ApplicationBean applicationBean =
-        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+    ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     for (AffiliationVO element : applicationBean.getOuList()) {
       if (element.getReference().equals(affiliationRO)) {

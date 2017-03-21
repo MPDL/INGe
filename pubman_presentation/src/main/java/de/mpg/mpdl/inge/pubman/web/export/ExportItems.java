@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 
 /**
@@ -104,7 +105,7 @@ public class ExportItems extends FacesBean {
    * @return a reference to the scoped data bean (RightsManagementSessionBean)
    */
   private RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
+    return (RightsManagementSessionBean) FacesTools.findBean("RightsManagementSessionBean");
   }
 
   /**
@@ -180,11 +181,11 @@ public class ExportItems extends FacesBean {
   }
 
   private ExportItemsSessionBean getExportItemsSessionBean() {
-    return (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
+    return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   /*
@@ -338,7 +339,7 @@ public class ExportItems extends FacesBean {
         return null;
       }
 
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -348,9 +349,10 @@ public class ExportItems extends FacesBean {
 
       // redirect to last breadcrumb
       BreadcrumbItemHistorySessionBean bhsb =
-          (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+          (BreadcrumbItemHistorySessionBean) FacesTools
+              .findBean("BreadcrumbItemHistorySessionBean");
       try {
-        getExternalContext().redirect(bhsb.getPreviousItem().getPage());
+        FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (IOException e) {
         error("Could not redirect!");
       }

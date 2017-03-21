@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.createItem;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -38,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Fragment class for CreateItem.
@@ -131,8 +130,8 @@ public class CreateItem extends FacesBean {
   }
 
   protected EditItem getEditItem() {
-    return (EditItem) FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), EditItem.BEAN_NAME);
+    return (EditItem) FacesTools.getCurrentInstance().getApplication().getVariableResolver()
+        .resolveVariable(FacesTools.getCurrentInstance(), EditItem.BEAN_NAME);
   }
 
   public boolean getMultiple() {
@@ -168,14 +167,14 @@ public class CreateItem extends FacesBean {
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 }

@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -119,7 +120,7 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   public PubItemVO getPubItem() {
@@ -160,7 +161,7 @@ public class ViewItemStatistics extends FacesBean {
     try {
       String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
       ItemControllerSessionBean icsb =
-          (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+          (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       ContextVO currentContext = icsb.getCurrentContext();
       // logger.info(currentContext.getReference().getObjectId());
       if (contexts != null) {

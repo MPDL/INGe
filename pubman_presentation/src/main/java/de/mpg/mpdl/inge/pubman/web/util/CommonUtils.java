@@ -156,8 +156,7 @@ public class CommonUtils {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    ApplicationBean applicationBean =
-        (ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class);
+    ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     String locale = Locale.getDefault().getLanguage();
 
@@ -373,11 +372,11 @@ public class CommonUtils {
   // * @return a unique id
   // */
   // private static String createUniqueId(UIComponent uiComponent) {
-  // UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+  // UIViewRoot viewRoot = FacesTools.getCurrentInstance().getViewRoot();
   //
   // if (viewRoot == null) {
   // viewRoot = new UIViewRoot();
-  // FacesContext.getCurrentInstance().setViewRoot(viewRoot);
+  // FacesTools.getCurrentInstance().setViewRoot(viewRoot);
   // }
   //
   // String id = viewRoot.createUniqueId() + "_" + uiComponent.getClass().getSimpleName() + "_"

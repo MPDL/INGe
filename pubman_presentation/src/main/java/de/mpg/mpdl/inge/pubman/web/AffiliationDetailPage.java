@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
@@ -59,7 +60,7 @@ public class AffiliationDetailPage extends FacesBean {
   public AffiliationDetailPage() {
     try {
       String ouXml = null;
-      String affiliationId = getExternalContext().getRequestParameterMap().get("id");
+      String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
       OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
       try {
         ouXml = ouHandler.retrieve(affiliationId);

@@ -49,6 +49,7 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
+import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -83,7 +84,7 @@ public class RedirectServlet extends HttpServlet {
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       StringBuffer redirectUrl = new StringBuffer();
-      LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
+      LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
       if (loginHelper != null && loginHelper.isDetailedMode()) {
         redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
@@ -179,7 +180,7 @@ public class RedirectServlet extends HttpServlet {
 
     GetMethod method = new GetMethod(url);
     method.setFollowRedirects(false);
-    LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
+    LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
     if (loginHelper != null && loginHelper.getESciDocUserHandle() != null) {
       method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
     }

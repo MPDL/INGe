@@ -42,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldAndFull
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
@@ -83,7 +84,7 @@ public class Search extends FacesBean {
       String cql = generateCQLRequest(searchString, includeFiles);
 
       /*
-       * try { LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+       * try { LoginHelper loginHelper = (LoginHelper)FacesTools.findBean(LoginHelper.class);
        * InitialContext ic = new InitialContext(); StatisticLogger sl = (StatisticLogger)
        * ic.lookup(StatisticLogger.SERVICE_NAME); sl.logSearch(getSessionId(), getIP(),
        * searchString, cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle()); }
@@ -91,7 +92,7 @@ public class Search extends FacesBean {
        * catch (Exception e) { logger.error("Could not log statistical data", e); }
        */
 
-      getExternalContext().redirect(
+      FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);

@@ -33,6 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
@@ -116,6 +117,6 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getFacesBean().getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
   }
 }

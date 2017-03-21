@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -127,8 +128,8 @@ public class WithdrawItem extends FacesBean {
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        getExternalContext().redirect(
-            getRequest().getContextPath()
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
@@ -153,8 +154,8 @@ public class WithdrawItem extends FacesBean {
    */
   public String cancel() {
     try {
-      getExternalContext().redirect(
-          getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+      FacesTools.getExternalContext().redirect(
+          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
@@ -180,14 +181,14 @@ public class WithdrawItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private WithdrawItemSessionBean getWithDrawItemSessionBean() {
-    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
+    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 }

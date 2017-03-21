@@ -49,6 +49,7 @@ import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
 import de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.NavigationRule;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
@@ -132,7 +133,7 @@ public class Navigation extends FacesBean {
     // special re-initializaion for pages with dynamic page elements which
     // must be re-inited
 
-    String requestURI = getRequest().getRequestURI();
+    String requestURI = FacesTools.getRequest().getRequestURI();
 
     if (requestURI.startsWith("/pubman")) {
       requestURI = requestURI.substring("/pubman".length());
@@ -146,20 +147,20 @@ public class Navigation extends FacesBean {
     }
 
     if (navigationString.equals(EditItem.LOAD_EDITITEM)) {
-      ((EditItem) getRequestBean(EditItem.class)).init();
+      ((EditItem) FacesTools.findBean("EditItem")).init();
     } else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM)) {
-      ((ViewItemFull) getRequestBean(ViewItemFull.class)).init();
+      ((ViewItemFull) FacesTools.findBean("ViewItemFull")).init();
       // } else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS)) {
       // createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
       // createRevision.init();
     } else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      ((ReleaseHistory) getRequestBean(ReleaseHistory.class)).init();
+      ((ReleaseHistory) FacesTools.findBean("ReleaseHistory")).init();
     } else if (navigationString.equals(ViewItemLog.LOAD_ITEM_LOG)) {
       this.getItemVersionSessionBean().resetVersionLists();
-      ((ViewItemLog) getRequestBean(ViewItemLog.class)).init();
+      ((ViewItemLog) FacesTools.findBean("ViewItemLog")).init();
     } else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION)) {
-      ((EasySubmission) getRequestBean(EasySubmission.class)).init();
+      ((EasySubmission) FacesTools.findBean("EasySubmission")).init();
     } else {
       navigationString = null;
     }
@@ -205,7 +206,7 @@ public class Navigation extends FacesBean {
   }
 
   // public String getFacesParamValue(final String name) {
-  // return (String) getExternalContext().getRequestParameterMap().get(name);
+  // return (String) FacesTools.getExternalContext().getRequestParameterMap().get(name);
   // }
 
   // public void setShowExportMenuOption(boolean showExportMenuOption) {
@@ -217,14 +218,14 @@ public class Navigation extends FacesBean {
   // }
 
   private ItemVersionListSessionBean getItemVersionSessionBean() {
-    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
+    return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
   }
 
   private ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 }

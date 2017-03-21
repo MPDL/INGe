@@ -69,7 +69,7 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -269,7 +269,7 @@ public class PubManSwordServer {
     SwordUtil util = new SwordUtil();
     List<PubContextVOPresentation> contextList = null;
     ContextListSessionBean contextListBean =
-        (ContextListSessionBean) FacesBean.getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     contextListBean.init();
     contextList = contextListBean.getDepositorContextList();
     DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();

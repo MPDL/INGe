@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -49,6 +48,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
@@ -65,9 +65,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class PubItemVOPresentation extends PubItemVO {
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-      .getCurrentInstance().getExternalContext().getSessionMap()
-      .get(InternationalizationHelper.BEAN_NAME);
+  private final InternationalizationHelper i18nHelper = FacesTools
+      .findBean("InternationalizationHelper");
 
   private boolean selected = false;
   private boolean shortView = true;

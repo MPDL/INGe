@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * This abstract bean class is used to manage lists with one or two paginators. It can work together
@@ -174,7 +175,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public void update() {
     String elementsPerP =
-        getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
 
     if (elementsPerP != null) {
       setElementsPerPage(Integer.parseInt(elementsPerP));
@@ -182,7 +183,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
       setElementsPerPage(25);
     }
 
-    String currentPNumber = getExternalContext().getRequestParameterMap().get(parameterPageNumber);
+    String currentPNumber =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterPageNumber);
     if (currentPNumber != null) {
       setCurrentPageNumber(Integer.parseInt(currentPNumber));
       setGoToPage(currentPNumber);
@@ -593,7 +595,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     beforeRedirect();
     try {
       logger.debug("redirectURL :" + getRedirectUrl());
-      getExternalContext().redirect(getRedirectUrl());
+      FacesTools.getExternalContext().redirect(getRedirectUrl());
     } catch (IOException e) {
       error("Could not redirect!");
     }

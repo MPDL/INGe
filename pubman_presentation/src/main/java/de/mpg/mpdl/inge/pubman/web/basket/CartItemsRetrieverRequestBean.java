@@ -19,6 +19,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
@@ -47,7 +48,7 @@ public class CartItemsRetrieverRequestBean extends
     // refreshAlways is needed due to workarround (latest-version problem, filter only retrieves
     // latest versions and therefore
     // number of items in the basket could change -> message is displayed to the user.
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), true);
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), true);
   }
 
   @Override
@@ -79,7 +80,7 @@ public class CartItemsRetrieverRequestBean extends
 
     try {
       PubItemStorageSessionBean pssb =
-          (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+          (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
 
       List<ItemRO> idList = new ArrayList<ItemRO>();
       for (ItemRO id : pssb.getStoredPubItems().values()) {
@@ -148,7 +149,7 @@ public class CartItemsRetrieverRequestBean extends
    */
   public String deleteSelected() {
     PubItemStorageSessionBean pssb =
-        (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+        (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
     int countSelected = 0;
 
     for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList()) {
@@ -191,6 +192,6 @@ public class CartItemsRetrieverRequestBean extends
    * order to save the selections in the list.
    */
   public void updateExportOptions() {
-    ((ExportItems) getRequestBean(ExportItems.class)).updateExportFormats();
+    ((ExportItems) FacesTools.findBean("ExportItems")).updateExportFormats();
   }
 }

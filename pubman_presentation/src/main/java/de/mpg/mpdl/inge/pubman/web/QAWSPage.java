@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 
 /**
@@ -44,7 +45,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 @ManagedBean(name = "QAWSPage")
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "QAWSPage";
+  // public static final String BEAN_NAME = "QAWSPage";
 
   private static Logger logger = Logger.getLogger(QAWSPage.class);
 
@@ -60,7 +61,7 @@ public class QAWSPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    String userHandle = getRequest().getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    String userHandle = FacesTools.getRequest().getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     if (logger.isDebugEnabled()) {
       logger.debug("UserHandle: " + userHandle);

@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -55,7 +56,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "BrowseByPage")
 @SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "BrowseByPage";
+  // public static final String BEAN_NAME = "BrowseByPage";
 
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
@@ -84,7 +85,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    this.bbBean = (BrowseBySessionBean) getSessionBean(BrowseBySessionBean.class);
+    this.bbBean = (BrowseBySessionBean) FacesTools.findBean("BrowseBySessionBean");
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
     if ("year".equals(getSelectedValue())) {
@@ -187,7 +188,7 @@ public class BrowseByPage extends BreadcrumbPage {
    */
   public String loadAffiliationTree() {
     this.setSelectedValue("org");
-    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
+    ((AffiliationBean) FacesTools.findBean("AffiliationBean")).setSource("BrowseBy");
 
     return "loadAffiliationTree";
   }

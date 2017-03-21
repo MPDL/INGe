@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -77,7 +78,7 @@ public class YearbookItemEditBean extends FacesBean {
 
   public YearbookItemEditBean() throws Exception {
     this.yearbookItemSessionBean =
-        (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     initialize();
   }
 
@@ -117,7 +118,7 @@ public class YearbookItemEditBean extends FacesBean {
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
     ContextListSessionBean clsb =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
       this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
           .getName() + " (" + context.getReference().getObjectId() + ")"));
@@ -478,7 +479,7 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public String save() {
     try {
-      // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+      // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
       // ItemHandler itemHandler =
       // ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
       PubItemVO pubItem = new PubItemVO(this.yearbookItemSessionBean.getYearbookItem());

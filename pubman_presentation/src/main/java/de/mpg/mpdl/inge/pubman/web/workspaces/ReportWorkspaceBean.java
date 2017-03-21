@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -181,14 +182,15 @@ public class ReportWorkspaceBean extends FacesBean {
           logger.info("Transformed result: \n" + new String(itemListReportTransformed));
         }
         if (itemListReportTransformed != null) {
-          getResponse().setContentType("text/html; charset=UTF-8");
+          FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
           String fileName =
               "text/html".equals(this.format.getType()) ? "Jus_Report.html"
                   : "Jus_Report_InDesign.xml";
-          getResponse().addHeader("Content-Disposition", "attachment; filename=" + fileName);
+          FacesTools.getResponse().addHeader("Content-Disposition",
+              "attachment; filename=" + fileName);
 
-          ServletOutputStream stream = getResponse().getOutputStream();
+          ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
           ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
           BufferedInputStream buff = new BufferedInputStream(bais);
 
@@ -198,7 +200,7 @@ public class ReportWorkspaceBean extends FacesBean {
           }
           stream.close();
 
-          getFacesContext().responseComplete();
+          FacesTools.getCurrentInstance().responseComplete();
         }
       } catch (Exception e) {
         logger.error("Error while generatiring report output file.", e);

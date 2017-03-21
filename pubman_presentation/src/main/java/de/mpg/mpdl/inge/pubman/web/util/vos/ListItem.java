@@ -27,10 +27,10 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 public class ListItem {
@@ -39,9 +39,8 @@ public class ListItem {
   private List<String> stringList;
   private List<ListItem> itemList;
 
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-      .getCurrentInstance().getExternalContext().getSessionMap()
-      .get(InternationalizationHelper.BEAN_NAME);
+  private final InternationalizationHelper i18nHelper = FacesTools
+      .findBean("InternationalizationHelper");
 
   public int getIndex() {
     return index;

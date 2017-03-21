@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "DepositorWSPage")
 @SuppressWarnings("serial")
 public class DepositorWSPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "DepositorWSPage";
+  // public static final String BEAN_NAME = "DepositorWSPage";
 
   // constants for error and status messages
   public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";

@@ -24,27 +24,36 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util;
 
-import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+public class FacesTools {
+  @SuppressWarnings("unchecked")
+  public static <T> T findBean(String beanName) {
+    FacesContext context = FacesContext.getCurrentInstance();
 
-@ManagedBean(name = "BrowseBySelectPage")
-@SuppressWarnings("serial")
-public class BrowseBySelectPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "BrowseBySelectPage";
-
-  public BrowseBySelectPage() {
-    this.init();
+    return (T) FacesContext.getCurrentInstance().getApplication()
+        .evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
   }
 
-  public void init() {
-    super.init();
+  public static FacesContext getCurrentInstance() {
+    return FacesContext.getCurrentInstance();
   }
 
-  @Override
-  public boolean isItemSpecific() {
-    return false;
+  public static ExternalContext getExternalContext() {
+    return FacesContext.getCurrentInstance().getExternalContext();
+  }
+
+  public static HttpServletRequest getRequest() {
+    return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+  }
+
+  public static HttpServletResponse getResponse() {
+    return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+        .getResponse();
   }
 }

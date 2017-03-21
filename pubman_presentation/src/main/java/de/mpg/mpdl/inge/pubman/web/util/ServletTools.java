@@ -24,27 +24,24 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web;
+package de.mpg.mpdl.inge.pubman.web.util;
 
-import javax.faces.bean.ManagedBean;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-
-@ManagedBean(name = "BrowseBySelectPage")
-@SuppressWarnings("serial")
-public class BrowseBySelectPage extends BreadcrumbPage {
-  // public static final String BEAN_NAME = "BrowseBySelectPage";
-
-  public BrowseBySelectPage() {
-    this.init();
+public class ServletTools {
+  @SuppressWarnings("unchecked")
+  public static <T> T findRequestBean(HttpServletRequest req, String beanName) {
+    return (T) req.getAttribute(beanName);
   }
 
-  public void init() {
-    super.init();
+  @SuppressWarnings("unchecked")
+  public static <T> T findSessionBean(HttpServletRequest req, String beanName) {
+    return (T) req.getSession().getAttribute(beanName);
   }
 
-  @Override
-  public boolean isItemSpecific() {
-    return false;
+  @SuppressWarnings("unchecked")
+  public static <T> T findApplicationBean(ServletContext ctx, String beanName) {
+    return (T) ctx.getAttribute(beanName);
   }
 }

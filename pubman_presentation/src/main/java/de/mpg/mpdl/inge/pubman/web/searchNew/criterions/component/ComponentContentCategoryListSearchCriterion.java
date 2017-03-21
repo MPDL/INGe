@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 @SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {
@@ -40,8 +40,7 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
 
   private static Map<String, String> getContentCategoryMap() {
     Map<String, String> ccMap =
-        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class))
-            .getContentCategoryMap();
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
     Map<String, String> newMap = new HashMap<String, String>();
 
     for (Entry<String, String> entry : ccMap.entrySet()) {

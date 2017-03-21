@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "LocalTagsPage")
 @SuppressWarnings("serial")
 public class LocalTagsPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "LocalTagsPage";
+  // public static final String BEAN_NAME = "LocalTagsPage";
 
   public LocalTagsPage() {
     this.init();

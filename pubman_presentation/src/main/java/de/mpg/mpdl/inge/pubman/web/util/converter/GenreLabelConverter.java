@@ -36,14 +36,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 public class GenreLabelConverter implements Converter {
   public static final String CONVERTER_ID = "GenreLabelConverter";
-
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesBean
-      .getSessionBean(InternationalizationHelper.class);
 
   public GenreLabelConverter() {}
 
@@ -51,12 +48,14 @@ public class GenreLabelConverter implements Converter {
   public String getAsString(FacesContext context, UIComponent c, Object object)
       throws ConverterException {
     final String textValue = (String) object;
-    return this.i18nHelper.getLabel(textValue);
+    return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
+        .getLabel(textValue);
   }
 
   @Override
   public Object getAsObject(FacesContext context, UIComponent c, String text) {
     final String textValue = text;
-    return this.i18nHelper.getLabel(textValue);
+    return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
+        .getLabel(textValue);
   }
 }

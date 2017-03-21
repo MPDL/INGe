@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -100,14 +101,14 @@ public class CreateRevision extends FacesBean {
   }
 
   private RelationListSessionBean getRelationListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
+    return (RelationListSessionBean) FacesTools.findBean("RelationListSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 }

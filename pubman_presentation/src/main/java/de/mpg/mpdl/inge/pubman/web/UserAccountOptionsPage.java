@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "UserAccountOptionsPage")
 @SuppressWarnings("serial")
 public class UserAccountOptionsPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "UserAccountOptionsPage";
+  // public static final String BEAN_NAME = "UserAccountOptionsPage";
 
   public UserAccountOptionsPage() {
     this.init();

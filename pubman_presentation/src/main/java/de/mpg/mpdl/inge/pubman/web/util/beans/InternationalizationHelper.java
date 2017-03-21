@@ -49,7 +49,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -97,10 +97,10 @@ public class InternationalizationHelper implements Serializable {
       new ArrayList<LanguageChangeObserver>();
 
   public InternationalizationHelper() {
-    this.userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+    this.userLocale = FacesTools.getExternalContext().getRequestLocale();
 
     Iterator<Locale> supportedLocales =
-        FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
+        FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
 
     boolean found = false;
     while (supportedLocales.hasNext()) {
@@ -147,7 +147,7 @@ public class InternationalizationHelper implements Serializable {
   // }
 
   public void changeLanguage(ValueChangeEvent event) {
-    FacesContext fc = FacesContext.getCurrentInstance();
+    FacesContext fc = FacesTools.getCurrentInstance();
 
     if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue())) {
       Locale locale = null;
@@ -195,9 +195,9 @@ public class InternationalizationHelper implements Serializable {
   }
 
   // public void toggleLocale(ActionEvent event) {
-  // FacesContext fc = FacesContext.getCurrentInstance();
+  // FacesContext fc = FacesTools.getCurrentInstance();
   // Locale locale = null;
-  // Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
+  // Map<String, String> map = fc.FacesTools.getExternalContext().getRequestParameterMap();
   // String language = (String) map.get("language");
   // String country = (String) map.get("country");
   // this.locale = language;
@@ -347,7 +347,7 @@ public class InternationalizationHelper implements Serializable {
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
     Map<String, String> negativeRoles =
-        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class)).getCreatorRoleMap();
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getCreatorRoleMap();
 
     List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
     for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
@@ -467,8 +467,7 @@ public class InternationalizationHelper implements Serializable {
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
     Map<String, String> values =
-        ((ApplicationBean) FacesBean.getApplicationBean(ApplicationBean.class))
-            .getContentCategoryMap();
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 

@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
@@ -80,7 +81,7 @@ public class AffiliationTree extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   /**
@@ -137,7 +138,7 @@ public class AffiliationTree extends FacesBean {
 
         affiliationSelectItems = list;
 
-        ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class))
+        ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean"))
             .setOrgUnitSelectItems(affiliationSelectItems);
       }
     }

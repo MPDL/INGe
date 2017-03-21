@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Presentation wrapper for {@link FileVO}.
@@ -341,7 +342,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String removeFile() {
     EditItemSessionBean editItemSessionBean =
-        (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+        (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getFiles().remove(this.index);
 
@@ -360,7 +361,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String removeLocatorEditItem() {
     EditItemSessionBean editItemSessionBean =
-        (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+        (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getLocators().remove(this.index);
 
@@ -464,10 +465,10 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   protected EasySubmission getEasySubmission() {
-    return (EasySubmission) getSessionBean(EasySubmission.class);
+    return (EasySubmission) FacesTools.findBean("EasySubmission");
   }
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
   }
 }

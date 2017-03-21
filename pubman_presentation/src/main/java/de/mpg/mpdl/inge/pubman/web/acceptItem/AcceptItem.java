@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -119,8 +120,8 @@ public class AcceptItem extends FacesBean {
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
       try {
-        getExternalContext().redirect(
-            getRequest().getContextPath()
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
@@ -134,8 +135,8 @@ public class AcceptItem extends FacesBean {
 
   public String cancel() {
     try {
-      getExternalContext().redirect(
-          getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+      FacesTools.getExternalContext().redirect(
+          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getPubItem().getVersion().getObjectId());
     } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
@@ -191,10 +192,10 @@ public class AcceptItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
+    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 }

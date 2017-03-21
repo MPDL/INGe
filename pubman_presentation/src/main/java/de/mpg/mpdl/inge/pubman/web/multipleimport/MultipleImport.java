@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
@@ -187,7 +188,7 @@ public class MultipleImport extends FacesBean {
             this.rollback, this.duplicateStrategy, configuration);
     importProcess.start();
 
-    getExternalContext().redirect("ImportWorkspace.jsp");
+    FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
 
     return null;
   }
@@ -204,7 +205,7 @@ public class MultipleImport extends FacesBean {
 
     // deselect the selected context
     ContextListSessionBean contextListSessionBean =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     if (contextListSessionBean.getDepositorContextList() != null) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
         contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
@@ -214,7 +215,7 @@ public class MultipleImport extends FacesBean {
     // set the current submission step to step2
     if (contextListSessionBean.getDepositorContextList() != null
         && contextListSessionBean.getDepositorContextList().size() > 1) {
-      CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
+      CreateItem createItem = (CreateItem) FacesTools.findBean("CreateItem");
       createItem.setTarget(LOAD_MULTIPLE_IMPORT);
       createItem.setMethod(SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;

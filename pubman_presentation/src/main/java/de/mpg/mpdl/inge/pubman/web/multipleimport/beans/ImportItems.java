@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * A JSF bean class to hold the data of the items of an import.
@@ -60,15 +61,16 @@ public class ImportItems extends FacesBean {
    * user settings.
    */
   public ImportItems() {
-    String idString = getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
-    String pageString = getExternalContext().getRequestParameterMap().get("page");
+    String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
     if (pageString != null) {
       this.page = Integer.parseInt(pageString);
     }
-    String itemsPerPageString = getExternalContext().getRequestParameterMap().get("itemsPerPage");
+    String itemsPerPageString =
+        FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
     if (itemsPerPageString != null) {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }

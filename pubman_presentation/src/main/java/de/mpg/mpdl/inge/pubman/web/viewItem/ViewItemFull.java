@@ -103,6 +103,7 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
@@ -265,7 +266,7 @@ public class ViewItemFull extends FacesBean {
             "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
 
     if (getLoginHelper() != null) {
-      String viewId = getFacesContext().getViewRoot().getViewId();
+      String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
       if ("/ViewItemOverviewPage.jsp".equals(viewId)) {
         getLoginHelper().setDetailedMode(false);
       } else if ("/ViewItemFullPage.jsp".equals(viewId)) {
@@ -274,7 +275,7 @@ public class ViewItemFull extends FacesBean {
     }
 
     // Try to get a pubitem either via the controller session bean or an URL Parameter
-    itemID = getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
+    itemID = FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
     if (itemID != null) {
       try {
         this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
@@ -294,16 +295,14 @@ public class ViewItemFull extends FacesBean {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
-          Login login = (Login) getSessionBean(Login.class);
-          login.forceLogout(itemID);
+          ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
         }
       } catch (AuthenticationException e) {
         if (getLoginHelper().isLoggedIn()) {
           error(getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
-          Login login = (Login) getSessionBean(Login.class);
-          login.forceLogout(itemID);
+          ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
         }
       } catch (Exception e) {
         logger.error("Could not retrieve release with id " + itemID, e);
@@ -318,7 +317,7 @@ public class ViewItemFull extends FacesBean {
       this.pubItem = icsb.getCurrentPubItem();
     }
 
-    String subMenu = getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
+    String subMenu = FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
     if (subMenu != null)
       this.getViewItemSessionBean().setSubMenu(subMenu);
 
@@ -540,10 +539,10 @@ public class ViewItemFull extends FacesBean {
 
       // if item is currently part of invalid yearbook items, show Validation Messages
       // ContextListSessionBean clsb =
-      // (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+      // (ContextListSessionBean)FacesTools.findBean(ContextListSessionBean.class);
       if (getLoginHelper().getIsYearbookEditor()) {
 
-        yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
         if (yisb.getYearbookItem() != null) {
           if (yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null) {
@@ -736,8 +735,7 @@ public class ViewItemFull extends FacesBean {
       this.getRelationListSessionBean().setPubItemVO(
           this.getItemControllerSessionBean().getCurrentPubItem());
       // Set submission method for correct redirect
-      CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
-      createItem.setMethod(SubmissionMethod.FULL_SUBMISSION);
+      ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(SubmissionMethod.FULL_SUBMISSION);
       return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM,
           context.getReference(), this.getPubItem(), null);
     }
@@ -835,13 +833,14 @@ public class ViewItemFull extends FacesBean {
       info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
       // redirect to last breadcrumb, if available
       BreadcrumbItemHistorySessionBean bhsb =
-          (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+          (BreadcrumbItemHistorySessionBean) FacesTools
+              .findBean("BreadcrumbItemHistorySessionBean");
       try {
         for (int i = bhsb.getBreadcrumbs().size() - 1; i > 0; i--) {
           if (bhsb.getBreadcrumbs().get(i - 1).isItemSpecific() == false
               && bhsb.getBreadcrumbs().get(i - 1).getDisplayValue()
                   .equalsIgnoreCase("CreateItemPage") == false) {
-            getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
+            FacesTools.getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
             return retVal;
           }
         }
@@ -1897,7 +1896,7 @@ public class ViewItemFull extends FacesBean {
       exportFileData =
           this.getItemControllerSessionBean().retrieveExportData(curExportFormat, pubItemList);
     } catch (TechnicalException e) {
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -1922,7 +1921,7 @@ public class ViewItemFull extends FacesBean {
       fos.write(exportFileData);
       fos.close();
     } catch (IOException e1) {
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e1);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -1957,20 +1956,20 @@ public class ViewItemFull extends FacesBean {
     }
 
     String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-    getResponse().setContentType(contentType);
+    FacesTools.getResponse().setContentType(contentType);
     String fileName =
         "export_" + curExportFormat.getName().toLowerCase() + "."
             + FileFormatVO.getExtensionByName(this.getExportItemsSessionBean().getFileFormat());
-    getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
+    FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
-      OutputStream out = getResponse().getOutputStream();
+      OutputStream out = FacesTools.getResponse().getOutputStream();
       out.write(exportFileData);
       out.flush();
       out.close();
     } catch (Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
-    getFacesContext().responseComplete();
+    FacesTools.getCurrentInstance().responseComplete();
 
     return "";
   }
@@ -2468,54 +2467,54 @@ public class ViewItemFull extends FacesBean {
   }
 
   private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
+    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 
   private PubItemStorageSessionBean getPubItemStorageSessionBean() {
-    return (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+    return (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private ViewItemSessionBean getViewItemSessionBean() {
-    return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+    return (ViewItemSessionBean) FacesTools.findBean("ViewItemSessionBean");
   }
 
   private WithdrawItemSessionBean getWithdrawItemSessionBean() {
-    return (WithdrawItemSessionBean) getSessionBean(WithdrawItemSessionBean.class);
+    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
   }
 
   private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
+    return (SubmitItemSessionBean) FacesTools.findBean("SubmitItemSessionBean");
   }
 
   private RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) getSessionBean(RightsManagementSessionBean.class);
+    return (RightsManagementSessionBean) FacesTools.findBean("RightsManagementSessionBean");
   }
 
   private ItemVersionListSessionBean getItemVersionListSessionBean() {
-    return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
+    return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
   }
 
   private RelationListSessionBean getRelationListSessionBean() {
-    return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
+    return (RelationListSessionBean) FacesTools.findBean("RelationListSessionBean");
   }
 
   private ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
   private ExportItemsSessionBean getExportItemsSessionBean() {
-    return (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
+    return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
 }

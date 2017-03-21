@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -86,7 +87,7 @@ public class SearchRetrieverRequestBean extends
   public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
 
   public SearchRetrieverRequestBean() {
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
@@ -110,7 +111,7 @@ public class SearchRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    HttpServletRequest request = (HttpServletRequest) getExternalContext().getRequest();
+    HttpServletRequest request = FacesTools.getRequest();
 
     // the following procedure is necessary because of the strange decoding in tomcat, when you
     // fetch the
@@ -186,8 +187,8 @@ public class SearchRetrieverRequestBean extends
   /*
    * public List<PubItemVOPresentation> retrieveListAdminSearch(int offset, int limit, SORT_CRITERIA
    * sc) { List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-   * LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); try { ItemHandler
-   * itemHandler = null;
+   * LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class); try {
+   * ItemHandler itemHandler = null;
    * 
    * if(loginHelper.getESciDocUserHandle()!=null) { itemHandler =
    * ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()); } else { itemHandler =
@@ -313,7 +314,7 @@ public class SearchRetrieverRequestBean extends
    */
   public String getRssFeedLink() throws PubManVersionNotAvailableException {
     return "<link href='"
-        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
+        + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
         + "/syndication/feed/rss_2.0/search?q=" + this.getNormalizedCqlQuery()
         + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
   }
@@ -324,7 +325,7 @@ public class SearchRetrieverRequestBean extends
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
     return "<link href='"
-        + ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getPubmanInstanceUrl()
+        + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
         + "/syndication/feed/atom_1.0/search?q=" + this.getNormalizedCqlQuery()
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }

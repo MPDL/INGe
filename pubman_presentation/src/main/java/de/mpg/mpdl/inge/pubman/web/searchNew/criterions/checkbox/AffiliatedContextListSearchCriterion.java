@@ -5,7 +5,7 @@ import java.util.Map;
 
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public class AffiliatedContextListSearchCriterion extends
   private static Map<String, PubContextVOPresentation> getItemStateMap() {
 
     ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesBean.getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     Map<String, PubContextVOPresentation> contextMap =
         new LinkedHashMap<String, PubContextVOPresentation>();
 
@@ -41,7 +41,7 @@ public class AffiliatedContextListSearchCriterion extends
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
 
     ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesBean.getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
 
     for (PubContextVOPresentation context : clsb.getDepositorContextList()) {

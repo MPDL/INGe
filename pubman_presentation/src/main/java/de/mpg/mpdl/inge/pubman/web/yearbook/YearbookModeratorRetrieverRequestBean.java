@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -59,7 +60,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   private int numberOfRecords;
 
   public YearbookModeratorRetrieverRequestBean() {
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
@@ -76,7 +77,8 @@ public class YearbookModeratorRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+    String orgUnit =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
       setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
     } else {
@@ -276,10 +278,10 @@ public class YearbookModeratorRetrieverRequestBean extends
   }
 
   private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
-    return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
+    return (YearbookCandidatesSessionBean) FacesTools.findBean("YearbookCandidatesSessionBean");
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 }

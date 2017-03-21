@@ -26,14 +26,11 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 @SuppressWarnings("serial")
 public class LanguageSearchCriterion extends StandardSearchCriterion {
-
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesBean
-      .getSessionBean(InternationalizationHelper.class);
 
   @Override
   public String[] getCqlIndexes(Index indexName) {
@@ -48,7 +45,9 @@ public class LanguageSearchCriterion extends StandardSearchCriterion {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale = this.i18nHelper.getLocale();
+    String locale =
+        ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
+            .getLocale();
 
     return CommonUtils.getConeLanguageName(getSearchString(), locale);
   }

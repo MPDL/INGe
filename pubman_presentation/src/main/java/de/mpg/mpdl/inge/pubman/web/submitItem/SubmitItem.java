@@ -30,7 +30,6 @@ import java.io.IOException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -47,6 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -114,9 +114,8 @@ public class SubmitItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String submit() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    ExternalContext extContext = fc.getExternalContext();
-    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
+    ExternalContext extContext = FacesTools.getExternalContext();
+    HttpServletRequest request = FacesTools.getRequest();
 
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal = "";
@@ -153,19 +152,14 @@ public class SubmitItem extends FacesBean {
       }
     }
 
-    PubItemListSessionBean pubItemListSessionBean =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
-    if (pubItemListSessionBean != null) {
-      pubItemListSessionBean.update();
-    }
+    ((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean")).update();
 
     return retVal;
   }
 
   public String cancel() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    ExternalContext extContext = fc.getExternalContext();
-    HttpServletRequest request = (HttpServletRequest) extContext.getRequest();
+    ExternalContext extContext = FacesTools.getExternalContext();
+    HttpServletRequest request = FacesTools.getRequest();
     try {
       extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
           + this.getCurrentPubItem().getVersion().getObjectId());
@@ -232,6 +226,6 @@ public class SubmitItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 }

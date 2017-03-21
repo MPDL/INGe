@@ -29,11 +29,11 @@ package de.mpg.mpdl.inge.pubman.web;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.search.parser.ParseException;
 
 /**
@@ -116,7 +116,7 @@ public class ErrorPage extends BreadcrumbPage {
 
     error(summary, detail);
     HtmlMessages pageAlert = new HtmlMessages();
-    pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
+    pageAlert.setId(FacesTools.getCurrentInstance().getViewRoot().createUniqueId());
     // pageAlert.setTitle(title);
     // pageAlert.setSummary(summary);
     // pageAlert.setDetail(detail);

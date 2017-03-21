@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums.GenreSearchCriteri
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.DegreeSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 @SuppressWarnings("serial")
@@ -66,7 +66,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     // first create a map with genre as key and the label as value
     Map<Genre, String> genreLabelMap = new LinkedHashMap<Genre, String>();
     InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesBean.getSessionBean(InternationalizationHelper.class);
+        (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
     for (Genre g : Genre.values()) {
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }

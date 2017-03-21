@@ -14,6 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 @SuppressWarnings("serial")
@@ -28,8 +29,8 @@ public class YearbookCandidatesSessionBean extends FacesBean {
   private final PubItemListSessionBean pilsb;
 
   public YearbookCandidatesSessionBean() {
-    yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-    pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+    pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
     pilsb.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
   }

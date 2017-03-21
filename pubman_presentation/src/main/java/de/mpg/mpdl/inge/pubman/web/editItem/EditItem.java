@@ -35,7 +35,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -95,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -232,7 +232,7 @@ public class EditItem extends FacesBean {
         return context.getName();
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -539,7 +539,7 @@ public class EditItem extends FacesBean {
       return null;
     } catch (Exception e) {
       logger.error("Could not validate item." + "\n" + e.toString(), e);
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -595,14 +595,14 @@ public class EditItem extends FacesBean {
       try {
         info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
         if (isFromEasySubmission()) {
-          getExternalContext().redirect(
-              getRequest().getContextPath()
+          FacesTools.getExternalContext().redirect(
+              FacesTools.getRequest().getContextPath()
                   + "/faces/ViewItemFullPage.jsp?itemId="
                   + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                       .getObjectId() + "&fromEasySub=true");
         } else {
-          getExternalContext().redirect(
-              getRequest().getContextPath()
+          FacesTools.getExternalContext().redirect(
+              FacesTools.getRequest().getContextPath()
                   + "/faces/ViewItemFullPage.jsp?itemId="
                   + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                       .getObjectId());
@@ -684,7 +684,7 @@ public class EditItem extends FacesBean {
             this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
       } catch (Exception e) {
         logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
 
@@ -766,7 +766,7 @@ public class EditItem extends FacesBean {
             this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
       } catch (Exception e) {
         logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
@@ -855,21 +855,21 @@ public class EditItem extends FacesBean {
                   + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                   + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1",
                       this.getPubItem().getVersion().getObjectId());
-          getExternalContext().redirect(viewItemPage);
+          FacesTools.getExternalContext().redirect(viewItemPage);
         } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
             .contains("ViewItemFullPage.jsp")) {
-          getExternalContext().redirect(
-              getRequest().getContextPath() + "/faces/"
+          FacesTools.getExternalContext().redirect(
+              FacesTools.getRequest().getContextPath() + "/faces/"
                   + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
         } else {
-          getExternalContext().redirect("faces/SubmissionPage.jsp");
+          FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
         }
       } catch (Exception e) {
         logger.error("Could not redirect to the previous page", e);
       }
     } else {
       try {
-        getExternalContext().redirect("faces/SubmissionPage.jsp");
+        FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
       } catch (Exception e) {
         logger
             .error(
@@ -932,7 +932,7 @@ public class EditItem extends FacesBean {
           this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
     } catch (Exception e) {
       logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
@@ -1051,9 +1051,9 @@ public class EditItem extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         try {
-          FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
+          FacesTools.getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
           logger.error(e.toString());
         }
@@ -1234,7 +1234,7 @@ public class EditItem extends FacesBean {
   }
 
   public boolean getLocalTagEditingAllowed() {
-    ViewItemFull viewItemFull = (ViewItemFull) getRequestBean(ViewItemFull.class);
+    ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
 
     return !viewItemFull.getIsStateWithdrawn()
         && viewItemFull.getIsLatestVersion()
@@ -1702,38 +1702,40 @@ public class EditItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean) FacesTools
+        .findBean("ItemControllerSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
   }
 
   private YearbookItemSessionBean getYearbookItemSessionBean() {
-    return (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    return (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
   }
 
   private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) getSessionBean(SubmitItemSessionBean.class);
+    return (SubmitItemSessionBean) FacesTools.findBean("SubmitItemSessionBean");
   }
 
   private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
+    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 
   private BreadcrumbItemHistorySessionBean getBreadcrumbItemHistorySessionBean() {
-    return (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+    return (BreadcrumbItemHistorySessionBean) FacesTools
+        .findBean("BreadcrumbItemHistorySessionBean");
   }
 
   private AffiliationSessionBean getAffiliationSessionBean() {
-    return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
+    return (AffiliationSessionBean) FacesTools.findBean("AffiliationSessionBean");
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 }

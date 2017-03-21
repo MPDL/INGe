@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Session bean to hold data needed for an import of multiple items.
@@ -47,7 +48,7 @@ public class MultipleImportForm extends FacesBean {
   public MultipleImportForm() {
     // super.init();
     try {
-      ((MultipleImport) getSessionBean(MultipleImport.class)).initConfigParameters();
+      ((MultipleImport) FacesTools.findBean("MultipleImport.class")).initConfigParameters();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

@@ -39,6 +39,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -72,7 +73,7 @@ public class Login extends FacesBean {
   // * @return String value of the faces context parameter
   // */
   // public String getFacesParamValue(String name) {
-  // return getExternalContext().getRequestParameterMap().get(name);
+  // return FacesTools.getExternalContext().getRequestParameterMap().get(name);
   // }
 
   /**
@@ -102,7 +103,7 @@ public class Login extends FacesBean {
         // Logout mechanism
 
         logout();
-        HttpSession session = (HttpSession) getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
         session.invalidate();
       }
     } else {
@@ -144,9 +145,9 @@ public class Login extends FacesBean {
    */
   public String forceLogout() {
     try {
-      getExternalContext().redirect(
+      FacesTools.getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
-              + getRequest().getRequestURL().toString());
+              + FacesTools.getRequest().getRequestURL().toString());
     } catch (IOException e) {
       logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
@@ -162,7 +163,7 @@ public class Login extends FacesBean {
   public String forceLogout(String itemID) {
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
-      getExternalContext().redirect(
+      FacesTools.getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
               + URLEncoder.encode(targetUrl, "UTF-8"));
     } catch (Exception e) {

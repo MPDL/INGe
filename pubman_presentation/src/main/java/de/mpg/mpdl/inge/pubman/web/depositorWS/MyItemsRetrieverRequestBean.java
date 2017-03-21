@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -88,9 +89,9 @@ public class MyItemsRetrieverRequestBean extends
   private String selectedItemState;
 
   public MyItemsRetrieverRequestBean() {
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
-    // logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
-    // logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
+    // logger.info("RenderResponse: "+FacesTools.getCurrentInstance().getRenderResponse());
+    // logger.info("ResponseComplete: "+FacesTools.getCurrentInstance().getResponseComplete());
   }
 
   /**
@@ -368,7 +369,7 @@ public class MyItemsRetrieverRequestBean extends
   @Override
   public void readOutParameters() {
     String selectedItemState =
-        getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
     if (selectedItemState == null) {
       setSelectedItemState("all");
     } else {
@@ -376,7 +377,7 @@ public class MyItemsRetrieverRequestBean extends
     }
 
     String selectedItem =
-        getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
     if (selectedItem == null) {
       setSelectedImport("all");
     } else {

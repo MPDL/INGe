@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "PubManRequestBean")
@@ -53,8 +54,8 @@ public class PubManRequestBean extends FacesBean {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    if (getExternalContext().getRequestPathInfo() != null) {
-      this.helpAnchor = getExternalContext().getRequestPathInfo().replace("/", "");
+    if (FacesTools.getExternalContext().getRequestPathInfo() != null) {
+      this.helpAnchor = FacesTools.getExternalContext().getRequestPathInfo().replace("/", "");
       this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
       this.helpAnchor = "#" + this.helpAnchor.replaceAll(".jsp", "");
     }

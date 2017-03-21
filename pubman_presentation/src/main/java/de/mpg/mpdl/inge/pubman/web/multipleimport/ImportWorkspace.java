@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * JSF bean class (request) to hold data for the import workspace.
@@ -46,7 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
 @ManagedBean(name = "ImportWorkspace")
 @SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
-  public static final String BEAN_NAME = "ImportWorkspace";
+  // public static final String BEAN_NAME = "ImportWorkspace";
 
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
@@ -74,18 +75,20 @@ public class ImportWorkspace extends BreadcrumbPage {
     ImportLog.SortDirection currentDirection = null;
     ImportLog.SortColumn newColumn = null;
 
-    String sortColumnString = getExternalContext().getRequestParameterMap().get("sortColumn");
+    String sortColumnString =
+        FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
     if (sortColumnString != null && !"".equals(sortColumnString)) {
       newColumn = SortColumn.valueOf(sortColumnString);
     }
 
-    String currentColumnString = getExternalContext().getRequestParameterMap().get("currentColumn");
+    String currentColumnString =
+        FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
     if (currentColumnString != null && !"".equals(currentColumnString)) {
       currentColumn = SortColumn.valueOf(currentColumnString);
     }
 
     String currentDirectionString =
-        getExternalContext().getRequestParameterMap().get("currentDirection");
+        FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
     if (currentDirectionString != null && !"".equals(currentDirectionString)) {
       currentDirection = SortDirection.valueOf(currentDirectionString);

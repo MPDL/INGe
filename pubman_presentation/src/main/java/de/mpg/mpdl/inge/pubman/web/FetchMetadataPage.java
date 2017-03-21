@@ -32,6 +32,7 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * BackingBean for EasySubmissionPage.jsp, Step3Import.
@@ -43,7 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 @ManagedBean(name = "FetchMetadataPage")
 @SuppressWarnings("serial")
 public class FetchMetadataPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "FetchMetadataPage";
+  // public static final String BEAN_NAME = "FetchMetadataPage";
 
   public FetchMetadataPage() {
     this.init();
@@ -62,7 +63,7 @@ public class FetchMetadataPage extends BreadcrumbPage {
 
   @Override
   protected Method getDefaultAction() throws NoSuchMethodException {
-    EasySubmission easySubmission = (EasySubmission) getRequestBean(EasySubmission.class);
+    EasySubmission easySubmission = (EasySubmission) FacesTools.findBean("EasySubmission");
     return easySubmission.getClass().getMethod("newImport", null);
   }
 

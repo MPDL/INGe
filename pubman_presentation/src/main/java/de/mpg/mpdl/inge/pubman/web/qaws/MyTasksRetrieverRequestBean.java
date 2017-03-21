@@ -25,6 +25,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -193,7 +194,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   public void readOutParameters() {
     super.readOutParameters();
 
-    String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
+    String context =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
 
     if (context == null) {
       // select first context as default, if there's only one
@@ -206,7 +208,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       setSelectedContext(context);
     }
 
-    String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+    String orgUnit =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
       setSelectedOrgUnit("all");
     } else {
@@ -247,7 +250,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   public String getSelectedContextLabel() {
     if (!getSelectedContext().equals("all")) {
       ContextListSessionBean clsb =
-          (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+          (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
       List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
       for (PubContextVOPresentation contextVO : contextVOList) {
@@ -266,7 +269,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * @return
    */
   public String getSelectedOrgUnitLabel() {
-    AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+    AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
 
     return (getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap()
         .get(getSelectedOrgUnit()).getNamePath());
@@ -310,11 +313,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
      * setItemStateSelectItems(itemStateSelectItems);
      */
 
-    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
 
     // Contexts (Collections)
     ContextListSessionBean clsb =
-        (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
     contextSelectItems = new ArrayList<SelectItem>();
@@ -424,7 +427,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   }
 
   private QAWSSessionBean getQAWSSessionBean() {
-    return (QAWSSessionBean) getSessionBean(QAWSSessionBean.class);
+    return (QAWSSessionBean) FacesTools.findBean("QAWSSessionBean");
   }
 
   @Override
@@ -450,7 +453,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     for (AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
           + aff.getName()));
-      AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+      AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
       affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {
         addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);

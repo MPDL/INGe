@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.pubman.web.search.AdvancedSearchEdit;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.ContextCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.Criterion;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * context criterion vo for the advanced search.
@@ -58,7 +59,7 @@ public class ContextCriterionBean extends CriterionBean {
   }
 
   public String getContext() {
-    this.context = getRequest().getParameter("collection");
+    this.context = FacesTools.getRequest().getParameter("collection");
     if (this.context != null && context.length() > 0) {
       for (ContextVO vo : this.contexts) {
         if (vo.getReference().getObjectId().equals(this.context)) {
@@ -103,7 +104,7 @@ public class ContextCriterionBean extends CriterionBean {
 
   public String getContextName() throws Exception {
     AdvancedSearchEdit advancedSearchEdit =
-        (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
+        (AdvancedSearchEdit) FacesTools.findBean("AdvancedSearchEdit");
 
     for (SelectItem contextItem : advancedSearchEdit.getContextCriterionCollection()
         .getContextList()) {

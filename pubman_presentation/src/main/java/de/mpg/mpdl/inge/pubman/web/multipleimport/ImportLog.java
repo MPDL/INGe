@@ -42,8 +42,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ContextHandler;
@@ -53,6 +51,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -1294,9 +1293,8 @@ public class ImportLog {
       throw new RuntimeException(e);
     }
 
-    FacesContext fc = FacesContext.getCurrentInstance();
     try {
-      fc.getExternalContext().redirect("ImportWorkspace.jsp");
+      FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -1314,9 +1312,8 @@ public class ImportLog {
     DeleteProcess deleteProcess = new DeleteProcess(this);
     deleteProcess.start();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
     try {
-      fc.getExternalContext().redirect("ImportWorkspace.jsp");
+      FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -1335,9 +1332,8 @@ public class ImportLog {
     SubmitProcess submitProcess = new SubmitProcess(this, false);
     submitProcess.start();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
     try {
-      fc.getExternalContext().redirect("ImportWorkspace.jsp");
+      FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -1356,9 +1352,8 @@ public class ImportLog {
     SubmitProcess submitProcess = new SubmitProcess(this, true);
     submitProcess.start();
 
-    FacesContext fc = FacesContext.getCurrentInstance();
     try {
-      fc.getExternalContext().redirect("ImportWorkspace.jsp");
+      FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 
@@ -34,7 +35,7 @@ public class RevisionsRetrieverRequestBean extends
   public final static String LOAD_REVISION_LIST = "loadRevisionList";
 
   public RevisionsRetrieverRequestBean() {
-    super((RevisionItemListSessionBean) getSessionBean(RevisionItemListSessionBean.class), true);
+    super((RevisionItemListSessionBean) FacesTools.findBean("RevisionItemListSessionBean"), true);
   }
 
   @Override
@@ -70,7 +71,7 @@ public class RevisionsRetrieverRequestBean extends
 
     try {
       ItemControllerSessionBean icsb =
-          (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+          (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       // get Revisions
       List<RelationVOPresentation> relationVOList =
           icsb.retrieveRevisions(icsb.getCurrentPubItem());

@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.desktop.Login;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
@@ -40,7 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.desktop.Login;
 @ManagedBean(name = "ReportWorkspacePage")
 @SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "ReportWorkspacePage";
+  // public static final String BEAN_NAME = "ReportWorkspacePage";
 
   private static final Logger logger = Logger.getLogger(ReportWorkspacePage.class);
 
@@ -59,7 +60,7 @@ public class ReportWorkspacePage extends BreadcrumbPage {
   }
 
   protected void checkLogin() {
-    Login login = (Login) getSessionBean(Login.class);
+    Login login = (Login) FacesTools.findBean("Login.class");
 
     // if not logged in redirect to login page
     if (!getLoginHelper().isLoggedIn()) {

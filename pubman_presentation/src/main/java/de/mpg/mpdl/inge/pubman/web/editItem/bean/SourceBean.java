@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.bean.IdentifierCollection.IdentifierManager;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 
 /**
@@ -186,7 +187,7 @@ public class SourceBean extends EditItemBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     Map<String, String> excludedSourceGenres =
-        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getExcludedSourceGenreMap();
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
     for (SourceVO.Genre value : SourceVO.Genre.values()) {

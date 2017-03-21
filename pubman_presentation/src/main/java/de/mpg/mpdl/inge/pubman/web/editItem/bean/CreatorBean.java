@@ -44,6 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 
 /**
@@ -122,9 +123,9 @@ public class CreatorBean extends FacesBean {
         (OrganizationVO) personOrganisationManager.getObjectDM().getRowData();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("EditItem");
-    ((AffiliationBean) getSessionBean(AffiliationBean.class))
-        .setCache(this.currentOrgaForSelection);
+    AffiliationBean affiliationBean = (AffiliationBean) FacesTools.findBean("AffiliationBean");
+    affiliationBean.setSource("EditItem");
+    affiliationBean.setCache(this.currentOrgaForSelection);
 
     // affiliation tree
     return "loadAffiliationTree";
@@ -139,7 +140,7 @@ public class CreatorBean extends FacesBean {
 
     // Set this value to let the affiliation tree know where to jump after selection.
     OrganizationVO selecting =
-        ((EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class))
+        ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean"))
             .getCurrentlySelecting();
 
     return (this.currentOrgaForSelection.equals(selecting));
@@ -155,10 +156,10 @@ public class CreatorBean extends FacesBean {
         (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("EasySubmission");
-    ((AffiliationBean) getSessionBean(AffiliationBean.class))
-        .setCache(this.currentOrgaForSelection);
-    ((EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class))
+    AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
+    affiliationBean.setSource("EasySubmission");
+    affiliationBean.setCache(this.currentOrgaForSelection);
+    ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean"))
         .setCurrentlySelecting(this.currentOrgaForSelection);
 
     // affiliation tree
@@ -178,9 +179,9 @@ public class CreatorBean extends FacesBean {
     this.currentOrgaForSelection = this.creator.getOrganization();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("EditItem");
-    ((AffiliationBean) getSessionBean(AffiliationBean.class))
-        .setCache(this.currentOrgaForSelection);
+    AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
+    affiliationBean.setSource("EditItem");
+    affiliationBean.setCache(this.currentOrgaForSelection);
 
     return "loadAffiliationTree";
   }
@@ -198,9 +199,9 @@ public class CreatorBean extends FacesBean {
     this.currentOrgaForSelection = this.creator.getOrganization();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("EasySubmission");
-    ((AffiliationBean) getSessionBean(AffiliationBean.class))
-        .setCache(this.currentOrgaForSelection);
+    AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
+    affiliationBean.setSource("EasySubmission");
+    affiliationBean.setCache(this.currentOrgaForSelection);
 
     return "loadAffiliationTree";
   }
@@ -217,7 +218,7 @@ public class CreatorBean extends FacesBean {
     this.creator.setTypeString(newVal);
     setCreator(this.creator);
     // enforce rendering of the response
-    // FacesContext context = FacesContext.getCurrentInstance();
+    // FacesContext context = FacesTools.getCurrentInstance();
     // context.renderResponse();
   }
 
@@ -338,7 +339,7 @@ public class CreatorBean extends FacesBean {
   public String getOuNumbers() {
     if (this.personType && this.ouNumber == null) {
       EditItemSessionBean editItemSessionBean =
-          (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+          (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
       List<OrganizationVOPresentation> creatorOrganizations =
           editItemSessionBean.getCreatorOrganizations();
       for (OrganizationVO organization : this.creator.getPerson().getOrganizations()) {
@@ -371,7 +372,7 @@ public class CreatorBean extends FacesBean {
     if (!"".equals(value)) {
       String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
       EditItemSessionBean editItemSessionBean =
-          (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+          (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
       List<OrganizationVOPresentation> creatorOrganizations =
           editItemSessionBean.getCreatorOrganizations();
       OrganizationVOPresentation newOrg = new OrganizationVOPresentation();

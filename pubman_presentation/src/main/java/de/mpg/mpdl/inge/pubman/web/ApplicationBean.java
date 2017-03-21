@@ -33,7 +33,6 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -59,7 +58,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
-  public static final String BEAN_NAME = "ApplicationBean";
+  // public static final String BEAN_NAME = "ApplicationBean";
 
   private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 

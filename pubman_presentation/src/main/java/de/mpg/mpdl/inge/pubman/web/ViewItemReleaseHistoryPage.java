@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ViewItemReleaseHistoryPage")
 @SuppressWarnings("serial")
 public class ViewItemReleaseHistoryPage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "ViewItemReleaseHistoryPage";
+  // public static final String BEAN_NAME = "ViewItemReleaseHistoryPage";
 
   public ViewItemReleaseHistoryPage() {
     this.init();

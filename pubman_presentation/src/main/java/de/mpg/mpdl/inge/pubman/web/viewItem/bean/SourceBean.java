@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
@@ -100,7 +101,7 @@ public class SourceBean extends FacesBean {
 
     if (source.getIdentifiers().size() > 0) {
       this.identifiers =
-          ((ViewItemFull) getRequestBean(ViewItemFull.class)).getIdentifierHtmlString(source
+          ((ViewItemFull) FacesTools.findBean("ViewItemFull")).getIdentifierHtmlString(source
               .getIdentifiers());
     }
   }

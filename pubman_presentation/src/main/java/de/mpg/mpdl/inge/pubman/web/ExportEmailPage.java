@@ -31,6 +31,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
@@ -53,7 +54,7 @@ public class ExportEmailPage extends BreadcrumbPage {
     super.init();
 
     ExportItemsSessionBean sb =
-        (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
+        (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
     sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
     sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));

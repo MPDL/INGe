@@ -95,6 +95,7 @@ import de.mpg.mpdl.inge.pubman.web.editItem.bean.SourceBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
@@ -527,7 +528,7 @@ public class EasySubmission extends FacesBean {
       return null;
     }
 
-    ((EditItem) getRequestBean(EditItem.class)).setFromEasySubmission(true);
+    ((EditItem) FacesTools.findBean("EditItem")).setFromEasySubmission(true);
 
     String returnValue =
         this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
@@ -627,9 +628,9 @@ public class EasySubmission extends FacesBean {
         }
       } catch (Exception e) {
         logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         try {
-          getExternalContext().redirect("ErrorPage.jsp");
+          FacesTools.getExternalContext().redirect("ErrorPage.jsp");
         } catch (Exception ex) {
           logger.error(e.toString());
         }
@@ -1014,7 +1015,7 @@ public class EasySubmission extends FacesBean {
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
 
     try {
-      getExternalContext().redirect("faces/SubmissionPage.jsp");
+      FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
     } catch (Exception e) {
       logger
           .error(
@@ -1040,7 +1041,7 @@ public class EasySubmission extends FacesBean {
           EasySubmissionSessionBean.ES_STEP2);
     } else {
       try {
-        getExternalContext().redirect("faces/SubmissionPage.jsp");
+        FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
       } catch (Exception e) {
         logger.error("could not find context to redirect to SubmissionPage.jsp in Easy Submssion",
             e);
@@ -1786,7 +1787,7 @@ public class EasySubmission extends FacesBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     Map<String, String> excludedSourceGenres =
-        ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getExcludedSourceGenreMap();
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getExcludedSourceGenreMap();
 
     List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
@@ -2002,7 +2003,7 @@ public class EasySubmission extends FacesBean {
         return this.contextName;
       } catch (Exception e) {
         logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-        ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
     }
@@ -2055,22 +2056,22 @@ public class EasySubmission extends FacesBean {
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 }

@@ -76,6 +76,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.PersonS
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -277,7 +278,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    */
   public String getReadOutParams() {
     if (!languageChanged) {
-      FacesContext fc = FacesContext.getCurrentInstance();
+      FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
       query = CommonUtils.fixURLEncoding(query);
       boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
@@ -840,7 +841,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     try {
       BreadcrumbItemHistorySessionBean bihsb =
-          (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
+          (BreadcrumbItemHistorySessionBean) FacesTools
+              .findBean("BreadcrumbItemHistorySessionBean");
       if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage")) {
         bihsb.getCurrentItem().setPage(
             "AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
@@ -848,7 +850,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         bihsb.getCurrentItem().setPage(
             "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
       }
-      getExternalContext().redirect(
+      FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8") + "&q="
               + URLEncoder.encode(query, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
@@ -1135,7 +1137,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     // if langugage is changed on AdvancedSearchPage, set flag
     try {
-      String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+      String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
       if ("/AdvancedSearchPage.jsp".equals(viewId)) {
         this.languageChanged = true;
       }

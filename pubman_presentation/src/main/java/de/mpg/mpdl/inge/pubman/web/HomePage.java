@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -52,7 +53,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "HomePage")
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
-  public static final String BEAN_NAME = "HomePage";
+  // public static final String BEAN_NAME = "HomePage";
 
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
@@ -65,7 +66,7 @@ public class HomePage extends BreadcrumbPage {
    * either directly via a URL, or indirectly via page navigation.
    */
   public void init() {
-    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
       error(getMessage("LoginErrorPage_loggedOffFromSystem"));
     } else if (parameters.containsKey("logout")) {

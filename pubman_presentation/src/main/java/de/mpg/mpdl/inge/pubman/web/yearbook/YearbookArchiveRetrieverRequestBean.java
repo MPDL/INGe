@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestB
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
@@ -47,7 +48,7 @@ public class YearbookArchiveRetrieverRequestBean extends
   private PubItemListSessionBean pilsb;
 
   public YearbookArchiveRetrieverRequestBean() {
-    super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
+    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
@@ -66,7 +67,8 @@ public class YearbookArchiveRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+    String orgUnit =
+        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
     if (orgUnit == null) {
 
       setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
@@ -102,7 +104,7 @@ public class YearbookArchiveRetrieverRequestBean extends
   }
 
   private YearbookCandidatesSessionBean getYearbookCandidatesSessionBean() {
-    return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
+    return (YearbookCandidatesSessionBean) FacesTools.findBean("YearbookCandidatesSessionBean");
   }
 
   /**
@@ -136,7 +138,7 @@ public class YearbookArchiveRetrieverRequestBean extends
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
       YearbookArchiveBean yearbookArchiveBean =
-          (YearbookArchiveBean) getSessionBean(YearbookArchiveBean.class);
+          (YearbookArchiveBean) FacesTools.findBean("YearbookArchiveBean.class");
 
       // define the filter criteria
       FilterTaskParamVO filter = new FilterTaskParamVO();

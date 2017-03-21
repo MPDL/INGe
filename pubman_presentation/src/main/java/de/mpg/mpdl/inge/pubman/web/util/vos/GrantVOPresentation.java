@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.pubman.web.audience.AudienceSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 @SuppressWarnings("serial")
 public class GrantVOPresentation extends FacesBean {
@@ -62,7 +63,7 @@ public class GrantVOPresentation extends FacesBean {
   }
 
   private AudienceSessionBean getAudienceSessionBean() {
-    return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
+    return (AudienceSessionBean) FacesTools.findBean("AudienceSessionBean");
   }
 
   public GrantVO getGrant() {

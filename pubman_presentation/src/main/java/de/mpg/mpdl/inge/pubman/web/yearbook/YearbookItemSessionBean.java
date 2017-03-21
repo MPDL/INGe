@@ -31,6 +31,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -64,7 +65,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public YearbookItemSessionBean() {
     try {
-      this.pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+      this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
       this.itemHandler = ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
     } catch (Exception e) {
@@ -322,7 +323,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String changeToCandidates() {
     PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     setSelectedWorkspace(YBWORKSPACE.CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -331,7 +332,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String changeToMembers() {
     PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     setSelectedWorkspace(YBWORKSPACE.MEMBERS);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -340,7 +341,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String changeToInvalidItems() {
     PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     setSelectedWorkspace(YBWORKSPACE.INVALID);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -349,7 +350,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String changeToNonCandidates() {
     PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     setSelectedWorkspace(YBWORKSPACE.NON_CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();

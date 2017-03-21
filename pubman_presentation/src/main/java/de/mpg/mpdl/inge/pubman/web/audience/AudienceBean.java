@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.GrantVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
@@ -78,7 +79,7 @@ public class AudienceBean extends FacesBean {
     if (this.getAudienceSessionBean().getFileListNew() == null
         || this.getAudienceSessionBean().getFileListNew().size() == 0) {
       if (this.getItemControllerSessionBean().getCurrentPubItem().getFiles() != null) {
-        // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
         int fileIndex = 0;
         for (int i = 0; i < this.getItemControllerSessionBean().getCurrentPubItem().getFiles()
             .size(); i++) {
@@ -133,7 +134,7 @@ public class AudienceBean extends FacesBean {
 
       // fill the user group list
       if (this.getAudienceSessionBean().getUgl() == null) {
-        // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
         try {
           this.getAudienceSessionBean().setUgl(
           // TODO INGe connection
@@ -185,7 +186,7 @@ public class AudienceBean extends FacesBean {
 
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   /**
@@ -297,7 +298,7 @@ public class AudienceBean extends FacesBean {
    */
   public String save() {
     boolean error = false;
-    // LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
     // AudienceSessionBean asb = this.getAudienceSessionBean();
 
     // first clean up unnecessary grants (empty grants for presentation)
@@ -450,7 +451,7 @@ public class AudienceBean extends FacesBean {
    * @return a reference to the scoped data bean (AudienceSessionBean)
    */
   private AudienceSessionBean getAudienceSessionBean() {
-    return (AudienceSessionBean) getSessionBean(AudienceSessionBean.class);
+    return (AudienceSessionBean) FacesTools.findBean("AudienceSessionBean");
   }
 
   public List<UserGroupVO> getUserGroupList() {

@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * @author franke
@@ -52,7 +53,7 @@ public class UserAccountSuggest extends FacesBean {
   private List<AccountUserVO> userAccountList;
 
   public UserAccountSuggest() throws Exception {
-    Map<String, String> parameters = getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     String query = parameters.get("q");
 
     if (getLoginHelper().getESciDocUserHandle() != null) {

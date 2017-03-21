@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -64,7 +65,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
 
   @PostConstruct
   public void postConstruct() {
-    if (getFacesContext().getRenderResponse()) {
+    if (FacesTools.getCurrentInstance().getRenderResponse()) {
       readOutParameters();
       this.basePaginatorListSessionBean.update();
     }

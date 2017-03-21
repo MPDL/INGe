@@ -222,7 +222,7 @@ public class AnyFieldCriterionBean extends CriterionBean {
     }
 
     // // enforce rendering of the response
-    // FacesContext context = FacesContext.getCurrentInstance();
+    // FacesContext context = FacesTools.getCurrentInstance();
     // context.renderResponse();
   }
 }

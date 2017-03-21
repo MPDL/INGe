@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
 /**
@@ -118,8 +119,8 @@ public class ReviseItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
-        getExternalContext().redirect(
-            getRequest().getContextPath()
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
@@ -177,10 +178,10 @@ public class ReviseItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 }

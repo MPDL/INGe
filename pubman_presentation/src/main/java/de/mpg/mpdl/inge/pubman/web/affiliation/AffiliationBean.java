@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
@@ -23,6 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.search.AffiliationDetail;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
@@ -78,7 +78,7 @@ public class AffiliationBean extends FacesBean {
     UIComponent component = event.getComponent();
     ValueExpression valueExpression = component.getValueExpression("text");
     String value =
-        (String) valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+        (String) valueExpression.getValue(FacesTools.getCurrentInstance().getELContext());
     logger.debug("SELECTNODE:" + value);
     if (value != null) {
       for (AffiliationVOPresentation affiliation : getAffiliations()) {
@@ -88,7 +88,7 @@ public class AffiliationBean extends FacesBean {
         }
       }
     }
-    ((AffiliationDetail) getSessionBean(AffiliationDetail.class))
+    ((AffiliationDetail) FacesTools.findBean("AffiliationDetail"))
         .setAffiliationVO(selectedAffiliation);
     logger.debug("Selected affiliation is " + selectedAffiliation);
   }
@@ -161,7 +161,7 @@ public class AffiliationBean extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   public List<AffiliationVOPresentation> getSelected() {
@@ -197,7 +197,7 @@ public class AffiliationBean extends FacesBean {
   }
 
   public List<AffiliationVOPresentation> getAffiliations() {
-    return ((AffiliationTree) getSessionBean(AffiliationTree.class)).getAffiliations();
+    return ((AffiliationTree) FacesTools.findBean("AffiliationTree")).getAffiliations();
   }
 
   public TreeNode getRootTreeNode() {
@@ -270,14 +270,14 @@ public class AffiliationBean extends FacesBean {
       String cql = query.getCqlQuery();
 
       // redirect to SearchResultPage which processes the query
-      getExternalContext().redirect(
+      FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
               + URLEncoder.encode(cql) + "&" + SearchRetrieverRequestBean.parameterSearchType
               + "=org");
 
     } catch (Exception e) {
       logger.error("Could not search for items." + "\n" + e.toString());
-      ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -287,7 +287,7 @@ public class AffiliationBean extends FacesBean {
 
   public List<AffiliationVOPresentation> getTopLevelAffiliations() {
 
-    AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+    AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
     List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
     topsPres = affTree.getAffiliations();
     if (topsPres != null && topsPres.size() > 0)
