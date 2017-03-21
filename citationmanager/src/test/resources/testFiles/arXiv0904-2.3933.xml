@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2017-03-21T08:30:20Z</responseDate>
+<request verb="GetRecord" identifier="oai:arXiv.org:0904.3933" metadataPrefix="arXiv">http://export.arxiv.org/oai2</request>
+<GetRecord>
+<record>
+<header>
+ <identifier>oai:arXiv.org:0904.3933</identifier>
+ <datestamp>2009-11-05</datestamp>
+ <setSpec>physics:astro-ph</setSpec>
+ <setSpec>physics:hep-ph</setSpec>
+</header>
+<metadata>
+ <arXiv xmlns="http://arxiv.org/OAI/arXiv/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://arxiv.org/OAI/arXiv/ http://arxiv.org/OAI/arXiv.xsd">
+ <id>0904.3933</id><created>2009-04-27</created><updated>2009-05-28</updated><authors><author><keyname>Cyr-Racine</keyname><forenames>Francis-Yan</forenames><affiliation>UBC</affiliation></author><author><keyname>Profumo</keyname><forenames>Stefano</forenames><affiliation>UCSC</affiliation></author><author><keyname>Sigurdson</keyname><forenames>Kris</forenames><affiliation>UBC</affiliation></author></authors><title>Protohalo Constraints to the Resonant Annihilation of Dark Matter</title><categories>astro-ph.CO astro-ph.HE hep-ph</categories><comments>5 pages, 4 figures; References added, estimates refined and
+  discussion extended</comments><journal-ref>Phys.Rev.D80:081302,2009</journal-ref><doi>10.1103/PhysRevD.80.081302</doi><license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</license><abstract>  It has recently been argued that the PAMELA, ATIC and PPB-BETS data showing
+an anomalous excess of high-energy cosmic ray positrons and electrons might be
+explained by dark matter annihilating in the Galactic halo with a cross section
+resonantly enhanced compared to its value in the primeval plasma. We find that
+with a very large annihilation cross section the flash of energetic photons and
+electron-positron pairs expected from dark-matter annihilation in the first
+protohalos that form at redshift z~40 is likely substantial and observable. As
+a consequence, bounds on the allowed energy injection into the primordial gas
+and the energy density of the diffuse gamma-ray background give rise to limits
+on the low-velocity dark matter cross section that can be difficult to
+reconcile with this interpretation of the PAMELA, ATIC and PPB-BETS results.
+</abstract></arXiv>
+</metadata>
+</record>
+</GetRecord>
+</OAI-PMH>

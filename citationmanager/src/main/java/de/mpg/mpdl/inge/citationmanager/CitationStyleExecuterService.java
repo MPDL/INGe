@@ -139,6 +139,8 @@ public class CitationStyleExecuterService {
         result = wr.toString().getBytes("UTF-8");
       } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {
         result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
+      } else if ("txt".equals(outputFormat)) {
+        result = snippet.getBytes("UTF-8");
       } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
         String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
@@ -181,7 +183,6 @@ public class CitationStyleExecuterService {
 
     return result;
   }
-
 
   public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
     return XmlHelper.isCitationStyle(cs);

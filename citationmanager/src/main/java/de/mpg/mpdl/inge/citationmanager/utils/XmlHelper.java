@@ -480,13 +480,11 @@ public class XmlHelper {
       throws CitationStyleManagerException {
 
     Utils.checkCondition(!Utils.checkVal(csName), "Empty name of the citation style");
-
     Utils.checkCondition(!Utils.checkVal(outFormat), "Empty name of the output format");
 
     HashMap<String, HashMap<String, String[]>> csh = getCitationStylesHash();
 
     Utils.checkCondition(!csh.containsKey(csName), "No citation style is defined: " + csName);
-
     Utils.checkCondition(!csh.get(csName).containsKey(outFormat), "No output Format:  " + outFormat
         + " for citation style: " + csName + " is defined");
 
@@ -529,7 +527,7 @@ public class XmlHelper {
       }
 
       outputFormatsHash = new HashMap<String, String[]>();
-      // logger.info("items:" + nl.getLength());
+
       for (int i = 0; i < nl.getLength(); i++) {
         Node n = nl.item(i);
         NodeList nll = n.getChildNodes();
@@ -558,10 +556,9 @@ public class XmlHelper {
 
         );
       }
-      return outputFormatsHash;
-    } else {
-      return outputFormatsHash;
     }
+    return outputFormatsHash;
+
   }
 
   /**
@@ -608,10 +605,8 @@ public class XmlHelper {
 
         citationStylesHash.put(exportFormat, formatsHash);
       }
-      return citationStylesHash;
-    } else {
-      return citationStylesHash;
     }
+    return citationStylesHash;
   }
 
   /**
