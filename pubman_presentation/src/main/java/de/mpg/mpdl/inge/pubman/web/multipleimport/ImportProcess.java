@@ -82,6 +82,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -586,8 +587,7 @@ public class ImportProcess extends Thread {
     try {
       StringWriter wr = new StringWriter();
       Transformer transformer =
-          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(format.toFORMAT(),
-              de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+          TransformerCache.getTransformer(format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
       transformer.transform(
           new TransformerStreamSource(new ByteArrayInputStream(singleItem.getBytes(this.format
               .getEncoding()))), new TransformerStreamResult(wr));

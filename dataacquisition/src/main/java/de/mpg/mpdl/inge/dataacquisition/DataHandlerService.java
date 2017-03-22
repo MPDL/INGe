@@ -67,6 +67,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -153,7 +154,7 @@ public class DataHandlerService {
             this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", enc)
                 .getBytes(enc);
         Transformer t =
-            TransformerFactory.newInstance(sourceFormat.toFORMAT(), targetFormat.toFORMAT());
+            TransformerCache.getTransformer(sourceFormat.toFORMAT(), targetFormat.toFORMAT());
         StringWriter wr = new StringWriter();
 
         /*
@@ -279,7 +280,7 @@ public class DataHandlerService {
         Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
         Transformer transformer =
-            TransformerFactory.newInstance(srcFormat.toFORMAT(), trgFormat.toFORMAT());
+            TransformerCache.getTransformer(srcFormat.toFORMAT(), trgFormat.toFORMAT());
         StringWriter wr = new StringWriter();
 
         transformer.transform(

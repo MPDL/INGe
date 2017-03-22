@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -303,8 +304,7 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       StringWriter wr = new StringWriter();
       Transformer t =
-          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(FORMAT.JUS_SNIPPET_XML,
-              FORMAT.ESCIDOC_ITEM_V3_XML);
+          TransformerCache.getTransformer(FORMAT.JUS_SNIPPET_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
           new TransformerStreamResult(wr));

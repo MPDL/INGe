@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 
 import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -65,7 +66,7 @@ public class DoiRestService {
       // Generate metadata xml for the DOI service
       String itemXml = XmlTransformingService.transformToItem(pubItem);
       Transformer transformer =
-          TransformerFactory.newInstance(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+          TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
               TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
 

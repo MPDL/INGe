@@ -56,6 +56,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.util.Format;
 
@@ -239,9 +240,7 @@ public class MultipleImport extends FacesBean {
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer =
-          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(format.toFORMAT(),
-              FORMAT.ESCIDOC_ITEM_V3_XML);
+      transformer = TransformerCache.getTransformer(format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
 
       config = transformer.getConfiguration();
     }

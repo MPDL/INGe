@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doi:resource xmlns:doi="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
-	<doi:identifier identifierType="DOI">dummyDOI</doi:identifier>
+	<doi:identifier identifierType="DOI"></doi:identifier>
 	<doi:version>3</doi:version>
 	<doi:creators>
 		<doi:creator>

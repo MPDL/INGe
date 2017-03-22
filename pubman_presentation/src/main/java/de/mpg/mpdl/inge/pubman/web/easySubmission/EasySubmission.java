@@ -102,7 +102,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.util.Format;
@@ -719,7 +719,7 @@ public class EasySubmission extends FacesBean {
       Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
       Format target = new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
 
-      Transformer t = TransformerFactory.newInstance(source.toFORMAT(), target.toFORMAT());
+      Transformer t = TransformerCache.getTransformer(source.toFORMAT(), target.toFORMAT());
       StringWriter wr = new StringWriter();
       t.transform(
           new TransformerStreamSource(

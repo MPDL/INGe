@@ -2334,7 +2334,7 @@ public class ViewItemFull extends FacesBean {
       StringWriter wr = new StringWriter();
 
       Transformer t1 =
-          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(
+          de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(
               FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
 
       t1.transform(
@@ -2343,10 +2343,6 @@ public class ViewItemFull extends FacesBean {
 
       String resHighwire = wr.toString();
 
-      /*
-       * Format targetDC = new Format("html-meta-tags-dc", "text/html", "UTF-8"); byte[] resDC =
-       * transformer.transform(itemXml.getBytes("UTF-8"), source, targetDC, "escidoc");
-       */
       wr = new StringWriter();
       Transformer t2 =
           de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(

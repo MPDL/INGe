@@ -410,7 +410,7 @@ public class SwordUtil extends FacesBean {
 
         StringWriter wr = new StringWriter();
         Transformer t =
-            de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(FORMAT.PEER_TEI_XML,
+            de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(FORMAT.PEER_TEI_XML,
                 FORMAT.ESCIDOC_COMPONENT_XML);
 
         t.transform(new TransformerStreamSource(
@@ -485,7 +485,7 @@ public class SwordUtil extends FacesBean {
 
         StringWriter wr = new StringWriter();
         Transformer t =
-            de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(
+            de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(
                 FORMAT.ESCIDOC_ITEM_V3_XML, trgFormat.toFORMAT());
 
         t.transform(new TransformerStreamSource(new ByteArrayInputStream(item.getBytes("UTF-8"))),

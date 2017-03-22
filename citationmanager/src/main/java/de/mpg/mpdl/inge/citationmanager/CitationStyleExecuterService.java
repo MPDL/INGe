@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -126,7 +126,8 @@ public class CitationStyleExecuterService {
         Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
         de.mpg.mpdl.inge.transformation.Transformer trans =
-            TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
+            TransformerCache.getTransformer(in.toFORMAT(), out.toFORMAT());
+        // TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
         StringWriter wr = new StringWriter();
 
         try {
