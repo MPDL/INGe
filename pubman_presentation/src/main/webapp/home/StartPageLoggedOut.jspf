@@ -6,26 +6,23 @@
 
 	<!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
-		<div itemscope="itemscope" itemtype="http://schema.org/WebPage">
-			<h2 itemprop="name">MPG.PuRe</h2>
-			<p itemprop="description">
-				This is the publication repository of the <span
-					itemprop="sourceOrganization" itemscope="itemscope"
-					itemtype="http://schema.org/Organization"> <a itemtype="url"
-					href="http://www.mpg.de/en" target="_blank"><span
-						itemprop="name">Max Planck Society</span></a>.
-				</span> <br /> It contains bibliographic data and numerous fulltexts of the
-				publications of its researchers. <br /> The repository is based on
-				eSciDoc.PubMan, a publication repository software developed by the <a
-					itemtype="provider" href="http://www.mpdl.mpg.de/" target="_blank">Max
-					Planck Digital Library</a>. <br /> <br /> Currently we are working on
-				the migration of the data base of the predecessor system <a
+		<div>
+			<h2>MPG.PuRe</h2>
+			<p>
+				This is the publication repository of the <span> <a
+					href="http://www.mpg.de/en" target="_blank"><span>Max
+							Planck Society</span></a>.
+				</span> <br /> It contains bibliographic data and numerous fulltexts of
+				the publications of its researchers. <br /> The repository is based
+				on eSciDoc.PubMan, a publication repository software developed by
+				the <a href="http://www.mpdl.mpg.de/" target="_blank">Max Planck
+					Digital Library</a>. <br /> <br /> Currently we are working on the
+				migration of the data base of the predecessor system <a
 					href="http://edoc.mpg.de/" target="_blank">eDoc</a> into this
 				repository.
 			</p>
 			<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-				target="_blank">Read more</a> <br />
-			<br />
+				target="_blank">Read more</a> <br /> <br />
 			<h3>Search for publications here</h3>
 			<span class="huge_area0 xSmall_marginLIncl searchMenu"
 				style="float: left; margin-top: 0px !important;"> <span
@@ -39,37 +36,33 @@
 
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
-				or browse through different categories.</a> <br />
-			<br />
-			<br />
+				or browse through different categories.</a> <br /> <br /> <br />
 			<h2>Tools and Interfaces</h2>
 			<span>
 				<h4>Search and Export</h4> Do you want to integrate your PubMan Data
 				within an external system? <br /> Necessary queries can be carried
-				out via our <a itemtype="relatedLink"
+				out via our <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Interface</a>!
 
 
 				<h4>Service for data transfer</h4> Do you want to fetch data from
 				external sources like arXiv, BioMed Central, PubMed Central or
-				Spires? <br /> Use our <a itemtype="relatedLink"
+				Spires? <br /> Use our <a
 				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-interface</a>!
 
-				<h4>Validation service</h4> <a itemtype="relatedLink"
-				href="/validation/" target="_blank">Check</a> your XML data for
-				formal correctness with our validation service.
+				<h4>Validation service</h4> <a href="/validation/" target="_blank">Check</a>
+				your XML data for formal correctness with our validation service.
 
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
-				itemtype="relatedLink" href="/cone/" target="_blank">controlled
-					vocabularies</a> for persons, journals, classifications or languages.
+				href="/cone/" target="_blank">controlled vocabularies</a> for
+				persons, journals, classifications or languages.
 
-				<h4>SWORD-Interface</h4> Use this <a itemtype="relatedLink"
+				<h4>SWORD-Interface</h4> Use this <a
 				href="/pubman/faces/SwordStartPage.jsp" target="_blank">push
 					service</a> for automatic depositing from external servers.
-			</span> <br />
-			<br /> <span>Further information on the interfaces can be
-				found under:</span> <a
+			</span> <br /> <br /> <span>Further information on the interfaces
+				can be found under:</span> <a
 				href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
 				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 		</div>
@@ -77,27 +70,23 @@
 
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
-		<div itemscope="itemscope" itemtype="http://schema.org/WebPage">
-			<h2 itemprop="name">MPG.PuRe</h2>
-			<p itemprop="description">
-				Dies ist das Publikationsrepositorium der <span
-					itemprop="sourceOrganization" itemscope="itemscope"
-					itemtype="http://schema.org/Organization"> <a itemtype="url"
-					href="http://www.mpg.de/de" target="_blank"><span
-						itemprop="name">Max Planck Gesellschaft</span></a>.
-				</span> <br /> Es beinhaltet bibliografische Daten und zahlreiche Volltexte
-				zu den Veröffentlichungen ihrer Wissenschaftler. <br /> Das
-				Repositorium basiert auf eSciDoc.PubMan, einer Anwendung für
-				Publikationsdaten, die von der <a itemtype="provider"
-					href="http://www.mpdl.mpg.de/" target="_blank">Max Planck
-					Digital Library</a> entwickelt wird. <br /> <br /> Derzeit arbeiten wir
-				an der Migration der Datenbestände vom Vorgänger-System <a
-					href="http://edoc.mpg.de/" target="_blank">eDoc</a> in dieses
-				Repositorium.
+		<div>
+			<h2>MPG.PuRe</h2>
+			<p>
+				Dies ist das Publikationsrepositorium der <span> <a
+					href="http://www.mpg.de/de" target="_blank"><span>Max
+							Planck Gesellschaft</span></a>.
+				</span> <br /> Es beinhaltet bibliografische Daten und zahlreiche
+				Volltexte zu den Veröffentlichungen ihrer Wissenschaftler. <br />
+				Das Repositorium basiert auf eSciDoc.PubMan, einer Anwendung für
+				Publikationsdaten, die von der <a href="http://www.mpdl.mpg.de/"
+					target="_blank">Max Planck Digital Library</a> entwickelt wird. <br />
+				<br /> Derzeit arbeiten wir an der Migration der Datenbestände vom
+				Vorgänger-System <a href="http://edoc.mpg.de/" target="_blank">eDoc</a>
+				in dieses Repositorium.
 			</p>
 			<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-				target="_blank">Lesen Sie mehr </a> <br />
-			<br />
+				target="_blank">Lesen Sie mehr </a> <br /> <br />
 			<h3>Suchen Sie hier nach Publikationen</h3>
 			<span class="huge_area0 xSmall_marginLIncl searchMenu"
 				style="float: left; margin-top: 0px !important;"> <span
@@ -112,14 +101,12 @@
 
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
-				oder browsen Sie durch verschiedene Kategorien.</a> <br />
-			<br />
-			<br />
+				oder browsen Sie durch verschiedene Kategorien.</a> <br /> <br /> <br />
 			<h2>Werkzeuge und Schnittstellen</h2>
 			<span>
 				<h4>Suchen und Exportieren</h4> Möchten Sie Ihre PubMan Daten in
 				einem externen System integrieren? <br /> Die notwendigen
-				Datenabfragen können Sie über unsere <a itemtype="relatedLink"
+				Datenabfragen können Sie über unsere <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Schnittstelle</a> vornehmen.
 
@@ -127,24 +114,20 @@
 				<h4>Service zur Datenübernahme</h4> Möchten Sie Publikationsdaten
 				von externen Systemen wie arXiv, BioMed Central, PubMedCentral oder
 				Spires importieren? <br /> Nutzen Sie dazu unsere <a
-				itemtype="relatedLink" href="/pubman/faces/../../dataacquisition"
-				target="_blank">unAPI-Schnittstelle</a>!
+				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-Schnittstelle</a>!
 
 				<h4>Validierungsservice</h4> <a href="/validation/" target="_blank">Prüfen</a>
 				Sie Ihre XML-Daten auf formale Richtigkeit!
 
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
-				Sie <a itemtype="relatedLink" href="/cone/" target="_blank">kontrollierte
-					Vokabulare</a> für Personen, Zeitschriften, Klassifikationen oder
-				Sprachen.
+				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
+				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
 
 				<h4>SWORD-Schnittstelle</h4> Nutzen Sie diesen <a
-				itemtype="relatedLink" href="/pubman/faces/SwordStartPage.jsp"
-				target="_blank">Push-Dienst</a> zum automatisierten Datenimport von
-				externen Servern.
-			</span> <br />
-			<br /> <span>Weitere Informationen finden Sie unter:</span> <a
-				href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
+				href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a>
+				zum automatisierten Datenimport von externen Servern.
+			</span> <br /> <br /> <span>Weitere Informationen finden Sie unter:</span>
+			<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
 				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 		</div>
 	</h:panelGroup>
