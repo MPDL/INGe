@@ -158,7 +158,7 @@ public class LoginHelper extends FacesBean {
 
     JsonNode rawUser = this.obtainUser();
     AccountUserRO userRO = new AccountUserRO();
-    userRO.setObjectId("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
+    userRO.setObjectId(rawUser.path("exid").asText());
     userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
     this.accountUser = new AccountUserVO();
 
@@ -189,7 +189,7 @@ public class LoginHelper extends FacesBean {
       for (JsonNode grant : grants) {
 
         GrantVO grantVo = new GrantVO();
-        grantVo.setGrantedTo("/aa/user-account/escidoc:" + rawUser.path("exid").asText());
+        grantVo.setGrantedTo(rawUser.path("exid").asText());
         grantVo.setGrantType("");
         if (grant.path("targetId").asText().contains("all")) {
 
