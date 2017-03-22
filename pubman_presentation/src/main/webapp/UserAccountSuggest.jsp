@@ -1,48 +1,34 @@
-	<f:view encoding="UTF-8" locale="#{InternationalizationHelper.userLocale}" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
-		<ui:remove>
-			<!--
-			
-			 CDDL HEADER START
-			
-			 The contents of this file are subject to the terms of the
-			 Common Development and Distribution License, Version 1.0 only
-			 (the "License"). You may not use this file except in compliance
-			 with the License.
-			
-			 You can obtain a copy of the license at license/ESCIDOC.LICENSE
-			 or http://www.escidoc.org/license.
-			 See the License for the specific language governing permissions
-			 and limitations under the License.
-			
-			 When distributing Covered Code, include this CDDL HEADER in each
-			 file and include the License file at license/ESCIDOC.LICENSE.
-			 If applicable, add the following below this CDDL HEADER, with the
-			 fields enclosed by brackets "[]" replaced with your own identifying
-			 information: Portions Copyright [yyyy] [name of copyright owner]
-			
-			 CDDL HEADER END
-			
-			
-			 Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-			 für wissenschaftlich-technische Information mbH and Max-Planck-
-			 Gesellschaft zur Förderung der Wissenschaft e.V.
-			 All rights reserved. Use is subject to license terms.
-			-->
-			</ui:remove>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<body lang="${InternationalizationHelper.locale}">
+
+	<f:view locale="#{InternationalizationHelper.userLocale}">
+
+		<f:loadBundle var="lbl" basename="Label" />
+		<f:loadBundle var="msg" basename="Messages" />
+		<f:loadBundle var="tip" basename="Tooltip" />
 		
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="msg" basename="Messages"/>
-		<f:loadBundle var="tip" basename="Tooltip"/>
-		
-		[
-			<ui:repeat var="ua" value="#{UserAccountSuggest.userAccountList}" varStatus="index">
-				<h:panelGroup>
+			<ui:repeat var="ua" value="#{UserAccountSuggest.userAccountList}"
+			varStatus="index">
+			<h:panelGroup>
 				{
-					"id" : "<h:outputText value="#{ua.reference.objectId}" escape="false"/>",
-					"value" : "<h:outputText value="#{ua.name}" escape="false"/>"
-				}<h:panelGroup rendered="#{index.index lt UserAccountSuggest.userAccountListSize - 1}">,</h:panelGroup>
-				</h:panelGroup>
-			</ui:repeat>
-		]
+					"id" : "<h:outputText value="#{ua.reference.objectId}"
+					escape="false" />",
+					"value" : "<h:outputText value="#{ua.name}" escape="false" />"
+				}<h:panelGroup
+					rendered="#{index.index lt UserAccountSuggest.userAccountListSize - 1}">,</h:panelGroup>
+			</h:panelGroup>
+		</ui:repeat>
 		
 	</f:view>
+	
+</body>
+
+</html>
