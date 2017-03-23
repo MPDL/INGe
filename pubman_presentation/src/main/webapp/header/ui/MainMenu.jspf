@@ -70,15 +70,4 @@
 			rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'ToolsPage'}" />
 	</div>
 	
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		/*   
-		if ($.browser.msie && $.browser.version == 7) {
-		$('.mainMenu').css('margin-top', '-0.7272em');
-		$('.wrapper').css('width', '84.0909em');
-		}
-		 */
-		/* ]]> */
-	</script>
-	
 </ui:composition>

@@ -1,55 +1,43 @@
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<title><h:outputText value="#{ApplicationBean.appTitle}" /></title>
-	<ui:include src="header/ui/StandardImports.jspf" />
-	<style>
-		.mainMenu a:hover, .mainMenu a:focus {
-			background-image: url("../images/BG_MainNavi_hover_bold.png");
-		}
-	</style>
+    <title>
+        <h:outputText value="#{ApplicationBean.appTitle}" />
+    </title>
+    <ui:include src="header/ui/StandardImports.jspf" />
+    <style>
+        .mainMenu a:hover,
+        .mainMenu a:focus {
+            background-image: url("../images/BG_MainNavi_hover_bold.png");
+        }
+    </style>
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-
-	<f:view locale="#{InternationalizationHelper.userLocale}">
-	
-		<f:loadBundle var="lbl" basename="Label" />
-		<f:loadBundle var="msg" basename="Messages" />
-		<f:loadBundle var="tip" basename="Tooltip" />
-		
-		<h:form id="form1">
-			<div class="full wrapper">
-				<h:inputHidden id="offset"></h:inputHidden>
-				<div class="metaMenu">
-					<h:panelGroup styleClass="seperator"></h:panelGroup>
-				</div>
-
-				<div class="LogoNSearch">
-					<h:outputLink id="lnkStartPage"
-						title="#{tip.navigation_lblStartpage}"
-						value="#{ApplicationBean.appContext}HomePage.jsp">
-						<span class="tiny_marginLExcl quad_area0 headerLogo"> <h:panelGroup
+    <f:view locale="#{InternationalizationHelper.userLocale}">
+        <f:loadBundle var="lbl" basename="Label" />
+        <f:loadBundle var="msg" basename="Messages" />
+        <f:loadBundle var="tip" basename="Tooltip" />
+        <h:form id="form1">
+            <div class="full wrapper">
+                <h:inputHidden id="offset"></h:inputHidden>
+                <div class="metaMenu">
+                    <h:panelGroup styleClass="seperator"></h:panelGroup>
+                </div>
+                <div class="LogoNSearch">
+                    <h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
+                        <span class="tiny_marginLExcl quad_area0 headerLogo"> <h:panelGroup
 								styleClass="quad_area0 themePark #{Header.serverLogo}"></h:panelGroup>
 						</span>
-					</h:outputLink>
-				</div>
-				<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
-					<h:outputLink id="lnkHome" styleClass="free_area0"
-						title="#{tip.mainMenu_lnkHome}"
-						value="#{ApplicationBean.appContext}HomePage.jsp">
-						<h:outputText value="#{lbl.mainMenu_lnkHome}" />
-					</h:outputLink>
-				</div>
-				<div id="content" class="full_area0 clear" style="margin-top: 4em;">
-					<span style="font-size: 140%; line-height: 140%">
+                    </h:outputLink>
+                </div>
+                <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
+                    <h:outputLink id="lnkHome" styleClass="free_area0" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp">
+                        <h:outputText value="#{lbl.mainMenu_lnkHome}" />
+                    </h:outputLink>
+                </div>
+                <div id="content" class="full_area0 clear" style="margin-top: 4em;">
+                    <span style="font-size: 140%; line-height: 140%">
 						<p style="margin-left: 4em; margin-right: 4em;">
 							This publication has been assigned a persistent identifier (PID),
 							but the identifier has not yet been registered in the worldwide
@@ -71,23 +59,22 @@
 							.
 						</p>
 					</span>
-				</div>
-			</div>
-			<ui:include src="footer/Footer.jspf" />
-		</h:form>
-		<script type="text/javascript">
-			$("input[id$='offset']").submit(function() {
-				$(this).val($(window).scrollTop());
-			});
-			$(document).ready(function() {
-				$(window).scrollTop($("input[id$='offset']").val());
-				$(window).scroll(function() {
-					$("input[id$='offset']").val($(window).scrollTop())
-				});
-			});
-		</script>
-	</f:view>
-	
+                </div>
+            </div>
+            <ui:include src="footer/Footer.jspf" />
+        </h:form>
+        <script type="text/javascript">
+            $("input[id$='offset']").submit(function() {
+                $(this).val($(window).scrollTop());
+            });
+            $(document).ready(function() {
+                $(window).scrollTop($("input[id$='offset']").val());
+                $(window).scroll(function() {
+                    $("input[id$='offset']").val($(window).scrollTop())
+                });
+            });
+        </script>
+    </f:view>
 </body>
 
 </html>

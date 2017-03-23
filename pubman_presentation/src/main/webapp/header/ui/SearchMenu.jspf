@@ -22,8 +22,7 @@
 				styleClass="small_txtBtn activeButton quickSearchBtn"
 				title="#{tip.adv_search_btStart}" action="#{Search.startSearch}"
 				value="#{lbl.quick_search_btnStart}" />
-			<span class="free_area0">
-			    <h:outputLink id="lnkAdvancedSearch"
+			<span class="free_area0"> <h:outputLink id="lnkAdvancedSearch"
 					styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl"
 					title="#{tip.search_advanced}"
 					value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp">

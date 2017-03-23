@@ -4,8 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
-		<h:form>
+	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu"> <h:form>
 			<h:panelGroup styleClass="seperator"></h:panelGroup>
 			<div class="medium_area0 endline selectContainer">
 				<div class="medium_area0">
