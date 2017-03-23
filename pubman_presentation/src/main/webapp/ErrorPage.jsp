@@ -30,9 +30,7 @@
 					<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
-
 							<ui:include src="header/Breadcrumb.jspf" />
-
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
@@ -61,16 +59,17 @@
 					<div class="full_area0">
 						<div class="full_area0 infoPage">
 							<span class="half_area0_p8 mainSection">
-
 								<h2>
-									<h:outputText styleClass="messageError"
-										value="#{lbl.ErrorPage_errorOccurred}" />
-								</h2> <a onclick="$(this).siblings('pre').slideToggle('slow');"><h:outputText
-										value="#{ErrorPage.summary}" /></a> <br /> <br /> <pre
+									<h:outputText styleClass="messageError" value="#{lbl.ErrorPage_errorOccurred}" />
+								</h2>
+								<a onclick="$(this).siblings('pre').slideToggle('slow');">
+									<h:outputText value="#{ErrorPage.summary}" />
+								</a>
+								<br /> <br />
+								<pre
 									style="display: none;">
 									<h:outputText value="#{ErrorPage.detail}" />
 								</pre>
-
 							</span>
 						</div>
 					</div>
@@ -91,6 +90,7 @@
 				});
 			});
 		</script>
+		
 	</f:view>
 	
 </body>

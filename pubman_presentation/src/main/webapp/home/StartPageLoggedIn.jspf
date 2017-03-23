@@ -3,14 +3,13 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	
 	<!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 		<h2>
 			WELCOME TO MPG.PuRe - <br /> WHAT DO YOU WANT TO WORK ON TODAY?
 		</h2>
 		<br />
-
 		<h:panelGroup styleClass="free_area0"
 			rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -50,10 +49,8 @@
 						</h:commandLink>. Here you can upload multiple items out of various formats.
 					</li>
 				</h:panelGroup>
-
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -70,7 +67,6 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -87,16 +83,13 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 	</h:panelGroup>
-
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 		<h2>
 			WILLKOMMEN BEI MPG.PuRe -<br /> WAS MÖCHTEN SIE HEUTE TUN?
 		</h2>
 		<br />
-
 		<h:panelGroup
 			rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -137,10 +130,8 @@
 						verschiedenen Formaten hochladen.
 					</li>
 				</h:panelGroup>
-
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -158,7 +149,6 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -176,9 +166,7 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 	</h:panelGroup>
-
 	<!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 		<h2>
@@ -186,7 +174,6 @@
 			<!-- -<br/>今日は何をしましょうか？ -->
 		</h2>
 		<br />
-
 		<h:panelGroup
 			rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -202,7 +189,6 @@
 							rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 					</h:commandLink>
 				</li>
-
 				<li>... <h:commandLink id="lnkNewSubmission_jp"
 						title="#{lbl.Home_Link_FullSub}"
 						action="#{CreateItem.newSubmission}" immediate="true">
@@ -226,10 +212,8 @@
 						</h:commandLink>
 					</li>
 				</h:panelGroup>
-
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -245,7 +229,6 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 		<h:panelGroup styleClass="quadruple_area0"
 			rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 			<span class="free_area0 xTiny_marginRExcl"> <span
@@ -260,7 +243,6 @@
 				</li>
 			</ul>
 		</h:panelGroup>
-
 	</h:panelGroup>
-
+	
 </ui:composition>

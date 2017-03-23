@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	
 	<!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 		<div>
@@ -33,7 +33,6 @@
 				onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 			</span>
 			<div class="clear">&#160;</div>
-
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 				or browse through different categories.</a> <br /> <br /> <br />
@@ -44,20 +43,15 @@
 				out via our <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Interface</a>!
-
-
 				<h4>Service for data transfer</h4> Do you want to fetch data from
 				external sources like arXiv, BioMed Central, PubMed Central or
 				Spires? <br /> Use our <a
 				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-interface</a>!
-
 				<h4>Validation service</h4> <a href="/validation/" target="_blank">Check</a>
 				your XML data for formal correctness with our validation service.
-
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
 				href="/cone/" target="_blank">controlled vocabularies</a> for
 				persons, journals, classifications or languages.
-
 				<h4>SWORD-Interface</h4> Use this <a
 				href="/pubman/faces/SwordStartPage.jsp" target="_blank">push
 					service</a> for automatic depositing from external servers.
@@ -67,7 +61,6 @@
 				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 		</div>
 	</h:panelGroup>
-
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 		<div>
@@ -98,7 +91,6 @@
 				onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 			</span>
 			<div class="clear">&#160;</div>
-
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 				oder browsen Sie durch verschiedene Kategorien.</a> <br /> <br /> <br />
@@ -109,20 +101,15 @@
 				Datenabfragen können Sie über unsere <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Schnittstelle</a> vornehmen.
-
-
 				<h4>Service zur Datenübernahme</h4> Möchten Sie Publikationsdaten
 				von externen Systemen wie arXiv, BioMed Central, PubMedCentral oder
 				Spires importieren? <br /> Nutzen Sie dazu unsere <a
 				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-Schnittstelle</a>!
-
 				<h4>Validierungsservice</h4> <a href="/validation/" target="_blank">Prüfen</a>
 				Sie Ihre XML-Daten auf formale Richtigkeit!
-
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
-
 				<h4>SWORD-Schnittstelle</h4> Nutzen Sie diesen <a
 				href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a>
 				zum automatisierten Datenimport von externen Servern.
@@ -131,7 +118,6 @@
 				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 		</div>
 	</h:panelGroup>
-
 	<!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 		<h2>
@@ -162,7 +148,6 @@
 			onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 		</span>
 		<div class="clear">&#160;</div>
-
 		<a
 			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 			また、組織一覧からも探せます</a>
@@ -195,5 +180,5 @@
 		<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
 			target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 	</h:panelGroup>
-
+	
 </ui:composition>

@@ -445,7 +445,6 @@
 												value="#{HomePage.surveyText}" />
 										</span> <span class="free_area0">
 											<div class="medium_area2_p6 small_marginLExcl">
-
 												<h:outputLink styleClass="activeButton"
 													value="#{HomePage.surveyUrl}" title="User Survey"
 													target="_blank">
@@ -457,13 +456,11 @@
 								</h:panelGroup>
 							</div>
 							<!-- Subheadline ends here -->
-
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0"
 						rendered="#{ViewItemFull.pubItem != null}">
 						<div class="full_area0 fullItem">
-
 							<!-- Item control information starts here -->
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5"> <b
@@ -526,7 +523,6 @@
 								</span>
 							</div>
 							<!-- Item control information ends here -->
-
 							<!-- Paginator starts here -->
 							<h:panelGroup styleClass="full_area0 pageBrowserItem">
 								<h:panelGroup styleClass="paginatorPanel">
@@ -564,7 +560,7 @@
 									<h:commandButton id="btnGoToItemListPosition"
 										styleClass="xTiny_txtBtn pageChangeHiddenBtn"
 										value="#{lbl.List_btGo}" title="#{lbl.List_btGo}"
-										action="#{PubItemListSessionBean.listItemPosition}" />
+										action="#{PubItemListSessionBean.doListItemPosition}" />
 								</h:panelGroup>
 							</h:panelGroup>
 							<!-- Paginator ends here -->
@@ -627,7 +623,7 @@
 							break;
 						default:
 							counter++;
-							if (counter &lt; 10) {
+							if (counter < 10) {
 								startNanoScrollerTimeout = setTimeout(startNanoScrollerWhenLoaded, 100);		
 							}
 							break;
@@ -653,7 +649,7 @@
 				function updateImage(imgElement, jsonRequestUrl) {	
 					$.getJSON(jsonRequestUrl, function (result) {
 						var pictureUrl =  result.http_xmlns_com_foaf_0_1_depiction;
-						if (pictureUrl != undefined &amp;&amp; $.trim().pictureUrl != '') {
+						if (pictureUrl != undefined && $.trim().pictureUrl != '') {
 							$(imgElement).attr('src', pictureUrl);
 						}
 					});

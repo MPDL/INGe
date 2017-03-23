@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-
 <h:head>
 	<title>PubMan Online Help</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -16,11 +14,8 @@
 	<meta name="date" content="2008-10-08 13:10:00" />
 	<ui:include src="/header/ui/StandardImports.jspf" />
 </h:head>
-
 <body id="helppage" lang="EN-GB" dir="ltr">
-
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-
 		<div class="maketitle wrapper"
 			style="padding: 0.74em 0.74em 3em 0.74em; font-size: 129% !important; width: auto;">
 			<h1>PubMan Online Help</h1>
@@ -30,7 +25,6 @@
 			<h2>Contents</h2>
 			<ol>
 				<li><a href="#HomePage">About PubMan</a></li>
-
 				<li><a href="#Preface">Preface</a>
 					<ul>
 						<li><span class="titlemark">2.1.</span><a href="#Log_in">Log
@@ -50,7 +44,6 @@
 									href="#PubMan_User_Roles">PubMan User Roles</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#PubMan_Functionalities">PubMan
 						Functionalities</a>
 					<ul>
@@ -93,7 +86,6 @@
 									href="#Local_Tags">Local Tags (Registered Users only)</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#Submission">Submission</a>
 					<ul>
 						<li><span class="titlemark">4.1.</span><a href="#Create_Item">Create
@@ -136,7 +128,6 @@
 									href="#Release_Comment">Release Comment</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#Quality%20Assurance%20in%20PubMan">Quality
 						Assurance in PubMan</a>
 					<ul>
@@ -153,7 +144,6 @@
 						<li><span class="titlemark">5.4.</span><a
 							href="#Withdraw%20Item">Withdraw Item</a></li>
 					</ul></li>
-
 				<li><a href="#Tools%20for%20Data%20Management">Tools for
 						Data Management</a>
 					<ul>
@@ -178,8 +168,6 @@
 							href="#Import%20Workspace">Import Workspace</a></li>
 					</ul></li>
 			</ol>
-
-
 			<h2>
 				<a>Download PubMan Guide</a>
 			</h2>
@@ -190,8 +178,6 @@
 					title="PubMan Guide">here</a>. (Currently only available in German.
 				An English version will follow soon.)
 			</p>
-
-
 			<h2>
 				<span class="titlemark">1.</span><a>About PubMan</a>
 			</h2>
@@ -204,8 +190,6 @@
 				under:&#160;<a
 					href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan">http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan</a>
 			</p>
-
-
 			<h2>
 				<span class="titlemark">2.</span><a>Preface</a>
 			</h2>
@@ -220,7 +204,6 @@
 					href="mailto:pubman-support@gwdg.de"
 					title="contact PubMan support with email">PubMan Support.</a>
 			</p>
-
 			<h3>
 				<span class="titlemark">2.2.</span><a>User Roles and Workflows</a>
 			</h3>
@@ -242,7 +225,6 @@
 				assigned in quite different ways, PubMan roles can be accordingly
 				combined. For example, the same user may be depositor and moderator
 				in one.</p>
-
 			<h4>
 				<span class="titlemark">2.2.1.</span><a>Workflows</a>
 			</h4>
@@ -259,7 +241,6 @@
 				rework"). Released items can be modified by the moderator and the
 				depositor. After a relesed item has been modified by the depositor,
 				this item will again be set to item state "pending".</p>
-
 			<h5>
 				<span class="titlemark">2.2.1.2.</span><a>Simple Workflow</a>
 			</h5>
@@ -270,7 +251,6 @@
 				After modifying an item, the moderator accepts it (item state:
 				"released"). The option "send back for rework" is not available in
 				the simple workflow.</p>
-
 			<h4>
 				<span class="titlemark">2.2.2.</span><a>PubMan User Roles</a>
 			</h4>
@@ -282,7 +262,6 @@
 					href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Workflows"
 					title="more information on MPDL colab">http://colab.mpdl.mpg.de/mediawiki/PubMan_Workflows</a>
 			</p>
-
 			<h2>
 				<span class="titlemark">3.</span><a>PubMan Functionalities</a>
 			</h2>
@@ -290,7 +269,6 @@
 				for logged-in users, but are also open to not logged-in users.
 				Below, there is an overview of all functionalities available to not
 				logged-in users.</p>
-
 			<h3>
 				<span class="titlemark">3.1.</span><a>Search Possibilities in
 					PubMan</a>
@@ -301,7 +279,6 @@
 				<li>Advanced Search</li>
 				<li>Organization Search</li>
 			</ul>
-
 			<h4>
 				<span class="titlemark">3.1.1.</span><a>Quick Search</a>
 			</h4>
@@ -330,7 +307,6 @@
 				in all searches. Supported are "?" for one or no characters and "*"
 				for cero until unlimited characters. Please note, that truncation at
 				the beginning of the word is not allowed.</p>
-
 			<h4 id="AdvancedSearchPage">
 				<span class="titlemark">3.1.2.</span><a>Advanced Search</a>
 			</h4>
@@ -343,7 +319,6 @@
 					href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing"
 					title="more information on MPDL colab">http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing</a>
 			</p>
-
 			<h5>
 				<span class="titlemark">3.1.2.1.</span><a>Date Search</a>
 			</h5>
@@ -361,7 +336,6 @@
 				startdate "2008" to enddate "2009", it will automatically search for
 				2008-01-01, means from the beginning of the year 2008, to
 				2009-12-31, means to the end of the year 2009.</p>
-
 			<h4>
 				<span class="titlemark">3.1.3.</span><a>Organization Search</a>
 			</h4>
@@ -370,7 +344,6 @@
 				items affiliated with this institute will be displayed. Clicking on
 				the description button will provide you with more information on
 				this organization.</p>
-
 			<h3>
 				<span class="titlemark">3.2.</span><a>Search results</a>
 			</h3>
@@ -381,14 +354,12 @@
 				note that full text parts with the search term highlighted are only
 				visible in medium view. If you click on the title of the
 				publication, the full item view will be displayed.</p>
-
 			<h4>
 				<span class="titlemark">3.2.1.</span><a>Export</a>
 			</h4>
 			<p class="noindent">You can either retrieve the selected items in
 				a citation style (e.g. APA) or you can export the items to an export
 				format (e.g. EndNote Export Format).</p>
-
 			<h5>
 				<span class="titlemark">3.2.1.1.</span><a>Send Export via E-Mail</a>
 			</h5>
@@ -397,7 +368,6 @@
 				the receiver can reply to.</p>
 			<p class="indent">If you want to send the mail to more than one
 				E-Mail addresses, please separate them with a comma and a blank.</p>
-
 			<h3 id="CartItemsPage">
 				<span class="titlemark">3.3.</span><a>Basket</a>
 			</h3>
@@ -408,7 +378,6 @@
 				link. Please note, that the basket is only available for the
 				particular session and cannot be saved. It is possible to export all
 				items in the basket.</p>
-
 			<h3>
 				<span class="titlemark">3.4.</span><a>View Item</a>
 			</h3>
@@ -430,13 +399,11 @@
 				organization the author is belonging to, this icon leads to the
 				organization description.
 			</p>
-
 			<h4>
 				<span class="titlemark">3.4.1.</span><a>View Release History</a>
 			</h4>
 			<p class="noindent">All released versions of an item are
 				displayed here, so that you can track all changes on an item.</p>
-
 			<h4>
 				<span class="titlemark">3.4.2.</span><a>View Item Revisions</a>
 			</h4>
@@ -444,14 +411,12 @@
 				re-processed version, which is linked to the original item. If you
 				click on "View Item Revisions", all revisions of the item are
 				displayed.</p>
-
 			<h4>
 				<span class="titlemark">3.4.3.</span><a>View item Statistics</a>
 			</h4>
 			<p class="noindent">Here you can see how often the item was
 				retrieved and how often the attached full text file was downloaded.
 				Please note that the statistics are updated on a nightly basis.</p>
-
 			<h4>
 				<span class="titlemark">3.4.4.</span><a>Item Log (Registered
 					Users only)</a>
@@ -459,7 +424,6 @@
 			<p class="noindent">This is an option reserved to registered
 				users, where you can see a full history of actions performed on the
 				item, as logged by the system.</p>
-
 			<h4>
 				<span class="titlemark">3.4.5.</span><a>Local Tags (Registered
 					Users only)</a>
@@ -467,7 +431,6 @@
 			<p class="noindent">Here you can assign tags to publications in
 				order to create own sets for specific purposes, such us "my best
 				publications".</p>
-
 			<h2>
 				<span class="titlemark">4.</span><a>Submission</a>
 			</h2>
@@ -490,14 +453,12 @@
 						of an author have to be done manually for each respective item
 						after the import.</i></li>
 			</ul>
-
 			<h3>
 				<span class="titlemark">4.1.</span><a>Create Item</a>
 			</h3>
 			<p class="noindent">Before you create a new item, please select a
 				submission method and then the collection, in which you would like
 				to add the item, by clicking on the name of the collection.</p>
-
 			<h3>
 				<span class="titlemark">4.2.</span><a>Create / Edit Item</a>
 			</h3>
@@ -513,7 +474,6 @@
 				these fields empty, a validation message is displayed. Also see: <a
 					href="#Validate_Item">Validation</a>.
 			</p>
-
 			<h4>
 				<span class="titlemark">4.2.1.</span><a>Submitting Persons and
 					Organizations</a>
@@ -530,7 +490,6 @@
 				that at least one person has to be affiliated to an organization,
 				otherwise the item cannot be created.
 			</p>
-
 			<h4>
 				<span class="titlemark">4.2.2.</span><a>Submitting Journal Names</a>
 			</h4>
@@ -541,7 +500,6 @@
 				selecting it and clicking on it or pressing "enter", or you may
 				enter a new journal name. If you do not want to select a suggested
 				name, please press ESC to close the list.</p>
-
 			<h4>
 				<span class="titlemark">4.2.3.</span><a>Entering the Publication
 					Language</a>
@@ -549,7 +507,6 @@
 			<p class="noindent">Auto-suggestion lists are also available in
 				the publication language field. You may enter the language in German
 				or English; both languages are recognized by the system.</p>
-
 			<h4>
 				<span class="titlemark">4.2.4.</span><a>Entering Dates</a>
 			</h4>
@@ -561,7 +518,6 @@
 					this both genres the given date relates to the start of the
 					respective publication.</i>
 			</p>
-
 			<h4>
 				<span class="titlemark">4.2.5.</span><a>Provide Rights
 					Information</a>
@@ -577,7 +533,6 @@
 				for the file. All these data are optional. Please be aware that you
 				have checked these rights information before!
 			</p>
-
 			<h3>
 				<span class="titlemark">4.3.</span><a>Create New Revision</a>
 			</h3>
@@ -587,7 +542,6 @@
 				linked to the original item ("is revision of"). Before releasing the
 				new revision, you can give a comment on creating a new revision of
 				the item.</p>
-
 			<h3>
 				<span class="titlemark">4.4.</span><a>Validate Item</a>
 			</h3>
@@ -595,7 +549,6 @@
 				if it meets the requirements of the collection.</p>
 			<p class="noindent">Please note that you can&#8217;t submit an
 				item that doesn&#8217;t meet the requirements of the collection.</p>
-
 			<h3>
 				<span class="titlemark">4.5.</span><a>Save Item</a>
 			</h3>
@@ -603,14 +556,12 @@
 				item obtains the status "pending" and can only be seen by you. This
 				might be useful if you want to complete your entry at a later time.
 				You can then access and edit your item by clicking on "My Items".</p>
-
 			<h3>
 				<span class="titlemark">4.6.</span><a>Delete</a>
 			</h3>
 			<p class="noindent">Please note that only items in state
 				"pending" can be deleted. "Released" items can only be withdrawn,
 				since they have been assigned a PID for citation purposes.</p>
-
 			<h3>
 				<span class="titlemark">4.7.</span><a>Submit Item</a>
 			</h3>
@@ -624,28 +575,24 @@
 				sends it back to you for corrections. Items that have been sent back
 				to the depositor are labeled as "in rework" and can be found under
 				the corresponding filter under "My items".</p>
-
 			<h4>
 				<span class="titlemark">4.7.1.</span><a>Submission Comment</a>
 			</h4>
 			<p class="noindent">In the comment field you can give a comment
 				on your submission; the user following you in the workflow will be
 				able to read it.</p>
-
 			<h3>
 				<span class="titlemark">4.8.</span><a>Release Item</a>
 			</h3>
 			<p class="noindent">In the simple workflow, you don&#8217;t have
 				to submit items first; they can be directly released and made
 				publicly available.</p>
-
 			<h4>
 				<span class="titlemark">4.8.1.</span><a>Release Comment</a>
 			</h4>
 			<p class="noindent">In the comment field you can give a comment
 				on your release; the user following you in the workflow will be able
 				to read it.</p>
-
 			<h2>
 				<span class="titlemark">5.</span><a>Quality Assurance in PubMan</a>
 			</h2>
@@ -660,7 +607,6 @@
 				of an item: an alternative to deleting the item that serves the
 				purposes of long-term storage and guarantees further citability of
 				the item.</p>
-
 			<h3>
 				<span class="titlemark">5.1.</span><a>Send Back for Re-Work</a>
 			</h3>
@@ -670,7 +616,6 @@
 				rework" will be visible by both the moderator and the depositor, but
 				can only be edited by the depositor, until they are once more
 				submitted to the moderator for quality check.</p>
-
 			<h3>
 				<span class="titlemark">5.2.</span><a>Modify Item</a>
 			</h3>
@@ -685,14 +630,12 @@
 			<p class="noindent">If you want to release the item you have
 				modified and make it publicly available again, please click on
 				"accept".</p>
-
 			<h4>
 				<span class="titlemark">5.3.1.</span><a>Acceptance Comment</a>
 			</h4>
 			<p class="noindent">In the comment field you can give a comment
 				on accepting the item, which is then visible in the item's release
 				history.</p>
-
 			<h3>
 				<span class="titlemark">5.4.</span><a>Withdraw</a>
 			</h3>
@@ -702,8 +645,6 @@
 				"Withdrawn" items are not searchable and they can only be accessed
 				through their ID. Items can only be withdrawn by their owner
 				(depositor). Please state the reason for withdrawing the item.</p>
-
-
 			<h2>
 				<span class="titlemark">6.</span><a>Tools for Data Management</a>
 			</h2>
@@ -713,7 +654,6 @@
 				for instance, change the viewing mode, filter the items according to
 				their state, sort them based on various criteria, export selected
 				items or create a basket.</p>
-
 			<h3>
 				<span class="titlemark">6.1.</span><a>My Items</a>
 			</h3>
@@ -722,7 +662,6 @@
 				to their state and perform different actions, e.g. complete items in
 				status "pending" or enrich entries that have been sent back for
 				rework. Another filter shows imported items sorted by date.</p>
-
 			<h4>
 				<span class="titlemark">6.1.1.</span><a>Item State</a>
 			</h4>
@@ -750,7 +689,6 @@
 					moderator for rework. It is important that you do not forget to
 					re-submit these items, when you have finished editing them.</li>
 			</ul>
-
 			<h4>
 				<span class="titlemark">6.1.2.</span><a>Sort by</a>
 			</h4>
@@ -758,7 +696,6 @@
 				item list by selecting it in the pull-down list. You can switch
 				between "ascending" and "descending" sorting order by clicking on
 				the link next to the pull down list.</p>
-
 			<h3>
 				<span class="titlemark">6.2.</span><a>Quality Assurance
 					Workspace</a>
@@ -771,7 +708,6 @@
 			<p class="noindent">Please note that this only applies to the
 				Standard Workflow. In the Simple Workflow there are no "submitted"
 				items.</p>
-
 			<h4>
 				<span class="titlemark">6.2.1.</span><a>Item State</a>
 			</h4>
@@ -790,7 +726,6 @@
 					standard workflow. These are the items that you have sent back to
 					the depositor for rework.</li>
 			</ul>
-
 			<h4>
 				<span class="titlemark">6.2.2.</span><a>Sort by</a>
 			</h4>
@@ -798,7 +733,6 @@
 				item list by selecting it in the pull-down list. You can switch
 				between "ascending" and "descending" sorting order by clicking on
 				the link next to the pull down list.</p>
-
 			<h3 id="ImportWorkspace">
 				<span class="titlemark">6.3.</span><a>Import Workspace</a>
 			</h3>
@@ -807,10 +741,9 @@
 				remove buttons, the import task will be delete (not the items). If
 				you use the delete button, the items will be deleted if they still
 				are in state "pending".</p>
-
 		</div>
 	</f:view>
-
+	
 </body>
 
 </html>

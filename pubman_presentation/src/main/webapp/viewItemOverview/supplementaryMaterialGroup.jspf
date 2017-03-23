@@ -1,76 +1,76 @@
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-<ui:remove>
-            CDDL HEADER START
-
-            The contents of this file are subject to the terms of the
-            Common Development and Distribution License, Version 1.0 only
-            (the "License"). You may not use this file except in compliance
-            with the License.
-
-            You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.org/license.
-            See the License for the specific language governing permissions
-            and limitations under the License.
-
-            When distributing Covered Code, include this CDDL HEADER in each
-            file and include the License file at license/ESCIDOC.LICENSE.
-            If applicable, add the following below this CDDL HEADER, with the
-            fields enclosed by brackets "[]" replaced with your own identifying
-            information: Portions Copyright [yyyy] [name of copyright owner]
-
-            CDDL HEADER END
-
-
-            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
-            All rights reserved. Use is subject to license terms.
-</ui:remove>
-
-<!-- Supplementary Material tile -->
-<h:panelGroup layout="block" styleClass="huge_area0 tile_category borderYellow">
-	<!-- Supplementary Material title and icon -->
-	<h:panelGroup layout="block" styleClass="huge_area0_p6">
-		<h5 class="tile_title">
-			<img src="../resources/images/overviewPage/supplementary_material_31.png" class="big_imgBtn" align="right"/>
-			<h:outputText value="#{lbl.ViewItemOverview_lblSupplementaryMaterialSection}" />
-		</h5>
-	</h:panelGroup>
-	<!-- If no supplementary material is available show message -->
-	<h:panelGroup layout="block" styleClass="free_area0_p6" rendered ="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList == null or empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}">
-		<h:outputText value="#{msg.ViewItemOverview_noSupplementaryMaterialAvailable}" />
-	</h:panelGroup>
-	<!-- Iterator for publicly accessible supplementary material -->
-	<h:panelGroup layout="block" styleClass="huge_area0_p0 nano" style="max-height:300px;">
-		<h:panelGroup layout="block" styleClass="free_area0_p6 content">
-			<ui:repeat var="file" value="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList}" rendered ="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList)}">
-				<div>
-					<!-- Standard icon for supplementary material files -->
-					<img src="../resources/images/overviewPage/supplementary_material_31.png" class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl" align="left"/>
-					<!-- Textual description of the supplementary material -->
-					<p class="double_area0">
-						<!-- Link (show or download) to the file -->
-						<h:outputLink id="lnkShowComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}" rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
-							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						</h:outputLink>
-						<h:outputLink id="lnkDownloadComponent" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download" rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
-							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						</h:outputLink>
-						<!-- Link for supplementary material searchhits with open pdf params-->
-						<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
-							<h:outputText value="#{file.fileName}" title="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						</h:outputLink>
-						<!-- Text if publication is withdrawn -->
-						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-						<br/>
-						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-						<h:outputText value=", #{file.fileSize}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-					</p>
-				</div>
-			</ui:repeat>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<!-- Supplementary Material tile -->
+	<h:panelGroup layout="block"
+		styleClass="huge_area0 tile_category borderYellow">
+		<!-- Supplementary Material title and icon -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p6">
+			<h5 class="tile_title">
+				<img
+					src="../resources/images/overviewPage/supplementary_material_31.png"
+					class="big_imgBtn" align="right" />
+				<h:outputText
+					value="#{lbl.ViewItemOverview_lblSupplementaryMaterialSection}" />
+			</h5>
+		</h:panelGroup>
+		<!-- If no supplementary material is available show message -->
+		<h:panelGroup layout="block" styleClass="free_area0_p6"
+			rendered="#{ViewItemFull.pubItem.supplementaryMaterialFileBeanList == null or empty(ViewItemFull.pubItem.supplementaryMaterialFileBeanList)}">
+			<h:outputText
+				value="#{msg.ViewItemOverview_noSupplementaryMaterialAvailable}" />
+		</h:panelGroup>
+		<!-- Iterator for publicly accessible supplementary material -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
+			style="max-height:300px;">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
+				<ui:repeat var="file"
+					value="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList}"
+					rendered="#{ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList != null and !empty(ViewItemFull.pubItem.publiclyAccessibleSupplementaryMaterialFileBeanList)}">
+					<div>
+						<!-- Standard icon for supplementary material files -->
+						<img
+							src="../resources/images/overviewPage/supplementary_material_31.png"
+							class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl"
+							align="left" />
+						<!-- Textual description of the supplementary material -->
+						<p class="double_area0">
+							<!-- Link (show or download) to the file -->
+							<h:outputLink id="lnkShowComponent" target="_blank"
+								value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}"
+								rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+									rendered="#{!ViewItemFull.isStateWithdrawn}" />
+							</h:outputLink>
+							<h:outputLink id="lnkDownloadComponent" target="_blank"
+								value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download"
+								rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+									rendered="#{!ViewItemFull.isStateWithdrawn}" />
+							</h:outputLink>
+							<!-- Link for supplementary material searchhits with open pdf params-->
+							<h:outputLink id="lnkSearchHitsURL" target="_blank"
+								value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
+								rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+									rendered="#{!ViewItemFull.isStateWithdrawn}" />
+							</h:outputLink>
+							<!-- Text if publication is withdrawn -->
+							<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}"
+								rendered="#{ViewItemFull.isStateWithdrawn}" />
+							<br />
+							<h:outputText value=" (#{file.contentCategory})"
+								rendered="#{!ViewItemFull.isStateWithdrawn}" />
+							<h:outputText value=", #{file.fileSize}"
+								rendered="#{!ViewItemFull.isStateWithdrawn}" />
+						</p>
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-</h:panelGroup>
-
+	
 </ui:composition>

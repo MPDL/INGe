@@ -9,11 +9,9 @@
 		<h:outputScript
 			name="commonJavaScript/jquery/jquery-dateFormat.min.js" />
 		<h:outputStylesheet name="commonJavaScript/jquery/css/gfc.css" />
-
 		<script type="text/javascript">
 			var pubmanBlogUrl = '<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>';
 			//    <![CDATA[
-
 			jQuery(function($) {
 				$("#feedControl")
 						.rss(
@@ -24,19 +22,16 @@
 										return $.format
 												.date(date, 'yyyy-MM-dd');
 									},
-
 									layoutTemplate : "<div class='gfc-control'><div class='gfc-resultsbox-visible'><div class='gfc-resultsRoot'><div class='gfc-results'>{entries}</div></div></div></div>",
 									entryTemplate : "<div class='gfc-result'><div class='gf-result'>"
 											+ "<div class='gf-title'><a class='gf-title' href='{url}' target='_blank'>{title}</a></div>"
 											+ "<div class='gf-author'>{author}</div><div class='gf-spacer'>-</div><div class='gf-relativePublishedDate'>{date}</div>"
 											+ "<div class='gf-snippet'>{shortBodyPlain}...</div>"
 											+ "</div></div>",
-
 								});
 			})
 			// ]]>
 		</script>
-
 		<h2>
 			<h:outputText value="#{lbl.Home_Header_News}" escape="false" />
 		</h2>

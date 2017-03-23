@@ -1,39 +1,45 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv="pragma" content="no-cache"/>
-<meta http-equiv="cache-control" content="no-cache"/>
-<meta http-equiv="expires" content="0"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css" rel="stylesheet"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="/pubman/resources/cssFramework/main.css" rel="stylesheet" type="text/css" />
+	<link href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" />
+	<link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 
-<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
+	<h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false" />
 
-<link rel="search" type="application/opensearchdescription+xml" title="#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}" href="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}search/OpenSearch.jsp" />
+	<style type="text/css">
+		.headerLogo {
+			background-image: none; <h:outputText value='#{ApplicationBean.additionalLogoCss}'/>
+		}
+		.fa {
+			line-height: inherit;
+			margin-right: 0.454545em;
+			color: #004465;
+		}
+	</style>
 
-<link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
-
-<h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
-
-<style type="text/css">
-	.headerLogo {background-image: none; <h:outputText value='#{ApplicationBean.additionalLogoCss}'/>}
-</style>
-
-<style type="text/css">
-	.fa { line-height: inherit; margin-right: 0.454545em; color: #004465;}
-</style>
-
-<script type="text/javascript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
-
-<h:outputScript library="javax.faces" name="jsf.js"/>
-<h:outputScript library="primefaces" name="jquery/jquery.js"/>
-<h:outputScript name="scripts.js"/>
-<h:outputScript name="commonJavaScript/eSciDoc_javascript.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_ext_paginator.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_selectbox.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_item_list.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/eSciDoc_single_elements.js"/>
-<h:outputScript name="commonJavaScript/componentJavaScript/breadcrump.js"/>
-
+	<script type="text/javascript">
+		var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";
+	</script>
+	
+	<h:outputScript	name="commonJavaScript/componentJavaScript/breadcrump.js" />
+	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_ext_paginator.js" />
+	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js" />
+	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_item_list.js" />
+	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_selectbox.js" />
+	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_single_elements.js" />
+	<h:outputScript name="commonJavaScript/eSciDoc_javascript.js" />
+	<h:outputScript name="jquery/jquery.js" library="primefaces" />
+	<h:outputScript name="jsf.js" library="javax.faces" />
+	<h:outputScript name="scripts.js" />
+		
 </ui:composition>

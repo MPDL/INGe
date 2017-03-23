@@ -436,7 +436,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String goToPageTop() {
+  public String doGoToPageTop() {
     try {
       int goToPage = Integer.parseInt(getGoToPageTop());
 
@@ -461,7 +461,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String goToPageBottom() {
+  public String doGoToPageBottom() {
     try {
       int goToPage = Integer.parseInt(getGoToPageBottom());
       if (goToPage > 0 && goToPage <= getPaginatorPageSize()) {

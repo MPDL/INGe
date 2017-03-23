@@ -8,9 +8,11 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	
 <h:head>
-	<title><h:outputText
+	<title>
+		<h:outputText
 			value="#{ViewItemFull.pubItem.metadata.title} :: #{ApplicationBean.appTitle}"
-			converter="HTMLTitleSubSupConverter" /></title>
+			converter="HTMLTitleSubSupConverter" />
+	</title>
 	<ui:include src="header/ui/StandardImports.jspf" />
 	<link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}" />
 	<h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false"
@@ -102,7 +104,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canEdit}" />
-
 									<h:commandLink id="lnkSubmit"
 										action="#{ViewItemFull.submitItem}"
 										value="#{lbl.actionMenu_lnkSubmit}"
@@ -110,7 +111,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canSubmit}" />
-
 									<h:commandLink id="lnkRelease"
 										action="#{ViewItemFull.submitItem}"
 										value="#{lbl.actionMenu_lnkRelease}"
@@ -118,7 +118,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canRelease}" />
-
 									<h:commandLink id="lnkAccept"
 										action="#{ViewItemFull.acceptItem}"
 										value="#{lbl.actionMenu_lnkAccept}"
@@ -126,7 +125,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canAccept}" />
-
 									<h:commandLink id="lnkRevise"
 										action="#{ViewItemFull.reviseItem}"
 										value="#{lbl.actionMenu_lnkRevise}"
@@ -134,7 +132,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canRevise}" />
-
 									<h:commandLink id="lnkDelete"
 										onclick="if(!confirm('#{msg.deleteMessage}'))return false;"
 										value="#{lbl.actionMenu_lnkDelete}"
@@ -142,7 +139,6 @@
 										rendered="#{ViewItemFull.canDelete}" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canDelete}" />
-
 									<h:commandLink id="lnkWithdraw"
 										action="#{ViewItemFull.withdrawItem}"
 										value="#{lbl.actionMenu_lnkWithdraw}"
@@ -150,7 +146,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canWithdraw}" />
-
 									<h:commandLink id="lnkModify"
 										action="#{ViewItemFull.modifyItem}"
 										value="#{lbl.actionMenu_lnkModify}"
@@ -158,7 +153,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canModify}" />
-
 									<h:commandLink id="lnkCreateNewRevision"
 										action="#{ViewItemFull.createNewRevision}"
 										value="#{lbl.actionMenu_lnkCreateNewRevision}"
@@ -166,7 +160,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canCreateNewRevision}" />
-
 									<h:commandLink id="lnkCreateItemFromTemplate"
 										action="#{ItemControllerSessionBean.createItemFromTemplate}"
 										value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}"
@@ -174,7 +167,6 @@
 										onclick="fullItemReloadAjax();" />
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canCreateFromTemplate}" />
-
 									<h:commandLink id="lnkAddToBasket"
 										action="#{ViewItemFull.addToBasket}"
 										value="#{lbl.ViewItemFull_lblAddToBasket}"
@@ -185,7 +177,6 @@
 										value="#{lbl.ViewItemFull_lblRemoveFromBasket}"
 										rendered="#{ViewItemFull.canDeleteFromBasket}"
 										onclick="fullItemReloadAjax();" />
-
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isCandidateOfYearbook}" />
 									<h:commandLink id="lnkAddToYearbook" styleClass="free_area0"
@@ -193,7 +184,6 @@
 										action="#{ViewItemFull.addToYearbookMember}" immediate="true"
 										rendered="#{ViewItemFull.isCandidateOfYearbook}"
 										onclick="fullItemReloadAjax();" />
-
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isMemberOfYearbook}" />
 									<h:commandLink id="lnkRemoveFromYearbook"
@@ -202,7 +192,6 @@
 										action="#{ViewItemFull.removeMemberFromYearbook}"
 										rendered="#{ViewItemFull.isMemberOfYearbook}"
 										onclick="fullItemReloadAjax();" />
-
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
 									<h:commandLink id="lnkAddSsrn" styleClass="free_area0"
@@ -213,7 +202,6 @@
 										<h:panelGroup styleClass="min_imgBtn add" />
 										<h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
 									</h:commandLink>
-
 									<h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.ssrnContext and ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
 									<h:commandLink id="lnkRemoveSsrn" styleClass="free_area0"
@@ -224,11 +212,9 @@
 										<h:panelGroup styleClass="min_imgBtn remove" />
 										<h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
 									</h:commandLink>
-
 									<h:panelGroup
 										rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}">
 										<h:panelGroup styleClass="seperator" />
-
 										<h:outputLink id="lnkAddDoi" styleClass="free_area0" value="#"
 											title="#{tip.ViewItemFull_lblAddDoi}" onclick="showDialog();">
 											<h:outputText value="#{lbl.ViewItemFull_lblDoi}" />
@@ -282,23 +268,16 @@
 											}
 										</script>
 
-
-
 										<!-- hidden Button for executing the addDoi command, after the jquery dialog has been confirmed -->
 										<h:commandLink id="lnkExecuteAddDoi"
 											styleClass="hiddenLnkExecuteAddDoi" style="display:none;"
 											value="#" action="#{ViewItemFull.addDoi}"
 											onclick="fullItemReloadAjax();" />
-
-
-
 									</h:panelGroup>
-
 									<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action"
 									rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
-
 									<h:panelGroup layout="block"
 										styleClass="xLarge_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xLarge_area0">
@@ -317,7 +296,6 @@
 									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>	-->
-
 									<h:commandButton styleClass="noDisplay exportUpdateButton"
 										action="#{ExportItems.updateExportFormats}"
 										value="updateExportFormats" />
@@ -344,7 +322,6 @@
 									<h:commandLink id="btnExportEMail" styleClass="free_area0"
 										value="#{lbl.export_btEMail}"
 										action="#{ViewItemFull.exportEmail}" />
-
 									<h:panelGroup layout="block"
 										styleClass="free_area0 suggestAnchor endline CSL"
 										rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
@@ -367,15 +344,10 @@
 												execute="@form" />
 										</h:commandButton>
 									</h:panelGroup>
-
-
 									<!-- content menu lower line ends here -->
 								</h:panelGroup>
-
-
 								<!-- content menu ends here -->
 							</h:panelGroup>
-
 							<h:panelGroup layout="block" styleClass="subHeader"
 								rendered="#{ViewItemFull.isLoggedIn }">
 								<!-- Subheadline starts here -->
@@ -474,11 +446,11 @@
 											<h2>
 												<h:outputText value="#{HomePage.surveyTitle}" />
 											</h2>
-										</span> <span class="huge_area0"> <h:outputText
-												value="#{HomePage.surveyText}" />
-										</span> <span class="free_area0">
+										</span>
+										<span class="huge_area0"> <h:outputText	value="#{HomePage.surveyText}" />
+										</span>
+										<span class="free_area0">
 											<div class="medium_area2_p6 small_marginLExcl">
-
 												<h:outputLink styleClass="activeButton"
 													value="#{HomePage.surveyUrl}" title="User Survey"
 													target="_blank">
@@ -555,7 +527,6 @@
 									</h:outputLink> <h:panelGroup styleClass="seperator" />
 								</span>
 							</div>
-
 							<h:panelGroup styleClass="full_area0 pageBrowserItem">
 								<h:panelGroup styleClass="paginatorPanel">
 									<h:commandLink id="btList_lkFirstListItem"
@@ -579,7 +550,6 @@
 										action="#{PubItemListSessionBean.lastListItem}"
 										rendered="#{PubItemListSessionBean.hasNextListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">&#160;</h:commandLink>
 								</h:panelGroup>
-
 								<h:panelGroup styleClass="gotoBox"
 									rendered="#{(PubItemListSessionBean.hasNextListItem or PubItemListSessionBean.hasPreviousListItem) and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
 									<h:inputText id="inputItemListPosition"
@@ -594,12 +564,10 @@
 									<h:commandButton id="btnGoToItemListPosition"
 										styleClass="xTiny_txtBtn pageChangeHiddenBtn"
 										value="#{lbl.List_btGo}" title="#{lbl.List_btGo}"
-										action="#{PubItemListSessionBean.listItemPosition}" />
+										action="#{PubItemListSessionBean.doListItemPosition}" />
 								</h:panelGroup>
-
 							</h:panelGroup>
 							<div class="full_area0 itemHeader">
-
 								<h:panelGroup styleClass="xLarge_area0 endline blockHeader">
 								&#160;	
 							</h:panelGroup>

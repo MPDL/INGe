@@ -1,202 +1,241 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-<ui:remove>
-            CDDL HEADER START
-
-            The contents of this file are subject to the terms of the
-            Common Development and Distribution License, Version 1.0 only
-            (the "License"). You may not use this file except in compliance
-            with the License.
-
-            You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.org/license.
-            See the License for the specific language governing permissions
-            and limitations under the License.
-
-            When distributing Covered Code, include this CDDL HEADER in each
-            file and include the License file at license/ESCIDOC.LICENSE.
-            If applicable, add the following below this CDDL HEADER, with the
-            fields enclosed by brackets "[]" replaced with your own identifying
-            information: Portions Copyright [yyyy] [name of copyright owner]
-
-            CDDL HEADER END
-
-
-            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
-            All rights reserved. Use is subject to license terms.
-</ui:remove>
-
-
-<f:subview id="Import">
-
-<div class="clear headerDistanceFix">
-		<ui:include src="../../header/Breadcrumb.jspf" />
-		<div id="contentSkipLinkAnchor" class="clear headLine">
-			<!-- Headline starts here -->
-			<h1><h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/></h1>
-			<!-- Headline ends here -->
+	<f:subview id="Import">
+		<div class="clear headerDistanceFix">
+			<ui:include src="../../header/Breadcrumb.jspf" />
+			<div id="contentSkipLinkAnchor" class="clear headLine">
+				<!-- Headline starts here -->
+				<h1>
+					<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}" />
+				</h1>
+				<!-- Headline ends here -->
+			</div>
 		</div>
-</div>
-<div class="small_marginLIncl subHeaderSection">
-	<div class="contentMenu">
-	<!-- content menu starts here -->
-		<div class="free_area0 sub">
-			<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" onclick="fullItemReloadAjax();">
-				<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</h:commandLink>
-			<h:outputText styleClass="seperator void" />
-			<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true" onclick="fullItemReloadAjax();">
-				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink>
-			<h:outputText styleClass="seperator void" />
-			<span>
-				<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</span>
-			<h:outputText styleClass="seperator void" />
-			<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" onclick="fullItemReloadAjax();">
-				<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</h:commandLink>
+		<div class="small_marginLIncl subHeaderSection">
+			<div class="contentMenu">
+				<!-- content menu starts here -->
+				<div class="free_area0 sub">
+					<h:commandLink id="lnkEasySubmission"
+						title="#{tip.submission_lnkEasySubmission}"
+						action="#{EasySubmission.newEasySubmission}"
+						onclick="fullItemReloadAjax();">
+						<h:outputText value="#{lbl.submission_lnkEasySubmission}"
+							rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					</h:commandLink>
+					<h:outputText styleClass="seperator void" />
+					<h:commandLink id="lnkNewSubmission"
+						title="#{tip.submission_lnkNewSubmission}"
+						action="#{CreateItem.newSubmission}" immediate="true"
+						onclick="fullItemReloadAjax();">
+						<h:outputText value="#{lbl.submission_lnkNewSubmission}"
+							rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					</h:commandLink>
+					<h:outputText styleClass="seperator void" />
+					<span> <h:outputText value="#{lbl.submission_lnkImport}"
+							rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					</span>
+					<h:outputText styleClass="seperator void" />
+					<h:commandLink id="lnkMultipleImport"
+						title="#{tip.submission_lnkMultipleImport}"
+						action="#{MultipleImport.newImport}"
+						onclick="fullItemReloadAjax();">
+						<h:outputText value="#{lbl.submission_lnkMultipleImport}"
+							rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+					</h:commandLink>
+				</div>
+				<!-- content menu ends here -->
+			</div>
+			<div class="subHeader">
+				<!-- Subheadline starts here -->
+				<h:outputText
+					value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
+				<!-- Subheadline ends here -->
+			</div>
+			<h:panelGroup layout="block" styleClass="subHeader"
+				rendered="#{EasySubmissionSessionBean.hasErrorMessages or EasySubmissionSessionBean.hasMessages}">
+				<!-- Subheadline starts here -->
+				<h:messages styleClass="singleMessage" errorClass="messageError"
+					warnClass="messageWarn" fatalClass="messageFatal"
+					infoClass="messageStatus" layout="list" globalOnly="true"
+					showDetail="false" showSummary="true"
+					rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}" />
+				<h:panelGroup layout="block"
+					styleClass="half_area2_p6 messageArea errorMessageArea"
+					rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2>
+						<h:outputText value="#{lbl.warning_lblMessageHeader}" />
+					</h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn"
+						fatalClass="messageFatal" infoClass="messageStatus" layout="list"
+						globalOnly="true" showDetail="false" showSummary="true"
+						rendered="#{EasySubmissionSessionBean.hasMessages}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block"
+					styleClass="half_area2_p6 messageArea infoMessageArea"
+					rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2>
+						<h:outputText value="#{lbl.info_lblMessageHeader}" />
+					</h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn"
+						fatalClass="messageFatal" infoClass="messageStatus" layout="list"
+						globalOnly="true" showDetail="false" showSummary="true"
+						rendered="#{EasySubmissionSessionBean.hasMessages}" />
+				</h:panelGroup>
+				<!-- Subheadline ends here -->
+			</h:panelGroup>
 		</div>
-	<!-- content menu ends here -->
-	</div>
-	<div class="subHeader">
-		<!-- Subheadline starts here -->
-		<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
-		<!-- Subheadline ends here -->
-	</div>
-	<h:panelGroup layout="block" styleClass="subHeader" rendered="#{EasySubmissionSessionBean.hasErrorMessages or EasySubmissionSessionBean.hasMessages}">
-		<!-- Subheadline starts here -->
-			<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
-			<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
-				<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-				<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
-			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
-				<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-				<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
-			</h:panelGroup>
-		<!-- Subheadline ends here -->
-	</h:panelGroup>
-</div>
-
-<div id="ImgFullItem">
-	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
-</div>
-<div class="full_area0" id="fullItem">
-	<style type="text/css">
-		table input[type="radio"] {
-			margin-left:0;
-		}
-		.line180 {
-			line-height:155% !important;
-		}
-		.line180 * {
-			line-height:180%;
-		}
-	</style>
-	<div class="full_area0 fullItem">
-		<div class="full_area0 itemBlock noTopBorder">
-			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/>
-			</h3>
-			<span class="seperator"></span>
-			<h:panelGroup id="fetchExternal"  layout="block" class="free_area0 itemBlockContent endline">
-				
-			<!-- Import from external source -->
-				<h:panelGroup id="identifier" layout="block" styleClass="labelline marginTExcl6p clear" rendered="#{EasySubmission.disableBibtexFields}">
-						<b class="xLarge_area0_p8 endline labelLine clear">
-							<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
-						</b>
-						
-							<span class="free_area0 xTiny_marginLExcl endline">
-								<span class="large_area0 largeFormPush">
-									<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
-									
-									<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+		<div id="ImgFullItem">
+			<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+		</div>
+		<div class="full_area0" id="fullItem">
+			<style type="text/css">
+				table input[type="radio"] {
+					margin-left: 0;
+				}
+				.line180 {
+					line-height: 155% !important;
+				}
+				.line180 * {
+					line-height: 180%;
+				}
+			</style>
+			<div class="full_area0 fullItem">
+				<div class="full_area0 itemBlock noTopBorder">
+					<h3 class="xLarge_area0_p8 endline blockHeader">
+						<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}" />
+					</h3>
+					<span class="seperator"></span>
+					<h:panelGroup id="fetchExternal" layout="block"
+						class="free_area0 itemBlockContent endline">
+						<!-- Import from external source -->
+						<h:panelGroup id="identifier" layout="block"
+							styleClass="labelline marginTExcl6p clear"
+							rendered="#{EasySubmission.disableBibtexFields}">
+							<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
+									value="#{lbl.easy_submission_lblProvideID}" /><span
+								class="noDisplay">: </span>
+							</b>
+							<span class="free_area0 xTiny_marginLExcl endline"> <span
+								class="large_area0 largeFormPush"> <h:outputLabel
+										id="lblIDType" styleClass="large_label"
+										value="#{lbl.easy_submission_lblIDType}" /> <h:panelGroup
+										layout="block"
+										styleClass="large_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="large_area0">
 											<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											<h:panelGroup layout="block"
+												styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" valueChangeListener="#{EasySubmission.changeImportSourceListener}">
-											<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
-											<f:ajax render="formFetchMd:easySubmission:Import:fetchExternal" execute="formFetchMd:easySubmission:Import:identifier"/>
+										<h:selectOneMenu id="selCurrentExternalServiceType"
+											styleClass="replace" onfocus="updateSelectionBox(this);"
+											value="#{EasySubmissionSessionBean.currentExternalServiceType}"
+											valueChangeListener="#{EasySubmission.changeImportSourceListener}">
+											<f:selectItems
+												value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
+											<f:ajax
+												render="formFetchMd:easySubmission:Import:fetchExternal"
+												execute="formFetchMd:easySubmission:Import:identifier" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-									
-							
-								</span>
-								<span class="xDouble_area0">
-									<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
-									<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
-								</span>
+							</span> <span class="xDouble_area0"> <h:outputLabel
+										id="lblIDValue" styleClass="xDouble_label"
+										value="#{lbl.easy_submission_lblIDValue}" /> <h:inputText
+										id="inpServiceID" styleClass="xDouble_txtInput"
+										value="#{EasySubmission.serviceID}" />
 							</span>
-						
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EasySubmissionSessionBean.fulltext}">
-						<b class="xLarge_area0_p8 endline labelLine clear">
-							<h:outputText value="#{lbl.easy_submission_lblFulltext}"/>
-							<span class="noDisplay">: </span>
-						</b>
-						
-						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl endline line180" >
-							<h:selectOneRadio value="#{EasySubmissionSessionBean.radioSelectFulltext}">
-								<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
-							</h:selectOneRadio>
+							</span>
 						</h:panelGroup>
-					</h:panelGroup>
-				
-	
-			<!-- Import from bibtex file -->
-				<h:panelGroup id="uploadBibtexFile" layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableExternalFields}">
-					<h:panelGroup layout="block" styleClass="large_area0_p4 endline firstLine">		
+						<h:panelGroup layout="block"
+							styleClass="free_area0 endline itemLine noTopBorder"
+							rendered="#{EasySubmissionSessionBean.fulltext}">
+							<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
+									value="#{lbl.easy_submission_lblFulltext}" /> <span
+								class="noDisplay">: </span>
+							</b>
+							<h:panelGroup
+								styleClass="free_area0 xTiny_marginLExcl endline line180">
+								<h:selectOneRadio
+									value="#{EasySubmissionSessionBean.radioSelectFulltext}">
+									<f:selectItems id="selFulltextOptions"
+										value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}" />
+								</h:selectOneRadio>
+							</h:panelGroup>
+						</h:panelGroup>
+						<!-- Import from bibtex file -->
+						<h:panelGroup id="uploadBibtexFile" layout="block"
+							styleClass="free_area0 xTiny_marginLExcl"
+							rendered="#{EasySubmission.disableExternalFields}">
+							<h:panelGroup layout="block"
+								styleClass="large_area0_p4 endline firstLine">		
 						&#160;
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
-						<span class="free_area0 xTiny_marginLExcl endline fileSection">
-							<h:panelGroup style="line-height:2.5454em;">
-									
-								<p:fileUpload fileUploadListener="#{EasySubmission.bibtexFileUploaded}" label="#{lbl.easy_submission_lblUploadBibtex}" multiple="false" id="inpFile" styleClass="fileInput" fileLimit="1" update="buttons" dragDropSupport="true" auto="true">
-						
-								</p:fileUpload>
+							<h:panelGroup layout="block"
+								styleClass="free_area0 endline firstLine line180">
+								<span class="free_area0 xTiny_marginLExcl endline fileSection">
+									<h:panelGroup style="line-height:2.5454em;">
+										<p:fileUpload
+											fileUploadListener="#{EasySubmission.bibtexFileUploaded}"
+											label="#{lbl.easy_submission_lblUploadBibtex}"
+											multiple="false" id="inpFile" styleClass="fileInput"
+											fileLimit="1" update="buttons" dragDropSupport="true"
+											auto="true">
+
+										</p:fileUpload>
+									</h:panelGroup>
+								</span>
 							</h:panelGroup>
-						</span>
+							<h:panelGroup layout="block"
+								styleClass="clear large_area0_p4 endline">
+								<b class="free_area0 endline labelLine" style="float: right;">
+									<h:outputText value="#{lbl.easy_submission_lblReference}" /><span
+									class="noDisplay">: </span>
+								</b>
+							</h:panelGroup>
+							<style type="text/css">
+								.line180 .clear.import td label {
+									margin-right: 2em;
+								}
+							</style>
+							<h:panelGroup layout="block"
+								styleClass="free_area0 endline xTiny_marginLExcl line180">
+								<h:selectOneRadio styleClass="clear import"
+									value="#{EasySubmissionSessionBean.radioSelectReferenceValue}">
+									<f:selectItems id="selReferenceOptions"
+										value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}" />
+								</h:selectOneRadio>
+							</h:panelGroup>
+						</h:panelGroup>
 					</h:panelGroup>
-						
-					<h:panelGroup layout="block" styleClass="clear large_area0_p4 endline">		
-						<b class="free_area0 endline labelLine" style="float:right;">
-							<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
-						</b>
-					</h:panelGroup>
-					<style type="text/css">
-						.line180 .clear.import td label {
-							margin-right:2em;
-						}
-					</style>
-					<h:panelGroup layout="block" styleClass="free_area0 endline xTiny_marginLExcl line180" >
-						<h:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}" >
-							<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
-						</h:selectOneRadio>
-					</h:panelGroup>
-				</h:panelGroup>
-			</h:panelGroup>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
-<h:panelGroup layout="block" id="buttons" styleClass="full_area0 formButtonArea">		
-	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-	<ui:remove>
-	<!-- 
+		<h:panelGroup layout="block" id="buttons"
+			styleClass="full_area0 formButtonArea">
+			<h:outputLink id="lnkCancel"
+				styleClass="free_area1_p8 cancelButton xLarge_marginLIncl"
+				value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+				<h:outputText value="#{lbl.EditItem_lnkCancel}" />
+			</h:outputLink>
+			<ui:remove>
+				<!-- 
 	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
 		<h:outputText value="#{lbl.easy_submission_btnNext}" />
 	</h:commandLink>
 	-->
-	</ui:remove>
-	<h:commandLink id="lnkImportFetch" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableBibtexFields}" onclick="fullItemReloadAjax();">
-		<h:outputText value="#{lbl.easy_submission_btnFetch}"/>
-	</h:commandLink>
-</h:panelGroup>
-
-</f:subview>
+			</ui:remove>
+			<h:commandLink id="lnkImportFetch"
+				title="#{tip.easy_submission_btnImport}"
+				styleClass="free_area1_p8 activeButton"
+				action="#{EasySubmission.harvestData}"
+				rendered="#{EasySubmission.disableBibtexFields}"
+				onclick="fullItemReloadAjax();">
+				<h:outputText value="#{lbl.easy_submission_btnFetch}" />
+			</h:commandLink>
+		</h:panelGroup>
+	</f:subview>
+	
 </ui:composition>

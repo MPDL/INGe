@@ -38,12 +38,10 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
-
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -227,25 +225,25 @@ public class ExportItems extends FacesBean {
   // /////// next methods are used by EMailing
 
 
-  /*
-   * Disables the export components when the email page gets open.
-   */
-  public void disableExportPanComps(boolean b) {
+  // /*
+  // * Disables the export components when the email page gets open.
+  // */
+  // public void disableExportPanComps(boolean b) {
+  //
+  // }
 
-  }
 
-
-  /**
-   * redirects the user to the list he came from
-   * 
-   * @return String nav rule for loading the page the user came from
-   */
-  public String backToList() {
-    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
-    cleanUpEmailFields();
-    return sb.getNavigationStringToGoBack() != null ? sb.getNavigationStringToGoBack()
-        : SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
-  }
+  // /**
+  // * redirects the user to the list he came from
+  // *
+  // * @return String nav rule for loading the page the user came from
+  // */
+  // public String backToList() {
+  // ExportItemsSessionBean sb = this.getExportItemsSessionBean();
+  // cleanUpEmailFields();
+  // return sb.getNavigationStringToGoBack() != null ? sb.getNavigationStringToGoBack()
+  // : SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
+  // }
 
   /**
    * Clean up some fields on the Email interface

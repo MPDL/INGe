@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	
 	<div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 		<h:form>
 			<span class="std_imgArea quickSearchIcon">&#160;</span>
@@ -18,12 +18,10 @@
 						value="#{lbl.search_lblIncludeFiles}" />
 				</h:panelGroup>
 			</span>
-			
 			<h:commandButton id="btnQuickSearchStart"
 				styleClass="small_txtBtn activeButton quickSearchBtn"
 				title="#{tip.adv_search_btStart}" action="#{Search.startSearch}"
 				value="#{lbl.quick_search_btnStart}" />
-
 			<span class="free_area0">
 			    <h:outputLink id="lnkAdvancedSearch"
 					styleClass="free_area0_p3 advancedSearchMenu tiny_marginLExcl"

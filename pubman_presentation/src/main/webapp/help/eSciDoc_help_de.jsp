@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-
 <h:head>
 	<title>PubMan Onlinehilfe</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -16,23 +14,17 @@
 	<meta name="date" content="2008-10-08 13:10:00" />
 	<ui:include src="/header/ui/StandardImports.jspf" />
 </h:head>
-
 <body id="helppage" lang="de-DE" dir="ltr">
-
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-
 		<div class="maketitle wrapper"
 			style="padding: 0.74em 0.74em 3em 0.74em; font-size: 129% !important; width: auto;">
-			
 			<h1>PubMan Onlinehilfe</h1>
 			<p class="noindent">
 				<span class="cmr-12x-x-120">20. April 2009</span>
 			</p>
-			
 			<h2>Inhaltsverzeichnis</h2>
 			<ol>
 				<li><a href="#HomePage">&#220;ber PubMan</a></li>
-
 				<li><a href="#Allgemeines">Allgemeines</a>
 					<ul>
 						<li><span class="titlemark">2.1.</span><a href="#Login">Login</a></li>
@@ -51,7 +43,6 @@
 									href="#PubMan_Nutzerrollen">Pubman Nutzerrollen</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#PubMan_Funktionalitaeten">PubMan
 						Funktionalit&#228;ten</a>
 					<ul>
@@ -102,7 +93,6 @@
 										(nur registrierte Nutzer)</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#SubmissionPage">Dateneingabe</a>
 					<ul>
 						<li><span class="titlemark">4.1.</span><a
@@ -147,7 +137,6 @@
 									href="#Kommentar_zum_Freigeben">Kommentar zum Freigeben</a></li>
 							</ul></li>
 					</ul></li>
-
 				<li><a href="#Qualitaetssicherung_in_PubMan">Qualit&#228;tssicherung
 						in PubMan</a>
 					<ul>
@@ -165,7 +154,6 @@
 							href="#Datensatz_zurueckziehen">Einen Datensatz
 								zur&#252;ckziehen</a></li>
 					</ul></li>
-
 				<li><a href="#Hilfsmittel_zur_Datenverwaltung">Hilfsmittel
 						zur Datenverwaltung</a>
 					<ul>
@@ -190,20 +178,16 @@
 							href="#Import_Bereich">Import Bereich</a></li>
 					</ul></li>
 			</ol>
-
 			<h2>Download PubMan Wegweiser</h2>
-			
 			<p>
 				Einen ausf&#252;hrlichen Wegweiser durch PubMan mit Erkl&#228;rung
 				der verschiedenen Funktionalit&#228;ten finden Sie <a
 					href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf"
 					title="PubMan Wegweiser">hier</a>.
 			</p>
-
 			<h2 id="HomePage">
 				<span class="titlemark">1.</span><a>&#220;ber PubMan</a>
 			</h2>
-			
 			<p>
 				PubMan unterst&#252;tzt Forschungsorganisationen im Management, der
 				Verbreitung und der Nachnutzung von Publikationen und Supplementary
@@ -214,15 +198,12 @@
 					href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
 					title="Information zu PubMan im MPDL Colab">http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan</a></span>
 			</p>
-
 			<h2 id="Allgemeines">
 				<span class="titlemark">2.</span><a>Allgemeines</a>
 			</h2>
-			
 			<h3 id="Login">
 				<span class="titlemark">2.1.</span><a>Login</a>
 			</h3>
-			
 			<p class="noindent">Bitte geben Sie Ihren Nutzernamen und Ihr
 				Passwort ein, um alle Funktionalit&#228;ten nutzen zu k&#246;nnen,
 				die nur registrierten Nutzern zur Verf&#252;gung stehen, z.B. um
@@ -232,11 +213,9 @@
 				dann wenden Sie sich bitte an: <a
 					href="mailto:pubman-support@gwdg.de">PubMan Support.</a>
 			</p>
-
 			<h3 id="Nutzerrollen_und_Workflows">
 				<span class="titlemark">2.2.</span><a>Nutzerrollen und Workflows</a>
 			</h3>
-			
 			<p class="noindent">
 				Derzeit sind in PubMan zwei Workflows implementiert: Zum einen ein
 				sehr einfacher Workflow, genannt <a href="#Simple_Workflow">Simple
@@ -258,15 +237,12 @@
 				unterschiedlich besetzt sein k&#246;nnen, k&#246;nnen Rollen auch
 				kombiniert werden. So kann ein Nutzer beispielsweise auch Depositor
 				und Moderator in einem sein.</p>
-
 			<h4 id="Workflows">
 				<span class="titlemark">2.2.1.</span><a>Workflows</a>
 			</h4>
-			
 			<h5 id="Standard_Workflow">
 				<span class="titlemark">2.2.1.1.</span><a>Standard Workflow</a>
 			</h5>
-			
 			<p class="noindent">Im Standard Workflow werden die
 				Datens&#228;tze nach ihrer Eingabe (Status: "pending") vom
 				Depositor&#160;eingestellt (Status: "eingestellt"), und dann vom
@@ -278,11 +254,9 @@
 				M&#246;glichkeit, einen bereits freigegebenen Datensatz nochmals zu
 				bearbeiten. Nach einer erneuten Bearbeitung durch den Depositor
 				erscheint der Datensatz wieder im Status "pending".</p>
-
 			<h5 id="Simple_Workflow">
 				<span class="titlemark">2.2.1.2.</span><a>Simple Workflow</a>
 			</h5>
-			
 			<p class="noindent">Hier kann der Depositor einen Datensatz
 				eingeben (Status des Datensatzes: "pending") und f&#252;r die
 				&#246;ffentliche Sicht freigeben (Status: "freigegeben"). Der
@@ -291,11 +265,9 @@
 				kann der Moderator den Datensatz akzeptieren (Status:
 				"freigegeben"). Die Option "zum Bearbeiten schicken" ist im Simple
 				Workflow nicht vorhanden.</p>
-
 			<h4 id="PubMan_Nutzerrollen">
 				<span class="titlemark">2.2.2.</span><a>PubMan Nutzerrollen</a>
 			</h4>
-			
 			<p class="noindent">
 				Wie bereits oben erw&#228;hnt, sind derzeit in PubMan zwei
 				Nutzerrollen implementiert, der Depositor und der Moderator. Dieses
@@ -304,36 +276,29 @@
 				Sie unter: <a
 					href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Workflows">http://colab.mpdl.mpg.de/mediawiki/PubMan_Workflows</a>
 			</p>
-
 			<h2 id="PubMan_Funktionalitaeten">
 				<span class="titlemark">3.</span><a>PubMan Funktionalit&#228;ten</a>
 			</h2>
-			
 			<p class="noindent">Eine Vielzahl der Funktionalit&#228;ten in
 				PubMan steht nicht nur eingeloggten Nutzern zur Verf&#252;gung,
 				sondern sind auch f&#252;r nicht eingeloggte Nutzer vorgesehen. Im
 				Folgenden erhalten Sie eine &#220;bersicht der
 				Funktionalit&#228;ten, die auch f&#252;r nicht eingeloggte Nutzer
 				verf&#252;gbar sind.</p>
-
 			<h3 id="Suchmoeglichkeiten_in_PubMan">
 				<span class="titlemark">3.1.</span><a>Suchm&#246;glichkeiten in
 					PubMan</a>
 			</h3>
-			
 			<p class="MsoNormal" style="margin-left: 0cm; text-indent: 0cm;">
 				PubMan bietet drei unterschiedliche Sucheinstiegspunkte:</p>
-				
 			<ul>
 				<li>Einfache Suche</li>
 				<li>Erweiterte Suche</li>
 				<li>Organisationssuche</li>
 			</ul>
-
 			<h4 id="Einfache_Suche">
 				<span class="titlemark">3.1.1.</span><a>Einfache Suche</a>
 			</h4>
-			
 			<p class="noindent">Bitte geben Sie einen oder mehrere
 				Suchbegriffe ein und klicken Sie den "Los" Knopf rechts neben dem
 				Sucheingabefeld, um die Suche auszuf&#252;hren.</p>
@@ -361,11 +326,9 @@
 				"*" f&#252;r null bis unendlich viele Zeichen. Bitte beachten Sie,
 				dass Trunkierungen am Anfang des Suchbegriffs nicht unterst&#252;tz
 				werden.</p>
-
 			<h4 id="AdvancedSearchPage">
 				<span class="titlemark">3.1.2.</span><a>Erweiterte Suche</a>
 			</h4>
-			
 			<p class="noindent">
 				Sie haben die M&#246;glichkeit, die Suchoptionen (Alle Felder,
 				Personen, Organisationen usw.) entweder einzeln oder in Kombination
@@ -376,12 +339,10 @@
 				finden Sie unter: <a
 					href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing">http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing</a>
 			</p>
-
 			<h5 id="Datum_Suche">
 				<span class="titlemark">3.1.2.1.</span><a>Suche nach Daten und
 					Zeitspannen</a>
 			</h5>
-			
 			<p>Um nach einem Datum zu suchen geben Sie dieses bitte im Format
 				YYYY-MM-DD im Suchfeld ein. Wie auch bei der Dateneingabe ist es
 				ebenso m&#246;glich nur nach YYYY oder YYYY-MM zu suchen.</p>
@@ -396,21 +357,17 @@
 				"2008" bis Enddatum "2009" wird automatisch nach allen
 				Datens&#228;tzen gesucht ab dem 01.01.2008, also dem Beginn des
 				Jahres 2008, bis zum 31.12.2009, also dem Ende des Jahres 2009.</p>
-
 			<h3 id="AffiliationTreePage">
 				<span class="titlemark">3.3.</span><a>Organisationssuche</a>
 			</h3>
-			
 			<p class="noindent">W&#228;hlen Sie hier die Organisation (oder
 				Unterorganisation) aus, &#252;ber die Sie sich informieren
 				m&#246;chten. Sie bekommen dann alle in PubMan eingegebenen
 				Referenzen des Instituts angezeigt. Wenn Sie auf "Beschreibung"
 				klicken, erhalten Sie weitere Informationen zur Organisation.</p>
-
 			<h3 id="Suchergebnisse">
 				<span class="titlemark">3.2.</span><a>Suchergebnisse</a>
 			</h3>
-			
 			<p class="noindent">Wenn Sie die Option "Volltexte einbinden"
 				gew&#228;hlt haben, bekommen Sie auch Ergebnisse angezeigt, bei
 				denen der Suchbegriff innerhalb des angeh&#228;ngten Textes gefunden
@@ -419,20 +376,16 @@
 				Anzeigeformat ausgeben lassen. Wenn Sie auf den Titel der
 				Publikation klicken, bekommen Sie die Vollansicht des Datensatzes
 				angezeigt.</p>
-
 			<h4 id="Exportieren">
 				<span class="titlemark">3.2.1.</span><a>Exportieren</a>
 			</h4>
-			
 			<p class="noindent">Sie k&#246;nnen&#160;Ergebnisse
 				im&#160;Zitierstil, z.B. APA, oder in ein bestimmtes Format, z.B.
 				EndNote Exportformat, exportieren.</p>
-
 			<h5 id="Export_per_E-Mail_verschicken">
 				<span class="titlemark">3.2.1.1</span><a>Export per E-Mail
 					verschicken</a>
 			</h5>
-			
 			<p class="noindent">Sie k&#246;nnen Daten auch per E-Mail
 				verschicken. Hierf&#252;r geben Sie bitte den Empf&#228;nger der
 				E-Mail an und die E-Mail Adresse, an die der Empf&#228;nger
@@ -440,11 +393,9 @@
 			<p class="indent">Wenn Sie die Export E-Mail an mehr als eine
 				E-Mail Adresse verschicken m&#246;chten, dann trennen Sie diese
 				bitte mit einem Komma und einem Leerzeichen voneinander ab.</p>
-
 			<h3 id="Basket">
 				<span class="titlemark">3.3.</span><a>Basket</a>
 			</h3>
-			
 			<p class="noindent">In PubMan haben Sie die M&#246;glichkeit,
 				eine beliebige Anzahl an Datens&#228;tzen von einer Liste
 				auszuw&#228;hlen und sie dann in einen "Basket"
@@ -455,11 +406,9 @@
 				Bitte beachten Sie, dass jeder Basket nur f&#252;r die jeweilige
 				Sitzung zur Verf&#252;gung steht und nicht gespeichert werden kann.
 				Ein Export aller Datens&#228;tze im Basket ist m&#246;glich.</p>
-
 			<h3 id="Datensatz-Vollansicht">
 				<span class="titlemark">3.4.</span><a>Datensatz-Vollansicht</a>
 			</h3>
-			
 			<p>
 				In der Datenvollansicht haben Sie die M&#246;glichkeit verschiedene
 				<b>Social Bookmarking Services</b> zu nutzen. Derzeit bietet Pubman
@@ -482,60 +431,48 @@
 				Datensatzes geh&#246;rt, ein Haus-Symbol platziert, kann dort eine
 				Beschreibung der Organisation aufgerufen werden.
 			</p>
-
 			<h4 id="Freigabegeschichte_einsehen">
 				<span class="titlemark">3.4.1.</span><a>Freigabegeschichte
 					einsehen</a>
 			</h4>
-			
 			<p class="noindent">Hier werden alle freigegebenen Versionen
 				eines Datensatzes angezeigt, und Sie k&#246;nnen Ver&#228;nderungen
 				am Metadatensatz nachvollziehen</p>
-
 			<h4 id="Revisionen_einsehen">
 				<span class="titlemark">3.4.2.</span><a>Revisionen einsehen</a>
 			</h4>
-			
 			<p class="noindent">Eine Revision ist eine inhaltlich
 				ver&#228;nderte oder neu bearbeitete Version, die mit dem
 				urspr&#252;nglichen Datensatz verlinkt ist. Unter "Revisionen
 				einsehen" werden Ihnen alle Revisionen eines Datensatzes angezeigt.
 			</p>
-
 			<h4 id="Statistik_zum_Datensatz_einsehen">
 				<span class="titlemark">3.4.3.</span><a>Statistik zum Datensatz
 					einsehen</a>
 			</h4>
-			
 			<p class="noindent">Hier k&#246;nnen Sie einsehen, wie
 				h&#228;ufig der Datensatz aufgerufen wurde und wie h&#228;ufig der
 				Volltext heruntergeladen wurde. Bitte beachten Sie, dass die
 				Statistiken nur einmal pro Nacht erneuert werden.</p>
-
 			<h4 id="Bearbeitungsgeschichte">
 				<span class="titlemark">3.4.4.</span><a>Bearbeitungsgeschichte
 					(nur registrierte Nutzer)</a>
 			</h4>
-			
 			<p class="noindent">Die Option ist nur f&#252;r registrierte
 				Nutzer sichtbar. Es wird die vollst&#228;ndige
 				Bearbeitungsgeschichte des Datensatzes angezeigt, also alle
 				Aktionen, die vom System aufgezeichnet worden sind.</p>
-
 			<h4 id="eSciDoc_help_de.jsp#ViewLocalTagsPage">
 				<span class="titlemark">3.4.5.</span><a>Lokale Tags (nur
 					f&#252;r registrierte Nutzer)</a>
 			</h4>
-			
 			<p class="noindent">Hier k&#246;nnen Sie selbstgew&#228;hlte
 				"Tags" bestimmen, mittels derer Sie die Datens&#228;tze
 				kategorisieren k&#246;nnen und so z.B. f&#252;r bestimmte Zwecke
 				Sets erstellen k&#246;nnen, z.B. "my best publications".</p>
-
 			<h2 id="SubmissionPage">
 				<span class="titlemark">4.</span><a>Dateneingabe</a>
 			</h2>
-			
 			<p class="MsoNormal" style="margin-left: 0cm; text-indent: 0cm;">
 				In PubMan gibt es grunds&#228;tzlich vier verschiedene
 				M&#246;glichkeiten, Daten einzugeben.</p>
@@ -564,23 +501,19 @@
 						m&#252;ssen h&#228;ndisch nach dem Import im jeweiligen Datensatz
 						nachbearbeitet werden.</i></li>
 			</ul>
-
 			<h3 id="neuen_Datensatz_anlegen">
 				<span class="titlemark">4.1.</span><a>Einen neuen Datensatz
 					anlegen</a>
 			</h3>
-			
 			<p class="noindent">Bevor Sie einen neuen Datensatz anlegen
 				k&#246;nnen, m&#252;ssen Sie zun&#228;chst die Eingabemethode
 				bestimmen und dann die Collection ausw&#228;hlen, in der Sie den
 				Eintrag vornehmen m&#246;chten. Diese w&#228;hlen Sie aus, indem Sie
 				auf den Namen der Collection klicken.</p>
-
 			<h3 id="Datensatz_bearbeiten">
 				<span class="titlemark">4.2.</span><a>Anlegen und Bearbeiten
 					eines Datensatzes</a>
 			</h3>
-			
 			<p class="noindent">Bevor Sie Ihre Publikationsdaten eingeben,
 				w&#228;hlen Sie bitte den Dokumenttyp (Genre) ihres Datensatzes aus.
 				Sie bekommen dann, dem Dokumenttyp entsprechend, eine Eingabemaske
@@ -596,12 +529,10 @@
 				gef&#252;llt sein, so bekommen Sie eine Validierungsmeldung. Siehe
 				auch <a href="#Validierung">Validierung</a>.
 			</p>
-
 			<h4 id="Personen_und_Organisationen">
 				<span class="titlemark">4.2.1.</span><a>Personen und
 					Organisationen eingeben</a>
 			</h4>
-			
 			<p class="noindent">Sie haben zwei M&#246;glichkeiten, Personen
 				einzugeben. Entweder alle einzeln, hierf&#252;r verwenden Sie die
 				Eingabemaske f&#252;r Personen und klicken auf das Plussymbol, wenn
@@ -616,12 +547,10 @@
 				einzelnen Felder f&#252;r die Eingabe von Personen eingef&#252;gt.
 				Bitte beachten Sie, dass mindestens eine Person eine Affiliation
 				tragen muss, da ansonsten der Eintrag nicht erstellt werden kann.</p>
-
 			<h4 id="Zeitschriftennamen_eingeben">
 				<span class="titlemark">4.2.2.</span><a>Zeitschriftennamen
 					eingeben</a>
 			</h4>
-			
 			<p>Wenn Sie als Quelle einen Zeitschriftennamen eingeben
 				m&#246;chten, dann stellen Sie bitte zun&#228;chst als Genre der
 				Quelle "Zeitschrift" ein. Wenn Sie nun anfangen, den
@@ -632,21 +561,17 @@
 				k&#246;nnen einen neuen Zeitschriftennamen angeben. Die
 				Vorschlagsliste schlie&#223;en Sie mit ESC, wenn Sie keinen der
 				vorgeschlagenen Namen &#252;bernehmen m&#246;chten.</p>
-
 			<h4 id="Sprache_der_Publikation_eingeben">
 				<span class="titlemark">4.2.3.</span><a>Sprache der Publikation
 					angeben</a>
 			</h4>
-			
 			<p>Auch bei der Sprache der Publikation wird mit Vorschlagslisten
 				gearbeitet. Sie k&#246;nnen hier sogar die Sprache entweder in
 				Deutsch oder in Englisch eingeben. Sie wird in beiden F&#228;llen
 				erkannt.</p>
-
 			<h4 id="Ein_Datum_eingeben">
 				<span class="titlemark">4.2.4.</span><a>Ein Datum eingeben</a>
 			</h4>
-			
 			<p>
 				Das Datum sollte folgendes Format haben: JJJJ-MM-TT. Sie k&#246;nnen
 				jedoch auch Begriffe wie "gestern", "letztes Jahr" oder
@@ -656,12 +581,10 @@
 					anzugebende Datum entspricht in diesen beiden F&#228;llen dem
 					Beginn der jeweiligen Ver&#246;ffentlichung.</i>
 			</p>
-
 			<h4 id="Rechte">
 				<span class="titlemark">4.2.5.</span><a>Rechte-Informationen
 					f&#252;r eine Datei hinterlegen</a>
 			</h4>
-			
 			<p>
 				Sie haben die M&#246;glichkeit die dem Datensatz angef&#252;gten
 				Dateien und externen Referenzen mit verschiedenen
@@ -677,11 +600,9 @@
 				die Richtigkeit dieser Rechte-Angaben im Vorfeld zu
 				&#252;berpr&#252;fen!
 			</p>
-
 			<h3 id="Revision_anlegen">
 				<span class="titlemark">4.3.</span><a>Eine neue Revision anlegen</a>
 			</h3>
-			
 			<p class="noindent">Eine neue Revision ist eine intellektuell
 				&#252;berarbeitete Version eines Werkes (z.B. erst Pre Print, dann
 				Post Print). Bitte beachten Sie, dass jede neue Revision ein neuer,
@@ -690,11 +611,9 @@
 			<p class="noindent">Bevor Sie die Revision (den neuen Datensatz)
 				freigeben, haben Sie die M&#246;glichkeit, einen Kommentar hierzu
 				abzugeben.</p>
-
 			<h3 id="Validierung">
 				<span class="titlemark">4.4.</span><a>Validierung</a>
 			</h3>
-			
 			<p class="noindent">Sie k&#246;nnen Ihren Datensatz validieren,
 				wenn Sie &#252;berpr&#252;fen wollen, ob er den Kriterien der
 				Collection entspricht. Die Auswahlkriterien werden pro Institut
@@ -702,11 +621,9 @@
 			<p class="indent">Bitte beachten Sie, dass Sie einen Datensatz
 				nur in PubMan einstellen k&#246;nnen, wenn er den Kriterien der
 				Collection entspricht.</p>
-
 			<h3 id="Speichern">
 				<span class="titlemark">4.5.</span><a>Speichern des Datensatzes</a>
 			</h3>
-			
 			<p class="noindent">Wenn Sie den "speichern" Knopf
 				bet&#228;tigen, wird ihr Datensatz in den Status "pending" gesetzt
 				und kann nur von Ihnen eingesehen und bearbeitet werden. Dies kann
@@ -714,18 +631,15 @@
 				sp&#228;teren Zeitpunkt fertig stellen m&#246;chten. Sie k&#246;nnen
 				Ihren Datensatz dann wieder &#252;ber Ihren Arbeitsplatz aufrufen
 				und editieren.</p>
-
 			<h3 id="Loeschen_des_Datensatzes">
 				<span class="titlemark">4.6.</span><a>L&#246;schen des
 					Datensatzes</a>
 			</h3>
-			
 			<p class="noindent">Bitte beachten Sie, dass Sie nur
 				Datens&#228;tze im Status "pending" l&#246;schen k&#246;nnen.
 				Bereits freigegebene Datens&#228;tze k&#246;nnen lediglich
 				zur&#252;ckgezogen werden, da Sie bereits zitierf&#228;hig mit einer
 				PID ausgezeichnet sind.</p>
-				
 			<h3 id="Einstellen_eines_Datensatzes">
 				<span class="titlemark">4.7.</span><a>Einstellen eines
 					Datensatzes</a>
@@ -742,37 +656,29 @@
 				weiteren Bearbeitung zur&#252;ckschickt. Datens&#228;tze, die an Sie
 				zur&#252;ckgeschickt wurden, finden Sie in Ihrem Arbeitsplatz unter
 				dem Filter "in &#220;berarbeitung".</p>
-
 			<h4 id="Kommentar_Einstellen">
 				<span class="titlemark">4.7.1.</span><a>Kommentar zum Einstellen</a>
 			</h4>
-			
 			<p class="noindent">In diesem Kommentarfeld k&#246;nnen Sie dem
 				Nutzer, der den Datensatz nach Ihnen im Workflow bearbeitet, einen
 				Kommentar hinterlassen, den er dann einsehen kann.</p>
-
 			<h3 id="Freigeben">
 				<span class="titlemark">4.8.</span><a>Freigeben eines
 					Datensatzes</a>
 			</h3>
-			
 			<p class="noindent">Im Simple Workflow k&#246;nnen Sie Ihre
 				Datens&#228;tze direkt f&#252;r die &#246;ffentliche Sicht freigeben
 				(sie m&#252;ssen nicht vorher eingestellt werden).</p>
-
 			<h4 id="Kommentar_zum_Freigeben">
 				<span class="titlemark">4.8.1.</span><a>Kommentar zum Freigeben</a>
 			</h4>
-			
 			<p class="noindent">In diesem Kommentarfeld k&#246;nnen Sie dem
 				Nutzer, der den Datensatz nach Ihnen im Workflow bearbeitet, einen
 				Kommentar hinterlassen, den er dann einsehen kann.</p>
-
 			<h2 id="Qualitaetssicherung_in_PubMan">
 				<span class="titlemark">5.</span><a>Qualit&#228;tssicherung in
 					PubMan</a>
 			</h2>
-			
 			<p class="noindent">Um eine hohe Qualit&#228;t der in PubMan
 				enthaltenen Daten zu garantieren, ist ein
 				Qualit&#228;tssicherungsworkflow implementiert worden, so dass alle
@@ -790,12 +696,10 @@
 				Alternative zum L&#246;schen, die dem Zweck der Langzeitarchivierung
 				dient und die Zitierbarkeit der Datens&#228;tze weiterhin
 				garantiert.</p>
-
 			<h3 id="Ueberarbeitung">
 				<span class="titlemark">5.1.</span><a>Einen Datensatz zur
 					&#220;berarbeitung an den Depositor zur&#252;cksenden</a>
 			</h3>
-			
 			<p class="noindent">Im Standard Workflow kann der Moderator
 				Datens&#228;tze, die den Qualit&#228;tsstandards nicht entsprechen,
 				dem Depositor zum Bearbeiten zur&#252;ckschicken. Datens&#228;tze im
@@ -803,41 +707,33 @@
 				Depositor als auch f&#252;r den Moderator sichtbar, k&#246;nnen
 				jedoch nur noch vom Depositor bearbeitet werden, bis sie erneut
 				eingestellt werden.</p>
-
 			<h3 id="Datensatz_modifizieren">
 				<span class="titlemark">5.2.</span><a>Einen Datensatz
 					modifizieren</a>
 			</h3>
-			
 			<p class="noindent">Datens&#228;tze im Status "pending"
 				k&#246;nnen vom Ersteller des Datensatzes noch so lange bearbeitet
 				werden, bis er zufrieden ist und den Datensatz in PubMan einstellt.
 				Bereits "eingestellte" bzw. "freigegebene" (je nach Workflow-Typ)
 				Datens&#228;tze k&#246;nnen vom Moderator ver&#228;ndert werden,
 				"freigegebene" Datens&#228;tze auch vom Ersteller.</p>
-
 			<h3 id="Akzeptieren">
 				<span class="titlemark">5.3.</span><a>Akzeptieren</a>
 			</h3>
-			
 			<p class="noindent">Wenn Sie den Datensatz, den Sie
 				ver&#228;ndert haben, f&#252;r die &#246;ffentliche Sicht wieder
 				freischalten m&#246;chten, dann m&#252;ssen Sie ihn akzeptieren.</p>
-
 			<h4 id="Kommentar_Akzeptieren">
 				<span class="titlemark">5.3.1.</span><a>Kommentar zum
 					Akzeptieren</a>
 			</h4>
-			
 			<p class="noindent">Sie haben hier die M&#246;glichkeit einen
 				Kommentar zu Ihrer &#220;berarbeitung abzugeben, der dann
 				&#246;ffentlich sichtbar ist &#252;ber die Freigabegeschichte.</p>
-
 			<h3 id="Datensatz_zurueckziehen">
 				<span class="titlemark">5.4.</span><a>Einen Datensatz
 					zur&#252;ckziehen</a>
 			</h3>
-			
 			<p class="noindent">Freigegebene Datens&#228;tze k&#246;nnen
 				nicht mehr gel&#246;scht, sondern nur noch zur&#252;ckgezogen
 				werden; die Metadaten bleiben dabei sichtbar, der Volltext jedoch
@@ -848,12 +744,10 @@
 			<p class="noindent">Datens&#228;tze k&#246;nnen nur vom Ersteller
 				(Depositor) zur&#252;ckgezogen werden. Bitte geben Sie den Grund an,
 				weswegen Sie das Item zur&#252;ckziehen m&#246;chten.</p>
-
 			<h2 id="Hilfsmittel_zur_Datenverwaltung">
 				<span class="titlemark">6.</span><a>Hilfsmittel zur
 					Datenverwaltung</a>
 			</h2>
-			
 			<p class="noindent">Als Depositor haben Sie &#252;ber "Meine
 				Datens&#228;tze" verschiedene M&#246;glichkeiten, ihre
 				Datens&#228;tze zu verwalten. Dort erhalten Sie eine &#220;bersicht
@@ -862,11 +756,9 @@
 				&#228;ndern, die Datens&#228;tze nach ihrem Status filtern oder nach
 				verschiedenen Kriterien sortieren, ausgew&#228;hlte Datens&#228;tze
 				exportieren oder einen Basket erstellen.</p>
-
 			<h3 id="Meine_Datensaetze">
 				<span class="titlemark">6.1.</span><a>Meine Datens&#228;tze</a>
 			</h3>
-			
 			<p class="noindent">Unter &#34;Meine Datens&#228;tze&#34; werden
 				alle Eintr&#228;ge aufgelistet, die der Depositor angelegt hat. Es
 				besteht die M&#246;glichkeit, sie nach Status zu filtern. So kann
@@ -875,11 +767,9 @@
 				vom Moderator zur Bearbeitung zur&#252;ckgeschickt wurden,
 				anreichern. Ein weiterer Filter zeigt Ihnen importierte
 				Datens&#228;tze nach datum sortiert an.</p>
-
 			<h4 id="Status_eines_Datensatzes">
 				<span class="titlemark">6.1.1.</span><a>Status eines Datensatzes</a>
 			</h4>
-			
 			<p>Bitte klicken Sie auf "Filter" und &#246;ffnen&#160;die
 				pull-down Liste "Status", wenn Sie Datens&#228;tze in einem anderen
 				Status angezeigt bekommen m&#246;chten. Folgende Statusangaben sind
@@ -907,22 +797,18 @@
 					vergessen Sie bitte nicht die Datens&#228;tze wieder einzustellen,
 					wenn Sie mit der &#220;berarbeitung fertig sind!</li>
 			</ul>
-
 			<h4 id="Datensaetze_Sortieren">
 				<span class="titlemark">6.1.2.</span><a>Datens&#228;tze
 					Sortieren</a>
 			</h4>
-			
 			<p class="noindent">Hier k&#246;nnen Sie das Sortierkriterium
 				Ihrer Liste &#228;ndern. Dar&#252;ber hinaus k&#246;nnen Sie
 				angeben, ob die Liste aufsteigend oder absteigend sortiert werden
 				soll.</p>
-
 			<h3 id="Qualitaetssicherung">
 				<span class="titlemark">6.2.</span><a>Qualit&#228;tssicherungs
 					Bereich</a>
 			</h3>
-			
 			<p class="noindent">Im Qualit&#228;tssicherungs Bereich werden
 				alle Daten angezeigt, die f&#252;r den Moderator relevant sind.
 				Datens&#228;tze in Status &#34;eingestellt&#34; m&#252;ssen noch
@@ -933,11 +819,9 @@
 			<p class="noindent">Bitte beachten Sie, dass das oben Genannte
 				nur f&#252;r den Standard Workflow gilt. Im Simple Workflow gibt es
 				keine Datens&#228;tze im Status "eingestellt".</p>
-
 			<h4 id="Status_eines_Datensatzes_QA">
 				<span class="titlemark">6.2.1.</span><a>Status eines Datensatzes</a>
 			</h4>
-			
 			<p class="noindent">Bitte klicken Sie auf "Filter" und
 				&#246;ffnen die pull-down Liste, wenn Sie Datens&#228;tze in einem
 				anderen Status angezeigt bekommen m&#246;chten. Folgende
@@ -956,20 +840,16 @@
 					Standard Workflow vor. Dies sind Datens&#228;tze, die Sie an den
 					Depositor zur &#220;berarbeitung zur&#252;ckgeschickt haben.</li>
 			</ul>
-
 			<h4 id="Datensaetze_sortieren_QA">
 				<span class="titlemark">6.2.2.</span><a>Datens&#228;tze	Sortieren</a>
 			</h4>
-			
 			<p class="noindent">Hier k&#246;nnen Sie das Sortierkriterium
 				Ihrer Liste &#228;ndern. Dar&#252;ber hinaus k&#246;nnen Sie
 				angeben, ob die Liste aufsteigend oder absteigend sortiert werden
 				soll.</p>
-
 			<h3 id="Import_Bereich">
 				<span class="titlemark">6.3.</span><a>Import Bereich</a>
 			</h3>
-			
 			<p class="noindent">Im Import Bereich k&#246;nnen Sie sich den
 				Status Ihrer Importe nachverfolgen und Stapelverarbeitungen
 				vornehmen, wie z.B. alle Datens&#228;tze, die Sie importiert haben
@@ -980,7 +860,7 @@
 				sofern sie sich noch im Status "pending" befinden.</p>
 		</div>
 	</f:view>
-
+	
 </body>
 
 </html>

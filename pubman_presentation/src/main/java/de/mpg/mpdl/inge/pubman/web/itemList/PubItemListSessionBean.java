@@ -1216,7 +1216,7 @@ public class PubItemListSessionBean extends
   /**
    * redirects to the first item of the whole list and updates the currentPartList if needed
    */
-  public void firstListItem() {
+  public String firstListItem() {
     try {
       this.setCurrentPageNumber(1);
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
@@ -1224,17 +1224,18 @@ public class PubItemListSessionBean extends
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
-      return;
     } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
+
+    return "";
   }
 
   /**
    * redirects to the last item of the whole list and updates the currentPartList if needed
    */
-  public void lastListItem() {
+  public String lastListItem() {
     try {
       this.setCurrentPageNumber(this.getPaginatorPageSize());
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
@@ -1243,11 +1244,12 @@ public class PubItemListSessionBean extends
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
       FacesTools.getExternalContext().redirect(
           this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
-      return;
     } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
+
+    return "";
   }
 
   public int getListItemPosition() {
@@ -1271,7 +1273,7 @@ public class PubItemListSessionBean extends
     }
   }
 
-  public void listItemPosition() {
+  public String doListItemPosition() {
     try {
       this.setCurrentPageNumber((int) Math.ceil((double) itemPosition
           / (double) this.getElementsPerPage()));
@@ -1286,6 +1288,8 @@ public class PubItemListSessionBean extends
       logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }
+
+    return "";
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
