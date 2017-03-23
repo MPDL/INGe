@@ -37,9 +37,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"
@@ -62,9 +59,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"

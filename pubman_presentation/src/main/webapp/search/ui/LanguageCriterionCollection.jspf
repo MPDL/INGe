@@ -54,9 +54,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"
@@ -97,9 +94,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"

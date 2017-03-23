@@ -62,9 +62,6 @@ public class BreadcrumbItem extends FacesBean {
    */
   private boolean isItemSpecific = false;
 
-  /**
-   * Default constructor.
-   */
   public BreadcrumbItem() {}
 
   /**
@@ -85,11 +82,11 @@ public class BreadcrumbItem extends FacesBean {
    * @return displayValue to label this BreadcrumbItem
    */
   public String getPageLabel() {
-    return getLabel(displayValue);
+    return getLabel(this.displayValue);
   }
 
   public String getDisplayValue() {
-    return displayValue;
+    return this.displayValue;
   }
 
   public void setDisplayValue(String displayValue) {
@@ -97,7 +94,7 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public String getPage() {
-    return page;
+    return this.page;
   }
 
   public void setPage(String page) {
@@ -105,7 +102,7 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public Method getDefaultAction() {
-    return defaultAction;
+    return this.defaultAction;
   }
 
   public void setDefaultAction(Method defaultAction) {
@@ -114,16 +111,16 @@ public class BreadcrumbItem extends FacesBean {
 
   @Override
   public String toString() {
-    return "[" + displayValue + "]";
+    return "[" + this.displayValue + "]";
   }
 
   @Override
   public boolean equals(final Object other) {
-    if (page == null || !(other instanceof BreadcrumbItem)) {
+    if (this.page == null || !(other instanceof BreadcrumbItem)) {
       return false;
     }
 
-    return (displayValue.equals(((BreadcrumbItem) other).getDisplayValue()));
+    return (this.displayValue.equals(((BreadcrumbItem) other).getDisplayValue()));
   }
 
   public boolean getIsLast() {
@@ -135,11 +132,11 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public String executeDefaultAction() {
-    if (defaultAction != null) {
+    if (this.defaultAction != null) {
       try {
-        Class<?> beanClass = defaultAction.getDeclaringClass();
+        Class<?> beanClass = this.defaultAction.getDeclaringClass();
         Object bean = FacesTools.findBean(beanClass.getName());
-        return defaultAction.invoke(bean, null).toString();
+        return this.defaultAction.invoke(bean, null).toString();
       } catch (Exception e) {
         logger.error("Error executing default action", e);
       }
@@ -149,7 +146,7 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public boolean isItemSpecific() {
-    return isItemSpecific;
+    return this.isItemSpecific;
   }
 
   public void setItemSpecific(boolean isItemSpecific) {

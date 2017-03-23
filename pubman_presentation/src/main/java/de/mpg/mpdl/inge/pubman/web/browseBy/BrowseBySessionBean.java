@@ -295,7 +295,6 @@ public class BrowseBySessionBean extends FacesBean {
         this.yearStart = yearPublishedOnline;
       }
     }
-
   }
 
   public void setYearStartAny() {
@@ -306,7 +305,6 @@ public class BrowseBySessionBean extends FacesBean {
     int yearSubmitted = -1;
     int yearModified = -1;
     int yearCreated = -1;
-
     int oldestYear = -1;
 
     yearPublishedPrint =
@@ -352,40 +350,40 @@ public class BrowseBySessionBean extends FacesBean {
     ItemContainerSearchResult result;
     try {
       result = SearchService.searchForItemContainer(query);
-      item = extractItemsOfSearchResult(result);
-
-      // item = pubItemList.get(0);
-      if (type.equals("print")) {
-        yearStr = item.getMetadata().getDatePublishedInPrint();
-      }
-      if (type.equals("online")) {
-        yearStr = item.getMetadata().getDatePublishedOnline();
-      }
-      if (type.equals("created")) {
-        yearStr = item.getMetadata().getDateCreated();
-      }
-      if (type.equals("accepted")) {
-        yearStr = item.getMetadata().getDateAccepted();
-      }
-      if (type.equals("modified")) {
-        yearStr = item.getMetadata().getDateModified();
-      }
-      if (type.equals("submitted")) {
-        yearStr = item.getMetadata().getDateSubmitted();
-      }
-      if (yearStr != null) {
-        // Take only first part of date string = year.
-        String[] yearArr = yearStr.split("-");
-        if (yearArr.length > 1) {
-          year = Integer.parseInt(yearArr[0]);
-        } else {
-          year = Integer.parseInt(yearStr);
+      if (result.getResultList().isEmpty() == false) {
+        item = extractItemsOfSearchResult(result);
+        if (type.equals("print")) {
+          yearStr = item.getMetadata().getDatePublishedInPrint();
+        }
+        if (type.equals("online")) {
+          yearStr = item.getMetadata().getDatePublishedOnline();
+        }
+        if (type.equals("created")) {
+          yearStr = item.getMetadata().getDateCreated();
+        }
+        if (type.equals("accepted")) {
+          yearStr = item.getMetadata().getDateAccepted();
+        }
+        if (type.equals("modified")) {
+          yearStr = item.getMetadata().getDateModified();
+        }
+        if (type.equals("submitted")) {
+          yearStr = item.getMetadata().getDateSubmitted();
+        }
+        if (yearStr != null) {
+          // Take only first part of date string = year.
+          String[] yearArr = yearStr.split("-");
+          if (yearArr.length > 1) {
+            year = Integer.parseInt(yearArr[0]);
+          } else {
+            year = Integer.parseInt(yearStr);
+          }
         }
       }
-
     } catch (Exception e) {
       logger.warn("Error computing starting year.", e);
     }
+
     return year;
   }
 
@@ -412,12 +410,13 @@ public class BrowseBySessionBean extends FacesBean {
         pubItemPres = new PubItemVOPresentation(pubItemResult);
       }
     }
+
     return pubItemPres;
   }
 
 
   public String getQuery() {
-    return query;
+    return this.query;
   }
 
   public void setQuery(String query) {
@@ -426,7 +425,7 @@ public class BrowseBySessionBean extends FacesBean {
 
 
   public List<String> getBrowseByYears() {
-    return browseByYears;
+    return this.browseByYears;
   }
 
   public void setBrowseByYears(List<String> browseByYears) {
@@ -434,7 +433,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String getDateType() {
-    return dateType;
+    return this.dateType;
   }
 
   public void setDateType(String dateType) {
@@ -442,11 +441,11 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String getPubContentModel() {
-    return pubContentModel;
+    return this.pubContentModel;
   }
 
   public String[] getCharacters() {
-    return characters;
+    return this.characters;
   }
 
   public void setCharacters(String[] characters) {
@@ -454,11 +453,10 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String getDateMode() {
-    return dateMode;
+    return this.dateMode;
   }
 
   public void setDateMode(String dateMode) {
     this.dateMode = dateMode;
   }
-
 }

@@ -343,11 +343,6 @@
 						oncomplete="afterAjaxRequest();">
 					</p:fileUpload>
 				</span>
-				<!--
-				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" value="#{lbl.EditItem_btUpload_File}"/>
-				</span>
-				-->
 			</h:panelGroup>
 			<!-- Add File from url-->
 			<h:panelGroup layout="block"

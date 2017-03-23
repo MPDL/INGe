@@ -250,13 +250,6 @@
 									value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 					</span>
-					<!--
-				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
-					<h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
-				</span>
-		-->
 				</h:panelGroup>
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine"
@@ -492,9 +485,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"

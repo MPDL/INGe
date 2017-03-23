@@ -41,9 +41,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"
@@ -67,9 +64,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"
@@ -121,9 +115,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
--->
 					</span>
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<span
 						class="noDisplay"> </span>
@@ -184,9 +175,6 @@
 							value=" " title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"

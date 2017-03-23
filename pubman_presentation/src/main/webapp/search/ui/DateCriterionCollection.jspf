@@ -42,9 +42,6 @@
 							title="#{tip.search_btRemove}"
 							disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}"
 							action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}" />
-						<!-- 
-					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
--->
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block"
