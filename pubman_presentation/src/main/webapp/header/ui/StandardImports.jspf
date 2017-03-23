@@ -31,6 +31,7 @@
 		var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";
 	</script>
 	
+	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 	<h:outputScript	name="commonJavaScript/componentJavaScript/breadcrump.js" />
 	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_ext_paginator.js" />
 	<h:outputScript	name="commonJavaScript/componentJavaScript/eSciDoc_full_item.js" />
