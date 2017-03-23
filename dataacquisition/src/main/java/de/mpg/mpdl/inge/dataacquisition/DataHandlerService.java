@@ -298,7 +298,7 @@ public class DataHandlerService {
           Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
 
           Transformer componentTransformer =
-              TransformerFactory.newInstance(srcFormat.toFORMAT(), trgFormatComponent.toFORMAT());
+              TransformerCache.getTransformer(srcFormat.toFORMAT(), trgFormatComponent.toFORMAT());
           if (componentTransformer != null) {
             wr = new StringWriter();
 
@@ -535,7 +535,7 @@ public class DataHandlerService {
       Format to = new Format("bmc_fulltext_html", "text/html", "*");
 
       try {
-        Transformer transformer = TransformerFactory.newInstance(from.toFORMAT(), to.toFORMAT());
+        Transformer transformer = TransformerCache.getTransformer(from.toFORMAT(), to.toFORMAT());
         StringWriter wr = new StringWriter();
 
         transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
@@ -553,7 +553,7 @@ public class DataHandlerService {
       byte[] xslFo = null;
       try {
         StringWriter wr = new StringWriter();
-        Transformer transformer = TransformerFactory.newInstance(from.toFORMAT(), to.toFORMAT());
+        Transformer transformer = TransformerCache.getTransformer(from.toFORMAT(), to.toFORMAT());
 
         transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
             new TransformerStreamResult(wr));
@@ -974,7 +974,7 @@ public class DataHandlerService {
     }
     // Transformable formats
     FORMAT[] trgFormats =
-        TransformerFactory.getAllTargetFormatsFor((new Format(trgFormatName, trgFormatType,
+        TransformerCache.getAllTargetFormatsFor((new Format(trgFormatName, trgFormatType,
             trgFormatEncoding)).toFORMAT());
     if (trgFormats.length > 0) {
       return fetchTypeTEXTUALDATA;

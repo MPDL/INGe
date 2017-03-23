@@ -2345,7 +2345,7 @@ public class ViewItemFull extends FacesBean {
 
       wr = new StringWriter();
       Transformer t2 =
-          de.mpg.mpdl.inge.transformation.TransformerFactory.newInstance(
+          de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(
               FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
 
       t2.transform(

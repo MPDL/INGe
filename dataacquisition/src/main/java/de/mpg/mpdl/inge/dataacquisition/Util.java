@@ -45,6 +45,7 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.util.Format;
@@ -168,7 +169,7 @@ public class Util {
     de.mpg.mpdl.inge.transformation.util.Format oldFormat =
         new de.mpg.mpdl.inge.transformation.util.Format(trgFormatName, trgFormatType,
             trgFormatEndcoding);
-    FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(oldFormat.toFORMAT());
+    FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat.toFORMAT());
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
@@ -213,7 +214,7 @@ public class Util {
             getDefaultEncoding(getInternalFormat()));
     FORMAT[] formats;
 
-    formats = TransformerFactory.getAllTargetFormatsFor(escidoc.toFORMAT());
+    formats = TransformerCache.getAllTargetFormatsFor(escidoc.toFORMAT());
 
     for (int i = 0; i < formats.length; i++) {
       if (isFormatEqual(target, Util.fromFORMAT(formats[i]))) {
@@ -310,7 +311,7 @@ public class Util {
     for (int i = 0; i < fetchFormats.size(); i++) {
       MetadataVO md = fetchFormats.get(i);
       Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      FORMAT[] formats = TransformerFactory.getAllTargetFormatsFor(format.toFORMAT());
+      FORMAT[] formats = TransformerCache.getAllTargetFormatsFor(format.toFORMAT());
       // formats = this.handleDuplicateFormatNames(formats);
       // Create MetadataVO
       for (int x = 0; x < formats.length; x++) {
@@ -340,7 +341,7 @@ public class Util {
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);
       Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      FORMAT[] trgFormats = TransformerFactory.getAllTargetFormatsFor(format.toFORMAT());
+      FORMAT[] trgFormats = TransformerCache.getAllTargetFormatsFor(format.toFORMAT());
       for (int x = 0; x < trgFormats.length; x++) {
         Format trgFormat = Util.fromFORMAT(trgFormats[x]);
         if (trgFormat.getName().equals(getInternalFormat())) {

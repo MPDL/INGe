@@ -27,6 +27,18 @@ public class TransformerFactoryTest {
 
   private static Logger logger = Logger.getLogger(TransformerFactoryTest.class);
 
+  public final static FORMAT[] sourceForESCIDOC_ITEM_V3_XML = {FORMAT.ARXIV_OAIPMH_XML,
+      FORMAT.BIBTEX_STRING, FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML, FORMAT.EDOC_XML,
+      FORMAT.ENDNOTE_XML, FORMAT.MAB_XML, FORMAT.MARC_XML, FORMAT.MODS_XML, FORMAT.PEER_TEI_XML,
+      FORMAT.PMC_OAIPMH_XML, FORMAT.RIS_XML, FORMAT.SPIRES_XML, FORMAT.WOS_XML, FORMAT.ZFN_TEI_XML};
+
+  public final static FORMAT[] targetForESCIDOC_ITEM_V3_XML = {FORMAT.DOI_METADATA_XML,
+      FORMAT.ZIM_XML, FORMAT.EDOC_XML, FORMAT.OAI_DC, FORMAT.BIBTEX_STRING,
+      FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.HTML_METATAGS_DC_XML,
+      FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FORMAT.ENDNOTE_STRING,};
+
+
+
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
@@ -152,6 +164,25 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToHtmlMetatagsDC.xml");
+  }
+
+  @Test
+  public void testItemXmlV3ToHtmlMetaTagsHighwirePressCitXml() throws TransformationException,
+      IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML,
+            FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertTransformation(wr, "results/fromEscidocItemToHtmlMetaTagsHighwirePressCit.xml");
   }
 
   @Test
@@ -293,6 +324,18 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabXmlToEscidocItem.xml");
   }
 
+  @Test(expected = TransformationException.class)
+  public void testMabXmlWrongLinkToItemXmlV3() throws TransformationException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "mabXml_item_wronglink.xml")), new TransformerStreamResult(wr));
+  }
+
   @Test
   public void testMarcXmlToItemXmlV3() throws TransformationException, IOException {
 
@@ -353,8 +396,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.MAB_STRING, FORMAT.MAB_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mab_item.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "mab_item_list.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -444,6 +487,40 @@ public class TransformerFactoryTest {
 
   }
 
+  @Test
+  public void testWosToWosXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.WOS_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.txt")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromWosToWosXml.xml");
+
+  }
+
+  @Test
+  public void testWosXmlToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.xml")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
+
+  }
+
   /*
    * @Test public void testRisToItemListXml() throws TransformationException, IOException {
    * 
@@ -480,6 +557,38 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
+  }
+
+  @Test
+  public void testMabToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mab_item.txt")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromMabToEscidocItemXml.xml");
+  }
+
+  @Test
+  public void testWosToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.txt")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
   }
 
 
@@ -574,12 +683,6 @@ public class TransformerFactoryTest {
 
   @Test
   public void testGetAllSourceFormatsFor() {
-    FORMAT[] sourceForESCIDOC_ITEM_V3_XML =
-        {FORMAT.ARXIV_OAIPMH_XML, FORMAT.BIBTEX_STRING, FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML,
-            FORMAT.EDOC_XML, FORMAT.ENDNOTE_XML, FORMAT.MAB_XML, FORMAT.MARC_XML, FORMAT.MODS_XML,
-            FORMAT.PEER_TEI_XML, FORMAT.PMC_OAIPMH_XML, FORMAT.RIS_XML, FORMAT.SPIRES_XML,
-            FORMAT.WOS_XML, FORMAT.ZFN_TEI_XML};
-
 
     assertTrue(Arrays.asList(TransformerFactory.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
         .containsAll(Arrays.asList(sourceForESCIDOC_ITEM_V3_XML)));
@@ -589,11 +692,6 @@ public class TransformerFactoryTest {
 
   @Test
   public void testGetAllTargetFormatsFor() {
-    FORMAT[] targetForESCIDOC_ITEM_V3_XML =
-        {FORMAT.DOI_METADATA_XML, FORMAT.ZIM_XML, FORMAT.EDOC_XML, FORMAT.OAI_DC,
-            FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.HTML_METATAGS_DC_XML,
-            FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FORMAT.ENDNOTE_STRING,};
-
 
     assertTrue(Arrays.asList(TransformerFactory.getAllTargetFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
         .containsAll(Arrays.asList(targetForESCIDOC_ITEM_V3_XML)));

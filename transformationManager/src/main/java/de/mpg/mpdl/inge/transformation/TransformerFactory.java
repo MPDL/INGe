@@ -26,7 +26,7 @@ public class TransformerFactory {
 
   }
 
-  public static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat)
+  static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat)
       throws TransformationException {
 
     List<TransformerEdge> transformerEdges = new ArrayList<TransformerEdge>();
@@ -95,7 +95,7 @@ public class TransformerFactory {
     }
   }
 
-  public static FORMAT[] getAllTargetFormatsFor(FORMAT sourceFormat) {
+  static FORMAT[] getAllTargetFormatsFor(FORMAT sourceFormat) {
 
     Set<FORMAT> targetFormats = new HashSet<FORMAT>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
@@ -132,7 +132,7 @@ public class TransformerFactory {
     return (FORMAT[]) targetFormats.toArray(new FORMAT[targetFormats.size()]);
   }
 
-  public static FORMAT[] getAllSourceFormatsFor(FORMAT targetFormat) {
+  static FORMAT[] getAllSourceFormatsFor(FORMAT targetFormat) {
 
     Set<FORMAT> sourceFormats = new HashSet<FORMAT>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");

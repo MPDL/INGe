@@ -2,6 +2,8 @@ package de.mpg.mpdl.inge.transformation;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +13,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 public class TransformerCacheTest {
 
   @Test
-  public void test() {
+  public void testTransformerCache() {
     Transformer t1 = null, t2 = null, t3 = null, t4 = null;
     try {
       t1 =
@@ -44,6 +46,23 @@ public class TransformerCacheTest {
     }
     assertTrue(t4 == null);
     assertTrue(TransformerCache.getInstance().getTransformerCacheSize() == 2);
+  }
+
+  @Test
+  public void testGetAllSourceFormatsFor() {
+
+    assertTrue(Arrays.asList(TransformerFactory.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
+        .containsAll(Arrays.asList(TransformerFactoryTest.sourceForESCIDOC_ITEM_V3_XML)));
+  }
+
+  @Test
+  public void testGetAllTargetFormatsFor() {
+
+
+    assertTrue(Arrays.asList(TransformerFactory.getAllTargetFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
+        .containsAll(Arrays.asList(TransformerFactoryTest.targetForESCIDOC_ITEM_V3_XML)));
+
+
   }
 
 }

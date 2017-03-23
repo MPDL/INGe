@@ -242,7 +242,7 @@ public class ImportProcess extends Thread {
     }
 
     FORMAT[] allSourceFormats =
-        de.mpg.mpdl.inge.transformation.TransformerFactory
+        TransformerCache
             .getAllSourceFormatsFor(de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
 
     boolean found = false;

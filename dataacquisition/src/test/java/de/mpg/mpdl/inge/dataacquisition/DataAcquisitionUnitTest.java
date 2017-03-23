@@ -53,7 +53,7 @@ public class DataAcquisitionUnitTest {
   private final static String pmcId = "PMC2043518";
   private final static String bmcId = "1472-6890-9-1";
   private final static String spiresId = "hep-ph/0001001 ";
-  private final static String escidocId = "TODO";
+  private final static String escidocId = "escidoc:1801318";
 
   @Before
   public void setup() throws Exception {
@@ -62,16 +62,15 @@ public class DataAcquisitionUnitTest {
   }
 
   @Test
-  @Ignore
   public void fetchFromCone() throws Exception {
     String fileEnding = Util.retrieveFileEndingFromCone("application/pdf");
     Assert.assertNotNull(fileEnding);
+    Assert.assertTrue(fileEnding.equals(".pdf"));
   }
 
   @Test
   public void fetchArxiv() throws Exception {
     byte[] test = this.datahandler.doFetch("arxiv", arxivId);
-    String result = new String(test, "UTF-8");
     Assert.assertNotNull(test);
   }
 
@@ -82,7 +81,6 @@ public class DataAcquisitionUnitTest {
   }
 
   @Test
-  @Ignore
   public void fetchBmc() throws Exception {
     byte[] test = this.datahandler.doFetch("BioMed Central", bmcId);
     Assert.assertNotNull(test);

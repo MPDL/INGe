@@ -97,7 +97,7 @@ public class ReportWorkspaceBean extends FacesBean {
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
     FORMAT[] targetFormats =
-        de.mpg.mpdl.inge.transformation.TransformerFactory
+        de.mpg.mpdl.inge.transformation.TransformerCache
             .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
 
     for (FORMAT f : targetFormats) {

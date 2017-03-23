@@ -167,7 +167,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://current-pubman:8080/pubman/item/escidoc:GETID</item-url>
+		<item-url>http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoc</source-identifier>
 		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<source-identifier-example>escidoc:http://test-pubman.mpdl.mpg.de/pubman/item/escidoc:12001:2</source-identifier-example>
@@ -181,7 +181,7 @@
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://current-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
@@ -191,7 +191,7 @@
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://current-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
 				<dc:format>unknown</dc:format>
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
@@ -333,7 +333,7 @@
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://dev-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>http://dev-pubman.mpdl.mpg.de</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
@@ -343,7 +343,7 @@
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://dev-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>http://dev-pubman.mpdl.mpg.de</dc:identifier>
 				<dc:format>unknown</dc:format>
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
@@ -359,7 +359,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://qa-pubman:8080/pubman/item/escidoc:GETID</item-url>
+		<item-url>http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidocqa</source-identifier>
 		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
@@ -371,7 +371,7 @@
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://qa-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
@@ -381,7 +381,7 @@
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://qa-coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://qa-coreservice.mpdl.mpg.de:8080</dc:identifier>
 				<dc:format>unknown</dc:format>
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
@@ -435,7 +435,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://pubman:8080/pubman/item/escidoc:GETID</item-url>
+		<item-url>http://pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidocprod</source-identifier>
 		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
@@ -447,7 +447,7 @@
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://coreservice.mpdl.mpg.de</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
@@ -457,7 +457,7 @@
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://coreservice.mpdl.mpg.de:8080</dc:identifier>
 				<dc:format>unknown</dc:format>
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>

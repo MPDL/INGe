@@ -49,14 +49,18 @@ public class Format implements Serializable {
   private static Map<Format, FORMAT> map;
   static {
     map = new HashMap<Format, FORMAT>();
-    map.put(new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"),
-        FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+    map.put(new Format("eSciDoc-publication-item", "application/xml", "*"),
+        FORMAT.ESCIDOC_ITEM_V3_XML);
+    map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
+        FORMAT.ESCIDOC_ITEMLIST_V2_XML);
     map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
         FORMAT.ESCIDOC_ITEMLIST_V2_XML);
     map.put(new Format("pmc", "application/xml", "UTF-8"), FORMAT.PMC_OAIPMH_XML);
     map.put(new Format("arxiv", "application/xml", "UTF-8"), FORMAT.ARXIV_OAIPMH_XML);
     map.put(new Format("bmc", "application/xml", "UTF-8"), FORMAT.BMC_XML);
     map.put(new Format("spires", "application/xml", "UTF-8"), FORMAT.SPIRES_XML);
+    map.put(new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8"),
+        FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
   }
 
   private String name;

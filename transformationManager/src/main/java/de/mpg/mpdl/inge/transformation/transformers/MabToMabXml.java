@@ -31,7 +31,7 @@ public class MabToMabXml extends SingleTransformer implements ChainableTransform
           (Result) result);
 
     } catch (Exception e) {
-      throw new TransformationException("Error while transforming EndNote to EndNote XML", e);
+      throw new TransformationException("Error while transforming Mab Text to Mab XML", e);
     }
 
 
