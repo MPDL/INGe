@@ -56,6 +56,7 @@ public class HomePage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
   public HomePage() {
+    logger.info("#### HOMEPAGE.INIT ####");
     this.init();
   }
 

@@ -33,7 +33,8 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    logger.debug("PAGE: " + FacesTools.getCurrentInstance().getViewRoot().getViewId());
+    logger.info("#### INIT BREADCRUMBPAGE PAGE ####: "
+        + FacesTools.getCurrentInstance().getViewRoot().getViewId());
 
     FacesContext fc = FacesTools.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
@@ -57,6 +58,7 @@ public abstract class BreadcrumbPage extends FacesBean {
         isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
+    // TODO: korrekt????
     UIComponent bcComponent =
         FacesTools.getCurrentInstance().getViewRoot()
             .findComponent("form1:Breadcrumb:BreadcrumbNavigation");

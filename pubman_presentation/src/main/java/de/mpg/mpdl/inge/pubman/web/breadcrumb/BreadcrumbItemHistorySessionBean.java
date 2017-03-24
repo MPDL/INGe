@@ -49,8 +49,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   // a List of all pages with item-lists
   private final String[] itemListPages = { //
       "SearchResultListPage", "DepositorWSPage", "QAWSPage", "CartItemsPage", "YearbookPage",
-          "YearbookArchivePage" //
-      };
+          "YearbookArchivePage"};
 
   // the List of BreadCrumbs representing JSP's that have been viewed
   private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
@@ -69,6 +68,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    * @param newItem BreadcrumbItem to be added to the history
    */
   public void push(final BreadcrumbItem newItem) {
+    logger.info("#### BREADCRUMB.PUSH #### :" + newItem);
+
     if ("HomePage".equals(newItem.getDisplayValue())) {
       this.breadcrumbs.clear();
     }
@@ -135,7 +136,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
     this.breadcrumbs.get(this.breadcrumbs.size() - 1).setIsLast(true);
 
-    logger.info("Breadcrumb:");
+    logger.info("#### BREADCRUMB ####");
     for (BreadcrumbItem breadcrumbItem : this.breadcrumbs) {
       logger.info(breadcrumbItem);
     }
@@ -181,16 +182,26 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   }
 
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
-    logger.debug("Accessing BC:" + this.breadcrumbs + ":" + this);
-
     // return only the last 3 items of the breadcrumb list
     if (this.breadcrumbs.size() > 3) {
       List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 1));
+
+      // TODO: remove
+      for (BreadcrumbItem breadcrumbItem : breadcrumbsLimited) {
+        logger.info("#### Accessing BC ####:" + breadcrumbItem);
+      }
+
       return breadcrumbsLimited;
     } else {
+
+      // TODO: remove
+      for (BreadcrumbItem breadcrumbItem : this.breadcrumbs) {
+        logger.info("#### Accessing BC ####:" + breadcrumbItem);
+      }
+
       return this.breadcrumbs;
     }
   }
@@ -238,16 +249,17 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public boolean getPreviousPageIsListPage() {
     if (this.breadcrumbs.size() > 1) {
       for (int i = 0; i < this.itemListPages.length; i++) {
-        if (this.itemListPages[i].equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())) {
+        if (this.itemListPages[i].equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2)
+            .getDisplayValue())) {
           return true;
-        } else if ((this.breadcrumbs.size() > 2 && this.itemListPages[i].equals(this.breadcrumbs.get(
-            this.breadcrumbs.size() - 3).getDisplayValue()))
-            && ("ViewItemFullPage"
-                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue()) || "ViewItemOverviewPage"
-                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue()))
-            && ("ViewItemFullPage"
-                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue()) || "ViewItemOverviewPage"
-                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue()))) {
+        } else if ((this.breadcrumbs.size() > 2 && this.itemListPages[i].equals(this.breadcrumbs
+            .get(this.breadcrumbs.size() - 3).getDisplayValue()))
+            && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2)
+                .getDisplayValue()) || "ViewItemOverviewPage".equals(this.breadcrumbs.get(
+                this.breadcrumbs.size() - 2).getDisplayValue()))
+            && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1)
+                .getDisplayValue()) || "ViewItemOverviewPage".equals(this.breadcrumbs.get(
+                this.breadcrumbs.size() - 1).getDisplayValue()))) {
           return true;
         }
       }
@@ -255,5 +267,4 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
     return false;
   }
-
 }

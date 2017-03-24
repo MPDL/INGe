@@ -111,7 +111,8 @@ public class BreadcrumbItem extends FacesBean {
 
   @Override
   public String toString() {
-    return "[" + this.displayValue + "]";
+    return "BreadcrumbItem [displayValue=" + displayValue + ", page=" + page + ", isLast=" + isLast
+        + ", defaultAction=" + defaultAction + ", isItemSpecific=" + isItemSpecific + "]";
   }
 
   @Override
