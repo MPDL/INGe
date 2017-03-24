@@ -43,11 +43,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ViewItemStatisticsPage extends BreadcrumbPage {
   public static final String LOAD_VIEWSTATISTICS = "loadViewStatistics";
 
-  public ViewItemStatisticsPage() {
-    this.init();
-  }
+  public ViewItemStatisticsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

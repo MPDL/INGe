@@ -8,7 +8,7 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-    <h:outputText value="#{BrowseBySelectPage.necessaryForBeanInitialisation}" styleClass="noDisplay" />
+    <f:event type="preRenderView" listener="#{BrowseBySelectPage.init}" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />

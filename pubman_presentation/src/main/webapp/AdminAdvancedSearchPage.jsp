@@ -9,7 +9,7 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-    <h:outputText value="#{AdvancedSearchPage.necessaryForBeanInitialisation}" styleClass="noDisplay" />
+    <f:event type="preRenderView" listener="#{AdvancedSearchPage.init}" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />

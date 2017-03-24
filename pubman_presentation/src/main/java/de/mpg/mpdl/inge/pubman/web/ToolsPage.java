@@ -41,11 +41,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ToolsPage")
 @SuppressWarnings("serial")
 public class ToolsPage extends BreadcrumbPage {
-  public ToolsPage() {
-    this.init();
-  }
+  public ToolsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

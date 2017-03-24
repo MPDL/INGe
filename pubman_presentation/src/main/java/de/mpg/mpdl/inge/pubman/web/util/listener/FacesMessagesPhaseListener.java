@@ -31,10 +31,6 @@ public class FacesMessagesPhaseListener implements PhaseListener {
 
   private static final String sessionToken = "REDIRECT_MESSAGES_SUPPORT";
 
-  // private Map<String, Collection<FacesMessage>> messageCache = Collections.synchronizedMap(new
-  // HashMap<String, Collection<FacesMessage>>());
-
-
   /**
    * Caches Faces Messages after the Invoke Application phase and clears the cache after the Render
    * Response phase
@@ -84,7 +80,6 @@ public class FacesMessagesPhaseListener implements PhaseListener {
       Iterator<FacesMessage> iterator = context.getMessages(clientId);
       Collection<FacesMessage> cachedMessages = getMessageCache(context).get(clientId);
       if (cachedMessages == null) {
-        // cachedMessages = new TreeSet<FacesMessage>(new FacesMessageComparator());
         cachedMessages = new ArrayList<FacesMessage>();
         getMessageCache(context).put(clientId, cachedMessages);
       }

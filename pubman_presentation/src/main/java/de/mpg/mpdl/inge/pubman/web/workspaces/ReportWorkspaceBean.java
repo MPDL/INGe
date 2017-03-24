@@ -209,7 +209,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     }
 
-    return null;
+    return "";
   }
 
   private String doSearchItems() {

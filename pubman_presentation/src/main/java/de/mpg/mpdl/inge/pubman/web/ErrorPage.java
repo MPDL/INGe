@@ -56,15 +56,11 @@ public class ErrorPage extends BreadcrumbPage {
   private String summary = null;
   private String detail = null;
 
-  public ErrorPage() {
-    this.init();
-  }
+  public ErrorPage() {}
 
-  @Override
   public void init() {
     super.init();
 
-    // show the pageAlert
     this.createPageAlert();
   }
 

@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "AffiliationTreePage")
 @SuppressWarnings("serial")
 public class AffiliationTreePage extends BreadcrumbPage {
-  public AffiliationTreePage() {
-    this.init();
-  }
+  public AffiliationTreePage() {}
 
-  @Override
   public void init() {
     super.init();
   }

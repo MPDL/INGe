@@ -41,11 +41,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "SubmissionPage")
 @SuppressWarnings("serial")
 public class SubmissionPage extends BreadcrumbPage {
-  public SubmissionPage() {
-    this.init();
-  }
+  public SubmissionPage() {}
 
-  @Override
   public void init() {
     super.init();
 

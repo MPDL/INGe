@@ -88,8 +88,6 @@ public class MyItemsRetrieverRequestBean extends
 
   public MyItemsRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
-    // logger.info("RenderResponse: "+FacesTools.getCurrentInstance().getRenderResponse());
-    // logger.info("ResponseComplete: "+FacesTools.getCurrentInstance().getResponseComplete());
   }
 
   /**

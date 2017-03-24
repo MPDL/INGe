@@ -33,11 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "BrowseBySelectPage")
 @SuppressWarnings("serial")
 public class BrowseBySelectPage extends BreadcrumbPage {
-  public BrowseBySelectPage() {
-    this.init();
-  }
+  public BrowseBySelectPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

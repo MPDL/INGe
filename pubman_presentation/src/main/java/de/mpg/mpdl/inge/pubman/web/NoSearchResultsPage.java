@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "NoSearchResultsPage")
 @SuppressWarnings("serial")
 public class NoSearchResultsPage extends BreadcrumbPage {
-  public NoSearchResultsPage() {
-    this.init();
-  }
+  public NoSearchResultsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

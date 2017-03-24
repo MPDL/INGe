@@ -272,7 +272,8 @@ public class FileBean extends FacesBean {
       logger.debug("File Download Error: " + e.toString());
       System.out.println(e.toString());
     }
-    return null;
+
+    return "";
   }
 
   /**

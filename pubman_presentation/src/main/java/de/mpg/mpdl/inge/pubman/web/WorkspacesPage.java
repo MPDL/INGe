@@ -37,11 +37,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "WorkspacesPage")
 @SuppressWarnings("serial")
 public class WorkspacesPage extends BreadcrumbPage {
-  public WorkspacesPage() {
-    this.init();
-  }
+  public WorkspacesPage() {}
 
-  @Override
   public void init() {
     super.init();
 

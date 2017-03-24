@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "AffiliationSearchResultListPage")
 @SuppressWarnings("serial")
 public class AffiliationSearchResultListPage extends BreadcrumbPage {
-  public AffiliationSearchResultListPage() {
-    this.init();
-  }
+  public AffiliationSearchResultListPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

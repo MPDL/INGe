@@ -55,12 +55,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class HomePage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
-  public HomePage() {
-    logger.info("#### HOMEPAGE.INIT ####");
-    this.init();
-  }
+  public HomePage() {}
 
-  @Override
   public void init() {
     Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
@@ -88,7 +84,6 @@ public class HomePage extends BreadcrumbPage {
 
     return url;
   }
-
 
   /**
    * Reads the survey URL from the properties file.

@@ -38,11 +38,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "AdvancedSearchPage")
 @SuppressWarnings("serial")
 public class AdvancedSearchPage extends BreadcrumbPage {
-  public AdvancedSearchPage() {
-    this.init();
-  }
+  public AdvancedSearchPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

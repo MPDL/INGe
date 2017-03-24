@@ -41,11 +41,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "NewMultipleImport")
 @SuppressWarnings("serial")
 public class NewMultipleImport extends BreadcrumbPage {
-  public NewMultipleImport() {
-    this.init();
-  }
+  public NewMultipleImport() {}
 
-  @Override
   public void init() {
     super.init();
   }

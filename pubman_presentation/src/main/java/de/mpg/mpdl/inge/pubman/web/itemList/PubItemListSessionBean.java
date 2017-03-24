@@ -1046,7 +1046,6 @@ public class PubItemListSessionBean extends
 
     }
 
-    // redirect();
     return "";
   }
 

@@ -40,11 +40,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "AcceptItemPage")
 @SuppressWarnings("serial")
 public class AcceptItemPage extends BreadcrumbPage {
-  public AcceptItemPage() {
-    this.init();
-  }
+  public AcceptItemPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

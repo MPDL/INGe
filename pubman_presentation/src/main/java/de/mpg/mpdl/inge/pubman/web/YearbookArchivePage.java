@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "YearbookArchivePage")
 @SuppressWarnings("serial")
 public class YearbookArchivePage extends BreadcrumbPage {
-  public YearbookArchivePage() {
-    this.init();
-  }
+  public YearbookArchivePage() {}
 
-  @Override
   public void init() {
     super.init();
   }

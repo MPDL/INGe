@@ -51,11 +51,8 @@ public class ImportWorkspace extends BreadcrumbPage {
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
   private List<ImportLog> imports = null;
 
-  public ImportWorkspace() {
-    this.init();
-  }
+  public ImportWorkspace() {}
 
-  @Override
   public void init() {
     super.init();
 

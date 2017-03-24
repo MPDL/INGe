@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
@@ -43,21 +41,12 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "QAWSPage")
 @SuppressWarnings("serial")
 public class QAWSPage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(QAWSPage.class);
+  public QAWSPage() {}
 
-  public QAWSPage() {
-    this.init();
-  }
-
-  @Override
   public void init() {
     super.init();
 
-    try {
-      checkForLogin();
-    } catch (Exception e) {
-      logger.error("Could not login." + "\n" + e.toString());
-    }
+    checkForLogin();
   }
 
   public boolean getIsModerator() {

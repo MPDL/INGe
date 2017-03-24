@@ -43,11 +43,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ReviseItemPage")
 @SuppressWarnings("serial")
 public class ReviseItemPage extends BreadcrumbPage {
-  public ReviseItemPage() {
-    this.init();
-  }
+  public ReviseItemPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

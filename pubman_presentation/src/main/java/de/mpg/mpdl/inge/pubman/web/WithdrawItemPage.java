@@ -40,13 +40,12 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "WithdrawItemPage")
 @SuppressWarnings("serial")
 public class WithdrawItemPage extends BreadcrumbPage {
-  public WithdrawItemPage() {
-    this.init();
-  }
+  public WithdrawItemPage() {}
 
-  @Override
   public void init() {
     super.init();
+
+    checkForLogin();
   }
 
   @Override

@@ -28,11 +28,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).
@@ -41,31 +37,12 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ReportWorkspacePage")
 @SuppressWarnings("serial")
 public class ReportWorkspacePage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(ReportWorkspacePage.class);
+  public ReportWorkspacePage() {}
 
-  public ReportWorkspacePage() {
-    this.init();
-  }
-
-  @Override
   public void init() {
     super.init();
 
-    checkLogin();
-  }
-
-  protected void checkLogin() {
-    Login login = (Login) FacesTools.findBean("Login.class");
-
-    // if not logged in redirect to login page
-    if (!getLoginHelper().isLoggedIn()) {
-      try {
-        login.loginLogout();
-      } catch (Exception e) {
-        logger.error("Error during redirection.", e);
-        error("Could not redirect to login!");
-      }
-    }
+    checkForLogin();
   }
 
   @Override

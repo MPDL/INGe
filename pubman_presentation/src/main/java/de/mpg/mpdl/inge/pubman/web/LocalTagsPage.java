@@ -33,11 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "LocalTagsPage")
 @SuppressWarnings("serial")
 public class LocalTagsPage extends BreadcrumbPage {
-  public LocalTagsPage() {
-    this.init();
-  }
+  public LocalTagsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

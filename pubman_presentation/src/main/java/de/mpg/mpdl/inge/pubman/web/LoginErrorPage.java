@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "LoginErrorPage")
 @SuppressWarnings("serial")
 public class LoginErrorPage extends BreadcrumbPage {
-  public LoginErrorPage() {
-    this.init();
-  }
+  public LoginErrorPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

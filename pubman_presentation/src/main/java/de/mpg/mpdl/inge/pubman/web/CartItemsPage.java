@@ -33,11 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "CartItemsPage")
 @SuppressWarnings("serial")
 public class CartItemsPage extends BreadcrumbPage {
-  public CartItemsPage() {
-    this.init();
-  }
+  public CartItemsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

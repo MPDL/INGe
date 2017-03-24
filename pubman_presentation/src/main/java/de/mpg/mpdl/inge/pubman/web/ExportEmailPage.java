@@ -42,11 +42,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ExportEmailPage")
 @SuppressWarnings("serial")
 public class ExportEmailPage extends BreadcrumbPage {
-  public ExportEmailPage() {
-    this.init();
-  }
+  public ExportEmailPage() {}
 
-  @Override
   public void init() {
     super.init();
 

@@ -41,11 +41,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "UserAccountOptionsPage")
 @SuppressWarnings("serial")
 public class UserAccountOptionsPage extends BreadcrumbPage {
-  public UserAccountOptionsPage() {
-    this.init();
-  }
+  public UserAccountOptionsPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

@@ -33,11 +33,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "SearchResultListPage")
 @SuppressWarnings("serial")
 public class SearchResultListPage extends BreadcrumbPage {
-  public SearchResultListPage() {
-    this.init();
-  }
+  public SearchResultListPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

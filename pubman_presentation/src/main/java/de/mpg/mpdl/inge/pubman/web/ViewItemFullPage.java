@@ -39,11 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 @ManagedBean(name = "ViewItemFullPage")
 @SuppressWarnings("serial")
 public class ViewItemFullPage extends BreadcrumbPage {
-  public ViewItemFullPage() {
-    this.init();
-  }
+  public ViewItemFullPage() {}
 
-  @Override
   public void init() {
     super.init();
   }

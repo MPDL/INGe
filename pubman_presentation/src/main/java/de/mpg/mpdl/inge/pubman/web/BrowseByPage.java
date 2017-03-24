@@ -58,29 +58,29 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class BrowseByPage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
-  private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
-  private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
-  private final String pubYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ISSUED();
-  private final String pubOnlineYearSearchIndex = MetadataSearchCriterion
-      .getINDEX_DATE_PUBLISHED_ONLINE();
-  private final String anyYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ANY();
-  private final String queryPerson = "foaf:family_name";
-  private final String queryDdc = "dc:title";
-  private BrowseBySessionBean bbBean;
-  private String currentCharacter = "A";
+  private BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools
+      .findBean("BrowseBySessionBean");
+
   private List<String> creators;
   private List<String> subjects;
   private SelectItem[] dateOptions;
 
-  public BrowseByPage() {
-    this.init();
-  }
+  private String currentCharacter = "A";
 
-  @Override
+  private final String anyYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ANY();
+  private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
+  private final String pubOnlineYearSearchIndex = MetadataSearchCriterion
+      .getINDEX_DATE_PUBLISHED_ONLINE();
+  private final String pubYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ISSUED();
+  private final String queryDdc = "dc:title";
+  private final String queryPerson = "foaf:family_name";
+  private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
+
+  public BrowseByPage() {}
+
   public void init() {
     super.init();
 
-    this.bbBean = (BrowseBySessionBean) FacesTools.findBean("BrowseBySessionBean");
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
     if ("year".equals(getSelectedValue())) {
@@ -94,7 +94,6 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return navigation string for page reload
    */
   public String startCharacterSearch(String selChar) {
-    System.out.println("Start char search");
     String curChar = selChar;
     List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
     this.bbBean.setCurrentCharacter(curChar);
