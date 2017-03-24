@@ -155,9 +155,6 @@ public class SwordUtil extends FacesBean {
     this.init();
   }
 
-  /**
-   * Initialisation method.
-   */
   public void init() {
     this.filenames.clear();
   }

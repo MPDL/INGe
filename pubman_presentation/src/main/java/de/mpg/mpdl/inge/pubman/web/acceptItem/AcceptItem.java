@@ -67,10 +67,6 @@ public class AcceptItem extends FacesBean {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation. Creators handling added by FrM.
-   */
   public void init() {
     // Fill creators property.
     StringBuffer creators = new StringBuffer();

@@ -323,7 +323,7 @@ public class YearbookItemCreateBean extends FacesBean {
       YearbookItemEditBean yieb =
           (YearbookItemEditBean) FacesTools.findBean("YearbookItemEditBean");
       if (yieb != null) {
-        yieb.initialize();
+        yieb.init();
       }
       return "loadYearbookPage";
     } catch (Exception e) {

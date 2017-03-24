@@ -40,5 +40,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @ManagedBean(name = "SubmitItemPage")
 @SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
-  public SubmitItemPage() {}
+  public SubmitItemPage() {
+    this.init();
+  }
+
+  public void init() {
+    checkForLogin();
+  }
 }

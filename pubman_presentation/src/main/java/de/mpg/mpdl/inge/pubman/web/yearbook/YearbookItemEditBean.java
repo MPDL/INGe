@@ -83,10 +83,10 @@ public class YearbookItemEditBean extends FacesBean {
   public YearbookItemEditBean() throws Exception {
     this.yearbookItemSessionBean =
         (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    initialize();
+    this.init();
   }
 
-  public void initialize() {
+  public void init() {
     try {
       this.initContextMenu();
       if (this.yearbookItemSessionBean != null) {

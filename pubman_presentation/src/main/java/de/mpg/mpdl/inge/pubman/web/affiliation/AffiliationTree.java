@@ -61,18 +61,12 @@ public class AffiliationTree extends FacesBean {
 
   boolean started = false;
 
-  /**
-   * Default constructor.
-   * 
-   * @throws Exception Any exception
-   */
   public AffiliationTree() throws Exception {
     affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     affiliations =
         CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
             .searchTopLevelAffiliations());
     timestamp = new Date().getTime();
-
   }
 
   public List<AffiliationVOPresentation> getAffiliations() {

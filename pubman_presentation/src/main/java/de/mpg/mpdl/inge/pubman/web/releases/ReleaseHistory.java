@@ -54,13 +54,7 @@ public class ReleaseHistory extends FacesBean {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
   public void init() {
-    // super.init();
-
     if (this.getItemVersionListSessionBean().getVersionList() == null) {
       this.getItemVersionListSessionBean().initVersionLists(
           getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()

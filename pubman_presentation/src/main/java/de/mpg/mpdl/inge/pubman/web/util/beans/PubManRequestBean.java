@@ -40,17 +40,10 @@ public class PubManRequestBean extends FacesBean {
   private String helpAnchor = "";
   private String requestedPage = "";
 
-  /**
-   * Default constructor.
-   */
   public PubManRequestBean() {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
   public void init() {
     if (FacesTools.getExternalContext().getRequestPathInfo() != null) {
       this.helpAnchor = FacesTools.getExternalContext().getRequestPathInfo().replace("/", "");

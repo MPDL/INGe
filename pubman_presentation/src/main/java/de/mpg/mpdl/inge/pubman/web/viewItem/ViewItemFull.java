@@ -248,11 +248,6 @@ public class ViewItemFull extends FacesBean {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation. Changed by DiT, 15.10.2007: added
-   * link for modify
-   */
   public void init() {
     String itemID = "";
 

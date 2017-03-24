@@ -39,27 +39,4 @@ public class Home extends FacesBean {
   public static final String LOAD_HOME = "loadHome";
 
   public Home() {}
-
-  // /**
-  // * Callback method that is called whenever a page containing this page fragment is navigated to,
-  // * either directly via a URL, or indirectly via page navigation.
-  // */
-  // public void init() {
-  // // Perform initializations inherited from our superclass
-  // //super.init();
-  // }
-
-  // public List<PubItemVOPresentation> getLatest() throws Exception {
-  // // SearchRetrieverRequestBean srrb =
-  // // (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
-  // String cqlQuery =
-  // "escidoc.content-model.objid="
-  // + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-  // SearchQuery cql = new PlainCqlQuery(cqlQuery);
-  // cql.setMaximumRecords("4");
-  // cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-  // ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
-  // List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
-  // return list;
-  // }
 }

@@ -50,14 +50,8 @@ public class AffiliationBean extends FacesBean {
   private String source = null;
   private TreeNode rootTreeNode;
 
-  /**
-   * Default constructor.
-   */
   public AffiliationBean() throws Exception {
-    // tree = new ChildPropertyTreeModel(getAffiliations(), "children");
-    // timestamp = new Date().getTime();
     this.setTopLevelAffs(getTopLevelAffiliations());
-
 
     rootTreeNode = new DefaultTreeNode("Root", null);
     for (AffiliationVOPresentation aff : getAffiliations()) {
@@ -73,8 +67,6 @@ public class AffiliationBean extends FacesBean {
       }
       // -----
     }
-
-
   }
 
   public void selectNode(ActionEvent event) throws Exception {
