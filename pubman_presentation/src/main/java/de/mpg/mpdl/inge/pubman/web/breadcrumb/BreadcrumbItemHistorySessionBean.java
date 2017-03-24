@@ -30,8 +30,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -44,12 +42,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BreadcrumbItemHistorySessionBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
-
   // a List of all pages with item-lists
   private final String[] itemListPages = { //
       "SearchResultListPage", "DepositorWSPage", "QAWSPage", "CartItemsPage", "YearbookPage",
-          "YearbookArchivePage"};
+      "YearbookArchivePage"};
 
   // the List of BreadCrumbs representing JSP's that have been viewed
   private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
@@ -68,8 +64,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    * @param newItem BreadcrumbItem to be added to the history
    */
   public void push(final BreadcrumbItem newItem) {
-    logger.info("#### BREADCRUMB.PUSH #### :" + newItem);
-
     if ("HomePage".equals(newItem.getDisplayValue())) {
       this.breadcrumbs.clear();
     }
@@ -94,9 +88,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
           // this.breadcrumbs.remove(lastItem);
 
           // in particular for ViewItemFullPage, when an ID is added to the URL
-          keepold =
-              lastItem.getPage().startsWith(newItem.getPage())
-                  && !newItem.getPage().contains("itemId=");
+          keepold = lastItem.getPage().startsWith(newItem.getPage())
+              && !newItem.getPage().contains("itemId=");
         }
       }
 
@@ -135,11 +128,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
     }
 
     this.breadcrumbs.get(this.breadcrumbs.size() - 1).setIsLast(true);
-
-    logger.info("#### BREADCRUMB ####");
-    for (BreadcrumbItem breadcrumbItem : this.breadcrumbs) {
-      logger.info(breadcrumbItem);
-    }
   }
 
   /**
@@ -188,20 +176,8 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 1));
-
-      // TODO: remove
-      for (BreadcrumbItem breadcrumbItem : breadcrumbsLimited) {
-        logger.info("#### Accessing BC ####:" + breadcrumbItem);
-      }
-
       return breadcrumbsLimited;
     } else {
-
-      // TODO: remove
-      for (BreadcrumbItem breadcrumbItem : this.breadcrumbs) {
-        logger.info("#### Accessing BC ####:" + breadcrumbItem);
-      }
-
       return this.breadcrumbs;
     }
   }
@@ -249,17 +225,19 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public boolean getPreviousPageIsListPage() {
     if (this.breadcrumbs.size() > 1) {
       for (int i = 0; i < this.itemListPages.length; i++) {
-        if (this.itemListPages[i].equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2)
-            .getDisplayValue())) {
+        if (this.itemListPages[i]
+            .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())) {
           return true;
-        } else if ((this.breadcrumbs.size() > 2 && this.itemListPages[i].equals(this.breadcrumbs
-            .get(this.breadcrumbs.size() - 3).getDisplayValue()))
-            && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2)
-                .getDisplayValue()) || "ViewItemOverviewPage".equals(this.breadcrumbs.get(
-                this.breadcrumbs.size() - 2).getDisplayValue()))
-            && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1)
-                .getDisplayValue()) || "ViewItemOverviewPage".equals(this.breadcrumbs.get(
-                this.breadcrumbs.size() - 1).getDisplayValue()))) {
+        } else if ((this.breadcrumbs.size() > 2 && this.itemListPages[i]
+            .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 3).getDisplayValue()))
+            && ("ViewItemFullPage"
+                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())
+                || "ViewItemOverviewPage"
+                    .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue()))
+            && ("ViewItemFullPage"
+                .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue())
+                || "ViewItemOverviewPage"
+                    .equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue()))) {
           return true;
         }
       }

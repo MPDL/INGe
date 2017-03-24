@@ -12,7 +12,7 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-    <h:outputText value="#{QAWSPage.necessaryForCallToInit}" styleClass="noDisplay" />
+    <h:outputText value="#{QAWSPage.necessaryForBeanInitialisation}" styleClass="noDisplay" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />

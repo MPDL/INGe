@@ -8,7 +8,7 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-    <h:outputText value="#{AcceptItemPage.necessaryForCallToInit}" styleClass="noDisplay" />
+    <h:outputText value="#{AcceptItemPage.necessaryForBeanInitialisation}" styleClass="noDisplay" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />

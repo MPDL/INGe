@@ -2,10 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.List;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
@@ -29,17 +26,14 @@ public abstract class BreadcrumbPage extends FacesBean {
 
   private BreadcrumbItem previousItem = null;
 
-  public String getNecessaryForCallToInit() {
-    return "NecessaryForCallToInit";
+  public String getNecessaryForBeanInitialisation() {
+    return "NecessaryForBeanInitialisation";
   }
 
   /**
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    logger.info("#### INIT BREADCRUMBPAGE PAGE ####: "
-        + FacesTools.getCurrentInstance().getViewRoot().getViewId());
-
     FacesContext fc = FacesTools.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
     String pageName = page.substring(0, page.lastIndexOf("."));
@@ -62,35 +56,35 @@ public abstract class BreadcrumbPage extends FacesBean {
         isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
-    UIComponent bcComponent =
-        FacesTools.getCurrentInstance().getViewRoot()
-            .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
-
-    if (bcComponent == null) {
-      bcComponent =
-          FacesTools.getCurrentInstance().getViewRoot()
-              .findComponent("Breadcrumb:BreadcrumbNavigation");
-      logger.info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with Breadcrumb:BreadcrumbNavigation"
-          + FacesTools.getCurrentInstance().getViewRoot().getViewId());
-    } else {
-      logger
-          .info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with form1:Breadcrumb:BreadcrumbNavigation"
-              + FacesTools.getCurrentInstance().getViewRoot().getViewId());
-    }
-
-    if (bcComponent != null) {
-      ValueExpression value =
-          FacesContext
-              .getCurrentInstance()
-              .getApplication()
-              .getExpressionFactory()
-              .createValueExpression(FacesTools.getCurrentInstance().getELContext(),
-                  "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
-      bcComponent.setValueExpression("value", value);
-    } else {
-      logger.warn("#### INIT BREADCRUMBPAGE PAGE ####: NOT FOUND "
-          + FacesTools.getCurrentInstance().getViewRoot().getViewId());
-    }
+    // UIComponent bcComponent =
+    // FacesTools.getCurrentInstance().getViewRoot()
+    // .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
+    //
+    // if (bcComponent == null) {
+    // bcComponent =
+    // FacesTools.getCurrentInstance().getViewRoot()
+    // .findComponent("Breadcrumb:BreadcrumbNavigation");
+    // logger.info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with Breadcrumb:BreadcrumbNavigation"
+    // + FacesTools.getCurrentInstance().getViewRoot().getViewId());
+    // } else {
+    // logger
+    // .info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with form1:Breadcrumb:BreadcrumbNavigation"
+    // + FacesTools.getCurrentInstance().getViewRoot().getViewId());
+    // }
+    //
+    // if (bcComponent != null) {
+    // ValueExpression value =
+    // FacesContext
+    // .getCurrentInstance()
+    // .getApplication()
+    // .getExpressionFactory()
+    // .createValueExpression(FacesTools.getCurrentInstance().getELContext(),
+    // "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
+    // bcComponent.setValueExpression("value", value);
+    // } else {
+    // logger.warn("#### INIT BREADCRUMBPAGE PAGE ####: NOT FOUND "
+    // + FacesTools.getCurrentInstance().getViewRoot().getViewId());
+    // }
   }
 
   public String getPreviousPageURI() {

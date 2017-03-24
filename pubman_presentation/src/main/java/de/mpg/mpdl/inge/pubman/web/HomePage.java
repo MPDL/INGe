@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
