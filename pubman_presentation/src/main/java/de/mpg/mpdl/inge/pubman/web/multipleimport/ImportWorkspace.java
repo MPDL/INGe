@@ -51,19 +51,11 @@ public class ImportWorkspace extends BreadcrumbPage {
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
   private List<ImportLog> imports = null;
 
-  /**
-   * Default constructor.
-   * 
-   * Retrieves the sorting information from the request parameters.
-   */
   public ImportWorkspace() {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
+  @Override
   public void init() {
     super.init();
 

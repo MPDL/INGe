@@ -44,10 +44,7 @@ public class WithdrawItemPage extends BreadcrumbPage {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
+  @Override
   public void init() {
     super.init();
   }

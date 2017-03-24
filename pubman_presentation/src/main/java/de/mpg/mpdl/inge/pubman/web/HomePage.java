@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
@@ -60,10 +61,7 @@ public class HomePage extends BreadcrumbPage {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
+  @Override
   public void init() {
     Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {

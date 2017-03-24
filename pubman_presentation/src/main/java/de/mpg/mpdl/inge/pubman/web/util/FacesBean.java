@@ -51,36 +51,6 @@ public class FacesBean implements Serializable {
 
   public FacesBean() {}
 
-  // public String getBeanName() {
-  // return BEAN_NAME;
-  // }
-
-  // public FacesContext getCurrentInstance() {
-  // return FacesContext.getCurrentInstance();
-  // }
-
-  // public ExternalContext getExternalContext() {
-  // return FacesContext.getCurrentInstance().getExternalContext();
-  // }
-
-  // public HttpServletRequest getRequest() {
-  // return (HttpServletRequest)
-  // FacesContext.getCurrentInstance().getExternalContext().FacesTools.getRequest();
-  // }
-
-  // public HttpServletResponse getResponse() {
-  // return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().FacesTools
-  // .getResponse();
-  // }
-
-  // public String getIP() {
-  // return FacesTools.getRequest().getRemoteAddr();
-  // }
-
-  // public String getUserAgent() {
-  // return FacesTools.getRequest().getHeader("User-Agent");
-  // }
-
   /**
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
@@ -332,81 +302,4 @@ public class FacesBean implements Serializable {
   public String getLabel(String placeholder) {
     return getI18nHelper().getLabel(placeholder);
   }
-
-  // // TODO: was ist der Unterschied zu den anderen getXXXBeans
-  // public static Object getRequestBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // if (FacesBean.class.getName().equals(name)) {
-  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-  // }
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  //
-  // FacesContext context = FacesTools.getCurrentInstance();
-  // return cls
-  // .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-  // }
-
-  // // TODO: was ist der Unterschied zu den anderen getXXXBeans
-  // public static Object getSessionBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // if (FacesBean.class.getName().equals(name)) {
-  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-  // }
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  //
-  // FacesContext context = FacesTools.getCurrentInstance();
-  // Object bean =
-  // cls.cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-  //
-  // return bean;
-  // }
-
-  // // TODO: was ist der Unterschied zu den anderen getXXXBeans
-  // public static Object getApplicationBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // if (FacesBean.class.getName().equals(name)) {
-  // logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
-  // }
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  //
-  // FacesContext context = FacesTools.getCurrentInstance();
-  //
-  // return cls
-  // .cast(context.getApplication().evaluateExpressionGet(context, "#{" + name + "}", cls));
-  // }
-
-  // @Deprecated
-  // // TODO: was ist der Unterschied zu den anderen getXXXBeans
-  // public static synchronized Object getBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // } catch (IllegalAccessException iae) {
-  // throw new RuntimeException("Error getting bean name.", iae);
-  // } catch (NoSuchFieldException nsfe) {
-  // throw new RuntimeException("Property BEAN_NAME not defined in " + cls, nsfe);
-  // }
-  //
-  // Object bean =
-  // FacesTools.getCurrentInstance().getApplication().createValueBinding("#{" + name + "}")
-  // .getValue(FacesTools.getCurrentInstance());
-  //
-  // return bean;
-  // }
 }

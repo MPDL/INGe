@@ -29,6 +29,10 @@ public abstract class BreadcrumbPage extends FacesBean {
 
   private BreadcrumbItem previousItem = null;
 
+  public String getNecessaryForCallToInit() {
+    return "NecessaryForCallToInit";
+  }
+
   /**
    * Add an entry to the breadcrumb navigation.
    */
@@ -58,7 +62,6 @@ public abstract class BreadcrumbPage extends FacesBean {
         isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
 
-    // TODO: korrekt????
     UIComponent bcComponent =
         FacesTools.getCurrentInstance().getViewRoot()
             .findComponent("form1:Breadcrumb:BreadcrumbNavigation");
@@ -67,7 +70,15 @@ public abstract class BreadcrumbPage extends FacesBean {
       bcComponent =
           FacesTools.getCurrentInstance().getViewRoot()
               .findComponent("Breadcrumb:BreadcrumbNavigation");
+      logger.info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with Breadcrumb:BreadcrumbNavigation"
+          + FacesTools.getCurrentInstance().getViewRoot().getViewId());
     } else {
+      logger
+          .info("#### INIT BREADCRUMBPAGE PAGE ####: FOUND with form1:Breadcrumb:BreadcrumbNavigation"
+              + FacesTools.getCurrentInstance().getViewRoot().getViewId());
+    }
+
+    if (bcComponent != null) {
       ValueExpression value =
           FacesContext
               .getCurrentInstance()
@@ -76,6 +87,9 @@ public abstract class BreadcrumbPage extends FacesBean {
               .createValueExpression(FacesTools.getCurrentInstance().getELContext(),
                   "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
       bcComponent.setValueExpression("value", value);
+    } else {
+      logger.warn("#### INIT BREADCRUMBPAGE PAGE ####: NOT FOUND "
+          + FacesTools.getCurrentInstance().getViewRoot().getViewId());
     }
   }
 

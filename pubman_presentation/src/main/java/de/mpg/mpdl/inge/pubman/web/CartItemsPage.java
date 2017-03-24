@@ -37,6 +37,7 @@ public class CartItemsPage extends BreadcrumbPage {
     this.init();
   }
 
+  @Override
   public void init() {
     super.init();
   }

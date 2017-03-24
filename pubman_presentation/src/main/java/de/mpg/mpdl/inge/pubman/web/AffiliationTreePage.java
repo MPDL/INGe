@@ -43,14 +43,7 @@ public class AffiliationTreePage extends BreadcrumbPage {
     this.init();
   }
 
-  /**
-   * Callback method that is called whenever a page is navigated to, either directly via a URL, or
-   * indirectly via page navigation. Customize this method to acquire resources that will be needed
-   * for event handlers and lifecycle methods, whether or not this page is performing post back
-   * processing. Note that, if the current request is a postback, the property values of the
-   * components do <strong>not</strong> represent any values submitted with this request. Instead,
-   * they represent the property values that were saved for this view when it was rendered.
-   */
+  @Override
   public void init() {
     super.init();
   }

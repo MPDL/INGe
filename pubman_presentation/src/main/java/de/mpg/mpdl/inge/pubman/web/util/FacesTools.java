@@ -36,8 +36,8 @@ public class FacesTools {
   public static <T> T findBean(String beanName) {
     FacesContext context = FacesContext.getCurrentInstance();
 
-    return (T) FacesContext.getCurrentInstance().getApplication()
-        .evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
+    return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}",
+        Object.class);
   }
 
   public static FacesContext getCurrentInstance() {

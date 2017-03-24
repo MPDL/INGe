@@ -45,6 +45,7 @@ public class NewMultipleImport extends BreadcrumbPage {
     this.init();
   }
 
+  @Override
   public void init() {
     super.init();
   }
