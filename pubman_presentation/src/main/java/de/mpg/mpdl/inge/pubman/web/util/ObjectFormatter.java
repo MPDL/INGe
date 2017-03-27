@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.util;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 
 /**
- * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp.
+ * ObjectFormatter.java Backing bean.
  * 
  * @author: Tobias Schraut, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007

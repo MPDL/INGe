@@ -44,6 +44,8 @@ public class AcceptItemPage extends BreadcrumbPage {
 
   public void init() {
     super.init();
+
+    checkForLogin();
   }
 
   @Override

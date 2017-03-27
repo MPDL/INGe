@@ -65,7 +65,7 @@
                 document.getElementById('ImgFullItemLoad').setAttribute(
                     'class', 'big_imgArea half_marginLIncl smallThrobber');
                 $('*').attr('readonly', true);
-                $(':input : file').attr('disabled', true);
+                $(':input :file').attr('disabled', true);
             }
         </script>
     </f:view>

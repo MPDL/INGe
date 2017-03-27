@@ -60,7 +60,7 @@
         <script type="text/javascript">
             function fullItemReload() {
                 $(document).ready(function() {
-                    $("#fullItem :a").click(function(event) {
+                    $("#fullItem a").click(function(event) {
                         event.preventDefault();
                     });
                 });

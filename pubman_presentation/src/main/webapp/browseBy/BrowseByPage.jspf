@@ -23,7 +23,8 @@
 								action="#{BrowseByPage.startCharacterSearch(char)}">
 								<h:outputText value="#{char}" />
 							</h:commandLink>
-						</h:panelGroup> <h:panelGroup styleClass="xTiny_area0 disabled"
+						</h:panelGroup>
+						<h:panelGroup styleClass="xTiny_area0 disabled"
 							rendered="#{(BrowseBySessionBean.showChars) and (BrowseBySessionBean.currentCharacter == char)}">
 							<h:outputText value="#{char}" />
 						</h:panelGroup>

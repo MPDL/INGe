@@ -92,15 +92,16 @@ public class MultipleImport extends FacesBean {
       "UTF-8");
   public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
 
+
+  private ContextVO context;
+  private File uploadedFile;
+  private Format format;
   private List<SelectItem> configParameters = null;
   private List<SelectItem> importFormats = new ArrayList<SelectItem>();
   private Map<String, List<SelectItem>> parametersValues;
-  private UploadedFile uploadedImportFile;
   private String fixedFileName;
-  private File uploadedFile;
-  private ContextVO context;
-  private Format format;
   private String name;
+  private UploadedFile uploadedImportFile;
   private boolean rollback = true;
   private int duplicateStrategy = 3;
 
@@ -127,8 +128,6 @@ public class MultipleImport extends FacesBean {
   };
 
   public MultipleImport() {
-
-    // Standard formats
     this.importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
     this.importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
     this.importFormats.add(new SelectItem(RIS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_RIS")));
@@ -140,7 +139,6 @@ public class MultipleImport extends FacesBean {
     this.importFormats.add(new SelectItem(MARC21_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC21")));
     this.importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
     this.importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
-
   }
 
   public String uploadFile() {

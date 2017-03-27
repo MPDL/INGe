@@ -287,7 +287,7 @@
                         $.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
                             $(ele).children('td').empty().append(data);
                         });
-                        if (($(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0) && ($(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
+                        if (($(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0) &amp; &amp; ($(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
                             $(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
                         }
                     }

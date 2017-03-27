@@ -42,14 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SuppressWarnings("serial")
 public class EasySubmissionPage extends FacesBean {
   public EasySubmissionPage() {
-    this.init();
-  }
-
-  /**
-   * Callback method that is called whenever a page containing this page fragment is navigated to,
-   * either directly via a URL, or indirectly via page navigation.
-   */
-  public void init() {
     checkForLogin();
   }
 }
