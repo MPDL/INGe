@@ -121,6 +121,7 @@ public class YearbookModeratorRetrieverRequestBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
+    
     return "";
   }
 

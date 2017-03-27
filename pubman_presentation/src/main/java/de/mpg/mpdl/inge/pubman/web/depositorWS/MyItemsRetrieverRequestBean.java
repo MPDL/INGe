@@ -329,13 +329,13 @@ public class MyItemsRetrieverRequestBean extends
    */
   public String changeItemState() {
     try {
-
       getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       getBasePaginatorListSessionBean().redirect();
     } catch (Exception e) {
       logger.error("Error during redirection.", e);
       error("Could not redirect");
     }
+    
     return "";
 
   }
@@ -348,12 +348,12 @@ public class MyItemsRetrieverRequestBean extends
    */
   public String changeImport() {
     try {
-
       getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       getBasePaginatorListSessionBean().redirect();
     } catch (Exception e) {
       error("Could not redirect");
     }
+    
     return "";
 
   }

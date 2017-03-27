@@ -70,9 +70,9 @@ public class CreateRevision extends FacesBean {
       return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM,
           selectedCollection.getReference(), this.getRelationListSessionBean().getPubItemVO(),
           this.getRelationListSessionBean().getRevisionDescription());
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   public String cancelCollectionChoose() {

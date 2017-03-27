@@ -90,10 +90,10 @@ public class Navigation extends FacesBean {
         ViewItemRevisionsPage.LOAD_VIEWREVISIONS));
     this.navRules.add(new NavigationRule("/faces/ViewItemReleaseHistoryPage.jsp",
         ReleaseHistory.LOAD_RELEASE_HISTORY));
-    this.navRules.add(new NavigationRule("/faces/AdvancedSearchPage.jsp",
-        AdvancedSearchEdit.LOAD_SEARCHPAGE));
-    this.navRules.add(new NavigationRule("/faces/EasySubmissionPage.jsp",
-        EasySubmission.LOAD_EASYSUBMISSION));
+    this.navRules.add(
+        new NavigationRule("/faces/AdvancedSearchPage.jsp", AdvancedSearchEdit.LOAD_SEARCHPAGE));
+    this.navRules.add(
+        new NavigationRule("/faces/EasySubmissionPage.jsp", EasySubmission.LOAD_EASYSUBMISSION));
   }
 
   // /**
@@ -179,10 +179,10 @@ public class Navigation extends FacesBean {
       ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
       return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
           contextVO.getReference());
-    } else {
-      // more than one context exists for this user; let him choose the right one
-      return CreateItem.LOAD_CREATEITEM;
     }
+
+    // more than one context exists for this user; let him choose the right one
+    return CreateItem.LOAD_CREATEITEM;
   }
 
   // public String getFacesParamValue(final String name) {

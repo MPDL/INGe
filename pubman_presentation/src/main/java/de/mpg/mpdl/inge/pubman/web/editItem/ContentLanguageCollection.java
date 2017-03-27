@@ -80,14 +80,15 @@ public class ContentLanguageCollection {
     }
 
     public String createNewObject() {
-      String newLanguage = new String();
-      return newLanguage;
+      return new String();
     }
 
     public List<String> getDataListFromVO() {
-      if (parentVO == null)
+      if (this.parentVO == null) {
         return null;
-      return parentVO;
+      }
+
+      return this.parentVO;
     }
 
     public void setParentVO(List<String> parentVO) {
@@ -101,11 +102,10 @@ public class ContentLanguageCollection {
   }
 
   public ContentLanguageManager getContentLanguageManager() {
-    return contentLanguageManager;
+    return this.contentLanguageManager;
   }
 
   public void setContentLanguageManager(ContentLanguageManager contentLanguageManager) {
     this.contentLanguageManager = contentLanguageManager;
   }
-
 }

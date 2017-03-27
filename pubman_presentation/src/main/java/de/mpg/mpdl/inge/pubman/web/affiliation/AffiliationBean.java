@@ -112,27 +112,32 @@ public class AffiliationBean extends FacesBean {
   }
 
   public String startSearch() {
-    System.out.println("AFFILIATION START SEARCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if ("EditItem".equals(source)) {
       setAffiliationsPath();
       return "loadEditItem";
-    } else if ("EasySubmission".equals(source)) {
+    }
+
+    if ("EasySubmission".equals(source)) {
       setAffiliationsPath();
       return "loadNewEasySubmission";
-    } else if ("AdvancedSearch".equals(source)) {
+    }
+
+    if ("AdvancedSearch".equals(source)) {
       if (cache != null && cache instanceof OrganizationCriterion) {
         ((OrganizationCriterion) cache).setAffiliation(selectedAffiliation);
       }
       return "displaySearchPage";
-    } else if ("BrowseBy".equals(source)) {
-      return startSearchForAffiliation(selectedAffiliation);
-    } else if (selectedAffiliation != null) {
-      // start search by affiliation
-
-      return startSearchForAffiliation(selectedAffiliation);
-    } else {
-      return null;
     }
+
+    if ("BrowseBy".equals(source)) {
+      return startSearchForAffiliation(selectedAffiliation);
+    }
+
+    if (selectedAffiliation != null) {
+      return startSearchForAffiliation(selectedAffiliation);
+    }
+
+    return null;
   }
 
   private AffiliationVOPresentation findAffiliationByName(String name,
@@ -142,16 +147,18 @@ public class AffiliationBean extends FacesBean {
         && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
     }
+
     if (name.equals(affName)) {
       return affiliation;
-    } else {
-      for (AffiliationVOPresentation child : affiliation.getChildren()) {
-        AffiliationVOPresentation result = findAffiliationByName(name, child);
-        if (result != null) {
-          return result;
-        }
+    }
+
+    for (AffiliationVOPresentation child : affiliation.getChildren()) {
+      AffiliationVOPresentation result = findAffiliationByName(name, child);
+      if (result != null) {
+        return result;
       }
     }
+
     return null;
   }
 
@@ -250,9 +257,9 @@ public class AffiliationBean extends FacesBean {
   public String startSearchForAffiliation(AffiliationVO affiliation) {
     try {
       ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-      criteria.add(new MetadataSearchCriterion(
-          MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, affiliation.getReference()
-              .getObjectId()));
+      criteria
+          .add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
+              affiliation.getReference().getObjectId()));
       criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
           "item", MetadataSearchCriterion.LogicalOperator.AND));
 
@@ -265,8 +272,8 @@ public class AffiliationBean extends FacesBean {
       String cql = query.getCqlQuery();
 
       // redirect to SearchResultPage which processes the query
-      FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
+      FacesTools.getExternalContext()
+          .redirect("SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
               + URLEncoder.encode(cql) + "&" + SearchRetrieverRequestBean.parameterSearchType
               + "=org");
 

@@ -204,14 +204,6 @@ function getPersonDetails(details) {
     }
 }
 
-function removeConeId(element) {
-    var $input = $(element);
-    var parent = $input.parents('.' + personSuggestCommonParentClass);
-    if ($(parent).find('.personIdentifier').val() != '') {
-        fillField('personIdentifier', '', parent);
-    }
-}
-
 // removes 'readonly' attributes and resets fields for autosuggest
 function removeAuthorAutoSuggest(element) {
     var $input = $(element);

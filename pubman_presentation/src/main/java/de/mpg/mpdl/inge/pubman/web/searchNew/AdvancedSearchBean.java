@@ -91,67 +91,43 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private List<SearchCriterionBase> criterionList;
 
+  private List<SelectItem> componentVisibilityListMenu = initComponentVisibilityListMenu();
+  private List<SelectItem> contentCategoryListMenu = initContentCategoryListMenu();
+  private List<SelectItem> contextListMenu;
   private List<SelectItem> criterionTypeListMenu = initCriterionTypeListMenu(Index.ESCIDOC_ALL);
-
   private List<SelectItem> criterionTypeListMenuAdmin =
       initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN);
-
-  private List<SelectItem> operatorTypeListMenu = initOperatorListMenu();
-
-  private List<SelectItem> contextListMenu;
-
   private List<SelectItem> genreListMenu = initGenreListMenu();
-
+  private List<SelectItem> operatorTypeListMenu = initOperatorListMenu();
   private List<SelectItem> reviewMethodListMenu = initReviewMethodListMenu();
-
-  private List<SelectItem> contentCategoryListMenu = initContentCategoryListMenu();
-
-  private List<SelectItem> componentVisibilityListMenu = initComponentVisibilityListMenu();
-
   private List<SelectItem> subjectTypesListMenu = initSubjectTypesListMenu();
-
-  private SearchCriterionBase fileAvailableSearchCriterion;
-
-  private SearchCriterionBase locatorAvailableSearchCriterion;
-
-  private SearchCriterionBase componentEmbargoDateAvailableSearchCriterion;
-
-  private SearchCriterionBase componentContentCategory;
-
-  private boolean excludeComponentContentCategory;
-
-  private SearchCriterionBase componentVisibilitySearchCriterion;
-
-  private SearchCriterionBase componentVisibilityListSearchCriterion;
-
-  private SearchCriterionBase componentContentCategoryListSearchCriterion;
-
-  private SearchCriterionBase genreListSearchCriterion;
-
-  private SearchCriterionBase itemStateListSearchCriterion;
-
-  private SearchCriterionBase componentEmbargoDateSearchCriterion;
-
-  private SearchCriterionBase affiliatedContextListSearchCriterion;
-
-  private SearchCriterionBase publicationStatusListSearchCriterion;
-
-  private Parenthesis currentlyOpenedParenthesis;
 
   private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap =
       new HashMap<SearchCriterionBase, Boolean>();
-
   private Map<SearchCriterionBase, Integer> balanceMap =
       new HashMap<SearchCriterionBase, Integer>();
 
-  private int numberOfSearchCriterions;
+  private Parenthesis currentlyOpenedParenthesis;
 
+  private SearchCriterionBase affiliatedContextListSearchCriterion;
+  private SearchCriterionBase componentContentCategory;
+  private SearchCriterionBase componentContentCategoryListSearchCriterion;
+  private SearchCriterionBase componentEmbargoDateAvailableSearchCriterion;
+  private SearchCriterionBase componentEmbargoDateSearchCriterion;
+  private SearchCriterionBase componentVisibilityListSearchCriterion;
+  private SearchCriterionBase componentVisibilitySearchCriterion;
+  private SearchCriterionBase fileAvailableSearchCriterion;
+  private SearchCriterionBase genreListSearchCriterion;
+  private SearchCriterionBase itemStateListSearchCriterion;
+  private SearchCriterionBase locatorAvailableSearchCriterion;
+  private SearchCriterionBase publicationStatusListSearchCriterion;
+
+  private String query = "";
+
+  private boolean excludeComponentContentCategory;
   private boolean languageChanged;
 
-  /**
-   * Contains the last query
-   */
-  private String query = "";
+  private int numberOfSearchCriterions;
 
   public AdvancedSearchBean() {}
 
@@ -166,24 +142,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
   public void clearAndInit() {
-    this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
-    this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
-    this.componentEmbargoDateAvailableSearchCriterion = new EmbargoDateAvailableSearchCriterion();
+    this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
+    this.balanceMap.clear();
     this.componentContentCategory = new ComponentContentCategory();
-    this.excludeComponentContentCategory = false;
-    this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
-    this.componentVisibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
     this.componentContentCategoryListSearchCriterion =
         new ComponentContentCategoryListSearchCriterion();
-    this.genreListSearchCriterion = new GenreListSearchCriterion();
-    this.itemStateListSearchCriterion = new ItemStateListSearchCriterion();
+    this.componentEmbargoDateAvailableSearchCriterion = new EmbargoDateAvailableSearchCriterion();
     this.componentEmbargoDateSearchCriterion =
         new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
-    this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
+    this.componentVisibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
+    this.componentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
+    this.currentlyOpenedParenthesis = null;
+    this.excludeComponentContentCategory = false;
+    this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
+    this.genreListSearchCriterion = new GenreListSearchCriterion();
+    this.itemStateListSearchCriterion = new ItemStateListSearchCriterion();
+    this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
+    this.possibleCriterionsForClosingParenthesisMap.clear();
     this.publicationStatusListSearchCriterion = new PublicationStatusListSearchCriterion();
-    currentlyOpenedParenthesis = null;
-    possibleCriterionsForClosingParenthesisMap.clear();
-    balanceMap.clear();
 
     initCriterionListWithEmptyValues();
   }
@@ -198,11 +174,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     criterionList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     criterionList.add(new DateSearchCriterion(SearchCriterion.ANYDATE));
 
-
     updateListForClosingParenthesis(null);
   }
-
-
 
   private void initWithQueryParam(String queryParam) {
     List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(queryParam);
@@ -272,7 +245,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     updateListForClosingParenthesis(null);
   }
 
-
   /**
    * Dummy getter method which reads out query parameter form url;
    * 
@@ -296,9 +268,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         }
       } else {
         // logger.info("Postback, do nothing");
-
       }
     }
+
     languageChanged = false;
 
     return "";

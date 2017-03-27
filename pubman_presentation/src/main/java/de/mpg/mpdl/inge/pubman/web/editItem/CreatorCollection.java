@@ -87,16 +87,6 @@ public class CreatorCollection {
       parentVO.remove(i);
     }
 
-
-    // public List<CreatorBean> getDataListFromVO()
-    // {
-    /*
-     * if (parentVO == null) return null; // we have to wrap all VO's in a nice CreatorBean
-     * List<CreatorBean> beanList = new ArrayList<CreatorBean>(); for (CreatorVO creatorVO :
-     * parentVO) { beanList.add(new CreatorBean(creatorVO)); } return beanList;
-     */
-    // }
-
     public int getSize() {
       return getObjectDM().getRowCount();
     }
@@ -110,6 +100,4 @@ public class CreatorCollection {
   public void setCreatorManager(CreatorManager creatorManager) {
     this.creatorManager = creatorManager;
   }
-
-
 }

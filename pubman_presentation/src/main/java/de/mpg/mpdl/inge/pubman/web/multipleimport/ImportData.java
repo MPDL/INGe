@@ -102,6 +102,7 @@ public class ImportData extends FacesBean {
 
   public String getDelete() {
     getImport().deleteAll();
+    
     return null;
   }
 

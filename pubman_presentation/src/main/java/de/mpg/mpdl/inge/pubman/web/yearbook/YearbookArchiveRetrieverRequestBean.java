@@ -43,16 +43,13 @@ public class YearbookArchiveRetrieverRequestBean extends
   private String selectedSortOrder;
   private static String parameterSelectedOrgUnit = "orgUnit";
   private int numberOfRecords;
-  private PubItemListSessionBean pilsb;
 
   public YearbookArchiveRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
-  public void init() {
-    pilsb = (PubItemListSessionBean) getBasePaginatorListSessionBean();
-  }
+  public void init() {}
 
   @Override
   public int getTotalNumberOfRecords() {
@@ -184,9 +181,11 @@ public class YearbookArchiveRetrieverRequestBean extends
   }
 
   public String exportSelectedDownload() {
+    PubItemListSessionBean pilsb =
+        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+
     try {
       pilsb.downloadExportFile(pilsb.getSelectedItems());
-
     } catch (Exception e) {
       error("Error while exporting");
       logger.error("Error exporting yearbook", e);

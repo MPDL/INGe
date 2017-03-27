@@ -84,10 +84,10 @@ public class CommonUtils {
   private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
   // HTML escaped characters mapping
-  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n",
-      "\r", "\t"};
-  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
-      "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
+  private static final String[] PROBLEMATIC_CHARACTERS =
+      {"&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"};
+  private static final String[] ESCAPED_CHARACTERS =
+      {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -184,9 +184,8 @@ public class CommonUtils {
 
     try {
       HttpClient httpClient = new HttpClient();
-      GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+      GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+          + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (getMethod.getStatusCode() == 200) {
@@ -198,8 +197,8 @@ public class CommonUtils {
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        logger.error("Error while retrieving languages from CoNE. Status code "
-            + getMethod.getStatusCode());
+        logger.error(
+            "Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
     } catch (Exception e) {
       return new SelectItem[0];
@@ -261,10 +260,9 @@ public class CommonUtils {
       }
 
       HttpClient client = new HttpClient();
-      GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang="
-              + locale);
+      GetMethod getMethod = new GetMethod(
+          PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/"
+              + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
       String response = getMethod.getResponseBodyAsString();
 
@@ -274,50 +272,17 @@ public class CommonUtils {
 
       if (matcher.find()) {
         return matcher.group(1);
-      } else if ("en".equals(locale)) {
-        return null;
-      } else {
-        return getConeLanguageName(code, "en");
       }
+
+      if ("en".equals(locale)) {
+        return null;
+      }
+
+      return getConeLanguageName(code, "en");
     }
 
     return null;
   }
-
-  // public static String getConeLanguageCode(String name) throws Exception {
-  // if (name != null && !"".equals(name.trim())) {
-  //
-  // HttpClient client = new HttpClient();
-  // GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-  // + "iso639-3/query?q=\"" + URLEncoder.encode(name, "ISO-8859-1") + "\"&format=options");
-  // client.executeMethod(getMethod);
-  // String response = getMethod.getResponseBodyAsString();
-  //
-  // String[] parts = response.split("\\|");
-  // if (parts.length == 1 || parts.length > 2) {
-  // return null;
-  // } else {
-  // return parts[0];
-  // }
-  // } else {
-  // return null;
-  // }
-  // }
-
-  // /**
-  // * Returns the current value of a comboBox. Used in UIs.
-  // *
-  // * @param comboBox the comboBox for which the value should be returned
-  // * @return the current value of the comboBox
-  // */
-  // public static String getUIValue(HtmlSelectOneMenu comboBox) {
-  // if (comboBox.getSubmittedValue() != null && comboBox.getSubmittedValue() instanceof String[]
-  // && ((String[]) comboBox.getSubmittedValue()).length > 0) {
-  // return ((String[]) comboBox.getSubmittedValue())[0];
-  // }
-  //
-  // return (String) comboBox.getValue();
-  // }
 
   /**
    * Returns the current value of a comboBox. Used in UIs.
@@ -334,56 +299,6 @@ public class CommonUtils {
 
     return (String) radioButton.getValue();
   }
-
-  // /**
-  // * Returns the current value of a textfield. Used in UIs.
-  // *
-  // * @param textField the textField for which the value should be returned
-  // * @return the current value of the textfield
-  // */
-  // public static String getUIValue(HtmlInputText textField) {
-  // if (textField.getSubmittedValue() != null && textField.getSubmittedValue() instanceof String
-  // && ((String) textField.getSubmittedValue()).length() > 0) {
-  // return ((String) textField.getSubmittedValue());
-  // }
-  //
-  // return (String) textField.getValue();
-  // }
-
-  // /**
-  // * Returns the current value of a textArea. Used in UIs.
-  // *
-  // * @param textArea the textArea for which the value should be returned
-  // * @return the current value of the textArea
-  // */
-  // public static String getUIValue(HtmlInputTextarea textArea) {
-  // if (textArea.getSubmittedValue() != null && textArea.getSubmittedValue() instanceof String
-  // && ((String) textArea.getSubmittedValue()).length() > 0) {
-  // return ((String) textArea.getSubmittedValue());
-  // }
-  //
-  // return (String) textArea.getValue();
-  // }
-
-  // /**
-  // * Creates a unique id for GUI components.
-  // *
-  // * @param uiComponent the uiComponent for which an id should be created
-  // * @return a unique id
-  // */
-  // private static String createUniqueId(UIComponent uiComponent) {
-  // UIViewRoot viewRoot = FacesTools.getCurrentInstance().getViewRoot();
-  //
-  // if (viewRoot == null) {
-  // viewRoot = new UIViewRoot();
-  // FacesTools.getCurrentInstance().setViewRoot(viewRoot);
-  // }
-  //
-  // String id = viewRoot.createUniqueId() + "_" + uiComponent.getClass().getSimpleName() + "_"
-  // + uiComponent.hashCode() + "_" + Calendar.getInstance().getTimeInMillis();
-  //
-  // return id;
-  // }
 
   /**
    * Formats a date with the default format.
@@ -443,138 +358,6 @@ public class CommonUtils {
     return cdata.replace("'", "\\'").replace("\n", "\\n").trim();
   }
 
-  // /**
-  // * Changes all occurrences of oldPat to newPat.
-  // *
-  // * @param in A String that might contain problematic HTML characters.
-  // * @param oldPat the old pattern to be escaped.
-  // * @param newPat the new pattern to escape with.
-  // *
-  // * @return The escaped string.
-  // *
-  // * @deprecated I do not see any advantage over String.replace
-  // */
-  // @Deprecated
-  // private static String change(String in, String oldPat, String newPat) {
-  // if (in == null) {
-  // return null;
-  // }
-  // if (oldPat.length() == 0) {
-  // return in;
-  // }
-  // if (oldPat.length() == 1 && newPat.length() == 1) {
-  // return in.replace(oldPat.charAt(0), newPat.charAt(0));
-  // }
-  // if (in.indexOf(oldPat) < 0) {
-  // return in;
-  // }
-  // int lastIndex = 0;
-  // int newIndex = 0;
-  // StringBuffer newString = new StringBuffer();
-  // for (;;) {
-  // newIndex = in.indexOf(oldPat, lastIndex);
-  // if (newIndex != -1) {
-  // newString.append(in.substring(lastIndex, newIndex) + newPat);
-  // lastIndex = newIndex + oldPat.length();
-  //
-  // } else {
-  // newString.append(in.substring(lastIndex));
-  // break;
-  // }
-  // }
-  // return newString.toString();
-  // }
-
-  // /**
-  // * Converts an array of SelectItems to a SelectItemUI. This is used for items for comboboxes.
-  // *
-  // * @param selectItems the array of SelectItems that should be converted
-  // * @return a UISelectItems which can be added to a HtmlSelectOneMenu with
-  // * HtmlSelectOneMenu.getChildren.add()
-  // */
-  // public static List<UISelectItem> convertToSelectItemsUI(final SelectItem[] selectItems) {
-  // List<UISelectItem> uiSelectItems = new ArrayList<UISelectItem>();
-  //
-  // for (int i = 0; i < selectItems.length; i++) {
-  // UISelectItem uiSelectItem = new UISelectItem();
-  // uiSelectItem.setItemValue(selectItems[i].getValue());
-  // uiSelectItem.setItemLabel(selectItems[i].getLabel());
-  // uiSelectItems.add(uiSelectItem);
-  // }
-  //
-  // // UISelectItems items = new UISelectItems();
-  // // items.setValue(uiSelectItems);
-  //
-  // return uiSelectItems;
-  // }
-
-  // public static String convertToEnumString(String value) {
-  // return value.toUpperCase().replace("-", "_");
-  // }
-
-  // /**
-  // * generates an HTML OutputText element. The method also tests if the string that should be
-  // placed
-  // * into the element is empty. If it is, a "&nbsp;" string is placed into.
-  // *
-  // * @author Tobias Schraut
-  // * @param elementText the text that should placed into the html text element
-  // * @return HtmlOutputText the generated and prepared html text element
-  // */
-  // public static HtmlOutputText getTextElementConsideringEmpty(String elementText) {
-  // HtmlOutputText text = new HtmlOutputText();
-  // text.setId(CommonUtils.createUniqueId(text));
-  // if (elementText != null) {
-  // if (!elementText.trim().equals("")) {
-  // text.setEscape(false);
-  // elementText = elementText.replace("<", "&lt;");
-  // elementText = elementText.replace(">", "&gt;");
-  // elementText = elementText.replace("\n", "<br/>");
-  // text.setValue(elementText);
-  // } else {
-  // text.setEscape(false);
-  // text.setValue("&nbsp;");
-  // }
-  // } else {
-  // text.setEscape(false);
-  // text.setValue("&nbsp;");
-  // }
-  // return text;
-  // }
-
-  // /**
-  // * Converts a list of valueObjects to a list of ValueObjectWrappers.
-  // *
-  // * @param valueObjectList the list of valueObjects
-  // * @return the list of ValueObjectWrappers
-  // */
-  // public static List<PubItemVOWrapper> convertToWrapperList(final List<PubItemVO>
-  // valueObjectList) {
-  // List<PubItemVOWrapper> wrapperList = new ArrayList<PubItemVOWrapper>();
-  //
-  // for (int i = 0; i < valueObjectList.size(); i++) {
-  // wrapperList.add(new PubItemVOWrapper(valueObjectList.get(i)));
-  // }
-  //
-  // return wrapperList;
-  // }
-
-  // /**
-  // * Converts a list of PubItemVOWrappers to a list of PubItemVOs.
-  // *
-  // * @param wrapperList the list of PubItemVOWrappers
-  // * @return the list of PubItemVOs
-  // */
-  // public static List<PubItemVO> convertToPubItemList(List<PubItemVOWrapper> wrapperList) {
-  // List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-  //
-  // for (int i = 0; i < wrapperList.size(); i++) {
-  // pubItemList.add(wrapperList.get(i).getValueObject());
-  // }
-  //
-  // return pubItemList;
-  // }
-
   /**
    * Converts a list of PubItemVOPresentations to a list of PubItems.
    * 
@@ -590,23 +373,6 @@ public class CommonUtils {
 
     return pubItemList;
   }
-
-  // /**
-  // * Converts a list of PubCollectionVOPresentations to a list of PubCollections.
-  // *
-  // * @param list the list of PubCollectionVOPresentations
-  // * @return the list of ContextVOs
-  // */
-  // public static ArrayList<ContextVO> convertToContextVOList(List<PubContextVOPresentation> list)
-  // {
-  // ArrayList<ContextVO> contextList = new ArrayList<ContextVO>();
-  //
-  // for (int i = 0; i < list.size(); i++) {
-  // contextList.add(new ContextVO(list.get(i)));
-  // }
-  //
-  // return contextList;
-  // }
 
   /**
    * Converts a list of PubItems to a list of PubItemVOPresentations.
@@ -659,23 +425,6 @@ public class CommonUtils {
     return relationList;
   }
 
-  // /**
-  // * Converts a list of RelationVOPresentation to a list of Relations.
-  // *
-  // * @param list the list of RelationVOPresentation
-  // * @return the list of RelationVO
-  // */
-  // public static ArrayList<RelationVO> convertToRelationVOList(List<RelationVOPresentation> list)
-  // {
-  // ArrayList<RelationVO> pubItemList = new ArrayList<RelationVO>();
-  //
-  // for (int i = 0; i < list.size(); i++) {
-  // pubItemList.add(new RelationVO(list.get(i)));
-  // }
-  //
-  // return pubItemList;
-  // }
-
   /**
    * Converts a list of PubCollections to a list of PubCollectionVOPresentations.
    * 
@@ -712,69 +461,6 @@ public class CommonUtils {
 
     return Arrays.asList(affiliationArray);
   }
-
-  // /**
-  // * Converts a list of valueObjects to a list of ValueObjectWrappers.
-  // *
-  // * @param valueObjectList the list of valueObjects
-  // * @return the list of ValueObjectWrappers
-  // */
-  // public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(
-  // List<ContextVO> valueObjectList) {
-  // List<PubContextVOWrapper> wrapperList = new ArrayList<PubContextVOWrapper>();
-  //
-  // for (int i = 0; i < valueObjectList.size(); i++) {
-  // wrapperList.add(new PubContextVOWrapper(valueObjectList.get(i)));
-  // }
-  //
-  // return wrapperList;
-  // }
-
-  // /**
-  // * Searches the given list for the item with the given ID.
-  // *
-  // * @param itemList the list to be searched
-  // * @param itemID the itemID that is searched for
-  // * @return the pubItem with the given ID or null if the item cannot be found in the given list
-  // */
-  // public static PubItemVOPresentation getItemByID(final List<PubItemVOPresentation> itemList,
-  // final String itemID) {
-  // for (int i = 0; i < itemList.size(); i++) {
-  // if (itemList.get(i).getVersion().getObjectId().equals(itemID)) {
-  // return itemList.get(i);
-  // }
-  // }
-  //
-  // logger.warn("Item with ID: " + itemID + " cannot be found in the list.");
-  // return null;
-  // }
-
-  // /**
-  // * Limits a string to the given length (on word basis).
-  // *
-  // * @param string the string to be limited
-  // * @param length the maximum length of the string
-  // * @return the limited String
-  // */
-  // public static String limitString(final String string, final int length) {
-  // String limitedString = new String();
-  // String[] splittedString = string.split(" ");
-  //
-  // if (splittedString != null && splittedString.length > 0) {
-  // limitedString = splittedString[0];
-  //
-  // for (int i = 1; i < splittedString.length; i++) {
-  // String newLimitedString = limitedString + " " + splittedString[i];
-  // if (newLimitedString.length() <= length) {
-  // limitedString = newLimitedString;
-  // } else {
-  // return limitedString.concat("...");
-  // }
-  // }
-  // }
-  //
-  // return limitedString;
-  // }
 
   public static String currentDate() {
     Calendar cal = Calendar.getInstance();

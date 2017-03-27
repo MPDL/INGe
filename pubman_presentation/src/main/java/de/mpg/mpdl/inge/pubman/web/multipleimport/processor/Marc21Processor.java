@@ -83,9 +83,8 @@ public class Marc21Processor extends FormatProcessor {
 
     try {
       // nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
-      String xml =
-          new String(result.toString("UTF-8")
-              .replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
+      String xml = new String(
+          result.toString("UTF-8").replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
               .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\""));
       marcxmlprocessor = new MarcXmlProcessor();
 
@@ -139,16 +138,15 @@ public class Marc21Processor extends FormatProcessor {
   public String getDataAsBase64() {
     if (this.getSourceFile() == null) {
       return null;
-    } else {
-      try {
-        InputStream is = new FileInputStream(getSourceFile());
-        String base64 = Base64.encode(IOUtils.toByteArray(is));
-        is.close();
-        return base64;
+    }
 
-      } catch (Exception e) {
-        throw new RuntimeException("Can't read input stream", e);
-      }
+    try {
+      InputStream is = new FileInputStream(getSourceFile());
+      String base64 = Base64.encode(IOUtils.toByteArray(is));
+      is.close();
+      return base64;
+    } catch (Exception e) {
+      throw new RuntimeException("Can't read input stream", e);
     }
   }
 }

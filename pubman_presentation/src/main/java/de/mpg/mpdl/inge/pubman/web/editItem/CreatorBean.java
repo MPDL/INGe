@@ -76,8 +76,8 @@ public class CreatorBean extends FacesBean {
     if (this.creator.getType() == null) {
       this.creator.setType(CreatorVO.CreatorType.PERSON);
     }
-    if (CreatorVO.CreatorType.PERSON.equals(creator.getType())
-        && (this.creator.getPerson() == null || this.creator.getPerson().getOrganizations().size() == 0)) {
+    if (CreatorVO.CreatorType.PERSON.equals(creator.getType()) && (this.creator.getPerson() == null
+        || this.creator.getPerson().getOrganizations().size() == 0)) {
       if (this.creator.getPerson() == null) {
         this.creator.setPerson(new PersonVO());
       }
@@ -240,8 +240,10 @@ public class CreatorBean extends FacesBean {
     }
 
     public List<OrganizationVO> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       return parentVO.getOrganizations();
     }
 

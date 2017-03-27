@@ -1,27 +1,3 @@
-/*
- * 
- * CDDL HEADER START
- * 
- * The contents of this file are subject to the terms of the Common Development and Distribution
- * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
- * the License.
- * 
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
- * http://www.escidoc.org/license. See the License for the specific language governing permissions
- * and limitations under the License.
- * 
- * When distributing Covered Code, include this CDDL HEADER in each file and include the License
- * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
- * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
- * Copyright [yyyy] [name of copyright owner]
- * 
- * CDDL HEADER END
- */
-/*
- * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
- * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
- * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
- */
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.io.BufferedReader;
@@ -88,7 +64,6 @@ public class InternationalizationHelper implements Serializable {
   private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
-  // private String context = null;
 
   private SelectItem NO_ITEM_SET = null;
 
@@ -139,14 +114,6 @@ public class InternationalizationHelper implements Serializable {
     return this.selectedHelpPage;
   }
 
-  // public String getContext() {
-  // return this.context;
-  // }
-
-  // public void setContext(String context) {
-  // this.context = context;
-  // }
-
   public void changeLanguage(ValueChangeEvent event) {
     FacesContext fc = FacesTools.getCurrentInstance();
 
@@ -194,32 +161,6 @@ public class InternationalizationHelper implements Serializable {
   public void removeLanguageChangeObserver(LanguageChangeObserver obs) {
     this.languageChangeObservers.remove(obs);
   }
-
-  // public void toggleLocale(ActionEvent event) {
-  // FacesContext fc = FacesTools.getCurrentInstance();
-  // Locale locale = null;
-  // Map<String, String> map = fc.FacesTools.getExternalContext().getRequestParameterMap();
-  // String language = (String) map.get("language");
-  // String country = (String) map.get("country");
-  // this.locale = language;
-  //
-  // try {
-  // locale = new Locale(language, country);
-  // fc.getViewRoot().setLocale(locale);
-  // Locale.setDefault(locale);
-  // this.userLocale = locale;
-  // logger.debug("New locale: " + language + "_" + country + " : " + locale);
-  // } catch (Exception e) {
-  // logger.error("unable to switch to locale using language = " + language + " and country = "
-  // + country, e);
-  // }
-  //
-  // if (language.equals("de")) {
-  // this.selectedHelpPage = HELP_PAGE_DE;
-  // } else {
-  // this.selectedHelpPage = HELP_PAGE_EN;
-  // }
-  // }
 
   public Locale getUserLocale() {
     return this.userLocale;
@@ -376,15 +317,6 @@ public class InternationalizationHelper implements Serializable {
     return this.getSelectItemsGenre(false);
   }
 
-  // /**
-  // * Returns an array of SelectItems for the enum genre.
-  // *
-  // * @return array of SelectItems for genre
-  // */
-  // public SelectItem[] getSelectItemsDegreeType() {
-  // return this.getSelectItemsGenre(false);
-  // }
-
   /**
    * Returns an array of SelectItems for the enum DegreeType.
    * 
@@ -418,15 +350,6 @@ public class InternationalizationHelper implements Serializable {
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  // /**
-  // * Returns an array of SelectItems for the enum visibility.
-  // *
-  // * @return array of SelectItems for visibility
-  // */
-  // public SelectItem[] getSelectItemsVisibility() {
-  // return this.getSelectItemsVisibility(false);
-  // }
-
   /**
    * Returns an array of SelectItems for the enum visibility.
    * 
@@ -438,27 +361,6 @@ public class InternationalizationHelper implements Serializable {
 
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
-
-  // /**
-  // * Returns an array of SelectItems for the enum ContentCategory.
-  // *
-  // * @return array of SelectItems for ContentCategory
-  // */
-  // public SelectItem[] getSelectItemsContentCategory() {
-  // return this.getSelectItemsContentCategory(false);
-  // }
-
-  // /**
-  // * Returns an array of SelectItems for a list of user groups
-  // *
-  // * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
-  // * @return array of SelectItems for user groups
-  // */
-  // public SelectItem[] getSelectItemsUserGroups(final boolean includeNoItemSelectedEntry) {
-  // FileVO.Visibility[] values = FileVO.Visibility.values();
-  //
-  // return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
-  // }
 
   /**
    * Returns an array of SelectItems for the content-categories.
@@ -488,15 +390,6 @@ public class InternationalizationHelper implements Serializable {
     return selectItems;
   }
 
-  // /**
-  // * Returns an array of SelectItems for the enum genre.
-  // *
-  // * @return array of SelectItems for genre
-  // */
-  // public SelectItem[] getSelectItemsInvitationStatus() {
-  // return this.getSelectItemsGenre(false);
-  // }
-
   /**
    * Returns an array of SelectItems for the enum InvitationStatus.
    * 
@@ -508,43 +401,6 @@ public class InternationalizationHelper implements Serializable {
 
     return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
-
-  // /**
-  // * Returns an array of SelectItems for the enum ItemState.
-  // *
-  // * @return array of SelectItems for ItemState
-  // */
-  // public SelectItem[] getSelectItemsItemState() {
-  // PubItemVO.State[] values = PubItemVO.State.values();
-  //
-  // // TODO FrM: add an extra 'all', since it's not member of the enum
-  // // selectItems[0] = new SelectItem("all", getLabel("depositorWS_ItemState_all"));
-  //
-  // return getSelectItemsForEnum(false, values);
-  // }
-
-  // /**
-  // * Returns an array of SelectItems for the enum ItemListSortBy.
-  // *
-  // * @return array of SelectItems for ItemListSortBy
-  // */
-  // public SelectItem[] getSelectItemsItemListSortBy() {
-  // PubItemVOComparator.Criteria[] values = PubItemVOComparator.Criteria.values();
-  //
-  // return getSelectItemsForEnum(false, values);
-  // }
-
-  // /**
-  // * Returns an array of SelectItems for the enum SelectMultipleItems.
-  // *
-  // * @return array of SelectItems for SelectMultipleItems
-  // */
-  // public SelectItem[] getSelectItemsItemListSelectMultipleItems() {
-  // InternationalizationHelper.SelectMultipleItems[] values =
-  // InternationalizationHelper.SelectMultipleItems.values();
-  //
-  // return getSelectItemsForEnum(false, values);
-  // }
 
   public String getLocale() {
     return this.locale;

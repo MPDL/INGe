@@ -69,7 +69,6 @@ public class ReleaseHistory extends FacesBean {
    * @return the list of VersionHistoryEntryVOs
    */
   public List<VersionHistoryEntryVO> getVersionHistory(String itemID) {
-
     try {
       return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
     } catch (Exception e) {

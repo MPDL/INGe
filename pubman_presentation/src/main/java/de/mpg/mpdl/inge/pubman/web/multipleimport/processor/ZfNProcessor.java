@@ -146,6 +146,7 @@ public class ZfNProcessor extends FormatProcessor {
       InputStream in = this.fetchFile();
       return createPubFile(in, user);
     }
+    
     return null;
   }
 
@@ -338,28 +339,18 @@ public class ZfNProcessor extends FormatProcessor {
     throw new RuntimeException("Method not implemented");
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getLength()
-   */
   @Override
   public int getLength() {
     return length;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getDataAsBase64()
-   */
   @Override
   public String getDataAsBase64() {
     if (this.originalData == null) {
       return null;
-    } else {
-      return Base64.encode(this.originalData);
-    }
+    } 
+    
+    return Base64.encode(this.originalData);
   }
 
   public Map<String, String> getConfig() {
@@ -377,5 +368,4 @@ public class ZfNProcessor extends FormatProcessor {
   public void setCurrentFile(String currentFile) {
     this.currentFile = currentFile;
   }
-
 }

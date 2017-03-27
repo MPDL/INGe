@@ -114,9 +114,8 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
     try {
       StringWriter writer = new StringWriter();
       String xml = new String();
-      Transformer transformer =
-          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-              .newTransformer();
+      Transformer transformer = TransformerFactory
+          .newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
       transformer.transform(new DOMSource(node), new StreamResult(writer));
       xml = writer.toString();
       this.items.add(xml);
@@ -166,11 +165,12 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
   public String getDataAsBase64() {
     if (this.getSourceFile() == null) {
       return null;
-    } else {
-      if (!this.isInitialized) {
-        initialize();
-      }
-      return Base64.encode(this.originalData);
     }
+
+    if (!this.isInitialized) {
+      initialize();
+    }
+
+    return Base64.encode(this.originalData);
   }
 }

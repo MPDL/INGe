@@ -135,28 +135,17 @@ public class WosProcessor extends FormatProcessor {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getLength()
-   */
   @Override
   public int getLength() {
     return length;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getDataAsBase64()
-   */
   @Override
   public String getDataAsBase64() {
     if (this.originalData == null) {
       return null;
-    } else {
-      return Base64.encode(this.originalData);
-    }
+    } 
+      
+    return Base64.encode(this.originalData);
   }
-
 }

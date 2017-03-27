@@ -231,13 +231,14 @@ public class BrowseBySessionBean extends FacesBean {
           links.add(link);
         }
       }
+      
       isReader.close();
       httpConn.disconnect();
-
     } catch (Exception e) {
       logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
+    
     return links;
   }
 
