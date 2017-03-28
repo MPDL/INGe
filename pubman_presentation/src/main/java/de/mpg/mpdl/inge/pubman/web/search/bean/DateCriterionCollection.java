@@ -66,6 +66,7 @@ public class DateCriterionCollection {
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
       parentVO.add(newVO);
+
       return dateCriterionBean;
     }
 
@@ -77,13 +78,16 @@ public class DateCriterionCollection {
     }
 
     public List<DateCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice DateCriterionBean
       List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
       for (DateCriterion dateCriterionVO : parentVO) {
         beanList.add(new DateCriterionBean(dateCriterionVO));
       }
+
       return beanList;
     }
 

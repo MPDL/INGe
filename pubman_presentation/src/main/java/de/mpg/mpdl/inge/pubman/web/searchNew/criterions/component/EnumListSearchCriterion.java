@@ -111,9 +111,9 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     if ((enumSelected && enumDeselected)) {
       return sb.toString();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   @Override
@@ -122,15 +122,12 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
     sb.append(getSearchCriterion() + "=\"");
 
     boolean allChecked = true;
-
-
     int i = 0;
     for (Entry<T, Boolean> entry : getEnumMap().entrySet()) {
       if (entry.getValue()) {
         if (i > 0) {
           sb.append("|");
         }
-
         sb.append(entry.getKey().name());
         i++;
       } else {
@@ -138,16 +135,12 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
       }
     }
 
-
     sb.append("\"");
     if (!allChecked) {
       return sb.toString();
-    } else {
-      return null;
     }
 
-
-
+    return null;
   }
 
   @Override

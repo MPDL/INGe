@@ -49,12 +49,9 @@ public class LanguageCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     languageCriterionVO.setSearchString("");
     setLanguageProposal("");
-
-    // navigation refresh
-    return null;
   }
 
   public SelectItem[] getLanguageOptions() {

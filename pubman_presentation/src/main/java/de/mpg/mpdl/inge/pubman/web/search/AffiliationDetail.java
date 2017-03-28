@@ -42,12 +42,6 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 public class AffiliationDetail {
   private AffiliationVO affiliationVO;
 
-  // private boolean renderDetails = false;
-  // private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
-
-  // private HtmlPanelGroup panDetail = new HtmlPanelGroup();
-  // private HtmlOutputText txtName = new HtmlOutputText();
-
   public AffiliationDetail() {}
 
   public AffiliationVO getAffiliationVO() {
@@ -57,26 +51,4 @@ public class AffiliationDetail {
   public void setAffiliationVO(AffiliationVO affiliationVO) {
     this.affiliationVO = affiliationVO;
   }
-
-  // public String toggleDetails() {
-  // renderDetails = !renderDetails;
-  // return null;
-  // }
-
-  // public HtmlPanelGroup getPanelAffiliationDetail() {
-  // return panelAffiliationDetail;
-  // }
-  //
-  // public void setPanelAffiliationDetail(HtmlPanelGroup panelAffiliationDetail) {
-  // this.panelAffiliationDetail = panelAffiliationDetail;
-  // }
-
-  // public boolean getRenderDetails() {
-  // return renderDetails;
-  // }
-  //
-  // public void setRenderDetails(boolean renderDetails) {
-  // this.renderDetails = renderDetails;
-  // }
-
 }

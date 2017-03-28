@@ -135,8 +135,7 @@ public class AdvancedSearchEdit extends FacesBean {
   /**
    * Action handler to reset all forms.
    */
-  public String clearAllForms() {
-
+  public void clearAllForms() {
     // delegate clearAllForms to internal collections
     contextCriterionCollection.clearAllForms();
     anyFieldCriterionCollection.clearAllForms();
@@ -151,7 +150,6 @@ public class AdvancedSearchEdit extends FacesBean {
     fileCriterionCollection.clearAllForms();
     languageCriterionCollection.clearAllForms();
     localTagCriterionCollection.clearAllForms();
-    return null;
   }
 
   /**

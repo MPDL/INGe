@@ -37,17 +37,12 @@ public class SourceCriterionBean extends CriterionBean {
     this.sourceCriterionVO = sourceCriterionVO;
   }
 
-
   /**
    * Action navigation call to clear the current part of the form
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     sourceCriterionVO.setSearchString("");
-
-    // navigation refresh
-    return null;
   }
-
 }

@@ -167,10 +167,10 @@ public class MultipleImport extends FacesBean {
     return null;
   }
 
-  public String startImport() throws Exception {
+  public void startImport() throws Exception {
     if ("".equals(this.name)) {
       error(getMessage("ImportNameNotProvided"));
-      return null;
+      return;
     }
 
     Map<String, String> configuration = null;
@@ -190,8 +190,6 @@ public class MultipleImport extends FacesBean {
     importProcess.start();
 
     FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-
-    return null;
   }
 
   /**

@@ -114,31 +114,10 @@ public class AnyFieldCriterionCollection {
 
     public List<AnyFieldCriterionBean> getDataListFromVO() {
       return this.objectList;
-      // if (parentVO == null) return null;
-      // // we have to wrap all VO's in a nice AnyFieldCriterionBean
-      // List<AnyFieldCriterionBean> beanList = new ArrayList<AnyFieldCriterionBean>();
-      // for (CriterionVO criterionVO : parentVO)
-      // {
-      // beanList.add(new AnyFieldCriterionBean(criterionVO));
-      // }
-      // return beanList;
     }
-
-    // public void setParentVO(List<CriterionVO> parentVO)
-    // {
-    // this.parentVO = parentVO;
-    // // we have to wrap all VO's into a nice AnyFieldCriterionBean
-    // List<AnyFieldCriterionBean> beanList = new ArrayList<AnyFieldCriterionBean>();
-    // for (CriterionVO criterionVO : parentVO)
-    // {
-    // beanList.add(new AnyFieldCriterionBean(criterionVO));
-    // }
-    // setObjectList(beanList);
-    // }
 
     public int getSize() {
       return getObjectDM().getRowCount();
     }
   }
-
 }

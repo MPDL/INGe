@@ -61,7 +61,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     return this.previousItem.getPageLabel();
   }
 
-  public String cancel() {
+  public void cancel() {
     String result = this.previousItem.getPage();
     try {
       FacesTools.getExternalContext().redirect(
@@ -69,8 +69,6 @@ public abstract class BreadcrumbPage extends FacesBean {
     } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }
-
-    return null;
   }
 
   protected Method getDefaultAction() throws NoSuchMethodException {

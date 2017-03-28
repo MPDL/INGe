@@ -67,7 +67,7 @@ public class DegreeCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     setSearchBachelor(false);
     setSearchDiploma(false);
     setSearchHab(false);
@@ -78,9 +78,6 @@ public class DegreeCriterionBean extends CriterionBean {
 
     degreeCriterionVO.getDegree().clear();
     degreeCriterionVO.setSearchString("");
-
-    // navigation refresh
-    return null;
   }
 
   public boolean isSearchDiploma() {

@@ -42,7 +42,6 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     itemStateMap.put("RELEASED", true);
     itemStateMap.put("WITHDRAWN", false);
 
-
     return itemStateMap;
   }
 
@@ -54,7 +53,6 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
           return new String[] {"\"/properties/public-status\""};
         } else {
           return new String[] {"\"/properties/version/status\""};
-
         }
       }
     }
@@ -91,10 +89,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     return scList;
   }
 
-
   @Override
   public boolean isEmpty(QueryType queryType) {
-
     if (queryType == QueryType.CQL) {
       return super.isEmpty(queryType);
     } else if (queryType == QueryType.INTERNAL) {
@@ -102,7 +98,6 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     }
 
     return false;
-
   }
 
   @Override
@@ -114,7 +109,4 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   public String getElasticSearchNestedPath() {
     return null;
   }
-
-
-
 }

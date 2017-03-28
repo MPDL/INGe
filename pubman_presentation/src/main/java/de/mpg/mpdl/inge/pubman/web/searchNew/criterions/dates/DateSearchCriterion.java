@@ -175,10 +175,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
       }
     }
 
-
     return null;
   }
-
 
   private String composeCqlFragments(String[] searchIndexes, String minor, String major) {
     StringBuffer buffer = new StringBuffer();
@@ -312,9 +310,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
     try {
       DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-      
-      return QueryBuilders.rangeQuery("metadata.issued").includeLower(false).includeUpper(false).from(df.parse(getFrom()))
-          .to(df.parse(getTo()));
+
+      return QueryBuilders.rangeQuery("metadata.issued").includeLower(false).includeUpper(false)
+          .from(df.parse(getFrom())).to(df.parse(getTo()));
     } catch (ParseException e) {
       throw new SearchParseException("Error while parsing dates", e);
     }
@@ -325,11 +323,4 @@ public class DateSearchCriterion extends SearchCriterionBase {
   public String getElasticSearchNestedPath() {
     return null;
   }
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return searchCriterion; }
-   */
-
-
-
 }

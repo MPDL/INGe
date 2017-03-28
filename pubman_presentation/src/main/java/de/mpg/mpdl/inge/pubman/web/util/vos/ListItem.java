@@ -85,10 +85,11 @@ public class ListItem {
     if (event != null && event.getNewValue() != null) {
       newVal = event.getNewValue().toString();
     }
+
     stringList.set(index, newVal);
   }
 
-  public String addItem() {
+  public void addItem() {
     stringList.add(index + 1, "");
     ListItem item = new ListItem();
     item.setValue("");
@@ -96,19 +97,19 @@ public class ListItem {
     item.setStringList(stringList);
     item.setItemList(itemList);
     itemList.add(index + 1, item);
+
     for (int i = index + 2; i < itemList.size(); i++) {
       itemList.get(i).setIndex(i);
     }
-    return null;
   }
 
-  public String removeItem() {
+  public void removeItem() {
     stringList.remove(index);
     itemList.remove(index);
+
     for (int i = index; i < itemList.size(); i++) {
       itemList.get(i).setIndex(i);
     }
-    return null;
   }
 
   public boolean getMoreThanOne() {

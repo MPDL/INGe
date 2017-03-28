@@ -137,7 +137,7 @@ public class GenreCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String selectAll() {
+  public void selectAll() {
     genreCriterionVO.getGenre().clear();
 
     setSearchArticle(true);
@@ -174,20 +174,14 @@ public class GenreCriterionBean extends CriterionBean {
     setSearchOpinion(true);
     setSearchEditorial(true);
     setSearchContributionToHandbook(true);
-
-
-    // navigation refresh
-    return null;
   }
-
-
 
   /**
    * Action navigation call to clear the current part of the form
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     setSearchArticle(false);
     setSearchBook(false);
     setSearchBookItem(false);
@@ -227,9 +221,6 @@ public class GenreCriterionBean extends CriterionBean {
 
     genreCriterionVO.getGenre().clear();
     genreCriterionVO.setSearchString("");
-
-    // navigation refresh
-    return null;
   }
 
 

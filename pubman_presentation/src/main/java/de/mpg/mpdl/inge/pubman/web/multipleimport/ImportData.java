@@ -94,28 +94,20 @@ public class ImportData extends FacesBean {
     return this.log;
   }
 
-  public String getRemove() {
+  public void getRemove() {
     getImport().remove();
-
-    return null;
   }
 
-  public String getDelete() {
+  public void getDelete() {
     getImport().deleteAll();
-
-    return null;
   }
 
-  public String getSubmit() {
+  public void getSubmit() {
     getImport().submitAll();
-
-    return null;
   }
 
-  public String getRelease() {
+  public void getRelease() {
     getImport().submitAndReleaseAll();
-
-    return null;
   }
 
   public int getImportId() {

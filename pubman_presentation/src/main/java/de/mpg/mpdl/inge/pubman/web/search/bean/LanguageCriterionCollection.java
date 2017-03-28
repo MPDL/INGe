@@ -80,13 +80,16 @@ public class LanguageCriterionCollection {
     }
 
     public List<LanguageCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice SourceCriterionBean
       List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
       for (LanguageCriterion languageCriterionVO : parentVO) {
         beanList.add(new LanguageCriterionBean(languageCriterionVO));
       }
+
       return beanList;
     }
 

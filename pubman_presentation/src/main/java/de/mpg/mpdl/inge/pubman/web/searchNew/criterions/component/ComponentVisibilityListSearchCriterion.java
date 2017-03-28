@@ -58,15 +58,14 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
    */
   @Override
   public String[] getCqlIndexes(Index indexName, String value) {
-
     switch (indexName) {
       case ESCIDOC_ALL:
         return new String[] {"escidoc.component.internal-managed.visibility"};
       case ITEM_CONTAINER_ADMIN:
         return new String[] {"\"/components/component/internal-managed/visibility\""};
     }
-    return null;
 
+    return null;
   }
 
 
@@ -79,9 +78,7 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
   public ElasticSearchIndexField[] getElasticIndexes() {
     return new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.visibility", true,
         "files")};
-
   }
-
 
   @Override
   public String getElasticSearchNestedPath() {

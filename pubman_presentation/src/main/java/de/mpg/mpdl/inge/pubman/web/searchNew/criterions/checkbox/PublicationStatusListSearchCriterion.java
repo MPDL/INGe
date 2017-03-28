@@ -35,7 +35,6 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
   @Override
   public String[] getCqlIndexes(Index indexName, String value) {
     switch (indexName) {
-
       case ESCIDOC_ALL: {
         return new String[] {"escidoc.publication-status"};
       }
@@ -47,11 +46,8 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
     return null;
   }
 
-
-
   @Override
   public String getCqlValue(Index indexName, String value) {
-
     return value;
   }
 
@@ -65,5 +61,4 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
   public String getElasticSearchNestedPath() {
     return null;
   }
-
 }

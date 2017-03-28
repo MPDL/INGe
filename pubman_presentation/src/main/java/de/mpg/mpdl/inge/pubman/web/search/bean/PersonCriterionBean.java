@@ -88,7 +88,7 @@ public class PersonCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String selectAll() {
+  public void selectAll() {
     setSearchAuthor(true);
     setSearchEditor(true);
     setSearchAdvisor(true);
@@ -102,9 +102,6 @@ public class PersonCriterionBean extends CriterionBean {
     setSearchTranslator(true);
     setSearchHonoree(true);
     setSearchReferee(true);
-
-    // navigation refresh
-    return null;
   }
 
   /**
@@ -112,7 +109,7 @@ public class PersonCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     setSearchAuthor(false);
     setSearchEditor(false);
     setSearchAdvisor(false);
@@ -129,13 +126,9 @@ public class PersonCriterionBean extends CriterionBean {
     setSearchInventor(false);
     setSearchApplicant(false);
 
-
     personCriterionVO.getCreatorRole().clear();
     personCriterionVO.setSearchString("");
     personCriterionVO.setIdentifier(null);
-
-    // navigation refresh
-    return null;
   }
 
   public boolean isSearchAdvisor() {

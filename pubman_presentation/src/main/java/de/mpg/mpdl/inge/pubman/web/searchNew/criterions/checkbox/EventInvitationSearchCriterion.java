@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
@@ -45,12 +44,9 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
         case ITEM_CONTAINER_ADMIN:
           return "\"/md-records/md-record/publication/event/invitation-status\">\"''\"";
       }
-
-
     }
 
     return null;
-
   }
 
   @Override
@@ -83,6 +79,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
           new ElasticSearchIndexField[] {new ElasticSearchIndexField(
               "metadata.event.invitationStatus")}, "invited");
     }
+
     return null;
   }
 
@@ -90,10 +87,4 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
   public String getElasticSearchNestedPath() {
     return null;
   }
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return
-   * SearchCriterion.EVENT_INVITATION; }
-   */
-
 }

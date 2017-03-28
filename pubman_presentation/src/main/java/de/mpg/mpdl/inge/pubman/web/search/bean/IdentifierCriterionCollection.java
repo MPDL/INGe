@@ -76,13 +76,16 @@ public class IdentifierCriterionCollection {
     }
 
     public List<IdentifierCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice IdentifierCriterionBean
       List<IdentifierCriterionBean> beanList = new ArrayList<IdentifierCriterionBean>();
       for (IdentifierCriterion identifierCriterionVO : parentVO) {
         beanList.add(new IdentifierCriterionBean(identifierCriterionVO));
       }
+
       return beanList;
     }
 

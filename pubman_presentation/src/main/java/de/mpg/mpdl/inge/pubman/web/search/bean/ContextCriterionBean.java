@@ -75,11 +75,9 @@ public class ContextCriterionBean extends CriterionBean {
     this.context = context;
   }
 
-  public String clearCriterion() {
+  public void clearCriterion() {
     this.contextCriterionVO.setSearchString("");
     this.contextCriterionVO = new ContextCriterion();
-
-    return null;
   }
 
   public Criterion getContextCriterionVO() {

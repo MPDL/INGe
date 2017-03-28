@@ -77,13 +77,16 @@ public class PersonCriterionCollection {
     }
 
     public List<PersonCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice PersonCriterionBean
       List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
       for (PersonCriterion personCriterionVO : parentVO) {
         beanList.add(new PersonCriterionBean(personCriterionVO));
       }
+
       return beanList;
     }
 

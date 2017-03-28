@@ -72,7 +72,7 @@ public class DateCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String selectAll() {
+  public void selectAll() {
     dateCriterionVO.getDateType().clear();
 
     setSearchAccepted(true);
@@ -83,9 +83,6 @@ public class DateCriterionBean extends CriterionBean {
     setSearchSubmitted(true);
     setSearchEventStart(true);
     setSearchEventEnd(true);
-
-    // navigation refresh
-    return null;
   }
 
   /**
@@ -93,7 +90,7 @@ public class DateCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     setSearchAccepted(false);
     setSearchCreated(false);
     setSearchModified(false);
@@ -107,12 +104,7 @@ public class DateCriterionBean extends CriterionBean {
     dateCriterionVO.setSearchString("");
     dateCriterionVO.setFrom("");
     dateCriterionVO.setTo("");
-
-    // navigation refresh
-    return null;
   }
-
-
 
   public boolean isSearchAccepted() {
     return searchAccepted;

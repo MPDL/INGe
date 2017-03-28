@@ -42,10 +42,8 @@ public class EventCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     eventCriterionVO.setSearchString("");
     eventCriterionVO.setInvitationStatus(false);
-    // navigation refresh
-    return null;
   }
 }

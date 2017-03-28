@@ -128,13 +128,16 @@ public class OrganizationCriterionCollection {
     }
 
     public List<OrganizationCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice OrganizationCriterionBean
       List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
       for (OrganizationCriterion organizationCriterionVO : parentVO) {
         beanList.add(new OrganizationCriterionBean(organizationCriterionVO));
       }
+
       return beanList;
     }
 

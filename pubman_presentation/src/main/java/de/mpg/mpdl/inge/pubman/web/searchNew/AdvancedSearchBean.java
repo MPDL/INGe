@@ -751,12 +751,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.operatorTypeListMenu = operatorTypeListMenu;
   }
 
-  public String startSearch(Index indexName) {
+  public void startSearch(Index indexName) {
 
 
     if (currentlyOpenedParenthesis != null) {
       error(getMessage("search_ParenthesisNotClosed"));
-      return "";
+      return;
     }
 
     List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
@@ -817,7 +817,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (Exception e) {
       logger.error("Error while redirecting to search result page", e);
     }
-    return "";
   }
 
   public void startAdminSearch() {
@@ -856,35 +855,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
 
-
-
     return returnList;
-
   }
-
-
-
-  // public static Logger getLogger() {
-  // return logger;
-  // }
-  //
-  //
-  // public static void setLogger(Logger logger) {
-  // AdvancedSearchBean.logger = logger;
-  // }
-
-
 
   public void setContextListMenu(List<SelectItem> contextListMenu) {
     this.contextListMenu = contextListMenu;
   }
 
-
-
   public SearchCriterionBase getFileAvailableSearchCriterion() {
     return fileAvailableSearchCriterion;
   }
-
 
   public void setFileAvailableSearchCriterion(SearchCriterionBase fileAvailableSearchCriterion) {
     this.fileAvailableSearchCriterion = fileAvailableSearchCriterion;

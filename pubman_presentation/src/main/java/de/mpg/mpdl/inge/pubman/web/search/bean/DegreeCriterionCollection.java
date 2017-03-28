@@ -72,13 +72,16 @@ public class DegreeCriterionCollection {
     }
 
     public List<DegreeCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice DegreeCriterionBean
       List<DegreeCriterionBean> beanList = new ArrayList<DegreeCriterionBean>();
       for (DegreeCriterion degreeCriterionVO : parentVO) {
         beanList.add(new DegreeCriterionBean(degreeCriterionVO));
       }
+
       return beanList;
     }
 

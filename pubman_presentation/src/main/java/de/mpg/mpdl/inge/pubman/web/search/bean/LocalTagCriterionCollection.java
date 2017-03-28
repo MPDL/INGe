@@ -75,13 +75,16 @@ public class LocalTagCriterionCollection {
     }
 
     public List<LocalTagCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice LocalTagCriterionBean
       List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
       for (LocalTagCriterion localTagCriterionVO : parentVO) {
         beanList.add(new LocalTagCriterionBean(localTagCriterionVO));
       }
+
       return beanList;
     }
 

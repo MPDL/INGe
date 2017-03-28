@@ -92,91 +92,64 @@ public abstract class SearchCriterionBase implements Serializable {
   public enum SearchCriterion {
     TITLE(TitleSearchCriterion.class, DisplayType.STANDARD), KEYWORD(KeywordSearchCriterion.class,
         DisplayType.STANDARD), CLASSIFICATION(ClassificationSearchCriterion.class, null), ANY(
-            AnyFieldSearchCriterion.class,
-            DisplayType.STANDARD), ANYFULLTEXT(AnyFieldAndFulltextSearchCriterion.class,
-                DisplayType.STANDARD), ANYPERSON(PersonSearchCriterion.class, DisplayType.PERSON),
+        AnyFieldSearchCriterion.class, DisplayType.STANDARD), ANYFULLTEXT(
+        AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD), ANYPERSON(
+        PersonSearchCriterion.class, DisplayType.PERSON),
 
     // Person enum names should be the sam as role names in CreatorVO.CreatorRole
     AUTHOR(PersonSearchCriterion.class, DisplayType.PERSON), EDITOR(PersonSearchCriterion.class,
         DisplayType.PERSON), ADVISOR(PersonSearchCriterion.class, DisplayType.PERSON), ARTIST(
-            PersonSearchCriterion.class,
-            DisplayType.PERSON), COMMENTATOR(PersonSearchCriterion.class,
-                DisplayType.PERSON), CONTRIBUTOR(PersonSearchCriterion.class,
-                    DisplayType.PERSON), ILLUSTRATOR(PersonSearchCriterion.class,
-                        DisplayType.PERSON), PAINTER(PersonSearchCriterion.class,
-                            DisplayType.PERSON), PHOTOGRAPHER(PersonSearchCriterion.class,
-                                DisplayType.PERSON), TRANSCRIBER(PersonSearchCriterion.class,
-                                    DisplayType.PERSON), TRANSLATOR(PersonSearchCriterion.class,
-                                        DisplayType.PERSON), HONOREE(PersonSearchCriterion.class,
-                                            DisplayType.PERSON), REFEREE(
-                                                PersonSearchCriterion.class,
-                                                DisplayType.PERSON), INVENTOR(
-                                                    PersonSearchCriterion.class,
-                                                    DisplayType.PERSON), APPLICANT(
-                                                        PersonSearchCriterion.class,
-                                                        DisplayType.PERSON), DIRECTOR(
-                                                            PersonSearchCriterion.class,
-                                                            DisplayType.PERSON), PRODUCER(
-                                                                PersonSearchCriterion.class,
-                                                                DisplayType.PERSON), ACTOR(
-                                                                    PersonSearchCriterion.class,
-                                                                    DisplayType.PERSON), CINEMATOGRAPHER(
-                                                                        PersonSearchCriterion.class,
-                                                                        DisplayType.PERSON), SOUND_DESIGNER(
-                                                                            PersonSearchCriterion.class,
-                                                                            DisplayType.PERSON),
+        PersonSearchCriterion.class, DisplayType.PERSON), COMMENTATOR(PersonSearchCriterion.class,
+        DisplayType.PERSON), CONTRIBUTOR(PersonSearchCriterion.class, DisplayType.PERSON), ILLUSTRATOR(
+        PersonSearchCriterion.class, DisplayType.PERSON), PAINTER(PersonSearchCriterion.class,
+        DisplayType.PERSON), PHOTOGRAPHER(PersonSearchCriterion.class, DisplayType.PERSON), TRANSCRIBER(
+        PersonSearchCriterion.class, DisplayType.PERSON), TRANSLATOR(PersonSearchCriterion.class,
+        DisplayType.PERSON), HONOREE(PersonSearchCriterion.class, DisplayType.PERSON), REFEREE(
+        PersonSearchCriterion.class, DisplayType.PERSON), INVENTOR(PersonSearchCriterion.class,
+        DisplayType.PERSON), APPLICANT(PersonSearchCriterion.class, DisplayType.PERSON), DIRECTOR(
+        PersonSearchCriterion.class, DisplayType.PERSON), PRODUCER(PersonSearchCriterion.class,
+        DisplayType.PERSON), ACTOR(PersonSearchCriterion.class, DisplayType.PERSON), CINEMATOGRAPHER(
+        PersonSearchCriterion.class, DisplayType.PERSON), SOUND_DESIGNER(
+        PersonSearchCriterion.class, DisplayType.PERSON),
 
     ORGUNIT(OrganizationSearchCriterion.class, null), ANYDATE(DateSearchCriterion.class,
         DisplayType.DATE), PUBLISHEDPRINT(DateSearchCriterion.class, DisplayType.DATE), PUBLISHED(
-            DateSearchCriterion.class, DisplayType.DATE), ACCEPTED(DateSearchCriterion.class,
-                DisplayType.DATE), SUBMITTED(DateSearchCriterion.class, DisplayType.DATE), MODIFIED(
-                    DateSearchCriterion.class, DisplayType.DATE), CREATED(DateSearchCriterion.class,
-                        DisplayType.DATE), LANG(LanguageSearchCriterion.class, null), EVENT(
-                            EventTitleSearchCriterion.class, DisplayType.STANDARD), EVENT_STARTDATE(
-                                DateSearchCriterion.class, DisplayType.DATE), EVENT_ENDDATE(
-                                    DateSearchCriterion.class, DisplayType.DATE), EVENT_INVITATION(
-                                        EventInvitationSearchCriterion.class,
-                                        null), SOURCE(SourceSearchCriterion.class,
-                                            DisplayType.STANDARD), JOURNAL(
-                                                JournalSearchCriterion.class,
-                                                null), LOCAL(LocalTagSearchCriterion.class,
-                                                    DisplayType.STANDARD), IDENTIFIER(
-                                                        IdentifierSearchCriterion.class,
-                                                        DisplayType.STANDARD), COLLECTION(
-                                                            CollectionSearchCriterion.class,
-                                                            null), PROJECT_INFO(
-                                                                ProjectInfoSearchCriterion.class,
-                                                                DisplayType.STANDARD),
+        DateSearchCriterion.class, DisplayType.DATE), ACCEPTED(DateSearchCriterion.class,
+        DisplayType.DATE), SUBMITTED(DateSearchCriterion.class, DisplayType.DATE), MODIFIED(
+        DateSearchCriterion.class, DisplayType.DATE), CREATED(DateSearchCriterion.class,
+        DisplayType.DATE), LANG(LanguageSearchCriterion.class, null), EVENT(
+        EventTitleSearchCriterion.class, DisplayType.STANDARD), EVENT_STARTDATE(
+        DateSearchCriterion.class, DisplayType.DATE), EVENT_ENDDATE(DateSearchCriterion.class,
+        DisplayType.DATE), EVENT_INVITATION(EventInvitationSearchCriterion.class, null), SOURCE(
+        SourceSearchCriterion.class, DisplayType.STANDARD), JOURNAL(JournalSearchCriterion.class,
+        null), LOCAL(LocalTagSearchCriterion.class, DisplayType.STANDARD), IDENTIFIER(
+        IdentifierSearchCriterion.class, DisplayType.STANDARD), COLLECTION(
+        CollectionSearchCriterion.class, null), PROJECT_INFO(ProjectInfoSearchCriterion.class,
+        DisplayType.STANDARD),
 
-    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null), GENRE(GenreSearchCriterion.class,
-        null), REVIEW_METHOD(ReviewMethodSearchCriterion.class, null), DEGREE(
-            DegreeSearchCriterion.class, null), FILE_AVAILABLE(FileAvailableSearchCriterion.class,
-                null), LOCATOR_AVAILABLE(LocatorAvailableSearchCriterion.class,
-                    null), EMBARGO_DATE_AVAILABLE(EmbargoDateAvailableSearchCriterion.class,
-                        null), COMPONENT_CONTENT_CATEGORY(ComponentContentCategory.class,
-                            null), COMPONENT_VISIBILITY(ComponentVisibilitySearchCriterion.class,
-                                null), COMPONENT_VISIBILITY_LIST(
-                                    ComponentVisibilityListSearchCriterion.class,
-                                    null), COMPONENT_CONTENT_CATEGORY_LIST(
-                                        ComponentContentCategoryListSearchCriterion.class,
-                                        null), COMPONENT_EMBARGO_DATE(DateSearchCriterion.class,
-                                            DisplayType.DATE), ITEMSTATE_LIST(
-                                                ItemStateListSearchCriterion.class,
-                                                null), AFFILIATED_CONTEXT_LIST(
-                                                    AffiliatedContextListSearchCriterion.class,
-                                                    null), PUBLICATION_STATUS_LIST(
-                                                        PublicationStatusListSearchCriterion.class,
-                                                        null),
+    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null), GENRE(GenreSearchCriterion.class, null), REVIEW_METHOD(
+        ReviewMethodSearchCriterion.class, null), DEGREE(DegreeSearchCriterion.class, null), FILE_AVAILABLE(
+        FileAvailableSearchCriterion.class, null), LOCATOR_AVAILABLE(
+        LocatorAvailableSearchCriterion.class, null), EMBARGO_DATE_AVAILABLE(
+        EmbargoDateAvailableSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY(
+        ComponentContentCategory.class, null), COMPONENT_VISIBILITY(
+        ComponentVisibilitySearchCriterion.class, null), COMPONENT_VISIBILITY_LIST(
+        ComponentVisibilityListSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY_LIST(
+        ComponentContentCategoryListSearchCriterion.class, null), COMPONENT_EMBARGO_DATE(
+        DateSearchCriterion.class, DisplayType.DATE), ITEMSTATE_LIST(
+        ItemStateListSearchCriterion.class, null), AFFILIATED_CONTEXT_LIST(
+        AffiliatedContextListSearchCriterion.class, null), PUBLICATION_STATUS_LIST(
+        PublicationStatusListSearchCriterion.class, null),
 
     MODIFIED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE), CREATED_INTERNAL(
         DateSearchCriterion.class, DisplayType.DATE), CREATED_BY(CreatedBySearchCriterion.class,
-            null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
+        null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
 
     AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR), OR_OPERATOR(LogicalOperator.class,
         DisplayType.OPERATOR), NOT_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 
-    OPENING_PARENTHESIS(Parenthesis.class,
-        DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS),
+    OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(
+        Parenthesis.class, DisplayType.PARENTHESIS),
 
     FLEXIBLE(FlexibleStandardSearchCriterion.class, null);
 
@@ -573,8 +546,9 @@ public abstract class SearchCriterionBase implements Serializable {
         String standardCriterions = null;
         switch (indexName) {
           case ESCIDOC_ALL: {
-            standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\""
-                + escapeForCql(contentModelId) + "\"";
+            standardCriterions =
+                INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\""
+                    + escapeForCql(contentModelId) + "\"";
             break;
           }
           case ITEM_CONTAINER_ADMIN: {
@@ -833,7 +807,6 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-
   public static String scListToQueryString(List<SearchCriterionBase> criterionList) {
 
     List<SearchCriterionBase> removedList = removeEmptyFields(criterionList, QueryType.INTERNAL);
@@ -881,23 +854,22 @@ public abstract class SearchCriterionBase implements Serializable {
           currentSearchCriterionName = SearchCriterion.valueOf(substringBuffer.toString());
 
           if (sr.read() != '"') {
-            throw new RuntimeException(
-                "Search criterion name must be followed by an '=' and '\"' ");
+            throw new RuntimeException("Search criterion name must be followed by an '=' and '\"' ");
           }
 
           int contentChar;
           StringBuffer contentBuffer = new StringBuffer();
           while ((contentChar = sr.read()) != -1) {
 
-            if (contentChar == '"' && !(contentBuffer.length() > 0
-                && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
+            if (contentChar == '"'
+                && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
               // end of content
               currentSearchCriterion = initSearchCriterion(currentSearchCriterionName);
               try {
                 currentSearchCriterion.parseQueryStringContent(contentBuffer.toString());
               } catch (Exception e) {
-                throw new RuntimeException(
-                    "Error while parsing query string content: " + contentBuffer.toString(), e);
+                throw new RuntimeException("Error while parsing query string content: "
+                    + contentBuffer.toString(), e);
               }
               scList.add(currentSearchCriterion);
               break;
@@ -973,8 +945,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-  public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList,
-      QueryType queryType) {
+  public static List<SearchCriterionBase> removeEmptyFields(
+      List<SearchCriterionBase> criterionList, QueryType queryType) {
     if (criterionList == null) {
       return new ArrayList<SearchCriterionBase>();
     } else {
@@ -995,8 +967,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
       // if first in list is an operator except "NOT", remove it
       if (copyForRemoval.size() > 0
-          && DisplayType.OPERATOR
-              .equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
+          && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion()
+              .getDisplayType())
           && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion())) {
         copyForRemoval.remove(0);
       }
@@ -1071,8 +1043,8 @@ public abstract class SearchCriterionBase implements Serializable {
     criterionList.removeAll(parenthesisToRemove);
 
     // if first criterion is an operand, remove it
-    if (criterionList != null && criterionList.size() > 0 && DisplayType.OPERATOR
-        .equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
+    if (criterionList != null && criterionList.size() > 0
+        && DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
       criterionList.remove(0);
     }
 

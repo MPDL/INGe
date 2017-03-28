@@ -286,59 +286,49 @@ public class PubItemVOPresentation extends PubItemVO {
   /**
    * Adds an empty abstract after the current one
    */
-  public String addAbstractAtIndex(int index) {
+  public void addAbstractAtIndex(int index) {
     if (this.getMetadata().getAbstracts() != null && !this.getMetadata().getAbstracts().isEmpty()) {
       this.getMetadata().getAbstracts().add((index + 1), new AbstractVO());
     }
-
-    return null;
   }
 
   /**
    * Removes an abstract title from the current position
    */
-  public String removeAbstractAtIndex(int index) {
+  public void removeAbstractAtIndex(int index) {
     if (this.getMetadata().getAbstracts() != null && !this.getMetadata().getAbstracts().isEmpty()) {
       this.getMetadata().getAbstracts().remove(index);
     }
-
-    return null;
   }
 
   /**
    * Adds the first alternative title with no content
    */
-  public String addAlternativeTitle() {
+  public void addAlternativeTitle() {
     if (this.getMetadata().getAlternativeTitles() == null
         || this.getMetadata().getAlternativeTitles().isEmpty()) {
       this.getMetadata().getAlternativeTitles().add(new AlternativeTitleVO());
     }
-
-    return null;
   }
 
   /**
    * Adds an empty alternative title after the current one
    */
-  public String addAlternativeTitleAtIndex(int index) {
+  public void addAlternativeTitleAtIndex(int index) {
     if (this.getMetadata().getAlternativeTitles() != null
         && !this.getMetadata().getAlternativeTitles().isEmpty()) {
       this.getMetadata().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
-
-    return null;
   }
 
   /**
    * Removes an alternative title form the current position
    */
-  public String removeAlternativeTitleAtIndex(int index) {
+  public void removeAlternativeTitleAtIndex(int index) {
     if (this.getMetadata().getAlternativeTitles() != null
         && !this.getMetadata().getAlternativeTitles().isEmpty()) {
       this.getMetadata().getAlternativeTitles().remove(index);
     }
-
-    return null;
   }
 
   /**
@@ -363,64 +353,54 @@ public class PubItemVOPresentation extends PubItemVO {
   /**
    * Adds the first alternative title for the event with no content
    */
-  public String addEventAlternativeTitle() {
+  public void addEventAlternativeTitle() {
     if (this.getMetadata().getEvent() != null) {
       if (this.getMetadata().getEvent().getAlternativeTitles() == null
           || this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
         this.getMetadata().getEvent().getAlternativeTitles().add(new AlternativeTitleVO("F"));
       }
     }
-
-    return null;
   }
 
   /**
    * Adds an empty alternative title for the event after the current one
    */
-  public String addEventAlternativeTitleAtIndex(int index) {
+  public void addEventAlternativeTitleAtIndex(int index) {
     if (this.getMetadata().getEvent() != null
         && this.getMetadata().getEvent().getAlternativeTitles() != null
         && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
       this.getMetadata().getEvent().getAlternativeTitles()
           .add((index + 1), new AlternativeTitleVO());
     }
-
-    return null;
   }
 
   /**
    * Removes an alternative title from the current position of the event
    */
-  public String removeEventAlternativeTitleAtIndex(int index) {
+  public void removeEventAlternativeTitleAtIndex(int index) {
     if (this.getMetadata().getEvent() != null
         && this.getMetadata().getEvent().getAlternativeTitles() != null
         && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
       this.getMetadata().getEvent().getAlternativeTitles().remove(index);
     }
-
-    return null;
   }
 
   /**
    * Adds an empty subject after the current one
    */
-  public String addSubjectAtIndex(int index) {
+  public void addSubjectAtIndex(int index) {
     if (this.getMetadata().getSubjects() != null && !this.getMetadata().getSubjects().isEmpty()) {
       this.getMetadata().getSubjects().add((index + 1), new SubjectVO());
     }
-
-    return null;
   }
 
   /**
    * Removes an alternative title from the current position
    */
-  public String removeSubjectAtIndex(int index) {
+  public void removeSubjectAtIndex(int index) {
     if (this.getMetadata().getSubjects() != null && !this.getMetadata().getSubjects().isEmpty()) {
       this.getMetadata().getSubjects().remove(index);
     }
-
-    return null;
   }
 
   /**
@@ -549,24 +529,31 @@ public class PubItemVOPresentation extends PubItemVO {
         && !"".equals(getMetadata().getDatePublishedInPrint())) {
       return getMetadata().getDatePublishedInPrint() + ", "
           + getLabel("ViewItem_lblDatePublishedInPrint");
-    } else if (getMetadata().getDatePublishedOnline() != null
+    }
+
+    if (getMetadata().getDatePublishedOnline() != null
         && !"".equals(getMetadata().getDatePublishedOnline())) {
       return getMetadata().getDatePublishedOnline() + ", "
           + getLabel("ViewItem_lblDatePublishedOnline");
-    } else if (getMetadata().getDateAccepted() != null
-        && !"".equals(getMetadata().getDateAccepted())) {
-      return getMetadata().getDateAccepted() + ", " + getLabel("ViewItem_lblDateAccepted");
-    } else if (getMetadata().getDateSubmitted() != null
-        && !"".equals(getMetadata().getDateSubmitted())) {
-      return getMetadata().getDateSubmitted() + ", " + getLabel("ViewItem_lblDateSubmitted");
-    } else if (getMetadata().getDateModified() != null
-        && !"".equals(getMetadata().getDateModified())) {
-      return getMetadata().getDateModified() + ", " + getLabel("ViewItem_lblDateModified");
-    } else if (getMetadata().getDateCreated() != null && !"".equals(getMetadata().getDateCreated())) {
-      return getMetadata().getDateCreated() + ", " + getLabel("ViewItem_lblDateCreated");
-    } else {
-      return null;
     }
+
+    if (getMetadata().getDateAccepted() != null && !"".equals(getMetadata().getDateAccepted())) {
+      return getMetadata().getDateAccepted() + ", " + getLabel("ViewItem_lblDateAccepted");
+    }
+
+    if (getMetadata().getDateSubmitted() != null && !"".equals(getMetadata().getDateSubmitted())) {
+      return getMetadata().getDateSubmitted() + ", " + getLabel("ViewItem_lblDateSubmitted");
+    }
+
+    if (getMetadata().getDateModified() != null && !"".equals(getMetadata().getDateModified())) {
+      return getMetadata().getDateModified() + ", " + getLabel("ViewItem_lblDateModified");
+    }
+
+    if (getMetadata().getDateCreated() != null && !"".equals(getMetadata().getDateCreated())) {
+      return getMetadata().getDateCreated() + ", " + getLabel("ViewItem_lblDateCreated");
+    }
+
+    return null;
   }
 
   public String getDatesAsString() {
@@ -825,9 +812,9 @@ public class PubItemVOPresentation extends PubItemVO {
     if (getMetadata().getTitle() != null && !getMetadata().getTitle().trim().equals("")) {
       if (getMetadata().getTitle().length() > 80) {
         return getMetadata().getTitle().substring(0, 79) + "...";
-      } else {
-        return getMetadata().getTitle();
       }
+
+      return getMetadata().getTitle();
     }
 
     return null;
@@ -843,9 +830,9 @@ public class PubItemVOPresentation extends PubItemVO {
     if (getMetadata().getAbstracts().size() > 0) {
       if (getMetadata().getAbstracts().get(0).getValue().length() > 150) {
         return getMetadata().getAbstracts().get(0).getValue().substring(0, 149) + "...";
-      } else {
-        return getMetadata().getAbstracts().get(0).getValue();
       }
+
+      return getMetadata().getAbstracts().get(0).getValue();
     }
 
     return null;
@@ -857,11 +844,13 @@ public class PubItemVOPresentation extends PubItemVO {
   public String getFullTitle() {
     if (this.getMetadata() != null && this.getMetadata().getTitle() != null) {
       return getMetadata().getTitle();
-    } else if (this.getYearbookMetadata() != null) {
-      return this.getYearbookMetadata().getTitle();
-    } else {
-      return "#### NO TITLE!!! ####";
     }
+
+    if (this.getYearbookMetadata() != null) {
+      return this.getYearbookMetadata().getTitle();
+    }
+
+    return "#### NO TITLE!!! ####";
   }
 
 
@@ -1313,10 +1302,9 @@ public class PubItemVOPresentation extends PubItemVO {
       this.parent = parent;
     }
 
-    public String removeLocalTag() {
+    public void removeLocalTag() {
       this.parent.getWrappedLocalTags().remove(this);
       this.parent.writeBackLocalTags(null);
-      return null;
     }
 
     public boolean getIsLast() {

@@ -32,14 +32,12 @@ public abstract class CriterionBean extends FacesBean {
 
   public abstract Criterion getCriterionVO();
 
-  public final String collapse() {
+  public final void collapse() {
     setCollapsed(true);
-    return null;
   }
 
-  public final String expand() {
+  public final void expand() {
     setCollapsed(false);
-    return null;
   }
 
   public final String getLogicOperator() {

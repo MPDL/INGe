@@ -37,17 +37,12 @@ public class LocalTagCriterionBean extends CriterionBean {
     this.localTagCriterionVO = localTagCriterionVO;
   }
 
-
   /**
    * Action navigation call to clear the current part of the form
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     localTagCriterionVO.setSearchString("");
-
-    // navigation refresh
-    return null;
   }
-
 }

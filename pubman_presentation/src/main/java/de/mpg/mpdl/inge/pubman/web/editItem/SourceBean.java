@@ -118,39 +118,33 @@ public class SourceBean extends EditItemBean {
   /**
    * Adds the first alternative title for the source with no content
    */
-  public String addSourceAlternativeTitle() {
+  public void addSourceAlternativeTitle() {
     if (this.getSource() != null) {
       if (this.getSource().getAlternativeTitles() == null
           || this.getSource().getAlternativeTitles().isEmpty()) {
         this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
       }
     }
-
-    return null;
   }
 
   /**
    * Adds an empty alternative title for the source after the current one
    */
-  public String addSourceAlternativeTitleAtIndex(int index) {
+  public void addSourceAlternativeTitleAtIndex(int index) {
     if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
         && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
-
-    return null;
   }
 
   /**
    * Removes an alternative title from the current position of the source
    */
-  public String removeEventAlternativeTitleAtIndex(int index) {
+  public void removeEventAlternativeTitleAtIndex(int index) {
     if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
         && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().remove(index);
     }
-
-    return null;
   }
 
   /**

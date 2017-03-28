@@ -46,14 +46,11 @@ public class OrganizationCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     organizationCriterionVO.setSearchString("");
     AffiliationVO affiliationVO = new AffiliationVO();
     affiliationVO.setReference(new AffiliationRO());
     organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
-
-    // navigation refresh
-    return null;
   }
 
   /**
@@ -73,5 +70,4 @@ public class OrganizationCriterionBean extends CriterionBean {
 
     return "loadAffiliationTree";
   }
-
 }

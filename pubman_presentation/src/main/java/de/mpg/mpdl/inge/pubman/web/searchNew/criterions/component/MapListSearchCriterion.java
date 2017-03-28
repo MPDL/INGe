@@ -135,9 +135,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
     }
 
-
     return null;
-
   }
 
 
@@ -151,17 +149,12 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
   @Override
   public String toQueryString() {
-
     if (!isEmpty(QueryType.INTERNAL)) {
       return getQueryString();
-    } else {
-      return null;
     }
 
-
-
+    return null;
   }
-
 
   protected String getQueryString() {
     StringBuffer sb = new StringBuffer();

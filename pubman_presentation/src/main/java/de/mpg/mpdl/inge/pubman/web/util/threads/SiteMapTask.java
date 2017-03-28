@@ -335,8 +335,9 @@ public class SiteMapTask extends Thread {
       return itemSearchResult;
     } catch (Exception e) {
       logger.error("Error getting items", e);
-      return null;
     }
+
+    return null;
   }
 
   /**
@@ -357,8 +358,9 @@ public class SiteMapTask extends Thread {
       return ouSearchResult;
     } catch (Exception e) {
       logger.error("Error getting ous", e);
-      return null;
     }
+
+    return null;
   }
 
   private void startSitemap() {

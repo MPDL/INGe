@@ -164,49 +164,50 @@ public class ReportWorkspaceBean extends FacesBean {
 
     if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null) {
       error(getMessage("ReportOrgIdNotProvided"));
-      // return null;
-    } else if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
+      return;
+    }
+    if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
       error(getMessage("ReportYearNotProvided"));
-      // return null;
-    } else {
-      try {
-        logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
-            + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
-            + this.format.getName());
+      return;
+    }
 
-        itemLsitSearchResult = doSearchItems();
-        if (itemLsitSearchResult != null) {
-          itemListCS = doCitationStyle(itemLsitSearchResult);
-        }
-        if (itemListCS != null) {
-          itemListReportTransformed = doReportTransformation(itemListCS);
-          logger.info("Transformed result: \n" + new String(itemListReportTransformed));
-        }
-        if (itemListReportTransformed != null) {
-          FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
+    try {
+      logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
+          + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
+          + this.format.getName());
 
-          String fileName =
-              "text/html".equals(this.format.getType()) ? "Jus_Report.html"
-                  : "Jus_Report_InDesign.xml";
-          FacesTools.getResponse().addHeader("Content-Disposition",
-              "attachment; filename=" + fileName);
-
-          ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
-          ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
-          BufferedInputStream buff = new BufferedInputStream(bais);
-
-          int readBytes = 0;
-          while ((readBytes = buff.read()) != -1) {
-            stream.write(readBytes);
-          }
-          stream.close();
-
-          FacesTools.getCurrentInstance().responseComplete();
-        }
-      } catch (Exception e) {
-        logger.error("Error while generatiring report output file.", e);
-        error("Error while generatiring output file.");
+      itemLsitSearchResult = doSearchItems();
+      if (itemLsitSearchResult != null) {
+        itemListCS = doCitationStyle(itemLsitSearchResult);
       }
+      if (itemListCS != null) {
+        itemListReportTransformed = doReportTransformation(itemListCS);
+        logger.info("Transformed result: \n" + new String(itemListReportTransformed));
+      }
+      if (itemListReportTransformed != null) {
+        FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
+
+        String fileName =
+            "text/html".equals(this.format.getType()) ? "Jus_Report.html"
+                : "Jus_Report_InDesign.xml";
+        FacesTools.getResponse().addHeader("Content-Disposition",
+            "attachment; filename=" + fileName);
+
+        ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
+        ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
+        BufferedInputStream buff = new BufferedInputStream(bais);
+
+        int readBytes = 0;
+        while ((readBytes = buff.read()) != -1) {
+          stream.write(readBytes);
+        }
+        stream.close();
+
+        FacesTools.getCurrentInstance().responseComplete();
+      }
+    } catch (Exception e) {
+      logger.error("Error while generatiring report output file.", e);
+      error("Error while generatiring output file.");
     }
   }
 

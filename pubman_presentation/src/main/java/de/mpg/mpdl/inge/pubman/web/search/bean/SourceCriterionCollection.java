@@ -78,13 +78,16 @@ public class SourceCriterionCollection {
     }
 
     public List<SourceCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice SourceCriterionBean
       List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
       for (SourceCriterion sourceCriterionVO : parentVO) {
         beanList.add(new SourceCriterionBean(sourceCriterionVO));
       }
+
       return beanList;
     }
 

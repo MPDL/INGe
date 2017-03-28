@@ -75,8 +75,10 @@ public class EventCriterionCollection {
     }
 
     public List<EventCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice EventCriterionBean
       List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
       for (EventCriterion eventCriterionVO : parentVO) {

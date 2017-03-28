@@ -68,15 +68,12 @@ public class FileCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     fileCriterionVO.setSearchForEmbargoFiles(false);
     fileCriterionVO.setExcludeCategory(false);
     fileCriterionVO.setComponentVisibility(null);
     fileCriterionVO.setComponentAvailability(null);
     fileCriterionVO.setContentCategory(null);
-
-    // navigation refresh
-    return null;
   }
 
   /**

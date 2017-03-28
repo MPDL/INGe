@@ -193,10 +193,10 @@ public class EditItem extends FacesBean {
     if (getPubItem().getVersion().getState().equals(State.RELEASED)) {
       this.bindFilesAndLocators = false;
       return saveAndAccept();
-    } else {
-      this.bindFilesAndLocators = false;
-      save();
     }
+
+    this.bindFilesAndLocators = false;
+    save();
 
     return null;
   }
@@ -761,6 +761,7 @@ public class EditItem extends FacesBean {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
+
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
         if (newPubItem.getVersion().getState() == State.RELEASED) {
           logger.warn("Item has not been changed.");
@@ -940,9 +941,9 @@ public class EditItem extends FacesBean {
         // show report and stay on this page
         this.showValidationMessages(changedReport);
         return null;
-      } else {
-        return AcceptItem.LOAD_ACCEPTITEM;
       }
+
+      return AcceptItem.LOAD_ACCEPTITEM;
     }
 
     String retVal = "";
@@ -964,8 +965,7 @@ public class EditItem extends FacesBean {
       logger.error("Error saving item", rE);
       String message = getMessage("itemHasBeenChangedInTheMeantime");
       fatal(message);
-      retVal = EditItem.LOAD_EDITITEM;
-      return retVal;
+      return EditItem.LOAD_EDITITEM;
     }
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
@@ -1081,7 +1081,7 @@ public class EditItem extends FacesBean {
    * 
    * @return navigation string (null)
    */
-  public String addLocator() {
+  public void addLocator() {
     if (this.getEditItemSessionBean().getLocators() != null) {
       FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
@@ -1092,8 +1092,6 @@ public class EditItem extends FacesBean {
               new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(),
                   newLocator, true));
     }
-
-    return null;
   }
 
   /**
@@ -1101,7 +1099,7 @@ public class EditItem extends FacesBean {
    * 
    * @return navigation string (null)
    */
-  public String saveLocator() {
+  public void saveLocator() {
     int indexUpload = this.getEditItemSessionBean().getLocators().size() - 1;
     if (this.getEditItemSessionBean().getLocators() != null) {
       // Set empty MetadataSet if none exists
@@ -1129,8 +1127,6 @@ public class EditItem extends FacesBean {
       list.set(indexUpload, pubFile);
       this.getEditItemSessionBean().setLocators(list);
     }
-
-    return null;
   }
 
   private void showValidationMessages(ValidationReportVO report) {
@@ -1541,7 +1537,7 @@ public class EditItem extends FacesBean {
     this.lnkReleaseReleasedItem = lnkReleaseReleasedItem;
   }
 
-  public String addCreatorString() {
+  public void addCreatorString() {
     try {
       this.getEditItemSessionBean().parseCreatorString(
           this.getEditItemSessionBean().getCreatorParseString(), null,
@@ -1550,8 +1546,6 @@ public class EditItem extends FacesBean {
       logger.error("Could not parse creator string", e);
       error(getMessage("ErrorParsingCreatorString"));
     }
-
-    return null;
   }
 
   /**
@@ -1598,7 +1592,7 @@ public class EditItem extends FacesBean {
    * 
    * @return String null
    */
-  public String changeGenre() {
+  public void changeGenre() {
     String newGenre = getItem().getMetadata().getGenre().name();
     Genre[] possibleGenres = MdsPublicationVO.Genre.values();
 
@@ -1616,8 +1610,6 @@ public class EditItem extends FacesBean {
 
     this.getEditItemSessionBean().setGenreBundle("Genre_" + newGenre);
     this.init();
-
-    return null;
   }
 
   /**
@@ -1625,14 +1617,12 @@ public class EditItem extends FacesBean {
    * 
    * @return Returns always null.
    */
-  public String addLocalTag() {
+  public void addLocalTag() {
     WrappedLocalTag wrappedLocalTag = this.getPubItem().new WrappedLocalTag();
     wrappedLocalTag.setParent(this.getPubItem());
     wrappedLocalTag.setValue("");
     this.getPubItem().getWrappedLocalTags().add(wrappedLocalTag);
     this.getPubItem().writeBackLocalTags(null);
-
-    return null;
   }
 
   public String loadEditLocalTags() {

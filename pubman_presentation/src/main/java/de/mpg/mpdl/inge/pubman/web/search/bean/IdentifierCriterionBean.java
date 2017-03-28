@@ -38,17 +38,12 @@ public class IdentifierCriterionBean extends CriterionBean {
     this.identifierCriterionVO = identifierCriterionVO;
   }
 
-
   /**
    * Action navigation call to clear the current part of the form
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     identifierCriterionVO.setSearchString("");
-
-    // navigation refresh
-    return null;
   }
-
 }

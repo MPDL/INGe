@@ -58,7 +58,6 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
     this.withEmbargoDate = Boolean.parseBoolean(content);
-
   }
 
   @Override
@@ -85,12 +84,4 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
     return "files";
   }
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return
-   * SearchCriterion.EMBARGO_DATE_AVAILABLE; }
-   */
-
-
-
 }

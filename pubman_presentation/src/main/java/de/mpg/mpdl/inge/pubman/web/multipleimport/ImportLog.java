@@ -1265,7 +1265,7 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public String remove() {
+  public void remove() {
     try {
       Connection conn = getConnection();
 
@@ -1297,8 +1297,6 @@ public class ImportLog {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
-    return null;
   }
 
   /**

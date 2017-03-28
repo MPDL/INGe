@@ -73,11 +73,8 @@ public class AffiliatedContextListSearchCriterion extends
     return null;
   }
 
-
-
   @Override
   public String getCqlValue(Index indexName, PubContextVOPresentation value) {
-
     return value.getReference().getObjectId();
   }
 
@@ -86,16 +83,16 @@ public class AffiliatedContextListSearchCriterion extends
    */
   @Override
   public boolean isEmpty(QueryType queryType) {
-
     if (queryType == QueryType.CQL) {
       boolean anySelected = getEnumMap().containsValue(true);
       return !anySelected;
-    } else if (queryType == QueryType.INTERNAL) {
+    }
+
+    if (queryType == QueryType.INTERNAL) {
       return false;
     }
 
     return false;
-
   }
 
   @Override
@@ -107,5 +104,4 @@ public class AffiliatedContextListSearchCriterion extends
   public String getElasticSearchNestedPath() {
     return null;
   }
-
 }

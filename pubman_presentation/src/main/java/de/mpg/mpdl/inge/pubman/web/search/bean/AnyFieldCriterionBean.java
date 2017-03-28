@@ -133,12 +133,10 @@ public class AnyFieldCriterionBean extends CriterionBean {
    * 
    * @return null
    */
-  public String clearCriterion() {
+  public void clearCriterion() {
     selectedType = "Any";
     setIncludeFiles(false);
     criterionVO = new AnyFieldCriterion();
-    // navigation refresh
-    return null;
   }
 
   public SelectItem[] getTypeOptions() {

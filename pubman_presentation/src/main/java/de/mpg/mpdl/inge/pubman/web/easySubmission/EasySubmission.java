@@ -266,7 +266,7 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  public String selectSubmissionMethod() {
+  public void selectSubmissionMethod() {
     String submittedValue = CommonUtils.getUIValue(this.radioSelect);
 
     this.getEasySubmissionSessionBean().setCurrentSubmissionMethod(submittedValue);
@@ -282,8 +282,6 @@ public class EasySubmission extends FacesBean {
     // set the current submission step to step2
     this.getEasySubmissionSessionBean()
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
-
-    return null;
   }
 
   public String newEasySubmission() {
@@ -1004,7 +1002,7 @@ public class EasySubmission extends FacesBean {
     return "";
   }
 
-  public String cancel() {
+  public void cancel() {
     this.getEasySubmissionSessionBean()
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
 
@@ -1016,8 +1014,6 @@ public class EasySubmission extends FacesBean {
               "Cancel error: could not find context to redirect to SubmissionPage.jsp in Full Submssion",
               e);
     }
-
-    return null;
   }
 
   public String loadStep1() {
@@ -1428,19 +1424,15 @@ public class EasySubmission extends FacesBean {
    * 
    * @return String null
    */
-  public String changeGenre() {
+  public void changeGenre() {
     String newGenre = this.genreSelect.getSubmittedValue().toString();
-
     if (newGenre != null && newGenre.trim().equals("")) {
       newGenre = "ARTICLE";
       this.getItem().getMetadata().setGenre(Genre.ARTICLE);
     }
 
     this.getEasySubmissionSessionBean().setGenreBundle("Genre_" + newGenre);
-
     this.init();
-
-    return null;
   }
 
   public SelectItem[] getSUBMISSION_METHOD_OPTIONS() {

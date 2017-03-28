@@ -94,15 +94,12 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   public String getSelectedEnumString() {
     if (selectedEnum != null) {
       return selectedEnum.name();
-    } else
-      return null;
+    }
 
+    return null;
   }
 
   public void setSelectedEnumString(String name) {
     this.selectedEnum = Enum.valueOf(enumClass, name);
   }
-
-
-
 }

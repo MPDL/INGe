@@ -127,15 +127,17 @@ public class PubFileVOPresentation extends FacesBean {
     if (properties == null || properties.isEmpty()) {
       properties = loadContentCategoryProperties();
     }
+
     String value = properties.getProperty(key.toLowerCase());
     if (value != null) {
       return value;
-    } else {
-      error("There is no such content category defined (" + key + ")");
-      Logger.getLogger(PubFileVOPresentation.class).warn(
-          "WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
-      return null;
     }
+
+    error("There is no such content category defined (" + key + ")");
+    Logger.getLogger(PubFileVOPresentation.class).warn(
+        "WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
+
+    return null;
   }
 
   /**
@@ -312,15 +314,15 @@ public class PubFileVOPresentation extends FacesBean {
   public String getMimeType() {
     if (this.file.getDefaultMetadata() == null) {
       return null;
-    } else {
+    }
 
-      List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
-      for (FormatVO formatVO : formats) {
-        if ("dcterms:IMT".equals(formatVO.getType())) {
-          return formatVO.getValue();
-        }
+    List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+    for (FormatVO formatVO : formats) {
+      if ("dcterms:IMT".equals(formatVO.getType())) {
+        return formatVO.getValue();
       }
     }
+
     return null;
   }
 
@@ -329,6 +331,7 @@ public class PubFileVOPresentation extends FacesBean {
     if (getIsLocator()) {
       locator = this.file.getContent();
     }
+
     return locator;
   }
 
@@ -340,7 +343,7 @@ public class PubFileVOPresentation extends FacesBean {
     this.fileType = fileType;
   }
 
-  public String removeFile() {
+  public void removeFile() {
     EditItemSessionBean editItemSessionBean =
         (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
@@ -355,8 +358,6 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     editItemSessionBean.reorganizeFileIndexes();
-
-    return null;
   }
 
   public String removeLocatorEditItem() {

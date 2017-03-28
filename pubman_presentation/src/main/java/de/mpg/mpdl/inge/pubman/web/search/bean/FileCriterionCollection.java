@@ -100,13 +100,16 @@ public class FileCriterionCollection {
     }
 
     public List<FileCriterionBean> getDataListFromVO() {
-      if (parentVO == null)
+      if (parentVO == null) {
         return null;
+      }
+
       // we have to wrap all VO's in a nice FileCriterionBean
       List<FileCriterionBean> beanList = new ArrayList<FileCriterionBean>();
       for (FileCriterion fileCriterionVO : parentVO) {
         beanList.add(new FileCriterionBean(fileCriterionVO));
       }
+
       return beanList;
     }
 
