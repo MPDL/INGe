@@ -25,7 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
+import org.elasticsearch.index.query.QueryBuilder;
+
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -79,6 +82,21 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
 
   }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+    if (hiddenId != null && !hiddenId.trim().isEmpty()) {
+      return baseElasticSearchQueryBuilder(getElasticSearchFieldForHiddenId(), hiddenId);
+    } else {
+      return baseElasticSearchQueryBuilder(getElasticSearchFieldForSearchString(), searchString);
+    }
+  }
+
+
+  public abstract ElasticSearchIndexField[] getElasticSearchFieldForHiddenId();
+
+  public abstract ElasticSearchIndexField[] getElasticSearchFieldForSearchString();
+
 
   @Override
   public void parseQueryStringContent(String content) {

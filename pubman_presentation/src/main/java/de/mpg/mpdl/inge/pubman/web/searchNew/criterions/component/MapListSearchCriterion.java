@@ -31,7 +31,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
@@ -244,6 +249,34 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   public void setValueMap(Map<String, T> valueMap) {
     this.valueMap = valueMap;
   }
+
+  public QueryBuilder toElasticSearchQuery() {
+
+    if (!isEmpty(QueryType.CQL)) {
+
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      int i = 0;
+      for (Entry<String, Boolean> entry : enumMap.entrySet()) {
+
+
+        if (entry.getValue()) {
+          String value = getCqlValue(Index.ESCIDOC_ALL, getValueMap().get(entry.getKey()));
+          bq = bq.should(baseElasticSearchQueryBuilder(getElasticIndexes(), value));
+          i++;
+        }
+
+      }
+
+
+      return bq;
+
+    }
+
+
+    return null;
+  }
+
+  public abstract ElasticSearchIndexField[] getElasticIndexes();
 
 
 }

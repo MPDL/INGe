@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 
 @SuppressWarnings("serial")
 public class ComponentVisibilityListSearchCriterion extends MapListSearchCriterion<String> {
@@ -72,6 +73,19 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
   @Override
   public String getCqlValue(Index indexName, String value) {
     return value;
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.visibility", true,
+        "files")};
+
+  }
+
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "files";
   }
 
 

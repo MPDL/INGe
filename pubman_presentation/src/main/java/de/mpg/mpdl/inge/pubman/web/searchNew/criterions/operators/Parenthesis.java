@@ -25,6 +25,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators;
 
+import org.elasticsearch.index.query.QueryBuilder;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -80,6 +83,16 @@ public class Parenthesis extends SearchCriterionBase {
 
   public void setPartnerParenthesis(Parenthesis partnerParenthesis) {
     this.partnerParenthesis = partnerParenthesis;
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+    return null;
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
   /*

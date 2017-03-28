@@ -25,6 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators;
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -75,10 +79,21 @@ public class LogicalOperator extends SearchCriterionBase {
   }
 
 
+  @Override
+  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+    return null;
+  }
+
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
+  }
+
+
   /*
    * @Override public SearchCriterion getSearchCriterion() { return searchCriterion; }
    */
-
 
 
 }

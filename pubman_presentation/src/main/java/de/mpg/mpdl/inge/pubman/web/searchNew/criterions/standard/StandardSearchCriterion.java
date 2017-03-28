@@ -26,7 +26,11 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -50,6 +54,8 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   public abstract String[] getCqlIndexes(Index indexName);
 
+  public abstract ElasticSearchIndexField[] getElasticIndexes();
+
   public String getSearchString() {
     return this.searchString;
   }
@@ -61,5 +67,9 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
   @Override
   public boolean isEmpty(QueryType queryType) {
     return searchString == null || searchString.trim().isEmpty();
+  }
+
+  public QueryBuilder toElasticSearchQuery() {
+    return baseElasticSearchQueryBuilder(getElasticIndexes(), searchString);
   }
 }

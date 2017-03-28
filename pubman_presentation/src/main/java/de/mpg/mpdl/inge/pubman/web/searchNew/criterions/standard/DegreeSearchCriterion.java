@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class DegreeSearchCriterion extends StandardSearchCriterion {
 
@@ -46,6 +48,16 @@ public class DegreeSearchCriterion extends StandardSearchCriterion {
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.DEGREE; }
    */
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.degree")};
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
+  }
 
 
 

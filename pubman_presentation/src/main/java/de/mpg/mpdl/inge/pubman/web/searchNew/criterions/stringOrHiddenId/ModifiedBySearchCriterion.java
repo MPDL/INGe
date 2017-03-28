@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class ModifiedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
@@ -52,6 +54,24 @@ public class ModifiedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
       case ITEM_CONTAINER_ADMIN:
         return new String[] {"\"/properties/version/modified-by/xLinkTitle\""};
     }
+    return null;
+  }
+
+
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        "version.modifiedByRO.objectId")};
+
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("version.modifiedByRO.title")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
     return null;
   }
 

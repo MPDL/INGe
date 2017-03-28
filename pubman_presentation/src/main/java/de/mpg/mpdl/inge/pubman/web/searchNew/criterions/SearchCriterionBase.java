@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
@@ -36,6 +37,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox.AffiliatedContextListSearchCriterion;
@@ -87,64 +92,91 @@ public abstract class SearchCriterionBase implements Serializable {
   public enum SearchCriterion {
     TITLE(TitleSearchCriterion.class, DisplayType.STANDARD), KEYWORD(KeywordSearchCriterion.class,
         DisplayType.STANDARD), CLASSIFICATION(ClassificationSearchCriterion.class, null), ANY(
-        AnyFieldSearchCriterion.class, DisplayType.STANDARD), ANYFULLTEXT(
-        AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD), ANYPERSON(
-        PersonSearchCriterion.class, DisplayType.PERSON),
+            AnyFieldSearchCriterion.class,
+            DisplayType.STANDARD), ANYFULLTEXT(AnyFieldAndFulltextSearchCriterion.class,
+                DisplayType.STANDARD), ANYPERSON(PersonSearchCriterion.class, DisplayType.PERSON),
 
     // Person enum names should be the sam as role names in CreatorVO.CreatorRole
     AUTHOR(PersonSearchCriterion.class, DisplayType.PERSON), EDITOR(PersonSearchCriterion.class,
         DisplayType.PERSON), ADVISOR(PersonSearchCriterion.class, DisplayType.PERSON), ARTIST(
-        PersonSearchCriterion.class, DisplayType.PERSON), COMMENTATOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), CONTRIBUTOR(PersonSearchCriterion.class, DisplayType.PERSON), ILLUSTRATOR(
-        PersonSearchCriterion.class, DisplayType.PERSON), PAINTER(PersonSearchCriterion.class,
-        DisplayType.PERSON), PHOTOGRAPHER(PersonSearchCriterion.class, DisplayType.PERSON), TRANSCRIBER(
-        PersonSearchCriterion.class, DisplayType.PERSON), TRANSLATOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), HONOREE(PersonSearchCriterion.class, DisplayType.PERSON), REFEREE(
-        PersonSearchCriterion.class, DisplayType.PERSON), INVENTOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), APPLICANT(PersonSearchCriterion.class, DisplayType.PERSON), DIRECTOR(
-        PersonSearchCriterion.class, DisplayType.PERSON), PRODUCER(PersonSearchCriterion.class,
-        DisplayType.PERSON), ACTOR(PersonSearchCriterion.class, DisplayType.PERSON), CINEMATOGRAPHER(
-        PersonSearchCriterion.class, DisplayType.PERSON), SOUND_DESIGNER(
-        PersonSearchCriterion.class, DisplayType.PERSON),
+            PersonSearchCriterion.class,
+            DisplayType.PERSON), COMMENTATOR(PersonSearchCriterion.class,
+                DisplayType.PERSON), CONTRIBUTOR(PersonSearchCriterion.class,
+                    DisplayType.PERSON), ILLUSTRATOR(PersonSearchCriterion.class,
+                        DisplayType.PERSON), PAINTER(PersonSearchCriterion.class,
+                            DisplayType.PERSON), PHOTOGRAPHER(PersonSearchCriterion.class,
+                                DisplayType.PERSON), TRANSCRIBER(PersonSearchCriterion.class,
+                                    DisplayType.PERSON), TRANSLATOR(PersonSearchCriterion.class,
+                                        DisplayType.PERSON), HONOREE(PersonSearchCriterion.class,
+                                            DisplayType.PERSON), REFEREE(
+                                                PersonSearchCriterion.class,
+                                                DisplayType.PERSON), INVENTOR(
+                                                    PersonSearchCriterion.class,
+                                                    DisplayType.PERSON), APPLICANT(
+                                                        PersonSearchCriterion.class,
+                                                        DisplayType.PERSON), DIRECTOR(
+                                                            PersonSearchCriterion.class,
+                                                            DisplayType.PERSON), PRODUCER(
+                                                                PersonSearchCriterion.class,
+                                                                DisplayType.PERSON), ACTOR(
+                                                                    PersonSearchCriterion.class,
+                                                                    DisplayType.PERSON), CINEMATOGRAPHER(
+                                                                        PersonSearchCriterion.class,
+                                                                        DisplayType.PERSON), SOUND_DESIGNER(
+                                                                            PersonSearchCriterion.class,
+                                                                            DisplayType.PERSON),
 
     ORGUNIT(OrganizationSearchCriterion.class, null), ANYDATE(DateSearchCriterion.class,
         DisplayType.DATE), PUBLISHEDPRINT(DateSearchCriterion.class, DisplayType.DATE), PUBLISHED(
-        DateSearchCriterion.class, DisplayType.DATE), ACCEPTED(DateSearchCriterion.class,
-        DisplayType.DATE), SUBMITTED(DateSearchCriterion.class, DisplayType.DATE), MODIFIED(
-        DateSearchCriterion.class, DisplayType.DATE), CREATED(DateSearchCriterion.class,
-        DisplayType.DATE), LANG(LanguageSearchCriterion.class, null), EVENT(
-        EventTitleSearchCriterion.class, DisplayType.STANDARD), EVENT_STARTDATE(
-        DateSearchCriterion.class, DisplayType.DATE), EVENT_ENDDATE(DateSearchCriterion.class,
-        DisplayType.DATE), EVENT_INVITATION(EventInvitationSearchCriterion.class, null), SOURCE(
-        SourceSearchCriterion.class, DisplayType.STANDARD), JOURNAL(JournalSearchCriterion.class,
-        null), LOCAL(LocalTagSearchCriterion.class, DisplayType.STANDARD), IDENTIFIER(
-        IdentifierSearchCriterion.class, DisplayType.STANDARD), COLLECTION(
-        CollectionSearchCriterion.class, null), PROJECT_INFO(ProjectInfoSearchCriterion.class,
-        DisplayType.STANDARD),
+            DateSearchCriterion.class, DisplayType.DATE), ACCEPTED(DateSearchCriterion.class,
+                DisplayType.DATE), SUBMITTED(DateSearchCriterion.class, DisplayType.DATE), MODIFIED(
+                    DateSearchCriterion.class, DisplayType.DATE), CREATED(DateSearchCriterion.class,
+                        DisplayType.DATE), LANG(LanguageSearchCriterion.class, null), EVENT(
+                            EventTitleSearchCriterion.class, DisplayType.STANDARD), EVENT_STARTDATE(
+                                DateSearchCriterion.class, DisplayType.DATE), EVENT_ENDDATE(
+                                    DateSearchCriterion.class, DisplayType.DATE), EVENT_INVITATION(
+                                        EventInvitationSearchCriterion.class,
+                                        null), SOURCE(SourceSearchCriterion.class,
+                                            DisplayType.STANDARD), JOURNAL(
+                                                JournalSearchCriterion.class,
+                                                null), LOCAL(LocalTagSearchCriterion.class,
+                                                    DisplayType.STANDARD), IDENTIFIER(
+                                                        IdentifierSearchCriterion.class,
+                                                        DisplayType.STANDARD), COLLECTION(
+                                                            CollectionSearchCriterion.class,
+                                                            null), PROJECT_INFO(
+                                                                ProjectInfoSearchCriterion.class,
+                                                                DisplayType.STANDARD),
 
-    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null), GENRE(GenreSearchCriterion.class, null), REVIEW_METHOD(
-        ReviewMethodSearchCriterion.class, null), DEGREE(DegreeSearchCriterion.class, null), FILE_AVAILABLE(
-        FileAvailableSearchCriterion.class, null), LOCATOR_AVAILABLE(
-        LocatorAvailableSearchCriterion.class, null), EMBARGO_DATE_AVAILABLE(
-        EmbargoDateAvailableSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY(
-        ComponentContentCategory.class, null), COMPONENT_VISIBILITY(
-        ComponentVisibilitySearchCriterion.class, null), COMPONENT_VISIBILITY_LIST(
-        ComponentVisibilityListSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY_LIST(
-        ComponentContentCategoryListSearchCriterion.class, null), COMPONENT_EMBARGO_DATE(
-        DateSearchCriterion.class, DisplayType.DATE), ITEMSTATE_LIST(
-        ItemStateListSearchCriterion.class, null), AFFILIATED_CONTEXT_LIST(
-        AffiliatedContextListSearchCriterion.class, null), PUBLICATION_STATUS_LIST(
-        PublicationStatusListSearchCriterion.class, null),
+    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null), GENRE(GenreSearchCriterion.class,
+        null), REVIEW_METHOD(ReviewMethodSearchCriterion.class, null), DEGREE(
+            DegreeSearchCriterion.class, null), FILE_AVAILABLE(FileAvailableSearchCriterion.class,
+                null), LOCATOR_AVAILABLE(LocatorAvailableSearchCriterion.class,
+                    null), EMBARGO_DATE_AVAILABLE(EmbargoDateAvailableSearchCriterion.class,
+                        null), COMPONENT_CONTENT_CATEGORY(ComponentContentCategory.class,
+                            null), COMPONENT_VISIBILITY(ComponentVisibilitySearchCriterion.class,
+                                null), COMPONENT_VISIBILITY_LIST(
+                                    ComponentVisibilityListSearchCriterion.class,
+                                    null), COMPONENT_CONTENT_CATEGORY_LIST(
+                                        ComponentContentCategoryListSearchCriterion.class,
+                                        null), COMPONENT_EMBARGO_DATE(DateSearchCriterion.class,
+                                            DisplayType.DATE), ITEMSTATE_LIST(
+                                                ItemStateListSearchCriterion.class,
+                                                null), AFFILIATED_CONTEXT_LIST(
+                                                    AffiliatedContextListSearchCriterion.class,
+                                                    null), PUBLICATION_STATUS_LIST(
+                                                        PublicationStatusListSearchCriterion.class,
+                                                        null),
 
     MODIFIED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE), CREATED_INTERNAL(
         DateSearchCriterion.class, DisplayType.DATE), CREATED_BY(CreatedBySearchCriterion.class,
-        null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
+            null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
 
     AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR), OR_OPERATOR(LogicalOperator.class,
         DisplayType.OPERATOR), NOT_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 
-    OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(
-        Parenthesis.class, DisplayType.PARENTHESIS),
+    OPENING_PARENTHESIS(Parenthesis.class,
+        DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS),
 
     FLEXIBLE(FlexibleStandardSearchCriterion.class, null);
 
@@ -200,6 +232,10 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
   public abstract String toCqlString(Index indexName) throws SearchParseException;
+
+  public abstract QueryBuilder toElasticSearchQuery() throws SearchParseException;
+
+  public abstract String getElasticSearchNestedPath();
 
   public abstract String toQueryString();
 
@@ -452,6 +488,29 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
+  public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
+      String searchString) {
+
+    if (indexFields.length == 1) {
+      return QueryBuilders.matchQuery(indexFields[0].getFieldname(), searchString);
+
+    } else {
+      String[] fieldnames =
+          Arrays.asList(indexFields).stream().map(f -> f.getFieldname()).toArray(String[]::new);
+      return QueryBuilders.multiMatchQuery(searchString, fieldnames);
+
+      /*
+       * BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+       * 
+       * for(int i=0; i<indexFields.length;i++) { boolQuery =
+       * boolQuery.should(QueryBuilders.matchQuery(indexFields[i].getFieldname(), searchString)); }
+       * return boolQuery;
+       */
+    }
+
+
+  }
+
   /**
    * Creates a CQL query string out of a list of search criteria. Before, it removes empty search
    * criterions. Adds parenthesis around every single search criterion object.
@@ -514,9 +573,8 @@ public abstract class SearchCriterionBase implements Serializable {
         String standardCriterions = null;
         switch (indexName) {
           case ESCIDOC_ALL: {
-            standardCriterions =
-                INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\""
-                    + escapeForCql(contentModelId) + "\"";
+            standardCriterions = INDEX_OBJECTTYPE + "=\"item\" AND " + INDEX_CONTENT_MODEL + "=\""
+                + escapeForCql(contentModelId) + "\"";
             break;
           }
           case ITEM_CONTAINER_ADMIN: {
@@ -541,6 +599,236 @@ public abstract class SearchCriterionBase implements Serializable {
     }
 
     return sb.toString();
+
+  }
+
+
+
+  public static QueryBuilder scListToElasticSearchQuery(List<SearchCriterionBase> scList)
+      throws SearchParseException {
+    List<SearchCriterionBase> cleanedScList =
+        SearchCriterionBase.removeEmptyFields(scList, QueryType.CQL);
+
+    // Set partner parenthesis for every parenthesis
+    Stack<Parenthesis> parenthesisStack = new Stack<Parenthesis>();
+    for (SearchCriterionBase sc : cleanedScList) {
+      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+        parenthesisStack.push((Parenthesis) sc);
+
+      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+
+        Parenthesis closingParenthesis = (Parenthesis) sc;
+        Parenthesis openingParenthesis = parenthesisStack.pop();
+
+        closingParenthesis.setPartnerParenthesis(openingParenthesis);
+        openingParenthesis.setPartnerParenthesis(closingParenthesis);
+      }
+    }
+
+    return cleanedScListToElasticSearchQuery(cleanedScList, null);
+  }
+
+  private static QueryBuilder cleanedScListToElasticSearchQuery(List<SearchCriterionBase> scList,
+      String parentNestedPath) throws SearchParseException {
+
+    logger.info("Call with list: " + scList);
+    QueryBuilder resultedQueryBuilder = null;
+
+    int parenthesisOpened = 0;
+    // LogicalOperator mainOperator = null;
+    // int indexOfMainOperator = -1;
+
+    List<LogicalOperator> mainOperators = new ArrayList<>();
+    LogicalOperator lastOperator = null;
+    boolean mixedOrAndAnd = false;
+
+    String sharedNestedField = "";
+    // boolean nestedField = false;
+
+    List<SearchCriterionBase> criterionList = new ArrayList<>(scList);
+
+    logger.info("List: " + criterionList);
+
+    // Remove unnecessary parenthesis
+    while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).getSearchCriterion())
+        && SearchCriterion.CLOSING_PARENTHESIS
+            .equals(criterionList.get(criterionList.size() - 1).getSearchCriterion())
+        && ((Parenthesis) criterionList.get(0))
+            .getPartnerParenthesis() == ((Parenthesis) criterionList
+                .get(criterionList.size() - 1))) {
+
+      // logger.info("Remove: " + criterionList.get(0) + " / " +
+      // criterionList.get(criterionList.size() - 1));
+      criterionList.remove(0);
+      criterionList.remove(criterionList.size() - 1);
+    }
+
+    logger.info("List after removal: " + criterionList);
+
+
+
+    for (SearchCriterionBase sc : criterionList) {
+
+      if (DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType())) {
+
+        if (parenthesisOpened == 0) {
+
+          LogicalOperator op = (LogicalOperator) sc;
+          mainOperators.add(op);
+          //Check if this operator changes from last 
+          if (lastOperator != null
+              && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
+                  && !op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
+                  || (!lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
+                      && op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
+
+              )) {
+            mixedOrAndAnd = true;
+          }
+          lastOperator = op;
+
+          // new
+          /*
+           * if (mainOperators.isEmpty() ||
+           * !(SearchCriterion.OR_OPERATOR.equals(mainOperators.get(mainOperators.size() - 1)
+           * .getSearchCriterion()) && !SearchCriterion.OR_OPERATOR.equals(sc
+           * .getSearchCriterion()))) {mainOperators.add((LogicalOperator) sc);
+           */
+          // --
+
+          /*
+           * if ((mainOperator == null ||
+           * !SearchCriterion.OR_OPERATOR.equals(mainOperator.getSearchCriterion()))) { int index =
+           * criterionList.indexOf(sc); mainOperator = (LogicalOperator) sc; indexOfMainOperator =
+           * index; }
+           */
+          // }
+        }
+
+      } else if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+        parenthesisOpened++;
+
+      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+        parenthesisOpened--;
+
+      } else {
+
+
+        // if all criterias have the same nested field and if it's different from the parent
+        // nested
+        // criteria, set a new nested query
+        if ((sharedNestedField != null && sharedNestedField.isEmpty()
+            && !(parentNestedPath != null
+                && sc.getElasticSearchNestedPath().equals(parentNestedPath)))
+            || (sc.getElasticSearchNestedPath() != null
+                && sc.getElasticSearchNestedPath().equals(sharedNestedField)
+                && !sc.getElasticSearchNestedPath().equals(parentNestedPath))) {
+          sharedNestedField = sc.getElasticSearchNestedPath();
+        } else {
+          sharedNestedField = null;
+        }
+
+      }
+
+    }
+
+
+
+    if (sharedNestedField != null) {
+      logger.info("Found common nested field: " + sharedNestedField);
+    }
+
+
+    if (criterionList.size() == 1) {
+      resultedQueryBuilder = criterionList.get(0).toElasticSearchQuery();
+
+    } else if (mainOperators.size() > 0) {
+
+
+      logger.info("found main operators: " + mainOperators);
+
+
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+
+      // LogicalOperator lastMainOperator = mainOperators.get(0);
+      // int lastIndexOfOperator = criterionList.indexOf(lastMainOperator);
+
+
+      // If there are AND/NOTAND operators mixed with OR operators, divide by OR operators ->
+      // Remove all AND / NOTAND operators
+      if (mixedOrAndAnd) {
+        mainOperators
+            .removeIf(item -> !SearchCriterion.OR_OPERATOR.equals(item.getSearchCriterion()));
+      }
+
+      for (int i = 0; i < mainOperators.size(); i++) {
+        LogicalOperator op = mainOperators.get(i);
+        int indexOfOperator = criterionList.indexOf(op);
+        int nextIndexOfOperator = (mainOperators.size() > i + 1)
+            ? criterionList.indexOf(mainOperators.get(i + 1)) : criterionList.size();
+
+        if (i == 0) {
+          List<SearchCriterionBase> leftList = criterionList.subList(0, indexOfOperator);
+
+          if (SearchCriterion.OR_OPERATOR.equals(op.getSearchCriterion())) {
+            bq.should(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+          } else if (SearchCriterion.AND_OPERATOR.equals(op.getSearchCriterion())) {
+            bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+          } else if (SearchCriterion.NOT_OPERATOR.equals(op.getSearchCriterion())) {
+            bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+          }
+        }
+
+        List<SearchCriterionBase> rightList =
+            criterionList.subList(indexOfOperator + 1, nextIndexOfOperator);
+
+        if (SearchCriterion.OR_OPERATOR.equals(op.getSearchCriterion())) {
+          bq.should(cleanedScListToElasticSearchQuery(rightList, sharedNestedField));
+        } else if (SearchCriterion.AND_OPERATOR.equals(op.getSearchCriterion())) {
+          bq.must(cleanedScListToElasticSearchQuery(rightList, sharedNestedField));
+        } else if (SearchCriterion.NOT_OPERATOR.equals(op.getSearchCriterion())) {
+          bq.mustNot(cleanedScListToElasticSearchQuery(rightList, sharedNestedField));
+        }
+
+
+        // lastIndexOfOperator = indexOfOperator;
+        // lastMainOperator = op;
+      }
+
+
+
+      /*
+       * 
+       * List<SearchCriterionBase> leftList = criterionList.subList(0, indexOfMainOperator);
+       * List<SearchCriterionBase> rightList = criterionList.subList(indexOfMainOperator + 1,
+       * criterionList.size());
+       * 
+       * BoolQueryBuilder bq = QueryBuilders.boolQuery();
+       * 
+       * 
+       * if (SearchCriterion.OR_OPERATOR.equals(mainOperator.getSearchCriterion())) {
+       * bq.should(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+       * bq.should(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); } else if
+       * (SearchCriterion.AND_OPERATOR.equals(mainOperator.getSearchCriterion())) {
+       * bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+       * bq.must(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); } else if
+       * (SearchCriterion.NOT_OPERATOR.equals(mainOperator.getSearchCriterion())) {
+       * bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
+       * bq.mustNot(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); }
+       */
+      resultedQueryBuilder = bq;
+
+
+    }
+
+
+    if (sharedNestedField != null) {
+      return QueryBuilders.nestedQuery(sharedNestedField, resultedQueryBuilder, ScoreMode.Avg);
+    }
+
+    else {
+      return resultedQueryBuilder;
+    }
 
   }
 
@@ -593,22 +881,23 @@ public abstract class SearchCriterionBase implements Serializable {
           currentSearchCriterionName = SearchCriterion.valueOf(substringBuffer.toString());
 
           if (sr.read() != '"') {
-            throw new RuntimeException("Search criterion name must be followed by an '=' and '\"' ");
+            throw new RuntimeException(
+                "Search criterion name must be followed by an '=' and '\"' ");
           }
 
           int contentChar;
           StringBuffer contentBuffer = new StringBuffer();
           while ((contentChar = sr.read()) != -1) {
 
-            if (contentChar == '"'
-                && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
+            if (contentChar == '"' && !(contentBuffer.length() > 0
+                && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
               // end of content
               currentSearchCriterion = initSearchCriterion(currentSearchCriterionName);
               try {
                 currentSearchCriterion.parseQueryStringContent(contentBuffer.toString());
               } catch (Exception e) {
-                throw new RuntimeException("Error while parsing query string content: "
-                    + contentBuffer.toString(), e);
+                throw new RuntimeException(
+                    "Error while parsing query string content: " + contentBuffer.toString(), e);
               }
               scList.add(currentSearchCriterion);
               break;
@@ -684,8 +973,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-  public static List<SearchCriterionBase> removeEmptyFields(
-      List<SearchCriterionBase> criterionList, QueryType queryType) {
+  public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList,
+      QueryType queryType) {
     if (criterionList == null) {
       return new ArrayList<SearchCriterionBase>();
     } else {
@@ -706,8 +995,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
       // if first in list is an operator except "NOT", remove it
       if (copyForRemoval.size() > 0
-          && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion()
-              .getDisplayType())
+          && DisplayType.OPERATOR
+              .equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
           && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion())) {
         copyForRemoval.remove(0);
       }
@@ -782,8 +1071,8 @@ public abstract class SearchCriterionBase implements Serializable {
     criterionList.removeAll(parenthesisToRemove);
 
     // if first criterion is an operand, remove it
-    if (criterionList != null && criterionList.size() > 0
-        && DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
+    if (criterionList != null && criterionList.size() > 0 && DisplayType.OPERATOR
+        .equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
       criterionList.remove(0);
     }
 
@@ -832,9 +1121,9 @@ public abstract class SearchCriterionBase implements Serializable {
   @Override
   public String toString() {
     try {
-      return "(" + this.hashCode() + ") " + toQueryString();
+      return toQueryString() + " (" + hashCode() + ")";
     } catch (Exception e) {
-      return "(" + this.hashCode() + ") " + getSearchCriterion().name();
+      return getSearchCriterion().name();
     }
   }
 

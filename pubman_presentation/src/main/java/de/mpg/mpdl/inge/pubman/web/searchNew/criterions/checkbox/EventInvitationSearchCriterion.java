@@ -25,6 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
+import org.elasticsearch.index.query.QueryBuilder;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -70,6 +74,21 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   public void setInvited(boolean invited) {
     this.invited = invited;
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+    if (isInvited()) {
+      return baseElasticSearchQueryBuilder(
+          new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+              "metadata.event.invitationStatus")}, "invited");
+    }
+    return null;
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
   /*

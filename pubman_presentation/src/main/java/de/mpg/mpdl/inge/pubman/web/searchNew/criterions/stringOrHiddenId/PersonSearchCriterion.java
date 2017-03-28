@@ -25,8 +25,13 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 
 @SuppressWarnings("serial")
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
@@ -113,6 +118,55 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
 
 
+  }
+
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+
+
+    if (SearchCriterion.ANYPERSON.equals(getSearchCriterion())) {
+      if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
+        return baseElasticSearchQueryBuilder(getElasticSearchFieldForHiddenId(), getHiddenId());
+      } else {
+        return baseElasticSearchQueryBuilder(getElasticSearchFieldForSearchString(),
+            getSearchString());
+      }
+
+    } else {
+      String roleUri = CreatorVO.CreatorRole.valueOf(getSearchCriterion().name()).getUri();
+      BoolQueryBuilder bq =
+          QueryBuilders.boolQuery().must(
+              QueryBuilders.matchQuery("metadata.creators.role", roleUri));
+
+      if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
+        bq =
+            bq.must(baseElasticSearchQueryBuilder(getElasticSearchFieldForHiddenId(), getHiddenId()));
+      } else {
+        bq =
+            bq.must(baseElasticSearchQueryBuilder(getElasticSearchFieldForSearchString(),
+                getSearchString()));
+      }
+      return bq;
+    }
+
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        "metadata.creators.person.identifiers.id", true, "metadata.creators")};
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.creators.person",
+        true, "metadata.creators")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "metadata.creators";
   }
 
   /*

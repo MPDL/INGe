@@ -25,6 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component;
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -75,6 +79,32 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
     return null;
 
+  }
+
+  public QueryBuilder toElasticSearchQuery() {
+    switch (selectedAvailability) {
+      case YES: {
+        return baseElasticSearchQueryBuilder(
+            new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.storage", true,
+                "files")}, getStorageType());
+      }
+
+      case NO: {
+        return QueryBuilders.boolQuery().mustNot(
+            QueryBuilders.matchQuery("files.storage", getStorageType()));
+      }
+
+      case WHATEVER:
+        return null;
+    }
+    return null;
+
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "files";
   }
 
   public abstract String getStorageType();

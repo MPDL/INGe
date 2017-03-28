@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -146,5 +147,9 @@ public enum ElasticSearchTransportClient {
     } finally {
       client.close();
     }
+  }
+
+  public SearchRequestBuilder search(String... indexNames) {
+    return client.prepareSearch(indexNames);
   }
 }

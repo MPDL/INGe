@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class LocalTagSearchCriterion extends StandardSearchCriterion {
 
@@ -40,6 +42,17 @@ public class LocalTagSearchCriterion extends StandardSearchCriterion {
     return null;
 
 
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("localTags")};
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
   /*

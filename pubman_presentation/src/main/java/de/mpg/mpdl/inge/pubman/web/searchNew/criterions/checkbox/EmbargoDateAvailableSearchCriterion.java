@@ -25,6 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -68,6 +72,18 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   public void setWithEmbargoDate(boolean withEmbargoDate) {
     this.withEmbargoDate = withEmbargoDate;
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+    QueryBuilders.existsQuery("files.defaultMetadata.embargoUntil");
+    return null;
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+
+    return "files";
   }
 
   /*

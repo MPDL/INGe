@@ -25,8 +25,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.dates;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -299,6 +306,24 @@ public class DateSearchCriterion extends SearchCriterionBase {
     } else {
       return new String[] {toQuery};
     }
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+    try {
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+      
+      return QueryBuilders.rangeQuery("metadata.issued").includeLower(false).includeUpper(false).from(df.parse(getFrom()))
+          .to(df.parse(getTo()));
+    } catch (ParseException e) {
+      throw new SearchParseException("Error while parsing dates", e);
+    }
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
   /*

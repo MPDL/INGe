@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
@@ -45,6 +47,13 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
         return new String[] {"\"/md-records/md-record/publication/subject\""};
     }
     return null;
+
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.subjects.value",
+        true, "metadata.subjects")};
 
   }
 
@@ -69,6 +78,11 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   public void setClassificationType(String classificationType) {
     this.classificationType = classificationType;
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "metadata.subjects";
   }
 
   /*

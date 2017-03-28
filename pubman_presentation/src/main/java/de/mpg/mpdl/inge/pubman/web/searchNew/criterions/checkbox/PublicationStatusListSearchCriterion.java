@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 
 @SuppressWarnings("serial")
@@ -54,6 +55,15 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
     return value;
   }
 
+  // TODO Does not exist yet
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("publicationStatus")};
+  }
 
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
+  }
 
 }

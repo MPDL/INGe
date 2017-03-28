@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
@@ -102,6 +103,16 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
     return false;
 
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("publicStatus")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
 

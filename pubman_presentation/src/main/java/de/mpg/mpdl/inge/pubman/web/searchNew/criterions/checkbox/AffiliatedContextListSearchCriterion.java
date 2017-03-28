@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -95,6 +96,16 @@ public class AffiliatedContextListSearchCriterion extends
 
     return false;
 
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("context.objectId")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
 }

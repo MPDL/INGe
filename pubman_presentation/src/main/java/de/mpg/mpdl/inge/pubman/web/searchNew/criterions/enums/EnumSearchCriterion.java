@@ -25,7 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums;
 
+import org.elasticsearch.index.query.QueryBuilder;
+
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -44,6 +47,13 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   public String toCqlString(Index indexName) throws SearchParseException {
     return baseCqlBuilder(getCqlIndexes(indexName), getSearchString(getSelectedEnum()));
   }
+
+  public QueryBuilder toElasticSearchQuery() {
+    return baseElasticSearchQueryBuilder(getElasticIndexes(), getSearchString(getSelectedEnum()));
+  }
+
+
+  public abstract ElasticSearchIndexField[] getElasticIndexes();
 
   public abstract String getSearchString(T selectedEnum);
 

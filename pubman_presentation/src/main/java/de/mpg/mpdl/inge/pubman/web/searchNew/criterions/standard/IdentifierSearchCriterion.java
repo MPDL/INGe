@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class IdentifierSearchCriterion extends StandardSearchCriterion {
 
@@ -45,7 +47,18 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.IDENTIFIER; }
    */
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("version.objectId"),
+        new ElasticSearchIndexField("pid"), new ElasticSearchIndexField("version.pid"),
+        new ElasticSearchIndexField("identifiers.id")};
 
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
+  }
 
 
 }

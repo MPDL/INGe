@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
@@ -50,5 +51,16 @@ public class LanguageSearchCriterion extends StandardSearchCriterion {
             .getLocale();
 
     return CommonUtils.getConeLanguageName(getSearchString(), locale);
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.languages")};
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 }

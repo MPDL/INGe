@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 
@@ -43,6 +45,18 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 
 
   }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata")};
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
+  }
+
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.ANY; }

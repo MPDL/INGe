@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.elasticsearch.index.query.QueryBuilder;
+
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
@@ -389,6 +391,16 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
   public void setDegreeMap(Map<DegreeType, Boolean> degreeMap) {
     this.degreeMap = degreeMap;
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+    return scListToElasticSearchQuery(getGenreSearchCriterions());
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
   /*

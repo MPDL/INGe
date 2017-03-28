@@ -25,6 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+
 @SuppressWarnings("serial")
 public class ComponentVisibilitySearchCriterion extends StandardSearchCriterion {
 
@@ -45,6 +47,18 @@ public class ComponentVisibilitySearchCriterion extends StandardSearchCriterion 
    * @Override public SearchCriterion getSearchCriterion() { return
    * SearchCriterion.COMPONENT_VISIBILITY; }
    */
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.files", true,
+        "metadata.files.visibility")};
+
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "metadata.files";
+  }
 
 
 }

@@ -25,16 +25,26 @@
  */
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 
 @SuppressWarnings("serial")
 public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   private String[] cqlIndexes;
+  private ElasticSearchIndexField[] elIndexes;
 
 
   public FlexibleStandardSearchCriterion(String[] cqlIndexes, String searchString) {
     this.cqlIndexes = cqlIndexes;
     this.setSearchString(searchString);
+
+  }
+
+  public FlexibleStandardSearchCriterion(String[] cqlIndexes, ElasticSearchIndexField[] elIndexes,
+      String searchString) {
+    this.setSearchString(searchString);
+    this.elIndexes = elIndexes;
+    this.cqlIndexes = cqlIndexes;
 
   }
 
@@ -46,5 +56,16 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.FLEXIBLE; }
    */
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return "metadata.subjects";
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return elIndexes;
+  }
+
 
 }

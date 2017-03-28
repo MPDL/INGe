@@ -32,6 +32,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.Parenthesis;
@@ -182,6 +183,31 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
     return allAffs;
 
 
+  }
+
+  // TODO: Organization path and predecessor/successor
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
+    return new ElasticSearchIndexField[] {
+        new ElasticSearchIndexField("metadata.creators.person.organizations.identifier", true,
+            "metadata.creators", "metadata.creators.person.organization"),
+        new ElasticSearchIndexField("metadata.creators.organizations.identifier", true,
+            "metadata.creators", "metadata.creators.organizations")};
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
+    return new ElasticSearchIndexField[] {
+        new ElasticSearchIndexField("metadata.creators.person.organizations.name", true,
+            "metadata.creators", "metadata.creators.person.organization"),
+        new ElasticSearchIndexField("metadata.creators.organizations.name", true,
+            "metadata.creators", "metadata.creators.organizations")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    // TODO Auto-generated method stub
+    return "metadata.creators";
   }
 
 

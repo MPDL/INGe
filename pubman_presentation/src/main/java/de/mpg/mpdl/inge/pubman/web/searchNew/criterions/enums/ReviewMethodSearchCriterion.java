@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.enums;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 
 
 @SuppressWarnings("serial")
@@ -55,6 +56,16 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
   @Override
   public String getSearchString(ReviewMethod selectedEnum) {
     return selectedEnum.getUri();
+  }
+
+  @Override
+  public ElasticSearchIndexField[] getElasticIndexes() {
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.reviewMethod")};
+  }
+
+  @Override
+  public String getElasticSearchNestedPath() {
+    return null;
   }
 
 
