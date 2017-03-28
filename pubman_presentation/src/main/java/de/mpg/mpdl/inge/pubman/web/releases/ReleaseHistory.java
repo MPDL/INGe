@@ -50,15 +50,14 @@ public class ReleaseHistory extends FacesBean {
 
   public static final String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
-  public ReleaseHistory() {
-    this.init();
-  }
+  public ReleaseHistory() {}
 
   public void init() {
-    if (this.getItemVersionListSessionBean().getVersionList() == null) {
-      this.getItemVersionListSessionBean().initVersionLists(
-          getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-              .getObjectId()));
+    ItemVersionListSessionBean ivlsb =
+        (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
+    if (ivlsb.getVersionList() == null) {
+      ivlsb.initVersionLists(getVersionHistory(((ItemControllerSessionBean) FacesTools
+          .findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
     }
   }
 
@@ -70,23 +69,12 @@ public class ReleaseHistory extends FacesBean {
    */
   public List<VersionHistoryEntryVO> getVersionHistory(String itemID) {
     try {
-      return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
+      return ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
+          .retrieveVersionHistoryForItem(itemID);
     } catch (Exception e) {
       logger.error("Could not retrieve release list for Item " + itemID, e);
     }
 
     return null;
-  }
-
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
-  private ItemVersionListSessionBean getItemVersionListSessionBean() {
-    return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
-  }
-
-  public String getDummy() {
-    return "";
   }
 }
