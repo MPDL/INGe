@@ -51,8 +51,8 @@ public class Format implements Serializable {
     map = new HashMap<Format, FORMAT>();
     map.put(new Format("eSciDoc-publication-item", "application/xml", "*"),
         FORMAT.ESCIDOC_ITEM_V3_XML);
-    map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
-        FORMAT.ESCIDOC_ITEMLIST_V2_XML);
+    map.put(new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"),
+        FORMAT.ESCIDOC_ITEMLIST_V1_XML);
     map.put(new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"),
         FORMAT.ESCIDOC_ITEMLIST_V2_XML);
     map.put(new Format("pmc", "application/xml", "UTF-8"), FORMAT.PMC_OAIPMH_XML);
