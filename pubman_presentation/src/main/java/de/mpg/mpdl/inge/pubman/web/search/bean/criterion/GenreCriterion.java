@@ -62,27 +62,14 @@ public class GenreCriterion extends Criterion {
 
   private String getSearchIdentifierByGenre(MdsPublicationVO.Genre g) {
     return g.getUri();
-
-    /*
-     * switch( g ) { case ARTICLE: return "article"; case BOOK: return "book"; case BOOK_ITEM:
-     * return "book-item"; case PROCEEDINGS: return "proceedings"; case CONFERENCE_PAPER: return
-     * "conference-paper"; case TALK_AT_EVENT: return "talk-at-event"; case CONFERENCE_REPORT:
-     * return "conference-report"; case POSTER: return "poster"; case COURSEWARE_LECTURE: return
-     * "courseware-lecture"; case THESIS: return "thesis"; case PAPER: return "paper"; case REPORT:
-     * return "report"; case ISSUE: return "issue"; case JOURNAL: return "journal"; case MANUSCRIPT:
-     * return "manuscript"; case SERIES: return "series"; case OTHER: return "other"; default:
-     * return "";
-     * 
-     * }
-     */
   }
 
   public String getSearchIdentifier(int position) {
     if (genreList.size() <= position) {
       return "";
-    } else {
-      return this.getSearchIdentifierByGenre(this.genreList.get(position));
     }
+
+    return this.getSearchIdentifierByGenre(this.genreList.get(position));
   }
 
   private String getGenresAsStringList() {

@@ -432,12 +432,14 @@ public class PubItemVOPresentation extends PubItemVO {
     if (this.getMetadata() != null) {
       int creatorsNo = getMetadata().getCreators().size();
       return getCreators(creatorsNo);
-    } else if (this.getYearbookMetadata() != null) {
+    }
+
+    if (this.getYearbookMetadata() != null) {
       int creatorsNo = this.getYearbookMetadata().getCreators().size();
       return getCreators(creatorsNo);
-    } else {
-      return "";
     }
+
+    return "";
   }
 
   /**

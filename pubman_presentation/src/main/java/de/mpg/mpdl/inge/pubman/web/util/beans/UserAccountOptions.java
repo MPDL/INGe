@@ -72,7 +72,7 @@ public class UserAccountOptions extends FacesBean {
     this.secondPassword = newSecondPassword.trim();
   }
 
-  public String updatePassword() {
+  public void updatePassword() {
     try {
       if (this.password != null && !("").equals(this.password.trim())) {
         if (this.password.equals(this.secondPassword)) {
@@ -101,7 +101,5 @@ public class UserAccountOptions extends FacesBean {
     } catch (Exception e) {
       logger.error("Problem updating Password", e);
     }
-
-    return "";
   }
 }

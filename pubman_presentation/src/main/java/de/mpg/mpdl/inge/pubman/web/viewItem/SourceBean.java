@@ -284,8 +284,9 @@ public class SourceBean extends FacesBean {
 
     if (startEndPage.toString().equals(" - ")) {
       return "";
-    } else
-      return startEndPage.toString();
+    }
+
+    return startEndPage.toString();
   }
 
   public String getGenre() {

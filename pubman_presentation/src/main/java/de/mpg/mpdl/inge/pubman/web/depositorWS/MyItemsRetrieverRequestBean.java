@@ -335,7 +335,7 @@ public class MyItemsRetrieverRequestBean extends
       logger.error("Error during redirection.", e);
       error("Could not redirect");
     }
-    
+
     return "";
 
   }
@@ -353,7 +353,7 @@ public class MyItemsRetrieverRequestBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    
+
     return "";
 
   }

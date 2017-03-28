@@ -145,7 +145,7 @@ public class CartItemsRetrieverRequestBean extends
    * 
    * @return
    */
-  public String deleteSelected() {
+  public void deleteSelected() {
     PubItemStorageSessionBean pssb =
         (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
     int countSelected = 0;
@@ -161,8 +161,6 @@ public class CartItemsRetrieverRequestBean extends
     }
 
     getBasePaginatorListSessionBean().redirect();
-
-    return "";
   }
 
   @Override

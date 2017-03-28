@@ -636,9 +636,9 @@ public class SwordUtil extends FacesBean {
 
     if (isWorkflowSimple) {
       return "Simple Workflow";
-    } else {
-      return "";
     }
+
+    return "";
   }
 
   /**

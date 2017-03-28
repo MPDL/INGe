@@ -29,45 +29,35 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public class LogicalOperator extends SearchCriterionBase {
-
-
-
   public LogicalOperator(SearchCriterion type) {
     super(type);
   }
 
-
   @Override
   public String toCqlString(Index indexName) {
-
-    SearchCriterion sc = getSearchCriterion();
-
-    switch (sc) {
+    switch (getSearchCriterion()) {
       case NOT_OPERATOR:
         return "NOT";
       case AND_OPERATOR:
         return "AND";
       case OR_OPERATOR:
         return "OR";
-
-
     }
+
     return "";
   }
 
   @Override
   public String toQueryString() {
-    SearchCriterion sc = getSearchCriterion();
-    switch (sc) {
+    switch (getSearchCriterion()) {
       case NOT_OPERATOR:
         return "NOT";
       case AND_OPERATOR:
         return "AND";
       case OR_OPERATOR:
         return "OR";
-
-
     }
+
     return "";
   }
 

@@ -248,7 +248,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByState() {
+  public void changeToSortByState() {
     try {
       setSelectedSortBy("STATE");
       setCurrentPageNumber(1);
@@ -257,8 +257,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -267,7 +265,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByTitle() {
+  public void changeToSortByTitle() {
     try {
       setSelectedSortBy("TITLE");
       setCurrentPageNumber(1);
@@ -276,8 +274,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -286,7 +282,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByGenre() {
+  public void changeToSortByGenre() {
     try {
       setSelectedSortBy("GENRE");
       setCurrentPageNumber(1);
@@ -295,8 +291,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -305,7 +299,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByDate() {
+  public void changeToSortByDate() {
     try {
       setSelectedSortBy("DATE");
       setCurrentPageNumber(1);
@@ -314,8 +308,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -324,7 +316,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByCreator() {
+  public void changeToSortByCreator() {
     try {
       setSelectedSortBy("CREATOR");
       setCurrentPageNumber(1);
@@ -333,8 +325,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -343,7 +333,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByFile() {
+  public void changeToSortByFile() {
     try {
       setSelectedSortBy("FILE");
       setCurrentPageNumber(1);
@@ -352,8 +342,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
-
   }
 
   /**
@@ -362,7 +350,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeToSortByCreationDate() {
+  public void changeToSortByCreationDate() {
     try {
       setSelectedSortBy("CREATION_DATE");
       setCurrentPageNumber(1);
@@ -371,8 +359,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
-
   }
 
   /**
@@ -381,7 +367,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSortOrder() {
+  public void changeSortOrder() {
     if (selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING)) {
       setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
     } else {
@@ -394,8 +380,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -403,7 +387,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSortBy() {
+  public void changeSortBy() {
     try {
       setCurrentPageNumber(1);
       setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
@@ -411,8 +395,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -420,7 +402,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSubmenuToView() {
+  public void changeSubmenuToView() {
     try {
       setSubMenu("VIEW");
       setNoListUpdate(true);
@@ -428,8 +410,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -437,7 +417,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSubmenuToExport() {
+  public void changeSubmenuToExport() {
     try {
       setSubMenu("EXPORT");
       setNoListUpdate(true);
@@ -445,8 +425,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -454,7 +432,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSubmenuToFilter() {
+  public void changeSubmenuToFilter() {
     try {
       setSubMenu("FILTER");
       setNoListUpdate(true);
@@ -462,8 +440,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -471,7 +447,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeSubmenuToSorting() {
+  public void changeSubmenuToSorting() {
     try {
       setSubMenu("SORTING");
       setNoListUpdate(true);
@@ -479,8 +455,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -488,7 +462,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeListTypeToBib() {
+  public void changeListTypeToBib() {
     try {
       setListType("BIB");
       setNoListUpdate(true);
@@ -496,8 +470,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -505,7 +477,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String changeListTypeToGrid() {
+  public void changeListTypeToGrid() {
     try {
       setListType("GRID");
       setNoListUpdate(true);
@@ -513,8 +485,6 @@ public class PubItemListSessionBean extends
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -736,7 +706,7 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String addSelectedToCart() {
+  public void addSelectedToCart() {
     PubItemStorageSessionBean pubItemStorage =
         (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
     List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
@@ -772,8 +742,6 @@ public class PubItemListSessionBean extends
     }
 
     redirect();
-
-    return "";
   }
 
 
@@ -849,8 +817,8 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String exportSelectedDownload() {
-    return downloadExportFile(getSelectedItems());
+  public void exportSelectedDownload() {
+    downloadExportFile(getSelectedItems());
   }
 
   /**
@@ -876,8 +844,8 @@ public class PubItemListSessionBean extends
    * 
    * @return
    */
-  public String exportAllDownload() {
-    return downloadExportFile(retrieveAll());
+  public void exportAllDownload() {
+    downloadExportFile(retrieveAll());
   }
 
   /**
@@ -997,8 +965,9 @@ public class PubItemListSessionBean extends
       return "displayExportEmailPage";
     } else {
       error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-      return "";
     }
+
+    return "";
   }
 
   /**
@@ -1007,7 +976,7 @@ public class PubItemListSessionBean extends
    * @param pubItemList
    * @return
    */
-  public String downloadExportFile(List<PubItemVOPresentation> pubItemList) {
+  public void downloadExportFile(List<PubItemVOPresentation> pubItemList) {
     saveSelections();
 
     ItemControllerSessionBean icsb =
@@ -1043,10 +1012,7 @@ public class PubItemListSessionBean extends
       FacesTools.getCurrentInstance().responseComplete();
     } else {
       error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-
     }
-
-    return "";
   }
 
   /**
@@ -1215,7 +1181,7 @@ public class PubItemListSessionBean extends
   /**
    * redirects to the first item of the whole list and updates the currentPartList if needed
    */
-  public String firstListItem() {
+  public void firstListItem() {
     try {
       this.setCurrentPageNumber(1);
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
@@ -1227,14 +1193,12 @@ public class PubItemListSessionBean extends
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
-
-    return "";
   }
 
   /**
    * redirects to the last item of the whole list and updates the currentPartList if needed
    */
-  public String lastListItem() {
+  public void lastListItem() {
     try {
       this.setCurrentPageNumber(this.getPaginatorPageSize());
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
@@ -1247,8 +1211,6 @@ public class PubItemListSessionBean extends
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
-
-    return "";
   }
 
   public int getListItemPosition() {
@@ -1272,7 +1234,7 @@ public class PubItemListSessionBean extends
     }
   }
 
-  public String doListItemPosition() {
+  public void doListItemPosition() {
     try {
       this.setCurrentPageNumber((int) Math.ceil((double) itemPosition
           / (double) this.getElementsPerPage()));
@@ -1287,8 +1249,6 @@ public class PubItemListSessionBean extends
       logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }
-
-    return "";
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {

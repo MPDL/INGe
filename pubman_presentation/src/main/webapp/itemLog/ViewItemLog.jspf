@@ -4,7 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<h:outputText value="#{ViewItemLog.dummy}" />
+    <f:event type="preRenderView" listener="#{ViewItemLog.init}" />
 	<ui:include src="../list/itemEventLogList.jspf" />
 	
 </ui:composition>

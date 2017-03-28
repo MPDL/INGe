@@ -257,9 +257,9 @@ public class AffiliationBean extends FacesBean {
   public String startSearchForAffiliation(AffiliationVO affiliation) {
     try {
       ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-      criteria
-          .add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
-              affiliation.getReference().getObjectId()));
+      criteria.add(new MetadataSearchCriterion(
+          MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, affiliation.getReference()
+              .getObjectId()));
       criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
           "item", MetadataSearchCriterion.LogicalOperator.AND));
 
@@ -272,8 +272,8 @@ public class AffiliationBean extends FacesBean {
       String cql = query.getCqlQuery();
 
       // redirect to SearchResultPage which processes the query
-      FacesTools.getExternalContext()
-          .redirect("SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
+      FacesTools.getExternalContext().redirect(
+          "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
               + URLEncoder.encode(cql) + "&" + SearchRetrieverRequestBean.parameterSearchType
               + "=org");
 

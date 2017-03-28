@@ -148,7 +148,7 @@ public class MabProcessor extends FormatProcessor {
     if (this.originalData == null) {
       return null;
     }
-     
+
     return Base64.encode(this.originalData);
   }
 }

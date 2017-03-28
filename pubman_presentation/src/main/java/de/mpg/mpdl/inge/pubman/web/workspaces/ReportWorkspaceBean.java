@@ -157,7 +157,7 @@ public class ReportWorkspaceBean extends FacesBean {
     this.formatConverter = formatConverter;
   }
 
-  public String generateReport() {
+  public void generateReport() {
     String itemLsitSearchResult = null;
     byte[] itemListCS = null;
     byte[] itemListReportTransformed = null;
@@ -208,8 +208,6 @@ public class ReportWorkspaceBean extends FacesBean {
         error("Error while generatiring output file.");
       }
     }
-
-    return "";
   }
 
   private String doSearchItems() {

@@ -52,20 +52,20 @@ public class Search extends FacesBean {
   private String searchString;
   private boolean includeFiles;
 
-  public String startSearch() {
+  public void startSearch() {
     String searchString = getSearchString();
     boolean includeFiles = getIncludeFiles();
 
     // check if the searchString contains useful data
     if (searchString.trim().equals("")) {
       error(getMessage("search_NoCriteria"));
-      return "";
+      return;
     }
 
     // Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search
     if (searchString.trim().contains("%")) {
       error(getMessage("search_ParseError"));
-      return "";
+      return;
     }
 
     // Bugfix for PUBMAN-2221: Remove Questionmark at the end
@@ -75,29 +75,15 @@ public class Search extends FacesBean {
 
     try {
       String cql = generateCQLRequest(searchString, includeFiles);
-
-      /*
-       * try { LoginHelper loginHelper = (LoginHelper)FacesTools.findBean(LoginHelper.class);
-       * InitialContext ic = new InitialContext(); StatisticLogger sl = (StatisticLogger)
-       * ic.lookup(StatisticLogger.SERVICE_NAME); sl.logSearch(getSessionId(), getIP(),
-       * searchString, cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle()); }
-       * 
-       * catch (Exception e) { logger.error("Could not log statistical data", e); }
-       */
-
       FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
-      return "";
     } catch (Exception e) {
       logger.error("Technical problem while retrieving the search results", e);
       error(getMessage("search_TechnicalError"));
-      return "";
     }
-
-    return "";
   }
 
   public static String generateCQLRequest(String searchString, boolean includeFiles)
@@ -172,12 +158,12 @@ public class Search extends FacesBean {
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
-      return "";
     } catch (Exception e) {
       logger.error("Technical problem while retrieving the search results", e);
       error(getMessage("search_TechnicalError"));
-      return "";
     }
+
+    return "";
   }
 
   public void setSearchString(String searchString) {

@@ -231,11 +231,9 @@ public class EditItemBean extends FacesBean {
     return getCreatorOrganizations().size();
   }
 
-  public String readPastedOrganizations() {
+  public void readPastedOrganizations() {
     logger.debug("readPastedOrganizations");
     this.organizationPasted = false;
-
-    return "";
   }
 
   public boolean isOrganizationPasted() {

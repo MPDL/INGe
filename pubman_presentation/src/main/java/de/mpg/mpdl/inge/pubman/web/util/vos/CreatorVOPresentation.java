@@ -146,18 +146,16 @@ public class CreatorVOPresentation extends CreatorVO {
    * 
    * @return Always empty
    */
-  public String add() {
+  public void add() {
     CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
     creatorVOPresentation.init(getType());
     creatorVOPresentation.setRole(CreatorRole.AUTHOR);
     int index = this.list.indexOf(this);
     this.list.add(index + 1, creatorVOPresentation);
-    return "";
   }
 
-  public String remove() {
+  public void remove() {
     this.list.remove(this);
-    return "";
   }
 
   public String getTypeString() {

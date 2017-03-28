@@ -64,10 +64,10 @@ public class Header extends FacesBean {
       } else if (getType().equals("qa")) {
         serverLogo = LOGO_QA;
       }
-      return serverLogo.toString();
     } catch (Exception e) {
-      return "";
     }
+
+    return serverLogo;
   }
 
   /**

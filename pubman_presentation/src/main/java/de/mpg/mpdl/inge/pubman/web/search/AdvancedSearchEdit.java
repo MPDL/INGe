@@ -160,10 +160,8 @@ public class AdvancedSearchEdit extends FacesBean {
    * 
    * @return (String): identifying the page that should be navigated to after this method call.
    */
-  public String startSearch() {
+  public void startSearch() {
     ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
-
-
     criterionList.addAll(anyFieldCriterionCollection.getFilledCriterion());
     criterionList.addAll(contextCriterionCollection.getFilledCriterion());
     criterionList.addAll(personCriterionCollection.getFilledCriterion());
@@ -182,7 +180,7 @@ public class AdvancedSearchEdit extends FacesBean {
 
     if (criterionList.size() == 0) {
       error(getMessage("search_NoCriteria"));
-      return "";
+      return;
     }
 
     // add the default criterion to the top of the list
@@ -190,7 +188,6 @@ public class AdvancedSearchEdit extends FacesBean {
 
     // transform the criteria to searchCriteria
     try {
-
       // transform first element
       ArrayList<MetadataSearchCriterion> subset =
           transformToSearchCriteria(null, criterionList.get(0));
@@ -209,7 +206,6 @@ public class AdvancedSearchEdit extends FacesBean {
           currentList.get(currentList.size() - 1).addSubCriteria(newCriteria);
           currentList = currentList.get(currentList.size() - 1).getSubCriteriaList();
         }
-        // searchCriteria.addAll( sub );
       }
 
       // add the contentType to the query
@@ -246,9 +242,7 @@ public class AdvancedSearchEdit extends FacesBean {
          * searchString, cql, loginHelper.getLoggedIn(), "pubman",
          * AdminHelper.getAdminUserHandle());
          */
-      }
-
-      catch (Exception e) {
+      } catch (Exception e) {
         logger.error("Could not log statistical data", e);
       }
 
@@ -261,16 +255,12 @@ public class AdvancedSearchEdit extends FacesBean {
     } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
       logger.error("Search criteria includes some lexical error", e);
       error(getMessage("search_ParseError"));
-      return "";
+      return;
     } catch (Exception e) {
       logger.error("Technical problem while retrieving the search results", e);
       error(getMessage("search_TechnicalError"));
-      return "";
+      return;
     }
-
-
-
-    return "";
   }
 
   private ArrayList<MetadataSearchCriterion> transformToSearchCriteria(Criterion predecessor,

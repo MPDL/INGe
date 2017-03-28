@@ -85,9 +85,9 @@ public class OrganizationCriterion extends Criterion {
   public String getAffiliationName() {
     if (affiliation == null) {
       return "";
-    } else {
-      return affiliation.getName();
     }
+
+    return affiliation.getName();
   }
 
   public boolean getAffiliationEmpty() {

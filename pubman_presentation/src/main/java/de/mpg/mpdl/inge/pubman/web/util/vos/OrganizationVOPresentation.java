@@ -60,7 +60,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * 
    * @return Always empty
    */
-  public String add() {
+  public void add() {
     OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
     organizationPresentation.setBean(bean);
     bean.getCreatorOrganizations().add(getNumber(), organizationPresentation);
@@ -83,7 +83,6 @@ public class OrganizationVOPresentation extends OrganizationVO {
       }
       creator.setOuNumbers(newOuNumbers);
     }
-    return "";
   }
 
   /**
@@ -91,7 +90,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * 
    * @return Always empty
    */
-  public String remove() {
+  public void remove() {
     for (CreatorVOPresentation creator : bean.getCreators()) {
       int[] ous = creator.getOus();
       String newOuNumbers = "";
@@ -111,7 +110,6 @@ public class OrganizationVOPresentation extends OrganizationVO {
       creator.setOuNumbers(newOuNumbers);
     }
     getList().remove(this);
-    return "";
   }
 
   /**

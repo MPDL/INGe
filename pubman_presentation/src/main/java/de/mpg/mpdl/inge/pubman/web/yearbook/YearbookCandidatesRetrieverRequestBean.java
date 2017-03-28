@@ -389,7 +389,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
       }
       return mdQuery;
     }
-    
+
     return null;
   }
 

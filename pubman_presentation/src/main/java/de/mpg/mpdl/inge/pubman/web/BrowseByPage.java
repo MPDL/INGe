@@ -160,8 +160,9 @@ public class BrowseByPage extends BreadcrumbPage {
       return instanceUrl + searchPath;
     } catch (Exception e) {
       logger.warn("Could not read property: 'escidoc.pubman.instance.url'", e);
-      return "";
     }
+
+    return "";
   }
 
   /**

@@ -335,8 +335,8 @@ public class ExportItems extends FacesBean {
       } catch (IOException e) {
         error("Could not redirect!");
       }
-      return "";
 
+      return "";
     }
 
     return status;

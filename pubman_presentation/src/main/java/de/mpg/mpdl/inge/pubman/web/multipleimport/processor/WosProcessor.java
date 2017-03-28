@@ -144,8 +144,8 @@ public class WosProcessor extends FormatProcessor {
   public String getDataAsBase64() {
     if (this.originalData == null) {
       return null;
-    } 
-      
+    }
+
     return Base64.encode(this.originalData);
   }
 }

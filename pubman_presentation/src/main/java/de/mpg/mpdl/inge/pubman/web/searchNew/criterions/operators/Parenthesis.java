@@ -46,6 +46,7 @@ public class Parenthesis extends SearchCriterionBase {
       case CLOSING_PARENTHESIS:
         return ")";
     }
+
     return "";
   }
 
@@ -57,6 +58,7 @@ public class Parenthesis extends SearchCriterionBase {
       case CLOSING_PARENTHESIS:
         return ")";
     }
+
     return "";
   }
 

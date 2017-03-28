@@ -108,14 +108,13 @@ public class YearbookArchiveRetrieverRequestBean extends
    * 
    * @return
    */
-  public String changeOrgUnit() {
+  public void changeOrgUnit() {
     try {
       getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       getBasePaginatorListSessionBean().redirect();
     } catch (Exception e) {
       error("Could not redirect");
     }
-    return "";
   }
 
   public String getSelectedSortOrder() {
@@ -180,7 +179,7 @@ public class YearbookArchiveRetrieverRequestBean extends
     return returnList;
   }
 
-  public String exportSelectedDownload() {
+  public void exportSelectedDownload() {
     PubItemListSessionBean pilsb =
         (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
 
@@ -190,7 +189,5 @@ public class YearbookArchiveRetrieverRequestBean extends
       error("Error while exporting");
       logger.error("Error exporting yearbook", e);
     }
-
-    return "";
   }
 }

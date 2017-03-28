@@ -68,22 +68,12 @@ public class Login extends FacesBean {
 
   public Login() {}
 
-  // /**
-  // * gets the parameters out of the faces context
-  // *
-  // * @param name Name of the parameter that should be found in the faces context
-  // * @return String value of the faces context parameter
-  // */
-  // public String getFacesParamValue(String name) {
-  // return FacesTools.getExternalContext().getRequestParameterMap().get(name);
-  // }
-
   /**
    * one method for login and logout according to the current login state
    * 
    * @return String empty navigation string for reloading the page
    */
-  public String loginLogout() throws ServletException, IOException, ServiceException,
+  public void loginLogout() throws ServletException, IOException, ServiceException,
       URISyntaxException {
     String token = getLoginHelper().getAuthenticationToken();
 
@@ -111,8 +101,6 @@ public class Login extends FacesBean {
     } else {
       login();
     }
-
-    return "";
   }
 
   public void login() {
@@ -145,7 +133,7 @@ public class Login extends FacesBean {
    * 
    * @return String navigation string for loading the login error page
    */
-  public String forceLogout() {
+  public void forceLogout() {
     try {
       FacesTools.getExternalContext().redirect(
           PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
@@ -153,8 +141,6 @@ public class Login extends FacesBean {
     } catch (IOException e) {
       logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
-
-    return "";
   }
 
   /**
@@ -162,7 +148,7 @@ public class Login extends FacesBean {
    * 
    * @return String navigation string for loading the login error page
    */
-  public String forceLogout(String itemID) {
+  public void forceLogout(String itemID) {
     try {
       String targetUrl = CommonUtils.getGenericItemLink(itemID);
       FacesTools.getExternalContext().redirect(
@@ -171,8 +157,6 @@ public class Login extends FacesBean {
     } catch (Exception e) {
       logger.error("Could not redirect to Fremework login page", e);
     }
-
-    return "";
   }
 
   public String getBtnLoginLogout() {

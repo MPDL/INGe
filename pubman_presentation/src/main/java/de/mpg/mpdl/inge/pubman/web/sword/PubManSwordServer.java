@@ -371,6 +371,7 @@ public class PubManSwordServer {
     } catch (Exception e) {
       logger.warn("Base URL could not be read from property file.", e);
     }
+
     return "";
   }
 
@@ -380,6 +381,7 @@ public class PubManSwordServer {
     } catch (Exception e) {
       logger.warn("Coreservice URL could not be read from property file.", e);
     }
+
     return "";
   }
 }

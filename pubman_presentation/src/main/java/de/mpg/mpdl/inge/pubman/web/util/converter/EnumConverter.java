@@ -104,9 +104,9 @@ public class EnumConverter implements Converter {
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) {
     if (object == null) {
       return "";
-    } else {
-      return object.toString();
     }
+
+    return object.toString();
   }
 
   /**

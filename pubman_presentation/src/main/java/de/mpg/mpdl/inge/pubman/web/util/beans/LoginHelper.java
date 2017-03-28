@@ -111,7 +111,7 @@ public class LoginHelper extends FacesBean {
    * @throws ServiceException ServiceException
    * @throws TechnicalException TechnicalException
    */
-  public String insertLogin() throws IOException, ServiceException, TechnicalException,
+  public void insertLogin() throws IOException, ServiceException, TechnicalException,
       URISyntaxException {
     String token = this.obtainToken();
 
@@ -141,8 +141,6 @@ public class LoginHelper extends FacesBean {
       depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
       depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
     }
-
-    return "";
   }
 
   /**

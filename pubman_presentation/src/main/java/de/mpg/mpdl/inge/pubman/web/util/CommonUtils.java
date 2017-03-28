@@ -84,10 +84,10 @@ public class CommonUtils {
   private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
   // HTML escaped characters mapping
-  private static final String[] PROBLEMATIC_CHARACTERS =
-      {"&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"};
-  private static final String[] ESCAPED_CHARACTERS =
-      {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
+  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n",
+      "\r", "\t"};
+  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
+      "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -184,8 +184,9 @@ public class CommonUtils {
 
     try {
       HttpClient httpClient = new HttpClient();
-      GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-          + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+      GetMethod getMethod =
+          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+              + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (getMethod.getStatusCode() == 200) {
@@ -197,8 +198,8 @@ public class CommonUtils {
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        logger.error(
-            "Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
+        logger.error("Error while retrieving languages from CoNE. Status code "
+            + getMethod.getStatusCode());
       }
     } catch (Exception e) {
       return new SelectItem[0];
@@ -260,9 +261,10 @@ public class CommonUtils {
       }
 
       HttpClient client = new HttpClient();
-      GetMethod getMethod = new GetMethod(
-          PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/"
-              + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
+      GetMethod getMethod =
+          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+              + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang="
+              + locale);
       client.executeMethod(getMethod);
       String response = getMethod.getResponseBodyAsString();
 

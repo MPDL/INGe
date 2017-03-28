@@ -564,10 +564,10 @@ public class ImportLog {
    * @param errorLevel the errorLevel to set
    */
   public void setErrorLevel(ErrorLevel errorLevel) {
-    if (this.errorLevel == null || this.errorLevel == ErrorLevel.FATAL
+    if (this.errorLevel == null
+        || this.errorLevel == ErrorLevel.FATAL
         || (this.errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
-        || (this.errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL
-            && this.errorLevel != ErrorLevel.ERROR)
+        || (this.errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
         || (this.errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
             && this.errorLevel != ErrorLevel.ERROR && this.errorLevel != ErrorLevel.PROBLEM)) {
       this.errorLevel = errorLevel;
@@ -699,9 +699,11 @@ public class ImportLog {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     try {
-      statement = this.connection.prepareStatement("insert into escidoc_import_log "
-          + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
-          + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+      statement =
+          this.connection
+              .prepareStatement("insert into escidoc_import_log "
+                  + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
+                  + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
 
       statement.setString(1, this.status.toString());
       statement.setString(2, this.errorLevel.toString());
@@ -731,10 +733,11 @@ public class ImportLog {
 
   private synchronized void updateLog() {
     try {
-      PreparedStatement statement = this.connection
-          .prepareStatement("update escidoc_import_log set " + "status = ?, " + "errorlevel = ?, "
-              + "startdate = ?, " + "enddate = ?, " + "action = ?, " + "userid = ?, " + "name = ?, "
-              + "context = ?, " + "format = ?, " + "percentage = ? " + "where id = ?");
+      PreparedStatement statement =
+          this.connection.prepareStatement("update escidoc_import_log set " + "status = ?, "
+              + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "action = ?, "
+              + "userid = ?, " + "name = ?, " + "context = ?, " + "format = ?, "
+              + "percentage = ? " + "where id = ?");
 
       statement.setString(1, this.status.toString());
       statement.setString(2, this.errorLevel.toString());
@@ -837,8 +840,9 @@ public class ImportLog {
 
       statement.executeUpdate();
 
-      statement = this.connection
-          .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
+      statement =
+          this.connection
+              .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
       ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
@@ -906,8 +910,9 @@ public class ImportLog {
     Connection connection = getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    String query = "select id from escidoc_import_log where action = ? and userid = ? "
-        + "order by " + sortBy.toSQL() + " " + dir.toSQL();
+    String query =
+        "select id from escidoc_import_log where action = ? and userid = ? " + "order by "
+            + sortBy.toSQL() + " " + dir.toSQL();
 
     try {
       statement = connection.prepareStatement(query);
@@ -1009,10 +1014,12 @@ public class ImportLog {
       statement.close();
 
       if (loadDetails) {
-        query = "select escidoc_import_log_detail.* "
-            + "from escidoc_import_log_item, escidoc_import_log_detail "
-            + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-            + "and escidoc_import_log_item.parent = ? " + "order by escidoc_import_log_detail.id";
+        query =
+            "select escidoc_import_log_detail.* "
+                + "from escidoc_import_log_item, escidoc_import_log_detail "
+                + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
+                + "and escidoc_import_log_item.parent = ? "
+                + "order by escidoc_import_log_detail.id";
         statement = connection.prepareStatement(query);
         statement.setInt(1, id);
         resultSet = statement.executeQuery();
@@ -1124,12 +1131,13 @@ public class ImportLog {
     List<ImportLogItem> details = new ArrayList<ImportLogItem>();
     Connection connection = getConnection();
 
-    String query = "select escidoc_import_log_detail.* "
-        + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
-        + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-        + "and escidoc_import_log_item.parent = escidoc_import_log.id "
-        + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
-        + "order by escidoc_import_log_detail.id";
+    String query =
+        "select escidoc_import_log_detail.* "
+            + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
+            + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
+            + "and escidoc_import_log_item.parent = escidoc_import_log.id "
+            + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
+            + "order by escidoc_import_log_detail.id";
     try {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
@@ -1261,8 +1269,9 @@ public class ImportLog {
     try {
       Connection conn = getConnection();
 
-      String query = "delete from escidoc_import_log_detail where parent in "
-          + "(select id from escidoc_import_log_item where parent = ?)";
+      String query =
+          "delete from escidoc_import_log_detail where parent in "
+              + "(select id from escidoc_import_log_item where parent = ?)";
       PreparedStatement statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
       statement.executeUpdate();
@@ -1288,7 +1297,7 @@ public class ImportLog {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-    
+
     return null;
   }
 

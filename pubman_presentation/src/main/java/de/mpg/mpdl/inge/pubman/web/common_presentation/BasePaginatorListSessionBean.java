@@ -406,13 +406,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String changeElementsPerPageTop() throws Exception {
+  public void changeElementsPerPageTop() throws Exception {
     setElementsPerPage(getElementsPerPageTop());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
-    redirect();
 
-    return "";
+    redirect();
   }
 
   /**
@@ -421,13 +420,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String changeElementsPerPageBottom() throws Exception {
+  public void changeElementsPerPageBottom() throws Exception {
     setElementsPerPage(getElementsPerPageBottom());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
-    redirect();
 
-    return "";
+    redirect();
   }
 
   /**
@@ -436,7 +434,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String doGoToPageTop() {
+  public void doGoToPageTop() {
     try {
       int goToPage = Integer.parseInt(getGoToPageTop());
 
@@ -451,8 +449,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     }
 
     redirect();
-
-    return "";
   }
 
   /**
@@ -461,7 +457,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    * @throws Exception
    */
-  public String doGoToPageBottom() {
+  public void doGoToPageBottom() {
     try {
       int goToPage = Integer.parseInt(getGoToPageBottom());
       if (goToPage > 0 && goToPage <= getPaginatorPageSize()) {
@@ -475,8 +471,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     }
 
     redirect();
-
-    return "";
   }
 
   /**

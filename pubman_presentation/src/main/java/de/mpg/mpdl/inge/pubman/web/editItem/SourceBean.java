@@ -125,7 +125,7 @@ public class SourceBean extends EditItemBean {
         this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
       }
     }
-    
+
     return null;
   }
 
@@ -137,7 +137,7 @@ public class SourceBean extends EditItemBean {
         && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
-    
+
     return null;
   }
 
@@ -149,7 +149,7 @@ public class SourceBean extends EditItemBean {
         && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().remove(index);
     }
-    
+
     return null;
   }
 

@@ -250,7 +250,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    * 
    * @return
    */
-  public String getReadOutParams() {
+  public void getReadOutParams() {
     if (!languageChanged) {
       FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
@@ -272,8 +272,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     }
 
     languageChanged = false;
-
-    return "";
   }
 
   private List<SelectItem> initComponentVisibilityListMenu() {
@@ -751,18 +749,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.operatorTypeListMenu = operatorTypeListMenu;
   }
 
-  public String startSearch(Index indexName) {
-
-
+  public void startSearch(Index indexName) {
     if (currentlyOpenedParenthesis != null) {
       error(getMessage("search_ParenthesisNotClosed"));
-      return "";
+      return;
     }
 
     List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
     allCriterions.addAll(getCriterionList());
-
-
 
     if (Index.ITEM_CONTAINER_ADMIN == indexName) {
       allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
@@ -775,43 +769,31 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // GenreCriterions
     allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     allCriterions.add(this.genreListSearchCriterion);
-
-
     allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     allCriterions.add(this.publicationStatusListSearchCriterion);
-
     allCriterions.addAll(getComponentSearchCriterions(indexName));
-
-
 
     String cql;
     try {
       cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
     } catch (SearchParseException e1) {
       error(getMessage("search_ParseError"));
-      return "";
+      return;
     }
     logger.debug("CQL Query: " + cql);
 
     query = SearchCriterionBase.scListToQueryString(allCriterions);
     logger.debug("Internal Query: " + query);
 
-    /*
-     * List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
-     * logger.info(scList);
-     */
-
     if (query == null || query.trim().isEmpty()) {
       error(getMessage("search_NoCriteria"));
-      return "";
+      return;
     }
-
 
     String searchType = "advanced";
     if (Index.ITEM_CONTAINER_ADMIN == indexName) {
       searchType = "admin";
     }
-
 
     try {
       BreadcrumbItemHistorySessionBean bihsb =
@@ -831,20 +813,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (Exception e) {
       logger.error("Error while redirecting to search result page", e);
     }
-
-
-    return "";
   }
 
-  public String startAdminSearch() {
-
-    return startSearch(Index.ITEM_CONTAINER_ADMIN);
+  public void startAdminSearch() {
+    startSearch(Index.ITEM_CONTAINER_ADMIN);
   }
 
-  public String startSearch() {
-    return startSearch(Index.ESCIDOC_ALL);
+  public void startSearch() {
+    startSearch(Index.ESCIDOC_ALL);
   }
-
 
   public List<SearchCriterionBase> getComponentSearchCriterions(Index indexName) {
     List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
@@ -854,23 +831,20 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     returnList.add(locatorAvailableSearchCriterion);
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     returnList.add(componentEmbargoDateAvailableSearchCriterion);
-
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     returnList.add(componentEmbargoDateSearchCriterion);
-
 
     if (excludeComponentContentCategory) {
       returnList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
     } else {
       returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     }
-    returnList.add(componentContentCategoryListSearchCriterion);
 
+    returnList.add(componentContentCategoryListSearchCriterion);
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     returnList.add(componentVisibilityListSearchCriterion);
 
     return returnList;
-
   }
 
   public List<SearchCriterionBase> getItemStatusSearchCriterions() {

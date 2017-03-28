@@ -211,7 +211,7 @@ public class FileBean extends FacesBean {
     }
   }
 
-  public String downloadFile() {
+  public void downloadFile() {
     try {
       String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
       String filename = this.file.getName(); // Filename suggested in browser Save As dialog
@@ -272,8 +272,6 @@ public class FileBean extends FacesBean {
       logger.debug("File Download Error: " + e.toString());
       System.out.println(e.toString());
     }
-
-    return "";
   }
 
   /**
@@ -483,7 +481,7 @@ public class FileBean extends FacesBean {
    * 
    * @return
    */
-  public String displayChecksum() {
+  public void displayChecksum() {
     if (file.getChecksum() != null && file.getChecksumAlgorithm() != null) {
       FacesTools.getResponse().setContentLength(file.getChecksum().length());
       FacesTools.getResponse().setContentType("text/plain");
@@ -514,8 +512,6 @@ public class FileBean extends FacesBean {
       error("Could not display checksum of file!");
       logger.error("File checksum is null");
     }
-
-    return "";
   }
 
   /**

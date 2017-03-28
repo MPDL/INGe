@@ -162,15 +162,13 @@ public class YearbookItemCreateBean extends FacesBean {
     this.title = title;
   }
 
-  public String addContext() {
+  public void addContext() {
     contextIds.add(getContextPosition() + 1, new ContextRO((String) getContextSelectItems().get(0)
         .getValue()));
-    return "";
   }
 
-  public String removeContext() {
+  public void removeContext() {
     contextIds.remove(getContextPosition());
-    return "";
   }
 
   /**
@@ -329,8 +327,9 @@ public class YearbookItemCreateBean extends FacesBean {
     } catch (Exception e) {
       error(getMessage("Yearbook_creationError"));
       logger.error("Error while creating yearbook", e);
-      return "";
     }
+
+    return "";
   }
 
   /**

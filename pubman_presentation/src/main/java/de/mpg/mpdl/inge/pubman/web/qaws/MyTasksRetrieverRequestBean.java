@@ -396,15 +396,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * 
    * @return
    */
-  public String changeContext() {
+  public void changeContext() {
     try {
       getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       getBasePaginatorListSessionBean().redirect();
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   /**
@@ -413,15 +411,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * 
    * @return
    */
-  public String changeOrgUnit() {
+  public void changeOrgUnit() {
     try {
       getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       getBasePaginatorListSessionBean().redirect();
     } catch (Exception e) {
       error("Could not redirect");
     }
-
-    return "";
   }
 
   private QAWSSessionBean getQAWSSessionBean() {

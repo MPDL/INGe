@@ -90,10 +90,10 @@ public class Navigation extends FacesBean {
         ViewItemRevisionsPage.LOAD_VIEWREVISIONS));
     this.navRules.add(new NavigationRule("/faces/ViewItemReleaseHistoryPage.jsp",
         ReleaseHistory.LOAD_RELEASE_HISTORY));
-    this.navRules.add(
-        new NavigationRule("/faces/AdvancedSearchPage.jsp", AdvancedSearchEdit.LOAD_SEARCHPAGE));
-    this.navRules.add(
-        new NavigationRule("/faces/EasySubmissionPage.jsp", EasySubmission.LOAD_EASYSUBMISSION));
+    this.navRules.add(new NavigationRule("/faces/AdvancedSearchPage.jsp",
+        AdvancedSearchEdit.LOAD_SEARCHPAGE));
+    this.navRules.add(new NavigationRule("/faces/EasySubmissionPage.jsp",
+        EasySubmission.LOAD_EASYSUBMISSION));
   }
 
   // /**

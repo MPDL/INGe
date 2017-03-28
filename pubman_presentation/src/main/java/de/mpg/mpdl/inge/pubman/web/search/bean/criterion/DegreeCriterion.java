@@ -64,9 +64,9 @@ public class DegreeCriterion extends Criterion {
   public String getSearchIdentifier(int position) {
     if (degreeList.size() <= position) {
       return "";
-    } else {
-      return this.getSearchIdentifierByDegree(this.degreeList.get(position));
     }
+
+    return this.getSearchIdentifierByDegree(this.degreeList.get(position));
   }
 
   private String getDegreesAsStringList() {

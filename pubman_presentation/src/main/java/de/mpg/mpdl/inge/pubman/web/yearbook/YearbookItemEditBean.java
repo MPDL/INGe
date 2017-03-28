@@ -383,10 +383,9 @@ public class YearbookItemEditBean extends FacesBean {
    * 
    * @return empty String (no navigation wanted)
    */
-  public String addContext() {
+  public void addContext() {
     contextIds.add(getContextPosition() + 1, new ContextRO((String) getContextSelectItems().get(0)
         .getValue()));
-    return "";
   }
 
   /**
@@ -394,9 +393,8 @@ public class YearbookItemEditBean extends FacesBean {
    * 
    * @return empty String (no navigation wanted)
    */
-  public String removeContext() {
+  public void removeContext() {
     contextIds.remove(getContextPosition());
-    return "";
   }
 
   /**
@@ -475,6 +473,7 @@ public class YearbookItemEditBean extends FacesBean {
       error(getMessage("Yearbook_deleteError"));
       logger.error("Problem accessing ItemHandler service 'itemHandler.delete()'", e);
     }
+
     return "";
   }
 
@@ -576,6 +575,7 @@ public class YearbookItemEditBean extends FacesBean {
               "Exception updating the yearbookItem - itemHandler.update(pubItem.getVersion().getObjectId(), itemXml)",
               e);
     }
+
     return "";
   }
 

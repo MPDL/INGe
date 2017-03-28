@@ -104,35 +104,32 @@ public abstract class DataModelManager<T> {
   /**
    * Adds a object of type T to the list (and therefore to the UI model)
    */
-  public String addObject() {
+  public void addObject() {
     T elem = createNewObject();
     int i = objectDM.getRowIndex();
+
     if (elem != null) {
       objectList.add(i + 1, elem);
     }
-    return "";
   }
 
-  public String addObjectAtIndex(int i) {
+  public void addObjectAtIndex(int i) {
     T elem = createNewObject();
 
     if (elem != null) {
       objectList.add(i + 1, elem);
     }
-    return "";
   }
 
   /**
    * Removes object of type T from the list (and therefore from the UI model)
    */
-  public String removeObject() {
+  public void removeObject() {
     int i = objectDM.getRowIndex();
     removeObjectAtIndex(i);
-    return "";
   }
 
   public void removeObjectAtIndex(int i) {
     objectList.remove(i);
   }
-
 }

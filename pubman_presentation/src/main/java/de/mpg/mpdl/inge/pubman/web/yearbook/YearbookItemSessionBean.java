@@ -331,7 +331,7 @@ public class YearbookItemSessionBean extends FacesBean {
     setSelectedWorkspace(YBWORKSPACE.CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
-    
+
     return "";
   }
 
@@ -341,7 +341,7 @@ public class YearbookItemSessionBean extends FacesBean {
     setSelectedWorkspace(YBWORKSPACE.MEMBERS);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
-    
+
     return "";
   }
 
@@ -351,7 +351,7 @@ public class YearbookItemSessionBean extends FacesBean {
     setSelectedWorkspace(YBWORKSPACE.INVALID);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
-    
+
     return "";
   }
 
@@ -361,7 +361,7 @@ public class YearbookItemSessionBean extends FacesBean {
     setSelectedWorkspace(YBWORKSPACE.NON_CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
-    
+
     return "";
   }
 
