@@ -250,7 +250,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    * 
    * @return
    */
-  public String getReadOutParams() {
+  public void getReadOutParams() {
     if (!languageChanged) {
       FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
@@ -273,7 +273,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     languageChanged = false;
 
-    return "";
   }
 
   private List<SelectItem> initComponentVisibilityListMenu() {
@@ -751,12 +750,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.operatorTypeListMenu = operatorTypeListMenu;
   }
 
-  public String startSearch(Index indexName) {
+  public void startSearch(Index indexName) {
 
 
     if (currentlyOpenedParenthesis != null) {
       error(getMessage("search_ParenthesisNotClosed"));
-      return "";
+      return;
     }
 
     List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
@@ -817,7 +816,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (Exception e) {
       logger.error("Error while redirecting to search result page", e);
     }
-    return "";
+    return;
   }
 
   public void startAdminSearch() {
