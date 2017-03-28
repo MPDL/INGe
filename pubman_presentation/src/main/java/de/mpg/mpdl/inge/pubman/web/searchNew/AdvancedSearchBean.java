@@ -250,7 +250,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    * 
    * @return
    */
-  public String getReadOutParams() {
+  public void getReadOutParams() {
     if (!languageChanged) {
       FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
@@ -273,7 +273,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     languageChanged = false;
 
-    return "";
   }
 
   private List<SelectItem> initComponentVisibilityListMenu() {
@@ -746,14 +745,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     return operatorTypeListMenu;
   }
 
-
   public void setOperatorTypeListMenu(List<SelectItem> operatorTypeListMenu) {
     this.operatorTypeListMenu = operatorTypeListMenu;
   }
 
   public void startSearch(Index indexName) {
-
-
     if (currentlyOpenedParenthesis != null) {
       error(getMessage("search_ParenthesisNotClosed"));
       return;
