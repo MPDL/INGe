@@ -137,7 +137,7 @@ public class AffiliationBean extends FacesBean {
       return startSearchForAffiliation(selectedAffiliation);
     }
 
-    return null;
+    return "";
   }
 
   private AffiliationVOPresentation findAffiliationByName(String name,
