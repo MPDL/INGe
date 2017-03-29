@@ -2,8 +2,15 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.checkbox;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.Index;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.QueryType;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.component.MapListSearchCriterion;
 
 @SuppressWarnings("serial")
@@ -59,6 +66,72 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
   @Override
   public String getElasticSearchNestedPath() {
+    return null;
+  }
+  
+  
+  
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+
+    if (!this.isEmpty(QueryType.CQL)) {
+
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+
+
+        if (entry.getValue()) {
+          final String value = this.getValueMap().get(entry.getKey());
+          
+          BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+          
+          switch(value) {
+            case "not-specified" : {
+              
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.dateAccepted"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.dateSubmitted"));
+              break;
+             
+            }
+            case "submitted" : {
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.dateAccepted"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.dateSubmitted"));
+              bqb.must(QueryBuilders.existsQuery("metadata.dateSubmitted"));
+              break;
+            }
+            case "accepted" : {
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
+              bqb.must(QueryBuilders.existsQuery("metadata.dateAccepted"));
+              break;
+            }
+            case "published-online" : {
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
+              bqb.must(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
+              break;
+              
+            }
+            case "published-in-print" : {
+              bqb.must(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
+              break;
+            }
+            
+            
+          }
+          bq.should(bqb);
+        }
+
+      }
+
+
+      return bq;
+
+    }
+
+
     return null;
   }
 }
