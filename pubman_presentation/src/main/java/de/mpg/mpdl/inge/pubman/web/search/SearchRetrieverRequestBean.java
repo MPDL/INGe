@@ -9,12 +9,12 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.axis.types.NonNegativeInteger;
-import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
@@ -29,10 +29,9 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.services.SearchInterface;
+import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
@@ -46,8 +45,8 @@ import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean
+    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**
@@ -59,6 +58,11 @@ public class SearchRetrieverRequestBean extends
    * The HTTP-GET parameter name for the query
    */
   public static String parameterQuery = "q";
+
+  /**
+   * The HTTP-GET parameter name for the elastic search query query
+   */
+  public static String parameterElasticSearchQuery = "esq";
 
   /**
    * The HTTP-GET parameter name for the search type (advanced, simple, ...)
@@ -74,6 +78,8 @@ public class SearchRetrieverRequestBean extends
    * The current internal pubman query;
    */
   private String queryString;
+
+  private String elasticSearchQuery;
 
   /**
    * The total number of records from the search request
@@ -138,12 +144,14 @@ public class SearchRetrieverRequestBean extends
 
     final String cql = paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
-    if ((cql == null || cql.equals(""))) {
-      this.setCqlQuery("");
-      FacesBean.error("You have to call this page with a parameter \"cql\" and a cql query!");
+    String elasticSearchQuery = paramMap.get(parameterElasticSearchQuery);
+
+    if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
+      setElasticSearchQuery("");
+      error("You have to call this page with a parameter \"esq\" and a elastic search query!");
 
     } else {
-      this.setCqlQuery(cql);
+      setElasticSearchQuery(elasticSearchQuery);
     }
 
 
@@ -231,50 +239,53 @@ public class SearchRetrieverRequestBean extends
     // checkSortCriterias(sc);
     try {
 
+      SearchInterface<QueryBuilder> searchService = SearchInterfaceConnectorFactory.getInstance();
 
-      final PlainCqlQuery query = new PlainCqlQuery(this.getCqlQuery());
-      query.setStartRecord(new PositiveInteger(String.valueOf(offset + 1)));
-      query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
 
-      if (sc.getIndex() != null) {
-        if ("admin".equals(this.getSearchType())) {
-          query.setSortKeys(sc.getSortPath());
-        } else {
-          query.setSortKeys(sc.getIndex());
-        }
+      QueryBuilder qb = QueryBuilders.wrapperQuery(elasticSearchQuery);
+      SearchQueryVO<QueryBuilder> query = new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
+      SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
+      this.numberOfRecords = result.getNumberOfRecords();
 
-      }
+      pubItemList = extractItemsOfSearchResult(result);
 
-      if (sc.getIndex() == null || !sc.getIndex().equals("")) {
-        if (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING)) {
 
-          query.setSortOrder(SortingOrder.DESCENDING);
-        }
 
-        else {
-          query.setSortOrder(SortingOrder.ASCENDING);
-        }
-      }
-      ItemContainerSearchResult result = null;
-
-      if ("admin".equals(this.getSearchType())) {
-        result =
-            SearchService.searchForItemContainerAdmin(query, this.getLoginHelper()
-                .getESciDocUserHandle());
-      } else {
-        result = SearchService.searchForItemContainer(query);
-      }
-
-      pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-      this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
-    } catch (final Exception e) {
-      FacesBean.error("Error in search!");
-      SearchRetrieverRequestBean.logger.error("Error during search. ", e);
+      /*
+       * PlainCqlQuery query = new PlainCqlQuery(getCqlQuery()); query.setStartRecord(new
+       * PositiveInteger(String.valueOf(offset + 1))); query.setMaximumRecords(new
+       * NonNegativeInteger(String.valueOf(limit)));
+       * 
+       * if (sc.getIndex() != null) { if ("admin".equals(getSearchType())) {
+       * query.setSortKeys(sc.getSortPath()); } else { query.setSortKeys(sc.getIndex()); }
+       * 
+       * }
+       * 
+       * if (sc.getIndex() == null || !sc.getIndex().equals("")) { if
+       * (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING)) {
+       * 
+       * query.setSortOrder(SortingOrder.DESCENDING); }
+       * 
+       * else { query.setSortOrder(SortingOrder.ASCENDING); } } ItemContainerSearchResult result =
+       * null;
+       * 
+       * if ("admin".equals(getSearchType())) { result =
+       * SearchService.searchForItemContainerAdmin(query, getLoginHelper() .getESciDocUserHandle());
+       * } else { result = SearchService.searchForItemContainer(query); }
+       * 
+       * 
+       * 
+       * 
+       * pubItemList = extractItemsOfSearchResult(result); this.numberOfRecords =
+       * Integer.parseInt(result.getTotalNumberOfResults().toString());
+       */
+    } catch (Exception e) {
+      error("Error in search!");
+      logger.error("Error during search. ", e);
     }
 
     return pubItemList;
   }
-
 
   /**
    * Sets the current cql query
@@ -439,5 +450,15 @@ public class SearchRetrieverRequestBean extends
     this.queryString = query;
     this.getBasePaginatorListSessionBean().getParameterMap()
         .put(SearchRetrieverRequestBean.parameterQuery, query);
+  }
+
+  public String getElasticSearchQuery() {
+    return elasticSearchQuery;
+  }
+
+  public void setElasticSearchQuery(String elasticSearchQuery) {
+    this.elasticSearchQuery = elasticSearchQuery;
+    getBasePaginatorListSessionBean().getParameterMap().put(parameterElasticSearchQuery,
+        elasticSearchQuery);
   }
 }

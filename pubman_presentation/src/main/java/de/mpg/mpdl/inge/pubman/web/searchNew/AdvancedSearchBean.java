@@ -792,21 +792,21 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
     }
 
-   
+
     allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     allCriterions.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     allCriterions.add(this.genreListSearchCriterion);
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-  
+
     allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     allCriterions.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     allCriterions.add(this.publicationStatusListSearchCriterion);
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-   
+
 
     List<SearchCriterionBase> componentSearchCriterions = getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
-   
+
     QueryBuilder qb = null;
     try {
       // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
