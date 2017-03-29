@@ -15,7 +15,10 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -352,6 +355,25 @@ public class SearchRetrieverRequestBean extends
         final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
         pubItemList.add(pubItemPres);
       }
+    }
+
+    return pubItemList;
+  }
+
+
+  public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
+      SearchRetrieveResponseVO result) {
+
+    List<SearchRetrieveRecordVO> results = result.getRecords();
+
+    ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    for (int i = 0; i < results.size(); i++) {
+      // check if we have found an item
+
+      SearchRetrieveRecordVO record = results.get(i);
+      PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
+      pubItemList.add(pubItemPres);
+
     }
 
     return pubItemList;

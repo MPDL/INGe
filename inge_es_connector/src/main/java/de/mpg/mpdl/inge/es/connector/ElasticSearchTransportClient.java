@@ -150,6 +150,6 @@ public enum ElasticSearchTransportClient {
   }
 
   public SearchRequestBuilder search(String... indexNames) {
-    return client.prepareSearch(indexNames);
+    return getClient().prepareSearch(indexNames);
   }
 }

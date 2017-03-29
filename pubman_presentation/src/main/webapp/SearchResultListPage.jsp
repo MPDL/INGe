@@ -159,7 +159,7 @@
                                     <h2>
                                         <h:outputText value="#{msg.searchResultList_QueryString}" />
                                     </h2>
-                                    <h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}" />
+                                    <h:outputText value="#{SearchRetrieverRequestBean.elasticSearchQuery}" />
                                 </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>

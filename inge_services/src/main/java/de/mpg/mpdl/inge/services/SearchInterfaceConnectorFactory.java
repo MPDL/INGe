@@ -18,9 +18,9 @@ public class SearchInterfaceConnectorFactory {
   private static final String CONNECTOR_CLASS_PROPERTY =
       "inge.inge_services.search_interface.connector_class";
 
-  public static UserInterface getInstance() throws InstantiationException, IllegalAccessException,
-      ClassNotFoundException, IOException, URISyntaxException {
-    return (UserInterface) Class.forName(PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY))
+  public static SearchInterface getInstance() throws InstantiationException,
+      IllegalAccessException, ClassNotFoundException, IOException, URISyntaxException {
+    return (SearchInterface) Class.forName(PropertyReader.getProperty(CONNECTOR_CLASS_PROPERTY))
         .newInstance();
   }
 }
