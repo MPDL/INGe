@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation;
 
+import org.apache.log4j.Logger;
+
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ValidationError;
@@ -34,6 +36,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
+  private static final Logger LOG = Logger.getLogger(Validation.class);
+  
   public static void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
 
@@ -53,7 +57,7 @@ public class Validation {
         final ComplexResult resultSave =
             vSave.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(resultSave);
+        Validation.LOG.info(resultSave);
 
         Validation.checkResult(resultSave);
 
@@ -88,7 +92,7 @@ public class Validation {
             vSimple.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(resultSimple);
+        Validation.LOG.info(resultSimple);
 
         Validation.checkResult(resultSimple);
 
@@ -140,7 +144,7 @@ public class Validation {
             vStandard.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(resultStandard);
+        Validation.LOG.info(resultStandard);
 
         Validation.checkResult(resultStandard);
 
@@ -161,7 +165,7 @@ public class Validation {
             vEasy3.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(resultEasy3);
+        Validation.LOG.info(resultEasy3);
 
         Validation.checkResult(resultEasy3);
 
@@ -188,7 +192,7 @@ public class Validation {
             vEasy4.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        System.out.println(resultEasy4);
+        Validation.LOG.info(resultEasy4);
 
         Validation.checkResult(resultEasy4);
 
@@ -214,5 +218,4 @@ public class Validation {
       throw new ItemInvalidException(v);
     }
   }
-
 }

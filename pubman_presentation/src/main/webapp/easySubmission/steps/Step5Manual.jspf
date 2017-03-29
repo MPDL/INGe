@@ -452,7 +452,7 @@
 										id="inpAltEventTitle" styleClass="quad_txtArea inputTxtArea"
 										value="#{altTitle.value}" cols="15" rows="3" />
 								</span>
-								<span class="large_area0_p8 lineToolSection"> <h:commandButton
+								<!-- <span class="large_area0_p8 lineToolSection"> <h:commandButton
 										id="btnAddAltTitle" styleClass="min_imgBtn groupTool add"
 										value=" " title="#{tip.easy_submission_addAltTitle}"
 										action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}"
@@ -462,7 +462,7 @@
 										title="#{tip.easy_submission_removeAltTitle}"
 										action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}"
 										rendered="#{genre.events_event_title_alternative_repeatable != 'false'}" />
-								</span>
+								</span> -->
 							</h:panelGroup>
 						</ui:repeat>
 						<!-- Event place, Event start date, Event end date -->

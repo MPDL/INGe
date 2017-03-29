@@ -91,35 +91,6 @@ public class PubContextVOPresentation extends ContextVO implements
     return collator.compare(this.getName(), compareObject.getName());
   }
 
-  // /**
-  // * Return any bean stored in session scope under the specified name.
-  // *
-  // * @param cls The bean class.
-  // * @return the actual or new bean instance
-  // */
-  // private synchronized Object findSessionBean(final Class<?> cls) {
-  // String name = null;
-  //
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  // Object result =
-  // FacesTools.getExternalContext().getSessionMap().get(name);
-  // if (result == null) {
-  // try {
-  // Object newBean = cls.newInstance();
-  // FacesTools.getExternalContext().getSessionMap().put(name, newBean);
-  // return newBean;
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error creating new bean of type " + cls, e);
-  // }
-  // } else {
-  // return result;
-  // }
-  // }
-
   private ContextListSessionBean getContextListSessionBean() {
     return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }

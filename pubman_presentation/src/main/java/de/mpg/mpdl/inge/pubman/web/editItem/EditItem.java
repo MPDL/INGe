@@ -63,6 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
@@ -86,6 +87,7 @@ import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
@@ -120,6 +122,7 @@ public class EditItem extends FacesBean {
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
   public static final String LOAD_EDITITEM = "loadEditItem";
+  public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
 
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
@@ -1693,6 +1696,45 @@ public class EditItem extends FacesBean {
     idList.add(pos, new IdentifierVO());
   }
 
+  /**
+   * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
+   * model. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format
+   * of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
+   * 
+   * @return
+   */
+  public void parseAndSetAlternativeTitles() {
+    // clear old alternative titles
+    final List<AlternativeTitleVO> altTitleList = this.getPubItem().getMetadata().getAlternativeTitles();
+    altTitleList.clear();
+
+    // clear old identifiers
+    final IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
+    idManager.getObjectList().clear();
+
+    if (!this.getHiddenAlternativeTitlesField().trim().equals("")) {
+      altTitleList.addAll(this.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
+    }
+  }
+
+  private List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
+    final List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
+    final String[] alternativeTitles = titleList.split(EditItem.HIDDEN_DELIMITER);
+    
+    for (int i = 0; i < alternativeTitles.length; i++) {
+      final String[] parts = alternativeTitles[i].trim().split(EditItem.AUTOPASTE_INNER_DELIMITER);
+      final String alternativeTitleType = parts[0].trim();
+      final String alternativeTitle = parts[1].trim();
+      if (!alternativeTitle.equals("")) {
+        final AlternativeTitleVO alternativeTitleVO = new AlternativeTitleVO(alternativeTitle);
+        alternativeTitleVO.setType(alternativeTitleType);
+        list.add(alternativeTitleVO);
+      }
+    }
+    
+    return list;
+  }
+  
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean) FacesTools
         .findBean("ItemControllerSessionBean");

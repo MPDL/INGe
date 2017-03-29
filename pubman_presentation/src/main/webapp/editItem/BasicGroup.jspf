@@ -170,10 +170,6 @@
 										value="#{EditItem.pubItem.alternativeTitleTypes}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
-							<!--
-								<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="large_select replace" value="#{altTitle.type}" >
-									<f:selectItems value="#{EditItem.titleCollection.alternativeTitleManager.alternativeTitleTypes}"/>
-								</h:selectOneMenu>	 -->
 						</h:panelGroup> <h:panelGroup
 							rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' and genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' and genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'all')}">
 							<h:outputLabel id="lblAltTitleValue" styleClass="xDouble_label"

@@ -56,10 +56,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
   private static final int SHORTENED_LEVEL_LENGTH = 5;
 
-  // private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
-  // .getCurrentInstance().FacesTools.getExternalContext().getSessionMap()
-  // .get(InternationalizationHelper.BEAN_NAME);
-
   private AffiliationVOPresentation parent = null;
 
   private List<AffiliationVO> predecessors = new ArrayList<AffiliationVO>();
@@ -161,35 +157,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public void setParent(AffiliationVOPresentation parent) {
     this.parent = parent;
   }
-
-  // /**
-  // * Return any bean stored in session scope under the specified name.
-  // *
-  // * @param cls The bean class.
-  // * @return the actual or new bean instance
-  // */
-  // private static synchronized Object findSessionBean(final Class<?> cls) {
-  // String name = null;
-  // try {
-  // name = (String) cls.getField("BEAN_NAME").get(new String());
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error getting bean name of " + cls, e);
-  // }
-  // Object result =
-  // FacesTools.getCurrentInstance().FacesTools.getExternalContext().getSessionMap().get(name);
-  // if (result == null) {
-  // try {
-  // Object newBean = cls.newInstance();
-  // FacesTools.getCurrentInstance().FacesTools.getExternalContext().getSessionMap().put(name,
-  // newBean);
-  // return newBean;
-  // } catch (Exception e) {
-  // throw new RuntimeException("Error creating new bean of type " + cls, e);
-  // }
-  // } else {
-  // return result;
-  // }
-  // }
 
   /**
    * Returns the complete path to this affiliation as a string with the name of the affiliations.
