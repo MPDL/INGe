@@ -184,7 +184,8 @@ public class ZfNProcessor extends FormatProcessor {
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
       } else {
-        final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+        final Map<String, String> contentCategoryMap =
+            PubFileVOPresentation.getContentCategoryMap();
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {

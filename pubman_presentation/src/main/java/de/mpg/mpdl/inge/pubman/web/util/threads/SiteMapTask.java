@@ -164,8 +164,9 @@ public class SiteMapTask extends Thread {
           }
           this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath + "/sitemap"
-              + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
+          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath
+              + "/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate
+              + "</lastmod>\n\t</sitemap>\n");
 
         }
 
@@ -180,7 +181,8 @@ public class SiteMapTask extends Thread {
         } catch (final Exception e) {
           // Unable to delete file, it probably didn't exist
         }
-        final boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+        final boolean success =
+            this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
         SiteMapTask.logger.debug("Renaming succeeded: " + success);
       }
 
@@ -262,8 +264,8 @@ public class SiteMapTask extends Thread {
         }
 
       } catch (final Exception e) {
-        SiteMapTask.logger.error("Error while creating sitemap part for items from offset " + firstRecord
-            + " to " + (firstRecord + this.maxItemsPerRetrieve));
+        SiteMapTask.logger.error("Error while creating sitemap part for items from offset "
+            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
       }
 
       try {
@@ -332,7 +334,8 @@ public class SiteMapTask extends Thread {
     itemQuery.setStartRecord(firstRecord + "");
     itemQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
     try {
-      final ItemContainerSearchResult itemSearchResult = SearchService.searchForItemContainer(itemQuery);
+      final ItemContainerSearchResult itemSearchResult =
+          SearchService.searchForItemContainer(itemQuery);
       return itemSearchResult;
     } catch (final Exception e) {
       SiteMapTask.logger.error("Error getting items", e);
@@ -355,7 +358,8 @@ public class SiteMapTask extends Thread {
     ouQuery.setStartRecord(firstRecord + "");
     ouQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
     try {
-      final OrgUnitsSearchResult ouSearchResult = SearchService.searchForOrganizationalUnits(ouQuery);
+      final OrgUnitsSearchResult ouSearchResult =
+          SearchService.searchForOrganizationalUnits(ouQuery);
       return ouSearchResult;
     } catch (final Exception e) {
       SiteMapTask.logger.error("Error getting ous", e);
@@ -385,7 +389,8 @@ public class SiteMapTask extends Thread {
           this.fileWriter.write("\t<url>\n\t\t<loc>");
           this.fileWriter.write(this.instanceUrl);
           this.fileWriter.write(this.contextPath);
-          this.fileWriter.write(this.itemPattern.replace("$1", pubItemVO.getVersion().getObjectId()));
+          this.fileWriter.write(this.itemPattern
+              .replace("$1", pubItemVO.getVersion().getObjectId()));
           this.fileWriter.write("</loc>\n\t\t<lastmod>");
           this.fileWriter.write(this.dateFormat.format(pubItemVO.getModificationDate()));
           this.fileWriter.write("</lastmod>\n\t</url>\n");

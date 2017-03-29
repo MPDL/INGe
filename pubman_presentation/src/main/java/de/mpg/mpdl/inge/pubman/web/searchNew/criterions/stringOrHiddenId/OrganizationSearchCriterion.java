@@ -120,8 +120,10 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
     if (!this.includePredecessorsAndSuccessors) {
       return super.toQueryString();
     } else {
-      return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "||"
-          + SearchCriterionBase.escapeForQueryString(this.getHiddenId()) + "||" + "includePresSuccs" + "\"";
+      return this.getSearchCriterion().name() + "=\""
+          + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "||"
+          + SearchCriterionBase.escapeForQueryString(this.getHiddenId()) + "||"
+          + "includePresSuccs" + "\"";
     }
 
 

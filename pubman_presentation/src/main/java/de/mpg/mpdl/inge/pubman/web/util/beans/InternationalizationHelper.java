@@ -130,10 +130,11 @@ public class InternationalizationHelper implements Serializable {
         this.userLocale = locale;
         this.homeContent = "n/a";
         this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
-        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : " + locale);
+        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : "
+            + locale);
       } catch (final Exception e) {
-        InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = "
-            + country, e);
+        InternationalizationHelper.logger.error("unable to switch to locale using language = "
+            + language + " and country = " + country, e);
       }
 
       if (language.equals("de")) {
@@ -185,8 +186,8 @@ public class InternationalizationHelper implements Serializable {
     for (int i = 0; i < valuesWithoutNull.length; i++) {
       if (valuesWithoutNull[i] != null) {
         final SelectItem selectItem =
-            new SelectItem(valuesWithoutNull[i].toString(),
-                this.getLabel(this.convertEnumToString(valuesWithoutNull[i])));
+            new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this
+                .convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
     }

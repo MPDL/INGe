@@ -802,7 +802,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
 
-    final List<SearchCriterionBase> componentSearchCriterions = this.getComponentSearchCriterions(indexName);
+    final List<SearchCriterionBase> componentSearchCriterions =
+        this.getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
 
     QueryBuilder qb = null;

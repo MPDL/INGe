@@ -90,7 +90,8 @@ public class RisProcessor extends FormatProcessor {
   private void initialize() {
     this.init = true;
     try {
-      final BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
+      final BufferedReader bufferedReader =
+          new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
       String lastLine = null;
       final ArrayList<String> itemList = new ArrayList<String>();

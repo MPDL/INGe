@@ -55,7 +55,8 @@ public class ImportSurveyor extends Thread {
     this.setName("ImportSurveyor");
 
     try {
-      this.interval = Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
+      this.interval =
+          Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
     } catch (final Exception e) {
       throw new RuntimeException("Error initializing import surveyor");
     }
@@ -97,7 +98,8 @@ public class ImportSurveyor extends Thread {
         resultSet = statement.executeQuery();
         while (resultSet.next()) {
           final int id = resultSet.getInt("id");
-          ImportSurveyor.logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
+          ImportSurveyor.logger.warn("Unfinished import detected (" + id
+              + "). Finishing it with status FATAL.");
           final ImportLog log = ImportLog.getImportLog(id, true, true, connection);
           log.setConnection(connection);
 

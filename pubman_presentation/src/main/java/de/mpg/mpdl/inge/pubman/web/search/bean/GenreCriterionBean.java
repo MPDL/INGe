@@ -503,10 +503,12 @@ public class GenreCriterionBean extends CriterionBean {
     if (searchContributionToCollectedEdition == true) {
       if (!this.genreCriterionVO.getGenre().contains(
           MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION)) {
-        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
+        this.genreCriterionVO.getGenre().add(
+            MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
       }
     } else {
-      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
+      this.genreCriterionVO.getGenre().remove(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
     }
 
   }
@@ -534,7 +536,8 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToCommentary(boolean searchContributionToCommentary) {
     this.searchContributionToCommentary = searchContributionToCommentary;
     if (searchContributionToCommentary == true) {
-      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
+      if (!this.genreCriterionVO.getGenre().contains(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
         this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
       }
     } else {
@@ -582,7 +585,8 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToFestschrift(boolean searchContributionToFestschrift) {
     this.searchContributionToFestschrift = searchContributionToFestschrift;
     if (searchContributionToFestschrift == true) {
-      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
+      if (!this.genreCriterionVO.getGenre().contains(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
         this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
       }
     } else {
@@ -646,8 +650,8 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToEncyclopedia(boolean searchContributionToEncyclopedia) {
     this.searchContributionToEncyclopedia = searchContributionToEncyclopedia;
     if (searchContributionToEncyclopedia == true) {
-      if (!this.genreCriterionVO.getGenre()
-          .contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA)) {
+      if (!this.genreCriterionVO.getGenre().contains(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA)) {
         this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA);
       }
     } else {
@@ -727,7 +731,8 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchContributionToHandbook(boolean searchContributionToHandbook) {
     this.searchContributionToHandbook = searchContributionToHandbook;
     if (searchContributionToHandbook == true) {
-      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK)) {
+      if (!this.genreCriterionVO.getGenre().contains(
+          MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK)) {
         this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
       }
     } else {

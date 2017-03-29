@@ -19,7 +19,8 @@ public abstract class CriterionBean extends FacesBean {
   public SelectItem LOGIC_AND = new SelectItem("And", this.getLabel("adv_search_logicop_and"));
   public SelectItem LOGIC_OR = new SelectItem("Or", this.getLabel("adv_search_logicop_or"));
   public SelectItem LOGIC_NOT = new SelectItem("Not", this.getLabel("adv_search_logicop_not"));
-  public SelectItem[] LOGIC_OPTIONS = new SelectItem[] {this.LOGIC_AND, this.LOGIC_OR, this.LOGIC_NOT};
+  public SelectItem[] LOGIC_OPTIONS = new SelectItem[] {this.LOGIC_AND, this.LOGIC_OR,
+      this.LOGIC_NOT};
 
   public enum LogicOptions {
     LOGIC_AND, LOGIC_OR, LOGIC_NOT

@@ -93,7 +93,8 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
       return super.toCqlString(indexName);
     } else {
-      final String roleUri = CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
+      final String roleUri =
+          CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
       final String roleAbbr = roleUri.substring(roleUri.lastIndexOf('/') + 1, roleUri.length());
 
       this.cqlIndexForHiddenId =
@@ -127,21 +128,24 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
     if (SearchCriterion.ANYPERSON.equals(this.getSearchCriterion())) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId());
+        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
+            this.getHiddenId());
       } else {
         return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
             this.getSearchString());
       }
 
     } else {
-      final String roleUri = CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
+      final String roleUri =
+          CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
       BoolQueryBuilder bq =
           QueryBuilders.boolQuery().must(
               QueryBuilders.matchQuery("metadata.creators.role", roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         bq =
-            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));
+            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
+                this.getHiddenId()));
       } else {
         bq =
             bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),

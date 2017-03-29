@@ -16,7 +16,8 @@ public class AffiliatedContextListSearchCriterion extends
 
 
   public AffiliatedContextListSearchCriterion() {
-    super(AffiliatedContextListSearchCriterion.getItemStateMap(), AffiliatedContextListSearchCriterion.getItemStatePreSelectionMap());
+    super(AffiliatedContextListSearchCriterion.getItemStateMap(),
+        AffiliatedContextListSearchCriterion.getItemStatePreSelectionMap());
     // TODO Auto-generated constructor stub
   }
 

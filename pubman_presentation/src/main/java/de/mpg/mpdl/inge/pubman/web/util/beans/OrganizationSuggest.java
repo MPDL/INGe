@@ -73,14 +73,16 @@ public class OrganizationSuggest extends EditItemBean {
       final SearchQuery searchQuery = new PlainCqlQuery(queryString);
       searchQuery.setMaximumRecords("50");
 
-      final OrgUnitsSearchResult searchResult = SearchService.searchForOrganizationalUnits(searchQuery);
+      final OrgUnitsSearchResult searchResult =
+          SearchService.searchForOrganizationalUnits(searchQuery);
       for (final AffiliationVO affiliationVO : searchResult.getResults()) {
         final List<AffiliationVO> initList = new ArrayList<AffiliationVO>();
         initList.add(affiliationVO);
         final List<List<AffiliationVO>> pathList = this.getPaths(initList);
 
         for (final List<AffiliationVO> path : pathList) {
-          final OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
+          final OrganizationVOPresentation organizationVOPresentation =
+              new OrganizationVOPresentation();
           organizationVOPresentation.setIdentifier(affiliationVO.getReference().getObjectId());
 
           final String city = affiliationVO.getDefaultMetadata().getCity();
@@ -142,7 +144,8 @@ public class OrganizationSuggest extends EditItemBean {
   }
 
   private AffiliationVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
-    final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
+    final ApplicationBean applicationBean =
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     for (final AffiliationVO element : applicationBean.getOuList()) {
       if (element.getReference().equals(affiliationRO)) {
@@ -153,7 +156,8 @@ public class OrganizationSuggest extends EditItemBean {
     final SearchQuery searchQuery =
         new PlainCqlQuery("(escidoc.objid=\"" + affiliationRO.getObjectId() + "\")");
 
-    final OrgUnitsSearchResult searchResult = SearchService.searchForOrganizationalUnits(searchQuery);
+    final OrgUnitsSearchResult searchResult =
+        SearchService.searchForOrganizationalUnits(searchQuery);
 
     final List<AffiliationVO> resultList = searchResult.getResults();
 
@@ -161,8 +165,8 @@ public class OrganizationSuggest extends EditItemBean {
       OrganizationSuggest.logger.warn("'" + affiliationRO.getObjectId()
           + "' was declared as a parent ou but it was not found.");
     } else if (resultList.size() > 1) {
-      OrganizationSuggest.logger.warn("Unexpectedly more than one ou with the id '" + affiliationRO.getObjectId()
-          + "' was found.");
+      OrganizationSuggest.logger.warn("Unexpectedly more than one ou with the id '"
+          + affiliationRO.getObjectId() + "' was found.");
     } else {
       applicationBean.getOuList().add(resultList.get(0));
       return resultList.get(0);

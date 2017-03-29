@@ -91,7 +91,8 @@ public class StatisticChartServlet extends HttpServlet {
   public synchronized void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    final String numberOfMonthsString = request.getParameter(StatisticChartServlet.numberOfMonthsParameterName);
+    final String numberOfMonthsString =
+        request.getParameter(StatisticChartServlet.numberOfMonthsParameterName);
     if (numberOfMonthsString == null) {
       this.numberOfMonths = 12;
     } else {
@@ -144,19 +145,21 @@ public class StatisticChartServlet extends HttpServlet {
     if (this.type.equals("item")) {
       reportListAllUsers =
           SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, this.id,
-              null);
+              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS,
+              this.id, null);
       reportListAnonymousUsers =
           SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, this.id,
-              null);
+              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS,
+              this.id, null);
     } else if (this.type.equals("file")) {
       reportListAllUsers =
           SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, this.id, null);
+              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, this.id,
+              null);
       reportListAnonymousUsers =
           SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, this.id, null);
+              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, this.id,
+              null);
     }
 
     // Organize report records in map with month/year as key

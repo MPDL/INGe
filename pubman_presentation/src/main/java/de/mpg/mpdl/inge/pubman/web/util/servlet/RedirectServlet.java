@@ -84,7 +84,8 @@ public class RedirectServlet extends HttpServlet {
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       final StringBuffer redirectUrl = new StringBuffer();
-      final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
+      final LoginHelper loginHelper =
+          (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
       if (loginHelper != null && loginHelper.isDetailedMode()) {
         redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
@@ -209,7 +210,8 @@ public class RedirectServlet extends HttpServlet {
 
     for (final Header header : method.getResponseHeaders()) {
       if (!"Transfer-Encoding".equals(header.getName())) {
-        RedirectServlet.logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
+        RedirectServlet.logger.debug("Setting header: " + header.getName() + ": "
+            + header.getValue());
         resp.setHeader(header.getName(), header.getValue());
       } else {
         RedirectServlet.logger.info("Ignoring " + header.getName() + ": " + header.getValue());

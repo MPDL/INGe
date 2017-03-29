@@ -359,8 +359,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       final PubItemVO newRevision =
-          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, this.getLoginHelper()
-              .getAccountUser());
+          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, this
+              .getLoginHelper().getAccountUser());
 
       // setting the returned item as new currentItem
       this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newRevision)));
@@ -391,7 +391,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
       if (this.currentPubItem.getVersion() == null) {
         // if the item has not been saved before, there is no need to delete it
-        ItemControllerSessionBean.logger.warn("Tried to delete an unsaved item. Do nothing instead.");
+        ItemControllerSessionBean.logger
+            .warn("Tried to delete an unsaved item. Do nothing instead.");
       } else {
         PubItemService.deletePubItem(this.currentPubItem.getVersion(), this.getLoginHelper()
             .getAccountUser());
@@ -417,7 +418,8 @@ public class ItemControllerSessionBean extends FacesBean {
       if (this.currentContext == null
           || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem
               .getContext().getObjectId()))) {
-        final ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
+        final ContextVO context =
+            this.retrieveContext(this.currentPubItem.getContext().getObjectId());
         this.setCurrentCollection(context);
       }
     }
@@ -755,8 +757,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       if (this.getLoginHelper().getESciDocUserHandle() != null) {
         xmlItemList =
-            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle()).retrieveItems(
-                filter.toMap());
+            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
+                .retrieveItems(filter.toMap());
       } else {
         xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
       }
@@ -917,8 +919,8 @@ public class ItemControllerSessionBean extends FacesBean {
         throw technicalException;
       }
 
-      PubItemService.revisePubItem(this.currentPubItem.getVersion(), reviseComment, this.getLoginHelper()
-          .getAccountUser());
+      PubItemService.revisePubItem(this.currentPubItem.getVersion(), reviseComment, this
+          .getLoginHelper().getAccountUser());
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
@@ -1125,8 +1127,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
       final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
 
-      PubItemService.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
-          this.getLoginHelper().getAccountUser());
+      PubItemService.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment, this
+          .getLoginHelper().getAccountUser());
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Could not withdraw item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);

@@ -261,7 +261,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public static SearchCriterionBase initSearchCriterion(SearchCriterion sc) {
     try {
-      final Constructor<?> ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
+      final Constructor<?> ctor =
+          sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
       ctor.setAccessible(true);
       final SearchCriterionBase scb = (SearchCriterionBase) ctor.newInstance(sc);
       scb.setSearchCriterion(sc);
@@ -494,7 +495,8 @@ public abstract class SearchCriterionBase implements Serializable {
   public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList,
       boolean appendStandardCriterions) throws SearchParseException {
 
-    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
+    final List<SearchCriterionBase> removedList =
+        SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
 
 
     String appendOperator = "AND";
@@ -541,19 +543,22 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-        final String contentModelId = PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
+        final String contentModelId =
+            PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
 
         String standardCriterions = null;
         switch (indexName) {
           case ESCIDOC_ALL: {
             standardCriterions =
-                SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND " + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
+                SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND "
+                    + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
                     + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
             break;
           }
           case ITEM_CONTAINER_ADMIN: {
             standardCriterions =
-                "\"/properties/content-model/id\"=\"" + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
+                "\"/properties/content-model/id\"=\""
+                    + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
             break;
           }
 
@@ -568,7 +573,8 @@ public abstract class SearchCriterionBase implements Serializable {
         }
         return standardCriterions;
       } catch (final Exception e) {
-        SearchCriterionBase.logger.error("Could not read property " + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
+        SearchCriterionBase.logger.error("Could not read property "
+            + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
       }
     }
 
@@ -808,7 +814,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public static String scListToQueryString(List<SearchCriterionBase> criterionList) {
 
-    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.INTERNAL);
+    final List<SearchCriterionBase> removedList =
+        SearchCriterionBase.removeEmptyFields(criterionList, QueryType.INTERNAL);
 
     final StringBuilder sb = new StringBuilder();
     for (int i = 0; i < removedList.size(); i++) {
@@ -863,7 +870,8 @@ public abstract class SearchCriterionBase implements Serializable {
             if (contentChar == '"'
                 && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
               // end of content
-              currentSearchCriterion = SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
+              currentSearchCriterion =
+                  SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
               try {
                 currentSearchCriterion.parseQueryStringContent(contentBuffer.toString());
               } catch (final Exception e) {
@@ -951,7 +959,8 @@ public abstract class SearchCriterionBase implements Serializable {
     } else {
 
 
-      final List<SearchCriterionBase> copyForRemoval = new ArrayList<SearchCriterionBase>(criterionList);
+      final List<SearchCriterionBase> copyForRemoval =
+          new ArrayList<SearchCriterionBase>(criterionList);
       final List<SearchCriterionBase> copyForIteration =
           new ArrayList<SearchCriterionBase>(criterionList);
       // Collections.copy(copy, criterionList);

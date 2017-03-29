@@ -252,7 +252,8 @@ public class PubItemVOPresentation extends PubItemVO {
       else {
         if (this.searchHitList != null && this.searchHitList.size() > 0
             && !this.getVersion().getState().equals(State.WITHDRAWN)) {
-          this.fileBeanList.add(new FileBean(file, this.getVersion().getState(), this.searchHitList));
+          this.fileBeanList
+              .add(new FileBean(file, this.getVersion().getState(), this.searchHitList));
         } else {
           this.fileBeanList.add(new FileBean(file, this.getVersion().getState()));
         }
@@ -447,15 +448,17 @@ public class PubItemVOPresentation extends PubItemVO {
       } else if (this.getYearbookMetadata() != null) {
         if (this.getYearbookMetadata().getCreators().get(i).getPerson() != null) {
           if (this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName() != null) {
-            creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName());
+            creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson()
+                .getFamilyName());
             if (this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName() != null) {
               creators.append(", ");
-              creators
-                  .append(this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName());
+              creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson()
+                  .getGivenName());
             }
           }
         } else if (this.getYearbookMetadata().getCreators().get(i).getOrganization() != null) {
-          creators.append(this.getYearbookMetadata().getCreators().get(i).getOrganization().getName());
+          creators.append(this.getYearbookMetadata().getCreators().get(i).getOrganization()
+              .getName());
         }
       }
 
@@ -538,19 +541,26 @@ public class PubItemVOPresentation extends PubItemVO {
           + this.getLabel("ViewItem_lblDatePublishedOnline");
     }
 
-    if (this.getMetadata().getDateAccepted() != null && !"".equals(this.getMetadata().getDateAccepted())) {
-      return this.getMetadata().getDateAccepted() + ", " + this.getLabel("ViewItem_lblDateAccepted");
+    if (this.getMetadata().getDateAccepted() != null
+        && !"".equals(this.getMetadata().getDateAccepted())) {
+      return this.getMetadata().getDateAccepted() + ", "
+          + this.getLabel("ViewItem_lblDateAccepted");
     }
 
-    if (this.getMetadata().getDateSubmitted() != null && !"".equals(this.getMetadata().getDateSubmitted())) {
-      return this.getMetadata().getDateSubmitted() + ", " + this.getLabel("ViewItem_lblDateSubmitted");
+    if (this.getMetadata().getDateSubmitted() != null
+        && !"".equals(this.getMetadata().getDateSubmitted())) {
+      return this.getMetadata().getDateSubmitted() + ", "
+          + this.getLabel("ViewItem_lblDateSubmitted");
     }
 
-    if (this.getMetadata().getDateModified() != null && !"".equals(this.getMetadata().getDateModified())) {
-      return this.getMetadata().getDateModified() + ", " + this.getLabel("ViewItem_lblDateModified");
+    if (this.getMetadata().getDateModified() != null
+        && !"".equals(this.getMetadata().getDateModified())) {
+      return this.getMetadata().getDateModified() + ", "
+          + this.getLabel("ViewItem_lblDateModified");
     }
 
-    if (this.getMetadata().getDateCreated() != null && !"".equals(this.getMetadata().getDateCreated())) {
+    if (this.getMetadata().getDateCreated() != null
+        && !"".equals(this.getMetadata().getDateCreated())) {
       return this.getMetadata().getDateCreated() + ", " + this.getLabel("ViewItem_lblDateCreated");
     }
 
@@ -558,7 +568,8 @@ public class PubItemVOPresentation extends PubItemVO {
   }
 
   public String getDatesAsString() {
-    if ((this.getMetadata().getDateAccepted() == null) && (this.getMetadata().getDateCreated() == null)
+    if ((this.getMetadata().getDateAccepted() == null)
+        && (this.getMetadata().getDateCreated() == null)
         && (this.getMetadata().getDateModified() == null)
         && (this.getMetadata().getDatePublishedInPrint() == null)
         && (this.getMetadata().getDatePublishedOnline() == null)
@@ -568,17 +579,25 @@ public class PubItemVOPresentation extends PubItemVO {
 
     final ArrayList<String> dates = new ArrayList<String>();
 
-    if (this.getMetadata().getDateCreated() != null && !this.getMetadata().getDateCreated().equals("")) {
-      dates.add(this.getLabel("ViewItem_lblDateCreated") + ": " + this.getMetadata().getDateCreated());
+    if (this.getMetadata().getDateCreated() != null
+        && !this.getMetadata().getDateCreated().equals("")) {
+      dates.add(this.getLabel("ViewItem_lblDateCreated") + ": "
+          + this.getMetadata().getDateCreated());
     }
-    if (this.getMetadata().getDateModified() != null && !this.getMetadata().getDateModified().equals("")) {
-      dates.add(this.getLabel("ViewItem_lblDateModified") + ": " + this.getMetadata().getDateModified());
+    if (this.getMetadata().getDateModified() != null
+        && !this.getMetadata().getDateModified().equals("")) {
+      dates.add(this.getLabel("ViewItem_lblDateModified") + ": "
+          + this.getMetadata().getDateModified());
     }
-    if (this.getMetadata().getDateSubmitted() != null && !this.getMetadata().getDateSubmitted().equals("")) {
-      dates.add(this.getLabel("ViewItem_lblDateSubmitted") + ": " + this.getMetadata().getDateSubmitted());
+    if (this.getMetadata().getDateSubmitted() != null
+        && !this.getMetadata().getDateSubmitted().equals("")) {
+      dates.add(this.getLabel("ViewItem_lblDateSubmitted") + ": "
+          + this.getMetadata().getDateSubmitted());
     }
-    if (this.getMetadata().getDateAccepted() != null && !this.getMetadata().getDateAccepted().equals("")) {
-      dates.add(this.getLabel("ViewItem_lblDateAccepted") + ": " + this.getMetadata().getDateAccepted());
+    if (this.getMetadata().getDateAccepted() != null
+        && !this.getMetadata().getDateAccepted().equals("")) {
+      dates.add(this.getLabel("ViewItem_lblDateAccepted") + ": "
+          + this.getMetadata().getDateAccepted());
     }
     if (this.getMetadata().getDatePublishedOnline() != null
         && !this.getMetadata().getDatePublishedOnline().equals("")) {

@@ -47,18 +47,22 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
    * @return Nothing
    */
   public String rollback() throws Exception {
-    VersionHistoryVOPresentation.logger.info("Rollback to version " + this.getReference().getVersionNumber());
+    VersionHistoryVOPresentation.logger.info("Rollback to version "
+        + this.getReference().getVersionNumber());
 
     final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
 
-    final ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+    final ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
 
     // Get the two versions
     final String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
-    final String xmlItemThisVersion = itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
+    final String xmlItemThisVersion =
+        itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
     final PubItemVO pubItemVOLatestVersion =
         XmlTransformingService.transformToPubItem(xmlItemLatestVersion);
-    final PubItemVO pubItemVOThisVersion = XmlTransformingService.transformToPubItem(xmlItemThisVersion);
+    final PubItemVO pubItemVOThisVersion =
+        XmlTransformingService.transformToPubItem(xmlItemThisVersion);
 
     // Now copy the old stuff into the current item
     pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());

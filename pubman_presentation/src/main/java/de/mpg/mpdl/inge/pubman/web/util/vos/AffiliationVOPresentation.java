@@ -97,7 +97,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public boolean getMps() {
     try {
-      final String rootAffiliationMPG = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+      final String rootAffiliationMPG =
+          PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
 
       return this.getReference().getObjectId().equals(rootAffiliationMPG);
     } catch (final Exception e) {
@@ -213,8 +214,11 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     if (this.getMetadataSets().size() > 0
         && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       if (((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().substring(0,
-            (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0))
+            .getName()
+            .substring(
+                0,
+                (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
             + "...";
       } else {
         return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();

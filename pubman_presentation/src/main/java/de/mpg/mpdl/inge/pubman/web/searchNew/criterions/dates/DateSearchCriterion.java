@@ -50,12 +50,14 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public String toCqlString(Index indexName) {
 
-    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(), this.getTo());
+    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(),
+        this.getTo());
   }
 
   @Override
   public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.from) + "|"
+    return this.getSearchCriterion().name() + "=\""
+        + SearchCriterionBase.escapeForQueryString(this.from) + "|"
         + SearchCriterionBase.escapeForQueryString(this.to) + "\"";
   }
 
@@ -75,7 +77,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return (this.from == null || this.from.trim().isEmpty()) && (this.to == null || this.to.trim().isEmpty());
+    return (this.from == null || this.from.trim().isEmpty())
+        && (this.to == null || this.to.trim().isEmpty());
   }
 
   public String getFrom() {
@@ -220,7 +223,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
        */
 
       for (int i = 1; i < majorParts.length; i++) {
-        final String toSubQuery = index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
+        final String toSubQuery =
+            index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
         toQuery += " not ( " + toSubQuery + " ) ";
 
         /*

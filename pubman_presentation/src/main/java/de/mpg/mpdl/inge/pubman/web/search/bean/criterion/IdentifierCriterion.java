@@ -53,8 +53,8 @@ public class IdentifierCriterion extends Criterion {
     final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
     criterions.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.IDENTIFIER,
         this.getSearchString()));
-    criterions.add(new MetadataSearchCriterion(CriterionType.LATEST_RELEASE_OBJID,
-        this.getSearchString(), MetadataSearchCriterion.LogicalOperator.OR));
+    criterions.add(new MetadataSearchCriterion(CriterionType.LATEST_RELEASE_OBJID, this
+        .getSearchString(), MetadataSearchCriterion.LogicalOperator.OR));
     return criterions;
   }
 }

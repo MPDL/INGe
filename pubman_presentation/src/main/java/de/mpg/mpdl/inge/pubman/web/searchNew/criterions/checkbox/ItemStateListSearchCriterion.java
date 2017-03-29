@@ -17,7 +17,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   public ItemStateListSearchCriterion() {
 
-    super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion.getItemStatePreSelectionMap());
+    super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion
+        .getItemStatePreSelectionMap());
   }
 
   private static Map<String, String> getItemStateMap() {

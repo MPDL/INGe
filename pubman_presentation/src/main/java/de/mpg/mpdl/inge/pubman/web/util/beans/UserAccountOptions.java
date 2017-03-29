@@ -80,13 +80,16 @@ public class UserAccountOptions extends FacesBean {
           formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
           final String paramXml =
               "<param last-modification-date=\""
-                  + formatter.format(this.getLoginHelper().getAccountUser().getLastModificationDate())
-                  + "\"><password>" + this.getPassword() + "</password></param>";
+                  + formatter.format(this.getLoginHelper().getAccountUser()
+                      .getLastModificationDate()) + "\"><password>" + this.getPassword()
+                  + "</password></param>";
           final UserAccountHandler userAccountHandler =
-              ServiceLocator.getUserAccountHandler(this.getLoginHelper().getAccountUser().getHandle());
+              ServiceLocator.getUserAccountHandler(this.getLoginHelper().getAccountUser()
+                  .getHandle());
           userAccountHandler.updatePassword(this.getLoginHelper().getAccountUser().getReference()
               .getObjectId(), paramXml);
-          this.getLoginHelper().fetchAccountUser(this.getLoginHelper().getAccountUser().getHandle());
+          this.getLoginHelper()
+              .fetchAccountUser(this.getLoginHelper().getAccountUser().getHandle());
           this.info(this.getMessage("userAccountOptions_PasswordUpdated"));
         } else {
           FacesBean.error(this.getMessage("userAccountOptions_DifferentPasswords"));

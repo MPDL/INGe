@@ -57,8 +57,8 @@ public class SourceVOPresentation extends SourceVO {
       SourceVOPresentation.properties = SourceVOPresentation.loadExcludedSourceGenreProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final
-    Map<String, String> propertiesMap = new HashMap<String, String>((Map) SourceVOPresentation.properties);
+    final Map<String, String> propertiesMap =
+        new HashMap<String, String>((Map) SourceVOPresentation.properties);
     return propertiesMap;
   }
 

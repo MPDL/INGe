@@ -43,10 +43,12 @@ public class MarcXmlProcessor extends GenericXmlProcessor {
   @Override
   protected void addItems(Node root) {
     if (root.getLocalName() != null && root.getLocalName().equals("record")
-        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
+        && root.getNamespaceURI() != null
+        && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
       this.addItem(root);
     } else if (root.getLocalName() != null && root.getLocalName().equals("collection")
-        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
+        && root.getNamespaceURI() != null
+        && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {

@@ -86,7 +86,8 @@ public class EnumConverter implements Converter {
     } else if (string.length() == 0) {
       retVal = null;
     } else {
-      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
+      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string
+          + "' to object!");
     }
 
 

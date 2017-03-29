@@ -144,11 +144,13 @@ public class SearchRetrieverRequestBean extends
 
     paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
-    final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    final String elasticSearchQuery =
+        paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
     if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
       this.setElasticSearchQuery("");
-      FacesBean.error("You have to call this page with a parameter \"esq\" and a elastic search query!");
+      FacesBean
+          .error("You have to call this page with a parameter \"esq\" and a elastic search query!");
 
     } else {
       this.setElasticSearchQuery(elasticSearchQuery);
@@ -239,11 +241,13 @@ public class SearchRetrieverRequestBean extends
     // checkSortCriterias(sc);
     try {
 
-      final SearchInterface<QueryBuilder> searchService = SearchInterfaceConnectorFactory.getInstance();
+      final SearchInterface<QueryBuilder> searchService =
+          SearchInterfaceConnectorFactory.getInstance();
 
 
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
-      final SearchQueryVO<QueryBuilder> query = new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
+      final SearchQueryVO<QueryBuilder> query =
+          new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
       final SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
       this.numberOfRecords = result.getNumberOfRecords();
 
@@ -382,7 +386,8 @@ public class SearchRetrieverRequestBean extends
       // check if we have found an item
 
       final SearchRetrieveRecordVO record = results.get(i);
-      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
+      final PubItemVOPresentation pubItemPres =
+          new PubItemVOPresentation((PubItemVO) record.getData());
       pubItemList.add(pubItemPres);
 
     }
@@ -458,7 +463,7 @@ public class SearchRetrieverRequestBean extends
 
   public void setElasticSearchQuery(String elasticSearchQuery) {
     this.elasticSearchQuery = elasticSearchQuery;
-    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterElasticSearchQuery,
-        elasticSearchQuery);
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(SearchRetrieverRequestBean.parameterElasticSearchQuery, elasticSearchQuery);
   }
 }

@@ -324,8 +324,8 @@ public class LoginHelper extends FacesBean {
   @Override
   public String toString() {
     return "[Login: "
-        + (this.loggedIn ? "User " + this.authenticationToken + "(" + this.accountUser + ") is logged in]"
-            : "No user is logged in (" + this.accountUser + ")]");
+        + (this.loggedIn ? "User " + this.authenticationToken + "(" + this.accountUser
+            + ") is logged in]" : "No user is logged in (" + this.accountUser + ")]");
   }
 
   /**
@@ -361,7 +361,8 @@ public class LoginHelper extends FacesBean {
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          final AffiliationVO orgUnit = this.organizationServiceHandler.readOrganization(ua.getValue());
+          final AffiliationVO orgUnit =
+              this.organizationServiceHandler.readOrganization(ua.getValue());
           this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }
@@ -476,7 +477,8 @@ public class LoginHelper extends FacesBean {
 
   private JsonNode obtainUser() {
     try {
-      final URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
+      final URL url =
+          new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
       final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");

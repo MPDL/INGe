@@ -105,8 +105,8 @@ public class CreatorVOPresentation extends CreatorVO {
       CreatorVOPresentation.properties = CreatorVOPresentation.loadCreatorRoleProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final
-    Map<String, String> propertiesMap = new HashMap<String, String>((Map) CreatorVOPresentation.properties);
+    final Map<String, String> propertiesMap =
+        new HashMap<String, String>((Map) CreatorVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -148,7 +148,8 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Always empty
    */
   public void add() {
-    final CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
+    final CreatorVOPresentation creatorVOPresentation =
+        new CreatorVOPresentation(this.list, this.bean);
     creatorVOPresentation.init(this.getType());
     creatorVOPresentation.setRole(CreatorRole.AUTHOR);
     final int index = this.list.indexOf(this);
@@ -215,7 +216,8 @@ public class CreatorVOPresentation extends CreatorVO {
       CreatorVOPresentation.logger.debug("Creating new OU from: " + this.autoPasteValue);
       this.bean.setOrganizationPasted(true);
       final String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      final List<OrganizationVOPresentation> creatorOrganizations =
+          this.bean.getCreatorOrganizations();
       final OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
       newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
@@ -229,7 +231,8 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public String getOuNumbers() {
     if (this.isPersonType() && this.ouNumbers == null) {
-      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      final List<OrganizationVOPresentation> creatorOrganizations =
+          this.bean.getCreatorOrganizations();
       for (final OrganizationVO organization : this.getPerson().getOrganizations()) {
         if (this.ouNumbers == null) {
           this.ouNumbers = "";

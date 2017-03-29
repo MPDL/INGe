@@ -67,7 +67,8 @@ public class OrganizationCriterionCollection {
                 .getOrganizationalUnitHandler().retrieve(
                     criterion.getAffiliation().getReference().getObjectId()));
 
-        final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+        final AffiliationVOPresentation affiliationPres =
+            new AffiliationVOPresentation(affiliation);
 
         // AffiliationVOPresentation affiliation = criterion.getAffiliation();
         OrganizationCriterionCollection.logger.debug("Adding " + affiliation.toString());
@@ -79,7 +80,8 @@ public class OrganizationCriterionCollection {
             final OrganizationCriterion organizationCriterion = new OrganizationCriterion();
             organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
             resolved.add(organizationCriterion);
-            OrganizationCriterionCollection.logger.debug("Adding sucessor " + organizationCriterion.getAffiliation().toString());
+            OrganizationCriterionCollection.logger.debug("Adding sucessor "
+                + organizationCriterion.getAffiliation().toString());
           }
 
           final List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
@@ -88,11 +90,13 @@ public class OrganizationCriterionCollection {
             final OrganizationCriterion organizationCriterion = new OrganizationCriterion();
             organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
             resolved.add(organizationCriterion);
-            OrganizationCriterionCollection.logger.debug("Adding predecessor " + organizationCriterion.getAffiliation().toString());
+            OrganizationCriterionCollection.logger.debug("Adding predecessor "
+                + organizationCriterion.getAffiliation().toString());
           }
         }
       } catch (final Exception e) {
-        OrganizationCriterionCollection.logger.error("Error while retrieving affiliation from id", e);
+        OrganizationCriterionCollection.logger.error("Error while retrieving affiliation from id",
+            e);
       }
     }
     return resolved;
@@ -114,7 +118,8 @@ public class OrganizationCriterionCollection {
     public OrganizationCriterionBean createNewObject() {
       final OrganizationCriterion newVO = new OrganizationCriterion();
       // create a new wrapper pojo
-      final OrganizationCriterionBean organizationCriterionBean = new OrganizationCriterionBean(newVO);
+      final OrganizationCriterionBean organizationCriterionBean =
+          new OrganizationCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
       this.parentVO.add(newVO);

@@ -189,20 +189,20 @@ public class FileCriterion extends Criterion {
         } else if (visibility != null && this.contentCategory != null && storage == null) {
           final MetadataSearchCriterion lastMetadataSearchCriterion =
               criterions.get(criterions.size() - 1);
+          lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
+              MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
+                  + visibility + " internal-managed " + this.contentCategory + "\"",
+              LogicalOperator.AND));
           lastMetadataSearchCriterion
               .addSubCriteria(new MetadataSearchCriterion(
                   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " internal-managed " + this.contentCategory + "\"",
-                  LogicalOperator.AND));
-          lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
-              MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                  + visibility + " external-url " + this.contentCategory + "\"", LogicalOperator.OR));
+                      + visibility + " external-url " + this.contentCategory + "\"",
+                  LogicalOperator.OR));
         } else if (visibility != null && storage != null && this.contentCategory != null) {
-          criterions
-              .add(new MetadataSearchCriterion(
-                  MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " " + storage + " " + this.contentCategory + "\"",
-                  LogicalOperator.AND));
+          criterions.add(new MetadataSearchCriterion(
+              MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
+                  + visibility + " " + storage + " " + this.contentCategory + "\"",
+              LogicalOperator.AND));
         }
 
       }
@@ -212,11 +212,10 @@ public class FileCriterion extends Criterion {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
                   + visibility + " " + storage + "\"", LogicalOperator.AND));
-          criterions
-              .add(new MetadataSearchCriterion(
-                  MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " " + storage + " " + this.contentCategory + "\"",
-                  LogicalOperator.NOT));
+          criterions.add(new MetadataSearchCriterion(
+              MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
+                  + visibility + " " + storage + " " + this.contentCategory + "\"",
+              LogicalOperator.NOT));
         } else if (visibility != null && storage == null) {
           final MetadataSearchCriterion lastMetadataSearchCriterion =
               criterions.get(criterions.size() - 1);
@@ -226,14 +225,14 @@ public class FileCriterion extends Criterion {
           lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
                   + visibility + " external-url " + "\"", LogicalOperator.OR));
-          criterions
-              .add(new MetadataSearchCriterion(
-                  MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " internal-managed " + this.contentCategory + "\"",
-                  LogicalOperator.NOT));
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                  + visibility + " external-url " + this.contentCategory + "\"", LogicalOperator.NOT));
+                  + visibility + " internal-managed " + this.contentCategory + "\"",
+              LogicalOperator.NOT));
+          criterions.add(new MetadataSearchCriterion(
+              MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
+                  + visibility + " external-url " + this.contentCategory + "\"",
+              LogicalOperator.NOT));
         } else if (visibility == null && storage != null) {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\"" + storage
