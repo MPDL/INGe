@@ -46,15 +46,16 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class FetchMetadataPage extends BreadcrumbPage {
   public FetchMetadataPage() {}
 
+  @Override
   public void init() {
     super.init();
 
-    checkForLogin();
+    this.checkForLogin();
   }
 
   @Override
   protected Method getDefaultAction() throws NoSuchMethodException {
-    EasySubmission easySubmission = (EasySubmission) FacesTools.findBean("EasySubmission");
+    final EasySubmission easySubmission = (EasySubmission) FacesTools.findBean("EasySubmission");
     return easySubmission.getClass().getMethod("newImport", null);
   }
 

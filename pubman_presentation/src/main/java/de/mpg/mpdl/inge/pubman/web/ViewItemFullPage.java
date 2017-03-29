@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ViewItemFullPage extends BreadcrumbPage {
   public ViewItemFullPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

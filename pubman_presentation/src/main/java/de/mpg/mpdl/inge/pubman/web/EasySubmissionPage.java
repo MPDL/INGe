@@ -42,6 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SuppressWarnings("serial")
 public class EasySubmissionPage extends FacesBean {
   public EasySubmissionPage() {
-    checkForLogin();
+    this.checkForLogin();
   }
 }

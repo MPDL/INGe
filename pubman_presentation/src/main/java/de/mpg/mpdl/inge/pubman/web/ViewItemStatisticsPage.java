@@ -45,6 +45,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage {
 
   public ViewItemStatisticsPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

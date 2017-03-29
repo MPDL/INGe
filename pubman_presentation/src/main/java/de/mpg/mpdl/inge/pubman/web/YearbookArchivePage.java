@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class YearbookArchivePage extends BreadcrumbPage {
   public YearbookArchivePage() {}
 
+  @Override
   public void init() {
     super.init();
   }

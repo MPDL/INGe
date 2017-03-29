@@ -43,10 +43,11 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class SubmissionPage extends BreadcrumbPage {
   public SubmissionPage() {}
 
+  @Override
   public void init() {
     super.init();
 
-    checkForLogin();
+    this.checkForLogin();
   }
 
   @Override

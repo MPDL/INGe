@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class SearchResultListPage extends BreadcrumbPage {
   public SearchResultListPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

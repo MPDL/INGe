@@ -58,19 +58,19 @@ public class AffiliationDetailPage extends FacesBean {
   public AffiliationDetailPage() {
     try {
       String ouXml = null;
-      String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
-      OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+      final String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+      final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
       try {
         ouXml = ouHandler.retrieve(affiliationId);
-      } catch (OrganizationalUnitNotFoundException onfe) {
-        logger.info("Organizational unit not found: " + affiliationId);
-        error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+      } catch (final OrganizationalUnitNotFoundException onfe) {
+        AffiliationDetailPage.logger.info("Organizational unit not found: " + affiliationId);
+        FacesBean.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         return;
       }
-      AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
+      final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
       this.affiliation = new AffiliationVOPresentation(affVO);
-    } catch (Exception e) {
-      error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+    } catch (final Exception e) {
+      FacesBean.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
       throw new RuntimeException("Error getting affiliation details", e);
     }
   }

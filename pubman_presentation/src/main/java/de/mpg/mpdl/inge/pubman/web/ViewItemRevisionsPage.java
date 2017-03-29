@@ -43,6 +43,7 @@ public class ViewItemRevisionsPage extends BreadcrumbPage {
 
   public ViewItemRevisionsPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

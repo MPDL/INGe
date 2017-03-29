@@ -43,15 +43,16 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class QAWSPage extends BreadcrumbPage {
   public QAWSPage() {}
 
+  @Override
   public void init() {
     super.init();
 
-    checkForLogin();
+    this.checkForLogin();
   }
 
   public boolean getIsModerator() {
-    if (getLoginHelper().isLoggedIn()) {
-      return getLoginHelper().getAccountUser().isModerator();
+    if (this.getLoginHelper().isLoggedIn()) {
+      return this.getLoginHelper().getAccountUser().isModerator();
     }
 
     return false;

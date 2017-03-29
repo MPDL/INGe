@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ViewItemLogPage extends BreadcrumbPage {
   public ViewItemLogPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

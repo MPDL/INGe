@@ -41,6 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SuppressWarnings("serial")
 public class SubmitItemPage extends FacesBean {
   public SubmitItemPage() {
-    checkForLogin();
+    this.checkForLogin();
   }
 }

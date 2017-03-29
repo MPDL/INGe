@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class AffiliationTreePage extends BreadcrumbPage {
   public AffiliationTreePage() {}
 
+  @Override
   public void init() {
     super.init();
   }

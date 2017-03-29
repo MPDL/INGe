@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class BrowseByPage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
-  private BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools
+  private final BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools
       .findBean("BrowseBySessionBean");
 
   private List<String> creators;
@@ -78,13 +78,14 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public BrowseByPage() {}
 
+  @Override
   public void init() {
     super.init();
 
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
-    if ("year".equals(getSelectedValue())) {
-      loadBrowseByYear();
+    if ("year".equals(this.getSelectedValue())) {
+      this.loadBrowseByYear();
     }
   }
 
@@ -94,8 +95,8 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return navigation string for page reload
    */
   public String startCharacterSearch(String selChar) {
-    String curChar = selChar;
-    List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
+    final String curChar = selChar;
+    final List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
     this.bbBean.setCurrentCharacter(curChar);
     this.bbBean.setSearchResults(links);
 
@@ -110,34 +111,34 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return
    */
   private List<LinkVO> callCone(String type, String startChar) {
-    List<LinkVO> links = new ArrayList<LinkVO>();
+    final List<LinkVO> links = new ArrayList<LinkVO>();
     try {
       String localLang = Locale.getDefault().getLanguage();
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
         localLang = "en";
       }
-      URL coneUrl =
+      final URL coneUrl =
           new URL(PropertyReader.getProperty("escidoc.cone.service.url") + type
               + "/query?f=options&" + this.bbBean.getQuery() + "=\""
               + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
-      URLConnection conn = coneUrl.openConnection();
-      HttpURLConnection httpConn = (HttpURLConnection) conn;
-      int responseCode = httpConn.getResponseCode();
+      final URLConnection conn = coneUrl.openConnection();
+      final HttpURLConnection httpConn = (HttpURLConnection) conn;
+      final int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
-          logger.debug("Cone Service responded with 200.");
+          BrowseByPage.logger.debug("Cone Service responded with 200.");
           break;
         default:
           throw new RuntimeException("An error occurred while calling Cone Service: "
               + responseCode + ": " + httpConn.getResponseMessage());
       }
-      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-      BufferedReader bReader = new BufferedReader(isReader);
+      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+      final BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
       while ((line = bReader.readLine()) != null) {
-        String[] parts = line.split("\\|");
+        final String[] parts = line.split("\\|");
         if (parts.length == 2) {
-          LinkVO link = new LinkVO(parts[1], parts[0]);
+          final LinkVO link = new LinkVO(parts[1], parts[0]);
           if ((links.isEmpty() || !link.equals(links.get(links.size() - 1)))) {
             links.add(link);
           }
@@ -145,8 +146,8 @@ public class BrowseByPage extends BreadcrumbPage {
       }
       isReader.close();
       httpConn.disconnect();
-    } catch (Exception e) {
-      logger.warn("An error occurred while calling the Cone service.", e);
+    } catch (final Exception e) {
+      BrowseByPage.logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
 
@@ -155,11 +156,11 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getSearchUrl() {
     try {
-      String instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-      String searchPath = "/pubman/faces/SearchResultListPage.jsp?";
+      final String instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+      final String searchPath = "/pubman/faces/SearchResultListPage.jsp?";
       return instanceUrl + searchPath;
-    } catch (Exception e) {
-      logger.warn("Could not read property: 'escidoc.pubman.instance.url'", e);
+    } catch (final Exception e) {
+      BrowseByPage.logger.warn("Could not read property: 'escidoc.pubman.instance.url'", e);
     }
 
     return "";
@@ -212,7 +213,7 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return String navigation string (JSF navigation) to load the browse by subject page.
    */
   public String loadBrowseBySubject(String selSubject) {
-    String curSubject = selSubject;
+    final String curSubject = selSubject;
     this.setSelectedValue(curSubject);
     this.setSearchIndex(this.subSearchIndex);
     if (this.bbBean.getSearchResults() != null) {
@@ -253,8 +254,8 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public SelectItem[] getDateOptions() {
     this.dateOptions =
-        new SelectItem[] {new SelectItem("published", getLabel("dateOptionPublished")),
-            new SelectItem("any", getLabel("dateOptionAny"))};
+        new SelectItem[] {new SelectItem("published", this.getLabel("dateOptionPublished")),
+            new SelectItem("any", this.getLabel("dateOptionAny"))};
 
     return this.dateOptions;
   }
@@ -301,10 +302,10 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getPortfolioLink() {
     try {
-      String link = PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
+      final String link = PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
       return link;
-    } catch (Exception e) {
-      logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+    } catch (final Exception e) {
+      BrowseByPage.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
 
     return "";
@@ -312,10 +313,10 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getConeUrl() {
     try {
-      String link = PropertyReader.getProperty("escidoc.cone.service.url");
+      final String link = PropertyReader.getProperty("escidoc.cone.service.url");
       return link;
-    } catch (Exception e) {
-      logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+    } catch (final Exception e) {
+      BrowseByPage.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
     }
 
     return "";

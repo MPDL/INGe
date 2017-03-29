@@ -44,14 +44,15 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class ExportEmailPage extends BreadcrumbPage {
   public ExportEmailPage() {}
 
+  @Override
   public void init() {
     super.init();
 
-    ExportItemsSessionBean sb =
+    final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
     sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
-    sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+    sb.setExportEmailTxt(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
     sb.setEnableExport(false);
   }
 

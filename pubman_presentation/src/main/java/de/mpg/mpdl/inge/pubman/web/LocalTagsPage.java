@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class LocalTagsPage extends BreadcrumbPage {
   public LocalTagsPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

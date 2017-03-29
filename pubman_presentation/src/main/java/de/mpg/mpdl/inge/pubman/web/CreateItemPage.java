@@ -33,6 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SuppressWarnings("serial")
 public class CreateItemPage extends FacesBean {
   public CreateItemPage() {
-    checkForLogin();
+    this.checkForLogin();
   }
 }

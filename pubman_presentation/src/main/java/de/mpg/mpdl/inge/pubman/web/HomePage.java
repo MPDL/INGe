@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -57,12 +58,13 @@ public class HomePage extends BreadcrumbPage {
 
   public HomePage() {}
 
+  @Override
   public void init() {
-    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
-      error(getMessage("LoginErrorPage_loggedOffFromSystem"));
+      FacesBean.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
     } else if (parameters.containsKey("logout")) {
-      info(getMessage("LogoutMessage"));
+      this.info(this.getMessage("LogoutMessage"));
     }
 
     super.init();
@@ -77,7 +79,7 @@ public class HomePage extends BreadcrumbPage {
     String url = "";
     try {
       url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
     }
@@ -94,7 +96,7 @@ public class HomePage extends BreadcrumbPage {
     String url = "";
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.url");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
     }
@@ -109,7 +111,7 @@ public class HomePage extends BreadcrumbPage {
     String url = "";
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.title");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
     }
@@ -124,7 +126,7 @@ public class HomePage extends BreadcrumbPage {
     String url = "";
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.text");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
     }
@@ -139,7 +141,7 @@ public class HomePage extends BreadcrumbPage {
     String url = "";
     try {
       url = PropertyReader.getProperty("escidoc.pubman.survey.styles");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       HomePage.logger.error(
           "Could not read property: 'escidoc.pubman.survey.styles' from properties file.", e);
     }
@@ -148,22 +150,22 @@ public class HomePage extends BreadcrumbPage {
   }
 
   public boolean isDepositor() {
-    return getLoginHelper().getAccountUser().isDepositor();
+    return this.getLoginHelper().getAccountUser().isDepositor();
   }
 
   public boolean isModerator() {
-    return getLoginHelper().getAccountUser().isModerator();
+    return this.getLoginHelper().getAccountUser().isModerator();
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
-    String cqlQuery =
+    final String cqlQuery =
         "escidoc.objecttype=item and escidoc.content-model.objid="
             + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    SearchQuery cql = new PlainCqlQuery(cqlQuery);
+    final SearchQuery cql = new PlainCqlQuery(cqlQuery);
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-    ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
-    List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+    final ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
+    final List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
   }
 

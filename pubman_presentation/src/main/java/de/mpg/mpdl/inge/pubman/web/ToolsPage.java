@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ToolsPage extends BreadcrumbPage {
   public ToolsPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

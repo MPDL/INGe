@@ -58,6 +58,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   public ErrorPage() {}
 
+  @Override
   public void init() {
     super.init();
 
@@ -74,15 +75,15 @@ public class ErrorPage extends BreadcrumbPage {
 
     if (this.exception == null) {
       // no exception has been set before
-      logger.warn("An errorPage should be displayed with no exception set before.");
+      ErrorPage.logger.warn("An errorPage should be displayed with no exception set before.");
 
-      summary = "The last operation did not complete for an unknown reason.";
-      detail = "No Exception was set to display.";
+      this.summary = "The last operation did not complete for an unknown reason.";
+      this.detail = "No Exception was set to display.";
     }
     // added by NiH
-    else if (exception instanceof ParseException) {
-      summary = getMessage("search_ParseError");
-      detail = this.getStackTrace();
+    else if (this.exception instanceof ParseException) {
+      this.summary = this.getMessage("search_ParseError");
+      this.detail = this.getStackTrace();
     }
     /*
      * // this exception indicates that the user tried to accept an item without changing it; if
@@ -95,18 +96,18 @@ public class ErrorPage extends BreadcrumbPage {
     else {
       // an exception has been set before
       if (this.exception != null && this.exception.getCause() != null) {
-        summary = this.exception.getCause().toString();
-        detail = this.getStackTrace();
+        this.summary = this.exception.getCause().toString();
+        this.detail = this.getStackTrace();
       } else if (this.exception != null) {
-        summary = this.exception.toString();
-        detail = this.getStackTrace();
+        this.summary = this.exception.toString();
+        this.detail = this.getStackTrace();
       }
     }
 
     // set the attributes of the pageAlert component
 
-    error(summary, detail);
-    HtmlMessages pageAlert = new HtmlMessages();
+    this.error(this.summary, this.detail);
+    final HtmlMessages pageAlert = new HtmlMessages();
     pageAlert.setId(FacesTools.getCurrentInstance().getViewRoot().createUniqueId());
     // pageAlert.setTitle(title);
     // pageAlert.setSummary(summary);
@@ -116,10 +117,10 @@ public class ErrorPage extends BreadcrumbPage {
   }
 
   public String getStackTrace() {
-    StringBuffer buffer = new StringBuffer();
-    if (exception != null) {
-      StackTraceElement[] stackTrace = exception.getStackTrace();
-      for (StackTraceElement stackTraceElement : stackTrace) {
+    final StringBuffer buffer = new StringBuffer();
+    if (this.exception != null) {
+      final StackTraceElement[] stackTrace = this.exception.getStackTrace();
+      for (final StackTraceElement stackTraceElement : stackTrace) {
         buffer.append(" at ");
         buffer.append(stackTraceElement.getClassName());
         buffer.append(" (");

@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class AdvancedSearchPage extends BreadcrumbPage {
   public AdvancedSearchPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

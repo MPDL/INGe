@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class UserAccountOptionsPage extends BreadcrumbPage {
   public UserAccountOptionsPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

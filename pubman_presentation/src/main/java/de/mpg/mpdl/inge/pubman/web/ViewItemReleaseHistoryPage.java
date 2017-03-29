@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ViewItemReleaseHistoryPage extends BreadcrumbPage {
   public ViewItemReleaseHistoryPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

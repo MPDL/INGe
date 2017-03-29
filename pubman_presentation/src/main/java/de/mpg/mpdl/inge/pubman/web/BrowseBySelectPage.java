@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class BrowseBySelectPage extends BreadcrumbPage {
   public BrowseBySelectPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class LoginErrorPage extends BreadcrumbPage {
   public LoginErrorPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

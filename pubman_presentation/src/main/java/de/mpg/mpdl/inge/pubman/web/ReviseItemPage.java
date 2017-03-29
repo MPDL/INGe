@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class ReviseItemPage extends BreadcrumbPage {
   public ReviseItemPage() {}
 
+  @Override
   public void init() {
     super.init();
   }

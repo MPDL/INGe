@@ -39,10 +39,11 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class WorkspacesPage extends BreadcrumbPage {
   public WorkspacesPage() {}
 
+  @Override
   public void init() {
     super.init();
 
-    checkForLogin();
+    this.checkForLogin();
   }
 
   @Override
