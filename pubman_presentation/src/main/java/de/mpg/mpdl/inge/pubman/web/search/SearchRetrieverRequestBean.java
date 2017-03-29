@@ -45,8 +45,8 @@ import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean
-    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean extends
+    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**
