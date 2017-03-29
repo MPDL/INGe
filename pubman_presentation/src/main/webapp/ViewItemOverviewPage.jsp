@@ -398,7 +398,7 @@
                         break;
                     default:
                         counter++;
-                        if (counter < 10) {
+                        if (counter &lt; 10) {
                             startNanoScrollerTimeout = setTimeout(startNanoScrollerWhenLoaded, 100);
                         }
                         break;
@@ -421,7 +421,7 @@
             function updateImage(imgElement, jsonRequestUrl) {
                 $.getJSON(jsonRequestUrl, function(result) {
                     var pictureUrl = result.http_xmlns_com_foaf_0_1_depiction;
-                    if (pictureUrl != undefined && $.trim().pictureUrl != '') {
+                    if (pictureUrl != undefined &amp;&amp; $.trim().pictureUrl != '') {
                         $(imgElement).attr('src', pictureUrl);
                     }
                 });

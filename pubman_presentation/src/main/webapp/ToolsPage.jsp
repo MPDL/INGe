@@ -73,7 +73,7 @@
                                     <div class="full_area0 small_marginLExcl">
                                         <h3>
                                             <h:outputText value="#{msg.toolsMoreInformation} " />
-                                            <h:outputLink id="lnkColab" value="#{lbl.Tools_lblColab}">
+                                            <h:outputLink id="lnkColab" value="#{lbl.Tools_lblColab}" target="_blank">
                                                 <h:outputText value="#{lbl.Tools_lblColab}" />
                                             </h:outputLink>
                                         </h3>
