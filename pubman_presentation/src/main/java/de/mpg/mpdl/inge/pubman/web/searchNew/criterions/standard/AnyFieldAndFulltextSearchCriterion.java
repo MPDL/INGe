@@ -48,7 +48,7 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
   // TODO: Add fulltext index
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("_all")};
 
   }
 

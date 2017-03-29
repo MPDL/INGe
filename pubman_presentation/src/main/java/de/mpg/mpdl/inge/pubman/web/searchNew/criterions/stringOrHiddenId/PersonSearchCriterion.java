@@ -155,13 +155,14 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
     return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        "metadata.creators.person.identifiers.id", true, "metadata.creators")};
+        "metadata.creators.person.identifier.id", true, "metadata.creators")};
   }
 
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.creators.person",
-        true, "metadata.creators")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.creators.person.familyName",
+        true, "metadata.creators"), new ElasticSearchIndexField("metadata.creators.person.givenName",
+            true, "metadata.creators")};
   }
 
   @Override

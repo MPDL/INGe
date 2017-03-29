@@ -33,6 +33,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.Index;
@@ -74,9 +75,9 @@ public class Search extends FacesBean {
     }
 
     try {
-      final String cql = Search.generateCQLRequest(searchString, includeFiles);
+      final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
+          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
     } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
       Search.logger.error("Search criteria includes some lexical error", e);
       FacesBean.error(this.getMessage("search_ParseError"));
@@ -86,7 +87,7 @@ public class Search extends FacesBean {
     }
   }
 
-  public static String generateCQLRequest(String searchString, boolean includeFiles)
+  public static QueryBuilder generateElasticSearchRequest(String searchString, boolean includeFiles)
       throws Exception {
 
     final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
@@ -116,7 +117,9 @@ public class Search extends FacesBean {
      * CreatedBySearchCriterion createdBy = new CreatedBySearchCriterion();
      * createdBy.setHiddenId(searchString); criteria.add(createdBy);
      */
-    final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
+    
+    final QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(criteria);
+    //final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
 
 
     /*
@@ -146,16 +149,16 @@ public class Search extends FacesBean {
      * MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria ); cql =
      * query.getCqlQuery();
      */
-    return cql;
+    return qb;
   }
 
   public String getOpenSearchRequest() {
     final String requestDummy = "dummyTermToBeReplaced";
 
     try {
-      final String cql = Search.generateCQLRequest(requestDummy, false);
+      final QueryBuilder qb = Search.generateElasticSearchRequest(requestDummy, false);
       final String openSearchRequest =
-          "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8");
+          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
       Search.logger.error("Search criteria includes some lexical error", e);

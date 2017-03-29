@@ -48,7 +48,7 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("_all")};
 
   }
 
