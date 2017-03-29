@@ -806,7 +806,6 @@ public abstract class SearchCriterionBase implements Serializable {
 
   }
 
-
   public static String scListToQueryString(List<SearchCriterionBase> criterionList) {
 
     List<SearchCriterionBase> removedList = removeEmptyFields(criterionList, QueryType.INTERNAL);

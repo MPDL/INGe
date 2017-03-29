@@ -250,7 +250,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
    * 
    * @return
    */
-  public void getReadOutParams() {
+  public String getReadOutParams() {
     if (!languageChanged) {
       FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
@@ -273,6 +273,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     languageChanged = false;
 
+    return "";
   }
 
   private List<SelectItem> initComponentVisibilityListMenu() {
