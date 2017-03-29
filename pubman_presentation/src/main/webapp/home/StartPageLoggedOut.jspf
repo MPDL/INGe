@@ -105,8 +105,6 @@
 				von externen Systemen wie arXiv, BioMed Central, PubMedCentral oder
 				Spires importieren? <br /> Nutzen Sie dazu unsere <a
 				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-Schnittstelle</a>!
-				<h4>Validierungsservice</h4> <a href="/validation/" target="_blank">Prüfen</a>
-				Sie Ihre XML-Daten auf formale Richtigkeit!
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.

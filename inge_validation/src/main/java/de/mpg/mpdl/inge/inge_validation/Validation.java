@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
   private static final Logger LOG = Logger.getLogger(Validation.class);
-  
+
   public static void doValidation(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
 

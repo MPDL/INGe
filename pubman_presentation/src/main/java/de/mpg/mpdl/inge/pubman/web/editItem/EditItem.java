@@ -1705,7 +1705,8 @@ public class EditItem extends FacesBean {
    */
   public void parseAndSetAlternativeTitles() {
     // clear old alternative titles
-    final List<AlternativeTitleVO> altTitleList = this.getPubItem().getMetadata().getAlternativeTitles();
+    final List<AlternativeTitleVO> altTitleList =
+        this.getPubItem().getMetadata().getAlternativeTitles();
     altTitleList.clear();
 
     // clear old identifiers
@@ -1720,7 +1721,7 @@ public class EditItem extends FacesBean {
   private List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
     final List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
     final String[] alternativeTitles = titleList.split(EditItem.HIDDEN_DELIMITER);
-    
+
     for (int i = 0; i < alternativeTitles.length; i++) {
       final String[] parts = alternativeTitles[i].trim().split(EditItem.AUTOPASTE_INNER_DELIMITER);
       final String alternativeTitleType = parts[0].trim();
@@ -1731,10 +1732,10 @@ public class EditItem extends FacesBean {
         list.add(alternativeTitleVO);
       }
     }
-    
+
     return list;
   }
-  
+
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean) FacesTools
         .findBean("ItemControllerSessionBean");
