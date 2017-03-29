@@ -24,6 +24,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   private static String SEARCH_INDEX_NAME = "pure_search";
 
 
+  private SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE.search(SEARCH_INDEX_NAME);
 
   @Override
   public SearchRetrieveResponseVO searchForPubItems(SearchQueryVO<QueryBuilder> searchQuery)
@@ -32,7 +33,6 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
     SearchRetrieveResponseVO srrVO;
     try {
-      SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE.search(SEARCH_INDEX_NAME);
       srb.setQuery(searchQuery.getQueryObject());
 
       if (searchQuery.getOffset() != 0) {

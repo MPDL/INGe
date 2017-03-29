@@ -32,26 +32,29 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public enum ElasticSearchTransportClient {
 
   INSTANCE;
-
-  private ElasticSearchTransportClient() {}
-
+  
   TransportClient client = null;
   ObjectMapper mapper = null;
 
+  private ElasticSearchTransportClient() {
+    initializeClient();
+    initializeMapper();
+  }
+
+
   public ObjectMapper getMapper() {
+    return mapper;
+  }
+  
+  private void initializeMapper()
+  {
     mapper = new ObjectMapper();
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    return mapper;
   }
-
-  /**
-   * get a {@link TransportClient} with predefined {@link Settings}
-   * 
-   * @return {@link TransportClient}
-   */
-  protected TransportClient getClient() {
-
+  
+  private void initializeClient()
+  {
     Settings settings =
         Settings.builder().put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
             .put("client.transport.sniff", true).build();
@@ -67,6 +70,14 @@ public enum ElasticSearchTransportClient {
         e.printStackTrace();
       }
     }
+  }
+
+  /**
+   * get a {@link TransportClient} with predefined {@link Settings}
+   * 
+   * @return {@link TransportClient}
+   */
+  protected TransportClient getClient() {
     return client;
   }
 
