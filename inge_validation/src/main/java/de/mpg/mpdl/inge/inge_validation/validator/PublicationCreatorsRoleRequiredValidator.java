@@ -74,9 +74,10 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
                 if (organizationVO.getName() != null //
                     && organizationVO.getName().trim().length() > 0 //
                     || organizationVO.getAddress() != null //
-                    && organizationVO.getAddress().trim().length() > 0)
+                    && organizationVO.getAddress().trim().length() > 0) {
                   context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
                       .setField("creator[" + i + "].organization[" + j + "]"));
+                }
                 ok = false;
 
                 j++;

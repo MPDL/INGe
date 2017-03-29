@@ -80,10 +80,11 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   if (organizationVO.getName() != null //
                       && organizationVO.getName().trim().length() > 0 //
                       || organizationVO.getAddress() != null //
-                      && organizationVO.getAddress().trim().length() > 0)
+                      && organizationVO.getAddress().trim().length() > 0) {
                     context.addError(ValidationError.create(
                         ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
                         "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                  }
                   ok = false;
 
                   z++;
