@@ -45,18 +45,18 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
     boolean errorPers = false;
     boolean errorPersOrg = false;
 
-    for (CreatorVO creatorVO : creators) {
+    for (final CreatorVO creatorVO : creators) {
 
       if (ok > 0) {
         break;
       }
 
-      CreatorType type = creatorVO.getType();
+      final CreatorType type = creatorVO.getType();
       switch (type) {
 
         case ORGANIZATION:
 
-          OrganizationVO o = creatorVO.getOrganization();
+          final OrganizationVO o = creatorVO.getOrganization();
           if (o != null && o.getName() != null && o.getName().trim().length() > 0) {
             ok++;
           } else {
@@ -68,16 +68,16 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
 
         case PERSON:
 
-          PersonVO p = creatorVO.getPerson();
+          final PersonVO p = creatorVO.getPerson();
           if (p == null || p.getFamilyName() == null) {
             errorPers = true;
             continue;
           }
 
           int orgsOk = 0;
-          List<OrganizationVO> orgs = p.getOrganizations();
+          final List<OrganizationVO> orgs = p.getOrganizations();
           if (orgs.isEmpty() == false) {
-            for (OrganizationVO organizationVO : orgs) {
+            for (final OrganizationVO organizationVO : orgs) {
               if (organizationVO.getName() != null && organizationVO.getName().trim().length() > 0) {
                 orgsOk++;
               }

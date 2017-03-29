@@ -7,7 +7,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 public class ValidationReportVO extends ValueObject {
-  private List<ValidationReportItemVO> items = new ArrayList<ValidationReportItemVO>();
+  private final List<ValidationReportItemVO> items = new ArrayList<ValidationReportItemVO>();
 
   public ValidationReportVO() {}
 
@@ -24,12 +24,12 @@ public class ValidationReportVO extends ValueObject {
   }
 
   public boolean isValid() {
-    return !hasItems();
+    return !this.hasItems();
   }
 
   @Override
   public String toString() {
-    return "ValidationReportVO [items=" + items + "]";
+    return "ValidationReportVO [items=" + this.items + "]";
   }
 
 }

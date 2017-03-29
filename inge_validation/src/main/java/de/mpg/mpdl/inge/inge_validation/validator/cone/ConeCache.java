@@ -57,16 +57,16 @@ public class ConeCache {
 
   private ConeCache() {
     this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
-    LOG.info("ConeServiceUrl: " + this.coneServiceUrl);
+    ConeCache.LOG.info("ConeServiceUrl: " + this.coneServiceUrl);
     if (this.coneServiceUrl == null) {
-      LOG.error("Property <" + Properties.ESCIDOC_CONE_SERVICE_URL + "> not set");
+      ConeCache.LOG.error("Property <" + Properties.ESCIDOC_CONE_SERVICE_URL + "> not set");
       throw new IllegalArgumentException();
     }
 
     try {
-      refreshCache();
-    } catch (ValidationConeCacheConfigException e) {
-      LOG.error(e);
+      this.refreshCache();
+    } catch (final ValidationConeCacheConfigException e) {
+      ConeCache.LOG.error(e);
       throw new IllegalStateException();
     }
   }
@@ -76,29 +76,33 @@ public class ConeCache {
   }
 
   public void refreshCache() throws ValidationConeCacheConfigException {
-    refresh(this.iso639_3_Identifier, new ConeHandler(IDENTIFIER), this.coneServiceUrl
-        + ISO639_3_IDENTIFIER_QUERY);
-    refresh(this.iso639_3_Title, new ConeHandler(TITLE), this.coneServiceUrl + ISO639_3_TITLE_QUERY);
-    refresh(this.ddcTitle, new ConeHandler(TITLE), this.coneServiceUrl + DDC_TITLE_QUERY);
-    refresh(this.mimeTypesTitle, new ConeHandler(TITLE), this.coneServiceUrl
-        + MIME_TYPES_TITLE_QUERY);
-    refresh(this.mpipksTitle, new ConeHandler(TITLE), this.coneServiceUrl + MPIPKS_TITLE_QUERY);
-    refresh(this.mpirgTitle, new ConeHandler(TITLE), this.coneServiceUrl + MPIRG_TITLE_QUERY);
-    refresh(this.mpisGroupsTitle, new ConeHandler(TITLE), this.coneServiceUrl
-        + MPIS_GROUPS_TITLE_QUERY);
-    refresh(this.mpisProjectTitle, new ConeHandler(TITLE), this.coneServiceUrl
-        + MPIS_PROJECTS_TITLE_QUERY);
+    this.refresh(this.iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER),
+        this.coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
+    this.refresh(this.iso639_3_Title, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.ISO639_3_TITLE_QUERY);
+    this.refresh(this.ddcTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.DDC_TITLE_QUERY);
+    this.refresh(this.mimeTypesTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.MIME_TYPES_TITLE_QUERY);
+    this.refresh(this.mpipksTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.MPIPKS_TITLE_QUERY);
+    this.refresh(this.mpirgTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.MPIRG_TITLE_QUERY);
+    this.refresh(this.mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.MPIS_GROUPS_TITLE_QUERY);
+    this.refresh(this.mpisProjectTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+        + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
       throws ValidationConeCacheConfigException {
-    LOG.info("*** Start refresh: " + queryUrl);
+    ConeCache.LOG.info("*** Start refresh: " + queryUrl);
     try {
-      Set<String> result = fill(handler, queryUrl);
+      final Set<String> result = this.fill(handler, queryUrl);
       if (0 == result.size()) {
-        LOG.warn("    " + "Size: " + result.size() + " " + queryUrl);
+        ConeCache.LOG.warn("    " + "Size: " + result.size() + " " + queryUrl);
       } else {
-        LOG.info("    " + "Size: " + result.size() + " " + queryUrl);
+        ConeCache.LOG.info("    " + "Size: " + result.size() + " " + queryUrl);
       }
       if (!result.isEmpty()) {
         synchronized (coneSet.set()) {
@@ -107,36 +111,36 @@ public class ConeCache {
         }
       }
     } catch (IOException | ParserConfigurationException | SAXException | ConeException e) {
-      LOG.warn("Could not refresh Cone Set with Url: " + queryUrl);
+      ConeCache.LOG.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
-        LOG.error("Cone Set is empty: Url: " + queryUrl);
+        ConeCache.LOG.error("Cone Set is empty: Url: " + queryUrl);
         throw new ValidationConeCacheConfigException(e);
       }
     }
-    LOG.info("*** Ende refresh: " + queryUrl);
+    ConeCache.LOG.info("*** Ende refresh: " + queryUrl);
   }
 
   private Set<String> fill(ConeHandler handler, String queryUrl)
       throws ParserConfigurationException, SAXException, ConeException, IOException {
-    HttpClient client = new HttpClient();
-    GetMethod method = new GetMethod(queryUrl);
+    final HttpClient client = new HttpClient();
+    final GetMethod method = new GetMethod(queryUrl);
 
     ProxyHelper.executeMethod(client, method);
 
     if (method.getStatusCode() == 200) {
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser saxParser = factory.newSAXParser();
+      final SAXParserFactory factory = SAXParserFactory.newInstance();
+      final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(method.getResponseBodyAsStream(), handler);
       return handler.getResult();
     } else {
-      LOG.error("Could not load CONE attributes:" + method.getStatusCode());
+      ConeCache.LOG.error("Could not load CONE attributes:" + method.getStatusCode());
       throw new ConeException("Could not load CONE attributes: " + method.getStatusCode());
     }
   }
 
   public Set<String> getDdcTitleSet() {
     if (this.ddcTitle.set().isEmpty()) {
-      LOG.error("CONE ddcTitleSet is empty.");
+      ConeCache.LOG.error("CONE ddcTitleSet is empty.");
     }
 
     return this.ddcTitle.set();
@@ -144,7 +148,7 @@ public class ConeCache {
 
   public Set<String> getIso639_3_IdentifierSet() {
     if (this.iso639_3_Identifier.set().isEmpty()) {
-      LOG.error("CONE iso639_3_IdentifierSet is empty.");
+      ConeCache.LOG.error("CONE iso639_3_IdentifierSet is empty.");
     }
 
     return this.iso639_3_Identifier.set();
@@ -152,7 +156,7 @@ public class ConeCache {
 
   public Set<String> getIso639_3_TitleSet() {
     if (this.iso639_3_Title.set().isEmpty()) {
-      LOG.error("CONE iso639_3_TitleSet is empty.");
+      ConeCache.LOG.error("CONE iso639_3_TitleSet is empty.");
     }
 
     return this.iso639_3_Title.set();
@@ -160,7 +164,7 @@ public class ConeCache {
 
   public Set<String> getMimeTypesTitleSet() {
     if (this.mimeTypesTitle.set().isEmpty()) {
-      LOG.error("CONE mimeTypesTitleSet is empty.");
+      ConeCache.LOG.error("CONE mimeTypesTitleSet is empty.");
     }
 
     return this.mimeTypesTitle.set();
@@ -168,7 +172,7 @@ public class ConeCache {
 
   public Set<String> getMpipksTitleSet() {
     if (this.mpipksTitle.set().isEmpty()) {
-      LOG.error("CONE mpipksTitleSet is empty.");
+      ConeCache.LOG.error("CONE mpipksTitleSet is empty.");
     }
 
     return this.mpipksTitle.set();
@@ -176,7 +180,7 @@ public class ConeCache {
 
   public Set<String> getMpirgTitleSet() {
     if (this.mpirgTitle.set().isEmpty()) {
-      LOG.error("CONE mpirgTitleSet is empty.");
+      ConeCache.LOG.error("CONE mpirgTitleSet is empty.");
     }
 
     return this.mpirgTitle.set();
@@ -184,7 +188,7 @@ public class ConeCache {
 
   public Set<String> getMpisGroupsTitleSet() {
     if (this.mpisGroupsTitle.set().isEmpty()) {
-      LOG.error("CONE mpisGroupsTitleSet is empty.");
+      ConeCache.LOG.error("CONE mpisGroupsTitleSet is empty.");
     }
 
     return this.mpisGroupsTitle.set();
@@ -192,7 +196,7 @@ public class ConeCache {
 
   public Set<String> getMpisProjectTitleSet() {
     if (this.mpisProjectTitle.set().isEmpty()) {
-      LOG.error("CONE mpisProjectTitleSet is empty.");
+      ConeCache.LOG.error("CONE mpisProjectTitleSet is empty.");
     }
 
     return this.mpisProjectTitle.set();

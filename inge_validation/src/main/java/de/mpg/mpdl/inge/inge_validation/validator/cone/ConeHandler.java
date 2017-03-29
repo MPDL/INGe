@@ -9,9 +9,9 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class ConeHandler extends DefaultHandler {
 
-  private Set<String> result = new HashSet<String>();
+  private final Set<String> result = new HashSet<String>();
 
-  private String searchElement;
+  private final String searchElement;
   private StringBuffer tmp;
   private boolean isSearchElement = false;
 
@@ -30,7 +30,7 @@ public class ConeHandler extends DefaultHandler {
 
   @Override
   public void characters(char ch[], int start, int length) throws SAXException {
-    if (isSearchElement) {
+    if (this.isSearchElement) {
       this.tmp.append(new String(ch, start, length));
     }
   }

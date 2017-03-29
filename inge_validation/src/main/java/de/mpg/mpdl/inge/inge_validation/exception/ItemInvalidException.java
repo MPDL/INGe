@@ -5,7 +5,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 @SuppressWarnings("serial")
 public class ItemInvalidException extends Exception {
 
-  private ValidationReportVO report;
+  private final ValidationReportVO report;
 
   public ItemInvalidException(ValidationReportVO report) {
     this.report = report;

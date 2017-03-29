@@ -35,10 +35,10 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
     if (sources != null && sources.isEmpty() == false) {
 
       int i = 1;
-      for (SourceVO sourceVO : sources) {
+      for (final SourceVO sourceVO : sources) {
 
         int j = 1;
-        for (CreatorVO creatorVO : sourceVO.getCreators()) {
+        for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
           if (creatorVO.getRole() == null) {
 
@@ -46,7 +46,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
               case ORGANIZATION:
 
-                OrganizationVO o = creatorVO.getOrganization();
+                final OrganizationVO o = creatorVO.getOrganization();
                 if (o.getName() != null //
                     && o.getName().trim().length() > 0 //
                     || o.getAddress() != null //
@@ -61,7 +61,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
               case PERSON:
 
-                PersonVO p = creatorVO.getPerson();
+                final PersonVO p = creatorVO.getPerson();
                 if (p.getFamilyName() != null //
                     && p.getFamilyName().trim().length() > 0 //
                     || p.getGivenName() != null //
@@ -72,10 +72,10 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   ok = false;
                 }
 
-                List<OrganizationVO> orgs = p.getOrganizations();
+                final List<OrganizationVO> orgs = p.getOrganizations();
 
                 int z = 1;
-                for (OrganizationVO organizationVO : orgs) {
+                for (final OrganizationVO organizationVO : orgs) {
 
                   if (organizationVO.getName() != null //
                       && organizationVO.getName().trim().length() > 0 //

@@ -48,10 +48,10 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
 
     if (files != null && !files.isEmpty()) {
 
-      Set<String> mimeTypesTitleSet = ConeCache.getInstance().getMimeTypesTitleSet();
+      final Set<String> mimeTypesTitleSet = ConeCache.getInstance().getMimeTypesTitleSet();
 
       int i = 1;
-      for (FileVO fileVO : files) {
+      for (final FileVO fileVO : files) {
 
         if (fileVO.getContent() != null //
             && fileVO.getContent().trim().length() > 0 //
@@ -59,9 +59,9 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
             && !mimeTypesTitleSet.isEmpty()) {
 
           int j = 1;
-          for (FormatVO formatVO : fileVO.getDefaultMetadata().getFormats()) {
+          for (final FormatVO formatVO : fileVO.getDefaultMetadata().getFormats()) {
 
-            if (IMT.equals(formatVO.getType()) //
+            if (ComponentMimeTypesValidator.IMT.equals(formatVO.getType()) //
                 && !mimeTypesTitleSet.contains(formatVO.getValue())) {
               context.addError(ValidationError.create(ErrorMessages.MIME_TYPE_NOT_VALID).setField(
                   "file[" + i + "].format[" + j + "]"));

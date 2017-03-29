@@ -28,10 +28,11 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     if (languages != null && languages.isEmpty() == false) {
 
-      Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
+      final Set<String> iso639_3_IdentifierSet =
+          ConeCache.getInstance().getIso639_3_IdentifierSet();
 
       int i = 1;
-      for (String language : languages) {
+      for (final String language : languages) {
 
         if (language != null //
             && language.trim().length() > 0 //

@@ -45,7 +45,7 @@ public class ComponentContentRequiredValidator extends ValidatorHandler<List<Fil
     if (files != null && files.isEmpty() == false) {
 
       int i = 1;
-      for (FileVO fileVO : files) {
+      for (final FileVO fileVO : files) {
 
         if ((fileVO.getContent() == null //
             || fileVO.getContent().trim().length() == 0) //

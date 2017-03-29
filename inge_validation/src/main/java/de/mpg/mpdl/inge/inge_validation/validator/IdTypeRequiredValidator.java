@@ -28,7 +28,7 @@ public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>
     if (identifiers != null && identifiers.isEmpty() == false) {
 
       int i = 1;
-      for (IdentifierVO identifierVO : identifiers) {
+      for (final IdentifierVO identifierVO : identifiers) {
 
         if (identifierVO.getId() != null && identifierVO.getId().trim().length() > 0
             && identifierVO.getType() == null) {

@@ -17,13 +17,13 @@ public class ItemValidatingService {
 
     try {
       Validation.doValidation(itemVO, validationPoint);
-    } catch (ValidationException e) {
-      LOG.error("validateItemObject:", e);
+    } catch (final ValidationException e) {
+      ItemValidatingService.LOG.error("validateItemObject:", e);
       throw e;
-    } catch (ItemInvalidException e) {
+    } catch (final ItemInvalidException e) {
       throw e;
-    } catch (Exception e) {
-      LOG.error("validateItemObject: " + itemVO + validationPoint, e);
+    } catch (final Exception e) {
+      ItemValidatingService.LOG.error("validateItemObject: " + itemVO + validationPoint, e);
       throw new ValidationException("validateItemObject:", e);
     }
   }
@@ -31,8 +31,8 @@ public class ItemValidatingService {
   public static void refreshValidationSchemaCache() throws ValidationConeCacheConfigException {
     try {
       ConeCache.getInstance().refreshCache();
-    } catch (ValidationConeCacheConfigException e) {
-      LOG.error("refreshValidationSchemaCache:", e);
+    } catch (final ValidationConeCacheConfigException e) {
+      ItemValidatingService.LOG.error("refreshValidationSchemaCache:", e);
       throw e;
     }
   }

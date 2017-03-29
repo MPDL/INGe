@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
-  private static final String URL_PATTERN = getUrlPattern();
+  private static final String URL_PATTERN = UriAsLocatorValidator.getUrlPattern();
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -46,12 +46,12 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
     if (files != null && files.isEmpty() == false) {
 
       int i = 1;
-      for (FileVO fileVO : files) {
+      for (final FileVO fileVO : files) {
 
         if (fileVO.getContent() != null //
             && fileVO.getContent().trim().length() > 0 //
             && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
-            && !Pattern.matches(URL_PATTERN, fileVO.getContent())) {
+            && !Pattern.matches(UriAsLocatorValidator.URL_PATTERN, fileVO.getContent())) {
           context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
               "file[" + i + "]"));
           ok = false;
@@ -66,8 +66,8 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
   }
 
   private static String getUrlPattern() {
-    String SubDomain = "(?i:[a-z0-9]|[a-z0-9][-a-z0-9]*[a-z0-9])";
-    String TopDomains = //
+    final String SubDomain = "(?i:[a-z0-9]|[a-z0-9][-a-z0-9]*[a-z0-9])";
+    final String TopDomains = //
         "(?x-i:com\\b              \n" //
             + "     |edu\\b        \n" //
             + "     |biz\\b        \n" //
@@ -77,13 +77,13 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
             + "     |org\\b        \n" //
             + "     |[a-z][a-z]\\b \n" // Laendercodes
             + ")                   \n";
-    String Hostname = "(?:" + SubDomain + "\\.)+" + TopDomains;
+    final String Hostname = "(?:" + SubDomain + "\\.)+" + TopDomains;
 
-    String NOT_IN = ";\"'<>()\\[\\]{}\\s\\x7F-\\xFF";
-    String NOT_END = "!.,?";
-    String ANYWHERE = "[^" + NOT_IN + NOT_END + "]";
-    String EMBEDDED = "[" + NOT_END + "]";
-    String UrlPath = "/" + ANYWHERE + "*(" + EMBEDDED + "+" + ANYWHERE + "+)*";
+    final String NOT_IN = ";\"'<>()\\[\\]{}\\s\\x7F-\\xFF";
+    final String NOT_END = "!.,?";
+    final String ANYWHERE = "[^" + NOT_IN + NOT_END + "]";
+    final String EMBEDDED = "[" + NOT_END + "]";
+    final String UrlPath = "/" + ANYWHERE + "*(" + EMBEDDED + "+" + ANYWHERE + "+)*";
 
     return "(?x:                                               \n" //
         + "  \\b                                               \n" //

@@ -29,7 +29,7 @@ public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceV
     if (sources != null && !sources.isEmpty()) {
 
       int i = 1;
-      for (SourceVO sourceVO : sources) {
+      for (final SourceVO sourceVO : sources) {
 
         if (sourceVO.getTitle() == null && //
             (sourceVO.getAlternativeTitles() != null && !sourceVO.getAlternativeTitles().isEmpty() //

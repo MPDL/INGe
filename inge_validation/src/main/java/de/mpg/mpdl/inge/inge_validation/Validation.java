@@ -41,26 +41,26 @@ public class Validation {
       throw new ValidationException("itemVO instanceof PubItemVO == false");
     }
 
-    PubItemVO pubItemVO = (PubItemVO) itemVO;
+    final PubItemVO pubItemVO = (PubItemVO) itemVO;
 
     switch (validationPoint) {
 
       case SAVE:
-        FluentValidator vSave =
+        final FluentValidator vSave =
             FluentValidator.checkAll().failOver()
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
 
-        ComplexResult resultSave =
+        final ComplexResult resultSave =
             vSave.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(resultSave);
 
-        checkResult(resultSave);
+        Validation.checkResult(resultSave);
 
         break;
 
       case SIMPLE:
-        FluentValidator vSimple =
+        final FluentValidator vSimple =
             FluentValidator
                 .checkAll()
                 .failOver()
@@ -84,18 +84,18 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
                 .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
-        ComplexResult resultSimple =
+        final ComplexResult resultSimple =
             vSimple.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(resultSimple);
 
-        checkResult(resultSimple);
+        Validation.checkResult(resultSimple);
 
         break;
 
       case STANDARD:
-        FluentValidator vStandard =
+        final FluentValidator vStandard =
             FluentValidator
                 .checkAll()
                 .failOver()
@@ -136,18 +136,18 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
                 .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
-        ComplexResult resultStandard =
+        final ComplexResult resultStandard =
             vStandard.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(resultStandard);
 
-        checkResult(resultStandard);
+        Validation.checkResult(resultStandard);
 
         break;
 
       case EASY_SUBMISSION_STEP_3:
-        FluentValidator vEasy3 =
+        final FluentValidator vEasy3 =
             FluentValidator.checkAll().failOver()
                 .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
@@ -157,18 +157,18 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
                 .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
-        ComplexResult resultEasy3 =
+        final ComplexResult resultEasy3 =
             vEasy3.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(resultEasy3);
 
-        checkResult(resultEasy3);
+        Validation.checkResult(resultEasy3);
 
         break;
 
       case EASY_SUBMISSION_STEP_4:
-        FluentValidator vEasy4 =
+        final FluentValidator vEasy4 =
             FluentValidator
                 .checkAll()
                 .failOver()
@@ -184,13 +184,13 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
                 .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
-        ComplexResult resultEasy4 =
+        final ComplexResult resultEasy4 =
             vEasy4.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
         System.out.println(resultEasy4);
 
-        checkResult(resultEasy4);
+        Validation.checkResult(resultEasy4);
 
         break;
 
@@ -201,11 +201,11 @@ public class Validation {
   }
 
   private static void checkResult(ComplexResult complexResult) throws ItemInvalidException {
-    ValidationReportVO v = new ValidationReportVO();
+    final ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {
-      for (ValidationError error : complexResult.getErrors()) {
-        ValidationReportItemVO item = new ValidationReportItemVO();
+      for (final ValidationError error : complexResult.getErrors()) {
+        final ValidationReportItemVO item = new ValidationReportItemVO();
         item.setContent(error.getErrorMsg());
         item.setElement(error.getField());
         v.addItem(item);

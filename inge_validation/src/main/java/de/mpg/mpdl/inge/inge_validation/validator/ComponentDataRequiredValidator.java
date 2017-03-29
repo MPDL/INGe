@@ -52,7 +52,7 @@ public class ComponentDataRequiredValidator extends ValidatorHandler<List<FileVO
     if (files != null && files.isEmpty() == false) {
 
       int i = 1;
-      for (FileVO fileVO : files) {
+      for (final FileVO fileVO : files) {
 
         if (fileVO.getContent() == null) {
 

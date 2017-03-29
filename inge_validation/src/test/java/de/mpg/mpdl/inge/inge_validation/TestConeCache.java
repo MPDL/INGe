@@ -11,14 +11,14 @@ public class TestConeCache {
   public static void main(String[] args) {
     System.out.println("Start");
 
-    TestConeCache t = new TestConeCache();
+    final TestConeCache t = new TestConeCache();
     t.go();
 
     System.out.println("Ende");
   }
 
   public void go() {
-    List<Thread> list = new ArrayList<Thread>();
+    final List<Thread> list = new ArrayList<Thread>();
     list.add(new GetDDLThread());
     list.add(new GetISOThread());
     list.add(new GetISOIdThread());
@@ -29,7 +29,7 @@ public class TestConeCache {
     list.add(new GetMPISPROJECTThread());
     list.add(new RefreshCacheThread());
 
-    for (Thread thread : list) {
+    for (final Thread thread : list) {
       thread.start();
     }
   }
@@ -37,12 +37,13 @@ public class TestConeCache {
   class GetDDLThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("DDC_Title: " + cache.getDdcTitleSet().size());
+          System.out.println("DDC_Title: " + this.cache.getDdcTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -52,12 +53,13 @@ public class TestConeCache {
   class GetISOThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("ISO_Title: " + cache.getIso639_3_TitleSet().size());
+          System.out.println("ISO_Title: " + this.cache.getIso639_3_TitleSet().size());
           Thread.sleep((int) (Math.random() * 1000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -67,12 +69,13 @@ public class TestConeCache {
   class GetISOIdThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("ISO_Identifier: " + cache.getIso639_3_IdentifierSet().size());
+          System.out.println("ISO_Identifier: " + this.cache.getIso639_3_IdentifierSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -82,12 +85,13 @@ public class TestConeCache {
   class GetMIMEThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("MIME_Title: " + cache.getMimeTypesTitleSet().size());
+          System.out.println("MIME_Title: " + this.cache.getMimeTypesTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -97,12 +101,13 @@ public class TestConeCache {
   class GetMPIPKSThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("MPIPKS_Title: " + cache.getMpipksTitleSet().size());
+          System.out.println("MPIPKS_Title: " + this.cache.getMpipksTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -112,12 +117,13 @@ public class TestConeCache {
   class GetMPIRKThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("MPIRK_Title: " + cache.getMpirgTitleSet().size());
+          System.out.println("MPIRK_Title: " + this.cache.getMpirgTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -127,12 +133,13 @@ public class TestConeCache {
   class GetMPISGROUPThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("MPIS_GROUP_Title: " + cache.getMpisGroupsTitleSet().size());
+          System.out.println("MPIS_GROUP_Title: " + this.cache.getMpisGroupsTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -142,12 +149,13 @@ public class TestConeCache {
   class GetMPISPROJECTThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         try {
-          System.out.println("MPIS_PROJECT_Title: " + cache.getMpisProjectTitleSet().size());
+          System.out.println("MPIS_PROJECT_Title: " + this.cache.getMpisProjectTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }
@@ -157,19 +165,20 @@ public class TestConeCache {
   class RefreshCacheThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
+    @Override
     public void run() {
       while (true) {
         System.out.println("Start refreshCache");
         try {
-          cache.refreshCache();
-        } catch (ValidationConeCacheConfigException e) {
+          this.cache.refreshCache();
+        } catch (final ValidationConeCacheConfigException e) {
           System.out.println(e);
         }
         System.out.println("Ende refreshCache");
-        logCacheSetSizes(cache);
+        TestConeCache.this.logCacheSetSizes(this.cache);
         try {
           Thread.sleep(10000);
-        } catch (Exception e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
       }

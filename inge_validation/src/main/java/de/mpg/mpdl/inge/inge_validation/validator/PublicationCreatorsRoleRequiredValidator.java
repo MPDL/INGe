@@ -34,7 +34,7 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
     if (creators != null && creators.isEmpty() == false) {
 
       int i = 1;
-      for (CreatorVO creatorVO : creators) {
+      for (final CreatorVO creatorVO : creators) {
 
         if (creatorVO.getRole() == null) {
 
@@ -42,7 +42,7 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
 
             case ORGANIZATION:
 
-              OrganizationVO o = creatorVO.getOrganization();
+              final OrganizationVO o = creatorVO.getOrganization();
               if (o.getName() != null //
                   && o.getName().trim().length() > 0 //
                   || o.getAddress() != null //
@@ -56,7 +56,7 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
 
             case PERSON:
 
-              PersonVO p = creatorVO.getPerson();
+              final PersonVO p = creatorVO.getPerson();
               if (p.getFamilyName() != null //
                   && p.getFamilyName().trim().length() > 0 //
                   || p.getGivenName() != null //
@@ -66,10 +66,10 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
                 ok = false;
               }
 
-              List<OrganizationVO> orgs = p.getOrganizations();
+              final List<OrganizationVO> orgs = p.getOrganizations();
 
               int j = 1;
-              for (OrganizationVO organizationVO : orgs) {
+              for (final OrganizationVO organizationVO : orgs) {
 
                 if (organizationVO.getName() != null //
                     && organizationVO.getName().trim().length() > 0 //

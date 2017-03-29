@@ -8,7 +8,7 @@ public class ValidationReportItemVO extends ValueObject {
   private String element;
 
   public final String getContent() {
-    return content;
+    return this.content;
   }
 
   public final void setContent(final String content) {
@@ -16,7 +16,7 @@ public class ValidationReportItemVO extends ValueObject {
   }
 
   public final String getElement() {
-    return element;
+    return this.element;
   }
 
   public final void setElement(final String element) {
@@ -25,7 +25,7 @@ public class ValidationReportItemVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "ValidationReportItemVO [content=" + content + ", element=" + element + "]";
+    return "ValidationReportItemVO [content=" + this.content + ", element=" + this.element + "]";
   }
 
 }

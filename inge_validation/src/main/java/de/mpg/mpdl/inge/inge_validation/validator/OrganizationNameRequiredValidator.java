@@ -32,17 +32,17 @@ public class OrganizationNameRequiredValidator extends ValidatorHandler<List<Cre
     if (creators != null && creators.isEmpty() == false) {
 
       int i = 1;
-      for (CreatorVO creatorVO : creators) {
+      for (final CreatorVO creatorVO : creators) {
 
         if (CreatorType.PERSON.equals(creatorVO.getType())) {
 
-          PersonVO p = creatorVO.getPerson();
+          final PersonVO p = creatorVO.getPerson();
 
           if (p != null) {
-            List<OrganizationVO> orgs = p.getOrganizations();
+            final List<OrganizationVO> orgs = p.getOrganizations();
 
             int j = 1;
-            for (OrganizationVO organizationVO : orgs) {
+            for (final OrganizationVO organizationVO : orgs) {
 
               if (organizationVO.getName() == null || organizationVO.getAddress() == null) {
                 context.addError(ValidationError.create(
