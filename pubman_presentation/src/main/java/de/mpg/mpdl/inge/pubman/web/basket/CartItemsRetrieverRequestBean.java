@@ -51,6 +51,11 @@ public class CartItemsRetrieverRequestBean extends
   }
 
   @Override
+  public void init() {
+    // no init needed
+  }
+
+  @Override
   public int getTotalNumberOfRecords() {
     return this.numberOfRecords;
   }
@@ -58,11 +63,6 @@ public class CartItemsRetrieverRequestBean extends
   @Override
   public String getType() {
     return "CartItems";
-  }
-
-  @Override
-  public void init() {
-    // no init needed
   }
 
   @Override

@@ -50,7 +50,9 @@ public class ReleaseHistory extends FacesBean {
 
   public static final String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
 
-  public ReleaseHistory() {}
+  public ReleaseHistory() {
+    this.init();
+  }
 
   public void init() {
     final ItemVersionListSessionBean ivlsb =

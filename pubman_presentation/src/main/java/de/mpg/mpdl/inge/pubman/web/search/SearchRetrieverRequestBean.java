@@ -98,6 +98,11 @@ public class SearchRetrieverRequestBean extends
   }
 
   @Override
+  public void init() {
+    // no init needed
+  }
+
+  @Override
   public int getTotalNumberOfRecords() {
     return this.numberOfRecords;
   }
@@ -105,11 +110,6 @@ public class SearchRetrieverRequestBean extends
   @Override
   public String getType() {
     return "SearchResult";
-  }
-
-  @Override
-  public void init() {
-    // no init needed
   }
 
   /**

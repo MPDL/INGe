@@ -61,17 +61,17 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * A list that contains the menu entries of the elements per page menu.
    */
-  private List<SelectItem> elementsPerPageSelectItems;
+  private List<SelectItem> elementsPerPageSelectItems = new ArrayList<SelectItem>();
 
   /**
    * A list containing the PaginatorPage objects
    */
-  private final List<PaginatorPage> paginatorPageList;
+  private List<PaginatorPage> paginatorPageList = new ArrayList<PaginatorPage>();
 
   /**
    * The list containing the current elements of the displayed list
    */
-  private List<ListElementType> currentPartList;
+  private List<ListElementType> currentPartList = new ArrayList<ListElementType>();
 
   /**
    * The current number of elements per page
@@ -112,7 +112,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * A map that contains the currently used GET parameters by this bean and the corresponding
    * BaseListRetrieverRequestBean.
    */
-  private Map<String, String> redirectParameterMap;
+  private Map<String, String> redirectParameterMap = new HashMap<String, String>();
 
   /**
    * The current BaseListRetrieverRequestBean
@@ -141,12 +141,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * A Map that has stored the GET parameters from the last request
    */
-  private Map<String, String> oldRedirectParameterMap;
-
-  /**
-   * Indicates if the list should be upadated even if no parameters have changed
-   */
-  // private boolean hasChanged;
+  private Map<String, String> oldRedirectParameterMap = new HashMap<String, String>();
 
   private boolean noListUpdate;
 
@@ -154,17 +149,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * Initializes a new BasePaginatorListSessionBean
    */
   public BasePaginatorListSessionBean() {
-    this.setParameterMap(new HashMap<String, String>());
-    this.setOldRedirectParameterMap(new HashMap<String, String>());
-
     this.elementsPerPageSelectItems = new ArrayList<SelectItem>();
     this.elementsPerPageSelectItems.add(new SelectItem("10", "10"));
     this.elementsPerPageSelectItems.add(new SelectItem("25", "25")); // --default: 25
     this.elementsPerPageSelectItems.add(new SelectItem("50", "50"));
     this.elementsPerPageSelectItems.add(new SelectItem("100", "100"));
     this.elementsPerPageSelectItems.add(new SelectItem("250", "250"));
-
-    this.paginatorPageList = new ArrayList<PaginatorPage>();
   }
 
   /**

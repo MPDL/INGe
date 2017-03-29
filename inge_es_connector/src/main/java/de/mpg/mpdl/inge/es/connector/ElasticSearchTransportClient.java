@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public enum ElasticSearchTransportClient {
 
   INSTANCE;
-  
+
   TransportClient client = null;
   ObjectMapper mapper = null;
 
@@ -45,16 +45,14 @@ public enum ElasticSearchTransportClient {
   public ObjectMapper getMapper() {
     return mapper;
   }
-  
-  private void initializeMapper()
-  {
+
+  private void initializeMapper() {
     mapper = new ObjectMapper();
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
   }
-  
-  private void initializeClient()
-  {
+
+  private void initializeClient() {
     Settings settings =
         Settings.builder().put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
             .put("client.transport.sniff", true).build();

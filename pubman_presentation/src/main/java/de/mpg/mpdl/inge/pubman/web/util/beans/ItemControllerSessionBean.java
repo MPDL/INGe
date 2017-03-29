@@ -713,6 +713,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public byte[] retrieveExportData(final ExportFormatVO exportFormatVO,
       final List<PubItemVO> itemsToExportList) throws TechnicalException {
     List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+
     for (PubItemVO pubItem : itemsToExportList) {
       pubItemList.add(new PubItemVO(pubItem));
     }

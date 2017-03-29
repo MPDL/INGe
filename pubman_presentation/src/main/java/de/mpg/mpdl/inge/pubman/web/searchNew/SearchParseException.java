@@ -4,10 +4,7 @@ package de.mpg.mpdl.inge.pubman.web.searchNew;
 public class SearchParseException extends Exception {
 
 
-  public SearchParseException() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+  public SearchParseException() {}
 
   public SearchParseException(String message, Throwable cause, boolean enableSuppression,
       boolean writableStackTrace) {

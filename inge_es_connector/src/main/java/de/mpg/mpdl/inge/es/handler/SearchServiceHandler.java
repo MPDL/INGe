@@ -24,7 +24,8 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   private static String SEARCH_INDEX_NAME = "pure_search";
 
 
-  private SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE.search(SEARCH_INDEX_NAME);
+  private SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE
+      .search(SEARCH_INDEX_NAME);
 
   @Override
   public SearchRetrieveResponseVO searchForPubItems(SearchQueryVO<QueryBuilder> searchQuery)
