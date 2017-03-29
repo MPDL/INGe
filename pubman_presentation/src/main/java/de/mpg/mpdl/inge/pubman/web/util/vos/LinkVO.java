@@ -63,7 +63,7 @@ public class LinkVO {
   public String getEncodedLabel() {
     try {
       return URLEncoder.encode(this.label, "UTF-8");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -72,9 +72,9 @@ public class LinkVO {
   public boolean equals(Object obj) {
     if (!(obj instanceof LinkVO)) {
       return false;
-    } else if (!label.equals(((LinkVO) obj).getLabel())) {
+    } else if (!this.label.equals(((LinkVO) obj).getLabel())) {
       return false;
-    } else if (!value.equals(((LinkVO) obj).getValue())) {
+    } else if (!this.value.equals(((LinkVO) obj).getValue())) {
       return false;
     } else {
       return true;

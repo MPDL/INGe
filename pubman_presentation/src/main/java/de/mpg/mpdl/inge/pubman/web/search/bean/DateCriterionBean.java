@@ -27,16 +27,16 @@ public class DateCriterionBean extends CriterionBean {
   }
 
   public DateCriterionBean(DateCriterion dateCriterionVO) {
-    setDateCriterionVO(dateCriterionVO);
+    this.setDateCriterionVO(dateCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return dateCriterionVO;
+    return this.dateCriterionVO;
   }
 
   public DateCriterion getDateCriterionVO() {
-    return dateCriterionVO;
+    return this.dateCriterionVO;
   }
 
   public void setDateCriterionVO(DateCriterion dateCriterionVO) {
@@ -45,23 +45,24 @@ public class DateCriterionBean extends CriterionBean {
       dateCriterionVO.setDateType(new ArrayList<DateType>());
     }
 
-    for (DateType date : dateCriterionVO.getDateType()) {
-      if (DateType.ACCEPTED.equals(date))
-        searchAccepted = true;
-      else if (DateType.CREATED.equals(date))
-        searchCreated = true;
-      else if (DateType.MODIFIED.equals(date))
-        searchModified = true;
-      else if (DateType.PUBLISHED_ONLINE.equals(date))
-        searchPublishedOnline = true;
-      else if (DateType.PUBLISHED_PRINT.equals(date))
-        searchPublishedPrint = true;
-      else if (DateType.SUBMITTED.equals(date))
-        searchSubmitted = true;
-      else if (DateType.EVENT_START.equals(date))
-        searchEventStart = true;
-      else if (DateType.EVENT_END.equals(date))
-        searchEventEnd = true;
+    for (final DateType date : dateCriterionVO.getDateType()) {
+      if (DateType.ACCEPTED.equals(date)) {
+        this.searchAccepted = true;
+      } else if (DateType.CREATED.equals(date)) {
+        this.searchCreated = true;
+      } else if (DateType.MODIFIED.equals(date)) {
+        this.searchModified = true;
+      } else if (DateType.PUBLISHED_ONLINE.equals(date)) {
+        this.searchPublishedOnline = true;
+      } else if (DateType.PUBLISHED_PRINT.equals(date)) {
+        this.searchPublishedPrint = true;
+      } else if (DateType.SUBMITTED.equals(date)) {
+        this.searchSubmitted = true;
+      } else if (DateType.EVENT_START.equals(date)) {
+        this.searchEventStart = true;
+      } else if (DateType.EVENT_END.equals(date)) {
+        this.searchEventEnd = true;
+      }
 
     }
   }
@@ -73,16 +74,16 @@ public class DateCriterionBean extends CriterionBean {
    * @return null
    */
   public void selectAll() {
-    dateCriterionVO.getDateType().clear();
+    this.dateCriterionVO.getDateType().clear();
 
-    setSearchAccepted(true);
-    setSearchCreated(true);
-    setSearchModified(true);
-    setSearchPublishedOnline(true);
-    setSearchPublishedPrint(true);
-    setSearchSubmitted(true);
-    setSearchEventStart(true);
-    setSearchEventEnd(true);
+    this.setSearchAccepted(true);
+    this.setSearchCreated(true);
+    this.setSearchModified(true);
+    this.setSearchPublishedOnline(true);
+    this.setSearchPublishedPrint(true);
+    this.setSearchSubmitted(true);
+    this.setSearchEventStart(true);
+    this.setSearchEventEnd(true);
   }
 
   /**
@@ -91,138 +92,138 @@ public class DateCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    setSearchAccepted(false);
-    setSearchCreated(false);
-    setSearchModified(false);
-    setSearchPublishedOnline(false);
-    setSearchPublishedPrint(false);
-    setSearchSubmitted(false);
-    setSearchEventStart(false);
-    setSearchEventEnd(false);
+    this.setSearchAccepted(false);
+    this.setSearchCreated(false);
+    this.setSearchModified(false);
+    this.setSearchPublishedOnline(false);
+    this.setSearchPublishedPrint(false);
+    this.setSearchSubmitted(false);
+    this.setSearchEventStart(false);
+    this.setSearchEventEnd(false);
 
-    dateCriterionVO.getDateType().clear();
-    dateCriterionVO.setSearchString("");
-    dateCriterionVO.setFrom("");
-    dateCriterionVO.setTo("");
+    this.dateCriterionVO.getDateType().clear();
+    this.dateCriterionVO.setSearchString("");
+    this.dateCriterionVO.setFrom("");
+    this.dateCriterionVO.setTo("");
   }
 
   public boolean isSearchAccepted() {
-    return searchAccepted;
+    return this.searchAccepted;
   }
 
   public void setSearchAccepted(boolean searchAccepted) {
     this.searchAccepted = searchAccepted;
     if (searchAccepted == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.ACCEPTED)) {
-        dateCriterionVO.getDateType().add(DateType.ACCEPTED);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.ACCEPTED)) {
+        this.dateCriterionVO.getDateType().add(DateType.ACCEPTED);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.ACCEPTED);
+      this.dateCriterionVO.getDateType().remove(DateType.ACCEPTED);
     }
   }
 
   public boolean isSearchCreated() {
-    return searchCreated;
+    return this.searchCreated;
   }
 
   public void setSearchCreated(boolean searchCreated) {
     this.searchCreated = searchCreated;
     if (searchCreated == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.CREATED)) {
-        dateCriterionVO.getDateType().add(DateType.CREATED);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.CREATED)) {
+        this.dateCriterionVO.getDateType().add(DateType.CREATED);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.CREATED);
+      this.dateCriterionVO.getDateType().remove(DateType.CREATED);
     }
   }
 
   public boolean isSearchModified() {
-    return searchModified;
+    return this.searchModified;
   }
 
   public void setSearchModified(boolean searchModified) {
     this.searchModified = searchModified;
     if (searchModified == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.MODIFIED)) {
-        dateCriterionVO.getDateType().add(DateType.MODIFIED);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.MODIFIED)) {
+        this.dateCriterionVO.getDateType().add(DateType.MODIFIED);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.MODIFIED);
+      this.dateCriterionVO.getDateType().remove(DateType.MODIFIED);
     }
   }
 
   public boolean isSearchPublishedOnline() {
-    return searchPublishedOnline;
+    return this.searchPublishedOnline;
   }
 
   public void setSearchPublishedOnline(boolean searchPublishedOnline) {
     this.searchPublishedOnline = searchPublishedOnline;
     if (searchPublishedOnline == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.PUBLISHED_ONLINE)) {
-        dateCriterionVO.getDateType().add(DateType.PUBLISHED_ONLINE);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.PUBLISHED_ONLINE)) {
+        this.dateCriterionVO.getDateType().add(DateType.PUBLISHED_ONLINE);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.PUBLISHED_ONLINE);
+      this.dateCriterionVO.getDateType().remove(DateType.PUBLISHED_ONLINE);
     }
   }
 
   public boolean isSearchPublishedPrint() {
-    return searchPublishedPrint;
+    return this.searchPublishedPrint;
   }
 
   public void setSearchPublishedPrint(boolean searchPublishedPrint) {
     this.searchPublishedPrint = searchPublishedPrint;
     if (searchPublishedPrint == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.PUBLISHED_PRINT)) {
-        dateCriterionVO.getDateType().add(DateType.PUBLISHED_PRINT);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.PUBLISHED_PRINT)) {
+        this.dateCriterionVO.getDateType().add(DateType.PUBLISHED_PRINT);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.PUBLISHED_PRINT);
+      this.dateCriterionVO.getDateType().remove(DateType.PUBLISHED_PRINT);
     }
   }
 
   public boolean isSearchSubmitted() {
-    return searchSubmitted;
+    return this.searchSubmitted;
   }
 
   public void setSearchSubmitted(boolean searchSubmitted) {
     this.searchSubmitted = searchSubmitted;
     if (searchSubmitted == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.SUBMITTED)) {
-        dateCriterionVO.getDateType().add(DateType.SUBMITTED);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.SUBMITTED)) {
+        this.dateCriterionVO.getDateType().add(DateType.SUBMITTED);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.SUBMITTED);
+      this.dateCriterionVO.getDateType().remove(DateType.SUBMITTED);
     }
   }
 
   public boolean isSearchEventStart() {
-    return searchEventStart;
+    return this.searchEventStart;
   }
 
   public void setSearchEventStart(boolean searchEventStart) {
     this.searchEventStart = searchEventStart;
     if (searchEventStart == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.EVENT_START)) {
-        dateCriterionVO.getDateType().add(DateType.EVENT_START);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.EVENT_START)) {
+        this.dateCriterionVO.getDateType().add(DateType.EVENT_START);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.EVENT_START);
+      this.dateCriterionVO.getDateType().remove(DateType.EVENT_START);
     }
   }
 
   public boolean isSearchEventEnd() {
-    return searchEventEnd;
+    return this.searchEventEnd;
   }
 
   public void setSearchEventEnd(boolean searchEventEnd) {
     this.searchEventEnd = searchEventEnd;
     if (searchEventEnd == true) {
-      if (!dateCriterionVO.getDateType().contains(DateType.EVENT_END)) {
-        dateCriterionVO.getDateType().add(DateType.EVENT_END);
+      if (!this.dateCriterionVO.getDateType().contains(DateType.EVENT_END)) {
+        this.dateCriterionVO.getDateType().add(DateType.EVENT_END);
       }
     } else {
-      dateCriterionVO.getDateType().remove(DateType.EVENT_END);
+      this.dateCriterionVO.getDateType().remove(DateType.EVENT_END);
     }
   }
 

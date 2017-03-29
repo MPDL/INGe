@@ -58,11 +58,11 @@ public class SessionTimeoutFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
-      HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-      HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+      final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+      final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
       try {
-        String homePage =
+        final String homePage =
             PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
         // define some exceptions (pages that don't require a logged in user)
@@ -84,12 +84,12 @@ public class SessionTimeoutFilter implements Filter {
             && httpServletRequest.getParameter("logout") == null
             && !httpServletRequest.isRequestedSessionIdValid()) {
           // Deactivated because of import tool.
-          httpServletResponse.sendRedirect(PropertyReader.getLoginUrl() + LOGOUT_URL + "?target="
+          httpServletResponse.sendRedirect(PropertyReader.getLoginUrl() + SessionTimeoutFilter.LOGOUT_URL + "?target="
               + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
           // httpServletResponse.sendRedirect(homePage + "?expired=true");
           return;
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new ServletException("Error logging out", e);
       }
     }

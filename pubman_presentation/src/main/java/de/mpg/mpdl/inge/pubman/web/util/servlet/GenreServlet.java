@@ -46,22 +46,22 @@ public class GenreServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     try {
-      InputStream file =
+      final InputStream file =
           ResourceUtil.getResourceAsStream(
               PropertyReader.getProperty("escidoc.pubman.genres.configuration"),
               GenreServlet.class.getClassLoader());
 
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser parser = factory.newSAXParser();
+      final SAXParserFactory factory = SAXParserFactory.newInstance();
+      final SAXParser parser = factory.newSAXParser();
 
-      String jbossHomeDir = System.getProperty("jboss.home.dir");
-      DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
+      final String jbossHomeDir = System.getProperty("jboss.home.dir");
+      final DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
 
       parser.parse(file, handler);
 
       // Clear cache of resource bundles in order to load the newly created ones
       ResourceBundle.clearCache();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new ServletException(e);
     }
   }

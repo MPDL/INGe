@@ -51,7 +51,7 @@ public class PubItemResultVO extends PubItemVO {
    * Delivers the list of search hits.
    */
   public List<SearchHitVO> getSearchHitList() {
-    return searchHitList;
+    return this.searchHitList;
   }
 
   public PubItemResultVO(ItemVO itemVO, List<SearchHitVO> searchHits, float score) {
@@ -68,6 +68,6 @@ public class PubItemResultVO extends PubItemVO {
   }
 
   public float getScore() {
-    return score;
+    return this.score;
   }
 }

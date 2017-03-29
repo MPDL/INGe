@@ -53,14 +53,14 @@ public class PubManSessionListener implements HttpSessionListener {
 
   @Override
   public void sessionDestroyed(HttpSessionEvent event) {
-    logger.debug("Session timed out.");
-    Login login = (Login) event.getSession().getAttribute("Login");
+    PubManSessionListener.logger.debug("Session timed out.");
+    final Login login = (Login) event.getSession().getAttribute("Login");
     if (login != null) {
       try {
         login.logout();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         // Suppress stacktrace
-        logger.warn("Error logging out user: " + e.getMessage());
+        PubManSessionListener.logger.warn("Error logging out user: " + e.getMessage());
       }
     }
   }

@@ -46,7 +46,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
   private EditItemBean bean;
 
   public OrganizationVOPresentation() {
-    setName("");
+    this.setName("");
   }
 
   public OrganizationVOPresentation(OrganizationVO organizationVO) {
@@ -61,20 +61,20 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * @return Always empty
    */
   public void add() {
-    OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
-    organizationPresentation.setBean(bean);
-    bean.getCreatorOrganizations().add(getNumber(), organizationPresentation);
+    final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
+    organizationPresentation.setBean(this.bean);
+    this.bean.getCreatorOrganizations().add(this.getNumber(), organizationPresentation);
 
-    for (CreatorVOPresentation creator : bean.getCreators()) {
-      int[] ous = creator.getOus();
+    for (final CreatorVOPresentation creator : this.bean.getCreators()) {
+      final int[] ous = creator.getOus();
       String newOuNumbers = "";
       for (int i = 0; i < ous.length; i++) {
-        if (ous[i] <= getNumber() || ous[i] >= getList().size()) {
+        if (ous[i] <= this.getNumber() || ous[i] >= this.getList().size()) {
           if (!"".equals(newOuNumbers)) {
             newOuNumbers += ",";
           }
           newOuNumbers += ous[i];
-        } else if (ous[i] > getNumber()) {
+        } else if (ous[i] > this.getNumber()) {
           if (!"".equals(newOuNumbers)) {
             newOuNumbers += ",";
           }
@@ -91,16 +91,16 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * @return Always empty
    */
   public void remove() {
-    for (CreatorVOPresentation creator : bean.getCreators()) {
-      int[] ous = creator.getOus();
+    for (final CreatorVOPresentation creator : this.bean.getCreators()) {
+      final int[] ous = creator.getOus();
       String newOuNumbers = "";
       for (int i = 0; i < ous.length; i++) {
-        if (ous[i] < getNumber()) {
+        if (ous[i] < this.getNumber()) {
           if (!"".equals(newOuNumbers)) {
             newOuNumbers += ",";
           }
           newOuNumbers += ous[i];
-        } else if (ous[i] > getNumber()) {
+        } else if (ous[i] > this.getNumber()) {
           if (!"".equals(newOuNumbers)) {
             newOuNumbers += ",";
           }
@@ -109,15 +109,15 @@ public class OrganizationVOPresentation extends OrganizationVO {
       }
       creator.setOuNumbers(newOuNumbers);
     }
-    getList().remove(this);
+    this.getList().remove(this);
   }
 
   /**
    * @return the position in the list, starting with 1.
    */
   public int getNumber() {
-    for (int i = 0; i < getList().size(); i++) {
-      if (getList().get(i) == this) {
+    for (int i = 0; i < this.getList().size(); i++) {
+      if (this.getList().get(i) == this) {
         return i + 1;
       }
     }
@@ -128,7 +128,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * @return the list
    */
   public List<OrganizationVOPresentation> getList() {
-    return bean.getCreatorOrganizations();
+    return this.bean.getCreatorOrganizations();
   }
 
   /**
@@ -145,7 +145,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
   }
 
   public boolean isLast() {
-    return (this.equals(getList().get(getList().size() - 1)));
+    return (this.equals(this.getList().get(this.getList().size() - 1)));
   }
 
   public boolean isEmpty() {

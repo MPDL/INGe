@@ -25,8 +25,8 @@ public class ContextCriterionCollection {
    */
   public ContextCriterionCollection() {
     try {
-      getContextList();
-    } catch (Exception e) {
+      this.getContextList();
+    } catch (final Exception e) {
       e.printStackTrace();
     }
     this.contextCriterionBean = new ContextCriterionBean(this.contexts);
@@ -40,10 +40,10 @@ public class ContextCriterionCollection {
   }
 
   public List<SelectItem> getContextList() throws Exception {
-    getContexts();
+    this.getContexts();
     this.contextList = new ArrayList<SelectItem>();
 
-    for (ContextVO c : this.contexts) {
+    for (final ContextVO c : this.contexts) {
       if (c.getReference() != null) {
         this.contextList.add(new SelectItem(c.getReference().getObjectId(), c.getName()));
       }
@@ -55,15 +55,15 @@ public class ContextCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
+    for (final ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
       bean.clearCriterion();
     }
   }
 
   public List<Criterion> getFilledCriterion() {
-    List<Criterion> returnList = new ArrayList<Criterion>();
-    for (ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
-      Criterion vo = bean.getCriterionVO();
+    final List<Criterion> returnList = new ArrayList<Criterion>();
+    for (final ContextCriterionBean bean : this.contextCriterionManager.getObjectList()) {
+      final Criterion vo = bean.getCriterionVO();
       if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }
@@ -108,17 +108,18 @@ public class ContextCriterionCollection {
     // }
 
     public ContextCriterionManager() {
-      if (getSize() == 0) {
-        List<ContextCriterionBean> beanList = new ArrayList<ContextCriterionBean>();
-        beanList.add(createNewObject());
-        setObjectList(beanList);
+      if (this.getSize() == 0) {
+        final List<ContextCriterionBean> beanList = new ArrayList<ContextCriterionBean>();
+        beanList.add(this.createNewObject());
+        this.setObjectList(beanList);
       }
     }
 
+    @Override
     public ContextCriterionBean createNewObject() {
-      ContextCriterion newVO = new ContextCriterion();
+      final ContextCriterion newVO = new ContextCriterion();
       // create a new wrapper pojo
-      ContextCriterionBean contextCriterionBean = new ContextCriterionBean(newVO);
+      final ContextCriterionBean contextCriterionBean = new ContextCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
       // parentVO.add(newVO);
@@ -137,7 +138,7 @@ public class ContextCriterionCollection {
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 }

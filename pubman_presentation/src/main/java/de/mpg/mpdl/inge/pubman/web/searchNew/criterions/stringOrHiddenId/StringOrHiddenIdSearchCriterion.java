@@ -41,7 +41,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
 
   public String getHiddenId() {
-    return hiddenId;
+    return this.hiddenId;
   }
 
   public void setHiddenId(String hiddenId) {
@@ -49,7 +49,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   }
 
   public String getSearchString() {
-    return searchString;
+    return this.searchString;
   }
 
   public void setSearchString(String searchString) {
@@ -60,15 +60,15 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   public boolean isEmpty(QueryType queryType) {
     // return (searchString==null || searchString.trim().isEmpty()) && (hiddenId==null ||
     // hiddenId.trim().isEmpty());
-    return (searchString == null || searchString.trim().isEmpty());
+    return (this.searchString == null || this.searchString.trim().isEmpty());
   }
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
-    if (hiddenId != null && !hiddenId.trim().isEmpty()) {
-      return baseCqlBuilder(getCqlIndexForHiddenId(indexName), hiddenId);
+    if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
+      return this.baseCqlBuilder(this.getCqlIndexForHiddenId(indexName), this.hiddenId);
     } else {
-      return baseCqlBuilder(getCqlIndexForSearchString(indexName), searchString);
+      return this.baseCqlBuilder(this.getCqlIndexForSearchString(indexName), this.searchString);
     }
   }
 
@@ -77,18 +77,18 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public String toQueryString() {
 
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(searchString) + "||"
-        + escapeForQueryString(hiddenId) + "\"";
+    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.searchString) + "||"
+        + SearchCriterionBase.escapeForQueryString(this.hiddenId) + "\"";
 
 
   }
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-    if (hiddenId != null && !hiddenId.trim().isEmpty()) {
-      return baseElasticSearchQueryBuilder(getElasticSearchFieldForHiddenId(), hiddenId);
+    if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
+      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {
-      return baseElasticSearchQueryBuilder(getElasticSearchFieldForSearchString(), searchString);
+      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(), this.searchString);
     }
   }
 
@@ -101,11 +101,11 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '|', which have no backslash
-    String[] parts = content.split("(?<!\\\\)\\|\\|");
+    final String[] parts = content.split("(?<!\\\\)\\|\\|");
 
-    this.searchString = unescapeForQueryString(parts[0]);
+    this.searchString = SearchCriterionBase.unescapeForQueryString(parts[0]);
     if (parts.length > 1) {
-      this.hiddenId = unescapeForQueryString(parts[1]);
+      this.hiddenId = SearchCriterionBase.unescapeForQueryString(parts[1]);
     }
 
 

@@ -30,7 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 @SuppressWarnings("serial")
 public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
-  private String[] cqlIndexes;
+  private final String[] cqlIndexes;
   private ElasticSearchIndexField[] elIndexes;
 
 
@@ -50,7 +50,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getCqlIndexes(Index indexName) {
-    return cqlIndexes;
+    return this.cqlIndexes;
   }
 
   /*
@@ -64,7 +64,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return elIndexes;
+    return this.elIndexes;
   }
 
 

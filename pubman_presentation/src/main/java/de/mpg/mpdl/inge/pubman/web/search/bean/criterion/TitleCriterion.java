@@ -48,10 +48,11 @@ public class TitleCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.TITLE, getSearchString());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.TITLE, this.getSearchString());
     criterions.add(criterion);
     return criterions;
   }

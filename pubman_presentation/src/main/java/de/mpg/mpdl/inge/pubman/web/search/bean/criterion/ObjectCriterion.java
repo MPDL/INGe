@@ -47,9 +47,9 @@ public class ObjectCriterion extends Criterion {
    */
   @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
 
-    MetadataSearchCriterion itemCriteria =
+    final MetadataSearchCriterion itemCriteria =
         new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
     criterions.add(itemCriteria);
     return criterions;

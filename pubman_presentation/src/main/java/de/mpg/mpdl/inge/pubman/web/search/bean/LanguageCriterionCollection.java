@@ -26,9 +26,9 @@ public class LanguageCriterionCollection {
    */
   public LanguageCriterionCollection() {
     // ensure the parentVO is never null;
-    List<LanguageCriterion> ctorList = new ArrayList<LanguageCriterion>();
+    final List<LanguageCriterion> ctorList = new ArrayList<LanguageCriterion>();
     ctorList.add(new LanguageCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -37,17 +37,17 @@ public class LanguageCriterionCollection {
    * @param parentVO
    */
   public LanguageCriterionCollection(List<LanguageCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<LanguageCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<LanguageCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    languageCriterionManager = new LanguageCriterionManager(parentVO);
+    this.languageCriterionManager = new LanguageCriterionManager(parentVO);
   }
 
   /**
@@ -59,16 +59,17 @@ public class LanguageCriterionCollection {
     List<LanguageCriterion> parentVO;
 
     public LanguageCriterionManager(List<LanguageCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public LanguageCriterionBean createNewObject() {
-      LanguageCriterion newVO = new LanguageCriterion();
+      final LanguageCriterion newVO = new LanguageCriterion();
       // create a new wrapper pojo
-      LanguageCriterionBean languageCriterionBean = new LanguageCriterionBean(newVO);
+      final LanguageCriterionBean languageCriterionBean = new LanguageCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return languageCriterionBean;
     }
 
@@ -76,17 +77,17 @@ public class LanguageCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<LanguageCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice SourceCriterionBean
-      List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
-      for (LanguageCriterion languageCriterionVO : parentVO) {
+      final List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
+      for (final LanguageCriterion languageCriterionVO : this.parentVO) {
         beanList.add(new LanguageCriterionBean(languageCriterionVO));
       }
 
@@ -96,21 +97,21 @@ public class LanguageCriterionCollection {
     public void setParentVO(List<LanguageCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice SourceCriterionBean
-      List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
-      for (LanguageCriterion languageCriterionVO : parentVO) {
+      final List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
+      for (final LanguageCriterion languageCriterionVO : parentVO) {
         beanList.add(new LanguageCriterionBean(languageCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public LanguageCriterionManager getLanguageCriterionManager() {
-    return languageCriterionManager;
+    return this.languageCriterionManager;
   }
 
   public void setLanguageCriterionManager(LanguageCriterionManager languageCriterionManager) {
@@ -118,14 +119,14 @@ public class LanguageCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (LanguageCriterionBean gcb : languageCriterionManager.getObjectList()) {
+    for (final LanguageCriterionBean gcb : this.languageCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<LanguageCriterion> getFilledCriterion() {
-    List<LanguageCriterion> returnList = new ArrayList<LanguageCriterion>();
-    for (LanguageCriterion vo : parentVO) {
+    final List<LanguageCriterion> returnList = new ArrayList<LanguageCriterion>();
+    for (final LanguageCriterion vo : this.parentVO) {
       if ((vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }

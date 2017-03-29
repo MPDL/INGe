@@ -16,23 +16,23 @@ public class AffiliatedContextListSearchCriterion extends
 
 
   public AffiliatedContextListSearchCriterion() {
-    super(getItemStateMap(), getItemStatePreSelectionMap());
+    super(AffiliatedContextListSearchCriterion.getItemStateMap(), AffiliatedContextListSearchCriterion.getItemStatePreSelectionMap());
     // TODO Auto-generated constructor stub
   }
 
   private static Map<String, PubContextVOPresentation> getItemStateMap() {
 
-    ContextListSessionBean clsb =
+    final ContextListSessionBean clsb =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    Map<String, PubContextVOPresentation> contextMap =
+    final Map<String, PubContextVOPresentation> contextMap =
         new LinkedHashMap<String, PubContextVOPresentation>();
 
 
-    for (PubContextVOPresentation context : clsb.getDepositorContextList()) {
+    for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
       contextMap.put(context.getReference().getObjectId(), context);
     }
 
-    for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
+    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
       contextMap.put(context.getReference().getObjectId(), context);
     }
 
@@ -41,15 +41,15 @@ public class AffiliatedContextListSearchCriterion extends
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
 
-    ContextListSessionBean clsb =
+    final ContextListSessionBean clsb =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
+    final Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
 
-    for (PubContextVOPresentation context : clsb.getDepositorContextList()) {
+    for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
       preSelectionMap.put(context.getReference().getObjectId(), true);
     }
 
-    for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
+    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
       preSelectionMap.put(context.getReference().getObjectId(), true);
     }
 
@@ -84,7 +84,7 @@ public class AffiliatedContextListSearchCriterion extends
   @Override
   public boolean isEmpty(QueryType queryType) {
     if (queryType == QueryType.CQL) {
-      boolean anySelected = getEnumMap().containsValue(true);
+      final boolean anySelected = this.getEnumMap().containsValue(true);
       return !anySelected;
     }
 

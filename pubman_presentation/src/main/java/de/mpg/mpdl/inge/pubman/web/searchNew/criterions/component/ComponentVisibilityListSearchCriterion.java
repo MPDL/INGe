@@ -38,14 +38,14 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 
   public ComponentVisibilityListSearchCriterion() {
 
-    super(getVisibilityMap());
+    super(ComponentVisibilityListSearchCriterion.getVisibilityMap());
 
   }
 
 
   private static Map<String, String> getVisibilityMap() {
-    Map<String, String> visibilityMap = new HashMap<String, String>();
-    for (Visibility v : Visibility.values()) {
+    final Map<String, String> visibilityMap = new HashMap<String, String>();
+    for (final Visibility v : Visibility.values()) {
       visibilityMap.put(v.name(), v.name().toLowerCase());
     }
     return visibilityMap;

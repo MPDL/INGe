@@ -21,9 +21,9 @@ public class LocalTagCriterionCollection {
    */
   public LocalTagCriterionCollection() {
     // ensure the parentVO is never null;
-    List<LocalTagCriterion> ctorList = new ArrayList<LocalTagCriterion>();
+    final List<LocalTagCriterion> ctorList = new ArrayList<LocalTagCriterion>();
     ctorList.add(new LocalTagCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -32,17 +32,17 @@ public class LocalTagCriterionCollection {
    * @param parentVO
    */
   public LocalTagCriterionCollection(List<LocalTagCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<LocalTagCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<LocalTagCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    localTagCriterionManager = new LocalTagCriterionManager(parentVO);
+    this.localTagCriterionManager = new LocalTagCriterionManager(parentVO);
   }
 
   /**
@@ -54,16 +54,17 @@ public class LocalTagCriterionCollection {
     List<LocalTagCriterion> parentVO;
 
     public LocalTagCriterionManager(List<LocalTagCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public LocalTagCriterionBean createNewObject() {
-      LocalTagCriterion newVO = new LocalTagCriterion();
+      final LocalTagCriterion newVO = new LocalTagCriterion();
       // create a new wrapper pojo
-      LocalTagCriterionBean localTagCriterionBean = new LocalTagCriterionBean(newVO);
+      final LocalTagCriterionBean localTagCriterionBean = new LocalTagCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return localTagCriterionBean;
     }
 
@@ -71,17 +72,17 @@ public class LocalTagCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<LocalTagCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice LocalTagCriterionBean
-      List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
-      for (LocalTagCriterion localTagCriterionVO : parentVO) {
+      final List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
+      for (final LocalTagCriterion localTagCriterionVO : this.parentVO) {
         beanList.add(new LocalTagCriterionBean(localTagCriterionVO));
       }
 
@@ -91,21 +92,21 @@ public class LocalTagCriterionCollection {
     public void setParentVO(List<LocalTagCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice LocalTagCriterionBean
-      List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
-      for (LocalTagCriterion localTagCriterionVO : parentVO) {
+      final List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
+      for (final LocalTagCriterion localTagCriterionVO : parentVO) {
         beanList.add(new LocalTagCriterionBean(localTagCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public LocalTagCriterionManager getLocalTagCriterionManager() {
-    return localTagCriterionManager;
+    return this.localTagCriterionManager;
   }
 
   public void setLocalTagCriterionManager(LocalTagCriterionManager localTagCriterionManager) {
@@ -113,14 +114,14 @@ public class LocalTagCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (LocalTagCriterionBean gcb : localTagCriterionManager.getObjectList()) {
+    for (final LocalTagCriterionBean gcb : this.localTagCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<LocalTagCriterion> getFilledCriterion() {
-    List<LocalTagCriterion> returnList = new ArrayList<LocalTagCriterion>();
-    for (LocalTagCriterion vo : parentVO) {
+    final List<LocalTagCriterion> returnList = new ArrayList<LocalTagCriterion>();
+    for (final LocalTagCriterion vo : this.parentVO) {
       if ((vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }

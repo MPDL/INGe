@@ -22,7 +22,7 @@ public class HTMLTitleSubSupConverter implements Converter {
 
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
-    String snippet = (String) object;
+    final String snippet = (String) object;
     return HtmlUtils.removeSubSupIfBalanced(snippet);
   }
 }

@@ -54,7 +54,7 @@ public class PubContextVOPresentation extends ContextVO implements
       this.getItemControllerSessionBean().getCurrentPubItem().setContext(this.getReference());
       return EditItem.LOAD_EDITITEM;
     } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
-      MultipleImport multipleImport = (MultipleImport) FacesTools.findBean("MultipleImport");
+      final MultipleImport multipleImport = (MultipleImport) FacesTools.findBean("MultipleImport");
       multipleImport.setContext(this);
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
@@ -73,7 +73,7 @@ public class PubContextVOPresentation extends ContextVO implements
     }
 
     this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION,
-        getReference());
+        this.getReference());
     this.getEasySubmissionSessionBean()
         .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
@@ -86,7 +86,7 @@ public class PubContextVOPresentation extends ContextVO implements
 
   @Override
   public int compareTo(PubContextVOPresentation compareObject) {
-    Collator collator = Collator.getInstance(Locale.getDefault());
+    final Collator collator = Collator.getInstance(Locale.getDefault());
     collator.setStrength(Collator.SECONDARY);
     return collator.compare(this.getName(), compareObject.getName());
   }

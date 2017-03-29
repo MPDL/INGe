@@ -12,14 +12,14 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
 
   public PublicationStatusListSearchCriterion() {
-    super(getPublicationStatusMap());
+    super(PublicationStatusListSearchCriterion.getPublicationStatusMap());
     // TODO Auto-generated constructor stub
   }
 
   private static Map<String, String> getPublicationStatusMap() {
 
 
-    Map<String, String> publicationStatusMap = new LinkedHashMap<String, String>();
+    final Map<String, String> publicationStatusMap = new LinkedHashMap<String, String>();
 
     publicationStatusMap.put("not-specified", "not-specified");
     publicationStatusMap.put("submitted", "submitted");

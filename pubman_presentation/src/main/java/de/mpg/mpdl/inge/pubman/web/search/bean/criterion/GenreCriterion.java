@@ -53,7 +53,7 @@ public class GenreCriterion extends Criterion {
   public GenreCriterion() {}
 
   public List<MdsPublicationVO.Genre> getGenre() {
-    return genreList;
+    return this.genreList;
   }
 
   public void setGenre(List<MdsPublicationVO.Genre> genre) {
@@ -65,7 +65,7 @@ public class GenreCriterion extends Criterion {
   }
 
   public String getSearchIdentifier(int position) {
-    if (genreList.size() <= position) {
+    if (this.genreList.size() <= position) {
       return "";
     }
 
@@ -73,10 +73,10 @@ public class GenreCriterion extends Criterion {
   }
 
   private String getGenresAsStringList() {
-    StringBuffer buffer = new StringBuffer();
-    for (int i = 0; i < genreList.size(); i++) {
-      buffer.append(getSearchIdentifierByGenre(genreList.get(i)));
-      if (i != genreList.size() - 1) {
+    final StringBuffer buffer = new StringBuffer();
+    for (int i = 0; i < this.genreList.size(); i++) {
+      buffer.append(this.getSearchIdentifierByGenre(this.genreList.get(i)));
+      if (i != this.genreList.size() - 1) {
         buffer.append(" OR ");
       }
     }
@@ -87,10 +87,11 @@ public class GenreCriterion extends Criterion {
    * {@inheritDoc}
    */
 
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.GENRE, getGenresAsStringList());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.GENRE, this.getGenresAsStringList());
     criterions.add(criterion);
     return criterions;
   }

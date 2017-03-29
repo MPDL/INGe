@@ -22,9 +22,9 @@ public class GenreCriterionCollection {
    */
   public GenreCriterionCollection() {
     // ensure the parentVO is never null;
-    List<GenreCriterion> ctorList = new ArrayList<GenreCriterion>();
+    final List<GenreCriterion> ctorList = new ArrayList<GenreCriterion>();
     ctorList.add(new GenreCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -33,17 +33,17 @@ public class GenreCriterionCollection {
    * @param parentVO
    */
   public GenreCriterionCollection(List<GenreCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<GenreCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<GenreCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    genreCriterionManager = new GenreCriterionManager(parentVO);
+    this.genreCriterionManager = new GenreCriterionManager(parentVO);
   }
 
   /**
@@ -55,17 +55,18 @@ public class GenreCriterionCollection {
     List<GenreCriterion> parentVO;
 
     public GenreCriterionManager(List<GenreCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public GenreCriterionBean createNewObject() {
-      GenreCriterion newVO = new GenreCriterion();
+      final GenreCriterion newVO = new GenreCriterion();
       newVO.setGenre(new ArrayList<MdsPublicationVO.Genre>());
       // create a new wrapper pojo
-      GenreCriterionBean genreCriterionBean = new GenreCriterionBean(newVO);
+      final GenreCriterionBean genreCriterionBean = new GenreCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return genreCriterionBean;
     }
 
@@ -73,17 +74,17 @@ public class GenreCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<GenreCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice GenreCriterionBean
-      List<GenreCriterionBean> beanList = new ArrayList<GenreCriterionBean>();
-      for (GenreCriterion genreCriterionVO : parentVO) {
+      final List<GenreCriterionBean> beanList = new ArrayList<GenreCriterionBean>();
+      for (final GenreCriterion genreCriterionVO : this.parentVO) {
         beanList.add(new GenreCriterionBean(genreCriterionVO));
       }
       return beanList;
@@ -92,21 +93,21 @@ public class GenreCriterionCollection {
     public void setParentVO(List<GenreCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice GenreCriterionBean
-      List<GenreCriterionBean> beanList = new ArrayList<GenreCriterionBean>();
-      for (GenreCriterion genreCriterionVO : parentVO) {
+      final List<GenreCriterionBean> beanList = new ArrayList<GenreCriterionBean>();
+      for (final GenreCriterion genreCriterionVO : parentVO) {
         beanList.add(new GenreCriterionBean(genreCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public GenreCriterionManager getGenreCriterionManager() {
-    return genreCriterionManager;
+    return this.genreCriterionManager;
   }
 
   public void setGenreCriterionManager(GenreCriterionManager genreCriterionManager) {
@@ -114,14 +115,14 @@ public class GenreCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (GenreCriterionBean gcb : genreCriterionManager.getObjectList()) {
+    for (final GenreCriterionBean gcb : this.genreCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<GenreCriterion> getFilledCriterion() {
-    List<GenreCriterion> returnList = new ArrayList<GenreCriterion>();
-    for (GenreCriterion vo : parentVO) {
+    final List<GenreCriterion> returnList = new ArrayList<GenreCriterion>();
+    for (final GenreCriterion vo : this.parentVO) {
       if (vo.getGenre().size() > 0
           || (vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);

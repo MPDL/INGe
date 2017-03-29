@@ -75,7 +75,7 @@ public class ZfNProcessor extends FormatProcessor {
   private byte[] originalData = null;
   FTPClient f = new FTPClient();
   boolean ftpOpen = false;
-  private ArrayList<String> fileNames = new ArrayList<String>();
+  private final ArrayList<String> fileNames = new ArrayList<String>();
   private Map<String, String> config;
   private String currentFile = "";
   private int fileSize = 0;
@@ -85,24 +85,24 @@ public class ZfNProcessor extends FormatProcessor {
     this.init = true;
 
     try {
-      InputStream in = new FileInputStream(getSourceFile());
-      ArrayList<String> itemList = new ArrayList<String>();
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      final InputStream in = new FileInputStream(this.getSourceFile());
+      final ArrayList<String> itemList = new ArrayList<String>();
+      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
       String item = null;
       final int bufLength = 1024;
-      char[] buffer = new char[bufLength];
+      final char[] buffer = new char[bufLength];
       int readReturn;
       int count = 0;
 
 
       ZipEntry zipentry;
-      ZipInputStream zipinputstream = new ZipInputStream(in);
+      final ZipInputStream zipinputstream = new ZipInputStream(in);
 
       while ((zipentry = zipinputstream.getNextEntry()) != null) {
         count++;
-        StringWriter sw = new StringWriter();
-        Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, "UTF-8"));
+        final StringWriter sw = new StringWriter();
+        final Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, "UTF-8"));
 
         while ((readReturn = reader.read(buffer)) != -1) {
           sw.write(buffer, 0, readReturn);
@@ -117,15 +117,15 @@ public class ZfNProcessor extends FormatProcessor {
 
       }
 
-      logger.debug("Zip file contains " + count + "elements");
+      ZfNProcessor.logger.debug("Zip file contains " + count + "elements");
       zipinputstream.close();
       this.counter = 0;
 
       this.originalData = byteArrayOutputStream.toByteArray();
       this.items = itemList.toArray(new String[] {});
       this.length = this.items.length;
-    } catch (Exception e) {
-      logger.error("Could not read zip File: " + e.getMessage());
+    } catch (final Exception e) {
+      ZfNProcessor.logger.error("Could not read zip File: " + e.getMessage());
       throw new RuntimeException("Error reading input stream", e);
     }
   }
@@ -140,11 +140,11 @@ public class ZfNProcessor extends FormatProcessor {
    */
   public FileVO getFileforImport(Map<String, String> config, AccountUserVO user) throws Exception {
     this.setConfig(config);
-    this.setCurrentFile(processZfnFileName(this.fileNames.get(0)));
+    this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
 
     if (this.getConfig() != null) {
-      InputStream in = this.fetchFile();
-      return createPubFile(in, user);
+      final InputStream in = this.fetchFile();
+      return this.createPubFile(in, user);
     }
 
     return null;
@@ -160,15 +160,15 @@ public class ZfNProcessor extends FormatProcessor {
    * @throws Exception
    */
   private FileVO createPubFile(InputStream in, AccountUserVO user) throws Exception {
-    logger.debug("Creating PubFile: " + this.getCurrentFile());
+    ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
 
-    MdsFileVO mdSet = new MdsFileVO();
-    FileVO fileVO = new FileVO();
+    final MdsFileVO mdSet = new MdsFileVO();
+    final FileVO fileVO = new FileVO();
 
-    FileNameMap fileNameMap = URLConnection.getFileNameMap();
-    String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
+    final FileNameMap fileNameMap = URLConnection.getFileNameMap();
+    final String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
 
-    URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
+    final URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
 
     if (fileURL != null && !fileURL.toString().trim().equals("")) {
       fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
@@ -184,7 +184,7 @@ public class ZfNProcessor extends FormatProcessor {
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
       } else {
-        Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+        final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
@@ -195,7 +195,7 @@ public class ZfNProcessor extends FormatProcessor {
       fileVO.setContentCategory(contentCategory);
       fileVO.getDefaultMetadata().setLicense(this.getConfig().get("License"));
 
-      FormatVO formatVO = new FormatVO();
+      final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
       fileVO.getDefaultMetadata().getFormats().add(formatVO);
@@ -216,32 +216,32 @@ public class ZfNProcessor extends FormatProcessor {
    */
   private URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception {
     // Prepare the HttpMethod.
-    String fwUrl = PropertyReader.getFrameworkUrl();
-    PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+    final String fwUrl = PropertyReader.getFrameworkUrl();
+    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
     method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
     // Execute the method with HttpClient.
-    HttpClient client = new HttpClient();
+    final HttpClient client = new HttpClient();
     client.executeMethod(method);
-    String response = method.getResponseBodyAsString();
+    final String response = method.getResponseBodyAsString();
     return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   private void openFtpServer() throws Exception {
-    String username = this.getConfig().get("ftpUser");
-    String password = this.getConfig().get("ftpPwd");
-    String server = this.getConfig().get("ftpServer");
-    String dir = this.getConfig().get("ftpDirectory");
+    final String username = this.getConfig().get("ftpUser");
+    final String password = this.getConfig().get("ftpPwd");
+    final String server = this.getConfig().get("ftpServer");
+    final String dir = this.getConfig().get("ftpDirectory");
 
     this.f.connect(server);
     this.f.login(username, password);
     this.f.enterLocalActiveMode();
     this.f.changeWorkingDirectory(dir);
     this.f.setFileType(FTP.BINARY_FILE_TYPE);
-    logger.debug("Connection to ftp server established.");
-    logger.debug("Mode: Active ftp");
-    logger.debug("Dir: " + dir);
+    ZfNProcessor.logger.debug("Connection to ftp server established.");
+    ZfNProcessor.logger.debug("Mode: Active ftp");
+    ZfNProcessor.logger.debug("Dir: " + dir);
 
     this.ftpOpen = true;
   }
@@ -250,7 +250,7 @@ public class ZfNProcessor extends FormatProcessor {
     this.f.logout();
     this.f.disconnect();
     this.ftpOpen = false;
-    logger.debug("Connection to ftp server closed.");
+    ZfNProcessor.logger.debug("Connection to ftp server closed.");
   }
 
   /**
@@ -258,13 +258,13 @@ public class ZfNProcessor extends FormatProcessor {
    */
   private InputStream fetchFile() throws Exception {
     InputStream input = null;
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     if (!this.ftpOpen) {
       try {
         this.openFtpServer();
-      } catch (Exception e) {
-        logger.error("Could not open ftp server " + e.getCause());
+      } catch (final Exception e) {
+        ZfNProcessor.logger.error("Could not open ftp server " + e.getCause());
         throw new Exception();
       }
     }
@@ -285,8 +285,8 @@ public class ZfNProcessor extends FormatProcessor {
    * @return
    */
   private String processZfnFileName(String name) throws Exception {
-    String[] nameArr = name.split("\\.");
-    String nameNew = nameArr[0] + ".pdf";
+    final String[] nameArr = name.split("\\.");
+    final String nameNew = nameArr[0] + ".pdf";
 
     return nameNew;
   }
@@ -296,16 +296,17 @@ public class ZfNProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#hasNext()
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
-    boolean next = this.items != null && this.counter < this.items.length;
-    if (!init && !next) {
+    final boolean next = this.items != null && this.counter < this.items.length;
+    if (!this.init && !next) {
       try {
         this.closeFtpServer();
-      } catch (Exception e) {
-        logger.error("Could not close ftp server connection");
+      } catch (final Exception e) {
+        ZfNProcessor.logger.error("Could not close ftp server connection");
       }
     }
 
@@ -317,13 +318,14 @@ public class ZfNProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#next()
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.items != null && this.counter < this.items.length) {
       this.counter++;
-      return items[counter - 1];
+      return this.items[this.counter - 1];
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -335,13 +337,14 @@ public class ZfNProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#remove()
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   @Override

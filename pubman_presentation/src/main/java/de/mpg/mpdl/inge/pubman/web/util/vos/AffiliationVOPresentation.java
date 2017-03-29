@@ -70,26 +70,26 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public AffiliationVOPresentation(AffiliationVO affiliation) {
     super(affiliation);
-    this.namePath = getDetails().getName();
-    this.idPath = getReference().getObjectId();
-    this.predecessors = getAffiliationVOfromRO(getPredecessorAffiliations());
+    this.namePath = this.getDetails().getName();
+    this.idPath = this.getReference().getObjectId();
+    this.predecessors = this.getAffiliationVOfromRO(this.getPredecessorAffiliations());
     this.hasChildren = affiliation.getHasChildren();
   }
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
-    if (children == null && isHasChildren()) {
-      children =
+    if (this.children == null && this.isHasChildren()) {
+      this.children =
           ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
               .searchChildAffiliations(this);
     }
 
-    return children;
+    return this.children;
   }
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
-    if (getMetadataSets().size() > 0
-        && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      return (MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0);
+    if (this.getMetadataSets().size() > 0
+        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      return (MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0);
     } else {
       return new MdsOrganizationalUnitDetailsVO();
     }
@@ -97,11 +97,11 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public boolean getMps() {
     try {
-      String rootAffiliationMPG = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+      final String rootAffiliationMPG = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
 
-      return getReference().getObjectId().equals(rootAffiliationMPG);
-    } catch (Exception e) {
-      logger.error("Error reading Properties", e);
+      return this.getReference().getObjectId().equals(rootAffiliationMPG);
+    } catch (final Exception e) {
+      AffiliationVOPresentation.logger.error("Error reading Properties", e);
       return false;
     }
   }
@@ -180,22 +180,22 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public String getSortOrder() {
     if ("closed".equals(this.getPublicStatus())) {
-      return "3" + getName().toLowerCase();
-    } else if (getMps() && "opened".equals(this.getPublicStatus())) {
-      return "0" + getName().toLowerCase();
+      return "3" + this.getName().toLowerCase();
+    } else if (this.getMps() && "opened".equals(this.getPublicStatus())) {
+      return "0" + this.getName().toLowerCase();
     } else if ("opened".equals(this.getPublicStatus())) {
-      return "1" + getName().toLowerCase();
+      return "1" + this.getName().toLowerCase();
     } else if ("created".equals(this.getPublicStatus())) {
-      return "2" + getName().toLowerCase();
+      return "2" + this.getName().toLowerCase();
     } else {
-      return "9" + getName().toLowerCase();
+      return "9" + this.getName().toLowerCase();
     }
   }
 
   public String getName() {
-    if (getMetadataSets().size() > 0
-        && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
+    if (this.getMetadataSets().size() > 0
+        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
     }
 
     return null;
@@ -210,14 +210,14 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       level++;
     }
 
-    if (getMetadataSets().size() > 0
-        && getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      if (((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().length() > (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH))) {
-        return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName().substring(0,
-            (SHORTENED_NAME_STANDARD_LENGTH - (level * SHORTENED_LEVEL_LENGTH)))
+    if (this.getMetadataSets().size() > 0
+        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      if (((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().substring(0,
+            (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
             + "...";
       } else {
-        return ((MdsOrganizationalUnitDetailsVO) getMetadataSets().get(0)).getName();
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
       }
     }
 
@@ -225,10 +225,10 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public List<String> getUris() {
-    List<IdentifierVO> identifiers = getDefaultMetadata().getIdentifiers();
-    List<String> uriList = new ArrayList<String>();
+    final List<IdentifierVO> identifiers = this.getDefaultMetadata().getIdentifiers();
+    final List<String> uriList = new ArrayList<String>();
 
-    for (IdentifierVO identifier : identifiers) {
+    for (final IdentifierVO identifier : identifiers) {
       if (identifier.getType() != null && identifier.getType().equals(IdentifierVO.IdType.URI)) {
         uriList.add(identifier.getId());
       }
@@ -238,12 +238,12 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public boolean getIsClosed() {
-    return getPublicStatus().equals("closed");
+    return this.getPublicStatus().equals("closed");
   }
 
   @Override
   public int compareTo(AffiliationVOPresentation other) {
-    return getSortOrder().compareTo(other.getSortOrder());
+    return this.getSortOrder().compareTo(other.getSortOrder());
   }
 
   private List<AffiliationVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) { /*
@@ -326,7 +326,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
                                                                                           * transformedAffs
                                                                                           * ; }
                                                                                           */
-    return retrieveAllOrganizationalUnits(affiliations);
+    return this.retrieveAllOrganizationalUnits(affiliations);
   }
 
   /**
@@ -339,32 +339,33 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
     List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
 
-    if (affiliations.size() == 0)
+    if (affiliations.size() == 0) {
       return transformedAffs;
+    }
     try {
-      OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+      final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
       if (affiliations.size() == 1) {
 
-        String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
-        AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
+        final String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
+        final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
         transformedAffs.add(affVO);
         return transformedAffs;
       } else {
-        FilterTaskParamVO filter = new FilterTaskParamVO();
+        final FilterTaskParamVO filter = new FilterTaskParamVO();
 
-        AffiliationRefFilter affiliationFilter = filter.new AffiliationRefFilter();
+        final AffiliationRefFilter affiliationFilter = filter.new AffiliationRefFilter();
         filter.getFilterList().add(affiliationFilter);
 
-        for (AffiliationRO affiliation : affiliations) {
+        for (final AffiliationRO affiliation : affiliations) {
           affiliationFilter.getIdList().add(affiliation);
         }
 
-        String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
+        final String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
         transformedAffs = XmlTransformingService.transformToAffiliationList(ouXml);
 
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
     }
 
     return transformedAffs;
@@ -388,7 +389,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return the successors
    */
   public List<AffiliationVO> getSuccessors() {
-    fetchSuccessors();
+    this.fetchSuccessors();
     return this.successors;
   }
 
@@ -412,20 +413,20 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
-        String userHandle = AdminHelper.getAdminUserHandle();
-        OrganizationalUnitHandler ouHandler =
+        final String userHandle = AdminHelper.getAdminUserHandle();
+        final OrganizationalUnitHandler ouHandler =
             ServiceLocator.getOrganizationalUnitHandler(userHandle);
-        String ouXml = ouHandler.retrieveSuccessors(reference.getObjectId());
-        Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
+        final String ouXml = ouHandler.retrieveSuccessors(this.reference.getObjectId());
+        final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
         logger.debug(ouXml);
-        List<AffiliationRO> affROs =
+        final List<AffiliationRO> affROs =
             XmlTransformingService.transformToSuccessorAffiliationList(ouXml);
         this.successors = new ArrayList<AffiliationVO>();
         if (affROs != null && affROs.size() > 0) {
-          List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);
+          final List<AffiliationVO> affVOs = this.getAffiliationVOfromRO(affROs);
           this.successors = affVOs;
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         this.successors = new ArrayList<AffiliationVO>();
       }
     }
@@ -437,7 +438,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
    * @return true if predecessors are available
    */
   public boolean getHasSuccessors() {
-    fetchSuccessors();
+    this.fetchSuccessors();
 
     return (this.successors.size() != 0);
   }

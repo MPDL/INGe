@@ -22,9 +22,9 @@ public class PersonCriterionCollection {
    */
   public PersonCriterionCollection() {
     // ensure the parentVO is never null;
-    List<PersonCriterion> ctorList = new ArrayList<PersonCriterion>();
+    final List<PersonCriterion> ctorList = new ArrayList<PersonCriterion>();
     ctorList.add(new PersonCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -33,17 +33,17 @@ public class PersonCriterionCollection {
    * @param parentVO
    */
   public PersonCriterionCollection(List<PersonCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<PersonCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<PersonCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    personCriterionManager = new PersonCriterionManager(parentVO);
+    this.personCriterionManager = new PersonCriterionManager(parentVO);
   }
 
   /**
@@ -55,17 +55,18 @@ public class PersonCriterionCollection {
     List<PersonCriterion> parentVO;
 
     public PersonCriterionManager(List<PersonCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public PersonCriterionBean createNewObject() {
-      PersonCriterion newVO = new PersonCriterion();
+      final PersonCriterion newVO = new PersonCriterion();
       newVO.setCreatorRole(new ArrayList<CreatorRole>());
       // create a new wrapper pojo
-      PersonCriterionBean personCriterionBean = new PersonCriterionBean(newVO);
+      final PersonCriterionBean personCriterionBean = new PersonCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return personCriterionBean;
     }
 
@@ -73,17 +74,17 @@ public class PersonCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<PersonCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice PersonCriterionBean
-      List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
-      for (PersonCriterion personCriterionVO : parentVO) {
+      final List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
+      for (final PersonCriterion personCriterionVO : this.parentVO) {
         beanList.add(new PersonCriterionBean(personCriterionVO));
       }
 
@@ -93,21 +94,21 @@ public class PersonCriterionCollection {
     public void setParentVO(List<PersonCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice PersonCriterionBean
-      List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
-      for (PersonCriterion personCriterionVO : parentVO) {
+      final List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
+      for (final PersonCriterion personCriterionVO : parentVO) {
         beanList.add(new PersonCriterionBean(personCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public PersonCriterionManager getPersonCriterionManager() {
-    return personCriterionManager;
+    return this.personCriterionManager;
   }
 
   public void setPersonCriterionManager(PersonCriterionManager personCriterionManager) {
@@ -115,14 +116,14 @@ public class PersonCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (PersonCriterionBean pcb : personCriterionManager.getObjectList()) {
+    for (final PersonCriterionBean pcb : this.personCriterionManager.getObjectList()) {
       pcb.clearCriterion();
     }
   }
 
   public List<PersonCriterion> getFilledCriterion() {
-    List<PersonCriterion> returnList = new ArrayList<PersonCriterion>();
-    for (PersonCriterion vo : parentVO) {
+    final List<PersonCriterion> returnList = new ArrayList<PersonCriterion>();
+    for (final PersonCriterion vo : this.parentVO) {
       if (vo.getCreatorRole().size() > 0
           || (vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);

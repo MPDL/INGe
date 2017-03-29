@@ -46,7 +46,7 @@ public abstract class FormatProcessor implements Iterator<String> {
    * @return the source
    */
   public File getSourceFile() {
-    return sourceFile;
+    return this.sourceFile;
   }
 
   /**
@@ -60,7 +60,7 @@ public abstract class FormatProcessor implements Iterator<String> {
    * @return the encoding
    */
   public String getEncoding() {
-    return encoding;
+    return this.encoding;
   }
 
   /**

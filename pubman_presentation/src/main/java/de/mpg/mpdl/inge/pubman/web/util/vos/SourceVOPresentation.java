@@ -53,11 +53,12 @@ public class SourceVOPresentation extends SourceVO {
    * @return Map filled with all source genres which will be excluded
    */
   public static Map<String, String> getExcludedSourceGenreMap() {
-    if (properties == null || properties.isEmpty()) {
-      properties = loadExcludedSourceGenreProperties();
+    if (SourceVOPresentation.properties == null || SourceVOPresentation.properties.isEmpty()) {
+      SourceVOPresentation.properties = SourceVOPresentation.loadExcludedSourceGenreProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
+    final
+    Map<String, String> propertiesMap = new HashMap<String, String>((Map) SourceVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -68,7 +69,7 @@ public class SourceVOPresentation extends SourceVO {
    * @return Properties filled with all source genres which will be excluded
    */
   private static Properties loadExcludedSourceGenreProperties() {
-    properties = new Properties();
+    SourceVOPresentation.properties = new Properties();
     URL contentCategoryURI = null;
     try {
       contentCategoryURI =
@@ -76,9 +77,9 @@ public class SourceVOPresentation extends SourceVO {
       if (contentCategoryURI != null) {
         Logger.getLogger(SourceVOPresentation.class).info(
             "Source genre properties URI is " + contentCategoryURI.toString());
-        InputStream in = contentCategoryURI.openStream();
-        properties.load(in);
-        properties.putAll(properties);
+        final InputStream in = contentCategoryURI.openStream();
+        SourceVOPresentation.properties.load(in);
+        SourceVOPresentation.properties.putAll(SourceVOPresentation.properties);
         in.close();
         Logger.getLogger(SourceVOPresentation.class).info(
             "Source genre properties loaded from " + contentCategoryURI.toString());
@@ -86,10 +87,10 @@ public class SourceVOPresentation extends SourceVO {
         Logger.getLogger(SourceVOPresentation.class).debug(
             "Source genre properties file not found.");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       Logger.getLogger(SourceVOPresentation.class).warn(
           "WARNING: Source genre properties not found: " + e.getMessage());
     }
-    return properties;
+    return SourceVOPresentation.properties;
   }
 }

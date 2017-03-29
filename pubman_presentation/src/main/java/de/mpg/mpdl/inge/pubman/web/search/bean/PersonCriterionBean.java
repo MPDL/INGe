@@ -31,16 +31,16 @@ public class PersonCriterionBean extends CriterionBean {
   }
 
   public PersonCriterionBean(PersonCriterion personCriterionVO) {
-    setPersonCriterionVO(personCriterionVO);
+    this.setPersonCriterionVO(personCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return personCriterionVO;
+    return this.personCriterionVO;
   }
 
   public PersonCriterion getPersonCriterionVO() {
-    return personCriterionVO;
+    return this.personCriterionVO;
   }
 
   public void setPersonCriterionVO(PersonCriterion personCriterionVO) {
@@ -49,37 +49,38 @@ public class PersonCriterionBean extends CriterionBean {
       personCriterionVO.setCreatorRole(new ArrayList<CreatorRole>());
     }
 
-    for (CreatorRole role : personCriterionVO.getCreatorRole()) {
-      if (CreatorVO.CreatorRole.ADVISOR.equals(role))
-        searchAdvisor = true;
-      else if (CreatorVO.CreatorRole.ARTIST.equals(role))
-        searchArtist = true;
-      else if (CreatorVO.CreatorRole.AUTHOR.equals(role))
-        searchAuthor = true;
-      else if (CreatorVO.CreatorRole.COMMENTATOR.equals(role))
-        searchCommentator = true;
-      else if (CreatorVO.CreatorRole.CONTRIBUTOR.equals(role))
-        searchContributor = true;
-      else if (CreatorVO.CreatorRole.EDITOR.equals(role))
-        searchEditor = true;
-      else if (CreatorVO.CreatorRole.ILLUSTRATOR.equals(role))
-        searchIllustrator = true;
-      else if (CreatorVO.CreatorRole.PAINTER.equals(role))
-        searchPainter = true;
-      else if (CreatorVO.CreatorRole.PHOTOGRAPHER.equals(role))
-        searchPhotographer = true;
-      else if (CreatorVO.CreatorRole.TRANSCRIBER.equals(role))
-        searchTranscriber = true;
-      else if (CreatorVO.CreatorRole.TRANSLATOR.equals(role))
-        searchTranslator = true;
-      else if (CreatorVO.CreatorRole.REFEREE.equals(role))
-        searchReferee = true;
-      else if (CreatorVO.CreatorRole.HONOREE.equals(role))
-        searchHonoree = true;
-      else if (CreatorVO.CreatorRole.INVENTOR.equals(role))
-        searchInventor = true;
-      else if (CreatorVO.CreatorRole.APPLICANT.equals(role))
-        searchApplicant = true;
+    for (final CreatorRole role : personCriterionVO.getCreatorRole()) {
+      if (CreatorVO.CreatorRole.ADVISOR.equals(role)) {
+        this.searchAdvisor = true;
+      } else if (CreatorVO.CreatorRole.ARTIST.equals(role)) {
+        this.searchArtist = true;
+      } else if (CreatorVO.CreatorRole.AUTHOR.equals(role)) {
+        this.searchAuthor = true;
+      } else if (CreatorVO.CreatorRole.COMMENTATOR.equals(role)) {
+        this.searchCommentator = true;
+      } else if (CreatorVO.CreatorRole.CONTRIBUTOR.equals(role)) {
+        this.searchContributor = true;
+      } else if (CreatorVO.CreatorRole.EDITOR.equals(role)) {
+        this.searchEditor = true;
+      } else if (CreatorVO.CreatorRole.ILLUSTRATOR.equals(role)) {
+        this.searchIllustrator = true;
+      } else if (CreatorVO.CreatorRole.PAINTER.equals(role)) {
+        this.searchPainter = true;
+      } else if (CreatorVO.CreatorRole.PHOTOGRAPHER.equals(role)) {
+        this.searchPhotographer = true;
+      } else if (CreatorVO.CreatorRole.TRANSCRIBER.equals(role)) {
+        this.searchTranscriber = true;
+      } else if (CreatorVO.CreatorRole.TRANSLATOR.equals(role)) {
+        this.searchTranslator = true;
+      } else if (CreatorVO.CreatorRole.REFEREE.equals(role)) {
+        this.searchReferee = true;
+      } else if (CreatorVO.CreatorRole.HONOREE.equals(role)) {
+        this.searchHonoree = true;
+      } else if (CreatorVO.CreatorRole.INVENTOR.equals(role)) {
+        this.searchInventor = true;
+      } else if (CreatorVO.CreatorRole.APPLICANT.equals(role)) {
+        this.searchApplicant = true;
+      }
     }
   }
 
@@ -89,19 +90,19 @@ public class PersonCriterionBean extends CriterionBean {
    * @return null
    */
   public void selectAll() {
-    setSearchAuthor(true);
-    setSearchEditor(true);
-    setSearchAdvisor(true);
-    setSearchArtist(true);
-    setSearchCommentator(true);
-    setSearchContributor(true);
-    setSearchIllustrator(true);
-    setSearchPainter(true);
-    setSearchPhotographer(true);
-    setSearchTranscriber(true);
-    setSearchTranslator(true);
-    setSearchHonoree(true);
-    setSearchReferee(true);
+    this.setSearchAuthor(true);
+    this.setSearchEditor(true);
+    this.setSearchAdvisor(true);
+    this.setSearchArtist(true);
+    this.setSearchCommentator(true);
+    this.setSearchContributor(true);
+    this.setSearchIllustrator(true);
+    this.setSearchPainter(true);
+    this.setSearchPhotographer(true);
+    this.setSearchTranscriber(true);
+    this.setSearchTranslator(true);
+    this.setSearchHonoree(true);
+    this.setSearchReferee(true);
   }
 
   /**
@@ -110,256 +111,256 @@ public class PersonCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    setSearchAuthor(false);
-    setSearchEditor(false);
-    setSearchAdvisor(false);
-    setSearchArtist(false);
-    setSearchCommentator(false);
-    setSearchContributor(false);
-    setSearchIllustrator(false);
-    setSearchPainter(false);
-    setSearchPhotographer(false);
-    setSearchTranscriber(false);
-    setSearchTranslator(false);
-    setSearchHonoree(false);
-    setSearchReferee(false);
-    setSearchInventor(false);
-    setSearchApplicant(false);
+    this.setSearchAuthor(false);
+    this.setSearchEditor(false);
+    this.setSearchAdvisor(false);
+    this.setSearchArtist(false);
+    this.setSearchCommentator(false);
+    this.setSearchContributor(false);
+    this.setSearchIllustrator(false);
+    this.setSearchPainter(false);
+    this.setSearchPhotographer(false);
+    this.setSearchTranscriber(false);
+    this.setSearchTranslator(false);
+    this.setSearchHonoree(false);
+    this.setSearchReferee(false);
+    this.setSearchInventor(false);
+    this.setSearchApplicant(false);
 
-    personCriterionVO.getCreatorRole().clear();
-    personCriterionVO.setSearchString("");
-    personCriterionVO.setIdentifier(null);
+    this.personCriterionVO.getCreatorRole().clear();
+    this.personCriterionVO.setSearchString("");
+    this.personCriterionVO.setIdentifier(null);
   }
 
   public boolean isSearchAdvisor() {
-    return searchAdvisor;
+    return this.searchAdvisor;
   }
 
   public void setSearchAdvisor(boolean searchAdvisor) {
     this.searchAdvisor = searchAdvisor;
     if (searchAdvisor == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ADVISOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ADVISOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ADVISOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ADVISOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ADVISOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ADVISOR);
     }
   }
 
   public boolean isSearchArtist() {
-    return searchArtist;
+    return this.searchArtist;
   }
 
   public void setSearchArtist(boolean searchArtist) {
     this.searchArtist = searchArtist;
     if (searchArtist == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ARTIST)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ARTIST);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ARTIST)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ARTIST);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ARTIST);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ARTIST);
     }
   }
 
   public boolean isSearchAuthor() {
-    return searchAuthor;
+    return this.searchAuthor;
   }
 
   public void setSearchAuthor(boolean searchAuthor) {
     this.searchAuthor = searchAuthor;
     if (searchAuthor == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.AUTHOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.AUTHOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.AUTHOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.AUTHOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.AUTHOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.AUTHOR);
     }
   }
 
   public boolean isSearchCommentator() {
-    return searchCommentator;
+    return this.searchCommentator;
   }
 
   public void setSearchCommentator(boolean searchCommentator) {
     this.searchCommentator = searchCommentator;
     if (searchCommentator == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.COMMENTATOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.COMMENTATOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.COMMENTATOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.COMMENTATOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.COMMENTATOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.COMMENTATOR);
     }
   }
 
   public boolean isSearchContributor() {
-    return searchContributor;
+    return this.searchContributor;
   }
 
   public void setSearchContributor(boolean searchContributor) {
     this.searchContributor = searchContributor;
     if (searchContributor == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.CONTRIBUTOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.CONTRIBUTOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.CONTRIBUTOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.CONTRIBUTOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.CONTRIBUTOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.CONTRIBUTOR);
     }
   }
 
   public boolean isSearchEditor() {
-    return searchEditor;
+    return this.searchEditor;
   }
 
   public void setSearchEditor(boolean searchEditor) {
     this.searchEditor = searchEditor;
     if (searchEditor == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.EDITOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.EDITOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.EDITOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.EDITOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.EDITOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.EDITOR);
     }
   }
 
   public boolean isSearchIllustrator() {
-    return searchIllustrator;
+    return this.searchIllustrator;
   }
 
   public void setSearchIllustrator(boolean searchIllustrator) {
     this.searchIllustrator = searchIllustrator;
     if (searchIllustrator == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ILLUSTRATOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ILLUSTRATOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.ILLUSTRATOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.ILLUSTRATOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ILLUSTRATOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.ILLUSTRATOR);
     }
   }
 
   public boolean isSearchPainter() {
-    return searchPainter;
+    return this.searchPainter;
   }
 
   public void setSearchPainter(boolean searchPainter) {
     this.searchPainter = searchPainter;
     if (searchPainter == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.PAINTER)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.PAINTER);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.PAINTER)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.PAINTER);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.PAINTER);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.PAINTER);
     }
   }
 
   public boolean isSearchPhotographer() {
-    return searchPhotographer;
+    return this.searchPhotographer;
   }
 
   public void setSearchPhotographer(boolean searchPhotographer) {
     this.searchPhotographer = searchPhotographer;
     if (searchPhotographer == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.PHOTOGRAPHER)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.PHOTOGRAPHER);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.PHOTOGRAPHER)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.PHOTOGRAPHER);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.PHOTOGRAPHER);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.PHOTOGRAPHER);
     }
   }
 
   public boolean isSearchTranscriber() {
-    return searchTranscriber;
+    return this.searchTranscriber;
   }
 
   public void setSearchTranscriber(boolean searchTranscriber) {
     this.searchTranscriber = searchTranscriber;
     if (searchTranscriber == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.TRANSCRIBER)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.TRANSCRIBER);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.TRANSCRIBER)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.TRANSCRIBER);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.TRANSCRIBER);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.TRANSCRIBER);
     }
   }
 
   public boolean isSearchTranslator() {
-    return searchTranslator;
+    return this.searchTranslator;
   }
 
   public void setSearchTranslator(boolean searchTranslator) {
     this.searchTranslator = searchTranslator;
     if (searchTranslator == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.TRANSLATOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.TRANSLATOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.TRANSLATOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.TRANSLATOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.TRANSLATOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.TRANSLATOR);
     }
   }
 
 
   public boolean isSearchReferee() {
-    return searchReferee;
+    return this.searchReferee;
   }
 
   public void setSearchReferee(boolean searchReferee) {
     this.searchReferee = searchReferee;
     if (searchReferee == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.REFEREE)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.REFEREE);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.REFEREE)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.REFEREE);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.REFEREE);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.REFEREE);
     }
   }
 
   public boolean isSearchHonoree() {
-    return searchHonoree;
+    return this.searchHonoree;
   }
 
   public void setSearchHonoree(boolean searchHonoree) {
     this.searchHonoree = searchHonoree;
     if (searchHonoree == true) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.HONOREE)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.HONOREE);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.HONOREE)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.HONOREE);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.HONOREE);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.HONOREE);
     }
   }
 
   public void setSearchInventor(boolean searchInventor) {
     this.searchInventor = searchInventor;
     if (searchInventor) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.INVENTOR)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.INVENTOR);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.INVENTOR)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.INVENTOR);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.INVENTOR);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.INVENTOR);
     }
   }
 
   public boolean isSearchInventor() {
-    return searchInventor;
+    return this.searchInventor;
   }
 
   public void setSearchApplicant(boolean searchApplicant) {
     this.searchApplicant = searchApplicant;
     if (searchApplicant) {
-      if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.APPLICANT)) {
-        personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.APPLICANT);
+      if (!this.personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.APPLICANT)) {
+        this.personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.APPLICANT);
       }
     } else {
-      personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.APPLICANT);
+      this.personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.APPLICANT);
     }
   }
 
   public boolean isSearchApplicant() {
-    return searchApplicant;
+    return this.searchApplicant;
   }
 
   public void removeAutoSuggestValues(ActionEvent e) {
-    personCriterionVO.setIdentifier(null);
-    personCriterionVO.setSearchString(null);
+    this.personCriterionVO.setIdentifier(null);
+    this.personCriterionVO.setSearchString(null);
   }
 
 }

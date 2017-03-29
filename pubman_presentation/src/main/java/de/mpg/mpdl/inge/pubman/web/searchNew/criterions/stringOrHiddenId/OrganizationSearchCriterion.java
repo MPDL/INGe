@@ -82,20 +82,20 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
-    if (!includePredecessorsAndSuccessors) {
+    if (!this.includePredecessorsAndSuccessors) {
       return super.toCqlString(indexName);
     } else {
 
       try {
-        List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+        final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
         int i = 0;
         scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-        for (AffiliationVO aff : retrievePredecessorsAndSuccessors(getHiddenId())) {
+        for (final AffiliationVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
           if (i > 0) {
             scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
           }
 
-          OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
+          final OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
           ous.setSearchString(aff.getDefaultMetadata().getName());
           ous.setHiddenId(aff.getReference().getObjectId());
           scList.add(ous);
@@ -103,8 +103,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
         }
         scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
-        return scListToCql(indexName, scList, false);
-      } catch (Exception e) {
+        return SearchCriterionBase.scListToCql(indexName, scList, false);
+      } catch (final Exception e) {
         System.out
             .println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
         // logger.error("Error while retrieving affiliation from id", e);
@@ -117,11 +117,11 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   @Override
   public String toQueryString() {
-    if (!includePredecessorsAndSuccessors) {
+    if (!this.includePredecessorsAndSuccessors) {
       return super.toQueryString();
     } else {
-      return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "||"
-          + escapeForQueryString(getHiddenId()) + "||" + "includePresSuccs" + "\"";
+      return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "||"
+          + SearchCriterionBase.escapeForQueryString(this.getHiddenId()) + "||" + "includePresSuccs" + "\"";
     }
 
 
@@ -130,17 +130,17 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '|', which have no backslash
-    String[] parts = content.split("(?<!\\\\)\\|\\|");
+    final String[] parts = content.split("(?<!\\\\)\\|\\|");
 
-    this.setSearchString(unescapeForQueryString(parts[0]));
+    this.setSearchString(SearchCriterionBase.unescapeForQueryString(parts[0]));
     if (parts.length > 1) {
-      this.setHiddenId(unescapeForQueryString(parts[1]));
+      this.setHiddenId(SearchCriterionBase.unescapeForQueryString(parts[1]));
     }
 
     if (parts.length > 2) {
 
       if (parts[2].equals("includePresSuccs")) {
-        includePredecessorsAndSuccessors = true;
+        this.includePredecessorsAndSuccessors = true;
       }
 
 
@@ -150,7 +150,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
 
   public boolean isIncludePredecessorsAndSuccessors() {
-    return includePredecessorsAndSuccessors;
+    return this.includePredecessorsAndSuccessors;
   }
 
   public void setIncludePredecessorsAndSuccessors(boolean includePredecessorsAndSuccessors) {
@@ -160,24 +160,24 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   private List<AffiliationVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
 
-    List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
+    final List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-    AffiliationVO affiliation =
+    final AffiliationVO affiliation =
         XmlTransformingService.transformToAffiliation(ServiceLocator.getOrganizationalUnitHandler()
-            .retrieve(getHiddenId()));
+            .retrieve(this.getHiddenId()));
     allAffs.add(affiliation);
 
-    AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+    final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
-    List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
+    final List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
 
-    for (AffiliationVO affiliationVO : sucessorsVO) {
+    for (final AffiliationVO affiliationVO : sucessorsVO) {
       allAffs.add(affiliationVO);
     }
 
-    List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
+    final List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
 
-    for (AffiliationVO affiliationVO : predecessorsVO) {
+    for (final AffiliationVO affiliationVO : predecessorsVO) {
       allAffs.add(affiliationVO);
     }
     return allAffs;

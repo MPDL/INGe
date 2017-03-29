@@ -25,16 +25,16 @@ public class DegreeCriterionBean extends CriterionBean {
   }
 
   public DegreeCriterionBean(DegreeCriterion degreeCriterionVO) {
-    setDegreeCriterionVO(degreeCriterionVO);
+    this.setDegreeCriterionVO(degreeCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return degreeCriterionVO;
+    return this.degreeCriterionVO;
   }
 
   public DegreeCriterion getDegreeCriterionVO() {
-    return degreeCriterionVO;
+    return this.degreeCriterionVO;
   }
 
   public void setDegreeCriterionVO(DegreeCriterion degreeCriterionVO) {
@@ -43,21 +43,22 @@ public class DegreeCriterionBean extends CriterionBean {
       degreeCriterionVO.setDegree(new ArrayList<MdsPublicationVO.DegreeType>());
     }
 
-    for (MdsPublicationVO.DegreeType degree : degreeCriterionVO.getDegree()) {
-      if (MdsPublicationVO.DegreeType.BACHELOR.equals(degree))
-        searchBachelor = true;
-      else if (MdsPublicationVO.DegreeType.DIPLOMA.equals(degree))
-        searchDiploma = true;
-      else if (MdsPublicationVO.DegreeType.HABILITATION.equals(degree))
-        searchHab = true;
-      else if (MdsPublicationVO.DegreeType.MAGISTER.equals(degree))
-        searchMagister = true;
-      else if (MdsPublicationVO.DegreeType.MASTER.equals(degree))
-        searchMaster = true;
-      else if (MdsPublicationVO.DegreeType.PHD.equals(degree))
-        searchPHD = true;
-      else if (MdsPublicationVO.DegreeType.STAATSEXAMEN.equals(degree))
-        searchStaats = true;
+    for (final MdsPublicationVO.DegreeType degree : degreeCriterionVO.getDegree()) {
+      if (MdsPublicationVO.DegreeType.BACHELOR.equals(degree)) {
+        this.searchBachelor = true;
+      } else if (MdsPublicationVO.DegreeType.DIPLOMA.equals(degree)) {
+        this.searchDiploma = true;
+      } else if (MdsPublicationVO.DegreeType.HABILITATION.equals(degree)) {
+        this.searchHab = true;
+      } else if (MdsPublicationVO.DegreeType.MAGISTER.equals(degree)) {
+        this.searchMagister = true;
+      } else if (MdsPublicationVO.DegreeType.MASTER.equals(degree)) {
+        this.searchMaster = true;
+      } else if (MdsPublicationVO.DegreeType.PHD.equals(degree)) {
+        this.searchPHD = true;
+      } else if (MdsPublicationVO.DegreeType.STAATSEXAMEN.equals(degree)) {
+        this.searchStaats = true;
+      }
     }
   }
 
@@ -68,122 +69,122 @@ public class DegreeCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    setSearchBachelor(false);
-    setSearchDiploma(false);
-    setSearchHab(false);
-    setSearchMagister(false);
-    setSearchMaster(false);
-    setSearchPHD(false);
-    setSearchStaats(false);
+    this.setSearchBachelor(false);
+    this.setSearchDiploma(false);
+    this.setSearchHab(false);
+    this.setSearchMagister(false);
+    this.setSearchMaster(false);
+    this.setSearchPHD(false);
+    this.setSearchStaats(false);
 
-    degreeCriterionVO.getDegree().clear();
-    degreeCriterionVO.setSearchString("");
+    this.degreeCriterionVO.getDegree().clear();
+    this.degreeCriterionVO.setSearchString("");
   }
 
   public boolean isSearchDiploma() {
-    return searchDiploma;
+    return this.searchDiploma;
   }
 
   public void setSearchDiploma(boolean searchDiploma) {
     this.searchDiploma = searchDiploma;
     if (searchDiploma == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.DIPLOMA)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.DIPLOMA);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.DIPLOMA)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.DIPLOMA);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.DIPLOMA);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.DIPLOMA);
     }
   }
 
   public boolean isSearchMaster() {
-    return searchMaster;
+    return this.searchMaster;
   }
 
   public void setSearchMaster(boolean searchMaster) {
     this.searchMaster = searchMaster;
     if (searchMaster == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.MASTER)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.MASTER);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.MASTER)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.MASTER);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.MASTER);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.MASTER);
     }
   }
 
   public boolean isSearchPHD() {
-    return searchPHD;
+    return this.searchPHD;
   }
 
   public void setSearchPHD(boolean searchPHD) {
     this.searchPHD = searchPHD;
     if (searchPHD == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.PHD)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.PHD);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.PHD)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.PHD);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.PHD);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.PHD);
     }
   }
 
   public boolean isSearchHab() {
-    return searchHab;
+    return this.searchHab;
   }
 
   public void setSearchHab(boolean searchHab) {
     this.searchHab = searchHab;
     if (searchHab == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.HABILITATION)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.HABILITATION);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.HABILITATION)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.HABILITATION);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.HABILITATION);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.HABILITATION);
     }
   }
 
   public boolean isSearchBachelor() {
-    return searchBachelor;
+    return this.searchBachelor;
   }
 
   public void setSearchBachelor(boolean searchBachelor) {
     this.searchBachelor = searchBachelor;
     if (searchBachelor == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.BACHELOR)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.BACHELOR);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.BACHELOR)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.BACHELOR);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.BACHELOR);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.BACHELOR);
     }
   }
 
   public boolean isSearchStaats() {
-    return searchStaats;
+    return this.searchStaats;
   }
 
   public void setSearchStaats(boolean searchStaats) {
     this.searchStaats = searchStaats;
     if (searchStaats == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.STAATSEXAMEN)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.STAATSEXAMEN);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.STAATSEXAMEN)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.STAATSEXAMEN);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.STAATSEXAMEN);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.STAATSEXAMEN);
     }
   }
 
 
 
   public boolean isSearchMagister() {
-    return searchMagister;
+    return this.searchMagister;
   }
 
   public void setSearchMagister(boolean searchMagister) {
     this.searchMagister = searchMagister;
     if (searchMagister == true) {
-      if (!degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.MAGISTER)) {
-        degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.MAGISTER);
+      if (!this.degreeCriterionVO.getDegree().contains(MdsPublicationVO.DegreeType.MAGISTER)) {
+        this.degreeCriterionVO.getDegree().add(MdsPublicationVO.DegreeType.MAGISTER);
       }
     } else {
-      degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.MAGISTER);
+      this.degreeCriterionVO.getDegree().remove(MdsPublicationVO.DegreeType.MAGISTER);
     }
   }
 

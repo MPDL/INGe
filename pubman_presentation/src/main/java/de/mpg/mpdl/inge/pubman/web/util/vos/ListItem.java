@@ -43,7 +43,7 @@ public class ListItem {
       .findBean("InternationalizationHelper");
 
   public int getIndex() {
-    return index;
+    return this.index;
   }
 
   public void setIndex(int index) {
@@ -51,7 +51,7 @@ public class ListItem {
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   public void setValue(String value) {
@@ -59,7 +59,7 @@ public class ListItem {
   }
 
   public List<String> getStringList() {
-    return stringList;
+    return this.stringList;
   }
 
   public void setStringList(List<String> stringList) {
@@ -67,7 +67,7 @@ public class ListItem {
   }
 
   public List<ListItem> getItemList() {
-    return itemList;
+    return this.itemList;
   }
 
   public void setItemList(List<ListItem> itemList) {
@@ -75,9 +75,9 @@ public class ListItem {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale = this.i18nHelper.getLocale();
+    final String locale = this.i18nHelper.getLocale();
 
-    return CommonUtils.getConeLanguageName(value, locale);
+    return CommonUtils.getConeLanguageName(this.value, locale);
   }
 
   public void valueChanged(ValueChangeEvent event) {
@@ -86,37 +86,38 @@ public class ListItem {
       newVal = event.getNewValue().toString();
     }
 
-    stringList.set(index, newVal);
+    this.stringList.set(this.index, newVal);
   }
 
   public void addItem() {
-    stringList.add(index + 1, "");
-    ListItem item = new ListItem();
+    this.stringList.add(this.index + 1, "");
+    final ListItem item = new ListItem();
     item.setValue("");
-    item.setIndex(index + 1);
-    item.setStringList(stringList);
-    item.setItemList(itemList);
-    itemList.add(index + 1, item);
+    item.setIndex(this.index + 1);
+    item.setStringList(this.stringList);
+    item.setItemList(this.itemList);
+    this.itemList.add(this.index + 1, item);
 
-    for (int i = index + 2; i < itemList.size(); i++) {
-      itemList.get(i).setIndex(i);
+    for (int i = this.index + 2; i < this.itemList.size(); i++) {
+      this.itemList.get(i).setIndex(i);
     }
   }
 
   public void removeItem() {
-    stringList.remove(index);
-    itemList.remove(index);
+    this.stringList.remove(this.index);
+    this.itemList.remove(this.index);
 
-    for (int i = index; i < itemList.size(); i++) {
-      itemList.get(i).setIndex(i);
+    for (int i = this.index; i < this.itemList.size(); i++) {
+      this.itemList.get(i).setIndex(i);
     }
   }
 
   public boolean getMoreThanOne() {
-    return (stringList.size() > 1);
+    return (this.stringList.size() > 1);
   }
 
+  @Override
   public String toString() {
-    return value;
+    return this.value;
   }
 }

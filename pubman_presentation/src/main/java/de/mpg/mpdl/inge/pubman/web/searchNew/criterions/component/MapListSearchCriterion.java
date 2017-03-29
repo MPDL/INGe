@@ -54,34 +54,34 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
   public MapListSearchCriterion(Map<String, T> m, Map<String, Boolean> preSelectionMap) {
     this.setValueMap(m);
-    initEnumMap(preSelectionMap);
+    this.initEnumMap(preSelectionMap);
   }
 
   public MapListSearchCriterion(Map<String, T> m) {
     this.setValueMap(m);
-    initEnumMap(null);
+    this.initEnumMap(null);
   }
 
 
   public Map<String, Boolean> initEnumMap(Map<String, Boolean> preSelectionMap) {
 
-    for (String v : getValueMap().keySet()) {
+    for (final String v : this.getValueMap().keySet()) {
       if (preSelectionMap == null || !preSelectionMap.containsKey(v)) {
-        enumMap.put(v, false);
+        this.enumMap.put(v, false);
       } else {
-        enumMap.put(v, preSelectionMap.get(v));
+        this.enumMap.put(v, preSelectionMap.get(v));
       }
 
     }
-    return enumMap;
+    return this.enumMap;
 
   }
 
 
 
   public List<String> getEnumList() {
-    List<String> list = new ArrayList<String>();
-    for (String t : enumMap.keySet()) {
+    final List<String> list = new ArrayList<String>();
+    for (final String t : this.enumMap.keySet()) {
       list.add(t);
     }
     return list;
@@ -96,14 +96,14 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     // boolean enumSelected = false;
     // boolean enumDeselected = false;
 
-    if (!isEmpty(QueryType.CQL)) {
-      List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
+    if (!this.isEmpty(QueryType.CQL)) {
+      final List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
 
       returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
       // sb.append("(");
 
       int i = 0;
-      for (Entry<String, Boolean> entry : enumMap.entrySet()) {
+      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
         if (entry.getValue() && i > 0) {
           // sb.append(" OR ");
           returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
@@ -113,12 +113,12 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
           // enumSelected = true;
-          String value = getCqlValue(indexName, getValueMap().get(entry.getKey()));
+          final String value = this.getCqlValue(indexName, this.getValueMap().get(entry.getKey()));
 
 
 
           // gc.setSearchString(entry.getKey().name().toLowerCase());
-          returnList.addAll(getSearchCriterionsForValue(indexName, value));
+          returnList.addAll(this.getSearchCriterionsForValue(indexName, value));
           // sb.append(valueMap.get(entry.getKey()));
           i++;
 
@@ -131,7 +131,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
       }
 
       returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-      return scListToCql(indexName, returnList, false);
+      return SearchCriterionBase.scListToCql(indexName, returnList, false);
 
     }
 
@@ -140,27 +140,27 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
   public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
-    List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
-    SearchCriterionBase flexSc =
-        new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, searchValue), searchValue);
+    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+    final SearchCriterionBase flexSc =
+        new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
     scList.add(flexSc);
     return scList;
   }
 
   @Override
   public String toQueryString() {
-    if (!isEmpty(QueryType.INTERNAL)) {
-      return getQueryString();
+    if (!this.isEmpty(QueryType.INTERNAL)) {
+      return this.getQueryString();
     }
 
     return null;
   }
 
   protected String getQueryString() {
-    StringBuffer sb = new StringBuffer();
-    sb.append(getSearchCriterion() + "=\"");
+    final StringBuffer sb = new StringBuffer();
+    sb.append(this.getSearchCriterion() + "=\"");
     int i = 0;
-    for (Entry<String, Boolean> entry : getEnumMap().entrySet()) {
+    for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
         if (i > 0) {
           sb.append("|");
@@ -182,21 +182,21 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (Entry<String, Boolean> e : getEnumMap().entrySet()) {
+    for (final Entry<String, Boolean> e : this.getEnumMap().entrySet()) {
       e.setValue(false);
     }
 
 
     // Split by '|', which have no backslash before and no other '|' after
-    String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
-    for (String part : enumParts) {
+    final String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
+    for (final String part : enumParts) {
 
       /*
        * T v = Enum.valueOf(enumClass, part); if(v==null) { throw new
        * RuntimeException("Invalid visibility: " + part); }
        */
       if (part != null && !part.trim().isEmpty()) {
-        getEnumMap().put(part, true);
+        this.getEnumMap().put(part, true);
       }
 
     }
@@ -209,9 +209,9 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   @Override
   public boolean isEmpty(QueryType queryType) {
 
-    boolean anySelected = enumMap.containsValue(true);
+    final boolean anySelected = this.enumMap.containsValue(true);
 
-    boolean anyDeselected = enumMap.containsValue(false);
+    final boolean anyDeselected = this.enumMap.containsValue(false);
 
     return !(anySelected && anyDeselected);
   }
@@ -219,7 +219,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
   public Map<String, Boolean> getEnumMap() {
-    return enumMap;
+    return this.enumMap;
   }
 
   public void setEnumMap(Map<String, Boolean> enumMap) {
@@ -235,7 +235,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
   public Map<String, T> getValueMap() {
-    return valueMap;
+    return this.valueMap;
   }
 
 
@@ -243,17 +243,18 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     this.valueMap = valueMap;
   }
 
+  @Override
   public QueryBuilder toElasticSearchQuery() {
 
-    if (!isEmpty(QueryType.CQL)) {
+    if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      for (Entry<String, Boolean> entry : enumMap.entrySet()) {
+      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
         if (entry.getValue()) {
-          String value = getCqlValue(Index.ESCIDOC_ALL, getValueMap().get(entry.getKey()));
-          bq = bq.should(baseElasticSearchQueryBuilder(getElasticIndexes(), value));
+          final String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
+          bq = bq.should(this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), value));
         }
 
       }

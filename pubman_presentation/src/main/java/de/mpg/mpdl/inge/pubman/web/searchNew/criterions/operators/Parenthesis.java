@@ -43,7 +43,7 @@ public class Parenthesis extends SearchCriterionBase {
 
   @Override
   public String toCqlString(Index indexName) {
-    switch (getSearchCriterion()) {
+    switch (this.getSearchCriterion()) {
       case OPENING_PARENTHESIS:
         return "(";
       case CLOSING_PARENTHESIS:
@@ -55,7 +55,7 @@ public class Parenthesis extends SearchCriterionBase {
 
   @Override
   public String toQueryString() {
-    switch (getSearchCriterion()) {
+    switch (this.getSearchCriterion()) {
       case OPENING_PARENTHESIS:
         return "(";
       case CLOSING_PARENTHESIS:
@@ -78,7 +78,7 @@ public class Parenthesis extends SearchCriterionBase {
   }
 
   public Parenthesis getPartnerParenthesis() {
-    return partnerParenthesis;
+    return this.partnerParenthesis;
   }
 
   public void setPartnerParenthesis(Parenthesis partnerParenthesis) {

@@ -66,7 +66,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * A list containing the PaginatorPage objects
    */
-  private List<PaginatorPage> paginatorPageList = new ArrayList<PaginatorPage>();
+  private final List<PaginatorPage> paginatorPageList = new ArrayList<PaginatorPage>();
 
   /**
    * The list containing the current elements of the displayed list

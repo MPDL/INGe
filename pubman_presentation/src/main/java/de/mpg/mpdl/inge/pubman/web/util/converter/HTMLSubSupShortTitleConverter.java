@@ -28,15 +28,15 @@ public class HTMLSubSupShortTitleConverter implements Converter {
 
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
-    String snippet = (String) object;
-    List<String> tags = new ArrayList<String>();
+    final String snippet = (String) object;
+    final List<String> tags = new ArrayList<String>();
     tags.add("sup");
     tags.add("sub");
     tags.add("SUB");
     tags.add("SUP");
 
-    if (snippet.length() > LENGTH) {
-      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, LENGTH, tags)
+    if (snippet.length() > HTMLSubSupShortTitleConverter.LENGTH) {
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, HTMLSubSupShortTitleConverter.LENGTH, tags)
           + "...";
     } else {
       return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,

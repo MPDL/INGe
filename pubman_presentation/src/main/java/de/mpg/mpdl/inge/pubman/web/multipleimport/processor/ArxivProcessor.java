@@ -55,9 +55,10 @@ public class ArxivProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#hasNext()
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.originalData != null && this.counter < this.length);
   }
@@ -67,15 +68,16 @@ public class ArxivProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#next()
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.originalData != null && this.counter < this.length) {
       this.counter++;
       try {
         return new String(this.originalData, this.encoding);
-      } catch (UnsupportedEncodingException e) {
+      } catch (final UnsupportedEncodingException e) {
         throw new RuntimeException(e);
       }
     } else {
@@ -89,18 +91,19 @@ public class ArxivProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#remove()
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    this.init = true;
+    final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     int read;
-    byte[] buffer = new byte[2048];
+    final byte[] buffer = new byte[2048];
 
     try {
-      InputStream is = new FileInputStream(getSourceFile());
+      final InputStream is = new FileInputStream(this.getSourceFile());
       while ((read = is.read(buffer)) != -1) {
         byteArrayOutputStream.write(buffer, 0, read);
       }
@@ -109,10 +112,10 @@ public class ArxivProcessor extends FormatProcessor {
 
       this.length = 1;
 
-      counter = 0;
+      this.counter = 0;
       is.close();
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 
@@ -120,7 +123,7 @@ public class ArxivProcessor extends FormatProcessor {
 
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   @Override

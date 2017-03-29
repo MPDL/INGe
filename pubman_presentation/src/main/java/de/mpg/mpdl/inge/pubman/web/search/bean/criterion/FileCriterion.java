@@ -55,7 +55,7 @@ public class FileCriterion extends Criterion {
 
   @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
 
     String visibility = null;
     String storage = null;
@@ -151,13 +151,13 @@ public class FileCriterion extends Criterion {
               MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item",
               MetadataSearchCriterion.LogicalOperator.AND));
         }
-        MetadataSearchCriterion criterion =
+        final MetadataSearchCriterion criterion =
             new MetadataSearchCriterion(
                 MetadataSearchCriterion.CriterionType.COMPONENT_CONTENT_CATEGORY,
                 this.contentCategory, MetadataSearchCriterion.LogicalOperator.NOT);
         criterions.add(criterion);
       } else {
-        MetadataSearchCriterion criterion =
+        final MetadataSearchCriterion criterion =
             new MetadataSearchCriterion(
                 MetadataSearchCriterion.CriterionType.COMPONENT_CONTENT_CATEGORY,
                 this.contentCategory, MetadataSearchCriterion.LogicalOperator.AND);
@@ -166,8 +166,8 @@ public class FileCriterion extends Criterion {
     }
 
     // embargo date
-    if (getSearchForEmbargoFiles() == true) {
-      MetadataSearchCriterion criterion =
+    if (this.getSearchForEmbargoFiles() == true) {
+      final MetadataSearchCriterion criterion =
           new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.EMBARGO_DATE,
               MetadataSearchCriterion.LogicalOperator.AND);
       criterions.add(criterion);
@@ -175,39 +175,39 @@ public class FileCriterion extends Criterion {
 
     // add component compound properties search term and index
 
-    if (visibility != null || storage != null || contentCategory != null) {
+    if (visibility != null || storage != null || this.contentCategory != null) {
       // inclusive cases
       if (this.excludeCategory == false) {
-        if (visibility != null && storage != null && contentCategory == null) {
+        if (visibility != null && storage != null && this.contentCategory == null) {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
                   + visibility + " " + storage + "\"", LogicalOperator.AND));
-        } else if (storage != null && contentCategory != null && visibility == null) {
+        } else if (storage != null && this.contentCategory != null && visibility == null) {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\"" + storage
-                  + " " + contentCategory + "\"", LogicalOperator.AND));
-        } else if (visibility != null && contentCategory != null && storage == null) {
-          MetadataSearchCriterion lastMetadataSearchCriterion =
+                  + " " + this.contentCategory + "\"", LogicalOperator.AND));
+        } else if (visibility != null && this.contentCategory != null && storage == null) {
+          final MetadataSearchCriterion lastMetadataSearchCriterion =
               criterions.get(criterions.size() - 1);
           lastMetadataSearchCriterion
               .addSubCriteria(new MetadataSearchCriterion(
                   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " internal-managed " + contentCategory + "\"",
+                      + visibility + " internal-managed " + this.contentCategory + "\"",
                   LogicalOperator.AND));
           lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                  + visibility + " external-url " + contentCategory + "\"", LogicalOperator.OR));
-        } else if (visibility != null && storage != null && contentCategory != null) {
+                  + visibility + " external-url " + this.contentCategory + "\"", LogicalOperator.OR));
+        } else if (visibility != null && storage != null && this.contentCategory != null) {
           criterions
               .add(new MetadataSearchCriterion(
                   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " " + storage + " " + contentCategory + "\"",
+                      + visibility + " " + storage + " " + this.contentCategory + "\"",
                   LogicalOperator.AND));
         }
 
       }
       // exclusive cases
-      else if (contentCategory != null) {
+      else if (this.contentCategory != null) {
         if (visibility != null && storage != null) {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
@@ -215,10 +215,10 @@ public class FileCriterion extends Criterion {
           criterions
               .add(new MetadataSearchCriterion(
                   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " " + storage + " " + contentCategory + "\"",
+                      + visibility + " " + storage + " " + this.contentCategory + "\"",
                   LogicalOperator.NOT));
         } else if (visibility != null && storage == null) {
-          MetadataSearchCriterion lastMetadataSearchCriterion =
+          final MetadataSearchCriterion lastMetadataSearchCriterion =
               criterions.get(criterions.size() - 1);
           lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
@@ -229,15 +229,15 @@ public class FileCriterion extends Criterion {
           criterions
               .add(new MetadataSearchCriterion(
                   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                      + visibility + " internal-managed " + contentCategory + "\"",
+                      + visibility + " internal-managed " + this.contentCategory + "\"",
                   LogicalOperator.NOT));
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\""
-                  + visibility + " external-url " + contentCategory + "\"", LogicalOperator.NOT));
+                  + visibility + " external-url " + this.contentCategory + "\"", LogicalOperator.NOT));
         } else if (visibility == null && storage != null) {
           criterions.add(new MetadataSearchCriterion(
               MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\"" + storage
-                  + " " + contentCategory + "\"", LogicalOperator.NOT));
+                  + " " + this.contentCategory + "\"", LogicalOperator.NOT));
         }
       }
     }
@@ -249,7 +249,7 @@ public class FileCriterion extends Criterion {
    * @return the excludeCategory
    */
   public boolean getExcludeCategory() {
-    return excludeCategory;
+    return this.excludeCategory;
   }
 
   /**
@@ -263,7 +263,7 @@ public class FileCriterion extends Criterion {
    * @return the contentCategory
    */
   public String getContentCategory() {
-    return contentCategory;
+    return this.contentCategory;
   }
 
   /**
@@ -277,7 +277,7 @@ public class FileCriterion extends Criterion {
    * @return the componentAccessibility
    */
   public String getComponentVisibility() {
-    return componentVisibility;
+    return this.componentVisibility;
   }
 
   /**
@@ -291,7 +291,7 @@ public class FileCriterion extends Criterion {
    * @return the componentAvailability
    */
   public String getComponentAvailability() {
-    return componentAvailability;
+    return this.componentAvailability;
   }
 
   /**
@@ -305,7 +305,7 @@ public class FileCriterion extends Criterion {
    * @return the searchForEmbargoFiles
    */
   public boolean getSearchForEmbargoFiles() {
-    return searchForEmbargoFiles;
+    return this.searchForEmbargoFiles;
   }
 
   /**

@@ -34,12 +34,12 @@ public class AnyFieldCriterionBean extends CriterionBean {
   }
 
   public AnyFieldCriterionBean(Criterion criterionVO) {
-    setCriterionVO(criterionVO);
+    this.setCriterionVO(criterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return criterionVO;
+    return this.criterionVO;
 
     // if (selectedType != null && selectedType.equals("Title"))
     // {
@@ -134,26 +134,26 @@ public class AnyFieldCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    selectedType = "Any";
-    setIncludeFiles(false);
-    criterionVO = new AnyFieldCriterion();
+    this.selectedType = "Any";
+    this.setIncludeFiles(false);
+    this.criterionVO = new AnyFieldCriterion();
   }
 
   public SelectItem[] getTypeOptions() {
 
-    SelectItem TYPE_TITLE = new SelectItem("Title", getLabel("adv_search_lblRgbTitle"));
-    SelectItem TYPE_TOPIC = new SelectItem("Topic", getLabel("adv_search_lblRgbTopic"));
-    SelectItem TYPE_ANY = new SelectItem("Any", getLabel("adv_search_lblRgbAny"));
-    SelectItem TYPE_ANY_FULLTEXT =
-        new SelectItem("Any_Fulltext", getLabel("adv_search_lblRgbAnyFulltext"));
-    SelectItem[] TYPE_OPTIONS =
+    final SelectItem TYPE_TITLE = new SelectItem("Title", this.getLabel("adv_search_lblRgbTitle"));
+    final SelectItem TYPE_TOPIC = new SelectItem("Topic", this.getLabel("adv_search_lblRgbTopic"));
+    final SelectItem TYPE_ANY = new SelectItem("Any", this.getLabel("adv_search_lblRgbAny"));
+    final SelectItem TYPE_ANY_FULLTEXT =
+        new SelectItem("Any_Fulltext", this.getLabel("adv_search_lblRgbAnyFulltext"));
+    final SelectItem[] TYPE_OPTIONS =
         new SelectItem[] {TYPE_TITLE, TYPE_TOPIC, TYPE_ANY, TYPE_ANY_FULLTEXT};
 
     return TYPE_OPTIONS;
   }
 
   public String getSelectedType() {
-    return selectedType;
+    return this.selectedType;
   }
 
   public void setSelectedType(String selectedType) {
@@ -161,18 +161,18 @@ public class AnyFieldCriterionBean extends CriterionBean {
   }
 
   public boolean isIncludeFiles() {
-    return includeFiles;
+    return this.includeFiles;
   }
 
   public void setIncludeFiles(boolean includeFiles) {
     this.includeFiles = includeFiles;
-    if (criterionVO instanceof AnyFieldCriterion) {
-      ((AnyFieldCriterion) criterionVO).setIncludeFiles(includeFiles);
+    if (this.criterionVO instanceof AnyFieldCriterion) {
+      ((AnyFieldCriterion) this.criterionVO).setIncludeFiles(includeFiles);
     }
   }
 
   public boolean isIncludeFilesDisabled() {
-    return !(criterionVO instanceof AnyFieldCriterion);
+    return !(this.criterionVO instanceof AnyFieldCriterion);
   }
 
   /**
@@ -182,39 +182,39 @@ public class AnyFieldCriterionBean extends CriterionBean {
    * @throws AbortProcessingException
    */
   public void processTypeChanged(ValueChangeEvent event) {
-    String newVal = (String) event.getNewValue();
+    final String newVal = (String) event.getNewValue();
 
     // get current searchString and operator and move it to the new VO
-    String searchString = criterionVO.getSearchString();
-    LogicalOperator logicOperator = criterionVO.getLogicalOperator();
+    final String searchString = this.criterionVO.getSearchString();
+    final LogicalOperator logicOperator = this.criterionVO.getLogicalOperator();
 
     this.selectedType = newVal;
 
-    if (selectedType != null && selectedType.equals("Title")) {
-      TitleCriterion titleCriterionVO = new TitleCriterion();
+    if (this.selectedType != null && this.selectedType.equals("Title")) {
+      final TitleCriterion titleCriterionVO = new TitleCriterion();
       titleCriterionVO.setSearchString(searchString);
       titleCriterionVO.setLogicalOperator(logicOperator);
       // Reinitialize this POJO, because the selectedType has been changed.
-      criterionVO = titleCriterionVO;
-    } else if (selectedType != null && selectedType.equals("Topic")) {
-      TopicCriterion topicCriterionVO = new TopicCriterion();
+      this.criterionVO = titleCriterionVO;
+    } else if (this.selectedType != null && this.selectedType.equals("Topic")) {
+      final TopicCriterion topicCriterionVO = new TopicCriterion();
       topicCriterionVO.setSearchString(searchString);
       topicCriterionVO.setLogicalOperator(logicOperator);
       // Reinitialize this POJO, because the selectedType has been changed.
-      criterionVO = topicCriterionVO;
-    } else if (selectedType != null && selectedType.equals("Any_Fulltext")) {
-      AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
+      this.criterionVO = topicCriterionVO;
+    } else if (this.selectedType != null && this.selectedType.equals("Any_Fulltext")) {
+      final AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
       anyFieldCriterionVO.setSearchString(searchString);
       anyFieldCriterionVO.setLogicalOperator(logicOperator);
       anyFieldCriterionVO.setIncludeFiles(true);
       // Reinitialize this POJO, because the selectedType has been changed.
-      criterionVO = anyFieldCriterionVO;
+      this.criterionVO = anyFieldCriterionVO;
     } else {
-      AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
+      final AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
       anyFieldCriterionVO.setSearchString(searchString);
       anyFieldCriterionVO.setLogicalOperator(logicOperator);
       // Reinitialize this POJO, because the selectedType has been changed.
-      criterionVO = anyFieldCriterionVO;
+      this.criterionVO = anyFieldCriterionVO;
     }
 
     // // enforce rendering of the response

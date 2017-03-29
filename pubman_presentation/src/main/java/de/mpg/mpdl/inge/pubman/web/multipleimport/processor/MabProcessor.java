@@ -56,9 +56,10 @@ public class MabProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#hasNext()
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.items != null && this.counter < this.length);
   }
@@ -68,13 +69,14 @@ public class MabProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#next()
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.items != null && this.counter < this.length) {
       this.counter++;
-      return items[counter - 1];
+      return this.items[this.counter - 1];
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -86,27 +88,28 @@ public class MabProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#remove()
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
+    this.init = true;
 
     try {
-      BufferedReader bufferedReader = new BufferedReader(new FileReader(getSourceFile()));
+      final BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
-      ArrayList<String> itemList = new ArrayList<String>();
+      final ArrayList<String> itemList = new ArrayList<String>();
       StringWriter stringWriter = new StringWriter();
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int lineBreakCount = 0;
 
       while ((line = bufferedReader.readLine()) != null) {
         stringWriter.write(line);
         stringWriter.write("\n");
 
-        byteArrayOutputStream.write(line.getBytes(getEncoding()));
-        byteArrayOutputStream.write("\n".getBytes(getEncoding()));
+        byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
+        byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
         if ("".equals(line) && lineBreakCount == 6) {
           itemList.add(stringWriter.toString().trim());
@@ -130,17 +133,17 @@ public class MabProcessor extends FormatProcessor {
 
       this.length = this.items.length;
 
-      counter = 0;
+      this.counter = 0;
 
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
   }
 
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   @Override

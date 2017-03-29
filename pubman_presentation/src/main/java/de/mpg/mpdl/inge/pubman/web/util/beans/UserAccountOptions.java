@@ -76,30 +76,30 @@ public class UserAccountOptions extends FacesBean {
     try {
       if (this.password != null && !("").equals(this.password.trim())) {
         if (this.password.equals(this.secondPassword)) {
-          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+          final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
           formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-          String paramXml =
+          final String paramXml =
               "<param last-modification-date=\""
-                  + formatter.format(getLoginHelper().getAccountUser().getLastModificationDate())
+                  + formatter.format(this.getLoginHelper().getAccountUser().getLastModificationDate())
                   + "\"><password>" + this.getPassword() + "</password></param>";
-          UserAccountHandler userAccountHandler =
-              ServiceLocator.getUserAccountHandler(getLoginHelper().getAccountUser().getHandle());
-          userAccountHandler.updatePassword(getLoginHelper().getAccountUser().getReference()
+          final UserAccountHandler userAccountHandler =
+              ServiceLocator.getUserAccountHandler(this.getLoginHelper().getAccountUser().getHandle());
+          userAccountHandler.updatePassword(this.getLoginHelper().getAccountUser().getReference()
               .getObjectId(), paramXml);
-          getLoginHelper().fetchAccountUser(getLoginHelper().getAccountUser().getHandle());
-          info(getMessage("userAccountOptions_PasswordUpdated"));
+          this.getLoginHelper().fetchAccountUser(this.getLoginHelper().getAccountUser().getHandle());
+          this.info(this.getMessage("userAccountOptions_PasswordUpdated"));
         } else {
-          error(getMessage("userAccountOptions_DifferentPasswords"));
+          FacesBean.error(this.getMessage("userAccountOptions_DifferentPasswords"));
         }
       } else {
-        error(getMessage("userAccountOptions_emptyPassword"));
+        FacesBean.error(this.getMessage("userAccountOptions_emptyPassword"));
       }
-    } catch (ServiceException e) {
-      logger.error("Problem retrieving UserAcountHandler", e);
-    } catch (URISyntaxException e) {
-      logger.error("Problem retrieving UserAcountHandler", e);
-    } catch (Exception e) {
-      logger.error("Problem updating Password", e);
+    } catch (final ServiceException e) {
+      UserAccountOptions.logger.error("Problem retrieving UserAcountHandler", e);
+    } catch (final URISyntaxException e) {
+      UserAccountOptions.logger.error("Problem retrieving UserAcountHandler", e);
+    } catch (final Exception e) {
+      UserAccountOptions.logger.error("Problem updating Password", e);
     }
   }
 }

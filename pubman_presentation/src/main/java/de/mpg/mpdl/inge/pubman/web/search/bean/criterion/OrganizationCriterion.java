@@ -51,25 +51,26 @@ public class OrganizationCriterion extends Criterion {
   private boolean includePredecessorsAndSuccessors = false;
 
   public OrganizationCriterion() {
-    AffiliationVO affiliationVO = new AffiliationVO();
+    final AffiliationVO affiliationVO = new AffiliationVO();
     affiliationVO.setReference(new AffiliationRO());
-    affiliation = new AffiliationVOPresentation(affiliationVO);
+    this.affiliation = new AffiliationVOPresentation(affiliationVO);
   }
 
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    if (getAffiliation() != null && getAffiliation().getReference().getObjectId() != null
-        && !"".equals(getAffiliation().getReference().getObjectId())) {
-      MetadataSearchCriterion criterion =
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    if (this.getAffiliation() != null && this.getAffiliation().getReference().getObjectId() != null
+        && !"".equals(this.getAffiliation().getReference().getObjectId())) {
+      final MetadataSearchCriterion criterion =
           new MetadataSearchCriterion(CriterionType.CREATOR_ORGANIZATION_IDS_WITH_PATH,
-              getAffiliation().getReference().getObjectId());
+              this.getAffiliation().getReference().getObjectId());
       criterions.add(criterion);
-    } else if (isSearchStringEmpty() != true) {
-      MetadataSearchCriterion criterion =
-          new MetadataSearchCriterion(CriterionType.CREATOR_ORGANIZATION, getSearchString());
+    } else if (this.isSearchStringEmpty() != true) {
+      final MetadataSearchCriterion criterion =
+          new MetadataSearchCriterion(CriterionType.CREATOR_ORGANIZATION, this.getSearchString());
       criterions.add(criterion);
     }
     return criterions;
@@ -79,19 +80,19 @@ public class OrganizationCriterion extends Criterion {
    * @return the affiliation
    */
   public AffiliationVOPresentation getAffiliation() {
-    return affiliation;
+    return this.affiliation;
   }
 
   public String getAffiliationName() {
-    if (affiliation == null) {
+    if (this.affiliation == null) {
       return "";
     }
 
-    return affiliation.getName();
+    return this.affiliation.getName();
   }
 
   public boolean getAffiliationEmpty() {
-    return (affiliation == null);
+    return (this.affiliation == null);
   }
 
   /**

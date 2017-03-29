@@ -64,13 +64,13 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
     }
 
 
-    switch (selectedAvailability) {
+    switch (this.selectedAvailability) {
       case YES: {
-        return indexField + "=\"" + escapeForCql(getStorageType()) + "\"";
+        return indexField + "=\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
       }
 
       case NO: {
-        return indexField + "<>\"" + escapeForCql(getStorageType()) + "\"";
+        return indexField + "<>\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
       }
 
       case WHATEVER:
@@ -81,17 +81,18 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   }
 
+  @Override
   public QueryBuilder toElasticSearchQuery() {
-    switch (selectedAvailability) {
+    switch (this.selectedAvailability) {
       case YES: {
-        return baseElasticSearchQueryBuilder(
+        return this.baseElasticSearchQueryBuilder(
             new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.storage", true,
-                "files")}, getStorageType());
+                "files")}, this.getStorageType());
       }
 
       case NO: {
         return QueryBuilders.boolQuery().mustNot(
-            QueryBuilders.matchQuery("files.storage", getStorageType()));
+            QueryBuilders.matchQuery("files.storage", this.getStorageType()));
       }
 
       case WHATEVER:
@@ -111,7 +112,7 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion() + "=\"" + getSelectedAvailability() + "\"";
+    return this.getSearchCriterion() + "=\"" + this.getSelectedAvailability() + "\"";
   }
 
   @Override
@@ -123,11 +124,11 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return ComponentAvailability.WHATEVER.equals(selectedAvailability);
+    return ComponentAvailability.WHATEVER.equals(this.selectedAvailability);
   }
 
   public ComponentAvailability getSelectedAvailability() {
-    return selectedAvailability;
+    return this.selectedAvailability;
   }
 
   public void setSelectedAvailability(ComponentAvailability selectedAvailability) {
@@ -135,7 +136,7 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   }
 
   public String getForcedOperator() {
-    return forcedOperator;
+    return this.forcedOperator;
   }
 
   public void setForcedOperator(String forcedOperator) {

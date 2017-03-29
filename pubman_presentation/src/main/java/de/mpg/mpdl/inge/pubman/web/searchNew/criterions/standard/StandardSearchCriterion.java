@@ -38,17 +38,17 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
-    return baseCqlBuilder(getCqlIndexes(indexName), searchString);
+    return this.baseCqlBuilder(this.getCqlIndexes(indexName), this.searchString);
   }
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(searchString) + "\"";
+    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.searchString) + "\"";
   }
 
   @Override
   public void parseQueryStringContent(String content) {
-    this.searchString = unescapeForQueryString(content);
+    this.searchString = SearchCriterionBase.unescapeForQueryString(content);
   }
 
   public abstract String[] getCqlIndexes(Index indexName);
@@ -65,10 +65,11 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return searchString == null || searchString.trim().isEmpty();
+    return this.searchString == null || this.searchString.trim().isEmpty();
   }
 
+  @Override
   public QueryBuilder toElasticSearchQuery() {
-    return baseElasticSearchQueryBuilder(getElasticIndexes(), searchString);
+    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.searchString);
   }
 }

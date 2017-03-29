@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
-import static org.w3c.dom.Node.ELEMENT_NODE;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -42,20 +40,21 @@ import org.w3c.dom.NodeList;
 public class MarcXmlProcessor extends GenericXmlProcessor {
   private static final String MARC_NS = "http://www.loc.gov/MARC21/slim";
 
+  @Override
   protected void addItems(Node root) {
     if (root.getLocalName() != null && root.getLocalName().equals("record")
-        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MARC_NS)) {
-      addItem(root);
+        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
+      this.addItem(root);
     } else if (root.getLocalName() != null && root.getLocalName().equals("collection")
-        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MARC_NS)) {
+        && root.getNamespaceURI() != null && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {
-        Node currentNode = nodes.item(i);
-        if (currentNode.getNodeType() == ELEMENT_NODE && root.getLocalName() != null
+        final Node currentNode = nodes.item(i);
+        if (currentNode.getNodeType() == Node.ELEMENT_NODE && root.getLocalName() != null
             && currentNode.getLocalName().equals("record") && root.getNamespaceURI() != null
-            && currentNode.getNamespaceURI().equals(MARC_NS)) {
-          addItem(currentNode);
+            && currentNode.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
+          this.addItem(currentNode);
         }
       }
 

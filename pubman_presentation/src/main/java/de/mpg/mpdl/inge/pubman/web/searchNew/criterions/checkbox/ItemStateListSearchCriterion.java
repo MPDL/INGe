@@ -17,11 +17,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   public ItemStateListSearchCriterion() {
 
-    super(getItemStateMap(), getItemStatePreSelectionMap());
+    super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion.getItemStatePreSelectionMap());
   }
 
   private static Map<String, String> getItemStateMap() {
-    Map<String, String> itemStateMap = new LinkedHashMap<String, String>();
+    final Map<String, String> itemStateMap = new LinkedHashMap<String, String>();
 
     itemStateMap.put("PENDING", "pending");
     itemStateMap.put("SUBMITTED", "submitted");
@@ -34,7 +34,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
-    Map<String, Boolean> itemStateMap = new LinkedHashMap<String, Boolean>();
+    final Map<String, Boolean> itemStateMap = new LinkedHashMap<String, Boolean>();
 
     itemStateMap.put("PENDING", true);
     itemStateMap.put("SUBMITTED", true);
@@ -67,14 +67,14 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   @Override
   public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
-    List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
 
     if (!"withdrawn".equals(searchValue)) {
       scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     }
 
-    SearchCriterionBase flexSc =
-        new FlexibleStandardSearchCriterion(getCqlIndexes(indexName, searchValue), searchValue);
+    final SearchCriterionBase flexSc =
+        new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
     scList.add(flexSc);
 
 

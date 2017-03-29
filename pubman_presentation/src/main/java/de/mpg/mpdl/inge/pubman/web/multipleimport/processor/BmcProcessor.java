@@ -44,8 +44,8 @@ public class BmcProcessor extends GenericXmlProcessor {
 
   @Override
   protected void addItems(Node root) {
-    if (isBmcArticle(root)) {
-      addItem(root);
+    if (this.isBmcArticle(root)) {
+      this.addItem(root);
     } else
     // I've never seen a collection of BMC records, but a generic outermost element will do the job,
     // Stf, 2013-03-22
@@ -54,9 +54,9 @@ public class BmcProcessor extends GenericXmlProcessor {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {
-        Node currentNode = nodes.item(i);
-        if (isBmcArticle(currentNode)) {
-          addItem(currentNode);
+        final Node currentNode = nodes.item(i);
+        if (this.isBmcArticle(currentNode)) {
+          this.addItem(currentNode);
           foundArticle = true;
         }
       }
@@ -76,7 +76,7 @@ public class BmcProcessor extends GenericXmlProcessor {
     {
       return false;
     } else if (node.getLocalName().equals("art")
-        && (node.getNamespaceURI() == null || node.getNamespaceURI().equals(BMC_NS))) {
+        && (node.getNamespaceURI() == null || node.getNamespaceURI().equals(BmcProcessor.BMC_NS))) {
       return true;
     } else {
       return false;

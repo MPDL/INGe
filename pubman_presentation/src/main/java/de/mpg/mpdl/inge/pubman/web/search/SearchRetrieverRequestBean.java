@@ -142,16 +142,16 @@ public class SearchRetrieverRequestBean extends
       this.setQueryString(query);
     }
 
-    final String cql = paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
+    paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
-    String elasticSearchQuery = paramMap.get(parameterElasticSearchQuery);
+    final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
     if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
-      setElasticSearchQuery("");
-      error("You have to call this page with a parameter \"esq\" and a elastic search query!");
+      this.setElasticSearchQuery("");
+      FacesBean.error("You have to call this page with a parameter \"esq\" and a elastic search query!");
 
     } else {
-      setElasticSearchQuery(elasticSearchQuery);
+      this.setElasticSearchQuery(elasticSearchQuery);
     }
 
 
@@ -239,15 +239,15 @@ public class SearchRetrieverRequestBean extends
     // checkSortCriterias(sc);
     try {
 
-      SearchInterface<QueryBuilder> searchService = SearchInterfaceConnectorFactory.getInstance();
+      final SearchInterface<QueryBuilder> searchService = SearchInterfaceConnectorFactory.getInstance();
 
 
-      QueryBuilder qb = QueryBuilders.wrapperQuery(elasticSearchQuery);
-      SearchQueryVO<QueryBuilder> query = new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
-      SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
+      final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
+      final SearchQueryVO<QueryBuilder> query = new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
+      final SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
       this.numberOfRecords = result.getNumberOfRecords();
 
-      pubItemList = extractItemsOfSearchResult(result);
+      pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
 
 
 
@@ -279,9 +279,9 @@ public class SearchRetrieverRequestBean extends
        * pubItemList = extractItemsOfSearchResult(result); this.numberOfRecords =
        * Integer.parseInt(result.getTotalNumberOfResults().toString());
        */
-    } catch (Exception e) {
-      error("Error in search!");
-      logger.error("Error during search. ", e);
+    } catch (final Exception e) {
+      FacesBean.error("Error in search!");
+      SearchRetrieverRequestBean.logger.error("Error during search. ", e);
     }
 
     return pubItemList;
@@ -375,14 +375,14 @@ public class SearchRetrieverRequestBean extends
   public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
       SearchRetrieveResponseVO result) {
 
-    List<SearchRetrieveRecordVO> results = result.getRecords();
+    final List<SearchRetrieveRecordVO> results = result.getRecords();
 
-    ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     for (int i = 0; i < results.size(); i++) {
       // check if we have found an item
 
-      SearchRetrieveRecordVO record = results.get(i);
-      PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
+      final SearchRetrieveRecordVO record = results.get(i);
+      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
       pubItemList.add(pubItemPres);
 
     }
@@ -453,12 +453,12 @@ public class SearchRetrieverRequestBean extends
   }
 
   public String getElasticSearchQuery() {
-    return elasticSearchQuery;
+    return this.elasticSearchQuery;
   }
 
   public void setElasticSearchQuery(String elasticSearchQuery) {
     this.elasticSearchQuery = elasticSearchQuery;
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterElasticSearchQuery,
+    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterElasticSearchQuery,
         elasticSearchQuery);
   }
 }

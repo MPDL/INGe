@@ -24,9 +24,9 @@ public class SourceCriterionCollection {
    */
   public SourceCriterionCollection() {
     // ensure the parentVO is never null;
-    List<SourceCriterion> ctorList = new ArrayList<SourceCriterion>();
+    final List<SourceCriterion> ctorList = new ArrayList<SourceCriterion>();
     ctorList.add(new SourceCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -35,17 +35,17 @@ public class SourceCriterionCollection {
    * @param parentVO
    */
   public SourceCriterionCollection(List<SourceCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<SourceCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<SourceCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    sourceCriterionManager = new SourceCriterionManager(parentVO);
+    this.sourceCriterionManager = new SourceCriterionManager(parentVO);
   }
 
   /**
@@ -57,16 +57,17 @@ public class SourceCriterionCollection {
     List<SourceCriterion> parentVO;
 
     public SourceCriterionManager(List<SourceCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public SourceCriterionBean createNewObject() {
-      SourceCriterion newVO = new SourceCriterion();
+      final SourceCriterion newVO = new SourceCriterion();
       // create a new wrapper pojo
-      SourceCriterionBean sourceCriterionBean = new SourceCriterionBean(newVO);
+      final SourceCriterionBean sourceCriterionBean = new SourceCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return sourceCriterionBean;
     }
 
@@ -74,17 +75,17 @@ public class SourceCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<SourceCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice SourceCriterionBean
-      List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
-      for (SourceCriterion sourceCriterionVO : parentVO) {
+      final List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
+      for (final SourceCriterion sourceCriterionVO : this.parentVO) {
         beanList.add(new SourceCriterionBean(sourceCriterionVO));
       }
 
@@ -94,21 +95,21 @@ public class SourceCriterionCollection {
     public void setParentVO(List<SourceCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice SourceCriterionBean
-      List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
-      for (SourceCriterion sourceCriterionVO : parentVO) {
+      final List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
+      for (final SourceCriterion sourceCriterionVO : parentVO) {
         beanList.add(new SourceCriterionBean(sourceCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public SourceCriterionManager getSourceCriterionManager() {
-    return sourceCriterionManager;
+    return this.sourceCriterionManager;
   }
 
   public void setSourceCriterionManager(SourceCriterionManager sourceCriterionManager) {
@@ -116,14 +117,14 @@ public class SourceCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (SourceCriterionBean gcb : sourceCriterionManager.getObjectList()) {
+    for (final SourceCriterionBean gcb : this.sourceCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<SourceCriterion> getFilledCriterion() {
-    List<SourceCriterion> returnList = new ArrayList<SourceCriterion>();
-    for (SourceCriterion vo : parentVO) {
+    final List<SourceCriterion> returnList = new ArrayList<SourceCriterion>();
+    for (final SourceCriterion vo : this.parentVO) {
       if ((vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }

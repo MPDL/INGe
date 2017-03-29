@@ -50,22 +50,22 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public String toCqlString(Index indexName) {
 
-    return composeCqlFragments(getCQLSearchIndexes(indexName), getFrom(), getTo());
+    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(), this.getTo());
   }
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(from) + "|"
-        + escapeForQueryString(to) + "\"";
+    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.from) + "|"
+        + SearchCriterionBase.escapeForQueryString(this.to) + "\"";
   }
 
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '||', which have no backslash before
-    String[] dateParts = content.split("(?<!\\\\)\\|");
-    this.from = unescapeForQueryString(dateParts[0]);
+    final String[] dateParts = content.split("(?<!\\\\)\\|");
+    this.from = SearchCriterionBase.unescapeForQueryString(dateParts[0]);
     if (dateParts.length > 1) {
-      this.to = unescapeForQueryString(dateParts[1]);
+      this.to = SearchCriterionBase.unescapeForQueryString(dateParts[1]);
     }
 
 
@@ -75,11 +75,11 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return (from == null || from.trim().isEmpty()) && (to == null || to.trim().isEmpty());
+    return (this.from == null || this.from.trim().isEmpty()) && (this.to == null || this.to.trim().isEmpty());
   }
 
   public String getFrom() {
-    return from;
+    return this.from;
   }
 
   public void setFrom(String from) {
@@ -87,7 +87,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
   }
 
   public String getTo() {
-    return to;
+    return this.to;
   }
 
   public void setTo(String to) {
@@ -99,7 +99,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
   private String[] getCQLSearchIndexes(Index indexName) {
     switch (indexName) {
       case ESCIDOC_ALL: {
-        switch (getSearchCriterion()) {
+        switch (this.getSearchCriterion()) {
           case ANYDATE:
             return new String[] {"escidoc.publication.published-online",
                 "escidoc.publication.issued", "escidoc.publication.dateAccepted",
@@ -138,7 +138,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
 
       case ITEM_CONTAINER_ADMIN: {
-        switch (getSearchCriterion()) {
+        switch (this.getSearchCriterion()) {
           case ANYDATE:
             return new String[] {"\"/md-records/md-record/publication/published-online\"",
                 "\"/md-records/md-record/publication/issued\"",
@@ -179,19 +179,19 @@ public class DateSearchCriterion extends SearchCriterionBase {
   }
 
   private String composeCqlFragments(String[] searchIndexes, String minor, String major) {
-    StringBuffer buffer = new StringBuffer();
+    final StringBuffer buffer = new StringBuffer();
     buffer.append(" ( ");
     try {
       for (int i = 0; i < searchIndexes.length; i++) {
         if (i == (searchIndexes.length - 1)) {
 
-          buffer.append(createCqlFragment(searchIndexes[i], minor, major));
+          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
         } else {
-          buffer.append(createCqlFragment(searchIndexes[i], minor, major));
+          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
           buffer.append(" or ");
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       e.printStackTrace();
     }
     buffer.append(" ) ");
@@ -202,9 +202,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
     String fromQuery = null;
     String toQuery = null;
     if (minor != null && !minor.trim().isEmpty()) {
-      minor = normalizeFromQuery(minor);
+      minor = this.normalizeFromQuery(minor);
 
-      fromQuery = index + ">=\"" + escapeForCql(minor) + "\"";
+      fromQuery = index + ">=\"" + SearchCriterionBase.escapeForCql(minor) + "\"";
 
       /*
        * QueryParser parserFrom = new QueryParser(minor, ">="); parserFrom.addCQLIndex(index);
@@ -212,15 +212,15 @@ public class DateSearchCriterion extends SearchCriterionBase {
        */
     }
     if (major != null && !major.trim().isEmpty()) {
-      String[] majorParts = normalizeToQuery(major);
-      toQuery = index + "<=\"" + escapeForCql(majorParts[0]) + "\"";
+      final String[] majorParts = this.normalizeToQuery(major);
+      toQuery = index + "<=\"" + SearchCriterionBase.escapeForCql(majorParts[0]) + "\"";
       /*
        * QueryParser parserTo = new QueryParser(majorParts[0], "<="); parserTo.addCQLIndex(index);
        * toQuery = parserTo.parse();
        */
 
       for (int i = 1; i < majorParts.length; i++) {
-        String toSubQuery = index + "=\"" + escapeForCql(majorParts[i]) + "\"";
+        final String toSubQuery = index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
         toQuery += " not ( " + toSubQuery + " ) ";
 
         /*
@@ -231,7 +231,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
       }
     }
 
-    StringBuffer buffer = new StringBuffer();
+    final StringBuffer buffer = new StringBuffer();
 
     if (fromQuery == null) {
       buffer.append(" ( " + toQuery + " ) ");
@@ -251,14 +251,14 @@ public class DateSearchCriterion extends SearchCriterionBase {
     } else if (fromQuery.matches("\\d\\d\\d\\d")) {
       return fromQuery;
     } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
-      String[] parts = fromQuery.split("-");
+      final String[] parts = fromQuery.split("-");
       if ("01".equals(parts[1])) {
         return parts[0];
       } else {
         return fromQuery;
       }
     } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
-      String[] parts = fromQuery.split("-");
+      final String[] parts = fromQuery.split("-");
       if ("01".equals(parts[2])) {
         if ("01".equals(parts[1])) {
           return parts[0];
@@ -279,22 +279,22 @@ public class DateSearchCriterion extends SearchCriterionBase {
     } else if (toQuery.matches("\\d\\d\\d\\d")) {
       return new String[] {toQuery + "-12-31"};
     } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
-      String[] parts = toQuery.split("-");
+      final String[] parts = toQuery.split("-");
       if ("12".equals(parts[1])) {
         return new String[] {toQuery + "-31"};
       } else {
         return new String[] {toQuery + "-31", parts[0]};
       }
     } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
-      String[] parts = toQuery.split("-");
+      final String[] parts = toQuery.split("-");
       // Get last day of month
       if ("31".equals(parts[2]) && "12".equals(parts[1])) {
         return new String[] {toQuery};
       } else {
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1,
             Integer.parseInt(parts[2]));
-        int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        final int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if (Integer.parseInt(parts[2]) == maximumDay) {
           return new String[] {toQuery, parts[0]};
         } else {
@@ -309,11 +309,11 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
     try {
-      DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+      final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
       return QueryBuilders.rangeQuery("metadata.issued").includeLower(false).includeUpper(false)
-          .from(df.parse(getFrom())).to(df.parse(getTo()));
-    } catch (ParseException e) {
+          .from(df.parse(this.getFrom())).to(df.parse(this.getTo()));
+    } catch (final ParseException e) {
       throw new SearchParseException("Error while parsing dates", e);
     }
 

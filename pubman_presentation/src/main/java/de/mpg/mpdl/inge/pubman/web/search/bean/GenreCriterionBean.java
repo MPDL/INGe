@@ -37,16 +37,16 @@ public class GenreCriterionBean extends CriterionBean {
   }
 
   public GenreCriterionBean(GenreCriterion genreCriterionVO) {
-    setGenreCriterionVO(genreCriterionVO);
+    this.setGenreCriterionVO(genreCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return genreCriterionVO;
+    return this.genreCriterionVO;
   }
 
   public GenreCriterion getGenreCriterionVO() {
-    return genreCriterionVO;
+    return this.genreCriterionVO;
   }
 
   public void setGenreCriterionVO(GenreCriterion genreCriterionVO) {
@@ -55,79 +55,78 @@ public class GenreCriterionBean extends CriterionBean {
       genreCriterionVO.setGenre(new ArrayList<MdsPublicationVO.Genre>());
     }
 
-    for (MdsPublicationVO.Genre genre : genreCriterionVO.getGenre()) {
-      if (MdsPublicationVO.Genre.ARTICLE.equals(genre))
-        searchArticle = true;
-      else if (MdsPublicationVO.Genre.BOOK.equals(genre))
-        searchBook = true;
-      else if (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre))
-        searchBookItem = true;
-      else if (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre))
-        searchConferencePaper = true;
-      else if (MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre))
-        searchMeetingAbstract = true;
-      else if (MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre))
-        searchConferenceReport = true;
-      else if (MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(genre))
-        searchCoursewareLecture = true;
-      else if (MdsPublicationVO.Genre.ISSUE.equals(genre))
-        searchIssue = true;
-      else if (MdsPublicationVO.Genre.JOURNAL.equals(genre))
-        searchJournal = true;
-      else if (MdsPublicationVO.Genre.MANUSCRIPT.equals(genre))
-        searchManuscript = true;
-      else if (MdsPublicationVO.Genre.OTHER.equals(genre))
-        searchOther = true;
-      else if (MdsPublicationVO.Genre.PAPER.equals(genre))
-        searchPaper = true;
-      else if (MdsPublicationVO.Genre.POSTER.equals(genre))
-        searchPoster = true;
-      else if (MdsPublicationVO.Genre.PROCEEDINGS.equals(genre))
-        searchProceedings = true;
-      else if (MdsPublicationVO.Genre.REPORT.equals(genre))
-        searchReport = true;
-      else if (MdsPublicationVO.Genre.SERIES.equals(genre))
-        searchSeries = true;
-      else if (MdsPublicationVO.Genre.TALK_AT_EVENT.equals(genre))
-        searchTalkAtEvent = true;
-      else if (MdsPublicationVO.Genre.THESIS.equals(genre))
-        searchThesis = true;
-      // JUS
-      else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre))
-        searchContributionToCollectedEdition = true;
-      else if (MdsPublicationVO.Genre.MONOGRAPH.equals(genre))
-        searchMonograph = true;
-      else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre))
-        searchContributionToCommentary = true;
-      else if (MdsPublicationVO.Genre.CASE_NOTE.equals(genre))
-        searchCaseNote = true;
-      else if (MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre))
-        searchBookReview = true;
-      else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre))
-        searchContributionToFestschrift = true;
-      else if (MdsPublicationVO.Genre.COMMENTARY.equals(genre))
-        searchCommentary = true;
-      else if (MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre))
-        searchCollectedEdition = true;
-      else if (MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre))
-        searchFestschrift = true;
-      else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre))
-        searchContributionToEncyclopedia = true;
-      else if (MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre))
-        searchNewspaperArticle = true;
-      else if (MdsPublicationVO.Genre.CASE_STUDY.equals(genre))
-        searchCaseStudy = true;
-      else if (MdsPublicationVO.Genre.OPINION.equals(genre))
-        searchOpinion = true;
-      else if (MdsPublicationVO.Genre.EDITORIAL.equals(genre))
-        searchEditorial = true;
-      else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre))
-        searchContributionToHandbook = true;
-      else if (MdsPublicationVO.Genre.HANDBOOK.equals(genre))
-        searchHandbook = true;
-      // NIMS
-      else if (MdsPublicationVO.Genre.PATENT.equals(genre))
-        searchPatent = true;
+    for (final MdsPublicationVO.Genre genre : genreCriterionVO.getGenre()) {
+      if (MdsPublicationVO.Genre.ARTICLE.equals(genre)) {
+        this.searchArticle = true;
+      } else if (MdsPublicationVO.Genre.BOOK.equals(genre)) {
+        this.searchBook = true;
+      } else if (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre)) {
+        this.searchBookItem = true;
+      } else if (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre)) {
+        this.searchConferencePaper = true;
+      } else if (MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre)) {
+        this.searchMeetingAbstract = true;
+      } else if (MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre)) {
+        this.searchConferenceReport = true;
+      } else if (MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(genre)) {
+        this.searchCoursewareLecture = true;
+      } else if (MdsPublicationVO.Genre.ISSUE.equals(genre)) {
+        this.searchIssue = true;
+      } else if (MdsPublicationVO.Genre.JOURNAL.equals(genre)) {
+        this.searchJournal = true;
+      } else if (MdsPublicationVO.Genre.MANUSCRIPT.equals(genre)) {
+        this.searchManuscript = true;
+      } else if (MdsPublicationVO.Genre.OTHER.equals(genre)) {
+        this.searchOther = true;
+      } else if (MdsPublicationVO.Genre.PAPER.equals(genre)) {
+        this.searchPaper = true;
+      } else if (MdsPublicationVO.Genre.POSTER.equals(genre)) {
+        this.searchPoster = true;
+      } else if (MdsPublicationVO.Genre.PROCEEDINGS.equals(genre)) {
+        this.searchProceedings = true;
+      } else if (MdsPublicationVO.Genre.REPORT.equals(genre)) {
+        this.searchReport = true;
+      } else if (MdsPublicationVO.Genre.SERIES.equals(genre)) {
+        this.searchSeries = true;
+      } else if (MdsPublicationVO.Genre.TALK_AT_EVENT.equals(genre)) {
+        this.searchTalkAtEvent = true;
+      } else if (MdsPublicationVO.Genre.THESIS.equals(genre)) {
+        this.searchThesis = true;
+      } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)) {
+        this.searchContributionToCollectedEdition = true;
+      } else if (MdsPublicationVO.Genre.MONOGRAPH.equals(genre)) {
+        this.searchMonograph = true;
+      } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre)) {
+        this.searchContributionToCommentary = true;
+      } else if (MdsPublicationVO.Genre.CASE_NOTE.equals(genre)) {
+        this.searchCaseNote = true;
+      } else if (MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre)) {
+        this.searchBookReview = true;
+      } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre)) {
+        this.searchContributionToFestschrift = true;
+      } else if (MdsPublicationVO.Genre.COMMENTARY.equals(genre)) {
+        this.searchCommentary = true;
+      } else if (MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre)) {
+        this.searchCollectedEdition = true;
+      } else if (MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre)) {
+        this.searchFestschrift = true;
+      } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre)) {
+        this.searchContributionToEncyclopedia = true;
+      } else if (MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre)) {
+        this.searchNewspaperArticle = true;
+      } else if (MdsPublicationVO.Genre.CASE_STUDY.equals(genre)) {
+        this.searchCaseStudy = true;
+      } else if (MdsPublicationVO.Genre.OPINION.equals(genre)) {
+        this.searchOpinion = true;
+      } else if (MdsPublicationVO.Genre.EDITORIAL.equals(genre)) {
+        this.searchEditorial = true;
+      } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre)) {
+        this.searchContributionToHandbook = true;
+      } else if (MdsPublicationVO.Genre.HANDBOOK.equals(genre)) {
+        this.searchHandbook = true;
+      } else if (MdsPublicationVO.Genre.PATENT.equals(genre)) {
+        this.searchPatent = true;
+      }
     }
   }
 
@@ -138,42 +137,42 @@ public class GenreCriterionBean extends CriterionBean {
    * @return null
    */
   public void selectAll() {
-    genreCriterionVO.getGenre().clear();
+    this.genreCriterionVO.getGenre().clear();
 
-    setSearchArticle(true);
-    setSearchBook(true);
-    setSearchBookItem(true);
-    setSearchConferencePaper(true);
-    setSearchMeetingAbstract(true);
-    setSearchConferenceReport(true);
-    setSearchCoursewareLecture(true);
-    setSearchIssue(true);
-    setSearchJournal(true);
-    setSearchManuscript(true);
-    setSearchOther(true);
-    setSearchPaper(true);
-    setSearchPoster(true);
-    setSearchProceedings(true);
-    setSearchReport(true);
-    setSearchSeries(true);
-    setSearchTalkAtEvent(true);
-    setSearchThesis(true);
+    this.setSearchArticle(true);
+    this.setSearchBook(true);
+    this.setSearchBookItem(true);
+    this.setSearchConferencePaper(true);
+    this.setSearchMeetingAbstract(true);
+    this.setSearchConferenceReport(true);
+    this.setSearchCoursewareLecture(true);
+    this.setSearchIssue(true);
+    this.setSearchJournal(true);
+    this.setSearchManuscript(true);
+    this.setSearchOther(true);
+    this.setSearchPaper(true);
+    this.setSearchPoster(true);
+    this.setSearchProceedings(true);
+    this.setSearchReport(true);
+    this.setSearchSeries(true);
+    this.setSearchTalkAtEvent(true);
+    this.setSearchThesis(true);
     // JUS
-    setSearchContributionToCollectedEdition(true);
-    setSearchMonograph(true);
-    setSearchContributionToCommentary(true);
-    setSearchCaseNote(true);
-    setSearchBookReview(true);
-    setSearchContributionToFestschrift(true);
-    setSearchCommentary(true);
-    setSearchCollectedEdition(true);
-    setSearchFestschrift(true);
-    setSearchContributionToEncyclopedia(true);
-    setSearchNewspaperArticle(true);
-    setSearchCaseStudy(true);
-    setSearchOpinion(true);
-    setSearchEditorial(true);
-    setSearchContributionToHandbook(true);
+    this.setSearchContributionToCollectedEdition(true);
+    this.setSearchMonograph(true);
+    this.setSearchContributionToCommentary(true);
+    this.setSearchCaseNote(true);
+    this.setSearchBookReview(true);
+    this.setSearchContributionToFestschrift(true);
+    this.setSearchCommentary(true);
+    this.setSearchCollectedEdition(true);
+    this.setSearchFestschrift(true);
+    this.setSearchContributionToEncyclopedia(true);
+    this.setSearchNewspaperArticle(true);
+    this.setSearchCaseStudy(true);
+    this.setSearchOpinion(true);
+    this.setSearchEditorial(true);
+    this.setSearchContributionToHandbook(true);
   }
 
   /**
@@ -182,573 +181,573 @@ public class GenreCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    setSearchArticle(false);
-    setSearchBook(false);
-    setSearchBookItem(false);
-    setSearchConferencePaper(false);
-    setSearchMeetingAbstract(false);
-    setSearchConferenceReport(false);
-    setSearchCoursewareLecture(false);
-    setSearchIssue(false);
-    setSearchJournal(false);
-    setSearchManuscript(false);
-    setSearchOther(false);
-    setSearchPaper(false);
-    setSearchPoster(false);
-    setSearchProceedings(false);
-    setSearchReport(false);
-    setSearchSeries(false);
-    setSearchTalkAtEvent(false);
-    setSearchThesis(false);
+    this.setSearchArticle(false);
+    this.setSearchBook(false);
+    this.setSearchBookItem(false);
+    this.setSearchConferencePaper(false);
+    this.setSearchMeetingAbstract(false);
+    this.setSearchConferenceReport(false);
+    this.setSearchCoursewareLecture(false);
+    this.setSearchIssue(false);
+    this.setSearchJournal(false);
+    this.setSearchManuscript(false);
+    this.setSearchOther(false);
+    this.setSearchPaper(false);
+    this.setSearchPoster(false);
+    this.setSearchProceedings(false);
+    this.setSearchReport(false);
+    this.setSearchSeries(false);
+    this.setSearchTalkAtEvent(false);
+    this.setSearchThesis(false);
     // JUS
-    setSearchContributionToCollectedEdition(false);
-    setSearchMonograph(false);
-    setSearchContributionToCommentary(false);
-    setSearchCaseNote(false);
-    setSearchBookReview(false);
-    setSearchContributionToFestschrift(false);
-    setSearchCommentary(false);
-    setSearchCollectedEdition(false);
-    setSearchFestschrift(false);
-    setSearchContributionToEncyclopedia(false);
-    setSearchNewspaperArticle(false);
-    setSearchCaseStudy(false);
-    setSearchOpinion(false);
-    setSearchEditorial(false);
-    setSearchContributionToHandbook(false);
-    setSearchHandbook(false);
-    setSearchPatent(false);
+    this.setSearchContributionToCollectedEdition(false);
+    this.setSearchMonograph(false);
+    this.setSearchContributionToCommentary(false);
+    this.setSearchCaseNote(false);
+    this.setSearchBookReview(false);
+    this.setSearchContributionToFestschrift(false);
+    this.setSearchCommentary(false);
+    this.setSearchCollectedEdition(false);
+    this.setSearchFestschrift(false);
+    this.setSearchContributionToEncyclopedia(false);
+    this.setSearchNewspaperArticle(false);
+    this.setSearchCaseStudy(false);
+    this.setSearchOpinion(false);
+    this.setSearchEditorial(false);
+    this.setSearchContributionToHandbook(false);
+    this.setSearchHandbook(false);
+    this.setSearchPatent(false);
 
-    genreCriterionVO.getGenre().clear();
-    genreCriterionVO.setSearchString("");
+    this.genreCriterionVO.getGenre().clear();
+    this.genreCriterionVO.setSearchString("");
   }
 
 
   public boolean isSearchArticle() {
-    return searchArticle;
+    return this.searchArticle;
   }
 
   public void setSearchArticle(boolean searchArticle) {
     this.searchArticle = searchArticle;
     if (searchArticle == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.ARTICLE)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.ARTICLE);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.ARTICLE)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.ARTICLE);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.ARTICLE);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.ARTICLE);
     }
   }
 
   public boolean isSearchBook() {
-    return searchBook;
+    return this.searchBook;
   }
 
   public void setSearchBook(boolean searchBook) {
     this.searchBook = searchBook;
     if (searchBook == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK);
     }
   }
 
   public boolean isSearchBookItem() {
-    return searchBookItem;
+    return this.searchBookItem;
   }
 
   public void setSearchBookItem(boolean searchBookItem) {
     this.searchBookItem = searchBookItem;
     if (searchBookItem == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK_ITEM)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK_ITEM);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK_ITEM)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK_ITEM);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK_ITEM);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK_ITEM);
     }
   }
 
   public boolean isSearchConferencePaper() {
-    return searchConferencePaper;
+    return this.searchConferencePaper;
   }
 
   public void setSearchConferencePaper(boolean searchConferencePaper) {
     this.searchConferencePaper = searchConferencePaper;
     if (searchConferencePaper == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONFERENCE_PAPER)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONFERENCE_PAPER);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONFERENCE_PAPER)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONFERENCE_PAPER);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONFERENCE_PAPER);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONFERENCE_PAPER);
     }
   }
 
   public boolean isSearchMeetingAbstract() {
-    return searchMeetingAbstract;
+    return this.searchMeetingAbstract;
   }
 
   public void setSearchMeetingAbstract(boolean searchMeetingAbstract) {
     this.searchMeetingAbstract = searchMeetingAbstract;
     if (searchMeetingAbstract) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MEETING_ABSTRACT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MEETING_ABSTRACT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MEETING_ABSTRACT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MEETING_ABSTRACT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MEETING_ABSTRACT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MEETING_ABSTRACT);
     }
   }
 
   public boolean isSearchConferenceReport() {
-    return searchConferenceReport;
+    return this.searchConferenceReport;
   }
 
   public void setSearchConferenceReport(boolean searchConferenceReport) {
     this.searchConferenceReport = searchConferenceReport;
     if (searchConferenceReport == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONFERENCE_REPORT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONFERENCE_REPORT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONFERENCE_REPORT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONFERENCE_REPORT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONFERENCE_REPORT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONFERENCE_REPORT);
     }
   }
 
   public boolean isSearchCoursewareLecture() {
-    return searchCoursewareLecture;
+    return this.searchCoursewareLecture;
   }
 
   public void setSearchCoursewareLecture(boolean searchCoursewareLecture) {
     this.searchCoursewareLecture = searchCoursewareLecture;
     if (searchCoursewareLecture == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COURSEWARE_LECTURE)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COURSEWARE_LECTURE);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COURSEWARE_LECTURE)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COURSEWARE_LECTURE);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COURSEWARE_LECTURE);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COURSEWARE_LECTURE);
     }
   }
 
   public boolean isSearchIssue() {
-    return searchIssue;
+    return this.searchIssue;
   }
 
   public void setSearchIssue(boolean searchIssue) {
     this.searchIssue = searchIssue;
     if (searchIssue == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.ISSUE)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.ISSUE);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.ISSUE)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.ISSUE);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.ISSUE);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.ISSUE);
     }
   }
 
   public boolean isSearchJournal() {
-    return searchJournal;
+    return this.searchJournal;
   }
 
   public void setSearchJournal(boolean searchJournal) {
     this.searchJournal = searchJournal;
     if (searchJournal == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.JOURNAL)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.JOURNAL);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.JOURNAL)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.JOURNAL);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.JOURNAL);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.JOURNAL);
     }
   }
 
   public boolean isSearchManuscript() {
-    return searchManuscript;
+    return this.searchManuscript;
   }
 
   public void setSearchManuscript(boolean searchManuscript) {
     this.searchManuscript = searchManuscript;
     if (searchManuscript == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MANUSCRIPT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MANUSCRIPT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MANUSCRIPT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MANUSCRIPT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MANUSCRIPT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MANUSCRIPT);
     }
   }
 
   public boolean isSearchOther() {
-    return searchOther;
+    return this.searchOther;
   }
 
   public void setSearchOther(boolean searchOther) {
     this.searchOther = searchOther;
     if (searchOther == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.OTHER)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.OTHER);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.OTHER)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.OTHER);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.OTHER);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.OTHER);
     }
   }
 
   public boolean isSearchPaper() {
-    return searchPaper;
+    return this.searchPaper;
   }
 
   public void setSearchPaper(boolean searchPaper) {
     this.searchPaper = searchPaper;
     if (searchPaper == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PAPER)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PAPER);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PAPER)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PAPER);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PAPER);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PAPER);
     }
   }
 
   public boolean isSearchPoster() {
-    return searchPoster;
+    return this.searchPoster;
   }
 
   public void setSearchPoster(boolean searchPoster) {
     this.searchPoster = searchPoster;
     if (searchPoster == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.POSTER)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.POSTER);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.POSTER)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.POSTER);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.POSTER);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.POSTER);
     }
   }
 
   public boolean isSearchProceedings() {
-    return searchProceedings;
+    return this.searchProceedings;
   }
 
   public void setSearchProceedings(boolean searchProceedings) {
     this.searchProceedings = searchProceedings;
     if (searchProceedings == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PROCEEDINGS)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PROCEEDINGS);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PROCEEDINGS)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PROCEEDINGS);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PROCEEDINGS);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PROCEEDINGS);
     }
   }
 
   public boolean isSearchReport() {
-    return searchReport;
+    return this.searchReport;
   }
 
   public void setSearchReport(boolean searchReport) {
     this.searchReport = searchReport;
     if (searchReport == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.REPORT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.REPORT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.REPORT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.REPORT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.REPORT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.REPORT);
     }
   }
 
   public boolean isSearchSeries() {
-    return searchSeries;
+    return this.searchSeries;
   }
 
   public void setSearchSeries(boolean searchSeries) {
     this.searchSeries = searchSeries;
     if (searchSeries == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.SERIES)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.SERIES);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.SERIES)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.SERIES);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.SERIES);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.SERIES);
     }
   }
 
   public boolean isSearchTalkAtEvent() {
-    return searchTalkAtEvent;
+    return this.searchTalkAtEvent;
   }
 
   public void setSearchTalkAtEvent(boolean searchTalkAtEvent) {
     this.searchTalkAtEvent = searchTalkAtEvent;
     if (searchTalkAtEvent == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.TALK_AT_EVENT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.TALK_AT_EVENT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.TALK_AT_EVENT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.TALK_AT_EVENT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.TALK_AT_EVENT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.TALK_AT_EVENT);
     }
   }
 
   public boolean isSearchThesis() {
-    return searchThesis;
+    return this.searchThesis;
   }
 
   public void setSearchThesis(boolean searchThesis) {
     this.searchThesis = searchThesis;
     if (searchThesis == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.THESIS)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.THESIS);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.THESIS)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.THESIS);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.THESIS);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.THESIS);
     }
   }
 
   // JUS
   public boolean isSearchContributionToCollectedEdition() {
-    return searchContributionToCollectedEdition;
+    return this.searchContributionToCollectedEdition;
   }
 
   public void setSearchContributionToCollectedEdition(boolean searchContributionToCollectedEdition) {
     this.searchContributionToCollectedEdition = searchContributionToCollectedEdition;
     if (searchContributionToCollectedEdition == true) {
-      if (!genreCriterionVO.getGenre().contains(
+      if (!this.genreCriterionVO.getGenre().contains(
           MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION);
     }
 
   }
 
   public boolean isSearchMonograph() {
-    return searchMonograph;
+    return this.searchMonograph;
   }
 
   public void setSearchMonograph(boolean searchMonograph) {
     this.searchMonograph = searchMonograph;
     if (searchMonograph == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MONOGRAPH)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MONOGRAPH);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MONOGRAPH)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MONOGRAPH);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MONOGRAPH);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MONOGRAPH);
     }
 
   }
 
   public boolean isSearchContributionToCommentary() {
-    return searchContributionToCommentary;
+    return this.searchContributionToCommentary;
   }
 
   public void setSearchContributionToCommentary(boolean searchContributionToCommentary) {
     this.searchContributionToCommentary = searchContributionToCommentary;
     if (searchContributionToCommentary == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY);
     }
 
   }
 
   public boolean isSearchCaseNote() {
-    return searchCaseNote;
+    return this.searchCaseNote;
   }
 
   public void setSearchCaseNote(boolean searchCaseNote) {
     this.searchCaseNote = searchCaseNote;
     if (searchCaseNote == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CASE_NOTE)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CASE_NOTE);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CASE_NOTE)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CASE_NOTE);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CASE_NOTE);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CASE_NOTE);
     }
 
   }
 
   public boolean isSearchBookReview() {
-    return searchBookReview;
+    return this.searchBookReview;
   }
 
   public void setSearchBookReview(boolean searchBookReview) {
     this.searchBookReview = searchBookReview;
     if (searchBookReview == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK_REVIEW)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK_REVIEW);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.BOOK_REVIEW)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.BOOK_REVIEW);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK_REVIEW);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.BOOK_REVIEW);
     }
 
   }
 
   public boolean isSearchContributionToFestschrift() {
-    return searchContributionToFestschrift;
+    return this.searchContributionToFestschrift;
   }
 
   public void setSearchContributionToFestschrift(boolean searchContributionToFestschrift) {
     this.searchContributionToFestschrift = searchContributionToFestschrift;
     if (searchContributionToFestschrift == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT);
     }
 
   }
 
   public boolean isSearchCommentary() {
-    return searchCommentary;
+    return this.searchCommentary;
   }
 
   public void setSearchCommentary(boolean searchCommentary) {
     this.searchCommentary = searchCommentary;
     if (searchCommentary == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COMMENTARY)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COMMENTARY);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COMMENTARY)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COMMENTARY);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COMMENTARY);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COMMENTARY);
     }
 
   }
 
   public boolean isSearchCollectedEdition() {
-    return searchCollectedEdition;
+    return this.searchCollectedEdition;
   }
 
   public void setSearchCollectedEdition(boolean searchCollectedEdition) {
     this.searchCollectedEdition = searchCollectedEdition;
     if (searchCollectedEdition == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COLLECTED_EDITION)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COLLECTED_EDITION);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.COLLECTED_EDITION)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.COLLECTED_EDITION);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COLLECTED_EDITION);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.COLLECTED_EDITION);
     }
 
   }
 
   public boolean isSearchFestschrift() {
-    return searchFestschrift;
+    return this.searchFestschrift;
   }
 
   public void setSearchFestschrift(boolean searchFestschrift) {
     this.searchFestschrift = searchFestschrift;
     if (searchFestschrift == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.FESTSCHRIFT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.FESTSCHRIFT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.FESTSCHRIFT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.FESTSCHRIFT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.FESTSCHRIFT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.FESTSCHRIFT);
     }
 
   }
 
   public boolean isSearchContributionToEncyclopedia() {
-    return searchContributionToEncyclopedia;
+    return this.searchContributionToEncyclopedia;
   }
 
   public void setSearchContributionToEncyclopedia(boolean searchContributionToEncyclopedia) {
     this.searchContributionToEncyclopedia = searchContributionToEncyclopedia;
     if (searchContributionToEncyclopedia == true) {
-      if (!genreCriterionVO.getGenre()
+      if (!this.genreCriterionVO.getGenre()
           .contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA);
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA);
     }
 
   }
 
   public boolean isSearchNewspaperArticle() {
-    return searchNewspaperArticle;
+    return this.searchNewspaperArticle;
   }
 
   public void setSearchNewspaperArticle(boolean searchNewspaperArticle) {
     this.searchNewspaperArticle = searchNewspaperArticle;
     if (searchNewspaperArticle == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.NEWSPAPER_ARTICLE);
     }
 
   }
 
   public boolean isSearchCaseStudy() {
-    return searchCaseStudy;
+    return this.searchCaseStudy;
   }
 
   public void setSearchCaseStudy(boolean searchCaseStudy) {
     this.searchCaseStudy = searchCaseStudy;
     if (searchCaseStudy == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CASE_STUDY)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CASE_STUDY);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CASE_STUDY)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CASE_STUDY);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CASE_STUDY);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CASE_STUDY);
     }
 
   }
 
   public boolean isSearchOpinion() {
-    return searchOpinion;
+    return this.searchOpinion;
   }
 
   public void setSearchOpinion(boolean searchOpinion) {
     this.searchOpinion = searchOpinion;
     if (searchOpinion == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.OPINION)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.OPINION);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.OPINION)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.OPINION);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.OPINION);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.OPINION);
     }
 
   }
 
   public boolean isSearchEditorial() {
-    return searchEditorial;
+    return this.searchEditorial;
   }
 
   public void setSearchEditorial(boolean searchEditorial) {
     this.searchEditorial = searchEditorial;
     if (searchEditorial == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.EDITORIAL)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.EDITORIAL);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.EDITORIAL)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.EDITORIAL);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.EDITORIAL);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.EDITORIAL);
     }
 
   }
 
   public boolean isSearchContributionToHandbook() {
-    return searchContributionToHandbook;
+    return this.searchContributionToHandbook;
   }
 
   public void setSearchContributionToHandbook(boolean searchContributionToHandbook) {
     this.searchContributionToHandbook = searchContributionToHandbook;
     if (searchContributionToHandbook == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
     }
 
   }
 
   public boolean isSearchHandbook() {
-    return searchHandbook;
+    return this.searchHandbook;
   }
 
   public void setSearchHandbook(boolean searchHandbook) {
     this.searchHandbook = searchHandbook;
     if (searchHandbook == true) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.HANDBOOK)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.HANDBOOK);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.HANDBOOK)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.HANDBOOK);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.HANDBOOK);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.HANDBOOK);
     }
 
   }
@@ -756,16 +755,16 @@ public class GenreCriterionBean extends CriterionBean {
   public void setSearchPatent(boolean searchPatent) {
     this.searchPatent = searchPatent;
     if (searchPatent) {
-      if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PATENT)) {
-        genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PATENT);
+      if (!this.genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PATENT)) {
+        this.genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PATENT);
       }
     } else {
-      genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PATENT);
+      this.genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PATENT);
     }
   }
 
   public boolean isSearchPatent() {
-    return searchPatent;
+    return this.searchPatent;
   }
 
 

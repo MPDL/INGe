@@ -55,13 +55,13 @@ public class ContextCriterionBean extends CriterionBean {
   }
 
   public ContextCriterionBean(ContextCriterion contextCriterionVO) {
-    setContextCriterionVO(contextCriterionVO);
+    this.setContextCriterionVO(contextCriterionVO);
   }
 
   public String getContext() {
     this.context = FacesTools.getRequest().getParameter("collection");
-    if (this.context != null && context.length() > 0) {
-      for (ContextVO vo : this.contexts) {
+    if (this.context != null && this.context.length() > 0) {
+      for (final ContextVO vo : this.contexts) {
         if (vo.getReference().getObjectId().equals(this.context)) {
           this.contextCriterionVO.setSearchString(vo.getReference().getObjectId());
         }
@@ -96,15 +96,16 @@ public class ContextCriterionBean extends CriterionBean {
     this.contexts = contexts;
   }
 
+  @Override
   public Criterion getCriterionVO() {
     return this.contextCriterionVO;
   }
 
   public String getContextName() throws Exception {
-    AdvancedSearchEdit advancedSearchEdit =
+    final AdvancedSearchEdit advancedSearchEdit =
         (AdvancedSearchEdit) FacesTools.findBean("AdvancedSearchEdit");
 
-    for (SelectItem contextItem : advancedSearchEdit.getContextCriterionCollection()
+    for (final SelectItem contextItem : advancedSearchEdit.getContextCriterionCollection()
         .getContextList()) {
       if (contextItem.getValue().equals(this.contextCriterionVO.getSearchString())) {
         return contextItem.getLabel();

@@ -59,9 +59,10 @@ public class EndnoteProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#hasNext()
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.items != null && this.counter < this.items.length);
   }
@@ -71,13 +72,14 @@ public class EndnoteProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#next()
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.items != null && this.counter < this.items.length) {
       this.counter++;
-      return items[counter - 1];
+      return this.items[this.counter - 1];
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -89,17 +91,18 @@ public class EndnoteProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#remove()
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    this.init = true;
+    final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     int read;
-    byte[] buffer = new byte[2048];
+    final byte[] buffer = new byte[2048];
     try {
-      InputStream is = new FileInputStream(getSourceFile());
+      final InputStream is = new FileInputStream(this.getSourceFile());
       while ((read = is.read(buffer)) != -1) {
         byteArrayOutputStream.write(buffer, 0, read);
       }
@@ -114,13 +117,13 @@ public class EndnoteProcessor extends FormatProcessor {
           Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString)
               .replaceFirst("%");
 
-      BufferedReader reader = new BufferedReader(new StringReader(inputString));
+      final BufferedReader reader = new BufferedReader(new StringReader(inputString));
 
       String buff;
       boolean firstItem = true;
       int count = 0;
       StringBuffer sb = null;
-      List<String> l = new ArrayList<String>();
+      final List<String> l = new ArrayList<String>();
 
       while ((buff = reader.readLine()) != null) {
 
@@ -149,13 +152,13 @@ public class EndnoteProcessor extends FormatProcessor {
 
       reader.close();
 
-      items = (String[]) l.toArray(new String[l.size()]);
+      this.items = l.toArray(new String[l.size()]);
 
-      this.length = items.length;
+      this.length = this.items.length;
 
-      counter = 0;
+      this.counter = 0;
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 
@@ -168,7 +171,7 @@ public class EndnoteProcessor extends FormatProcessor {
    */
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   /*

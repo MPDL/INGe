@@ -60,8 +60,8 @@ public class CreatorVOPresentation extends CreatorVO {
 
   private static Properties properties;
 
-  private EditItemBean bean;
-  private List<CreatorVOPresentation> list;
+  private final EditItemBean bean;
+  private final List<CreatorVOPresentation> list;
   private String ouNumbers;
 
   private PersonVO surrogatePerson;
@@ -101,11 +101,12 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Map filled with all creator roles, which will be excluded
    */
   public static Map<String, String> getCreatorRoleMap() {
-    if (properties == null || properties.isEmpty()) {
-      properties = loadCreatorRoleProperties();
+    if (CreatorVOPresentation.properties == null || CreatorVOPresentation.properties.isEmpty()) {
+      CreatorVOPresentation.properties = CreatorVOPresentation.loadCreatorRoleProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
+    final
+    Map<String, String> propertiesMap = new HashMap<String, String>((Map) CreatorVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -116,7 +117,7 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Properties filled with all creator roles, which will be excluded
    */
   private static Properties loadCreatorRoleProperties() {
-    properties = new Properties();
+    CreatorVOPresentation.properties = new Properties();
     URL contentCategoryURI = null;
     try {
       contentCategoryURI =
@@ -124,9 +125,9 @@ public class CreatorVOPresentation extends CreatorVO {
       if (contentCategoryURI != null) {
         Logger.getLogger(CreatorVOPresentation.class).info(
             "Author-Roles properties URI is " + contentCategoryURI.toString());
-        InputStream in = contentCategoryURI.openStream();
-        properties.load(in);
-        properties.putAll(properties);
+        final InputStream in = contentCategoryURI.openStream();
+        CreatorVOPresentation.properties.load(in);
+        CreatorVOPresentation.properties.putAll(CreatorVOPresentation.properties);
         in.close();
         Logger.getLogger(CreatorVOPresentation.class).info(
             "Author-Roles properties loaded from " + contentCategoryURI.toString());
@@ -134,11 +135,11 @@ public class CreatorVOPresentation extends CreatorVO {
         Logger.getLogger(CreatorVOPresentation.class).debug(
             "Author-Roles properties file not found.");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       Logger.getLogger(CreatorVOPresentation.class).warn(
           "WARNING: Author-Roles properties not found: " + e.getMessage());
     }
-    return properties;
+    return CreatorVOPresentation.properties;
   }
 
   /**
@@ -147,10 +148,10 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Always empty
    */
   public void add() {
-    CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
-    creatorVOPresentation.init(getType());
+    final CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
+    creatorVOPresentation.init(this.getType());
     creatorVOPresentation.setRole(CreatorRole.AUTHOR);
-    int index = this.list.indexOf(this);
+    final int index = this.list.indexOf(this);
     this.list.add(index + 1, creatorVOPresentation);
   }
 
@@ -158,20 +159,24 @@ public class CreatorVOPresentation extends CreatorVO {
     this.list.remove(this);
   }
 
+  @Override
   public String getTypeString() {
     return (this.getType() == null ? "" : this.getType().toString());
   }
 
+  @Override
   public void setTypeString(String value) {
     if (value != null) {
-      init(CreatorType.valueOf(value));
+      this.init(CreatorType.valueOf(value));
     }
   }
 
+  @Override
   public String getRoleString() {
     return (this.getRole() == null ? "" : this.getRole().toString());
   }
 
+  @Override
   public void setRoleString(String value) {
     if (value == null || value.isEmpty()) {
       this.setRole(null);
@@ -207,11 +212,11 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public void addOrganization() {
     if (!"".equals(this.autoPasteValue)) {
-      logger.debug("Creating new OU from: " + this.autoPasteValue);
-      bean.setOrganizationPasted(true);
-      String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-      List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
-      OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
+      CreatorVOPresentation.logger.debug("Creating new OU from: " + this.autoPasteValue);
+      this.bean.setOrganizationPasted(true);
+      final String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
+      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      final OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
       newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
       newOrg.setBean(this.bean);
@@ -223,43 +228,43 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   public String getOuNumbers() {
-    if (isPersonType() && this.ouNumbers == null) {
-      List<OrganizationVOPresentation> creatorOrganizations = bean.getCreatorOrganizations();
-      for (OrganizationVO organization : getPerson().getOrganizations()) {
-        if (ouNumbers == null) {
-          ouNumbers = "";
+    if (this.isPersonType() && this.ouNumbers == null) {
+      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      for (final OrganizationVO organization : this.getPerson().getOrganizations()) {
+        if (this.ouNumbers == null) {
+          this.ouNumbers = "";
         } else {
-          ouNumbers += ",";
+          this.ouNumbers += ",";
         }
         if (creatorOrganizations.indexOf(organization) >= 0) {
-          ouNumbers += creatorOrganizations.indexOf(organization) + 1;
+          this.ouNumbers += creatorOrganizations.indexOf(organization) + 1;
         }
       }
     }
-    return ouNumbers;
+    return this.ouNumbers;
   }
 
   public int[] getOus() {
-    if (getOuNumbers() != null && !"".equals(getOuNumbers())) {
-      String[] orgArr = getOuNumbers().split(",");
-      int[] result = new int[orgArr.length];
+    if (this.getOuNumbers() != null && !"".equals(this.getOuNumbers())) {
+      final String[] orgArr = this.getOuNumbers().split(",");
+      final int[] result = new int[orgArr.length];
 
       try {
         for (int i = 0; i < orgArr.length; i++) {
           if (!"".equals(orgArr[i])) {
-            int orgNr = Integer.parseInt(orgArr[i]);
+            final int orgNr = Integer.parseInt(orgArr[i]);
             result[i] = orgNr;
           }
         }
-      } catch (NumberFormatException nfe) {
+      } catch (final NumberFormatException nfe) {
         FacesBean.error(((EditItem) FacesTools.findBean("EditItem"))
-            .getMessage("EntryIsNotANumber").replace("$1", getOuNumbers()));
-      } catch (IndexOutOfBoundsException ioobe) {
+            .getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
+      } catch (final IndexOutOfBoundsException ioobe) {
         FacesBean.error(((EditItem) FacesTools.findBean("EditItem")).getMessage(
-            "EntryIsNotInValidRange").replace("$1", getOuNumbers()));
-      } catch (Exception e) {
+            "EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
+      } catch (final Exception e) {
         FacesBean.error(((EditItem) FacesTools.findBean("EditItem")).getMessage(
-            "ErrorInOrganizationAssignment").replace("$1", getOuNumbers()));
+            "ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
       }
       return result;
     } else {
@@ -275,7 +280,7 @@ public class CreatorVOPresentation extends CreatorVO {
       }
       result += values[i];
     }
-    setOuNumbers(result);
+    this.setOuNumbers(result);
   }
 
   public void setOuNumbers(String ouNumbers) {
@@ -284,30 +289,34 @@ public class CreatorVOPresentation extends CreatorVO {
 
   private void init(CreatorType type) {
     if (CreatorType.PERSON == type) {
-      setType(CreatorType.PERSON);
-      setPerson(new PersonVO());
-      getPerson().setIdentifier(new IdentifierVO());
-      getPerson().getIdentifier().setType(IdType.CONE);
-      getPerson().setOrganizations(new ArrayList<OrganizationVO>());
+      this.setType(CreatorType.PERSON);
+      this.setPerson(new PersonVO());
+      this.getPerson().setIdentifier(new IdentifierVO());
+      this.getPerson().getIdentifier().setType(IdType.CONE);
+      this.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
     } else if (CreatorType.ORGANIZATION == type) {
-      setType(CreatorType.ORGANIZATION);
-      setOrganization(new OrganizationVO());
-      getOrganization().setName("");
+      this.setType(CreatorType.ORGANIZATION);
+      this.setOrganization(new OrganizationVO());
+      this.getOrganization().setName("");
     }
   }
 
+  @Override
   public PersonVO getPerson() {
-    return surrogatePerson;
+    return this.surrogatePerson;
   }
 
+  @Override
   public void setPerson(PersonVO surrogatePerson) {
     this.surrogatePerson = surrogatePerson;
   }
 
+  @Override
   public OrganizationVO getOrganization() {
-    return surrogateOrganization;
+    return this.surrogateOrganization;
   }
 
+  @Override
   public void setOrganization(OrganizationVO surrogateOrganization) {
     this.surrogateOrganization = surrogateOrganization;
   }

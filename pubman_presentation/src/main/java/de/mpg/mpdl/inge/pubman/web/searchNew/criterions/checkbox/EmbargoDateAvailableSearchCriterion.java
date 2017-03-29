@@ -38,7 +38,7 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String toCqlString(Index indexName) {
-    if (withEmbargoDate) {
+    if (this.withEmbargoDate) {
       switch (indexName) {
         case ESCIDOC_ALL:
           return "escidoc.component.file.available>\"''\"";
@@ -52,7 +52,7 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion() + "=\"" + withEmbargoDate + "\"";
+    return this.getSearchCriterion() + "=\"" + this.withEmbargoDate + "\"";
   }
 
   @Override
@@ -62,11 +62,11 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return !withEmbargoDate;
+    return !this.withEmbargoDate;
   }
 
   public boolean isWithEmbargoDate() {
-    return withEmbargoDate;
+    return this.withEmbargoDate;
   }
 
   public void setWithEmbargoDate(boolean withEmbargoDate) {

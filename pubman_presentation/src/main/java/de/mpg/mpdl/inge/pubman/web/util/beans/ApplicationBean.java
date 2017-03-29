@@ -110,25 +110,25 @@ public class ApplicationBean extends FacesBean {
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
 
-    loadProperties();
+    this.loadProperties();
   }
 
   private void loadProperties() {
     try {
-      Properties solProperties = CommonUtils.getProperties(PROPERTY_FILENAME);
+      final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
       this.version = solProperties.getProperty("escidoc.pubman.version");
       this.shortVersion = "";
       int whereToCut;
       try {
-        shortVersion = solProperties.getProperty("escidoc.pubman.version");
+        this.shortVersion = solProperties.getProperty("escidoc.pubman.version");
         // get the position of the first blank before the word 'build'
-        whereToCut = shortVersion.indexOf(" ");
-        shortVersion = shortVersion.substring(0, whereToCut + 1);
-      } catch (Exception e) {
-        logger.warn("The version of the application cannot be retrieved.");
+        whereToCut = this.shortVersion.indexOf(" ");
+        this.shortVersion = this.shortVersion.substring(0, whereToCut + 1);
+      } catch (final Exception e) {
+        ApplicationBean.logger.warn("The version of the application cannot be retrieved.");
       }
 
-      this.appTitle = getLabel("Pubman_browserTitle");
+      this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
       if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server)
           && this.version != null) {
@@ -149,9 +149,9 @@ public class ApplicationBean extends FacesBean {
       }
 
       try {
-        this.pubmanStyleTags = buildPubmanStyleTags();
-      } catch (Exception e) {
-        logger.error("Error while building style tags", e);
+        this.pubmanStyleTags = this.buildPubmanStyleTags();
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error while building style tags", e);
       }
 
       this.cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
@@ -174,24 +174,24 @@ public class ApplicationBean extends FacesBean {
       try {
         this.handlesActivated =
             Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
-      } catch (Exception e) {
-        logger.error("Error reading property 'escidoc.handles.activated'", e);
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error reading property 'escidoc.handles.activated'", e);
         this.handlesActivated = false;
       }
 
-      String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName");
+      final String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName");
       try {
         if (footerFileName != null && !footerFileName.isEmpty()) {
           this.footerSnippet =
               ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
         }
-      } catch (Exception e) {
-        logger.error("Error while reading footer file: " + footerFileName);
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
       }
 
       this.cslEditorInstanceUrl = PropertyReader.getProperty("escidoc.pubman.csl_editor.instance");
-    } catch (Exception e) {
-      logger.error("Error while reading properties", e);
+    } catch (final Exception e) {
+      ApplicationBean.logger.error("Error while reading properties", e);
     }
   }
 
@@ -271,7 +271,7 @@ public class ApplicationBean extends FacesBean {
    * @return the escidoc instance
    */
   private String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
-    StringBuffer styleTags = new StringBuffer();
+    final StringBuffer styleTags = new StringBuffer();
     String StylesheetStandard = "";
     String StylesheetContrast = "";
     String StylesheetClassic = "";
@@ -281,7 +281,7 @@ public class ApplicationBean extends FacesBean {
     try {
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.apply"))) {
         if (PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(
-            ALTERNATE_STYLESHEET)) {
+            ApplicationBean.ALTERNATE_STYLESHEET)) {
           styleTags.append("<link href=\""
               + PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url")
               + "\" id=\"Standard\" type=\"text/css\" title=\""
@@ -303,7 +303,7 @@ public class ApplicationBean extends FacesBean {
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply"))) {
         if (PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(
-            ALTERNATE_STYLESHEET)) {
+            ApplicationBean.ALTERNATE_STYLESHEET)) {
           styleTags.append("<link href=\""
               + PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url")
               + "\" id=\"HighContrast\" type=\"text/css\" title=\""
@@ -325,7 +325,7 @@ public class ApplicationBean extends FacesBean {
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply"))) {
         if (PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(
-            ALTERNATE_STYLESHEET)) {
+            ApplicationBean.ALTERNATE_STYLESHEET)) {
           styleTags.append("<link href=\""
               + PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url")
               + "\" id=\"Classic\" type=\"text/css\" title=\""
@@ -347,7 +347,7 @@ public class ApplicationBean extends FacesBean {
 
       if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.apply"))) {
         if (PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type").equals(
-            ALTERNATE_STYLESHEET)) {
+            ApplicationBean.ALTERNATE_STYLESHEET)) {
           styleTags.append("<link href=\""
               + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url")
               + "\" id=\"Special\" type=\"text/css\" title=\""
@@ -364,7 +364,7 @@ public class ApplicationBean extends FacesBean {
                   + PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") + "\"/>";
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new PubManStylesheetNotAvailableException(e);
     }
 
@@ -443,7 +443,7 @@ public class ApplicationBean extends FacesBean {
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
   private SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException {
-    String sysType = PropertyReader.getProperty("escidoc.systemtype");
+    final String sysType = PropertyReader.getProperty("escidoc.systemtype");
 
     if (sysType.equals("workstation")) {
       return SystemType.Workstation;
@@ -455,8 +455,9 @@ public class ApplicationBean extends FacesBean {
       return SystemType.Test_Server;
     } else if (sysType.equals("production")) {
       return SystemType.Production_Server;
-    } else
+    } else {
       throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
+    }
   }
 
   // public boolean getCheckSystemTypeProduction() {
@@ -470,9 +471,9 @@ public class ApplicationBean extends FacesBean {
   public String getReloadResourceBundlesAndProperties() throws Exception {
     ResourceBundle.clearCache();
     PropertyReader.forceReloadProperties();
-    loadProperties();
+    this.loadProperties();
     this.languageSelectItems.clear();
-    ouList.clear();
+    this.ouList.clear();
 
     // Renew Journal CitationStyles for JUS Exports
     XsltHelper.getJournalsXML();

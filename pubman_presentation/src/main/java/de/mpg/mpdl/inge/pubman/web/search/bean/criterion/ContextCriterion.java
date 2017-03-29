@@ -12,10 +12,11 @@ public class ContextCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
     MetadataSearchCriterion criterion = null;
-    criterion = new MetadataSearchCriterion(CriterionType.CONTEXT_OBJECTID, getSearchString());
+    criterion = new MetadataSearchCriterion(CriterionType.CONTEXT_OBJECTID, this.getSearchString());
     criterions.add(criterion);
 
     return criterions;

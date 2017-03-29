@@ -28,16 +28,16 @@ public class LanguageCriterionBean extends CriterionBean {
   }
 
   public LanguageCriterionBean(LanguageCriterion languageCriterionVO) {
-    setLanguageCriterionVO(languageCriterionVO);
+    this.setLanguageCriterionVO(languageCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return languageCriterionVO;
+    return this.languageCriterionVO;
   }
 
   public LanguageCriterion getLanguageCriterionVO() {
-    return languageCriterionVO;
+    return this.languageCriterionVO;
   }
 
   public void setLanguageCriterionVO(LanguageCriterion languageCriterionVO) {
@@ -50,8 +50,8 @@ public class LanguageCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    languageCriterionVO.setSearchString("");
-    setLanguageProposal("");
+    this.languageCriterionVO.setSearchString("");
+    this.setLanguageProposal("");
   }
 
   public SelectItem[] getLanguageOptions() {
@@ -62,7 +62,7 @@ public class LanguageCriterionBean extends CriterionBean {
    * @return the languageProposal
    */
   public String getLanguageProposal() {
-    return languageProposal;
+    return this.languageProposal;
   }
 
   /**
@@ -77,12 +77,12 @@ public class LanguageCriterionBean extends CriterionBean {
     if (event != null && event.getNewValue() != null) {
       newVal = event.getNewValue().toString();
     }
-    languageProposal = newVal;
-    languageCriterionVO.setSearchString(newVal);
+    this.languageProposal = newVal;
+    this.languageCriterionVO.setSearchString(newVal);
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale = getI18nHelper().getLocale();
-    return CommonUtils.getConeLanguageName(languageCriterionVO.getSearchString(), locale);
+    final String locale = this.getI18nHelper().getLocale();
+    return CommonUtils.getConeLanguageName(this.languageCriterionVO.getSearchString(), locale);
   }
 }

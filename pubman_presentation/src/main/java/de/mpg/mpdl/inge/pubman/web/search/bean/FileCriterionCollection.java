@@ -46,9 +46,9 @@ public class FileCriterionCollection {
    */
   public FileCriterionCollection() {
     // ensure the parentVO is never null;
-    List<FileCriterion> ctorList = new ArrayList<FileCriterion>();
+    final List<FileCriterion> ctorList = new ArrayList<FileCriterion>();
     ctorList.add(new FileCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -57,17 +57,17 @@ public class FileCriterionCollection {
    * @param parentVO
    */
   public FileCriterionCollection(List<FileCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<FileCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<FileCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    fileCriterionManager = new FileCriterionManager(parentVO);
+    this.fileCriterionManager = new FileCriterionManager(parentVO);
   }
 
   /**
@@ -79,16 +79,17 @@ public class FileCriterionCollection {
     List<FileCriterion> parentVO;
 
     public FileCriterionManager(List<FileCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public FileCriterionBean createNewObject() {
-      FileCriterion newVO = new FileCriterion();
+      final FileCriterion newVO = new FileCriterion();
       // create a new wrapper pojo
-      FileCriterionBean fileCriterionBean = new FileCriterionBean(newVO);
+      final FileCriterionBean fileCriterionBean = new FileCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return fileCriterionBean;
     }
 
@@ -96,17 +97,17 @@ public class FileCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<FileCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice FileCriterionBean
-      List<FileCriterionBean> beanList = new ArrayList<FileCriterionBean>();
-      for (FileCriterion fileCriterionVO : parentVO) {
+      final List<FileCriterionBean> beanList = new ArrayList<FileCriterionBean>();
+      for (final FileCriterion fileCriterionVO : this.parentVO) {
         beanList.add(new FileCriterionBean(fileCriterionVO));
       }
 
@@ -116,21 +117,21 @@ public class FileCriterionCollection {
     public void setParentVO(List<FileCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice FileCriterionBean
-      List<FileCriterionBean> beanList = new ArrayList<FileCriterionBean>();
-      for (FileCriterion fileCriterionVO : parentVO) {
+      final List<FileCriterionBean> beanList = new ArrayList<FileCriterionBean>();
+      for (final FileCriterion fileCriterionVO : parentVO) {
         beanList.add(new FileCriterionBean(fileCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public FileCriterionManager getFileCriterionManager() {
-    return fileCriterionManager;
+    return this.fileCriterionManager;
   }
 
   public void setFileCriterionManager(FileCriterionManager fileCriterionManager) {
@@ -138,14 +139,14 @@ public class FileCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (FileCriterionBean gcb : fileCriterionManager.getObjectList()) {
+    for (final FileCriterionBean gcb : this.fileCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<FileCriterion> getFilledCriterion() {
-    List<FileCriterion> returnList = new ArrayList<FileCriterion>();
-    for (FileCriterion vo : parentVO) {
+    final List<FileCriterion> returnList = new ArrayList<FileCriterion>();
+    for (final FileCriterion vo : this.parentVO) {
       if (!(vo.getContentCategory() == null && vo.getComponentVisibility() == null
           && vo.getComponentAvailability() == null && vo.getSearchForEmbargoFiles() == false)) {
         returnList.add(vo);

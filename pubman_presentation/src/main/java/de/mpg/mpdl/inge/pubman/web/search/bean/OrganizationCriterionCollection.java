@@ -30,9 +30,9 @@ public class OrganizationCriterionCollection {
    */
   public OrganizationCriterionCollection() {
     // ensure the parentVO is never null;
-    List<OrganizationCriterion> ctorList = new ArrayList<OrganizationCriterion>();
+    final List<OrganizationCriterion> ctorList = new ArrayList<OrganizationCriterion>();
     ctorList.add(new OrganizationCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -41,23 +41,23 @@ public class OrganizationCriterionCollection {
    * @param parentVO
    */
   public OrganizationCriterionCollection(List<OrganizationCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<OrganizationCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<OrganizationCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    organizationCriterionManager = new OrganizationCriterionManager(parentVO);
+    this.organizationCriterionManager = new OrganizationCriterionManager(parentVO);
   }
 
   private List<OrganizationCriterion> resolveIncludes(List<OrganizationCriterion> inVO) {
-    List<OrganizationCriterion> resolved = new ArrayList<OrganizationCriterion>();
+    final List<OrganizationCriterion> resolved = new ArrayList<OrganizationCriterion>();
 
-    for (OrganizationCriterion criterion : inVO) {
+    for (final OrganizationCriterion criterion : inVO) {
       resolved.add(criterion);
 
       AffiliationVO affiliation;
@@ -67,32 +67,32 @@ public class OrganizationCriterionCollection {
                 .getOrganizationalUnitHandler().retrieve(
                     criterion.getAffiliation().getReference().getObjectId()));
 
-        AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+        final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
         // AffiliationVOPresentation affiliation = criterion.getAffiliation();
-        logger.debug("Adding " + affiliation.toString());
+        OrganizationCriterionCollection.logger.debug("Adding " + affiliation.toString());
 
         if (criterion.getIncludePredecessorsAndSuccessors()) {
-          List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
+          final List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
 
-          for (AffiliationVO affiliationVO : sucessorsVO) {
-            OrganizationCriterion organizationCriterion = new OrganizationCriterion();
+          for (final AffiliationVO affiliationVO : sucessorsVO) {
+            final OrganizationCriterion organizationCriterion = new OrganizationCriterion();
             organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
             resolved.add(organizationCriterion);
-            logger.debug("Adding sucessor " + organizationCriterion.getAffiliation().toString());
+            OrganizationCriterionCollection.logger.debug("Adding sucessor " + organizationCriterion.getAffiliation().toString());
           }
 
-          List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
+          final List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
 
-          for (AffiliationVO affiliationVO : predecessorsVO) {
-            OrganizationCriterion organizationCriterion = new OrganizationCriterion();
+          for (final AffiliationVO affiliationVO : predecessorsVO) {
+            final OrganizationCriterion organizationCriterion = new OrganizationCriterion();
             organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
             resolved.add(organizationCriterion);
-            logger.debug("Adding predecessor " + organizationCriterion.getAffiliation().toString());
+            OrganizationCriterionCollection.logger.debug("Adding predecessor " + organizationCriterion.getAffiliation().toString());
           }
         }
-      } catch (Exception e) {
-        logger.error("Error while retrieving affiliation from id", e);
+      } catch (final Exception e) {
+        OrganizationCriterionCollection.logger.error("Error while retrieving affiliation from id", e);
       }
     }
     return resolved;
@@ -107,16 +107,17 @@ public class OrganizationCriterionCollection {
     List<OrganizationCriterion> parentVO;
 
     public OrganizationCriterionManager(List<OrganizationCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public OrganizationCriterionBean createNewObject() {
-      OrganizationCriterion newVO = new OrganizationCriterion();
+      final OrganizationCriterion newVO = new OrganizationCriterion();
       // create a new wrapper pojo
-      OrganizationCriterionBean organizationCriterionBean = new OrganizationCriterionBean(newVO);
+      final OrganizationCriterionBean organizationCriterionBean = new OrganizationCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return organizationCriterionBean;
     }
 
@@ -124,17 +125,17 @@ public class OrganizationCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<OrganizationCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice OrganizationCriterionBean
-      List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
-      for (OrganizationCriterion organizationCriterionVO : parentVO) {
+      final List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
+      for (final OrganizationCriterion organizationCriterionVO : this.parentVO) {
         beanList.add(new OrganizationCriterionBean(organizationCriterionVO));
       }
 
@@ -144,21 +145,21 @@ public class OrganizationCriterionCollection {
     public void setParentVO(List<OrganizationCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice OrganizationCriterionBean
-      List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
-      for (OrganizationCriterion organizationCriterionVO : parentVO) {
+      final List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
+      for (final OrganizationCriterion organizationCriterionVO : parentVO) {
         beanList.add(new OrganizationCriterionBean(organizationCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public OrganizationCriterionManager getOrganizationCriterionManager() {
-    return organizationCriterionManager;
+    return this.organizationCriterionManager;
   }
 
   public void setOrganizationCriterionManager(
@@ -167,21 +168,21 @@ public class OrganizationCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (OrganizationCriterionBean gcb : organizationCriterionManager.getObjectList()) {
+    for (final OrganizationCriterionBean gcb : this.organizationCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<OrganizationCriterion> getFilledCriterion() {
-    List<OrganizationCriterion> returnList = new ArrayList<OrganizationCriterion>();
-    for (OrganizationCriterion vo : parentVO) {
+    final List<OrganizationCriterion> returnList = new ArrayList<OrganizationCriterion>();
+    for (final OrganizationCriterion vo : this.parentVO) {
       if (((vo.getSearchString() != null && vo.getSearchString().length() > 0) || (vo
           .getAffiliation() != null && vo.getAffiliation().getReference().getObjectId() != null && !""
             .equals(vo.getAffiliation().getReference().getObjectId())))) {
         returnList.add(vo);
       }
     }
-    return resolveIncludes(returnList);
+    return this.resolveIncludes(returnList);
   }
 
 }

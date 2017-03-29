@@ -27,12 +27,12 @@ public class SitemapFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
-      HttpServletRequest req = (HttpServletRequest) request;
-      HttpServletResponse resp = (HttpServletResponse) response;
-      String filename = req.getServletPath();
+      final HttpServletRequest req = (HttpServletRequest) request;
+      final HttpServletResponse resp = (HttpServletResponse) response;
+      final String filename = req.getServletPath();
 
       if (filename != null && filename.matches("^/sitemap\\d*\\.xml$")) {
-        File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
+        final File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
 
         if (!sitemapFile.exists()) {
           resp.sendError(HttpStatus.SC_NOT_FOUND);
@@ -41,9 +41,9 @@ public class SitemapFilter implements Filter {
           resp.setContentType("text/xml");
           resp.setContentLength((int) sitemapFile.length());
 
-          OutputStream out = resp.getOutputStream();
-          BufferedInputStream in = new BufferedInputStream(new FileInputStream(sitemapFile));
-          byte[] buffer = new byte[8 * 1024];
+          final OutputStream out = resp.getOutputStream();
+          final BufferedInputStream in = new BufferedInputStream(new FileInputStream(sitemapFile));
+          final byte[] buffer = new byte[8 * 1024];
           int count;
           while ((count = in.read(buffer)) != -1) {
             out.write(buffer, 0, count);

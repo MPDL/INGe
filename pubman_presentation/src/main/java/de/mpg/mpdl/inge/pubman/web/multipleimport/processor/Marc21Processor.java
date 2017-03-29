@@ -58,42 +58,42 @@ public class Marc21Processor extends FormatProcessor {
     ByteArrayOutputStream result;
     MarcXmlWriter writer;
     try {
-      InputStream is = new FileInputStream(getSourceFile());
+      final InputStream is = new FileInputStream(this.getSourceFile());
       if (this.encoding == null || this.encoding.trim().equals("")
-          || this.encoding.trim().equals("*"))
+          || this.encoding.trim().equals("*")) {
         reader = new MarcStreamReader(is);
-
-      else
-        reader = new MarcStreamReader(is, encoding);
+      } else {
+        reader = new MarcStreamReader(is, this.encoding);
+      }
 
       result = new ByteArrayOutputStream();
 
       writer = new MarcXmlWriter(result, "UTF-8", true);
 
       while (reader.hasNext()) {
-        Record record = reader.next();
+        final Record record = reader.next();
         writer.write(record);
       }
 
       is.close();
       writer.close();
-    } catch (Exception e1) {
+    } catch (final Exception e1) {
       throw new RuntimeException("Error while reading marc21 file");
     }
 
     try {
       // nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
-      String xml =
+      final String xml =
           new String(result.toString("UTF-8")
               .replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
               .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\""));
-      marcxmlprocessor = new MarcXmlProcessor();
+      this.marcxmlprocessor = new MarcXmlProcessor();
 
-      File f = File.createTempFile("marcXml", "xml");
-      FileOutputStream fos = new FileOutputStream(f);
+      final File f = File.createTempFile("marcXml", "xml");
+      final FileOutputStream fos = new FileOutputStream(f);
       IOUtils.write(xml, fos, "UTF-8");
-      marcxmlprocessor.setSourceFile(f);
-    } catch (Exception e) {
+      this.marcxmlprocessor.setSourceFile(f);
+    } catch (final Exception e) {
       throw new RuntimeException("Can't encode the result to UTF-8", e);
     }
 
@@ -108,17 +108,17 @@ public class Marc21Processor extends FormatProcessor {
   @Override
   public boolean hasNext() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
-    return marcxmlprocessor.hasNext();
+    return this.marcxmlprocessor.hasNext();
   }
 
   @Override
   public String next() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
-    return marcxmlprocessor.next();
+    return this.marcxmlprocessor.next();
   }
 
   @Override
@@ -130,9 +130,9 @@ public class Marc21Processor extends FormatProcessor {
   @Override
   public int getLength() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
-    return marcxmlprocessor.getLength();
+    return this.marcxmlprocessor.getLength();
   }
 
   @Override
@@ -142,11 +142,11 @@ public class Marc21Processor extends FormatProcessor {
     }
 
     try {
-      InputStream is = new FileInputStream(getSourceFile());
-      String base64 = Base64.encode(IOUtils.toByteArray(is));
+      final InputStream is = new FileInputStream(this.getSourceFile());
+      final String base64 = Base64.encode(IOUtils.toByteArray(is));
       is.close();
       return base64;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Can't read input stream", e);
     }
   }

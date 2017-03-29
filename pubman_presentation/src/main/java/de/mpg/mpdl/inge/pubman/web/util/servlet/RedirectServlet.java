@@ -74,17 +74,17 @@ public class RedirectServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    String id = req.getPathInfo().substring(1);
-    boolean download = ("download".equals(req.getParameter("mode")));
-    boolean tme = ("tme".equals(req.getParameter("mode")));
+    final String id = req.getPathInfo().substring(1);
+    final boolean download = ("download".equals(req.getParameter("mode")));
+    final boolean tme = ("tme".equals(req.getParameter("mode")));
 
-    String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
 
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
-      StringBuffer redirectUrl = new StringBuffer();
-      LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
+      final StringBuffer redirectUrl = new StringBuffer();
+      final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
       if (loginHelper != null && loginHelper.isDetailedMode()) {
         redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
@@ -99,7 +99,7 @@ public class RedirectServlet extends HttpServlet {
 
     // is component
     if (id.contains("/component/")) {
-      String[] pieces = id.split("/");
+      final String[] pieces = id.split("/");
       if (pieces.length != 4) {
         resp.sendError(404, "File not found");
       }
@@ -107,18 +107,18 @@ public class RedirectServlet extends HttpServlet {
       // open component or download it
       if (req.getParameter("mode") == null || download) {
         try {
-          InputStream input = getContentAsInputStream(req, resp, download, pieces);
+          final InputStream input = this.getContentAsInputStream(req, resp, download, pieces);
 
           if (input == null) {
             return;
           }
 
-          byte[] buffer = new byte[2048];
+          final byte[] buffer = new byte[2048];
           int numRead;
           // long numWritten = 0;
-          OutputStream out = resp.getOutputStream();
+          final OutputStream out = resp.getOutputStream();
           while ((numRead = input.read(buffer)) != -1) {
-            logger.debug(numRead + " bytes read.");
+            RedirectServlet.logger.debug(numRead + " bytes read.");
             out.write(buffer, 0, numRead);
             resp.flushBuffer();
             // numWritten += numRead;
@@ -127,29 +127,29 @@ public class RedirectServlet extends HttpServlet {
 
           input.close();
           out.close();
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
           throw new ServletException(e);
         }
       }
       // view technical metadata
       if (tme) {
-        OutputStream out = resp.getOutputStream();
+        final OutputStream out = resp.getOutputStream();
         resp.setCharacterEncoding("UTF-8");
 
         try {
 
-          InputStream input = getContentAsInputStream(req, resp, false, pieces);
+          final InputStream input = this.getContentAsInputStream(req, resp, false, pieces);
           if (input == null) {
             return;
           }
           String b = new String();
 
           try {
-            b = getTechnicalMetadataByTika(input);
-          } catch (TikaException e) {
-            logger.warn("TikaException when parsing " + pieces[3], e);
-          } catch (SAXException e) {
-            logger.warn("SAXException when parsing " + pieces[3], e);
+            b = this.getTechnicalMetadataByTika(input);
+          } catch (final TikaException e) {
+            RedirectServlet.logger.warn("TikaException when parsing " + pieces[3], e);
+          } catch (final SAXException e) {
+            RedirectServlet.logger.warn("SAXException when parsing " + pieces[3], e);
           }
 
           resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
@@ -157,7 +157,7 @@ public class RedirectServlet extends HttpServlet {
           out.write(b.toString().getBytes());
           return;
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
           throw new ServletException(e);
         }
       }
@@ -167,28 +167,28 @@ public class RedirectServlet extends HttpServlet {
   private InputStream getContentAsInputStream(HttpServletRequest req, HttpServletResponse resp,
       boolean download, String[] pieces) throws IOException, URISyntaxException, ServletException,
       HttpException, UnsupportedEncodingException {
-    String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
+    final String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
     String url = null;
     try {
       url =
           frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
               + "/content";
-      logger.debug("Calling " + url);
-    } catch (Exception e) {
+      RedirectServlet.logger.debug("Calling " + url);
+    } catch (final Exception e) {
       throw new ServletException("Error getting framework url", e);
     }
 
-    GetMethod method = new GetMethod(url);
+    final GetMethod method = new GetMethod(url);
     method.setFollowRedirects(false);
-    LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
+    final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
     if (loginHelper != null && loginHelper.getESciDocUserHandle() != null) {
       method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
     }
     // Execute the method with HttpClient.
-    HttpClient client = new HttpClient();
+    final HttpClient client = new HttpClient();
     ProxyHelper.setProxy(client, frameworkUrl);
     ProxyHelper.executeMethod(client, method);
-    logger.debug("...executed");
+    RedirectServlet.logger.debug("...executed");
     InputStream input;
 
     if (method.getStatusCode() == 302) {
@@ -198,7 +198,7 @@ public class RedirectServlet extends HttpServlet {
               + PropertyReader.getProperty("escidoc.pubman.item.pattern");
       servletUrl = servletUrl.replace("$1", "");
 
-      String loginUrl = frameworkUrl + "/aa/login?target=" + URLEncoder.encode(url, "ASCII");
+      final String loginUrl = frameworkUrl + "/aa/login?target=" + URLEncoder.encode(url, "ASCII");
       resp.sendRedirect(loginUrl);
       return null;
     }
@@ -207,12 +207,12 @@ public class RedirectServlet extends HttpServlet {
       throw new RuntimeException("error code " + method.getStatusCode());
     }
 
-    for (Header header : method.getResponseHeaders()) {
+    for (final Header header : method.getResponseHeaders()) {
       if (!"Transfer-Encoding".equals(header.getName())) {
-        logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
+        RedirectServlet.logger.debug("Setting header: " + header.getName() + ": " + header.getValue());
         resp.setHeader(header.getName(), header.getValue());
       } else {
-        logger.info("Ignoring " + header.getName() + ": " + header.getValue());
+        RedirectServlet.logger.info("Ignoring " + header.getName() + ": " + header.getValue());
       }
     }
     if (download) {
@@ -225,14 +225,14 @@ public class RedirectServlet extends HttpServlet {
 
   private String getTechnicalMetadataByTika(InputStream input) throws IOException, SAXException,
       TikaException {
-    StringBuffer b = new StringBuffer(2048);
-    Metadata metadata = new Metadata();
-    AutoDetectParser parser = new AutoDetectParser();
-    BodyContentHandler handler = new BodyContentHandler(-1);
+    final StringBuffer b = new StringBuffer(2048);
+    final Metadata metadata = new Metadata();
+    final AutoDetectParser parser = new AutoDetectParser();
+    final BodyContentHandler handler = new BodyContentHandler(-1);
 
     parser.parse(input, handler, metadata);
 
-    for (String name : metadata.names()) {
+    for (final String name : metadata.names()) {
       b.append(name).append(": ").append(metadata.get(name))
           .append(System.getProperty("line.separator"));
     }
