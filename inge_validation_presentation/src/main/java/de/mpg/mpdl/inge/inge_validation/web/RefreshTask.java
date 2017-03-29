@@ -20,21 +20,21 @@ public class RefreshTask extends Thread {
           Integer.parseInt(PropertyReader
               .getProperty(Properties.ESCIDOC_VALIDATION_REFRESH_INTERVAL));
 
-      LOG.info("Starting RefreshTask");
+      RefreshTask.LOG.info("Starting RefreshTask");
 
       while (!this.terminate) {
-        LOG.info("Starting refresh of validation database.");
+        RefreshTask.LOG.info("Starting refresh of validation database.");
         ItemValidatingService.refreshValidationSchemaCache();
-        LOG.info("Finished refresh of validation database.");
+        RefreshTask.LOG.info("Finished refresh of validation database.");
         Thread.sleep(timeout * 60 * 1000);
       }
-    } catch (InterruptedException e) {
-      LOG.warn("RefreshTask InterruptedException angefordert.");
+    } catch (final InterruptedException e) {
+      RefreshTask.LOG.warn("RefreshTask InterruptedException angefordert.");
       this.terminate = true;
-    } catch (Exception e) {
-      LOG.error("REFRESH_TASK:\n{}", e);
+    } catch (final Exception e) {
+      RefreshTask.LOG.error("REFRESH_TASK:\n{}", e);
     }
 
-    LOG.info("RefreshTask terminated.");
+    RefreshTask.LOG.info("RefreshTask terminated.");
   }
 }
