@@ -45,9 +45,8 @@ public class QAWSPage extends BreadcrumbPage {
 
   @Override
   public void init() {
-    super.init();
-
     this.checkForLogin();
+    super.init();
   }
 
   public boolean getIsModerator() {

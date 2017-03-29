@@ -270,6 +270,18 @@
 							styleClass="free_area0 endline personArea suggestAnchor"
 							rendered="#{criterion.searchCriterion.displayType == 'PERSON'}">
 							<h:outputLabel styleClass="small_label" value=" " />
+							<h:panelGroup layout="block"
+									styleClass="medium_area1 selectContainer">
+									<div class="medium_area0">
+										<span class="medium_area0 selectionBox">&#160;</span> 
+										<div class="min_imgArea selectboxIcon">&#160;</div>
+									</div>
+								<h:selectOneMenu id="selPersonRole"
+										value="#{criterion.selectedRole}"
+										onchange="updateSelectionBox(this);">
+										<f:selectItems value="#{AdvancedSearchBean.personRoleMenu}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
 							<h:inputText id="personSearchString"
 								styleClass="double_txtInput personSuggest disableAfter"
 								value="#{criterion.searchString}"
