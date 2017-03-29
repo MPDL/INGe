@@ -241,9 +241,10 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
 
-  public ViewItemFull() {}
+  public ViewItemFull() {
+    this.init();
+  }
 
-  @PostConstruct
   public void init() {
     String itemID = "";
 
