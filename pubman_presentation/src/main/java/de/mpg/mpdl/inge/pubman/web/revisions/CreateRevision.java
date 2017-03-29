@@ -63,7 +63,7 @@ public class CreateRevision extends FacesBean {
   }
 
   public String confirmCollectionChoose() {
-    ContextVO selectedCollection =
+    final ContextVO selectedCollection =
         this.getCollectionListSessionBean().getSelectedDepositorContext();
 
     if (selectedCollection != null) {

@@ -23,7 +23,7 @@ public class YearbookInvalidItemRO extends ItemRO implements Comparable<ItemRO> 
   }
 
   public ValidationReportVO getValidationReport() {
-    return validationReport;
+    return this.validationReport;
 
   }
 
@@ -32,13 +32,14 @@ public class YearbookInvalidItemRO extends ItemRO implements Comparable<ItemRO> 
   }
 
   public Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   public int compareTo(YearbookInvalidItemRO arg0) {
     return 0;
   }
 
+  @Override
   public int compareTo(ItemRO arg0) {
     return this.getObjectId().compareTo(arg0.getObjectId());
   }

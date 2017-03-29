@@ -54,7 +54,7 @@ public class DepositorWSSessionBean extends FacesBean {
   public DepositorWSSessionBean() {}
 
   public String getSelectedItemState() {
-    return selectedItemState;
+    return this.selectedItemState;
   }
 
   public void setSelectedItemState(String selectedItemState) {
@@ -62,7 +62,7 @@ public class DepositorWSSessionBean extends FacesBean {
   }
 
   public boolean getDepositorWS() {
-    return depositorWS;
+    return this.depositorWS;
   }
 
   public void setDepositorWS(boolean depositorWS) {
@@ -70,7 +70,7 @@ public class DepositorWSSessionBean extends FacesBean {
   }
 
   public boolean getMyWorkspace() {
-    return myWorkspace;
+    return this.myWorkspace;
   }
 
   public void setMyWorkspace(boolean myWorkspace) {
@@ -78,7 +78,7 @@ public class DepositorWSSessionBean extends FacesBean {
   }
 
   public boolean getNewSubmission() {
-    return newSubmission;
+    return this.newSubmission;
   }
 
   public void setNewSubmission(boolean newSubmission) {

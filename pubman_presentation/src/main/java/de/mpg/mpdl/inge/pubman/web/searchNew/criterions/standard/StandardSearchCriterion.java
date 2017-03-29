@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;

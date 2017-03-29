@@ -302,7 +302,8 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getPortfolioLink() {
     try {
-      final String link = PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
+      final String link =
+          PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
       return link;
     } catch (final Exception e) {
       BrowseByPage.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);

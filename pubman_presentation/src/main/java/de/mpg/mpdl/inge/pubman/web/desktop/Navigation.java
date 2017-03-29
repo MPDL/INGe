@@ -75,7 +75,7 @@ public class Navigation extends FacesBean {
 
   public void init() {
     // initially sets the navigation rules for redirecting after changing the language
-    navRules = new ArrayList<NavigationRule>();
+    this.navRules = new ArrayList<NavigationRule>();
     this.navRules.add(new NavigationRule("/faces/HomePage.jsp", Home.LOAD_HOME));
     this.navRules.add(new NavigationRule("/faces/DepositorWSPage.jsp",
         MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS));
@@ -133,9 +133,9 @@ public class Navigation extends FacesBean {
       requestURI = requestURI.substring("/pubman".length());
     }
 
-    for (int i = 0; i < navRules.size(); i++) {
-      if (requestURI.equals(navRules.get(i).getRequestURL())) {
-        navigationString = navRules.get(i).getNavigationString();
+    for (int i = 0; i < this.navRules.size(); i++) {
+      if (requestURI.equals(this.navRules.get(i).getRequestURL())) {
+        navigationString = this.navRules.get(i).getNavigationString();
         break;
       }
     }
@@ -171,12 +171,13 @@ public class Navigation extends FacesBean {
     // if there is only one context for this user we can skip the
     // CreateItem-Dialog and create the new item directly
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0) {
-      logger.warn("The user does not have privileges for any context.");
+      Navigation.logger.warn("The user does not have privileges for any context.");
       return null;
     }
 
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
-      ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
+      final ContextVO contextVO =
+          this.getCollectionListSessionBean().getDepositorContextList().get(0);
       return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
           contextVO.getReference());
     }

@@ -50,24 +50,24 @@ public class GenreSpecificItemManager {
   }
 
   public PubItemVO cleanupItem() throws Exception {
-    List<Object> objs = new ArrayList<Object>();
-    LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+    final List<Object> objs = new ArrayList<Object>();
+    final LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 
     if (this.pubItem != null && this.pubItem.getMetadata() != null
         && this.pubItem.getMetadata().getGenre() != null) {
-      String genre = this.pubItem.getMetadata().getGenre().name();
-      ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
-      Object javaObject = this.pubItem;
+      final String genre = this.pubItem.getMetadata().getGenre().name();
+      final ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
+      final Object javaObject = this.pubItem;
 
-      for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
-        String key = keys.nextElement().toString();
+      for (final Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
+        final String key = keys.nextElement().toString();
         map.put(key, genreBundle.getString(key));
       }
 
-      for (String mapKey : map.keySet()) {
+      for (final String mapKey : map.keySet()) {
         if (mapKey.endsWith("class_attribute")) {
-          String baseKey = mapKey.replace("class_attribute", "");
-          String fullClassAttribute = map.get(mapKey);
+          final String baseKey = mapKey.replace("class_attribute", "");
+          final String fullClassAttribute = map.get(mapKey);
           // check if the property should be available in this genre or not
           if (map.get(baseKey + "display").equals("false")
               && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
@@ -83,35 +83,35 @@ public class GenreSpecificItemManager {
 
   private List<Object> getMappedObject(Object baseObject, String mappingString)
       throws NoSuchMethodException, Exception {
-    List<Object> result = new ArrayList<Object>();
+    final List<Object> result = new ArrayList<Object>();
     // first get all values in the class attribute String and eliminate the "."
-    String[] attributes = mappingString.split("\\.");
+    final String[] attributes = mappingString.split("\\.");
 
     if (baseObject != null) {
-      Object subObject = getObject(baseObject, attributes[0]);
-      int index = mappingString.indexOf(".");
+      final Object subObject = this.getObject(baseObject, attributes[0]);
+      final int index = mappingString.indexOf(".");
 
       if (index > 0) {
         mappingString = mappingString.substring(index + 1);
         if (subObject instanceof List) {
-          for (Object subObjectElement : (ArrayList<?>) subObject) {
-            List<Object> subResult = getMappedObject(subObjectElement, mappingString);
+          for (final Object subObjectElement : (ArrayList<?>) subObject) {
+            final List<Object> subResult = this.getMappedObject(subObjectElement, mappingString);
             result.addAll(subResult);
           }
         } else {
-          result.addAll(getMappedObject(subObject, mappingString));
+          result.addAll(this.getMappedObject(subObject, mappingString));
         }
       } else {
         // prepare the string for a method call
         String renamedAttribute = mappingString;
         // save the first character
-        String firstCharacter = renamedAttribute.substring(0, 1);
+        final String firstCharacter = renamedAttribute.substring(0, 1);
         // remove the first character
         renamedAttribute = renamedAttribute.substring(1);
         // add the first character in upper case
         renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
         // get the desired object first to examine the type of it
-        Object javaObjectToNullify = getObject(baseObject, attributes[0]);
+        final Object javaObjectToNullify = this.getObject(baseObject, attributes[0]);
         Method method = null;
 
         if (javaObjectToNullify != null) {
@@ -140,13 +140,13 @@ public class GenreSpecificItemManager {
     // prepare the string for a method call
     String renamedAttribute = mapString;
     // save the first character
-    String firstCharacter = renamedAttribute.substring(0, 1);
+    final String firstCharacter = renamedAttribute.substring(0, 1);
     // remove the first character
     renamedAttribute = renamedAttribute.substring(1);
     // add the first character in upper case
     renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-    Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
-    Object javaObject = method.invoke(object, new Object[] {});
+    final Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
+    final Object javaObject = method.invoke(object, new Object[] {});
 
     return javaObject;
   }

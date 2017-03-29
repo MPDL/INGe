@@ -30,7 +30,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean {
   private static final Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
 
-  private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
+  private final BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
   private String unapiURLview;
 
   /**
@@ -48,25 +48,26 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
       BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
-    } catch (Exception e) {
-      logger.warn("Reading in unAPI server URL from properties failed.", e);
+    } catch (final Exception e) {
+      BaseListRetrieverRequestBean.logger.warn(
+          "Reading in unAPI server URL from properties failed.", e);
     }
 
     this.basePaginatorListSessionBean = plb;
     this.basePaginatorListSessionBean.setPaginatorListRetriever(this);
-    this.basePaginatorListSessionBean.setPageType(getType());
-    this.basePaginatorListSessionBean.setListPageName(getListPageName());
+    this.basePaginatorListSessionBean.setPageType(this.getType());
+    this.basePaginatorListSessionBean.setListPageName(this.getListPageName());
     if (refreshAlways) {
       this.basePaginatorListSessionBean.setNoListUpdate(false);
     }
 
-    init();
+    this.init();
   }
 
   @PostConstruct
   public void postConstruct() {
     if (FacesTools.getCurrentInstance().getRenderResponse()) {
-      readOutParameters();
+      this.readOutParameters();
       this.basePaginatorListSessionBean.update();
     }
   }

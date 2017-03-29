@@ -47,7 +47,7 @@ public class ItemList extends FacesBean {
   public ItemList() {}
 
   public HtmlPanelGroup getPanDynamicItemList() {
-    return panDynamicItemList;
+    return this.panDynamicItemList;
   }
 
   public void setPanDynamicItemList(HtmlPanelGroup panDynamicItemList) {

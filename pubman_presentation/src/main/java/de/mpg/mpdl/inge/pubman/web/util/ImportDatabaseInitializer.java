@@ -48,11 +48,12 @@ public class ImportDatabaseInitializer {
   private static final Logger logger = Logger.getLogger(ImportDatabaseInitializer.class);
 
   public ImportDatabaseInitializer() throws Exception {
-    logger.info("Initializing import database");
+    ImportDatabaseInitializer.logger.info("Initializing import database");
 
     Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
-    String connectionUrl = PropertyReader.getProperty("escidoc.import.database.connection.url");
-    Connection connection =
+    final String connectionUrl =
+        PropertyReader.getProperty("escidoc.import.database.connection.url");
+    final Connection connection =
         DriverManager.getConnection(
             connectionUrl
                 .replaceAll("\\$1",
@@ -63,23 +64,23 @@ public class ImportDatabaseInitializer {
             PropertyReader.getProperty("escidoc.import.database.user.name"),
             PropertyReader.getProperty("escidoc.import.database.user.password"));
 
-    String dbScript =
+    final String dbScript =
         ResourceUtil.getResourceAsString("import_database.sql",
             ImportDatabaseInitializer.class.getClassLoader());
 
-    String[] queries = dbScript.split(";");
+    final String[] queries = dbScript.split(";");
 
     try {
-      for (String query : queries) {
-        logger.debug("Executing statement: " + query);
-        Statement statement = connection.createStatement();
+      for (final String query : queries) {
+        ImportDatabaseInitializer.logger.debug("Executing statement: " + query);
+        final Statement statement = connection.createStatement();
         statement.executeUpdate(query);
         statement.close();
       }
-    } catch (SQLException e) {
-      logger.debug("Error description", e);
-      logger.info("Import database is set up already");
+    } catch (final SQLException e) {
+      ImportDatabaseInitializer.logger.debug("Error description", e);
+      ImportDatabaseInitializer.logger.info("Import database is set up already");
     }
-    logger.info("Import database initialized");
+    ImportDatabaseInitializer.logger.info("Import database initialized");
   }
 }

@@ -74,8 +74,8 @@ public class SubmitItem extends FacesBean {
 
   public void init() {
     // Fill creators property.
-    StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : this.getCurrentPubItem().getMetadata().getCreators()) {
+    final StringBuffer creators = new StringBuffer();
+    for (final CreatorVO creator : this.getCurrentPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -110,41 +110,43 @@ public class SubmitItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String submit() {
-    ExternalContext extContext = FacesTools.getExternalContext();
-    HttpServletRequest request = FacesTools.getRequest();
+    final ExternalContext extContext = FacesTools.getExternalContext();
+    final HttpServletRequest request = FacesTools.getRequest();
 
-    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal = "";
     String message;
 
     if (this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED) {
       retVal =
-          this.getItemControllerSessionBean().releaseCurrentPubItem(submissionComment, navigateTo);
-      message = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
+          this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
+              navigateTo);
+      message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
     } else {
       retVal =
-          this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
+          this.getItemControllerSessionBean().submitCurrentPubItem(this.submissionComment,
+              navigateTo);
       if (PubItemService.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
           .getCurrentWorkflow())) {
         retVal =
-            this.getItemControllerSessionBean()
-                .releaseCurrentPubItem(submissionComment, navigateTo);
-        message = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
+            this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
+                navigateTo);
+        message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
       } else {
-        message = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED);
+        message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED);
       }
     }
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      info(message);
+      this.info(message);
     }
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
         extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
             + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-      } catch (IOException e) {
-        logger.error("Could not redirect to View Item Page", e);
+      } catch (final IOException e) {
+        SubmitItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
 
@@ -154,20 +156,20 @@ public class SubmitItem extends FacesBean {
   }
 
   public String cancel() {
-    ExternalContext extContext = FacesTools.getExternalContext();
-    HttpServletRequest request = FacesTools.getRequest();
+    final ExternalContext extContext = FacesTools.getExternalContext();
+    final HttpServletRequest request = FacesTools.getRequest();
     try {
       extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
           + this.getCurrentPubItem().getVersion().getObjectId());
-    } catch (IOException e) {
-      logger.error("Could not redirect to View Item Page", e);
+    } catch (final IOException e) {
+      SubmitItem.logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
   public boolean getHasRightsInformation() {
-    for (FileVO file : this.getCurrentPubItem().getFiles()) {
+    for (final FileVO file : this.getCurrentPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -182,7 +184,7 @@ public class SubmitItem extends FacesBean {
   }
 
   public boolean getHasAudienceFiles() {
-    for (FileVO file : this.getCurrentPubItem().getFiles()) {
+    for (final FileVO file : this.getCurrentPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }

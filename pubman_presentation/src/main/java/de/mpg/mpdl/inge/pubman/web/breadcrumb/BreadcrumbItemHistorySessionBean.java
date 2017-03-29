@@ -76,7 +76,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
       int position = 0;
       for (int i = 0; i < this.breadcrumbs.size(); i++) {
-        lastItem = (BreadcrumbItem) this.breadcrumbs.get(i);
+        lastItem = this.breadcrumbs.get(i);
 
         lastItem.setIsLast(false);
 
@@ -100,9 +100,9 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
         // special case for list after watching an item
         if (position < this.breadcrumbs.size() - 1) {
           for (int m = position + 1; m < this.breadcrumbs.size(); m++) {
-            for (int k = 0; k < itemListPages.length; k++) {
+            for (int k = 0; k < this.itemListPages.length; k++) {
 
-              if (this.breadcrumbs.get(m).getDisplayValue().equals(itemListPages[k])
+              if (this.breadcrumbs.get(m).getDisplayValue().equals(this.itemListPages[k])
                   && this.breadcrumbs.get(position).getPage().contains("itemId=")
                   && newItem.getPage().contains("itemId=")) {
                 specialListTreatment = true;
@@ -137,7 +137,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    * @return BreadcrumbItem
    */
   public BreadcrumbItem pop() {
-    return get(true);
+    return this.get(true);
   }
 
   public List<BreadcrumbItem> getBreadcrumbs() {
@@ -154,12 +154,12 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    * @return BreadcrumbItem
    */
   public BreadcrumbItem get() {
-    return get(false);
+    return this.get(false);
   }
 
   private BreadcrumbItem get(boolean remove) {
     BreadcrumbItem returnItem = null;
-    int index = this.breadcrumbs.size() - 1;
+    final int index = this.breadcrumbs.size() - 1;
     if (index >= 0) {
       returnItem = this.breadcrumbs.get(index);
       if (remove) {
@@ -173,7 +173,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
     // return only the last 3 items of the breadcrumb list
     if (this.breadcrumbs.size() > 3) {
-      List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
+      final List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 1));

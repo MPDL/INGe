@@ -10,6 +10,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -44,7 +45,7 @@ public class RevisionsRetrieverRequestBean extends
 
   @Override
   public int getTotalNumberOfRecords() {
-    return numberOfRecords;
+    return this.numberOfRecords;
   }
 
   @Override
@@ -65,18 +66,18 @@ public class RevisionsRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
 
     // limit and offset is ignored because no paginator is used
-    List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
+    final List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
 
 
     try {
-      ItemControllerSessionBean icsb =
+      final ItemControllerSessionBean icsb =
           (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       // get Revisions
-      List<RelationVOPresentation> relationVOList =
+      final List<RelationVOPresentation> relationVOList =
           icsb.retrieveRevisions(icsb.getCurrentPubItem());
 
-      for (RelationVOPresentation relationVO : relationVOList) {
-        PubItemVO sourceItem = relationVO.getSourceItem();
+      for (final RelationVOPresentation relationVO : relationVOList) {
+        final PubItemVO sourceItem = relationVO.getSourceItem();
 
         if (sourceItem != null
             && sourceItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
@@ -87,22 +88,22 @@ public class RevisionsRetrieverRequestBean extends
 
       // get ParentItems
 
-      List<RelationVOPresentation> relationVOList2 =
+      final List<RelationVOPresentation> relationVOList2 =
           icsb.retrieveParentsForRevision(icsb.getCurrentPubItem());
 
-      for (RelationVOPresentation relationVO : relationVOList2) {
-        PubItemVO targetItem = relationVO.getTargetItem();
+      for (final RelationVOPresentation relationVO : relationVOList2) {
+        final PubItemVO targetItem = relationVO.getTargetItem();
         if (targetItem != null
             && targetItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
           pubItemVOList.add(targetItem);
         }
 
       }
-    } catch (Exception e) {
-      error("Error with retrieving revisions");
+    } catch (final Exception e) {
+      FacesBean.error("Error with retrieving revisions");
     }
 
-    numberOfRecords = pubItemVOList.size();
+    this.numberOfRecords = pubItemVOList.size();
     return CommonUtils.convertToPubItemVOPresentationList(pubItemVOList);
   }
 

@@ -33,6 +33,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -73,7 +74,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * Main class to provide SWORD Server functionality.
@@ -121,7 +121,7 @@ public class PubManSwordServer {
       PubItemNotFoundException, PubItemAlreadyReleasedException, SecurityException,
       TechnicalException, ItemInvalidException {
 
-    SwordUtil util = new SwordUtil();
+    final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
     DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
 
@@ -131,7 +131,7 @@ public class PubManSwordServer {
     util.setCurrentDeposit(deposit);
     depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
     this.setVerbose("Escidoc Publication Item successfully created.");
-    ContextRO context = new ContextRO();
+    final ContextRO context = new ContextRO();
     context.setObjectId(collection);
     depositItem.setContext(context);
 
@@ -140,10 +140,10 @@ public class PubManSwordServer {
 
     try {
       util.validateItem(depositItem);
-    } catch (ValidationException e) {
+    } catch (final ValidationException e) {
       this.setVerbose("Following validation error(s) occurred: " + e);
       throw e;
-    } catch (ItemInvalidException e) {
+    } catch (final ItemInvalidException e) {
       this.setVerbose("Following validation error(s) occurred: " + e.getReport());
       throw e;
     }
@@ -166,7 +166,7 @@ public class PubManSwordServer {
       this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
     }
 
-    SWORDEntry se = util.createResponseAtom(depositItem, deposit);
+    final SWORDEntry se = util.createResponseAtom(depositItem, deposit);
     if (deposit.isVerbose()) {
       se.setVerboseDescription(this.getVerbose());
     }
@@ -266,46 +266,48 @@ public class PubManSwordServer {
    */
   public String doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException,
       ParserConfigurationException, TransformerException {
-    SwordUtil util = new SwordUtil();
+    final SwordUtil util = new SwordUtil();
     List<PubContextVOPresentation> contextList = null;
-    ContextListSessionBean contextListBean =
+    final ContextListSessionBean contextListBean =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     contextListBean.init();
     contextList = contextListBean.getDepositorContextList();
-    DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+    final DocumentBuilder documentBuilder =
+        DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
     // Create and return the PubMan ServiceDocument
-    Document document = documentBuilder.newDocument();
-    Element service = document.createElementNS("http://www.w3.org/2007/app", "service");
-    Element version = document.createElementNS("http://purl.org/net/sword/", "version");
+    final Document document = documentBuilder.newDocument();
+    final Element service = document.createElementNS("http://www.w3.org/2007/app", "service");
+    final Element version = document.createElementNS("http://purl.org/net/sword/", "version");
     version.setPrefix("sword");
     version.setTextContent("1.3");
-    Element workspace = document.createElement("workspace");
-    Element wsTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
+    final Element workspace = document.createElement("workspace");
+    final Element wsTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
     wsTitle.setPrefix("atom");
     wsTitle.setTextContent("PubMan SWORD Workspace");
     workspace.appendChild(wsTitle);
 
     // Add all collections to workspace
     for (int i = 0; i < contextList.size(); i++) {
-      PubContextVOPresentation pubContext = contextList.get(i);
+      final PubContextVOPresentation pubContext = contextList.get(i);
 
-      Element collection = document.createElement("collection");
+      final Element collection = document.createElement("collection");
       collection.setAttribute("href", pubContext.getReference().getObjectId());
-      Element colTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
+      final Element colTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
       colTitle.setPrefix("atom");
       colTitle.setTextContent(pubContext.getName());
-      Element abst = document.createElementNS("http://purl.org/dc/terms/", "abstract");
+      final Element abst = document.createElementNS("http://purl.org/dc/terms/", "abstract");
       abst.setPrefix("dcterms");
       abst.setTextContent(pubContext.getDescription());
-      Element med = document.createElementNS("http://purl.org/net/sword/", "mediation");
+      final Element med = document.createElementNS("http://purl.org/net/sword/", "mediation");
       med.setPrefix("sword");
       med.setTextContent("false");
-      Element policy = document.createElementNS("http://purl.org/net/sword/", "collectionPolicy");
+      final Element policy =
+          document.createElementNS("http://purl.org/net/sword/", "collectionPolicy");
       policy.setPrefix("sword");
       policy.setTextContent(util.getWorkflowAsString(pubContext));
       // static value
-      Element treat = document.createElementNS("http://purl.org/net/sword/", "treatment");
+      final Element treat = document.createElementNS("http://purl.org/net/sword/", "treatment");
       treat.setPrefix("sword");
       treat.setTextContent(util.getTreatmentText());
 
@@ -317,7 +319,8 @@ public class PubManSwordServer {
 
       // static value
       for (int x = 0; x < util.packaging.length; x++) {
-        Element format = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+        final Element format =
+            document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
         format.setPrefix("sword");
         format.setTextContent(util.packaging[x]);
         collection.appendChild(format);
@@ -337,14 +340,14 @@ public class PubManSwordServer {
     document.appendChild(service);
 
     // Transform to xml
-    Transformer transformer =
+    final Transformer transformer =
         TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
             .newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    StreamResult result = new StreamResult(new StringWriter());
-    DOMSource source = new DOMSource(document);
+    final StreamResult result = new StreamResult(new StringWriter());
+    final DOMSource source = new DOMSource(document);
     transformer.transform(source, result);
-    String xmlString = result.getWriter().toString();
+    final String xmlString = result.getWriter().toString();
 
     return xmlString;
   }
@@ -368,8 +371,8 @@ public class PubManSwordServer {
   public String getBaseURL() {
     try {
       return PropertyReader.getProperty("escidoc.pubman.instance.url");
-    } catch (Exception e) {
-      logger.warn("Base URL could not be read from property file.", e);
+    } catch (final Exception e) {
+      PubManSwordServer.logger.warn("Base URL could not be read from property file.", e);
     }
 
     return "";
@@ -378,8 +381,8 @@ public class PubManSwordServer {
   public String getCoreserviceURL() {
     try {
       return PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    } catch (Exception e) {
-      logger.warn("Coreservice URL could not be read from property file.", e);
+    } catch (final Exception e) {
+      PubManSwordServer.logger.warn("Coreservice URL could not be read from property file.", e);
     }
 
     return "";

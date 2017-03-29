@@ -59,7 +59,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void info(String summary) {
-    info(summary, null, null);
+    this.info(summary, null, null);
   }
 
   /**
@@ -70,7 +70,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void info(String summary, String detail) {
-    info(summary, detail, null);
+    this.info(summary, detail, null);
   }
 
   /**
@@ -82,7 +82,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void info(UIComponent component, String summary) {
-    info(summary, null, component);
+    this.info(summary, null, component);
   }
 
   /**
@@ -93,7 +93,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void info(String summary, String detail, UIComponent component) {
-    message(summary, detail, component, FacesMessage.SEVERITY_INFO);
+    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_INFO);
   }
 
   /**
@@ -104,7 +104,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void warn(String summary) {
-    warn(summary, null, null);
+    this.warn(summary, null, null);
   }
 
   /**
@@ -115,7 +115,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void warn(String summary, String detail) {
-    warn(summary, detail, null);
+    this.warn(summary, detail, null);
   }
 
   /**
@@ -127,7 +127,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void warn(UIComponent component, String summary) {
-    warn(summary, null, component);
+    this.warn(summary, null, component);
   }
 
   /**
@@ -138,7 +138,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void warn(String summary, String detail, UIComponent component) {
-    message(summary, detail, component, FacesMessage.SEVERITY_WARN);
+    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_WARN);
   }
 
   /**
@@ -149,7 +149,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public static void error(String summary) {
-    error(summary, null, null);
+    FacesBean.error(summary, null, null);
   }
 
   /**
@@ -160,7 +160,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void error(String summary, String detail) {
-    error(summary, detail, null);
+    FacesBean.error(summary, detail, null);
   }
 
   /**
@@ -172,7 +172,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void error(UIComponent component, String summary) {
-    error(summary, null, component);
+    FacesBean.error(summary, null, component);
   }
 
   /**
@@ -183,7 +183,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public static void error(String summary, String detail, UIComponent component) {
-    message(summary, detail, component, FacesMessage.SEVERITY_ERROR);
+    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_ERROR);
   }
 
   /**
@@ -194,7 +194,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void fatal(String summary) {
-    fatal(summary, null, null);
+    this.fatal(summary, null, null);
   }
 
   /**
@@ -205,7 +205,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void fatal(String summary, String detail) {
-    fatal(summary, detail, null);
+    this.fatal(summary, detail, null);
   }
 
   /**
@@ -217,7 +217,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void fatal(UIComponent component, String summary) {
-    fatal(summary, null, component);
+    this.fatal(summary, null, component);
   }
 
   /**
@@ -228,7 +228,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void fatal(String summary, String detail, UIComponent component) {
-    message(summary, detail, component, FacesMessage.SEVERITY_FATAL);
+    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_FATAL);
   }
 
   /**
@@ -239,7 +239,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public static void message(String summary, String detail, UIComponent component, Severity severity) {
-    FacesMessage fm = new FacesMessage(severity, summary, detail);
+    final FacesMessage fm = new FacesMessage(severity, summary, detail);
 
     if (component == null) {
       FacesTools.getCurrentInstance().addMessage(null, fm);
@@ -253,11 +253,12 @@ public class FacesBean implements Serializable {
   }
 
   public boolean getHasErrorMessages() {
-    for (Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
-      FacesMessage fm = i.next();
+    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i
+        .hasNext();) {
+      final FacesMessage fm = i.next();
 
-      logger
-          .info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
+      FacesBean.logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n"
+          + fm.getDetail());
 
       if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR)
           || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN)
@@ -272,7 +273,8 @@ public class FacesBean implements Serializable {
   public int getNumberOfMessages() {
     int number = 0;
 
-    for (Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
+    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i
+        .hasNext();) {
       i.next();
       number++;
     }
@@ -282,8 +284,8 @@ public class FacesBean implements Serializable {
 
   public void checkForLogin() {
     // if not logged in redirect to login page
-    if (!getLoginHelper().isLoggedIn()) {
-      info(getI18nHelper().getMessage("NotLoggedIn"));
+    if (!this.getLoginHelper().isLoggedIn()) {
+      this.info(this.getI18nHelper().getMessage("NotLoggedIn"));
     }
   }
 
@@ -296,10 +298,10 @@ public class FacesBean implements Serializable {
   }
 
   public String getMessage(String placeholder) {
-    return getI18nHelper().getMessage(placeholder);
+    return this.getI18nHelper().getMessage(placeholder);
   }
 
   public String getLabel(String placeholder) {
-    return getI18nHelper().getLabel(placeholder);
+    return this.getI18nHelper().getLabel(placeholder);
   }
 }

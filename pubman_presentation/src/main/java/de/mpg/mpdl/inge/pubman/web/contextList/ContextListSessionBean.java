@@ -82,24 +82,24 @@ public class ContextListSessionBean extends FacesBean {
 
   public void init() {
     try {
-      retrieveAllContextsForUser();
-    } catch (Exception e) {
-      logger.error("Could not create context list.", e);
+      this.retrieveAllContextsForUser();
+    } catch (final Exception e) {
+      ContextListSessionBean.logger.error("Could not create context list.", e);
     }
   }
 
   public List<PubContextVOPresentation> getDepositorContextList() {
-    List<PubContextVOPresentation> newDepositorContextList =
+    final List<PubContextVOPresentation> newDepositorContextList =
         new ArrayList<PubContextVOPresentation>();
 
-    if (getOpenContextsAvailable()) {
-      for (PubContextVOPresentation context : this.depositorContextList) {
+    if (this.getOpenContextsAvailable()) {
+      for (final PubContextVOPresentation context : this.depositorContextList) {
         if (context.getState() == State.OPENED) {
           newDepositorContextList.add(context);
         }
       }
       Collections.sort(newDepositorContextList);
-      setDepositorContextList(newDepositorContextList);
+      this.setDepositorContextList(newDepositorContextList);
     }
 
     return this.depositorContextList;
@@ -108,7 +108,7 @@ public class ContextListSessionBean extends FacesBean {
   public boolean getOpenContextsAvailable() {
     State state = State.CLOSED;
 
-    for (PubContextVOPresentation context : this.depositorContextList) {
+    for (final PubContextVOPresentation context : this.depositorContextList) {
       if (context.getState() == State.OPENED) {
         state = State.OPENED;
       }
@@ -134,7 +134,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public PubContextVOPresentation getSelectedDepositorContext() {
-    for (PubContextVOPresentation coll : this.depositorContextList) {
+    for (final PubContextVOPresentation coll : this.depositorContextList) {
       if (coll.getSelected()) {
         return coll;
       }
@@ -152,7 +152,7 @@ public class ContextListSessionBean extends FacesBean {
       return 0;
     }
 
-    return moderatorContextList.size();
+    return this.moderatorContextList.size();
   }
 
   public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList) {
@@ -209,8 +209,8 @@ public class ContextListSessionBean extends FacesBean {
    * @throws TechnicalException
    */
   private void retrieveAllContextsForUser() throws SecurityException, TechnicalException {
-    if (getLoginHelper().isLoggedIn()
-        && getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+    if (this.getLoginHelper().isLoggedIn()
+        && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
       try {
         /*
          * // Create filter FilterTaskParamVO filter = new FilterTaskParamVO(); ItemRefFilter
@@ -224,10 +224,11 @@ public class ContextListSessionBean extends FacesBean {
          */
         boolean hasGrants = false;
 
-        ArrayList<String> ctxIdList = new ArrayList<>();
-        for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
+        final ArrayList<String> ctxIdList = new ArrayList<>();
+        for (final GrantVO grant : this.getLoginHelper().getAccountUser()
+            .getGrantsWithoutAudienceGrants()) {
           if (grant.getObjectRef() != null) {
-            String id = grant.getObjectRef();
+            final String id = grant.getObjectRef();
             ctxIdList.add(id);
             hasGrants = true;
           }
@@ -239,11 +240,11 @@ public class ContextListSessionBean extends FacesBean {
           // XmlTransformingBean();
 
           // Get context list
-          ArrayList<ContextVO> ctxList = new ArrayList<>();
-          contextServiceHandler = new ContextServiceHandler();
-          for (String id : ctxIdList) {
-            ContextVO ctx =
-                contextServiceHandler.readContext(id.replace("/ir/context/escidoc:", "pure_"));
+          final ArrayList<ContextVO> ctxList = new ArrayList<>();
+          this.contextServiceHandler = new ContextServiceHandler();
+          for (final String id : ctxIdList) {
+            final ContextVO ctx =
+                this.contextServiceHandler.readContext(id.replace("/ir/context/escidoc:", "pure_"));
             ctxList.add(ctx);
           }
           /*
@@ -264,14 +265,15 @@ public class ContextListSessionBean extends FacesBean {
         this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
         this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
 
-        for (PubContextVOPresentation context : this.allPrivilegedContextList) {
+        for (final PubContextVOPresentation context : this.allPrivilegedContextList) {
           // TODO NBU: change this dummy looping once AccountUserVO
           // provides method for
           // isDepositor(ObjectRef)
           // At present it only provides this function for Moderator
           // and Privileged viewer
 
-          for (GrantVO grant : getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
+          for (final GrantVO grant : this.getLoginHelper().getAccountUser()
+              .getGrantsWithoutAudienceGrants()) {
             if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
 
               if (!grant.getObjectRef().equals("")
@@ -306,7 +308,7 @@ public class ContextListSessionBean extends FacesBean {
           }
         }
 
-      } catch (Exception e) {
+      } catch (final Exception e) {
         // No business exceptions expected.
         throw new TechnicalException(e);
       }

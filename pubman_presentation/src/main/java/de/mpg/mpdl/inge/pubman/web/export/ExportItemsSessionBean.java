@@ -57,8 +57,8 @@ public class ExportItemsSessionBean extends FacesBean {
 
   private String exportFormatType = "LAYOUT";
   private String exportFormatName = "APA";
-  private ExportFormatVO curExportFormatVO = new ExportFormatVO();
-  private FileFormatVO curFileFormatVO = new FileFormatVO();
+  private final ExportFormatVO curExportFormatVO = new ExportFormatVO();
+  private final FileFormatVO curFileFormatVO = new FileFormatVO();
 
   private boolean enableFileFormats = true;
   private boolean enableExport = true;
@@ -96,29 +96,33 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void init() {
-    if (exportFormatType.equals("LAYOUT")) {
+    if (this.exportFormatType.equals("LAYOUT")) {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
       // default format for STRUCTURED is pdf
-      curFileFormatVO.setName(FileFormatVO.PDF_NAME);
-      curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
+      this.curFileFormatVO.setName(FileFormatVO.PDF_NAME);
+      this.curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
     } else {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
       // default format for STRUCTURED is TEXT
-      curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
-      curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+      this.curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
+      this.curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
     }
-    this.curExportFormatVO.setName(exportFormatName);
-    this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+    this.curExportFormatVO.setName(this.exportFormatName);
+    this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
 
     try {
-      emailSenderProp = PropertyReader.getProperty(PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
-      emailServernameProp = PropertyReader.getProperty(PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
-      emailWithAuthProp =
-          PropertyReader.getProperty(PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
-      emailAuthUserProp = PropertyReader.getProperty(PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER);
-      emailAuthPwdProp = PropertyReader.getProperty(PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD);
-    } catch (Exception e) {
-      logger.warn("Propertyfile not readable for emailserver  properties'");
+      this.emailSenderProp =
+          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
+      this.emailServernameProp =
+          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
+      this.emailWithAuthProp =
+          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
+      this.emailAuthUserProp =
+          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER);
+      this.emailAuthPwdProp =
+          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD);
+    } catch (final Exception e) {
+      ExportItemsSessionBean.logger.warn("Propertyfile not readable for emailserver  properties'");
     }
   }
 
@@ -155,20 +159,20 @@ public class ExportItemsSessionBean extends FacesBean {
         || "JUS".equalsIgnoreCase(exportFormatName) || "DEFAULT".equalsIgnoreCase(exportFormatName)
         || "TEST".equalsIgnoreCase(exportFormatName)
         || "APA(CJK)".equalsIgnoreCase(exportFormatName)) {
-      curExportFormatVO.setFormatType(FormatType.LAYOUT);
+      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
       this.exportFormatType = FormatType.LAYOUT.toString();
-      setEnableFileFormats(true);
-      setEnableCslAutosuggest(false);
+      this.setEnableFileFormats(true);
+      this.setEnableCslAutosuggest(false);
     } else if ("CSL".equalsIgnoreCase(exportFormatName)) {
-      curExportFormatVO.setFormatType(FormatType.LAYOUT);;
+      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);;
       this.exportFormatType = FormatType.LAYOUT.toString();
-      setEnableFileFormats(true);
-      setEnableCslAutosuggest(true);
+      this.setEnableFileFormats(true);
+      this.setEnableCslAutosuggest(true);
     } else {
-      curExportFormatVO.setFormatType(FormatType.STRUCTURED);
+      this.curExportFormatVO.setFormatType(FormatType.STRUCTURED);
       this.exportFormatType = FormatType.STRUCTURED.toString();
-      setEnableFileFormats(false);
-      setEnableCslAutosuggest(false);
+      this.setEnableFileFormats(false);
+      this.setEnableCslAutosuggest(false);
     }
   }
 
@@ -178,20 +182,22 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public void setFileFormat(String fileFormat) {
     if (fileFormat == null || fileFormat.trim().equals("")
-        || getExportFormatName().equalsIgnoreCase("ENDNOTE")
-        || getExportFormatName().equalsIgnoreCase("BIBTEX")
+        || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
+        || this.getExportFormatName().equalsIgnoreCase("BIBTEX")
     // || getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED
-    )
+    ) {
       fileFormat = FileFormatVO.TEXT_NAME;
+    }
 
     // this.fileFormat = fileFormat;
 
-    curFileFormatVO.setName(fileFormat);
-    curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
-    this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+    this.curFileFormatVO.setName(fileFormat);
+    this.curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
+    this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
 
-    logger.debug("setFileFormat.....:" + this.curExportFormatVO.getSelectedFileFormat().getName()
-        + ";" + this.curExportFormatVO.getSelectedFileFormat().getMimeType());
+    ExportItemsSessionBean.logger.debug("setFileFormat.....:"
+        + this.curExportFormatVO.getSelectedFileFormat().getName() + ";"
+        + this.curExportFormatVO.getSelectedFileFormat().getMimeType());
 
   }
 
@@ -205,7 +211,7 @@ public class ExportItemsSessionBean extends FacesBean {
   private String navigationStringToGoBack = null;
 
   public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
+    return this.navigationStringToGoBack;
   }
 
   public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
@@ -297,7 +303,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public String getEmailSenderProp() {
 
-    logger.debug("getEmailSenderProp " + this.emailSenderProp);
+    ExportItemsSessionBean.logger.debug("getEmailSenderProp " + this.emailSenderProp);
 
     return this.emailSenderProp;
   }
@@ -340,7 +346,7 @@ public class ExportItemsSessionBean extends FacesBean {
    *         exportFormatName
    */
   public boolean getEnableCslAutosuggest() {
-    return enableCslAutosuggest;
+    return this.enableCslAutosuggest;
   }
 
   /**
@@ -354,18 +360,18 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public void setExportDisplayData(String data) {
     // logger.debug("setExportDisplayData "+ data);
-    exportDisplayData = data;
+    this.exportDisplayData = data;
 
   }
 
   public String getExportDisplayData() {
     // logger.debug("getExportDisplayData ");
-    return exportDisplayData;
+    return this.exportDisplayData;
   }
 
 
   public boolean getEnableFileFormats() {
-    return enableFileFormats;
+    return this.enableFileFormats;
   }
 
 
@@ -374,7 +380,7 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public boolean getEnableExport() {
-    return enableExport;
+    return this.enableExport;
   }
 
 
@@ -384,7 +390,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
 
   public String getEmailCCRecipients() {
-    return emailCCRecipients;
+    return this.emailCCRecipients;
   }
 
 
@@ -394,7 +400,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
 
   public String getEmailBCCRecipients() {
-    return emailBCCRecipients;
+    return this.emailBCCRecipients;
   }
 
 

@@ -75,16 +75,17 @@ public class Login extends FacesBean {
    */
   public void loginLogout() throws ServletException, IOException, ServiceException,
       URISyntaxException {
-    String token = getLoginHelper().getAuthenticationToken();
+    final String token = this.getLoginHelper().getAuthenticationToken();
 
-    if (getLoginHelper().isLoggedIn() && getLoginHelper().getAuthenticationToken() != null) {
+    if (this.getLoginHelper().isLoggedIn()
+        && this.getLoginHelper().getAuthenticationToken() != null) {
       // logout mechanism
-      getLoginHelper().setBtnLoginLogout("login_btLogin");
+      this.getLoginHelper().setBtnLoginLogout("login_btLogin");
       if (token != null) {
         long zeit = -System.currentTimeMillis();
 
         zeit += System.currentTimeMillis();
-        logger.info("logout->" + zeit + "ms");
+        Login.logger.info("logout->" + zeit + "ms");
         // loginHelper.setLoggedIn(false);
         // loginHelper.getAccountUser().setName("");
         // loginHelper.setESciDocUserHandle(null);
@@ -94,21 +95,21 @@ public class Login extends FacesBean {
 
         // Logout mechanism
 
-        logout();
-        HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
+        this.logout();
+        final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
         session.invalidate();
       }
     } else {
-      login();
+      this.login();
     }
   }
 
   public void login() {
-    String token = getLoginHelper().obtainToken();
+    final String token = this.getLoginHelper().obtainToken();
     if (token != null) {
       this.loggedIn = true;
       try {
-        getLoginHelper().insertLogin();
+        this.getLoginHelper().insertLogin();
       } catch (IOException | ServiceException | TechnicalException | URISyntaxException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -125,7 +126,7 @@ public class Login extends FacesBean {
    */
   public void logout() throws IOException, ServiceException, URISyntaxException {
     this.loggedIn = false;
-    getLoginHelper().logout("");
+    this.getLoginHelper().logout("");
   }
 
   /**
@@ -136,10 +137,10 @@ public class Login extends FacesBean {
   public void forceLogout() {
     try {
       FacesTools.getExternalContext().redirect(
-          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
+          PropertyReader.getLoginUrl() + Login.LOGIN_URL + "?target="
               + FacesTools.getRequest().getRequestURL().toString());
-    } catch (IOException e) {
-      logger.error("Could not redirect to Fremework login page in forceLogout", e);
+    } catch (final IOException e) {
+      Login.logger.error("Could not redirect to Fremework login page in forceLogout", e);
     }
   }
 
@@ -150,12 +151,12 @@ public class Login extends FacesBean {
    */
   public void forceLogout(String itemID) {
     try {
-      String targetUrl = CommonUtils.getGenericItemLink(itemID);
+      final String targetUrl = CommonUtils.getGenericItemLink(itemID);
       FacesTools.getExternalContext().redirect(
-          PropertyReader.getLoginUrl() + LOGIN_URL + "?target="
+          PropertyReader.getLoginUrl() + Login.LOGIN_URL + "?target="
               + URLEncoder.encode(targetUrl, "UTF-8"));
-    } catch (Exception e) {
-      logger.error("Could not redirect to Fremework login page", e);
+    } catch (final Exception e) {
+      Login.logger.error("Could not redirect to Fremework login page", e);
     }
   }
 

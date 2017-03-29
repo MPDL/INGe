@@ -101,35 +101,35 @@ public class AdvancedSearchEdit extends FacesBean {
    */
   public AdvancedSearchEdit() {
     // delegated internal collections
-    contextCriterionCollection = new ContextCriterionCollection();
-    anyFieldCriterionCollection = new AnyFieldCriterionCollection();
-    personCriterionCollection = new PersonCriterionCollection();
-    organizationCriterionCollection = new OrganizationCriterionCollection();
-    genreCriterionCollection = new GenreCriterionCollection();
-    degreeCriterionCollection = new DegreeCriterionCollection();
-    dateCriterionCollection = new DateCriterionCollection();
-    sourceCriterionCollection = new SourceCriterionCollection();
-    eventCriterionCollection = new EventCriterionCollection();
-    identifierCriterionCollection = new IdentifierCriterionCollection();
-    fileCriterionCollection = new FileCriterionCollection();
-    languageCriterionCollection = new LanguageCriterionCollection();
-    localTagCriterionCollection = new LocalTagCriterionCollection();
+    this.contextCriterionCollection = new ContextCriterionCollection();
+    this.anyFieldCriterionCollection = new AnyFieldCriterionCollection();
+    this.personCriterionCollection = new PersonCriterionCollection();
+    this.organizationCriterionCollection = new OrganizationCriterionCollection();
+    this.genreCriterionCollection = new GenreCriterionCollection();
+    this.degreeCriterionCollection = new DegreeCriterionCollection();
+    this.dateCriterionCollection = new DateCriterionCollection();
+    this.sourceCriterionCollection = new SourceCriterionCollection();
+    this.eventCriterionCollection = new EventCriterionCollection();
+    this.identifierCriterionCollection = new IdentifierCriterionCollection();
+    this.fileCriterionCollection = new FileCriterionCollection();
+    this.languageCriterionCollection = new LanguageCriterionCollection();
+    this.localTagCriterionCollection = new LocalTagCriterionCollection();
   }
 
   public void clearAndInitializeAllForms() {
-    contextCriterionCollection = new ContextCriterionCollection();
-    anyFieldCriterionCollection = new AnyFieldCriterionCollection();
-    personCriterionCollection = new PersonCriterionCollection();
-    organizationCriterionCollection = new OrganizationCriterionCollection();
-    genreCriterionCollection = new GenreCriterionCollection();
-    degreeCriterionCollection = new DegreeCriterionCollection();
-    dateCriterionCollection = new DateCriterionCollection();
-    sourceCriterionCollection = new SourceCriterionCollection();
-    eventCriterionCollection = new EventCriterionCollection();
-    identifierCriterionCollection = new IdentifierCriterionCollection();
-    fileCriterionCollection = new FileCriterionCollection();
-    languageCriterionCollection = new LanguageCriterionCollection();
-    localTagCriterionCollection = new LocalTagCriterionCollection();
+    this.contextCriterionCollection = new ContextCriterionCollection();
+    this.anyFieldCriterionCollection = new AnyFieldCriterionCollection();
+    this.personCriterionCollection = new PersonCriterionCollection();
+    this.organizationCriterionCollection = new OrganizationCriterionCollection();
+    this.genreCriterionCollection = new GenreCriterionCollection();
+    this.degreeCriterionCollection = new DegreeCriterionCollection();
+    this.dateCriterionCollection = new DateCriterionCollection();
+    this.sourceCriterionCollection = new SourceCriterionCollection();
+    this.eventCriterionCollection = new EventCriterionCollection();
+    this.identifierCriterionCollection = new IdentifierCriterionCollection();
+    this.fileCriterionCollection = new FileCriterionCollection();
+    this.languageCriterionCollection = new LanguageCriterionCollection();
+    this.localTagCriterionCollection = new LocalTagCriterionCollection();
   }
 
   /**
@@ -137,19 +137,19 @@ public class AdvancedSearchEdit extends FacesBean {
    */
   public void clearAllForms() {
     // delegate clearAllForms to internal collections
-    contextCriterionCollection.clearAllForms();
-    anyFieldCriterionCollection.clearAllForms();
-    personCriterionCollection.clearAllForms();
-    organizationCriterionCollection.clearAllForms();
-    genreCriterionCollection.clearAllForms();
-    degreeCriterionCollection.clearAllForms();
-    dateCriterionCollection.clearAllForms();
-    sourceCriterionCollection.clearAllForms();
-    eventCriterionCollection.clearAllForms();
-    identifierCriterionCollection.clearAllForms();
-    fileCriterionCollection.clearAllForms();
-    languageCriterionCollection.clearAllForms();
-    localTagCriterionCollection.clearAllForms();
+    this.contextCriterionCollection.clearAllForms();
+    this.anyFieldCriterionCollection.clearAllForms();
+    this.personCriterionCollection.clearAllForms();
+    this.organizationCriterionCollection.clearAllForms();
+    this.genreCriterionCollection.clearAllForms();
+    this.degreeCriterionCollection.clearAllForms();
+    this.dateCriterionCollection.clearAllForms();
+    this.sourceCriterionCollection.clearAllForms();
+    this.eventCriterionCollection.clearAllForms();
+    this.identifierCriterionCollection.clearAllForms();
+    this.fileCriterionCollection.clearAllForms();
+    this.languageCriterionCollection.clearAllForms();
+    this.localTagCriterionCollection.clearAllForms();
   }
 
   /**
@@ -159,25 +159,26 @@ public class AdvancedSearchEdit extends FacesBean {
    * @return (String): identifying the page that should be navigated to after this method call.
    */
   public void startSearch() {
-    ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
-    criterionList.addAll(anyFieldCriterionCollection.getFilledCriterion());
-    criterionList.addAll(contextCriterionCollection.getFilledCriterion());
-    criterionList.addAll(personCriterionCollection.getFilledCriterion());
-    criterionList.addAll(dateCriterionCollection.getFilledCriterion());
-    criterionList.addAll(genreCriterionCollection.getFilledCriterion());
-    criterionList.addAll(degreeCriterionCollection.getFilledCriterion());
-    criterionList.addAll(organizationCriterionCollection.getFilledCriterion());
-    criterionList.addAll(fileCriterionCollection.getFilledCriterion());
-    criterionList.addAll(identifierCriterionCollection.getFilledCriterion());
-    criterionList.addAll(eventCriterionCollection.getFilledCriterion());
-    criterionList.addAll(sourceCriterionCollection.getFilledCriterion());
-    criterionList.addAll(languageCriterionCollection.getFilledCriterion());
-    criterionList.addAll(localTagCriterionCollection.getFilledCriterion());
+    final ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
+    criterionList.addAll(this.anyFieldCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.contextCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.personCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.dateCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.genreCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.degreeCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.organizationCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.fileCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.identifierCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.eventCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.sourceCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.languageCriterionCollection.getFilledCriterion());
+    criterionList.addAll(this.localTagCriterionCollection.getFilledCriterion());
 
-    ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> searchCriteria =
+        new ArrayList<MetadataSearchCriterion>();
 
     if (criterionList.size() == 0) {
-      error(getMessage("search_NoCriteria"));
+      FacesBean.error(this.getMessage("search_NoCriteria"));
       return;
     }
 
@@ -187,17 +188,17 @@ public class AdvancedSearchEdit extends FacesBean {
     // transform the criteria to searchCriteria
     try {
       // transform first element
-      ArrayList<MetadataSearchCriterion> subset =
-          transformToSearchCriteria(null, criterionList.get(0));
+      final ArrayList<MetadataSearchCriterion> subset =
+          this.transformToSearchCriteria(null, criterionList.get(0));
       searchCriteria.addAll(subset);
       ArrayList<MetadataSearchCriterion> currentList = searchCriteria;
       for (int i = 1; i < criterionList.size(); i++) {
 
-        ArrayList<MetadataSearchCriterion> newCriteria =
-            transformToSearchCriteria(criterionList.get(i - 1), criterionList.get(i));
+        final ArrayList<MetadataSearchCriterion> newCriteria =
+            this.transformToSearchCriteria(criterionList.get(i - 1), criterionList.get(i));
 
-        Class<? extends Criterion> c = criterionList.get(i).getClass();
-        Class<? extends Criterion> d = criterionList.get(i - 1).getClass();
+        final Class<? extends Criterion> c = criterionList.get(i).getClass();
+        final Class<? extends Criterion> d = criterionList.get(i - 1).getClass();
         if (c.equals(d)) {
           currentList.addAll(newCriteria);
         } else {
@@ -207,22 +208,23 @@ public class AdvancedSearchEdit extends FacesBean {
       }
 
       // add the contentType to the query
-      ArrayList<String> contentTypes = new ArrayList<String>();
-      String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
+      final ArrayList<String> contentTypes = new ArrayList<String>();
+      final String contentTypeIdPublication =
+          PropertyReader.getProperty(AdvancedSearchEdit.PROPERTY_CONTENT_MODEL);
       contentTypes.add(contentTypeIdPublication);
 
-      MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, searchCriteria);
+      final MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, searchCriteria);
 
-      String cql = query.getCqlQuery();
+      final String cql = query.getCqlQuery();
 
       try {
         String searchString = "";
 
-        for (Criterion c : anyFieldCriterionCollection.getFilledCriterion()) {
+        for (final Criterion c : this.anyFieldCriterionCollection.getFilledCriterion()) {
           searchString += c.getSearchString() + " ";
         }
 
-        for (Criterion c : personCriterionCollection.getFilledCriterion()) {
+        for (final Criterion c : this.personCriterionCollection.getFilledCriterion()) {
           searchString += c.getSearchString() + " ";
         }
 
@@ -240,8 +242,8 @@ public class AdvancedSearchEdit extends FacesBean {
          * searchString, cql, loginHelper.getLoggedIn(), "pubman",
          * AdminHelper.getAdminUserHandle());
          */
-      } catch (Exception e) {
-        logger.error("Could not log statistical data", e);
+      } catch (final Exception e) {
+        AdvancedSearchEdit.logger.error("Could not log statistical data", e);
       }
 
       // redirect to SearchResultPage which processes the query
@@ -250,20 +252,20 @@ public class AdvancedSearchEdit extends FacesBean {
               + URLEncoder.encode(cql, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
 
-    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
-      logger.error("Search criteria includes some lexical error", e);
-      error(getMessage("search_ParseError"));
+    } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
+      AdvancedSearchEdit.logger.error("Search criteria includes some lexical error", e);
+      FacesBean.error(this.getMessage("search_ParseError"));
       return;
-    } catch (Exception e) {
-      logger.error("Technical problem while retrieving the search results", e);
-      error(getMessage("search_TechnicalError"));
+    } catch (final Exception e) {
+      AdvancedSearchEdit.logger.error("Technical problem while retrieving the search results", e);
+      FacesBean.error(this.getMessage("search_TechnicalError"));
       return;
     }
   }
 
   private ArrayList<MetadataSearchCriterion> transformToSearchCriteria(Criterion predecessor,
       Criterion transformMe) throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
+    final ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
     // we're on the first element of the criteria
     if (predecessor == null) {
       if (results.size() != 0) {
@@ -273,11 +275,11 @@ public class AdvancedSearchEdit extends FacesBean {
       return results;
     } else {
       if (results.size() != 0) {
-        LogicalOperator operator = predecessor.getLogicalOperator();
+        final LogicalOperator operator = predecessor.getLogicalOperator();
         results.get(0).setLogicalOperator(operator);
 
-        Class<? extends Criterion> c = predecessor.getClass();
-        Class<? extends Criterion> d = transformMe.getClass();
+        final Class<? extends Criterion> c = predecessor.getClass();
+        final Class<? extends Criterion> d = transformMe.getClass();
 
         if (c.equals(d) && c.getName().contains("OrganizationCriterion")) // hack TODO
         {
@@ -289,7 +291,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public PersonCriterionCollection getPersonCriterionCollection() {
-    return personCriterionCollection;
+    return this.personCriterionCollection;
   }
 
   public void setPersonCriterionCollection(PersonCriterionCollection personCriterionCollection) {
@@ -297,7 +299,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public GenreCriterionCollection getGenreCriterionCollection() {
-    return genreCriterionCollection;
+    return this.genreCriterionCollection;
   }
 
   public void setGenreCriterionCollection(GenreCriterionCollection genreCriterionCollection) {
@@ -305,7 +307,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public DateCriterionCollection getDateCriterionCollection() {
-    return dateCriterionCollection;
+    return this.dateCriterionCollection;
   }
 
   public void setDateCriterionCollection(DateCriterionCollection dateCriterionCollection) {
@@ -313,7 +315,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public ContextCriterionCollection getContextCriterionCollection() {
-    return contextCriterionCollection;
+    return this.contextCriterionCollection;
   }
 
   public void setContextCriterionCollection(ContextCriterionCollection contextCriterionCollection) {
@@ -321,7 +323,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public AnyFieldCriterionCollection getAnyFieldCriterionCollection() {
-    return anyFieldCriterionCollection;
+    return this.anyFieldCriterionCollection;
   }
 
   public void setAnyFieldCriterionCollection(AnyFieldCriterionCollection anyFieldCriterionCollection) {
@@ -331,7 +333,7 @@ public class AdvancedSearchEdit extends FacesBean {
 
 
   public EventCriterionCollection getEventCriterionCollection() {
-    return eventCriterionCollection;
+    return this.eventCriterionCollection;
   }
 
   public void setEventCriterionCollection(EventCriterionCollection eventCriterionCollection) {
@@ -339,7 +341,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public IdentifierCriterionCollection getIdentifierCriterionCollection() {
-    return identifierCriterionCollection;
+    return this.identifierCriterionCollection;
   }
 
   public void setIdentifierCriterionCollection(
@@ -348,7 +350,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public OrganizationCriterionCollection getOrganizationCriterionCollection() {
-    return organizationCriterionCollection;
+    return this.organizationCriterionCollection;
   }
 
   public void setOrganizationCriterionCollection(
@@ -357,7 +359,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public SourceCriterionCollection getSourceCriterionCollection() {
-    return sourceCriterionCollection;
+    return this.sourceCriterionCollection;
   }
 
   public void setSourceCriterionCollection(SourceCriterionCollection sourceCriterionCollection) {
@@ -365,7 +367,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public LanguageCriterionCollection getLanguageCriterionCollection() {
-    return languageCriterionCollection;
+    return this.languageCriterionCollection;
   }
 
   public void setLanguageCriterionCollection(LanguageCriterionCollection languageCriterionCollection) {
@@ -374,10 +376,10 @@ public class AdvancedSearchEdit extends FacesBean {
 
 
   public String getSuggestConeUrl() throws Exception {
-    if (suggestConeUrl == null) {
-      suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+    if (this.suggestConeUrl == null) {
+      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
     }
-    return suggestConeUrl;
+    return this.suggestConeUrl;
   }
 
   public void setSuggestConeUrl(String suggestConeUrl) {
@@ -385,7 +387,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public FileCriterionCollection getFileCriterionCollection() {
-    return fileCriterionCollection;
+    return this.fileCriterionCollection;
   }
 
   public void setFileCriterionCollection(FileCriterionCollection fileCriterionCollection) {
@@ -396,7 +398,7 @@ public class AdvancedSearchEdit extends FacesBean {
    * @return the localTagCriterionCollection
    */
   public LocalTagCriterionCollection getLocalTagCriterionCollection() {
-    return localTagCriterionCollection;
+    return this.localTagCriterionCollection;
   }
 
   /**
@@ -407,7 +409,7 @@ public class AdvancedSearchEdit extends FacesBean {
   }
 
   public DegreeCriterionCollection getDegreeCriterionCollection() {
-    return degreeCriterionCollection;
+    return this.degreeCriterionCollection;
   }
 
   public void setDegreeCriterionCollection(DegreeCriterionCollection degreeCriterionCollection) {

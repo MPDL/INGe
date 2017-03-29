@@ -45,7 +45,7 @@ public class CreatorCollection {
   private CreatorManager creatorManager;
 
   public CreatorCollection(List<CreatorVO> list) {
-    creatorManager = new CreatorManager(list);
+    this.creatorManager = new CreatorManager(list);
   }
 
   /**
@@ -57,22 +57,23 @@ public class CreatorCollection {
 
     public CreatorManager(List<CreatorVO> list) {
       this.objectList = new ArrayList<CreatorBean>();
-      for (CreatorVO creatorVO : list) {
-        CreatorBean creatorBean = new CreatorBean(creatorVO);
+      for (final CreatorVO creatorVO : list) {
+        final CreatorBean creatorBean = new CreatorBean(creatorVO);
         this.objectList.add(creatorBean);
       }
     }
 
+    @Override
     public CreatorBean createNewObject() {
-      CreatorVO newVO = new CreatorVO();
+      final CreatorVO newVO = new CreatorVO();
       newVO.setPerson(new PersonVO());
       // create a new Organization for this person
-      OrganizationVO newPersonOrganization = new OrganizationVO();
+      final OrganizationVO newPersonOrganization = new OrganizationVO();
 
       newPersonOrganization.setName("");
       newVO.getPerson().getOrganizations().add(newPersonOrganization);
 
-      CreatorBean creatorBean = new CreatorBean(newVO);
+      final CreatorBean creatorBean = new CreatorBean(newVO);
 
       return creatorBean;
     }
@@ -84,17 +85,17 @@ public class CreatorCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      CreatorCollection.this.parentVO.remove(i);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public CreatorManager getCreatorManager() {
-    return creatorManager;
+    return this.creatorManager;
   }
 
   public void setCreatorManager(CreatorManager creatorManager) {

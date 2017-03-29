@@ -53,28 +53,29 @@ public class ImportWorkspace extends BreadcrumbPage {
 
   public ImportWorkspace() {}
 
+  @Override
   public void init() {
     super.init();
 
-    AccountUserVO user = getLoginHelper().getAccountUser();
+    final AccountUserVO user = this.getLoginHelper().getAccountUser();
 
     ImportLog.SortColumn currentColumn = null;
     ImportLog.SortDirection currentDirection = null;
     ImportLog.SortColumn newColumn = null;
 
-    String sortColumnString =
+    final String sortColumnString =
         FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
     if (sortColumnString != null && !"".equals(sortColumnString)) {
       newColumn = SortColumn.valueOf(sortColumnString);
     }
 
-    String currentColumnString =
+    final String currentColumnString =
         FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
     if (currentColumnString != null && !"".equals(currentColumnString)) {
       currentColumn = SortColumn.valueOf(currentColumnString);
     }
 
-    String currentDirectionString =
+    final String currentDirectionString =
         FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
     if (currentDirectionString != null && !"".equals(currentDirectionString)) {
@@ -131,7 +132,7 @@ public class ImportWorkspace extends BreadcrumbPage {
    * @return the sortDirection
    */
   public ImportLog.SortDirection getSortDirection() {
-    return sortDirection;
+    return this.sortDirection;
   }
 
   /**
@@ -154,39 +155,39 @@ public class ImportWorkspace extends BreadcrumbPage {
 
     if (currentImport != null) {
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ENDNOTE_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BIBTEX_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_EDOC");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
       }
       // if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT_AEI.getName()))
       // {label=getLabel("ENUM_IMPORT_FORMAT_EDOCAEI");}
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.RIS_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_RIS");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.WOS_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_WOS");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MAB_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_MAB");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ESCIDOC_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ZFN_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_ZFN");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MARC21_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_MARC21");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MARCXML_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_MARCXML");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
       }
       if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BMC_FORMAT.getName())) {
-        label = getLabel("ENUM_IMPORT_FORMAT_BMC");
+        label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
       }
 
     }

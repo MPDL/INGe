@@ -79,7 +79,7 @@ public class QAWSSessionBean extends FacesBean {
   public QAWSSessionBean() {}
 
   public List<PubItemVO> getPubItemList() {
-    return pubItemList;
+    return this.pubItemList;
   }
 
   public void setPubItemList(List<PubItemVO> pubItemList) {
@@ -87,7 +87,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public String getSelectedContextId() {
-    return selectedContextId;
+    return this.selectedContextId;
   }
 
   public void setSelectedContextId(String selectedContextId) {
@@ -95,7 +95,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public String getSelectedOUId() {
-    return selectedOUId;
+    return this.selectedOUId;
   }
 
   public void setSelectedOUId(String selectedOUId) {
@@ -103,7 +103,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public String getSelectedItemState() {
-    return selectedItemState;
+    return this.selectedItemState;
   }
 
   public void setSelectedItemState(String selectedItemState) {
@@ -111,7 +111,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public String getSelectedContext() {
-    return selectedContext;
+    return this.selectedContext;
   }
 
   public void setSelectedContext(String selectedContext) {
@@ -119,7 +119,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public String getSelectedOrgUnit() {
-    return selectedOrgUnit;
+    return this.selectedOrgUnit;
   }
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
@@ -127,7 +127,7 @@ public class QAWSSessionBean extends FacesBean {
   }
 
   public List<SelectItem> getOrgUnitSelectItems() {
-    return orgUnitSelectItems;
+    return this.orgUnitSelectItems;
   }
 
   public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems) {

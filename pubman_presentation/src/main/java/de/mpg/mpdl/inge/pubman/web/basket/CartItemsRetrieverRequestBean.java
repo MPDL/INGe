@@ -19,6 +19,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
@@ -51,7 +52,7 @@ public class CartItemsRetrieverRequestBean extends
 
   @Override
   public int getTotalNumberOfRecords() {
-    return numberOfRecords;
+    return this.numberOfRecords;
   }
 
   @Override
@@ -77,65 +78,65 @@ public class CartItemsRetrieverRequestBean extends
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
 
     try {
-      PubItemStorageSessionBean pssb =
+      final PubItemStorageSessionBean pssb =
           (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
 
-      List<ItemRO> idList = new ArrayList<ItemRO>();
-      for (ItemRO id : pssb.getStoredPubItems().values()) {
+      final List<ItemRO> idList = new ArrayList<ItemRO>();
+      for (final ItemRO id : pssb.getStoredPubItems().values()) {
         idList.add(id);
       }
 
       if (idList.size() > 0) {
-        checkSortCriterias(sc);
+        this.checkSortCriterias(sc);
 
         // define the filter criteria
-        FilterTaskParamVO filter = new FilterTaskParamVO();
+        final FilterTaskParamVO filter = new FilterTaskParamVO();
 
-        Filter f1 = filter.new ItemRefVersionFilter(idList);
+        final Filter f1 = filter.new ItemRefVersionFilter(idList);
         filter.getFilterList().add(0, f1);
 
-        Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+        final Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
         filter.getFilterList().add(f10);
         if (limit > 0) {
-          Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+          final Filter f8 = filter.new LimitFilter(String.valueOf(limit));
           filter.getFilterList().add(f8);
         }
-        Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
+        final Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
         filter.getFilterList().add(f9);
 
         String xmlItemList = "";
-        if (getLoginHelper().getESciDocUserHandle() != null) {
+        if (this.getLoginHelper().getESciDocUserHandle() != null) {
           xmlItemList =
-              ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
-                  filter.toMap());
+              ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
+                  .retrieveItems(filter.toMap());
         } else {
           xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
         }
 
         System.out.println(filter.toMap());
 
-        ItemVOListWrapper pubItemList =
+        final ItemVOListWrapper pubItemList =
             XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
 
-        numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
+        this.numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
         returnList =
             CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
                 .getItemVOList());
       } else {
-        numberOfRecords = 0;
+        this.numberOfRecords = 0;
       }
 
-      pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - numberOfRecords);
+      pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - this.numberOfRecords);
       if (pssb.getDiffDisplayNumber() > 0) {
 
-        error(pssb.getDiffDisplayNumber() + " " + getMessage("basket_ItemsChanged"));
+        FacesBean.error(pssb.getDiffDisplayNumber() + " " + this.getMessage("basket_ItemsChanged"));
       }
 
 
 
-    } catch (Exception e) {
-      error("Error in retrieving items");
-      logger.error("Error while retrieving items for basket", e);
+    } catch (final Exception e) {
+      FacesBean.error("Error in retrieving items");
+      CartItemsRetrieverRequestBean.logger.error("Error while retrieving items for basket", e);
     }
     return returnList;
   }
@@ -146,21 +147,23 @@ public class CartItemsRetrieverRequestBean extends
    * @return
    */
   public void deleteSelected() {
-    PubItemStorageSessionBean pssb =
+    final PubItemStorageSessionBean pssb =
         (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
     int countSelected = 0;
 
-    for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList()) {
+    for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean()
+        .getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
         pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
       }
     }
     if (countSelected == 0) {
-      error(getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
+      FacesBean.error(this
+          .getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 
-    getBasePaginatorListSessionBean().redirect();
+    this.getBasePaginatorListSessionBean().redirect();
   }
 
   @Override
@@ -176,8 +179,8 @@ public class CartItemsRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getSortPath() == null || sc.getSortPath().equals("")) {
-      error(getMessage("depositorWS_sortingNotSupported").replace("$1",
-          getLabel("ENUM_CRITERIA_" + sc.name())));
+      FacesBean.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
+          this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
   }

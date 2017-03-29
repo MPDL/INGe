@@ -51,11 +51,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
 
   public String getParameterElementsPerPage() {
-    return parameterElementsPerPage;
+    return BasePaginatorListSessionBean.parameterElementsPerPage;
   }
 
   public String getParameterPageNumber() {
-    return parameterPageNumber;
+    return BasePaginatorListSessionBean.parameterPageNumber;
   }
 
   /**
@@ -66,7 +66,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * A list containing the PaginatorPage objects
    */
-  private List<PaginatorPage> paginatorPageList;
+  private final List<PaginatorPage> paginatorPageList;
 
   /**
    * The list containing the current elements of the displayed list
@@ -154,17 +154,17 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * Initializes a new BasePaginatorListSessionBean
    */
   public BasePaginatorListSessionBean() {
-    setParameterMap(new HashMap<String, String>());
-    setOldRedirectParameterMap(new HashMap<String, String>());
+    this.setParameterMap(new HashMap<String, String>());
+    this.setOldRedirectParameterMap(new HashMap<String, String>());
 
-    elementsPerPageSelectItems = new ArrayList<SelectItem>();
-    elementsPerPageSelectItems.add(new SelectItem("10", "10"));
-    elementsPerPageSelectItems.add(new SelectItem("25", "25")); // --default: 25
-    elementsPerPageSelectItems.add(new SelectItem("50", "50"));
-    elementsPerPageSelectItems.add(new SelectItem("100", "100"));
-    elementsPerPageSelectItems.add(new SelectItem("250", "250"));
+    this.elementsPerPageSelectItems = new ArrayList<SelectItem>();
+    this.elementsPerPageSelectItems.add(new SelectItem("10", "10"));
+    this.elementsPerPageSelectItems.add(new SelectItem("25", "25")); // --default: 25
+    this.elementsPerPageSelectItems.add(new SelectItem("50", "50"));
+    this.elementsPerPageSelectItems.add(new SelectItem("100", "100"));
+    this.elementsPerPageSelectItems.add(new SelectItem("250", "250"));
 
-    paginatorPageList = new ArrayList<PaginatorPage>();
+    this.paginatorPageList = new ArrayList<PaginatorPage>();
   }
 
   /**
@@ -174,84 +174,90 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * finally calls listUpdated on implementing subclasses.
    */
   public void update() {
-    String elementsPerP =
-        FacesTools.getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
+    final String elementsPerP =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(BasePaginatorListSessionBean.parameterElementsPerPage);
 
     if (elementsPerP != null) {
-      setElementsPerPage(Integer.parseInt(elementsPerP));
+      this.setElementsPerPage(Integer.parseInt(elementsPerP));
     } else {
-      setElementsPerPage(25);
+      this.setElementsPerPage(25);
     }
 
-    String currentPNumber =
-        FacesTools.getExternalContext().getRequestParameterMap().get(parameterPageNumber);
+    final String currentPNumber =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(BasePaginatorListSessionBean.parameterPageNumber);
     if (currentPNumber != null) {
-      setCurrentPageNumber(Integer.parseInt(currentPNumber));
-      setGoToPage(currentPNumber);
+      this.setCurrentPageNumber(Integer.parseInt(currentPNumber));
+      this.setGoToPage(currentPNumber);
     } else {
-      setCurrentPageNumber(1);
+      this.setCurrentPageNumber(1);
     }
 
-    readOutParameters();
+    this.readOutParameters();
 
     // logger.info("No List update: "+noListUpdate);
-    if (!getNoListUpdate() && getPaginatorListRetriever() != null) {
-      currentPartList =
-          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-              getAdditionalFilters());
-      totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+    if (!this.getNoListUpdate() && this.getPaginatorListRetriever() != null) {
+      this.currentPartList =
+          this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
+              this.getAdditionalFilters());
+      this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
-        setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList =
-            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-                getAdditionalFilters());
-        totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+      if (this.getTotalNumberOfElements() > 0
+          && this.getTotalNumberOfElements() <= this.getOffset()) {
+        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this
+            .getElementsPerPage()) + 1);
+        this.currentPartList =
+            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
+                this.getAdditionalFilters());
+        this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
-      paginatorPageList.clear();
-      for (int i = 0; i < ((getTotalNumberOfElements() - 1) / elementsPerPage) + 1; i++) {
-        paginatorPageList.add(new PaginatorPage(i + 1));
+      this.paginatorPageList.clear();
+      for (int i = 0; i < ((this.getTotalNumberOfElements() - 1) / this.elementsPerPage) + 1; i++) {
+        this.paginatorPageList.add(new PaginatorPage(i + 1));
       }
 
-      listUpdated();
+      this.listUpdated();
     }
 
-    saveOldParameters();
+    this.saveOldParameters();
   }
 
   public void update(final int pageNumber, final int elementsPerP) {
-    setElementsPerPage(elementsPerP);
-    setCurrentPageNumber(pageNumber);
+    this.setElementsPerPage(elementsPerP);
+    this.setCurrentPageNumber(pageNumber);
 
     // logger.info("No List update: "+noListUpdate);
-    if (!getNoListUpdate()) {
-      currentPartList =
-          getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-              getAdditionalFilters());
-      totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+    if (!this.getNoListUpdate()) {
+      this.currentPartList =
+          this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
+              this.getAdditionalFilters());
+      this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (getTotalNumberOfElements() > 0 && getTotalNumberOfElements() <= getOffset()) {
-        setCurrentPageNumber(((getTotalNumberOfElements() - 1) / getElementsPerPage()) + 1);
-        currentPartList =
-            getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage,
-                getAdditionalFilters());
-        totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+      if (this.getTotalNumberOfElements() > 0
+          && this.getTotalNumberOfElements() <= this.getOffset()) {
+        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this
+            .getElementsPerPage()) + 1);
+        this.currentPartList =
+            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
+                this.getAdditionalFilters());
+        this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
-      paginatorPageList.clear();
-      for (int i = 0; i < ((getTotalNumberOfElements() - 1) / elementsPerPage) + 1; i++) {
-        paginatorPageList.add(new PaginatorPage(i + 1));
+      this.paginatorPageList.clear();
+      for (int i = 0; i < ((this.getTotalNumberOfElements() - 1) / this.elementsPerPage) + 1; i++) {
+        this.paginatorPageList.add(new PaginatorPage(i + 1));
       }
 
-      listUpdated();
+      this.listUpdated();
     }
 
-    saveOldParameters();
+    this.saveOldParameters();
   }
 
   // /**
@@ -295,7 +301,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   protected BaseListRetrieverRequestBean<ListElementType, FilterType> getPaginatorListRetriever() {
-    return paginatorListRetriever;
+    return this.paginatorListRetriever;
   }
 
   /**
@@ -304,7 +310,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public List<ListElementType> getCurrentPartList() {
-    return currentPartList;
+    return this.currentPartList;
   }
 
   /**
@@ -313,7 +319,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public int getPartListSize() {
-    return getCurrentPartList().size();
+    return this.getCurrentPartList().size();
   }
 
   // protected abstract List<ListElementType> getPartList(int offset, int limit);
@@ -323,14 +329,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * BaseRetrieverRequestBean
    */
   public int getTotalNumberOfElements() {
-    return totalNumberOfElements;
+    return this.totalNumberOfElements;
   }
 
   /**
    * Returns the current offset (starting with 0)
    */
   public int getOffset() {
-    return ((currentPageNumber - 1) * elementsPerPage);
+    return ((this.currentPageNumber - 1) * this.elementsPerPage);
   }
 
   /*
@@ -344,7 +350,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     this.elementsPerPage = elementsPerPage;
     this.elementsPerPageTop = elementsPerPage;
     this.elementsPerPageBottom = elementsPerPage;
-    getParameterMap().put(parameterElementsPerPage, String.valueOf(elementsPerPage));
+    this.getParameterMap().put(BasePaginatorListSessionBean.parameterElementsPerPage,
+        String.valueOf(elementsPerPage));
   }
 
   /**
@@ -377,7 +384,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   @Deprecated
   public int getElementsPerPageTop() {
-    return elementsPerPageTop;
+    return this.elementsPerPageTop;
   }
 
   /**
@@ -388,7 +395,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   @Deprecated
   public int getElementsPerPageBottom() {
-    return elementsPerPageBottom;
+    return this.elementsPerPageBottom;
   }
 
   /**
@@ -397,7 +404,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public int getElementsPerPage() {
-    return elementsPerPage;
+    return this.elementsPerPage;
   }
 
   /**
@@ -407,11 +414,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public void changeElementsPerPageTop() throws Exception {
-    setElementsPerPage(getElementsPerPageTop());
+    this.setElementsPerPage(this.getElementsPerPageTop());
     // set new PageNumber to a number where the first element of the current Page is still displayed
-    setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
+    this.setCurrentPageNumber(((this.currentPageNumber - 1 * this.elementsPerPage + 1) / (this.elementsPerPage)) + 1);
 
-    redirect();
+    this.redirect();
   }
 
   /**
@@ -421,11 +428,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @throws Exception
    */
   public void changeElementsPerPageBottom() throws Exception {
-    setElementsPerPage(getElementsPerPageBottom());
+    this.setElementsPerPage(this.getElementsPerPageBottom());
     // set new PageNumber to a number where the first element of the current Page is still displayed
-    setCurrentPageNumber(((currentPageNumber - 1 * elementsPerPage + 1) / (elementsPerPage)) + 1);
+    this.setCurrentPageNumber(((this.currentPageNumber - 1 * this.elementsPerPage + 1) / (this.elementsPerPage)) + 1);
 
-    redirect();
+    this.redirect();
   }
 
   /**
@@ -436,19 +443,19 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public void doGoToPageTop() {
     try {
-      int goToPage = Integer.parseInt(getGoToPageTop());
+      final int goToPage = Integer.parseInt(this.getGoToPageTop());
 
-      if (goToPage > 0 && goToPage <= getPaginatorPageSize()) {
-        setCurrentPageNumber(goToPage);
-        setGoToPageBottom(String.valueOf(goToPage));
+      if (goToPage > 0 && goToPage <= this.getPaginatorPageSize()) {
+        this.setCurrentPageNumber(goToPage);
+        this.setGoToPageBottom(String.valueOf(goToPage));
       } else {
-        error(getMessage("listError_goTo"));
+        FacesBean.error(this.getMessage("listError_goTo"));
       }
-    } catch (Exception e) {
-      error(getMessage("listError_goTo"));
+    } catch (final Exception e) {
+      FacesBean.error(this.getMessage("listError_goTo"));
     }
 
-    redirect();
+    this.redirect();
   }
 
   /**
@@ -459,18 +466,18 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public void doGoToPageBottom() {
     try {
-      int goToPage = Integer.parseInt(getGoToPageBottom());
-      if (goToPage > 0 && goToPage <= getPaginatorPageSize()) {
-        setCurrentPageNumber(goToPage);
-        setGoToPageTop(String.valueOf(goToPage));
+      final int goToPage = Integer.parseInt(this.getGoToPageBottom());
+      if (goToPage > 0 && goToPage <= this.getPaginatorPageSize()) {
+        this.setCurrentPageNumber(goToPage);
+        this.setGoToPageTop(String.valueOf(goToPage));
       } else {
-        error(getMessage("listError_goTo"));
+        FacesBean.error(this.getMessage("listError_goTo"));
       }
-    } catch (Exception e) {
-      error(getMessage("listError_goTo"));
+    } catch (final Exception e) {
+      FacesBean.error(this.getMessage("listError_goTo"));
     }
 
-    redirect();
+    this.redirect();
   }
 
   /**
@@ -479,7 +486,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public int getCurrentPageNumber() {
-    return currentPageNumber;
+    return this.currentPageNumber;
   }
 
   /**
@@ -488,7 +495,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public List<PaginatorPage> getPaginatorPages() {
-    return paginatorPageList;
+    return this.paginatorPageList;
   }
 
   /**
@@ -497,7 +504,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public int getPaginatorPageSize() {
-    return getPaginatorPages().size();
+    return this.getPaginatorPages().size();
   }
 
   /**
@@ -507,10 +514,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public int getFirstPaginatorPageNumber() {
-    if (getPaginatorPageSize() > 7 && currentPageNumber > getPaginatorPageSize() - 4) {
-      return getPaginatorPageSize() - 6;
-    } else if (getPaginatorPageSize() > 7 && currentPageNumber > 4) {
-      return currentPageNumber - 3;
+    if (this.getPaginatorPageSize() > 7 && this.currentPageNumber > this.getPaginatorPageSize() - 4) {
+      return this.getPaginatorPageSize() - 6;
+    } else if (this.getPaginatorPageSize() > 7 && this.currentPageNumber > 4) {
+      return this.currentPageNumber - 3;
     } else {
       return 1;
     }
@@ -531,7 +538,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public List<SelectItem> getElementsPerPageSelectItems() {
-    return elementsPerPageSelectItems;
+    return this.elementsPerPageSelectItems;
   }
 
   /**
@@ -568,7 +575,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * @return
      */
     public int getNumber() {
-      return number;
+      return this.number;
     }
 
     /**
@@ -577,7 +584,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * @return
      */
     public String getLink() {
-      return getModifiedLink(parameterPageNumber, String.valueOf(number));
+      return BasePaginatorListSessionBean.this.getModifiedLink(
+          BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(this.number));
     }
   }
 
@@ -586,12 +594,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * the jsp page (drawn form BaseListretrieverRequestBean=
    */
   public void redirect() {
-    beforeRedirect();
+    this.beforeRedirect();
     try {
-      logger.debug("redirectURL :" + getRedirectUrl());
-      FacesTools.getExternalContext().redirect(getRedirectUrl());
-    } catch (IOException e) {
-      error("Could not redirect!");
+      BasePaginatorListSessionBean.logger.debug("redirectURL :" + this.getRedirectUrl());
+      FacesTools.getExternalContext().redirect(this.getRedirectUrl());
+    } catch (final IOException e) {
+      FacesBean.error("Could not redirect!");
     }
   }
 
@@ -609,21 +617,21 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     String parameterUrl = "?";
 
-    for (Entry<String, String> entrySet : getParameterMap().entrySet()) {
+    for (final Entry<String, String> entrySet : this.getParameterMap().entrySet()) {
       try {
         if (entrySet.getValue() != null) {
           parameterUrl =
               parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
                   + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
         }
-      } catch (UnsupportedEncodingException e) {
+      } catch (final UnsupportedEncodingException e) {
         throw new RuntimeException(e);
       }
     }
 
     parameterUrl = parameterUrl.substring(0, parameterUrl.length() - 1);
 
-    logger.debug("parameterUrl: " + parameterUrl);
+    BasePaginatorListSessionBean.logger.debug("parameterUrl: " + parameterUrl);
 
     return parameterUrl;
   }
@@ -635,7 +643,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getRedirectUrl() {
-    return getPaginatorListRetriever().getListPageName() + getUrlParameterString();
+    return this.getPaginatorListRetriever().getListPageName() + this.getUrlParameterString();
   }
 
   /**
@@ -645,7 +653,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public Map<String, String> getParameterMap() {
-    return redirectParameterMap;
+    return this.redirectParameterMap;
   }
 
   /**
@@ -656,10 +664,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   protected String getModifiedLink(String key, String value) {
-    String oldValue = getParameterMap().get(key);
-    getParameterMap().put(key, value);
-    String linkUrl = getRedirectUrl();
-    getParameterMap().put(key, oldValue);
+    final String oldValue = this.getParameterMap().get(key);
+    this.getParameterMap().put(key, value);
+    final String linkUrl = this.getRedirectUrl();
+    this.getParameterMap().put(key, oldValue);
     return linkUrl;
   }
 
@@ -669,7 +677,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getLinkForNextPage() {
-    return getModifiedLink(parameterPageNumber, String.valueOf(currentPageNumber + 1));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
+        String.valueOf(this.currentPageNumber + 1));
   }
 
   /**
@@ -678,7 +687,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getLinkForPreviousPage() {
-    return getModifiedLink(parameterPageNumber, String.valueOf(currentPageNumber - 1));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
+        String.valueOf(this.currentPageNumber - 1));
   }
 
   /**
@@ -687,7 +697,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getLinkForFirstPage() {
-    return getModifiedLink(parameterPageNumber, String.valueOf(1));
+    return this
+        .getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(1));
   }
 
   /**
@@ -696,7 +707,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getLinkForLastPage() {
-    return getModifiedLink(parameterPageNumber, String.valueOf(getPaginatorPageSize()));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
+        String.valueOf(this.getPaginatorPageSize()));
   }
 
   /**
@@ -706,7 +718,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    */
   public void setCurrentPageNumber(int currentPageNumber) {
     this.currentPageNumber = currentPageNumber;
-    getParameterMap().put(parameterPageNumber, String.valueOf(currentPageNumber));
+    this.getParameterMap().put(BasePaginatorListSessionBean.parameterPageNumber,
+        String.valueOf(currentPageNumber));
   }
 
   /**
@@ -759,19 +772,19 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   protected abstract void pageTypeChanged();
 
   public void setListPageName(String listPageName) {
-    String oldPageName = this.listPageName;
+    final String oldPageName = this.listPageName;
     this.listPageName = listPageName;
 
     if (!listPageName.equals(oldPageName)) {
-      pageTypeChanged();
-      setGoToPage("");
-      getParameterMap().clear();
-      getOldRedirectParameterMap().clear();
+      this.pageTypeChanged();
+      this.setGoToPage("");
+      this.getParameterMap().clear();
+      this.getOldRedirectParameterMap().clear();
     }
   }
 
   public String getListPageName() {
-    return listPageName;
+    return this.listPageName;
   }
 
   /**
@@ -835,15 +848,15 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   public String getGoToPage() {
-    return goToPage;
+    return this.goToPage;
   }
 
   /**
    * Copies the current parameters in the parameter store
    */
   public void saveOldParameters() {
-    getOldRedirectParameterMap().clear();
-    getOldRedirectParameterMap().putAll(getParameterMap());
+    this.getOldRedirectParameterMap().clear();
+    this.getOldRedirectParameterMap().putAll(this.getParameterMap());
   }
 
   // /**
@@ -879,8 +892,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @return
    */
   private boolean getNoListUpdate() {
-    boolean returnVal = noListUpdate;
-    noListUpdate = false;
+    final boolean returnVal = this.noListUpdate;
+    this.noListUpdate = false;
     return returnVal;
   }
 
@@ -889,7 +902,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   }
 
   public Map<String, String> getOldRedirectParameterMap() {
-    return oldRedirectParameterMap;
+    return this.oldRedirectParameterMap;
   }
 
   public void setParameterMap(Map<String, String> redirectParameterMap) {

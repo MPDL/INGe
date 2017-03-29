@@ -53,6 +53,7 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionB
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -150,7 +151,7 @@ public class PubItemListSessionBean extends
      * @return
      */
     public String getIndex() {
-      return index;
+      return this.index;
     }
 
     /**
@@ -170,7 +171,7 @@ public class PubItemListSessionBean extends
      * @return
      */
     public String getSortPath() {
-      return sortPath;
+      return this.sortPath;
     }
 
     /**
@@ -188,7 +189,7 @@ public class PubItemListSessionBean extends
      * @param sortOrder
      */
     public String getSortOrder() {
-      return sortOrder;
+      return this.sortOrder;
     }
   }
 
@@ -239,7 +240,7 @@ public class PubItemListSessionBean extends
   private int itemPosition = 0;
 
   public PubItemListSessionBean() {
-    selectedItemRefs = new HashMap<String, ItemRO>();
+    this.selectedItemRefs = new HashMap<String, ItemRO>();
   }
 
   /**
@@ -250,12 +251,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByState() {
     try {
-      setSelectedSortBy("STATE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("STATE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -267,12 +268,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByTitle() {
     try {
-      setSelectedSortBy("TITLE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("TITLE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -284,12 +285,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByGenre() {
     try {
-      setSelectedSortBy("GENRE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("GENRE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -301,12 +302,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByDate() {
     try {
-      setSelectedSortBy("DATE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("DATE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -318,12 +319,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByCreator() {
     try {
-      setSelectedSortBy("CREATOR");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("CREATOR");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -335,12 +336,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByFile() {
     try {
-      setSelectedSortBy("FILE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("FILE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -352,12 +353,12 @@ public class PubItemListSessionBean extends
    */
   public void changeToSortByCreationDate() {
     try {
-      setSelectedSortBy("CREATION_DATE");
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortBy("CREATION_DATE");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -368,17 +369,17 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void changeSortOrder() {
-    if (selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING)) {
-      setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+    if (this.selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING)) {
+      this.setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
     } else {
-      setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
+      this.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
     }
     try {
-      setSelectedSortOrder(selectedSortOrder);
-      setCurrentPageNumber(1);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSelectedSortOrder(this.selectedSortOrder);
+      this.setCurrentPageNumber(1);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -389,11 +390,11 @@ public class PubItemListSessionBean extends
    */
   public void changeSortBy() {
     try {
-      setCurrentPageNumber(1);
-      setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setCurrentPageNumber(1);
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -404,11 +405,11 @@ public class PubItemListSessionBean extends
    */
   public void changeSubmenuToView() {
     try {
-      setSubMenu("VIEW");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSubMenu("VIEW");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -419,11 +420,11 @@ public class PubItemListSessionBean extends
    */
   public void changeSubmenuToExport() {
     try {
-      setSubMenu("EXPORT");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSubMenu("EXPORT");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -434,11 +435,11 @@ public class PubItemListSessionBean extends
    */
   public void changeSubmenuToFilter() {
     try {
-      setSubMenu("FILTER");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSubMenu("FILTER");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -449,11 +450,11 @@ public class PubItemListSessionBean extends
    */
   public void changeSubmenuToSorting() {
     try {
-      setSubMenu("SORTING");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setSubMenu("SORTING");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -464,11 +465,11 @@ public class PubItemListSessionBean extends
    */
   public void changeListTypeToBib() {
     try {
-      setListType("BIB");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setListType("BIB");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -479,11 +480,11 @@ public class PubItemListSessionBean extends
    */
   public void changeListTypeToGrid() {
     try {
-      setListType("GRID");
-      setNoListUpdate(true);
-      redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.setListType("GRID");
+      this.setNoListUpdate(true);
+      this.redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
@@ -493,7 +494,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public boolean getIsAscending() {
-    return selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING);
+    return this.selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING);
   }
 
   /**
@@ -509,33 +510,35 @@ public class PubItemListSessionBean extends
    * Returns the menu entries for the sorting criteria menu
    */
   public List<SelectItem> getSortBySelectItems() {
-    sortBySelectItems = new ArrayList<SelectItem>();
+    this.sortBySelectItems = new ArrayList<SelectItem>();
 
     // the last three should not be in if not logged in
-    if (!getLoginHelper().isLoggedIn()) {
+    if (!this.getLoginHelper().isLoggedIn()) {
       for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
-        SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
+        final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 
         // only add if index/sorting path is available
-        if ((getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
+        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
             .equals("")))
-            || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
+            || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
+          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
+              + sc.name())));
         }
       }
     } else {
       for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
-        SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
+        final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
         // only add if index/sorting path is available
-        if ((getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
+        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
             .equals("")))
-            || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_" + sc.name())));
+            || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
+          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
+              + sc.name())));
         }
       }
     }
 
-    return sortBySelectItems;
+    return this.sortBySelectItems;
   }
 
 
@@ -546,7 +549,7 @@ public class PubItemListSessionBean extends
    */
   public void setSelectedSortBy(String selectedSortBy) {
     this.selectedSortBy = selectedSortBy;
-    getParameterMap().put(parameterSelectedSortBy, selectedSortBy);
+    this.getParameterMap().put(PubItemListSessionBean.parameterSelectedSortBy, selectedSortBy);
   }
 
   /**
@@ -555,7 +558,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String getSelectedSortBy() {
-    return selectedSortBy;
+    return this.selectedSortBy;
   }
 
   /**
@@ -565,8 +568,8 @@ public class PubItemListSessionBean extends
    */
   public String getSelectedSortByLabel() {
     String returnString = "";
-    if (!getSelectedSortBy().equals("all")) {
-      returnString = getLabel("ENUM_CRITERIA_" + getSelectedSortBy());
+    if (!this.getSelectedSortBy().equals("all")) {
+      returnString = this.getLabel("ENUM_CRITERIA_" + this.getSelectedSortBy());
     }
 
     return returnString;
@@ -576,7 +579,7 @@ public class PubItemListSessionBean extends
    * Returns the current sort order ("ascending" or "descending")
    */
   public String getSelectedSortOrder() {
-    return selectedSortOrder;
+    return this.selectedSortOrder;
   }
 
   /**
@@ -586,7 +589,8 @@ public class PubItemListSessionBean extends
    */
   public void setSelectedSortOrder(String selectedSortOrder) {
     this.selectedSortOrder = selectedSortOrder;
-    getParameterMap().put(parameterSelectedSortOrder, selectedSortOrder);
+    this.getParameterMap()
+        .put(PubItemListSessionBean.parameterSelectedSortOrder, selectedSortOrder);
   }
 
   /**
@@ -595,12 +599,13 @@ public class PubItemListSessionBean extends
    */
   @Override
   protected void readOutParameters() {
-    String sortBy =
-        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedSortBy);
+    final String sortBy =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(PubItemListSessionBean.parameterSelectedSortBy);
 
     if (sortBy != null) {
-      setSelectedSortBy(sortBy);
-    } else if (getSelectedSortBy() != null) {
+      this.setSelectedSortBy(sortBy);
+    } else if (this.getSelectedSortBy() != null) {
       // do nothing
     } else {
       // This is commented out due to PUBMAN-1907
@@ -610,18 +615,19 @@ public class PubItemListSessionBean extends
       // }
       // else
       // {
-      setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
+      this.setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
       // }
     }
 
-    String sortOrder =
-        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedSortOrder);
+    final String sortOrder =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(PubItemListSessionBean.parameterSelectedSortOrder);
     if (sortOrder != null) {
-      setSelectedSortOrder(sortOrder);
-    } else if (getSelectedSortOrder() != null) {
+      this.setSelectedSortOrder(sortOrder);
+    } else if (this.getSelectedSortOrder() != null) {
       // do nothing
     } else {
-      setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+      this.setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
     }
   }
 
@@ -630,8 +636,8 @@ public class PubItemListSessionBean extends
    */
   @Override
   public SORT_CRITERIA getAdditionalFilters() {
-    SORT_CRITERIA sc = SORT_CRITERIA.valueOf(getSelectedSortBy());
-    sc.setSortOrder(getSelectedSortOrder());
+    final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.getSelectedSortBy());
+    sc.setSortOrder(this.getSelectedSortOrder());
 
     return sc;
   }
@@ -651,7 +657,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String getSubMenu() {
-    return subMenu;
+    return this.subMenu;
   }
 
   /**
@@ -659,12 +665,12 @@ public class PubItemListSessionBean extends
    */
   @Override
   protected void pageTypeChanged() {
-    if (getPageType().equals("MyItems") || getPageType().equals("MyTasks")) {
-      subMenu = "FILTER";
+    if (this.getPageType().equals("MyItems") || this.getPageType().equals("MyTasks")) {
+      this.subMenu = "FILTER";
     } else {
-      subMenu = "VIEW";
+      this.subMenu = "VIEW";
     }
-    getSelectedItemRefs().clear();
+    this.getSelectedItemRefs().clear();
   }
 
   /**
@@ -682,7 +688,7 @@ public class PubItemListSessionBean extends
    * @param listType
    */
   public String getListType() {
-    return listType;
+    return this.listType;
   }
 
   /**
@@ -691,8 +697,8 @@ public class PubItemListSessionBean extends
    * @return
    */
   public List<PubItemVOPresentation> getSelectedItems() {
-    List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
-    for (PubItemVOPresentation pubItem : getCurrentPartList()) {
+    final List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
+    for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
         selectedPubItems.add(pubItem);
       }
@@ -707,13 +713,13 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void addSelectedToCart() {
-    PubItemStorageSessionBean pubItemStorage =
+    final PubItemStorageSessionBean pubItemStorage =
         (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
-    List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
+    final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
 
     int added = 0;
     int existing = 0;
-    for (PubItemVOPresentation pubItem : selectedPubItems) {
+    for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
       if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS) {
         if (!pubItemStorage.getStoredPubItems().containsKey(
@@ -725,23 +731,25 @@ public class PubItemListSessionBean extends
           existing++;
         }
       } else {
-        error(getMessage("basket_MaximumSizeReached") + " ("
+        FacesBean.error(this.getMessage("basket_MaximumSizeReached") + " ("
             + PubItemListSessionBean.MAXIMUM_CART_ITEMS + ")");
         break;
       }
     }
 
     if (selectedPubItems.size() == 0) {
-      error(getMessage("basket_NoItemsSelected"));
+      FacesBean.error(this.getMessage("basket_NoItemsSelected"));
     }
     if (added > 0 || existing > 0) {
-      info(getMessage("basket_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
+      this.info(this.getMessage("basket_MultipleAddedSuccessfully").replace("$1",
+          String.valueOf(added)));
     }
     if (existing > 0) {
-      info(getMessage("basket_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
+      this.info(this.getMessage("basket_MultipleAlreadyInBasket").replace("$1",
+          String.valueOf(existing)));
     }
 
-    redirect();
+    this.redirect();
   }
 
 
@@ -751,19 +759,19 @@ public class PubItemListSessionBean extends
    */
   @Override
   protected void beforeRedirect() {
-    saveSelections();
+    this.saveSelections();
   }
 
   /**
    * Saves the references of currently selected pub items into a map.
    */
   private void saveSelections() {
-    for (PubItemVOPresentation pubItem : getCurrentPartList()) {
+    for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
-        getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(),
+        this.getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(),
             pubItem.getVersion());
       } else {
-        getSelectedItemRefs().remove(pubItem.getVersion().getObjectIdAndVersion());
+        this.getSelectedItemRefs().remove(pubItem.getVersion().getObjectIdAndVersion());
       }
     }
   }
@@ -772,13 +780,13 @@ public class PubItemListSessionBean extends
    * Checks if items on the current page have to be selected (checked) after an redirect.
    */
   private void updateSelections() {
-    if (!getSelectedItemRefs().isEmpty()) {
-      for (PubItemVOPresentation pubItem : getCurrentPartList()) {
-        if (getSelectedItemRefs().containsKey(pubItem.getVersion().getObjectIdAndVersion())) {
+    if (!this.getSelectedItemRefs().isEmpty()) {
+      for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
+        if (this.getSelectedItemRefs().containsKey(pubItem.getVersion().getObjectIdAndVersion())) {
           pubItem.setSelected(true);
         }
       }
-      getSelectedItemRefs().clear();
+      this.getSelectedItemRefs().clear();
     }
   }
 
@@ -791,7 +799,7 @@ public class PubItemListSessionBean extends
    */
   @Override
   protected void listUpdated() {
-    updateSelections();
+    this.updateSelections();
   }
 
   /**
@@ -800,7 +808,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String exportSelectedDisplay() {
-    return showDisplayExportData(getSelectedItems());
+    return this.showDisplayExportData(this.getSelectedItems());
   }
 
   /**
@@ -809,7 +817,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String exportSelectedEmail() {
-    return showExportEmailPage(getSelectedItems());
+    return this.showExportEmailPage(this.getSelectedItems());
   }
 
   /**
@@ -818,7 +826,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void exportSelectedDownload() {
-    downloadExportFile(getSelectedItems());
+    this.downloadExportFile(this.getSelectedItems());
   }
 
   /**
@@ -827,7 +835,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String exportAllDisplay() {
-    return showDisplayExportData(retrieveAll());
+    return this.showDisplayExportData(this.retrieveAll());
   }
 
   /**
@@ -836,7 +844,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String exportAllEmail() {
-    return showExportEmailPage(retrieveAll());
+    return this.showExportEmailPage(this.retrieveAll());
   }
 
   /**
@@ -845,7 +853,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void exportAllDownload() {
-    downloadExportFile(retrieveAll());
+    this.downloadExportFile(this.retrieveAll());
   }
 
   /**
@@ -854,8 +862,8 @@ public class PubItemListSessionBean extends
    * @return
    */
   private List<PubItemVOPresentation> retrieveAll() {
-    List<PubItemVOPresentation> itemList =
-        getPaginatorListRetriever().retrieveList(0, 0, getAdditionalFilters());
+    final List<PubItemVOPresentation> itemList =
+        this.getPaginatorListRetriever().retrieveList(0, 0, this.getAdditionalFilters());
     return itemList;
   }
 
@@ -866,12 +874,12 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String showDisplayExportData(List<PubItemVOPresentation> pubItemList) {
-    saveSelections();
+    this.saveSelections();
 
-    ItemControllerSessionBean icsb =
+    final ItemControllerSessionBean icsb =
         (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-    String displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
-    ExportItemsSessionBean sb =
+    String displayExportData = this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+    final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
 
@@ -879,15 +887,15 @@ public class PubItemListSessionBean extends
     // this.setSelectedItemsAndCurrentItem();
     if (pubItemList.size() != 0) {
       // save selected file format on the web interface
-      String selectedFileFormat = sb.getFileFormat();
+      final String selectedFileFormat = sb.getFileFormat();
       // for the display export data the file format should be always HTML
       sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
-      ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       try {
         displayExportData =
             new String(icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList)));
-      } catch (TechnicalException e) {
+      } catch (final TechnicalException e) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -900,9 +908,9 @@ public class PubItemListSessionBean extends
       // return "dialog:showDisplayExportItemsPage";
       return "showDisplayExportItemsPage";
     } else {
-      error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
       sb.setExportDisplayData(displayExportData);
-      redirect();
+      this.redirect();
       return "";
     }
   }
@@ -914,33 +922,33 @@ public class PubItemListSessionBean extends
    * @return
    */
   public String showExportEmailPage(List<PubItemVOPresentation> pubItemList) {
-    saveSelections();
+    this.saveSelections();
 
-    ItemControllerSessionBean icsb =
+    final ItemControllerSessionBean icsb =
         (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
     // this.setSelectedItemsAndCurrentItem();
-    ExportItemsSessionBean sb =
+    final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
     if (pubItemList.size() != 0) {
       // gets the export format VO that holds the data.
-      ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       byte[] exportFileData;
       try {
         exportFileData =
             icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList));
-      } catch (TechnicalException e) {
+      } catch (final TechnicalException e) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
-        error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
-        redirect();
+        FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
+        this.redirect();
       }
       // YEAR + MONTH + DAY_OF_MONTH
-      Calendar rightNow = Calendar.getInstance();
-      String date =
+      final Calendar rightNow = Calendar.getInstance();
+      final String date =
           rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
               + rightNow.get(Calendar.MONTH) + "_";
       // create an attachment temp file from the byte[] stream
@@ -949,22 +957,22 @@ public class PubItemListSessionBean extends
         exportAttFile =
             File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
                 + FileFormatVO.getExtensionByName(sb.getFileFormat()));
-        FileOutputStream fos = new FileOutputStream(exportAttFile);
+        final FileOutputStream fos = new FileOutputStream(exportAttFile);
         fos.write(exportFileData);
         fos.close();
-      } catch (IOException e1) {
+      } catch (final IOException e1) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e1);
         return ErrorPage.LOAD_ERRORPAGE;
       }
-      sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+      sb.setExportEmailTxt(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
       sb.setAttExportFileName(exportAttFile.getName());
       sb.setAttExportFile(exportAttFile);
-      sb.setExportEmailSubject(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": "
-          + exportAttFile.getName());
+      sb.setExportEmailSubject(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT)
+          + ": " + exportAttFile.getName());
       // hier call set the values on the exportEmailView - attachment file, subject, ....
       return "displayExportEmailPage";
     } else {
-      error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
 
     return "";
@@ -977,41 +985,41 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void downloadExportFile(List<PubItemVOPresentation> pubItemList) {
-    saveSelections();
+    this.saveSelections();
 
-    ItemControllerSessionBean icsb =
+    final ItemControllerSessionBean icsb =
         (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
     // set the currently selected items in the FacesBean
     // this.setSelectedItemsAndCurrentItem();
-    ExportItemsSessionBean sb =
+    final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
     if (pubItemList.size() != 0) {
       // export format and file format.
-      ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       byte[] exportFileData = null;
       try {
         exportFileData =
             icsb.retrieveExportData(curExportFormat,
                 CommonUtils.convertToPubItemVOList(pubItemList));
-      } catch (TechnicalException e) {
+      } catch (final TechnicalException e) {
         throw new RuntimeException("Cannot retrieve export data", e);
       }
-      String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+      final String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
       FacesTools.getResponse().setContentType(contentType);
-      String fileName =
+      final String fileName =
           "export_" + curExportFormat.getName().toLowerCase() + "."
               + FileFormatVO.getExtensionByName(sb.getFileFormat());
       FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
       try {
-        OutputStream out = FacesTools.getResponse().getOutputStream();
+        final OutputStream out = FacesTools.getResponse().getOutputStream();
         out.write(exportFileData);
         out.close();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
       }
       FacesTools.getCurrentInstance().responseComplete();
     } else {
-      error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
   }
 
@@ -1021,11 +1029,11 @@ public class PubItemListSessionBean extends
    * @return
    */
   public Map<String, ItemRO> getSelectedItemRefs() {
-    return selectedItemRefs;
+    return this.selectedItemRefs;
   }
 
   public boolean getDisplaySortOrder() {
-    if (SORT_CRITERIA.RELEVANCE.name().equals(getSelectedSortBy())) {
+    if (SORT_CRITERIA.RELEVANCE.name().equals(this.getSelectedSortBy())) {
       return false;
     }
 
@@ -1036,7 +1044,8 @@ public class PubItemListSessionBean extends
    * redirects to the next list item and updates the currentPartList if needed
    */
   public void nextListItem() {
-    PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+    final PubItemVOPresentation currentItem =
+        this.getItemControllerSessionBean().getCurrentPubItem();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1076,10 +1085,11 @@ public class PubItemListSessionBean extends
           }
         }
       }
-    } catch (IOException e) {
-      logger.warn("IO-Exception while retrieving ExternalContext for nextItem", e);
-    } catch (Exception e) {
-      logger.warn("Exception while getting link to nextListItem", e);
+    } catch (final IOException e) {
+      PubItemListSessionBean.logger.warn(
+          "IO-Exception while retrieving ExternalContext for nextItem", e);
+    } catch (final Exception e) {
+      PubItemListSessionBean.logger.warn("Exception while getting link to nextListItem", e);
     }
   }
 
@@ -1087,7 +1097,8 @@ public class PubItemListSessionBean extends
    * redirects to the previous list item and updates the currentPartList if needed
    */
   public void previousListItem() {
-    PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+    final PubItemVOPresentation currentItem =
+        this.getItemControllerSessionBean().getCurrentPubItem();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1130,10 +1141,11 @@ public class PubItemListSessionBean extends
           }
         }
       }
-    } catch (IOException e) {
-      logger.warn("IO-Exception while retrieving ExternalContext for previousItem", e);
-    } catch (Exception e) {
-      logger.warn("Exception while getting link to previousListItem", e);
+    } catch (final IOException e) {
+      PubItemListSessionBean.logger.warn(
+          "IO-Exception while retrieving ExternalContext for previousItem", e);
+    } catch (final Exception e) {
+      PubItemListSessionBean.logger.warn("Exception while getting link to previousListItem", e);
     }
   }
 
@@ -1143,7 +1155,8 @@ public class PubItemListSessionBean extends
    * @return
    */
   public boolean getHasNextListItem() {
-    PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+    final PubItemVOPresentation currentItem =
+        this.getItemControllerSessionBean().getCurrentPubItem();
     if (this.getCurrentPartList() != null) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getVersion().getObjectId()
@@ -1164,7 +1177,8 @@ public class PubItemListSessionBean extends
    * @return
    */
   public boolean getHasPreviousListItem() {
-    PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+    final PubItemVOPresentation currentItem =
+        this.getItemControllerSessionBean().getCurrentPubItem();
     if (this.getCurrentPartList() != null) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getVersion().getObjectId()
@@ -1185,12 +1199,12 @@ public class PubItemListSessionBean extends
     try {
       this.setCurrentPageNumber(1);
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      int positionFirstPartListItem =
+      final int positionFirstPartListItem =
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
-    } catch (Exception e) {
-      logger.debug("Exception while getting link to firstListItem");
+    } catch (final Exception e) {
+      PubItemListSessionBean.logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
   }
@@ -1202,51 +1216,52 @@ public class PubItemListSessionBean extends
     try {
       this.setCurrentPageNumber(this.getPaginatorPageSize());
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      int positionFirstPartListItem =
+      final int positionFirstPartListItem =
           ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
       FacesTools.getExternalContext().redirect(
           this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
-    } catch (Exception e) {
-      logger.debug("Exception while getting link to firstListItem");
+    } catch (final Exception e) {
+      PubItemListSessionBean.logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
   }
 
   public int getListItemPosition() {
-    PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
-    int positionFirstPartListItem =
+    final PubItemVOPresentation currentItem =
+        this.getItemControllerSessionBean().getCurrentPubItem();
+    final int positionFirstPartListItem =
         ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
     for (int i = 0; i < this.getCurrentPartList().size(); i++) {
       if (this.getCurrentPartList().get(i).getVersion().getObjectId()
           .equals(currentItem.getVersion().getObjectId())) {
-        itemPosition = positionFirstPartListItem + i;
+        this.itemPosition = positionFirstPartListItem + i;
       }
     }
-    return itemPosition;
+    return this.itemPosition;
   }
 
   public void setListItemPosition(int newItemPosition) {
     if (newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements()) {
-      itemPosition = newItemPosition;
+      this.itemPosition = newItemPosition;
     } else {
-      error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
+      FacesBean.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
     }
   }
 
   public void doListItemPosition() {
     try {
-      this.setCurrentPageNumber((int) Math.ceil((double) itemPosition
+      this.setCurrentPageNumber((int) Math.ceil((double) this.itemPosition
           / (double) this.getElementsPerPage()));
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      int positionInPartList = (itemPosition - 1) % this.getElementsPerPage();
+      final int positionInPartList = (this.itemPosition - 1) % this.getElementsPerPage();
       FacesTools.getExternalContext().redirect(
           this.getCurrentPartList().get(positionInPartList).getLink());
-    } catch (IOException e) {
-      logger.debug("Problem reading new itemPosition");
+    } catch (final IOException e) {
+      PubItemListSessionBean.logger.debug("Problem reading new itemPosition");
       e.printStackTrace();
-    } catch (Exception e) {
-      logger.debug("Problem on setting new position in list");
+    } catch (final Exception e) {
+      PubItemListSessionBean.logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }
   }

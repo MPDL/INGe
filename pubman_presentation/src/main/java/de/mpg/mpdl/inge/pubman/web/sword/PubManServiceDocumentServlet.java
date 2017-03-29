@@ -55,14 +55,16 @@ public class PubManServiceDocumentServlet extends HttpServlet {
   @Override
   public void init() {
     // Instantiate the correct SWORD Server class
-    String className = getServletContext().getInitParameter("server-class");
+    final String className = this.getServletContext().getInitParameter("server-class");
     if (className == null) {
-      logger.fatal("Unable to read value of 'sword-server-class' from Servlet context");
+      PubManServiceDocumentServlet.logger
+          .fatal("Unable to read value of 'sword-server-class' from Servlet context");
     } else {
       try {
         this.swordServer = (PubManSwordServer) Class.forName(className).newInstance();
-      } catch (Exception e) {
-        logger.fatal("Unable to instantiate class from 'sword-server-class': " + className);
+      } catch (final Exception e) {
+        PubManServiceDocumentServlet.logger
+            .fatal("Unable to instantiate class from 'sword-server-class': " + className);
       }
     }
   }
@@ -71,13 +73,13 @@ public class PubManServiceDocumentServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // Create the ServiceDocumentRequest
-    ServiceDocumentRequest sdr = new ServiceDocumentRequest();
+    final ServiceDocumentRequest sdr = new ServiceDocumentRequest();
     // SwordUtil util = new SwordUtil();
     // AccountUserVO user = null;
 
-    String usernamePassword = this.getUsernamePassword(request);
+    final String usernamePassword = this.getUsernamePassword(request);
     if ((usernamePassword != null) && (!usernamePassword.equals(""))) {
-      int p = usernamePassword.indexOf(":");
+      final int p = usernamePassword.indexOf(":");
       if (p != -1) {
         sdr.setUsername(usernamePassword.substring(0, p));
         sdr.setPassword(usernamePassword.substring(p + 1));
@@ -85,29 +87,29 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         // this.currentUser = user;
       }
     } else {
-      String s = "Basic realm=\"SWORD\"";
+      final String s = "Basic realm=\"SWORD\"";
       response.setHeader("WWW-Authenticate", s);
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       return;
     }
 
     try {
-      String doc = this.swordServer.doServiceDocument(sdr);
+      final String doc = this.swordServer.doServiceDocument(sdr);
       // this.currentUser = null;
 
       // Print out the Service Document
       response.setCharacterEncoding("UTF-8");
       response.setContentType("application/xml");
-      PrintWriter out = response.getWriter();
+      final PrintWriter out = response.getWriter();
       out.write(doc);
       out.flush();
-    } catch (SWORDAuthenticationException sae) {
+    } catch (final SWORDAuthenticationException sae) {
       response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
       response.setStatus(401);
       response.setCharacterEncoding("UTF-8");
       // this.currentUser = null;
-    } catch (Exception e) {
-      logger.error(e);
+    } catch (final Exception e) {
+      PubManServiceDocumentServlet.logger.error(e);
     }
   }
 
@@ -125,20 +127,20 @@ public class PubManServiceDocumentServlet extends HttpServlet {
    */
   private String getUsernamePassword(HttpServletRequest request) {
     try {
-      String authHeader = request.getHeader("Authorization");
+      final String authHeader = request.getHeader("Authorization");
       if (authHeader != null) {
-        StringTokenizer st = new StringTokenizer(authHeader);
+        final StringTokenizer st = new StringTokenizer(authHeader);
         if (st.hasMoreTokens()) {
-          String basic = st.nextToken();
+          final String basic = st.nextToken();
           if (basic.equalsIgnoreCase("Basic")) {
-            String credentials = st.nextToken();
-            String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
+            final String credentials = st.nextToken();
+            final String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
             return userPass;
           }
         }
       }
-    } catch (Exception e) {
-      logger.debug(e.toString());
+    } catch (final Exception e) {
+      PubManServiceDocumentServlet.logger.debug(e.toString());
     }
 
     return null;

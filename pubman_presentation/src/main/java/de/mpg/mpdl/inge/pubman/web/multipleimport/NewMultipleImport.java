@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 public class NewMultipleImport extends BreadcrumbPage {
   public NewMultipleImport() {}
 
+  @Override
   public void init() {
     super.init();
   }

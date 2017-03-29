@@ -35,18 +35,18 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class YearbookArchiveBean extends FacesBean {
   private static final String MAXIMUM_RECORDS = "5000";
 
-  private List<PubItemVO> archivedYearbooks;
+  private final List<PubItemVO> archivedYearbooks;
   private PubItemVO selectedYearbook;
   private String yearbookId;
 
   public YearbookArchiveBean() throws Exception {
-    ItemHandler itemHandler =
-        ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
+    final ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
     // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
     this.archivedYearbooks = new ArrayList<PubItemVO>();
-    HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    String orgId =
-        getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+    final String orgId =
+        this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     filterParams.put(
@@ -54,14 +54,14 @@ public class YearbookArchiveBean extends FacesBean {
         new String[] {"\"/properties/context/id\"="
             + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-    filterParams.put("maximumRecords", new String[] {MAXIMUM_RECORDS});
-    String xmlItemList = itemHandler.retrieveItems(filterParams);
-    SearchRetrieveResponseVO result =
+    filterParams.put("maximumRecords", new String[] {YearbookArchiveBean.MAXIMUM_RECORDS});
+    final String xmlItemList = itemHandler.retrieveItems(filterParams);
+    final SearchRetrieveResponseVO result =
         XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // check if years have to be excluded from selection
     if (result.getNumberOfRecords() > 0) {
       PubItemVO recordPubItem = null;
-      for (SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+      for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
         recordPubItem = (PubItemVO) yearbookRecord.getData();
         if (recordPubItem != null && recordPubItem.getYearbookMetadata() != null) {
           if (State.RELEASED.equals(recordPubItem.getVersion().getState())) {
@@ -71,7 +71,7 @@ public class YearbookArchiveBean extends FacesBean {
       }
     }
     if (this.getArchivedYearbooks() != null && this.getArchivedYearbooks().size() < 1) {
-      info(getMessage("Yearbook_noArchivedItems"));
+      this.info(this.getMessage("Yearbook_noArchivedItems"));
     }
   }
 
@@ -79,14 +79,14 @@ public class YearbookArchiveBean extends FacesBean {
    * @return the archivedYearbooks (List<PubItemVO>)
    */
   public List<PubItemVO> getArchivedYearbooks() {
-    return archivedYearbooks;
+    return this.archivedYearbooks;
   }
 
   /**
    * @return the yearbook-ID for item to be displayed in the detailed view
    */
   public String getYearbookId() {
-    return yearbookId;
+    return this.yearbookId;
   }
 
   /**
@@ -100,7 +100,7 @@ public class YearbookArchiveBean extends FacesBean {
    * @return the yearbook for the detailed view
    */
   public PubItemVO getSelectedYearbook() {
-    return selectedYearbook;
+    return this.selectedYearbook;
   }
 
   /**
@@ -115,15 +115,15 @@ public class YearbookArchiveBean extends FacesBean {
    */
   public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    MetadataSearchQuery mdQuery =
+    final MetadataSearchQuery mdQuery =
         YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getSelectedYearbook());
-    ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
+    final ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
   }
 
   public String viewItem() {
-    for (PubItemVO archivedYearbook : this.getArchivedYearbooks()) {
+    for (final PubItemVO archivedYearbook : this.getArchivedYearbooks()) {
       if (this.getYearbookId().equals(archivedYearbook.getVersion().getObjectId())) {
         this.setSelectedYearbook(archivedYearbook);
       }

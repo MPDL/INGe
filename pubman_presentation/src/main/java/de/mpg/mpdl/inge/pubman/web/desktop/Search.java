@@ -53,18 +53,18 @@ public class Search extends FacesBean {
   private boolean includeFiles;
 
   public void startSearch() {
-    String searchString = getSearchString();
-    boolean includeFiles = getIncludeFiles();
+    String searchString = this.getSearchString();
+    final boolean includeFiles = this.getIncludeFiles();
 
     // check if the searchString contains useful data
     if (searchString.trim().equals("")) {
-      error(getMessage("search_NoCriteria"));
+      FacesBean.error(this.getMessage("search_NoCriteria"));
       return;
     }
 
     // Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search
     if (searchString.trim().contains("%")) {
-      error(getMessage("search_ParseError"));
+      FacesBean.error(this.getMessage("search_ParseError"));
       return;
     }
 
@@ -74,37 +74,38 @@ public class Search extends FacesBean {
     }
 
     try {
-      String cql = generateCQLRequest(searchString, includeFiles);
+      final String cql = Search.generateCQLRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8"));
-    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
-      logger.error("Search criteria includes some lexical error", e);
-      error(getMessage("search_ParseError"));
-    } catch (Exception e) {
-      logger.error("Technical problem while retrieving the search results", e);
-      error(getMessage("search_TechnicalError"));
+    } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
+      Search.logger.error("Search criteria includes some lexical error", e);
+      FacesBean.error(this.getMessage("search_ParseError"));
+    } catch (final Exception e) {
+      Search.logger.error("Technical problem while retrieving the search results", e);
+      FacesBean.error(this.getMessage("search_TechnicalError"));
     }
   }
 
   public static String generateCQLRequest(String searchString, boolean includeFiles)
       throws Exception {
 
-    List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
 
 
     if (includeFiles) {
-      AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
+      final AnyFieldAndFulltextSearchCriterion anyFulltext =
+          new AnyFieldAndFulltextSearchCriterion();
       anyFulltext.setSearchString(searchString);
       criteria.add(anyFulltext);
     } else {
-      AnyFieldSearchCriterion any = new AnyFieldSearchCriterion();
+      final AnyFieldSearchCriterion any = new AnyFieldSearchCriterion();
       any.setSearchString(searchString);
       criteria.add(any);
     }
 
     criteria.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
 
-    IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
+    final IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
     identifier.setSearchString(searchString);
     criteria.add(identifier);
 
@@ -115,7 +116,7 @@ public class Search extends FacesBean {
      * CreatedBySearchCriterion createdBy = new CreatedBySearchCriterion();
      * createdBy.setHiddenId(searchString); criteria.add(createdBy);
      */
-    String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
+    final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
 
 
     /*
@@ -149,18 +150,19 @@ public class Search extends FacesBean {
   }
 
   public String getOpenSearchRequest() {
-    String requestDummy = "dummyTermToBeReplaced";
+    final String requestDummy = "dummyTermToBeReplaced";
 
     try {
-      String cql = generateCQLRequest(requestDummy, false);
-      String openSearchRequest = "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8");
+      final String cql = Search.generateCQLRequest(requestDummy, false);
+      final String openSearchRequest =
+          "SearchResultListPage.jsp?cql=" + URLEncoder.encode(cql, "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
-    } catch (de.mpg.mpdl.inge.search.parser.ParseException e) {
-      logger.error("Search criteria includes some lexical error", e);
-      error(getMessage("search_ParseError"));
-    } catch (Exception e) {
-      logger.error("Technical problem while retrieving the search results", e);
-      error(getMessage("search_TechnicalError"));
+    } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
+      Search.logger.error("Search criteria includes some lexical error", e);
+      FacesBean.error(this.getMessage("search_ParseError"));
+    } catch (final Exception e) {
+      Search.logger.error("Technical problem while retrieving the search results", e);
+      FacesBean.error(this.getMessage("search_TechnicalError"));
     }
 
     return "";

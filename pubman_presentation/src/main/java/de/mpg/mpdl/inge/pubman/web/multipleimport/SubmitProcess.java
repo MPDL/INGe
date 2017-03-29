@@ -47,10 +47,10 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  * 
  */
 public class SubmitProcess extends Thread {
-  private ImportLog log;
+  private final ImportLog log;
   private ItemHandler itemHandler;
   private AccountUserVO user;
-  private boolean alsoRelease;
+  private final boolean alsoRelease;
 
   public SubmitProcess(ImportLog log, boolean alsoRelease) {
     this.log = log;
@@ -62,11 +62,11 @@ public class SubmitProcess extends Thread {
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process");
 
     try {
-      user = new AccountUserVO();
-      user.setHandle(log.getUserHandle());
-      user.setUserid(log.getUser());
+      this.user = new AccountUserVO();
+      this.user.setHandle(log.getUserHandle());
+      this.user.setUserid(log.getUser());
       this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
       this.log.close();
@@ -77,69 +77,70 @@ public class SubmitProcess extends Thread {
     this.log.setPercentage(5);
   }
 
+  @Override
   public void run() {
     int itemCount = 0;
-    for (ImportLogItem item : log.getItems()) {
+    for (final ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         itemCount++;
-        log.activateItem(item);
-        log.addDetail(ErrorLevel.FINE, "import_process_schedule_submit");
-        log.suspendItem();
+        this.log.activateItem(item);
+        this.log.addDetail(ErrorLevel.FINE, "import_process_schedule_submit");
+        this.log.suspendItem();
       }
     }
 
     this.log.setPercentage(10);
     int counter = 0;
 
-    for (ImportLogItem item : log.getItems()) {
+    for (final ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
-        log.activateItem(item);
+        this.log.activateItem(item);
 
         try {
-          log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
+          this.log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
 
-          String itemXml = this.itemHandler.retrieve(item.getItemId());
+          final String itemXml = this.itemHandler.retrieve(item.getItemId());
           PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
 
           try {
             ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
-          } catch (ItemInvalidException e) {
+          } catch (final ItemInvalidException e) {
             this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
-            for (ValidationReportItemVO v : e.getReport().getItems()) {
+            for (final ValidationReportItemVO v : e.getReport().getItems()) {
               this.log.addDetail(ErrorLevel.WARNING, v.getContent());
             }
             throw e;
           }
 
           if (this.alsoRelease) {
-            log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
+            this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
             pubItemVO =
-                PubItemService.submitPubItem(pubItemVO,
-                    "Batch submit/release from import " + log.getMessage(), user);
+                PubItemService.submitPubItem(pubItemVO, "Batch submit/release from import "
+                    + this.log.getMessage(), this.user);
             PubItemService.releasePubItem(pubItemVO.getVersion(), pubItemVO.getModificationDate(),
-                "Batch submit/release from import " + log.getMessage(), user);
-            log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
+                "Batch submit/release from import " + this.log.getMessage(), this.user);
+            this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
           } else {
-            log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            PubItemService.submitPubItem(pubItemVO, "Batch submit from import " + log.getMessage(),
-                user);
-            log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
+            this.log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
+            PubItemService.submitPubItem(pubItemVO,
+                "Batch submit from import " + this.log.getMessage(), this.user);
+            this.log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }
 
-          log.finishItem();
-        } catch (Exception e) {
-          log.addDetail(ErrorLevel.WARNING, "import_process_submit_failed");
-          log.addDetail(ErrorLevel.WARNING, e);
-          log.finishItem();
+          this.log.finishItem();
+        } catch (final Exception e) {
+          this.log.addDetail(ErrorLevel.WARNING, "import_process_submit_failed");
+          this.log.addDetail(ErrorLevel.WARNING, e);
+          this.log.finishItem();
         }
 
         counter++;
-        log.setPercentage(85 * counter / itemCount + 10);
+        this.log.setPercentage(85 * counter / itemCount + 10);
       }
     }
 
-    log.startItem("import_process_submit_finished");
-    log.finishItem();
-    log.close();
+    this.log.startItem("import_process_submit_finished");
+    this.log.finishItem();
+    this.log.close();
   }
 }

@@ -48,7 +48,7 @@ public class AcceptItemSessionBean extends FacesBean {
   public AcceptItemSessionBean() {}
 
   public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
+    return this.navigationStringToGoBack;
   }
 
   public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {

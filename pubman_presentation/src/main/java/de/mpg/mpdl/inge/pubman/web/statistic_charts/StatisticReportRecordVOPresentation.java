@@ -7,14 +7,14 @@ import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 
 public class StatisticReportRecordVOPresentation implements
     Comparable<StatisticReportRecordVOPresentation> {
-  private StatisticReportRecordVO statisticReportRecordVO;
+  private final StatisticReportRecordVO statisticReportRecordVO;
 
   public StatisticReportRecordVOPresentation(StatisticReportRecordVO rr) {
     this.statisticReportRecordVO = rr;
   }
 
   public int getRequests() {
-    for (StatisticReportRecordParamVO param : statisticReportRecordVO.getParamList()) {
+    for (final StatisticReportRecordParamVO param : this.statisticReportRecordVO.getParamList()) {
       if (param.getName().equals("itemrequests") || param.getName().equals("filerequests")) {
         return Integer.parseInt(param.getParamValue().getValue());
       }
@@ -24,7 +24,7 @@ public class StatisticReportRecordVOPresentation implements
   }
 
   public int getMonth() {
-    for (StatisticReportRecordParamVO param : statisticReportRecordVO.getParamList()) {
+    for (final StatisticReportRecordParamVO param : this.statisticReportRecordVO.getParamList()) {
       if (param.getName().equals("month")) {
         return Integer.parseInt(param.getParamValue().getValue());
       }
@@ -34,7 +34,7 @@ public class StatisticReportRecordVOPresentation implements
   }
 
   public int getYear() {
-    for (StatisticReportRecordParamVO param : statisticReportRecordVO.getParamList()) {
+    for (final StatisticReportRecordParamVO param : this.statisticReportRecordVO.getParamList()) {
       if (param.getName().equals("year")) {
         return Integer.parseInt(param.getParamValue().getValue());
       }
@@ -43,16 +43,17 @@ public class StatisticReportRecordVOPresentation implements
     return 0;
   }
 
+  @Override
   public int compareTo(StatisticReportRecordVOPresentation rep2) {
-    int month1 = getMonth();
-    int year1 = getYear();
-    int month2 = rep2.getMonth();
-    int year2 = rep2.getYear();
+    final int month1 = this.getMonth();
+    final int year1 = this.getYear();
+    final int month2 = rep2.getMonth();
+    final int year2 = rep2.getYear();
 
-    Calendar cal1 = Calendar.getInstance();
+    final Calendar cal1 = Calendar.getInstance();
     cal1.set(year1, month1, 1);
 
-    Calendar cal2 = Calendar.getInstance();
+    final Calendar cal2 = Calendar.getInstance();
     cal2.set(year2, month2, 1);
 
     return cal1.compareTo(cal2);

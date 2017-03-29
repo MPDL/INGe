@@ -106,10 +106,11 @@ public class MultipleImport extends FacesBean {
   private int duplicateStrategy = 3;
 
   private Converter formatConverter = new Converter() {
+    @Override
     public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1,
         String value) {
       if (value != null && !"".equals(value)) {
-        String[] parts = value.split("[\\[\\,\\]]");
+        final String[] parts = value.split("[\\[\\,\\]]");
         if (parts.length > 3) {
           return new Format(parts[1], parts[2], parts[3]);
         }
@@ -118,6 +119,7 @@ public class MultipleImport extends FacesBean {
       return null;
     }
 
+    @Override
     public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
       if (format instanceof Format) {
         return ((Format) format).toString();
@@ -128,32 +130,43 @@ public class MultipleImport extends FacesBean {
   };
 
   public MultipleImport() {
-    this.importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
-    this.importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
-    this.importFormats.add(new SelectItem(RIS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_RIS")));
-    this.importFormats.add(new SelectItem(WOS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_WOS")));
-    this.importFormats.add(new SelectItem(MAB_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MAB")));
-    this.importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    this.importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
-    this.importFormats.add(new SelectItem(ZFN_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-    this.importFormats.add(new SelectItem(MARC21_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARC21")));
-    this.importFormats.add(new SelectItem(MARCXML_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
-    this.importFormats.add(new SelectItem(BMC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BMC")));
+    this.importFormats.add(new SelectItem(MultipleImport.ENDNOTE_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
+    this.importFormats.add(new SelectItem(MultipleImport.BIBTEX_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
+    this.importFormats.add(new SelectItem(MultipleImport.RIS_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_RIS")));
+    this.importFormats.add(new SelectItem(MultipleImport.WOS_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_WOS")));
+    this.importFormats.add(new SelectItem(MultipleImport.MAB_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_MAB")));
+    this.importFormats.add(new SelectItem(MultipleImport.EDOC_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_EDOC")));
+    this.importFormats.add(new SelectItem(MultipleImport.ESCIDOC_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
+    this.importFormats.add(new SelectItem(MultipleImport.ZFN_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_ZFN")));
+    this.importFormats.add(new SelectItem(MultipleImport.MARC21_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_MARC21")));
+    this.importFormats.add(new SelectItem(MultipleImport.MARCXML_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
+    this.importFormats.add(new SelectItem(MultipleImport.BMC_FORMAT, this
+        .getLabel("ENUM_IMPORT_FORMAT_BMC")));
   }
 
   public String uploadFile() {
-    logger.info(uploadedImportFile);
-    if (uploadedImportFile == null) {
-      error(getMessage("UploadFileNotProvided"));
+    MultipleImport.logger.info(this.uploadedImportFile);
+    if (this.uploadedImportFile == null) {
+      FacesBean.error(this.getMessage("UploadFileNotProvided"));
       return null;
     }
 
-    return LOAD_MULTIPLE_IMPORT_FORM;
+    return MultipleImport.LOAD_MULTIPLE_IMPORT_FORM;
   }
 
   public String getFileSize() {
     if (this.uploadedFile != null) {
-      long size = this.uploadedFile.length();
+      final long size = this.uploadedFile.length();
       System.out.println(size);
       if (size < 1024) {
         return size + "B";
@@ -169,7 +182,7 @@ public class MultipleImport extends FacesBean {
 
   public void startImport() throws Exception {
     if ("".equals(this.name)) {
-      error(getMessage("ImportNameNotProvided"));
+      FacesBean.error(this.getMessage("ImportNameNotProvided"));
       return;
     }
 
@@ -179,13 +192,13 @@ public class MultipleImport extends FacesBean {
       configuration = new LinkedHashMap<String, String>();
     }
 
-    for (SelectItem si : this.configParameters) {
+    for (final SelectItem si : this.configParameters) {
       configuration.put(si.getLabel(), si.getValue().toString());
     }
 
-    ImportProcess importProcess =
+    final ImportProcess importProcess =
         new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
-            this.format, this.context.getReference(), getLoginHelper().getAccountUser(),
+            this.format, this.context.getReference(), this.getLoginHelper().getAccountUser(),
             this.rollback, this.duplicateStrategy, configuration);
     importProcess.start();
 
@@ -203,7 +216,7 @@ public class MultipleImport extends FacesBean {
     this.uploadedImportFile = null;
 
     // deselect the selected context
-    ContextListSessionBean contextListSessionBean =
+    final ContextListSessionBean contextListSessionBean =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     if (contextListSessionBean.getDepositorContextList() != null) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
@@ -214,18 +227,18 @@ public class MultipleImport extends FacesBean {
     // set the current submission step to step2
     if (contextListSessionBean.getDepositorContextList() != null
         && contextListSessionBean.getDepositorContextList().size() > 1) {
-      CreateItem createItem = (CreateItem) FacesTools.findBean("CreateItem");
-      createItem.setTarget(LOAD_MULTIPLE_IMPORT);
+      final CreateItem createItem = (CreateItem) FacesTools.findBean("CreateItem");
+      createItem.setTarget(MultipleImport.LOAD_MULTIPLE_IMPORT);
       createItem.setMethod(SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;
     }
     // Skip Collection selection for Import & Easy Sub if only one Collection
     else if (contextListSessionBean.getDepositorContextList() != null
         && contextListSessionBean.getDepositorContextList().size() == 1) {
-      setContext(contextListSessionBean.getDepositorContextList().get(0));
-      return LOAD_MULTIPLE_IMPORT;
+      this.setContext(contextListSessionBean.getDepositorContextList().get(0));
+      return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
-      logger.warn("No context for this user, therefore no import mask");
+      MultipleImport.logger.warn("No context for this user, therefore no import mask");
       return null;
     }
   }
@@ -236,22 +249,24 @@ public class MultipleImport extends FacesBean {
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer = TransformerCache.getTransformer(format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
+      transformer =
+          TransformerCache.getTransformer(this.format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
 
       config = transformer.getConfiguration();
     }
-    configParameters = new ArrayList<SelectItem>();
+    this.configParameters = new ArrayList<SelectItem>();
 
     if (config != null) {
-      parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+      this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
 
-      for (String key : config.keySet()) {
-        List<String> values =
+      for (final String key : config.keySet()) {
+        final List<String> values =
             ((ImportUsableTransformer) transformer).getConfigurationValuesFor(key);
-        List<SelectItem> list = new ArrayList<SelectItem>();
+        final List<SelectItem> list = new ArrayList<SelectItem>();
         if (values != null) {
-          for (String str : values)
+          for (final String str : values) {
             list.add(new SelectItem(str, str));
+          }
           this.parametersValues.put(key, list);
         }
         this.configParameters.add(new SelectItem(config.get(key), key));
@@ -262,8 +277,9 @@ public class MultipleImport extends FacesBean {
   }
 
   public List<SelectItem> getConfigParameters() throws Exception {
-    if (this.configParameters == null)
-      initConfigParameters();
+    if (this.configParameters == null) {
+      this.initConfigParameters();
+    }
     return this.configParameters;
   }
 
@@ -319,7 +335,7 @@ public class MultipleImport extends FacesBean {
    */
   public void setFormat(Format format) {
     if (!format.equals(this.format)) {
-      setName("");
+      this.setName("");
     }
     this.format = format;
   }
@@ -402,14 +418,14 @@ public class MultipleImport extends FacesBean {
       this.uploadedImportFile = evt.getFile();
       this.fixedFileName = CommonUtils.fixURLEncoding(this.uploadedImportFile.getFileName());
       this.uploadedFile = File.createTempFile(this.uploadedImportFile.getFileName(), ".tmp");
-      FileOutputStream fos = new FileOutputStream(this.uploadedFile);
-      InputStream is = this.uploadedImportFile.getInputstream();
+      final FileOutputStream fos = new FileOutputStream(this.uploadedFile);
+      final InputStream is = this.uploadedImportFile.getInputstream();
       IOUtils.copy(is, fos);
       fos.flush();
       fos.close();
       is.close();
-    } catch (Exception e) {
-      logger.error("Error while uplaoding file", e);
+    } catch (final Exception e) {
+      MultipleImport.logger.error("Error while uplaoding file", e);
     }
   }
 

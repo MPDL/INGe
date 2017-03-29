@@ -73,10 +73,10 @@ public class EasySubmissionSessionBean extends EditItemBean {
 
   private static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
 
-  private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
-  private String currentSubmissionStep = ES_STEP1;
-  private String currentDateType = DATE_PUBLISHED_IN_PRINT;
-  private String importMethod = IMPORT_METHOD_EXTERNAL;
+  private String currentSubmissionMethod = EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL;
+  private String currentSubmissionStep = EasySubmissionSessionBean.ES_STEP1;
+  private String currentDateType = EasySubmissionSessionBean.DATE_PUBLISHED_IN_PRINT;
+  private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
 
   private OrganizationVO currentlySelecting = null;
   private ContextVO context;
@@ -113,10 +113,10 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String radioSelectReferenceValue;
 
   public EasySubmissionSessionBean() {
-    this.currentSubmissionStep = ES_STEP1;
+    this.currentSubmissionStep = EasySubmissionSessionBean.ES_STEP1;
     this.importSourceRefresh = false;
-    this.radioSelectReferenceValue = REFERENCE_LOCATOR;
-    initAuthorCopyPasteCreatorBean();
+    this.radioSelectReferenceValue = EasySubmissionSessionBean.REFERENCE_LOCATOR;
+    this.initAuthorCopyPasteCreatorBean();
   }
 
   /**
@@ -131,8 +131,8 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.setGenreBundle("Genre_ARTICLE");
     this.setSelectedDate("");
     this.initAuthorCopyPasteCreatorBean();
-    this.setImportMethod(IMPORT_METHOD_EXTERNAL);
-    this.setCurrentSubmissionStep(ES_STEP3);
+    this.setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+    this.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
     this.uploadedBibtexFile = null;
   }
 
@@ -236,10 +236,11 @@ public class EasySubmissionSessionBean extends EditItemBean {
     // TODO Workaround cause Labels are set before the language change is done. Could be done better
     // if there are performance issues (see EasySubmission.java)
     for (int i = 0; i < this.FULLTEXT_OPTIONS.length; i++) {
-      if (this.FULLTEXT_OPTIONS[i].getValue().equals(FULLTEXT_ALL)) {
-        this.FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_all"));
-      } else if (this.FULLTEXT_OPTIONS[i].getValue().equals(FULLTEXT_NONE)) {
-        this.FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_none"));
+      if (this.FULLTEXT_OPTIONS[i].getValue().equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
+        this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_all"));
+      } else if (this.FULLTEXT_OPTIONS[i].getValue()
+          .equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
+        this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_none"));
       } else {
         this.FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
       }
@@ -315,8 +316,10 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public SelectItem[] getREFERENCE_OPTIONS() {
     this.REFERENCE_OPTIONS =
         new SelectItem[] {
-            new SelectItem(REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
-            new SelectItem(REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))};
+            new SelectItem(EasySubmissionSessionBean.REFERENCE_FILE,
+                this.getLabel("easy_submission_lblReference_file")),
+            new SelectItem(EasySubmissionSessionBean.REFERENCE_LOCATOR,
+                this.getLabel("easy_submission_lblReference_locator"))};
 
     return this.REFERENCE_OPTIONS;
   }
@@ -334,15 +337,15 @@ public class EasySubmissionSessionBean extends EditItemBean {
    * organizations.
    */
   public void initAuthorCopyPasteCreatorBean() {
-    setShowAuthorCopyPaste("");
+    this.setShowAuthorCopyPaste("");
   }
 
   public String getREFERENCE_FILE() {
-    return REFERENCE_FILE;
+    return EasySubmissionSessionBean.REFERENCE_FILE;
   }
 
   public String getREFERENCE_LOCATOR() {
-    return REFERENCE_LOCATOR;
+    return EasySubmissionSessionBean.REFERENCE_LOCATOR;
   }
 
   public UploadedFile getUploadedBibtexFile() {

@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  * 
  */
 public class DeleteProcess extends Thread {
-  private ImportLog log;
+  private final ImportLog log;
   private AccountUserVO user;
 
   /**
@@ -59,7 +59,7 @@ public class DeleteProcess extends Thread {
       this.user = new AccountUserVO();
       this.user.setHandle(log.getUserHandle());
       this.user.setUserid(log.getUser());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_delete_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
       this.log.close();
@@ -73,9 +73,10 @@ public class DeleteProcess extends Thread {
   /**
    * First schedule all imported items for deletion, then delete them.
    */
+  @Override
   public void run() {
     int itemCount = 0;
-    for (ImportLogItem item : this.log.getItems()) {
+    for (final ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         itemCount++;
         this.log.activateItem(item);
@@ -87,18 +88,18 @@ public class DeleteProcess extends Thread {
     this.log.setPercentage(10);
 
     int counter = 0;
-    for (ImportLogItem item : this.log.getItems()) {
+    for (final ImportLogItem item : this.log.getItems()) {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         this.log.activateItem(item);
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
-        ItemRO itemRO = new ItemRO(item.getItemId());
+        final ItemRO itemRO = new ItemRO(item.getItemId());
         try {
           PubItemService.deletePubItem(itemRO, this.user);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);
           this.log.finishItem();
-        } catch (Exception e) {
+        } catch (final Exception e) {
           this.log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed");
           this.log.addDetail(ErrorLevel.WARNING, e);
           this.log.finishItem();

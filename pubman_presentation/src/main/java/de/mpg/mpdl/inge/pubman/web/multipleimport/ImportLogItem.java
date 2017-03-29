@@ -67,8 +67,8 @@ public class ImportLogItem extends ImportLog {
   @Override
   public void setErrorLevel(ErrorLevel errorLevel) {
     super.setErrorLevel(errorLevel);
-    if (parent != null) {
-      parent.setErrorLevel(errorLevel);
+    if (this.parent != null) {
+      this.parent.setErrorLevel(errorLevel);
     }
   }
 
@@ -76,7 +76,7 @@ public class ImportLogItem extends ImportLog {
    * @return the parent
    */
   public ImportLog getParent() {
-    return parent;
+    return this.parent;
   }
 
   /**
@@ -90,12 +90,13 @@ public class ImportLogItem extends ImportLog {
    * @return the itemId
    */
   public String getItemId() {
-    return itemId;
+    return this.itemId;
   }
 
   /**
    * @param itemId the itemId to set
    */
+  @Override
   public void setItemId(String itemId) {
     this.itemId = itemId;
   }
@@ -104,18 +105,20 @@ public class ImportLogItem extends ImportLog {
    * @return the itemVO
    */
   public PubItemVO getItemVO() {
-    return itemVO;
+    return this.itemVO;
   }
 
   /**
    * @param itemVO the itemVO to set
    */
+  @Override
   public void setItemVO(PubItemVO itemVO) {
     this.itemVO = itemVO;
   }
 
+  @Override
   protected String getRelevantString() {
-    return getMessage();
+    return this.getMessage();
   }
 
 
@@ -123,24 +126,24 @@ public class ImportLogItem extends ImportLog {
    * @return the itemLink
    */
   public String getLink() {
-    if (link == null) {
+    if (ImportLogItem.link == null) {
       try {
-        link =
+        ImportLogItem.link =
             PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                 + PropertyReader.getProperty("escidoc.pubman.item.pattern");
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new RuntimeException(e);
       }
     }
-    return link.replaceAll("\\$1", itemId);
+    return ImportLogItem.link.replaceAll("\\$1", this.itemId);
   }
 
   /**
    * @return the itemLink
    */
   public String getDetailsLink() {
-    return "ImportItemDetails.jsp?id=" + getStoredId();
+    return "ImportItemDetails.jsp?id=" + this.getStoredId();
   }
 
 
@@ -148,39 +151,40 @@ public class ImportLogItem extends ImportLog {
    * @return An XML representation of this item
    */
 
+  @Override
   public void toXML(Writer writer) throws Exception {
     // StringWriter writer = new StringWriter();
 
     writer.write("<import-item ");
     writer.write("status=\"");
-    writer.write(getStatus().toString());
+    writer.write(this.getStatus().toString());
     writer.write("\" error-level=\"");
-    writer.write(getErrorLevel().toString());
+    writer.write(this.getErrorLevel().toString());
     writer.write("\">\n");
 
     writer.write("\t<message>");
-    writer.write(escape(getMessage()));
+    writer.write(this.escape(this.getMessage()));
     writer.write("</message>\n");
 
-    if (getItemId() != null) {
+    if (this.getItemId() != null) {
       writer.write("\t<escidoc-id>");
-      writer.write(getItemId());
+      writer.write(this.getItemId());
       writer.write("</escidoc-id>\n");
     }
 
 
     writer.write("\t<start-date>");
-    writer.write(getStartDateFormatted());
+    writer.write(this.getStartDateFormatted());
     writer.write("</start-date>\n");
 
-    if (getEndDate() != null) {
+    if (this.getEndDate() != null) {
       writer.write("\t<end-date>");
-      writer.write(getEndDateFormatted());
+      writer.write(this.getEndDateFormatted());
       writer.write("</end-date>\n");
     }
 
     writer.write("\t<items>\n");
-    for (ImportLogItem item : getItems()) {
+    for (final ImportLogItem item : this.getItems()) {
       item.toXML(writer);
     }
     writer.write("\t</items>\n");

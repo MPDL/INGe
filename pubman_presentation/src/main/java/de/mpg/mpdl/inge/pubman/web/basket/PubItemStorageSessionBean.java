@@ -37,11 +37,11 @@ public class PubItemStorageSessionBean extends FacesBean {
   private int diffDisplayNumber = 0;
 
   public PubItemStorageSessionBean() {
-    storedPubItems = new HashMap<String, ItemRO>();
+    this.storedPubItems = new HashMap<String, ItemRO>();
   }
 
   public int getStoredPubItemsSize() {
-    return storedPubItems.size();
+    return this.storedPubItems.size();
   }
 
   /**
@@ -57,7 +57,7 @@ public class PubItemStorageSessionBean extends FacesBean {
    * id with version.
    */
   public Map<String, ItemRO> getStoredPubItems() {
-    return storedPubItems;
+    return this.storedPubItems;
   }
 
   public void setDiffDisplayNumber(int diffDisplayNumber) {
@@ -65,10 +65,10 @@ public class PubItemStorageSessionBean extends FacesBean {
   }
 
   public int getDiffDisplayNumber() {
-    return diffDisplayNumber;
+    return this.diffDisplayNumber;
   }
 
   public int getDisplayNumber() {
-    return getStoredPubItemsSize() - diffDisplayNumber;
+    return this.getStoredPubItemsSize() - this.diffDisplayNumber;
   }
 }

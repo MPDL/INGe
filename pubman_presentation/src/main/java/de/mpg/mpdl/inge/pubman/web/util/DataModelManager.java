@@ -50,7 +50,7 @@ public abstract class DataModelManager<T> {
   // //////////////////////////////////////////////////////////////////////////
 
   public List<T> getObjectList() {
-    return objectList;
+    return this.objectList;
   }
 
   /**
@@ -59,10 +59,10 @@ public abstract class DataModelManager<T> {
    */
   public void setObjectList(List<T> objectList) {
     this.objectList = objectList;
-    if (objectDM == null) {
-      objectDM = new ListDataModel<Object>();
+    if (this.objectDM == null) {
+      this.objectDM = new ListDataModel<Object>();
     }
-    objectDM.setWrappedData(objectList);
+    this.objectDM.setWrappedData(objectList);
   }
 
   /**
@@ -72,21 +72,21 @@ public abstract class DataModelManager<T> {
    * @return DataModel
    */
   public DataModel<?> getObjectDM() {
-    if (objectList == null) {
-      objectList = new ArrayList<T>();
+    if (this.objectList == null) {
+      this.objectList = new ArrayList<T>();
     }
-    if (objectDM == null) {
-      objectDM = new ListDataModel<Object>();
-      objectDM.setWrappedData(objectList);
+    if (this.objectDM == null) {
+      this.objectDM = new ListDataModel<Object>();
+      this.objectDM.setWrappedData(this.objectList);
     }
-    return objectDM;
+    return this.objectDM;
   }
 
   public boolean getHasValue() {
-    if (objectList == null || objectList.size() == 0) {
+    if (this.objectList == null || this.objectList.size() == 0) {
       return false;
     }
-    CriterionBean criterionBean = (CriterionBean) objectList.get(0);
+    final CriterionBean criterionBean = (CriterionBean) this.objectList.get(0);
     return criterionBean.getCriterionVO() != null
         && (criterionBean.getCriterionVO().getSearchString() == null || !"".equals(criterionBean
             .getCriterionVO().getSearchString()));
@@ -105,19 +105,19 @@ public abstract class DataModelManager<T> {
    * Adds a object of type T to the list (and therefore to the UI model)
    */
   public void addObject() {
-    T elem = createNewObject();
-    int i = objectDM.getRowIndex();
+    final T elem = this.createNewObject();
+    final int i = this.objectDM.getRowIndex();
 
     if (elem != null) {
-      objectList.add(i + 1, elem);
+      this.objectList.add(i + 1, elem);
     }
   }
 
   public void addObjectAtIndex(int i) {
-    T elem = createNewObject();
+    final T elem = this.createNewObject();
 
     if (elem != null) {
-      objectList.add(i + 1, elem);
+      this.objectList.add(i + 1, elem);
     }
   }
 
@@ -125,11 +125,11 @@ public abstract class DataModelManager<T> {
    * Removes object of type T from the list (and therefore from the UI model)
    */
   public void removeObject() {
-    int i = objectDM.getRowIndex();
-    removeObjectAtIndex(i);
+    final int i = this.objectDM.getRowIndex();
+    this.removeObjectAtIndex(i);
   }
 
   public void removeObjectAtIndex(int i) {
-    objectList.remove(i);
+    this.objectList.remove(i);
   }
 }

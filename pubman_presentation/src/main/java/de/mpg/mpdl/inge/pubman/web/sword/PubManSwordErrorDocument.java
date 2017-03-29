@@ -4,6 +4,7 @@ import java.io.StringWriter;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -14,8 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * This class implements the SWORD error document.
@@ -72,27 +71,28 @@ public class PubManSwordErrorDocument {
    * @throws TransformerException
    */
   public String createErrorDoc() throws ParserConfigurationException, TransformerException {
-    DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+    final DocumentBuilder documentBuilder =
+        DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
     this.processError();
-    Document document = documentBuilder.newDocument();
-    Element error = document.createElementNS("http://purl.org/net/sword/", "error");
+    final Document document = documentBuilder.newDocument();
+    final Element error = document.createElementNS("http://purl.org/net/sword/", "error");
     error.setPrefix("sword");
     error.setAttribute("href", this.href);
-    Element title = document.createElementNS("http://www.w3.org/2005/Atom", "title");
+    final Element title = document.createElementNS("http://www.w3.org/2005/Atom", "title");
     title.setTextContent("Error Document");
     title.setPrefix("atom");
-    Element updated = document.createElementNS("http://www.w3.org/2005/Atom", "updated");
+    final Element updated = document.createElementNS("http://www.w3.org/2005/Atom", "updated");
     updated.setTextContent(this.getCurrentTimeAsString());
     updated.setPrefix("atom");
-    Element summary = document.createElementNS("http://www.w3.org/2005/Atom", "summary");
+    final Element summary = document.createElementNS("http://www.w3.org/2005/Atom", "summary");
     summary.setTextContent(this.summary);
     summary.setPrefix("atom");
-    Element generator = document.createElementNS("http://www.w3.org/2005/Atom", "generator");
+    final Element generator = document.createElementNS("http://www.w3.org/2005/Atom", "generator");
     generator.setPrefix("atom");
-    PubManSwordServer server = new PubManSwordServer();
+    final PubManSwordServer server = new PubManSwordServer();
     generator.setTextContent(server.getBaseURL());
-    Element treatment = document.createElementNS("http://purl.org/net/sword/", "treatment");
+    final Element treatment = document.createElementNS("http://purl.org/net/sword/", "treatment");
     treatment.setTextContent("Deposit failed");
     treatment.setPrefix("sword");
 
@@ -105,14 +105,14 @@ public class PubManSwordErrorDocument {
     document.appendChild(error);
 
     // Transform to xml
-    Transformer transformer =
+    final Transformer transformer =
         TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
             .newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    StreamResult result = new StreamResult(new StringWriter());
-    DOMSource source = new DOMSource(document);
+    final StreamResult result = new StreamResult(new StringWriter());
+    final DOMSource source = new DOMSource(document);
     transformer.transform(source, result);
-    String xmlString = result.getWriter().toString();
+    final String xmlString = result.getWriter().toString();
 
     return xmlString;
   }

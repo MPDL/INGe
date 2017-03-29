@@ -30,9 +30,9 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    FacesContext fc = FacesTools.getCurrentInstance();
+    final FacesContext fc = FacesTools.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
-    String pageName = page.substring(0, page.lastIndexOf("."));
+    final String pageName = page.substring(0, page.lastIndexOf("."));
 
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
     if (FacesTools.getRequest().getQueryString() != null && !pageName.equals("HomePage")) {
@@ -41,15 +41,15 @@ public abstract class BreadcrumbPage extends FacesBean {
 
     Method defaultAction = null;
     try {
-      defaultAction = getDefaultAction();
-    } catch (NoSuchMethodException e) {
-      logger.error("Error getting default action", e);
+      defaultAction = this.getDefaultAction();
+    } catch (final NoSuchMethodException e) {
+      BreadcrumbPage.logger.error("Error getting default action", e);
     }
 
-    BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
+    final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
         (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
-    breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction,
-        isItemSpecific()));
+    breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, this
+        .isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
   }
 
@@ -62,12 +62,12 @@ public abstract class BreadcrumbPage extends FacesBean {
   }
 
   public void cancel() {
-    String result = this.previousItem.getPage();
+    final String result = this.previousItem.getPage();
     try {
       FacesTools.getExternalContext().redirect(
           ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getAppContext() + result);
-    } catch (IOException e) {
-      logger.error("Error redirecting to previous page", e);
+    } catch (final IOException e) {
+      BreadcrumbPage.logger.error("Error redirecting to previous page", e);
     }
   }
 

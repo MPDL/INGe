@@ -45,7 +45,7 @@ public class AffiliationDetail {
   public AffiliationDetail() {}
 
   public AffiliationVO getAffiliationVO() {
-    return affiliationVO;
+    return this.affiliationVO;
   }
 
   public void setAffiliationVO(AffiliationVO affiliationVO) {

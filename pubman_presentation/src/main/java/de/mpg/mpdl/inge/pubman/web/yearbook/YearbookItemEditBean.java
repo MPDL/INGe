@@ -58,7 +58,7 @@ public class YearbookItemEditBean extends FacesBean {
 
   private static final String MAXIMUM_RECORDS = "5000";
 
-  private YearbookItemSessionBean yearbookItemSessionBean;
+  private final YearbookItemSessionBean yearbookItemSessionBean;
   private MdsYearbookVO yearbookMetadata;
   private String title;
   private String year;
@@ -94,9 +94,9 @@ public class YearbookItemEditBean extends FacesBean {
         this.initUserGroups();
         this.initCollaborators();
       }
-      initSelectableYears();
-    } catch (Exception e) {
-      logger.error("Problem reinitializing YearbookEditBean: \n", e);
+      this.initSelectableYears();
+    } catch (final Exception e) {
+      YearbookItemEditBean.logger.error("Problem reinitializing YearbookEditBean: \n", e);
     }
   }
 
@@ -110,7 +110,7 @@ public class YearbookItemEditBean extends FacesBean {
       this.startDate = this.yearbookMetadata.getStartDate();
       this.endDate = this.yearbookMetadata.getEndDate();
       this.contextIds = new ArrayList<ContextRO>();
-      for (String contextId : this.yearbookMetadata.getIncludedContexts()) {
+      for (final String contextId : this.yearbookMetadata.getIncludedContexts()) {
         this.contextIds.add(new ContextRO(contextId));
       }
     }
@@ -121,9 +121,9 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
-    ContextListSessionBean clsb =
+    final ContextListSessionBean clsb =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
+    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
       this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
           .getName() + " (" + context.getReference().getObjectId() + ")"));
     }
@@ -135,63 +135,64 @@ public class YearbookItemEditBean extends FacesBean {
    * @throws Exception
    */
   public void initCollaborators() throws Exception {
-    UserAccountHandler uah =
-        ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
+    final UserAccountHandler uah =
+        ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
     this.possibleCollaboratorsList = new ArrayList<AccountUserVO>();
     this.collaborators = new ArrayList<AccountUserRO>();
-    collaboratorSelectItems = new ArrayList<SelectItem>();
-    HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+    this.collaboratorSelectItems = new ArrayList<SelectItem>();
+    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     // String orgId = "escidoc:persistent25";
     filterParams.put("query",
         new String[] {"\"http://escidoc.de/core/01/structural-relations/organizational-unit\"="
             + this.getOrganization().getIdentifier()});
-    String userAccountXml = uah.retrieveUserAccounts(filterParams);
-    SearchRetrieveResponseVO userAccounts =
+    final String userAccountXml = uah.retrieveUserAccounts(filterParams);
+    final SearchRetrieveResponseVO userAccounts =
         XmlTransformingService.transformToSearchRetrieveResponseAccountUser(userAccountXml);
-    for (SearchRetrieveRecordVO record : userAccounts.getRecords()) {
-      AccountUserVO userVO = (AccountUserVO) record.getData();
+    for (final SearchRetrieveRecordVO record : userAccounts.getRecords()) {
+      final AccountUserVO userVO = (AccountUserVO) record.getData();
       if (!userVO.getReference().getObjectId()
-          .equals(getLoginHelper().getAccountUser().getReference().getObjectId())) {
-        collaboratorSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
+          .equals(this.getLoginHelper().getAccountUser().getReference().getObjectId())) {
+        this.collaboratorSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO
             .getName() + " (" + userVO.getUserid() + ")"));
         this.possibleCollaboratorsList.add(userVO);
       }
     }
-    Collections.sort(collaboratorSelectItems, new SelectItemComparator());
+    Collections.sort(this.collaboratorSelectItems, new SelectItemComparator());
   }
 
   public void initUserGroups() throws Exception {
-    UserGroupHandler userGroupHandler =
-        ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
+    final UserGroupHandler userGroupHandler =
+        ServiceLocator.getUserGroupHandler(this.getLoginHelper().getESciDocUserHandle());
     this.collaboratorUserIds = new ArrayList<String>();
-    HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
     filterParams.put("operation", new String[] {"searchRetrieve"});
     filterParams.put("version", new String[] {"1.1"});
     filterParams.put("query", new String[] {"\"/properties/name\"=\"" + this.year
-        + " - Yearbook User Group for " + getOrganization().getName() + " ("
-        + getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
-    String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
-    SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
+        + " - Yearbook User Group for " + this.getOrganization().getName() + " ("
+        + this.getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
+    final String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
+    final SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
         XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
-    for (SearchRetrieveRecordVO record : userGroupSearchRetrieveResponse.getRecords()) {
-      UserGroupVO userGroup = (UserGroupVO) record.getData();
+    for (final SearchRetrieveRecordVO record : userGroupSearchRetrieveResponse.getRecords()) {
+      final UserGroupVO userGroup = (UserGroupVO) record.getData();
       if (userGroup != null) {
-        userGroups.add(userGroup);
+        this.userGroups.add(userGroup);
       }
     }
-    if (userGroups.size() > 1) {
-      logger.error("More than one UserGroup active and related to the YearbookItem: \""
-          + this.title + "\" ("
-          + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId() + ")");
+    if (this.userGroups.size() > 1) {
+      YearbookItemEditBean.logger
+          .error("More than one UserGroup active and related to the YearbookItem: \"" + this.title
+              + "\" (" + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId()
+              + ")");
       throw new Exception("More than one UserGroup active and related to the YearbookItem: \""
           + this.title + "\" ("
           + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId() + ")");
-    } else if (userGroups.size() == 1) {
-      this.setUserGroup(userGroups.get(0));
-      for (MemberVO user : this.getUserGroup().getMembers()) {
+    } else if (this.userGroups.size() == 1) {
+      this.setUserGroup(this.userGroups.get(0));
+      for (final MemberVO user : this.getUserGroup().getMembers()) {
         if (user.getName().equals("user-account")) {
           this.collaboratorUserIds.add(user.getMemberId());
         }
@@ -207,9 +208,9 @@ public class YearbookItemEditBean extends FacesBean {
    */
   private void initSelectableYears() {
     this.selectableYears = new ArrayList<SelectItem>();
-    SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
-    Calendar calendar = Calendar.getInstance();
-    String currentYear = calendarFormat.format(calendar.getTime());
+    final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
+    final Calendar calendar = Calendar.getInstance();
+    final String currentYear = calendarFormat.format(calendar.getTime());
     if (!this.getYear().equals(currentYear)
         && !this.getYear().equals(Integer.toString(Integer.valueOf(currentYear) - 1))) {
       this.selectableYears.add(new SelectItem(this.getYear(), this.getYear()));
@@ -217,11 +218,11 @@ public class YearbookItemEditBean extends FacesBean {
     this.selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
       boolean previousYearPossible = true;
-      ItemHandler itemHandler =
-          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
-      HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      String orgId =
-          getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
+      final ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
+      final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+      final String orgId =
+          this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       filterParams
@@ -232,13 +233,13 @@ public class YearbookItemEditBean extends FacesBean {
                   + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"="
                   + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemEditBean.MAXIMUM_RECORDS});
-      String xmlItemList = itemHandler.retrieveItems(filterParams);
-      SearchRetrieveResponseVO result =
+      final String xmlItemList = itemHandler.retrieveItems(filterParams);
+      final SearchRetrieveResponseVO result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;
-        for (SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+        for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
           yearbookPubItem = (PubItemVO) yearbookRecord.getData();
           if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
             if (yearbookPubItem.getYearbookMetadata().getYear() != null
@@ -254,20 +255,20 @@ public class YearbookItemEditBean extends FacesBean {
         this.selectableYears.add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1),
             Integer.toString(Integer.valueOf(currentYear) - 1)));
       }
-    } catch (SystemException e) {
-      logger.error("Problem with retrieving items: \n", e);
-    } catch (RemoteException e) {
-      logger.error("Problem with retrieving items: \n", e);
-    } catch (ServiceException e) {
-      logger.error("Problem with itemHandler service: \n", e);
-    } catch (URISyntaxException e) {
-      logger.error("Problem getting itemHandler or property uri: \n", e);
-    } catch (IOException e) {
-      logger.error("Problem with getting property: \n", e);
-    } catch (TechnicalException e) {
-      logger.error("Problem with xml transformation: \n", e);
-    } catch (Exception e) {
-      logger.error("Problem getting accountUserAffiliations: \n", e);
+    } catch (final SystemException e) {
+      YearbookItemEditBean.logger.error("Problem with retrieving items: \n", e);
+    } catch (final RemoteException e) {
+      YearbookItemEditBean.logger.error("Problem with retrieving items: \n", e);
+    } catch (final ServiceException e) {
+      YearbookItemEditBean.logger.error("Problem with itemHandler service: \n", e);
+    } catch (final URISyntaxException e) {
+      YearbookItemEditBean.logger.error("Problem getting itemHandler or property uri: \n", e);
+    } catch (final IOException e) {
+      YearbookItemEditBean.logger.error("Problem with getting property: \n", e);
+    } catch (final TechnicalException e) {
+      YearbookItemEditBean.logger.error("Problem with xml transformation: \n", e);
+    } catch (final Exception e) {
+      YearbookItemEditBean.logger.error("Problem getting accountUserAffiliations: \n", e);
     }
   }
 
@@ -309,7 +310,7 @@ public class YearbookItemEditBean extends FacesBean {
    *         candidates
    */
   public String getStartDate() {
-    return startDate;
+    return this.startDate;
   }
 
   /**
@@ -325,7 +326,7 @@ public class YearbookItemEditBean extends FacesBean {
    *         candidates
    */
   public String getEndDate() {
-    return endDate;
+    return this.endDate;
   }
 
   /**
@@ -340,21 +341,21 @@ public class YearbookItemEditBean extends FacesBean {
    * @return the organization of the yearbook
    */
   public OrganizationVO getOrganization() {
-    return organization;
+    return this.organization;
   }
 
   /**
    * @return the contexts which are available to the user
    */
   public ArrayList<SelectItem> getContextSelectItems() {
-    return contextSelectItems;
+    return this.contextSelectItems;
   }
 
   /**
    * @return the contextIds
    */
   public ArrayList<ContextRO> getContextIds() {
-    return contextIds;
+    return this.contextIds;
   }
 
   /**
@@ -384,8 +385,8 @@ public class YearbookItemEditBean extends FacesBean {
    * @return empty String (no navigation wanted)
    */
   public void addContext() {
-    contextIds.add(getContextPosition() + 1, new ContextRO((String) getContextSelectItems().get(0)
-        .getValue()));
+    this.contextIds.add(this.getContextPosition() + 1, new ContextRO((String) this
+        .getContextSelectItems().get(0).getValue()));
   }
 
   /**
@@ -394,7 +395,7 @@ public class YearbookItemEditBean extends FacesBean {
    * @return empty String (no navigation wanted)
    */
   public void removeContext() {
-    contextIds.remove(getContextPosition());
+    this.contextIds.remove(this.getContextPosition());
   }
 
   /**
@@ -408,7 +409,7 @@ public class YearbookItemEditBean extends FacesBean {
    * @return the collaboratorSelectItems
    */
   public List<SelectItem> getCollaboratorSelectItems() {
-    return collaboratorSelectItems;
+    return this.collaboratorSelectItems;
   }
 
   /**
@@ -423,13 +424,13 @@ public class YearbookItemEditBean extends FacesBean {
   }
 
   public List<AccountUserRO> getCollaborators() {
-    return collaborators;
+    return this.collaborators;
   }
 
   public void setCollaboratorUserIds(List<String> collaboratorUserIds) {
     this.collaboratorUserIds = collaboratorUserIds;
-    for (AccountUserVO possibleCollaborator : this.possibleCollaboratorsList) {
-      for (String collaboratorObjectId : collaboratorUserIds) {
+    for (final AccountUserVO possibleCollaborator : this.possibleCollaboratorsList) {
+      for (final String collaboratorObjectId : collaboratorUserIds) {
         if (possibleCollaborator.getReference().getObjectId().equals(collaboratorObjectId)) {
           this.getCollaborators().add(possibleCollaborator.getReference());
         }
@@ -445,7 +446,7 @@ public class YearbookItemEditBean extends FacesBean {
    * @return the userGroup related to the yearbook
    */
   public UserGroupVO getUserGroup() {
-    return userGroup;
+    return this.userGroup;
   }
 
   /**
@@ -461,17 +462,18 @@ public class YearbookItemEditBean extends FacesBean {
 
   public String delete() {
     try {
-      ItemHandler itemHandler =
-          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle());
+      final ItemHandler itemHandler =
+          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
       itemHandler.delete(this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId());
       this.yearbookItemSessionBean.initYearbook();
-      UserGroupHandler userGroupHandler =
-          ServiceLocator.getUserGroupHandler(getLoginHelper().getESciDocUserHandle());
+      final UserGroupHandler userGroupHandler =
+          ServiceLocator.getUserGroupHandler(this.getLoginHelper().getESciDocUserHandle());
       userGroupHandler.delete(this.getUserGroup().getObjid());
       return "loadYearbookPage";
-    } catch (Exception e) {
-      error(getMessage("Yearbook_deleteError"));
-      logger.error("Problem accessing ItemHandler service 'itemHandler.delete()'", e);
+    } catch (final Exception e) {
+      FacesBean.error(this.getMessage("Yearbook_deleteError"));
+      YearbookItemEditBean.logger.error(
+          "Problem accessing ItemHandler service 'itemHandler.delete()'", e);
     }
 
     return "";
@@ -485,13 +487,13 @@ public class YearbookItemEditBean extends FacesBean {
       // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
       // ItemHandler itemHandler =
       // ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
-      PubItemVO pubItem = new PubItemVO(this.yearbookItemSessionBean.getYearbookItem());
-      MdsYearbookVO mds = new MdsYearbookVO();
+      final PubItemVO pubItem = new PubItemVO(this.yearbookItemSessionBean.getYearbookItem());
+      final MdsYearbookVO mds = new MdsYearbookVO();
 
       // Metadata set title
-      mds.setTitle(getTitle());
+      mds.setTitle(this.getTitle());
       // Metadata set creators
-      CreatorVO creatorVO = new CreatorVO();
+      final CreatorVO creatorVO = new CreatorVO();
       creatorVO.setOrganization(this.getOrganization());
       mds.getCreators().add(creatorVO);
       // Metadata set Dates
@@ -499,7 +501,7 @@ public class YearbookItemEditBean extends FacesBean {
       mds.setStartDate(this.getStartDate().trim());
       mds.setEndDate(this.getEndDate().trim());
       // Metadata set contexts
-      for (ContextRO contextId : contextIds) {
+      for (final ContextRO contextId : this.contextIds) {
         if (!contextId.getObjectId().trim().equals("")) {
           mds.getIncludedContexts().add(contextId.getObjectId().trim());
         }
@@ -509,11 +511,11 @@ public class YearbookItemEditBean extends FacesBean {
       // String updatedXml = itemHandler.update(pubItem.getVersion().getObjectId(), itemXml);
       if (this.getUserGroup() != null) {
         this.getUserGroup().setName(
-            this.getYear() + " - Yearbook User Group for " + getOrganization().getName() + " ("
-                + getOrganization().getIdentifier() + ")");
+            this.getYear() + " - Yearbook User Group for " + this.getOrganization().getName()
+                + " (" + this.getOrganization().getIdentifier() + ")");
         this.getUserGroup().setLabel(
-            this.getYear() + " - Yearbook User Group for " + getOrganization().getName() + " ("
-                + getOrganization().getIdentifier() + ")");
+            this.getYear() + " - Yearbook User Group for " + this.getOrganization().getName()
+                + " (" + this.getOrganization().getIdentifier() + ")");
         // TODO INGe connection
         // this.getUserGroup().updateInCoreservice(loginHelper.getESciDocUserHandle());
         // if (this.getUserGroup().getSelectors() != null
@@ -521,10 +523,10 @@ public class YearbookItemEditBean extends FacesBean {
         // this.getUserGroup().removeSelectorsInCoreservice(this.getUserGroup().getSelectors(),
         // loginHelper.getESciDocUserHandle());
         // }
-        List<MemberVO> selectors = new ArrayList<MemberVO>();
-        for (AccountUserRO userId : collaborators) {
+        final List<MemberVO> selectors = new ArrayList<MemberVO>();
+        for (final AccountUserRO userId : this.collaborators) {
           if (!("").equals(userId.getObjectId())) {
-            MemberVO selector = new MemberVO();
+            final MemberVO selector = new MemberVO();
             // TODO set type for INGe
             // selector.setType(Type.INTERNAL);
             // selector.setObjid(userId.getObjectId());
@@ -544,33 +546,33 @@ public class YearbookItemEditBean extends FacesBean {
       }
       this.yearbookItemSessionBean.initYearbook();
       return "loadYearbookPage";
-    } catch (ServiceException e) {
-      error(getMessage("Yearbook_editError") + " (ServiceException)");
-      logger
+    } catch (final ServiceException e) {
+      FacesBean.error(this.getMessage("Yearbook_editError") + " (ServiceException)");
+      YearbookItemEditBean.logger
           .error(
               "ServiceException thrown in ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())",
               e);
-    } catch (URISyntaxException e) {
-      error(getMessage("Yearbook_editError") + " (URISyntaxException)");
-      logger
+    } catch (final URISyntaxException e) {
+      FacesBean.error(this.getMessage("Yearbook_editError") + " (URISyntaxException)");
+      YearbookItemEditBean.logger
           .error(
               "URISyntaxException thrown in ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle())",
               e);
-    } catch (TechnicalException e) {
-      error(getMessage("Yearbook_editError") + " (TechnicalException)");
-      logger
+    } catch (final TechnicalException e) {
+      FacesBean.error(this.getMessage("Yearbook_editError") + " (TechnicalException)");
+      YearbookItemEditBean.logger
           .error(
               "TechnicalException thrown while transforming the pubItem - xmlTransforming.transformToItem(pubItem)",
               e);
-    } catch (RuntimeException e) {
-      error(getMessage("Yearbook_editError") + " (RuntimeException)");
-      logger
+    } catch (final RuntimeException e) {
+      FacesBean.error(this.getMessage("Yearbook_editError") + " (RuntimeException)");
+      YearbookItemEditBean.logger
           .error(
               "RuntimeException thrown while removing selectors from usergroup - this.getUserGroup().removeSelectorsInCoreservice(this.getUserGroup().getSelectors(), loginHelper.getESciDocUserHandle())",
               e);
-    } catch (Exception e) {
-      error(getMessage("Yearbook_editError"));
-      logger
+    } catch (final Exception e) {
+      FacesBean.error(this.getMessage("Yearbook_editError"));
+      YearbookItemEditBean.logger
           .error(
               "Exception updating the yearbookItem - itemHandler.update(pubItem.getVersion().getObjectId(), itemXml)",
               e);

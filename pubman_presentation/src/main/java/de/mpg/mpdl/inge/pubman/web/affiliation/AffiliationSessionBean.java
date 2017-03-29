@@ -67,7 +67,7 @@ public class AffiliationSessionBean extends FacesBean {
   public AffiliationSessionBean() {}
 
   public List<AffiliationVOPresentation> getCurrentAffiliationList() {
-    return currentAffiliationList;
+    return this.currentAffiliationList;
   }
 
   public void setCurrentAffiliationList(List<AffiliationVOPresentation> list) {
@@ -75,7 +75,7 @@ public class AffiliationSessionBean extends FacesBean {
   }
 
   public boolean isBrowseByAffiliation() {
-    return browseByAffiliation;
+    return this.browseByAffiliation;
   }
 
   public void setBrowseByAffiliation(boolean browseByAffiliation) {
@@ -88,7 +88,7 @@ public class AffiliationSessionBean extends FacesBean {
    * @return List<OrganizationVO>
    */
   public List<OrganizationVO> getOrganizationParentVO() {
-    return organizationParentVO;
+    return this.organizationParentVO;
   }
 
   public void setOrganizationParentVO(List<OrganizationVO> organizationParentVO) {
@@ -96,7 +96,7 @@ public class AffiliationSessionBean extends FacesBean {
   }
 
   public String getOrganizationParentValueBinding() {
-    return organizationParentValueBinding;
+    return this.organizationParentValueBinding;
   }
 
   public void setOrganizationParentValueBinding(String organizationParentValueBinding) {
@@ -104,7 +104,7 @@ public class AffiliationSessionBean extends FacesBean {
   }
 
   public int getIndexComponent() {
-    return indexComponent;
+    return this.indexComponent;
   }
 
   public void setIndexComponent(int indexComponent) {
@@ -112,7 +112,7 @@ public class AffiliationSessionBean extends FacesBean {
   }
 
   public boolean isAdd() {
-    return add;
+    return this.add;
   }
 
   public void setAdd(boolean add) {
@@ -126,7 +126,7 @@ public class AffiliationSessionBean extends FacesBean {
    * treeAffiliation; }
    */
   public boolean isWasInit() {
-    return wasInit;
+    return this.wasInit;
   }
 
   public void setWasInit(boolean wasInit) {

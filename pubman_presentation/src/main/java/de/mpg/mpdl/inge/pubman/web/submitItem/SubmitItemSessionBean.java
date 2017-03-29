@@ -48,7 +48,7 @@ public class SubmitItemSessionBean extends FacesBean {
   public SubmitItemSessionBean() {}
 
   public final String getNavigationStringToGoBack() {
-    return navigationStringToGoBack;
+    return this.navigationStringToGoBack;
   }
 
   public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
@@ -56,7 +56,7 @@ public class SubmitItemSessionBean extends FacesBean {
   }
 
   public String getMessage() {
-    return message;
+    return this.message;
   }
 
   public void setMessage(String message) {

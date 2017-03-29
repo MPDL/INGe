@@ -52,7 +52,7 @@ public class SearchHitBean {
   }
 
   public String getBeforeSearchHitString() {
-    return beforeSearchHitString;
+    return this.beforeSearchHitString;
   }
 
   public void setBeforeSearchHitString(String beforeSearchHitString) {
@@ -60,7 +60,7 @@ public class SearchHitBean {
   }
 
   public String getSearchHitString() {
-    return searchHitString;
+    return this.searchHitString;
   }
 
   public void setSearchHitString(String searchHitString) {
@@ -68,7 +68,7 @@ public class SearchHitBean {
   }
 
   public String getAfterSearchHitString() {
-    return afterSearchHitString;
+    return this.afterSearchHitString;
   }
 
   public void setAfterSearchHitString(String afterSearchHitString) {

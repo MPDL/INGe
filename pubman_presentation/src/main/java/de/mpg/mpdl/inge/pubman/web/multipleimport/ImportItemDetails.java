@@ -52,14 +52,14 @@ public class ImportItemDetails extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportItemDetails() {
-    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.itemId = Integer.parseInt(idString);
     }
 
-    if (getLoginHelper().getAccountUser() != null) {
-      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
+    if (this.getLoginHelper().getAccountUser() != null) {
+      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
     }
   }
 

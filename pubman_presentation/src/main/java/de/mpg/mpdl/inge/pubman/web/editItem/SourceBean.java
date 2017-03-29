@@ -73,7 +73,7 @@ public class SourceBean extends EditItemBean {
    */
   public SourceBean(SourceVO source, List<SourceBean> list) {
     this.list = list;
-    setSource(source);
+    this.setSource(source);
     // this.btnChooseCollection.setId("Source1");
     if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
       this.autosuggestJournals = true;
@@ -81,7 +81,7 @@ public class SourceBean extends EditItemBean {
   }
 
   public SourceVO getSource() {
-    return source;
+    return this.source;
   }
 
   /**
@@ -92,10 +92,10 @@ public class SourceBean extends EditItemBean {
   public void setSource(SourceVO source) {
     this.source = source;
     // initialize embedded collections
-    if (getCreators().size() == 0) {
-      bindCreatorsToBean(source.getCreators());
+    if (this.getCreators().size() == 0) {
+      this.bindCreatorsToBean(source.getCreators());
     }
-    identifierCollection = new IdentifierCollection(source.getIdentifiers());
+    this.identifierCollection = new IdentifierCollection(source.getIdentifiers());
     if (source.getPublishingInfo() == null) {
       source.setPublishingInfo(new PublishingInfoVO());
     }
@@ -108,7 +108,7 @@ public class SourceBean extends EditItemBean {
     if (event.getNewValue() != null) {
 
 
-      String sourceGenre = event.getNewValue().toString();
+      final String sourceGenre = event.getNewValue().toString();
       if (sourceGenre.equals(SourceVO.Genre.JOURNAL.toString())) {
         this.autosuggestJournals = true;
       }
@@ -160,7 +160,7 @@ public class SourceBean extends EditItemBean {
   }
 
   public CreatorCollection getCreatorCollection() {
-    return creatorCollection;
+    return this.creatorCollection;
   }
 
   public void setCreatorCollection(CreatorCollection creatorCollection) {
@@ -168,7 +168,7 @@ public class SourceBean extends EditItemBean {
   }
 
   public IdentifierCollection getIdentifierCollection() {
-    return identifierCollection;
+    return this.identifierCollection;
   }
 
   public void setIdentifierCollection(IdentifierCollection identifierCollection) {
@@ -181,12 +181,12 @@ public class SourceBean extends EditItemBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-    Map<String, String> excludedSourceGenres =
+    final Map<String, String> excludedSourceGenres =
         ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getExcludedSourceGenreMap();
-    List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
-    sourceGenres.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
-    for (SourceVO.Genre value : SourceVO.Genre.values()) {
-      sourceGenres.add(new SelectItem(value, getLabel("ENUM_GENRE_" + value.name())));
+    final List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
+    sourceGenres.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
+    for (final SourceVO.Genre value : SourceVO.Genre.values()) {
+      sourceGenres.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
     }
 
     String uri = "";
@@ -223,32 +223,33 @@ public class SourceBean extends EditItemBean {
    */
   public String parseAndSetAlternativeTitlesAndIds() {
     // clear old alternative titles
-    List<AlternativeTitleVO> altTitleList = this.getSource().getAlternativeTitles();
+    final List<AlternativeTitleVO> altTitleList = this.getSource().getAlternativeTitles();
     altTitleList.clear();
 
     // clear old identifiers
-    IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
+    final IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
-    if (!getHiddenAlternativeTitlesField().trim().equals("")) {
-      altTitleList.addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+    if (!this.getHiddenAlternativeTitlesField().trim().equals("")) {
+      altTitleList
+          .addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
     }
-    if (!getHiddenIdsField().trim().equals("")) {
+    if (!this.getHiddenIdsField().trim().equals("")) {
       // idManager.getDataListFromVO().clear();
-      idManager.getObjectList().addAll(parseIdentifiers(getHiddenIdsField()));
+      idManager.getObjectList().addAll(SourceBean.parseIdentifiers(this.getHiddenIdsField()));
     }
     return "";
   }
 
   public static List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
-    List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
-    String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
+    final List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
+    final String[] alternativeTitles = titleList.split(SourceBean.HIDDEN_DELIMITER);
     for (int i = 0; i < alternativeTitles.length; i++) {
-      String[] parts = alternativeTitles[i].trim().split(HIDDEN_INNER_DELIMITER);
-      String alternativeTitleType = parts[0].trim();
-      String alternativeTitle = parts[1].trim();
+      final String[] parts = alternativeTitles[i].trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
+      final String alternativeTitleType = parts[0].trim();
+      final String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.equals("")) {
-        AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
+        final AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
         textVO.setType(alternativeTitleType);
         list.add(textVO);
       }
@@ -257,27 +258,27 @@ public class SourceBean extends EditItemBean {
   }
 
   public static List<IdentifierVO> parseIdentifiers(String idList) {
-    List<IdentifierVO> list = new ArrayList<IdentifierVO>();
-    String[] ids = idList.split(HIDDEN_DELIMITER);
+    final List<IdentifierVO> list = new ArrayList<IdentifierVO>();
+    final String[] ids = idList.split(SourceBean.HIDDEN_DELIMITER);
     for (int i = 0; i < ids.length; i++) {
-      String idComplete = ids[i].trim();
-      String[] idParts = idComplete.split(HIDDEN_IDTYPE_DELIMITER);
+      final String idComplete = ids[i].trim();
+      final String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
       // id has no type, use type 'other'
       if (idParts.length == 1 && !idParts[0].equals("")) {
-        IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+        final IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
         list.add(idVO);
       }
       // Id has a type
       else if (idParts.length == 2) {
         IdType idType = IdType.OTHER;
 
-        for (IdType id : IdType.values()) {
+        for (final IdType id : IdType.values()) {
           if (id.getUri().equals(idParts[0])) {
             idType = id;
           }
         }
 
-        IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
+        final IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
         list.add(idVO);
       }
     }
@@ -285,8 +286,8 @@ public class SourceBean extends EditItemBean {
   }
 
   public int getPosition() {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i) == this) {
+    for (int i = 0; i < this.list.size(); i++) {
+      if (this.list.get(i) == this) {
         return i;
       }
     }
@@ -295,29 +296,29 @@ public class SourceBean extends EditItemBean {
 
   public String add() {
 
-    SourceVO sourceVO = new SourceVO();
+    final SourceVO sourceVO = new SourceVO();
     if (sourceVO.getIdentifiers().size() == 0) {
       sourceVO.getIdentifiers().add(new IdentifierVO());
     }
 
-    SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
-    CreatorVOPresentation newSourceCreator =
+    final SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
+    final CreatorVOPresentation newSourceCreator =
         new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
     newSourceCreator.setType(CreatorType.PERSON);
     newSourceCreator.setPerson(new PersonVO());
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
     newSourceCreator.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
-    OrganizationVO newCreatorOrganization = new OrganizationVO();
+    final OrganizationVO newCreatorOrganization = new OrganizationVO();
     newCreatorOrganization.setName("");
     newSourceCreator.getPerson().getOrganizations().add(newCreatorOrganization);
     newSourceBean.getCreators().add(newSourceCreator);
-    list.add(getPosition() + 1, newSourceBean);
+    this.list.add(this.getPosition() + 1, newSourceBean);
     newSourceBean.initOrganizationsFromCreators();
     return "";
   }
 
   public String remove() {
-    list.remove(this);
+    this.list.remove(this);
     return "";
   }
 
@@ -326,7 +327,7 @@ public class SourceBean extends EditItemBean {
   }
 
   public String getJournalSuggestClass() {
-    if (source.getGenre() == Genre.JOURNAL) {
+    if (this.source.getGenre() == Genre.JOURNAL) {
       return " journalSuggest";
     } else {
       return "";
@@ -338,7 +339,7 @@ public class SourceBean extends EditItemBean {
   }
 
   public String getHiddenIdsField() {
-    return hiddenIdsField;
+    return this.hiddenIdsField;
   }
 
   public void setHiddenAlternativeTitlesField(String hiddenAlternativeTitlesField) {
@@ -346,11 +347,11 @@ public class SourceBean extends EditItemBean {
   }
 
   public String getHiddenAlternativeTitlesField() {
-    return hiddenAlternativeTitlesField;
+    return this.hiddenAlternativeTitlesField;
   }
 
   public List<SourceBean> getList() {
-    return list;
+    return this.list;
   }
 
   public void setList(List<SourceBean> list) {

@@ -74,7 +74,7 @@ public class FileBean extends FacesBean {
 
   private FileVO file;
   private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
-  private State itemState;
+  private final State itemState;
   private boolean fileAccessGranted = false;
 
   /**
@@ -87,8 +87,8 @@ public class FileBean extends FacesBean {
   public FileBean(FileVO file, State itemState) {
     this.file = file;
     this.itemState = itemState;
-    if (getLoginHelper().getLoggedIn() == true) {
-      initializeFileAccessGranted();
+    if (this.getLoginHelper().getLoggedIn() == true) {
+      this.initializeFileAccessGranted();
     }
   }
 
@@ -103,9 +103,9 @@ public class FileBean extends FacesBean {
   public FileBean(FileVO file, State itemState, List<SearchHitVO> searchHitList) {
     this.file = file;
     this.itemState = itemState;
-    initialize(file, itemState, searchHitList);
-    if (getLoginHelper().getLoggedIn() == true) {
-      initializeFileAccessGranted();
+    this.initialize(file, itemState, searchHitList);
+    if (this.getLoginHelper().getLoggedIn() == true) {
+      this.initializeFileAccessGranted();
     }
   }
 
@@ -169,33 +169,35 @@ public class FileBean extends FacesBean {
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
     try {
-      if (file.getReference() != null && file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
-        UserAccountHandler uah =
-            ServiceLocator.getUserAccountHandler(getLoginHelper().getAccountUser().getHandle());
+      if (this.file.getReference() != null
+          && this.file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
+        final UserAccountHandler uah =
+            ServiceLocator
+                .getUserAccountHandler(this.getLoginHelper().getAccountUser().getHandle());
 
-        FilterTaskParamVO filter = new FilterTaskParamVO();
+        final FilterTaskParamVO filter = new FilterTaskParamVO();
 
-        Filter accountUserFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", getLoginHelper()
-                .getAccountUser().getReference().getObjectId(), "=", "AND");
+        final Filter accountUserFilter =
+            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", this
+                .getLoginHelper().getAccountUser().getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(accountUserFilter);
 
-        Filter notAudienceRoleFilter =
+        final Filter notAudienceRoleFilter =
             filter.new StandardFilter("/properties/role/id",
                 GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
         filter.getFilterList().add(notAudienceRoleFilter);
 
-        Filter assignedOnFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on", file
+        final Filter assignedOnFilter =
+            filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on", this.file
                 .getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(assignedOnFilter);
 
-        Filter notRevokedFilter =
+        final Filter notRevokedFilter =
             filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
         filter.getFilterList().add(notRevokedFilter);
 
-        String userGrantXML = uah.retrieveGrants(filter.toMap());
-        SearchRetrieveResponseVO searchResult =
+        final String userGrantXML = uah.retrieveGrants(filter.toMap());
+        final SearchRetrieveResponseVO searchResult =
             XmlTransformingService.transformToSearchRetrieveResponseGrantVO(userGrantXML);
         if (searchResult.getNumberOfRecords() > 0) {
           this.fileAccessGranted = true;
@@ -205,20 +207,20 @@ public class FileBean extends FacesBean {
       } else {
         this.fileAccessGranted = false;
       }
-    } catch (Exception e) {
-      logger.error("Problem getting audience-grants for file [" + file.getReference().getObjectId()
-          + "]", e);
+    } catch (final Exception e) {
+      FileBean.logger.error("Problem getting audience-grants for file ["
+          + this.file.getReference().getObjectId() + "]", e);
     }
   }
 
   public void downloadFile() {
     try {
-      String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
+      final String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
       String filename = this.file.getName(); // Filename suggested in browser Save As dialog
       filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed
                                              // by the http-response (filename will be cutted after
                                              // the first empty space)
-      String contentType = this.file.getMimeType(); // For dialog, try
+      final String contentType = this.file.getMimeType(); // For dialog, try
       System.out.println("MIME: " + contentType);
 
       // application/x-download
@@ -234,19 +236,19 @@ public class FileBean extends FacesBean {
       byte[] buffer = null;
       if (this.file.getDefaultMetadata() != null) {
         try {
-          GetMethod method = new GetMethod(fileLocation);
+          final GetMethod method = new GetMethod(fileLocation);
           method.setFollowRedirects(false);
-          if (getLoginHelper().getESciDocUserHandle() != null) {
+          if (this.getLoginHelper().getESciDocUserHandle() != null) {
             // downloading by account user
-            addHandleToMethod(method, getLoginHelper().getESciDocUserHandle());
+            this.addHandleToMethod(method, this.getLoginHelper().getESciDocUserHandle());
           }
 
           // Execute the method with HttpClient.
-          HttpClient client = new HttpClient();
+          final HttpClient client = new HttpClient();
           ProxyHelper.setProxy(client, fileLocation); // ????
           client.executeMethod(method);
-          OutputStream out = FacesTools.getResponse().getOutputStream();
-          InputStream input = method.getResponseBodyAsStream();
+          final OutputStream out = FacesTools.getResponse().getOutputStream();
+          final InputStream input = method.getResponseBodyAsStream();
           try {
             if (this.file.getDefaultMetadata() != null) {
               buffer = new byte[this.file.getDefaultMetadata().getSize()];
@@ -259,17 +261,17 @@ public class FileBean extends FacesBean {
               }
               FacesTools.getCurrentInstance().responseComplete();
             }
-          } catch (IOException e1) {
-            logger.debug("Download IO Error: " + e1.toString());
+          } catch (final IOException e1) {
+            FileBean.logger.debug("Download IO Error: " + e1.toString());
           }
           input.close();
           out.close();
-        } catch (FileNotFoundException e) {
-          logger.debug("File not found: " + e.toString());
+        } catch (final FileNotFoundException e) {
+          FileBean.logger.debug("File not found: " + e.toString());
         }
       }
-    } catch (Exception e) {
-      logger.debug("File Download Error: " + e.toString());
+    } catch (final Exception e) {
+      FileBean.logger.debug("File Download Error: " + e.toString());
       System.out.println(e.toString());
     }
   }
@@ -290,9 +292,10 @@ public class FileBean extends FacesBean {
 
   public String getContentCategory() {
     if (this.file.getContentCategory() != null) {
-      for (Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap().entrySet()) {
+      for (final Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
+          .entrySet()) {
         if (contcat.getValue().equals(this.file.getContentCategory())) {
-          return getLabel("ENUM_CONTENTCATEGORY_"
+          return this.getLabel("ENUM_CONTENTCATEGORY_"
               + contcat.getKey().toLowerCase().replace("_", "-"));
         }
       }
@@ -303,7 +306,7 @@ public class FileBean extends FacesBean {
 
   public String getVisibility() {
     if (this.file.getVisibility() != null) {
-      return getLabel(getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      return this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
 
     return "";
@@ -338,7 +341,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileDescription() {
-    if (file.getDefaultMetadata() != null
+    if (this.file.getDefaultMetadata() != null
         && this.file.getDefaultMetadata().getDescription() != null) {
       return this.file.getDefaultMetadata().getDescription();
     }
@@ -373,7 +376,7 @@ public class FileBean extends FacesBean {
 
   public String getFileSize() {
     if (this.file.getDefaultMetadata() != null) {
-      return computeFileSize(this.file.getDefaultMetadata().getSize());
+      return this.computeFileSize(this.file.getDefaultMetadata().getSize());
     }
 
     return "0";
@@ -392,9 +395,10 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getLocatorIsLink() {
-    return ((getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (getFile().getContent()
-        .startsWith("http://") || getFile().getContent().startsWith("https://") || getFile()
-        .getContent().startsWith("ftp://")));
+    return ((this.getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (this.getFile()
+        .getContent().startsWith("http://")
+        || this.getFile().getContent().startsWith("https://") || this.getFile().getContent()
+        .startsWith("ftp://")));
   }
 
   public boolean getIsVisible() {
@@ -413,31 +417,32 @@ public class FileBean extends FacesBean {
    */
   public String getUrlToLicenceImage() {
     try {
-      if (file.getDefaultMetadata() != null && file.getDefaultMetadata().getLicense() != null) {
-        String licenceURL = file.getDefaultMetadata().getLicense().toLowerCase();
+      if (this.file.getDefaultMetadata() != null
+          && this.file.getDefaultMetadata().getLicense() != null) {
+        final String licenceURL = this.file.getDefaultMetadata().getLicense().toLowerCase();
 
         if (licenceURL != null && !licenceURL.trim().equals("")
             && licenceURL.indexOf("creative") > -1 && licenceURL.indexOf("commons") > -1) {
-          String[] splittedURL = licenceURL.split("\\/");
+          final String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
           int start = 0;
           for (int i = 0; i < splittedURL.length; i++) {
-            String part = splittedURL[i];
+            final String part = splittedURL[i];
             if (part.startsWith("creativecommons")) {
               start = i;
             }
           }
 
-          String address = splittedURL[start];
-          String licenses = "l";
-          String type = splittedURL[start + 2];
-          String version = splittedURL[start + 3];
-          String image = "80x15.png";
+          final String address = splittedURL[start];
+          final String licenses = "l";
+          final String type = splittedURL[start + 2];
+          final String version = splittedURL[start + 3];
+          final String image = "80x15.png";
 
           return "http://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
     }
 
     return "";
@@ -458,7 +463,7 @@ public class FileBean extends FacesBean {
   }
 
   public void setUpdateVisibility(ValueChangeEvent event) {
-    Visibility newVisibility = (Visibility) event.getNewValue();
+    final Visibility newVisibility = (Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
   }
 
@@ -482,8 +487,8 @@ public class FileBean extends FacesBean {
    * @return
    */
   public void displayChecksum() {
-    if (file.getChecksum() != null && file.getChecksumAlgorithm() != null) {
-      FacesTools.getResponse().setContentLength(file.getChecksum().length());
+    if (this.file.getChecksum() != null && this.file.getChecksumAlgorithm() != null) {
+      FacesTools.getResponse().setContentLength(this.file.getChecksum().length());
       FacesTools.getResponse().setContentType("text/plain");
       try {
         String filename = this.file.getName();
@@ -496,21 +501,21 @@ public class FileBean extends FacesBean {
         FacesTools.getResponse().setHeader(
             "Content-disposition",
             "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "."
-                + getChecksumAlgorithmAsString().toLowerCase());
+                + this.getChecksumAlgorithmAsString().toLowerCase());
 
-        OutputStream out = FacesTools.getResponse().getOutputStream();
-        out.write(file.getChecksum().getBytes("UTF-8"));
+        final OutputStream out = FacesTools.getResponse().getOutputStream();
+        out.write(this.file.getChecksum().getBytes("UTF-8"));
         out.flush();
 
         FacesTools.getCurrentInstance().responseComplete();
         out.close();
-      } catch (Exception e) {
-        error("Could not display checksum of file!");
-        logger.error("Could not display checksum of file", e);
+      } catch (final Exception e) {
+        FacesBean.error("Could not display checksum of file!");
+        FileBean.logger.error("Could not display checksum of file", e);
       }
     } else {
-      error("Could not display checksum of file!");
-      logger.error("File checksum is null");
+      FacesBean.error("Could not display checksum of file!");
+      FileBean.logger.error("File checksum is null");
     }
   }
 
@@ -535,28 +540,28 @@ public class FileBean extends FacesBean {
    */
   public String computeFileSize(long size) {
     if (size < 1024) {
-      return size + getLabel("ViewItemMedium_lblFileSizeB");
+      return size + this.getLabel("ViewItemMedium_lblFileSizeB");
     } else if (size < 1024 * 1024) {
-      return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
+      return ((size - 1) / 1024 + 1) + this.getLabel("ViewItemMedium_lblFileSizeKB");
     } else {
-      return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+      return ((size - 1) / (1024 * 1024) + 1) + this.getLabel("ViewItemMedium_lblFileSizeMB");
     }
   }
 
   public String getOpenPDFSearchParameter() {
-    return getOpenPDFSearchParameter(searchHits);
+    return FileBean.getOpenPDFSearchParameter(this.searchHits);
   }
 
   public static String getOpenPDFSearchParameter(List<SearchHitBean> shbList) {
     String param = "\"";
-    List<String> searchWords = new ArrayList<String>();
-    for (SearchHitBean shb : shbList) {
+    final List<String> searchWords = new ArrayList<String>();
+    for (final SearchHitBean shb : shbList) {
       if (!searchWords.contains(shb.getSearchHitString())) {
         searchWords.add(shb.getSearchHitString());
       }
     }
 
-    for (String word : searchWords) {
+    for (final String word : searchWords) {
       param += word + " ";
     }
     param = param.trim() + "\"";
@@ -568,7 +573,7 @@ public class FileBean extends FacesBean {
     try {
       new URL(this.file.getDefaultMetadata().getLicense());
       return true;
-    } catch (Exception e) {
+    } catch (final Exception e) {
     }
 
     return false;

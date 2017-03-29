@@ -45,7 +45,7 @@ public class MultipleImportForm extends FacesBean {
   public MultipleImportForm() {
     try {
       ((MultipleImport) FacesTools.findBean("MultipleImport.class")).initConfigParameters();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
   }

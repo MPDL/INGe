@@ -248,14 +248,12 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     if (!isEmpty(QueryType.CQL)) {
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      int i = 0;
       for (Entry<String, Boolean> entry : enumMap.entrySet()) {
 
 
         if (entry.getValue()) {
           String value = getCqlValue(Index.ESCIDOC_ALL, getValueMap().get(entry.getKey()));
           bq = bq.should(baseElasticSearchQueryBuilder(getElasticIndexes(), value));
-          i++;
         }
 
       }

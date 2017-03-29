@@ -92,8 +92,8 @@ public class BrowseBySessionBean extends FacesBean {
     try {
       this.pubContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    } catch (Exception e) {
-      logger.warn("Could not read property content model.", e);
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.warn("Could not read property content model.", e);
     }
   }
 
@@ -107,17 +107,17 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public List<String> getControlledVocabs() {
-    List<String> vocabs = new ArrayList<String>();
+    final List<String> vocabs = new ArrayList<String>();
     try {
-      String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
       if (vocabsStr != null && vocabsStr.trim().length() > 0) {
-        String[] vocabsArr = vocabsStr.split(";");
+        final String[] vocabsArr = vocabsStr.split(";");
         for (int i = 0; i < vocabsArr.length; i++) {
           vocabs.add(vocabsArr[i].trim());
         }
       }
-    } catch (Exception e) {
-      logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -131,7 +131,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String getCurrentCharacter() {
-    return currentCharacter;
+    return this.currentCharacter;
   }
 
   public void setCurrentCharacter(String currentCharacter) {
@@ -139,7 +139,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String getSelectedValue() {
-    return selectedValue;
+    return this.selectedValue;
   }
 
   public void setSelectedValue(String selectedValue) {
@@ -147,7 +147,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public int getMaxDisplay() {
-    return maxDisplay;
+    return this.maxDisplay;
   }
 
   /**
@@ -162,12 +162,12 @@ public class BrowseBySessionBean extends FacesBean {
 
   public void setShowChars() {
     if (!this.selectedValue.equals("year")) {
-      List<LinkVO> all = this.getConeAll();
+      final List<LinkVO> all = this.getConeAll();
       if (all.size() > this.getMaxDisplay()) {
-        SortedSet<Character> characters = new TreeSet<Character>();
+        final SortedSet<Character> characters = new TreeSet<Character>();
 
-        for (int i = 0; i < CHARACTERS.length; i++) {
-          characters.add(CHARACTERS[i]);
+        for (int i = 0; i < BrowseBySessionBean.CHARACTERS.length; i++) {
+          characters.add(BrowseBySessionBean.CHARACTERS[i]);
         }
 
         // for (LinkVO linkVO : all)
@@ -183,15 +183,16 @@ public class BrowseBySessionBean extends FacesBean {
         this.characters = new String[characters.size()];
         int counter = 0;
 
-        for (Iterator<Character> iterator = characters.iterator(); iterator.hasNext();) {
-          Character character = (Character) iterator.next();
+        for (final Iterator<Character> iterator = characters.iterator(); iterator.hasNext();) {
+          final Character character = iterator.next();
           this.characters[counter] = character.toString();
           counter++;
         }
 
         this.showChars = true;
-      } else
+      } else {
         this.showChars = false;
+      }
     }
   }
 
@@ -202,40 +203,40 @@ public class BrowseBySessionBean extends FacesBean {
    * @return
    */
   public List<LinkVO> getConeAll() {
-    List<LinkVO> links = new ArrayList<LinkVO>();
+    final List<LinkVO> links = new ArrayList<LinkVO>();
 
     try {
-      URL coneUrl =
+      final URL coneUrl =
           new URL(PropertyReader.getProperty("escidoc.cone.service.url") + this.selectedValue
               + "/all?format=options&lang=en");
-      URLConnection conn = coneUrl.openConnection();
-      HttpURLConnection httpConn = (HttpURLConnection) conn;
-      int responseCode = httpConn.getResponseCode();
+      final URLConnection conn = coneUrl.openConnection();
+      final HttpURLConnection httpConn = (HttpURLConnection) conn;
+      final int responseCode = httpConn.getResponseCode();
 
       switch (responseCode) {
         case 200:
-          logger.debug("Cone Service responded with 200.");
+          BrowseBySessionBean.logger.debug("Cone Service responded with 200.");
           break;
         default:
           throw new RuntimeException("An error occurred while calling Cone Service: "
               + responseCode + ": " + httpConn.getResponseMessage());
       }
 
-      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-      BufferedReader bReader = new BufferedReader(isReader);
+      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+      final BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
       while ((line = bReader.readLine()) != null) {
-        String[] parts = line.split("\\|");
+        final String[] parts = line.split("\\|");
         if (parts.length == 2) {
-          LinkVO link = new LinkVO(parts[1], parts[0]);
+          final LinkVO link = new LinkVO(parts[1], parts[0]);
           links.add(link);
         }
       }
 
       isReader.close();
       httpConn.disconnect();
-    } catch (Exception e) {
-      logger.warn("An error occurred while calling the Cone service.", e);
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
 
@@ -244,7 +245,7 @@ public class BrowseBySessionBean extends FacesBean {
 
 
   public String getSearchIndex() {
-    return searchIndex;
+    return this.searchIndex;
   }
 
   public void setSearchIndex(String searchIndex) {
@@ -260,11 +261,11 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public List<String> getYearRange() {
-    List<String> years = new ArrayList<String>();
-    Calendar cal = Calendar.getInstance();
-    int currentYear = cal.get(Calendar.YEAR);
+    final List<String> years = new ArrayList<String>();
+    final Calendar cal = Calendar.getInstance();
+    final int currentYear = cal.get(Calendar.YEAR);
     int yearTmp = currentYear;
-    DecimalFormat yearFormatter = new DecimalFormat("0000");
+    final DecimalFormat yearFormatter = new DecimalFormat("0000");
     while (this.getYearStart() <= yearTmp) {
       years.add(yearFormatter.format(yearTmp));
       yearTmp--;
@@ -299,7 +300,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public void setYearStartAny() {
-    List<Integer> years = new ArrayList<Integer>();
+    final List<Integer> years = new ArrayList<Integer>();
     int yearPublishedPrint = -1;
     int yearPublishedOnline = -1;
     int yearAccepted = -1;
@@ -325,7 +326,7 @@ public class BrowseBySessionBean extends FacesBean {
     years.add(yearCreated);
 
     for (int i = 0; i < years.size(); i++) {
-      int tmp = Integer.parseInt(years.get(i) + "");
+      final int tmp = Integer.parseInt(years.get(i) + "");
       if (oldestYear == -1 && tmp != -1) {
         oldestYear = tmp;
       }
@@ -341,7 +342,7 @@ public class BrowseBySessionBean extends FacesBean {
     String yearStr = "";
     int year = -1;
 
-    PlainCqlQuery query =
+    final PlainCqlQuery query =
         new PlainCqlQuery("escidoc.content-model.objid=" + this.getPubContentModel() + " and "
             + index + " > ''");
     query.setSortKeysAndOrder("sort." + index, SortingOrder.ASCENDING);
@@ -352,7 +353,7 @@ public class BrowseBySessionBean extends FacesBean {
     try {
       result = SearchService.searchForItemContainer(query);
       if (result.getResultList().isEmpty() == false) {
-        item = extractItemsOfSearchResult(result);
+        item = this.extractItemsOfSearchResult(result);
         if (type.equals("print")) {
           yearStr = item.getMetadata().getDatePublishedInPrint();
         }
@@ -373,7 +374,7 @@ public class BrowseBySessionBean extends FacesBean {
         }
         if (yearStr != null) {
           // Take only first part of date string = year.
-          String[] yearArr = yearStr.split("-");
+          final String[] yearArr = yearStr.split("-");
           if (yearArr.length > 1) {
             year = Integer.parseInt(yearArr[0]);
           } else {
@@ -381,8 +382,8 @@ public class BrowseBySessionBean extends FacesBean {
           }
         }
       }
-    } catch (Exception e) {
-      logger.warn("Error computing starting year.", e);
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.warn("Error computing starting year.", e);
     }
 
     return year;
@@ -397,7 +398,7 @@ public class BrowseBySessionBean extends FacesBean {
    */
   private PubItemVOPresentation extractItemsOfSearchResult(ItemContainerSearchResult result) {
 
-    List<SearchResultElement> results = result.getResultList();
+    final List<SearchResultElement> results = result.getResultList();
     PubItemVOPresentation pubItemPres = null;
 
     // ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
@@ -405,8 +406,8 @@ public class BrowseBySessionBean extends FacesBean {
       // check if we have found an item
       if (i == 0 && results.get(i) instanceof ItemResultVO) {
         // cast to PubItemResultVO
-        ItemResultVO item = (ItemResultVO) results.get(i);
-        PubItemResultVO pubItemResult =
+        final ItemResultVO item = (ItemResultVO) results.get(i);
+        final PubItemResultVO pubItemResult =
             new PubItemResultVO(item, item.getSearchHitList(), item.getScore());
         pubItemPres = new PubItemVOPresentation(pubItemResult);
       }

@@ -78,7 +78,7 @@ public class SourceBean extends FacesBean {
 
   public SourceBean(SourceVO source) {
     this.source = source;
-    initialize(source);
+    this.initialize(source);
   }
 
   /**
@@ -88,11 +88,11 @@ public class SourceBean extends FacesBean {
    */
   protected void initialize(SourceVO source) {
     if (source.getCreators().size() > 0) {
-      createCreatorsList();
+      this.createCreatorsList();
     }
 
-    this.startEndPage = getStartEndPage(source);
-    this.publishingInfo = getPublishingInfo(source);
+    this.startEndPage = this.getStartEndPage(source);
+    this.publishingInfo = this.getPublishingInfo(source);
 
     if (source.getIdentifiers().size() > 0) {
       this.identifiers =
@@ -116,7 +116,7 @@ public class SourceBean extends FacesBean {
 
     // counter for organization array
     int counterOrganization = 0;
-    ObjectFormatter formatter = new ObjectFormatter();
+    final ObjectFormatter formatter = new ObjectFormatter();
 
     // temporary list of All creators, retrieved directly from the metadata
     tempCreatorList = this.getSource().getCreators();
@@ -134,8 +134,8 @@ public class SourceBean extends FacesBean {
       CreatorVO creator1 = new CreatorVO();
       creator1 = tempCreatorList.get(i);
 
-      CreatorDisplay creatorDisplay = new CreatorDisplay();
-      ViewItemCreators creator = new ViewItemCreators();
+      final CreatorDisplay creatorDisplay = new CreatorDisplay();
+      final ViewItemCreators creator = new ViewItemCreators();
 
       // if the creator is a person add his organization to the sorted organization list
       if (creator1.getPerson() != null) {
@@ -170,7 +170,7 @@ public class SourceBean extends FacesBean {
             && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
           try {
             creatorDisplay.setPortfolioLink(creator1.getPerson().getIdentifier().getId());
-          } catch (Exception e) {
+          } catch (final Exception e) {
             throw new RuntimeException(e);
           }
         }
@@ -185,7 +185,7 @@ public class SourceBean extends FacesBean {
       if (creator1.getOrganization() != null) {
         formattedCreator = formatter.formatCreator(creator1, "");
         creatorDisplay.setFormattedDisplay(formattedCreator);
-        ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
+        final ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
         creatorOrganization.setOrganizationName(formattedCreator);
         creatorOrganization.setPosition(new Integer(counterOrganization).toString());
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
@@ -203,7 +203,7 @@ public class SourceBean extends FacesBean {
       this.setSourceAffiliatedOrganizationsList(sortOrganizationList);
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
-        String name =
+        final String name =
             sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName()
                 : "";
         formattedOrganization =
@@ -223,7 +223,7 @@ public class SourceBean extends FacesBean {
   private String getPublishingInfo(SourceVO source) {
 
 
-    StringBuffer publishingInfo = new StringBuffer();
+    final StringBuffer publishingInfo = new StringBuffer();
     publishingInfo.append("");
     if (source.getPublishingInfo() != null) {
 
@@ -271,7 +271,7 @@ public class SourceBean extends FacesBean {
    * @return String the formatted start and end page
    */
   private String getStartEndPage(SourceVO source) {
-    StringBuffer startEndPage = new StringBuffer();
+    final StringBuffer startEndPage = new StringBuffer();
 
     if (source.getStartPage() != null) {
       startEndPage.append(source.getStartPage());
@@ -290,7 +290,7 @@ public class SourceBean extends FacesBean {
   }
 
   public String getGenre() {
-    return getLabel(getI18nHelper().convertEnumToString(this.source.getGenre()));
+    return this.getLabel(this.getI18nHelper().convertEnumToString(this.source.getGenre()));
   }
 
   public String getIdentifiers() {
@@ -351,7 +351,7 @@ public class SourceBean extends FacesBean {
   }
 
   public ArrayList<ViewItemCreators> getSourceCreatorArray() {
-    return sourceCreatorArray;
+    return this.sourceCreatorArray;
   }
 
   public void setSourceCreatorArray(ArrayList<ViewItemCreators> sourceCreatorArray) {

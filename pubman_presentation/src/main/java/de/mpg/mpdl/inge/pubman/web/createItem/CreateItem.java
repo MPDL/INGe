@@ -73,7 +73,7 @@ public class CreateItem extends FacesBean {
     this.target = EditItem.LOAD_EDITITEM;
     this.method = SubmissionMethod.FULL_SUBMISSION;
 
-    String genreBundle = "Genre_ARTICLE";
+    final String genreBundle = "Genre_ARTICLE";
     String navigateTo = "";
 
     // first clear the EditItemSessionBean
@@ -86,13 +86,13 @@ public class CreateItem extends FacesBean {
     // if there is only one context for this user we can skip the CreateItem-Dialog and
     // create the new item directly
     if (this.getContextListSessionBean().getDepositorContextList().size() == 0) {
-      logger.warn("The user does not have privileges for any context.");
+      CreateItem.logger.warn("The user does not have privileges for any context.");
       return null;
     }
 
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
-      ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
+      final ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
       navigateTo =
           this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
               contextVO.getReference());
@@ -137,14 +137,14 @@ public class CreateItem extends FacesBean {
   }
 
   public boolean getMultiple() {
-    return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
+    return (this.getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
   }
 
   /**
    * @return the target
    */
   public String getTarget() {
-    return target;
+    return this.target;
   }
 
   /**
@@ -158,7 +158,7 @@ public class CreateItem extends FacesBean {
    * @return the method
    */
   public SubmissionMethod getMethod() {
-    return method;
+    return this.method;
   }
 
   /**

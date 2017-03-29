@@ -69,8 +69,8 @@ public class AcceptItem extends FacesBean {
 
   public void init() {
     // Fill creators property.
-    StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
+    final StringBuffer creators = new StringBuffer();
+    for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -102,16 +102,17 @@ public class AcceptItem extends FacesBean {
 
   public String accept() {
     // TODO: siehe SubmitItem
-    String navigateTo = getAcceptItemSessionBean().getNavigationStringToGoBack();
+    String navigateTo = this.getAcceptItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
 
-    String retVal =
-        this.getItemControllerSessionBean().acceptCurrentPubItem(acceptanceComment, navigateTo);
+    final String retVal =
+        this.getItemControllerSessionBean()
+            .acceptCurrentPubItem(this.acceptanceComment, navigateTo);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
     }
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
@@ -121,8 +122,8 @@ public class AcceptItem extends FacesBean {
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
-      } catch (IOException e) {
-        logger.error("Could not redirect to View Item Page", e);
+      } catch (final IOException e) {
+        AcceptItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
 
@@ -134,8 +135,8 @@ public class AcceptItem extends FacesBean {
       FacesTools.getExternalContext().redirect(
           FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getPubItem().getVersion().getObjectId());
-    } catch (IOException e) {
-      logger.error("Could not redirect to View Item Page", e);
+    } catch (final IOException e) {
+      AcceptItem.logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
@@ -147,7 +148,7 @@ public class AcceptItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    for (FileVO file : this.getPubItem().getFiles()) {
+    for (final FileVO file : this.getPubItem().getFiles()) {
       if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
           .getDefaultMetadata().getCopyrightDate()))
           || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
@@ -178,7 +179,7 @@ public class AcceptItem extends FacesBean {
   }
 
   public boolean getHasAudienceFiles() {
-    for (FileVO file : this.getPubItem().getFiles()) {
+    for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }

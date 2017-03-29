@@ -107,7 +107,7 @@ public class ImportLog {
      * @return A representation of the element that is used for storing in a database
      */
     public String toSQL() {
-      String value = super.toString();
+      final String value = super.toString();
       return value.replace("ENDING", "").toLowerCase();
     }
   }
@@ -154,9 +154,9 @@ public class ImportLog {
     this.user = user;
     this.format = format;
     this.action = action;
-    this.connection = getConnection();
+    this.connection = ImportLog.getConnection();
 
-    saveLog();
+    this.saveLog();
   }
 
   /**
@@ -167,7 +167,8 @@ public class ImportLog {
   public static Connection getConnection() {
     try {
       Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
-      String connectionUrl = PropertyReader.getProperty("escidoc.import.database.connection.url");
+      final String connectionUrl =
+          PropertyReader.getProperty("escidoc.import.database.connection.url");
       return DriverManager
           .getConnection(
               connectionUrl
@@ -178,7 +179,7 @@ public class ImportLog {
                   .replaceAll("\\$3", PropertyReader.getProperty("escidoc.import.database.name")),
               PropertyReader.getProperty("escidoc.import.database.user.name"),
               PropertyReader.getProperty("escidoc.import.database.user.password"));
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error creating database connection", e);
     }
   }
@@ -191,7 +192,7 @@ public class ImportLog {
       if (this.connection != null && !this.connection.isClosed()) {
         this.connection.close();
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error closing database connection", e);
     }
   }
@@ -206,9 +207,9 @@ public class ImportLog {
         this.status = Status.FINISHED;
         this.percentage = 100;
 
-        updateLog();
+        this.updateLog();
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error closing connection", e);
     }
   }
@@ -220,7 +221,7 @@ public class ImportLog {
     this.endDate = null;
     this.status = Status.PENDING;
 
-    updateLog();
+    this.updateLog();
   }
 
   /**
@@ -232,7 +233,7 @@ public class ImportLog {
    * @param msg A message key for a localized message
    */
   public void startItem(String msg) {
-    startItem(msg, null);
+    this.startItem(msg, null);
   }
 
   /**
@@ -245,7 +246,7 @@ public class ImportLog {
    * @param itemId The eSciDoc id of the imported item
    */
   public void startItem(String msg, String itemId) {
-    startItem(msg, new Date(), itemId);
+    this.startItem(msg, new Date(), itemId);
   }
 
   /**
@@ -259,7 +260,7 @@ public class ImportLog {
    * @param itemId The eSciDoc id of the imported item
    */
   public void startItem(String msg, Date sDate, String itemId) {
-    startItem(ErrorLevel.FINE, msg, sDate, itemId);
+    this.startItem(ErrorLevel.FINE, msg, sDate, itemId);
   }
 
   /**
@@ -272,7 +273,7 @@ public class ImportLog {
    * @param msg A message key for a localized message
    */
   public void startItem(ErrorLevel errLevel, String msg) {
-    startItem(errLevel, msg, new Date(), null);
+    this.startItem(errLevel, msg, new Date(), null);
   }
 
   /**
@@ -290,15 +291,15 @@ public class ImportLog {
           "Trying to start logging an item while another is not yet finished");
     }
 
-    ImportLogItem newItem = new ImportLogItem(this);
+    final ImportLogItem newItem = new ImportLogItem(this);
 
     newItem.setErrorLevel(errLevel);
     newItem.setMessage(msg);
     newItem.setStartDate(sDate);
 
-    saveItem(newItem);
+    this.saveItem(newItem);
 
-    items.add(newItem);
+    this.items.add(newItem);
 
     this.currentItem = newItem;
   }
@@ -312,7 +313,7 @@ public class ImportLog {
       this.currentItem.setEndDate(new Date());
       this.currentItem.setStatus(Status.FINISHED);
 
-      updateItem(this.currentItem);
+      this.updateItem(this.currentItem);
 
       this.currentItem = null;
     }
@@ -327,7 +328,7 @@ public class ImportLog {
     if (this.currentItem != null) {
       this.currentItem.setStatus(Status.SUSPENDED);
 
-      updateItem(this.currentItem);
+      this.updateItem(this.currentItem);
 
       this.currentItem = null;
     }
@@ -343,7 +344,7 @@ public class ImportLog {
    * @param msg A message key for a localized message
    */
   public void addDetail(ErrorLevel errLevel, String msg) {
-    addDetail(errLevel, msg, null);
+    this.addDetail(errLevel, msg, null);
   }
 
   /**
@@ -360,7 +361,7 @@ public class ImportLog {
       throw new RuntimeException("Trying to add a detail but no log item is started.");
     }
 
-    ImportLogItem newDetail = new ImportLogItem(currentItem);
+    final ImportLogItem newDetail = new ImportLogItem(this.currentItem);
     newDetail.setErrorLevel(errLevel);
     newDetail.setMessage(msg);
     newDetail.setStartDate(new Date());
@@ -368,12 +369,12 @@ public class ImportLog {
     newDetail.setStatus(Status.FINISHED);
 
     if (this.currentItem == null) {
-      startItem("");
+      this.startItem("");
     }
 
     this.currentItem.getItems().add(newDetail);
 
-    saveDetail(newDetail);
+    this.saveDetail(newDetail);
   }
 
   /**
@@ -385,8 +386,8 @@ public class ImportLog {
    * @param exception The exception that should be added to the item
    */
   public void addDetail(ErrorLevel errLevel, Exception exception) {
-    String msg = getExceptionMessage(exception);
-    addDetail(errLevel, msg, null);
+    final String msg = this.getExceptionMessage(exception);
+    this.addDetail(errLevel, msg, null);
   }
 
   /**
@@ -403,7 +404,7 @@ public class ImportLog {
    * @return The stack trace
    */
   private String getExceptionMessage(Throwable exception) {
-    StringWriter stringWriter = new StringWriter();
+    final StringWriter stringWriter = new StringWriter();
     stringWriter.write(exception.getClass().getSimpleName());
 
     if (exception.getMessage() != null) {
@@ -412,7 +413,7 @@ public class ImportLog {
     }
     stringWriter.write("\n");
 
-    StackTraceElement[] stackTraceElements = exception.getStackTrace();
+    final StackTraceElement[] stackTraceElements = exception.getStackTrace();
     stringWriter.write("\tat ");
     stringWriter.write(stackTraceElements[0].getClassName());
     stringWriter.write(".");
@@ -424,7 +425,7 @@ public class ImportLog {
     stringWriter.write(")\n");
 
     if (exception.getCause() != null) {
-      stringWriter.write(getExceptionMessage(exception.getCause()));
+      stringWriter.write(this.getExceptionMessage(exception.getCause()));
     }
 
     return stringWriter.toString();
@@ -437,7 +438,7 @@ public class ImportLog {
    */
   public void setItemId(String id) {
     this.currentItem.setItemId(id);
-    updateItem(this.currentItem);
+    this.updateItem(this.currentItem);
   }
 
   /**
@@ -459,7 +460,7 @@ public class ImportLog {
    */
   public String getStartDateFormatted() {
     if (this.startDate != null) {
-      return DATE_FORMAT.format(startDate);
+      return ImportLog.DATE_FORMAT.format(this.startDate);
     }
 
     return "";
@@ -484,7 +485,7 @@ public class ImportLog {
    */
   public String getEndDateFormatted() {
     if (this.endDate != null) {
-      return DATE_FORMAT.format(endDate);
+      return ImportLog.DATE_FORMAT.format(this.endDate);
     }
 
     return "";
@@ -574,7 +575,7 @@ public class ImportLog {
     }
 
     if (this.connection != null) {
-      updateLog();
+      this.updateLog();
     }
   }
 
@@ -593,7 +594,7 @@ public class ImportLog {
    * @return true if one or more items were imported, otherwise false.
    */
   public boolean getImportedItems() {
-    for (ImportLogItem item : this.items) {
+    for (final ImportLogItem item : this.items) {
       if (item.getItemId() != null) {
         return true;
       }
@@ -692,7 +693,7 @@ public class ImportLog {
   public void setPercentage(int percentage) {
     this.percentage = percentage;
 
-    updateLog();
+    this.updateLog();
   }
 
   private synchronized void saveLog() {
@@ -726,14 +727,14 @@ public class ImportLog {
       } else {
         throw new RuntimeException("Error saving log");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
   }
 
   private synchronized void updateLog() {
     try {
-      PreparedStatement statement =
+      final PreparedStatement statement =
           this.connection.prepareStatement("update escidoc_import_log set " + "status = ?, "
               + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "action = ?, "
               + "userid = ?, " + "name = ?, " + "context = ?, " + "format = ?, "
@@ -758,7 +759,7 @@ public class ImportLog {
       statement.setInt(11, this.storedId);
 
       statement.executeUpdate();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
   }
@@ -782,21 +783,21 @@ public class ImportLog {
 
       statement =
           this.connection.prepareStatement("select max(id) as maxid from escidoc_import_log_item");
-      ResultSet resultSet = statement.executeQuery();
+      final ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
         item.setStoredId(resultSet.getInt("maxid"));
       } else {
         throw new RuntimeException("Error saving log item");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
   }
 
   private synchronized void updateItem(ImportLogItem item) {
     try {
-      PreparedStatement statement =
+      final PreparedStatement statement =
           this.connection.prepareStatement("update escidoc_import_log_item set " + "status = ?, "
               + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "parent = ?, "
               + "message = ?, " + "item_id = ?, " + "action = ? " + "where id = ?");
@@ -818,7 +819,7 @@ public class ImportLog {
       statement.setInt(9, item.getStoredId());
 
       statement.executeUpdate();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
   }
@@ -843,14 +844,14 @@ public class ImportLog {
       statement =
           this.connection
               .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
-      ResultSet resultSet = statement.executeQuery();
+      final ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
         detail.setStoredId(resultSet.getInt("maxid"));
       } else {
         throw new RuntimeException("Error saving log item");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     }
   }
@@ -870,7 +871,7 @@ public class ImportLog {
   public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
       SortDirection dir) {
 
-    return getImportLogs(action, user, sortBy, dir, true);
+    return ImportLog.getImportLogs(action, user, sortBy, dir, true);
   }
 
   /**
@@ -889,7 +890,7 @@ public class ImportLog {
   public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
       SortDirection dir, boolean loadDetails) {
 
-    return getImportLogs(action, user, sortBy, dir, true, loadDetails);
+    return ImportLog.getImportLogs(action, user, sortBy, dir, true, loadDetails);
   }
 
   /**
@@ -906,11 +907,11 @@ public class ImportLog {
    */
   public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
       SortDirection dir, boolean loadItems, boolean loadDetails) {
-    List<ImportLog> result = new ArrayList<ImportLog>();
-    Connection connection = getConnection();
+    final List<ImportLog> result = new ArrayList<ImportLog>();
+    final Connection connection = ImportLog.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    String query =
+    final String query =
         "select id from escidoc_import_log where action = ? and userid = ? " + "order by "
             + sortBy.toSQL() + " " + dir.toSQL();
 
@@ -922,18 +923,18 @@ public class ImportLog {
       resultSet = statement.executeQuery();
 
       while (resultSet.next()) {
-        int id = resultSet.getInt("id");
-        ImportLog log = getImportLog(id, loadDetails, connection);
+        final int id = resultSet.getInt("id");
+        final ImportLog log = ImportLog.getImportLog(id, loadDetails, connection);
         log.userHandle = user.getHandle();
         result.add(log);
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error getting log", e);
     } finally {
       try {
         connection.close();
-      } catch (Exception f) {
-        logger.error("Error closing db connection", f);
+      } catch (final Exception f) {
+        ImportLog.logger.error("Error closing db connection", f);
       }
     }
 
@@ -964,7 +965,7 @@ public class ImportLog {
    * @return The import
    */
   public static ImportLog getImportLog(int id, boolean loadDetails, Connection conn) {
-    return getImportLog(id, true, loadDetails, conn);
+    return ImportLog.getImportLog(id, true, loadDetails, conn);
   }
 
   /**
@@ -992,9 +993,9 @@ public class ImportLog {
 
 
       if (resultSet.next()) {
-        result = fillLog(resultSet);
+        result = ImportLog.fillLog(resultSet);
       } else {
-        logger.warn("Import log query returned no result for id " + id);
+        ImportLog.logger.warn("Import log query returned no result for id " + id);
       }
       statement.close();
 
@@ -1003,10 +1004,10 @@ public class ImportLog {
       statement.setInt(1, id);
       resultSet = statement.executeQuery();
 
-      List<ImportLogItem> items = new ArrayList<ImportLogItem>();
+      final List<ImportLogItem> items = new ArrayList<ImportLogItem>();
 
       while (resultSet.next()) {
-        ImportLogItem item = fillItem(resultSet, result);
+        final ImportLogItem item = ImportLog.fillItem(resultSet, result);
         items.add(item);
       }
 
@@ -1024,7 +1025,7 @@ public class ImportLog {
         statement.setInt(1, id);
         resultSet = statement.executeQuery();
 
-        Iterator<ImportLogItem> iterator = items.iterator();
+        final Iterator<ImportLogItem> iterator = items.iterator();
 
         if (items.size() > 0) {
 
@@ -1033,21 +1034,21 @@ public class ImportLog {
           currentItem.setItems(details);
 
           while (resultSet.next()) {
-            int itemId = resultSet.getInt("parent");
+            final int itemId = resultSet.getInt("parent");
             while (currentItem.getStoredId() != itemId && iterator.hasNext()) {
               currentItem = iterator.next();
               details = new ArrayList<ImportLogItem>();
               currentItem.setItems(details);
             }
 
-            ImportLogItem detail = fillDetail(resultSet, currentItem);
+            final ImportLogItem detail = ImportLog.fillDetail(resultSet, currentItem);
             details.add(detail);
           }
         }
         statement.close();
       }
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error getting detail", e);
     }
 
@@ -1062,7 +1063,7 @@ public class ImportLog {
    */
   private static ImportLogItem fillDetail(ResultSet resultSet, ImportLogItem currentItem)
       throws SQLException {
-    ImportLogItem detail = new ImportLogItem(currentItem);
+    final ImportLogItem detail = new ImportLogItem(currentItem);
 
     detail.setAction(resultSet.getString("action"));
     detail.setEndDate(resultSet.getTimestamp("enddate"));
@@ -1083,7 +1084,7 @@ public class ImportLog {
    * @throws SQLException
    */
   private static ImportLogItem fillItem(ResultSet resultSet, ImportLog result) throws SQLException {
-    ImportLogItem item = new ImportLogItem(result);
+    final ImportLogItem item = new ImportLogItem(result);
 
     item.setAction(resultSet.getString("action"));
     item.setEndDate(resultSet.getTimestamp("enddate"));
@@ -1103,7 +1104,7 @@ public class ImportLog {
    * @throws SQLException
    */
   private static ImportLog fillLog(ResultSet resultSet) throws SQLException {
-    ImportLog result = new ImportLog();
+    final ImportLog result = new ImportLog();
     result.setAction(resultSet.getString("action"));
     result.setEndDate(resultSet.getTimestamp("enddate"));
     result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
@@ -1128,10 +1129,10 @@ public class ImportLog {
    * @return A list of details
    */
   public static List<ImportLogItem> loadDetails(int id, String userid) {
-    List<ImportLogItem> details = new ArrayList<ImportLogItem>();
-    Connection connection = getConnection();
+    final List<ImportLogItem> details = new ArrayList<ImportLogItem>();
+    final Connection connection = ImportLog.getConnection();
 
-    String query =
+    final String query =
         "select escidoc_import_log_detail.* "
             + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
             + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
@@ -1139,18 +1140,18 @@ public class ImportLog {
             + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
             + "order by escidoc_import_log_detail.id";
     try {
-      PreparedStatement statement = connection.prepareStatement(query);
+      final PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       statement.setString(2, userid);
 
-      ResultSet resultSet = statement.executeQuery();
+      final ResultSet resultSet = statement.executeQuery();
 
       while (resultSet.next()) {
-        ImportLogItem detail = fillDetail(resultSet, null);
+        final ImportLogItem detail = ImportLog.fillDetail(resultSet, null);
         details.add(detail);
       }
       return details;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -1158,27 +1159,28 @@ public class ImportLog {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String toString() {
-    StringWriter writer = new StringWriter();
+    final StringWriter writer = new StringWriter();
 
-    writer.write(getErrorLevel().toString());
+    writer.write(this.getErrorLevel().toString());
     writer.write(": ");
-    if (getRelevantString() != null) {
-      writer.write(getRelevantString());
+    if (this.getRelevantString() != null) {
+      writer.write(this.getRelevantString());
     } else {
       writer.write("- - -");
     }
     writer.write(" (");
-    writer.write(DATE_FORMAT.format(getStartDate()));
+    writer.write(ImportLog.DATE_FORMAT.format(this.getStartDate()));
     writer.write(" - ");
-    if (getEndDate() != null) {
-      writer.write(DATE_FORMAT.format(getEndDate()));
+    if (this.getEndDate() != null) {
+      writer.write(ImportLog.DATE_FORMAT.format(this.getEndDate()));
     }
     writer.write(") - ");
-    writer.write(getStatus().toString());
+    writer.write(this.getStatus().toString());
     writer.write("\n");
 
-    for (ImportLogItem item : getItems()) {
+    for (final ImportLogItem item : this.getItems()) {
       writer.write(item.toString().replaceAll("(.*)\n", "\t$1\n"));
     }
 
@@ -1186,7 +1188,7 @@ public class ImportLog {
   }
 
   protected String getRelevantString() {
-    return getAction();
+    return this.getAction();
   }
 
   /**
@@ -1217,7 +1219,7 @@ public class ImportLog {
     writer.write("\">\n");
 
     writer.write("\t<name>");
-    writer.write(escape(this.message));
+    writer.write(this.escape(this.message));
     writer.write("</name>\n");
 
     writer.write("\t<context>");
@@ -1225,12 +1227,12 @@ public class ImportLog {
     writer.write("</context>\n");
 
     writer.write("\t<start-date>");
-    writer.write(getStartDateFormatted());
+    writer.write(this.getStartDateFormatted());
     writer.write("</start-date>\n");
 
     if (this.endDate != null) {
       writer.write("\t<end-date>");
-      writer.write(getEndDateFormatted());
+      writer.write(this.getEndDateFormatted());
       writer.write("</end-date>\n");
     }
 
@@ -1239,7 +1241,7 @@ public class ImportLog {
     writer.write("</format>\n");
 
     writer.write("\t<items>\n");
-    for (ImportLogItem item : this.items) {
+    for (final ImportLogItem item : this.items) {
       item.toXML(writer);// .replaceAll("(.*\\n)", "\t\t$1"));
     }
     writer.write("\t</items>\n");
@@ -1267,7 +1269,7 @@ public class ImportLog {
    */
   public void remove() {
     try {
-      Connection conn = getConnection();
+      final Connection conn = ImportLog.getConnection();
 
       String query =
           "delete from escidoc_import_log_detail where parent in "
@@ -1288,13 +1290,13 @@ public class ImportLog {
       statement.setInt(1, this.storedId);
       statement.executeUpdate();
       statement.close();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -1305,14 +1307,14 @@ public class ImportLog {
    * @return Always null.
    */
   public String deleteAll() {
-    this.connection = getConnection();
+    this.connection = ImportLog.getConnection();
 
-    DeleteProcess deleteProcess = new DeleteProcess(this);
+    final DeleteProcess deleteProcess = new DeleteProcess(this);
     deleteProcess.start();
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
 
@@ -1325,14 +1327,14 @@ public class ImportLog {
    * @return Always null.
    */
   public String submitAll() {
-    this.connection = getConnection();
+    this.connection = ImportLog.getConnection();
 
-    SubmitProcess submitProcess = new SubmitProcess(this, false);
+    final SubmitProcess submitProcess = new SubmitProcess(this, false);
     submitProcess.start();
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
 
@@ -1345,14 +1347,14 @@ public class ImportLog {
    * @return Always null.
    */
   public String submitAndReleaseAll() {
-    this.connection = getConnection();
+    this.connection = ImportLog.getConnection();
 
-    SubmitProcess submitProcess = new SubmitProcess(this, true);
+    final SubmitProcess submitProcess = new SubmitProcess(this, true);
     submitProcess.start();
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
 
@@ -1363,7 +1365,7 @@ public class ImportLog {
    * @return A link to a JSP page showing only this import (no items)
    */
   public String getLogLink() {
-    return "ImportData.jsp?id=" + getStoredId();
+    return "ImportData.jsp?id=" + this.getStoredId();
   }
 
   /**
@@ -1372,8 +1374,8 @@ public class ImportLog {
   public String getMyItemsLink() {
     try {
       return "DepositorWSPage.jsp?import="
-          + URLEncoder.encode(getMessage() + " " + getStartDateFormatted(), "ISO-8859-1");
-    } catch (UnsupportedEncodingException usee) {
+          + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), "ISO-8859-1");
+    } catch (final UnsupportedEncodingException usee) {
       // This should not happen as UTF-8 is known
       throw new RuntimeException(usee);
     }
@@ -1383,7 +1385,7 @@ public class ImportLog {
    * @return A link to a JSP page showing the items of this import (no details)
    */
   public String getItemsLink() {
-    return "ImportItems.jsp?id=" + getStoredId();
+    return "ImportItems.jsp?id=" + this.getStoredId();
   }
 
   /**
@@ -1411,13 +1413,13 @@ public class ImportLog {
     if (this.workflow == null) {
       try {
         ContextVO contextVO;
-        ContextHandler contextHandler = ServiceLocator.getContextHandler();
+        final ContextHandler contextHandler = ServiceLocator.getContextHandler();
 
-        String contextXml = contextHandler.retrieve(this.context);
+        final String contextXml = contextHandler.retrieve(this.context);
         contextVO = XmlTransformingService.transformToContext(contextXml);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new RuntimeException(e);
       }
     }
@@ -1431,6 +1433,6 @@ public class ImportLog {
    * @return true if the workflow of the currently used context is SIMPLE.
    */
   public boolean getSimpleWorkflow() {
-    return (getWorkflow() == Workflow.SIMPLE);
+    return (this.getWorkflow() == Workflow.SIMPLE);
   }
 }

@@ -60,22 +60,22 @@ public class ImportItems extends FacesBean {
    * user settings.
    */
   public ImportItems() {
-    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
-    String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
+    final String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
     if (pageString != null) {
       this.page = Integer.parseInt(pageString);
     }
-    String itemsPerPageString =
+    final String itemsPerPageString =
         FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
     if (itemsPerPageString != null) {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }
 
-    if (getLoginHelper().getAccountUser() != null) {
-      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
+    if (this.getLoginHelper().getAccountUser() != null) {
+      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
     }
   }
 
@@ -85,12 +85,12 @@ public class ImportItems extends FacesBean {
 
   public ImportLog getImport() {
     if (this.log == null && this.userid != null) {
-      Connection conn = ImportLog.getConnection();
+      final Connection conn = ImportLog.getConnection();
       this.log = ImportLog.getImportLog(this.importId, true, false, conn);
       try {
         conn.close();
-      } catch (SQLException e) {
-        logger.error("Error closing db connection", e);
+      } catch (final SQLException e) {
+        ImportItems.logger.error("Error closing db connection", e);
       }
     }
     return this.log;
@@ -100,7 +100,7 @@ public class ImportItems extends FacesBean {
    * @return the page
    */
   public int getPage() {
-    return page;
+    return this.page;
   }
 
   /**
@@ -114,7 +114,7 @@ public class ImportItems extends FacesBean {
    * @return the itemsPerPage
    */
   public int getItemsPerPage() {
-    return itemsPerPage;
+    return this.itemsPerPage;
   }
 
   /**

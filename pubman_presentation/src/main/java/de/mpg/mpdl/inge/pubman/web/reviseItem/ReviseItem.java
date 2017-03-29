@@ -68,8 +68,8 @@ public class ReviseItem extends FacesBean {
   }
 
   public void init() {
-    StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    final StringBuffer creators = new StringBuffer();
+    for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -105,12 +105,12 @@ public class ReviseItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String revise() {
-    String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment,
+    final String retVal =
+        this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment,
             ViewItemFull.LOAD_VIEWITEM);
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
     }
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
@@ -120,8 +120,8 @@ public class ReviseItem extends FacesBean {
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
-      } catch (IOException e) {
-        logger.error("Could not redirect to View Item Page", e);
+      } catch (final IOException e) {
+        ReviseItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
 

@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FacesTools {
   @SuppressWarnings("unchecked")
   public static <T> T findBean(String beanName) {
-    FacesContext context = FacesContext.getCurrentInstance();
+    final FacesContext context = FacesContext.getCurrentInstance();
 
     return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}",
         Object.class);

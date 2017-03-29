@@ -165,7 +165,8 @@ public class HomePage extends BreadcrumbPage {
     cql.setMaximumRecords("4");
     cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
     final ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
-    final List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+    final List<PubItemVOPresentation> list =
+        SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
     return list;
   }
 

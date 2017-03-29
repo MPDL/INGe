@@ -72,38 +72,39 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public void init() {
-    this.pubItem = getItemControllerSessionBean().getCurrentPubItem();
-    this.itemId = pubItem.getVersion().getObjectId();
+    this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    this.itemId = this.pubItem.getVersion().getObjectId();
 
     // get all files, remove Locators, convert to presentation objects and add them to the list
-    List<FileVO> files = this.pubItem.getFiles();
-    List<FileVO> realFiles = new ArrayList<FileVO>();
+    final List<FileVO> files = this.pubItem.getFiles();
+    final List<FileVO> realFiles = new ArrayList<FileVO>();
 
-    for (FileVO fileVO : files) {
-      if (fileVO.getStorage() == FileVO.Storage.INTERNAL_MANAGED)
+    for (final FileVO fileVO : files) {
+      if (fileVO.getStorage() == FileVO.Storage.INTERNAL_MANAGED) {
         realFiles.add(fileVO);
+      }
     }
 
     this.fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
-    return getItemControllerSessionBean().getStatisticValue(
+    return this.getItemControllerSessionBean().getStatisticValue(
         SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
   }
 
   public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
-    return getItemControllerSessionBean().getStatisticValue(
+    return this.getItemControllerSessionBean().getStatisticValue(
         SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
   }
 
   public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
-    return getItemControllerSessionBean().getStatisticValue(
+    return this.getItemControllerSessionBean().getStatisticValue(
         SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
   }
 
   public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
-    return getItemControllerSessionBean().getStatisticValue(
+    return this.getItemControllerSessionBean().getStatisticValue(
         SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
   }
 
@@ -141,9 +142,10 @@ public class ViewItemStatistics extends FacesBean {
 
   public String getNimsLink() {
     try {
-      return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link") + getItemID();
-    } catch (Exception e) {
-      logger.error("Could not read escidoc.pubman.statistics.nims.link from properties");
+      return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link") + this.getItemID();
+    } catch (final Exception e) {
+      ViewItemStatistics.logger
+          .error("Could not read escidoc.pubman.statistics.nims.link from properties");
       return null;
     }
   }
@@ -155,21 +157,22 @@ public class ViewItemStatistics extends FacesBean {
    */
   public boolean getShowNIMSLink() {
     try {
-      String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
-      ItemControllerSessionBean icsb =
+      final String contexts =
+          PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
+      final ItemControllerSessionBean icsb =
           (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-      ContextVO currentContext = icsb.getCurrentContext();
+      final ContextVO currentContext = icsb.getCurrentContext();
       // logger.info(currentContext.getReference().getObjectId());
       if (contexts != null) {
-        String[] contextArray = contexts.split(",");
-        for (String contextId : contextArray) {
+        final String[] contextArray = contexts.split(",");
+        for (final String contextId : contextArray) {
           if (contextId.trim().equals(currentContext.getReference().getObjectId())) {
             return true;
           }
         }
       }
-    } catch (Exception e) {
-      logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
+    } catch (final Exception e) {
+      ViewItemStatistics.logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
     }
 
     return false;

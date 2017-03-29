@@ -62,15 +62,15 @@ public class AffiliationTree extends FacesBean {
   boolean started = false;
 
   public AffiliationTree() throws Exception {
-    affiliationMap = new HashMap<String, AffiliationVOPresentation>();
-    affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
+    this.affiliationMap = new HashMap<String, AffiliationVOPresentation>();
+    this.affiliations =
+        CommonUtils.convertToAffiliationVOPresentationList(this.getItemControllerSessionBean()
             .searchTopLevelAffiliations());
-    timestamp = new Date().getTime();
+    this.timestamp = new Date().getTime();
   }
 
   public List<AffiliationVOPresentation> getAffiliations() {
-    return affiliations;
+    return this.affiliations;
   }
 
   public void setAffiliations(List<AffiliationVOPresentation> affiliations) {
@@ -88,16 +88,16 @@ public class AffiliationTree extends FacesBean {
    * @throws Exception Any exception
    */
   public String getResetMessage() throws Exception {
-    affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
+    this.affiliations =
+        CommonUtils.convertToAffiliationVOPresentationList(this.getItemControllerSessionBean()
             .searchTopLevelAffiliations());
-    affiliationSelectItems = null;
-    timestamp = new Date().getTime();
-    return getMessage("Affiliations_reloaded");
+    this.affiliationSelectItems = null;
+    this.timestamp = new Date().getTime();
+    return this.getMessage("Affiliations_reloaded");
   }
 
   public long getTimestamp() {
-    return timestamp;
+    return this.timestamp;
   }
 
   public void setTimestamp(long timestamp) {
@@ -118,29 +118,29 @@ public class AffiliationTree extends FacesBean {
 
 
 
-    if (affiliationSelectItems == null) {
+    if (this.affiliationSelectItems == null) {
 
-      if (started) {
-        while (affiliationSelectItems == null) {
+      if (this.started) {
+        while (this.affiliationSelectItems == null) {
           Thread.sleep(1000);
         }
       } else {
-        started = true;
+        this.started = true;
 
-        List<SelectItem> list = new ArrayList<SelectItem>();
-        list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        final List<SelectItem> list = new ArrayList<SelectItem>();
+        list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
-        List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
-        addChildAffiliationsToMenu(topLevelAffs, list, 0);
+        final List<AffiliationVOPresentation> topLevelAffs = this.getAffiliations();
+        this.addChildAffiliationsToMenu(topLevelAffs, list, 0);
 
-        affiliationSelectItems = list;
+        this.affiliationSelectItems = list;
 
         ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean"))
-            .setOrgUnitSelectItems(affiliationSelectItems);
+            .setOrgUnitSelectItems(this.affiliationSelectItems);
       }
     }
 
-    return affiliationSelectItems;
+    return this.affiliationSelectItems;
   }
 
   /**
@@ -166,12 +166,12 @@ public class AffiliationTree extends FacesBean {
     }
     // 1 right angle
     prefix += '\u2514';
-    for (AffiliationVOPresentation aff : affs) {
+    for (final AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
           + aff.getName()));
-      affiliationMap.put(aff.getReference().getObjectId(), aff);
+      this.affiliationMap.put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {
-        addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
+        this.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
       }
     }
   }
@@ -187,6 +187,6 @@ public class AffiliationTree extends FacesBean {
    * @return
    */
   public Map<String, AffiliationVOPresentation> getAffiliationMap() {
-    return affiliationMap;
+    return this.affiliationMap;
   }
 }

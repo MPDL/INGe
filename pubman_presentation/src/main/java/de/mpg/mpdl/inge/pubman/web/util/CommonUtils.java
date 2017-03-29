@@ -97,7 +97,7 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Set<?> set) {
-    return convertToOptions(set, true);
+    return CommonUtils.convertToOptions(set, true);
   }
 
   /**
@@ -109,18 +109,18 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Set<?> set, boolean includeEmptyOption) {
-    List<SelectItem> options = new ArrayList<SelectItem>();
+    final List<SelectItem> options = new ArrayList<SelectItem>();
 
     if (includeEmptyOption) {
-      options.add(new SelectItem("", NO_ITEM_SET));
+      options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
     }
 
-    Iterator<?> iter = set.iterator();
+    final Iterator<?> iter = set.iterator();
     while (iter.hasNext()) {
       options.add(new SelectItem(iter.next()));
     }
 
-    return (SelectItem[]) options.toArray(new SelectItem[options.size()]);
+    return options.toArray(new SelectItem[options.size()]);
   }
 
   /**
@@ -131,7 +131,7 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Object[] objects) {
-    return convertToOptions(objects, true);
+    return CommonUtils.convertToOptions(objects, true);
   }
 
   /**
@@ -142,21 +142,22 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Object[] objects, boolean includeEmptyOption) {
-    List<SelectItem> options = new ArrayList<SelectItem>();
+    final List<SelectItem> options = new ArrayList<SelectItem>();
 
     if (includeEmptyOption) {
-      options.add(new SelectItem("", NO_ITEM_SET));
+      options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
     }
 
     for (int i = 0; i < objects.length; i++) {
       options.add(new SelectItem(objects[i]));
     }
 
-    return (SelectItem[]) options.toArray(new SelectItem[options.size()]);
+    return options.toArray(new SelectItem[options.size()]);
   }
 
   public static SelectItem[] getLanguageOptions() {
-    ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
+    final ApplicationBean applicationBean =
+        ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     String locale = Locale.getDefault().getLanguage();
 
@@ -168,7 +169,7 @@ public class CommonUtils {
         && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
       return applicationBean.getLanguageSelectItems().get(locale);
     } else {
-      SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
+      final SelectItem[] languageSelectItems = CommonUtils.retrieveLanguageOptions(locale);
       applicationBean.getLanguageSelectItems().put(locale, languageSelectItems);
       return languageSelectItems;
     }
@@ -180,33 +181,33 @@ public class CommonUtils {
    * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
    */
   private static SelectItem[] retrieveLanguageOptions(String locale) {
-    Map<String, String> result = new LinkedHashMap<String, String>();
+    final Map<String, String> result = new LinkedHashMap<String, String>();
 
     try {
-      HttpClient httpClient = new HttpClient();
-      GetMethod getMethod =
+      final HttpClient httpClient = new HttpClient();
+      final GetMethod getMethod =
           new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
               + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (getMethod.getStatusCode() == 200) {
         String line;
-        BufferedReader reader =
+        final BufferedReader reader =
             new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), "UTF-8"));
         while ((line = reader.readLine()) != null) {
-          String[] pieces = line.split("\\|");
+          final String[] pieces = line.split("\\|");
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        logger.error("Error while retrieving languages from CoNE. Status code "
+        CommonUtils.logger.error("Error while retrieving languages from CoNE. Status code "
             + getMethod.getStatusCode());
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       return new SelectItem[0];
     }
 
-    SelectItem[] options = new SelectItem[result.size() + 5];
-    options[0] = new SelectItem("", NO_ITEM_SET);
+    final SelectItem[] options = new SelectItem[result.size() + 5];
+    options[0] = new SelectItem("", CommonUtils.NO_ITEM_SET);
 
     if (locale.equals("de")) {
       options[1] = new SelectItem("eng", "eng - Englisch");
@@ -225,7 +226,7 @@ public class CommonUtils {
       options[2] = new SelectItem("deu", "deu - ドイツ語");
       options[3] = new SelectItem("jpn", "jpn - 日本語");
     } else {
-      logger.error("Language not supported: " + locale);
+      CommonUtils.logger.error("Language not supported: " + locale);
       // Using english as default
       options[1] = new SelectItem("eng", "eng - English");
       options[2] = new SelectItem("deu", "deu - German");
@@ -233,12 +234,12 @@ public class CommonUtils {
     }
 
     if (result.size() > 0) {
-      options[4] = new SelectItem("", NO_ITEM_SET);
+      options[4] = new SelectItem("", CommonUtils.NO_ITEM_SET);
     }
 
     int i = 0;
     for (String key : result.keySet()) {
-      String value = result.get(key);
+      final String value = result.get(key);
       if (!key.equals(value.split(" - ")[0])) {
         key = value.split(" - ")[0].split(" / ")[1];
       }
@@ -260,17 +261,17 @@ public class CommonUtils {
         code = code.trim().split(" ")[0];
       }
 
-      HttpClient client = new HttpClient();
-      GetMethod getMethod =
+      final HttpClient client = new HttpClient();
+      final GetMethod getMethod =
           new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
               + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang="
               + locale);
       client.executeMethod(getMethod);
-      String response = getMethod.getResponseBodyAsString();
+      final String response = getMethod.getResponseBodyAsString();
 
-      Pattern pattern =
+      final Pattern pattern =
           Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
-      Matcher matcher = pattern.matcher(response);
+      final Matcher matcher = pattern.matcher(response);
 
       if (matcher.find()) {
         return matcher.group(1);
@@ -280,7 +281,7 @@ public class CommonUtils {
         return null;
       }
 
-      return getConeLanguageName(code, "en");
+      return CommonUtils.getConeLanguageName(code, "en");
     }
 
     return null;
@@ -309,7 +310,7 @@ public class CommonUtils {
    * @return a formated String
    */
   public static String format(Date date) {
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
 
     return simpleDateFormat.format(date);
   }
@@ -321,7 +322,7 @@ public class CommonUtils {
    * @return a formated String
    */
   public static String formatTimestamp(Date date) {
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.TIMESTAMP_FORMAT);
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.TIMESTAMP_FORMAT);
 
     return simpleDateFormat.format(date);
   }
@@ -339,8 +340,9 @@ public class CommonUtils {
     }
 
     // The escaping has to start with the ampersand (&amp;, '&') !
-    for (int i = 0; i < PROBLEMATIC_CHARACTERS.length; i++) {
-      cdata = cdata.replace(PROBLEMATIC_CHARACTERS[i], ESCAPED_CHARACTERS[i]);
+    for (int i = 0; i < CommonUtils.PROBLEMATIC_CHARACTERS.length; i++) {
+      cdata =
+          cdata.replace(CommonUtils.PROBLEMATIC_CHARACTERS[i], CommonUtils.ESCAPED_CHARACTERS[i]);
     }
 
     return cdata;
@@ -367,7 +369,7 @@ public class CommonUtils {
    * @return the list of PubItemVOs
    */
   public static ArrayList<PubItemVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
-    ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    final ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
 
     for (int i = 0; i < list.size(); i++) {
       pubItemList.add(new PubItemVO(list.get(i)));
@@ -384,7 +386,7 @@ public class CommonUtils {
    */
   public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(
       List<? extends PubItemVO> list) {
-    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    final List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       pubItemList.add(new PubItemVOPresentation(list.get(i)));
@@ -401,7 +403,7 @@ public class CommonUtils {
    */
   public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(
       List<? extends FileVO> list) {
-    List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
+    final List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       pubFileList.add(new PubFileVOPresentation(i, list.get(i)));
@@ -418,7 +420,7 @@ public class CommonUtils {
    */
   public static List<RelationVOPresentation> convertToRelationVOPresentationList(
       List<RelationVO> list) {
-    List<RelationVOPresentation> relationList = new ArrayList<RelationVOPresentation>();
+    final List<RelationVOPresentation> relationList = new ArrayList<RelationVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       relationList.add(new RelationVOPresentation(list.get(i)));
@@ -435,7 +437,7 @@ public class CommonUtils {
    */
   public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(
       List<ContextVO> list) {
-    List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
+    final List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       contextList.add(new PubContextVOPresentation(list.get(i)));
@@ -452,12 +454,13 @@ public class CommonUtils {
    */
   public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(
       List<AffiliationVO> list) {
-    List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
+    final List<AffiliationVOPresentation> affiliationList =
+        new ArrayList<AffiliationVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       affiliationList.add(new AffiliationVOPresentation(list.get(i)));
     }
-    AffiliationVOPresentation[] affiliationArray =
+    final AffiliationVOPresentation[] affiliationArray =
         affiliationList.toArray(new AffiliationVOPresentation[] {});
     Arrays.sort(affiliationArray);
 
@@ -465,8 +468,8 @@ public class CommonUtils {
   }
 
   public static String currentDate() {
-    Calendar cal = Calendar.getInstance();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    final Calendar cal = Calendar.getInstance();
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     return sdf.format(cal.getTime());
   }
@@ -482,8 +485,8 @@ public class CommonUtils {
         new URL(id.getId());
         valid = true;
       }
-    } catch (MalformedURLException e) {
-      logger.warn("URI: " + id.getId() + "is no valid URL");
+    } catch (final MalformedURLException e) {
+      CommonUtils.logger.warn("URI: " + id.getId() + "is no valid URL");
       return false;
     }
 
@@ -492,10 +495,10 @@ public class CommonUtils {
 
   public static Map<String, String> getDecodedUrlParameterMap(String query)
       throws UnsupportedEncodingException {
-    logger.info("query: " + query);
-    String[] parameters = query.split("&");
-    Map<String, String> parameterMap = new HashMap<String, String>();
-    for (String param : parameters) {
+    CommonUtils.logger.info("query: " + query);
+    final String[] parameters = query.split("&");
+    final Map<String, String> parameterMap = new HashMap<String, String>();
+    for (final String param : parameters) {
       String[] keyValueParts = param.split("=");
       if (keyValueParts.length == 1) {
         keyValueParts = new String[] {keyValueParts[0], ""};
@@ -515,13 +518,13 @@ public class CommonUtils {
   public static String fixURLEncoding(String input) {
     if (input != null) {
       try {
-        String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
+        final String utf8 = new String(input.getBytes("ISO-8859-1"), "UTF-8");
         if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
           return input;
         } else {
           return utf8;
         }
-      } catch (UnsupportedEncodingException e) {
+      } catch (final UnsupportedEncodingException e) {
         throw new RuntimeException(e);
       }
     }
@@ -541,6 +544,6 @@ public class CommonUtils {
   }
 
   public static String getGenericItemLink(String objectId) throws Exception {
-    return getGenericItemLink(objectId, 0);
+    return CommonUtils.getGenericItemLink(objectId, 0);
   }
 }

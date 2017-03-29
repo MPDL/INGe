@@ -62,7 +62,7 @@ public class ItemVersionListSessionBean extends FacesBean {
   public ItemVersionListSessionBean() {}
 
   public List<VersionHistoryVOPresentation> getVersionList() {
-    return versionList;
+    return this.versionList;
   }
 
   public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
@@ -72,23 +72,23 @@ public class ItemVersionListSessionBean extends FacesBean {
   public void initVersionLists(List<VersionHistoryEntryVO> vList) {
     this.versionList = new ArrayList<VersionHistoryVOPresentation>();
 
-    for (VersionHistoryEntryVO vEntry : vList) {
+    for (final VersionHistoryEntryVO vEntry : vList) {
       this.versionList.add(new VersionHistoryVOPresentation(vEntry));
     }
 
     this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
     this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 
-    for (VersionHistoryVOPresentation vEntry : versionList) {
-      List<EventLogEntryVO> eventList = vEntry.getEvents();
-      for (EventLogEntryVO eEntry : eventList) {
+    for (final VersionHistoryVOPresentation vEntry : this.versionList) {
+      final List<EventLogEntryVO> eventList = vEntry.getEvents();
+      for (final EventLogEntryVO eEntry : eventList) {
         // if state=released add to release list
         if (eEntry.getType() == EventType.RELEASE) {
-          releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
+          this.releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
         }
 
         // add all eventlog-entries to eventloglist
-        eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
+        this.eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
       }
     }
   }
@@ -100,7 +100,7 @@ public class ItemVersionListSessionBean extends FacesBean {
   }
 
   public List<EventLogEntryVOPresentation> getEventLogList() {
-    return eventLogList;
+    return this.eventLogList;
   }
 
   public void setEventLogList(List<EventLogEntryVOPresentation> eventLogList) {
@@ -112,7 +112,7 @@ public class ItemVersionListSessionBean extends FacesBean {
   }
 
   public List<EventLogEntryVOPresentation> getReleaseList() {
-    return releaseList;
+    return this.releaseList;
   }
 
 }

@@ -58,16 +58,16 @@ public class ImportData extends FacesBean {
    * Constructor extracting the import's id from the URL and setting user settings.
    */
   public ImportData() {
-    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
       this.importId = Integer.parseInt(idString);
     }
 
-    if (getLoginHelper().getAccountUser() != null
-        && getLoginHelper().getAccountUser().getReference() != null) {
-      this.userid = getLoginHelper().getAccountUser().getReference().getObjectId();
-      this.userHandle = getLoginHelper().getAccountUser().getHandle();
+    if (this.getLoginHelper().getAccountUser() != null
+        && this.getLoginHelper().getAccountUser().getReference() != null) {
+      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
+      this.userHandle = this.getLoginHelper().getAccountUser().getHandle();
     }
   }
 
@@ -79,15 +79,15 @@ public class ImportData extends FacesBean {
   public ImportLog getImport() {
 
     if (this.log == null && this.userid != null) {
-      Connection conn = ImportLog.getConnection();
+      final Connection conn = ImportLog.getConnection();
       this.log = ImportLog.getImportLog(this.importId, false, false, conn);
       this.log.setUser(this.userid);
       this.log.setUserHandle(this.userHandle);
 
       try {
         conn.close();
-      } catch (SQLException e) {
-        logger.error("Error closing db connection", e);
+      } catch (final SQLException e) {
+        ImportData.logger.error("Error closing db connection", e);
       }
     }
 
@@ -95,19 +95,19 @@ public class ImportData extends FacesBean {
   }
 
   public void getRemove() {
-    getImport().remove();
+    this.getImport().remove();
   }
 
   public void getDelete() {
-    getImport().deleteAll();
+    this.getImport().deleteAll();
   }
 
   public void getSubmit() {
-    getImport().submitAll();
+    this.getImport().submitAll();
   }
 
   public void getRelease() {
-    getImport().submitAndReleaseAll();
+    this.getImport().submitAndReleaseAll();
   }
 
   public int getImportId() {
@@ -119,7 +119,7 @@ public class ImportData extends FacesBean {
   }
 
   public boolean isSimpleWorkflow() {
-    System.out.println("WF: " + getImport().getSimpleWorkflow());
-    return getImport().getSimpleWorkflow();
+    System.out.println("WF: " + this.getImport().getSimpleWorkflow());
+    return this.getImport().getSimpleWorkflow();
   }
 }

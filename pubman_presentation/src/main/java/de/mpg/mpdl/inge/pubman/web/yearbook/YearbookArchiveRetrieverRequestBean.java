@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestB
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
@@ -53,7 +54,7 @@ public class YearbookArchiveRetrieverRequestBean extends
 
   @Override
   public int getTotalNumberOfRecords() {
-    return numberOfRecords;
+    return this.numberOfRecords;
   }
 
   /**
@@ -62,15 +63,16 @@ public class YearbookArchiveRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    String orgUnit =
-        FacesTools.getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+    final String orgUnit =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit);
     if (orgUnit == null) {
 
-      setSelectedOrgUnit(getYearbookCandidatesSessionBean().getSelectedOrgUnit());
+      this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
 
 
     } else {
-      setSelectedOrgUnit(orgUnit);
+      this.setSelectedOrgUnit(orgUnit);
     }
   }
 
@@ -90,8 +92,8 @@ public class YearbookArchiveRetrieverRequestBean extends
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
     this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit,
-        selectedOrgUnit);
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit, selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
@@ -110,15 +112,15 @@ public class YearbookArchiveRetrieverRequestBean extends
    */
   public void changeOrgUnit() {
     try {
-      getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-      getBasePaginatorListSessionBean().redirect();
-    } catch (Exception e) {
-      error("Could not redirect");
+      this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+      this.getBasePaginatorListSessionBean().redirect();
+    } catch (final Exception e) {
+      FacesBean.error("Could not redirect");
     }
   }
 
   public String getSelectedSortOrder() {
-    return selectedSortOrder;
+    return this.selectedSortOrder;
   }
 
   public void setSelectedSortOrder(String selectedSortOrder) {
@@ -131,63 +133,64 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      YearbookArchiveBean yearbookArchiveBean =
+      final YearbookArchiveBean yearbookArchiveBean =
           (YearbookArchiveBean) FacesTools.findBean("YearbookArchiveBean.class");
 
       // define the filter criteria
-      FilterTaskParamVO filter = new FilterTaskParamVO();
+      final FilterTaskParamVO filter = new FilterTaskParamVO();
 
       // add all contexts for which the user has moderator rights (except the "all" item of the
       // menu)
-      List<ItemRO> itemRelations = new ArrayList<ItemRO>();
-      for (ItemRelationVO itemRelation : yearbookArchiveBean.getSelectedYearbook().getRelations()) {
+      final List<ItemRO> itemRelations = new ArrayList<ItemRO>();
+      for (final ItemRelationVO itemRelation : yearbookArchiveBean.getSelectedYearbook()
+          .getRelations()) {
         itemRelations.add(itemRelation.getTargetItemRef());
       }
       if (!itemRelations.isEmpty()) {
         filter.getFilterList().add(filter.new ItemRefFilter(itemRelations));
       }
       // add views per page limit
-      Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+      final Filter f8 = filter.new LimitFilter(String.valueOf(limit));
       filter.getFilterList().add(f8);
-      Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
+      final Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
       filter.getFilterList().add(f9);
       if (sc != null) {
-        Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+        final Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
         filter.getFilterList().add(sortFilter);
       }
 
-      String xmlItemList =
-          ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
-              filter.toMap());
+      final String xmlItemList =
+          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
+              .retrieveItems(filter.toMap());
 
-      SearchRetrieveResponseVO result =
+      final SearchRetrieveResponseVO result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
 
-      List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-      for (SearchRetrieveRecordVO record : result.getRecords()) {
+      final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+      for (final SearchRetrieveRecordVO record : result.getRecords()) {
         pubItemList.add((PubItemVO) record.getData());
       }
 
-      numberOfRecords = result.getNumberOfRecords();
+      this.numberOfRecords = result.getNumberOfRecords();
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
-    } catch (Exception e) {
-      logger.error("Error in retrieving items", e);
-      error("Error in retrieving items");
-      numberOfRecords = 0;
+    } catch (final Exception e) {
+      YearbookArchiveRetrieverRequestBean.logger.error("Error in retrieving items", e);
+      FacesBean.error("Error in retrieving items");
+      this.numberOfRecords = 0;
     }
 
     return returnList;
   }
 
   public void exportSelectedDownload() {
-    PubItemListSessionBean pilsb =
+    final PubItemListSessionBean pilsb =
         (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
 
     try {
       pilsb.downloadExportFile(pilsb.getSelectedItems());
-    } catch (Exception e) {
-      error("Error while exporting");
-      logger.error("Error exporting yearbook", e);
+    } catch (final Exception e) {
+      FacesBean.error("Error while exporting");
+      YearbookArchiveRetrieverRequestBean.logger.error("Error exporting yearbook", e);
     }
   }
 }

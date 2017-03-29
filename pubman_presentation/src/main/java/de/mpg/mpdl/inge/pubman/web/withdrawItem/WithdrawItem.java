@@ -67,8 +67,8 @@ public class WithdrawItem extends FacesBean {
   }
 
   public void init() {
-    StringBuffer creators = new StringBuffer();
-    for (CreatorVO creator : getPubItem().getMetadata().getCreators()) {
+    final StringBuffer creators = new StringBuffer();
+    for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (creators.length() > 0) {
         creators.append("; ");
       }
@@ -80,7 +80,7 @@ public class WithdrawItem extends FacesBean {
           creators.append(creator.getPerson().getGivenName());
         }
       } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION) {
-        String name =
+        final String name =
             creator.getOrganization().getName() != null ? creator.getOrganization().getName() : "";
         creators.append(name);
       }
@@ -108,18 +108,19 @@ public class WithdrawItem extends FacesBean {
    */
   public String withdraw() {
     String retVal;
-    String navigateTo = getWithDrawItemSessionBean().getNavigationStringToGoBack();
+    String navigateTo = this.getWithDrawItemSessionBean().getNavigationStringToGoBack();
     if (navigateTo == null) {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
 
-    if (withdrawalComment == null || "".equals(withdrawalComment)) {
-      error(getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
+    if (this.withdrawalComment == null || "".equals(this.withdrawalComment)) {
+      FacesBean.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
 
     retVal =
-        this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, withdrawalComment);
+        this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
+            this.withdrawalComment);
 
     // redirect to the view item page afterwards (if no error occured)
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
@@ -129,13 +130,13 @@ public class WithdrawItem extends FacesBean {
                 + "/faces/ViewItemFullPage.jsp?itemId="
                 + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                     .getObjectId());
-      } catch (IOException e) {
-        logger.error("Could not redirect to View Item Page", e);
+      } catch (final IOException e) {
+        WithdrawItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
 
     if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal)) {
-      info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
     }
 
     this.getPubItemListSessionBean().update();
@@ -153,8 +154,8 @@ public class WithdrawItem extends FacesBean {
       FacesTools.getExternalContext().redirect(
           FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-    } catch (IOException e) {
-      logger.error("Could not redirect to View Item Page", e);
+    } catch (final IOException e) {
+      WithdrawItem.logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;

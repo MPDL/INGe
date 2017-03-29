@@ -40,6 +40,6 @@ public class ViewItemCreators extends FacesBean {
   }
 
   public String getCreatorRole() {
-    return getLabel("ENUM_CREATORROLE_" + creatorRole);
+    return this.getLabel("ENUM_CREATORROLE_" + this.creatorRole);
   }
 }

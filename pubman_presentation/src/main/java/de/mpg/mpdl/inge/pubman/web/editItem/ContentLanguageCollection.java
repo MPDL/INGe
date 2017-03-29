@@ -50,17 +50,17 @@ public class ContentLanguageCollection {
   }
 
   public ContentLanguageCollection(List<String> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<String> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<String> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    contentLanguageManager = new ContentLanguageManager(parentVO);
+    this.contentLanguageManager = new ContentLanguageManager(parentVO);
   }
 
   public SelectItem[] getLanguageOptions() {
@@ -76,9 +76,10 @@ public class ContentLanguageCollection {
     List<String> parentVO;
 
     public ContentLanguageManager(List<String> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public String createNewObject() {
       return new String();
     }
@@ -93,11 +94,11 @@ public class ContentLanguageCollection {
 
     public void setParentVO(List<String> parentVO) {
       this.parentVO = parentVO;
-      setObjectList(parentVO);
+      this.setObjectList(parentVO);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 

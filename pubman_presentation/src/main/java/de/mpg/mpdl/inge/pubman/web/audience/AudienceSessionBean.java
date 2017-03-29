@@ -67,7 +67,7 @@ public class AudienceSessionBean extends FacesBean {
   }
 
   public List<PubFileVOPresentation> getFileListOld() {
-    return fileListOld;
+    return this.fileListOld;
   }
 
   public void setFileListOld(List<PubFileVOPresentation> fileListOld) {
@@ -75,7 +75,7 @@ public class AudienceSessionBean extends FacesBean {
   }
 
   public List<PubFileVOPresentation> getFileListNew() {
-    return fileListNew;
+    return this.fileListNew;
   }
 
   public void setFileListNew(List<PubFileVOPresentation> fileListNew) {
@@ -83,7 +83,7 @@ public class AudienceSessionBean extends FacesBean {
   }
 
   public List<UserGroupVO> getUgl() {
-    return ugl;
+    return this.ugl;
   }
 
   public void setUgl(List<UserGroupVO> ugl) {
@@ -91,7 +91,7 @@ public class AudienceSessionBean extends FacesBean {
   }
 
   public List<GrantVOPresentation> getGrantsForAllFiles() {
-    return grantsForAllFiles;
+    return this.grantsForAllFiles;
   }
 
   public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {

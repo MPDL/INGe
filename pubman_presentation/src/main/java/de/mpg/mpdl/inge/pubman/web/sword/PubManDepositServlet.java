@@ -96,21 +96,21 @@ public class PubManDepositServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    PubManSwordServer pubManSwordServer = new PubManSwordServer();
-    SwordUtil util = new SwordUtil();
+    final PubManSwordServer pubManSwordServer = new PubManSwordServer();
+    final SwordUtil util = new SwordUtil();
     Deposit deposit = new Deposit();
     AccountUserVO user = null;
     this.errorDoc = new PubManSwordErrorDocument();
     DepositResponse dr = null;
 
     // Authentification ---------------------------------------------
-    String usernamePassword = this.getUsernamePassword(request);
+    final String usernamePassword = this.getUsernamePassword(request);
     if (usernamePassword == null) {
       this.errorDoc.setSummary("No user credentials provided.");
       this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
       this.validDeposit = false;
     } else {
-      int p = usernamePassword.indexOf(":");
+      final int p = usernamePassword.indexOf(":");
       if (p != -1) {
         deposit.setUsername(usernamePassword.substring(0, p));
         deposit.setPassword(usernamePassword.substring(p + 1));
@@ -159,17 +159,17 @@ public class PubManDepositServlet extends HttpServlet {
         // Get the DepositResponse
         dr = pubManSwordServer.doDeposit(deposit, collection);
       }
-    } catch (SWORDContentTypeException e) {
+    } catch (final SWORDContentTypeException e) {
       this.errorDoc.setSummary("File format not supported.");
       this.errorDoc.setErrorDesc(swordError.ErrorContent);
       this.validDeposit = false;
-    } catch (ContentStreamNotFoundException e) {
+    } catch (final ContentStreamNotFoundException e) {
       this.errorDoc.setSummary("No metadata File was found.");
       this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
       this.validDeposit = false;
-    } catch (ItemInvalidException e) {
+    } catch (final ItemInvalidException e) {
       ValidationReportItemVO itemReport = null;
-      ValidationReportVO report = e.getReport();
+      final ValidationReportVO report = e.getReport();
       String error = "";
       for (int i = 0; i < report.getItems().size(); i++) {
         itemReport = report.getItems().get(i);
@@ -178,18 +178,18 @@ public class PubManDepositServlet extends HttpServlet {
       this.errorDoc.setSummary(error);
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);
       this.validDeposit = false;
-    } catch (ValidationException e) {
-      logger.error("Error in Validation", e);
+    } catch (final ValidationException e) {
+      PubManDepositServlet.logger.error("Error in Validation", e);
       this.errorDoc.setSummary(e.getMessage());
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);
       this.validDeposit = false;
-    } catch (PubItemStatusInvalidException e) {
-      logger.error("Error in sword processing", e);
+    } catch (final PubItemStatusInvalidException e) {
+      PubManDepositServlet.logger.error("Error in sword processing", e);
       this.errorDoc.setSummary("Provided item has wrong status.");
       this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
       this.validDeposit = false;
-    } catch (Exception ioe) {
-      logger.error("Error in sword processing", ioe);
+    } catch (final Exception ioe) {
+      PubManDepositServlet.logger.error("Error in sword processing", ioe);
       this.errorDoc.setSummary("An internal server error occurred.");
       this.errorDoc.setErrorDesc(swordError.InternalError);
       this.validDeposit = false;
@@ -201,22 +201,22 @@ public class PubManDepositServlet extends HttpServlet {
         response.setContentType("application/xml");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Location", dr.getEntry().getContent().getSource());
-        PrintWriter out = response.getWriter();
+        final PrintWriter out = response.getWriter();
         out.write(dr.marshall());
         out.flush();
       }
       // Write error document
       else {
-        String errorXml = this.errorDoc.createErrorDoc();
+        final String errorXml = this.errorDoc.createErrorDoc();
         response.setStatus(this.errorDoc.getStatus());
         response.setContentType("application/xml");
         response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
+        final PrintWriter out = response.getWriter();
         out.write(errorXml);
         out.flush();
       }
-    } catch (Exception e) {
-      logger.error("Error document could not be created.", e);
+    } catch (final Exception e) {
+      PubManDepositServlet.logger.error("Error document could not be created.", e);
       throw new RuntimeException();
     }
 
@@ -232,20 +232,20 @@ public class PubManDepositServlet extends HttpServlet {
    */
   private String getUsernamePassword(HttpServletRequest request) {
     try {
-      String authHeader = request.getHeader("Authorization");
+      final String authHeader = request.getHeader("Authorization");
       if (authHeader != null) {
-        StringTokenizer st = new StringTokenizer(authHeader);
+        final StringTokenizer st = new StringTokenizer(authHeader);
         if (st.hasMoreTokens()) {
-          String basic = st.nextToken();
+          final String basic = st.nextToken();
           if (basic.equalsIgnoreCase("Basic")) {
-            String credentials = st.nextToken();
-            String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
+            final String credentials = st.nextToken();
+            final String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
             return userPass;
           }
         }
       }
-    } catch (Exception e) {
-      logger.debug(e.toString());
+    } catch (final Exception e) {
+      PubManDepositServlet.logger.debug(e.toString());
     }
 
     return null;
@@ -260,7 +260,7 @@ public class PubManDepositServlet extends HttpServlet {
   private Deposit readHttpHeader(Deposit deposit, HttpServletRequest request)
       throws SWORDContentTypeException {
     // Set the X-No-Op header
-    String noop = request.getHeader("X-No-Op");
+    final String noop = request.getHeader("X-No-Op");
     if ((noop != null) && (noop.equals("true"))) {
       deposit.setNoOp(true);
     } else {
@@ -268,7 +268,7 @@ public class PubManDepositServlet extends HttpServlet {
     }
 
     // Set the X-Verbose header
-    String verbose = request.getHeader("X-Verbose");
+    final String verbose = request.getHeader("X-Verbose");
     if ((verbose != null) && (verbose.equals("true"))) {
       deposit.setVerbose(true);
     } else {
@@ -276,7 +276,7 @@ public class PubManDepositServlet extends HttpServlet {
     }
 
     // Check X-On-Behalf-Of header
-    String mediation = request.getHeader("X-On-Behalf-Of");
+    final String mediation = request.getHeader("X-On-Behalf-Of");
     if ((mediation != null) && (!mediation.equals(""))) {
       this.errorDoc.setSummary("Mediation not supported.");
       this.errorDoc.setErrorDesc(swordError.MediationNotAllowed);
@@ -284,7 +284,7 @@ public class PubManDepositServlet extends HttpServlet {
     }
 
     // Check X-Packaging header
-    String packaging = request.getHeader("X-Packaging");
+    final String packaging = request.getHeader("X-Packaging");
     if ((packaging != null) && (!packaging.equals(""))) {
       deposit.setFormatNamespace(packaging);
     } else {
@@ -292,13 +292,13 @@ public class PubManDepositServlet extends HttpServlet {
     }
 
     // Check Content-deposition header
-    String filename = request.getHeader("Content-Disposition:filename");
+    final String filename = request.getHeader("Content-Disposition:filename");
     if ((filename != null) && (filename.equals(""))) {
       deposit.setContentDisposition(filename);
     }
 
     // Check ContentType header
-    String contentType = request.getHeader("Content-Type");
+    final String contentType = request.getHeader("Content-Type");
     if ((contentType != null) && (contentType.equals(""))) {
       deposit.setContentType(contentType);
     }

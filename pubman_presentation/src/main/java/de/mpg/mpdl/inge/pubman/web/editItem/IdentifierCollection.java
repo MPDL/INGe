@@ -55,17 +55,17 @@ public class IdentifierCollection extends FacesBean {
   }
 
   public IdentifierCollection(List<IdentifierVO> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<IdentifierVO> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<IdentifierVO> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    identifierManager = new IdentifierManager(parentVO);
+    this.identifierManager = new IdentifierManager(parentVO);
   }
 
   /**
@@ -74,20 +74,20 @@ public class IdentifierCollection extends FacesBean {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    IdType[] typesToDisplay =
+    final IdType[] typesToDisplay =
         new IdType[] {IdType.CONE, IdType.URI, IdType.ISBN, IdType.ISSN, IdType.DOI, IdType.URN,
             IdType.PII, IdType.EDOC, IdType.ESCIDOC, IdType.ISI, IdType.PND, IdType.ZDB,
             IdType.PMID, IdType.ARXIV, IdType.PMC, IdType.BMC, IdType.BIBTEX_CITEKEY,
             IdType.REPORT_NR, IdType.SSRN, IdType.PATENT_NR, IdType.PATENT_APPLICATION_NR,
             IdType.PATENT_PUBLICATION_NR, IdType.OTHER};
 
-    ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+    final ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
 
     // constants for comboBoxes
-    selectItemList.add(new SelectItem("", getLabel("EditItem_NO_ITEM_SET")));
+    selectItemList.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
 
-    for (IdentifierVO.IdType type : typesToDisplay) {
-      selectItemList.add(new SelectItem(type.toString(), getLabel("ENUM_IDENTIFIERTYPE_"
+    for (final IdentifierVO.IdType type : typesToDisplay) {
+      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_"
           + type.toString())));
     }
 
@@ -111,11 +111,12 @@ public class IdentifierCollection extends FacesBean {
     List<IdentifierVO> parentVO;
 
     public IdentifierManager(List<IdentifierVO> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public IdentifierVO createNewObject() {
-      IdentifierVO newIdentifier = new IdentifierVO();
+      final IdentifierVO newIdentifier = new IdentifierVO();
       return newIdentifier;
     }
 
@@ -125,11 +126,11 @@ public class IdentifierCollection extends FacesBean {
 
     public void setParentVO(List<IdentifierVO> parentVO) {
       this.parentVO = parentVO;
-      setObjectList(parentVO);
+      this.setObjectList(parentVO);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 

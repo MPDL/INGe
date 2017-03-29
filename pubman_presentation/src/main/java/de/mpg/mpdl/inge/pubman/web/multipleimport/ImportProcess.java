@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +41,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.axis.types.NonNegativeInteger;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -146,7 +146,7 @@ public class ImportProcess extends Thread {
     try {
       this.publicationContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(
           "Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
     }
@@ -168,7 +168,7 @@ public class ImportProcess extends Thread {
       throw new RuntimeException("Invalid value " + duplicateStrategy + " for DuplicateStrategy");
     }
 
-    initialize(name, fileName, file, format, escidocContext, user, rollback, strategy,
+    this.initialize(name, fileName, file, format, escidocContext, user, rollback, strategy,
         configuration);
 
     this.log.setPercentage(7);
@@ -177,7 +177,7 @@ public class ImportProcess extends Thread {
       return;
     }
 
-    if (!validate(file, format)) {
+    if (!this.validate(file, format)) {
       return;
     }
 
@@ -209,10 +209,10 @@ public class ImportProcess extends Thread {
       this.name = name;
       this.rollback = rollback;
       this.user = user;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
       this.log.addDetail(ErrorLevel.FATAL, e);
-      fail();
+      this.fail();
     }
 
     this.log.finishItem();
@@ -227,7 +227,7 @@ public class ImportProcess extends Thread {
 
     if (file == null) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable");
-      fail();
+      this.fail();
       return false;
     } else {
       this.log.addDetail(ErrorLevel.FINE, "import_process_inputstream_available");
@@ -235,25 +235,25 @@ public class ImportProcess extends Thread {
 
     if (format == null) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_unavailable");
-      fail();
+      this.fail();
       return false;
     } else {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    FORMAT[] allSourceFormats =
+    final FORMAT[] allSourceFormats =
         TransformerCache
             .getAllSourceFormatsFor(de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
 
     boolean found = false;
-    for (FORMAT sourceFormat : allSourceFormats) {
+    for (final FORMAT sourceFormat : allSourceFormats) {
       if (format.equals(sourceFormat)) {
         found = true;
-        if (setProcessor(format)) {
+        if (this.setProcessor(format)) {
           this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
         } else {
           this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
-          fail();
+          this.fail();
         }
         break;
       }
@@ -261,7 +261,7 @@ public class ImportProcess extends Thread {
 
     if (!found) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
-      fail();
+      this.fail();
       return false;
     }
 
@@ -276,37 +276,39 @@ public class ImportProcess extends Thread {
         return false;
       }
 
-      if (ENDNOTE_FORMAT.matches(format) || ENDNOTE_ICE_FORMAT.matches(format)) {
+      if (ImportProcess.ENDNOTE_FORMAT.matches(format)
+          || ImportProcess.ENDNOTE_ICE_FORMAT.matches(format)) {
         this.formatProcessor = new EndnoteProcessor();
-      } else if (RIS_FORMAT.matches(format)) {
+      } else if (ImportProcess.RIS_FORMAT.matches(format)) {
         this.formatProcessor = new RisProcessor();
-      } else if (BIBTEX_FORMAT.matches(format)) {
+      } else if (ImportProcess.BIBTEX_FORMAT.matches(format)) {
         this.formatProcessor = new BibtexProcessor();
-      } else if (ARXIV_FORMAT.matches(format)) {
+      } else if (ImportProcess.ARXIV_FORMAT.matches(format)) {
         this.formatProcessor = new ArxivProcessor();
-      } else if (WOS_FORMAT.matches(format)) {
+      } else if (ImportProcess.WOS_FORMAT.matches(format)) {
         this.formatProcessor = new WosProcessor();
-      } else if (ESCIDOC_FORMAT.matches(format)) {
+      } else if (ImportProcess.ESCIDOC_FORMAT.matches(format)) {
         this.formatProcessor = new EscidocProcessor();
-      } else if (EDOC_FORMAT.matches(format) || EDOC_FORMAT_AEI.matches(format)) {
+      } else if (ImportProcess.EDOC_FORMAT.matches(format)
+          || ImportProcess.EDOC_FORMAT_AEI.matches(format)) {
         this.formatProcessor = new EdocProcessor();
-      } else if (MAB_FORMAT.matches(format)) {
+      } else if (ImportProcess.MAB_FORMAT.matches(format)) {
         this.formatProcessor = new MabProcessor();
-      } else if (ZFN_FORMAT.matches(format)) {
+      } else if (ImportProcess.ZFN_FORMAT.matches(format)) {
         this.formatProcessor = new ZfNProcessor();
-      } else if (BMC_FORMAT.matches(format)) {
+      } else if (ImportProcess.BMC_FORMAT.matches(format)) {
         this.formatProcessor = new BmcProcessor();
-      } else if (MARCXML_FORMAT.matches(format)) {
+      } else if (ImportProcess.MARCXML_FORMAT.matches(format)) {
         this.formatProcessor = new MarcXmlProcessor();
-      } else if (MARC21_FORMAT.matches(format)) {
+      } else if (ImportProcess.MARC21_FORMAT.matches(format)) {
         this.formatProcessor = new Marc21Processor();
       } else {
         return false;
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
-      fail();
+      this.fail();
     }
 
     this.formatProcessor.setEncoding(format.getEncoding());
@@ -322,7 +324,7 @@ public class ImportProcess extends Thread {
 
     if (this.rollback) {
       this.log.setStatus(Status.ROLLBACK);
-      rollback();
+      this.rollback();
     }
 
     this.log.close();
@@ -333,60 +335,61 @@ public class ImportProcess extends Thread {
     this.log.finishItem();
     this.log.close();
 
-    DeleteProcess deleteProcess = new DeleteProcess(log);
+    final DeleteProcess deleteProcess = new DeleteProcess(this.log);
     deleteProcess.start();
   }
 
   /**
    * {@inheritDoc}
    */
+  @Override
   public void run() {
     int counter = 0;
     int itemCount = 1;
 
-    if (!failed) {
+    if (!this.failed) {
       try {
         this.log.startItem("import_process_start_import");
-        this.formatProcessor.setSourceFile(file);
+        this.formatProcessor.setSourceFile(this.file);
         if (this.formatProcessor.hasNext()) {
           itemCount = this.formatProcessor.getLength();
         }
         this.log.finishItem();
-        while (this.formatProcessor.hasNext() && !failed) {
+        while (this.formatProcessor.hasNext() && !this.failed) {
           try {
             if (this.log.getCurrentItem() == null) {
               this.log.startItem("import_process_import_item");
             }
-            String singleItem = this.formatProcessor.next();
-            if (failed) {
+            final String singleItem = this.formatProcessor.next();
+            if (this.failed) {
               return;
             }
             if (singleItem != null && !"".equals(singleItem.trim())) {
-              prepareItem(singleItem);
+              this.prepareItem(singleItem);
             }
             counter++;
             this.log.setPercentage(30 * counter / itemCount + 10);
-          } catch (Exception e) {
-            logger.error("Error during import", e);
+          } catch (final Exception e) {
+            ImportProcess.logger.error("Error during import", e);
             this.log.addDetail(ErrorLevel.ERROR, e);
             this.log.finishItem();
             if (this.rollback) {
-              fail();
+              this.fail();
               break;
             }
           }
-          heartBeat();
+          this.heartBeat();
         }
-      } catch (Exception e) {
-        logger.error("Error during import", e);
+      } catch (final Exception e) {
+        ImportProcess.logger.error("Error during import", e);
         this.log.addDetail(ErrorLevel.ERROR, e);
         this.log.finishItem();
         if (this.rollback) {
-          fail();
+          this.fail();
         }
       }
 
-      if (failed) {
+      if (this.failed) {
         return;
       }
 
@@ -398,8 +401,8 @@ public class ImportProcess extends Thread {
       counter = 0;
 
       for (int i = 0; i < this.log.getItems().size(); i++) {
-        ImportLogItem item = this.log.getItems().get(i);
-        if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !failed) {
+        final ImportLogItem item = this.log.getItems().get(i);
+        if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
           try {
             this.log.activateItem(item);
 
@@ -407,37 +410,37 @@ public class ImportProcess extends Thread {
             if (this.format.getName().equalsIgnoreCase("zfn_tei")) {
               try {
                 // Set file
-                FileVO file =
+                final FileVO file =
                     ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration,
                         this.user);
                 item.getItemVO().getFiles().add(file);
-              } catch (Exception e) {
+              } catch (final Exception e) {
                 this.log.addDetail(ErrorLevel.WARNING, "Could not fetch file for import");
               }
             }
 
             this.log.addDetail(ErrorLevel.FINE, "import_process_save_item");
 
-            PubItemVO savedPubItem = PubItemService.savePubItem(item.getItemVO(), user);
-            String objid = savedPubItem.getVersion().getObjectId();
+            final PubItemVO savedPubItem = PubItemService.savePubItem(item.getItemVO(), this.user);
+            final String objid = savedPubItem.getVersion().getObjectId();
             this.log.setItemId(objid);
             this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
             this.log.finishItem();
             counter++;
             this.log.setPercentage(55 * counter / itemCount + 40);
-          } catch (Exception e) {
-            logger.error("Error during import", e);
+          } catch (final Exception e) {
+            ImportProcess.logger.error("Error during import", e);
             this.log.addDetail(ErrorLevel.ERROR, e);
             this.log.finishItem();
             if (this.rollback) {
-              fail();
+              this.fail();
               break;
             }
           }
         }
       }
 
-      if (!failed) {
+      if (!this.failed) {
         this.log.startItem("import_process_finished");
         this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
         this.log.finishItem();
@@ -445,23 +448,23 @@ public class ImportProcess extends Thread {
         try {
           this.log.startItem("import_process_archive_log");
           this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-          String taskItemXml = createTaskItemXml();
-          ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-          String savedTaskItemXml = itemHandler.create(taskItemXml);
-          Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
-          Matcher matcher = pattern.matcher(savedTaskItemXml);
+          final String taskItemXml = this.createTaskItemXml();
+          final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
+          final String savedTaskItemXml = itemHandler.create(taskItemXml);
+          final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
+          final Matcher matcher = pattern.matcher(savedTaskItemXml);
 
           if (matcher.find()) {
-            String taskId = matcher.group(1);
-            logger.info("Imported task item: " + taskId);
+            final String taskId = matcher.group(1);
+            ImportProcess.logger.info("Imported task item: " + taskId);
           }
           this.log.setPercentage(100);
-        } catch (Exception e) {
-          logger.error("Error during import", e);
+        } catch (final Exception e) {
+          ImportProcess.logger.error("Error during import", e);
           this.log.finishItem();
           this.log.startItem(ErrorLevel.ERROR, "import_process_error");
           this.log.addDetail(ErrorLevel.ERROR, e);
-          fail();
+          this.fail();
         }
       }
     }
@@ -479,33 +482,35 @@ public class ImportProcess extends Thread {
    * Send a request to the framework every 30 minutes to make sure the user handle will not expire.
    */
   private void heartBeat() {
-    long now = new Date().getTime();
+    final long now = new Date().getTime();
     if ((now - this.lastBeat) > 1000 * 60 * 30) {
-      logger.info("Refreshing " + this.log.getUserHandle());
+      ImportProcess.logger.info("Refreshing " + this.log.getUserHandle());
       this.lastBeat = now;
       try {
         ServiceLocator.getContextHandler(this.log.getUserHandle()).retrieve(this.log.getContext());
-      } catch (Exception e) {
-        logger.warn("Heartbeat error", e);
+      } catch (final Exception e) {
+        ImportProcess.logger.warn("Heartbeat error", e);
       }
     }
   }
 
   private String createTaskItemXml() {
     try {
-      String fwUrl = PropertyReader.getFrameworkUrl();
-      HttpClient client = new HttpClient();
+      final String fwUrl = PropertyReader.getFrameworkUrl();
+      final HttpClient client = new HttpClient();
       ProxyHelper.setProxy(client, fwUrl);
 
-      StringBuilder sb =
+      final StringBuilder sb =
           new StringBuilder(ResourceUtil.getResourceAsString(
               "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
-      replace("$01", escape(this.escidocContext.getObjectId()), sb);
-      replace("$02", escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
-      replace("$03", escape("Import Task Item for import " + name + " "), sb);
+      ImportProcess.replace("$01", this.escape(this.escidocContext.getObjectId()), sb);
+      ImportProcess.replace("$02",
+          this.escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
+      ImportProcess.replace("$03", this.escape("Import Task Item for import " + this.name + " "),
+          sb);
 
       // Upload original data
-      PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+      final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
       method.setRequestHeader("Content-Type", this.format.toString());
       method.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
       InputStream is = new FileInputStream(this.formatProcessor.getSourceFile());
@@ -513,24 +518,25 @@ public class ImportProcess extends Thread {
       client.executeMethod(method);
       is.close();
       String response = method.getResponseBodyAsString();
-      URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
+      final URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
 
-      replace("$04", escape(this.name), sb);
-      replace("$05", escape(this.fileName), sb);
-      replace("$06", escape(originalDataUrl.toExternalForm()), sb);
-      replace("$07", escape(this.log.getStoredId() + ""), sb);
-      replace("$08", escape(this.format.toString()), sb);
-      replace("$09", escape(String.valueOf(this.formatProcessor.getLength())), sb);
+      ImportProcess.replace("$04", this.escape(this.name), sb);
+      ImportProcess.replace("$05", this.escape(this.fileName), sb);
+      ImportProcess.replace("$06", this.escape(originalDataUrl.toExternalForm()), sb);
+      ImportProcess.replace("$07", this.escape(this.log.getStoredId() + ""), sb);
+      ImportProcess.replace("$08", this.escape(this.format.toString()), sb);
+      ImportProcess.replace("$09", this.escape(String.valueOf(this.formatProcessor.getLength())),
+          sb);
 
       // Upload and create task item xml
-      File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
-      Writer fw =
+      final File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
+      final Writer fw =
           new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogXml), "UTF-8"));
       this.log.toXML(fw);
       fw.flush();
       fw.close();
 
-      PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
+      final PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
       method2.setRequestHeader("Content-Type", "text/xml");
       method2.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
       is = new FileInputStream(tempLogXml);
@@ -539,20 +545,20 @@ public class ImportProcess extends Thread {
       is.close();
 
       response = method2.getResponseBodyAsString();
-      URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
+      final URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
 
-      replace("$10", escape(this.name), sb);
-      replace("$11", "importthis.log.xml", sb);
-      replace("$12", escape(logXmlUrl.toExternalForm()), sb);
-      replace("$13", escape(this.log.getStoredId() + ""), sb);
-      replace("$14", escape(String.valueOf(tempLogXml.length())), sb);
+      ImportProcess.replace("$10", this.escape(this.name), sb);
+      ImportProcess.replace("$11", "importthis.log.xml", sb);
+      ImportProcess.replace("$12", this.escape(logXmlUrl.toExternalForm()), sb);
+      ImportProcess.replace("$13", this.escape(this.log.getStoredId() + ""), sb);
+      ImportProcess.replace("$14", this.escape(String.valueOf(tempLogXml.length())), sb);
 
       tempLogXml.delete();
 
       this.log.finishItem();
       this.log.close();
       return sb.toString();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -585,9 +591,9 @@ public class ImportProcess extends Thread {
     String escidocXml = null;
 
     try {
-      StringWriter wr = new StringWriter();
-      Transformer transformer =
-          TransformerCache.getTransformer(format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
+      final StringWriter wr = new StringWriter();
+      final Transformer transformer =
+          TransformerCache.getTransformer(this.format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
       transformer.transform(
           new TransformerStreamSource(new ByteArrayInputStream(singleItem.getBytes(this.format
               .getEncoding()))), new TransformerStreamResult(wr));
@@ -596,9 +602,9 @@ public class ImportProcess extends Thread {
 
       this.log.addDetail(ErrorLevel.FINE, escidocXml);
       this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
-      PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
-      pubItemVO.setContext(escidocContext);
-      pubItemVO.setContentModel(publicationContentModel);
+      final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
+      pubItemVO.setContext(this.escidocContext);
+      pubItemVO.setContentModel(this.publicationContentModel);
       pubItemVO.getVersion().setObjectId(null);
       pubItemVO.getLocalTags().add("multiple_import");
       pubItemVO.getLocalTags().add(this.log.getMessage() + " " + this.log.getStartDateFormatted());
@@ -618,10 +624,10 @@ public class ImportProcess extends Thread {
           this.log.setItemVO(pubItemVO);
           if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
             this.log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
-            boolean duplicatesDetected = checkDuplicatesByIdentifier(pubItemVO);
+            final boolean duplicatesDetected = this.checkDuplicatesByIdentifier(pubItemVO);
             if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
               this.rollback = true;
-              fail();
+              this.fail();
             } else if (duplicatesDetected) {
               this.log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
               this.log.finishItem();
@@ -631,26 +637,26 @@ public class ImportProcess extends Thread {
           } else {
             this.log.suspendItem();
           }
-        } catch (ItemInvalidException e2) { // Standard Validation
+        } catch (final ItemInvalidException e2) { // Standard Validation
           this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
-          for (ValidationReportItemVO item : e2.getReport().getItems()) {
+          for (final ValidationReportItemVO item : e2.getReport().getItems()) {
             this.log.addDetail(ErrorLevel.WARNING, item.getContent());
           }
         }
-      } catch (ItemInvalidException e) { // Simple Validation
+      } catch (final ItemInvalidException e) { // Simple Validation
         this.log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
-        for (ValidationReportItemVO item : e.getReport().getItems()) {
+        for (final ValidationReportItemVO item : e.getReport().getItems()) {
           this.log.addDetail(ErrorLevel.PROBLEM, item.getContent());
         }
         this.log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
         this.log.finishItem();
       }
-    } catch (Exception e) {
-      logger.error("Error while multiple import", e);
+    } catch (final Exception e) {
+      ImportProcess.logger.error("Error while multiple import", e);
       this.log.addDetail(ErrorLevel.ERROR, e);
       this.log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
       if (this.rollback) {
-        fail();
+        this.fail();
       }
       this.log.finishItem();
     }
@@ -659,27 +665,28 @@ public class ImportProcess extends Thread {
   private boolean checkDuplicatesByIdentifier(PubItemVO itemVO) {
     try {
       if (itemVO.getMetadata().getIdentifiers().size() > 0) {
-        ArrayList<String> contentModels = new ArrayList<String>();
+        final ArrayList<String> contentModels = new ArrayList<String>();
         contentModels.add(this.itemContentModel);
-        ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+        final ArrayList<MetadataSearchCriterion> criteria =
+            new ArrayList<MetadataSearchCriterion>();
         boolean first = true;
-        for (IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
-          MetadataSearchCriterion criterion =
+        for (final IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
+          final MetadataSearchCriterion criterion =
               new MetadataSearchCriterion(CriterionType.IDENTIFIER, identifierVO.getId(),
                   (first ? LogicalOperator.AND : LogicalOperator.OR));
           first = false;
           criteria.add(criterion);
         }
-        MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
-        ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
-        if (searchResult.getTotalNumberOfResults().equals(NonNegativeInteger.ZERO)) {
+        final MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
+        final ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
+        if (searchResult.getTotalNumberOfResults().equals(BigInteger.ZERO)) {
           this.log.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected");
           return false;
         } else {
           this.log.addDetail(ErrorLevel.FINE, "import_process_duplicates_detected");
-          for (ItemVO duplicate : searchResult.extractItemsOfSearchResult()) {
+          for (final ItemVO duplicate : searchResult.extractItemsOfSearchResult()) {
             if (this.itemContentModel.equals(duplicate.getContentModel())) {
-              PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
+              final PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
                 this.log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected");
                 this.log.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion()
@@ -702,7 +709,7 @@ public class ImportProcess extends Thread {
       } else {
         this.log.addDetail(ErrorLevel.FINE, "import_process_no_identifier_for_duplicate_check");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.WARNING, e);
       // An error while checking for duplicates should not cause the item not to be imported.
       // this.log.finishItem();

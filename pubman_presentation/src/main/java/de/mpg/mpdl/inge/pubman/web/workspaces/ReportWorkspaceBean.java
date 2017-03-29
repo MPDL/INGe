@@ -61,8 +61,8 @@ public class ReportWorkspaceBean extends FacesBean {
   private String reportYear;
 
   // String cqlQuery = null;
-  private String csExportFormat = "JUS_Report";
-  private String csOutputFormat = "escidoc_snippet";
+  private final String csExportFormat = "JUS_Report";
+  private final String csOutputFormat = "escidoc_snippet";
   // String index = "escidoc_all";
 
   private Map<String, String> configuration = null;
@@ -72,10 +72,11 @@ public class ReportWorkspaceBean extends FacesBean {
   private Format format;
 
   private Converter formatConverter = new Converter() {
+    @Override
     public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1,
         String value) {
       if (value != null && !"".equals(value)) {
-        String[] parts = value.split("[\\[\\,\\]]");
+        final String[] parts = value.split("[\\[\\,\\]]");
         if (parts.length > 3) {
           return new Format(parts[1], parts[2], parts[3]);
         }
@@ -84,6 +85,7 @@ public class ReportWorkspaceBean extends FacesBean {
       return null;
     }
 
+    @Override
     public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
       if (format instanceof Format) {
         return ((Format) format).toString();
@@ -96,17 +98,17 @@ public class ReportWorkspaceBean extends FacesBean {
   public ReportWorkspaceBean() {
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
-    FORMAT[] targetFormats =
+    final FORMAT[] targetFormats =
         de.mpg.mpdl.inge.transformation.TransformerCache
             .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
 
-    for (FORMAT f : targetFormats) {
-      Format formatObject = Util.fromFORMAT(f);
-      if (!JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
-        String formatName =
+    for (final FORMAT f : targetFormats) {
+      final Format formatObject = Util.fromFORMAT(f);
+      if (!ReportWorkspaceBean.JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
+        final String formatName =
             formatObject.getName() + "_"
                 + ("text/html".equals(formatObject.getType()) ? "html" : "indesign");
-        outputFormats.add(new SelectItem(f, getLabel(formatName)));
+        this.outputFormats.add(new SelectItem(f, this.getLabel(formatName)));
       }
     }
   }
@@ -163,39 +165,40 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] itemListReportTransformed = null;
 
     if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null) {
-      error(getMessage("ReportOrgIdNotProvided"));
+      FacesBean.error(this.getMessage("ReportOrgIdNotProvided"));
       return;
     }
     if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
-      error(getMessage("ReportYearNotProvided"));
+      FacesBean.error(this.getMessage("ReportYearNotProvided"));
       return;
     }
 
     try {
-      logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
-          + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
+      ReportWorkspaceBean.logger.info("Start generation report for YEAR " + this.reportYear
+          + ", ORG " + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
           + this.format.getName());
 
-      itemLsitSearchResult = doSearchItems();
+      itemLsitSearchResult = this.doSearchItems();
       if (itemLsitSearchResult != null) {
-        itemListCS = doCitationStyle(itemLsitSearchResult);
+        itemListCS = this.doCitationStyle(itemLsitSearchResult);
       }
       if (itemListCS != null) {
-        itemListReportTransformed = doReportTransformation(itemListCS);
-        logger.info("Transformed result: \n" + new String(itemListReportTransformed));
+        itemListReportTransformed = this.doReportTransformation(itemListCS);
+        ReportWorkspaceBean.logger.info("Transformed result: \n"
+            + new String(itemListReportTransformed));
       }
       if (itemListReportTransformed != null) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
-        String fileName =
+        final String fileName =
             "text/html".equals(this.format.getType()) ? "Jus_Report.html"
                 : "Jus_Report_InDesign.xml";
         FacesTools.getResponse().addHeader("Content-Disposition",
             "attachment; filename=" + fileName);
 
-        ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
-        ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
-        BufferedInputStream buff = new BufferedInputStream(bais);
+        final ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
+        final ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
+        final BufferedInputStream buff = new BufferedInputStream(bais);
 
         int readBytes = 0;
         while ((readBytes = buff.read()) != -1) {
@@ -205,9 +208,9 @@ public class ReportWorkspaceBean extends FacesBean {
 
         FacesTools.getCurrentInstance().responseComplete();
       }
-    } catch (Exception e) {
-      logger.error("Error while generatiring report output file.", e);
-      error("Error while generatiring output file.");
+    } catch (final Exception e) {
+      ReportWorkspaceBean.logger.error("Error while generatiring report output file.", e);
+      FacesBean.error("Error while generatiring output file.");
     }
   }
 
@@ -230,15 +233,16 @@ public class ReportWorkspaceBean extends FacesBean {
 
     try {
       // get a list of children of the given org
-      this.childAffilList = getChildOUs(this.organization.getIdentifier());
-    } catch (Exception e) {
-      logger.error("Error when trying to get the children of the given organization.", e);
+      this.childAffilList = this.getChildOUs(this.organization.getIdentifier());
+    } catch (final Exception e) {
+      ReportWorkspaceBean.logger.error(
+          "Error when trying to get the children of the given organization.", e);
       e.printStackTrace();
     }
 
     // when there are children, concat the org ids to the query
     if (this.childAffilList.size() > 0) {
-      for (String child : this.childAffilList) {
+      for (final String child : this.childAffilList) {
         query =
             query + "OR escidoc.publication.creator.person.organization.identifier=\"" + child
                 + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
@@ -249,22 +253,22 @@ public class ReportWorkspaceBean extends FacesBean {
     // close the brackets of the query
     query = query + ")";
 
-    PlainCqlQuery cqlQuery = new PlainCqlQuery(query);
+    final PlainCqlQuery cqlQuery = new PlainCqlQuery(query);
     ItemContainerSearchResult result;
     try {
       result = SearchService.searchForItemContainer(cqlQuery);
       totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
-      logger.info("Search result total nr: "
+      ReportWorkspaceBean.logger.info("Search result total nr: "
           + Integer.parseInt(result.getTotalNumberOfResults().toString()));
       if (totalNrOfSerchResultItems > 0) {
         itemListAsString =
             XmlTransformingService.transformToItemList(result.extractItemsOfSearchResult());
       } else {
-        info(getMessage("ReportNoItemsFound"));
+        this.info(this.getMessage("ReportNoItemsFound"));
       }
-    } catch (Exception e) {
-      logger.error("Error when trying to find search service.", e);
-      error("Did not find Search service");
+    } catch (final Exception e) {
+      ReportWorkspaceBean.logger.error("Error when trying to find search service.", e);
+      FacesBean.error("Did not find Search service");
     }
 
     return itemListAsString;
@@ -275,10 +279,10 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       exportData =
           CitationStyleExecuterService.getOutput(itemListAsString, new ExportFormatVO(
-              FormatType.LAYOUT, csExportFormat, csOutputFormat));
-    } catch (Exception e) {
-      logger.error("Error when trying to find citation service.", e);
-      error("Did not find Citation service");
+              FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
+    } catch (final Exception e) {
+      ReportWorkspaceBean.logger.error("Error when trying to find citation service.", e);
+      FacesBean.error("Did not find Citation service");
     }
 
     return exportData;
@@ -291,18 +295,18 @@ public class ReportWorkspaceBean extends FacesBean {
     // set the config for the transformation, the institut's name is used
     // for CoNE
     if (this.childAffilList.size() > 0) {
-      for (String childId : this.childAffilList) {
+      for (final String childId : this.childAffilList) {
         childConfig += childId + " ";
       }
-      logger.info("CHILD Config " + childConfig);
-      configuration.put("institutsId", childConfig);
+      ReportWorkspaceBean.logger.info("CHILD Config " + childConfig);
+      this.configuration.put("institutsId", childConfig);
     } else {
-      configuration.put("institutsId", this.organization.getIdentifier());
+      this.configuration.put("institutsId", this.organization.getIdentifier());
     }
 
     try {
-      StringWriter wr = new StringWriter();
-      Transformer t =
+      final StringWriter wr = new StringWriter();
+      final Transformer t =
           TransformerCache.getTransformer(FORMAT.JUS_SNIPPET_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
@@ -310,11 +314,11 @@ public class ReportWorkspaceBean extends FacesBean {
 
       result = wr.toString().getBytes("UTF-8");
 
-    } catch (TransformationException e) {
+    } catch (final TransformationException e) {
       throw new RuntimeException(e);
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       throw new RuntimeException(e);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new RuntimeException(e);
     }
 
@@ -322,17 +326,17 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public List<String> getChildOUs(String orgId) throws Exception {
-    List<String> affListAsString = new ArrayList<String>();
-    OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-    String topLevelOU = ouHandler.retrieve(orgId);
-    AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
-    AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
-    List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
+    final List<String> affListAsString = new ArrayList<String>();
+    final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+    final String topLevelOU = ouHandler.retrieve(orgId);
+    final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
+    final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
+    final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 
     // if (aff.getChildren()!= null && aff.getChildren().size() > 0){
     if (aff.getHasChildren()) {
       affList.addAll(aff.getChildren());
-      for (AffiliationVOPresentation a : affList) {
+      for (final AffiliationVOPresentation a : affList) {
         String childId = a.getIdPath();
         childId = childId.substring(0, childId.indexOf(" "));
         affListAsString.add(childId);

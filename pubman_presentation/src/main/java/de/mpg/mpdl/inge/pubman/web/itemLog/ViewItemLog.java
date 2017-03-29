@@ -56,10 +56,10 @@ public class ViewItemLog extends FacesBean {
   public ViewItemLog() {}
 
   public void init() {
-    ItemVersionListSessionBean ivlsb =
+    final ItemVersionListSessionBean ivlsb =
         (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
     if (ivlsb.getVersionList() == null) {
-      ivlsb.initVersionLists(getVersionHistory(((ItemControllerSessionBean) FacesTools
+      ivlsb.initVersionLists(this.getVersionHistory(((ItemControllerSessionBean) FacesTools
           .findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
     }
   }
@@ -75,8 +75,8 @@ public class ViewItemLog extends FacesBean {
     try {
       return ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
           .retrieveVersionHistoryForItem(itemID);
-    } catch (Exception e) {
-      logger.error("Could not retrieve release list for Item " + itemID, e);
+    } catch (final Exception e) {
+      ViewItemLog.logger.error("Could not retrieve release list for Item " + itemID, e);
     }
 
     return null;

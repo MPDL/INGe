@@ -79,7 +79,7 @@ public class EditItemSessionBean extends EditItemBean {
    * This method clears the file and the locator list
    */
   public void initEmptyComponents() {
-    clean();
+    this.clean();
 
     // make sure that at least one locator and one file is stored in the EditItemSessionBean
     /*
@@ -89,7 +89,7 @@ public class EditItemSessionBean extends EditItemBean {
      * PubFileVOPresentation(this.getFiles().size(), newFile, false)); }
      */
     if (this.getLocators().size() < 1) {
-      FileVO newLocator = new FileVO();
+      final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
@@ -100,6 +100,7 @@ public class EditItemSessionBean extends EditItemBean {
   /**
      * 
      */
+  @Override
   public void clean() {
     super.clean();
     this.files.clear();
@@ -111,15 +112,15 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public void bindSourcesToBean(List<SourceVO> sourceList) {
-    for (SourceVO sourceVO : sourceList) {
+    for (final SourceVO sourceVO : sourceList) {
       this.sources.add(new SourceBean(sourceVO, this.sources));
     }
   }
 
   public void bindSourcesToVO(List<SourceVO> sourceList) {
     sourceList.clear();
-    for (SourceBean sourceBean : getSources()) {
-      SourceVO sourceVO = sourceBean.getSource();
+    for (final SourceBean sourceBean : this.getSources()) {
+      final SourceVO sourceVO = sourceBean.getSource();
       sourceList.add(sourceVO);
     }
   }
@@ -149,7 +150,7 @@ public class EditItemSessionBean extends EditItemBean {
   }
 
   public List<PubFileVOPresentation> getFiles() {
-    return files;
+    return this.files;
   }
 
   public void setFiles(List<PubFileVOPresentation> files) {

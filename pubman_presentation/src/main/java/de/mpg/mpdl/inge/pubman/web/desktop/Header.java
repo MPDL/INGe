@@ -57,14 +57,14 @@ public class Header extends FacesBean {
   public String getServerLogo() {
     String serverLogo = "";
     try {
-      if (getType().equals("dev")) {
-        serverLogo = LOGO_DEV;
-      } else if (getType().equals("test")) {
-        serverLogo = LOGO_TEST;
-      } else if (getType().equals("qa")) {
-        serverLogo = LOGO_QA;
+      if (this.getType().equals("dev")) {
+        serverLogo = Header.LOGO_DEV;
+      } else if (this.getType().equals("test")) {
+        serverLogo = Header.LOGO_TEST;
+      } else if (this.getType().equals("qa")) {
+        serverLogo = Header.LOGO_QA;
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
     }
 
     return serverLogo;

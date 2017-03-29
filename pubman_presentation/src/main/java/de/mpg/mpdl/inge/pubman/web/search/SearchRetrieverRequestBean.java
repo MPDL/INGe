@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
@@ -89,7 +90,7 @@ public class SearchRetrieverRequestBean extends
 
   @Override
   public int getTotalNumberOfRecords() {
-    return numberOfRecords;
+    return this.numberOfRecords;
   }
 
   @Override
@@ -108,7 +109,7 @@ public class SearchRetrieverRequestBean extends
    */
   @Override
   public void readOutParameters() {
-    HttpServletRequest request = FacesTools.getRequest();
+    final HttpServletRequest request = FacesTools.getRequest();
 
     // the following procedure is necessary because of the strange decoding in tomcat, when you
     // fetch the
@@ -120,35 +121,35 @@ public class SearchRetrieverRequestBean extends
     Map<String, String> paramMap = null;
     try {
       paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
-    } catch (UnsupportedEncodingException e) {
-      logger.error("Error during reading GET parameters.", e);
+    } catch (final UnsupportedEncodingException e) {
+      SearchRetrieverRequestBean.logger.error("Error during reading GET parameters.", e);
     }
 
 
 
-    String query = paramMap.get(parameterQuery);
+    final String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
 
     if (query != null) {
-      setQueryString(query);
+      this.setQueryString(query);
     }
 
-    String cql = paramMap.get(parameterCqlQuery);
+    final String cql = paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
     if ((cql == null || cql.equals(""))) {
-      setCqlQuery("");
-      error("You have to call this page with a parameter \"cql\" and a cql query!");
+      this.setCqlQuery("");
+      FacesBean.error("You have to call this page with a parameter \"cql\" and a cql query!");
 
     } else {
-      setCqlQuery(cql);
+      this.setCqlQuery(cql);
     }
 
 
 
-    String searchType = paramMap.get(parameterSearchType);
+    final String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
     if (searchType == null) {
-      setSearchType("simple");
+      this.setSearchType("simple");
     } else {
-      setSearchType(searchType);
+      this.setSearchType(searchType);
     }
 
   }
@@ -228,12 +229,12 @@ public class SearchRetrieverRequestBean extends
     try {
 
 
-      PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
+      final PlainCqlQuery query = new PlainCqlQuery(this.getCqlQuery());
       query.setStartRecord(new PositiveInteger(String.valueOf(offset + 1)));
       query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
 
       if (sc.getIndex() != null) {
-        if ("admin".equals(getSearchType())) {
+        if ("admin".equals(this.getSearchType())) {
           query.setSortKeys(sc.getSortPath());
         } else {
           query.setSortKeys(sc.getIndex());
@@ -253,19 +254,19 @@ public class SearchRetrieverRequestBean extends
       }
       ItemContainerSearchResult result = null;
 
-      if ("admin".equals(getSearchType())) {
+      if ("admin".equals(this.getSearchType())) {
         result =
-            SearchService.searchForItemContainerAdmin(query, getLoginHelper()
+            SearchService.searchForItemContainerAdmin(query, this.getLoginHelper()
                 .getESciDocUserHandle());
       } else {
         result = SearchService.searchForItemContainer(query);
       }
 
-      pubItemList = extractItemsOfSearchResult(result);
+      pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
       this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
-    } catch (Exception e) {
-      error("Error in search!");
-      logger.error("Error during search. ", e);
+    } catch (final Exception e) {
+      FacesBean.error("Error in search!");
+      SearchRetrieverRequestBean.logger.error("Error during search. ", e);
     }
 
     return pubItemList;
@@ -279,7 +280,8 @@ public class SearchRetrieverRequestBean extends
    */
   public void setCqlQuery(String cqlQuery) {
     this.cqlQuery = cqlQuery;
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterCqlQuery, cqlQuery);
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(SearchRetrieverRequestBean.parameterCqlQuery, cqlQuery);
   }
 
   /**
@@ -297,7 +299,7 @@ public class SearchRetrieverRequestBean extends
    * @return
    */
   public String getNormalizedCqlQuery() {
-    String ret = this.cqlQuery;
+    final String ret = this.cqlQuery;
     if (ret != null) {
       return URLEncoder.encode(ret);
     }
@@ -337,17 +339,17 @@ public class SearchRetrieverRequestBean extends
   public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
       ItemContainerSearchResult result) {
 
-    List<SearchResultElement> results = result.getResultList();
+    final List<SearchResultElement> results = result.getResultList();
 
-    ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     for (int i = 0; i < results.size(); i++) {
       // check if we have found an item
       if (results.get(i) instanceof ItemResultVO) {
         // cast to PubItemResultVO
-        ItemResultVO item = (ItemResultVO) results.get(i);
-        PubItemResultVO pubItemResult =
+        final ItemResultVO item = (ItemResultVO) results.get(i);
+        final PubItemResultVO pubItemResult =
             new PubItemResultVO(item, item.getSearchHitList(), item.getScore());
-        PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
+        final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
         pubItemList.add(pubItemPres);
       }
     }
@@ -368,7 +370,8 @@ public class SearchRetrieverRequestBean extends
    */
   public void setSearchType(String searchType) {
     this.searchType = searchType;
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterSearchType, searchType);
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(SearchRetrieverRequestBean.parameterSearchType, searchType);
   }
 
   /**
@@ -389,8 +392,8 @@ public class SearchRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getIndex() == null || sc.getIndex().equals("")) {
-      error(getMessage("depositorWS_sortingNotSupported").replace("$1",
-          getLabel("ENUM_CRITERIA_" + sc.name())));
+      FacesBean.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
+          this.getLabel("ENUM_CRITERIA_" + sc.name())));
     }
   }
 
@@ -400,11 +403,11 @@ public class SearchRetrieverRequestBean extends
 
   public String getUrlEncodedQueryString() {
     try {
-      if (queryString != null) {
-        return URLEncoder.encode(queryString, "UTF-8");
+      if (this.queryString != null) {
+        return URLEncoder.encode(this.queryString, "UTF-8");
       }
-    } catch (UnsupportedEncodingException e) {
-      logger.error("Could not encode query string", e);
+    } catch (final UnsupportedEncodingException e) {
+      SearchRetrieverRequestBean.logger.error("Could not encode query string", e);
     }
 
     return "";
@@ -412,6 +415,7 @@ public class SearchRetrieverRequestBean extends
 
   public void setQueryString(String query) {
     this.queryString = query;
-    getBasePaginatorListSessionBean().getParameterMap().put(parameterQuery, query);
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(SearchRetrieverRequestBean.parameterQuery, query);
   }
 }

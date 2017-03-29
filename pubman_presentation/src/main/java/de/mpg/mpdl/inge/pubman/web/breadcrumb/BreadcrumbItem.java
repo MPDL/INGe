@@ -82,7 +82,7 @@ public class BreadcrumbItem extends FacesBean {
    * @return displayValue to label this BreadcrumbItem
    */
   public String getPageLabel() {
-    return getLabel(this.displayValue);
+    return this.getLabel(this.displayValue);
   }
 
   public String getDisplayValue() {
@@ -111,8 +111,9 @@ public class BreadcrumbItem extends FacesBean {
 
   @Override
   public String toString() {
-    return "BreadcrumbItem [displayValue=" + displayValue + ", page=" + page + ", isLast=" + isLast
-        + ", defaultAction=" + defaultAction + ", isItemSpecific=" + isItemSpecific + "]";
+    return "BreadcrumbItem [displayValue=" + this.displayValue + ", page=" + this.page
+        + ", isLast=" + this.isLast + ", defaultAction=" + this.defaultAction + ", isItemSpecific="
+        + this.isItemSpecific + "]";
   }
 
   @Override
@@ -135,11 +136,11 @@ public class BreadcrumbItem extends FacesBean {
   public String executeDefaultAction() {
     if (this.defaultAction != null) {
       try {
-        Class<?> beanClass = this.defaultAction.getDeclaringClass();
-        Object bean = FacesTools.findBean(beanClass.getName());
+        final Class<?> beanClass = this.defaultAction.getDeclaringClass();
+        final Object bean = FacesTools.findBean(beanClass.getName());
         return this.defaultAction.invoke(bean, null).toString();
-      } catch (Exception e) {
-        logger.error("Error executing default action", e);
+      } catch (final Exception e) {
+        BreadcrumbItem.logger.error("Error executing default action", e);
       }
     }
 

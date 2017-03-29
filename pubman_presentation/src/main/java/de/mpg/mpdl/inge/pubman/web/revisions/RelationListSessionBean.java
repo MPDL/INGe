@@ -52,7 +52,7 @@ public class RelationListSessionBean extends FacesBean {
   public RelationListSessionBean() {}
 
   public List<RelationVOPresentation> getRelationList() {
-    return relationList;
+    return this.relationList;
   }
 
   public void setRelationList(List<RelationVOPresentation> relationList) {
@@ -60,7 +60,7 @@ public class RelationListSessionBean extends FacesBean {
   }
 
   public PubItemVO getPubItemVO() {
-    return pubItemVO;
+    return this.pubItemVO;
   }
 
   public void setPubItemVO(PubItemVO pubItemVO) {
@@ -71,7 +71,7 @@ public class RelationListSessionBean extends FacesBean {
   }
 
   public String getRevisionDescription() {
-    return revisionDescription;
+    return this.revisionDescription;
   }
 
   public void setRevisionDescription(String revisionDescription) {
