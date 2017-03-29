@@ -55,8 +55,9 @@ public class ImportSurveyor extends Thread {
     this.setName("ImportSurveyor");
 
     try {
-      interval = Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
-    } catch (Exception e) {
+      this.interval =
+          Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
+    } catch (final Exception e) {
       throw new RuntimeException("Error initializing import surveyor");
     }
   }
@@ -70,21 +71,21 @@ public class ImportSurveyor extends Thread {
   public void run() {
     do {
       try {
-        Thread.sleep(interval * 60 * 1000);
-      } catch (InterruptedException e) {
-        logger.info("Import surveyor interrupted");
+        Thread.sleep(this.interval * 60 * 1000);
+      } catch (final InterruptedException e) {
+        ImportSurveyor.logger.info("Import surveyor interrupted");
         return;
       }
 
-      if (signal) {
-        logger.info("Import surveyor interrupted");
+      if (this.signal) {
+        ImportSurveyor.logger.info("Import surveyor interrupted");
         return;
       }
 
-      Connection connection = ImportLog.getConnection();
+      final Connection connection = ImportLog.getConnection();
       // Searches for Import-Items which are in status "pending" OR "rollback" AND which have NOT
       // been changed in the last 60 Minutes
-      String query =
+      final String query =
           "select id from escidoc_import_log where "
               + "(status = 'PENDING' or status = 'ROLLBACK') "
               + "and id not in (select parent from escidoc_import_log_item where "
@@ -96,12 +97,13 @@ public class ImportSurveyor extends Thread {
         statement = connection.prepareStatement(query);
         resultSet = statement.executeQuery();
         while (resultSet.next()) {
-          int id = resultSet.getInt("id");
-          logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
-          ImportLog log = ImportLog.getImportLog(id, true, true, connection);
+          final int id = resultSet.getInt("id");
+          ImportSurveyor.logger.warn("Unfinished import detected (" + id
+              + "). Finishing it with status FATAL.");
+          final ImportLog log = ImportLog.getImportLog(id, true, true, connection);
           log.setConnection(connection);
 
-          for (ImportLogItem item : log.getItems()) {
+          for (final ImportLogItem item : log.getItems()) {
             if (item.getEndDate() == null) {
               log.activateItem(item);
               log.addDetail(ErrorLevel.WARNING, "import_process_terminate_item");
@@ -114,27 +116,27 @@ public class ImportSurveyor extends Thread {
           log.finishItem();
           log.close();
         }
-      } catch (Exception e) {
-        logger.error("Error checking database for unfinished imports", e);
+      } catch (final Exception e) {
+        ImportSurveyor.logger.error("Error checking database for unfinished imports", e);
 
       } finally {
         try {
           resultSet.close();
           statement.close();
           connection.close();
-        } catch (Exception e2) {
-          logger.error("error while closing database connection", e2);
+        } catch (final Exception e2) {
+          ImportSurveyor.logger.error("error while closing database connection", e2);
         }
       }
-    } while (!signal);
-    logger.info("Import surveyor interrupted");
+    } while (!this.signal);
+    ImportSurveyor.logger.info("Import surveyor interrupted");
   }
 
   /**
    * Signals this thread to finish itself.
    */
   public void terminate() {
-    logger.info("Import surveyor signalled to terminate.");
-    signal = true;
+    ImportSurveyor.logger.info("Import surveyor signalled to terminate.");
+    this.signal = true;
   }
 }

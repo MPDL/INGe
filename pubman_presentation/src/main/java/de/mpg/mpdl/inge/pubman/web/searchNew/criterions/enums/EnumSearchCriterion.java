@@ -36,7 +36,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   private T selectedEnum;
 
-  private Class<T> enumClass;
+  private final Class<T> enumClass;
 
   public EnumSearchCriterion(Class<T> clazz) {
     this.enumClass = clazz;
@@ -45,11 +45,14 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
-    return baseCqlBuilder(getCqlIndexes(indexName), getSearchString(getSelectedEnum()));
+    return this.baseCqlBuilder(this.getCqlIndexes(indexName),
+        this.getSearchString(this.getSelectedEnum()));
   }
 
+  @Override
   public QueryBuilder toElasticSearchQuery() {
-    return baseElasticSearchQueryBuilder(getElasticIndexes(), getSearchString(getSelectedEnum()));
+    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(),
+        this.getSearchString(this.getSelectedEnum()));
   }
 
 
@@ -61,17 +64,17 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSelectedEnum().name())
-        + "\"";
+    return this.getSearchCriterion().name() + "=\""
+        + SearchCriterionBase.escapeForQueryString(this.getSelectedEnum().name()) + "\"";
   }
 
 
   @Override
   public void parseQueryStringContent(String content) {
 
-    this.selectedEnum = Enum.valueOf(enumClass, content);
-    if (selectedEnum == null) {
-      throw new RuntimeException("Invalid enum: " + content + " for class " + enumClass);
+    this.selectedEnum = Enum.valueOf(this.enumClass, content);
+    if (this.selectedEnum == null) {
+      throw new RuntimeException("Invalid enum: " + content + " for class " + this.enumClass);
     }
   }
 
@@ -80,11 +83,11 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
    */
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return getSelectedEnum() == null;
+    return this.getSelectedEnum() == null;
   }
 
   public T getSelectedEnum() {
-    return selectedEnum;
+    return this.selectedEnum;
   }
 
   public void setSelectedEnum(T selectedEnum) {
@@ -92,14 +95,14 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   }
 
   public String getSelectedEnumString() {
-    if (selectedEnum != null) {
-      return selectedEnum.name();
+    if (this.selectedEnum != null) {
+      return this.selectedEnum.name();
     }
 
     return null;
   }
 
   public void setSelectedEnumString(String name) {
-    this.selectedEnum = Enum.valueOf(enumClass, name);
+    this.selectedEnum = Enum.valueOf(this.enumClass, name);
   }
 }

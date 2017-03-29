@@ -36,15 +36,15 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 @SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {
   public ComponentContentCategoryListSearchCriterion() {
-    super(getContentCategoryMap());
+    super(ComponentContentCategoryListSearchCriterion.getContentCategoryMap());
   }
 
   private static Map<String, String> getContentCategoryMap() {
-    Map<String, String> ccMap =
+    final Map<String, String> ccMap =
         ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
-    Map<String, String> newMap = new HashMap<String, String>();
+    final Map<String, String> newMap = new HashMap<String, String>();
 
-    for (Entry<String, String> entry : ccMap.entrySet()) {
+    for (final Entry<String, String> entry : ccMap.entrySet()) {
       newMap.put(entry.getKey().toLowerCase().replace("_", "-"), entry.getValue());
     }
 

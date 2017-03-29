@@ -57,9 +57,10 @@ public class BibtexProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#hasNext()
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.items != null && this.counter < this.items.length);
   }
@@ -69,13 +70,14 @@ public class BibtexProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#next()
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.items != null && this.counter < this.items.length) {
       this.counter++;
-      return items[counter - 1];
+      return this.items[this.counter - 1];
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -87,26 +89,27 @@ public class BibtexProcessor extends FormatProcessor {
    * 
    * @see java.util.Iterator#remove()
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
+    this.init = true;
     try {
-      BufferedReader bufferedReader =
-          new BufferedReader(new InputStreamReader(new FileInputStream(getSourceFile()),
-              getEncoding()));
+      final BufferedReader bufferedReader =
+          new BufferedReader(new InputStreamReader(new FileInputStream(this.getSourceFile()),
+              this.getEncoding()));
       String line = null;
-      ArrayList<String> itemList = new ArrayList<String>();
+      final ArrayList<String> itemList = new ArrayList<String>();
       StringWriter stringWriter = new StringWriter();
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       boolean first = true;
 
       while ((line = bufferedReader.readLine()) != null) {
 
-        byteArrayOutputStream.write(line.getBytes(getEncoding()));
-        byteArrayOutputStream.write("\n".getBytes(getEncoding()));
+        byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
+        byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
         if (line.matches("^@[a-zA-Z]+\\{.*")) {
           if (first) {
@@ -130,11 +133,11 @@ public class BibtexProcessor extends FormatProcessor {
 
       this.length = this.items.length;
 
-      counter = 0;
+      this.counter = 0;
 
       bufferedReader.close();
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 
@@ -142,7 +145,7 @@ public class BibtexProcessor extends FormatProcessor {
 
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   @Override

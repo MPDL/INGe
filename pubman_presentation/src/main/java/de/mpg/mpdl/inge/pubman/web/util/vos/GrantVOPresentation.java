@@ -39,7 +39,7 @@ public class GrantVOPresentation extends FacesBean {
   }
 
   public void remove() {
-    AudienceSessionBean asb = this.getAudienceSessionBean();
+    final AudienceSessionBean asb = this.getAudienceSessionBean();
     asb.getFileListNew().get(this.fileIndex).getGrantList().remove(this);
     if (asb.getFileListNew().get(this.fileIndex).getGrantList().size() < 1) {
       asb.getFileListNew()
@@ -67,7 +67,7 @@ public class GrantVOPresentation extends FacesBean {
   }
 
   public GrantVO getGrant() {
-    return grant;
+    return this.grant;
   }
 
   public void setGrant(GrantVO grant) {
@@ -75,7 +75,7 @@ public class GrantVOPresentation extends FacesBean {
   }
 
   public int getIndex() {
-    return index;
+    return this.index;
   }
 
   public void setIndex(int index) {

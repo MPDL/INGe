@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.util.IdentityHandler;
 public class EdocProcessor extends FormatProcessor {
 
   private boolean init = false;
-  private List<String> items = new ArrayList<String>();
+  private final List<String> items = new ArrayList<String>();
   private int counter = -1;
   private int length = -1;
   private byte[] originalData = null;
@@ -58,9 +58,10 @@ public class EdocProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.originalData != null && this.counter < this.length);
   }
@@ -68,12 +69,13 @@ public class EdocProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.originalData != null && this.counter < this.length) {
-      return items.get(counter++);
+      return this.items.get(this.counter++);
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -83,27 +85,28 @@ public class EdocProcessor extends FormatProcessor {
   /**
    * Not implemented.
    */
+  @Override
   @Deprecated
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
+    this.init = true;
 
     try {
 
-      SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-      EdocHandler edocHandler = new EdocHandler();
-      parser.parse(getSourceFile(), edocHandler);
+      final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+      final EdocHandler edocHandler = new EdocHandler();
+      parser.parse(this.getSourceFile(), edocHandler);
 
-      this.originalData = edocHandler.getResult().getBytes(getEncoding());
+      this.originalData = edocHandler.getResult().getBytes(this.getEncoding());
 
       this.length = this.items.size();
 
-      counter = 0;
+      this.counter = 0;
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 
@@ -114,7 +117,7 @@ public class EdocProcessor extends FormatProcessor {
    */
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   /**
@@ -148,13 +151,13 @@ public class EdocProcessor extends FormatProcessor {
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes)
         throws SAXException {
-      if ("edoc".equals(getStack().toString())) {
+      if ("edoc".equals(this.getStack().toString())) {
         this.builder = new StringBuilder();
-        inItem = true;
+        this.inItem = true;
       }
       super.startElement(uri, localName, name, attributes);
 
-      if (inItem) {
+      if (this.inItem) {
         this.builder.append("<");
         this.builder.append(name);
         for (int i = 0; i < attributes.getLength(); i++) {
@@ -162,7 +165,7 @@ public class EdocProcessor extends FormatProcessor {
           this.builder.append(" ");
           this.builder.append(attributes.getQName(i));
           this.builder.append("=\"");
-          this.builder.append(escape(attributes.getValue(i)));
+          this.builder.append(this.escape(attributes.getValue(i)));
           this.builder.append("\"");
         }
         this.builder.append(">");
@@ -177,16 +180,16 @@ public class EdocProcessor extends FormatProcessor {
     public void endElement(String uri, String localName, String name) throws SAXException {
       super.endElement(uri, localName, name);
 
-      if (inItem) {
+      if (this.inItem) {
         this.builder.append("</");
         this.builder.append(name);
         this.builder.append(">");
       }
 
-      if ("edoc".equals(getStack().toString())) {
-        items.add(this.builder.toString());
+      if ("edoc".equals(this.getStack().toString())) {
+        EdocProcessor.this.items.add(this.builder.toString());
         this.builder = null;
-        inItem = false;
+        this.inItem = false;
       }
     }
 
@@ -197,8 +200,8 @@ public class EdocProcessor extends FormatProcessor {
     public void content(String uri, String localName, String name, String content)
         throws SAXException {
       super.content(uri, localName, name, content);
-      if (inItem) {
-        this.builder.append(escape(content));
+      if (this.inItem) {
+        this.builder.append(this.escape(content));
       }
     }
   }

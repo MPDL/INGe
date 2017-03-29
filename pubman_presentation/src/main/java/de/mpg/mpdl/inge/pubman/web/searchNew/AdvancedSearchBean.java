@@ -771,7 +771,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     final List<SearchCriterionBase> allCriterions = new ArrayList<SearchCriterionBase>();
 
     allCriterions.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    allCriterions.addAll(getCriterionList());
+    allCriterions.addAll(this.getCriterionList());
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
 
@@ -802,7 +802,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
 
-    List<SearchCriterionBase> componentSearchCriterions = getComponentSearchCriterions(indexName);
+    final List<SearchCriterionBase> componentSearchCriterions =
+        this.getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
 
     QueryBuilder qb = null;
@@ -810,18 +811,18 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
 
       qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
-      logger.info(qb.toString());
+      AdvancedSearchBean.logger.info(qb.toString());
 
-    } catch (SearchParseException e1) {
-      error(getMessage("search_ParseError"));
+    } catch (final SearchParseException e1) {
+      FacesBean.error(this.getMessage("search_ParseError"));
 
     }
 
-    query = SearchCriterionBase.scListToQueryString(allCriterions);
-    logger.debug("Internal Query: " + query);
+    this.query = SearchCriterionBase.scListToQueryString(allCriterions);
+    AdvancedSearchBean.logger.debug("Internal Query: " + this.query);
 
-    if (query == null || query.trim().isEmpty()) {
-      error(getMessage("search_NoCriteria"));
+    if (this.query == null || this.query.trim().isEmpty()) {
+      FacesBean.error(this.getMessage("search_NoCriteria"));
     }
 
 
@@ -831,22 +832,22 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     }
 
     try {
-      BreadcrumbItemHistorySessionBean bihsb =
+      final BreadcrumbItemHistorySessionBean bihsb =
           (BreadcrumbItemHistorySessionBean) FacesTools
               .findBean("BreadcrumbItemHistorySessionBean");
       if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage")) {
         bihsb.getCurrentItem().setPage(
-            "AdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+            "AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       } else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage")) {
         bihsb.getCurrentItem().setPage(
-            "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(query, "UTF-8"));
+            "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       }
       FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&q="
-              + URLEncoder.encode(query, "UTF-8") + "&"
+              + URLEncoder.encode(this.query, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
-    } catch (Exception e) {
-      logger.error("Error while redirecting to search result page", e);
+    } catch (final Exception e) {
+      AdvancedSearchBean.logger.error("Error while redirecting to search result page", e);
     }
 
   }

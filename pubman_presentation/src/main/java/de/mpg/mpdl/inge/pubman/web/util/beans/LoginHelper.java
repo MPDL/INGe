@@ -113,7 +113,7 @@ public class LoginHelper extends FacesBean {
    */
   public void insertLogin() throws IOException, ServiceException, TechnicalException,
       URISyntaxException {
-    String token = this.obtainToken();
+    final String token = this.obtainToken();
 
     if (this.authenticationToken == null || this.authenticationToken.equals("")) {
       if (token != null) {
@@ -126,7 +126,7 @@ public class LoginHelper extends FacesBean {
 
     if (this.authenticationToken != null && !this.authenticationToken.equals("")
         && this.wasLoggedIn) {
-      fetchAccountUser(this.authenticationToken);
+      this.fetchAccountUser(this.authenticationToken);
       this.btnLoginLogout = "login_btLogout";
       // reinitialize ContextList
       ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
@@ -134,7 +134,7 @@ public class LoginHelper extends FacesBean {
 
     // enable the depositor links if necessary
     if (this.accountUser.isDepositor()) {
-      DepositorWSSessionBean depWSSessionBean =
+      final DepositorWSSessionBean depWSSessionBean =
           (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
 
       depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
@@ -154,18 +154,18 @@ public class LoginHelper extends FacesBean {
       SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
       TechnicalException, URISyntaxException {
 
-    JsonNode rawUser = this.obtainUser();
-    AccountUserRO userRO = new AccountUserRO();
+    final JsonNode rawUser = this.obtainUser();
+    final AccountUserRO userRO = new AccountUserRO();
     userRO.setObjectId(rawUser.path("exid").asText());
     userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
     this.accountUser = new AccountUserVO();
 
     this.accountUser.setReference(userRO);
-    List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
-    UserAttributeVO email = new UserAttributeVO();
+    final List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
+    final UserAttributeVO email = new UserAttributeVO();
     email.setName("email");
     email.setValue(rawUser.path("email").asText());
-    UserAttributeVO ou = new UserAttributeVO();
+    final UserAttributeVO ou = new UserAttributeVO();
     ou.setName("o");
     ou.setValue(rawUser.path("ouid").asText());
     attributes.add(email);
@@ -181,20 +181,20 @@ public class LoginHelper extends FacesBean {
 
     // get all user-grants
 
-    JsonNode grants = rawUser.path("grants");
+    final JsonNode grants = rawUser.path("grants");
 
     if (grants.isArray()) {
-      for (JsonNode grant : grants) {
+      for (final JsonNode grant : grants) {
 
-        GrantVO grantVo = new GrantVO();
+        final GrantVO grantVo = new GrantVO();
         grantVo.setGrantedTo(rawUser.path("exid").asText());
         grantVo.setGrantType("");
         if (grant.path("targetId").asText().contains("all")) {
 
         } else {
           grantVo.setObjectRef(grant.path("targetId").asText());
-          String roleName = grant.path("role").path("name").asText();
-          grantVo.setRole((String) "escidoc:role-" + roleName.toLowerCase());
+          final String roleName = grant.path("role").path("name").asText();
+          grantVo.setRole("escidoc:role-" + roleName.toLowerCase());
           this.userGrants.add(grantVo);
         }
 
@@ -202,9 +202,9 @@ public class LoginHelper extends FacesBean {
     }
 
     // NOTE: The block below must not be removed, as it sets the this.accountUser grants
-    List<GrantVO> setterGrants = this.accountUser.getGrants();
+    final List<GrantVO> setterGrants = this.accountUser.getGrants();
     if (this.userGrants != null && !this.userGrants.isEmpty()) {
-      for (GrantVO userGrant : this.userGrants) {
+      for (final GrantVO userGrant : this.userGrants) {
         setterGrants.add(userGrant);
         this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
       }
@@ -294,7 +294,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getLoginLogoutLabel() {
-    return getLabel(this.btnLoginLogout);
+    return this.getLabel(this.btnLoginLogout);
   }
 
   public String getDisplayUserName() {
@@ -314,7 +314,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getPassword() {
-    return password;
+    return this.password;
   }
 
   public void setPassword(String password) {
@@ -324,8 +324,8 @@ public class LoginHelper extends FacesBean {
   @Override
   public String toString() {
     return "[Login: "
-        + (loggedIn ? "User " + authenticationToken + "(" + accountUser + ") is logged in]"
-            : "No user is logged in (" + accountUser + ")]");
+        + (this.loggedIn ? "User " + this.authenticationToken + "(" + this.accountUser
+            + ") is logged in]" : "No user is logged in (" + this.accountUser + ")]");
   }
 
   /**
@@ -334,7 +334,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsModerator() {
-    return isLoggedIn() && getAccountUser().isModerator();
+    return this.isLoggedIn() && this.getAccountUser().isModerator();
   }
 
   /**
@@ -343,7 +343,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsDepositor() {
-    return isLoggedIn() && getAccountUser().isDepositor();
+    return this.isLoggedIn() && this.getAccountUser().isDepositor();
   }
 
   /**
@@ -352,16 +352,17 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    return isLoggedIn() && getAccountUser().isReporter();
+    return this.isLoggedIn() && this.getAccountUser().isReporter();
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
       this.organizationServiceHandler = new OrganizationServiceHandler();
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
-      for (UserAttributeVO ua : getAccountUser().getAttributes()) {
+      for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          AffiliationVO orgUnit = this.organizationServiceHandler.readOrganization(ua.getValue());
+          final AffiliationVO orgUnit =
+              this.organizationServiceHandler.readOrganization(ua.getValue());
           this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }
@@ -372,14 +373,14 @@ public class LoginHelper extends FacesBean {
 
   // only active UserGroups!
   public List<UserGroupVO> getAccountUsersUserGroups() {
-    if (this.userAccountUserGroups == null && getAccountUser() != null
-        && getAccountUser().getReference() != null) {
-      HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+    if (this.userAccountUserGroups == null && this.getAccountUser() != null
+        && this.getAccountUser().getReference() != null) {
+      final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       // String orgId = "escidoc:persistent25";
       filterParams.put("query", new String[] {"\"/structural-relations/user/id\"="
-          + getAccountUser().getReference().getObjectId() + " and "
+          + this.getAccountUser().getReference().getObjectId() + " and "
           + "\"/properties/active\"=\"true\""});
       // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
       // getAccountUser().getReference().getObjectId() + " and " +
@@ -395,14 +396,14 @@ public class LoginHelper extends FacesBean {
 
   public boolean getIsYearbookEditor() {
     // toDo: find better way how to do this
-    ContextListSessionBean clsb =
+    final ContextListSessionBean clsb =
         (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     if (this.getIsDepositor() && clsb.getYearbookContextListSize() > 0) {
       return true;
     }
 
-    if (getAccountUsersUserGroups() != null) {
-      for (UserGroupVO ug : getAccountUsersUserGroups()) {
+    if (this.getAccountUsersUserGroups() != null) {
+      for (final UserGroupVO ug : this.getAccountUsersUserGroups()) {
         if (ug.getLabel().matches("\\d*? - Yearbook User Group for.*?")) {
           return true;
         }
@@ -446,28 +447,28 @@ public class LoginHelper extends FacesBean {
 
   public String obtainToken() {
     try {
-      URL url = new URL(PropertyReader.getProperty("auth.token.url"));
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      final URL url = new URL(PropertyReader.getProperty("auth.token.url"));
+      final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("POST");
       conn.setRequestProperty("Content-Type", "application/json");
 
-      String input =
+      final String input =
           "{\"userid\":\"" + this.getUsername() + "\",\"password\":\"" + this.getPassword() + "\"}";
 
-      OutputStream os = conn.getOutputStream();
+      final OutputStream os = conn.getOutputStream();
       os.write(input.getBytes());
       os.flush();
 
       System.out.println(conn.getResponseCode());
-      String token = conn.getHeaderField("Token");
+      final String token = conn.getHeaderField("Token");
       System.out.println(token);
 
       conn.disconnect();
       return token;
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       e.printStackTrace();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
 
@@ -476,24 +477,25 @@ public class LoginHelper extends FacesBean {
 
   private JsonNode obtainUser() {
     try {
-      URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      final URL url =
+          new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
+      final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");
       conn.setRequestProperty("Authorization", this.getAuthenticationToken());
 
-      ObjectMapper mapper = new ObjectMapper();
-      JsonNode rawUser = mapper.readTree(conn.getInputStream());
+      final ObjectMapper mapper = new ObjectMapper();
+      final JsonNode rawUser = mapper.readTree(conn.getInputStream());
       conn.disconnect();
 
       // rawUser.forEach((k, v) -> System.out.println("user map. " + k + " " + v));
 
       return rawUser;
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       e.printStackTrace();
-    } catch (JsonParseException e) {
+    } catch (final JsonParseException e) {
       e.printStackTrace();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
 

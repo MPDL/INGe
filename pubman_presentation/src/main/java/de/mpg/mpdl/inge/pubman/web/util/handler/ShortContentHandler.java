@@ -54,33 +54,33 @@ public class ShortContentHandler extends DefaultHandler {
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes)
       throws SAXException {
-    stack.push(name);
+    this.stack.push(name);
     if (name.contains(":")) {
-      localStack.push(name.substring(name.indexOf(":") + 1));
+      this.localStack.push(name.substring(name.indexOf(":") + 1));
     } else {
-      localStack.push(name);
+      this.localStack.push(name);
     }
 
     for (int i = 0; i < attributes.getLength(); i++) {
       if (attributes.getQName(i).startsWith("xmlns:")) {
-        String prefix = attributes.getQName(i).substring(6);
-        String nsUri = attributes.getValue(i);
-        namespaces.put(prefix, nsUri);
+        final String prefix = attributes.getQName(i).substring(6);
+        final String nsUri = attributes.getValue(i);
+        this.namespaces.put(prefix, nsUri);
       }
     }
   }
 
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
-    content(uri, localName, name, currentContent.toString());
-    currentContent = new StringWriter();
-    stack.pop();
-    localStack.pop();
+    this.content(uri, localName, name, this.currentContent.toString());
+    this.currentContent = new StringWriter();
+    this.stack.pop();
+    this.localStack.pop();
   }
 
   @Override
   public final void characters(char[] ch, int start, int length) throws SAXException {
-    currentContent.write(ch, start, length);
+    this.currentContent.write(ch, start, length);
   }
 
   /**
@@ -108,15 +108,15 @@ public class ShortContentHandler extends DefaultHandler {
   }
 
   public XMLStack getStack() {
-    return stack;
+    return this.stack;
   }
 
   public XMLStack getLocalStack() {
-    return localStack;
+    return this.localStack;
   }
 
   public Map<String, String> getNamespaces() {
-    return namespaces;
+    return this.namespaces;
   }
 
   /**
@@ -134,9 +134,9 @@ public class ShortContentHandler extends DefaultHandler {
      */
     @Override
     public synchronized String toString() {
-      StringWriter writer = new StringWriter();
-      for (Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
-        String element = (String) iterator.next();
+      final StringWriter writer = new StringWriter();
+      for (final Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
+        final String element = iterator.next();
         writer.append(element);
         if (iterator.hasNext()) {
           writer.append("/");

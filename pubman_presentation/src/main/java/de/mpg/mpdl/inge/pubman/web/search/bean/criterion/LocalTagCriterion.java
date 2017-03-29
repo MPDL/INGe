@@ -46,10 +46,11 @@ public class LocalTagCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.LOCAL_TAG, getSearchString());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.LOCAL_TAG, this.getSearchString());
     criterions.add(criterion);
     return criterions;
   }

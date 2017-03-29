@@ -24,16 +24,16 @@ public class OrganizationCriterionBean extends CriterionBean {
   }
 
   public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO) {
-    setOrganizationCriterionVO(organizationCriterionVO);
+    this.setOrganizationCriterionVO(organizationCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return organizationCriterionVO;
+    return this.organizationCriterionVO;
   }
 
   public OrganizationCriterion getOrganizationCriterionVO() {
-    return organizationCriterionVO;
+    return this.organizationCriterionVO;
   }
 
   public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO) {
@@ -47,10 +47,10 @@ public class OrganizationCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    organizationCriterionVO.setSearchString("");
-    AffiliationVO affiliationVO = new AffiliationVO();
+    this.organizationCriterionVO.setSearchString("");
+    final AffiliationVO affiliationVO = new AffiliationVO();
     affiliationVO.setReference(new AffiliationRO());
-    organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
+    this.organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
   }
 
   /**
@@ -59,14 +59,14 @@ public class OrganizationCriterionBean extends CriterionBean {
    * @return
    */
   public String selectOrganisation() {
-    if (organizationCriterionVO.getSearchString() == null) {
-      organizationCriterionVO.setSearchString("");
+    if (this.organizationCriterionVO.getSearchString() == null) {
+      this.organizationCriterionVO.setSearchString("");
     }
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
+    final AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
     affiliationBean.setSource("AdvancedSearch");
-    affiliationBean.setCache(organizationCriterionVO);
+    affiliationBean.setCache(this.organizationCriterionVO);
 
     return "loadAffiliationTree";
   }

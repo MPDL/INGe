@@ -36,7 +36,6 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.Index;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldAndFulltextSearchCriterion;
@@ -117,9 +116,9 @@ public class Search extends FacesBean {
      * CreatedBySearchCriterion createdBy = new CreatedBySearchCriterion();
      * createdBy.setHiddenId(searchString); criteria.add(createdBy);
      */
-    
+
     final QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(criteria);
-    //final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
+    // final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
 
 
     /*

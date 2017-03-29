@@ -46,11 +46,11 @@ public class LanguageSearchCriterion extends StandardSearchCriterion {
   }
 
   public String getAlternativeValue() throws Exception {
-    String locale =
+    final String locale =
         ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
             .getLocale();
 
-    return CommonUtils.getConeLanguageName(getSearchString(), locale);
+    return CommonUtils.getConeLanguageName(this.getSearchString(), locale);
   }
 
   @Override

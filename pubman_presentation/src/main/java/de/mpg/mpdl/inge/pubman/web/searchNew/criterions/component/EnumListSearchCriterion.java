@@ -39,28 +39,28 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
   private Map<T, Boolean> enumMap = new LinkedHashMap<T, Boolean>();
 
-  private Class<T> enumClass;
+  private final Class<T> enumClass;
 
   public EnumListSearchCriterion(Class<T> clazz) {
     this.enumClass = clazz;
-    initEnumMap();
+    this.initEnumMap();
   }
 
 
   public Map<T, Boolean> initEnumMap() {
 
-    for (T v : enumClass.getEnumConstants()) {
-      enumMap.put(v, false);
+    for (final T v : this.enumClass.getEnumConstants()) {
+      this.enumMap.put(v, false);
     }
-    return enumMap;
+    return this.enumMap;
 
   }
 
 
 
   public List<T> getEnumList() {
-    List<T> list = new ArrayList<T>();
-    for (T t : enumMap.keySet()) {
+    final List<T> list = new ArrayList<T>();
+    for (final T t : this.enumMap.keySet()) {
       list.add(t);
     }
     return list;
@@ -71,7 +71,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   @Override
   public String toCqlString(Index indexName) {
 
-    StringBuffer sb = new StringBuffer();
+    final StringBuffer sb = new StringBuffer();
     boolean enumSelected = false;
     boolean enumDeselected = false;
 
@@ -83,7 +83,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
     sb.append("(");
 
     int i = 0;
-    for (Entry<T, Boolean> entry : enumMap.entrySet()) {
+    for (final Entry<T, Boolean> entry : this.enumMap.entrySet()) {
       if (entry.getValue() && i > 0) {
         sb.append(" OR ");
         // /returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
@@ -95,7 +95,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
         enumSelected = true;
         // ComponentVisibilitySearchCriterion gc = new ComponentVisibilitySearchCriterion();
         // gc.setSearchString(entry.getKey().name().toLowerCase());
-        sb.append(getSearchValue(entry.getKey()));
+        sb.append(this.getSearchValue(entry.getKey()));
         i++;
 
 
@@ -118,12 +118,12 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
   @Override
   public String toQueryString() {
-    StringBuffer sb = new StringBuffer();
-    sb.append(getSearchCriterion() + "=\"");
+    final StringBuffer sb = new StringBuffer();
+    sb.append(this.getSearchCriterion() + "=\"");
 
     boolean allChecked = true;
     int i = 0;
-    for (Entry<T, Boolean> entry : getEnumMap().entrySet()) {
+    for (final Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
         if (i > 0) {
           sb.append("|");
@@ -146,20 +146,20 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (Entry<T, Boolean> e : getEnumMap().entrySet()) {
+    for (final Entry<T, Boolean> e : this.getEnumMap().entrySet()) {
       e.setValue(false);
     }
 
 
     // Split by '|', which have no backslash before and no other '|' after
-    String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
-    for (String part : enumParts) {
+    final String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
+    for (final String part : enumParts) {
 
-      T v = Enum.valueOf(enumClass, part);
+      final T v = Enum.valueOf(this.enumClass, part);
       if (v == null) {
         throw new RuntimeException("Invalid visibility: " + part);
       }
-      getEnumMap().put(v, true);
+      this.getEnumMap().put(v, true);
     }
 
   }
@@ -172,7 +172,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean anySelected = false;
     boolean anyDeselected = false;
-    for (Entry<T, Boolean> entry : getEnumMap().entrySet()) {
+    for (final Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
         anySelected = true;
       } else {
@@ -188,7 +188,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
 
   public Map<T, Boolean> getEnumMap() {
-    return enumMap;
+    return this.enumMap;
   }
 
   public void setEnumMap(Map<T, Boolean> enumMap) {

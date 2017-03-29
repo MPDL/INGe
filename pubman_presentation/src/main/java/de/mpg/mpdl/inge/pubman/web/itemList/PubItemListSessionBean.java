@@ -86,33 +86,38 @@ public class PubItemListSessionBean extends
    */
   public static enum SORT_CRITERIA {
     // Use dummy value "score" for default sorting
-    RELEVANCE(null, "", OrderFilter.ORDER_DESCENDING), TITLE("sort.escidoc.publication.title",
-        "/sort/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING), GENRE(
-        "sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
+    RELEVANCE(null, "", OrderFilter.ORDER_DESCENDING), //
+    TITLE("sort.escidoc.publication.title", "/sort/md-records/md-record/publication/title",
+        OrderFilter.ORDER_ASCENDING), //
+    GENRE("sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
         "/sort/genre-without-uri /sort/md-records/md-record/publication/degree",
-        OrderFilter.ORDER_ASCENDING), DATE("sort.escidoc.any-dates", "/sort/any-dates",
-        OrderFilter.ORDER_DESCENDING), CREATOR(
-        "sort.escidoc.publication.compound.publication-creator-names",
+        OrderFilter.ORDER_ASCENDING), //
+    DATE("sort.escidoc.any-dates", "/sort/any-dates", OrderFilter.ORDER_DESCENDING), //
+    CREATOR("sort.escidoc.publication.compound.publication-creator-names",
         "/sort/md-records/md-record/publication/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name
-                                      // when
+        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name when
                                       // complete name is filled!!
     PUBLISHING_INFO("sort.escidoc.publication.publishing-info.publisher",
         "/sort/md-records/md-record/publication/source/publishing-info/publisher",
-        OrderFilter.ORDER_ASCENDING), MODIFICATION_DATE("sort.escidoc.last-modification-date",
-        "/sort/last-modification-date", OrderFilter.ORDER_DESCENDING), EVENT_TITLE(
-        "sort.escidoc.publication.event.title",
-        "/sort/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING), SOURCE_TITLE(
-        "", "/sort/md-records/md-record/publication/source/title", OrderFilter.ORDER_ASCENDING), SOURCE_CREATOR(
-        "", "/sort/md-records/md-record/publication/source/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), REVIEW_METHOD("",
-        "/sort/md-records/md-record/publication/review-method", OrderFilter.ORDER_ASCENDING), FILE(
-        "", "", OrderFilter.ORDER_ASCENDING), CREATION_DATE("sort.escidoc.property.creation-date",
-        "/sort/properties/creation-date", OrderFilter.ORDER_ASCENDING), STATE(
-        "sort.escidoc.property.version.status", "/sort/properties/version/status",
-        OrderFilter.ORDER_ASCENDING), OWNER("sort.escidoc.property.created-by.title",
-        "/properties/created-by/xLinkTitle", OrderFilter.ORDER_ASCENDING), COLLECTION(
-        "sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
+        OrderFilter.ORDER_ASCENDING), //
+    MODIFICATION_DATE("sort.escidoc.last-modification-date", "/sort/last-modification-date",
+        OrderFilter.ORDER_DESCENDING), //
+    EVENT_TITLE("sort.escidoc.publication.event.title",
+        "/sort/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING), //
+    SOURCE_TITLE("", "/sort/md-records/md-record/publication/source/title",
+        OrderFilter.ORDER_ASCENDING), //
+    SOURCE_CREATOR("", "/sort/md-records/md-record/publication/source/creator/person/family-name",
+        OrderFilter.ORDER_ASCENDING), //
+    REVIEW_METHOD("", "/sort/md-records/md-record/publication/review-method",
+        OrderFilter.ORDER_ASCENDING), //
+    FILE("", "", OrderFilter.ORDER_ASCENDING), //
+    CREATION_DATE("sort.escidoc.property.creation-date", "/sort/properties/creation-date",
+        OrderFilter.ORDER_ASCENDING), //
+    STATE("sort.escidoc.property.version.status", "/sort/properties/version/status",
+        OrderFilter.ORDER_ASCENDING), //
+    OWNER("sort.escidoc.property.created-by.title", "/properties/created-by/xLinkTitle",
+        OrderFilter.ORDER_ASCENDING), //
+    COLLECTION("sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
         OrderFilter.ORDER_ASCENDING);
 
     /**
@@ -232,16 +237,14 @@ public class PubItemListSessionBean extends
    * A map containing the references of the currently selected pub items of one page. Used to reset
    * selections after a redirect.
    */
-  private final Map<String, ItemRO> selectedItemRefs;
+  private final Map<String, ItemRO> selectedItemRefs = new HashMap<String, ItemRO>();
 
   /**
    * A integer telling about the current items' position in the list
    */
   private int itemPosition = 0;
 
-  public PubItemListSessionBean() {
-    this.selectedItemRefs = new HashMap<String, ItemRO>();
-  }
+  public PubItemListSessionBean() {}
 
   /**
    * Called by JSF when the items should be sorted by their state. Redirects to the same page with

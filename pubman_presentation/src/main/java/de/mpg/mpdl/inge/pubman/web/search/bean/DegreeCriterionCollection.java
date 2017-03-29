@@ -22,9 +22,9 @@ public class DegreeCriterionCollection {
    */
   public DegreeCriterionCollection() {
     // ensure the parentVO is never null;
-    List<DegreeCriterion> ctorList = new ArrayList<DegreeCriterion>();
+    final List<DegreeCriterion> ctorList = new ArrayList<DegreeCriterion>();
     ctorList.add(new DegreeCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -33,34 +33,35 @@ public class DegreeCriterionCollection {
    * @param parentVO
    */
   public DegreeCriterionCollection(List<DegreeCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<DegreeCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<DegreeCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    degreeCriterionManager = new DegreeCriterionManager(parentVO);
+    this.degreeCriterionManager = new DegreeCriterionManager(parentVO);
   }
 
   public class DegreeCriterionManager extends DataModelManager<DegreeCriterionBean> {
     List<DegreeCriterion> parentVO;
 
     public DegreeCriterionManager(List<DegreeCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public DegreeCriterionBean createNewObject() {
-      DegreeCriterion newVO = new DegreeCriterion();
+      final DegreeCriterion newVO = new DegreeCriterion();
       newVO.setDegree(new ArrayList<MdsPublicationVO.DegreeType>());
       // create a new wrapper pojo
-      DegreeCriterionBean degreeCriterionBean = new DegreeCriterionBean(newVO);
+      final DegreeCriterionBean degreeCriterionBean = new DegreeCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return degreeCriterionBean;
     }
 
@@ -68,17 +69,17 @@ public class DegreeCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<DegreeCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice DegreeCriterionBean
-      List<DegreeCriterionBean> beanList = new ArrayList<DegreeCriterionBean>();
-      for (DegreeCriterion degreeCriterionVO : parentVO) {
+      final List<DegreeCriterionBean> beanList = new ArrayList<DegreeCriterionBean>();
+      for (final DegreeCriterion degreeCriterionVO : this.parentVO) {
         beanList.add(new DegreeCriterionBean(degreeCriterionVO));
       }
 
@@ -88,21 +89,21 @@ public class DegreeCriterionCollection {
     public void setParentVO(List<DegreeCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice DegreeCriterionBean
-      List<DegreeCriterionBean> beanList = new ArrayList<DegreeCriterionBean>();
-      for (DegreeCriterion degreeCriterionVO : parentVO) {
+      final List<DegreeCriterionBean> beanList = new ArrayList<DegreeCriterionBean>();
+      for (final DegreeCriterion degreeCriterionVO : parentVO) {
         beanList.add(new DegreeCriterionBean(degreeCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public DegreeCriterionManager getDegreeCriterionManager() {
-    return degreeCriterionManager;
+    return this.degreeCriterionManager;
   }
 
   public void setDegreeCriterionManager(DegreeCriterionManager degreeCriterionManager) {
@@ -110,14 +111,14 @@ public class DegreeCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (DegreeCriterionBean gcb : degreeCriterionManager.getObjectList()) {
+    for (final DegreeCriterionBean gcb : this.degreeCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<DegreeCriterion> getFilledCriterion() {
-    List<DegreeCriterion> returnList = new ArrayList<DegreeCriterion>();
-    for (DegreeCriterion vo : parentVO) {
+    final List<DegreeCriterion> returnList = new ArrayList<DegreeCriterion>();
+    for (final DegreeCriterion vo : this.parentVO) {
       if (vo.getDegree().size() > 0
           || (vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);

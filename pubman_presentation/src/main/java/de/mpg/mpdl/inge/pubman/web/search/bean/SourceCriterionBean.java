@@ -21,16 +21,16 @@ public class SourceCriterionBean extends CriterionBean {
   }
 
   public SourceCriterionBean(SourceCriterion sourceCriterionVO) {
-    setSourceCriterionVO(sourceCriterionVO);
+    this.setSourceCriterionVO(sourceCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return sourceCriterionVO;
+    return this.sourceCriterionVO;
   }
 
   public SourceCriterion getSourceCriterionVO() {
-    return sourceCriterionVO;
+    return this.sourceCriterionVO;
   }
 
   public void setSourceCriterionVO(SourceCriterion sourceCriterionVO) {
@@ -43,6 +43,6 @@ public class SourceCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    sourceCriterionVO.setSearchString("");
+    this.sourceCriterionVO.setSearchString("");
   }
 }

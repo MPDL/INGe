@@ -21,9 +21,9 @@ public class EventCriterionCollection {
    */
   public EventCriterionCollection() {
     // ensure the parentVO is never null;
-    List<EventCriterion> ctorList = new ArrayList<EventCriterion>();
+    final List<EventCriterion> ctorList = new ArrayList<EventCriterion>();
     ctorList.add(new EventCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -32,17 +32,17 @@ public class EventCriterionCollection {
    * @param parentVO
    */
   public EventCriterionCollection(List<EventCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<EventCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<EventCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    eventCriterionManager = new EventCriterionManager(parentVO);
+    this.eventCriterionManager = new EventCriterionManager(parentVO);
   }
 
   /**
@@ -54,16 +54,17 @@ public class EventCriterionCollection {
     List<EventCriterion> parentVO;
 
     public EventCriterionManager(List<EventCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public EventCriterionBean createNewObject() {
-      EventCriterion newVO = new EventCriterion();
+      final EventCriterion newVO = new EventCriterion();
       // create a new wrapper pojo
-      EventCriterionBean eventCriterionBean = new EventCriterionBean(newVO);
+      final EventCriterionBean eventCriterionBean = new EventCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return eventCriterionBean;
     }
 
@@ -71,17 +72,17 @@ public class EventCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<EventCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice EventCriterionBean
-      List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
-      for (EventCriterion eventCriterionVO : parentVO) {
+      final List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
+      for (final EventCriterion eventCriterionVO : this.parentVO) {
         beanList.add(new EventCriterionBean(eventCriterionVO));
       }
       return beanList;
@@ -90,21 +91,21 @@ public class EventCriterionCollection {
     public void setParentVO(List<EventCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice EventCriterionBean
-      List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
-      for (EventCriterion eventCriterionVO : parentVO) {
+      final List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
+      for (final EventCriterion eventCriterionVO : parentVO) {
         beanList.add(new EventCriterionBean(eventCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public EventCriterionManager getEventCriterionManager() {
-    return eventCriterionManager;
+    return this.eventCriterionManager;
   }
 
   public void setEventCriterionManager(EventCriterionManager eventCriterionManager) {
@@ -112,14 +113,14 @@ public class EventCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (EventCriterionBean gcb : eventCriterionManager.getObjectList()) {
+    for (final EventCriterionBean gcb : this.eventCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<EventCriterion> getFilledCriterion() {
-    List<EventCriterion> returnList = new ArrayList<EventCriterion>();
-    for (EventCriterion vo : parentVO) {
+    final List<EventCriterion> returnList = new ArrayList<EventCriterion>();
+    for (final EventCriterion vo : this.parentVO) {
       if ((vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }

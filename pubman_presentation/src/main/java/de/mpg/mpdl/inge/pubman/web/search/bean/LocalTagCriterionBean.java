@@ -21,16 +21,16 @@ public class LocalTagCriterionBean extends CriterionBean {
   }
 
   public LocalTagCriterionBean(LocalTagCriterion localTagCriterionVO) {
-    setLocalTagCriterionVO(localTagCriterionVO);
+    this.setLocalTagCriterionVO(localTagCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return localTagCriterionVO;
+    return this.localTagCriterionVO;
   }
 
   public LocalTagCriterion getLocalTagCriterionVO() {
-    return localTagCriterionVO;
+    return this.localTagCriterionVO;
   }
 
   public void setLocalTagCriterionVO(LocalTagCriterion localTagCriterionVO) {
@@ -43,6 +43,6 @@ public class LocalTagCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    localTagCriterionVO.setSearchString("");
+    this.localTagCriterionVO.setSearchString("");
   }
 }

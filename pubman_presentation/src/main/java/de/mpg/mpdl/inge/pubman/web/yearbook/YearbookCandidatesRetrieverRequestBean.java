@@ -82,7 +82,9 @@ public class YearbookCandidatesRetrieverRequestBean extends
   }
 
   @Override
-  public void init() {}
+  public void init() {
+    // no init needed
+  }
 
   @Override
   public int getTotalNumberOfRecords() {

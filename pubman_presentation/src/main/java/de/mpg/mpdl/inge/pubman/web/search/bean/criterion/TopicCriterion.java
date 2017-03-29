@@ -48,10 +48,11 @@ public class TopicCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.TOPIC, getSearchString());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.TOPIC, this.getSearchString());
     criterions.add(criterion);
     return criterions;
   }

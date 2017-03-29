@@ -50,7 +50,7 @@ public class DegreeCriterion extends Criterion {
   public DegreeCriterion() {}
 
   public List<MdsPublicationVO.DegreeType> getDegree() {
-    return degreeList;
+    return this.degreeList;
   }
 
   public void setDegree(List<MdsPublicationVO.DegreeType> degreeList) {
@@ -62,7 +62,7 @@ public class DegreeCriterion extends Criterion {
   }
 
   public String getSearchIdentifier(int position) {
-    if (degreeList.size() <= position) {
+    if (this.degreeList.size() <= position) {
       return "";
     }
 
@@ -70,10 +70,10 @@ public class DegreeCriterion extends Criterion {
   }
 
   private String getDegreesAsStringList() {
-    StringBuffer buffer = new StringBuffer();
-    for (int i = 0; i < degreeList.size(); i++) {
-      buffer.append(getSearchIdentifierByDegree(degreeList.get(i)));
-      if (i != degreeList.size() - 1) {
+    final StringBuffer buffer = new StringBuffer();
+    for (int i = 0; i < this.degreeList.size(); i++) {
+      buffer.append(this.getSearchIdentifierByDegree(this.degreeList.get(i)));
+      if (i != this.degreeList.size() - 1) {
         buffer.append(" OR ");
       }
     }
@@ -84,10 +84,11 @@ public class DegreeCriterion extends Criterion {
    * {@inheritDoc}
    */
 
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.DEGREE, getDegreesAsStringList());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.DEGREE, this.getDegreesAsStringList());
     criterions.add(criterion);
     return criterions;
   }

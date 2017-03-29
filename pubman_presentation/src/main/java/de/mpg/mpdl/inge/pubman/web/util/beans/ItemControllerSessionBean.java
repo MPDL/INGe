@@ -123,14 +123,14 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       xmlAffiliation = ServiceLocator.getOrganizationalUnitHandler().retrieve(affiliationId);
-    } catch (AuthenticationException e) {
-      logger.debug(e.toString());
+    } catch (final AuthenticationException e) {
+      ItemControllerSessionBean.logger.debug(e.toString());
       ((Login) FacesTools.findBean("Login")).forceLogout();
       throw e;
     }
 
     // transform the affiliation
-    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(xmlAffiliation);
+    final AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(xmlAffiliation);
 
     return affiliation;
   }
@@ -145,25 +145,25 @@ public class ItemControllerSessionBean extends FacesBean {
   public String acceptCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
-        TechnicalException technicalException =
+        final TechnicalException technicalException =
             new TechnicalException("No current PubItem is set.");
         throw technicalException;
       }
 
-      PubItemVO pubItem = new PubItemVO(this.currentPubItem);
+      final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      PubItemVO acceptedPubItem =
+      final PubItemVO acceptedPubItem =
           PubItemService.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(),
-              comment, getLoginHelper().getAccountUser());
+              comment, this.getLoginHelper().getAccountUser());
 
-      ItemRO pubItemRO = acceptedPubItem.getVersion();
+      final ItemRO pubItemRO = acceptedPubItem.getVersion();
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
         return null;
       }
-    } catch (Exception e) {
-      logger.error("Could not accept item." + "\n" + e.toString(), e);
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not accept item." + "\n" + e.toString(), e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -194,7 +194,7 @@ public class ItemControllerSessionBean extends FacesBean {
           }
         }
       }
-    } catch (Exception e1) {
+    } catch (final Exception e1) {
       throw new RuntimeException("Error while cleaning up  item", e1);
     }
 
@@ -202,9 +202,9 @@ public class ItemControllerSessionBean extends FacesBean {
     // identifier, make it "external".
     // assign the external org id to default organisation
     try {
-      for (CreatorVO creator : pubItem.getMetadata().getCreators()) {
+      for (final CreatorVO creator : pubItem.getMetadata().getCreators()) {
         if (creator.getPerson() != null) {
-          for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
+          for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
               organization.setIdentifier(PropertyReader
                   .getProperty("escidoc.pubman.external.organisation.id"));
@@ -221,10 +221,10 @@ public class ItemControllerSessionBean extends FacesBean {
       }
 
       if (pubItem.getMetadata().getSources() != null) {
-        for (SourceVO source : pubItem.getMetadata().getSources()) {
-          for (CreatorVO creator : source.getCreators()) {
+        for (final SourceVO source : pubItem.getMetadata().getSources()) {
+          for (final CreatorVO creator : source.getCreators()) {
             if (creator.getPerson() != null) {
-              for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
+              for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
                 if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
                   organization.setIdentifier(PropertyReader
                       .getProperty("escidoc.pubman.external.organisation.id"));
@@ -244,19 +244,19 @@ public class ItemControllerSessionBean extends FacesBean {
 
       // remove empty tags
       if (pubItem.getLocalTags() != null) {
-        List<String> emptyTags = new ArrayList<String>();
-        for (String tag : pubItem.getLocalTags()) {
+        final List<String> emptyTags = new ArrayList<String>();
+        for (final String tag : pubItem.getLocalTags()) {
           if (tag == null || "".equals(tag)) {
             emptyTags.add(tag);
           }
         }
-        for (String tag : emptyTags) {
+        for (final String tag : emptyTags) {
           pubItem.getLocalTags().remove(tag);
         }
       }
 
-    } catch (Exception e) {
-      logger.error("Error getting external org id", e);
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Error getting external org id", e);
     }
   }
 
@@ -268,7 +268,7 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String createItemFromTemplate() {
     // clear the list of locators and files when start creating a new revision
-    EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
+    final EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
     editItemSessionBean.clean();
 
     // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one
@@ -276,12 +276,12 @@ public class ItemControllerSessionBean extends FacesBean {
     // if there is only one context for this user we can skip the CreateItem-Dialog and create the
     // new item directly
     if (this.getContextListSessionBean().getDepositorContextList().isEmpty()) {
-      logger.warn("The user does not have privileges for any context.");
-      error(getMessage("ViewItemFull_user_has_no_context"));
+      ItemControllerSessionBean.logger.warn("The user does not have privileges for any context.");
+      FacesBean.error(this.getMessage("ViewItemFull_user_has_no_context"));
       return null;
     }
 
-    PubItemVO newItem = new PubItemVO(this.currentPubItem);
+    final PubItemVO newItem = new PubItemVO(this.currentPubItem);
     newItem.getVersion().setObjectId(null);
     newItem.setPid(null);
     newItem.getVersion().setVersionNumber(0);
@@ -300,7 +300,7 @@ public class ItemControllerSessionBean extends FacesBean {
     this.setCurrentPubItem(new PubItemVOPresentation(newItem));
 
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1) {
-      ContextVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
+      final ContextVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
       newItem.setContext(context.getReference());
 
       this.setCurrentPubItem(new PubItemVOPresentation(newItem));
@@ -331,11 +331,11 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String createNewPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO) {
     try {
-      PubItemVO newPubItem =
-          PubItemService.createPubItem(pubContextRO, getLoginHelper().getAccountUser());
+      final PubItemVO newPubItem =
+          PubItemService.createPubItem(pubContextRO, this.getLoginHelper().getAccountUser());
       this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newPubItem)));
-    } catch (Exception e) {
-      logger.error("Could not create item." + "\n" + e.toString(), e);
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not create item." + "\n" + e.toString(), e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -358,14 +358,14 @@ public class ItemControllerSessionBean extends FacesBean {
       final ContextRO pubContextRO, final PubItemVO pubItem, String comment) {
 
     try {
-      PubItemVO newRevision =
-          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, getLoginHelper()
-              .getAccountUser());
+      final PubItemVO newRevision =
+          PubItemService.createRevisionOfPubItem(pubItem, comment, pubContextRO, this
+              .getLoginHelper().getAccountUser());
 
       // setting the returned item as new currentItem
-      this.setCurrentPubItem(new PubItemVOPresentation(initializeItem(newRevision)));
-    } catch (Exception e) {
-      logger.error("Could not create revision." + "\n" + e.toString());
+      this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newRevision)));
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not create revision." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -384,20 +384,21 @@ public class ItemControllerSessionBean extends FacesBean {
   public String deleteCurrentPubItem(String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
-        TechnicalException technicalException =
+        final TechnicalException technicalException =
             new TechnicalException("No current PubItem is set.");
         throw technicalException;
       }
 
       if (this.currentPubItem.getVersion() == null) {
         // if the item has not been saved before, there is no need to delete it
-        logger.warn("Tried to delete an unsaved item. Do nothing instead.");
+        ItemControllerSessionBean.logger
+            .warn("Tried to delete an unsaved item. Do nothing instead.");
       } else {
-        PubItemService.deletePubItem(this.currentPubItem.getVersion(), getLoginHelper()
+        PubItemService.deletePubItem(this.currentPubItem.getVersion(), this.getLoginHelper()
             .getAccountUser());
       }
-    } catch (Exception e) {
-      logger.error("Could not delete item." + "\n" + e.toString());
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not delete item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -417,7 +418,8 @@ public class ItemControllerSessionBean extends FacesBean {
       if (this.currentContext == null
           || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem
               .getContext().getObjectId()))) {
-        ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
+        final ContextVO context =
+            this.retrieveContext(this.currentPubItem.getContext().getObjectId());
         this.setCurrentCollection(context);
       }
     }
@@ -430,8 +432,8 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getCurrentWorkflow() {
-    PublicationAdminDescriptorVO.Workflow workflow =
-        getCurrentContext().getAdminDescriptor().getWorkflow();
+    final PublicationAdminDescriptorVO.Workflow workflow =
+        this.getCurrentContext().getAdminDescriptor().getWorkflow();
     if (workflow == null || workflow == PublicationAdminDescriptorVO.Workflow.SIMPLE) {
       return PubItemService.WORKFLOW_SIMPLE;
     } else if (workflow == PublicationAdminDescriptorVO.Workflow.STANDARD) {
@@ -447,7 +449,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
     return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType,
-        this.currentPubItem.getVersion().getObjectId(), getLoginHelper().getAccountUser());
+        this.currentPubItem.getVersion().getObjectId(), this.getLoginHelper().getAccountUser());
   }
 
   /**
@@ -459,18 +461,18 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public boolean hasChanged(PubItemVO oldPubItem, PubItemVO newPubItem) {
     // clone both items
-    PubItemVO oldPubItemClone = (PubItemVO) oldPubItem.clone();
-    PubItemVO newPubItemClone = (PubItemVO) newPubItem.clone();
+    final PubItemVO oldPubItemClone = (PubItemVO) oldPubItem.clone();
+    final PubItemVO newPubItemClone = (PubItemVO) newPubItem.clone();
 
     // clean both items up from unused sub-VOs
     this.cleanUpItem(oldPubItemClone);
     this.cleanUpItem(newPubItemClone);
 
     // compare the metadata and files of the two items
-    boolean metadataChanged =
+    final boolean metadataChanged =
         !(oldPubItemClone.getMetadata().equals(newPubItemClone.getMetadata()));
-    boolean fileChanged = !(oldPubItemClone.getFiles().equals(newPubItemClone.getFiles()));
-    boolean localTagsChanged =
+    final boolean fileChanged = !(oldPubItemClone.getFiles().equals(newPubItemClone.getFiles()));
+    final boolean localTagsChanged =
         !(oldPubItemClone.getLocalTags().equals(newPubItemClone.getLocalTags()));
 
     return (metadataChanged || fileChanged || localTagsChanged);
@@ -485,7 +487,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public PubItemVO initializeItem(PubItemVO newPubItem) throws Exception {
     // version
     if (newPubItem.getVersion() == null) {
-      ItemRO version = new ItemRO();
+      final ItemRO version = new ItemRO();
       newPubItem.setVersion(version);
     }
 
@@ -501,8 +503,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Genre
     if (newPubItem.getMetadata().getGenre() == null) {
-      ContextVO contextVO = retrieveContext(newPubItem.getContext().getObjectId());
-      PublicationAdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptor();
+      final ContextVO contextVO = this.retrieveContext(newPubItem.getContext().getObjectId());
+      final PublicationAdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptor();
       if (adminDescriptorVO.getAllowedGenres().contains(Genre.ARTICLE)) {
         newPubItem.getMetadata().setGenre(Genre.ARTICLE);
       } else if (!adminDescriptorVO.getAllowedGenres().isEmpty()) {
@@ -513,15 +515,15 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Creator
     if (newPubItem.getMetadata().getCreators().isEmpty()) {
-      CreatorVO newCreator = new CreatorVO();
+      final CreatorVO newCreator = new CreatorVO();
 
       newCreator.setType(CreatorType.PERSON);
       newCreator.setRole(CreatorRole.AUTHOR);
       // create a new Organization for this person
-      PersonVO newPerson = new PersonVO();
+      final PersonVO newPerson = new PersonVO();
       newPerson.setIdentifier(new IdentifierVO());
       newPerson.getIdentifier().setType(IdType.CONE);
-      OrganizationVO newPersonOrganization = new OrganizationVO();
+      final OrganizationVO newPersonOrganization = new OrganizationVO();
       newPersonOrganization.setIdentifier(PropertyReader
           .getProperty("escidoc.pubman.external.organisation.id"));
       newPerson.getOrganizations().add(newPersonOrganization);
@@ -555,24 +557,24 @@ public class ItemControllerSessionBean extends FacesBean {
     }
     // Source
     if (newPubItem.getMetadata().getSources().isEmpty()) {
-      SourceVO newSource = new SourceVO();
+      final SourceVO newSource = new SourceVO();
       newPubItem.getMetadata().getSources().add(newSource);
     }
 
-    for (SourceVO source : newPubItem.getMetadata().getSources()) {
+    for (final SourceVO source : newPubItem.getMetadata().getSources()) {
       if (source.getTitle() == null) {
         source.setTitle("");
       }
       if (source.getPublishingInfo() == null) {
-        PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO();
+        final PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO();
         source.setPublishingInfo(newSourcePublishingInfo);
       }
       if (source.getCreators().isEmpty()) {
-        CreatorVO newSourceCreator = new CreatorVO();
+        final CreatorVO newSourceCreator = new CreatorVO();
         // create a new Organization for this person
-        PersonVO newPerson = new PersonVO();
+        final PersonVO newPerson = new PersonVO();
         newPerson.setIdentifier(new IdentifierVO());
-        OrganizationVO newPersonOrganization = new OrganizationVO();
+        final OrganizationVO newPersonOrganization = new OrganizationVO();
         newPersonOrganization.setName("");
         newPerson.getOrganizations().add(newPersonOrganization);
         newSourceCreator.setOrganization(null);
@@ -587,7 +589,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // Event
     // add Event if needed to be able to bind uiComponents to it
     if (newPubItem.getMetadata().getEvent() == null) {
-      EventVO eventVO = new EventVO();
+      final EventVO eventVO = new EventVO();
       newPubItem.getMetadata().setEvent(eventVO);
     }
     if (newPubItem.getMetadata().getEvent().getTitle() == null) {
@@ -600,7 +602,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // LegalCase
     // add LegalCase to be able to bind uiCompontents to it
     if (newPubItem.getMetadata().getLegalCase() == null) {
-      LegalCaseVO legalCaseVO = new LegalCaseVO();
+      final LegalCaseVO legalCaseVO = new LegalCaseVO();
       newPubItem.getMetadata().setLegalCase(legalCaseVO);
     }
 
@@ -615,7 +617,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     if (newPubItem.getMetadata().getProjectInfo() == null) {
-      ProjectInfoVO projectInfo = new ProjectInfoVO();
+      final ProjectInfoVO projectInfo = new ProjectInfoVO();
       newPubItem.getMetadata().setProjectInfo(projectInfo);
     }
 
@@ -664,17 +666,17 @@ public class ItemControllerSessionBean extends FacesBean {
   public String submitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
     try {
       if (this.currentPubItem == null) {
-        TechnicalException technicalException =
+        final TechnicalException technicalException =
             new TechnicalException("No current PubItem is set.");
         throw technicalException;
       }
 
-      PubItemVO pubItem = new PubItemVO(this.currentPubItem);
+      final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      PubItemService.submitPubItem(pubItem, comment, getLoginHelper().getAccountUser());
-    } catch (Exception e) {
-      logger.error("Could not submit item." + "\n" + e.toString());
+      PubItemService.submitPubItem(pubItem, comment, this.getLoginHelper().getAccountUser());
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not submit item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -694,8 +696,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
     try {
       context = ContextInterfaceConnectorFactory.getInstance().readContext(contextID);
-    } catch (Exception e) {
-      logger.debug(e.toString());
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.debug(e.toString());
       ((Login) FacesTools.findBean("Login")).forceLogout();
     }
 
@@ -712,8 +714,9 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public byte[] retrieveExportData(final ExportFormatVO exportFormatVO,
       final List<PubItemVO> itemsToExportList) throws TechnicalException {
-    List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-    for (PubItemVO pubItem : itemsToExportList) {
+    final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+
+    for (final PubItemVO pubItem : itemsToExportList) {
       pubItemList.add(new PubItemVO(pubItem));
     }
 
@@ -745,28 +748,28 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // define the filter criteria
-    FilterTaskParamVO filter = new FilterTaskParamVO();
-    FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
+    final FilterTaskParamVO filter = new FilterTaskParamVO();
+    final FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
     filter.getFilterList().add(f1);
 
     // retrieve the items applying the filter criteria
     String xmlItemList = "";
     try {
-      if (getLoginHelper().getESciDocUserHandle() != null) {
+      if (this.getLoginHelper().getESciDocUserHandle() != null) {
         xmlItemList =
-            ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle()).retrieveItems(
-                filter.toMap());
+            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
+                .retrieveItems(filter.toMap());
       } else {
         xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
       }
-    } catch (AuthenticationException e) {
-      logger.debug(e.toString());
+    } catch (final AuthenticationException e) {
+      ItemControllerSessionBean.logger.debug(e.toString());
       ((Login) FacesTools.findBean("Login")).forceLogout();
       throw e;
     }
 
     // transform the itemList
-    ArrayList<PubItemVO> itemList =
+    final ArrayList<PubItemVO> itemList =
         (ArrayList<PubItemVO>) XmlTransformingService.transformSearchRetrieveResponseToItemList(
             xmlItemList).getItemVOList();
 
@@ -783,13 +786,13 @@ public class ItemControllerSessionBean extends FacesBean {
       throws Exception {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
-    if (getLoginHelper().getESciDocUserHandle() != null) {
+    if (this.getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList =
           CommonUtils.convertToRelationVOPresentationList(DataGatheringService
-              .findParentItemsOfRevision(getLoginHelper().getESciDocUserHandle(),
+              .findParentItemsOfRevision(this.getLoginHelper().getESciDocUserHandle(),
                   pubItemVO.getVersion()));
     } else {
-      String adminHandle = AdminHelper.getAdminUserHandle();
+      final String adminHandle = AdminHelper.getAdminUserHandle();
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
       revisionVOList =
@@ -797,14 +800,14 @@ public class ItemControllerSessionBean extends FacesBean {
               .findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
     }
 
-    List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
-    for (RelationVOPresentation relationVOPresentation : revisionVOList) {
+    final List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
+    for (final RelationVOPresentation relationVOPresentation : revisionVOList) {
       targetItemRefs.add(relationVOPresentation.getTargetItemRef());
     }
 
-    List<PubItemVO> targetItemList = retrieveItems(targetItemRefs);
-    for (RelationVOPresentation revision : revisionVOList) {
-      for (PubItemVO pubItem : targetItemList) {
+    final List<PubItemVO> targetItemList = this.retrieveItems(targetItemRefs);
+    for (final RelationVOPresentation revision : revisionVOList) {
+      for (final PubItemVO pubItem : targetItemList) {
         if (revision.getTargetItemRef().getObjectId().equals(pubItem.getVersion().getObjectId())) {
           revision.setTargetItem(pubItem);
           break;
@@ -823,10 +826,10 @@ public class ItemControllerSessionBean extends FacesBean {
   public List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO) throws Exception {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
-    if (getLoginHelper().getESciDocUserHandle() != null) {
+    if (this.getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList =
           CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(
-              getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
+              this.getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
     } else {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
@@ -835,15 +838,15 @@ public class ItemControllerSessionBean extends FacesBean {
               AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
     }
 
-    List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
-    for (RelationVOPresentation relationVOPresentation : revisionVOList) {
+    final List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
+    for (final RelationVOPresentation relationVOPresentation : revisionVOList) {
 
       sourceItemRefs.add(relationVOPresentation.getSourceItemRef());
     }
 
-    List<PubItemVO> sourceItemList = retrieveItems(sourceItemRefs);
-    for (RelationVOPresentation revision : revisionVOList) {
-      for (PubItemVO pubItem : sourceItemList) {
+    final List<PubItemVO> sourceItemList = this.retrieveItems(sourceItemRefs);
+    for (final RelationVOPresentation revision : revisionVOList) {
+      for (final PubItemVO pubItem : sourceItemList) {
         if (revision.getSourceItemRef().getObjectId().equals(pubItem.getVersion().getObjectId())) {
           revision.setSourceItem(pubItem);
           break;
@@ -861,9 +864,9 @@ public class ItemControllerSessionBean extends FacesBean {
     AccountUserVO userAccount = null;
     try {
       userAccount = UserInterfaceConnectorFactory.getInstance().readUser(userId);
-    } catch (Exception e) {
-      logger.error("Error retrieving user account", e);
-      logger.error("Returning null");
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Error retrieving user account", e);
+      ItemControllerSessionBean.logger.error("Returning null");
     }
 
     return userAccount;
@@ -881,13 +884,13 @@ public class ItemControllerSessionBean extends FacesBean {
     String xmlVersionHistoryList = "";
 
     // login with escidoc user handle
-    if (getLoginHelper().getESciDocUserHandle() != null) {
+    if (this.getLoginHelper().getESciDocUserHandle() != null) {
       try {
         xmlVersionHistoryList =
-            ServiceLocator.getItemHandler(getLoginHelper().getESciDocUserHandle())
+            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
                 .retrieveVersionHistory(itemID);
-      } catch (AuthenticationException e) {
-        logger.debug(e.toString());
+      } catch (final AuthenticationException e) {
+        ItemControllerSessionBean.logger.debug(e.toString());
         ((Login) FacesTools.findBean("Login")).forceLogout();
         throw e;
       }
@@ -896,8 +899,8 @@ public class ItemControllerSessionBean extends FacesBean {
     else {
       try {
         xmlVersionHistoryList = ServiceLocator.getItemHandler().retrieveVersionHistory(itemID);
-      } catch (AuthenticationException e) {
-        logger.debug(e.toString());
+      } catch (final AuthenticationException e) {
+        ItemControllerSessionBean.logger.debug(e.toString());
         ((Login) FacesTools.findBean("Login")).forceLogout();
         throw e;
       }
@@ -911,15 +914,15 @@ public class ItemControllerSessionBean extends FacesBean {
   public String reviseCurrentPubItem(String reviseComment, String navigationStringToGoBack) {
     try {
       if (this.currentPubItem == null) {
-        TechnicalException technicalException =
+        final TechnicalException technicalException =
             new TechnicalException("No current PubItem is set.");
         throw technicalException;
       }
 
-      PubItemService.revisePubItem(currentPubItem.getVersion(), reviseComment, getLoginHelper()
-          .getAccountUser());
-    } catch (Exception e) {
-      logger.error("Could not revise item." + "\n" + e.toString());
+      PubItemService.revisePubItem(this.currentPubItem.getVersion(), reviseComment, this
+          .getLoginHelper().getAccountUser());
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not revise item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -944,12 +947,12 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      pubItem = PubItemService.savePubItem(pubItem, getLoginHelper().getAccountUser());
+      pubItem = PubItemService.savePubItem(pubItem, this.getLoginHelper().getAccountUser());
 
       this.setCurrentPubItem(new PubItemVOPresentation(pubItem));
-    } catch (TechnicalException tE) {
+    } catch (final TechnicalException tE) {
       if (tE.getCause() instanceof OptimisticLockingException) {
-        logger.error(
+        ItemControllerSessionBean.logger.error(
             "Could not save item because it has been changed by another user in the meantime."
                 + "\n" + tE.toString(), tE);
         throw new RuntimeException(
@@ -957,8 +960,8 @@ public class ItemControllerSessionBean extends FacesBean {
       } else {
         throw new RuntimeException("Technical exception during the saving of the item", tE);
       }
-    } catch (Exception e) {
-      logger.error("Could not save item." + "\n" + e.toString(), e);
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not save item." + "\n" + e.toString(), e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -983,15 +986,15 @@ public class ItemControllerSessionBean extends FacesBean {
       return wrappedAffiliationList;
     }
 
-    PlainCqlQuery cqlQuery =
+    final PlainCqlQuery cqlQuery =
         new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId()
             + ")");
-    OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
+    final OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     wrappedAffiliationList =
         CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
 
-    for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
+    for (final AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
       affiliationVOPresentation.setParent(parentAffiliation);
       affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", "
           + parentAffiliation.getNamePath());
@@ -1009,10 +1012,10 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchTopLevelAffiliations() throws Exception {
-    PlainCqlQuery cqlQuery =
+    final PlainCqlQuery cqlQuery =
         new PlainCqlQuery(
             "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
-    OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
+    final OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
 
     return results.getResults();
   }
@@ -1075,29 +1078,29 @@ public class ItemControllerSessionBean extends FacesBean {
         throw new TechnicalException("Invalid state.");
       }
 
-      PubItemVO pubItem = new PubItemVO(this.currentPubItem);
+      final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
 
       this.cleanUpItem(pubItem);
 
       ItemRO pubItemRO = null;
       PubItemService.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(), comment,
-          getLoginHelper().getAccountUser());
+          this.getLoginHelper().getAccountUser());
       pubItemRO = new PubItemVO().getVersion();
 
       if (pubItemRO == this.currentPubItem.getVersion()) {
         return null;
       }
-    } catch (TechnicalException tE) {
+    } catch (final TechnicalException tE) {
       if (tE.getCause() instanceof OptimisticLockingException) {
-        logger.error(
+        ItemControllerSessionBean.logger.error(
             "Could not submit or release item because it has been changed by another user in the meantime."
                 + "\n" + tE.toString(), tE);
         throw new RuntimeException(
             "Could not submit or release item because it has been changed by another user in the meantime.",
             tE);
       }
-    } catch (Exception e) {
-      logger.error("Could not release item.", e);
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not release item.", e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -1117,17 +1120,17 @@ public class ItemControllerSessionBean extends FacesBean {
   public String withdrawCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       if (this.currentPubItem == null) {
-        TechnicalException technicalException =
+        final TechnicalException technicalException =
             new TechnicalException("No current PubItem is set.");
         throw technicalException;
       }
 
-      PubItemVO pubItem = new PubItemVO(this.currentPubItem);
+      final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
 
-      PubItemService.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment,
-          getLoginHelper().getAccountUser());
-    } catch (Exception e) {
-      logger.error("Could not withdraw item." + "\n" + e.toString());
+      PubItemService.withdrawPubItem(pubItem, pubItem.getModificationDate(), comment, this
+          .getLoginHelper().getAccountUser());
+    } catch (final Exception e) {
+      ItemControllerSessionBean.logger.error("Could not withdraw item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;

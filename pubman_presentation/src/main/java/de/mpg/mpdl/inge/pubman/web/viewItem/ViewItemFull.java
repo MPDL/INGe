@@ -38,7 +38,6 @@ import java.util.MissingResourceException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
@@ -241,9 +240,10 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
 
-  public ViewItemFull() {}
+  public ViewItemFull() {
+    this.init();
+  }
 
-  @PostConstruct
   public void init() {
     String itemID = "";
 

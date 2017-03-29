@@ -22,9 +22,9 @@ public class AnyFieldCriterionCollection {
    */
   public AnyFieldCriterionCollection() {
     // ensure the parentVO is never null;
-    List<Criterion> ctorList = new ArrayList<Criterion>();
+    final List<Criterion> ctorList = new ArrayList<Criterion>();
     ctorList.add(new AnyFieldCriterion());
-    anyFieldCriterionManager = new AnyFieldCriterionManager();
+    this.anyFieldCriterionManager = new AnyFieldCriterionManager();
     // setParentVO(ctorList);
   }
 
@@ -50,7 +50,7 @@ public class AnyFieldCriterionCollection {
   // }
   //
   public AnyFieldCriterionManager getAnyFieldCriterionManager() {
-    return anyFieldCriterionManager;
+    return this.anyFieldCriterionManager;
   }
 
   public void setAnyFieldCriterionManager(AnyFieldCriterionManager anyFieldCriterionManager) {
@@ -58,15 +58,15 @@ public class AnyFieldCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (AnyFieldCriterionBean gcb : anyFieldCriterionManager.getObjectList()) {
+    for (final AnyFieldCriterionBean gcb : this.anyFieldCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<Criterion> getFilledCriterion() {
-    List<Criterion> returnList = new ArrayList<Criterion>();
-    for (AnyFieldCriterionBean bean : anyFieldCriterionManager.getObjectList()) {
-      Criterion vo = bean.getCriterionVO();
+    final List<Criterion> returnList = new ArrayList<Criterion>();
+    for (final AnyFieldCriterionBean bean : this.anyFieldCriterionManager.getObjectList()) {
+      final Criterion vo = bean.getCriterionVO();
       if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }
@@ -88,17 +88,18 @@ public class AnyFieldCriterionCollection {
     // }
 
     public AnyFieldCriterionManager() {
-      if (getSize() == 0) {
-        List<AnyFieldCriterionBean> beanList = new ArrayList<AnyFieldCriterionBean>();
-        beanList.add(createNewObject());
-        setObjectList(beanList);
+      if (this.getSize() == 0) {
+        final List<AnyFieldCriterionBean> beanList = new ArrayList<AnyFieldCriterionBean>();
+        beanList.add(this.createNewObject());
+        this.setObjectList(beanList);
       }
     }
 
+    @Override
     public AnyFieldCriterionBean createNewObject() {
-      AnyFieldCriterion newVO = new AnyFieldCriterion();
+      final AnyFieldCriterion newVO = new AnyFieldCriterion();
       // create a new wrapper pojo
-      AnyFieldCriterionBean anyFieldCriterionBean = new AnyFieldCriterionBean(newVO);
+      final AnyFieldCriterionBean anyFieldCriterionBean = new AnyFieldCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
       // parentVO.add(newVO);
@@ -117,7 +118,7 @@ public class AnyFieldCriterionCollection {
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 }

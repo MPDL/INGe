@@ -9,14 +9,13 @@ public class ElasticSearchIndexField {
   private String[] nestedPath;
 
   public ElasticSearchIndexField(String fieldname, boolean nested, String... nestedPath) {
-    super();
     this.fieldname = fieldname;
     this.nested = nested;
     this.nestedPath = nestedPath;
   }
 
   public String[] getNestedPath() {
-    return nestedPath;
+    return this.nestedPath;
   }
 
   public void setNestedPath(String[] nestedPath) {
@@ -24,7 +23,7 @@ public class ElasticSearchIndexField {
   }
 
   public String getFieldname() {
-    return fieldname;
+    return this.fieldname;
   }
 
   public void setFieldname(String fieldname) {
@@ -32,7 +31,7 @@ public class ElasticSearchIndexField {
   }
 
   public boolean isNested() {
-    return nested;
+    return this.nested;
   }
 
   public void setNested(boolean nested) {
@@ -40,16 +39,11 @@ public class ElasticSearchIndexField {
   }
 
   public ElasticSearchIndexField(String fieldname, boolean nested) {
-    super();
     this.fieldname = fieldname;
     this.nested = nested;
   }
 
   public ElasticSearchIndexField(String fieldname) {
-    super();
     this.fieldname = fieldname;
   }
-
-
-
 }

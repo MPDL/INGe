@@ -46,16 +46,16 @@ public class FileCriterionBean extends CriterionBean {
   }
 
   public FileCriterionBean(FileCriterion fileCriterionVO) {
-    setFileCriterionVO(fileCriterionVO);
+    this.setFileCriterionVO(fileCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return fileCriterionVO;
+    return this.fileCriterionVO;
   }
 
   public FileCriterion getFileCriterionVO() {
-    return fileCriterionVO;
+    return this.fileCriterionVO;
   }
 
   public void setFileCriterionVO(FileCriterion fileCriterionVO) {
@@ -69,11 +69,11 @@ public class FileCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    fileCriterionVO.setSearchForEmbargoFiles(false);
-    fileCriterionVO.setExcludeCategory(false);
-    fileCriterionVO.setComponentVisibility(null);
-    fileCriterionVO.setComponentAvailability(null);
-    fileCriterionVO.setContentCategory(null);
+    this.fileCriterionVO.setSearchForEmbargoFiles(false);
+    this.fileCriterionVO.setExcludeCategory(false);
+    this.fileCriterionVO.setComponentVisibility(null);
+    this.fileCriterionVO.setComponentAvailability(null);
+    this.fileCriterionVO.setContentCategory(null);
   }
 
   /**

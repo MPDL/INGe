@@ -48,12 +48,13 @@ public class IdentifierCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
     criterions.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.IDENTIFIER,
-        getSearchString()));
-    criterions.add(new MetadataSearchCriterion(CriterionType.LATEST_RELEASE_OBJID,
-        getSearchString(), MetadataSearchCriterion.LogicalOperator.OR));
+        this.getSearchString()));
+    criterions.add(new MetadataSearchCriterion(CriterionType.LATEST_RELEASE_OBJID, this
+        .getSearchString(), MetadataSearchCriterion.LogicalOperator.OR));
     return criterions;
   }
 }

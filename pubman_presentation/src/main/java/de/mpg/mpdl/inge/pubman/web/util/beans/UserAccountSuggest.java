@@ -53,13 +53,13 @@ public class UserAccountSuggest extends FacesBean {
   private List<AccountUserVO> userAccountList;
 
   public UserAccountSuggest() throws Exception {
-    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
-    String query = parameters.get("q");
+    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    final String query = parameters.get("q");
 
-    if (getLoginHelper().getESciDocUserHandle() != null) {
+    if (this.getLoginHelper().getESciDocUserHandle() != null) {
       if (query != null) {
         String queryString = "";
-        for (String snippet : query.split(" ")) {
+        for (final String snippet : query.split(" ")) {
           if (!"".equals(queryString)) {
             queryString += " and ";
           }
@@ -68,24 +68,24 @@ public class UserAccountSuggest extends FacesBean {
                   + snippet + "%\")";
         }
 
-        FilterTaskParamVO filter = new FilterTaskParamVO();
-        Filter f1 = filter.new CqlFilter(queryString);
+        final FilterTaskParamVO filter = new FilterTaskParamVO();
+        final Filter f1 = filter.new CqlFilter(queryString);
         filter.getFilterList().add(f1);
-        Filter f3 = filter.new LimitFilter("50");
+        final Filter f3 = filter.new LimitFilter("50");
         filter.getFilterList().add(f3);
 
-        UserAccountHandler uag =
-            ServiceLocator.getUserAccountHandler(getLoginHelper().getESciDocUserHandle());
-        String xmlUserList = uag.retrieveUserAccounts(filter.toMap());
-        SearchRetrieveResponseVO resp =
+        final UserAccountHandler uag =
+            ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
+        final String xmlUserList = uag.retrieveUserAccounts(filter.toMap());
+        final SearchRetrieveResponseVO resp =
             XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xmlUserList);
 
         this.userAccountList = new ArrayList<AccountUserVO>();
 
         if (resp.getRecords() != null) {
-          for (SearchRetrieveRecordVO rec : resp.getRecords()) {
+          for (final SearchRetrieveRecordVO rec : resp.getRecords()) {
             if (rec != null) {
-              getUserAccountList().add((AccountUserVO) rec.getData());
+              this.getUserAccountList().add((AccountUserVO) rec.getData());
             }
           }
         }

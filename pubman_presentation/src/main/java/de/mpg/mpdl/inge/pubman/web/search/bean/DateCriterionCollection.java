@@ -22,9 +22,9 @@ public class DateCriterionCollection {
    */
   public DateCriterionCollection() {
     // ensure the parentVO is never null;
-    List<DateCriterion> ctorList = new ArrayList<DateCriterion>();
+    final List<DateCriterion> ctorList = new ArrayList<DateCriterion>();
     ctorList.add(new DateCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -33,17 +33,17 @@ public class DateCriterionCollection {
    * @param parentVO
    */
   public DateCriterionCollection(List<DateCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<DateCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<DateCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    dateCriterionManager = new DateCriterionManager(parentVO);
+    this.dateCriterionManager = new DateCriterionManager(parentVO);
   }
 
   /**
@@ -55,17 +55,18 @@ public class DateCriterionCollection {
     List<DateCriterion> parentVO;
 
     public DateCriterionManager(List<DateCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public DateCriterionBean createNewObject() {
-      DateCriterion newVO = new DateCriterion();
+      final DateCriterion newVO = new DateCriterion();
       newVO.setDateType(new ArrayList<DateType>());
       // create a new wrapper pojo
-      DateCriterionBean dateCriterionBean = new DateCriterionBean(newVO);
+      final DateCriterionBean dateCriterionBean = new DateCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
 
       return dateCriterionBean;
     }
@@ -74,17 +75,17 @@ public class DateCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<DateCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice DateCriterionBean
-      List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
-      for (DateCriterion dateCriterionVO : parentVO) {
+      final List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
+      for (final DateCriterion dateCriterionVO : this.parentVO) {
         beanList.add(new DateCriterionBean(dateCriterionVO));
       }
 
@@ -94,21 +95,21 @@ public class DateCriterionCollection {
     public void setParentVO(List<DateCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice DateCriterionBean
-      List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
-      for (DateCriterion dateCriterionVO : parentVO) {
+      final List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
+      for (final DateCriterion dateCriterionVO : parentVO) {
         beanList.add(new DateCriterionBean(dateCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public DateCriterionManager getDateCriterionManager() {
-    return dateCriterionManager;
+    return this.dateCriterionManager;
   }
 
   public void setDateCriterionManager(DateCriterionManager dateCriterionManager) {
@@ -116,14 +117,14 @@ public class DateCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (DateCriterionBean gcb : dateCriterionManager.getObjectList()) {
+    for (final DateCriterionBean gcb : this.dateCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<DateCriterion> getFilledCriterion() {
-    List<DateCriterion> returnList = new ArrayList<DateCriterion>();
-    for (DateCriterion vo : parentVO) {
+    final List<DateCriterion> returnList = new ArrayList<DateCriterion>();
+    for (final DateCriterion vo : this.parentVO) {
       if (vo.getDateType().size() > 0 || (vo.getFrom() != null && vo.getFrom().length() > 0)
           || (vo.getTo() != null && vo.getTo().length() > 0)
           || (vo.getSearchString() != null && vo.getSearchString().length() > 0)) {

@@ -22,9 +22,9 @@ public class IdentifierCriterionCollection {
    */
   public IdentifierCriterionCollection() {
     // ensure the parentVO is never null;
-    List<IdentifierCriterion> ctorList = new ArrayList<IdentifierCriterion>();
+    final List<IdentifierCriterion> ctorList = new ArrayList<IdentifierCriterion>();
     ctorList.add(new IdentifierCriterion());
-    setParentVO(ctorList);
+    this.setParentVO(ctorList);
   }
 
   /**
@@ -33,17 +33,17 @@ public class IdentifierCriterionCollection {
    * @param parentVO
    */
   public IdentifierCriterionCollection(List<IdentifierCriterion> parentVO) {
-    setParentVO(parentVO);
+    this.setParentVO(parentVO);
   }
 
   public List<IdentifierCriterion> getParentVO() {
-    return parentVO;
+    return this.parentVO;
   }
 
   public void setParentVO(List<IdentifierCriterion> parentVO) {
     this.parentVO = parentVO;
     // ensure proper initialization of our DataModelManager
-    identifierCriterionManager = new IdentifierCriterionManager(parentVO);
+    this.identifierCriterionManager = new IdentifierCriterionManager(parentVO);
   }
 
   /**
@@ -55,16 +55,17 @@ public class IdentifierCriterionCollection {
     List<IdentifierCriterion> parentVO;
 
     public IdentifierCriterionManager(List<IdentifierCriterion> parentVO) {
-      setParentVO(parentVO);
+      this.setParentVO(parentVO);
     }
 
+    @Override
     public IdentifierCriterionBean createNewObject() {
-      IdentifierCriterion newVO = new IdentifierCriterion();
+      final IdentifierCriterion newVO = new IdentifierCriterion();
       // create a new wrapper pojo
-      IdentifierCriterionBean identifierCriterionBean = new IdentifierCriterionBean(newVO);
+      final IdentifierCriterionBean identifierCriterionBean = new IdentifierCriterionBean(newVO);
       // we do not have direct access to the original list
       // so we have to add the new VO on our own
-      parentVO.add(newVO);
+      this.parentVO.add(newVO);
       return identifierCriterionBean;
     }
 
@@ -72,17 +73,17 @@ public class IdentifierCriterionCollection {
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling
       super.removeObjectAtIndex(i);
-      parentVO.remove(i);
+      this.parentVO.remove(i);
     }
 
     public List<IdentifierCriterionBean> getDataListFromVO() {
-      if (parentVO == null) {
+      if (this.parentVO == null) {
         return null;
       }
 
       // we have to wrap all VO's in a nice IdentifierCriterionBean
-      List<IdentifierCriterionBean> beanList = new ArrayList<IdentifierCriterionBean>();
-      for (IdentifierCriterion identifierCriterionVO : parentVO) {
+      final List<IdentifierCriterionBean> beanList = new ArrayList<IdentifierCriterionBean>();
+      for (final IdentifierCriterion identifierCriterionVO : this.parentVO) {
         beanList.add(new IdentifierCriterionBean(identifierCriterionVO));
       }
 
@@ -92,21 +93,21 @@ public class IdentifierCriterionCollection {
     public void setParentVO(List<IdentifierCriterion> parentVO) {
       this.parentVO = parentVO;
       // we have to wrap all VO's into a nice IdentifierCriterionBean
-      List<IdentifierCriterionBean> beanList = new ArrayList<IdentifierCriterionBean>();
-      for (IdentifierCriterion identifierCriterionVO : parentVO) {
+      final List<IdentifierCriterionBean> beanList = new ArrayList<IdentifierCriterionBean>();
+      for (final IdentifierCriterion identifierCriterionVO : parentVO) {
         beanList.add(new IdentifierCriterionBean(identifierCriterionVO));
       }
-      setObjectList(beanList);
+      this.setObjectList(beanList);
     }
 
     public int getSize() {
-      return getObjectDM().getRowCount();
+      return this.getObjectDM().getRowCount();
     }
   }
 
 
   public IdentifierCriterionManager getIdentifierCriterionManager() {
-    return identifierCriterionManager;
+    return this.identifierCriterionManager;
   }
 
   public void setIdentifierCriterionManager(IdentifierCriterionManager identifierCriterionManager) {
@@ -114,14 +115,14 @@ public class IdentifierCriterionCollection {
   }
 
   public void clearAllForms() {
-    for (IdentifierCriterionBean gcb : identifierCriterionManager.getObjectList()) {
+    for (final IdentifierCriterionBean gcb : this.identifierCriterionManager.getObjectList()) {
       gcb.clearCriterion();
     }
   }
 
   public List<IdentifierCriterion> getFilledCriterion() {
-    List<IdentifierCriterion> returnList = new ArrayList<IdentifierCriterion>();
-    for (IdentifierCriterion vo : parentVO) {
+    final List<IdentifierCriterion> returnList = new ArrayList<IdentifierCriterion>();
+    for (final IdentifierCriterion vo : this.parentVO) {
       if ((vo.getSearchString() != null && vo.getSearchString().length() > 0)) {
         returnList.add(vo);
       }

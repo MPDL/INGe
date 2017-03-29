@@ -59,23 +59,23 @@ public class DateCriterion extends Criterion {
   public DateCriterion() {}
 
   public String getFrom() {
-    return from;
+    return this.from;
   }
 
   public String getTo() {
-    return to;
+    return this.to;
   }
 
   public void setFrom(String newVal) {
-    from = newVal;
+    this.from = newVal;
   }
 
   public void setTo(String newVal) {
-    to = newVal;
+    this.to = newVal;
   }
 
   public List<DateType> getDateType() {
-    return dateTypeList;
+    return this.dateTypeList;
   }
 
   public void setDateType(List<DateType> dateType) {
@@ -88,7 +88,7 @@ public class DateCriterion extends Criterion {
    * @return true if empty, false if not
    */
   private boolean isFromEmpty() {
-    if (from == null || from.trim().equals("")) {
+    if (this.from == null || this.from.trim().equals("")) {
       return true;
     } else {
       return false;
@@ -101,7 +101,7 @@ public class DateCriterion extends Criterion {
    * @return true if empty, false if not
    */
   private boolean isToEmpty() {
-    if (to == null || to.trim().equals("")) {
+    if (this.to == null || this.to.trim().equals("")) {
       return true;
     } else {
       return false;
@@ -132,9 +132,9 @@ public class DateCriterion extends Criterion {
   }
 
   private ArrayList<CriterionType> getCriterionsList() throws TechnicalException {
-    ArrayList<CriterionType> list = new ArrayList<CriterionType>();
-    if (dateTypeList.size() == 0) {
-      List<DateType> dateList = new ArrayList<DateType>();
+    final ArrayList<CriterionType> list = new ArrayList<CriterionType>();
+    if (this.dateTypeList.size() == 0) {
+      final List<DateType> dateList = new ArrayList<DateType>();
       dateList.add(DateType.ACCEPTED);
       dateList.add(DateType.CREATED);
       dateList.add(DateType.MODIFIED);
@@ -144,32 +144,33 @@ public class DateCriterion extends Criterion {
       dateList.add(DateType.EVENT_START);
       dateList.add(DateType.EVENT_END);
       for (int i = 0; i < dateList.size(); i++) {
-        list.add(getCriterionByDateType(dateList.get(i)));
+        list.add(this.getCriterionByDateType(dateList.get(i)));
       }
     } else {
-      for (int i = 0; i < dateTypeList.size(); i++) {
-        list.add(getCriterionByDateType(dateTypeList.get(i)));
+      for (int i = 0; i < this.dateTypeList.size(); i++) {
+        list.add(this.getCriterionByDateType(this.dateTypeList.get(i)));
       }
     }
     return list;
   }
 
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
 
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
 
     String fromQuery = null;
     String toQuery = null;
 
-    if (!isFromEmpty()) {
-      fromQuery = from;
+    if (!this.isFromEmpty()) {
+      fromQuery = this.from;
     }
-    if (!isToEmpty()) {
-      toQuery = to;
+    if (!this.isToEmpty()) {
+      toQuery = this.to;
     }
 
-    MetadataDateSearchCriterion criterion =
-        new MetadataDateSearchCriterion(getCriterionsList(), fromQuery, toQuery);
+    final MetadataDateSearchCriterion criterion =
+        new MetadataDateSearchCriterion(this.getCriterionsList(), fromQuery, toQuery);
     criterions.add(criterion);
 
     return criterions;

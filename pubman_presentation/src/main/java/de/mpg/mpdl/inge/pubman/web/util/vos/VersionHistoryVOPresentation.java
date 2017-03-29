@@ -23,7 +23,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   private static final Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);
 
-  private List<EventLogEntryVOPresentation> eventLogEntries;
+  private final List<EventLogEntryVOPresentation> eventLogEntries;
 
   public VersionHistoryVOPresentation(VersionHistoryEntryVO versionHistoryEntryVO) {
     this.eventLogEntries = new ArrayList<EventLogEntryVOPresentation>();
@@ -32,7 +32,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     this.setReference(versionHistoryEntryVO.getReference());
     this.setState(versionHistoryEntryVO.getState());
 
-    for (EventLogEntryVO event : getEvents()) {
+    for (final EventLogEntryVO event : this.getEvents()) {
       this.eventLogEntries.add(new EventLogEntryVOPresentation(event, this));
     }
   }
@@ -47,18 +47,22 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
    * @return Nothing
    */
   public String rollback() throws Exception {
-    logger.info("Rollback to version " + this.getReference().getVersionNumber());
+    VersionHistoryVOPresentation.logger.info("Rollback to version "
+        + this.getReference().getVersionNumber());
 
-    LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
+    final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
 
-    ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+    final ItemHandler itemHandler =
+        ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
 
     // Get the two versions
-    String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
-    String xmlItemThisVersion = itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
-    PubItemVO pubItemVOLatestVersion =
+    final String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
+    final String xmlItemThisVersion =
+        itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
+    final PubItemVO pubItemVOLatestVersion =
         XmlTransformingService.transformToPubItem(xmlItemLatestVersion);
-    PubItemVO pubItemVOThisVersion = XmlTransformingService.transformToPubItem(xmlItemThisVersion);
+    final PubItemVO pubItemVOThisVersion =
+        XmlTransformingService.transformToPubItem(xmlItemThisVersion);
 
     // Now copy the old stuff into the current item
     pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
@@ -67,8 +71,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     // Do not forget the files and locators
     pubItemVOLatestVersion.getFiles().clear();
-    for (FileVO fileVO : pubItemVOThisVersion.getFiles()) {
-      FileVO clonedFile = new FileVO(fileVO);
+    for (final FileVO fileVO : pubItemVOThisVersion.getFiles()) {
+      final FileVO clonedFile = new FileVO(fileVO);
       clonedFile.setReference(fileVO.getReference());
       pubItemVOLatestVersion.getFiles().add(clonedFile);
     }
@@ -97,7 +101,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
         .setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
 
-    ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
+    final ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
     viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
     viewItemFull.init();
 

@@ -20,16 +20,16 @@ public class EventCriterionBean extends CriterionBean {
   }
 
   public EventCriterionBean(EventCriterion eventCriterionVO) {
-    setEventCriterionVO(eventCriterionVO);
+    this.setEventCriterionVO(eventCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return eventCriterionVO;
+    return this.eventCriterionVO;
   }
 
   public EventCriterion getEventCriterionVO() {
-    return eventCriterionVO;
+    return this.eventCriterionVO;
   }
 
   public void setEventCriterionVO(EventCriterion eventCriterionVO) {
@@ -43,7 +43,7 @@ public class EventCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    eventCriterionVO.setSearchString("");
-    eventCriterionVO.setInvitationStatus(false);
+    this.eventCriterionVO.setSearchString("");
+    this.eventCriterionVO.setInvitationStatus(false);
   }
 }

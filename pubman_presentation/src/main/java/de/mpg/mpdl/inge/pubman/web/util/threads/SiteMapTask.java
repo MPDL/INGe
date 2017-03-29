@@ -70,7 +70,7 @@ public class SiteMapTask extends Thread {
 
   private FileWriter fileWriter = null;
 
-  private List<File> files = new ArrayList<File>();
+  private final List<File> files = new ArrayList<File>();
 
   private SimpleDateFormat dateFormat;
 
@@ -89,41 +89,42 @@ public class SiteMapTask extends Thread {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void run() {
     try {
-      logger.info("Starting to create Sitemap.");
-      instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-      contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-      itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
+      SiteMapTask.logger.info("Starting to create Sitemap.");
+      this.instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+      this.contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+      this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
 
-      interval =
+      this.interval =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.task.interval"));
 
-      maxItemsPerFile =
+      this.maxItemsPerFile =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.max.items"));
-      maxItemsPerRetrieve =
+      this.maxItemsPerRetrieve =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.retrieve.items"));
 
-      retrievalTimeout =
+      this.retrievalTimeout =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.retrieve.timeout"));
 
-      contentModel =
+      this.contentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
 
-      contentModels = new ArrayList<String>();
-      contentModels.add(contentModel);
+      this.contentModels = new ArrayList<String>();
+      this.contentModels.add(this.contentModel);
 
-      dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-      changeFile();
+      this.changeFile();
 
-      int alreadyWritten = addViewItemPages();
-      addOUSearchResultPages(alreadyWritten);
+      final int alreadyWritten = this.addViewItemPages();
+      this.addOUSearchResultPages(alreadyWritten);
 
-      finishSitemap();
+      this.finishSitemap();
 
       // String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
-      new File(SITEMAP_PATH).mkdir();
+      new File(SiteMapTask.SITEMAP_PATH).mkdir();
       /*
        * try { appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp",
        * SiteMapTask.class.getClassLoader()).getAbsolutePath(); } catch (Exception e) {
@@ -131,22 +132,22 @@ public class SiteMapTask extends Thread {
        * return; } appPath = appPath.substring(0,
        * appPath.lastIndexOf(System.getProperty("file.separator")) + 1);
        */
-      if (files.size() == 1) {
-        File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
+      if (this.files.size() == 1) {
+        final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
         try {
           finalFile.delete();
-        } catch (Exception e) {
+        } catch (final Exception e) {
           // Unable to delete file, it probably didn't exist
         }
-        fileWriter = new FileWriter(SITEMAP_PATH + "sitemap.xml");
+        this.fileWriter = new FileWriter(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
 
         // File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
-        this.copySiteMap(files.get(0), finalFile, (int) files.get(0).length(), true);
+        this.copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
       } else {
-        String currentDate = dateFormat.format(new Date());
+        final String currentDate = this.dateFormat.format(new Date());
 
-        File indexFile = File.createTempFile("sitemap", ".xml");
-        FileWriter indexFileWriter = new FileWriter(indexFile);
+        final File indexFile = File.createTempFile("sitemap", ".xml");
+        final FileWriter indexFileWriter = new FileWriter(indexFile);
 
         indexFileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
@@ -154,17 +155,18 @@ public class SiteMapTask extends Thread {
             + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
             + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
 
-        for (int i = 0; i < files.size(); i++) {
-          File finalFile = new File(SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
+        for (int i = 0; i < this.files.size(); i++) {
+          final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
           try {
             finalFile.delete();
-          } catch (Exception e) {
+          } catch (final Exception e) {
             // Unable to delete file, it probably didn't exist
           }
-          this.copySiteMap(files.get(i), finalFile, (int) files.get(i).length(), true);
+          this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + instanceUrl + contextPath + "/sitemap"
-              + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
+          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath
+              + "/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate
+              + "</lastmod>\n\t</sitemap>\n");
 
         }
 
@@ -172,30 +174,31 @@ public class SiteMapTask extends Thread {
         indexFileWriter.flush();
         indexFileWriter.close();
 
-        File finalFile = new File(SITEMAP_PATH + "sitemap.xml");
-        logger.info("Sitemap file: " + finalFile.getAbsolutePath());
+        final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
+        SiteMapTask.logger.info("Sitemap file: " + finalFile.getAbsolutePath());
         try {
           finalFile.delete();
-        } catch (Exception e) {
+        } catch (final Exception e) {
           // Unable to delete file, it probably didn't exist
         }
-        boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
-        logger.debug("Renaming succeeded: " + success);
+        final boolean success =
+            this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+        SiteMapTask.logger.debug("Renaming succeeded: " + success);
       }
 
-      logger.info("Finished creating Sitemap.");
-    } catch (Exception e) {
-      logger.error("Error creating Sitemap", e);
+      SiteMapTask.logger.info("Finished creating Sitemap.");
+    } catch (final Exception e) {
+      SiteMapTask.logger.error("Error creating Sitemap", e);
     }
 
     try {
-      sleep(interval * 60 * 1000);
-    } catch (InterruptedException e) {
-      logger.info("Sitemap task interrupted.");
+      Thread.sleep(this.interval * 60 * 1000);
+    } catch (final InterruptedException e) {
+      SiteMapTask.logger.info("Sitemap task interrupted.");
     }
 
-    if (!signal) {
-      Thread nextThread = new SiteMapTask();
+    if (!this.signal) {
+      final Thread nextThread = new SiteMapTask();
       nextThread.start();
     }
   }
@@ -209,7 +212,7 @@ public class SiteMapTask extends Thread {
         throw new IOException("Cannot overwrite existing file: " + dest.getName());
       }
     }
-    byte[] buffer = new byte[bufSize];
+    final byte[] buffer = new byte[bufSize];
     int read = 0;
     InputStream in = null;
     OutputStream out = null;
@@ -249,26 +252,26 @@ public class SiteMapTask extends Thread {
       try {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
-        ItemContainerSearchResult itemSearchResult = getItems(firstRecord);
+        final ItemContainerSearchResult itemSearchResult = this.getItems(firstRecord);
         totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
-        addItemsToSitemap(itemSearchResult);
+        this.addItemsToSitemap(itemSearchResult);
 
 
-        firstRecord += maxItemsPerRetrieve;
+        firstRecord += this.maxItemsPerRetrieve;
 
-        if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0) {
-          changeFile();
+        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
+          this.changeFile();
         }
 
-      } catch (Exception e) {
-        logger.error("Error while creating sitemap part for items from offset " + firstRecord
-            + " to " + (firstRecord + maxItemsPerRetrieve));
+      } catch (final Exception e) {
+        SiteMapTask.logger.error("Error while creating sitemap part for items from offset "
+            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
       }
 
       try {
-        sleep(retrievalTimeout * 1000);
-      } catch (InterruptedException e) {
-        logger.info("Sitemap task interrupted.");
+        Thread.sleep(this.retrievalTimeout * 1000);
+      } catch (final InterruptedException e) {
+        SiteMapTask.logger.info("Sitemap task interrupted.");
       }
     } while (firstRecord <= totalRecords);
 
@@ -276,44 +279,44 @@ public class SiteMapTask extends Thread {
   }
 
   private void addOUSearchResultPages(int alreadyWritten) {
-    changeFile();
+    this.changeFile();
 
     int firstRecord = 0;
     int totalRecords = 0;
 
     // fileWriter.write("<ul>");
     do {
-      OrgUnitsSearchResult ouSearchResult = getOUs(firstRecord);
+      final OrgUnitsSearchResult ouSearchResult = this.getOUs(firstRecord);
       totalRecords = ouSearchResult.getTotalNumberOfResults().intValue();
-      addOUsToSitemap(ouSearchResult);
+      this.addOUsToSitemap(ouSearchResult);
 
-      firstRecord += maxItemsPerRetrieve;
+      firstRecord += this.maxItemsPerRetrieve;
 
-      if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0) {
-        changeFile();
+      if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
+        this.changeFile();
       }
 
       try {
-        sleep(retrievalTimeout * 1000);
-      } catch (InterruptedException e) {
-        logger.info("Sitemap task interrupted.");
+        Thread.sleep(this.retrievalTimeout * 1000);
+      } catch (final InterruptedException e) {
+        SiteMapTask.logger.info("Sitemap task interrupted.");
       }
     } while (firstRecord <= totalRecords);
   }
 
   private void changeFile() {
     try {
-      if (fileWriter != null) {
-        finishSitemap();
+      if (this.fileWriter != null) {
+        this.finishSitemap();
       }
 
-      File file = File.createTempFile("sitemap", ".xml");
-      fileWriter = new FileWriter(file);
-      files.add(file);
+      final File file = File.createTempFile("sitemap", ".xml");
+      this.fileWriter = new FileWriter(file);
+      this.files.add(file);
 
-      startSitemap();
-    } catch (Exception e) {
-      logger.error("Error creating sitemap file.", e);
+      this.startSitemap();
+    } catch (final Exception e) {
+      SiteMapTask.logger.error("Error creating sitemap file.", e);
     }
   }
 
@@ -325,16 +328,17 @@ public class SiteMapTask extends Thread {
    * @throws Exception
    */
   private ItemContainerSearchResult getItems(int firstRecord) {
-    SearchQuery itemQuery =
+    final SearchQuery itemQuery =
         new PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid="
-            + contentModel + ")");
+            + this.contentModel + ")");
     itemQuery.setStartRecord(firstRecord + "");
-    itemQuery.setMaximumRecords(maxItemsPerRetrieve + "");
+    itemQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
     try {
-      ItemContainerSearchResult itemSearchResult = SearchService.searchForItemContainer(itemQuery);
+      final ItemContainerSearchResult itemSearchResult =
+          SearchService.searchForItemContainer(itemQuery);
       return itemSearchResult;
-    } catch (Exception e) {
-      logger.error("Error getting items", e);
+    } catch (final Exception e) {
+      SiteMapTask.logger.error("Error getting items", e);
     }
 
     return null;
@@ -349,15 +353,16 @@ public class SiteMapTask extends Thread {
    */
   private OrgUnitsSearchResult getOUs(int firstRecord) {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
-    SearchQuery ouQuery =
+    final SearchQuery ouQuery =
         new PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
     ouQuery.setStartRecord(firstRecord + "");
-    ouQuery.setMaximumRecords(maxItemsPerRetrieve + "");
+    ouQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
     try {
-      OrgUnitsSearchResult ouSearchResult = SearchService.searchForOrganizationalUnits(ouQuery);
+      final OrgUnitsSearchResult ouSearchResult =
+          SearchService.searchForOrganizationalUnits(ouQuery);
       return ouSearchResult;
-    } catch (Exception e) {
-      logger.error("Error getting ous", e);
+    } catch (final Exception e) {
+      SiteMapTask.logger.error("Error getting ous", e);
     }
 
     return null;
@@ -365,68 +370,69 @@ public class SiteMapTask extends Thread {
 
   private void startSitemap() {
     try {
-      fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+      this.fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
           + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
           + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
           + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
           + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       e.printStackTrace();
     }
   }
 
   private void addItemsToSitemap(ItemContainerSearchResult searchResult) {
-    List<SearchResultElement> results = searchResult.getResultList();
-    for (SearchResultElement result : results) {
+    final List<SearchResultElement> results = searchResult.getResultList();
+    for (final SearchResultElement result : results) {
       if (result instanceof ItemVO) {
-        PubItemVO pubItemVO = new PubItemVO((ItemVO) result);
+        final PubItemVO pubItemVO = new PubItemVO((ItemVO) result);
         try {
-          fileWriter.write("\t<url>\n\t\t<loc>");
-          fileWriter.write(instanceUrl);
-          fileWriter.write(contextPath);
-          fileWriter.write(itemPattern.replace("$1", pubItemVO.getVersion().getObjectId()));
-          fileWriter.write("</loc>\n\t\t<lastmod>");
-          fileWriter.write(dateFormat.format(pubItemVO.getModificationDate()));
-          fileWriter.write("</lastmod>\n\t</url>\n");
-        } catch (Exception e) {
-          logger.error("Error", e);
+          this.fileWriter.write("\t<url>\n\t\t<loc>");
+          this.fileWriter.write(this.instanceUrl);
+          this.fileWriter.write(this.contextPath);
+          this.fileWriter.write(this.itemPattern
+              .replace("$1", pubItemVO.getVersion().getObjectId()));
+          this.fileWriter.write("</loc>\n\t\t<lastmod>");
+          this.fileWriter.write(this.dateFormat.format(pubItemVO.getModificationDate()));
+          this.fileWriter.write("</lastmod>\n\t</url>\n");
+        } catch (final Exception e) {
+          SiteMapTask.logger.error("Error", e);
         }
       } else {
-        logger.error("Search result is not an ItemVO, " + "but a "
+        SiteMapTask.logger.error("Search result is not an ItemVO, " + "but a "
             + result.getClass().getSimpleName());
       }
     }
   }
 
   private void addOUsToSitemap(OrgUnitsSearchResult searchResult) {
-    List<AffiliationVO> results = searchResult.getResults();
-    for (AffiliationVO result : results) {
+    final List<AffiliationVO> results = searchResult.getResults();
+    for (final AffiliationVO result : results) {
 
       try {
-        fileWriter.write("\t<url>\n\t\t<loc>");
-        fileWriter.write(instanceUrl);
-        fileWriter.write(contextPath);
-        fileWriter
+        this.fileWriter.write("\t<url>\n\t\t<loc>");
+        this.fileWriter.write(this.instanceUrl);
+        this.fileWriter.write(this.contextPath);
+        this.fileWriter
             .write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-        fileWriter.write(result.getReference().getObjectId());
-        fileWriter
+        this.fileWriter.write(result.getReference().getObjectId());
+        this.fileWriter
             .write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
-        fileWriter.write(contentModel);
-        fileWriter.write("%22)&amp;searchType=org");
-        fileWriter.write("</loc>\n\t</url>\n");
-      } catch (Exception e) {
-        logger.error("Error", e);
+        this.fileWriter.write(this.contentModel);
+        this.fileWriter.write("%22)&amp;searchType=org");
+        this.fileWriter.write("</loc>\n\t</url>\n");
+      } catch (final Exception e) {
+        SiteMapTask.logger.error("Error", e);
       }
     }
   }
 
   private void finishSitemap() {
     try {
-      fileWriter.write("</urlset>");
-      fileWriter.flush();
-      fileWriter.close();
-    } catch (Exception e) {
-      logger.error("Error", e);
+      this.fileWriter.write("</urlset>");
+      this.fileWriter.flush();
+      this.fileWriter.close();
+    } catch (final Exception e) {
+      SiteMapTask.logger.error("Error", e);
     }
   }
 
@@ -434,15 +440,15 @@ public class SiteMapTask extends Thread {
    * Signals this thread to finish itself.
    */
   public void terminate() {
-    logger.info("Sitemap creation task signalled to terminate.");
-    signal = true;
+    SiteMapTask.logger.info("Sitemap creation task signalled to terminate.");
+    this.signal = true;
   }
 
   /**
    * @param args String arguments
    */
   public static void main(String[] args) {
-    Thread nextThread = new SiteMapTask();
+    final Thread nextThread = new SiteMapTask();
     nextThread.start();
   }
 }

@@ -38,7 +38,7 @@ public class LogicalOperator extends SearchCriterionBase {
 
   @Override
   public String toCqlString(Index indexName) {
-    switch (getSearchCriterion()) {
+    switch (this.getSearchCriterion()) {
       case NOT_OPERATOR:
         return "NOT";
       case AND_OPERATOR:
@@ -52,7 +52,7 @@ public class LogicalOperator extends SearchCriterionBase {
 
   @Override
   public String toQueryString() {
-    switch (getSearchCriterion()) {
+    switch (this.getSearchCriterion()) {
       case NOT_OPERATOR:
         return "NOT";
       case AND_OPERATOR:

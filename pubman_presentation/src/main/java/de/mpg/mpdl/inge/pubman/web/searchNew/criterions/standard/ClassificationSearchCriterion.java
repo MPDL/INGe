@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public class ClassificationSearchCriterion extends StandardSearchCriterion {
@@ -60,20 +61,21 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(getClassificationType())
-        + "||" + escapeForQueryString(getSearchString()) + "\"";
+    return this.getSearchCriterion().name() + "=\""
+        + SearchCriterionBase.escapeForQueryString(this.getClassificationType()) + "||"
+        + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "\"";
   }
 
   @Override
   public void parseQueryStringContent(String content) {
 
 
-    setClassificationType(unescapeForQueryString(content.split("\\|\\|")[0]));
-    setSearchString(unescapeForQueryString(content.split("\\|\\|")[1]));
+    this.setClassificationType(SearchCriterionBase.unescapeForQueryString(content.split("\\|\\|")[0]));
+    this.setSearchString(SearchCriterionBase.unescapeForQueryString(content.split("\\|\\|")[1]));
   }
 
   public String getClassificationType() {
-    return classificationType;
+    return this.classificationType;
   }
 
   public void setClassificationType(String classificationType) {

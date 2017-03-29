@@ -58,23 +58,23 @@ public abstract class Criterion {
   public Criterion() {}
 
   public LogicalOperator getLogicalOperator() {
-    return logicalOperator;
+    return this.logicalOperator;
   }
 
   public String getSearchString() {
-    return searchString;
+    return this.searchString;
   }
 
   public void setLogicalOperator(LogicalOperator newVal) {
-    logicalOperator = newVal;
+    this.logicalOperator = newVal;
   }
 
   public void setSearchString(String newVal) {
-    searchString = newVal;
+    this.searchString = newVal;
   }
 
   protected boolean isSearchStringEmpty() {
-    if (searchString == null || searchString.trim().equals("")) {
+    if (this.searchString == null || this.searchString.trim().equals("")) {
       return true;
     } else {
       return false;

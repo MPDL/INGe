@@ -34,20 +34,20 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class PubManSessionBean extends FacesBean {
-  private String locale = getI18nHelper().getLocale();
+  private String locale = this.getI18nHelper().getLocale();
 
   public PubManSessionBean() {}
 
   public void changeLanguage(ValueChangeEvent event) {
     if (event != null) {
-      getI18nHelper().changeLanguage(event);
+      this.getI18nHelper().changeLanguage(event);
     }
 
-    this.locale = getI18nHelper().getLocale();
+    this.locale = this.getI18nHelper().getLocale();
   }
 
   public String getLocaleString() {
-    return getLabel("ENUM_LANGUAGE_" + locale.toUpperCase());
+    return this.getLabel("ENUM_LANGUAGE_" + this.locale.toUpperCase());
   }
 
   public String getLocale() {
@@ -59,6 +59,6 @@ public class PubManSessionBean extends FacesBean {
   }
 
   public boolean isLoggedIn() {
-    return getLoginHelper().getLoggedIn();
+    return this.getLoginHelper().getLoggedIn();
   }
 }

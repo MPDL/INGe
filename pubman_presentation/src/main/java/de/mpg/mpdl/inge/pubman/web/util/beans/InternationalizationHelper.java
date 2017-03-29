@@ -75,13 +75,13 @@ public class InternationalizationHelper implements Serializable {
   public InternationalizationHelper() {
     this.userLocale = FacesTools.getExternalContext().getRequestLocale();
 
-    Iterator<Locale> supportedLocales =
+    final Iterator<Locale> supportedLocales =
         FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
 
     boolean found = false;
     while (supportedLocales.hasNext()) {
-      Locale supportedLocale = supportedLocales.next();
-      if (supportedLocale.getLanguage().equals(userLocale.getLanguage())) {
+      final Locale supportedLocale = supportedLocales.next();
+      if (supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
         found = true;
         break;
       }
@@ -92,22 +92,22 @@ public class InternationalizationHelper implements Serializable {
     }
 
     if (this.userLocale.getLanguage().equals("de")) {
-      this.selectedHelpPage = HELP_PAGE_DE;
+      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
     } else {
-      this.selectedHelpPage = HELP_PAGE_EN;
+      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
     }
 
-    this.locale = userLocale.getLanguage();
+    this.locale = this.userLocale.getLanguage();
 
-    this.NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
+    this.NO_ITEM_SET = new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET"));
   }
 
   private String getSelectedLabelBundle() {
-    return LABEL_BUNDLE + "_" + this.userLocale.getLanguage();
+    return InternationalizationHelper.LABEL_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
   private String getSelectedMessagesBundle() {
-    return MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
+    return InternationalizationHelper.MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
   public String getSelectedHelpPage() {
@@ -115,12 +115,12 @@ public class InternationalizationHelper implements Serializable {
   }
 
   public void changeLanguage(ValueChangeEvent event) {
-    FacesContext fc = FacesTools.getCurrentInstance();
+    final FacesContext fc = FacesTools.getCurrentInstance();
 
     if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue())) {
       Locale locale = null;
-      String language = event.getNewValue().toString();
-      String country = language.toUpperCase();
+      final String language = event.getNewValue().toString();
+      final String country = language.toUpperCase();
       this.locale = language;
 
       try {
@@ -129,23 +129,24 @@ public class InternationalizationHelper implements Serializable {
         Locale.setDefault(locale);
         this.userLocale = locale;
         this.homeContent = "n/a";
-        notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
-        logger.debug("New locale: " + language + "_" + country + " : " + locale);
-      } catch (Exception e) {
-        logger.error("unable to switch to locale using language = " + language + " and country = "
-            + country, e);
+        this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
+        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : "
+            + locale);
+      } catch (final Exception e) {
+        InternationalizationHelper.logger.error("unable to switch to locale using language = "
+            + language + " and country = " + country, e);
       }
 
       if (language.equals("de")) {
-        this.selectedHelpPage = HELP_PAGE_DE;
+        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
       } else {
-        this.selectedHelpPage = HELP_PAGE_EN;
+        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
       }
     }
   }
 
   public void notifyLanguageChanged(String oldLang, String newLang) {
-    for (LanguageChangeObserver obs : this.languageChangeObservers) {
+    for (final LanguageChangeObserver obs : this.languageChangeObservers) {
       if (obs != null) {
         obs.languageChanged(oldLang, newLang);
       }
@@ -179,14 +180,14 @@ public class InternationalizationHelper implements Serializable {
    */
   public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry,
       final Object[] values) {
-    Object[] valuesWithoutNull = removeNullValues(values);
+    final Object[] valuesWithoutNull = InternationalizationHelper.removeNullValues(values);
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
       if (valuesWithoutNull[i] != null) {
-        SelectItem selectItem =
-            new SelectItem(valuesWithoutNull[i].toString(),
-                getLabel(convertEnumToString(valuesWithoutNull[i])));
+        final SelectItem selectItem =
+            new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this
+                .convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
     }
@@ -199,8 +200,8 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private static Object[] removeNullValues(Object[] values) {
-    List<Object> listWithoutNulls = new ArrayList<Object>();
-    for (Object o : values) {
+    final List<Object> listWithoutNulls = new ArrayList<Object>();
+    for (final Object o : values) {
       if (o != null) {
         listWithoutNulls.add(o);
       }
@@ -216,7 +217,7 @@ public class InternationalizationHelper implements Serializable {
    * @return a new array with an entry for NoItemSelected
    */
   private SelectItem[] addNoItemSelectedEntry(final SelectItem[] selectItems) {
-    SelectItem[] newSelectItems = new SelectItem[selectItems.length + 1];
+    final SelectItem[] newSelectItems = new SelectItem[selectItems.length + 1];
 
     // add the entry for NoItemSelected in front of the array
     newSelectItems[0] = this.NO_ITEM_SET;
@@ -244,7 +245,7 @@ public class InternationalizationHelper implements Serializable {
   public String getLabel(String placeholder) {
     try {
       return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
-    } catch (MissingResourceException e) {
+    } catch (final MissingResourceException e) {
       return "???" + placeholder + "???";
     }
   }
@@ -252,7 +253,7 @@ public class InternationalizationHelper implements Serializable {
   public String getMessage(String placeholder) {
     try {
       return ResourceBundle.getBundle(this.getSelectedMessagesBundle()).getString(placeholder);
-    } catch (MissingResourceException e) {
+    } catch (final MissingResourceException e) {
       return "???" + placeholder + "???";
     }
   }
@@ -264,9 +265,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for genre
    */
   private SelectItem[] getSelectItemsGenre(final boolean includeNoItemSelectedEntry) {
-    MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
+    final MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -276,9 +277,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorType
    */
   public SelectItem[] getSelectItemsCreatorType(final boolean includeNoItemSelectedEntry) {
-    CreatorVO.CreatorType[] values = CreatorVO.CreatorType.values();
+    final CreatorVO.CreatorType[] values = CreatorVO.CreatorType.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -288,11 +289,11 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorRole
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    Map<String, String> negativeRoles =
+    final Map<String, String> negativeRoles =
         ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getCreatorRoleMap();
 
-    List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
-    for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
+    final List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
+    for (final CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
       values.add(role);
     }
 
@@ -305,7 +306,7 @@ public class InternationalizationHelper implements Serializable {
       }
     }
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values.toArray());
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values.toArray());
   }
 
   /**
@@ -324,9 +325,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for DegreeType
    */
   public SelectItem[] getSelectItemsDegreeType(final boolean includeNoItemSelectedEntry) {
-    MdsPublicationVO.DegreeType[] values = MdsPublicationVO.DegreeType.values();
+    final MdsPublicationVO.DegreeType[] values = MdsPublicationVO.DegreeType.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -345,9 +346,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsReviewMethod(final boolean includeNoItemSelectedEntry) {
-    MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
+    final MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -357,9 +358,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for visibility
    */
   public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry) {
-    FileVO.Visibility[] values = FileVO.Visibility.values();
+    final FileVO.Visibility[] values = FileVO.Visibility.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -369,15 +370,15 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    Map<String, String> values =
+    final Map<String, String> values =
         ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 
-    for (Map.Entry<String, String> entry : values.entrySet()) {
+    for (final Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
-      SelectItem selectItem =
-          new SelectItem(entry.getValue(), getLabel("ENUM_CONTENTCATEGORY_"
+      final SelectItem selectItem =
+          new SelectItem(entry.getValue(), this.getLabel("ENUM_CONTENTCATEGORY_"
               + entry.getKey().toLowerCase().replace("_", "-")));
       selectItems[i] = selectItem;
       i++;
@@ -397,9 +398,9 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for InvitationStatus
    */
   public SelectItem[] getSelectItemsInvitationStatus(final boolean includeNoItemSelectedEntry) {
-    EventVO.InvitationStatus[] values = EventVO.InvitationStatus.values();
+    final EventVO.InvitationStatus[] values = EventVO.InvitationStatus.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   public String getLocale() {
@@ -416,10 +417,10 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for SelectComponentAvailability
    */
   public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
-    InternationalizationHelper.SelectComponentAvailability[] values =
+    final InternationalizationHelper.SelectComponentAvailability[] values =
         InternationalizationHelper.SelectComponentAvailability.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -428,10 +429,10 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for SelectComponentAccessability
    */
   public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
-    InternationalizationHelper.SelectComponentVisibility[] values =
+    final InternationalizationHelper.SelectComponentVisibility[] values =
         InternationalizationHelper.SelectComponentVisibility.values();
 
-    return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
@@ -445,22 +446,22 @@ public class InternationalizationHelper implements Serializable {
   public String getHomeContent() {
     if ("n/a".equals(this.homeContent)) {
       try {
-        String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
+        final String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
 
         if (contentUrl != null && !contentUrl.equals("")) {
           // Try if there's a specific local version
-          this.homeContent = getContent(new URL(contentUrl + "." + this.locale));
+          this.homeContent = this.getContent(new URL(contentUrl + "." + this.locale));
 
           // If not try the url without locale
           if (this.homeContent == null) {
-            this.homeContent = getContent(new URL(contentUrl));
+            this.homeContent = this.getContent(new URL(contentUrl));
           }
         } else {
           this.homeContent = null;
         }
 
-      } catch (Exception e) {
-        logger.error("Could not retrieve content for home page", e);
+      } catch (final Exception e) {
+        InternationalizationHelper.logger.error("Could not retrieve content for home page", e);
         this.homeContent = null;
       }
     }
@@ -469,13 +470,13 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private String getContent(URL url) throws Exception {
-    HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(url.toExternalForm());
+    final HttpClient httpClient = new HttpClient();
+    final GetMethod getMethod = new GetMethod(url.toExternalForm());
 
     httpClient.executeMethod(getMethod);
 
     if (getMethod.getStatusCode() == 200) {
-      BufferedReader in =
+      final BufferedReader in =
           new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
       String inputLine = "";

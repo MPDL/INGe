@@ -54,35 +54,36 @@ public class InitializerServlet extends HttpServlet {
       // call method as thread. If coreservice and PubMan are deployed ion the same jboss, this
       // method is blocked until both applications are completely deployed
       new Thread() {
+        @Override
         public void run() {
           SimpleStatisticsService.initReportDefinitionsInFramework();
         }
       }.start();
-    } catch (Exception e) {
-      logger.error("Problem with initializing statistics system", e);
+    } catch (final Exception e) {
+      InitializerServlet.logger.error("Problem with initializing statistics system", e);
     }
 
     // initialize import database
     try {
       new ImportDatabaseInitializer();
-    } catch (Exception e) {
-      logger.error("Problem with initializing import database", e);
+    } catch (final Exception e) {
+      InitializerServlet.logger.error("Problem with initializing import database", e);
     }
 
     // initialize import database
     try {
-      importSurveyor = new ImportSurveyor();
-      importSurveyor.start();
-    } catch (Exception e) {
-      logger.error("Problem with initializing import database", e);
+      this.importSurveyor = new ImportSurveyor();
+      this.importSurveyor.start();
+    } catch (final Exception e) {
+      InitializerServlet.logger.error("Problem with initializing import database", e);
     }
 
     // initialize google sitemap creation
     try {
-      siteMapTask = new SiteMapTask();
-      siteMapTask.start();
-    } catch (Exception e) {
-      logger.error("Problem with google sitemap creation", e);
+      this.siteMapTask = new SiteMapTask();
+      this.siteMapTask.start();
+    } catch (final Exception e) {
+      InitializerServlet.logger.error("Problem with google sitemap creation", e);
     }
   }
 
@@ -94,7 +95,7 @@ public class InitializerServlet extends HttpServlet {
   @Override
   public void destroy() {
     super.destroy();
-    logger.info("Signalled to terminate Sitemap creation task.");
-    siteMapTask.terminate();
+    InitializerServlet.logger.info("Signalled to terminate Sitemap creation task.");
+    this.siteMapTask.terminate();
   }
 }

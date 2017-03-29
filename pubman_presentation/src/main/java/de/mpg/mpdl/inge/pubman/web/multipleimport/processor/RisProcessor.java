@@ -54,9 +54,10 @@ public class RisProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean hasNext() {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     return (this.items != null && this.counter < this.length);
   }
@@ -64,13 +65,14 @@ public class RisProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String next() throws NoSuchElementException {
-    if (!init) {
-      initialize();
+    if (!this.init) {
+      this.initialize();
     }
     if (this.items != null && this.counter < this.length) {
       this.counter++;
-      return items[counter - 1];
+      return this.items[this.counter - 1];
     } else {
       throw new NoSuchElementException("No more entries left");
     }
@@ -80,26 +82,28 @@ public class RisProcessor extends FormatProcessor {
   /**
    * remove is not needed.
    */
+  @Override
   public void remove() {
     throw new RuntimeException("Method not implemented");
   }
 
   private void initialize() {
-    init = true;
+    this.init = true;
     try {
-      BufferedReader bufferedReader = new BufferedReader(new FileReader(getSourceFile()));
+      final BufferedReader bufferedReader =
+          new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
       String lastLine = null;
-      ArrayList<String> itemList = new ArrayList<String>();
+      final ArrayList<String> itemList = new ArrayList<String>();
       StringWriter stringWriter = new StringWriter();
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
       while ((line = bufferedReader.readLine()) != null) {
         stringWriter.write(line);
         stringWriter.write("\n");
 
-        byteArrayOutputStream.write(line.getBytes(getEncoding()));
-        byteArrayOutputStream.write("\n".getBytes(getEncoding()));
+        byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
+        byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
         if ("".equals(line) && lastLine != null && lastLine.matches("ER\\s+-\\s*")) {
           itemList.add(stringWriter.toString());
@@ -122,9 +126,9 @@ public class RisProcessor extends FormatProcessor {
 
       this.length = this.items.length;
 
-      counter = 0;
+      this.counter = 0;
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 
@@ -132,7 +136,7 @@ public class RisProcessor extends FormatProcessor {
 
   @Override
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   @Override

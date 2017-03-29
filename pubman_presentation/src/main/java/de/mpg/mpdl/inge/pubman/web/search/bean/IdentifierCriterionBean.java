@@ -22,16 +22,16 @@ public class IdentifierCriterionBean extends CriterionBean {
   }
 
   public IdentifierCriterionBean(IdentifierCriterion identifierCriterionVO) {
-    setIdentifierCriterionVO(identifierCriterionVO);
+    this.setIdentifierCriterionVO(identifierCriterionVO);
   }
 
   @Override
   public Criterion getCriterionVO() {
-    return identifierCriterionVO;
+    return this.identifierCriterionVO;
   }
 
   public IdentifierCriterion getIdentifierCriterionVO() {
-    return identifierCriterionVO;
+    return this.identifierCriterionVO;
   }
 
   public void setIdentifierCriterionVO(IdentifierCriterion identifierCriterionVO) {
@@ -44,6 +44,6 @@ public class IdentifierCriterionBean extends CriterionBean {
    * @return null
    */
   public void clearCriterion() {
-    identifierCriterionVO.setSearchString("");
+    this.identifierCriterionVO.setSearchString("");
   }
 }

@@ -76,8 +76,8 @@ public class EnumConverter implements Converter {
 
     if (this.valueList != null) {
       for (int i = 0; i < this.valueList.length; i++) {
-        Object valueListObject = this.valueList[i];
-        String valueListString = valueListObject.toString();
+        final Object valueListObject = this.valueList[i];
+        final String valueListString = valueListObject.toString();
         if (valueListString.compareTo(string) == 0) {
           retVal = valueListObject;
           break;
@@ -86,7 +86,8 @@ public class EnumConverter implements Converter {
     } else if (string.length() == 0) {
       retVal = null;
     } else {
-      logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
+      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string
+          + "' to object!");
     }
 
 
@@ -120,32 +121,32 @@ public class EnumConverter implements Converter {
     try {
       MdsPublicationVO.Genre.valueOf(searchString);
       return MdsPublicationVO.Genre.values();
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
     }
 
     // degreeType
     try {
       MdsPublicationVO.DegreeType.valueOf(searchString);
       return MdsPublicationVO.DegreeType.values();
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
     }
 
     // reviewMethod
     try {
       MdsPublicationVO.ReviewMethod.valueOf(searchString);
       return MdsPublicationVO.ReviewMethod.values();
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
     }
 
     // invitationstatus
     try {
       EventVO.InvitationStatus.valueOf(searchString);
       return EventVO.InvitationStatus.values();
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
     }
 
 
-    logger
+    EnumConverter.logger
         .warn("ValueList for searchString '"
             + searchString
             + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");

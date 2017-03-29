@@ -73,7 +73,7 @@ public class EscidocProcessor extends FormatProcessor {
   @Override
   public int getLength() {
     if (!this.init) {
-      initialize();
+      this.initialize();
     }
     return this.length;
   }
@@ -81,9 +81,10 @@ public class EscidocProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean hasNext() {
     if (!this.init) {
-      initialize();
+      this.initialize();
     }
     return (this.counter < this.length);
   }
@@ -91,23 +92,24 @@ public class EscidocProcessor extends FormatProcessor {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String next() {
     if (!this.init) {
-      initialize();
+      this.initialize();
     }
-    return items.get(counter++);
+    return this.items.get(this.counter++);
   }
 
   private void initialize() {
-    if (getSourceFile() == null) {
+    if (this.getSourceFile() == null) {
       throw new RuntimeException("No input source");
     } else {
-      init = true;
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      this.init = true;
+      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int read;
-      byte[] buffer = new byte[2048];
+      final byte[] buffer = new byte[2048];
       try {
-        InputStream is = new FileInputStream(getSourceFile());
+        final InputStream is = new FileInputStream(this.getSourceFile());
         while ((read = is.read(buffer)) != -1) {
           byteArrayOutputStream.write(buffer, 0, read);
         }
@@ -116,21 +118,21 @@ public class EscidocProcessor extends FormatProcessor {
         this.originalData = byteArrayOutputStream.toByteArray();
 
         List<PubItemVO> itemList;
-        String source = new String(this.originalData, "UTF-8");
+        final String source = new String(this.originalData, "UTF-8");
         if (source.contains("item-list")) {
           itemList = XmlTransformingService.transformToPubItemList(source);
         } else {
           itemList = new ArrayList<PubItemVO>();
-          PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
+          final PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
           itemList.add(itemVO);
         }
         this.items = new ArrayList<String>();
-        for (ItemVO itemVO : itemList) {
+        for (final ItemVO itemVO : itemList) {
           this.items.add(XmlTransformingService.transformToItem(itemVO));
         }
         this.counter = 0;
         this.length = this.items.size();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new RuntimeException("Error reading input stream", e);
       }
     }
@@ -139,6 +141,7 @@ public class EscidocProcessor extends FormatProcessor {
   /**
    * Not implemented.
    */
+  @Override
   @Deprecated
   public void remove() {
     throw new RuntimeException("Not implemented");

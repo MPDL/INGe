@@ -53,7 +53,9 @@ public class ViewItemLog extends FacesBean {
 
   public static final String LOAD_ITEM_LOG = "loadViewItemLog";
 
-  public ViewItemLog() {}
+  public ViewItemLog() {
+    this.init();
+  }
 
   public void init() {
     final ItemVersionListSessionBean ivlsb =

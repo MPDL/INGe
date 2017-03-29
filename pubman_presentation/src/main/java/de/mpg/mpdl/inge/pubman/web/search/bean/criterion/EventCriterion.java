@@ -58,12 +58,13 @@ public class EventCriterion extends Criterion {
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    MetadataSearchCriterion criterion =
-        new MetadataSearchCriterion(CriterionType.EVENT, getSearchString());
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final MetadataSearchCriterion criterion =
+        new MetadataSearchCriterion(CriterionType.EVENT, this.getSearchString());
 
-    if (getInvitationStatus()) {
+    if (this.getInvitationStatus()) {
       criterion.addSubCriteria(new MetadataSearchCriterion(CriterionType.EVENT_INVITATION_STATUS,
           EventCriterion.INVITATION_SEARCH, LogicalOperator.AND));
     }

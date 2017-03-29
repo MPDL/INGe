@@ -47,27 +47,28 @@ public class AnyFieldCriterion extends Criterion {
    * constructor.
    */
   public AnyFieldCriterion() {
-    includeFiles = false;
+    this.includeFiles = false;
   }
 
   public boolean isIncludeFiles() {
-    return includeFiles;
+    return this.includeFiles;
   }
 
   public void setIncludeFiles(boolean newVal) {
-    includeFiles = newVal;
+    this.includeFiles = newVal;
   }
 
   /**
    * {@inheritDoc}
    */
+  @Override
   public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    final ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
     MetadataSearchCriterion criterion = null;
-    if (includeFiles == true) {
-      criterion = new MetadataSearchCriterion(CriterionType.ANY_INCLUDE, getSearchString());
+    if (this.includeFiles == true) {
+      criterion = new MetadataSearchCriterion(CriterionType.ANY_INCLUDE, this.getSearchString());
     } else {
-      criterion = new MetadataSearchCriterion(CriterionType.ANY, getSearchString());
+      criterion = new MetadataSearchCriterion(CriterionType.ANY, this.getSearchString());
     }
     criterions.add(criterion);
     return criterions;

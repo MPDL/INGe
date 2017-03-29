@@ -55,8 +55,8 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
   }
 
   public String getCurrentTypeLabel() {
-    if (getType() != null) {
-      switch (getType()) {
+    if (this.getType() != null) {
+      switch (this.getType()) {
         case CREATE:
           return this.i18nHelper.getLabel("ViewItemLog_lblCreate");
         case RELEASE:
@@ -79,14 +79,15 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
 
   /** Returns all comments except for update, because update-comments are not possible */
   public String getFormattedComment() {
-    if (getType() == EventLogEntryVO.EventType.UPDATE) {
+    if (this.getType() == EventLogEntryVO.EventType.UPDATE) {
       return "Item updated";
-    } else
-      return getComment();
+    } else {
+      return this.getComment();
+    }
   }
 
   public String getFormattedDate() {
-    return CommonUtils.formatTimestamp(getDate());
+    return CommonUtils.formatTimestamp(this.getDate());
   }
 
   public VersionHistoryEntryVO getVersionHistoryVO() {

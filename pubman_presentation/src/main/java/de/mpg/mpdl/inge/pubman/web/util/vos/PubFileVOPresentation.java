@@ -96,11 +96,12 @@ public class PubFileVOPresentation extends FacesBean {
     this.index = fileIndex;
     this.file = file;
     this.isLocator = isLocator;
+
     this.init();
   }
 
   public void init() {
-    setVisibility();
+    this.setVisibility();
   }
 
   /**
@@ -110,11 +111,13 @@ public class PubFileVOPresentation extends FacesBean {
    * @return Map filled with all content Categories
    */
   public static Map<String, String> getContentCategoryMap() {
-    if (properties == null || properties.isEmpty()) {
-      properties = loadContentCategoryProperties();
+    if (PubFileVOPresentation.properties == null || PubFileVOPresentation.properties.isEmpty()) {
+      PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
+    final Map<String, String> propertiesMap =
+        new HashMap<String, String>((Map) PubFileVOPresentation.properties);
+
     return propertiesMap;
   }
 
@@ -124,16 +127,16 @@ public class PubFileVOPresentation extends FacesBean {
    * @return URI depending on the key of the content category
    */
   public static String getContentCategoryUri(String key) {
-    if (properties == null || properties.isEmpty()) {
-      properties = loadContentCategoryProperties();
+    if (PubFileVOPresentation.properties == null || PubFileVOPresentation.properties.isEmpty()) {
+      PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
 
-    String value = properties.getProperty(key.toLowerCase());
+    final String value = PubFileVOPresentation.properties.getProperty(key.toLowerCase());
     if (value != null) {
       return value;
     }
 
-    error("There is no such content category defined (" + key + ")");
+    FacesBean.error("There is no such content category defined (" + key + ")");
     Logger.getLogger(PubFileVOPresentation.class).warn(
         "WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
 
@@ -147,7 +150,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @return Properties filled with all content Categories
    */
   private static Properties loadContentCategoryProperties() {
-    properties = new Properties();
+    PubFileVOPresentation.properties = new Properties();
     URL contentCategoryURI = null;
     try {
       contentCategoryURI =
@@ -155,9 +158,9 @@ public class PubFileVOPresentation extends FacesBean {
       if (contentCategoryURI != null) {
         Logger.getLogger(PubFileVOPresentation.class).info(
             "Content-category properties URI is " + contentCategoryURI.toString());
-        InputStream in = contentCategoryURI.openStream();
-        properties.load(in);
-        properties.putAll(properties);
+        final InputStream in = contentCategoryURI.openStream();
+        PubFileVOPresentation.properties.load(in);
+        PubFileVOPresentation.properties.putAll(PubFileVOPresentation.properties);
         in.close();
 
         Logger.getLogger(PubFileVOPresentation.class).info(
@@ -166,15 +169,15 @@ public class PubFileVOPresentation extends FacesBean {
         Logger.getLogger(PubFileVOPresentation.class).debug(
             "Content-category properties file not found.");
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       Logger.getLogger(PubFileVOPresentation.class).warn(
           "WARNING: content-category properties not found: " + e.getMessage());
     }
-    return properties;
+    return PubFileVOPresentation.properties;
   }
 
   public int getIndex() {
-    return index;
+    return this.index;
   }
 
   public void setIndex(int index) {
@@ -182,7 +185,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public FileVO getFile() {
-    return file;
+    return this.file;
   }
 
   public void setFile(FileVO file) {
@@ -190,7 +193,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public boolean getIsLocator() {
-    return isLocator;
+    return this.isLocator;
   }
 
   public void setLocator(boolean isLocator) {
@@ -198,7 +201,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getFileType() {
-    return fileType;
+    return this.fileType;
   }
 
   /**
@@ -209,10 +212,12 @@ public class PubFileVOPresentation extends FacesBean {
   public String getContentCategory() {
     if (this.file.getContentCategory() != null) {
       @SuppressWarnings({"unchecked", "rawtypes"})
-      Map<String, String> propertiesMap = new HashMap<String, String>((Map) properties);
-      for (Map.Entry<String, String> entry : propertiesMap.entrySet()) {
+      final Map<String, String> propertiesMap =
+          new HashMap<String, String>((Map) PubFileVOPresentation.properties);
+      for (final Map.Entry<String, String> entry : propertiesMap.entrySet()) {
         if (entry.getValue().equals(this.file.getContentCategory())) {
-          return getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-"));
+          return this.getLabel("ENUM_CONTENTCATEGORY_"
+              + entry.getKey().toLowerCase().replace("_", "-"));
         }
       }
     }
@@ -271,10 +276,12 @@ public class PubFileVOPresentation extends FacesBean {
   public String getVisibility() {
     String visibility = "";
     if (this.file.getVisibility() != null) {
-      visibility = getLabel(getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      visibility =
+          this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     } else {
       this.file.setVisibility(FileVO.Visibility.PUBLIC);
-      visibility = getLabel(getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      visibility =
+          this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
 
     return visibility;
@@ -294,9 +301,9 @@ public class PubFileVOPresentation extends FacesBean {
     // set in properties
     this.file.setMimeType(mimeType);
 
-    List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+    final List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
     boolean found = false;
-    for (FormatVO formatVO : formats) {
+    for (final FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
         formatVO.setValue(mimeType);
         found = true;
@@ -304,7 +311,7 @@ public class PubFileVOPresentation extends FacesBean {
       }
     }
     if (!found) {
-      FormatVO formatVO = new FormatVO();
+      final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
       formats.add(formatVO);
@@ -316,8 +323,8 @@ public class PubFileVOPresentation extends FacesBean {
       return null;
     }
 
-    List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
-    for (FormatVO formatVO : formats) {
+    final List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+    for (final FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
         return formatVO.getValue();
       }
@@ -328,7 +335,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getLocator() {
     String locator = "";
-    if (getIsLocator()) {
+    if (this.getIsLocator()) {
       locator = this.file.getContent();
     }
 
@@ -344,14 +351,14 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void removeFile() {
-    EditItemSessionBean editItemSessionBean =
+    final EditItemSessionBean editItemSessionBean =
         (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getFiles().remove(this.index);
 
     // ensure that at least one file component is visible
     if (editItemSessionBean.getFiles().size() == 0) {
-      FileVO newFile = new FileVO();
+      final FileVO newFile = new FileVO();
       newFile.getMetadataSets().add(new MdsFileVO());
       newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
       editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
@@ -361,14 +368,14 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String removeLocatorEditItem() {
-    EditItemSessionBean editItemSessionBean =
+    final EditItemSessionBean editItemSessionBean =
         (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getLocators().remove(this.index);
 
     // ensure that at least one locator component is visible
     if (editItemSessionBean.getLocators().size() == 0) {
-      FileVO newLocator = new FileVO();
+      final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
       editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, newLocator, true));
@@ -396,21 +403,21 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
-    String fileID = file.getReference().getObjectId();
+    final String fileID = this.file.getReference().getObjectId();
 
-    String result =
+    final String result =
         SimpleStatisticsService.getNumberOfItemOrFileRequests(
             SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
-            getLoginHelper().getAccountUser());
+            this.getLoginHelper().getAccountUser());
     return result;
   }
 
   public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
-    String fileID = file.getReference().getObjectId();
-    String result =
+    final String fileID = this.file.getReference().getObjectId();
+    final String result =
         SimpleStatisticsService.getNumberOfItemOrFileRequests(
             SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
-            getLoginHelper().getAccountUser());
+            this.getLoginHelper().getAccountUser());
     return result;
   }
 
@@ -422,11 +429,11 @@ public class PubFileVOPresentation extends FacesBean {
    */
   public boolean getShowEmbargoDate() {
     boolean showEmbargoDate = false;
-    if (FileVO.Visibility.PRIVATE.equals(file.getVisibility())
-        || FileVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
+    if (FileVO.Visibility.PRIVATE.equals(this.file.getVisibility())
+        || FileVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
       showEmbargoDate = true;
     } else {
-      file.getDefaultMetadata().setEmbargoUntil(null);
+      this.file.getDefaultMetadata().setEmbargoUntil(null);
       showEmbargoDate = false;
     }
 
@@ -448,7 +455,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @param event The value change event
    */
   public void setUpdateVisibility(ValueChangeEvent event) {
-    Visibility newVisibility = (Visibility) event.getNewValue();
+    final Visibility newVisibility = (Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
   }
 

@@ -37,7 +37,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String toCqlString(Index indexName) {
-    if (isInvited()) {
+    if (this.isInvited()) {
       switch (indexName) {
         case ESCIDOC_ALL:
           return "escidoc.publication.event.invitation-status=\"invited\"";
@@ -51,7 +51,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String toQueryString() {
-    return getSearchCriterion() + "=\"" + invited + "\"";
+    return this.getSearchCriterion() + "=\"" + this.invited + "\"";
   }
 
   @Override
@@ -61,11 +61,11 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return !isInvited();
+    return !this.isInvited();
   }
 
   public boolean isInvited() {
-    return invited;
+    return this.invited;
   }
 
   public void setInvited(boolean invited) {
@@ -74,8 +74,8 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-    if (isInvited()) {
-      return baseElasticSearchQueryBuilder(
+    if (this.isInvited()) {
+      return this.baseElasticSearchQueryBuilder(
           new ElasticSearchIndexField[] {new ElasticSearchIndexField(
               "metadata.event.invitationStatus")}, "invited");
     }

@@ -62,18 +62,18 @@ import org.xml.sax.EntityResolver;
 
 public abstract class GenericXmlProcessor extends FormatProcessor {
   private boolean isInitialized = false;
-  private List<String> items = new ArrayList<String>();
+  private final List<String> items = new ArrayList<String>();
   private int counter = -1;
   private int length = -1;
   private byte[] originalData = null;
 
   private void initialize() {
     try {
-      InputStream is = new FileInputStream(getSourceFile());
+      final InputStream is = new FileInputStream(this.getSourceFile());
       this.originalData = IOUtils.toByteArray(is);
       is.close();
 
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new RuntimeException("Can't convert source to byte[]", e);
     }
 
@@ -82,10 +82,10 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
     DocumentBuilder builder;
     try {
       builder = factory.newDocumentBuilder();
-      EntityResolver eresolver = new CatalogResolver();
+      final EntityResolver eresolver = new CatalogResolver();
       builder.setEntityResolver(eresolver);
 
-    } catch (ParserConfigurationException e) {
+    } catch (final ParserConfigurationException e) {
       throw new RuntimeException("Can't create DocumentBuilder", e);
     }
 
@@ -94,8 +94,9 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
 
       Node root = document.getDocumentElement();
 
-      if (root != null)
+      if (root != null) {
         this.addItems(root);
+      }
 
       factory = null;
       builder = null;
@@ -103,7 +104,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       root = null;
       this.counter = 0;
       this.isInitialized = true;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Error during parsing input", e);
     }
   }
@@ -123,7 +124,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       this.length = this.items.size();
       writer = null;
       transformer = null;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Can't transform node to String()", e);
     }
   }
@@ -131,7 +132,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
   @Override
   public boolean hasNext() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
     return (this.counter < this.length);
   }
@@ -139,7 +140,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
   @Override
   public String next() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
     if (this.items != null && this.counter < this.length) {
       return this.items.get(this.counter++);
@@ -157,7 +158,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
   @Override
   public int getLength() {
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
     return this.length;
   }
@@ -169,7 +170,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
     }
 
     if (!this.isInitialized) {
-      initialize();
+      this.initialize();
     }
 
     return Base64.encode(this.originalData);
