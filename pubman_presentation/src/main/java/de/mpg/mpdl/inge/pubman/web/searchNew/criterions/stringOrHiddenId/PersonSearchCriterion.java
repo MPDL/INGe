@@ -90,8 +90,8 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
       this.cqlIndexForHiddenIdAdmin =
           new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
-      this.cqlIndexForSearchStringAdmin = new String[] {
-          "\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
+      this.cqlIndexForSearchStringAdmin =
+          new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
 
       return super.toCqlString(indexName);
     } else {
@@ -165,15 +165,18 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
     } else {
       final String roleUri = selectedRole.getUri();
-      BoolQueryBuilder bq = QueryBuilders.boolQuery()
-          .must(QueryBuilders.matchQuery("metadata.creators.role", roleUri));
+      BoolQueryBuilder bq =
+          QueryBuilders.boolQuery().must(
+              QueryBuilders.matchQuery("metadata.creators.role", roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
-            this.getHiddenId()));
+        bq =
+            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
+                this.getHiddenId()));
       } else {
-        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-            this.getSearchString()));
+        bq =
+            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
+                this.getSearchString()));
       }
       return bq;
     }
@@ -191,8 +194,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
     return new ElasticSearchIndexField[] {
         new ElasticSearchIndexField("metadata.creators.person.familyName", true,
             "metadata.creators"),
-        new ElasticSearchIndexField("metadata.creators.person.givenName", true,
-            "metadata.creators")};
+        new ElasticSearchIndexField("metadata.creators.person.givenName", true, "metadata.creators")};
   }
 
   @Override

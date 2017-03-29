@@ -311,20 +311,19 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     }
     return vocabs;
   }
-  
-  
-  private List<SelectItem> initPersonRoleMenu()
-  {
-    
+
+
+  private List<SelectItem> initPersonRoleMenu() {
+
     final List<SelectItem> personRoleMenu = new ArrayList<SelectItem>();
-    
+
     personRoleMenu.add(new SelectItem(null, this.getLabel("adv_search_lblSearchPerson")));
-      for (final CreatorRole role : CreatorRole.values()) {
-        personRoleMenu.add(new SelectItem(role.name(), this
-            .getLabel("ENUM_CREATORROLE_" + role.name())));
-      }
-      return personRoleMenu;
-    
+    for (final CreatorRole role : CreatorRole.values()) {
+      personRoleMenu.add(new SelectItem(role.name(), this.getLabel("ENUM_CREATORROLE_"
+          + role.name())));
+    }
+    return personRoleMenu;
+
   }
 
   private List<SelectItem> initCriterionTypeListMenu(Index indexName) {
@@ -362,15 +361,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     // Persons
     /*
-    final List<SelectItem> personGroupList = new ArrayList<SelectItem>();
-    personGroupList.add(new SelectItem(SearchCriterion.ANYPERSON, this
-        .getLabel("adv_search_lblSearchPerson")));
-
-    for (final CreatorRole role : CreatorRole.values()) {
-      personGroupList.add(new SelectItem(SearchCriterion.valueOf(role.name()), this
-          .getLabel("ENUM_CREATORROLE_" + role.name())));
-    }
-    */
+     * final List<SelectItem> personGroupList = new ArrayList<SelectItem>(); personGroupList.add(new
+     * SelectItem(SearchCriterion.ANYPERSON, this .getLabel("adv_search_lblSearchPerson")));
+     * 
+     * for (final CreatorRole role : CreatorRole.values()) { personGroupList.add(new
+     * SelectItem(SearchCriterion.valueOf(role.name()), this .getLabel("ENUM_CREATORROLE_" +
+     * role.name()))); }
+     */
 
     /*
      * personGroupList.add(new SelectItem(SearchCriterion.AUTHOR,
@@ -398,11 +395,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
      * SelectItem(SearchCriterion.APPLICANT, getLabel("ENUM_CREATORROLE_APPLICANT")));
      */
     /*
-    final SelectItemGroup personGroup =
-        new SelectItemGroup(this.getLabel("adv_search_lblSearchPerson"));
-    personGroup.setSelectItems(personGroupList.toArray(new SelectItem[0]));
-    */
-    
+     * final SelectItemGroup personGroup = new
+     * SelectItemGroup(this.getLabel("adv_search_lblSearchPerson"));
+     * personGroup.setSelectItems(personGroupList.toArray(new SelectItem[0]));
+     */
+
     criterionTypeList.add(new SelectItem(SearchCriterion.ANYPERSON, this
         .getLabel("adv_search_lblSearchPerson")));
 

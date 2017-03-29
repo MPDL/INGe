@@ -78,7 +78,6 @@ public class Search extends FacesBean {
 
 
 
-    
     try {
       final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect(
