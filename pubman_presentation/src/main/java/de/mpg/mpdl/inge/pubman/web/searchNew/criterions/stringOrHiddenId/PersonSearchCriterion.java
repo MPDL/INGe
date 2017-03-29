@@ -30,6 +30,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.searchNew.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.ElasticSearchIndexField;
 
@@ -46,6 +47,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   private String[] cqlIndexForSearchStringAdmin;
 
 
+  private CreatorRole selectedRole;
 
   public PersonSearchCriterion(SearchCriterion role) {
     this.searchCriterion = role;
@@ -81,15 +83,15 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
 
-    if (SearchCriterion.ANYPERSON.equals(this.getSearchCriterion())) {
+    if (selectedRole == null) {
       this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
       this.cqlIndexForSearchString =
           new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
 
       this.cqlIndexForHiddenIdAdmin =
           new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
-      this.cqlIndexForSearchStringAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
+      this.cqlIndexForSearchStringAdmin = new String[] {
+          "\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
 
       return super.toCqlString(indexName);
     } else {
@@ -121,12 +123,38 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   }
 
+  @Override
+  public String toQueryString() {
+
+    return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "||"
+        + escapeForQueryString(getHiddenId()) + "||"
+        + escapeForQueryString(selectedRole == null ? "" : selectedRole.name()) + "\"";
+
+
+  }
+
+  @Override
+  public void parseQueryStringContent(String content) {
+    // Split by '|', which have no backslash
+    String[] parts = content.split("(?<!\\\\)\\|\\|");
+
+    setSearchString(unescapeForQueryString(parts[0]));
+    if (parts.length > 1) {
+      setHiddenId(unescapeForQueryString(parts[1]));
+    }
+    if (parts.length > 2) {
+      String role = parts[2];
+
+
+      setSelectedRole(role.isEmpty() ? null : CreatorRole.valueOf(role));
+    }
+  }
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
 
 
-    if (SearchCriterion.ANYPERSON.equals(this.getSearchCriterion())) {
+    if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
             this.getHiddenId());
@@ -136,20 +164,16 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       }
 
     } else {
-      final String roleUri =
-          CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
-      BoolQueryBuilder bq =
-          QueryBuilders.boolQuery().must(
-              QueryBuilders.matchQuery("metadata.creators.role", roleUri));
+      final String roleUri = selectedRole.getUri();
+      BoolQueryBuilder bq = QueryBuilders.boolQuery()
+          .must(QueryBuilders.matchQuery("metadata.creators.role", roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        bq =
-            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
-                this.getHiddenId()));
+        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
+            this.getHiddenId()));
       } else {
-        bq =
-            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-                this.getSearchString()));
+        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
+            this.getSearchString()));
       }
       return bq;
     }
@@ -167,7 +191,8 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
     return new ElasticSearchIndexField[] {
         new ElasticSearchIndexField("metadata.creators.person.familyName", true,
             "metadata.creators"),
-        new ElasticSearchIndexField("metadata.creators.person.givenName", true, "metadata.creators")};
+        new ElasticSearchIndexField("metadata.creators.person.givenName", true,
+            "metadata.creators")};
   }
 
   @Override
@@ -175,6 +200,14 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
     return "metadata.creators";
   }
 
+  public CreatorRole getSelectedRole() {
+    return selectedRole;
+  }
+
+
+  public void setSelectedRole(CreatorRole selectedRole) {
+    this.selectedRole = selectedRole;
+  }
   /*
    * @Override public SearchCriterion getSearchCriterion() { return searchCriterion;
    * 

@@ -97,20 +97,7 @@ public abstract class SearchCriterionBase implements Serializable {
         PersonSearchCriterion.class, DisplayType.PERSON),
 
     // Person enum names should be the sam as role names in CreatorVO.CreatorRole
-    AUTHOR(PersonSearchCriterion.class, DisplayType.PERSON), EDITOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), ADVISOR(PersonSearchCriterion.class, DisplayType.PERSON), ARTIST(
-        PersonSearchCriterion.class, DisplayType.PERSON), COMMENTATOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), CONTRIBUTOR(PersonSearchCriterion.class, DisplayType.PERSON), ILLUSTRATOR(
-        PersonSearchCriterion.class, DisplayType.PERSON), PAINTER(PersonSearchCriterion.class,
-        DisplayType.PERSON), PHOTOGRAPHER(PersonSearchCriterion.class, DisplayType.PERSON), TRANSCRIBER(
-        PersonSearchCriterion.class, DisplayType.PERSON), TRANSLATOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), HONOREE(PersonSearchCriterion.class, DisplayType.PERSON), REFEREE(
-        PersonSearchCriterion.class, DisplayType.PERSON), INVENTOR(PersonSearchCriterion.class,
-        DisplayType.PERSON), APPLICANT(PersonSearchCriterion.class, DisplayType.PERSON), DIRECTOR(
-        PersonSearchCriterion.class, DisplayType.PERSON), PRODUCER(PersonSearchCriterion.class,
-        DisplayType.PERSON), ACTOR(PersonSearchCriterion.class, DisplayType.PERSON), CINEMATOGRAPHER(
-        PersonSearchCriterion.class, DisplayType.PERSON), SOUND_DESIGNER(
-        PersonSearchCriterion.class, DisplayType.PERSON),
+    AUTHOR(PersonSearchCriterion.class, DisplayType.PERSON),
 
     ORGUNIT(OrganizationSearchCriterion.class, null), ANYDATE(DateSearchCriterion.class,
         DisplayType.DATE), PUBLISHEDPRINT(DateSearchCriterion.class, DisplayType.DATE), PUBLISHED(
