@@ -58,9 +58,8 @@ public class DepositorWSPage extends BreadcrumbPage {
 
   @Override
   public void init() {
-    super.init();
-
     this.checkForLogin();
+    super.init();
   }
 
   @Override
