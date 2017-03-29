@@ -258,7 +258,6 @@ public class TransformerFactoryTest {
   }
 
   @Test
-  @Ignore
   public void testBmcXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();

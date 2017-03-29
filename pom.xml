@@ -713,20 +713,6 @@
 		<spring.framework.version>4.2.4.RELEASE</spring.framework.version>
 		<spring.data.version>Hopper-RC1</spring.data.version>
 
-		<!-- used by the cargo plugin to run a jboss server for integration-testing 
-			/goal: cargo:start -->
-		<cargo.port>8080</cargo.port>
-		<cargo.rmi.port>1099</cargo.rmi.port>
-		<cargo.log>low</cargo.log>
-		<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0
-			-Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
-		<!-- this path is used as root for all jboss installations -->
-		<cargo.install.dir>${user.home}/wildfly</cargo.install.dir>
-		<!-- fetch the jboss from this url -->
-		<cargo.jboss.url>http://download.jboss.org/wildfly/8.2.0.Final/wildfly-8.2.0.Final.zip</cargo.jboss.url>
-		<!-- local intallation of the jboss for integration-tests -->
-		<cargo.jboss.install.dir>${user.home}/wildfly/wildfly-8.2.0.Final/wildfly-8.2.0.Final</cargo.jboss.install.dir>
-
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
