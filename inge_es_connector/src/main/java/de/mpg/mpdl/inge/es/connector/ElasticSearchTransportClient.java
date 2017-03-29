@@ -90,15 +90,11 @@ public enum ElasticSearchTransportClient {
    */
   public String index(String indexName, String indexType, String id, byte[] voAsBytes) {
 
-    //Client client = getClient();
-    try {
       IndexResponse indexResponse =
-          client.prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+          getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
               .setSource(voAsBytes).get();
       return indexResponse.getId();
-    } finally {
-      //client.close();
-    }
+
   }
 
   /**
@@ -109,15 +105,11 @@ public enum ElasticSearchTransportClient {
    * @return {@link ValueObject}
    */
   public byte[] get(String indexName, String indexType, String id) {
-    // Client client = getClient();
     GetResponse getResponse =
-        client.prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
-    try {
+        getClient().prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
       byte[] voAsBytes = getResponse.getSourceAsBytes();
       return voAsBytes;
-    } finally {
-      // client.close();
-    }
+
   }
 
   /**
@@ -129,15 +121,12 @@ public enum ElasticSearchTransportClient {
    * @return {@link String}
    */
   public String update(String indexName, String indexType, String id, byte[] voAsBytes) {
-    // Client client = getClient();
-    try {
+    
       UpdateResponse updateResponse =
-          client.prepareUpdate().setIndex(indexName).setType(indexType).setId(id).setDoc(voAsBytes)
+          getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id).setDoc(voAsBytes)
               .get();
       return Long.toString(updateResponse.getVersion());
-    } finally {
-      // client.close();
-    }
+    
   }
 
   /**
@@ -148,15 +137,11 @@ public enum ElasticSearchTransportClient {
    * @return {@link String}
    */
   public String delete(String indexName, String indexType, String id) {
-    // Client client = getClient();
-    try {
-      DeleteResponse deleteResponse =
-          client.prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
-      client.close();
+
+	  DeleteResponse deleteResponse =
+          getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
       return deleteResponse.getId();
-    } finally {
-      // client.close();
-    }
+    
   }
 
   public SearchRequestBuilder search(String... indexNames) {
