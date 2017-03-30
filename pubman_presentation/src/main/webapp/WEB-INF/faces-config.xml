@@ -20,7 +20,6 @@
 	</application>
 
 	<lifecycle>
-		<phase-listener id="debugRenderResponse">de.mpg.mpdl.inge.pubman.web.util.listener.RenderResponsePhaseListener</phase-listener>
 		<phase-listener id="facesMessagesListener">de.mpg.mpdl.inge.pubman.web.util.listener.FacesMessagesPhaseListener</phase-listener>
 	</lifecycle>
 
