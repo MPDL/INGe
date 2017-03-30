@@ -39,6 +39,8 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -452,13 +454,29 @@ public abstract class SearchCriterionBase implements Serializable {
   public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
       String searchString) {
 
+    return baseElasticSearchQueryBuilder(indexFields, searchString, null);
+
+
+  }
+  
+  public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
+      String searchString, MultiMatchQueryBuilder.Type multiMatchType) {
+   
     if (indexFields.length == 1) {
       return QueryBuilders.matchQuery(indexFields[0].getFieldname(), searchString);
 
     } else {
       final String[] fieldnames =
           Arrays.asList(indexFields).stream().map(f -> f.getFieldname()).toArray(String[]::new);
-      return QueryBuilders.multiMatchQuery(searchString, fieldnames);
+      
+      if(multiMatchType == null) {
+        return QueryBuilders.multiMatchQuery(searchString, fieldnames);
+      }
+      else
+      {
+        return QueryBuilders.multiMatchQuery(searchString, fieldnames).type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
+      }
+      
 
       /*
        * BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -468,8 +486,6 @@ public abstract class SearchCriterionBase implements Serializable {
        * return boolQuery;
        */
     }
-
-
   }
 
   /**

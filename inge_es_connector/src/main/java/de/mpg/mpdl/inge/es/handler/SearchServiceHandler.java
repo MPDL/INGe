@@ -11,27 +11,52 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.SortOrder;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.SearchInterface;
 
 public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
-  private static String SEARCH_INDEX_NAME = "pure_search";
+  private final static String SEARCH_INDEX_ITEMS = "pure_search";
+  private final static String SEARCH_INDEX_CONTEXTS = "pure_contexts";
+  private final static String SEARCH_INDEX_ORGANIZATIONS = "organizational_units";
 
-
-  private SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE
-      .search(SEARCH_INDEX_NAME);
 
   @Override
   public SearchRetrieveResponseVO searchForPubItems(SearchQueryVO<QueryBuilder> searchQuery)
       throws IngeServiceException {
-    // TODO Auto-generated method stub
 
+    return search(searchQuery, SEARCH_INDEX_ITEMS, PubItemVO.class);
+
+  }
+  
+  @Override
+  public SearchRetrieveResponseVO searchForContexts(SearchQueryVO<QueryBuilder> searchQuery)
+      throws IngeServiceException {
+
+    return search(searchQuery, SEARCH_INDEX_CONTEXTS, ContextVO.class);
+
+  }
+  
+  @Override
+  public SearchRetrieveResponseVO searchForOrganizations(SearchQueryVO<QueryBuilder> searchQuery)
+      throws IngeServiceException {
+
+    return search(searchQuery, SEARCH_INDEX_ORGANIZATIONS, OrganizationVO.class);
+
+  }
+
+
+  private SearchRetrieveResponseVO search(SearchQueryVO<QueryBuilder> searchQuery,
+      String searchIndex, Class resultObjectClass) throws IngeServiceException {
+
+    SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE.search(searchIndex);
     SearchRetrieveResponseVO srrVO;
     try {
       srb.setQuery(searchQuery.getQueryObject());
@@ -52,7 +77,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
       SearchResponse response = srb.get();
 
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response, resultObjectClass);
     } catch (IOException e) {
       throw new IngeServiceException(e.getMessage(), e);
     }
@@ -63,8 +88,9 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   }
 
 
+
   private SearchRetrieveResponseVO getSearchRetrieveResponseFromElasticSearchResponse(
-      SearchResponse sr) throws IOException {
+      SearchResponse sr, Class resultObjectClass) throws IOException {
     SearchRetrieveResponseVO srrVO = new SearchRetrieveResponseVO();
     srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
 
@@ -74,9 +100,8 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       SearchRetrieveRecordVO srr = new SearchRetrieveRecordVO();
       hitList.add(srr);
 
-      PubItemVO itemVO =
-          ElasticSearchTransportClient.INSTANCE.getMapper().readValue(hit.getSourceAsString(),
-              PubItemVO.class);
+      PubItemVO itemVO = (PubItemVO)ElasticSearchTransportClient.INSTANCE.getMapper()
+          .readValue(hit.getSourceAsString(), resultObjectClass);
 
       srr.setData(itemVO);
     }

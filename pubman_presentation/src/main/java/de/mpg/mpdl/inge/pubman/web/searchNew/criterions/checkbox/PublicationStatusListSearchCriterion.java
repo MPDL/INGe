@@ -96,9 +96,9 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
              
             }
             case "submitted" : {
+              bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.dateAccepted"));
-              bqb.mustNot(QueryBuilders.existsQuery("metadata.dateSubmitted"));
               bqb.must(QueryBuilders.existsQuery("metadata.dateSubmitted"));
               break;
             }

@@ -26,8 +26,10 @@
 package de.mpg.mpdl.inge.pubman.web.searchNew.criterions.stringOrHiddenId;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.MultiValueMode;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
@@ -153,6 +155,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   @Override
   public QueryBuilder toElasticSearchQuery() {
 
+   
 
     if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
@@ -160,7 +163,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
             this.getHiddenId());
       } else {
         return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-            this.getSearchString());
+            this.getSearchString(), MultiMatchQueryBuilder.Type.CROSS_FIELDS);
       }
 
     } else {
@@ -176,7 +179,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       } else {
         bq =
             bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-                this.getSearchString()));
+                this.getSearchString(), MultiMatchQueryBuilder.Type.CROSS_FIELDS));
       }
       return bq;
     }
