@@ -64,7 +64,9 @@ public class ConeCache {
     }
 
     try {
+      ConeCache.LOG.info("Starting refresh of validation database <- Constructor.");
       this.refreshCache();
+      ConeCache.LOG.info("Finished refresh of validation database <- Constructor.");
     } catch (final ValidationConeCacheConfigException e) {
       ConeCache.LOG.error(e);
       throw new IllegalStateException();
@@ -76,6 +78,7 @@ public class ConeCache {
   }
 
   public void refreshCache() throws ValidationConeCacheConfigException {
+    ConeCache.LOG.info("*** Start Refresh-Cycle ***");
     this.refresh(this.iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER),
         this.coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
     this.refresh(this.iso639_3_Title, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
@@ -92,6 +95,7 @@ public class ConeCache {
         + ConeCache.MPIS_GROUPS_TITLE_QUERY);
     this.refresh(this.mpisProjectTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
         + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
+    ConeCache.LOG.info("*** Ende Refresh-Cycle ***");
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)

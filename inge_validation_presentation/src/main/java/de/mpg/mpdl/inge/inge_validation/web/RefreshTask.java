@@ -23,9 +23,9 @@ public class RefreshTask extends Thread {
       RefreshTask.LOG.info("Starting RefreshTask");
 
       while (!this.terminate) {
-        RefreshTask.LOG.info("Starting refresh of validation database.");
+        RefreshTask.LOG.info("Starting refresh of validation database <- Refresh Task.");
         ItemValidatingService.refreshValidationSchemaCache();
-        RefreshTask.LOG.info("Finished refresh of validation database.");
+        RefreshTask.LOG.info("Finished refresh of validation database <- Refresh Task.");
         Thread.sleep(timeout * 60 * 1000);
       }
     } catch (final InterruptedException e) {
