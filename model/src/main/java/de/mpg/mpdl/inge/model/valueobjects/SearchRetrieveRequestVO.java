@@ -3,21 +3,29 @@ package de.mpg.mpdl.inge.model.valueobjects;
 import java.util.List;
 import java.util.Set;
 
-public class SearchQueryVO<QueryObject> extends ValueObject {
+public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
 
   private QueryObject queryObject;
 
-  private int limit;
+  private int limit = 0;
 
-  private int offset;
+  private int offset = 0;
+  
+  private SearchSortCriteria[] sortKeys;
 
-  public SearchQueryVO(QueryObject queryObject, int limit, int offset,
-      List<SearchSortCriteria> sortKeys) {
+  public SearchRetrieveRequestVO(QueryObject queryObject, int limit, int offset,
+      SearchSortCriteria... sortKeys) {
     super();
     this.queryObject = queryObject;
     this.limit = limit;
     this.offset = offset;
     this.sortKeys = sortKeys;
+  }
+  
+  
+  public SearchRetrieveRequestVO(QueryObject queryObject,
+      SearchSortCriteria... sortKeys) {
+    this(queryObject, 0, 0, sortKeys);
   }
 
   public int getLimit() {
@@ -36,15 +44,15 @@ public class SearchQueryVO<QueryObject> extends ValueObject {
     this.offset = offset;
   }
 
-  public List<SearchSortCriteria> getSortKeys() {
+  public SearchSortCriteria[] getSortKeys() {
     return sortKeys;
   }
 
-  public void setSortKeys(List<SearchSortCriteria> sortKeys) {
+  public void setSortKeys(SearchSortCriteria[] sortKeys) {
     this.sortKeys = sortKeys;
   }
 
-  private List<SearchSortCriteria> sortKeys;
+  
 
   public QueryObject getQueryObject() {
     return queryObject;

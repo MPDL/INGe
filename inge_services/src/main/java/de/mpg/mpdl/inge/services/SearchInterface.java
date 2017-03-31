@@ -1,18 +1,18 @@
 package de.mpg.mpdl.inge.services;
 
 
-import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 
 public interface SearchInterface<QueryObject> {
 
-  public SearchRetrieveResponseVO searchForPubItems(SearchQueryVO<QueryObject> searchQuery)
+  public SearchRetrieveResponseVO searchForPubItems(SearchRetrieveRequestVO<QueryObject> searchQuery)
       throws IngeServiceException;
   
-  public SearchRetrieveResponseVO searchForContexts(SearchQueryVO<QueryObject> searchQuery)
+  public SearchRetrieveResponseVO searchForContexts(SearchRetrieveRequestVO<QueryObject> searchQuery)
       throws IngeServiceException;
   
-  public SearchRetrieveResponseVO searchForOrganizations(SearchQueryVO<QueryObject> searchQuery)
+  public SearchRetrieveResponseVO searchForOrganizations(SearchRetrieveRequestVO<QueryObject> searchQuery)
       throws IngeServiceException;
   
 

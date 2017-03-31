@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -244,7 +244,7 @@ public class ContextListSessionBean extends FacesBean {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
           
-          SearchRetrieveResponseVO response = searchService.searchForContexts(new SearchQueryVO<QueryBuilder>(bq, 0, 0, null));
+          SearchRetrieveResponseVO response = searchService.searchForContexts(new SearchRetrieveRequestVO<QueryBuilder>(bq));
           List<ContextVO> ctxList = response.getRecords().stream().map(rec -> (ContextVO)rec.getData()).collect(Collectors.toList());
           
           // ... and transform to PubCollections.

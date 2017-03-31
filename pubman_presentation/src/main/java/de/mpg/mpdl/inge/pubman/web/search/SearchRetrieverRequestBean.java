@@ -14,7 +14,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
@@ -246,8 +246,8 @@ public class SearchRetrieverRequestBean extends
 
 
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
-      final SearchQueryVO<QueryBuilder> query =
-          new SearchQueryVO<QueryBuilder>(qb, limit, offset, null);
+      final SearchRetrieveRequestVO<QueryBuilder> query =
+          new SearchRetrieveRequestVO<QueryBuilder>(qb, limit, offset, null);
       final SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
       this.numberOfRecords = result.getNumberOfRecords();
 

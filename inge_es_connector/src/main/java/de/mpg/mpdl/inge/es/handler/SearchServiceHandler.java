@@ -24,7 +24,7 @@ import org.elasticsearch.search.sort.SortOrder;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -45,7 +45,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
 
   @Override
-  public SearchRetrieveResponseVO searchForPubItems(SearchQueryVO<QueryBuilder> searchQuery)
+  public SearchRetrieveResponseVO searchForPubItems(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
       throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_ITEMS, PubItemVO.class);
@@ -53,7 +53,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   }
   
   @Override
-  public SearchRetrieveResponseVO searchForContexts(SearchQueryVO<QueryBuilder> searchQuery)
+  public SearchRetrieveResponseVO searchForContexts(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
       throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_CONTEXTS, ContextVO.class);
@@ -61,7 +61,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   }
   
   @Override
-  public SearchRetrieveResponseVO searchForOrganizations(SearchQueryVO<QueryBuilder> searchQuery)
+  public SearchRetrieveResponseVO searchForOrganizations(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
       throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_ORGANIZATIONS, OrganizationVO.class);
@@ -69,7 +69,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   }
 
 
-  private SearchRetrieveResponseVO search(SearchQueryVO<QueryBuilder> searchQuery,
+  private SearchRetrieveResponseVO search(SearchRetrieveRequestVO<QueryBuilder> searchQuery,
       String searchIndex, Class resultObjectClass) throws IngeServiceException {
     SearchRetrieveResponseVO srrVO;
 
