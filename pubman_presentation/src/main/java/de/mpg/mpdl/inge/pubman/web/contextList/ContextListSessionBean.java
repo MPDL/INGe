@@ -241,7 +241,7 @@ public class ContextListSessionBean extends FacesBean {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
           for (final String id : ctxIdList) {
-            bq.should(QueryBuilders.matchPhraseQuery("reference.objectId", id));
+            bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
           
           SearchRetrieveResponseVO response = searchService.searchForContexts(new SearchQueryVO<QueryBuilder>(bq, 0, 0, null));
