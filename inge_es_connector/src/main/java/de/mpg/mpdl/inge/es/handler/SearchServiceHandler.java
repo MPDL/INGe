@@ -4,10 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.IdsQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregator;
+import org.elasticsearch.search.aggregations.metrics.cardinality.Cardinality;
+import org.elasticsearch.search.aggregations.metrics.tophits.TopHits;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder.Order;
 import org.elasticsearch.search.sort.SortOrder;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClient;
@@ -16,16 +28,20 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.SearchInterface;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
-  private final static String SEARCH_INDEX_ITEMS = "pure_search";
-  private final static String SEARCH_INDEX_CONTEXTS = "pure_contexts";
-  private final static String SEARCH_INDEX_ORGANIZATIONS = "organizational_units";
+  private final static String SEARCH_INDEX_ITEMS = PropertyReader.getProperty("item_index_name");
+  private final static String SEARCH_INDEX_CONTEXTS = PropertyReader.getProperty("context_index_name");
+  private final static String SEARCH_INDEX_ORGANIZATIONS = PropertyReader.getProperty("organization_index_name");
+  
+  private final static Logger logger = Logger.getLogger(SearchServiceHandler.class); 
 
 
   @Override
@@ -55,30 +71,34 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
   private SearchRetrieveResponseVO search(SearchQueryVO<QueryBuilder> searchQuery,
       String searchIndex, Class resultObjectClass) throws IngeServiceException {
-
-    SearchRequestBuilder srb = ElasticSearchTransportClient.INSTANCE.search(searchIndex);
     SearchRetrieveResponseVO srrVO;
-    try {
-      srb.setQuery(searchQuery.getQueryObject());
 
+    try {
+  
+      SearchRequestBuilder secondSrb = ElasticSearchTransportClient.INSTANCE.search(searchIndex);
+      secondSrb.setQuery(searchQuery.getQueryObject());
+     
+    
       if (searchQuery.getOffset() != 0) {
-        srb.setFrom(searchQuery.getOffset());
+        secondSrb.setFrom(searchQuery.getOffset());
       }
 
       if (searchQuery.getLimit() != 0) {
-        srb.setSize(searchQuery.getLimit());
+        secondSrb.setSize(searchQuery.getLimit());
       }
 
       if (searchQuery.getSortKeys() != null) {
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          srb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
+          secondSrb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
         }
       }
+      
+      //logger.info(secondSrb.toString());
+      SearchResponse response2 = secondSrb.get();
+      //logger.info(response2.toString());
 
-      SearchResponse response = srb.get();
-
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response, resultObjectClass);
-    } catch (IOException e) {
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2, resultObjectClass);
+    } catch (Exception e) {
       throw new IngeServiceException(e.getMessage(), e);
     }
 
@@ -100,7 +120,7 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       SearchRetrieveRecordVO srr = new SearchRetrieveRecordVO();
       hitList.add(srr);
 
-      PubItemVO itemVO = (PubItemVO)ElasticSearchTransportClient.INSTANCE.getMapper()
+      ValueObject itemVO = (ValueObject)ElasticSearchTransportClient.INSTANCE.getMapper()
           .readValue(hit.getSourceAsString(), resultObjectClass);
 
       srr.setData(itemVO);

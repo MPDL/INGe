@@ -5,6 +5,9 @@ import java.net.UnknownHostException;
 
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.get.MultiGetRequest;
+import org.elasticsearch.action.get.MultiGetRequestBuilder;
+import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -147,5 +150,10 @@ public enum ElasticSearchTransportClient {
 
   public SearchRequestBuilder search(String... indexNames) {
     return getClient().prepareSearch(indexNames);
+  }
+  
+  public MultiGetResponse multiGet(String indexName, String indexType, String... ids) {
+    
+    return getClient().prepareMultiGet().add(indexName, indexType, ids).get();
   }
 }

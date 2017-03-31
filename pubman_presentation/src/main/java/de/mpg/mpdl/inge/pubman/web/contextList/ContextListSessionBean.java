@@ -29,21 +29,30 @@ package de.mpg.mpdl.inge.pubman.web.contextList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.SearchQueryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
+import de.mpg.mpdl.inge.services.SearchInterface;
+import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -212,16 +221,7 @@ public class ContextListSessionBean extends FacesBean {
     if (this.getLoginHelper().isLoggedIn()
         && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
       try {
-        /*
-         * // Create filter FilterTaskParamVO filter = new FilterTaskParamVO(); ItemRefFilter
-         * itmRefFilter = filter.new ItemRefFilter(); filter.getFilterList().add(itmRefFilter);
-         * 
-         * boolean hasGrants = false;
-         * 
-         * for (GrantVO grant : this.loginHelper.getAccountUser(). getGrantsWithoutAudienceGrants())
-         * { if (grant.getObjectRef() != null) { itmRefFilter.getIdList().add(new
-         * ItemRO(grant.getObjectRef())); hasGrants = true; } }
-         */
+
         boolean hasGrants = false;
 
         final ArrayList<String> ctxIdList = new ArrayList<>();
@@ -236,28 +236,20 @@ public class ContextListSessionBean extends FacesBean {
 
         // ... and transform filter to xml
         if (hasGrants) {
-          // XmlTransformingBean xmlTransforming = new
-          // XmlTransformingBean();
 
-          // Get context list
-          final ArrayList<ContextVO> ctxList = new ArrayList<>();
-          this.contextServiceHandler = new ContextServiceHandler();
+          SearchInterface<QueryBuilder> searchService= SearchInterfaceConnectorFactory.getInstance();
+          BoolQueryBuilder bq = QueryBuilders.boolQuery();
+
           for (final String id : ctxIdList) {
-            final ContextVO ctx =
-                this.contextServiceHandler.readContext(id.replace("/ir/context/escidoc:", "pure_"));
-            ctxList.add(ctx);
+            bq.should(QueryBuilders.matchPhraseQuery("reference.objectId", id));
           }
-          /*
-           * String contextList = ServiceLocator.getContextHandler(this.loginHelper.
-           * getAccountUser().getHandle()) .retrieveContexts(filter.toMap());
-           */
+          
+          SearchRetrieveResponseVO response = searchService.searchForContexts(new SearchQueryVO<QueryBuilder>(bq, 0, 0, null));
+          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> (ContextVO)rec.getData()).collect(Collectors.toList());
+          
           // ... and transform to PubCollections.
           this.allPrivilegedContextList =
               CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
-          /*
-           * CommonUtils.convertToPubCollectionVOPresentationList( xmlTransforming
-           * .transformToContextList(contextList));
-           */
         }
 
         this.depositorContextList = new ArrayList<PubContextVOPresentation>();
