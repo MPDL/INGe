@@ -237,7 +237,7 @@ public class SearchRetrieverRequestBean extends
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
 
-    List<PubItemVOPresentation> pubItemList = null; // new ArrayList<PubItemVOPresentation>();
+    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     // checkSortCriterias(sc);
     try {
 
