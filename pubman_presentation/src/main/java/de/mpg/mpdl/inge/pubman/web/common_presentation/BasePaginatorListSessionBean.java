@@ -61,17 +61,17 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * A list that contains the menu entries of the elements per page menu.
    */
-  private List<SelectItem> elementsPerPageSelectItems = new ArrayList<SelectItem>();
+  private List<SelectItem> elementsPerPageSelectItems;
 
   /**
    * A list containing the PaginatorPage objects
    */
-  private final List<PaginatorPage> paginatorPageList = new ArrayList<PaginatorPage>();
+  private List<PaginatorPage> paginatorPageList;
 
   /**
    * The list containing the current elements of the displayed list
    */
-  private List<ListElementType> currentPartList = new ArrayList<ListElementType>();
+  private List<ListElementType> currentPartList;
 
   /**
    * The current number of elements per page
