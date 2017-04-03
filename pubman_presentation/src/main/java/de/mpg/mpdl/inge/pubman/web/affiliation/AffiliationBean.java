@@ -163,9 +163,7 @@ public class AffiliationBean extends FacesBean {
     return null;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
+  
 
   public List<AffiliationVOPresentation> getSelected() {
     return this.selected;
@@ -293,24 +291,7 @@ public class AffiliationBean extends FacesBean {
 
     final AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
     List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
-    topsPres = affTree.getAffiliations();
-    if (topsPres != null && topsPres.size() > 0) {
-      return topsPres;
-    }
-
-    List<AffiliationVO> tops = null;
-    try {
-      tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
-    } catch (final Exception e) {
-      AffiliationBean.logger.error("TopLevel affiliations cannot be fetched.");
-      tops = new ArrayList<AffiliationVO>();
-    }
-
-    for (int i = 0; i < tops.size(); i++) {
-      topsPres.add(new AffiliationVOPresentation(tops.get(i)));
-    }
-
-    return topsPres;
+    return affTree.getAffiliations();  
   }
 
   public List<AffiliationVOPresentation> getTopLevelAffs() {

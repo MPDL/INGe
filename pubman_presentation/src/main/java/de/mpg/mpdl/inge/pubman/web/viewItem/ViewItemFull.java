@@ -74,6 +74,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
+import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -148,6 +149,8 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
+  private OrganizationalUnitService organizationalUnitService;
+  
   private AccountUserVO latestModifier = null;
   private AccountUserVO owner = null;
   private ContextVO context = null;
@@ -242,6 +245,7 @@ public class ViewItemFull extends FacesBean {
   private boolean isStateWasReleased = false;
 
   public ViewItemFull() {
+    this.organizationalUnitService = new OrganizationalUnitService();
     this.init();
   }
 
@@ -1414,8 +1418,7 @@ public class ViewItemFull extends FacesBean {
     if (affiliationRefList != null) {
       for (int i = 0; i < affiliationRefList.size(); i++) {
         try {
-          affiliationList.add(new AffiliationVOPresentation(this.getItemControllerSessionBean()
-              .retrieveAffiliation(affiliationRefList.get(i).getObjectId())));
+          affiliationList.add(new AffiliationVOPresentation(organizationalUnitService.getOrganizationalUnit(affiliationRefList.get(i).getObjectId())));
         } catch (final Exception e) {
           ViewItemFull.logger.error("Error retrieving affiliation list", e);
         }

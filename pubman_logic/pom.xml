@@ -110,5 +110,9 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_es_connector</artifactId>
+		</dependency>
 	</dependencies>
 </project>

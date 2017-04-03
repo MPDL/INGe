@@ -35,6 +35,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
+import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -58,14 +59,15 @@ public class AffiliationTree extends FacesBean {
   private long timestamp;
   private List<SelectItem> affiliationSelectItems;
   private Map<String, AffiliationVOPresentation> affiliationMap;
+  
+  private OrganizationalUnitService orgUnitService = new OrganizationalUnitService();
 
   boolean started = false;
 
   public AffiliationTree() throws Exception {
     this.affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     this.affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(this.getItemControllerSessionBean()
-            .searchTopLevelAffiliations());
+        CommonUtils.convertToAffiliationVOPresentationList(orgUnitService.searchTopLevelOrganizations());
     this.timestamp = new Date().getTime();
   }
 
@@ -77,10 +79,7 @@ public class AffiliationTree extends FacesBean {
     this.affiliations = affiliations;
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
+  
   /**
    * Is called from JSF to reload the ou data.
    * 
@@ -89,8 +88,7 @@ public class AffiliationTree extends FacesBean {
    */
   public String getResetMessage() throws Exception {
     this.affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(this.getItemControllerSessionBean()
-            .searchTopLevelAffiliations());
+        CommonUtils.convertToAffiliationVOPresentationList(orgUnitService.searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     this.timestamp = new Date().getTime();
     return this.getMessage("Affiliations_reloaded");

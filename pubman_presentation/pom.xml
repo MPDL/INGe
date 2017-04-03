@@ -75,10 +75,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_es_connector</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<scope>provided</scope>
 		</dependency>

@@ -40,7 +40,6 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
@@ -83,12 +82,8 @@ import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
@@ -112,29 +107,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public ItemControllerSessionBean() {}
 
-  /**
-   * Returns an affiliation retrieved by its ID.
-   * 
-   * @return the requested affiliation
-   * @throws Exception if framework access fails
-   */
-  public AffiliationVO retrieveAffiliation(String affiliationId) throws Exception {
-    String xmlAffiliation = "";
-
-    try {
-      xmlAffiliation = ServiceLocator.getOrganizationalUnitHandler().retrieve(affiliationId);
-    } catch (final AuthenticationException e) {
-      ItemControllerSessionBean.logger.debug(e.toString());
-      ((Login) FacesTools.findBean("Login")).forceLogout();
-      throw e;
-    }
-
-    // transform the affiliation
-    final AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(xmlAffiliation);
-
-    return affiliation;
-  }
-
+ 
   /**
    * Accepts an item.
    * 
@@ -969,56 +942,9 @@ public class ItemControllerSessionBean extends FacesBean {
     return navigationRuleWhenSuccessfull;
   }
 
-  /**
-   * Returns all child affiliations of a given affiliation.
-   * 
-   * @param parentAffiliation The parent affiliation
-   * 
-   * @return all child affiliations
-   * @throws Exception if framework access fails
-   */
-  public List<AffiliationVOPresentation> searchChildAffiliations(
-      AffiliationVOPresentation parentAffiliation) throws Exception {
-    List<AffiliationVOPresentation> wrappedAffiliationList = null;
+ 
 
-    if (!parentAffiliation.getHasChildren()) {
-      // method contains check for children existence to avoid future performance issues
-      return wrappedAffiliationList;
-    }
-
-    final PlainCqlQuery cqlQuery =
-        new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId()
-            + ")");
-    final OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
-
-    wrappedAffiliationList =
-        CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
-
-    for (final AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
-      affiliationVOPresentation.setParent(parentAffiliation);
-      affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", "
-          + parentAffiliation.getNamePath());
-      affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId()
-          + " " + parentAffiliation.getIdPath());
-    }
-
-    return wrappedAffiliationList;
-  }
-
-  /**
-   * Returns all top-level affiliations.
-   * 
-   * @return all top-level affiliations
-   * @throws Exception if framework access fails
-   */
-  public List<AffiliationVO> searchTopLevelAffiliations() throws Exception {
-    final PlainCqlQuery cqlQuery =
-        new PlainCqlQuery(
-            "((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
-    final OrgUnitsSearchResult results = SearchService.searchForOrganizationalUnits(cqlQuery);
-
-    return results.getResults();
-  }
+  
 
   /**
    * Method for sending an email with attached file. The sending requires authentication.
