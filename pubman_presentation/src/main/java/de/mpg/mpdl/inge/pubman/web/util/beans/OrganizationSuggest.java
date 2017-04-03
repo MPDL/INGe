@@ -172,6 +172,7 @@ public class OrganizationSuggest extends EditItemBean {
       }
     }
 
+    /*
     final SearchQuery searchQuery =
         new PlainCqlQuery("(escidoc.objid=\"" + affiliationRO.getObjectId() + "\")");
 
@@ -190,7 +191,8 @@ public class OrganizationSuggest extends EditItemBean {
       applicationBean.getOuList().add(resultList.get(0));
       return resultList.get(0);
     }
+    */
+    return OrganizationalUnitService.getInstance().getOrganizationalUnit(affiliationRO.getObjectId());
 
-    return null;
   }
 }
