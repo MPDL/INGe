@@ -21,7 +21,6 @@ import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.search.bean.criterion.OrganizationCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -106,13 +105,6 @@ public class AffiliationBean extends FacesBean {
     if ("EasySubmission".equals(this.source)) {
       this.setAffiliationsPath();
       return "loadNewEasySubmission";
-    }
-
-    if ("AdvancedSearch".equals(this.source)) {
-      if (this.cache != null && this.cache instanceof OrganizationCriterion) {
-        ((OrganizationCriterion) this.cache).setAffiliation(this.selectedAffiliation);
-      }
-      return "displaySearchPage";
     }
 
     if ("BrowseBy".equals(this.source)) {

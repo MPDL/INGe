@@ -38,12 +38,12 @@ import org.elasticsearch.common.io.stream.OutputStreamStreamOutput;
 import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.SearchCriterionBase.SearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.operators.LogicalOperator;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldAndFulltextSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.AnyFieldSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.searchNew.criterions.standard.IdentifierSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldAndFulltextSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 

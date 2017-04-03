@@ -6,8 +6,6 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import de.mpg.mpdl.inge.pubman.web.search.bean.CriterionBean;
-
 /**
  * DataModel and List Manager for data input managed in form of data tables. The data object input
  * user interface is powered using a simple DataModel combined by some addObject and removeObject
@@ -82,15 +80,7 @@ public abstract class DataModelManager<T> {
     return this.objectDM;
   }
 
-  public boolean getHasValue() {
-    if (this.objectList == null || this.objectList.size() == 0) {
-      return false;
-    }
-    final CriterionBean criterionBean = (CriterionBean) this.objectList.get(0);
-    return criterionBean.getCriterionVO() != null
-        && (criterionBean.getCriterionVO().getSearchString() == null || !"".equals(criterionBean
-            .getCriterionVO().getSearchString()));
-  }
+
 
   /**
    * Simple setter, not really used yet

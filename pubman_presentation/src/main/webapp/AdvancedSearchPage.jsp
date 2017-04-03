@@ -69,7 +69,7 @@
                     <h:commandButton id="lnkAdvancedSearchStartSearchTop" style="height:0; width:0; padding:0; margin:0; border:none;" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchBean.startSearch}" onclick="fullItemReloadAjax();" />
                     <div class="full_area0">
                         <div class="full_area0 fullItem">
-                            <ui:include src="search/AdvancedSearchEdit.jspf" />
+                            <ui:include src="search/AdvancedSearchBean.jspf" />
                         </div>
                     </div>
                     <div class="full_area0 formButtonArea">
@@ -97,14 +97,14 @@
                 });
                 checkUpdatePersonFunction();
             });
-            languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
-            personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';
+            languageSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>iso639-3/query?format=json';
+            personSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>persons/query?lang=*';
             /*languageDetailsBaseURL = '$1?format=json';*/
             languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
             organizationSuggestURL = 'OrganizationSuggest.jsp';
             personDetailsBaseURL = '$1?format=json&amp;lang=$2';
-            subjectSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>$1/query?lang=en';
-            journalSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>journals/query';
+            subjectSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>$1/query?lang=en';
+            journalSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>journals/query';
             journalSuggestTrigger = 'JOURNAL';
         </script>
     </f:view>

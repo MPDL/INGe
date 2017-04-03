@@ -83,7 +83,6 @@ import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
-import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
@@ -187,7 +186,6 @@ public class EditItem extends FacesBean {
     this.identifierCollection =
         new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
 
-    this.getAffiliationSessionBean().setBrowseByAffiliation(true);
     this.contextName = this.getContextName();
   }
 
@@ -1764,10 +1762,6 @@ public class EditItem extends FacesBean {
   private BreadcrumbItemHistorySessionBean getBreadcrumbItemHistorySessionBean() {
     return (BreadcrumbItemHistorySessionBean) FacesTools
         .findBean("BreadcrumbItemHistorySessionBean");
-  }
-
-  private AffiliationSessionBean getAffiliationSessionBean() {
-    return (AffiliationSessionBean) FacesTools.findBean("AffiliationSessionBean");
   }
 
   private ContextListSessionBean getContextListSessionBean() {
