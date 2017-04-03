@@ -69,7 +69,7 @@
                     <h:commandButton id="lnkAdvancedSearchStartSearchTop" style="height:0; width:0; padding:0; margin:0; border:none;" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchBean.startSearch}" onclick="fullItemReloadAjax();" />
                     <div class="full_area0">
                         <div class="full_area0 fullItem">
-                            <ui:include src="search/AdvancedSearchBean.jspf" />
+                            <ui:include src="search/AdvancedSearchEdit.jspf" />
                         </div>
                     </div>
                     <div class="full_area0 formButtonArea">
