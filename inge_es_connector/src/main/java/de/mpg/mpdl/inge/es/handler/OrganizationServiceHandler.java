@@ -20,6 +20,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class OrganizationServiceHandler implements OrganizationInterface {
 
+  
+  
+  
   private ObjectMapper mapper = ElasticSearchTransportClient.INSTANCE.getMapper();
   private final String indexName = PropertyReader.getProperty("organization_index_name");
   private final String indexType = PropertyReader.getProperty("organization_index_type");

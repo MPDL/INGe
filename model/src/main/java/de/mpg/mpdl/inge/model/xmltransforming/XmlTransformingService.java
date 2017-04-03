@@ -551,7 +551,7 @@ public class XmlTransformingService {
 
     logger.debug("transformed contextList =" + contextList);
 
-    SearchRetrieveResponseVO response = null;
+    SearchRetrieveResponseVO<ContextVO> response = null;
     try {
       // unmarshal ContextVOListWrapper from String
       IBindingFactory bfact =
@@ -570,7 +570,7 @@ public class XmlTransformingService {
     List<ContextVO> ctxList = new ArrayList<ContextVO>();
 
     if (response.getRecords() != null) {
-      for (SearchRetrieveRecordVO s : response.getRecords()) {
+      for (SearchRetrieveRecordVO<ContextVO> s : response.getRecords()) {
         ctxList.add((ContextVO) s.getData());
       }
     }
@@ -1327,7 +1327,7 @@ public class XmlTransformingService {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
           + ":transformToStatisticReportDefinitionList: reportDefinitionList is null");
     }
-    SearchRetrieveResponseVO response = null;
+    SearchRetrieveResponseVO<StatisticReportDefinitionVO> response = null;
 
     try {
       // unmarshal StatisticReport from String
@@ -1336,7 +1336,7 @@ public class XmlTransformingService {
       IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
       StringReader sr = new StringReader(reportDefinitionList);
       Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-      response = (SearchRetrieveResponseVO) unmarshalledObject;
+      response = (SearchRetrieveResponseVO<StatisticReportDefinitionVO>) unmarshalledObject;
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e.getRootCause());
@@ -1347,7 +1347,7 @@ public class XmlTransformingService {
     List<StatisticReportDefinitionVO> repDefList = new ArrayList<StatisticReportDefinitionVO>();
 
     if (response.getRecords() != null) {
-      for (SearchRetrieveRecordVO s : response.getRecords()) {
+      for (SearchRetrieveRecordVO<StatisticReportDefinitionVO> s : response.getRecords()) {
         repDefList.add((StatisticReportDefinitionVO) s.getData());
       }
     }
@@ -1486,7 +1486,7 @@ public class XmlTransformingService {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
           + ":transformToStatisticAggregationDefinitionList: aggregationDefinitionList is null");
     }
-    SearchRetrieveResponseVO response = null;
+    SearchRetrieveResponseVO<AggregationDefinitionVO> response = null;
 
     try {
       // unmarshal StatisticReport from String
@@ -1495,7 +1495,7 @@ public class XmlTransformingService {
       IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
       StringReader sr = new StringReader(aggregationDefinitionList);
       Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-      response = (SearchRetrieveResponseVO) unmarshalledObject;
+      response = (SearchRetrieveResponseVO<AggregationDefinitionVO>) unmarshalledObject;
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e.getRootCause());
@@ -1506,7 +1506,7 @@ public class XmlTransformingService {
     List<AggregationDefinitionVO> repDefList = new ArrayList<AggregationDefinitionVO>();
 
     if (response.getRecords() != null) {
-      for (SearchRetrieveRecordVO s : response.getRecords()) {
+      for (SearchRetrieveRecordVO<AggregationDefinitionVO> s : response.getRecords()) {
         repDefList.add((AggregationDefinitionVO) s.getData());
       }
     }

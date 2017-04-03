@@ -1449,7 +1449,7 @@ public class EditItem extends FacesBean {
         ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
     final String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
 
-    final SearchRetrieveResponseVO searchedObject =
+    final SearchRetrieveResponseVO<AccountUserVO> searchedObject =
         XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
     if (searchedObject == null || searchedObject.getRecords() == null
         || searchedObject.getRecords().get(0) == null
@@ -1491,7 +1491,7 @@ public class EditItem extends FacesBean {
       userAccountHandler =
           ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
       searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
-      final SearchRetrieveResponseVO searchedObject =
+      final SearchRetrieveResponseVO<AccountUserVO> searchedObject =
           XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
 
       if (searchedObject == null || searchedObject.getRecords() == null

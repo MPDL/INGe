@@ -165,11 +165,11 @@ public class YearbookArchiveRetrieverRequestBean extends
           ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
               .retrieveItems(filter.toMap());
 
-      final SearchRetrieveResponseVO result =
+      final SearchRetrieveResponseVO<PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
 
       final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-      for (final SearchRetrieveRecordVO record : result.getRecords()) {
+      for (final SearchRetrieveRecordVO<PubItemVO> record : result.getRecords()) {
         pubItemList.add((PubItemVO) record.getData());
       }
 

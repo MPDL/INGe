@@ -1,13 +1,13 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
 
-public class SearchRetrieveRecordVO extends ValueObject {
+public class SearchRetrieveRecordVO<T extends ValueObject> extends ValueObject {
 
   private String schema;
   private String packing;
   private int position;
 
-  private ValueObject data;
+  private T data;
 
   public String getSchema() {
     return schema;
@@ -33,11 +33,11 @@ public class SearchRetrieveRecordVO extends ValueObject {
     this.position = position;
   }
 
-  public ValueObject getData() {
+  public T getData() {
     return data;
   }
 
-  public void setData(ValueObject data) {
+  public void setData(T data) {
     this.data = data;
   }
 }

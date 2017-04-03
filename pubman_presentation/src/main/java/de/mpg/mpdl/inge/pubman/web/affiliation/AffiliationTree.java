@@ -60,14 +60,13 @@ public class AffiliationTree extends FacesBean {
   private List<SelectItem> affiliationSelectItems;
   private Map<String, AffiliationVOPresentation> affiliationMap;
   
-  private OrganizationalUnitService orgUnitService = new OrganizationalUnitService();
 
   boolean started = false;
 
   public AffiliationTree() throws Exception {
     this.affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     this.affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(orgUnitService.searchTopLevelOrganizations());
+        CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance().searchTopLevelOrganizations());
     this.timestamp = new Date().getTime();
   }
 
@@ -88,7 +87,7 @@ public class AffiliationTree extends FacesBean {
    */
   public String getResetMessage() throws Exception {
     this.affiliations =
-        CommonUtils.convertToAffiliationVOPresentationList(orgUnitService.searchTopLevelOrganizations());
+        CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance().searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     this.timestamp = new Date().getTime();
     return this.getMessage("Affiliations_reloaded");

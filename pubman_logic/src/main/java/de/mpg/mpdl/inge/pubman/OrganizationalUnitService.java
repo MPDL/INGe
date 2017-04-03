@@ -17,6 +17,8 @@ import de.mpg.mpdl.inge.services.SearchInterface;
 import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
 
 public class OrganizationalUnitService {
+  
+  private static final OrganizationalUnitService instance = new OrganizationalUnitService();
 
 
   private SearchInterface<QueryBuilder> searchService;
@@ -31,7 +33,7 @@ public class OrganizationalUnitService {
    * @throws Exception if framework access fails
    */
 
-  public OrganizationalUnitService() {
+  protected OrganizationalUnitService() {
     try {
       this.searchService = SearchInterfaceConnectorFactory.getInstance();
       this.organizationService = OrganizationInterfaceConnectorFactory.getInstance();
@@ -42,10 +44,10 @@ public class OrganizationalUnitService {
 
   public List<AffiliationVO> searchTopLevelOrganizations() throws IngeServiceException {
 
-    QueryBuilder qb = QueryBuilders.existsQuery("parentAffiliations");
+    QueryBuilder qb = QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
     SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    SearchRetrieveResponseVO response = searchService.searchForOrganizations(srr);
-    return response.getRecords().stream().map(rec -> (AffiliationVO) rec.getData())
+    SearchRetrieveResponseVO<AffiliationVO> response = searchService.searchForOrganizations(srr);
+    return response.getRecords().stream().map(rec -> rec.getData())
         .collect(Collectors.toList());
   }
 
@@ -64,12 +66,21 @@ public class OrganizationalUnitService {
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId) throws Exception {
 
 
-    QueryBuilder qb = QueryBuilders.termQuery("parentAffiliations", parentAffiliationId);
+    QueryBuilder qb = QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
     SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    SearchRetrieveResponseVO response = searchService.searchForOrganizations(srr);
-    return response.getRecords().stream().map(rec -> (AffiliationVO) rec.getData())
+    SearchRetrieveResponseVO<AffiliationVO> response = searchService.searchForOrganizations(srr);
+    return response.getRecords().stream().map(rec -> rec.getData())
         .collect(Collectors.toList());
 
+  }
+  
+  public SearchRetrieveResponseVO<AffiliationVO> searchOrganizations(SearchRetrieveRequestVO<QueryBuilder> srr) throws Exception {
+    return searchService.searchForOrganizations(srr);
+  }
+  
+  public static OrganizationalUnitService getInstance()
+  {
+    return instance;
   }
 
 }

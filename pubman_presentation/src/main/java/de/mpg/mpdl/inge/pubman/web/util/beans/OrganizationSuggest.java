@@ -33,9 +33,16 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
@@ -60,6 +67,7 @@ public class OrganizationSuggest extends EditItemBean {
 
     // Perform search request
     if (query != null) {
+      /*
       String queryString = "";
 
       for (final String snippet : query.split(" ")) {
@@ -69,13 +77,24 @@ public class OrganizationSuggest extends EditItemBean {
         queryString +=
             "(escidoc.title=\"" + snippet + "*\"  or escidoc.alternative=\"" + snippet + "*\")";
       }
+      */
+      
+      QueryBuilder qb = QueryBuilders.boolQuery().should(QueryBuilders.multiMatchQuery(query, "defaultMetadata.name", "defaultMetadata.alternativeNames"));
 
+      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
+      
+      SearchRetrieveResponseVO<AffiliationVO> response = OrganizationalUnitService.getInstance().searchOrganizations(srr);
+
+    /*  
       final SearchQuery searchQuery = new PlainCqlQuery(queryString);
       searchQuery.setMaximumRecords("50");
 
       final OrgUnitsSearchResult searchResult =
           SearchService.searchForOrganizationalUnits(searchQuery);
-      for (final AffiliationVO affiliationVO : searchResult.getResults()) {
+          
+     */
+      for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {
+        final AffiliationVO affiliationVO = rec.getData();
         final List<AffiliationVO> initList = new ArrayList<AffiliationVO>();
         initList.add(affiliationVO);
         final List<List<AffiliationVO>> pathList = this.getPaths(initList);

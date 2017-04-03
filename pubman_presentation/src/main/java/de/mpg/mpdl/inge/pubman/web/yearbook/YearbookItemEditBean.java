@@ -148,9 +148,9 @@ public class YearbookItemEditBean extends FacesBean {
         new String[] {"\"http://escidoc.de/core/01/structural-relations/organizational-unit\"="
             + this.getOrganization().getIdentifier()});
     final String userAccountXml = uah.retrieveUserAccounts(filterParams);
-    final SearchRetrieveResponseVO userAccounts =
+    final SearchRetrieveResponseVO<AccountUserVO> userAccounts =
         XmlTransformingService.transformToSearchRetrieveResponseAccountUser(userAccountXml);
-    for (final SearchRetrieveRecordVO record : userAccounts.getRecords()) {
+    for (final SearchRetrieveRecordVO<AccountUserVO> record : userAccounts.getRecords()) {
       final AccountUserVO userVO = (AccountUserVO) record.getData();
       if (!userVO.getReference().getObjectId()
           .equals(this.getLoginHelper().getAccountUser().getReference().getObjectId())) {
@@ -173,10 +173,10 @@ public class YearbookItemEditBean extends FacesBean {
         + " - Yearbook User Group for " + this.getOrganization().getName() + " ("
         + this.getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
     final String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
-    final SearchRetrieveResponseVO userGroupSearchRetrieveResponse =
+    final SearchRetrieveResponseVO<UserGroupVO> userGroupSearchRetrieveResponse =
         XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
-    for (final SearchRetrieveRecordVO record : userGroupSearchRetrieveResponse.getRecords()) {
+    for (final SearchRetrieveRecordVO<UserGroupVO> record : userGroupSearchRetrieveResponse.getRecords()) {
       final UserGroupVO userGroup = (UserGroupVO) record.getData();
       if (userGroup != null) {
         this.userGroups.add(userGroup);
@@ -234,12 +234,12 @@ public class YearbookItemEditBean extends FacesBean {
                   + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemEditBean.MAXIMUM_RECORDS});
       final String xmlItemList = itemHandler.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO result =
+      final SearchRetrieveResponseVO<PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;
-        for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+        for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
           yearbookPubItem = (PubItemVO) yearbookRecord.getData();
           if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
             if (yearbookPubItem.getYearbookMetadata().getYear() != null

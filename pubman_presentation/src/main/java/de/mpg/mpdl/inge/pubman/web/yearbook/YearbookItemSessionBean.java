@@ -106,7 +106,7 @@ public class YearbookItemSessionBean extends FacesBean {
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
     filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
     final String xmlItemList = this.itemHandler.retrieveItems(filterParams);
-    final SearchRetrieveResponseVO result =
+    final SearchRetrieveResponseVO<PubItemVO> result =
         XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // set current yearbook if already existent
     if (result.getNumberOfRecords() > 0) {
@@ -114,7 +114,7 @@ public class YearbookItemSessionBean extends FacesBean {
       final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
       final Calendar calendar = Calendar.getInstance();
       final String year = calendarFormat.format(calendar.getTime());
-      for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+      for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
         yearbookPubItem = (PubItemVO) yearbookRecord.getData();
         if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
           if (yearbookPubItem.getYearbookMetadata().getYear() != null

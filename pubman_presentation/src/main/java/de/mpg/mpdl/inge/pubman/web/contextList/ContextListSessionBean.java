@@ -244,8 +244,8 @@ public class ContextListSessionBean extends FacesBean {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
           
-          SearchRetrieveResponseVO response = searchService.searchForContexts(new SearchRetrieveRequestVO<QueryBuilder>(bq));
-          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> (ContextVO)rec.getData()).collect(Collectors.toList());
+          SearchRetrieveResponseVO<ContextVO> response = searchService.searchForContexts(new SearchRetrieveRequestVO<QueryBuilder>(bq));
+          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
           
           // ... and transform to PubCollections.
           this.allPrivilegedContextList =

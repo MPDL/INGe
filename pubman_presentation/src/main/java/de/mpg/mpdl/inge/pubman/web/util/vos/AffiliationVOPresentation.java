@@ -79,8 +79,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
-      
-      OrganizationalUnitService ous = new OrganizationalUnitService();
+      OrganizationalUnitService ous = OrganizationalUnitService.getInstance();
       List<AffiliationVO> childOus = ous.searchChildOrganizations(this.getReference().getObjectId());
       
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);

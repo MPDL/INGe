@@ -104,12 +104,12 @@ public class YearbookItemCreateBean extends FacesBean {
                   + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       final String xmlItemList = itemHandler.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO result =
+      final SearchRetrieveResponseVO<PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;
-        for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+        for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
           yearbookPubItem = (PubItemVO) yearbookRecord.getData();
           if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
             if (yearbookPubItem.getYearbookMetadata().getYear() != null
@@ -258,11 +258,11 @@ public class YearbookItemCreateBean extends FacesBean {
           + this.getAffiliation().getReference().getObjectId()});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       final String xmlItemList = ih.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO result =
+      final SearchRetrieveResponseVO<PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;
-        for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+        for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
           yearbookPubItem = (PubItemVO) yearbookRecord.getData();
           if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
             if (yearbookPubItem.getYearbookMetadata().getYear() != null

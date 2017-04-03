@@ -56,12 +56,12 @@ public class YearbookArchiveBean extends FacesBean {
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
     filterParams.put("maximumRecords", new String[] {YearbookArchiveBean.MAXIMUM_RECORDS});
     final String xmlItemList = itemHandler.retrieveItems(filterParams);
-    final SearchRetrieveResponseVO result =
+    final SearchRetrieveResponseVO<PubItemVO> result =
         XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // check if years have to be excluded from selection
     if (result.getNumberOfRecords() > 0) {
       PubItemVO recordPubItem = null;
-      for (final SearchRetrieveRecordVO yearbookRecord : result.getRecords()) {
+      for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
         recordPubItem = (PubItemVO) yearbookRecord.getData();
         if (recordPubItem != null && recordPubItem.getYearbookMetadata() != null) {
           if (State.RELEASED.equals(recordPubItem.getVersion().getState())) {

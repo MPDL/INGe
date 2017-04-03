@@ -7,7 +7,8 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
 
   private QueryObject queryObject;
 
-  private int limit = 0;
+  //use -1 for limit set by property (currently 10000)
+  private int limit = -1;
 
   private int offset = 0;
   
@@ -25,7 +26,7 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
   
   public SearchRetrieveRequestVO(QueryObject queryObject,
       SearchSortCriteria... sortKeys) {
-    this(queryObject, 0, 0, sortKeys);
+    this(queryObject, -1, 0, sortKeys);
   }
 
   public int getLimit() {

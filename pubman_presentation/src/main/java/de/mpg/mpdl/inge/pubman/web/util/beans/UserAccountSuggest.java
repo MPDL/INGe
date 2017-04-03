@@ -77,13 +77,13 @@ public class UserAccountSuggest extends FacesBean {
         final UserAccountHandler uag =
             ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
         final String xmlUserList = uag.retrieveUserAccounts(filter.toMap());
-        final SearchRetrieveResponseVO resp =
+        final SearchRetrieveResponseVO<AccountUserVO> resp =
             XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xmlUserList);
 
         this.userAccountList = new ArrayList<AccountUserVO>();
 
         if (resp.getRecords() != null) {
-          for (final SearchRetrieveRecordVO rec : resp.getRecords()) {
+          for (final SearchRetrieveRecordVO<AccountUserVO> rec : resp.getRecords()) {
             if (rec != null) {
               this.getUserAccountList().add((AccountUserVO) rec.getData());
             }
