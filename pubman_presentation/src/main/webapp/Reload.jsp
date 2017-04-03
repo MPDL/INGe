@@ -5,7 +5,7 @@
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
-        <h:outputText value="#{AffiliationTree.resetMessage}" />
+        <h:outputText value="#{AffiliationBean.resetMessage}" />
         <h:outputText value="#{ApplicationBean.reloadResourceBundlesAndProperties}" />
     </f:view>
 </body>

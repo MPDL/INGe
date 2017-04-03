@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationTree;
+import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -273,7 +273,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * @return
    */
   public String getSelectedOrgUnitLabel() {
-    final AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
+    final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
 
     return (this.getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap()
         .get(this.getSelectedOrgUnit()).getNamePath());
@@ -453,7 +453,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     for (final AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
           + aff.getName()));
-      final AffiliationTree affTree = (AffiliationTree) FacesTools.findBean("AffiliationTree");
+      final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
       affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
