@@ -58,7 +58,7 @@
 		<module>structuredexportmanager</module>
 		<module>syndication_presentation</module>
 		<module>transformationManager</module>
- 	</modules>
+	</modules>
 
 	<licenses>
 		<license>
@@ -171,16 +171,16 @@
 			</snapshots>
 		</repository>
 		<repository>
-            <id>OpenNMS</id>
-            <name>OpenNMS Repository</name>
-            <url>http://repo.opennms.org/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+			<id>OpenNMS</id>
+			<name>OpenNMS Repository</name>
+			<url>http://repo.opennms.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -288,7 +288,7 @@
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
- 
+
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
@@ -433,10 +433,10 @@
 				<version>8.7</version>
 			</dependency>
 			<dependency>
-	            <groupId>jasperreports</groupId>
-	            <artifactId>jasperreports</artifactId>
-	            <version>3.7.6</version>
-            </dependency>
+				<groupId>jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>3.7.6</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -991,18 +991,28 @@
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
+
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
-		<framework.scientist.id>escidoc:41002</framework.scientist.id>
+		<framework.scientist.password>icsped</framework.scientist.password>
+		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
+
 		<framework.librarian.username>test_dep_lib</framework.librarian.username>
-		<framework.librarian.id>escidoc:3002</framework.librarian.id>
+		<framework.librarian.password>bilped</framework.librarian.password>
+		<framework.librarian.id>escidoc:2078315</framework.librarian.id>
 		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
+
 		<framework.author.username>test_author</framework.author.username>
-		<framework.author.id>escidoc:3010</framework.author.id>
+		<framework.author.password>rohtua</framework.author.password>
+		<framework.author.id>escidoc:2078317</framework.author.id>
 		<framework.author.displayname>Author User for Tests</framework.author.displayname>
+
 		<framework.editor.username>test_editor</framework.editor.username>
-		<framework.editor.id>escidoc:3003</framework.editor.id>
+		<framework.editor.password>rotide</framework.editor.password>
+		<framework.editor.id>escidoc:2078318</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
+
+		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
 	</properties>
 
