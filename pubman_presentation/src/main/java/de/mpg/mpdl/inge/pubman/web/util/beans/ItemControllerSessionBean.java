@@ -107,7 +107,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public ItemControllerSessionBean() {}
 
- 
+
   /**
    * Accepts an item.
    * 
@@ -942,9 +942,7 @@ public class ItemControllerSessionBean extends FacesBean {
     return navigationRuleWhenSuccessfull;
   }
 
- 
 
-  
 
   /**
    * Method for sending an email with attached file. The sending requires authentication.

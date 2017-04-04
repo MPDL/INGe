@@ -47,13 +47,15 @@ public class AffiliationBean extends FacesBean {
 
   private List<SelectItem> affiliationSelectItems;
   private Map<String, AffiliationVOPresentation> affiliationMap;
-  
+
   private Object cache = null;
   private String source = null;
   private TreeNode rootTreeNode;
 
   public AffiliationBean() throws Exception {
-    this.setTopLevelAffs(CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance().searchTopLevelOrganizations()));
+    this.setTopLevelAffs(CommonUtils
+        .convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance()
+            .searchTopLevelOrganizations()));
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
     for (final AffiliationVOPresentation aff : this.topLevelAffs) {
@@ -140,7 +142,7 @@ public class AffiliationBean extends FacesBean {
     return null;
   }
 
-  
+
 
   public List<AffiliationVOPresentation> getSelected() {
     return this.selected;
@@ -269,7 +271,7 @@ public class AffiliationBean extends FacesBean {
   public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs) {
     this.topLevelAffs = topLevelAffs;
   }
-  
+
   /**
    * Returns SelectItems for a menu with all organizational units.
    * 
@@ -282,22 +284,22 @@ public class AffiliationBean extends FacesBean {
 
     if (this.affiliationSelectItems == null) {
 
-        final List<SelectItem> list = new ArrayList<SelectItem>();
-        list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
+      final List<SelectItem> list = new ArrayList<SelectItem>();
+      list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
-        final List<AffiliationVOPresentation> topLevelAffs = this.topLevelAffs;
-        this.addChildAffiliationsToMenu(topLevelAffs, list, 0);
+      final List<AffiliationVOPresentation> topLevelAffs = this.topLevelAffs;
+      this.addChildAffiliationsToMenu(topLevelAffs, list, 0);
 
-        this.affiliationSelectItems = list;
+      this.affiliationSelectItems = list;
 
-        ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean"))
-            .setOrgUnitSelectItems(this.affiliationSelectItems);
-      }
-    
+      ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean"))
+          .setOrgUnitSelectItems(this.affiliationSelectItems);
+    }
+
 
     return this.affiliationSelectItems;
   }
-  
+
   /**
    * Adds the list of the given affiliations to the filter select.
    * 
@@ -338,7 +340,7 @@ public class AffiliationBean extends FacesBean {
   public void setAffiliationMap(Map<String, AffiliationVOPresentation> affiliationMap) {
     this.affiliationMap = affiliationMap;
   }
-  
+
   /**
    * Is called from JSF to reload the ou data.
    * 
@@ -347,9 +349,10 @@ public class AffiliationBean extends FacesBean {
    */
   public String getResetMessage() throws Exception {
     this.topLevelAffs =
-        CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance().searchTopLevelOrganizations());
+        CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance()
+            .searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     return this.getMessage("Affiliations_reloaded");
-}
+  }
 
 }

@@ -100,7 +100,6 @@
             });
             languageSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>iso639-3/query?format=json';
             personSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>persons/query?lang=*';
-            /*languageDetailsBaseURL = '$1?format=json';*/
             languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
             organizationSuggestURL = 'OrganizationSuggest.jsp';
             userAccountSuggestURL = 'UserAccountSuggest.jsp';

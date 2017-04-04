@@ -68,9 +68,9 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
   public String getElasticSearchNestedPath() {
     return null;
   }
-  
-  
-  
+
+
+
   @Override
   public QueryBuilder toElasticSearchQuery() {
 
@@ -82,44 +82,44 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
         if (entry.getValue()) {
           final String value = this.getValueMap().get(entry.getKey());
-          
+
           BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-          
-          switch(value) {
-            case "not-specified" : {
-              
+
+          switch (value) {
+            case "not-specified": {
+
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.dateAccepted"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.dateSubmitted"));
               break;
-             
+
             }
-            case "submitted" : {
+            case "submitted": {
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.dateAccepted"));
               bqb.must(QueryBuilders.existsQuery("metadata.dateSubmitted"));
               break;
             }
-            case "accepted" : {
+            case "accepted": {
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
               bqb.must(QueryBuilders.existsQuery("metadata.dateAccepted"));
               break;
             }
-            case "published-online" : {
+            case "published-online": {
               bqb.mustNot(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               bqb.must(QueryBuilders.existsQuery("metadata.datePublishedOnline"));
               break;
-              
+
             }
-            case "published-in-print" : {
+            case "published-in-print": {
               bqb.must(QueryBuilders.existsQuery("metadata.datePublishedInPrint"));
               break;
             }
-            
-            
+
+
           }
           bq.should(bqb);
         }

@@ -151,9 +151,9 @@ public enum ElasticSearchTransportClient {
   public SearchRequestBuilder search(String... indexNames) {
     return getClient().prepareSearch(indexNames);
   }
-  
+
   public MultiGetResponse multiGet(String indexName, String indexType, String... ids) {
-    
+
     return getClient().prepareMultiGet().add(indexName, indexType, ids).get();
   }
 }

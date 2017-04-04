@@ -176,7 +176,8 @@ public class YearbookItemEditBean extends FacesBean {
     final SearchRetrieveResponseVO<UserGroupVO> userGroupSearchRetrieveResponse =
         XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
-    for (final SearchRetrieveRecordVO<UserGroupVO> record : userGroupSearchRetrieveResponse.getRecords()) {
+    for (final SearchRetrieveRecordVO<UserGroupVO> record : userGroupSearchRetrieveResponse
+        .getRecords()) {
       final UserGroupVO userGroup = (UserGroupVO) record.getData();
       if (userGroup != null) {
         this.userGroups.add(userGroup);

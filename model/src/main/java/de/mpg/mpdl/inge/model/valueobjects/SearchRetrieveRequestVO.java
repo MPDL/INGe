@@ -7,11 +7,11 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
 
   private QueryObject queryObject;
 
-  //use -1 for limit set by property (currently 10000)
+  // use -1 for limit set by property (currently 10000)
   private int limit = -1;
 
   private int offset = 0;
-  
+
   private SearchSortCriteria[] sortKeys;
 
   public SearchRetrieveRequestVO(QueryObject queryObject, int limit, int offset,
@@ -22,10 +22,9 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
     this.offset = offset;
     this.sortKeys = sortKeys;
   }
-  
-  
-  public SearchRetrieveRequestVO(QueryObject queryObject,
-      SearchSortCriteria... sortKeys) {
+
+
+  public SearchRetrieveRequestVO(QueryObject queryObject, SearchSortCriteria... sortKeys) {
     this(queryObject, -1, 0, sortKeys);
   }
 
@@ -53,7 +52,7 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
     this.sortKeys = sortKeys;
   }
 
-  
+
 
   public QueryObject getQueryObject() {
     return queryObject;

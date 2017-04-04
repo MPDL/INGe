@@ -64,13 +64,9 @@ public class EditItemBean extends FacesBean {
   public void initOrganizationsFromCreators() {
     final List<OrganizationVOPresentation> creatorOrganizations =
         new ArrayList<OrganizationVOPresentation>();
-    // int counter = 1;
     for (final CreatorVOPresentation creator : this.creators) {
-
       if (creator.getType() == CreatorType.PERSON) {
-
         for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-
           if (!creatorOrganizations.contains(organization)) {
             final OrganizationVOPresentation organizationPresentation =
                 new OrganizationVOPresentation(organization);
@@ -80,19 +76,19 @@ public class EditItemBean extends FacesBean {
                 organizationPresentation.setName("");
               }
               creatorOrganizations.add(organizationPresentation);
-              // counter++;
             }
           }
         }
       }
     }
 
-    // if ther is still no organization add a new one
+    // if there is still no organization add a new one
     if (creatorOrganizations.isEmpty()) {
       final OrganizationVOPresentation org = new OrganizationVOPresentation();
       org.setBean(this);
       creatorOrganizations.add(org);
     }
+
     this.creatorOrganizations = creatorOrganizations;
   }
 

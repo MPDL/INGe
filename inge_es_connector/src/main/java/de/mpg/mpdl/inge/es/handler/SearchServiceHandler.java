@@ -28,55 +28,57 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
   private final static String SEARCH_INDEX_ITEMS = PropertyReader.getProperty("item_index_name");
-  private final static String SEARCH_INDEX_CONTEXTS = PropertyReader.getProperty("context_index_name");
-  private final static String SEARCH_INDEX_ORGANIZATIONS = PropertyReader.getProperty("organization_index_name");
-  
-  private final static Logger logger = Logger.getLogger(SearchServiceHandler.class); 
+  private final static String SEARCH_INDEX_CONTEXTS = PropertyReader
+      .getProperty("context_index_name");
+  private final static String SEARCH_INDEX_ORGANIZATIONS = PropertyReader
+      .getProperty("organization_index_name");
+
+  private final static Logger logger = Logger.getLogger(SearchServiceHandler.class);
 
 
   @Override
-  public SearchRetrieveResponseVO<PubItemVO> searchForPubItems(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
-      throws IngeServiceException {
+  public SearchRetrieveResponseVO<PubItemVO> searchForPubItems(
+      SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_ITEMS, PubItemVO.class);
 
   }
-  
+
   @Override
-  public SearchRetrieveResponseVO<ContextVO> searchForContexts(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
-      throws IngeServiceException {
+  public SearchRetrieveResponseVO<ContextVO> searchForContexts(
+      SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_CONTEXTS, ContextVO.class);
 
   }
-  
+
   @Override
-  public SearchRetrieveResponseVO<AffiliationVO> searchForOrganizations(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
-      throws IngeServiceException {
+  public SearchRetrieveResponseVO<AffiliationVO> searchForOrganizations(
+      SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
 
     return search(searchQuery, SEARCH_INDEX_ORGANIZATIONS, AffiliationVO.class);
 
   }
 
 
-  private <T extends ValueObject> SearchRetrieveResponseVO<T> search(SearchRetrieveRequestVO<QueryBuilder> searchQuery,
-      String searchIndex, Class<T> resultObjectClass) throws IngeServiceException {
+  private <T extends ValueObject> SearchRetrieveResponseVO<T> search(
+      SearchRetrieveRequestVO<QueryBuilder> searchQuery, String searchIndex,
+      Class<T> resultObjectClass) throws IngeServiceException {
     SearchRetrieveResponseVO<T> srrVO;
 
     try {
-  
+
       SearchRequestBuilder secondSrb = ElasticSearchTransportClient.INSTANCE.search(searchIndex);
       secondSrb.setQuery(searchQuery.getQueryObject());
-     
-    
+
+
       if (searchQuery.getOffset() != 0) {
         secondSrb.setFrom(searchQuery.getOffset());
       }
 
       if (searchQuery.getLimit() != -1) {
         secondSrb.setSize(searchQuery.getLimit());
-      }
-      else {
+      } else {
         secondSrb.setSize(10000);
       }
 
@@ -85,10 +87,10 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
           secondSrb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
         }
       }
-      
-      //logger.info(secondSrb.toString());
+
+      // logger.info(secondSrb.toString());
       SearchResponse response2 = secondSrb.get();
-      //logger.info(response2.toString());
+      // logger.info(response2.toString());
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2, resultObjectClass);
     } catch (Exception e) {
@@ -113,8 +115,9 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       SearchRetrieveRecordVO<T> srr = new SearchRetrieveRecordVO<T>();
       hitList.add(srr);
 
-      T itemVO = (T)ElasticSearchTransportClient.INSTANCE.getMapper()
-          .readValue(hit.getSourceAsString(), resultObjectClass);
+      T itemVO =
+          (T) ElasticSearchTransportClient.INSTANCE.getMapper().readValue(hit.getSourceAsString(),
+              resultObjectClass);
 
       srr.setData(itemVO);
     }

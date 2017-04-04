@@ -79,14 +79,15 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
       OrganizationalUnitService ous = OrganizationalUnitService.getInstance();
-      List<AffiliationVO> childOus = ous.searchChildOrganizations(this.getReference().getObjectId());
-      
+      List<AffiliationVO> childOus =
+          ous.searchChildOrganizations(this.getReference().getObjectId());
+
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
       for (final AffiliationVOPresentation affiliationVOPresentation : this.children) {
         affiliationVOPresentation.setParent(this);
-        affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", "
-            + this.getNamePath());
+        affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()
+            + ", " + this.getNamePath());
         affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId()
             + " " + this.getIdPath());
       }
