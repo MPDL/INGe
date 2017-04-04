@@ -19,7 +19,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.SearchInterface;
@@ -28,10 +27,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
 
   private final static String SEARCH_INDEX_ITEMS = PropertyReader.getProperty("item_index_name");
-  private final static String SEARCH_INDEX_CONTEXTS = PropertyReader
-      .getProperty("context_index_name");
-  private final static String SEARCH_INDEX_ORGANIZATIONS = PropertyReader
-      .getProperty("organization_index_name");
+  private final static String SEARCH_INDEX_CONTEXTS =
+      PropertyReader.getProperty("context_index_name");
+  private final static String SEARCH_INDEX_ORGANIZATIONS =
+      PropertyReader.getProperty("organization_index_name");
 
   private final static Logger logger = Logger.getLogger(SearchServiceHandler.class);
 
@@ -115,9 +114,8 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       SearchRetrieveRecordVO<T> srr = new SearchRetrieveRecordVO<T>();
       hitList.add(srr);
 
-      T itemVO =
-          (T) ElasticSearchTransportClient.INSTANCE.getMapper().readValue(hit.getSourceAsString(),
-              resultObjectClass);
+      T itemVO = ElasticSearchTransportClient.INSTANCE.getMapper()
+          .readValue(hit.getSourceAsString(), resultObjectClass);
 
       srr.setData(itemVO);
     }
