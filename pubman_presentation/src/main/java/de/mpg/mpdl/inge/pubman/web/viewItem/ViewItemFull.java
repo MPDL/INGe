@@ -149,7 +149,7 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
-  
+
   private AccountUserVO latestModifier = null;
   private AccountUserVO owner = null;
   private ContextVO context = null;
@@ -1416,7 +1416,8 @@ public class ViewItemFull extends FacesBean {
     if (affiliationRefList != null) {
       for (int i = 0; i < affiliationRefList.size(); i++) {
         try {
-          affiliationList.add(new AffiliationVOPresentation(OrganizationalUnitService.getInstance().getOrganizationalUnit(affiliationRefList.get(i).getObjectId())));
+          affiliationList.add(new AffiliationVOPresentation(OrganizationalUnitService.getInstance()
+              .getOrganizationalUnit(affiliationRefList.get(i).getObjectId())));
         } catch (final Exception e) {
           ViewItemFull.logger.error("Error retrieving affiliation list", e);
         }

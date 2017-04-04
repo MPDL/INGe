@@ -32,7 +32,6 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -41,15 +40,10 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery;
 
 /**
  * @author franke
@@ -58,8 +52,6 @@ import de.mpg.mpdl.inge.search.query.SearchQuery;
 @ManagedBean(name = "OrganizationSuggest")
 @SuppressWarnings("serial")
 public class OrganizationSuggest extends EditItemBean {
-  private static final Logger logger = Logger.getLogger(OrganizationSuggest.class);
-
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
@@ -67,32 +59,17 @@ public class OrganizationSuggest extends EditItemBean {
 
     // Perform search request
     if (query != null) {
-      /*
-      String queryString = "";
+      QueryBuilder qb =
+          QueryBuilders.boolQuery().should(
+              QueryBuilders.multiMatchQuery(query, "defaultMetadata.name",
+                  "defaultMetadata.alternativeNames"));
 
-      for (final String snippet : query.split(" ")) {
-        if (!"".equals(queryString)) {
-          queryString += " and ";
-        }
-        queryString +=
-            "(escidoc.title=\"" + snippet + "*\"  or escidoc.alternative=\"" + snippet + "*\")";
-      }
-      */
-      
-      QueryBuilder qb = QueryBuilders.boolQuery().should(QueryBuilders.multiMatchQuery(query, "defaultMetadata.name", "defaultMetadata.alternativeNames"));
+      SearchRetrieveRequestVO<QueryBuilder> srr =
+          new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
 
-      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
-      
-      SearchRetrieveResponseVO<AffiliationVO> response = OrganizationalUnitService.getInstance().searchOrganizations(srr);
+      SearchRetrieveResponseVO<AffiliationVO> response =
+          OrganizationalUnitService.getInstance().searchOrganizations(srr);
 
-    /*  
-      final SearchQuery searchQuery = new PlainCqlQuery(queryString);
-      searchQuery.setMaximumRecords("50");
-
-      final OrgUnitsSearchResult searchResult =
-          SearchService.searchForOrganizationalUnits(searchQuery);
-          
-     */
       for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {
         final AffiliationVO affiliationVO = rec.getData();
         final List<AffiliationVO> initList = new ArrayList<AffiliationVO>();
@@ -119,9 +96,6 @@ public class OrganizationSuggest extends EditItemBean {
           if (countryCode != null) {
             address += countryCode;
           }
-
-          // TODO: remove this if address is wanted
-          // address = "";
 
           organizationVOPresentation.setAddress(address);
 
@@ -172,27 +146,7 @@ public class OrganizationSuggest extends EditItemBean {
       }
     }
 
-    /*
-    final SearchQuery searchQuery =
-        new PlainCqlQuery("(escidoc.objid=\"" + affiliationRO.getObjectId() + "\")");
-
-    final OrgUnitsSearchResult searchResult =
-        SearchService.searchForOrganizationalUnits(searchQuery);
-
-    final List<AffiliationVO> resultList = searchResult.getResults();
-
-    if (resultList.size() == 0) {
-      OrganizationSuggest.logger.warn("'" + affiliationRO.getObjectId()
-          + "' was declared as a parent ou but it was not found.");
-    } else if (resultList.size() > 1) {
-      OrganizationSuggest.logger.warn("Unexpectedly more than one ou with the id '"
-          + affiliationRO.getObjectId() + "' was found.");
-    } else {
-      applicationBean.getOuList().add(resultList.get(0));
-      return resultList.get(0);
-    }
-    */
-    return OrganizationalUnitService.getInstance().getOrganizationalUnit(affiliationRO.getObjectId());
-
+    return OrganizationalUnitService.getInstance().getOrganizationalUnit(
+        affiliationRO.getObjectId());
   }
 }

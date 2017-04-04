@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.services.SearchInterface;
 import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
 
 public class OrganizationalUnitService {
-  
+
   private static final OrganizationalUnitService instance = new OrganizationalUnitService();
 
 
@@ -73,13 +73,13 @@ public class OrganizationalUnitService {
         .collect(Collectors.toList());
 
   }
-  
-  public SearchRetrieveResponseVO<AffiliationVO> searchOrganizations(SearchRetrieveRequestVO<QueryBuilder> srr) throws Exception {
+
+  public SearchRetrieveResponseVO<AffiliationVO> searchOrganizations(
+      SearchRetrieveRequestVO<QueryBuilder> srr) throws Exception {
     return searchService.searchForOrganizations(srr);
   }
-  
-  public static OrganizationalUnitService getInstance()
-  {
+
+  public static OrganizationalUnitService getInstance() {
     return instance;
   }
 

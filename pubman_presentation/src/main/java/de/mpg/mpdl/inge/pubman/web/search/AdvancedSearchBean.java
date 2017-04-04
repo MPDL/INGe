@@ -130,7 +130,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private boolean languageChanged;
 
   private int numberOfSearchCriterions;
-  
+
   private String suggestConeUrl;
 
   public AdvancedSearchBean() {}
@@ -1200,7 +1200,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public void setPersonRoleMenu(List<SelectItem> personRoleMenu) {
     this.personRoleMenu = personRoleMenu;
   }
-  
+
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
       this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");

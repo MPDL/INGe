@@ -458,7 +458,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
   }
-  
+
   public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
       String searchString, MultiMatchQueryBuilder.Type multiMatchType) {
    
