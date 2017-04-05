@@ -233,5 +233,10 @@
       <artifactId>wss4j</artifactId>
       <version>1.5.1</version>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
