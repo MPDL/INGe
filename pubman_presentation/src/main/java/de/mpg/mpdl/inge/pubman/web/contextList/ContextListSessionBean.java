@@ -39,13 +39,11 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -81,7 +79,7 @@ public class ContextListSessionBean extends FacesBean {
   private List<PubContextVOPresentation> allPrivilegedContextList =
       new ArrayList<PubContextVOPresentation>();
 
-  private ContextServiceHandler contextServiceHandler;;
+  // private ContextServiceHandler contextServiceHandler;;
 
   // private UIXIterator contextIterator = new UIXIterator();
 

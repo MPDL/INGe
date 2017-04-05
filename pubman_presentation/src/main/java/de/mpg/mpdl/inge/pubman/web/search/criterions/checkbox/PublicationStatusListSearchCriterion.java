@@ -9,8 +9,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Index;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.QueryType;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
 
 @SuppressWarnings("serial")
