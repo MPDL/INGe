@@ -104,6 +104,21 @@
       <artifactId>commons-net</artifactId>
       <version>3.0.1</version>
     </dependency>
+    <dependency>
+      <groupId>de.mpg.mpdl.inge</groupId>
+      <artifactId>inge_es_connector</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.0.12</version>
+    </dependency>
+    <dependency>
+      <groupId>sword</groupId>
+      <artifactId>swordcommon</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
   <profiles>
