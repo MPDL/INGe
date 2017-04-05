@@ -68,7 +68,5 @@
       <artifactId>transformationManager</artifactId>
       <scope>provided</scope>
     </dependency>
-    
-
   </dependencies>
 </project>
