@@ -15,6 +15,7 @@ import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -119,27 +120,27 @@ public class AffiliationBean extends FacesBean {
     return "";
   }
 
-  // private AffiliationVOPresentation findAffiliationByName(String name,
-  // AffiliationVOPresentation affiliation) throws Exception {
-  // String affName = null;
-  // if (affiliation != null && affiliation.getMetadataSets().size() > 0
-  // && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-  // affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
-  // }
-  //
-  // if (name.equals(affName)) {
-  // return affiliation;
-  // }
-  //
-  // for (final AffiliationVOPresentation child : affiliation.getChildren()) {
-  // final AffiliationVOPresentation result = this.findAffiliationByName(name, child);
-  // if (result != null) {
-  // return result;
-  // }
-  // }
-  //
-  // return null;
-  // }
+  private AffiliationVOPresentation findAffiliationByName(String name,
+      AffiliationVOPresentation affiliation) throws Exception {
+    String affName = null;
+    if (affiliation != null && affiliation.getMetadataSets().size() > 0
+        && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+    }
+
+    if (name.equals(affName)) {
+      return affiliation;
+    }
+
+    for (final AffiliationVOPresentation child : affiliation.getChildren()) {
+      final AffiliationVOPresentation result = this.findAffiliationByName(name, child);
+      if (result != null) {
+        return result;
+      }
+    }
+
+    return null;
+  }
 
 
 

@@ -3,11 +3,16 @@ package de.mpg.mpdl.inge.transformation;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 
 public class TransformerCache {
+
+  private static Logger logger = Logger.getLogger(TransformerCache.class);
+
   // Map holding the transformers
   // key: Pair source format - target format, value: Transformer object
   private static Map<SourceTargetPair, Transformer> transformerMap =
