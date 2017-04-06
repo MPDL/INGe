@@ -62,7 +62,7 @@
 				<configuration>
 					<skip>false</skip>
 					<argLine>${jacoco.arguments.ut}</argLine>
-					<test>ReportingTest</test>
+					<test>**Test</test>
 					<systemPropertyVariables>
 						<java.awt.headless>true</java.awt.headless>
 					</systemPropertyVariables>

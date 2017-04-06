@@ -24,7 +24,7 @@
                 <configuration>
                     <skip>false</skip>
                     <argLine>${jacoco.arguments.ut}</argLine>
-                    <test>**Test</test>
+                    <test>**/*Test</test>
                 </configuration>
             </plugin>
         </plugins>
