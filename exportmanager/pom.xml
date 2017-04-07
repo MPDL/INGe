@@ -38,7 +38,7 @@
 				<configuration>
 					<skip>false</skip>
 					<argLine>${jacoco.arguments.ut}</argLine>
-					<test>ExportTest</test>
+					<test>**Test</test>
 				</configuration>
 			</plugin>
 		</plugins>
