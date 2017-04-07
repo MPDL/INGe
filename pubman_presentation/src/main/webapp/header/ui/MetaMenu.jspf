@@ -1,69 +1,99 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu"> <h:form>
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<div class="medium_area0 endline selectContainer">
-				<div class="medium_area0">
-					<span class="medium_area0 selectionBox"><h:outputText
-							value="#{PubManSessionBean.localeString}" /></span>
-					<div class="min_imgArea selectboxIcon">&#160;</div>
+	<h:panelGroup id="metaMenuSkipLinkAnchor" layout="block"
+		class="full_area0 metaMenu">
+		<!-- meta Menu starts here -->
+		<h:form>
+			<h:panelGroup>
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+				<div class="medium_area0 endline selectContainer">
+					<div class="medium_area0">
+						<span class="medium_area0 selectionBox"><h:outputText
+								value="#{PubManSessionBean.localeString}" /></span>
+						<div class="min_imgArea selectboxIcon">&#160;</div>
+					</div>
+					<h:selectOneMenu id="selSelectLocale"
+						value="#{PubManSessionBean.locale}" styleClass="medium_area0"
+						onchange="submit();" title="#{tip.Home_Header_Language}"
+						immediate="true"
+						valueChangeListener="#{PubManSessionBean.changeLanguage}">
+						<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
+						<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />
+						<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}" />
+					</h:selectOneMenu>
 				</div>
-				<h:selectOneMenu id="selSelectLocale"
-					value="#{PubManSessionBean.locale}" styleClass="medium_area0"
-					onchange="submit();" title="#{tip.Home_Header_Language}"
-					immediate="true"
-					valueChangeListener="#{PubManSessionBean.changeLanguage}">
-					<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
-					<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />
-					<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}" />
-				</h:selectOneMenu>
-			</div>
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<!-- Help -->
-			<h:commandLink id="lnkHelp" styleClass="free_area0_p8 endline"
-				title="#{tip.mainMenu_lnkHelp}"
-				onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false"
-				value="#{lbl.mainMenu_lnkHelp}" />
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<!-- Guide -->
-			<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"
-				title="#{tip.mainMenu_lnkPubManGuide}" target="_blank"
-				value="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf">
-				<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
-			</h:outputLink>
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<!-- Policy -->
-			<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline"
-				title="#{tip.mainMenu_lnkPolicy}"
-				onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false"
-				value="#{lbl.mainMenu_lnkPolicy}" />
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<!-- Contact -->
-			<h:commandLink id="lnkContact" styleClass="free_area0_p8 endline"
-				title="#{tip.contact}"
-				onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
-				value="#{lbl.contact}" />
-			<h:panelGroup styleClass="seperator"></h:panelGroup>
-			<!-- LogIn, LogOut -->
-			<h:commandLink id="lnkLoginLogout" styleClass="free_area0_p8 endline"
-				action="#{Login.loginLogout}"
-				value="#{LoginHelper.loginLogoutLabel}" />
-			<h:inputSecret id="inputSecretPassword" style="float:right"
-				styleClass="free_area0_p8 endline" value="#{LoginHelper.password}" />
-			<h:inputText id="inputUsername" style="float:right"
-				styleClass="free_area0_p8 endline" value="#{LoginHelper.username}" />
-			<h:panelGroup styleClass="seperator"
-				rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
-			<h:commandLink id="lnkAccountUserName"
-				styleClass="free_area0_p8 endline"
-				action="#{LoginHelper.getUserAccountOptionsLink}"
-				value="#{LoginHelper.accountUser.name}"
-				rendered="#{LoginHelper.loggedIn}" />
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+				<!-- Help -->
+				<h:commandLink id="lnkHelp" styleClass="free_area0_p8 endline"
+					title="#{tip.mainMenu_lnkHelp}"
+					onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false"
+					value="#{lbl.mainMenu_lnkHelp}" />
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+
+				<!-- Guide -->
+				<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"
+					title="#{tip.mainMenu_lnkPubManGuide}" target="_blank"
+					value="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf">
+					<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
+				</h:outputLink>
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+
+				<!-- Policy -->
+				<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline"
+					title="#{tip.mainMenu_lnkPolicy}"
+					onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false"
+					value="#{lbl.mainMenu_lnkPolicy}" />
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+
+				<!-- Contact -->
+				<h:commandLink id="lnkContact" styleClass="free_area0_p8 endline"
+					title="#{tip.contact}"
+					onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
+					value="#{lbl.contact}" />
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+
+				<!-- LogIn, LogOut -->
+				<h:panelGroup id="login" layout="block"
+					style="clear:right; margin-top:0.37em">
+					<h:panelGroup styleClass="seperator"></h:panelGroup>
+					<!-- 
+					<h:commandLink id="lnkLoginLogout"
+						styleClass="free_area0_p8 endline" action="#{Login.loginLogout}"
+						value="#{LoginHelper.loginLogoutLabel}" />
+						 -->
+					<h:commandButton id="lnkLoginLogout" styleClass="free_area0_p8"
+						action="#{Login.loginLogout}"
+						value="#{LoginHelper.loginLogoutLabel}" type="submit" />
+					<h:inputText id="inputUsername" styleClass="large_txtInput"
+						value="#{LoginHelper.username}"
+						rendered="#{!LoginHelper.loggedIn}" />
+					<p:watermark for="inputUsername" value="username"
+						rendered="#{!LoginHelper.loggedIn}" />
+					<h:panelGroup styleClass="seperator"
+						rendered="#{!LoginHelper.loggedIn}"></h:panelGroup>
+					<h:inputSecret id="inputSecretPassword" styleClass="large_txtInput"
+						value="#{LoginHelper.password}"
+						rendered="#{!LoginHelper.loggedIn}" />
+					<p:watermark for="inputSecretPassword" value="password"
+						rendered="#{!LoginHelper.loggedIn}" />
+					<h:panelGroup styleClass="seperator"
+						rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
+
+					<h:commandLink id="lnkAccountUserName"
+						styleClass="free_area0_p8 endline"
+						action="#{LoginHelper.getUserAccountOptionsLink}"
+						value="#{LoginHelper.accountUser.name}"
+						rendered="#{LoginHelper.loggedIn}" />
+				</h:panelGroup>
+
+
+			</h:panelGroup>
+
+			<!-- meta Menu ends here -->
 		</h:form>
-	</span>
-	
+	</h:panelGroup>
 </ui:composition>

@@ -259,6 +259,10 @@ body .wrapper {
 
 /***** MENU *****/
 /***META MENU***/
+.metaMenu{
+	height: 3.9091em;	
+}
+
 .metaMenu button {
     font-size: 100%;
 	background-color: #006F7B;

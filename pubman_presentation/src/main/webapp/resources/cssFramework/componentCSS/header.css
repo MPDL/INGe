@@ -42,7 +42,6 @@
 /*META MENU*/
 
 	.metaMenu {
-		height: 2.9091em;
 		line-height: normal;
 	}
 	
@@ -87,11 +86,24 @@
 	.metaMenu input[type=text] {
 		height:1.2727em;
 		font-size:0.75em;
+		margin-right: 0.37em;
+		height: 1.5454em;
+		line-height: 1.5454em;
 	}
 	.metaMenu input[type=password] {
 		height:1.2727em;
 		font-size:0.75em;
+		margin-right: 0.37em;
+		height: 1.5454em;
+		line-height: 1.5454em;
 	}
+	
+	.metaMenu input[type=submit] {    	
+		float: right;
+	   	background-color: #006f7b;
+    	color: #ffffff;
+    	padding-top: 0 !important;
+ 	}
 	
 	.metaMenu .selectContainer {
 		margin-right:0.2727em !important;
@@ -140,13 +152,13 @@
 }
 
 .LogoNSearch {
-	height:5.7272em;
+	height:4.7272em;
 }
 	
 /*SEARCH MENU*/
 .searchMenu {
 	float: right;
-	margin-top: 2em;
+	margin-top: 1em;
 }
 
 .searchMenu * {
