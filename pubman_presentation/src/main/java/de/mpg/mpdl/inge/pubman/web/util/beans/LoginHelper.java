@@ -75,7 +75,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class LoginHelper extends FacesBean {
   private static final Logger logger = Logger.getLogger(LoginHelper.class);
-  
+
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
   private AccountUserVO accountUser = new AccountUserVO();
@@ -472,7 +472,7 @@ public class LoginHelper extends FacesBean {
       return token;
     } catch (Exception e) {
       logger.error("Error obtaining login token", e);
-    } 
+    }
     return null;
   }
 

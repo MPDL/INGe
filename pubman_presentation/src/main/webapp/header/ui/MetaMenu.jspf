@@ -60,11 +60,6 @@
 				<h:panelGroup id="login" layout="block"
 					style="clear:right; margin-top:0.37em">
 					<h:panelGroup styleClass="seperator"></h:panelGroup>
-					<!-- 
-					<h:commandLink id="lnkLoginLogout"
-						styleClass="free_area0_p8 endline" action="#{Login.loginLogout}"
-						value="#{LoginHelper.loginLogoutLabel}" />
-						 -->
 					<h:commandButton id="lnkLoginLogout" styleClass="free_area0_p8"
 						action="#{Login.loginLogout}"
 						value="#{LoginHelper.loginLogoutLabel}" type="submit" />
