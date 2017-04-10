@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -31,9 +30,6 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       .getProperty("context_index_name");
   private final static String SEARCH_INDEX_ORGANIZATIONS = PropertyReader
       .getProperty("organization_index_name");
-
-  private final static Logger logger = Logger.getLogger(SearchServiceHandler.class);
-
 
   @Override
   public SearchRetrieveResponseVO<PubItemVO> searchForPubItems(
