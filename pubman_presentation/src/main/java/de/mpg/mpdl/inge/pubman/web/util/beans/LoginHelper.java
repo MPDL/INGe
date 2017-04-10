@@ -41,12 +41,12 @@ import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
 import javax.xml.rpc.ServiceException;
 
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
-import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -72,6 +72,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SessionScoped
 @SuppressWarnings("serial")
 public class LoginHelper extends FacesBean {
+  private static final Logger logger = Logger.getLogger(LoginHelper.class);
+
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
   private AccountUserVO accountUser = new AccountUserVO();
@@ -150,9 +152,8 @@ public class LoginHelper extends FacesBean {
    *        framework methods)
    * @throws ServletException, ServiceException, TechnicalException
    */
-  public void fetchAccountUser(String token) throws WebserverSystemException,
-      SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException,
-      TechnicalException, URISyntaxException {
+  public void fetchAccountUser(String token) throws RemoteException, MalformedURLException,
+      ServiceException, TechnicalException, URISyntaxException {
 
     final JsonNode rawUser = this.obtainUser();
     final AccountUserRO userRO = new AccountUserRO();
@@ -466,10 +467,8 @@ public class LoginHelper extends FacesBean {
 
       conn.disconnect();
       return token;
-    } catch (final MalformedURLException e) {
-      e.printStackTrace();
-    } catch (final IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      logger.error("Error obtaining login token", e);
     }
 
     return null;

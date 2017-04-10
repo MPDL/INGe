@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CDDL HEADER START The contents of this file are subject to the terms 
-	of the Common Development and Distribution License, Version 1.0 only (the 
-	"License"). You may not use this file except in compliance with the License. 
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
-	See the License for the specific language governing permissions and limitations 
-	under the License. When distributing Covered Code, include this CDDL HEADER 
-	in each file and include the License file at license/ESCIDOC.LICENSE. If 
-	applicable, add the following below this CDDL HEADER, with the fields enclosed 
-	by brackets "[]" replaced with your own identifying information: Portions 
-	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2010 
-	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
-	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
-	e.V. All rights reserved. Use is subject to license terms. -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+	
 	<artifactId>framework_access</artifactId>
 	<name>framework_access</name>
 	<version>1.3.40-SNAPSHOT</version>
+	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/framework_access</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/framework_access</developerConnection>
@@ -37,7 +28,6 @@
 				<artifactId>axistools-maven-plugin</artifactId>
 				<!-- Set to fixed version 1.3 because latest version 1.4-SNAPSHOT makes 
 					trouble -->
-
 				<executions>
 					<execution>
 						<goals>
@@ -241,45 +231,21 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>xmlsec</groupId>
-			<artifactId>xmlsec</artifactId>
-			<version>1.3.0</version>
-			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>wss4j</groupId>
@@ -287,25 +253,11 @@
 			<version>1.5.1</version>
 		</dependency>
 		<dependency>
-			<groupId>serializer</groupId>
-			<artifactId>serializer</artifactId>
-			<version>2.7.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xercesImpl</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.7.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
+			<groupId>xmlsec</groupId>
+			<artifactId>xmlsec</artifactId>
+			<version>1.3.0</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
+	
 </project>

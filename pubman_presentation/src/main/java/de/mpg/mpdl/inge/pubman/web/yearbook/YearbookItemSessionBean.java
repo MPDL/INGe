@@ -14,8 +14,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ContextHandler;
-import de.escidoc.www.services.om.ItemHandler;
+// import de.escidoc.www.services.om.ContextHandler;
+// import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -58,7 +58,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;
-  private ItemHandler itemHandler;
+  // private ItemHandler itemHandler;
   private ContextVO yearbookContext;
 
   private PubItemListSessionBean pilsb;
@@ -70,8 +70,8 @@ public class YearbookItemSessionBean extends FacesBean {
   public YearbookItemSessionBean() {
     try {
       this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
-      this.itemHandler =
-          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
+      // this.itemHandler =
+      // ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
     } catch (final Exception e) {
       FacesBean.error("Error retrieving yearbook item!");
@@ -92,46 +92,46 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public void initYearbook() throws Exception {
-    this.setYearbookItem(null);
-    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    filterParams.put("operation", new String[] {"searchRetrieve"});
-    filterParams.put("version", new String[] {"1.1"});
-    final String orgId =
-        this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
-    // String orgId = "escidoc:persistent25";
-    filterParams.put(
-        "query",
-        new String[] {"\"/properties/context/id\"="
-            + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
-            + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-    filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
-    final String xmlItemList = this.itemHandler.retrieveItems(filterParams);
-    final SearchRetrieveResponseVO<PubItemVO> result =
-        XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
+    // this.setYearbookItem(null);
+    // final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+    // filterParams.put("operation", new String[] {"searchRetrieve"});
+    // filterParams.put("version", new String[] {"1.1"});
+    // final String orgId =
+    // this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
+    // // String orgId = "escidoc:persistent25";
+    // filterParams.put(
+    // "query",
+    // new String[] {"\"/properties/context/id\"="
+    // + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
+    // + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
+    // filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
+    // final String xmlItemList = this.itemHandler.retrieveItems(filterParams);
+    // final SearchRetrieveResponseVO<PubItemVO> result =
+    // XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // set current yearbook if already existent
-    if (result.getNumberOfRecords() > 0) {
-      PubItemVO yearbookPubItem = null;
-      final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
-      final Calendar calendar = Calendar.getInstance();
-      final String year = calendarFormat.format(calendar.getTime());
-      for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
-        yearbookPubItem = (PubItemVO) yearbookRecord.getData();
-        if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
-          if (yearbookPubItem.getYearbookMetadata().getYear() != null
-              && (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
-                  .getYearbookMetadata().getYear()
-                  .equals(Integer.toString((Integer.valueOf(year) - 1))))
-              && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
-            this.setYearbookItem(yearbookPubItem);
-            final ContextHandler contextHandler =
-                ServiceLocator.getContextHandler(this.getLoginHelper().getESciDocUserHandle());
-            final String contextXml =
-                contextHandler.retrieve(this.getYearbookItem().getContext().getObjectId());
-            this.yearbookContext = XmlTransformingService.transformToContext(contextXml);
-          }
-        }
-      }
-    }
+    // if (result.getNumberOfRecords() > 0) {
+    // PubItemVO yearbookPubItem = null;
+    // final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
+    // final Calendar calendar = Calendar.getInstance();
+    // final String year = calendarFormat.format(calendar.getTime());
+    // for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
+    // yearbookPubItem = (PubItemVO) yearbookRecord.getData();
+    // if (yearbookPubItem != null && yearbookPubItem.getYearbookMetadata() != null) {
+    // if (yearbookPubItem.getYearbookMetadata().getYear() != null
+    // && (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
+    // .getYearbookMetadata().getYear()
+    // .equals(Integer.toString((Integer.valueOf(year) - 1))))
+    // && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
+    // this.setYearbookItem(yearbookPubItem);
+    // final ContextHandler contextHandler =
+    // ServiceLocator.getContextHandler(this.getLoginHelper().getESciDocUserHandle());
+    // final String contextXml =
+    // contextHandler.retrieve(this.getYearbookItem().getContext().getObjectId());
+    // this.yearbookContext = XmlTransformingService.transformToContext(contextXml);
+    // }
+    // }
+    // }
+    // }
   }
 
   public void setYearbookItem(PubItemVO yearbookItem) {
@@ -191,32 +191,33 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   private void addRelations(List<ItemRO> relList) throws Exception {
-    if (relList.size() > 0) {
-      String updatedItemXml =
-          this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
-      final String taskParam =
-          YearbookItemSessionBean.createRelationTaskParam(relList,
-              this.yearbookItem.getModificationDate());
-      this.itemHandler.addContentRelations(this.yearbookItem.getVersion().getObjectId(), taskParam);
-      updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
-    }
+    // if (relList.size() > 0) {
+    // String updatedItemXml =
+    // this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
+    // final String taskParam =
+    // YearbookItemSessionBean.createRelationTaskParam(relList,
+    // this.yearbookItem.getModificationDate());
+    // this.itemHandler.addContentRelations(this.yearbookItem.getVersion().getObjectId(),
+    // taskParam);
+    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
+    // }
   }
 
   private void removeRelations(List<ItemRO> relList) throws Exception {
-    if (relList.size() > 0) {
-      String updatedItemXml =
-          this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
-      final String taskParam =
-          YearbookItemSessionBean.createRelationTaskParam(relList,
-              this.yearbookItem.getModificationDate());
-      this.itemHandler.removeContentRelations(this.yearbookItem.getVersion().getObjectId(),
-          taskParam);
-      updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
-      this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
-    }
+    // if (relList.size() > 0) {
+    // String updatedItemXml =
+    // this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
+    // final String taskParam =
+    // YearbookItemSessionBean.createRelationTaskParam(relList,
+    // this.yearbookItem.getModificationDate());
+    // this.itemHandler.removeContentRelations(this.yearbookItem.getVersion().getObjectId(),
+    // taskParam);
+    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
+    // }
   }
 
   private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
@@ -374,38 +375,38 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String submitYearbook() {
-    try {
-      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
-      boolean allValid = true;
-      for (final PubItemVOPresentation pubItem : pubItemList) {
-        final boolean valid = this.validateItem(pubItem);
-        if (!valid) {
-          FacesBean.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
-              "\"" + pubItem.getMetadata().getTitle() + "\""));
-          allValid = false;
-        }
-      }
-      if (!allValid) {
-        FacesBean.error(this.getMessage("Yearbook_SubmitError"));
-      } else {
-        final TaskParamVO param =
-            new TaskParamVO(this.getYearbookItem().getModificationDate(), "Submitting yearbook");
-        final String paramXml = XmlTransformingService.transformToTaskParam(param);
-        this.itemHandler.submit(this.getYearbookItem().getVersion().getObjectId(), paramXml);
-        this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
-      }
-    } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_SubmitError"));
-      YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
-    }
-    try {
-      final String yearbookXml =
-          this.itemHandler.retrieve(this.getYearbookItem().getVersion().getObjectId());
-      this.setYearbookItem(XmlTransformingService.transformToPubItem(yearbookXml));
-    } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_reinitializeError"));
-      YearbookItemSessionBean.logger.error("Could not reinitialize Yearbook", e);
-    }
+    // try {
+    // final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
+    // boolean allValid = true;
+    // for (final PubItemVOPresentation pubItem : pubItemList) {
+    // final boolean valid = this.validateItem(pubItem);
+    // if (!valid) {
+    // FacesBean.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
+    // "\"" + pubItem.getMetadata().getTitle() + "\""));
+    // allValid = false;
+    // }
+    // }
+    // if (!allValid) {
+    // FacesBean.error(this.getMessage("Yearbook_SubmitError"));
+    // } else {
+    // final TaskParamVO param =
+    // new TaskParamVO(this.getYearbookItem().getModificationDate(), "Submitting yearbook");
+    // final String paramXml = XmlTransformingService.transformToTaskParam(param);
+    // this.itemHandler.submit(this.getYearbookItem().getVersion().getObjectId(), paramXml);
+    // this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
+    // }
+    // } catch (final Exception e) {
+    // FacesBean.error(this.getMessage("Yearbook_SubmitError"));
+    // YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
+    // }
+    // try {
+    // final String yearbookXml =
+    // this.itemHandler.retrieve(this.getYearbookItem().getVersion().getObjectId());
+    // this.setYearbookItem(XmlTransformingService.transformToPubItem(yearbookXml));
+    // } catch (final Exception e) {
+    // FacesBean.error(this.getMessage("Yearbook_reinitializeError"));
+    // YearbookItemSessionBean.logger.error("Could not reinitialize Yearbook", e);
+    // }
 
     return "";
   }

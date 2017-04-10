@@ -56,7 +56,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.escidoc.www.services.om.ItemHandler;
+// import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -186,13 +186,15 @@ public class TestHelper {
 
   public static String getItemListFromFrameworkBase(String USER, String PASSWD,
       HashMap<String, String[]> filter) throws IOException, ServiceException, URISyntaxException {
-    logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
-    String userHandle = AdminHelper.loginUser(USER, PASSWD);
-    logger.info("Retrieve filter:" + filter.entrySet().toString());
-    // see here for filters:
+    // logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
+    // String userHandle = AdminHelper.loginUser(USER, PASSWD);
+    // logger.info("Retrieve filter:" + filter.entrySet().toString());
+    // // see here for filters:
+    // //
     // https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-    ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-    return ch.retrieveItems(filter);
+    // ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
+    // return ch.retrieveItems(filter);
+    return null;
   }
 
 

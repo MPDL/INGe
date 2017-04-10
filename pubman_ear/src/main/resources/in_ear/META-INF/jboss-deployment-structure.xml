@@ -2,28 +2,15 @@
 
 <jboss-deployment-structure>
 <!-- Turn off classloader isolation. thus, every ejb can see the other -->
-	<ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+	<ear-subdeployments-isolated>true</ear-subdeployments-isolated>
 	
-	<!-- 
-	<module name="deployment.pubmanservices" >
- 	 	<resources>
- 	 		<resource-root path=".">
- 	 			<filter>
- 	 				<include path="services/**"/>
- 	 			</filter>
- 	 		
- 	 		</resource-root>
- 	 	</resources>
- 	 </module>
- 	 -->
- 	 
 	<deployment>
 		<module-alias name="deployment.pubman.ear"/>
 		<!-- Required for docx4j, which is used in citationmanager -->
+		
 		<dependencies>
-			<module name="pubman" export="true" />
+		<!-- 	<module name="pubman" export="true" />  -->
 			<module name="com.sun.xml.bind" />
 		</dependencies>
-	
 	</deployment>
 </jboss-deployment-structure>

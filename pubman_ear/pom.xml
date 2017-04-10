@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CDDL HEADER START The contents of this file are subject to the terms 
-	of the Common Development and Distribution License, Version 1.0 only (the 
-	"License"). You may not use this file except in compliance with the License. 
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
-	See the License for the specific language governing permissions and limitations 
-	under the License. When distributing Covered Code, include this CDDL HEADER 
-	in each file and include the License file at license/ESCIDOC.LICENSE. If 
-	applicable, add the following below this CDDL HEADER, with the fields enclosed 
-	by brackets "[]" replaced with your own identifying information: Portions 
-	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2012 
-	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
-	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
-	e.V. All rights reserved. Use is subject to license terms. -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+	
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
-	<packaging>ear</packaging>
 	<version>8.0.0-SNAPSHOT</version>
+	
+	<packaging>ear</packaging>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_ear</connection>
@@ -85,11 +76,6 @@
 							<artifactId>dataacquisition_presentation</artifactId>
 							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
-						<!-- <webModule> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>sword_presentation</artifactId> 
-							<contextRoot>/sword-app</contextRoot> </webModule> -->
-						<!-- <webModule> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>pid_cache_presentation</artifactId> 
-							<contextRoot>/pidcache</contextRoot> <excluded>${exclude.module}</excluded> 
-							</webModule> -->
 
 						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -166,20 +152,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
 		</dependency>
@@ -244,17 +216,13 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>8.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>8.0.0-SNAPSHOT</version>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
 			<type>war</type>
 		</dependency>
-		<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>pid_cache_presentation</artifactId> 
-			<type>war</type> </dependency> -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_services</artifactId>
@@ -264,24 +232,10 @@
 			<artifactId>inge_es_connector</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
-			<!-- Override managed version for Jsoup -->
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jsr305</artifactId>
-					<groupId>com.google.code.findbugs</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

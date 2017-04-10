@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CDDL HEADER START The contents of this file are subject to the terms 
-	of the Common Development and Distribution License, Version 1.0 only (the 
-	"License"). You may not use this file except in compliance with the License. 
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
-	See the License for the specific language governing permissions and limitations 
-	under the License. When distributing Covered Code, include this CDDL HEADER 
-	in each file and include the License file at license/ESCIDOC.LICENSE. If 
-	applicable, add the following below this CDDL HEADER, with the fields enclosed 
-	by brackets "[]" replaced with your own identifying information: Portions 
-	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2010 
-	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
-	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
-	e.V. All rights reserved. Use is subject to license terms. -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
-	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>INGe</name>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<packaging>pom</packaging>
+	
 	<url>http://inge.mpdl.mpg.de/software</url>
+	
 	<description>
 		PubMan supports scientists and institutes in the management and
 		the digital curation of their publications. This solution
@@ -212,6 +204,36 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>transport</artifactId>
+				<version>5.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>xml-resolver</groupId>
+				<artifactId>xml-resolver</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.10</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-core</artifactId>
+				<version>1.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-parsers</artifactId>
+				<version>1.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.marc4j</groupId>
+				<artifactId>marc4j</artifactId>
+				<version>2.6.5</version>
+			</dependency>
+			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
@@ -264,8 +286,6 @@
 				<artifactId>framework_access</artifactId>
 				<version>1.3.40-SNAPSHOT</version>
 			</dependency>
-			<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>pid_cache_presentation</artifactId> 
-				<version>0.1.58-SNAPSHOT</version> <type>war</type> </dependency> -->
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>search</artifactId>
@@ -288,7 +308,6 @@
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
@@ -321,9 +340,16 @@
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<artifactId>lucene-core</artifactId>
-				<groupId>org.apache.lucene</groupId>
-				<version>6.4.0</version>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>pubman_logic</artifactId>
+				<version>8.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>pubman_presentation</artifactId>
+				<version>8.0.0-SNAPSHOT</version>
+				<classifier>${escidoc.pubman.build.mode}</classifier>
+				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -341,11 +367,6 @@
 				<version>2.8.6</version>
 			</dependency>
 			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>2.8</version>
-			</dependency>
-			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.12</version>
@@ -361,6 +382,19 @@
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -383,19 +417,14 @@
 				<version>2.4</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.3.1</version>
+			  <groupId>org.apache.commons</groupId>
+			  <artifactId>commons-lang3</artifactId>
+			  <version>3.5</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>9.0-801.jdbc4</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
@@ -436,6 +465,26 @@
 				<groupId>jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
 				<version>3.7.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.7.3</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-discovery</groupId>
+				<artifactId>commons-discovery</artifactId>
+				<version>0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>axis</groupId>
+				<artifactId>axis</artifactId>
+				<version>1.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -714,9 +763,9 @@
 		<spring.data.version>Hopper-RC1</spring.data.version>
 
 		<!-- URL of the FIZ framework instance -->
-		<escidoc.framework_access.framework.url>https://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
-		<escidoc.common.framework.url>https://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
-		<escidoc.framework_access.login.url>https://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
+		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
+		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 		<!-- Identifier of the content type "publication" in the actual framework 
 			instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
@@ -1052,7 +1101,7 @@
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
 				<escidoc.pidcache.refresh.interval>1</escidoc.pidcache.refresh.interval>
-				<escidoc.pidcache.dummy.url>https://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
 				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
@@ -1094,12 +1143,12 @@
 			<properties>
 				<!-- URL of the FIZ framework instance -->
 
-				<escidoc.cone.service.url>https://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 
 
 				<!-- Pid cache properties -->
-				<escidoc.pid.pidcache.service.url>https://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
-				<escidoc.pidcache.dummy.url>https://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
 				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
@@ -1114,22 +1163,22 @@
 				<escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
 				<escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
 
-				<escidoc.pubman.instance.url>https://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 				<escidoc.systemtype>dev</escidoc.systemtype>
-				<escidoc.unapi.download.server>https://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
-				<escidoc.unapi.view.server>https://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
+				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<!-- <jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir> -->
 				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
 				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
 
 				<!-- syndication service -->
-				<escidoc.syndication.service.url>https://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
+				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 
 				<!-- AA -->
-				<escidoc.aa.instance.url>https://dev-pubman.mpdl.mpg.de/auth/</escidoc.aa.instance.url>
-				<escidoc.aa.default.target>https://dev-pubman.mpdl.mpg.de/auth/clientLogin</escidoc.aa.default.target>
+				<escidoc.aa.instance.url>http://dev-pubman.mpdl.mpg.de/auth/</escidoc.aa.instance.url>
+				<escidoc.aa.default.target>http://dev-pubman.mpdl.mpg.de/auth/clientLogin</escidoc.aa.default.target>
 			</properties>
 			<distributionManagement>
 				<site>
