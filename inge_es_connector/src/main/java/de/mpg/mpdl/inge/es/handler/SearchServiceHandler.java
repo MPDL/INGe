@@ -34,38 +34,28 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
   @Override
   public SearchRetrieveResponseVO<PubItemVO> searchForPubItems(
       SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
-
     return search(searchQuery, SEARCH_INDEX_ITEMS, PubItemVO.class);
-
   }
 
   @Override
   public SearchRetrieveResponseVO<ContextVO> searchForContexts(
       SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
-
     return search(searchQuery, SEARCH_INDEX_CONTEXTS, ContextVO.class);
-
   }
 
   @Override
   public SearchRetrieveResponseVO<AffiliationVO> searchForOrganizations(
       SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeServiceException {
-
     return search(searchQuery, SEARCH_INDEX_ORGANIZATIONS, AffiliationVO.class);
-
   }
-
 
   private <T extends ValueObject> SearchRetrieveResponseVO<T> search(
       SearchRetrieveRequestVO<QueryBuilder> searchQuery, String searchIndex,
       Class<T> resultObjectClass) throws IngeServiceException {
     SearchRetrieveResponseVO<T> srrVO;
-
     try {
-
       SearchRequestBuilder secondSrb = ElasticSearchTransportClient.INSTANCE.search(searchIndex);
       secondSrb.setQuery(searchQuery.getQueryObject());
-
 
       if (searchQuery.getOffset() != 0) {
         secondSrb.setFrom(searchQuery.getOffset());
@@ -83,21 +73,15 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
         }
       }
 
-      // logger.info(secondSrb.toString());
       SearchResponse response2 = secondSrb.get();
-      // logger.info(response2.toString());
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2, resultObjectClass);
     } catch (Exception e) {
       throw new IngeServiceException(e.getMessage(), e);
     }
 
-
     return srrVO;
-
   }
-
-
 
   private <T extends ValueObject> SearchRetrieveResponseVO<T> getSearchRetrieveResponseFromElasticSearchResponse(
       SearchResponse sr, Class<T> resultObjectClass) throws IOException {
@@ -117,10 +101,6 @@ public class SearchServiceHandler implements SearchInterface<QueryBuilder> {
       srr.setData(itemVO);
     }
 
-
     return srrVO;
   }
-
-
-
 }

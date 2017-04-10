@@ -470,7 +470,6 @@ public class LoginHelper extends FacesBean {
     } catch (Exception e) {
       logger.error("Error obtaining login token", e);
     }
-
     return null;
   }
 
