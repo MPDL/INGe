@@ -20,14 +20,6 @@
 		<tag>HEAD</tag>
 	</scm>
 
-<<<<<<< HEAD
-
-=======
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	
->>>>>>> origin/master
 	<build>
         <plugins>
             <plugin>

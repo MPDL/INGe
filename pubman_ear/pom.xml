@@ -33,13 +33,10 @@
 					<classifier>${escidoc.pubman.build.mode}</classifier>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
-
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<packagingExcludes>./*.properties</packagingExcludes>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
-					<!-- <jboss> <data-sources> <data-source>validation-ds.xml</data-source> 
-						<data-source>pid-cache-ds.xml</data-source> </data-sources> </jboss> -->
 					<modules>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -76,7 +73,6 @@
 							<artifactId>dataacquisition_presentation</artifactId>
 							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
-
 						<jarModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>search</artifactId>
@@ -149,95 +145,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>citationmanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>citation_style_language_manager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>dataacquisition</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>structuredexportmanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_validation_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>cone_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>cone</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>dataacquisition_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformationManager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>aa_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>search</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>search_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>syndication_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_logic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_presentation</artifactId>
-			<classifier>${escidoc.pubman.build.mode}</classifier>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_services</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_es_connector</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0.2</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
 	<profiles>
 		<profile>
@@ -447,4 +354,94 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<dependencies>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>citationmanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>citation_style_language_manager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>dataacquisition</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_validation_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>cone_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>cone</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>dataacquisition_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>transformationManager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>aa_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>search</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>search_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>syndication_presentation</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>pubman_logic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>pubman_presentation</artifactId>
+			<classifier>${escidoc.pubman.build.mode}</classifier>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_es_connector</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
 </project>
