@@ -3,13 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>pubman_presentation</artifactId>
 	<name>pubman_presentation</name>
 	<version>8.0.0-SNAPSHOT</version>
@@ -25,17 +25,6 @@
 
 	<build>
 		<plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-war-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -44,6 +33,7 @@
 					<warSourceExcludes>**/opensource/**</warSourceExcludes>
 					<archive>
 						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
 							<Dependencies>com.h2database.h2</Dependencies>
 						</manifestEntries>
 					</archive>
@@ -228,7 +218,7 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -306,21 +296,20 @@
 			<artifactId>transport</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>sword</groupId>
-            <artifactId>swordcommon</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <scope>provided</scope>
-        </dependency>
-       <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
+			<groupId>sword</groupId>
+			<artifactId>swordcommon</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-	
+
 </project>

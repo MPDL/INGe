@@ -10,7 +10,7 @@
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>inge_services</artifactId>
 	<name>inge_services</name>
 
@@ -21,20 +21,20 @@
 		<tag>HEAD</tag>
 	</scm>
 
-    <build>
-	   <plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
-	   </plugins>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencies>
@@ -49,5 +49,5 @@
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
-	
+
 </project>

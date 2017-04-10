@@ -3,13 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>aa_logic</artifactId>
 	<name>aa_logic</name>
 	<version>0.2.33-SNAPSHOT</version>
@@ -22,20 +22,20 @@
 	</scm>
 
 	<build>
-	   <plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
-	   </plugins>
-   		<resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
@@ -52,7 +52,7 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -68,5 +68,5 @@
 			<artifactId>javaee-api</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 </project>

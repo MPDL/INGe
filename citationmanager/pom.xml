@@ -9,7 +9,7 @@
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>citationmanager</artifactId>
 	<name>citationmanager</name>
 	<version>1.0.100-SNAPSHOT</version>
@@ -23,17 +23,17 @@
 
 	<build>
 		<plugins>
-		     <plugin>
-		       <groupId>org.apache.maven.plugins</groupId>
-		       <artifactId>maven-jar-plugin</artifactId>
-		       <configuration>
-		          <archive>
-		             <manifestEntries>
-		                <Dependencies>pubman</Dependencies>
-		             </manifestEntries>
-		          </archive>
-		       </configuration>
-		     </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -69,7 +69,7 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -131,8 +131,8 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>commons-digester</groupId>
-		    <artifactId>commons-digester</artifactId>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.docx4j</groupId>
@@ -150,5 +150,5 @@
 			<version>20021120</version>
 		</dependency>
 	</dependencies>
-	
+
 </project>

@@ -3,13 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>cone</artifactId>
 	<name>cone</name>
 	<version>1.2.55-SNAPSHOT</version>
@@ -23,28 +23,28 @@
 
 	<build>
 		<plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <includes>
-                        <include>**/**Test.java</include>
-                    </includes>
-                    <argLine>${jacoco.arguments.ut}</argLine>
-                </configuration>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<includes>
+						<include>**/**Test.java</include>
+					</includes>
+					<argLine>${jacoco.arguments.ut}</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -83,5 +83,5 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
-	
+
 </project>

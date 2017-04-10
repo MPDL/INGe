@@ -4,50 +4,50 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>inge_es_connector</artifactId>
 	<name>inge_es_connector</name>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
-	
+
 	<build>
-        <plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <includes>
-                        <include>**/**Test**</include>
-                    </includes>
-                    <argLine>${jacoco.arguments.ut}</argLine>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-	
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<includes>
+						<include>**/**Test**</include>
+					</includes>
+					<argLine>${jacoco.arguments.ut}</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -72,7 +72,7 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.7</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -100,5 +100,5 @@
 			<artifactId>transport</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 </project>

@@ -445,8 +445,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- Should be provided by ear lib directory -->
-
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
@@ -1200,7 +1198,6 @@
 			</distributionManagement>
 		</profile>
 
-
 		<!-- activate this profile for a nims build -->
 		<profile>
 			<id>env-nims</id>
@@ -1212,7 +1209,6 @@
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 			</properties>
 		</profile>
-
 
 		<!-- activate this profile for instrumenting code by JRebel -->
 		<profile>
@@ -1273,7 +1269,6 @@
 			</activation>
 		</profile>
 
-
 		<profile>
 			<id>sonar</id>
 			<activation>
@@ -1320,28 +1315,23 @@
 				</pluginManagement>
 
 				<plugins>
-
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<executions>
-
 							<!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
 								to be passed to the JVM hosting the code being tested. -->
-
 							<execution>
 								<id>prepare-ut-agent</id>
 								<phase>process-test-classes</phase>
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
-
 								<configuration>
 									<destFile>${sonar.jacoco.reportPath}</destFile>
 									<propertyName>jacoco.agent.ut.arg</propertyName>
 									<append>true</append>
 								</configuration>
-
 							</execution>
 
 							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info 
@@ -1361,17 +1351,13 @@
 								<goals>
 									<goal>report</goal>
 								</goals>
-
 								<configuration>
 									<dataFile>${sonar.jacoco.reportPath}</dataFile>
 								</configuration>
-
 							</execution>
 						</executions>
 					</plugin>
-
 				</plugins>
-
 			</build>
 		</profile>
 
@@ -1562,11 +1548,8 @@
 						</plugin>
 					</plugins>
 				</pluginManagement>
-
 			</build>
 		</profile>
-
 	</profiles>
-
 
 </project>

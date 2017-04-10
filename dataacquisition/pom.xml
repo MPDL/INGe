@@ -3,13 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>dataacquisition</artifactId>
 	<name>dataacquisition</name>
 	<version>1.0.91-SNAPSHOT</version>
@@ -23,17 +23,17 @@
 
 	<build>
 		<plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>xmlbeans-maven-plugin</artifactId>
@@ -82,7 +82,7 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<resources>
 			<resource>
 				<targetPath>resources</targetPath>
@@ -90,7 +90,7 @@
 				<directory>${basedir}/src/main/resources</directory>
 			</resource>
 		</resources>
-		
+
 		<testResources>
 			<testResource>
 				<directory>src/main/resources</directory>
@@ -98,7 +98,7 @@
 			</testResource>
 		</testResources>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>env-release-build</id>
@@ -157,7 +157,7 @@
 			<groupId>org.apache.avalon</groupId>
 			<artifactId>avalon-framework</artifactId>
 			<version>4.2.0</version>
-		</dependency>	
+		</dependency>
 	</dependencies>
-	
+
 </project>

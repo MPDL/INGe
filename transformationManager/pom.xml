@@ -3,46 +3,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>transformationManager</artifactId>
 	<name>transformationManager</name>
 
-    <scm>
-        <connection>scm:git:git@github.com:MPDL/INGe/transformationManager</connection>
-        <developerConnection>scm:git:git@github.com:MPDL/INGe/transformationManager</developerConnection>
-        <url>https://github.com/MPDL/INGe/</url>
-        <tag>HEAD</tag>
-    </scm>
-    
-    <build>
-        <plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-jar-plugin</artifactId>
-	       <configuration>
-	          <archive>
-	             <manifestEntries>
-	                <Dependencies>pubman</Dependencies>
-	             </manifestEntries>
-	          </archive>
-	       </configuration>
-	     </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <argLine>${jacoco.arguments.ut}</argLine>
-                    <test>**/*Test</test>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<scm>
+		<connection>scm:git:git@github.com:MPDL/INGe/transformationManager</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/transformationManager</developerConnection>
+		<url>https://github.com/MPDL/INGe/</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Dependencies>pubman</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
+					<test>**/*Test</test>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -103,5 +103,5 @@
 			<version>2.4.0</version>
 		</dependency>
 	</dependencies>
-	
+
 </project>
