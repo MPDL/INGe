@@ -25,10 +25,20 @@
 
 	<build>
 		<plugins>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-war-plugin</artifactId>
+	       <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>pubman</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	       </configuration>
+	     </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
 				<configuration>
 					<warName>pubman_presentation</warName>
 					<warSourceExcludes>**/opensource/**</warSourceExcludes>

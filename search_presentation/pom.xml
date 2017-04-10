@@ -23,6 +23,22 @@
 		<tag>HEAD</tag>
 	</scm>
 
+    <build>
+	   <plugins>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-war-plugin</artifactId>
+	       <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>pubman</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	       </configuration>
+	     </plugin>
+	   </plugins>
+    </build>
+
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>

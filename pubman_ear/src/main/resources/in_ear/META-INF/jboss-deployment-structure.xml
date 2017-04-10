@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <jboss-deployment-structure>
-<!-- Turn off classloader isolation. thus, every ejb can see the other -->
+
+	<!-- Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry -->
 	<ear-subdeployments-isolated>true</ear-subdeployments-isolated>
 	
+	<!-- This is the top level ear module, which contains all the classes in the EAR's lib folder     -->
 	<deployment>
-		<module-alias name="deployment.pubman.ear"/>
-		<!-- Required for docx4j, which is used in citationmanager -->
-		
 		<dependencies>
-		<!-- 	<module name="pubman" export="true" />  -->
+		 	<module name="pubman" export="true" />
 			<module name="com.sun.xml.bind" />
 		</dependencies>
 	</deployment>
+	
 </jboss-deployment-structure>

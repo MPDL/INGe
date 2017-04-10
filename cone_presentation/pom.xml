@@ -28,6 +28,18 @@
 			<id>integration-tests</id>
 			<build>
 				<plugins>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+	       <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>pubman</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	       </configuration>
+	     </plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>

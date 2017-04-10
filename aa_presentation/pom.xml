@@ -24,6 +24,19 @@
 	</scm>
 
 	<build>
+	   <plugins>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-war-plugin</artifactId>
+	       <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>pubman</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	       </configuration>
+	     </plugin>
+	   </plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

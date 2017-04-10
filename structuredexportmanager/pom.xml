@@ -23,6 +23,17 @@
 
 	<build>
 		<plugins>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-jar-plugin</artifactId>
+	       <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>pubman</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	       </configuration>
+	     </plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -30,9 +41,9 @@
 					<test>**/*Test</test>
 				</configuration>
 			</plugin>
-		</plugins>
+	   </plugins>
 	</build>
-
+	   
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
