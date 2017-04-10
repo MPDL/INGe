@@ -445,6 +445,8 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- Should be provided by ear lib directory -->
+
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
