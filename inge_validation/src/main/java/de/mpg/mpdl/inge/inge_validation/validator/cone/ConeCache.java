@@ -53,47 +53,30 @@ public class ConeCache {
   private final ConeSet mpisGroupsTitle = ConeSet.MPIS_GROUPS_TITLE;
   private final ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
 
-  private final String coneServiceUrl;
-
-  private ConeCache() {
-    this.coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
-    ConeCache.LOG.info("ConeServiceUrl: " + this.coneServiceUrl);
-    if (this.coneServiceUrl == null) {
-      ConeCache.LOG.error("Property <" + Properties.ESCIDOC_CONE_SERVICE_URL + "> not set");
-      throw new IllegalArgumentException();
-    }
-
-    try {
-      ConeCache.LOG.info("Starting refresh of validation database <- Constructor.");
-      this.refreshCache();
-      ConeCache.LOG.info("Finished refresh of validation database <- Constructor.");
-    } catch (final ValidationConeCacheConfigException e) {
-      ConeCache.LOG.error(e);
-      throw new IllegalStateException();
-    }
-  }
+  private ConeCache() {}
 
   public static ConeCache getInstance() {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
   public void refreshCache() throws ValidationConeCacheConfigException {
+    String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
     ConeCache.LOG.info("*** Start Refresh-Cycle ***");
-    this.refresh(this.iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER),
-        this.coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
-    this.refresh(this.iso639_3_Title, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl
+        + ConeCache.ISO639_3_IDENTIFIER_QUERY);
+    this.refresh(this.iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.ISO639_3_TITLE_QUERY);
-    this.refresh(this.ddcTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.ddcTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.DDC_TITLE_QUERY);
-    this.refresh(this.mimeTypesTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.mimeTypesTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MIME_TYPES_TITLE_QUERY);
-    this.refresh(this.mpipksTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.mpipksTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIPKS_TITLE_QUERY);
-    this.refresh(this.mpirgTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.mpirgTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIRG_TITLE_QUERY);
-    this.refresh(this.mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_GROUPS_TITLE_QUERY);
-    this.refresh(this.mpisProjectTitle, new ConeHandler(ConeCache.TITLE), this.coneServiceUrl
+    this.refresh(this.mpisProjectTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
     ConeCache.LOG.info("*** Ende Refresh-Cycle ***");
   }
