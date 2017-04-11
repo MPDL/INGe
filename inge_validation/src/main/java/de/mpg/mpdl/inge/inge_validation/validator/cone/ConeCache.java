@@ -205,5 +205,4 @@ public class ConeCache {
 
     return this.mpisProjectTitle.set();
   }
-
 }
