@@ -20,33 +20,34 @@ public class AuthorizationAspect {
 
     System.out.println("check AA!!!!!!!!!!!!!!!!!!!!");
   }
-  
-  
-private void roleInUserVO(PredefinedRoles role, String contextId, AccountUserVO user) throws AaException {
-    
-    for(GrantVO grant : user.getGrants())
-    {
-      if (grant.getRole().equals(role.frameworkValue())){
+
+
+  private void roleInUserVO(PredefinedRoles role, String contextId, AccountUserVO user)
+      throws AaException {
+
+    for (GrantVO grant : user.getGrants()) {
+      if (grant.getRole().equals(role.frameworkValue())) {
         return;
       }
     }
-    
+
     throw new AaException("No sufficient priviliges.");
-    
+
   }
-  
-  
-  private void contextIdInUserVO(PredefinedRoles role, String contextId, AccountUserVO user) throws AaException {
-    
-    for(GrantVO grant : user.getGrants())
-    {
-      if (grant.getRole().equals(role.frameworkValue()) && grant.getGrantedTo()!=null && grant.getGrantedTo().equals(contextId)){
+
+
+  private void contextIdInUserVO(PredefinedRoles role, String contextId, AccountUserVO user)
+      throws AaException {
+
+    for (GrantVO grant : user.getGrants()) {
+      if (grant.getRole().equals(role.frameworkValue()) && grant.getGrantedTo() != null
+          && grant.getGrantedTo().equals(contextId)) {
         return;
       }
     }
-    
+
     throw new AaException("No sufficient priviliges.");
-    
+
   }
 
 }
