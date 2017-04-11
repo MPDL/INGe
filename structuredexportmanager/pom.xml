@@ -46,8 +46,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_util</artifactId>
+			<artifactId>transformationManager</artifactId>
 		</dependency>
+		      <dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -84,9 +88,6 @@
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
-		</dependency>
+
 	</dependencies>
 </project>

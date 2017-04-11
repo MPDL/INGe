@@ -69,11 +69,6 @@ public class StructuredExportServiceTest {
   public static final void getItemLists() throws Exception {
     itemLists = new HashMap<String, String>();
 
-    // String itemList = TestHelper.getItemListFromFramework();
-    // assertFalse("item list from framework is empty", itemList == null ||
-    // itemList.trim().equals("") );
-    // logger.info("item list from framework:\n" + itemList);
-
     for (String key : ITEM_LISTS_FILE_MAMES.keySet()) {
       String itemList =
           ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(key),
@@ -81,28 +76,7 @@ public class StructuredExportServiceTest {
       assertNotNull("Item list xml is not found", itemList);
       itemLists.put(key, itemList);
     }
-
-    // FileOutputStream fos = new FileOutputStream("fwItemList.xml");
-    // fos.write(fwItemList.getBytes());
-    // fos.close();
-
   }
-
-
-  /**
-   * Get EndNote output test
-   * 
-   * @throws Exception
-   */
-  // @Before
-  // @Ignore
-  // public final void getStructuredTestOutput() throws Exception
-  // {
-  // endNoteTestOutput = new
-  // String(TestHelper.readBinFile("src/test/resources/EndNoteTestOutput.txt"));
-  // assertNotNull("EndNote output is not found", endNoteTestOutput);
-  // }
-
 
   /**
    * Test explainExport XML file
@@ -115,21 +89,6 @@ public class StructuredExportServiceTest {
     assertNotNull("explain formats file is null", result);
     logger.info("explain formats: " + result);
   }
-
-  /**
-   * Test list of export formats
-   * 
-   * @throws Exception Any exception.
-   */
-  @Test
-  public final void testFormatList() throws Exception {
-    String[] fl = StructuredExportService.getFormatsList();
-    assertTrue("The list of export formats is empty", fl.length > 0);
-    for (String f : fl)
-      logger.info("Export format: " + f);
-  }
-
-
 
   /**
    * Test service with a item list XML.
@@ -145,7 +104,6 @@ public class StructuredExportServiceTest {
       String itemList =
           ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(f),
               StructuredExportServiceTest.class.getClassLoader());
-      // logger.info("Test item list:\n" + itemList);
 
       start = System.currentTimeMillis();
       byte[] result = StructuredExportService.getOutput(itemList, f);
@@ -159,7 +117,6 @@ public class StructuredExportServiceTest {
   }
 
   @Test
-  @Ignore
   public void doExportTest() throws Exception {
     String itemList =
         ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml",
