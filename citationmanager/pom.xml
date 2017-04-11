@@ -45,29 +45,6 @@
 					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>create-executable-jar</id>
-						<!-- <phase>package</phase> -->
-						<phase>none</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<archive>
-								<manifest>
-									<mainClass>de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 
 		<resources>

@@ -193,15 +193,13 @@
 									<goal>run</goal>
 								</goals>
 								<configuration>
-									<tasks>
+									<target>
 										<copy overwrite="true"
 											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
-										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" 
-											todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the configuration file -->
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/pubman.properties"
@@ -227,13 +225,7 @@
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml"
 											todir="${jboss.install.dir}/modules/pubman/main" />
-										<!-- configuration for the runtime server jboss server -->
-										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" 
-											style="${project.build.directory}/classes/properties-service-transform.xsl" 
-											out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" 
-											file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
-											</copy> -->
-									</tasks>
+									</target>
 								</configuration>
 							</execution>
 						</executions>
@@ -270,7 +262,7 @@
 									<goal>run</goal>
 								</goals>
 								<configuration>
-									<tasks>
+									<target>
 										<scp
 											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.user.scp}:${jboss.install.dir}/standalone/deployments"
@@ -281,8 +273,6 @@
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
 											passphrase="" trust="true" verbose="true" />
-										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" 
-											todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the configuration file -->
 										<scp file="${project.build.directory}/classes/pubman.properties"
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
@@ -316,13 +306,7 @@
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
 											passphrase="" trust="true" verbose="true" />
-										<!-- configuration for the runtime server jboss server -->
-										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" 
-											style="${project.build.directory}/classes/properties-service-transform.xsl" 
-											out="${project.build.directory}/properties-service.temp" /> <copy overwrite="true" 
-											file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml"> 
-											</copy> -->
-									</tasks>
+									</target>
 								</configuration>
 							</execution>
 						</executions>
