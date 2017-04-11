@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
@@ -17,16 +18,18 @@ import org.primefaces.model.TreeNode;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AffiliationBean")
@@ -52,10 +55,12 @@ public class AffiliationBean extends FacesBean {
   private String source = null;
   private TreeNode rootTreeNode;
 
+
+
   public AffiliationBean() throws Exception {
     this.setTopLevelAffs(CommonUtils
-        .convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance()
-            .searchTopLevelOrganizations()));
+        .convertToAffiliationVOPresentationList(((OrganizationServiceImpl) ApplicationBean.INSTANCE
+            .getOrganizationService()).searchTopLevelOrganizations()));
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
     for (final AffiliationVOPresentation aff : this.topLevelAffs) {
@@ -349,10 +354,13 @@ public class AffiliationBean extends FacesBean {
    */
   public String getResetMessage() throws Exception {
     this.topLevelAffs =
-        CommonUtils.convertToAffiliationVOPresentationList(OrganizationalUnitService.getInstance()
-            .searchTopLevelOrganizations());
+        CommonUtils
+            .convertToAffiliationVOPresentationList(((OrganizationServiceImpl) ApplicationBean.INSTANCE
+                .getOrganizationService()).searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     return this.getMessage("Affiliations_reloaded");
   }
+
+
 
 }

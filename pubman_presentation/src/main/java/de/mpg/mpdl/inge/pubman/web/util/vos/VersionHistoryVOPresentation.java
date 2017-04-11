@@ -25,6 +25,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
   private final List<EventLogEntryVOPresentation> eventLogEntries;
 
+
+
   public VersionHistoryVOPresentation(VersionHistoryEntryVO versionHistoryEntryVO) {
     this.eventLogEntries = new ArrayList<EventLogEntryVOPresentation>();
     this.setEvents(versionHistoryEntryVO.getEvents());
@@ -40,6 +42,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   public List<EventLogEntryVOPresentation> getEventLogEntries() {
     return this.eventLogEntries;
   }
+
+
 
   /**
    * JSF action to rollback the item to this version.
@@ -85,10 +89,10 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED
         && pubItemVONewVersion.getVersion().getState() == State.PENDING) {
       pubItemVONewVersion =
-          PubItemService.submitPubItem(pubItemVONewVersion,
+          PubItemService.INSTANCE.submitPubItem(pubItemVONewVersion,
               "Submit and release after rollback to version "
                   + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
-      PubItemService.releasePubItem(pubItemVONewVersion.getVersion(),
+      PubItemService.INSTANCE.releasePubItem(pubItemVONewVersion.getVersion(),
           pubItemVONewVersion.getModificationDate(),
           "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAccountUser());

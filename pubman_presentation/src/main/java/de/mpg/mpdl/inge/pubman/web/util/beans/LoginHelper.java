@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
 import javax.xml.rpc.ServiceException;
@@ -47,7 +48,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -60,6 +60,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -81,8 +82,6 @@ public class LoginHelper extends FacesBean {
   private List<AffiliationVOPresentation> userAccountAffiliations;
   private List<GrantVO> userGrants;
   private List<UserGroupVO> userAccountUserGroups;
-
-  private OrganizationServiceHandler organizationServiceHandler;
 
   private String authenticationToken = null;
   private String btnLoginLogout = "login_btLogin";
@@ -358,12 +357,11 @@ public class LoginHelper extends FacesBean {
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
-      this.organizationServiceHandler = new OrganizationServiceHandler();
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
           final AffiliationVO orgUnit =
-              this.organizationServiceHandler.readOrganization(ua.getValue());
+              ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
           this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }
@@ -499,4 +497,5 @@ public class LoginHelper extends FacesBean {
 
     return null;
   }
+
 }

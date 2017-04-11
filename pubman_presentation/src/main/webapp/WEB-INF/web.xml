@@ -145,6 +145,11 @@
 		<servlet-name>deposit</servlet-name>
 		<url-pattern>/sword-app/deposit</url-pattern>
 	</servlet-mapping>
+	<!-- 
+	<listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	-->
 	<!-- End SWORD -->
 </web-app>
 

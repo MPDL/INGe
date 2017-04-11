@@ -38,20 +38,20 @@ import java.util.List;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidContextException;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
-import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
-import de.escidoc.core.common.exceptions.application.missing.MissingElementValueException;
-import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
-import de.escidoc.core.common.exceptions.application.notfound.FileNotFoundException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.AlreadyPublishedException;
 import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnException;
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.mpdl.inge.dao.ContextDao;
+import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -77,7 +77,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
 import de.mpg.mpdl.inge.pubman.exceptions.MissingWithdrawalCommentException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubFileContentNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingException;
@@ -85,11 +84,12 @@ import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
-import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
-import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-public class PubItemService {
+
+@Deprecated
+@Service
+public class PubItemService implements InitializingBean {
   private static final Logger logger = Logger.getLogger(PubItemService.class);
 
   public static final String WORKFLOW_SIMPLE = "simple";
@@ -98,7 +98,21 @@ public class PubItemService {
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
-  public static PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
+  @Autowired
+  private PubItemDao<QueryBuilder> pubItemDao;
+
+  @Autowired
+  private ContextDao<QueryBuilder> contextDao;
+
+  public static PubItemService INSTANCE;
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    INSTANCE = this;
+  }
+
+
+  public PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
       throws PubCollectionNotFoundException, SecurityException, TechnicalException {
 
     if (pubCollectionRef == null) {
@@ -118,11 +132,10 @@ public class PubItemService {
     ContextVO collection = null;
     try {
       // TODO remove replace
-      collection =
-          ContextInterfaceConnectorFactory.getInstance()
-              .readContext(pubCollectionRef.getObjectId());
-    } catch (ContextNotFoundException e) {
-      throw new PubCollectionNotFoundException(pubCollectionRef, e);
+      collection = contextDao.get(pubCollectionRef.getObjectId());
+      if (collection == null)
+        throw new PubCollectionNotFoundException(pubCollectionRef, null);
+
     } catch (Exception e) {
       ExceptionHandler.handleException(e, PubItemService.class + ".createPubItem");
     }
@@ -141,7 +154,7 @@ public class PubItemService {
     return result;
   }
 
-  public static void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
+  public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
       throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
       SecurityException, TechnicalException {
 
@@ -160,18 +173,11 @@ public class PubItemService {
     }
 
     try {
-      ItemInterfaceConnectorFactory.getInstance().deleteItem(pubItemRef.getObjectId());
+      pubItemDao.delete(pubItemRef.getObjectId());
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
           user.getUserid()});
-    } catch (LockingException e) {
-      throw new PubItemLockedException(pubItemRef, e);
-    } catch (ItemNotFoundException e) {
-      throw new PubItemNotFoundException(pubItemRef, e);
-    } catch (AlreadyPublishedException e) {
-      throw new PubItemStatusInvalidException(pubItemRef, e);
-    } catch (InvalidStatusException e) {
-      throw new PubItemStatusInvalidException(pubItemRef, e);
+
     } catch (Exception e) {
       ExceptionHandler.handleException(e, PubItemService.class + "deletePubItem");
     }
@@ -207,7 +213,7 @@ public class PubItemService {
     return null;
   }
 
-  public static PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
+  public PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
       throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
       PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
       PubItemStatusInvalidException, TechnicalException, AuthorizationException {
@@ -236,39 +242,15 @@ public class PubItemService {
         pubItem.setPublicStatus(PubItemVO.State.PENDING);
         pubItem.setCreationDate(creationDate);
         pubItem.setOwner(user.getReference());
-        ItemInterfaceConnectorFactory.getInstance().createItem(pubItem,
-            pubItem.getVersion().getObjectId());
+        pubItemDao.create(pubItem.getVersion().getObjectId(), pubItem);
         message = PUBITEM_CREATED;
       } else {
-        ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
-            pubItem.getVersion().getObjectId());
+        pubItemDao.update(pubItem.getVersion().getObjectId(), pubItem);
         message = PUBITEM_UPDATED;
       }
 
       ApplicationLog.info(message,
           new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
-    } catch (MissingAttributeValueException e) {
-      throw new PubItemMandatoryAttributesMissingException(pubItem, e);
-    } catch (ContextNotFoundException e) {
-      throw new PubCollectionNotFoundException(pubItem.getContext(), e);
-    } catch (MissingElementValueException e) {
-      throw new PubItemMandatoryAttributesMissingException(pubItem, e);
-    } catch (LockingException e) {
-      throw new PubItemLockedException(pubItem.getVersion(), e);
-    } catch (InvalidContextException e) {
-      throw new PubCollectionNotFoundException(pubItem.getContext(), e);
-    } catch (ItemNotFoundException e) {
-      throw new PubItemNotFoundException(pubItem.getVersion(), e);
-    } catch (AlreadyPublishedException e) {
-      throw new PubItemAlreadyReleasedException(pubItem.getVersion(), e);
-    } catch (InvalidStatusException e) {
-      throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
-    } catch (FileNotFoundException e) {
-      throw new PubFileContentNotFoundException(pubItem.getFiles(), e);
-    } catch (NotPublishedException e) {
-      throw new TechnicalException(e);
-    } catch (AuthorizationException e) {
-      throw e;
     } catch (Exception e) {
       ExceptionHandler.handleException(e, PubItemService.class.getSimpleName() + ".savePubItem");
     }
@@ -277,9 +259,9 @@ public class PubItemService {
   }
 
   // TODO: submissionComment verwenden! (-> siehe auch QualityAssuranceBean, PubItemPublishingBean)
-  public static PubItemVO submitPubItem(final PubItemVO pubItem, String comment,
-      final AccountUserVO user) throws PubItemStatusInvalidException, PubItemNotFoundException,
-      SecurityException, TechnicalException {
+  public PubItemVO submitPubItem(final PubItemVO pubItem, String comment, final AccountUserVO user)
+      throws PubItemStatusInvalidException, PubItemNotFoundException, SecurityException,
+      TechnicalException {
 
     if (pubItem == null) {
       throw new IllegalArgumentException(PubItemService.class + ".submitPubItem: pubItem is null.");
@@ -291,15 +273,11 @@ public class PubItemService {
 
     PubItemVO savedPubItem = pubItem;
     try {
-      ItemInterfaceConnectorFactory.getInstance().updateItem(pubItem,
-          pubItem.getVersion().getObjectId());
+      pubItemDao.update(pubItem.getVersion().getObjectId(), pubItem);
 
       ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] {
           savedPubItem.getVersion().getObjectId(), user.getUserid()});
-    } catch (InvalidStatusException e) {
-      throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
-    } catch (ItemNotFoundException e) {
-      throw new PubItemNotFoundException(savedPubItem.getVersion(), e);
+
     } catch (Exception e) {
       ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
     }

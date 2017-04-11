@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
@@ -84,8 +85,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
-import de.mpg.mpdl.inge.services.ContextInterfaceConnectorFactory;
-import de.mpg.mpdl.inge.services.ItemInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -305,7 +306,8 @@ public class ItemControllerSessionBean extends FacesBean {
   public String createNewPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO) {
     try {
       final PubItemVO newPubItem =
-          PubItemService.createPubItem(pubContextRO, this.getLoginHelper().getAccountUser());
+          PubItemService.INSTANCE.createPubItem(pubContextRO, this.getLoginHelper()
+              .getAccountUser());
       this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newPubItem)));
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Could not create item." + "\n" + e.toString(), e);
@@ -367,8 +369,8 @@ public class ItemControllerSessionBean extends FacesBean {
         ItemControllerSessionBean.logger
             .warn("Tried to delete an unsaved item. Do nothing instead.");
       } else {
-        PubItemService.deletePubItem(this.currentPubItem.getVersion(), this.getLoginHelper()
-            .getAccountUser());
+        PubItemService.INSTANCE.deletePubItem(this.currentPubItem.getVersion(), this
+            .getLoginHelper().getAccountUser());
       }
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Could not delete item." + "\n" + e.toString());
@@ -647,7 +649,8 @@ public class ItemControllerSessionBean extends FacesBean {
       final PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      PubItemService.submitPubItem(pubItem, comment, this.getLoginHelper().getAccountUser());
+      PubItemService.INSTANCE.submitPubItem(pubItem, comment, this.getLoginHelper()
+          .getAccountUser());
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Could not submit item." + "\n" + e.toString());
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
@@ -668,7 +671,7 @@ public class ItemControllerSessionBean extends FacesBean {
     ContextVO context = null;
 
     try {
-      context = ContextInterfaceConnectorFactory.getInstance().readContext(contextID);
+      context = ApplicationBean.INSTANCE.getContextService().get(contextID, null);
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.debug(e.toString());
       ((Login) FacesTools.findBean("Login")).forceLogout();
@@ -705,7 +708,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public PubItemVOPresentation retrieveItem(String itemID) throws Exception {
-    return new PubItemVOPresentation(ItemInterfaceConnectorFactory.getInstance().readItem(itemID));
+    return new PubItemVOPresentation(ApplicationBean.INSTANCE.getPubItemService().get(itemID, null));
   }
 
   /**
@@ -920,7 +923,8 @@ public class ItemControllerSessionBean extends FacesBean {
       PubItemVO pubItem = new PubItemVO(this.currentPubItem);
       this.cleanUpItem(pubItem);
 
-      pubItem = PubItemService.savePubItem(pubItem, this.getLoginHelper().getAccountUser());
+      pubItem =
+          PubItemService.INSTANCE.savePubItem(pubItem, this.getLoginHelper().getAccountUser());
 
       this.setCurrentPubItem(new PubItemVOPresentation(pubItem));
     } catch (final TechnicalException tE) {

@@ -29,12 +29,20 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.context.ApplicationContext;
 
+import de.mpg.mpdl.inge.dao.OrganizationDao;
+import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.spring.AppConfigPubmanPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -43,6 +51,7 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -56,10 +65,29 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class HomePage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
+  /*
+   * @Inject private OrganizationDao<QueryBuilder> odIn;
+   */
+
+
+  @ManagedProperty(value = "#{organizationDaoImpl}")
+  private OrganizationDao<QueryBuilder> od;
+
+  @Inject
+  private OrganizationDao<QueryBuilder> od2;
+
   public HomePage() {}
 
   @Override
   public void init() {
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + getOd() + getOd2()
+        + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    try {
+      od.get("123");
+    } catch (IngeServiceException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
       FacesBean.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
@@ -68,6 +96,11 @@ public class HomePage extends BreadcrumbPage {
     }
 
     super.init();
+  }
+
+  @PostConstruct
+  public void test() {
+    System.out.println("NOW:--------------------------------------" + getOd2());
   }
 
   /**
@@ -173,5 +206,21 @@ public class HomePage extends BreadcrumbPage {
   @Override
   public boolean isItemSpecific() {
     return false;
+  }
+
+  public OrganizationDao<QueryBuilder> getOd() {
+    return od;
+  }
+
+  public void setOd(OrganizationDao<QueryBuilder> od) {
+    this.od = od;
+  }
+
+  public OrganizationDao<QueryBuilder> getOd2() {
+    return od2;
+  }
+
+  public void setOd2(OrganizationDao<QueryBuilder> od2) {
+    this.od2 = od2;
   }
 }

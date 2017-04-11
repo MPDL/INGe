@@ -40,6 +40,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
 import org.apache.log4j.Logger;
 
@@ -74,7 +75,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
-import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
+import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -104,6 +105,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -114,6 +116,8 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -242,6 +246,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
+
 
   public ViewItemFull() {
     this.init();
@@ -1416,8 +1421,8 @@ public class ViewItemFull extends FacesBean {
     if (affiliationRefList != null) {
       for (int i = 0; i < affiliationRefList.size(); i++) {
         try {
-          affiliationList.add(new AffiliationVOPresentation(OrganizationalUnitService.getInstance()
-              .getOrganizationalUnit(affiliationRefList.get(i).getObjectId())));
+          affiliationList.add(new AffiliationVOPresentation(ApplicationBean.INSTANCE
+              .getOrganizationService().get(affiliationRefList.get(i).getObjectId(), null)));
         } catch (final Exception e) {
           ViewItemFull.logger.error("Error retrieving affiliation list", e);
         }
@@ -2519,4 +2524,6 @@ public class ViewItemFull extends FacesBean {
   private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
+
+
 }

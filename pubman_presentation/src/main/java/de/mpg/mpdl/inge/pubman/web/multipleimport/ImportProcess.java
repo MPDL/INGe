@@ -421,7 +421,8 @@ public class ImportProcess extends Thread {
 
             this.log.addDetail(ErrorLevel.FINE, "import_process_save_item");
 
-            final PubItemVO savedPubItem = PubItemService.savePubItem(item.getItemVO(), this.user);
+            final PubItemVO savedPubItem =
+                PubItemService.INSTANCE.savePubItem(item.getItemVO(), this.user);
             final String objid = savedPubItem.getVersion().getObjectId();
             this.log.setItemId(objid);
             this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported");

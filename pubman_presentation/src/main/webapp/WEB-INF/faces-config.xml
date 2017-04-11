@@ -6,6 +6,7 @@
     version="2.2">
 
 	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<message-bundle>Label</message-bundle>
 		<message-bundle>Messages</message-bundle>
 		<message-bundle>Tooltip</message-bundle>

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
@@ -39,20 +40,18 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
-import de.mpg.mpdl.inge.services.SearchInterface;
-import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -81,7 +80,6 @@ public class ContextListSessionBean extends FacesBean {
   private List<PubContextVOPresentation> allPrivilegedContextList =
       new ArrayList<PubContextVOPresentation>();
 
-  private ContextServiceHandler contextServiceHandler;;
 
   // private UIXIterator contextIterator = new UIXIterator();
 
@@ -237,14 +235,14 @@ public class ContextListSessionBean extends FacesBean {
         // ... and transform filter to xml
         if (hasGrants) {
 
-          SearchInterface<QueryBuilder> searchService= SearchInterfaceConnectorFactory.getInstance();
+          
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
           
-          SearchRetrieveResponseVO<ContextVO> response = searchService.searchForContexts(new SearchRetrieveRequestVO<QueryBuilder>(bq));
+          SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO<QueryBuilder>(bq), null);
           List<ContextVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
           
           // ... and transform to PubCollections.
@@ -314,4 +312,5 @@ public class ContextListSessionBean extends FacesBean {
   public void setAllPrivilegedContextList(List<PubContextVOPresentation> allPrivilegedContextList) {
     this.allPrivilegedContextList = allPrivilegedContextList;
   }
+
 }

@@ -26,6 +26,14 @@
 
 package de.mpg.mpdl.inge.pubman.web.home;
 
+
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+
+import org.elasticsearch.index.query.QueryBuilder;
+
+import de.mpg.mpdl.inge.dao.OrganizationDao;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -38,5 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 public class Home extends FacesBean {
   public static final String LOAD_HOME = "loadHome";
 
-  public Home() {}
+  public Home() {
+
+  }
 }

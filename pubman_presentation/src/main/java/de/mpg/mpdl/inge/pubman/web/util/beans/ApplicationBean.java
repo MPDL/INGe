@@ -35,6 +35,7 @@ import java.util.Set;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -48,6 +49,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -104,12 +107,27 @@ public class ApplicationBean extends FacesBean {
 
   private boolean handlesActivated;
 
+
+
+  @ManagedProperty("#{organizationServiceImpl}")
+  private OrganizationService organizationService;
+
+  @ManagedProperty("#{contextServiceImpl}")
+  private ContextService contextService;
+
+  @ManagedProperty("#{pubItemServiceImpl}")
+  private de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService;
+
+
+  public static ApplicationBean INSTANCE;
+
   public ApplicationBean() {
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
     this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
 
+    INSTANCE = this;
     this.loadProperties();
   }
 
@@ -547,5 +565,29 @@ public class ApplicationBean extends FacesBean {
 
   public void setCslEditorInstanceUrl(String cslEditorInstanceUrl) {
     this.cslEditorInstanceUrl = cslEditorInstanceUrl;
+  }
+
+  public OrganizationService getOrganizationService() {
+    return organizationService;
+  }
+
+  public void setOrganizationService(OrganizationService organizationService) {
+    this.organizationService = organizationService;
+  }
+
+  public ContextService getContextService() {
+    return contextService;
+  }
+
+  public void setContextService(ContextService contextService) {
+    this.contextService = contextService;
+  }
+
+  public de.mpg.mpdl.inge.service.pubman.PubItemService getPubItemService() {
+    return pubItemService;
+  }
+
+  public void setPubItemService(de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService) {
+    this.pubItemService = pubItemService;
   }
 }

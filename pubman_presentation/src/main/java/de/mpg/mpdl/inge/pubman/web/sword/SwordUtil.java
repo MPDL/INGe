@@ -547,15 +547,15 @@ public class SwordUtil extends FacesBean {
     }
 
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
-      depositedItem = PubItemService.savePubItem(item, user);
-      depositedItem = PubItemService.submitPubItem(depositedItem, "", user);
+      depositedItem = PubItemService.INSTANCE.savePubItem(item, user);
+      depositedItem = PubItemService.INSTANCE.submitPubItem(depositedItem, "", user);
     }
 
     if (method.equals("RELEASE")) {
-      depositedItem = PubItemService.savePubItem(item, user);
-      depositedItem = PubItemService.submitPubItem(depositedItem, "", user);
+      depositedItem = PubItemService.INSTANCE.savePubItem(item, user);
+      depositedItem = PubItemService.INSTANCE.submitPubItem(depositedItem, "", user);
       depositedItem =
-          PubItemService.releasePubItem(depositedItem.getVersion(),
+          PubItemService.INSTANCE.releasePubItem(depositedItem.getVersion(),
               depositedItem.getModificationDate(), "", user);
     }
 

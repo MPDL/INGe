@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -40,10 +41,11 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 
 /**
  * @author franke
@@ -52,6 +54,8 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 @ManagedBean(name = "OrganizationSuggest")
 @SuppressWarnings("serial")
 public class OrganizationSuggest extends EditItemBean {
+
+
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
@@ -68,7 +72,7 @@ public class OrganizationSuggest extends EditItemBean {
           new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
 
       SearchRetrieveResponseVO<AffiliationVO> response =
-          OrganizationalUnitService.getInstance().searchOrganizations(srr);
+          ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
       for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {
         final AffiliationVO affiliationVO = rec.getData();
@@ -146,7 +150,6 @@ public class OrganizationSuggest extends EditItemBean {
       }
     }
 
-    return OrganizationalUnitService.getInstance().getOrganizationalUnit(
-        affiliationRO.getObjectId());
+    return ApplicationBean.INSTANCE.getOrganizationService().get(affiliationRO.getObjectId(), null);
   }
 }

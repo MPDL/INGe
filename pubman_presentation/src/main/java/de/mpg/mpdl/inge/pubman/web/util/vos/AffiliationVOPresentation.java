@@ -41,10 +41,11 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.OrganizationalUnitService;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -78,9 +79,9 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
-      OrganizationalUnitService ous = OrganizationalUnitService.getInstance();
       List<AffiliationVO> childOus =
-          ous.searchChildOrganizations(this.getReference().getObjectId());
+          ((OrganizationServiceImpl) ApplicationBean.INSTANCE.getOrganizationService())
+              .searchChildOrganizations(this.getReference().getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 

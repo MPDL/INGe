@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -14,8 +15,8 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -30,8 +31,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.services.SearchInterface;
-import de.mpg.mpdl.inge.services.SearchInterfaceConnectorFactory;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
@@ -92,6 +92,8 @@ public class SearchRetrieverRequestBean extends
   private String searchType;
 
   public static final String LOAD_SEARCHRESULTLIST = "showSearchResults";
+
+
 
   public SearchRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
@@ -241,14 +243,13 @@ public class SearchRetrieverRequestBean extends
     // checkSortCriterias(sc);
     try {
 
-      final SearchInterface<QueryBuilder> searchService =
-          SearchInterfaceConnectorFactory.getInstance();
 
 
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
       final SearchRetrieveRequestVO<QueryBuilder> query =
           new SearchRetrieveRequestVO<QueryBuilder>(qb, limit, offset, null);
-      final SearchRetrieveResponseVO result = searchService.searchForPubItems(query);
+      final SearchRetrieveResponseVO result =
+          ApplicationBean.INSTANCE.getPubItemService().search(query, null);
       this.numberOfRecords = result.getNumberOfRecords();
 
       pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
@@ -466,4 +467,5 @@ public class SearchRetrieverRequestBean extends
     this.getBasePaginatorListSessionBean().getParameterMap()
         .put(SearchRetrieverRequestBean.parameterElasticSearchQuery, elasticSearchQuery);
   }
+
 }

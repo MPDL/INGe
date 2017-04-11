@@ -1,14 +1,15 @@
 package de.mpg.mpdl.inge.es.es.connector;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.es.handler.ItemServiceHandler;
+import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
@@ -16,13 +17,11 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 public class TestItemServiceHandler extends TestBase {
   private static final Logger LOG = Logger.getLogger(TestItemServiceHandler.class);
 
-  private ItemServiceHandler itemServiceHandler;
+  @Autowired
+  private PubItemDao<QueryBuilder> itemDao;
   private String test_item_id = "test_item";
 
-  @Before
-  public void setUp() throws Exception {
-    this.itemServiceHandler = new ItemServiceHandler();
-  }
+
 
   @After
   public void tearDown() throws Exception {}
@@ -30,7 +29,7 @@ public class TestItemServiceHandler extends TestBase {
   @Test
   public void test1Create() {
     try {
-      String contextId = this.itemServiceHandler.createItem(test_item(), test_item_id);
+      String contextId = this.itemDao.create(test_item_id, test_item());
       assert contextId.equals(test_item_id);
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -41,7 +40,7 @@ public class TestItemServiceHandler extends TestBase {
   @Test
   public void test1Read() {
     try {
-      PubItemVO pubItemVO = this.itemServiceHandler.readItem(test_item_id);
+      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -52,7 +51,7 @@ public class TestItemServiceHandler extends TestBase {
   @Test
   public void test2Create() {
     try {
-      String contextId = this.itemServiceHandler.createItem(create_item(), test_item_id);
+      String contextId = this.itemDao.create(test_item_id, create_item());
       assert contextId.equals(test_item_id);
     } catch (Exception e) {
       LOG.error(e);
@@ -63,7 +62,7 @@ public class TestItemServiceHandler extends TestBase {
   @Test
   public void test2Read() {
     try {
-      PubItemVO pubItemVO = this.itemServiceHandler.readItem(test_item_id);
+      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(create_item());
     } catch (Exception e) {
       LOG.error(e);
@@ -75,10 +74,10 @@ public class TestItemServiceHandler extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      PubItemVO pubItemVO = this.itemServiceHandler.readItem(test_item_id);
+      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       pubItemVO.setPid("testPid");
-      this.itemServiceHandler.updateItem(pubItemVO, test_item_id);
-      PubItemVO pubItemVO2 = this.itemServiceHandler.readItem(test_item_id);
+      this.itemDao.update(test_item_id, pubItemVO);
+      PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -89,7 +88,7 @@ public class TestItemServiceHandler extends TestBase {
   @Ignore
   @Test
   public void testZDelete() {
-    String itemId = this.itemServiceHandler.deleteItem(test_item_id);
+    String itemId = this.itemDao.delete(test_item_id);
     assert itemId.equals(test_item_id);
   }
 

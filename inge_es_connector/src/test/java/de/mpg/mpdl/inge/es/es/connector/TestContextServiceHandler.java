@@ -1,14 +1,15 @@
 package de.mpg.mpdl.inge.es.es.connector;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.es.handler.ContextServiceHandler;
+import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.services.IngeServiceException;
@@ -17,13 +18,10 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 public class TestContextServiceHandler extends TestBase {
   private static final Logger LOG = Logger.getLogger(TestContextServiceHandler.class);
 
-  private ContextServiceHandler contextServiceHandler;
+  @Autowired
+  private ContextDao<QueryBuilder> contextDao;
   private String test_context_id = "test_context";
 
-  @Before
-  public void setUp() throws Exception {
-    this.contextServiceHandler = new ContextServiceHandler();
-  }
 
   @After
   public void tearDown() throws Exception {}
@@ -31,7 +29,7 @@ public class TestContextServiceHandler extends TestBase {
   @Test
   public void testCreate() {
     try {
-      String contextId = this.contextServiceHandler.createContext(test_context(), test_context_id);
+      String contextId = this.contextDao.create(test_context_id, test_context());
       assert contextId.equals(test_context_id);
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -42,7 +40,7 @@ public class TestContextServiceHandler extends TestBase {
   @Test
   public void testRead() {
     try {
-      ContextVO contextVO = this.contextServiceHandler.readContext(test_context_id);
+      ContextVO contextVO = this.contextDao.get(test_context_id);
       assert contextVO.equals(test_context());
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -53,10 +51,10 @@ public class TestContextServiceHandler extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      ContextVO contextVO = this.contextServiceHandler.readContext(test_context_id);
+      ContextVO contextVO = this.contextDao.get(test_context_id);
       contextVO.setState(State.CREATED);
-      this.contextServiceHandler.updateContext(contextVO, test_context_id);
-      ContextVO contextVO2 = this.contextServiceHandler.readContext(test_context_id);
+      this.contextDao.update(test_context_id, contextVO);
+      ContextVO contextVO2 = this.contextDao.get(test_context_id);
       assert contextVO2.getState().equals(State.CREATED);
     } catch (IngeServiceException e) {
       LOG.error(e);
@@ -67,7 +65,7 @@ public class TestContextServiceHandler extends TestBase {
   @Ignore
   @Test
   public void testZDelete() {
-    String contextId = this.contextServiceHandler.deleteContext(test_context_id);
+    String contextId = this.contextDao.delete(test_context_id);
     assert contextId.equals(test_context_id);
   }
 

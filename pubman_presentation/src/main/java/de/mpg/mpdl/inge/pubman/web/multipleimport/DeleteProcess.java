@@ -94,7 +94,7 @@ public class DeleteProcess extends Thread {
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
         final ItemRO itemRO = new ItemRO(item.getItemId());
         try {
-          PubItemService.deletePubItem(itemRO, this.user);
+          PubItemService.INSTANCE.deletePubItem(itemRO, this.user);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);
