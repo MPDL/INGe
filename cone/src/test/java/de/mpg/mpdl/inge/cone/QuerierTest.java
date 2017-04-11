@@ -52,14 +52,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class QuerierTest {
   private static final Logger logger = Logger.getLogger(QuerierTest.class);
 
-  private Querier querier;
+  private Querier querier = null;
 
   /**
    * Initialize the querier before each test.
    */
   @Before
-  public void getQuerier(boolean loggedIn) {
-    querier = QuerierFactory.newQuerier(loggedIn);
+  public void getQuerier() {
+    querier = QuerierFactory.newQuerier(false);
   }
 
   /**
@@ -92,7 +92,8 @@ public class QuerierTest {
 
     for (Describable pair : results) {
       assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(),
-          ((Pair) pair).getValue().toString().contains("of"));
+          ((Pair) pair).getValue().toString().contains("of")
+              || ((Pair) pair).getValue().toString().contains("Of"));
     }
   }
 

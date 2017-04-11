@@ -33,7 +33,7 @@
 				<configuration>
 					<skip>false</skip>
 					<includes>
-						<include>**/**Test**</include>
+						<include>**/**Test.java</include>
 					</includes>
 					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
