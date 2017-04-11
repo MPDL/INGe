@@ -33,6 +33,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
@@ -102,11 +103,6 @@ public class StructuredExportService {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.exportmanager.StructuredExportHandler#explainFormats()
-   */
   public static String explainFormats() throws StructuredExportManagerException {
     BufferedReader br;
     try {
@@ -129,12 +125,12 @@ public class StructuredExportService {
     return result;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.structuredexportmanager.StructuredExportHandler#isStructuredFormat(
-   * java.lang.String)
+  /**
+   * public static String[] getFormatsList() throws StructuredExportManagerException { Set<String> s
+   * = getFormatsHash().keySet(); String[] fl = new String[s.size()]; fl = (String[]) s.toArray(fl);
+   * return fl; }
    */
+
   public static boolean isStructuredFormat(String exportFormat)
       throws StructuredExportManagerException {
     if (exportFormat == null || exportFormat.trim().equals("")) {

@@ -27,8 +27,6 @@ package de.mpg.mpdl.inge.syndication;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -117,15 +114,15 @@ public class Utils {
     return (val != null && !val.trim().equals(""));
   }
 
-  /**
-   * Returns true if val is not null && Length >0
-   * 
-   * @param val
-   * @return first not null && Length >0
-   */
-  public static boolean checkLen(String val) {
-    return (val != null && val.length() > 0);
-  }
+  // /**
+  // * Returns true if val is not null && Length >0
+  // *
+  // * @param val
+  // * @return first not null && Length >0
+  // */
+  // public static boolean checkLen(String val) {
+  // return (val != null && val.length() > 0);
+  // }
 
   /**
    * Returns <code>true</code> if list is not empty
@@ -151,9 +148,9 @@ public class Utils {
       throw new SyndicationException(message);
   }
 
-  public static void checkName(final String name) throws SyndicationException {
-    Utils.checkCondition(!checkVal(name), "Empty name");
-  }
+  // public static void checkName(final String name) throws SyndicationException {
+  // Utils.checkCondition(!checkVal(name), "Empty name");
+  // }
 
   public static void checkName(final String name, final String message) throws SyndicationException {
     Utils.checkCondition(!checkVal(name), message);
@@ -175,19 +172,19 @@ public class Utils {
   }
 
 
-  /**
-   * Version of the <code>String.replaceAll(what, expr, replacement)</code> which ignores new line
-   * breaks and case sensitivity
-   * 
-   * @param what is string to be replaced
-   * @param expr is RegExp
-   * @param replacement
-   * @return replaced <code>what</code>
-   */
-  public static String replaceAllTotal(String what, String expr, String replacement) {
-    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what)
-        .replaceAll(replacement);
-  }
+  // /**
+  // * Version of the <code>String.replaceAll(what, expr, replacement)</code> which ignores new line
+  // * breaks and case sensitivity
+  // *
+  // * @param what is string to be replaced
+  // * @param expr is RegExp
+  // * @param replacement
+  // * @return replaced <code>what</code>
+  // */
+  // public static String replaceAllTotal(String what, String expr, String replacement) {
+  // return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what)
+  // .replaceAll(replacement);
+  // }
 
 
   /**
@@ -217,19 +214,19 @@ public class Utils {
     return result.toString();
   }
 
-  /**
-   * Writes <code>content</code> to the file
-   * 
-   * @param fileName
-   * @param content
-   * @throws IOException
-   */
-  public static void writeToFile(String fileName, String content) throws IOException {
-    FileWriter fw = new FileWriter(fileName);
-    BufferedWriter out = new BufferedWriter(fw);
-    out.write(content);
-    out.close();
-  }
+  // /**
+  // * Writes <code>content</code> to the file
+  // *
+  // * @param fileName
+  // * @param content
+  // * @throws IOException
+  // */
+  // public static void writeToFile(String fileName, String content) throws IOException {
+  // FileWriter fw = new FileWriter(fileName);
+  // BufferedWriter out = new BufferedWriter(fw);
+  // out.write(content);
+  // out.close();
+  // }
 
   /**
    * Join elements of any collection with delimiter
@@ -277,18 +274,18 @@ public class Utils {
     return str.substring(0, maxLen - postfx.length()) + postfx;
   }
 
-  /**
-   * Cut <code>string</code> and appends it with postfix id <code>cond</code> is <code>true</code>
-   * 
-   * @param cond - boolean condition
-   * @param str - input String
-   * @param maxLen - max length of the result to be returned
-   * @param postfx - postfix of the string which indicates that string is cut.
-   * @return
-   */
-  public static String checkAndCutString(boolean cond, String str, int maxLen, String postfx) {
-    return cond ? cutString(str, maxLen, postfx) : str;
-  }
+  // /**
+  // * Cut <code>string</code> and appends it with postfix id <code>cond</code> is <code>true</code>
+  // *
+  // * @param cond - boolean condition
+  // * @param str - input String
+  // * @param maxLen - max length of the result to be returned
+  // * @param postfx - postfix of the string which indicates that string is cut.
+  // * @return
+  // */
+  // public static String checkAndCutString(boolean cond, String str, int maxLen, String postfx) {
+  // return cond ? cutString(str, maxLen, postfx) : str;
+  // }
 
 
 
@@ -312,7 +309,7 @@ public class Utils {
    *         <code>values</code> are objids
    * @throws Exception
    */
-  public static TreeMap<String, String> recalcOrganizationUnitTree() throws SyndicationException {
+  private static TreeMap<String, String> recalcOrganizationUnitTree() throws SyndicationException {
 
     long start = System.currentTimeMillis();
     String adminHandle;
@@ -374,15 +371,15 @@ public class Utils {
   /***************/
   /** XML Utils **/
   /***************/
-  public static NodeList xpathNodeList(String expr, String xml) throws Exception {
+  private static NodeList xpathNodeList(String expr, String xml) throws Exception {
     return xpathNodeList(expr, DOMUtilities.createDocument(xml));
   }
 
-  public static NodeList xpathNodeList(String expr, Document doc) throws Exception {
+  private static NodeList xpathNodeList(String expr, Document doc) throws Exception {
     return (NodeList) xpath.evaluate(expr, doc, XPathConstants.NODESET);
   }
 
-  public static String xpathString(String expr, Document doc) throws Exception {
+  private static String xpathString(String expr, Document doc) throws Exception {
     return (String) xpath.evaluate(expr, doc, XPathConstants.STRING);
   }
 

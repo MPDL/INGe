@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CDDL HEADER START The contents of this file are subject to the terms 
-	of the Common Development and Distribution License, Version 1.0 only (the 
-	"License"). You may not use this file except in compliance with the License. 
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.org/license. 
-	See the License for the specific language governing permissions and limitations 
-	under the License. When distributing Covered Code, include this CDDL HEADER 
-	in each file and include the License file at license/ESCIDOC.LICENSE. If 
-	applicable, add the following below this CDDL HEADER, with the fields enclosed 
-	by brackets "[]" replaced with your own identifying information: Portions 
-	Copyright [yyyy] [name of copyright owner] CDDL HEADER END Copyright 2006-2010 
-	Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische 
-	Information mbH and Max-Planck- Gesellschaft zur Förderung der Wissenschaft 
-	e.V. All rights reserved. Use is subject to license terms. -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
-	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>INGe</name>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+
 	<url>http://inge.mpdl.mpg.de/software</url>
+
 	<description>
 		PubMan supports scientists and institutes in the management and
 		the digital curation of their publications. This solution
@@ -214,6 +206,36 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>transport</artifactId>
+				<version>5.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>xml-resolver</groupId>
+				<artifactId>xml-resolver</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.10</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-core</artifactId>
+				<version>1.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-parsers</artifactId>
+				<version>1.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.marc4j</groupId>
+				<artifactId>marc4j</artifactId>
+				<version>2.6.5</version>
+			</dependency>
+			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
@@ -266,8 +288,6 @@
 				<artifactId>framework_access</artifactId>
 				<version>1.3.40-SNAPSHOT</version>
 			</dependency>
-			<!-- <dependency> <groupId>de.mpg.mpdl.inge</groupId> <artifactId>pid_cache_presentation</artifactId> 
-				<version>0.1.58-SNAPSHOT</version> <type>war</type> </dependency> -->
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>search</artifactId>
@@ -290,7 +310,6 @@
 				<version>1.0.79-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
-
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
@@ -323,9 +342,16 @@
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<artifactId>lucene-core</artifactId>
-				<groupId>org.apache.lucene</groupId>
-				<version>6.4.0</version>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>pubman_logic</artifactId>
+				<version>8.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>pubman_presentation</artifactId>
+				<version>8.0.0-SNAPSHOT</version>
+				<classifier>${escidoc.pubman.build.mode}</classifier>
+				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -343,11 +369,6 @@
 				<version>2.8.6</version>
 			</dependency>
 			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>2.8</version>
-			</dependency>
-			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.12</version>
@@ -363,6 +384,19 @@
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -387,17 +421,12 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.3.1</version>
+				<version>3.5</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>9.0-801.jdbc4</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
@@ -438,6 +467,26 @@
 				<groupId>jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
 				<version>3.7.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.7.3</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-discovery</groupId>
+				<artifactId>commons-discovery</artifactId>
+				<version>0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>axis</groupId>
+				<artifactId>axis</artifactId>
+				<version>1.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -568,6 +617,16 @@
 					<groupId>org.codehaus.izpack</groupId>
 					<artifactId>izpack-maven-plugin</artifactId>
 					<version>1.0-alpha-5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -714,13 +773,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.framework.version>4.2.4.RELEASE</spring.framework.version>
 		<spring.data.version>Hopper-RC1</spring.data.version>
-
 		<!-- URL of the FIZ framework instance -->
-		<escidoc.framework_access.framework.url>https://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
-		<escidoc.common.framework.url>https://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
-		<escidoc.framework_access.login.url>https://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-		<!-- Identifier of the content type "publication" in the actual framework 
-			instance -->
+		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
+		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
+		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
 		<escidoc.pubman.external.organisation.id>escidoc:9019</escidoc.pubman.external.organisation.id>
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
@@ -819,8 +876,7 @@
 		<escidoc.pubman.survey.title />
 		<escidoc.pubman.survey.text />
 		<escidoc.pubman.survey.styles />
-		<!-- version of the pubman cookie (has to be changed if style information 
-			is changed) -->
+		<!-- version of the pubman cookie (has to be changed if style information is changed) -->
 		<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
 		<!-- Sitemaps -->
 		<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
@@ -850,8 +906,7 @@
 		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
-		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is 
-			; -->
+		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ; -->
 		<escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<!-- import-source -->
@@ -869,8 +924,7 @@
 		<!-- Dataaquisition - Apache FOP configuration file -->
 		<escidoc.dataaquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<!-- Number of creator displayed on load of the view full item page, the 
-			rest is displayed through "more" button -->
+		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
 		<escidoc.pubman.blog.baseUrl />
@@ -919,7 +973,6 @@
 		<escidoc.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</escidoc.transformation.marcxml2escidoc.stylesheet.filename>
 		<escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
 		<escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
-
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -982,34 +1035,26 @@
 		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
 		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
 		<xsd.metadata.project>http://purl.org/escidoc/metadata/profiles/0.1/project</xsd.metadata.project>
-
 		<!-- Just used for tests -->
 		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
-
-		<!-- User data used in JUnit tests; these users are assumed to have the 
-			Depositor and the Moderator role for the defined contexts -->
+		<!-- User data used in JUnit tests; these users are assumed to have the	Depositor and the Moderator role for the defined contexts -->
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
-
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
 		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
-
 		<framework.librarian.username>test_dep_lib</framework.librarian.username>
 		<framework.librarian.id>escidoc:2078315</framework.librarian.id>
 		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
-
 		<framework.author.username>test_author</framework.author.username>
 		<framework.author.id>escidoc:2078317</framework.author.id>
 		<framework.author.displayname>Author User for Tests</framework.author.displayname>
-
 		<framework.editor.username>test_editor</framework.editor.username>
 		<framework.editor.id>escidoc:2078318</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
-
 		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
 	</properties>
 
@@ -1021,13 +1066,10 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
-
-				<!-- Name of the organization its (sub-)authors are shown in the overview 
-					page -->
+				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
 				<escidoc.pubman_presentation.overview_page.authors_ou />
 				<escidoc.pubman.build.mode />
 				<escidoc.pubman.build.hyphen />
@@ -1041,7 +1083,6 @@
 			</distributionManagement>
 		</profile>
 
-
 		<!-- activate this profile for an pure build -->
 		<profile>
 			<id>env-pure</id>
@@ -1049,12 +1090,11 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-
 				<!-- Pid cache properties -->
 				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
 				<escidoc.pidcache.refresh.interval>1</escidoc.pidcache.refresh.interval>
-				<escidoc.pidcache.dummy.url>https://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
 				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
@@ -1062,17 +1102,14 @@
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<!-- Instance of the CSL-Editor -->
 				<escidoc.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</escidoc.pubman.csl_editor.instance>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
-				<!-- Name of the organization its (sub-)authors are shown in the overview 
-					page -->
-				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck
-					Society</escidoc.pubman_presentation.overview_page.authors_ou>
+				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou>
 				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
@@ -1095,13 +1132,10 @@
 			</activation>
 			<properties>
 				<!-- URL of the FIZ framework instance -->
-
-				<escidoc.cone.service.url>https://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
-
-
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<!-- Pid cache properties -->
-				<escidoc.pid.pidcache.service.url>https://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
-				<escidoc.pidcache.dummy.url>https://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pidcache.dummy.url>http://dev-pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
 				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
@@ -1111,27 +1145,23 @@
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-
 				<!-- DOI service properties -->
 				<escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
 				<escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
-
-				<escidoc.pubman.instance.url>https://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
 				<escidoc.systemtype>dev</escidoc.systemtype>
-				<escidoc.unapi.download.server>https://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
-				<escidoc.unapi.view.server>https://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
+				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<!-- <jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir> -->
 				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
 				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
-
 				<!-- syndication service -->
-				<escidoc.syndication.service.url>https://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
-
+				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				<!-- AA -->
-				<escidoc.aa.instance.url>https://dev-pubman.mpdl.mpg.de/auth/</escidoc.aa.instance.url>
-				<escidoc.aa.default.target>https://dev-pubman.mpdl.mpg.de/auth/clientLogin</escidoc.aa.default.target>
+				<escidoc.aa.instance.url>http://dev-pubman.mpdl.mpg.de/auth/</escidoc.aa.instance.url>
+				<escidoc.aa.default.target>http://dev-pubman.mpdl.mpg.de/auth/clientLogin</escidoc.aa.default.target>
 			</properties>
 			<distributionManagement>
 				<site>
@@ -1140,7 +1170,6 @@
 				</site>
 			</distributionManagement>
 		</profile>
-
 
 		<!-- activate this profile for a nims build -->
 		<profile>
@@ -1153,7 +1182,6 @@
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 			</properties>
 		</profile>
-
 
 		<!-- activate this profile for instrumenting code by JRebel -->
 		<profile>
@@ -1214,7 +1242,6 @@
 			</activation>
 		</profile>
 
-
 		<profile>
 			<id>sonar</id>
 			<activation>
@@ -1225,28 +1252,21 @@
 				<sonar.jdbc.username>${sonar.jdbc.username}</sonar.jdbc.username>
 				<sonar.jdbc.password>${sonar.jdbc.password}</sonar.jdbc.password>
 				<sonar.host.url>${sonar.host.url}</sonar.host.url>
-
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-
 				<!--jacoco.version>0.7.4.201502262128</jacoco.version -->
 				<jacoco.version>0.7.7.201606060606</jacoco.version>
-
-
 				<jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>
 				<jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
 				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
 				<sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
 				<sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
-
 				<!-- command line arguments when starting test for test coverage analysis -->
-
 				<jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m
 					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
 					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
 				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
 					-XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
 					${jacoco.agent.it.arg}</jacoco.arguments.it>
-
 			</properties>
 
 			<build>
@@ -1261,63 +1281,50 @@
 				</pluginManagement>
 
 				<plugins>
-
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<executions>
-
 							<!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
 								to be passed to the JVM hosting the code being tested. -->
-
 							<execution>
 								<id>prepare-ut-agent</id>
 								<phase>process-test-classes</phase>
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
-
 								<configuration>
 									<destFile>${sonar.jacoco.reportPath}</destFile>
 									<propertyName>jacoco.agent.ut.arg</propertyName>
 									<append>true</append>
 								</configuration>
-
 							</execution>
-
 							<!-- Prepares a variable, jacoco.agent.it.arg, that contains the info 
 								to be passed to the JVM hosting the code being tested. -->
 							<!-- <execution> <id>prepare-it-agent</id> -->
-
 							<!-- moved to package phase to be sure all pre-integration test have 
 								it already set to bring up environments with jacoco agent as JVM params -->
 							<!-- <phase>package</phase> <goals> <goal>prepare-agent-integration</goal> 
 								</goals> <configuration> <destFile>${sonar.jacoco.itReportPath}</destFile> 
 								<propertyName>jacoco.agent.it.arg</propertyName> <append>true</append> </configuration> 
 								</execution> -->
-
 							<execution>
 								<id>jacoco-site</id>
 								<phase>test</phase>
 								<goals>
 									<goal>report</goal>
 								</goals>
-
 								<configuration>
 									<dataFile>${sonar.jacoco.reportPath}</dataFile>
 								</configuration>
-
 							</execution>
 						</executions>
 					</plugin>
-
 				</plugins>
-
 			</build>
 		</profile>
 
-		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse 
-			warning messages for certain plugins -->
+		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
 			<activation>
@@ -1503,11 +1510,8 @@
 						</plugin>
 					</plugins>
 				</pluginManagement>
-
 			</build>
 		</profile>
-
 	</profiles>
-
 
 </project>

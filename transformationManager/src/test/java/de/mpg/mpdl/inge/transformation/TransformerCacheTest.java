@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.transformation;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
