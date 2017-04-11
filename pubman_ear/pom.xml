@@ -194,21 +194,18 @@
 								</goals>
 								<configuration>
 									<tasks>
-
 										<copy overwrite="true"
 											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
-
 										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" 
 											todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the configuration file -->
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/pubman.properties"
 											todir="${jboss.install.dir}/modules/pubman/main" />
-
 										<copy overwrite="true"
 											file="${project.build.directory}/classes/solution.properties"
 											todir="${jboss.install.dir}/modules/pubman/main" />
@@ -274,7 +271,6 @@
 								</goals>
 								<configuration>
 									<tasks>
-
 										<scp
 											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.user.scp}:${jboss.install.dir}/standalone/deployments"
@@ -285,7 +281,6 @@
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
 											passphrase="" trust="true" verbose="true" />
-
 										<!-- <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" 
 											todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the configuration file -->
@@ -293,7 +288,6 @@
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
 											passphrase="" trust="true" verbose="true" />
-
 										<scp file="${project.build.directory}/classes/solution.properties"
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
