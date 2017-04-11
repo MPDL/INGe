@@ -25,12 +25,6 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
-import gov.loc.www.zing.srw.RecordType;
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
-import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,8 +41,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import net.sf.jasperreports.engine.util.JRXmlUtils;
-
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -56,14 +48,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-// import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-
-// import de.mpg.mpdl.inge.validation.xmltransforming.ValidationTransforming;
+import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.SearchRetrieveRequestType;
+import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.StringOrXmlFragment;
+import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 /**
  * Helper class for all test classes.
