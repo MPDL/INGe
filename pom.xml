@@ -32,9 +32,6 @@
 		<module>cone_presentation</module>
 		<module>dataacquisition</module>
 		<module>dataacquisition_presentation</module>
-		<!-- 
-		<module>exportmanager</module>
-		 -->
 		<module>framework_access</module>
 		<module>inge_es_connector</module>
 		<module>inge_filestorage_connector</module>
