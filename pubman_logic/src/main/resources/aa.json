@@ -1,0 +1,47 @@
+{
+	"de.mpg.mpdl.inge.service.pubman.PubItemService" : {
+		"create" : [
+			{
+				"rolename" : "DEPOSITOR",
+				"rolematch" : "context"
+			}
+		],
+		"update" : [
+			{
+				"workflow" : "simple",
+				"rolename" : "DEPOSITOR",
+				"rolematch" : "context",
+				"owner" : true,
+				"version-state" : ["PENDING", "RELEASED"]
+			},
+			{
+				"workflow" : "simple",
+				"rolename" : "MODERATOR",
+				"rolematch" : "context",
+				"version-state" : ["RELEASED"]
+			},
+			{
+				"workflow" : "standard",
+				"rolename" : "DEPOSITOR",
+				"rolematch" : "context",
+				"owner" : true,
+				"version-state" : ["PENDING", "RELEASED", "IN_REVISION"]
+			},
+			{
+				"workflow" : "standard",
+				"rolename" : "MODERATOR",
+				"rolematch" : "context",
+				"version-state" : ["RELEASED", "SUBMITTED"]
+			}
+		],
+		"delete" : [
+			{
+				"rolename" : "DEPOSITOR",
+				"rolematch" : "context",
+				"owner" : true,
+				"version-state" : ["PENDING", "IN_REVISION"]
+			}
+
+		]
+	}
+}
