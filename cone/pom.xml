@@ -80,7 +80,6 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

@@ -305,7 +305,6 @@
 	</profiles>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation_presentation</artifactId>
@@ -315,23 +314,21 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_presentation</artifactId>
+			<optional>true</optional>
 			<type>war</type>
 		</dependency>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
 			<optional>true</optional>
 			<type>war</type>
 		</dependency>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_presentation</artifactId>
 			<optional>true</optional>
 			<type>war</type>
 		</dependency>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search_presentation</artifactId>
@@ -344,7 +341,6 @@
 			<optional>true</optional>
 			<type>war</type>
 		</dependency>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
@@ -352,7 +348,6 @@
 			<optional>true</optional>
 			<type>war</type>
 		</dependency>
-
 	</dependencies>
 
 </project>
