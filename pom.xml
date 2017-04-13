@@ -953,8 +953,8 @@
 		<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration />
+		<!-- Dataacquisition - Apache FOP configuration file -->
+		<escidoc.dataacquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
@@ -971,8 +971,8 @@
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration />
+		<!-- Dataacquisition - Apache FOP configuration file -->
+		<escidoc.dataacquisition.resources.fop.configuration />
 		<!-- Transformation implementing classes -->
 		<escidoc.transformation.bibtex.class>de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
