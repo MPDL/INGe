@@ -79,18 +79,6 @@ public class StructuredExportServiceTest {
   }
 
   /**
-   * Test explainExport XML file
-   * 
-   * @throws Exception Any exception.
-   */
-  @Test
-  public final void testExplainExport() throws Exception {
-    String result = StructuredExportService.explainFormats();
-    assertNotNull("explain formats file is null", result);
-    logger.info("explain formats: " + result);
-  }
-
-  /**
    * Test service with a item list XML.
    * 
    * @throws Exception Any exception.

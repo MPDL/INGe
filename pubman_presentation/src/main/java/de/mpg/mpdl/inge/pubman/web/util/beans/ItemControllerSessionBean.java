@@ -86,7 +86,9 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -105,6 +107,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   private PubItemVOPresentation currentPubItem = null;
   private ContextVO currentContext = null;
+  private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ItemControllerSessionBean() {}
 
@@ -696,7 +699,7 @@ public class ItemControllerSessionBean extends FacesBean {
       pubItemList.add(new PubItemVO(pubItem));
     }
 
-    return ItemExportingService.getOutput(exportFormatVO, pubItemList);
+    return itemTransformingService.getOutputForExport(exportFormatVO, pubItemList);
   }
 
   /**

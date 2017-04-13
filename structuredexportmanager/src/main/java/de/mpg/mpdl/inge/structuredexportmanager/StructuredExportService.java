@@ -25,22 +25,17 @@
 
 package de.mpg.mpdl.inge.structuredexportmanager;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Structured Export Manager. Converts PubMan item-list to one of the structured formats.
@@ -52,9 +47,8 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 public class StructuredExportService {
 
-  private final static String PATH_TO_RESOURCES = "";
-  private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
 
+  // Mapping the format names to the enums used in transformationManager
   private static Map<String, FORMAT> map;
   static {
     map = new HashMap<String, FORMAT>();
@@ -102,34 +96,6 @@ public class StructuredExportService {
           + ">", e);
     }
   }
-
-  public static String explainFormats() throws StructuredExportManagerException {
-    BufferedReader br;
-    try {
-      br =
-          new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(
-              PATH_TO_RESOURCES + EXPLAIN_FILE, StructuredExportService.class.getClassLoader()),
-              "UTF-8"));
-    } catch (Exception e) {
-      throw new StructuredExportManagerException(e);
-    }
-    String line = null;
-    String result = "";
-    try {
-      while ((line = br.readLine()) != null) {
-        result += line + "\n";
-      }
-    } catch (IOException e) {
-      throw new StructuredExportManagerException(e);
-    }
-    return result;
-  }
-
-  /**
-   * public static String[] getFormatsList() throws StructuredExportManagerException { Set<String> s
-   * = getFormatsHash().keySet(); String[] fl = new String[s.size()]; fl = (String[]) s.toArray(fl);
-   * return fl; }
-   */
 
   public static boolean isStructuredFormat(String exportFormat)
       throws StructuredExportManagerException {

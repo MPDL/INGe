@@ -45,10 +45,10 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -166,9 +166,7 @@ public class Util {
     }
 
     // Second: check which format can be transformed into the given format
-    de.mpg.mpdl.inge.transformation.util.Format oldFormat =
-        new de.mpg.mpdl.inge.transformation.util.Format(trgFormatName, trgFormatType,
-            trgFormatEndcoding);
+    Format oldFormat = new Format(trgFormatName, trgFormatType, trgFormatEndcoding);
     FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat.toFORMAT());
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
