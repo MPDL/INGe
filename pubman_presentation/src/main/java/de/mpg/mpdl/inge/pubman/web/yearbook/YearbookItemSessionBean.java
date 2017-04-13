@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,21 +12,13 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-// import de.escidoc.www.services.om.ContextHandler;
-// import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
@@ -42,7 +32,6 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped

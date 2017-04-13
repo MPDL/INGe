@@ -33,8 +33,6 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;

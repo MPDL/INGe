@@ -38,10 +38,7 @@ import java.util.MissingResourceException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -75,7 +72,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -116,8 +112,6 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;

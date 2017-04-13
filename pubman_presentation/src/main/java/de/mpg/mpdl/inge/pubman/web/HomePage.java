@@ -36,13 +36,9 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.springframework.context.ApplicationContext;
-
 import de.mpg.mpdl.inge.dao.OrganizationDao;
-import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.spring.AppConfigPubmanPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;

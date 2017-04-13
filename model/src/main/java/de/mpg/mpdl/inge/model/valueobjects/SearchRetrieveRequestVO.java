@@ -1,8 +1,5 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import java.util.List;
-import java.util.Set;
-
 public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
 
   private QueryObject queryObject;

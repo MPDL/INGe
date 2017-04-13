@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
 import javax.xml.rpc.ServiceException;
@@ -60,7 +59,6 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

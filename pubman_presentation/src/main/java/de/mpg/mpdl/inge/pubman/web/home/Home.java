@@ -28,12 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.home;
 
 
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
-import org.elasticsearch.index.query.QueryBuilder;
-
-import de.mpg.mpdl.inge.dao.OrganizationDao;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**

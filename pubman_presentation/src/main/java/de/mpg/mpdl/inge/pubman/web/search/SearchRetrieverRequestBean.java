@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -31,7 +30,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result

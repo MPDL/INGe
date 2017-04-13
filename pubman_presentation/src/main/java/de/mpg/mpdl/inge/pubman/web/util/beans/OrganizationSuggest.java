@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -44,8 +42,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
 
 /**
  * @author franke
