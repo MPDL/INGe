@@ -60,11 +60,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>structuredexportmanager</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformationManager</artifactId>
 			<optional>true</optional>
 		</dependency>
