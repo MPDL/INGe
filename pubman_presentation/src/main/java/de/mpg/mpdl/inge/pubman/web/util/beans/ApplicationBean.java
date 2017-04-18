@@ -118,6 +118,9 @@ public class ApplicationBean extends FacesBean {
   @ManagedProperty("#{pubItemServiceImpl}")
   private de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService;
 
+  @ManagedProperty("#{userAccountServiceImpl}")
+  private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
+
 
   public static ApplicationBean INSTANCE;
 
@@ -589,5 +592,14 @@ public class ApplicationBean extends FacesBean {
 
   public void setPubItemService(de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService) {
     this.pubItemService = pubItemService;
+  }
+
+  public de.mpg.mpdl.inge.service.pubman.UserAccountService getUserAccountService() {
+    return userAccountService;
+  }
+
+  public void setUserAccountService(
+      de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService) {
+    this.userAccountService = userAccountService;
   }
 }

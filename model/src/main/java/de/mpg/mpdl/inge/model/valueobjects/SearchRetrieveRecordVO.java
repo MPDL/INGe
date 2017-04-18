@@ -9,6 +9,8 @@ public class SearchRetrieveRecordVO<T extends ValueObject> extends ValueObject {
 
   private T data;
 
+  private String persistenceId;
+
   public String getSchema() {
     return schema;
   }
@@ -39,5 +41,13 @@ public class SearchRetrieveRecordVO<T extends ValueObject> extends ValueObject {
 
   public void setData(T data) {
     this.data = data;
+  }
+
+  public String getPersistenceId() {
+    return persistenceId;
+  }
+
+  public void setPersistenceId(String persistenceId) {
+    this.persistenceId = persistenceId;
   }
 }

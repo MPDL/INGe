@@ -113,22 +113,21 @@ public class SubmitItem extends FacesBean {
     final ExternalContext extContext = FacesTools.getExternalContext();
     final HttpServletRequest request = FacesTools.getRequest();
 
-    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    String retVal = "";
+    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String message;
 
     if (this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED) {
-      retVal =
+      navigateTo =
           this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
               navigateTo);
       message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
     } else {
-      retVal =
+      navigateTo =
           this.getItemControllerSessionBean().submitCurrentPubItem(this.submissionComment,
               navigateTo);
       if (PubItemService.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
           .getCurrentWorkflow())) {
-        retVal =
+        navigateTo =
             this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
                 navigateTo);
         message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
@@ -137,22 +136,10 @@ public class SubmitItem extends FacesBean {
       }
     }
 
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      this.info(message);
-    }
-
-    if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
-      try {
-        extContext.redirect(request.getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
-            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-      } catch (final IOException e) {
-        SubmitItem.logger.error("Could not redirect to View Item Page", e);
-      }
-    }
 
     ((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean")).update();
 
-    return retVal;
+    return navigateTo;
   }
 
   public String cancel() {

@@ -179,6 +179,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         } else {
           grantVo.setObjectRef(grant.path("targetId").asText());
+          grantVo.setGrantType(grant.path("targetType").asText());
           final String roleName = grant.path("role").path("name").asText();
           grantVo.setRole(roleName);
           accountUser.getGrants().add(grantVo);

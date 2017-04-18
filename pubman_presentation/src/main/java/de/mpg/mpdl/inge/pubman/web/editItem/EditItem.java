@@ -565,30 +565,21 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-    try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.SAVE);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
+
 
     String retVal = "";
     try {
       retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-    } catch (final RuntimeException rE) {
-      EditItem.logger.error("Error saving item", rE);
-      final String message = this.getMessage("itemHasBeenChangedInTheMeantime");
-      this.fatal(message);
+    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+
     }
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       // set the current submission method to empty string (for GUI purpose)
       this.getEditItemSessionBean().setCurrentSubmission("");
       try {
-        this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
         if (this.isFromEasySubmission()) {
           FacesTools.getExternalContext().redirect(
               FacesTools.getRequest().getContextPath()
@@ -660,15 +651,6 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-    try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
 
     // start: check if the item has been changed
     final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
@@ -697,9 +679,17 @@ public class EditItem extends FacesBean {
       } else {
         // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
         // (save removed there)
-        this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-        this.getItemControllerSessionBean().submitCurrentPubItem(
-            "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
+        try {
+          this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
+        } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+          this.showValidationMessages(e.getReport());
+          return null;
+        }
+
+        /*
+         * this.getItemControllerSessionBean().submitCurrentPubItem(
+         * "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
+         */
         try {
           this.getItemControllerSessionBean().setCurrentPubItem(
               this.getItemControllerSessionBean().retrieveItem(
@@ -742,15 +732,6 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-    try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
 
     // start: check if the item has been changed
     final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
@@ -786,12 +767,9 @@ public class EditItem extends FacesBean {
     String retVal = "";
     try {
       retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-    } catch (final RuntimeException rE) {
-      EditItem.logger.error("Error saving item", rE);
-      final String message = this.getMessage("itemHasBeenChangedInTheMeantime");
-      this.fatal(message);
-      retVal = EditItem.LOAD_EDITITEM;
-      return retVal;
+    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
     }
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
@@ -799,9 +777,6 @@ public class EditItem extends FacesBean {
       this.getEditItemSessionBean().setCurrentSubmission("");
       this.getSubmitItemSessionBean().setNavigationStringToGoBack(
           MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-      final String localMessage = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
-      this.info(localMessage);
-      this.getSubmitItemSessionBean().setMessage(localMessage);
     }
 
     this.getPubItemListSessionBean().update();
@@ -910,15 +885,6 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-    try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
 
     // check if the item has been changed
     final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
@@ -960,15 +926,14 @@ public class EditItem extends FacesBean {
         retVal =
             this.getItemControllerSessionBean().submitCurrentPubItem(
                 "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+
       } else {
         // only save it
         retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
       }
-    } catch (final RuntimeException rE) {
-      EditItem.logger.error("Error saving item", rE);
-      final String message = this.getMessage("itemHasBeenChangedInTheMeantime");
-      this.fatal(message);
-      return EditItem.LOAD_EDITITEM;
+    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
     }
 
     if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {

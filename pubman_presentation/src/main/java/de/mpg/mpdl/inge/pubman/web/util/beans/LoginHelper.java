@@ -39,6 +39,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
@@ -59,6 +60,8 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -82,7 +85,6 @@ public class LoginHelper extends FacesBean {
   private List<UserGroupVO> userAccountUserGroups;
 
   private String authenticationToken = null;
-  private String btnLoginLogout = "login_btLogin";
   private String displayUserName = "";
   private String eSciDocUserHandle = null;
   private String password = "";
@@ -90,7 +92,6 @@ public class LoginHelper extends FacesBean {
 
   private boolean detailedMode = false;
   private boolean loggedIn = false;
-  private boolean wasLoggedIn = false;
 
   public LoginHelper() {}
 
@@ -110,104 +111,53 @@ public class LoginHelper extends FacesBean {
    * @throws ServiceException ServiceException
    * @throws TechnicalException TechnicalException
    */
-  public void insertLogin() throws IOException, ServiceException, TechnicalException,
-      URISyntaxException {
-    final String token = this.obtainToken();
+  public void login() {
 
-    if (this.authenticationToken == null || this.authenticationToken.equals("")) {
+
+    try {
+      final String token =
+          ApplicationBean.INSTANCE.getUserAccountService().login(getUsername(), getPassword());
+      this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(authenticationToken);
       if (token != null) {
         this.authenticationToken = token;
         this.loggedIn = true;
-        this.wasLoggedIn = true;
         this.detailedMode = true;
-      }
-    }
-
-    if (this.authenticationToken != null && !this.authenticationToken.equals("")
-        && this.wasLoggedIn) {
-      this.fetchAccountUser(this.authenticationToken);
-      this.btnLoginLogout = "login_btLogout";
-      // reinitialize ContextList
-      ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
-    }
-
-    // enable the depositor links if necessary
-    if (this.accountUser.isDepositor()) {
-      final DepositorWSSessionBean depWSSessionBean =
-          (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
-
-      depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
-      depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
-      depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
-    }
-  }
-
-  /**
-   * retrieves the account user with the user handle
-   * 
-   * @param token user handle that is given back from FIZ framework (is needed here to call
-   *        framework methods)
-   * @throws ServletException, ServiceException, TechnicalException
-   */
-  public void fetchAccountUser(String token) throws RemoteException, MalformedURLException,
-      ServiceException, TechnicalException, URISyntaxException {
-
-    final JsonNode rawUser = this.obtainUser();
-    final AccountUserRO userRO = new AccountUserRO();
-    userRO.setObjectId(rawUser.path("exid").asText());
-    userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
-    this.accountUser = new AccountUserVO();
-
-    this.accountUser.setReference(userRO);
-    final List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
-    final UserAttributeVO email = new UserAttributeVO();
-    email.setName("email");
-    email.setValue(rawUser.path("email").asText());
-    final UserAttributeVO ou = new UserAttributeVO();
-    ou.setName("o");
-    ou.setValue(rawUser.path("ouid").asText());
-    attributes.add(email);
-    attributes.add(ou);
-    this.accountUser.setAttributes(attributes);
-    this.accountUser.setActive(rawUser.path("active").asBoolean());
-    this.accountUser.setName(rawUser.path("lastName").asText() + ", "
-        + rawUser.path("firstName").asText());
-    this.setAuthenticationToken(token);
-    this.setLoggedIn(true);
-    this.setWasLoggedIn(true);
-    this.userGrants = new ArrayList<GrantVO>();
-
-    // get all user-grants
-
-    final JsonNode grants = rawUser.path("grants");
-
-    if (grants.isArray()) {
-      for (final JsonNode grant : grants) {
-
-        final GrantVO grantVo = new GrantVO();
-        grantVo.setGrantedTo(rawUser.path("exid").asText());
-        grantVo.setGrantType("");
-        if (grant.path("targetId").asText().contains("all")) {
-
-        } else {
-          grantVo.setObjectRef(grant.path("targetId").asText());
-          final String roleName = grant.path("role").path("name").asText();
-          grantVo.setRole("escidoc:role-" + roleName.toLowerCase());
-          this.userGrants.add(grantVo);
+        ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
+        // reinitialize ContextList
+        if (this.accountUser.isDepositor()) {
+          final DepositorWSSessionBean depWSSessionBean =
+              (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
+          // enable the depositor links if necessary
+          depWSSessionBean.setMyWorkspace(true);
+          depWSSessionBean.setDepositorWS(true);
+          depWSSessionBean.setNewSubmission(true);
         }
 
       }
+    } catch (AaException e) {
+      logger.error("Error while logging in", e);
+      error("Username and/or password not correct");
+    } catch (Exception e) {
+      logger.error("Error while logging in", e);
+      error("Technical error while logging in.");
     }
 
-    // NOTE: The block below must not be removed, as it sets the this.accountUser grants
-    final List<GrantVO> setterGrants = this.accountUser.getGrants();
-    if (this.userGrants != null && !this.userGrants.isEmpty()) {
-      for (final GrantVO userGrant : this.userGrants) {
-        setterGrants.add(userGrant);
-        this.accountUser.getGrantsWithoutAudienceGrants().add(userGrant);
-      }
-    }
   }
+
+
+  public void logout() {
+
+    final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
+    session.invalidate();
+
+  }
+
+  public void logoutCallBySessionListener() {
+    this.authenticationToken = null;
+    this.loggedIn = false;
+    this.detailedMode = false;
+  }
+
 
   // /**
   // * changes the language in the navigation menu (according to login state)
@@ -234,14 +184,7 @@ public class LoginHelper extends FacesBean {
   // }
   // }
 
-  // Getters and Setters
-  public void login(String userHandle) {
-    this.authenticationToken = userHandle;
-  }
 
-  public void logout(String userHandle) {
-    this.authenticationToken = null;
-  }
 
   public String getAuthenticationToken() {
     return this.authenticationToken;
@@ -259,21 +202,7 @@ public class LoginHelper extends FacesBean {
     this.accountUser = accountUser;
   }
 
-  public String getBtnLoginLogout() {
-    return this.btnLoginLogout;
-  }
 
-  public void setBtnLoginLogout(String btnLoginLogout) {
-    this.btnLoginLogout = btnLoginLogout;
-  }
-
-  public boolean isWasLoggedIn() {
-    return this.wasLoggedIn;
-  }
-
-  public void setWasLoggedIn(boolean wasLoggedIn) {
-    this.wasLoggedIn = wasLoggedIn;
-  }
 
   public boolean isLoggedIn() {
     return this.loggedIn;
@@ -291,9 +220,6 @@ public class LoginHelper extends FacesBean {
     return this.authenticationToken;
   }
 
-  public String getLoginLogoutLabel() {
-    return this.getLabel(this.btnLoginLogout);
-  }
 
   public String getDisplayUserName() {
     return this.displayUserName;
@@ -442,58 +368,6 @@ public class LoginHelper extends FacesBean {
     return this.detailedMode;
   }
 
-  public String obtainToken() {
-    try {
-      final URL url = new URL(PropertyReader.getProperty("auth.token.url"));
-      final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("POST");
-      conn.setRequestProperty("Content-Type", "application/json");
 
-      final String input =
-          "{\"userid\":\"" + this.getUsername() + "\",\"password\":\"" + this.getPassword() + "\"}";
-
-      final OutputStream os = conn.getOutputStream();
-      os.write(input.getBytes());
-      os.flush();
-
-      System.out.println(conn.getResponseCode());
-      final String token = conn.getHeaderField("Token");
-      System.out.println(token);
-
-      conn.disconnect();
-      return token;
-    } catch (Exception e) {
-      logger.error("Error obtaining login token", e);
-    }
-    return null;
-  }
-
-  private JsonNode obtainUser() {
-    try {
-      final URL url =
-          new URL(PropertyReader.getProperty("auth.users.url") + "/" + this.getUsername());
-      final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", this.getAuthenticationToken());
-
-      final ObjectMapper mapper = new ObjectMapper();
-      final JsonNode rawUser = mapper.readTree(conn.getInputStream());
-      conn.disconnect();
-
-      // rawUser.forEach((k, v) -> System.out.println("user map. " + k + " " + v));
-
-      return rawUser;
-    } catch (final MalformedURLException e) {
-      e.printStackTrace();
-    } catch (final JsonParseException e) {
-      e.printStackTrace();
-    } catch (final IOException e) {
-      e.printStackTrace();
-    }
-
-    return null;
-  }
 
 }

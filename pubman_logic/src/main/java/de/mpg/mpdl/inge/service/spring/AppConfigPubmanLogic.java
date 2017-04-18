@@ -102,7 +102,8 @@ public class AppConfigPubmanLogic {
       {
         // setProperty("hibernate.hbm2ddl.auto", "create");
         setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        setProperty("show_sql", "true");
+        // Makes it slow if set tot true
+        setProperty("show_sql", "false");
       }
     };
   }

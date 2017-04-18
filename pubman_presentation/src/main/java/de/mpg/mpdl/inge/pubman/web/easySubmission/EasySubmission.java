@@ -525,16 +525,26 @@ public class EasySubmission extends FacesBean {
 
     ((EditItem) FacesTools.findBean("EditItem")).setFromEasySubmission(true);
 
-    final String returnValue =
-        this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
+    String returnValue;
+    try {
+      returnValue =
+          this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
 
-    if (returnValue != null && !"".equals(returnValue)) {
-      this.getEasySubmissionSessionBean().cleanup();
+      if (returnValue != null && !"".equals(returnValue)) {
+        this.getEasySubmissionSessionBean().cleanup();
+      }
+      this.getPubItemListSessionBean().update();
+      return returnValue;
+    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+      for (final ValidationReportItemVO item : e.getReport().getItems()) {
+        FacesBean.error(this.getMessage(item.getContent()));
+      }
     }
 
-    this.getPubItemListSessionBean().update();
 
-    return returnValue;
+    return "";
+
+
   }
 
   /**

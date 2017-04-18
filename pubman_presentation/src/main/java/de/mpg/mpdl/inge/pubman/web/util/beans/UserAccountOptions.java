@@ -88,8 +88,10 @@ public class UserAccountOptions extends FacesBean {
                   .getHandle());
           userAccountHandler.updatePassword(this.getLoginHelper().getAccountUser().getReference()
               .getObjectId(), paramXml);
-          this.getLoginHelper()
-              .fetchAccountUser(this.getLoginHelper().getAccountUser().getHandle());
+          /*
+           * this.getLoginHelper()
+           * .fetchAccountUser(this.getLoginHelper().getAccountUser().getHandle());
+           */
           this.info(this.getMessage("userAccountOptions_PasswordUpdated"));
         } else {
           FacesBean.error(this.getMessage("userAccountOptions_DifferentPasswords"));

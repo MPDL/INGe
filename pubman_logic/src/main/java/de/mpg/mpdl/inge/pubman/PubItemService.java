@@ -285,48 +285,7 @@ public class PubItemService implements InitializingBean {
     return pubItem;
   }
 
-  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem,
-      String relationComment, final ContextRO pubCollection, final AccountUserVO owner) {
-    PubItemVO copiedPubItem = new PubItemVO();
-    copiedPubItem.setOwner(owner.getReference());
-    copiedPubItem.setContext(pubCollection);
-    copiedPubItem.setMetadata(new MdsPublicationVO());
-    copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
 
-    for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
-      copiedPubItem.getMetadata().getCreators().add((CreatorVO) creator.clone());
-    }
-
-    if (originalPubItem.getMetadata().getTitle() != null) {
-      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
-    }
-
-    for (String language : originalPubItem.getMetadata().getLanguages()) {
-      copiedPubItem.getMetadata().getLanguages().add(language);
-    }
-
-    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
-      copiedPubItem.getMetadata().getAlternativeTitles().add((AlternativeTitleVO) title.clone());
-    }
-
-    if (originalPubItem.getMetadata().getFreeKeywords() != null) {
-      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
-    }
-
-    if (originalPubItem.getMetadata().getSubjects() != null) {
-      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
-        copiedPubItem.getMetadata().getSubjects().add(subject);
-      }
-    }
-
-    ItemRelationVO relation = new ItemRelationVO();
-    relation.setType(PREDICATE_ISREVISIONOF);
-    relation.setTargetItemRef(originalPubItem.getVersion());
-    relation.setDescription(relationComment);
-    copiedPubItem.getRelations().add(relation);
-
-    return copiedPubItem;
-  }
 
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, PubItemPublishingBean)
   public static PubItemVO revisePubItem(final ItemRO pubItemRef, String comment,

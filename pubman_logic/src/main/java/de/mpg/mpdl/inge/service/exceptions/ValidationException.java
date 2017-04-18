@@ -34,6 +34,14 @@ public class ValidationException extends Exception {
 
   public ValidationException(ValidationReportVO report, Throwable cause) {
     super(cause);
+    this.setReport(report);
+  }
+
+  public ValidationReportVO getReport() {
+    return report;
+  }
+
+  public void setReport(ValidationReportVO report) {
     this.report = report;
   }
 
