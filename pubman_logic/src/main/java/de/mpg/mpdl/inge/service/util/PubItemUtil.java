@@ -18,12 +18,12 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
-  
+
   private final static Logger logger = Logger.getLogger(PubItemUtil.class);
-  
+
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
-  
+
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
    * 
@@ -111,8 +111,8 @@ public class PubItemUtil {
       logger.error("Error getting external org id", e);
     }
   }
-  
-  
+
+
   public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem,
       String relationComment, final ContextRO pubCollection, final AccountUserVO owner) {
     PubItemVO copiedPubItem = new PubItemVO();
@@ -155,7 +155,7 @@ public class PubItemUtil {
 
     return copiedPubItem;
   }
-  
+
 
 
 }
