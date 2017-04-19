@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -12,6 +13,11 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
+import org.apache.http.entity.ContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.stereotype.Service;
 
@@ -107,32 +113,24 @@ public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
   public String login(String username, String password) throws IngeServiceException, AaException {
-    HttpURLConnection conn = null;
     try {
-      final URL url = new URL(PropertyReader.getProperty("auth.token.url"));
-      conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("POST");
-      conn.setRequestProperty("Content-Type", "application/json");
-
+      final URI url = new URL(PropertyReader.getProperty("auth.token.url")).toURI();
       final String input = "{\"userid\":\"" + username + "\",\"password\":\"" + password + "\"}";
 
-      final OutputStream os = conn.getOutputStream();
-      os.write(input.getBytes());
-      os.flush();
+      HttpResponse resp =
+          Request.Post(url).bodyString(input, ContentType.APPLICATION_JSON).execute()
+              .returnResponse();
 
-      if (conn.getResponseCode() != 200) {
+      if (resp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
         throw new AaException("Could not login, Please provide correct username and password");
       }
-      final String token = conn.getHeaderField("Token");
 
-      return token;
+      return resp.getHeaders("Token")[0].getValue();
+
     } catch (AaException e) {
       throw e;
     } catch (Exception e) {
       throw new IngeServiceException(e);
-    } finally {
-      conn.disconnect();
     }
 
 

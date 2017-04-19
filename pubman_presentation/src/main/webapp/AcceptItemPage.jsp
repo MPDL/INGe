@@ -45,6 +45,22 @@
                                 &#160;
                                 <!-- Subheadline ends here -->
                             </div>
+                            <h:panelGroup id="messages" styleClass="subHeader">
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{AcceptItemPage.hasErrorMessages}">
+                                    <input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+                                    <h2>
+                                        <h:outputText value="#{lbl.warning_lblMessageHeader}" />
+                                    </h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{AcceptItemPage.hasMessages and !AcceptItemPage.hasErrorMessages}">
+                                    <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+                                    <h2>
+                                        <h:outputText value="#{lbl.info_lblMessageHeader}" />
+                                    </h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
+                                </h:panelGroup>
+                            </h:panelGroup>
                         </div>
                     </div>
                     <div class="full_area0">

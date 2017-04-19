@@ -49,6 +49,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -149,8 +150,6 @@ public class ViewItemFull extends FacesBean {
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
 
-  private AccountUserVO latestModifier = null;
-  private AccountUserVO owner = null;
   private ContextVO context = null;
   private PubItemVOPresentation pubItem = null;
   private String languages;
@@ -1367,18 +1366,11 @@ public class ViewItemFull extends FacesBean {
     return contextName;
   }
 
-  public AccountUserVO getOwner() {
-    if (this.owner == null) {
-      try {
-        this.owner =
-            this.getItemControllerSessionBean().retrieveUserAccount(
-                this.pubItem.getOwner().getObjectId());
-      } catch (final Exception e) {
-        ViewItemFull.logger.error("Error retrieving owner", e);
-      }
-    }
+  public AccountUserRO getOwner() {
 
-    return this.owner;
+    // System.out.println(this.pubItem.getOwner().getTitle());
+    // System.out.println(this.pubItem.getOwner().getObjectId());
+    return this.pubItem.getOwner();
   }
 
   /**
@@ -1479,19 +1471,16 @@ public class ViewItemFull extends FacesBean {
     return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
   }
 
-  public AccountUserVO getLatestModifier() throws Exception {
-    if (this.latestModifier == null && this.pubItem.getVersion().getModifiedByRO() != null
-        && this.pubItem.getVersion().getModifiedByRO().getObjectId() != null) {
-      try {
-        this.latestModifier =
-            this.getItemControllerSessionBean().retrieveUserAccount(
-                this.pubItem.getVersion().getModifiedByRO().getObjectId());
-      } catch (final Exception e) {
-        ViewItemFull.logger.error("Error retrieving latest modifier", e);
-      }
-    }
+  public AccountUserRO getLatestModifier() throws Exception {
+    /*
+     * if (this.latestModifier == null && this.pubItem.getVersion().getModifiedByRO() != null &&
+     * this.pubItem.getVersion().getModifiedByRO().getObjectId() != null) { try {
+     * this.latestModifier = this.getItemControllerSessionBean().retrieveUserAccount(
+     * this.pubItem.getVersion().getModifiedByRO().getObjectId()); } catch (final Exception e) {
+     * ViewItemFull.logger.error("Error retrieving latest modifier", e); } }
+     */
 
-    return this.latestModifier;
+    return this.pubItem.getVersion().getModifiedByRO();
   }
 
   /**

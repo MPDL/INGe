@@ -699,7 +699,7 @@ public class PubItemVOPresentation extends PubItemVO {
    */
   public String getObjectPidWithoutPrefix() {
     final String pid = this.getPid();
-    if (pid.startsWith("hdl:")) {
+    if (pid != null && pid.startsWith("hdl:")) {
       return pid.substring(4);
     } else {
       return pid;

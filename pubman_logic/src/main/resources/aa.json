@@ -8,26 +8,26 @@
 		],
 		"update" : [
 			{
-				"workflow" : "simple",
+				"workflow" : "SIMPLE",
 				"owner" : true,
 				"version-state" : ["PENDING", "RELEASED"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "simple",
+				"workflow" : "SIMPLE",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
 				"version-state" : ["RELEASED"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"owner" : true,
 				"version-state" : ["PENDING", "RELEASED", "IN_REVISION"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
 				"version-state" : ["RELEASED", "SUBMITTED"],
@@ -61,7 +61,7 @@
 		],
 		"submit" : [
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"owner" : true,
 				"version-state" : ["PENDING"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
@@ -70,13 +70,13 @@
 		],
 		"release" : [
 			{
-				"workflow" : "simple",
+				"workflow" : "SIMPLE",
 				"owner" : true,
 				"version-state" : ["PENDING", "SUBMITTED"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
 				"version-state" : ["SUBMITTED"],
@@ -86,7 +86,7 @@
 		],
 		"revise" : [
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
 				"version-state" : ["SUBMITTED"],
@@ -95,7 +95,7 @@
 		],
 		"withdraw" : [
 			{
-				"workflow" : "standard",
+				"workflow" : "STANDARD",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
 				"version-state" : ["SUBMITTED"],

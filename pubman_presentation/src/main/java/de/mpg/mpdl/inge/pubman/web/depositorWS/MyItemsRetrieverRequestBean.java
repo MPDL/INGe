@@ -5,17 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
@@ -26,7 +33,9 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -150,76 +159,39 @@ public class MyItemsRetrieverRequestBean extends
     }
 
     try {
-
+      
       this.checkSortCriterias(sc);
-
-      // define the filter criteria
-      final FilterTaskParamVO filter = new FilterTaskParamVO();
-
-      final Filter f1 =
-          filter.new OwnerFilter(this.getLoginHelper().getAccountUser().getReference());
-      filter.getFilterList().add(f1);
-      final Filter f2 =
-          filter.new FrameworkItemTypeFilter(
-              PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-      filter.getFilterList().add(f2);
-      final Filter latestVersionFilter = filter.new StandardFilter("/isLatestVersion", "true");
-      filter.getFilterList().add(latestVersionFilter);
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
-        // use public status instead of version status here
-        final Filter f3 = filter.new ItemPublicStatusFilter(State.WITHDRAWN);
-        filter.getFilterList().add(0, f3);
-      } else if (this.selectedItemState.toLowerCase().equals("all")) {
-        // all public status except withdrawn
-        final Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
-        filter.getFilterList().add(0, f4);
-        final Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
-        filter.getFilterList().add(0, f5);
-        final Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
-        filter.getFilterList().add(0, f6);
-        final Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
-        filter.getFilterList().add(0, f7);
-      } else {
-        // the selected version status filter
-        final Filter f3 = filter.new ItemStatusFilter(State.valueOf(this.selectedItemState));
-        filter.getFilterList().add(0, f3);
-
-        // all public status except withdrawn
-        final Filter f4 = filter.new ItemPublicStatusFilter(State.IN_REVISION);
-        filter.getFilterList().add(0, f4);
-        final Filter f5 = filter.new ItemPublicStatusFilter(State.PENDING);
-        filter.getFilterList().add(0, f5);
-        final Filter f6 = filter.new ItemPublicStatusFilter(State.SUBMITTED);
-        filter.getFilterList().add(0, f6);
-        final Filter f7 = filter.new ItemPublicStatusFilter(State.RELEASED);
-        filter.getFilterList().add(0, f7);
+        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
+      else if (this.selectedItemState.toLowerCase().equals("all")) {
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+      }
+     
+      else {
+        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE, State.valueOf(this.selectedItemState).name()));
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        
+      }
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        final Filter f10 = filter.new LocalTagFilter(this.getSelectedImport());
-        filter.getFilterList().add(f10);
+        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
-      final Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-      filter.getFilterList().add(f10);
+     //TODO Sorting!!
+      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset);
 
-      final Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-      filter.getFilterList().add(f8);
-      final Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-      filter.getFilterList().add(f9);
 
-      final String xmlItemList =
-          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
-              .retrieveItems(filter.toMap());
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
-      final ItemVOListWrapper pubItemList =
-          XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
-
-      this.numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
+      this.numberOfRecords = resp.getNumberOfRecords();
+      
+      List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
       returnList =
-          CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
-              .getItemVOList());
+          CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error in retrieving items", e);
       FacesBean.error("Error in retrieving items");

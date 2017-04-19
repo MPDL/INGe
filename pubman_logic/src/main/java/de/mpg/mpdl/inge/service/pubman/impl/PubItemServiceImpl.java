@@ -36,6 +36,13 @@ public class PubItemServiceImpl implements PubItemService {
 
   private final static Logger logger = Logger.getLogger(PubItemServiceImpl.class);
 
+  public static String INDEX_VERSION_OBJECT_ID = "version.objectId.keyword";
+  public static String INDEX_VERSION_STATE = "version.state.keyword";
+  public static String INDEX_PUBLIC_STATE = "publicStatus.keyword";
+  public static String INDEX_OWNER_OBJECT_ID = "owner.objectId.keyword";
+  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId.keyword";
+  public static String INDEX_LOCAL_TAGS = "localTags";
+
   @Autowired
   private PubItemDao<QueryBuilder> pubItemDao;
 
@@ -92,6 +99,7 @@ public class PubItemServiceImpl implements PubItemService {
     pubItemToCreate.setLockStatus(null);
 
     pubItemToCreate.setContext(context.getReference());
+    pubItemToCreate.setPublicStatus(publicState);
 
     ItemRO itemRO = new ItemRO();
     pubItemToCreate.setVersion(itemRO);
@@ -99,7 +107,6 @@ public class PubItemServiceImpl implements PubItemService {
     itemRO.setModifiedByRO(userAccount.getReference());
     itemRO.setModificationDate(currentDate);
     itemRO.setState(versionState);
-    itemRO.setState(publicState);
 
 
 
@@ -195,6 +202,9 @@ public class PubItemServiceImpl implements PubItemService {
     PubItemVO latestRelease = getLatestRelease(objectId);
     PubItemVO requestedItem;
 
+    System.out.println("LV" + latestVersion);
+    System.out.println("LR" + latestRelease);
+
     if (latestVersion == null) {
       throw new IngeServiceException("Item " + id + " not found");
     }
@@ -215,6 +225,7 @@ public class PubItemServiceImpl implements PubItemService {
         aaService.checkPubItemAa(latestVersion, context, userAccount, "get");
         requestedItem = latestVersion;
       } catch (AaException e) {
+        System.out.println(e);
         requestedItem = latestRelease;
       }
     }
@@ -309,7 +320,7 @@ public class PubItemServiceImpl implements PubItemService {
     validateMetadata(pubItemToCreate);
 
     String fullId =
-        pubItemToCreate.getVersion().getObjectId() + "_ "
+        pubItemToCreate.getVersion().getObjectId() + "_"
             + pubItemToCreate.getVersion().getVersionNumber();
 
     pubItemDao.update(fullId, pubItemToCreate);
@@ -318,11 +329,10 @@ public class PubItemServiceImpl implements PubItemService {
 
   private PubItemVO getLatestRelease(String objectId) throws IngeServiceException {
     QueryBuilder latestReleaseQuery =
-        QueryBuilders.boolQuery()
-            .must(QueryBuilders.termQuery("version.objectId.keyword", objectId))
-            .must(QueryBuilders.termQuery("version.state", "RELEASED"));
+        QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_VERSION_OBJECT_ID, objectId))
+            .must(QueryBuilders.termQuery(INDEX_VERSION_STATE, "RELEASED"));
     SearchSortCriteria sortByVersion =
-        new SearchSortCriteria("version.objectId.keyword", SortOrder.DESC);
+        new SearchSortCriteria(INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(latestReleaseQuery, 1, 0, sortByVersion);
     SearchRetrieveResponseVO<PubItemVO> resp = pubItemDao.search(srr);
@@ -335,7 +345,7 @@ public class PubItemServiceImpl implements PubItemService {
 
 
   private PubItemVO getLatestVersion(String objectId) throws IngeServiceException {
-    QueryBuilder latestVersionQuery = QueryBuilders.termQuery("version.objectId.keyword", objectId);
+    QueryBuilder latestVersionQuery = QueryBuilders.termQuery(INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp = executeSearchSortByVersion(latestVersionQuery, 1, 0);
     if (resp.getNumberOfRecords() > 0) {
       return resp.getRecords().get(0).getData();
@@ -345,7 +355,7 @@ public class PubItemServiceImpl implements PubItemService {
 
   private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
       throws IngeServiceException {
-    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery("version.objectId.keyword", objectId);
+    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 
@@ -356,7 +366,7 @@ public class PubItemServiceImpl implements PubItemService {
       int limit, int offset) throws IngeServiceException {
 
     SearchSortCriteria sortByVersion =
-        new SearchSortCriteria("version.objectId.keyword", SortOrder.DESC);
+        new SearchSortCriteria(INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(query, limit, offset, sortByVersion);
     return pubItemDao.search(srr);

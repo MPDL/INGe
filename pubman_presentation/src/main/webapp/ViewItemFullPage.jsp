@@ -203,12 +203,12 @@
                                 <br />
                                 <h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{ViewItemFull.contextName}', #{lbl.ViewItemFull_lblIsAffiliatedTo}: '#{ViewItemFull.affiliations}'." />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.name}'" rendered="#{ViewItemFull.owner != null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.title}'" rendered="#{ViewItemFull.owner != null }" />
                                 <h:outputText value="." rendered="#{ViewItemFull.owner != null and ViewItemFull.creationDate == null}" />
                                 <h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemlatestChange } #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }" />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'" rendered="#{ViewItemFull.latestModifier != null}" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.title}'" rendered="#{ViewItemFull.latestModifier != null}" />
                                 <h:outputText value="." rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}" />
                                 <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier == null }" />

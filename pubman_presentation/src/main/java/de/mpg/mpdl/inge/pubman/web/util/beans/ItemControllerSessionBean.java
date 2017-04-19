@@ -62,6 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
@@ -88,6 +89,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.services.UserInterfaceConnectorFactory;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
+
 @SessionScoped
 @SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {
@@ -201,6 +203,7 @@ public class ItemControllerSessionBean extends FacesBean {
       final ContextRO pubContextRO) {
     PubItemVO newPubItem = new PubItemVO();
     newPubItem.setContext(pubContextRO);
+    newPubItem.setMetadata(new MdsPublicationVO());
     newPubItem = this.initializeItem(newPubItem);
     this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
 
@@ -607,7 +610,8 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public PubItemVOPresentation retrieveItem(String itemID) throws Exception {
-    return new PubItemVOPresentation(ApplicationBean.INSTANCE.getPubItemService().get(itemID, null));
+    return new PubItemVOPresentation(ApplicationBean.INSTANCE.getPubItemService().get(itemID,
+        getLoginHelper().getAuthenticationToken()));
   }
 
   /**
@@ -735,18 +739,15 @@ public class ItemControllerSessionBean extends FacesBean {
   /**
    * Return the value object of the owner of the item.
    */
-  public AccountUserVO retrieveUserAccount(String userId) {
-    AccountUserVO userAccount = null;
-    try {
-      userAccount = UserInterfaceConnectorFactory.getInstance().readUser(userId);
-    } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error retrieving user account", e);
-      ItemControllerSessionBean.logger.error("Returning null");
-    }
-
-    return userAccount;
-  }
-
+  /*
+   * public AccountUserVO retrieveUserAccount(String userId) { AccountUserVO userAccount = null; try
+   * { userAccount = ApplicationBean.INSTANCE.getUserAccountService().get(userId,
+   * getLoginHelper().getAuthenticationToken()); } catch (final Exception e) {
+   * ItemControllerSessionBean.logger.error("Error retrieving user account", e);
+   * ItemControllerSessionBean.logger.error("Returning null"); }
+   * 
+   * return userAccount; }
+   */
   /**
    * Returns an item by its id.
    * 

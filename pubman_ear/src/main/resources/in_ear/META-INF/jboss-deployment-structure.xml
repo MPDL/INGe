@@ -10,6 +10,7 @@
 		<exclude-subsystems>
 			<subsystem name="jaxrs" />
 			<subsystem name="weld"/>
+			<subsystem name="security"/>
 		</exclude-subsystems>  
 	
 		<dependencies>

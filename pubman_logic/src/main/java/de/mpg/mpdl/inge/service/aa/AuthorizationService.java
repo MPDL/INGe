@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -139,8 +140,8 @@ public class AuthorizationService {
       switch (rule.getKey()) {
         case "owner": {
           if (userAccount != null) {
-            currentQb.must(QueryBuilders.matchQuery("owner.objectId", userAccount.getReference()
-                .getObjectId()));
+            currentQb.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_OWNER_OBJECT_ID,
+                userAccount.getReference().getObjectId()));
           } else {
             return null;
           }
@@ -152,7 +153,8 @@ public class AuthorizationService {
 
           for (GrantVO grant : matchedGrants) {
             if (ruleMap.get("rolematch").equals(grant.getGrantType())) {
-              contextQb.should(QueryBuilders.matchQuery("context.objectId", grant.getObjectRef()));
+              contextQb.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_CONTEXT_OBEJCT_ID,
+                  grant.getObjectRef()));
             }
           }
           if (contextQb.hasClauses()) {
@@ -166,7 +168,8 @@ public class AuthorizationService {
         case "version-state": {
           BoolQueryBuilder versionStateQb = QueryBuilders.boolQuery();
           for (String versionState : (List<String>) rule.getValue()) {
-            versionStateQb.should(QueryBuilders.matchQuery("version.state", versionState));
+            versionStateQb.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE,
+                versionState));
           }
           currentQb.must(versionStateQb);
           break;
@@ -175,7 +178,8 @@ public class AuthorizationService {
         case "public-state": {
           BoolQueryBuilder publicStateQb = QueryBuilders.boolQuery();
           for (String publicState : (List<String>) rule.getValue()) {
-            publicStateQb.should(QueryBuilders.matchQuery("publicStatus", publicState));
+            publicStateQb.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE,
+                publicState));
           }
 
           currentQb.must(publicStateQb);
@@ -312,7 +316,7 @@ public class AuthorizationService {
   }
 
   private void checkWorkflow(Workflow currentWorkflow, String requiredWorkflow) throws AaException {
-    if (!currentWorkflow.toString().equals(requiredWorkflow)) {
+    if (!currentWorkflow.toString().equalsIgnoreCase(requiredWorkflow)) {
       throw new AaException("Context is set to workflow " + currentWorkflow
           + ". Required workflow: " + requiredWorkflow);
     }

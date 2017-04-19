@@ -40,6 +40,22 @@
                                 </div>
                                 <!-- content menu ends here -->
                             </div>
+                            <h:panelGroup id="messages" styleClass="subHeader">
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{WithdrawItemPage.hasErrorMessages}">
+                                    <input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+                                    <h2>
+                                        <h:outputText value="#{lbl.warning_lblMessageHeader}" />
+                                    </h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItemPage.hasMessages}" />
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{WithdrawItemPage.hasMessages and !WithdrawItemPage.hasErrorMessages}">
+                                    <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+                                    <h2>
+                                        <h:outputText value="#{lbl.info_lblMessageHeader}" />
+                                    </h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItemPage.hasMessages}" />
+                                </h:panelGroup>
+                            </h:panelGroup>
                             <div class="subHeader">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItem.numberOfMessages == 1}" />

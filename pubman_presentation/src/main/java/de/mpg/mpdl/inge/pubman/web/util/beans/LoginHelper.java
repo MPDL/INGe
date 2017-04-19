@@ -117,7 +117,7 @@ public class LoginHelper extends FacesBean {
     try {
       final String token =
           ApplicationBean.INSTANCE.getUserAccountService().login(getUsername(), getPassword());
-      this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(authenticationToken);
+      this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(token);
       if (token != null) {
         this.authenticationToken = token;
         this.loggedIn = true;

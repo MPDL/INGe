@@ -94,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -1398,35 +1399,14 @@ public class EditItem extends FacesBean {
   }
 
   public String getOwner() throws Exception {
-    UserAccountHandler userAccountHandler = null;
 
-    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    if (this.item.getOwner() != null && this.item.getOwner().getObjectId() != null) {
-      filterParams.put("operation", new String[] {"searchRetrieve"});
-      filterParams.put("query", new String[] {"\"/id\"=" + this.item.getOwner().getObjectId()});
-    } else {
-      return null;
+
+    if (this.item.getOwner().getTitle() != null && this.item.getOwner().getTitle().trim() != "") {
+      return this.item.getOwner().getTitle();
     }
 
-    userAccountHandler =
-        ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
-    final String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
-
-    final SearchRetrieveResponseVO<AccountUserVO> searchedObject =
-        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
-    if (searchedObject == null || searchedObject.getRecords() == null
-        || searchedObject.getRecords().get(0) == null
-        || searchedObject.getRecords().get(0).getData() == null) {
-      return null;
-    }
-
-    final AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-    if (owner.getName() != null && owner.getName().trim() != "") {
-      return owner.getName();
-    }
-
-    if (owner.getUserid() != null && owner.getUserid() != "") {
-      return owner.getUserid();
+    if (this.item.getOwner().getObjectId() != null && this.item.getOwner().getObjectId() != "") {
+      return this.item.getOwner().getObjectId();
     }
 
     return null;
@@ -1444,33 +1424,11 @@ public class EditItem extends FacesBean {
     UserAccountHandler userAccountHandler = null;
 
     if (this.item.getVersion().getModifiedByRO() != null
+        && this.item.getVersion().getModifiedByRO().getTitle() != null) {
+      return this.item.getVersion().getModifiedByRO().getTitle();
+    } else if (this.item.getVersion().getModifiedByRO() != null
         && this.item.getVersion().getModifiedByRO().getObjectId() != null) {
-      final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      filterParams.put("operation", new String[] {"searchRetrieve"});
-      filterParams.put("query", new String[] {"\"/id\"="
-          + this.item.getVersion().getModifiedByRO().getObjectId()});
-
-      String searchResponse = null;
-      userAccountHandler =
-          ServiceLocator.getUserAccountHandler(this.getLoginHelper().getESciDocUserHandle());
-      searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
-      final SearchRetrieveResponseVO<AccountUserVO> searchedObject =
-          XmlTransformingService.transformToSearchRetrieveResponseAccountUser(searchResponse);
-
-      if (searchedObject == null || searchedObject.getRecords() == null
-          || searchedObject.getRecords().get(0) == null
-          || searchedObject.getRecords().get(0).getData() == null) {
-        return null;
-      }
-
-      final AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-      if (modifier.getName() != null && modifier.getName().trim() != "") {
-        return modifier.getName();
-      }
-
-      if (modifier.getUserid() != null && modifier.getUserid() != "") {
-        return modifier.getUserid();
-      }
+      return this.item.getVersion().getModifiedByRO().getObjectId();
     }
 
     return null;
