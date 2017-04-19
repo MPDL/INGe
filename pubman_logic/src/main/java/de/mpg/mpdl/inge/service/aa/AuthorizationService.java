@@ -44,8 +44,9 @@ public class AuthorizationService {
   public AuthorizationService(ModelMapper modelMapper) {
     try {
       aaMap =
-          modelMapper.readValue(ResourceUtil.getResourceAsFile("aa.json",
-              AuthorizationService.class.getClassLoader()), Map.class);
+          modelMapper.readValue(
+              ResourceUtil.getResourceAsStream("aa.json",
+                  AuthorizationService.class.getClassLoader()), Map.class);
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
