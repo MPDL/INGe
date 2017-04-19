@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
+import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 
 /**
  * TODO Description
@@ -54,10 +54,10 @@ public class PubManSessionListener implements HttpSessionListener {
   @Override
   public void sessionDestroyed(HttpSessionEvent event) {
     PubManSessionListener.logger.debug("Session timed out.");
-    final Login login = (Login) event.getSession().getAttribute("Login");
+    final LoginHelper login = (LoginHelper) event.getSession().getAttribute("LoginHelper");
     if (login != null) {
       try {
-        login.logout();
+        login.logoutCallBySessionListener();
       } catch (final Exception e) {
         // Suppress stacktrace
         PubManSessionListener.logger.warn("Error logging out user: " + e.getMessage());

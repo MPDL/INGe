@@ -38,6 +38,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.bean.ManagedBean;
+
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -83,7 +84,6 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.desktop.Login;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
@@ -111,6 +111,7 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
@@ -285,14 +286,16 @@ public class ViewItemFull extends FacesBean {
           FacesBean.error(this.getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
-          ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
+          getLoginHelper().logout();
+          // ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
         }
       } catch (final AuthenticationException e) {
         if (this.getLoginHelper().isLoggedIn()) {
           FacesBean.error(this.getMessage("ViewItemFull_noPermission"));
         } else {
           // redirect to login
-          ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
+          getLoginHelper().logout();
+          // ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
         }
       } catch (final Exception e) {
         ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
@@ -303,7 +306,7 @@ public class ViewItemFull extends FacesBean {
       // (e.g. local tags --> source without editors --> editors are created in the SourceBean an
       // not removed)
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      icsb.cleanUpItem(icsb.getCurrentPubItem());
+      PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
       this.pubItem = icsb.getCurrentPubItem();
     }
 
@@ -2436,21 +2439,27 @@ public class ViewItemFull extends FacesBean {
     }
 
     final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    String returnValue = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
-    boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+    String returnValue = null;
+    try {
+      returnValue = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
+      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
 
-    if (success && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
-      returnValue = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
-      success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      if (success && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
+        returnValue = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
+        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      }
+
+      if (success) {
+        this.info(this.getMessage(messageSuccess));
+      } else {
+        FacesBean.error(this.getMessage(messageError));
+      }
+
+      this.getPubItemListSessionBean().update();
+
+    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+      logger.error("Problems with validation", e);
     }
-
-    if (success) {
-      this.info(this.getMessage(messageSuccess));
-    } else {
-      FacesBean.error(this.getMessage(messageError));
-    }
-
-    this.getPubItemListSessionBean().update();
 
     return returnValue;
 

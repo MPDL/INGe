@@ -14,6 +14,7 @@ import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -91,11 +92,14 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
     try {
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+              .setRefreshPolicy(RefreshPolicy.IMMEDIATE)
               .setSource(mapper.writeValueAsBytes(entity)).get();
       return indexResponse.getId();
+
     } catch (JsonProcessingException e) {
       throw new IngeServiceException(e);
     }
+
 
   }
 
@@ -210,6 +214,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
       E itemVO = mapper.readValue(hit.getSourceAsString(), typeParameterClass);
 
       srr.setData(itemVO);
+      srr.setPersistenceId(hit.getId());
     }
 
 

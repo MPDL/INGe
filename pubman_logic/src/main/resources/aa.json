@@ -3,45 +3,104 @@
 		"create" : [
 			{
 				"rolename" : "DEPOSITOR",
-				"rolematch" : "context"
+				"rolematch" : "CONTEXT"
 			}
 		],
 		"update" : [
 			{
 				"workflow" : "simple",
-				"rolename" : "DEPOSITOR",
-				"rolematch" : "context",
 				"owner" : true,
-				"version-state" : ["PENDING", "RELEASED"]
+				"version-state" : ["PENDING", "RELEASED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
 				"workflow" : "simple",
 				"rolename" : "MODERATOR",
-				"rolematch" : "context",
-				"version-state" : ["RELEASED"]
+				"rolematch" : "CONTEXT",
+				"version-state" : ["RELEASED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
 				"workflow" : "standard",
-				"rolename" : "DEPOSITOR",
-				"rolematch" : "context",
 				"owner" : true,
-				"version-state" : ["PENDING", "RELEASED", "IN_REVISION"]
+				"version-state" : ["PENDING", "RELEASED", "IN_REVISION"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
 				"workflow" : "standard",
 				"rolename" : "MODERATOR",
-				"rolematch" : "context",
-				"version-state" : ["RELEASED", "SUBMITTED"]
+				"rolematch" : "CONTEXT",
+				"version-state" : ["RELEASED", "SUBMITTED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		"delete" : [
 			{
-				"rolename" : "DEPOSITOR",
-				"rolematch" : "context",
 				"owner" : true,
-				"version-state" : ["PENDING", "IN_REVISION"]
+				"version-state" : ["PENDING", "IN_REVISION"],
+				"public-state" : ["PENDING", "SUBMITTED"]
 			}
 
+		],
+		"get" : [
+			{
+				"version-state" : ["RELEASED"]
+			},
+			{
+				"public-state" : ["WITHDRAWN"]
+			},
+			{
+				"owner" : true,
+				"version-state" : ["PENDING", "IN_REVISION", "SUBMITTED"]
+			},
+			{
+				"rolename" : "MODERATOR",
+				"rolematch" : "CONTEXT",
+				"version-state" : ["SUBMITED", "IN_REVISION"]
+			}
+		],
+		"submit" : [
+			{
+				"workflow" : "standard",
+				"owner" : true,
+				"version-state" : ["PENDING"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+			}
+
+		],
+		"release" : [
+			{
+				"workflow" : "simple",
+				"owner" : true,
+				"version-state" : ["PENDING", "SUBMITTED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+			},
+			{
+				"workflow" : "standard",
+				"rolename" : "MODERATOR",
+				"rolematch" : "CONTEXT",
+				"version-state" : ["SUBMITTED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+			}
+
+		],
+		"revise" : [
+			{
+				"workflow" : "standard",
+				"rolename" : "MODERATOR",
+				"rolematch" : "CONTEXT",
+				"version-state" : ["SUBMITTED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+			}
+		],
+		"withdraw" : [
+			{
+				"workflow" : "standard",
+				"rolename" : "MODERATOR",
+				"rolematch" : "CONTEXT",
+				"version-state" : ["SUBMITTED"],
+				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+			}
 		]
 	}
 }

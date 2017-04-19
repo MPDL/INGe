@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
+import de.mpg.mpdl.inge.service.exceptions.ValidationException;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for accepting a
@@ -107,27 +108,11 @@ public class AcceptItem extends FacesBean {
       navigateTo = ViewItemFull.LOAD_VIEWITEM;
     }
 
-    final String retVal =
+    navigateTo =
         this.getItemControllerSessionBean()
             .acceptCurrentPubItem(this.acceptanceComment, navigateTo);
 
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
-    }
-
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      try {
-        FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath()
-                + "/faces/ViewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
-      } catch (final IOException e) {
-        AcceptItem.logger.error("Could not redirect to View Item Page", e);
-      }
-    }
-
-    return retVal;
+    return navigateTo;
   }
 
   public String cancel() {
