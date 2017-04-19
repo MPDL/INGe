@@ -36,13 +36,9 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.springframework.context.ApplicationContext;
-
 import de.mpg.mpdl.inge.dao.OrganizationDao;
-import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.spring.AppConfigPubmanPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -70,24 +66,12 @@ public class HomePage extends BreadcrumbPage {
    */
 
 
-  @ManagedProperty(value = "#{organizationDaoImpl}")
-  private OrganizationDao<QueryBuilder> od;
-
-  @Inject
-  private OrganizationDao<QueryBuilder> od2;
 
   public HomePage() {}
 
   @Override
   public void init() {
-    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + getOd() + getOd2()
-        + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    try {
-      od.get("123");
-    } catch (IngeServiceException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
       FacesBean.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
@@ -98,10 +82,6 @@ public class HomePage extends BreadcrumbPage {
     super.init();
   }
 
-  @PostConstruct
-  public void test() {
-    System.out.println("NOW:--------------------------------------" + getOd2());
-  }
 
   /**
    * Reads the blog URL from the properties file. Needed for blogintegration on homepage
@@ -208,19 +188,4 @@ public class HomePage extends BreadcrumbPage {
     return false;
   }
 
-  public OrganizationDao<QueryBuilder> getOd() {
-    return od;
-  }
-
-  public void setOd(OrganizationDao<QueryBuilder> od) {
-    this.od = od;
-  }
-
-  public OrganizationDao<QueryBuilder> getOd2() {
-    return od2;
-  }
-
-  public void setOd2(OrganizationDao<QueryBuilder> od2) {
-    this.od2 = od2;
-  }
 }

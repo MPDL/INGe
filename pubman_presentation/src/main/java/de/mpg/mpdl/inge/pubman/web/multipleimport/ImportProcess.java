@@ -25,13 +25,11 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.math.BigInteger;
 import java.net.URL;
@@ -71,7 +69,6 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EscidocProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.FormatProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MabProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.Marc21Processor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MarcXmlProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.RisProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.WosProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ZfNProcessor;
@@ -81,12 +78,9 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -105,29 +99,11 @@ public class ImportProcess extends Thread {
     NO_CHECK, CHECK, ROLLBACK
   }
 
-  private static final Format ARXIV_FORMAT = new Format("arxiv", "application/xml", "utf-8");
-  private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
-  private static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
-  private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
-  private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "utf-8");
-  private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
-  private static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "utf-8");
-  private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item",
-      "application/xml", "utf-8");
-  private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
-  private static final Format MARC21_FORMAT = new Format("marc21viaxml", "application/marc",
-      "UTF-8");
-  private static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
-      "UTF-8");
-  private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
-  private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
-  private static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
-
   private AccountUserVO user;
   private ContextRO escidocContext;
   private DuplicateStrategy duplicateStrategy;
   private File file;
-  private Format format;
+  private FORMAT format;
   private FormatProcessor formatProcessor;
   private ImportLog log;
   private Map<String, String> configuration = null;
@@ -135,12 +111,13 @@ public class ImportProcess extends Thread {
   private String itemContentModel;
   private String name;
   private String publicationContentModel;
+  private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   private boolean failed = false;
   private boolean rollback;
   private long lastBeat = 0;
 
-  public ImportProcess(String name, String fileName, File file, Format format,
+  public ImportProcess(String name, String fileName, File file, FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
       Map<String, String> configuration) {
     try {
@@ -151,7 +128,7 @@ public class ImportProcess extends Thread {
           "Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
     }
 
-    this.log = new ImportLog("import", user.getReference().getObjectId(), format.getName());
+    this.log = new ImportLog("import", user.getReference().getObjectId(), format.name());
     this.log.setUserHandle(user.getHandle());
     this.log.setPercentage(5);
     this.log.startItem("import_process_started");
@@ -188,7 +165,7 @@ public class ImportProcess extends Thread {
    * @param inputStream
    * @param format
    */
-  private void initialize(String name, String fileName, File file, Format format,
+  private void initialize(String name, String fileName, File file, FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback,
       DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
     this.log.startItem("import_process_initialize");
@@ -196,7 +173,7 @@ public class ImportProcess extends Thread {
     try {
       this.log.setMessage(name);
       this.log.setContext(escidocContext.getObjectId());
-      this.log.setFormat(format.getName());
+      this.log.setFormat(format.name());
 
       this.configuration = configuration;
       this.duplicateStrategy = duplicateStrategy;
@@ -222,7 +199,7 @@ public class ImportProcess extends Thread {
    * @param inputStream
    * @param format
    */
-  private boolean validate(File file, Format format) {
+  private boolean validate(File file, FORMAT format) {
     this.log.startItem("import_process_validate");
 
     if (file == null) {
@@ -242,9 +219,7 @@ public class ImportProcess extends Thread {
     }
 
     final FORMAT[] allSourceFormats =
-        TransformerCache
-            .getAllSourceFormatsFor(de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
-
+        itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
     boolean found = false;
     for (final FORMAT sourceFormat : allSourceFormats) {
       if (format.equals(sourceFormat)) {
@@ -270,40 +245,55 @@ public class ImportProcess extends Thread {
     return true;
   }
 
-  private boolean setProcessor(Format format) {
+  private boolean setProcessor(FORMAT format) {
     try {
       if (format == null) {
         return false;
       }
 
-      if (ImportProcess.ENDNOTE_FORMAT.matches(format)
-          || ImportProcess.ENDNOTE_ICE_FORMAT.matches(format)) {
-        this.formatProcessor = new EndnoteProcessor();
-      } else if (ImportProcess.RIS_FORMAT.matches(format)) {
-        this.formatProcessor = new RisProcessor();
-      } else if (ImportProcess.BIBTEX_FORMAT.matches(format)) {
-        this.formatProcessor = new BibtexProcessor();
-      } else if (ImportProcess.ARXIV_FORMAT.matches(format)) {
-        this.formatProcessor = new ArxivProcessor();
-      } else if (ImportProcess.WOS_FORMAT.matches(format)) {
-        this.formatProcessor = new WosProcessor();
-      } else if (ImportProcess.ESCIDOC_FORMAT.matches(format)) {
-        this.formatProcessor = new EscidocProcessor();
-      } else if (ImportProcess.EDOC_FORMAT.matches(format)
-          || ImportProcess.EDOC_FORMAT_AEI.matches(format)) {
-        this.formatProcessor = new EdocProcessor();
-      } else if (ImportProcess.MAB_FORMAT.matches(format)) {
-        this.formatProcessor = new MabProcessor();
-      } else if (ImportProcess.ZFN_FORMAT.matches(format)) {
-        this.formatProcessor = new ZfNProcessor();
-      } else if (ImportProcess.BMC_FORMAT.matches(format)) {
-        this.formatProcessor = new BmcProcessor();
-      } else if (ImportProcess.MARCXML_FORMAT.matches(format)) {
-        this.formatProcessor = new MarcXmlProcessor();
-      } else if (ImportProcess.MARC21_FORMAT.matches(format)) {
-        this.formatProcessor = new Marc21Processor();
-      } else {
-        return false;
+      switch (format) {
+        case ARXIV_OAIPMH_XML:
+          this.formatProcessor = new ArxivProcessor();
+          break;
+        case BIBTEX_STRING:
+          this.formatProcessor = new BibtexProcessor();
+          break;
+        case BMC_XML:
+          this.formatProcessor = new BmcProcessor();
+          break;
+        case EDOC_XML:
+          this.formatProcessor = new EdocProcessor();
+          break;
+        case ENDNOTE_STRING:
+        case ENDNOTE_XML:
+          this.formatProcessor = new EndnoteProcessor();
+          break;
+        case ESCIDOC_ITEMLIST_V1_XML:
+        case ESCIDOC_ITEMLIST_V2_XML:
+        case ESCIDOC_ITEMLIST_V3_XML:
+          this.formatProcessor = new EscidocProcessor();
+          break;
+        case MAB_STRING:
+        case MAB_XML:
+          this.formatProcessor = new MabProcessor();
+          break;
+        case MARC_21_STRING:
+        case MARC_XML:
+          this.formatProcessor = new Marc21Processor();
+          break;
+        case RIS_STRING:
+        case RIS_XML:
+          this.formatProcessor = new RisProcessor();
+          break;
+        case WOS_STRING:
+        case WOS_XML:
+          this.formatProcessor = new WosProcessor();
+          break;
+        case ZFN_TEI_XML:
+          this.formatProcessor = new ZfNProcessor();
+          break;
+        default:
+          return false;
       }
     } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_error");
@@ -311,7 +301,7 @@ public class ImportProcess extends Thread {
       this.fail();
     }
 
-    this.formatProcessor.setEncoding(format.getEncoding());
+    this.formatProcessor.setEncoding("UTF-8");
 
     return true;
   }
@@ -407,7 +397,7 @@ public class ImportProcess extends Thread {
             this.log.activateItem(item);
 
             // Fetch files for zfn import
-            if (this.format.getName().equalsIgnoreCase("zfn_tei")) {
+            if (this.format.equals(FORMAT.ZFN_TEI_XML)) {
               try {
                 // Set file
                 final FileVO file =
@@ -592,14 +582,10 @@ public class ImportProcess extends Thread {
     String escidocXml = null;
 
     try {
-      final StringWriter wr = new StringWriter();
-      final Transformer transformer =
-          TransformerCache.getTransformer(this.format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
-      transformer.transform(
-          new TransformerStreamSource(new ByteArrayInputStream(singleItem.getBytes(this.format
-              .getEncoding()))), new TransformerStreamResult(wr));
 
-      escidocXml = wr.toString();
+      escidocXml =
+          itemTransformingService.transformFromTo(this.format, FORMAT.ESCIDOC_ITEM_V3_XML,
+              singleItem);
 
       this.log.addDetail(ErrorLevel.FINE, escidocXml);
       this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");

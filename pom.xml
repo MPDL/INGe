@@ -444,6 +444,26 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			   <dependency>
+		        <groupId>org.springframework.data</groupId>
+		        <artifactId>spring-data-jpa</artifactId>
+		        <version>1.11.1.RELEASE</version>
+    		</dependency>
+    		<dependency>
+			   <groupId>org.hibernate</groupId>
+			   <artifactId>hibernate-core</artifactId>
+			   <version>4.3.6.Final</version>
+			</dependency>
+			<dependency>
+			   <groupId>org.hibernate</groupId>
+			   <artifactId>hibernate-entitymanager</artifactId>
+			   <version>4.3.6.Final</version>
+			</dependency>
+    		<dependency>
+			    <groupId>postgresql</groupId>
+			    <artifactId>postgresql</artifactId>
+			    <version>9.4.1208-jdbc42-atlassian-hosted</version>
+			</dependency>
 			<dependency>
 			    <groupId>org.aspectj</groupId>
 			    <artifactId>aspectjweaver</artifactId>
@@ -807,6 +827,16 @@
 		<inge.inge_services.item_interface.connector_class>de.mpg.mpdl.inge.es.handler.ItemServiceHandler</inge.inge_services.item_interface.connector_class>
 		<inge.inge_services.organization_interface.connector_class>de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler</inge.inge_services.organization_interface.connector_class>
 		<inge.inge_services.search_interface.connector_class>de.mpg.mpdl.inge.es.handler.SearchServiceHandler</inge.inge_services.search_interface.connector_class>
+		<!-- PubMan AA -->
+		<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
+		<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
+		
+		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
+
+		<inge.database.user.name>postgres</inge.database.user.name>
+		<inge.database.user.password>postgres</inge.database.user.password>
+		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
+		
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
@@ -923,8 +953,8 @@
 		<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration />
+		<!-- Dataacquisition - Apache FOP configuration file -->
+		<escidoc.dataacquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
@@ -941,8 +971,8 @@
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-		<!-- Dataaquisition - Apache FOP configuration file -->
-		<escidoc.dataaquisition.resources.fop.configuration />
+		<!-- Dataacquisition - Apache FOP configuration file -->
+		<escidoc.dataacquisition.resources.fop.configuration />
 		<!-- Transformation implementing classes -->
 		<escidoc.transformation.bibtex.class>de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>

@@ -63,7 +63,6 @@ import org.xml.sax.SAXException;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -773,60 +772,4 @@ public class Util {
   public static String simpleLiteralTostring(org.purl.dc.elements.x11.SimpleLiteral sl) {
     return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
   }
-
-  /**
-   * Creates a format xml out of a format array.
-   * 
-   * @param formats as Format[]
-   * @return xml as String
-   */
-  public static String createFormatsXml(Format[] formats) {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try {
-      FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
-      FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
-      for (int i = 0; i < formats.length; i++) {
-        Format format = formats[i];
-        FormatType xmlFormat = xmlFormats.addNewFormat();
-        SimpleLiteral name = xmlFormat.addNewName();
-        XmlString formatName = XmlString.Factory.newInstance();
-        formatName.setStringValue(format.getName());
-        name.set(formatName);
-        SimpleLiteral type = xmlFormat.addNewType();
-        XmlString formatType = XmlString.Factory.newInstance();
-        formatType.setStringValue(format.getType());
-        type.set(formatType);
-        SimpleLiteral enc = xmlFormat.addNewEncoding();
-        XmlString formatEnc = XmlString.Factory.newInstance();
-        formatEnc.setStringValue(format.getEncoding());
-        enc.set(formatEnc);
-
-      }
-      XmlOptions xOpts = new XmlOptions();
-      xOpts.setSavePrettyPrint();
-      xOpts.setSavePrettyPrintIndent(4);
-      xOpts.setUseDefaultNamespace();
-      xmlFormatsDoc.save(baos, xOpts);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    return baos.toString();
-  }
-
-  /**
-   * This methods reads out the style information from the format name.
-   * 
-   * @param type
-   * @return type of style (APA | AJP | Default)
-   */
-  public static Styles getStyleInfo(Format format) {
-    if (format.getName().toLowerCase().contains("apa")) {
-      return Styles.APA;
-    }
-    if (format.getName().toLowerCase().contains("ajp")) {
-      return Styles.AJP;
-    } else
-      return Styles.Default;
-  }
-
 }

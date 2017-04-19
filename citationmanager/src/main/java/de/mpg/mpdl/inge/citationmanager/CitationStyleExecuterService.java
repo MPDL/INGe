@@ -52,9 +52,9 @@ import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -121,11 +121,10 @@ public class CitationStyleExecuterService {
       if ("escidoc_snippet".equals(outputFormat)) {
         result = snippet.getBytes("UTF-8");
       } else if ("snippet".equals(outputFormat)) { // old edoc md set: back transformation
-        Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
-        Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
 
         de.mpg.mpdl.inge.transformation.Transformer trans =
-            TransformerCache.getTransformer(in.toFORMAT(), out.toFORMAT());
+            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML,
+                FORMAT.ESCIDOC_ITEMLIST_V1_XML);
         // TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
         StringWriter wr = new StringWriter();
 

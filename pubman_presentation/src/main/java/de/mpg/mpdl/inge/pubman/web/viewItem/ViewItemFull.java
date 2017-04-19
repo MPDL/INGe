@@ -24,7 +24,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,10 +37,7 @@ import java.util.MissingResourceException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -75,7 +71,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.ItemExportingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -116,9 +111,8 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
-import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -2354,30 +2348,19 @@ public class ViewItemFull extends FacesBean {
        * targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html",
        * "UTF-8");
        */
-      StringWriter wr = new StringWriter();
 
-      final Transformer t1 =
-          de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(
-              FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
+      ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
-      t1.transform(
-          new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
-          new TransformerStreamResult(wr));
+      final String resHighwire =
+          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
+              FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
 
-      final String resHighwire = wr.toString();
-
-      wr = new StringWriter();
-      final Transformer t2 =
-          de.mpg.mpdl.inge.transformation.TransformerCache.getTransformer(
-              FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
-
-      t2.transform(
-          new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
-          new TransformerStreamResult(wr));
-
-      final String resDC = wr.toString();
+      final String resDC =
+          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
+              FORMAT.HTML_METATAGS_DC_XML, itemXml);
 
       final String result = resHighwire + resDC;
+
       return result;
     } catch (final Exception e1) {
       ViewItemFull.logger.error("could not create html metatags", e1);

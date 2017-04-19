@@ -29,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
@@ -101,11 +100,9 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.transformation.util.Format;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -714,21 +711,13 @@ public class EasySubmission extends FacesBean {
         return null;
       }
 
-      // Transform from bibtex to escidoc pubItem
-      final Format source = new Format("eSciDoc-publication-item", "application/xml", "*");
-      final Format target =
-          new Format("html-meta-tags-highwire-press-citation", "text/html", "UTF-8");
+      final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
-      final Transformer t = TransformerCache.getTransformer(source.toFORMAT(), target.toFORMAT());
-      final StringWriter wr = new StringWriter();
-      t.transform(
-          new TransformerStreamSource(
-              new ByteArrayInputStream(content.toString().getBytes("UTF-8"))),
-          new TransformerStreamResult(wr));
+      String result =
+          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
+              FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, content.toString());
 
-      final byte[] result = wr.toString().getBytes("UTF-8");
-
-      final PubItemVO itemVO = XmlTransformingService.transformToPubItem(new String(result));
+      final PubItemVO itemVO = XmlTransformingService.transformToPubItem(result);
       itemVO.setContext(this.getItem().getContext());
 
       // Check if reference has to be uploaded as file

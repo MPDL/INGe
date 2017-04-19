@@ -76,12 +76,49 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjweaver</artifactId>
-		    <scope>provided</scope>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+                    <groupId>com.auth0</groupId>
+                    <artifactId>java-jwt</artifactId>
+                    <version>3.0.1</version>
+                    <exclusions>
+                           <exclusion>
+                          <groupId>org.bouncycastle</groupId>
+                          <artifactId>bcprov-jdk15on</artifactId>
+                    </exclusion>
+                    </exclusions>
+        </dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_validation</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

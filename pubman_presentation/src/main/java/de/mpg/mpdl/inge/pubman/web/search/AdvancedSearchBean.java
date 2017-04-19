@@ -42,8 +42,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-import javax.inject.Named;
-
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 

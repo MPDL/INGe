@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
-import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
-import org.elasticsearch.common.io.stream.OutputStreamStreamOutput;
-import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;

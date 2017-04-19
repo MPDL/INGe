@@ -36,9 +36,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
@@ -58,7 +56,7 @@ import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.util.Format;
+
 
 /**
  * Session bean to hold data needed for an import of multiple items.
@@ -77,25 +75,9 @@ public class MultipleImport extends FacesBean {
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
 
-  public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item",
-      "application/xml", "UTF-8");
-  public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
-  public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
-  public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
-  public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
-  public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
-  public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
-  public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
-  public static final Format MARC21_FORMAT =
-      new Format("marc21viaxml", "application/marc", "UTF-8");
-  public static final Format MARCXML_FORMAT = new Format("marcxml", "application/marcxml+xml",
-      "UTF-8");
-  public static final Format BMC_FORMAT = new Format("bmc_editura", "application/xml", "UTF-8");
-
-
   private ContextVO context;
   private File uploadedFile;
-  private Format format;
+  private FORMAT format;
   private List<SelectItem> configParameters = null;
   private List<SelectItem> importFormats = new ArrayList<SelectItem>();
   private Map<String, List<SelectItem>> parametersValues;
@@ -105,53 +87,28 @@ public class MultipleImport extends FacesBean {
   private boolean rollback = true;
   private int duplicateStrategy = 3;
 
-  private Converter formatConverter = new Converter() {
-    @Override
-    public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1,
-        String value) {
-      if (value != null && !"".equals(value)) {
-        final String[] parts = value.split("[\\[\\,\\]]");
-        if (parts.length > 3) {
-          return new Format(parts[1], parts[2], parts[3]);
-        }
-      }
-
-      return null;
-    }
-
-    @Override
-    public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
-      if (format instanceof Format) {
-        return ((Format) format).toString();
-      }
-
-      return null;
-    }
-  };
-
   public MultipleImport() {
-    this.importFormats.add(new SelectItem(MultipleImport.ENDNOTE_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.ENDNOTE_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
-    this.importFormats.add(new SelectItem(MultipleImport.BIBTEX_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.BIBTEX_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
-    this.importFormats.add(new SelectItem(MultipleImport.RIS_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.RIS_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_RIS")));
-    this.importFormats.add(new SelectItem(MultipleImport.WOS_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.WOS_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_WOS")));
-    this.importFormats.add(new SelectItem(MultipleImport.MAB_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.MAB_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_MAB")));
-    this.importFormats.add(new SelectItem(MultipleImport.EDOC_FORMAT, this
-        .getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    this.importFormats.add(new SelectItem(MultipleImport.ESCIDOC_FORMAT, this
+    this.importFormats
+        .add(new SelectItem(FORMAT.EDOC_XML, this.getLabel("ENUM_IMPORT_FORMAT_EDOC")));
+    this.importFormats.add(new SelectItem(FORMAT.ESCIDOC_ITEMLIST_V3_XML, this
         .getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
-    this.importFormats.add(new SelectItem(MultipleImport.ZFN_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.ZFN_TEI_XML, this
         .getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-    this.importFormats.add(new SelectItem(MultipleImport.MARC21_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.MARC_21_STRING, this
         .getLabel("ENUM_IMPORT_FORMAT_MARC21")));
-    this.importFormats.add(new SelectItem(MultipleImport.MARCXML_FORMAT, this
+    this.importFormats.add(new SelectItem(FORMAT.MARC_XML, this
         .getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
-    this.importFormats.add(new SelectItem(MultipleImport.BMC_FORMAT, this
-        .getLabel("ENUM_IMPORT_FORMAT_BMC")));
+    this.importFormats.add(new SelectItem(FORMAT.BMC_XML, this.getLabel("ENUM_IMPORT_FORMAT_BMC")));
   }
 
   public String uploadFile() {
@@ -249,8 +206,7 @@ public class MultipleImport extends FacesBean {
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer =
-          TransformerCache.getTransformer(this.format.toFORMAT(), FORMAT.ESCIDOC_ITEM_V3_XML);
+      transformer = TransformerCache.getTransformer(format, FORMAT.ESCIDOC_ITEM_V3_XML);
 
       config = transformer.getConfiguration();
     }
@@ -326,14 +282,14 @@ public class MultipleImport extends FacesBean {
   /**
    * @return the format
    */
-  public Format getFormat() {
+  public FORMAT getFormat() {
     return this.format;
   }
 
   /**
    * @param format the format to set
    */
-  public void setFormat(Format format) {
+  public void setFormat(FORMAT format) {
     if (!format.equals(this.format)) {
       this.setName("");
     }
@@ -397,20 +353,6 @@ public class MultipleImport extends FacesBean {
    */
   public void setDuplicateStrategy(int duplicateStrategy) {
     this.duplicateStrategy = duplicateStrategy;
-  }
-
-  /**
-   * @return the formatConverter
-   */
-  public Converter getFormatConverter() {
-    return this.formatConverter;
-  }
-
-  /**
-   * @param formatConverter the formatConverter to set
-   */
-  public void setFormatConverter(Converter formatConverter) {
-    this.formatConverter = formatConverter;
   }
 
   public void fileUploaded(FileUploadEvent evt) {

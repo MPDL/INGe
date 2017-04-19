@@ -26,8 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
@@ -36,9 +40,13 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportManagerException;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportService;
-import de.mpg.mpdl.inge.structuredexportmanager.StructuredExportXSLTNotFoundException;
+
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -48,9 +56,25 @@ import net.sf.jasperreports.engine.JRException;
  *          StG: 24.08.2007
  */
 public class ItemExportingService {
+
+  // Mapping the format names to the enums used in transformationManager
+  private static Map<String, FORMAT> map;
+  static {
+    map = new HashMap<String, FORMAT>();
+    map.put("MARCXML", FORMAT.MARC_XML);
+    map.put("ENDNOTE", FORMAT.ENDNOTE_STRING);
+    map.put("BIBTEX", FORMAT.BIBTEX_STRING);
+    map.put("ESCIDOC_XML", FORMAT.ESCIDOC_ITEM_V3_XML);
+    map.put("EDOC_EXPORT", FORMAT.EDOC_XML);
+    map.put("EDOC_IMPORT", FORMAT.EDOC_XML);
+  }
+
   /**
    * {@inheritDoc}
+   * 
    */
+
+
   public static byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
       throws TechnicalException {
     String itemList = XmlTransformingService.transformToItemList(pubItemVOList);
@@ -75,22 +99,34 @@ public class ItemExportingService {
    * @param itemList - xml item list in item-list.xsd schema
    * @return generated export
    * @throws TechnicalException
-   * @throws StructuredExportXSLTNotFoundException
-   * @throws StructuredExportManagerException
    * @throws IOException
    * @throws JRException
-   * @throws CitationStyleManagerException
    */
   private static byte[] getOutput(String itemList, ExportFormatVO exportFormat)
-      throws TechnicalException, StructuredExportXSLTNotFoundException,
-      StructuredExportManagerException, IOException, JRException, CitationStyleManagerException {
+      throws TechnicalException, IOException, JRException, CitationStyleManagerException,
+      TransformationException {
 
     byte[] exportData = null;
 
     if (exportFormat.getFormatType() == FormatType.LAYOUT) {
       exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
     } else if (exportFormat.getFormatType() == FormatType.STRUCTURED) {
-      exportData = StructuredExportService.getOutput(itemList, exportFormat.getName());
+
+      if ("ESCIDOC_XML_V13".equalsIgnoreCase(exportFormat.getFormatType().toString())) {
+        return itemList.getBytes();
+      }
+
+      Transformer trans = null;
+      StringWriter wr = new StringWriter();
+
+      trans =
+          TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, map.get(exportFormat));
+      trans.transform(
+          new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+
+      return wr.toString().getBytes("UTF-8");
+
     } else
       throw new TechnicalException("format Type: " + exportFormat.getFormatType()
           + " is not supported");

@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 /**
  * JSF bean class (request) to hold data for the import workspace.
@@ -146,47 +147,43 @@ public class ImportWorkspace extends BreadcrumbPage {
 
   public String getFormatLabel(ImportLog currentImport) {
     String label = "n/a";
-    /*
-     * ImportLog currentImport = null;
-     * 
-     * if (importIterator.getRowIndex() != -1) { int index = this.importIterator.getRowIndex();
-     * currentImport = (ImportLog) this.importIterator.getRowData(); }
-     */
 
     if (currentImport != null) {
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ENDNOTE_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.ENDNOTE_STRING)
+          || currentImport.getFormat().equals(FORMAT.ENDNOTE_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BIBTEX_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.BIBTEX_STRING)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.EDOC_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
       }
-      // if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT_AEI.getName()))
-      // {label=getLabel("ENUM_IMPORT_FORMAT_EDOCAEI");}
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.RIS_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.RIS_STRING)
+          || currentImport.getFormat().equals(FORMAT.RIS_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.WOS_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.WOS_STRING)
+          || currentImport.getFormat().equals(FORMAT.WOS_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MAB_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.MAB_STRING)
+          || currentImport.getFormat().equals(FORMAT.MAB_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ESCIDOC_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.ESCIDOC_ITEMLIST_V3_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ZFN_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.ZFN_TEI_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MARC21_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.MARC_21_STRING)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MARCXML_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.MARC_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
       }
-      if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BMC_FORMAT.getName())) {
+      if (currentImport.getFormat().equals(FORMAT.BMC_XML)) {
         label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
       }
 

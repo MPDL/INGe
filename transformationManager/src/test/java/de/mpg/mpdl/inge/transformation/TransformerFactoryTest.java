@@ -631,6 +631,15 @@ public class TransformerFactoryTest {
 
   }
 
+  @Test()
+  public void testBmcXmlToBmcOaiPmhXml() throws FileNotFoundException, TransformationException {
+
+    thrown.expect(TransformationException.class);
+    thrown.expectMessage("No transformation chain found for");
+
+    TransformerFactory.newInstance(FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML);
+  }
+
   // Helper method to compare expected result with real result
   // we strip the String omitting all not printible characters
   private void assertTransformation(StringWriter wr, String fileNameOfExpectedResult)

@@ -66,10 +66,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.transformation.util.Format;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -142,25 +140,21 @@ public class DataHandlerService {
         fetchedData = textualData.getBytes(enc);
       }
       if (fetchType.equals(fetchTypeFILEDATA)) {
-        Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-        fetchedData = this.fetchData(identifier, new Format[] {format});
+        // Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+
+
+        fetchedData = this.fetchData(identifier, new FORMAT[] {FORMAT.valueOf(trgFormatName)});
       }
       if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
 
-        Format sourceFormat = new Format("eSciDoc-publication-item", "application/xml", enc);
-        Format targetFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-
         fetchedData =
-            this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", enc)
-                .getBytes(enc);
+            this.fetchTextualData(identifier, FORMAT.ESCIDOC_ITEM_V3_XML.name(), "application/xml",
+                enc).getBytes(enc);
         Transformer t =
-            TransformerCache.getTransformer(sourceFormat.toFORMAT(), targetFormat.toFORMAT());
+            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML,
+                FORMAT.valueOf(trgFormatName));
         StringWriter wr = new StringWriter();
 
-        /*
-         * fetchedData = t.transform(fetchedData, "eSciDoc-publication-item", "application/xml",
-         * this.enc, trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
-         */
         t.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedData)),
             new TransformerStreamResult(wr));
         this.setContentType(trgFormatType);
@@ -187,14 +181,10 @@ public class DataHandlerService {
     }
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
     identifier = Util.trimIdentifier(this.currentSource, identifier);
-    Format[] formatsF = new Format[formats.length];
-    Format format;
+    FORMAT[] formatsF = new FORMAT[formats.length];
 
     for (int i = 0; i < formats.length; i++) {
-      format =
-          new Format(formats[i], Util.getDefaultMimeType(formats[i]),
-              Util.getDefaultEncoding(formats[i]));
-      formatsF[i] = format;
+      formatsF[i] = FORMAT.valueOf(formats[i]);
     }
 
     return this.fetchData(identifier, formatsF);
@@ -276,11 +266,12 @@ public class DataHandlerService {
       if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase())) {
 
         // Transform item metadata
-        Format srcFormat = new Format(md.getName(), md.getMdFormat(), enc);
-        Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+        // Format srcFormat = new Format(md.getName(), md.getMdFormat(), enc);
+        // Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
         Transformer transformer =
-            TransformerCache.getTransformer(srcFormat.toFORMAT(), trgFormat.toFORMAT());
+            TransformerCache.getTransformer(FORMAT.valueOf(md.getName()),
+                FORMAT.valueOf(trgFormatName));
         StringWriter wr = new StringWriter();
 
         transformer.transform(
@@ -294,11 +285,12 @@ public class DataHandlerService {
 
         try {
           // Create component if supported
-          String name = trgFormatName.replace("item", "component");
-          Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
+          // String name = trgFormatName.replace("item", "component");
+          // Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
 
           Transformer componentTransformer =
-              TransformerCache.getTransformer(srcFormat.toFORMAT(), trgFormatComponent.toFORMAT());
+              TransformerCache.getTransformer(FORMAT.valueOf(md.getName()),
+                  FORMAT.valueOf(trgFormatName.replace("ITEM", "COMPONENT")));
           if (componentTransformer != null) {
             wr = new StringWriter();
 
@@ -407,7 +399,7 @@ public class DataHandlerService {
    * @return byte[] of the fetched file, zip file if more than one record was fetched
    * @throws DataaquisitionException
    */
-  private byte[] fetchData(String identifier, Format[] formats) throws DataaquisitionException {
+  private byte[] fetchData(String identifier, FORMAT[] formats) throws DataaquisitionException {
     byte[] in = null;
     FullTextVO fulltext = new FullTextVO();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -416,9 +408,9 @@ public class DataHandlerService {
     try {
       // Call fetch file for every given format
       for (int i = 0; i < formats.length; i++) {
-        Format format = formats[i];
+        FORMAT format = formats[i];
         fulltext =
-            Util.getFtObjectToFetch(this.currentSource, format.getName(), format.getType(),
+            Util.getFtObjectToFetch(this.currentSource, format.name(), format.getType(),
                 format.getEncoding());
         // Replace regex with identifier
         String decoded =
@@ -527,113 +519,6 @@ public class DataHandlerService {
       throw new DataaquisitionException(this.currentSource.getName());
     } catch (IOException e) {
       throw new DataaquisitionException(e);
-    }
-    // bmc needs transformation from xml to html
-    if (this.currentSource.getName().equalsIgnoreCase("BioMed Central")
-        && fulltext.getFtFormat().equalsIgnoreCase("text/html")) {
-      Format from = new Format("bmc_fulltext_xml", "application/xml", "*");
-      Format to = new Format("bmc_fulltext_html", "text/html", "*");
-
-      try {
-        Transformer transformer = TransformerCache.getTransformer(from.toFORMAT(), to.toFORMAT());
-        StringWriter wr = new StringWriter();
-
-        transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
-            new TransformerStreamResult(wr));
-
-      } catch (Exception e) {
-        logger.error("Could not transform BMC fulltext", e);
-      }
-    } else if (this.currentSource.getName().equalsIgnoreCase("PubMedCentral")
-        && fulltext.getFtFormat().equalsIgnoreCase("application/pdf")) {
-      // pmc pdf is generated from oai-pmh-xml
-      Format from = new Format("pmc_fulltext_xml", "application/xml", "*");
-      Format to = new Format("pmc_fulltext_xslfo", "text/xsl", "*");
-
-      byte[] xslFo = null;
-      try {
-        StringWriter wr = new StringWriter();
-        Transformer transformer = TransformerCache.getTransformer(from.toFORMAT(), to.toFORMAT());
-
-        transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(input)),
-            new TransformerStreamResult(wr));
-        xslFo = wr.toString().getBytes();
-
-      } catch (Exception e) {
-        logger.error("Could not transform PMC fulltext", e);
-      }
-      // Step 1: Construct a FopFactory
-      FopFactory fopFactory = FopFactory.newInstance();
-
-      // Step 2: Set up output stream.
-      ByteArrayOutputStream outputPdf = new ByteArrayOutputStream();
-
-      try {
-        // Trying to load FOP-Configuration from the pubman.properties
-        fopFactory.setUserConfig(new File(PropertyReader
-            .getProperty("escidoc.dataacquisition.resources.fop.configuration")));
-      } catch (Exception e) {
-        try {
-          logger.info(
-              "FopFactory configuration couldn't be loaded from '"
-                  + PropertyReader
-                      .getProperty("escidoc.dataacquisition.resources.fop.configuration") + "'", e);
-
-          // loading in-EAR configuration an fonts
-          String dataaquisitionUrl =
-              DataHandlerService.class.getClassLoader().getResource("dataaquisition/").toString();
-          logger.info("Trying to load FopFactory from: '" + dataaquisitionUrl
-              + "apache-fop-config.xml'");
-          fopFactory.setUserConfig(dataaquisitionUrl + "apache-fop-config.xml");
-          fopFactory.setBaseURL(dataaquisitionUrl);
-          fopFactory.getFontManager().setFontBaseURL(dataaquisitionUrl + "fonts/");
-          if (logger.isDebugEnabled()) {
-            logger.debug(fopFactory.getBaseURL());
-            logger.debug(fopFactory.getFontManager().getFontBaseURL());
-          }
-        } catch (Exception exception) {
-          logger.error("FopFactory configuration wasn't loaded correctly", exception);
-        }
-      }
-
-      try {
-        // Step 3: Construct fop with desired output format
-        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputPdf);
-
-        // SortedMap map =
-        // (new org.apache.fop.tools.fontlist.FontListGenerator()).listFonts(fopFactory,
-        // MimeConstants.MIME_PDF, new org.apache.fop.fonts.FontEventAdapter(
-        // new org.apache.fop.events.DefaultEventBroadcaster()));
-
-        // Step 4: Setup JAXP using identity transformer
-        javax.xml.transform.TransformerFactory factory =
-            javax.xml.transform.TransformerFactory.newInstance(
-                "net.sf.saxon.TransformerFactoryImpl", null);
-        javax.xml.transform.Transformer xmlTransformer = factory.newTransformer(); // identity
-                                                                                   // transformer
-
-        // Step 5: Setup input and output for XSLT transformation
-        Source src = new StreamSource((InputStream) (new ByteArrayInputStream(xslFo)));
-
-        // Resulting SAX events (the generated FO) must be piped through
-        // to FOP
-        Result res = new SAXResult(fop.getDefaultHandler());
-
-        // Step 6: Start XSLT transformation and FOP processing
-        xmlTransformer.transform(src, res);
-
-        // setting pdf as result
-        input = outputPdf.toByteArray();
-      } catch (Exception e) {
-        logger.error("Error when trying to transform xsl-FO to PDF (Apache-FOP): ", e);
-      } finally {
-        // Clean-up
-        try {
-          outputPdf.close();
-        } catch (IOException e) {
-          logger.error("Couldn't close outputPdf-Stream", e);
-        }
-      }
     }
 
     return input;
@@ -973,9 +858,7 @@ public class DataHandlerService {
       return fetchTypeESCIDOCTRANS;
     }
     // Transformable formats
-    FORMAT[] trgFormats =
-        TransformerCache.getAllTargetFormatsFor((new Format(trgFormatName, trgFormatType,
-            trgFormatEncoding)).toFORMAT());
+    FORMAT[] trgFormats = TransformerCache.getAllTargetFormatsFor(FORMAT.valueOf(trgFormatName));
     if (trgFormats.length > 0) {
       return fetchTypeTEXTUALDATA;
     }

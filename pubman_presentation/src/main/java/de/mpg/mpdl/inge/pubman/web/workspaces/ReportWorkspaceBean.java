@@ -5,8 +5,7 @@ package de.mpg.mpdl.inge.pubman.web.workspaces;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +22,6 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
-import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -36,13 +34,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.transformation.util.Format;
 
 
 /**
@@ -54,61 +49,31 @@ import de.mpg.mpdl.inge.transformation.util.Format;
 public class ReportWorkspaceBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(ReportWorkspaceBean.class);
 
-  private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet",
-      "application/xml", "UTF-8");
-
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
 
-  // String cqlQuery = null;
   private final String csExportFormat = "JUS_Report";
   private final String csOutputFormat = "escidoc_snippet";
-  // String index = "escidoc_all";
 
   private Map<String, String> configuration = null;
   List<String> childAffilList;
 
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
-  private Format format;
+  private FORMAT format;
 
-  private Converter formatConverter = new Converter() {
-    @Override
-    public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1,
-        String value) {
-      if (value != null && !"".equals(value)) {
-        final String[] parts = value.split("[\\[\\,\\]]");
-        if (parts.length > 3) {
-          return new Format(parts[1], parts[2], parts[3]);
-        }
-      }
-
-      return null;
-    }
-
-    @Override
-    public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
-      if (format instanceof Format) {
-        return ((Format) format).toString();
-      }
-
-      return null;
-    }
-  };
+  private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ReportWorkspaceBean() {
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
     final FORMAT[] targetFormats =
-        de.mpg.mpdl.inge.transformation.TransformerCache
-            .getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
+        itemTransformingService.getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
 
-    for (final FORMAT f : targetFormats) {
-      final Format formatObject = Util.fromFORMAT(f);
-      if (!ReportWorkspaceBean.JUS_REPORT_SNIPPET_FORMAT.matches(formatObject)) {
-        final String formatName =
-            formatObject.getName() + "_"
-                + ("text/html".equals(formatObject.getType()) ? "html" : "indesign");
-        this.outputFormats.add(new SelectItem(f, this.getLabel(formatName)));
+
+    for (FORMAT f : targetFormats) {
+      if (!FORMAT.JUS_SNIPPET_XML.equals(f)) {
+        String formatName = f.name() + "_" + (f.name().contains("HTML") ? "html" : "indesign");
+        outputFormats.add(new SelectItem(f, getLabel(formatName)));
       }
     }
   }
@@ -129,11 +94,11 @@ public class ReportWorkspaceBean extends FacesBean {
     this.reportYear = reportYear;
   }
 
-  public Format getFormat() {
+  public FORMAT getFormat() {
     return this.format;
   }
 
-  public void setFormat(Format format) {
+  public void setFormat(FORMAT format) {
     this.format = format;
   }
 
@@ -143,20 +108,6 @@ public class ReportWorkspaceBean extends FacesBean {
 
   public void setOutputFormats(List<SelectItem> outputFormats) {
     this.outputFormats = outputFormats;
-  }
-
-  /**
-   * @return the formatConverter
-   */
-  public Converter getFormatConverter() {
-    return this.formatConverter;
-  }
-
-  /**
-   * @param formatConverter the formatConverter to set
-   */
-  public void setFormatConverter(Converter formatConverter) {
-    this.formatConverter = formatConverter;
   }
 
   public void generateReport() {
@@ -174,9 +125,9 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      ReportWorkspaceBean.logger.info("Start generation report for YEAR " + this.reportYear
-          + ", ORG " + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
-          + this.format.getName());
+      logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
+          + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
+          + this.format.name());
 
       itemLsitSearchResult = this.doSearchItems();
       if (itemLsitSearchResult != null) {
@@ -184,15 +135,13 @@ public class ReportWorkspaceBean extends FacesBean {
       }
       if (itemListCS != null) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
-        ReportWorkspaceBean.logger.info("Transformed result: \n"
-            + new String(itemListReportTransformed));
+        logger.info("Transformed result: \n" + new String(itemListReportTransformed));
       }
       if (itemListReportTransformed != null) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
         final String fileName =
-            "text/html".equals(this.format.getType()) ? "Jus_Report.html"
-                : "Jus_Report_InDesign.xml";
+            format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
         FacesTools.getResponse().addHeader("Content-Disposition",
             "attachment; filename=" + fileName);
 
@@ -209,7 +158,7 @@ public class ReportWorkspaceBean extends FacesBean {
         FacesTools.getCurrentInstance().responseComplete();
       }
     } catch (final Exception e) {
-      ReportWorkspaceBean.logger.error("Error while generatiring report output file.", e);
+      logger.error("Error while generatiring report output file.", e);
       FacesBean.error("Error while generatiring output file.");
     }
   }
@@ -235,8 +184,7 @@ public class ReportWorkspaceBean extends FacesBean {
       // get a list of children of the given org
       this.childAffilList = this.getChildOUs(this.organization.getIdentifier());
     } catch (final Exception e) {
-      ReportWorkspaceBean.logger.error(
-          "Error when trying to get the children of the given organization.", e);
+      logger.error("Error when trying to get the children of the given organization.", e);
       e.printStackTrace();
     }
 
@@ -258,7 +206,7 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       result = SearchService.searchForItemContainer(cqlQuery);
       totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
-      ReportWorkspaceBean.logger.info("Search result total nr: "
+      logger.info("Search result total nr: "
           + Integer.parseInt(result.getTotalNumberOfResults().toString()));
       if (totalNrOfSerchResultItems > 0) {
         itemListAsString =
@@ -267,7 +215,7 @@ public class ReportWorkspaceBean extends FacesBean {
         this.info(this.getMessage("ReportNoItemsFound"));
       }
     } catch (final Exception e) {
-      ReportWorkspaceBean.logger.error("Error when trying to find search service.", e);
+      logger.error("Error when trying to find search service.", e);
       FacesBean.error("Did not find Search service");
     }
 
@@ -281,7 +229,7 @@ public class ReportWorkspaceBean extends FacesBean {
           CitationStyleExecuterService.getOutput(itemListAsString, new ExportFormatVO(
               FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
     } catch (final Exception e) {
-      ReportWorkspaceBean.logger.error("Error when trying to find citation service.", e);
+      logger.error("Error when trying to find citation service.", e);
       FacesBean.error("Did not find Citation service");
     }
 
@@ -290,7 +238,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   private byte[] doReportTransformation(byte[] src) {
     String childConfig = "";
-    byte[] result = null;
+    String result = null;
 
     // set the config for the transformation, the institut's name is used
     // for CoNE
@@ -298,31 +246,23 @@ public class ReportWorkspaceBean extends FacesBean {
       for (final String childId : this.childAffilList) {
         childConfig += childId + " ";
       }
-      ReportWorkspaceBean.logger.info("CHILD Config " + childConfig);
+      logger.info("CHILD Config " + childConfig);
       this.configuration.put("institutsId", childConfig);
     } else {
       this.configuration.put("institutsId", this.organization.getIdentifier());
     }
 
     try {
-      final StringWriter wr = new StringWriter();
-      final Transformer t =
-          TransformerCache.getTransformer(FORMAT.JUS_SNIPPET_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+      result =
+          itemTransformingService.transformFromTo(FORMAT.JUS_SNIPPET_XML, this.format, new String(
+              src, "UTF-8"));
 
-      t.transform(new TransformerStreamSource(new ByteArrayInputStream(src)),
-          new TransformerStreamResult(wr));
+    } catch (final TransformationException | UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
 
-      result = wr.toString().getBytes("UTF-8");
-
-    } catch (final TransformationException e) {
-      throw new RuntimeException(e);
-    } catch (final RuntimeException e) {
-      throw new RuntimeException(e);
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
     }
 
-    return result;
+    return result.getBytes();
   }
 
   public List<String> getChildOUs(String orgId) throws Exception {

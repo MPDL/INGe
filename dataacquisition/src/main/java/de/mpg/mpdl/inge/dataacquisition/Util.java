@@ -35,6 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -45,10 +46,10 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.transformation.util.Format;
+import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -69,7 +70,7 @@ public class Util {
 
 
   private static final Logger logger = Logger.getLogger(Util.class);
-  private static final String internalFormat = "eSciDoc-publication-item";
+  private static final String internalFormat = FORMAT.ESCIDOC_ITEM_V3_XML.name();
   private static final String transformationService = "escidoc";
   private static final String dummyFormat = "unknown";
   private static final String METADATA_XSLT_LOCATION = "transformations/thirdParty/xslt";
@@ -166,27 +167,25 @@ public class Util {
     }
 
     // Second: check which format can be transformed into the given format
-    Format oldFormat = new Format(trgFormatName, trgFormatType, trgFormatEndcoding);
-    FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat.toFORMAT());
+    FORMAT oldFormat = FORMAT.valueOf(trgFormatName);
+    FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
       for (int x = 0; x < possibleFormats.length; x++) {
-        Format possibleFormat = Util.fromFORMAT(possibleFormats[x]);
+        FORMAT possibleFormat = possibleFormats[x];
         boolean fetchMd = true;
 
-        if (!sourceMd.getName().equalsIgnoreCase(possibleFormat.getName())) {
+        if (!sourceMd.getName().equalsIgnoreCase(possibleFormat.name())) {
           fetchMd = false;
         }
-        if (!sourceMd.getMdFormat().equalsIgnoreCase(possibleFormat.getType())) {
-          fetchMd = false;
-        }
-        if ((!"*".equals(sourceMd.getEncoding())) && (!"*".equals(possibleFormat.getEncoding()))) {
-          if (!sourceMd.getEncoding().equalsIgnoreCase(possibleFormat.getEncoding())) {
-            fetchMd = false;
-          }
-        }
-
+        /**
+         * if (!sourceMd.getMdFormat().equalsIgnoreCase(possibleFormat.getType())) { fetchMd =
+         * false; } if ((!"*".equals(sourceMd.getEncoding())) &&
+         * (!"*".equals(possibleFormat.getEncoding()))) { if
+         * (!sourceMd.getEncoding().equalsIgnoreCase(possibleFormat.getEncoding())) { fetchMd =
+         * false; } }
+         */
         if (fetchMd) {
           return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
         }
@@ -206,21 +205,20 @@ public class Util {
    */
   public static boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
       String trgFormatEncoding) {
-    Format target = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-    Format escidoc =
-        new Format(getInternalFormat(), getDefaultMimeType(getInternalFormat()),
-            getDefaultEncoding(getInternalFormat()));
-    FORMAT[] formats;
 
-    formats = TransformerCache.getAllTargetFormatsFor(escidoc.toFORMAT());
+    Transformer t = null;
 
-    for (int i = 0; i < formats.length; i++) {
-      if (isFormatEqual(target, Util.fromFORMAT(formats[i]))) {
-        return true;
-      }
+    try {
+      t =
+          TransformerCache
+              .getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.valueOf(trgFormatName));
+    } catch (TransformationException e) {
+      logger.warn("No transformation found from <" + FORMAT.ESCIDOC_ITEM_V3_XML + "> to < "
+          + trgFormatName + ">");
+      return false;
     }
 
-    return false;
+    return t != null;
   }
 
   /**
@@ -308,16 +306,16 @@ public class Util {
 
     for (int i = 0; i < fetchFormats.size(); i++) {
       MetadataVO md = fetchFormats.get(i);
-      Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      FORMAT[] formats = TransformerCache.getAllTargetFormatsFor(format.toFORMAT());
+      // Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
+      FORMAT[] formats = TransformerCache.getAllTargetFormatsFor(FORMAT.valueOf(md.getMdFormat()));
       // formats = this.handleDuplicateFormatNames(formats);
       // Create MetadataVO
-      for (int x = 0; x < formats.length; x++) {
-        Format formatTrans = Util.fromFORMAT(formats[x]);
+      for (int ii = 0; ii < formats.length; ii++) {
+        FORMAT formatTrans = formats[ii];
         MetadataVO mdTrans = new MetadataVO();
-        mdTrans.setName(formatTrans.getName());
+        mdTrans.setName(formats[ii].name());
         mdTrans.setMdFormat(formatTrans.getType());
-        mdTrans.setEncoding(formatTrans.getEncoding());
+        mdTrans.setEncoding("UTF-8");
         allFormats.add(mdTrans);
       }
     }
@@ -338,14 +336,11 @@ public class Util {
 
     for (int i = 0; i < metadataV.size(); i++) {
       MetadataVO md = metadataV.get(i);
-      Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
-      FORMAT[] trgFormats = TransformerCache.getAllTargetFormatsFor(format.toFORMAT());
-      for (int x = 0; x < trgFormats.length; x++) {
-        Format trgFormat = Util.fromFORMAT(trgFormats[x]);
-        if (trgFormat.getName().equals(getInternalFormat())) {
-          return true;
-        }
-      }
+      String format = md.getMdFormat();
+      FORMAT[] trgFormats = TransformerCache.getAllTargetFormatsFor(FORMAT.valueOf(format));
+
+      if (Arrays.asList(trgFormats).contains(FORMAT.valueOf(getInternalFormat())))
+        return true;
     }
 
     return false;
@@ -405,33 +400,6 @@ public class Util {
     }
 
     return true;
-  }
-
-  /**
-   * Checks if two Format Objects are equal.
-   * 
-   * @param src1
-   * @param src2
-   * @return true if equal, else false
-   */
-  public static boolean isFormatEqual(Format src1, Format src2) {
-    if (!src1.getName().equalsIgnoreCase(src2.getName())) {
-      return false;
-    }
-
-    if (!src1.getType().equalsIgnoreCase(src2.getType())) {
-      return false;
-    }
-
-    if ("*".equals(src1.getEncoding()) || "*".equals(src2.getEncoding())) {
-      return true;
-    }
-
-    if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   /**
@@ -610,40 +578,6 @@ public class Util {
 
   public static String getDummyFormat() {
     return dummyFormat;
-  }
-
-  /**
-   * Reverts an enum FORMAT to a Format object.
-   * 
-   * @return Format object
-   */
-  public static Format fromFORMAT(FORMAT format) {
-
-    String type = "";
-    String name = "";
-
-    switch (format.toString().substring(0, 3)) {
-      case "PMC":
-        name = "pmc";
-        break;
-      case "BMC":
-        name = "bmc";
-        break;
-      case "SPI":
-        name = "spires";
-        break;
-      case "ARX":
-        name = "arxiv";
-        break;
-    }
-
-    if (format.toString().endsWith("XML")) {
-      type = "application/xml";
-    } else {
-      type = "application/pdf";
-    }
-
-    return new Format(name, type, "UTF-8");
   }
 
   public static boolean checkXsltTransformation(String formatFrom, String formatTo) {

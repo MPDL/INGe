@@ -20,7 +20,7 @@ public class BmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
 
     return getXmlSourceFromProperty(
         "escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename",
-        "transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl");
+        "transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl");
 
 
   }
