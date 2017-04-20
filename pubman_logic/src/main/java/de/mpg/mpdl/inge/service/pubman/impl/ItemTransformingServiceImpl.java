@@ -119,12 +119,6 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public String transformFromTo(FORMAT source, FORMAT target, String itemXml)
       throws TransformationException {
     StringWriter wr = new StringWriter();

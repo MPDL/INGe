@@ -22,9 +22,6 @@ public interface ItemTransformingService {
 
   public FORMAT[] getAllTargetFormatsFor(FORMAT source);
 
-  // EditItemBean
-  public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite);
-
   public String transformFromTo(FORMAT source, FORMAT target, String xml)
       throws TransformationException;
 
