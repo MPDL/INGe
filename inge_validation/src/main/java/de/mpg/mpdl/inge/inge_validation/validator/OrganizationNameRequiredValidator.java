@@ -44,7 +44,7 @@ public class OrganizationNameRequiredValidator extends ValidatorHandler<List<Cre
             int j = 1;
             for (final OrganizationVO organizationVO : orgs) {
 
-              if (organizationVO.getName() == null || organizationVO.getAddress() == null) {
+              if ((organizationVO.getName() == null || organizationVO.getName().isEmpty()) && (organizationVO.getAddress() != null || !organizationVO.getAddress().isEmpty())) {
                 context.addError(ValidationError.create(
                     ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
                     .setField("creator[" + i + "].organization[" + j + "]"));

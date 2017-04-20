@@ -386,7 +386,7 @@ public class PubItemServiceImpl implements PubItemService {
   public void validateMetadata(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
       ValidationException {
     try {
-      ItemValidatingService.validateItemObject(pubItem, ValidationPoint.SAVE);
+      ItemValidatingService.validateItemObject(pubItem, vp);
     } catch (de.mpg.mpdl.inge.inge_validation.exception.ValidationException e) {
       throw new IngeServiceException(e);
     } catch (ItemInvalidException e) {
