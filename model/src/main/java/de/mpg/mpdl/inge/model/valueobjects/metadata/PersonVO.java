@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -125,6 +126,7 @@ public class PersonVO extends ValueObject implements Cloneable {
   /**
    * Delivers the size of the organization list
    */
+  @JsonIgnore
   public int getOrganizationsSize() {
     return organizations.size();
   }

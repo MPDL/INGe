@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
@@ -92,6 +93,7 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   private String description;
 
+  @JsonProperty("createdBy")
   private AccountUserRO createdByRO;
 
   /**
@@ -192,6 +194,7 @@ public class FileVO extends ValueObject implements Cloneable {
     return (this.creationDate != null);
   }
 
+  @JsonProperty("metadata")
   public MdsFileVO getDefaultMetadata() {
     if (metadataSets.size() > 0 && metadataSets.get(0) instanceof MdsFileVO) {
       return (MdsFileVO) metadataSets.get(0);
@@ -200,6 +203,7 @@ public class FileVO extends ValueObject implements Cloneable {
     }
   }
 
+  @JsonProperty("metadata")
   public void setDefaultMetadata(MdsFileVO mdsFileVO) {
     if (metadataSets.size() == 0) {
       metadataSets.add(mdsFileVO);
@@ -398,6 +402,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * Delivers the value of the contentCategory Enum as a String. If the Enum is not set, an empty
    * String is returned.
    */
+  @JsonIgnore
   public String getContentCategoryString() {
     if (contentCategory == null || contentCategory.toString() == null) {
       return "";
@@ -410,6 +415,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * 
    * @param newValString
    */
+  @JsonIgnore
   public void setContentCategoryString(String newValString) {
     contentCategory = newValString;
   }
@@ -418,6 +424,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * Delivers the value of the visibility Enum as a String. If the enum is not set, an empty String
    * is returned.
    */
+  @JsonIgnore
   public String getVisibilityString() {
     if (visibility == null || visibility.toString() == null) {
       return "";
@@ -430,6 +437,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * 
    * @param newValString
    */
+  @JsonIgnore
   public void setVisibilityString(String newValString) {
     if (newValString == null || newValString.length() == 0) {
       visibility = null;
@@ -447,6 +455,7 @@ public class FileVO extends ValueObject implements Cloneable {
     this.storage = storage;
   }
 
+  @JsonIgnore
   public String getStorageString() {
     if (storage == null || storage.toString() == null) {
       return "";
@@ -454,6 +463,7 @@ public class FileVO extends ValueObject implements Cloneable {
     return storage.toString();
   }
 
+  @JsonIgnore
   public void setStorageString(String newValString) {
     if (newValString == null || newValString.length() == 0) {
       storage = null;

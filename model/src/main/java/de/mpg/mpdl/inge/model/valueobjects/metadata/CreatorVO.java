@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -165,6 +166,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * Delivers the creators' type.
    */
   public CreatorType getType() {
+    System.out.println(type);
     return type;
   }
 
@@ -282,6 +284,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * 
    * @return the value of the role Enum
    */
+  @JsonIgnore
   public String getRoleString() {
     if (role == null || role.toString() == null) {
       return "";
@@ -294,6 +297,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * 
    * @param newValString A string containing the new value.
    */
+  @JsonIgnore
   public void setRoleString(String newValString) {
     if (newValString == null || newValString.length() == 0) {
       role = null;
@@ -309,6 +313,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * 
    * @return the value of the type Enum
    */
+  @JsonIgnore
   public String getTypeString() {
     if (getType() == null || getType().toString() == null) {
       return "";
@@ -321,6 +326,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * 
    * @param newValString A string containing the new value.
    */
+  @JsonIgnore
   public void setTypeString(String newValString) {
     if (newValString == null || newValString.length() == 0) {
       setType(null);

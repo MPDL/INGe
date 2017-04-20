@@ -1401,13 +1401,16 @@ public class EditItem extends FacesBean {
   public String getOwner() throws Exception {
 
 
-    if (this.item.getOwner().getTitle() != null && this.item.getOwner().getTitle().trim() != "") {
-      return this.item.getOwner().getTitle();
+    if (this.item.getOwner() != null) {
+      if (this.item.getOwner().getTitle() != null && this.item.getOwner().getTitle().trim() != "") {
+        return this.item.getOwner().getTitle();
+      }
+
+      if (this.item.getOwner().getObjectId() != null && this.item.getOwner().getObjectId() != "") {
+        return this.item.getOwner().getObjectId();
+      }
     }
 
-    if (this.item.getOwner().getObjectId() != null && this.item.getOwner().getObjectId() != "") {
-      return this.item.getOwner().getObjectId();
-    }
 
     return null;
   }

@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -207,6 +208,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * 
    * @return the value of the type Enum
    */
+  @JsonIgnore
   public String getTypeString() {
     if (getType() == null || getType().toString() == null) {
       return "";
@@ -219,6 +221,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * 
    * @param newValString
    */
+  @JsonIgnore
   public void setTypeString(String newValString) {
     if (newValString == null || newValString.length() == 0) {
       setType(null);

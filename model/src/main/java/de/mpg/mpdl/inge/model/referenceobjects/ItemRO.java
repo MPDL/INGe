@@ -31,6 +31,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -209,10 +210,12 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     state = newVal;
   }
 
+  @JsonProperty("modifiedBy")
   public AccountUserRO getModifiedByRO() {
     return modifiedByRO;
   }
 
+  @JsonProperty("modifiedBy")
   public void setModifiedByRO(AccountUserRO modifiedByRO) {
     this.modifiedByRO = modifiedByRO;
   }

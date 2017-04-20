@@ -69,9 +69,11 @@ public class ItemVO extends ValueObject implements Searchable {
   private List<FileVO> files = new ArrayList<FileVO>();
   private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
   private List<String> localTags = new ArrayList<String>();
+  @JsonIgnore
   private String baseUrl;
   private String contentModel;
   private String pid;
+  @JsonIgnore
   private String publicStatusComment;
 
   /**

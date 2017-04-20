@@ -537,7 +537,7 @@ public class CommonUtils {
       return PropertyReader.getProperty("escidoc.pubman.instance.url")
           + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
           + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-              objectId + (version != 0 ? ":" + version : ""));
+              objectId + (version != 0 ? "_" + version : ""));
     }
 
     return null;

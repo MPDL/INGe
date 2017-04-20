@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.util.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
@@ -88,6 +89,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+@ManagedBean(name = "ItemControllerSessionBean")
 @SessionScoped
 @SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {

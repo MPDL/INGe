@@ -90,7 +90,7 @@ public class GrantVO extends ValueObject {
 
 
   public enum PredefinedRoles {
-    DEPOSITOR("escidoc:role-depositor"), MODERATOR("escidoc:role-moderator"), PRIVILEGEDVIEWER(
+    DEPOSITOR("DEPOSITOR"), MODERATOR("MODERATOR"), PRIVILEGEDVIEWER(
         "escidoc:role-privileged-viewer"), REPORTER("escidoc:role-reporter"), AUDIENCE(
         "escidoc:role-audience");
 
