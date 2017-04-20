@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,6 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -102,6 +102,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -112,12 +113,10 @@ import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -1091,16 +1090,16 @@ public class ViewItemFull extends FacesBean {
    * @return String the formatted Identifiers
    */
   public String getIdentifiers() {
-    return this.getIdentifierHtmlString(this.pubItem.getMetadata().getIdentifiers());
+    return getIdentifierHtmlString(this.pubItem.getMetadata().getIdentifiers());
   }
 
-  public String getIdentifierHtmlString(List<IdentifierVO> idList) {
+  public static String getIdentifierHtmlString(List<IdentifierVO> idList) {
     final StringBuffer identifiers = new StringBuffer();
     if (idList != null) {
       for (int i = 0; i < idList.size(); i++) {
         try {
           final String labelKey = "ENUM_IDENTIFIERTYPE_" + idList.get(i).getTypeString();
-          identifiers.append(this.getLabel(labelKey));
+          identifiers.append(getLabelStatic(labelKey));
         } catch (final MissingResourceException e) {
           ViewItemFull.logger.debug("Found no label for identifier type "
               + idList.get(i).getTypeString());
@@ -1129,6 +1128,13 @@ public class ViewItemFull extends FacesBean {
       }
     }
     return identifiers.toString();
+  }
+
+  public static String getLabelStatic(String placeholder) {
+    InternationalizationHelper i18nHelper =
+        (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    return i18nHelper.getLabel(placeholder);
+    // return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
   }
 
   /**

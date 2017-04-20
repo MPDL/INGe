@@ -166,7 +166,6 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * Delivers the creators' type.
    */
   public CreatorType getType() {
-    System.out.println(type);
     return type;
   }
 

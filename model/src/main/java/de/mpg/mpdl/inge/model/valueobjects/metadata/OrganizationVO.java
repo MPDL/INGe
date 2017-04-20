@@ -121,6 +121,9 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   }
 
   @Override
+  /**
+   * Returns true if values of this class and the given object are equal. Also true for super classes with same values
+   */
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
@@ -128,7 +131,8 @@ public class OrganizationVO extends ValueObject implements Cloneable {
     if (obj == null)
       return false;
 
-    if (getClass() != obj.getClass())
+    // Enabling comparison with super classes like OrganizationVOPresentation
+    if (!getClass().isAssignableFrom(obj.getClass()))
       return false;
 
     OrganizationVO other = (OrganizationVO) obj;

@@ -244,8 +244,6 @@ public class CreatorVOPresentation extends CreatorVO {
         }
       }
     }
-    System.out.println("OU Numbers " + ouNumbers + getPerson().getOrganizations()
-        + this.bean.getCreatorOrganizations());
     return this.ouNumbers;
   }
 

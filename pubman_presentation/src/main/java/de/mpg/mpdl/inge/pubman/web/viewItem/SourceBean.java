@@ -95,9 +95,7 @@ public class SourceBean extends FacesBean {
     this.publishingInfo = this.getPublishingInfo(source);
 
     if (source.getIdentifiers().size() > 0) {
-      this.identifiers =
-          ((ViewItemFull) FacesTools.findBean("ViewItemFull")).getIdentifierHtmlString(source
-              .getIdentifiers());
+      this.identifiers = ViewItemFull.getIdentifierHtmlString(source.getIdentifiers());
     }
   }
 
