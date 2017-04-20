@@ -167,31 +167,40 @@ public class Util {
     }
 
     // Second: check which format can be transformed into the given format
-    FORMAT oldFormat = FORMAT.valueOf(trgFormatName);
+    FORMAT oldFormat = getFORMAT(trgFormatName);
     FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
-      for (int x = 0; x < possibleFormats.length; x++) {
-        FORMAT possibleFormat = possibleFormats[x];
-        boolean fetchMd = true;
 
-        if (!sourceMd.getName().equalsIgnoreCase(possibleFormat.name())) {
-          fetchMd = false;
-        }
-        /**
-         * if (!sourceMd.getMdFormat().equalsIgnoreCase(possibleFormat.getType())) { fetchMd =
-         * false; } if ((!"*".equals(sourceMd.getEncoding())) &&
-         * (!"*".equals(possibleFormat.getEncoding()))) { if
-         * (!sourceMd.getEncoding().equalsIgnoreCase(possibleFormat.getEncoding())) { fetchMd =
-         * false; } }
+      boolean fetchMd = false;
+
+      if (Arrays.asList(possibleFormats).contains(getFORMAT(sourceMd.getName()))) {
+        return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
+
+        /*
+         * if (!getFORMAT(sourceMd.getName()).equals(possibleFormat)) { fetchMd = false; } if
+         * (fetchMd) { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName()); }
          */
-        if (fetchMd) {
-          return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
-        }
       }
     }
     return null;
+  }
+
+  static FORMAT getFORMAT(String formatName) {
+    switch (formatName) {
+      case "eSciDoc-publication-item":
+        return FORMAT.ESCIDOC_ITEM_V3_XML;
+      case "esidoc-fulltext":
+        return FORMAT.ESCIDOC_COMPONENT_XML;
+      case "bmc":
+      case "bmcarticle":
+      case "bmcreferences":
+      case "bmcbibl":
+        return FORMAT.BMC_OAIPMH_XML;
+      default:
+        return FORMAT.valueOf(formatName);
+    }
   }
 
   /**
@@ -205,6 +214,9 @@ public class Util {
    */
   public static boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
       String trgFormatEncoding) {
+
+    if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(trgFormatName))
+      return true;
 
     Transformer t = null;
 

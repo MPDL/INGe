@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.transformation;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -50,19 +49,13 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
-import org.apache.xmlbeans.XmlOptions;
-import org.apache.xmlbeans.XmlString;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
-import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;

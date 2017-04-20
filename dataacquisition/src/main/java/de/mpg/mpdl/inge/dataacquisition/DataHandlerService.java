@@ -265,18 +265,16 @@ public class DataHandlerService {
       // Transform the itemXML if necessary
       if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase())) {
 
-        // Transform item metadata
-        // Format srcFormat = new Format(md.getName(), md.getMdFormat(), enc);
-        // Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-
         Transformer transformer =
-            TransformerCache.getTransformer(FORMAT.valueOf(md.getName()),
-                FORMAT.valueOf(trgFormatName));
+            TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
+                Util.getFORMAT(trgFormatName));
         StringWriter wr = new StringWriter();
 
         transformer.transform(
             new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(enc))),
             new TransformerStreamResult(wr));
+
+        String itemAfterTransformaton = wr.toString();
 
         if (currentSource.getItemUrl() != null) {
           this.setItemUrl(new URL(currentSource.getItemUrl().toString()
@@ -289,8 +287,8 @@ public class DataHandlerService {
           // Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
 
           Transformer componentTransformer =
-              TransformerCache.getTransformer(FORMAT.valueOf(md.getName()),
-                  FORMAT.valueOf(trgFormatName.replace("ITEM", "COMPONENT")));
+              TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
+                  FORMAT.ESCIDOC_COMPONENT_XML);
           if (componentTransformer != null) {
             wr = new StringWriter();
 

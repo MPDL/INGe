@@ -53,7 +53,7 @@ public class DataAcquisitionUnitTest {
   private final static String pmcId = "PMC2043518";
   private final static String bmcId = "1472-6890-9-1";
   private final static String spiresId = "hep-ph/0001001 ";
-  private final static String escidocId = "escidoc:1801318";
+  private final static String escidocId = "escidoc:1817723";
 
   @Before
   public void setup() throws Exception {
@@ -94,7 +94,6 @@ public class DataAcquisitionUnitTest {
 
   @Test
   @Ignore
-  // TODO: test with item after update of metadata on live server
   public void fetcheSciDoc() throws Exception {
     byte[] test = this.datahandler.doFetch("escidoc", escidocId);
     Assert.assertNotNull(test);
@@ -119,5 +118,4 @@ public class DataAcquisitionUnitTest {
       Assert.assertNotNull(ret);
     }
   }
-
 }

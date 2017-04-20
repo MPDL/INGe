@@ -149,7 +149,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
   public static Source getXmlSourceFromProperty(String property, String defaultFile)
       throws TransformationException {
     String stylesheetFileName = PropertyReader.getProperty(property);
-    if (stylesheetFileName == null) {
+    if (stylesheetFileName == null || "".equals(stylesheetFileName)) {
       stylesheetFileName = defaultFile;
     }
     try {

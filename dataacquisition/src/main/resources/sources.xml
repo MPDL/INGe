@@ -169,9 +169,9 @@
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoc</source-identifier>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
-		<source-identifier-example>escidoc:http://test-pubman.mpdl.mpg.de/pubman/item/escidoc:12001:2</source-identifier-example>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
+		<source-identifier-example>escidoc:1817723</source-identifier-example>
+		<source-identifier-example>escidoc:http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:1817723:2</source-identifier-example>
+		<source-identifier-example>escidoc:994838</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
@@ -397,7 +397,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://test-pubman:8080/pubman/item/escidoc:GETID</item-url>
+		<item-url>http://test-pubman/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoctest</source-identifier>
 		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
@@ -457,7 +457,7 @@
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>https://coreservice.mpdl.mpg.de:8080</dc:identifier>
+				<dc:identifier>https://coreservice.mpdl.mpg.de</dc:identifier>
 				<dc:format>unknown</dc:format>
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
