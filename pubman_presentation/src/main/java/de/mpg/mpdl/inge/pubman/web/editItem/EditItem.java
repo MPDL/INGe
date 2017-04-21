@@ -526,7 +526,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);

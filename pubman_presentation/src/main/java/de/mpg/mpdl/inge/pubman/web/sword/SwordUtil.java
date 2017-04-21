@@ -798,7 +798,7 @@ public class SwordUtil extends FacesBean {
 
   public void validateItem(PubItemVO item) throws NamingException, ValidationException,
       ItemInvalidException {
-    ItemValidatingService.validateItemObject(item, ValidationPoint.STANDARD);
+    ItemValidatingService.validate(item, ValidationPoint.STANDARD);
   }
 
   public boolean checkMetadatFormat(String format) {

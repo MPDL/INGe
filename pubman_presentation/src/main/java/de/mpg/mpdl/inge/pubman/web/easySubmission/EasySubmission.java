@@ -1188,7 +1188,7 @@ public class EasySubmission extends FacesBean {
       }
 
       try {
-        ItemValidatingService.validateItemObject(itemVO, validationPoint);
+        ItemValidatingService.validate(itemVO, validationPoint);
       } catch (final ItemInvalidException e) {
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
           FacesBean.error(this.getMessage(item.getContent()));

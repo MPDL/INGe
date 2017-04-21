@@ -778,7 +778,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String submitItem() {
     try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
@@ -795,7 +795,7 @@ public class ViewItemFull extends FacesBean {
 
   public String acceptItem() {
     try {
-      ItemValidatingService.validateItemObject(new PubItemVO(this.getPubItem()),
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
           ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());

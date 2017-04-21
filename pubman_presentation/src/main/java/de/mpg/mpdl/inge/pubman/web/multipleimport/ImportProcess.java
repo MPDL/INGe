@@ -599,13 +599,13 @@ public class ImportProcess extends Thread {
       // Simple Validation
       this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
       try {
-        ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.SIMPLE);
+        ItemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
         this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
 
         // Standard Validation
         this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
         try {
-          ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
+          ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
           this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
           this.log.setItemVO(pubItemVO);

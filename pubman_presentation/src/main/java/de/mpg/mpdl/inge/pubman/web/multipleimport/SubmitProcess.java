@@ -103,7 +103,7 @@ public class SubmitProcess extends Thread {
           PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
 
           try {
-            ItemValidatingService.validateItemObject(pubItemVO, ValidationPoint.STANDARD);
+            ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
           } catch (final ItemInvalidException e) {
             this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
             for (final ValidationReportItemVO v : e.getReport().getItems()) {

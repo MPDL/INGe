@@ -12,11 +12,11 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 public class ItemValidatingService {
   private static final Logger LOG = Logger.getLogger(ItemValidatingService.class);
 
-  public static void validateItemObject(final ItemVO itemVO, final ValidationPoint validationPoint)
+  public static void validate(final ItemVO itemVO, final ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
 
     try {
-      Validation.doValidation(itemVO, validationPoint);
+      Validation.validate(itemVO, validationPoint);
     } catch (final ValidationException e) {
       ItemValidatingService.LOG.error("validateItemObject:", e);
       throw e;
