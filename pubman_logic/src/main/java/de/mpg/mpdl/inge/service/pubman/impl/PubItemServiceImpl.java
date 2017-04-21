@@ -130,7 +130,6 @@ public class PubItemServiceImpl implements PubItemService {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
 
-    String objectId = pubItemVO.getVersion().getObjectId();
     PubItemVO latestVersion = getLatestVersion(pubItemVO.getVersion().getObjectId());
 
     ContextVO context = contextDao.get(pubItemVO.getContext().getObjectId());
@@ -372,18 +371,17 @@ public class PubItemServiceImpl implements PubItemService {
     return pubItemDao.search(srr);
   }
 
-  public void validateMetadata(PubItemVO pubItem) throws IngeServiceException, ValidationException {
+  private void validateMetadata(PubItemVO pubItem) throws IngeServiceException, ValidationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
+    
     if (pubItem.getPublicStatus() != null && State.PENDING.equals(pubItem.getPublicStatus())) {
       vp = ValidationPoint.SAVE;
     }
+    
     validateMetadata(pubItem, vp);
-
-
-
   }
 
-  public void validateMetadata(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
+  private void validateMetadata(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
       ValidationException {
     try {
       ItemValidatingService.validateItemObject(pubItem, vp);
@@ -393,7 +391,4 @@ public class PubItemServiceImpl implements PubItemService {
       throw new ValidationException(e.getReport(), e);
     }
   }
-
-
-
 }
