@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -43,11 +41,8 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private static final Logger logger = Logger.getLogger(YearbookItemSessionBean.class);
 
-  private final String MAXIMUM_RECORDS = "5000";
-
   private YBWORKSPACE selectedWorkspace;
   private PubItemVO yearbookItem;
-  // private ItemHandler itemHandler;
   private ContextVO yearbookContext;
 
   private PubItemListSessionBean pilsb;
@@ -59,8 +54,6 @@ public class YearbookItemSessionBean extends FacesBean {
   public YearbookItemSessionBean() {
     try {
       this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
-      // this.itemHandler =
-      // ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
     } catch (final Exception e) {
       FacesBean.error("Error retrieving yearbook item!");
@@ -209,17 +202,17 @@ public class YearbookItemSessionBean extends FacesBean {
     // }
   }
 
-  private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
-    String filter = "<param last-modification-date=\"" + JiBXHelper.serializeDate(lmd) + "\">";
-    for (final ItemRO rel : relList) {
-      filter +=
-          "<relation><targetId>"
-              + rel.getObjectId()
-              + "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
-    }
-    filter += "</param>";
-    return filter;
-  }
+//  private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
+//    String filter = "<param last-modification-date=\"" + JiBXHelper.serializeDate(lmd) + "\">";
+//    for (final ItemRO rel : relList) {
+//      filter +=
+//          "<relation><targetId>"
+//              + rel.getObjectId()
+//              + "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
+//    }
+//    filter += "</param>";
+//    return filter;
+//  }
 
   public void setYearbookContext(ContextVO yearbookContext) {
     this.yearbookContext = yearbookContext;

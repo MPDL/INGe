@@ -180,7 +180,7 @@ public class InternationalizationHelper implements Serializable {
    */
   public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry,
       final Object[] values) {
-    final Object[] valuesWithoutNull = InternationalizationHelper.removeNullValues(values);
+    final Object[] valuesWithoutNull = removeNullValues(values);
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
@@ -199,7 +199,7 @@ public class InternationalizationHelper implements Serializable {
     return selectItems;
   }
 
-  private static Object[] removeNullValues(Object[] values) {
+  private Object[] removeNullValues(Object[] values) {
     final List<Object> listWithoutNulls = new ArrayList<Object>();
     for (final Object o : values) {
       if (o != null) {

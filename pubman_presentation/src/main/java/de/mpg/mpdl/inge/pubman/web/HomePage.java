@@ -29,14 +29,10 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
-import de.mpg.mpdl.inge.dao.OrganizationDao;
+
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -47,7 +43,6 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
-import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -60,12 +55,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(HomePage.class);
-
-  /*
-   * @Inject private OrganizationDao<QueryBuilder> odIn;
-   */
-
-
 
   public HomePage() {}
 
@@ -81,7 +70,6 @@ public class HomePage extends BreadcrumbPage {
 
     super.init();
   }
-
 
   /**
    * Reads the blog URL from the properties file. Needed for blogintegration on homepage
@@ -180,6 +168,7 @@ public class HomePage extends BreadcrumbPage {
     final ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
     final List<PubItemVOPresentation> list =
         SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+    
     return list;
   }
 
@@ -187,5 +176,4 @@ public class HomePage extends BreadcrumbPage {
   public boolean isItemSpecific() {
     return false;
   }
-
 }

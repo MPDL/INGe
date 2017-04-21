@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1134,7 +1133,6 @@ public class ViewItemFull extends FacesBean {
     InternationalizationHelper i18nHelper =
         (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
     return i18nHelper.getLabel(placeholder);
-    // return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
   }
 
   /**
