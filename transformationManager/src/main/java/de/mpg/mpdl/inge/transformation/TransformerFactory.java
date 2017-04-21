@@ -16,34 +16,31 @@ import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 
 public class TransformerFactory {
-
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
-
 
   public enum FORMAT {
 
-    BMC_XML, BMC_OAIPMH_XML, BMC_FULLTEXT_XML, BMC_FULLTEXT_HTML, 
-    ENDNOTE_STRING, ENDNOTE_XML,
-    BIBTEX_STRING, 
-    MARC_21_STRING, MARC_XML, 
-    ESCIDOC_ITEM_V3_XML, ESCIDOC_ITEM_V2_XML, ESCIDOC_ITEM_V1_XML, ESCIDOC_ITEMLIST_V1_XML, ESCIDOC_ITEMLIST_V2_XML, ESCIDOC_ITEMLIST_V3_XML, ESCIDOC_COMPONENT_XML, ESCIDOC_ITEM_VO,
-    COINS_STRING, 
-    DOI_METADATA_XML, 
-    ZIM_XML, 
-    EDOC_XML, 
-    MAB_STRING, MAB_XML, 
-    RIS_STRING, RIS_XML, 
-    WOS_STRING, WOS_XML, 
-    JUS_SNIPPET_XML, JUS_INDESIGN_XML, JUS_HTML_XML, 
-    DC_XML, 
-    HTML_METATAGS_DC_XML, HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, 
-    OAI_DC, 
-    MODS_XML, 
-    PEER_TEI_XML, 
-    ZFN_TEI_XML, 
-    ARXIV_OAIPMH_XML, 
-    PMC_OAIPMH_XML, 
-    SPIRES_XML;
+    ARXIV_OAIPMH_XML, //
+    BIBTEX_STRING, //
+    BMC_XML, BMC_OAIPMH_XML, BMC_FULLTEXT_XML, BMC_FULLTEXT_HTML, //
+    COINS_STRING, //
+    DOI_METADATA_XML, //
+    EDOC_XML, //
+    ENDNOTE_STRING, ENDNOTE_XML, //
+    ESCIDOC_ITEM_V3_XML, ESCIDOC_ITEM_V2_XML, ESCIDOC_ITEM_V1_XML, ESCIDOC_ITEMLIST_V1_XML, ESCIDOC_ITEMLIST_V2_XML, ESCIDOC_ITEMLIST_V3_XML, ESCIDOC_COMPONENT_XML, ESCIDOC_ITEM_VO, //
+    HTML_METATAGS_DC_XML, HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, //
+    JUS_SNIPPET_XML, JUS_INDESIGN_XML, JUS_HTML_XML, DC_XML, //
+    MAB_STRING, MAB_XML, //
+    MARC_21_STRING, MARC_XML, //
+    MODS_XML, //
+    OAI_DC, //
+    PEER_TEI_XML, //
+    RIS_STRING, RIS_XML, //
+    PMC_OAIPMH_XML, //
+    SPIRES_XML, //
+    WOS_STRING, WOS_XML, //
+    ZFN_TEI_XML, //
+    ZIM_XML;
 
     public String getType() {
       switch (this) {
@@ -55,13 +52,14 @@ public class TransformerFactory {
         case RIS_STRING:
         case WOS_STRING:
           return "text/plain";
+          
         case JUS_HTML_XML:
         case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
         case BMC_FULLTEXT_HTML:
           return "text/html";
+          
         default:
           return "application/xml";
-
       }
     }
 
@@ -84,8 +82,8 @@ public class TransformerFactory {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModule tm = transformerClass.getAnnotation(TransformerModule.class);
 
-      transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
-          .targetFormat()));
+      transformerEdges
+          .add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
 
     }
 
@@ -93,8 +91,8 @@ public class TransformerFactory {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModules tms = transformerClass.getAnnotation(TransformerModules.class);
       for (TransformerModule tm : tms.value()) {
-        transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
-            .targetFormat()));
+        transformerEdges
+            .add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
       }
 
 
@@ -107,8 +105,8 @@ public class TransformerFactory {
 
 
     if (edges == null || edges.size() == 0) {
-      throw new TransformationException("No transformation chain found for " + sourceFormat
-          + " --> " + targetFormat);
+      throw new TransformationException(
+          "No transformation chain found for " + sourceFormat + " --> " + targetFormat);
     } else if (edges.size() == 1) {
 
       try {
@@ -225,8 +223,9 @@ public class TransformerFactory {
           TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
       StringWriter wr = new StringWriter();
 
-      t.transform(new TransformerStreamSource(new FileInputStream(
-          "C:\\Users\\haarlae1\\Downloads\\export_escidoc_xml_v13.xml")),
+      t.transform(
+          new TransformerStreamSource(
+              new FileInputStream("C:\\Users\\haarlae1\\Downloads\\export_escidoc_xml_v13.xml")),
           new TransformerStreamResult(wr));
       System.out.println(wr.toString());
 
