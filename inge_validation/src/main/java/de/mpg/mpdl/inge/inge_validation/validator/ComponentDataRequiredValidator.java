@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
 /*
@@ -49,30 +50,28 @@ public class ComponentDataRequiredValidator extends ValidatorHandler<List<FileVO
 
     boolean ok = true;
 
-    if (files != null && files.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
       for (final FileVO fileVO : files) {
 
-        if (fileVO.getContent() == null) {
+        if (fileVO != null //
+            && fileVO.getContent() == null) {
 
           if (fileVO.getDefaultMetadata() != null //
-              && fileVO.getDefaultMetadata().getTitle() != null //
-              && fileVO.getDefaultMetadata().getTitle().trim().length() > 0) {
+              && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (fileVO.getContentCategory() != null //
-              && fileVO.getContentCategory().trim().length() > 0) {
+          if (ValidationTools.isNotEmpty(fileVO.getContentCategory())) {
             context.addError(ValidationError.create(
                 ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (fileVO.getMimeType() != null //
-              && fileVO.getMimeType().trim().length() > 0) {
+          if (ValidationTools.isNotEmpty(fileVO.getMimeType())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;

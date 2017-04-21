@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
@@ -51,49 +52,53 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
         break;
       }
 
-      final CreatorType type = creatorVO.getType();
-      switch (type) {
+      if (creatorVO != null) {
 
-        case ORGANIZATION:
+        final CreatorType type = creatorVO.getType();
+        switch (type) {
 
-          final OrganizationVO o = creatorVO.getOrganization();
-          if (o != null && o.getName() != null && o.getName().trim().length() > 0) {
-            ok++;
-          } else {
-            errorOrg = true;
-            continue;
-          }
+          case ORGANIZATION:
 
-          break;
-
-        case PERSON:
-
-          final PersonVO p = creatorVO.getPerson();
-          if (p == null || p.getFamilyName() == null) {
-            errorPers = true;
-            continue;
-          }
-
-          int orgsOk = 0;
-          final List<OrganizationVO> orgs = p.getOrganizations();
-          if (orgs.isEmpty() == false) {
-            for (final OrganizationVO organizationVO : orgs) {
-              if (organizationVO.getName() != null && organizationVO.getName().trim().length() > 0) {
-                orgsOk++;
-              }
+            final OrganizationVO o = creatorVO.getOrganization();
+            if (o != null && ValidationTools.isNotEmpty(o.getName())) {
+              ok++;
+            } else {
+              errorOrg = true;
+              continue;
             }
-          } else {
-            orgsOk++;
-          }
 
-          if (orgsOk > 0) {
-            ok++;
-          } else {
-            errorPersOrg = true;
-          }
+            break;
 
-          break;
-      }
+          case PERSON:
+
+            final PersonVO p = creatorVO.getPerson();
+            if (p == null || p.getFamilyName() == null) {
+              errorPers = true;
+              continue;
+            }
+
+            int orgsOk = 0;
+            final List<OrganizationVO> orgs = p.getOrganizations();
+            if (ValidationTools.isNotEmpty(orgs)) {
+              for (final OrganizationVO organizationVO : orgs) {
+                if (organizationVO != null && ValidationTools.isNotEmpty(organizationVO.getName())) {
+                  orgsOk++;
+                }
+              }
+            } else {
+              orgsOk++;
+            }
+
+            if (orgsOk > 0) {
+              ok++;
+            } else {
+              errorPersOrg = true;
+            }
+
+            break;
+        }
+
+      } // if
 
     } // for
 
@@ -113,7 +118,6 @@ public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> 
 
       return false;
     }
-
 
     return true;
   }

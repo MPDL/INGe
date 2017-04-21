@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
 /*
@@ -26,28 +27,30 @@ public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceV
 
     boolean ok = true;
 
-    if (sources != null && !sources.isEmpty()) {
+    if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO.getTitle() == null && //
-            (sourceVO.getAlternativeTitles() != null && !sourceVO.getAlternativeTitles().isEmpty() //
-                || sourceVO.getCreators() != null && !sourceVO.getCreators().isEmpty() //
-                || sourceVO.getDatePublishedInPrint() != null //
-                || sourceVO.getEndPage() != null //
-                || sourceVO.getGenre() != null //
-                || sourceVO.getIdentifiers() != null && !sourceVO.getIdentifiers().isEmpty() //
-                || sourceVO.getIssue() != null //
-                || sourceVO.getPublishingInfo() != null //
-                || sourceVO.getSequenceNumber() != null //
-                || sourceVO.getSources() != null && !sourceVO.getSources().isEmpty() //
-                || sourceVO.getStartPage() != null //
-                || sourceVO.getTotalNumberOfPages() != null //
-            || sourceVO.getVolume() != null)) {
-          context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED)
-              .setField("source[" + i + "]"));
-          ok = false;
+        if (sourceVO != null) {
+          if (sourceVO.getTitle() == null && //
+              (ValidationTools.isNotEmpty(sourceVO.getAlternativeTitles()) //
+                  || ValidationTools.isNotEmpty(sourceVO.getCreators()) //
+                  || sourceVO.getDatePublishedInPrint() != null //
+                  || ValidationTools.isNotEmpty(sourceVO.getEndPage()) //
+                  || sourceVO.getGenre() != null //
+                  || ValidationTools.isNotEmpty(sourceVO.getIdentifiers()) //
+                  || ValidationTools.isNotEmpty(sourceVO.getIssue()) //
+                  || sourceVO.getPublishingInfo() != null //
+                  || ValidationTools.isNotEmpty(sourceVO.getSequenceNumber()) //
+                  || ValidationTools.isNotEmpty(sourceVO.getSources()) //
+                  || ValidationTools.isNotEmpty(sourceVO.getStartPage()) //
+                  || ValidationTools.isNotEmpty(sourceVO.getTotalNumberOfPages()) //
+              || ValidationTools.isNotEmpty(sourceVO.getVolume()))) {
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED)
+                .setField("source[" + i + "]"));
+            ok = false;
+          }
         }
 
         i++;

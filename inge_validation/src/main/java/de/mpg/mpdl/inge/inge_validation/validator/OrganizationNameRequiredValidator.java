@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
@@ -29,30 +30,39 @@ public class OrganizationNameRequiredValidator extends ValidatorHandler<List<Cre
 
     boolean ok = true;
 
-    if (creators != null && creators.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
       for (final CreatorVO creatorVO : creators) {
 
-        if (CreatorType.PERSON.equals(creatorVO.getType())) {
+        if (creatorVO != null && CreatorType.PERSON.equals(creatorVO.getType())) {
 
           final PersonVO p = creatorVO.getPerson();
 
           if (p != null) {
             final List<OrganizationVO> orgs = p.getOrganizations();
 
-            int j = 1;
-            for (final OrganizationVO organizationVO : orgs) {
+            if (ValidationTools.isNotEmpty(orgs)) {
 
-              if ((organizationVO.getName() == null || organizationVO.getName().isEmpty()) && (organizationVO.getAddress() != null || !organizationVO.getAddress().isEmpty())) {
-                context.addError(ValidationError.create(
-                    ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
-                    .setField("creator[" + i + "].organization[" + j + "]"));
-                ok = false;
-              }
+              int j = 1;
+              for (final OrganizationVO organizationVO : orgs) {
 
-              j++;
-            } // for
+                if (organizationVO != null) {
+
+                  if (ValidationTools.isEmpty(organizationVO.getName())
+                      && ValidationTools.isNotEmpty(organizationVO.getAddress())) {
+                    context.addError(ValidationError.create(
+                        ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
+                        .setField("creator[" + i + "].organization[" + j + "]"));
+                    ok = false;
+                  }
+
+                } // if
+
+                j++;
+              } // for
+
+            } // if
 
           } // if
 

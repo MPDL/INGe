@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -32,66 +33,74 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
     boolean ok = true;
 
-    if (sources != null && sources.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        int j = 1;
-        for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+        if (sourceVO != null) {
 
-          if (creatorVO.getRole() == null) {
+          int j = 1;
+          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            switch (creatorVO.getType()) {
+            if (creatorVO != null && creatorVO.getRole() == null) {
 
-              case ORGANIZATION:
+              switch (creatorVO.getType()) {
 
-                final OrganizationVO o = creatorVO.getOrganization();
-                if (o.getName() != null //
-                    && o.getName().trim().length() > 0 //
-                    || o.getAddress() != null //
-                    && o.getAddress().trim().length() > 0) {
-                  context.addError(ValidationError.create(
-                      ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                      "source[" + i + "].creator[" + j + "]"));
-                  ok = false;
-                }
+                case ORGANIZATION:
 
-                break;
-
-              case PERSON:
-
-                final PersonVO p = creatorVO.getPerson();
-                if (p.getFamilyName() != null //
-                    && p.getFamilyName().trim().length() > 0 //
-                    || p.getGivenName() != null //
-                    && p.getGivenName().trim().length() > 0) {
-                  context.addError(ValidationError.create(
-                      ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                      "source[" + i + "].creator[" + j + "]"));
-                  ok = false;
-                }
-
-                final List<OrganizationVO> orgs = p.getOrganizations();
-
-                int z = 1;
-                for (final OrganizationVO organizationVO : orgs) {
-
-                  if (organizationVO.getName() != null //
-                      && organizationVO.getName().trim().length() > 0 //
-                      || organizationVO.getAddress() != null //
-                      && organizationVO.getAddress().trim().length() > 0) {
-                    context.addError(ValidationError.create(
-                        ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                        "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                  final OrganizationVO o = creatorVO.getOrganization();
+                  if (o != null) {
+                    if (ValidationTools.isNotEmpty(o.getName()) //
+                        || ValidationTools.isNotEmpty(o.getAddress())) {
+                      context.addError(ValidationError.create(
+                          ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
+                          "source[" + i + "].creator[" + j + "]"));
+                      ok = false;
+                    }
                   }
-                  ok = false;
 
-                  z++;
-                } // for
+                  break;
 
-                break;
-            } // switch
+                case PERSON:
+
+                  final PersonVO p = creatorVO.getPerson();
+                  if (p != null) {
+                    if (ValidationTools.isNotEmpty(p.getFamilyName()) //
+                        || ValidationTools.isNotEmpty(p.getGivenName())) {
+                      context.addError(ValidationError.create(
+                          ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
+                          "source[" + i + "].creator[" + j + "]"));
+                      ok = false;
+                    }
+                  }
+
+                  final List<OrganizationVO> orgs = p.getOrganizations();
+
+                  if (ValidationTools.isNotEmpty(orgs)) {
+
+                    int z = 1;
+                    for (final OrganizationVO organizationVO : orgs) {
+
+                      if (organizationVO != null) {
+                        if (ValidationTools.isNotEmpty(organizationVO.getName()) //
+                            || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
+                          context.addError(ValidationError.create(
+                              ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
+                              "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                        }
+                      }
+                      ok = false;
+
+                      z++;
+                    } // for
+
+                  } // if
+
+                  break;
+              } // switch
+
+            } // if
 
             j++;
           } // for

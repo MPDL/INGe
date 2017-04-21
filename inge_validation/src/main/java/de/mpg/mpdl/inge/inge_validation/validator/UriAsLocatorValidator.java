@@ -9,6 +9,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
@@ -43,18 +44,19 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
 
     boolean ok = true;
 
-    if (files != null && files.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
       for (final FileVO fileVO : files) {
 
-        if (fileVO.getContent() != null //
-            && fileVO.getContent().trim().length() > 0 //
-            && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
-            && !Pattern.matches(UriAsLocatorValidator.URL_PATTERN, fileVO.getContent())) {
-          context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
-              "file[" + i + "]"));
-          ok = false;
+        if (fileVO != null) {
+          if (ValidationTools.isNotEmpty(fileVO.getContent()) //
+              && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
+              && !Pattern.matches(UriAsLocatorValidator.URL_PATTERN, fileVO.getContent())) {
+            context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
+                "file[" + i + "]"));
+            ok = false;
+          }
         }
 
         i++;

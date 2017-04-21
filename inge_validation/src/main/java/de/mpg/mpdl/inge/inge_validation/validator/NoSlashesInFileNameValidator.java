@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
@@ -39,25 +40,22 @@ public class NoSlashesInFileNameValidator extends ValidatorHandler<List<FileVO>>
 
     boolean ok = true;
 
-    if (files != null && files.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
       for (final FileVO fileVO : files) {
 
-        if (fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
-          if (fileVO.getName() != null //
-              && fileVO.getName().trim().length() > 0 //
+        if (fileVO != null && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
+          if (ValidationTools.isNotEmpty(fileVO.getName()) //
               && fileVO.getName().contains("/") //
               || fileVO.getDefaultMetadata() != null //
-              && fileVO.getDefaultMetadata().getTitle() != null
-              && fileVO.getDefaultMetadata().getTitle().trim().length() > 0
+              && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())
               && fileVO.getDefaultMetadata().getTitle().contains("/")) {
             context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField(
                 "file[" + i + "]"));
             ok = false;
           }
-
-        } // if
+        }
 
         i++;
       } // for

@@ -9,6 +9,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /*
@@ -121,7 +122,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
   private boolean checkDate(String s) {
 
-    if (s != null && s.trim().length() > 0) {
+    if (ValidationTools.isNotEmpty(s)) {
       try {
         MdsPublicationDateFormatValidator.SHORT.parse(s);
       } catch (final ParseException e) {

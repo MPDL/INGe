@@ -5,6 +5,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 
 /*
@@ -23,10 +24,10 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
     if (e != null) {
 
       if (e.getTitle() == null //
-          && (e.getEndDate() != null //
+          && (ValidationTools.isNotEmpty(e.getEndDate()) //
               || e.getInvitationStatus() != null //
-              || e.getPlace() != null && e.getPlace().trim().length() > 0 //
-          || e.getStartDate() != null && e.getStartDate().trim().length() > 0)) {
+              || ValidationTools.isNotEmpty(e.getPlace()) //
+          || ValidationTools.isNotEmpty(e.getStartDate()))) {
         context.addErrorMsg(ErrorMessages.EVENT_TITLE_NOT_PROVIDED);
         return false;
       }

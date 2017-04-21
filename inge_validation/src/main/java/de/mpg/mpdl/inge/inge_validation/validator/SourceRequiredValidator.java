@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
 /*
@@ -25,7 +26,7 @@ public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> im
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
 
-    if (sources == null || sources.isEmpty()) {
+    if (ValidationTools.isEmpty(sources)) {
       context.addErrorMsg(ErrorMessages.SOURCE_NOT_PROVIDED);
       return false;
     }

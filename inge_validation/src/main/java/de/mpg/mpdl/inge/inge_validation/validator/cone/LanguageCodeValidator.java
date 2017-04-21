@@ -9,6 +9,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 
 /*
  * <!-- The language codes of the publication must be in ISO639-3 --> <iso:pattern
@@ -26,7 +27,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     boolean ok = true;
 
-    if (languages != null && languages.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(languages)) {
 
       final Set<String> iso639_3_IdentifierSet =
           ConeCache.getInstance().getIso639_3_IdentifierSet();
@@ -34,9 +35,8 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
       int i = 1;
       for (final String language : languages) {
 
-        if (language != null //
-            && language.trim().length() > 0 //
-            && !iso639_3_IdentifierSet.isEmpty() //
+        if (ValidationTools.isNotEmpty(language) //
+            && ValidationTools.isNotEmpty(iso639_3_IdentifierSet) //
             && !iso639_3_IdentifierSet.contains(language)) {
           context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField(
               "language[" + i + "]"));

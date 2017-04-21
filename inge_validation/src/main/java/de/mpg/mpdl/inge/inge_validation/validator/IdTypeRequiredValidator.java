@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 
 /*
@@ -25,16 +26,18 @@ public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>
 
     boolean ok = true;
 
-    if (identifiers != null && identifiers.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(identifiers)) {
 
       int i = 1;
       for (final IdentifierVO identifierVO : identifiers) {
 
-        if (identifierVO.getId() != null && identifierVO.getId().trim().length() > 0
-            && identifierVO.getType() == null) {
-          context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField(
-              "identifier[" + i + "]"));
-          ok = false;
+        if (identifierVO != null) {
+          if (ValidationTools.isNotEmpty(identifierVO.getId()) //
+              && identifierVO.getType() == null) {
+            context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField(
+                "identifier[" + i + "]"));
+            ok = false;
+          }
         }
 
         i++;

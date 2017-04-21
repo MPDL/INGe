@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -31,25 +32,25 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
 
     boolean ok = true;
 
-    if (creators != null && creators.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
       for (final CreatorVO creatorVO : creators) {
 
-        if (creatorVO.getRole() == null) {
+        if (creatorVO != null && creatorVO.getRole() == null) {
 
           switch (creatorVO.getType()) {
 
             case ORGANIZATION:
 
               final OrganizationVO o = creatorVO.getOrganization();
-              if (o.getName() != null //
-                  && o.getName().trim().length() > 0 //
-                  || o.getAddress() != null //
-                  && o.getAddress().trim().length() > 0) {
-                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
-                    .setField("creator[" + i + "]"));
-                ok = false;
+              if (o != null) {
+                if (ValidationTools.isNotEmpty(o.getName()) //
+                    || ValidationTools.isNotEmpty(o.getAddress())) {
+                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
+                      .setField("creator[" + i + "]"));
+                  ok = false;
+                }
               }
 
               break;
@@ -57,31 +58,38 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
             case PERSON:
 
               final PersonVO p = creatorVO.getPerson();
-              if (p.getFamilyName() != null //
-                  && p.getFamilyName().trim().length() > 0 //
-                  || p.getGivenName() != null //
-                  && p.getGivenName().trim().length() > 0) {
-                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
-                    .setField("creator[" + i + "]"));
-                ok = false;
+              if (p != null) {
+                if (p.getFamilyName() != null //
+                    && p.getFamilyName().trim().length() > 0 //
+                    || p.getGivenName() != null //
+                    && p.getGivenName().trim().length() > 0) {
+                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
+                      .setField("creator[" + i + "]"));
+                  ok = false;
+                }
               }
 
               final List<OrganizationVO> orgs = p.getOrganizations();
 
-              int j = 1;
-              for (final OrganizationVO organizationVO : orgs) {
+              if (ValidationTools.isNotEmpty(orgs)) {
 
-                if (organizationVO.getName() != null //
-                    && organizationVO.getName().trim().length() > 0 //
-                    || organizationVO.getAddress() != null //
-                    && organizationVO.getAddress().trim().length() > 0) {
-                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
-                      .setField("creator[" + i + "].organization[" + j + "]"));
-                }
-                ok = false;
+                int j = 1;
+                for (final OrganizationVO organizationVO : orgs) {
 
-                j++;
-              } // for
+                  if (organizationVO != null) {
+                    if (ValidationTools.isNotEmpty(organizationVO.getName()) //
+                        || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
+                      context.addError(ValidationError.create(
+                          ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
+                          .setField("creator[" + i + "].organization[" + j + "]"));
+                    }
+                    ok = false;
+                  }
+
+                  j++;
+                } // for
+
+              } // if
 
               break;
 

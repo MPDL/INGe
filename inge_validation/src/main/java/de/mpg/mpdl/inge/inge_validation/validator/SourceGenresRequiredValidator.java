@@ -8,6 +8,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
 /*
@@ -25,17 +26,18 @@ public class SourceGenresRequiredValidator extends ValidatorHandler<List<SourceV
 
     boolean ok = true;
 
-    if (sources != null && sources.isEmpty() == false) {
+    if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO.getTitle() != null //
-            && sourceVO.getTitle().trim().length() > 0 //
-            && sourceVO.getGenre() == null) {
-          context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED)
-              .setField("source[" + i + "]"));
-          ok = false;
+        if (sourceVO != null) {
+          if (ValidationTools.isNotEmpty(sourceVO.getTitle()) //
+              && sourceVO.getGenre() == null) {
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED)
+                .setField("source[" + i + "]"));
+            ok = false;
+          }
         }
 
         i++;
