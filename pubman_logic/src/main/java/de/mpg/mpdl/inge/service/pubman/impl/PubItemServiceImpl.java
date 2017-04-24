@@ -71,7 +71,7 @@ public class PubItemServiceImpl implements PubItemService {
 
     aaService.checkPubItemAa(pubItemToCreate, context, userAccount, "create");
 
-    validateMetadata(pubItemToCreate);
+    validate(pubItemToCreate);
 
     String id = idProviderService.getNewId();
     String fullId = id + "_1";
@@ -150,7 +150,7 @@ public class PubItemServiceImpl implements PubItemService {
             newVersionState, latestVersion.getPublicStatus());
 
     PubItemUtil.cleanUpItem(pubItemToCreate);
-    validateMetadata(pubItemToCreate);;
+    validate(pubItemToCreate);;
 
     String newFullId = pubItemToCreate.getVersion().getObjectId() + "_" + newVersionNumber;
 
@@ -316,7 +316,7 @@ public class PubItemServiceImpl implements PubItemService {
             .getVersion().getVersionNumber(), newVersionState, newPublicState);
 
     pubItemToCreate.getVersion().setLastMessage(message);
-    validateMetadata(pubItemToCreate);
+    validate(pubItemToCreate);
 
     String fullId =
         pubItemToCreate.getVersion().getObjectId() + "_"
@@ -371,17 +371,17 @@ public class PubItemServiceImpl implements PubItemService {
     return pubItemDao.search(srr);
   }
 
-  private void validateMetadata(PubItemVO pubItem) throws IngeServiceException, ValidationException {
+  private void validate(PubItemVO pubItem) throws IngeServiceException, ValidationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
     
     if (pubItem.getPublicStatus() != null && State.PENDING.equals(pubItem.getPublicStatus())) {
       vp = ValidationPoint.SAVE;
     }
     
-    validateMetadata(pubItem, vp);
+    validate(pubItem, vp);
   }
 
-  private void validateMetadata(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
+  private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
       ValidationException {
     try {
       ItemValidatingService.validate(pubItem, vp);

@@ -516,9 +516,9 @@ public class EasySubmission extends FacesBean {
     this.bindUploadedFiles();
     this.parseAndSetAlternativeSourceTitlesAndIds();
 
-    if (this.validate(ValidationPoint.STANDARD, "validate") == null) {
-      return null;
-    }
+//    if (this.validate(ValidationPoint.STANDARD, "validate") == null) {
+//      return null;
+//    }
 
     ((EditItem) FacesTools.findBean("EditItem")).setFromEasySubmission(true);
 

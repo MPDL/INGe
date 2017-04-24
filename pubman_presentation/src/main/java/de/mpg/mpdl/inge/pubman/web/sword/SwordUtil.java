@@ -77,12 +77,10 @@ import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -796,11 +794,6 @@ public class SwordUtil extends FacesBean {
     return se;
   }
 
-  public void validateItem(PubItemVO item) throws NamingException, ValidationException,
-      ItemInvalidException {
-    ItemValidatingService.validate(item, ValidationPoint.STANDARD);
-  }
-
   public boolean checkMetadatFormat(String format) {
     for (int i = 0; i < this.packaging.length; i++) {
       final String pack = this.packaging[i];
@@ -812,17 +805,9 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  // public String getAcceptedFormat() {
-  // return acceptedFormat;
-  // }
-
   public String getTreatmentText() {
     return SwordUtil.treatmentText;
   }
-
-  // public Deposit getCurrentDeposit() {
-  // return this.currentDeposit;
-  // }
 
   public void setCurrentDeposit(Deposit currentDeposit) {
     this.currentDeposit = currentDeposit;
