@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,22 +46,17 @@ import org.primefaces.model.UploadedFile;
 
 import com.sun.faces.facelets.component.UIRepeat;
 
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
@@ -94,7 +88,6 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -1424,8 +1417,6 @@ public class EditItem extends FacesBean {
   }
 
   public String getLastModifier() throws Exception {
-    UserAccountHandler userAccountHandler = null;
-
     if (this.item.getVersion().getModifiedByRO() != null
         && this.item.getVersion().getModifiedByRO().getTitle() != null) {
       return this.item.getVersion().getModifiedByRO().getTitle();
