@@ -202,17 +202,18 @@ public class YearbookItemSessionBean extends FacesBean {
     // }
   }
 
-//  private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
-//    String filter = "<param last-modification-date=\"" + JiBXHelper.serializeDate(lmd) + "\">";
-//    for (final ItemRO rel : relList) {
-//      filter +=
-//          "<relation><targetId>"
-//              + rel.getObjectId()
-//              + "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
-//    }
-//    filter += "</param>";
-//    return filter;
-//  }
+  // private static String createRelationTaskParam(List<ItemRO> relList, Date lmd) {
+  // String filter = "<param last-modification-date=\"" + JiBXHelper.serializeDate(lmd) + "\">";
+  // for (final ItemRO rel : relList) {
+  // filter +=
+  // "<relation><targetId>"
+  // + rel.getObjectId()
+  // +
+  // "</targetId><predicate>http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember</predicate></relation>";
+  // }
+  // filter += "</param>";
+  // return filter;
+  // }
 
   public void setYearbookContext(ContextVO yearbookContext) {
     this.yearbookContext = yearbookContext;

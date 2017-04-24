@@ -516,10 +516,6 @@ public class EasySubmission extends FacesBean {
     this.bindUploadedFiles();
     this.parseAndSetAlternativeSourceTitlesAndIds();
 
-//    if (this.validate(ValidationPoint.STANDARD, "validate") == null) {
-//      return null;
-//    }
-
     ((EditItem) FacesTools.findBean("EditItem")).setFromEasySubmission(true);
 
     String returnValue;
@@ -532,16 +528,13 @@ public class EasySubmission extends FacesBean {
       }
       this.getPubItemListSessionBean().update();
       return returnValue;
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+    } catch (ItemInvalidException e) {
       for (final ValidationReportItemVO item : e.getReport().getItems()) {
         FacesBean.error(this.getMessage(item.getContent()));
       }
     }
 
-
     return "";
-
-
   }
 
   /**

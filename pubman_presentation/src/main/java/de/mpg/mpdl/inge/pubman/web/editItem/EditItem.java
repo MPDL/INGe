@@ -519,8 +519,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
     } catch (final ItemInvalidException e) {
@@ -559,15 +558,12 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-
-
     String retVal = "";
     try {
       retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+    } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
-
     }
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
@@ -675,7 +671,7 @@ public class EditItem extends FacesBean {
         // (save removed there)
         try {
           this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-        } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+        } catch (ItemInvalidException e) {
           this.showValidationMessages(e.getReport());
           return null;
         }
@@ -761,7 +757,7 @@ public class EditItem extends FacesBean {
     String retVal = "";
     try {
       retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+    } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
     }
@@ -879,7 +875,6 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
 
-
     // check if the item has been changed
     final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
     PubItemVO oldPubItem = null;
@@ -925,7 +920,7 @@ public class EditItem extends FacesBean {
         // only save it
         retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
       }
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
+    } catch (ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
     }

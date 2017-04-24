@@ -1,22 +1,16 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.stereotype.Service;
@@ -34,9 +28,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.service.exceptions.ValidationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -46,23 +38,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
   public AccountUserVO create(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
-    // TODO Auto-generated method stub
+      AaException {
     return null;
   }
 
   @Override
   public AccountUserVO update(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
-    // TODO Auto-generated method stub
+      AaException {
     return null;
   }
 
   @Override
-  public void delete(String id, String userToken) throws IngeServiceException, AaException {
-    // TODO Auto-generated method stub
-
-  }
+  public void delete(String id, String userToken) throws IngeServiceException, AaException {}
 
   @Override
   public AccountUserVO get(String id, String userToken) throws IngeServiceException, AaException {

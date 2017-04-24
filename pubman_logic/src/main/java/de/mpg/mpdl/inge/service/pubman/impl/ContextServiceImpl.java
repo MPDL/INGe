@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.ContextDao;
-import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.service.exceptions.ValidationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
@@ -22,14 +21,14 @@ public class ContextServiceImpl implements ContextService {
 
   @Override
   public ContextVO create(ContextVO contextVO, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
+      AaException, ItemInvalidException {
     contextDao.create(contextVO.getReference().getObjectId(), contextVO);
     return contextDao.get(contextVO.getReference().getObjectId());
   }
 
   @Override
   public ContextVO update(ContextVO contextVO, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
+      AaException, ItemInvalidException {
     contextDao.update(contextVO.getReference().getObjectId(), contextVO);
     return contextDao.get(contextVO.getReference().getObjectId());
   }
@@ -50,7 +49,4 @@ public class ContextServiceImpl implements ContextService {
       String userToken) throws IngeServiceException, AaException {
     return contextDao.search(srr);
   }
-
-
-
 }

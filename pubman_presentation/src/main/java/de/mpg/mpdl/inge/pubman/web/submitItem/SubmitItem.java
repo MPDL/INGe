@@ -41,7 +41,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -110,32 +109,32 @@ public class SubmitItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String submit() {
-    final ExternalContext extContext = FacesTools.getExternalContext();
-    final HttpServletRequest request = FacesTools.getRequest();
-
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String message;
 
     if (this.getCurrentPubItem().getVersion().getState() == State.SUBMITTED) {
+      message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
       navigateTo =
           this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
               navigateTo);
-      message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
     } else {
       navigateTo =
           this.getItemControllerSessionBean().submitCurrentPubItem(this.submissionComment,
               navigateTo);
       if (PubItemService.WORKFLOW_SIMPLE.equals(this.getItemControllerSessionBean()
           .getCurrentWorkflow())) {
+        message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
         navigateTo =
             this.getItemControllerSessionBean().releaseCurrentPubItem(this.submissionComment,
                 navigateTo);
-        message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED);
       } else {
         message = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED);
       }
     }
 
+    if (ViewItemFull.LOAD_VIEWITEM.equals(navigateTo)) {
+      this.info(this.getMessage(message));
+    }
 
     ((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean")).update();
 

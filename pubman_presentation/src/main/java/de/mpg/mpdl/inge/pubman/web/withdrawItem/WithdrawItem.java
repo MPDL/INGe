@@ -107,23 +107,23 @@ public class WithdrawItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String withdraw() {
-    String retVal;
-    String navigateTo = this.getWithDrawItemSessionBean().getNavigationStringToGoBack();
-    if (navigateTo == null) {
-      navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    }
-
     if (this.withdrawalComment == null || "".equals(this.withdrawalComment)) {
       FacesBean.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
 
-    retVal =
+    String navigateTo = this.getWithDrawItemSessionBean().getNavigationStringToGoBack();
+    if (navigateTo == null) {
+      navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    }
+
+    String retVal =
         this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
             this.withdrawalComment);
 
-    // redirect to the view item page afterwards (if no error occured)
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+    if (navigateTo.equals(retVal)) {
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
+
       try {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath()
@@ -133,10 +133,6 @@ public class WithdrawItem extends FacesBean {
       } catch (final IOException e) {
         WithdrawItem.logger.error("Could not redirect to View Item Page", e);
       }
-    }
-
-    if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal)) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
     }
 
     this.getPubItemListSessionBean().update();

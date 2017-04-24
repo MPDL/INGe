@@ -168,7 +168,7 @@ public class HomePage extends BreadcrumbPage {
     final ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
     final List<PubItemVOPresentation> list =
         SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
-    
+
     return list;
   }
 

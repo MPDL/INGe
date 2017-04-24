@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -25,7 +26,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.service.exceptions.ValidationException;
 import de.mpg.mpdl.inge.service.identifier.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
@@ -57,8 +57,7 @@ public class PubItemServiceImpl implements PubItemService {
 
   @Override
   public PubItemVO create(PubItemVO pubItemVO, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
-
+      AaException, ItemInvalidException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
 
@@ -67,16 +66,14 @@ public class PubItemServiceImpl implements PubItemService {
     PubItemVO pubItemToCreate =
         buildPubItemToCreate(pubItemVO, null, userAccount, context, 1, State.PENDING, State.PENDING);
 
-    PubItemUtil.cleanUpItem(pubItemToCreate);
-
     aaService.checkPubItemAa(pubItemToCreate, context, userAccount, "create");
 
+    PubItemUtil.cleanUpItem(pubItemToCreate);
     validate(pubItemToCreate);
 
     String id = idProviderService.getNewId();
     String fullId = id + "_1";
     pubItemToCreate.getVersion().setObjectId(id);
-
 
     pubItemDao.create(fullId, pubItemToCreate);
     long time = System.currentTimeMillis() - start;
@@ -84,7 +81,6 @@ public class PubItemServiceImpl implements PubItemService {
 
     return get(fullId, userToken);
   }
-
 
   private PubItemVO buildPubItemToCreate(PubItemVO templateVO, PubItemVO latestVersion,
       AccountUserVO userAccount, ContextVO context, int versionNumber, State versionState,
@@ -126,7 +122,7 @@ public class PubItemServiceImpl implements PubItemService {
 
   @Override
   public PubItemVO update(PubItemVO pubItemVO, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
+      AaException, ItemInvalidException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
 
@@ -144,13 +140,12 @@ public class PubItemServiceImpl implements PubItemService {
       newVersionState = latestVersion.getVersion().getState();
     }
 
-
     PubItemVO pubItemToCreate =
         buildPubItemToCreate(pubItemVO, latestVersion, userAccount, context, newVersionNumber,
             newVersionState, latestVersion.getPublicStatus());
 
     PubItemUtil.cleanUpItem(pubItemToCreate);
-    validate(pubItemToCreate);;
+    validate(pubItemToCreate);
 
     String newFullId = pubItemToCreate.getVersion().getObjectId() + "_" + newVersionNumber;
 
@@ -265,31 +260,31 @@ public class PubItemServiceImpl implements PubItemService {
 
   @Override
   public PubItemVO submitPubItem(String pubItemId, String message, String userToken)
-      throws IngeServiceException, AaException, ValidationException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.SUBMITTED, message, "submit", userToken);
   }
 
   @Override
   public PubItemVO revisePubItem(String pubItemId, String message, String userToken)
-      throws IngeServiceException, AaException, ValidationException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.IN_REVISION, message, "revise", userToken);
   }
 
   @Override
   public PubItemVO releasePubItem(String pubItemId, String message, String userToken)
-      throws IngeServiceException, AaException, ValidationException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.RELEASED, message, "release", userToken);
   }
 
   @Override
   public PubItemVO withdrawPubItem(String pubItemId, String message, String userToken)
-      throws IngeServiceException, AaException, ValidationException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", userToken);
   }
 
 
   private PubItemVO changeState(String id, State state, String message, String aaMethod,
-      String userToken) throws IngeServiceException, AaException, ValidationException {
+      String userToken) throws IngeServiceException, AaException, ItemInvalidException {
     AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
     PubItemVO latestVersion = getLatestVersion(id);
     ContextVO context =
@@ -371,24 +366,22 @@ public class PubItemServiceImpl implements PubItemService {
     return pubItemDao.search(srr);
   }
 
-  private void validate(PubItemVO pubItem) throws IngeServiceException, ValidationException {
+  private void validate(PubItemVO pubItem) throws IngeServiceException, ItemInvalidException {
     ValidationPoint vp = ValidationPoint.STANDARD;
-    
+
     if (pubItem.getPublicStatus() != null && State.PENDING.equals(pubItem.getPublicStatus())) {
       vp = ValidationPoint.SAVE;
     }
-    
+
     validate(pubItem, vp);
   }
 
   private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
-      ValidationException {
+      ItemInvalidException {
     try {
       ItemValidatingService.validate(pubItem, vp);
-    } catch (de.mpg.mpdl.inge.inge_validation.exception.ValidationException e) {
+    } catch (ValidationException e) {
       throw new IngeServiceException(e);
-    } catch (ItemInvalidException e) {
-      throw new ValidationException(e.getReport(), e);
     }
   }
 }

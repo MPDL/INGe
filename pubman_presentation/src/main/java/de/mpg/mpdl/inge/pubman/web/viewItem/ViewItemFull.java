@@ -778,8 +778,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String submitItem() {
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -795,8 +794,7 @@ public class ViewItemFull extends FacesBean {
 
   public String acceptItem() {
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -2339,12 +2337,6 @@ public class ViewItemFull extends FacesBean {
   public String getHtmlMetaTags() {
     try {
       final String itemXml = XmlTransformingService.transformToItem(new PubItemVO(this.pubItem));
-      /*
-       * Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8"); Format
-       * targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html",
-       * "UTF-8");
-       */
-
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire =
@@ -2366,44 +2358,40 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addDoi() {
-    String returnValue = "";
+    String navigationRuleWhenSucces = ViewItemFull.LOAD_VIEWITEM;
+    String retVal = "";
 
     try {
       // get a new DOI including a consistency check
       final String doi = DoiRestService.getNewDoi(this.getPubItem());
-
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
 
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
 
-      if (success) {
-        returnValue =
+      if (retVal.equals(navigationRuleWhenSucces)) {
+        retVal =
             icsb.submitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
-        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
 
-        if (success) {
-          returnValue =
+        if (retVal.equals(navigationRuleWhenSucces)) {
+          retVal =
               icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
-          success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
         }
       }
 
-      if (success) {
+      if (retVal.equals(navigationRuleWhenSucces)) {
         this.info(this.getMessage("ViewItem_doiAddedSuccessfully"));
       } else {
         FacesBean.error(this.getMessage("ViewItem_doiAddingProblem"));
       }
 
-      // update Lists with current item version
       this.getPubItemListSessionBean().update();
     } catch (final Exception e) {
       ViewItemFull.logger.error("Error creating new DOI", e);
       FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
-    return returnValue;
+    return retVal;
   }
 
   public String addSsrnTag() {
@@ -2414,7 +2402,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeSsrnTag() {
-    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+    this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
 
     return this.getSsrnReturnValue("Submission during removing SSRN-Tag.",
         "ViewItem_ssrnRemovedSuccessfully", "ViewItem_ssrnRemovingProblem");
@@ -2432,30 +2420,28 @@ public class ViewItemFull extends FacesBean {
     }
 
     final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    String returnValue = null;
+    String retVal = "";
     try {
-      returnValue = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
-      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
 
-      if (success && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
-        returnValue = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
-        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      if (AcceptItem.LOAD_ACCEPTITEM.equals(retVal)
+          && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
+        retVal = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
       }
 
-      if (success) {
+      if (retVal.equals(navigationRuleWhenSucces)) {
         this.info(this.getMessage(messageSuccess));
       } else {
         FacesBean.error(this.getMessage(messageError));
       }
 
       this.getPubItemListSessionBean().update();
-
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
-      logger.error("Problems with validation", e);
+    } catch (final Exception e) {
+      ViewItemFull.logger.error("Problems with validation", e);
+      FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
-    return returnValue;
-
+    return retVal;
   }
 
   private AcceptItemSessionBean getAcceptItemSessionBean() {
@@ -2509,6 +2495,4 @@ public class ViewItemFull extends FacesBean {
   private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
-
-
 }

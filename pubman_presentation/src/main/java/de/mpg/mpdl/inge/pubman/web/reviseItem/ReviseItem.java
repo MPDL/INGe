@@ -36,7 +36,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -109,11 +108,9 @@ public class ReviseItem extends FacesBean {
         this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment,
             ViewItemFull.LOAD_VIEWITEM);
 
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
-    }
-
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
+
       try {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath()
