@@ -1647,8 +1647,7 @@ public class EditItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean) FacesTools
-        .findBean("ItemControllerSessionBean");
+    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {

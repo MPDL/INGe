@@ -129,6 +129,7 @@ public class ImportLog {
   private String message;
   private String user;
   private String userHandle;
+  private String authenticationToken;
   private Workflow workflow;
   private int percentage;
   private int storedId;
@@ -147,7 +148,7 @@ public class ImportLog {
    * @param user The eSciDoc user id of the user that invoces this action.
    * @param format A string holding the format of the import, e.g. "bibtex".
    */
-  public ImportLog(String action, String user, String format) {
+  public ImportLog(String action, String user, String format, String authenticationToken) {
     this.startDate = new Date();
     this.status = Status.PENDING;
     this.errorLevel = ErrorLevel.FINE;
@@ -155,6 +156,7 @@ public class ImportLog {
     this.format = format;
     this.action = action;
     this.connection = ImportLog.getConnection();
+    this.authenticationToken = authenticationToken;
 
     this.saveLog();
   }
@@ -1329,7 +1331,7 @@ public class ImportLog {
   public String submitAll() {
     this.connection = ImportLog.getConnection();
 
-    final SubmitProcess submitProcess = new SubmitProcess(this, false);
+    final SubmitProcess submitProcess = new SubmitProcess(this, false, this.authenticationToken);
     submitProcess.start();
 
     try {
@@ -1349,7 +1351,7 @@ public class ImportLog {
   public String submitAndReleaseAll() {
     this.connection = ImportLog.getConnection();
 
-    final SubmitProcess submitProcess = new SubmitProcess(this, true);
+    final SubmitProcess submitProcess = new SubmitProcess(this, true, this.authenticationToken);
     submitProcess.start();
 
     try {

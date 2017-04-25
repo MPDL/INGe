@@ -38,7 +38,8 @@ public class OrganizationServiceImpl implements OrganizationService {
   }
 
   @Override
-  public AffiliationVO get(String id, String userToken) throws IngeServiceException, AaException {
+  public AffiliationVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return this.organizationDao.get(id);
   }
 
@@ -61,22 +62,23 @@ public class OrganizationServiceImpl implements OrganizationService {
 
   @Override
   public SearchRetrieveResponseVO<AffiliationVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String userToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
     return this.organizationDao.search(srr);
   }
 
   @Override
-  public AffiliationVO create(AffiliationVO pubItem, String userToken) throws IngeServiceException,
-      AaException, ItemInvalidException {
+  public AffiliationVO create(AffiliationVO pubItem, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
     return null;
   }
 
   @Override
-  public AffiliationVO update(AffiliationVO pubItem, String userToken) throws IngeServiceException,
-      AaException, ItemInvalidException {
+  public AffiliationVO update(AffiliationVO pubItem, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
     return null;
   }
 
   @Override
-  public void delete(String id, String userToken) throws IngeServiceException, AaException {}
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {}
 }

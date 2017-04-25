@@ -37,28 +37,30 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
-  public AccountUserVO create(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException {
+  public AccountUserVO create(AccountUserVO object, String authenticationToken)
+      throws IngeServiceException, AaException {
     return null;
   }
 
   @Override
-  public AccountUserVO update(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException {
+  public AccountUserVO update(AccountUserVO object, String authenticationToken)
+      throws IngeServiceException, AaException {
     return null;
   }
 
   @Override
-  public void delete(String id, String userToken) throws IngeServiceException, AaException {}
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {}
 
   @Override
-  public AccountUserVO get(String id, String userToken) throws IngeServiceException, AaException {
+  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     try {
       final URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + id);
       final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", userToken);
+      conn.setRequestProperty("Authorization", authenticationToken);
 
       final ObjectMapper mapper = new ObjectMapper();
       final JsonNode rawUser = mapper.readTree(conn.getInputStream());
@@ -77,18 +79,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
   public SearchRetrieveResponseVO<AccountUserVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String userToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public AccountUserVO get(String userToken) throws IngeServiceException, AaException {
+  public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
 
     try {
-      DecodedJWT jwt = JWT.decode(userToken);
+      DecodedJWT jwt = JWT.decode(authenticationToken);
       String userId = jwt.getSubject();
-      return get(userId, userToken);
+      return get(userId, authenticationToken);
 
     } catch (JWTDecodeException e) {
       throw new AaException("Could not decode token", e);

@@ -50,10 +50,8 @@ import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnEx
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -62,14 +60,9 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -86,7 +79,6 @@ import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
 import de.mpg.mpdl.inge.pubman.logging.PMLogicMessages;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-
 @Deprecated
 @Service
 public class PubItemService implements InitializingBean {
@@ -95,14 +87,8 @@ public class PubItemService implements InitializingBean {
   public static final String WORKFLOW_SIMPLE = "simple";
   public static final String WORKFLOW_STANDARD = "standard";
 
-  private static final String PREDICATE_ISREVISIONOF =
-      "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
-
   @Autowired
   private PubItemDao<QueryBuilder> pubItemDao;
-
-  @Autowired
-  private ContextDao<QueryBuilder> contextDao;
 
   public static PubItemService INSTANCE;
 
@@ -112,47 +98,47 @@ public class PubItemService implements InitializingBean {
   }
 
 
-  public PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
-      throws PubCollectionNotFoundException, SecurityException, TechnicalException {
-
-    if (pubCollectionRef == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".createPubItem: pubCollection reference is null.");
-    }
-
-    if (pubCollectionRef.getObjectId() == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".createPubItem: pubCollection reference does not contain an objectId.");
-    }
-
-    if (user == null) {
-      throw new IllegalArgumentException(PubItemService.class + ".createPubItem: user is null.");
-    }
-
-    ContextVO collection = null;
-    try {
-      // TODO remove replace
-      collection = contextDao.get(pubCollectionRef.getObjectId());
-      if (collection == null)
-        throw new PubCollectionNotFoundException(pubCollectionRef, null);
-
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e, PubItemService.class + ".createPubItem");
-    }
-
-    // TODO check if user can write to this collection
-
-    PubItemVO result = new PubItemVO();
-    result.setContext(pubCollectionRef);
-    if (collection.getDefaultMetadata() != null
-        && collection.getDefaultMetadata() instanceof MdsPublicationVO) {
-      result.setMetadata((MdsPublicationVO) collection.getDefaultMetadata());
-    } else {
-      result.setMetadata(new MdsPublicationVO());
-    }
-
-    return result;
-  }
+  // public PubItemVO createPubItem(final ContextRO pubCollectionRef, final AccountUserVO user)
+  // throws PubCollectionNotFoundException, SecurityException, TechnicalException {
+  //
+  // if (pubCollectionRef == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".createPubItem: pubCollection reference is null.");
+  // }
+  //
+  // if (pubCollectionRef.getObjectId() == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".createPubItem: pubCollection reference does not contain an objectId.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(PubItemService.class + ".createPubItem: user is null.");
+  // }
+  //
+  // ContextVO collection = null;
+  // try {
+  // // TODO remove replace
+  // collection = contextDao.get(pubCollectionRef.getObjectId());
+  // if (collection == null)
+  // throw new PubCollectionNotFoundException(pubCollectionRef, null);
+  //
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, PubItemService.class + ".createPubItem");
+  // }
+  //
+  // // TODO check if user can write to this collection
+  //
+  // PubItemVO result = new PubItemVO();
+  // result.setContext(pubCollectionRef);
+  // if (collection.getDefaultMetadata() != null
+  // && collection.getDefaultMetadata() instanceof MdsPublicationVO) {
+  // result.setMetadata((MdsPublicationVO) collection.getDefaultMetadata());
+  // } else {
+  // result.setMetadata(new MdsPublicationVO());
+  // }
+  //
+  // return result;
+  // }
 
   public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
       throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,

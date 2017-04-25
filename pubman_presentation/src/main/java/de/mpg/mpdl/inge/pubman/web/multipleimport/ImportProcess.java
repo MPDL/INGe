@@ -57,7 +57,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ArxivProcessor;
@@ -72,6 +71,7 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.Marc21Processor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.RisProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.WosProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ZfNProcessor;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
@@ -102,24 +102,27 @@ public class ImportProcess extends Thread {
   private AccountUserVO user;
   private ContextRO escidocContext;
   private DuplicateStrategy duplicateStrategy;
-  private File file;
   private FORMAT format;
+  private File file;
   private FormatProcessor formatProcessor;
   private ImportLog log;
   private Map<String, String> configuration = null;
+
+  private String authenticationToken;
   private String fileName;
   private String itemContentModel;
   private String name;
   private String publicationContentModel;
-  private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   private boolean failed = false;
   private boolean rollback;
+
+  private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
   private long lastBeat = 0;
 
   public ImportProcess(String name, String fileName, File file, FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
-      Map<String, String> configuration) {
+      Map<String, String> configuration, String authenticationToken) {
     try {
       this.publicationContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
@@ -128,7 +131,11 @@ public class ImportProcess extends Thread {
           "Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
     }
 
-    this.log = new ImportLog("import", user.getReference().getObjectId(), format.name());
+    this.authenticationToken = authenticationToken;
+
+    this.log =
+        new ImportLog("import", user.getReference().getObjectId(), format.name(),
+            this.authenticationToken);
     this.log.setUserHandle(user.getHandle());
     this.log.setPercentage(5);
     this.log.startItem("import_process_started");
@@ -219,7 +226,7 @@ public class ImportProcess extends Thread {
     }
 
     final FORMAT[] allSourceFormats =
-        itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+        this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
     boolean found = false;
     for (final FORMAT sourceFormat : allSourceFormats) {
       if (format.equals(sourceFormat)) {
@@ -412,7 +419,9 @@ public class ImportProcess extends Thread {
             this.log.addDetail(ErrorLevel.FINE, "import_process_save_item");
 
             final PubItemVO savedPubItem =
-                PubItemService.INSTANCE.savePubItem(item.getItemVO(), this.user);
+                ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(),
+                    this.authenticationToken);
+
             final String objid = savedPubItem.getVersion().getObjectId();
             this.log.setItemId(objid);
             this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
@@ -582,9 +591,8 @@ public class ImportProcess extends Thread {
     String escidocXml = null;
 
     try {
-
       escidocXml =
-          itemTransformingService.transformFromTo(this.format, FORMAT.ESCIDOC_ITEM_V3_XML,
+          this.itemTransformingService.transformFromTo(this.format, FORMAT.ESCIDOC_ITEM_V3_XML,
               singleItem);
 
       this.log.addDetail(ErrorLevel.FINE, escidocXml);

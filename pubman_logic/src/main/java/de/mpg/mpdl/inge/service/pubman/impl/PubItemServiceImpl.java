@@ -56,10 +56,10 @@ public class PubItemServiceImpl implements PubItemService {
   private IdentifierProviderServiceImpl idProviderService;
 
   @Override
-  public PubItemVO create(PubItemVO pubItemVO, String userToken) throws IngeServiceException,
-      AaException, ItemInvalidException {
+  public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
     long start = System.currentTimeMillis();
-    AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     ContextVO context = contextDao.get(pubItemVO.getContext().getObjectId());
 
@@ -79,7 +79,7 @@ public class PubItemServiceImpl implements PubItemService {
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
 
-    return get(fullId, userToken);
+    return get(fullId, authenticationToken);
   }
 
   private PubItemVO buildPubItemToCreate(PubItemVO templateVO, PubItemVO latestVersion,
@@ -121,10 +121,10 @@ public class PubItemServiceImpl implements PubItemService {
   }
 
   @Override
-  public PubItemVO update(PubItemVO pubItemVO, String userToken) throws IngeServiceException,
-      AaException, ItemInvalidException {
+  public PubItemVO update(PubItemVO pubItemVO, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
 
-    AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVO latestVersion = getLatestVersion(pubItemVO.getVersion().getObjectId());
 
@@ -155,13 +155,14 @@ public class PubItemServiceImpl implements PubItemService {
       pubItemDao.create(newFullId, pubItemToCreate);
     }
 
-    return get(newFullId, userToken);
+    return get(newFullId, authenticationToken);
   }
 
   @Override
-  public void delete(String id, String userToken) throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
 
-    AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
     if (resp.getNumberOfRecords() == 0) {
@@ -183,7 +184,8 @@ public class PubItemServiceImpl implements PubItemService {
   }
 
   @Override
-  public PubItemVO get(String id, String userToken) throws IngeServiceException, AaException {
+  public PubItemVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     long start = System.currentTimeMillis();
     String[] splittedId = id.split("_");
     String version = null;
@@ -204,8 +206,8 @@ public class PubItemServiceImpl implements PubItemService {
     }
 
     AccountUserVO userAccount = null;
-    if (userToken != null) {
-      userAccount = aaService.checkLoginRequired(userToken);
+    if (authenticationToken != null) {
+      userAccount = aaService.checkLoginRequired(authenticationToken);
     }
     ContextVO context =
         contextDao.get(latestVersion.getContext().getObjectId()
@@ -242,14 +244,14 @@ public class PubItemServiceImpl implements PubItemService {
 
   @Override
   public SearchRetrieveResponseVO<PubItemVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String userToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
 
     QueryBuilder authorizedQuery;
 
-    if (userToken == null) {
+    if (authenticationToken == null) {
       authorizedQuery = aaService.modifyPubItemQueryForAa(srr.getQueryObject(), null);
     } else {
-      AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
+      AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
       authorizedQuery = aaService.modifyPubItemQueryForAa(srr.getQueryObject(), userAccount);
     }
 
@@ -259,33 +261,33 @@ public class PubItemServiceImpl implements PubItemService {
   }
 
   @Override
-  public PubItemVO submitPubItem(String pubItemId, String message, String userToken)
+  public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.SUBMITTED, message, "submit", userToken);
+    return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken);
   }
 
   @Override
-  public PubItemVO revisePubItem(String pubItemId, String message, String userToken)
+  public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.IN_REVISION, message, "revise", userToken);
+    return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken);
   }
 
   @Override
-  public PubItemVO releasePubItem(String pubItemId, String message, String userToken)
+  public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.RELEASED, message, "release", userToken);
+    return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken);
   }
 
   @Override
-  public PubItemVO withdrawPubItem(String pubItemId, String message, String userToken)
+  public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", userToken);
+    return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken);
   }
 
 
   private PubItemVO changeState(String id, State state, String message, String aaMethod,
-      String userToken) throws IngeServiceException, AaException, ItemInvalidException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(userToken);
+      String authenticationToken) throws IngeServiceException, AaException, ItemInvalidException {
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     PubItemVO latestVersion = getLatestVersion(id);
     ContextVO context =
         contextDao.get(latestVersion.getContext().getObjectId()
@@ -318,7 +320,7 @@ public class PubItemServiceImpl implements PubItemService {
             + pubItemToCreate.getVersion().getVersionNumber();
 
     pubItemDao.update(fullId, pubItemToCreate);
-    return get(fullId, userToken);
+    return get(fullId, authenticationToken);
   }
 
   private PubItemVO getLatestRelease(String objectId) throws IngeServiceException {

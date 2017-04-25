@@ -75,6 +75,8 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -102,6 +104,8 @@ public class PubManSwordServer {
    * @throws ValidationException
    * @throws NamingException
    * @throws SWORDContentTypeException
+   * @throws IngeServiceException
+   * @throws AaException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
    * @throws PubCollectionNotFoundException
@@ -117,11 +121,9 @@ public class PubManSwordServer {
    * @throws ItemInvalidException
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
-      throws ContentStreamNotFoundException, SWORDContentTypeException, NamingException,
-      ValidationException, AuthorizationException, PubItemMandatoryAttributesMissingException,
-      PubItemLockedException, PubItemStatusInvalidException, PubCollectionNotFoundException,
-      PubItemNotFoundException, PubItemAlreadyReleasedException, SecurityException,
-      TechnicalException, ItemInvalidException {
+      throws ContentStreamNotFoundException, SWORDContentTypeException,
+      PubItemStatusInvalidException, AaException, IngeServiceException, ItemInvalidException,
+      ValidationException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
@@ -154,7 +156,7 @@ public class PubManSwordServer {
 
     // Deposit item
     if (!deposit.isNoOp()) {
-      depositItem = util.doDeposit(this.currentUser, depositItem);
+      depositItem = util.doDeposit(depositItem);
       if (depositItem.getVersion().getState().equals(State.RELEASED)) {
         dr = new DepositResponse(Deposit.CREATED);
         this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
@@ -176,84 +178,6 @@ public class PubManSwordServer {
 
     return dr;
   }
-
-  // /**
-  // * Process the deposit.
-  // *
-  // * @param deposit
-  // * @param collection
-  // * @return DepositResponse
-  // * @throws Exception
-  // * @throws ItemInvalidException
-  // * @throws ValidationException
-  // * @throws NamingException
-  // * @throws SWORDContentTypeException
-  // * @throws URISyntaxException
-  // * @throws TechnicalException
-  // * @throws PubManException
-  // * @throws SecurityException
-  // * @throws DepositingException
-  // * @throws AuthorizationException
-  // */
-  // public DepositResponse doDeposit(Deposit deposit, String collection) throws
-  // ItemInvalidException,
-  // ContentStreamNotFoundException, NamingException, ValidationException,
-  // SWORDContentTypeException, AuthorizationException, DepositingException, SecurityException,
-  // PubManException, TechnicalException, URISyntaxException {
-  // SwordUtil util = new SwordUtil();
-  // PubItemVO depositItem = null;
-  // DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
-  // boolean valid = false;
-  //
-  // this.setVerbose("Start depositing process ... ");
-  //
-  // // Create item
-  // util.setCurrentDeposit(deposit);
-  // depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
-  // this.setVerbose("Escidoc Publication Item successfully created.");
-  // ContextRO context = new ContextRO();
-  // context.setObjectId(collection);
-  // depositItem.setContext(context);
-  //
-  // // Validate Item
-  // util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(depositItem));
-  // ValidationReportVO validationReport = util.validateItem(depositItem);
-  // if (validationReport.isValid()) {
-  // this.setVerbose("Escidoc Publication Item successfully validated.");
-  // valid = true;
-  // } else {
-  // this.setVerbose("Following validation error(s) occurred: " + validationReport);
-  // valid = false;
-  // throw new ItemInvalidException(validationReport);
-  // }
-  //
-  // // Deposit item
-  // if (!deposit.isNoOp() && valid) {
-  // depositItem = util.doDeposit(this.currentUser, depositItem);
-  // if (depositItem.getVersion().getState().equals(State.RELEASED)) {
-  // dr = new DepositResponse(Deposit.CREATED);
-  // this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
-  // + depositItem.getPublicStatus() + ").");
-  // } else {
-  // dr = new DepositResponse(Deposit.ACCEPTED);
-  // this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
-  // + depositItem.getPublicStatus() + ").");
-  // }
-  // } else {
-  // if (valid) {
-  // this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
-  // } else {
-  // this.setVerbose("Escidoc Publication Item not deposited due to validation errors.");
-  // }
-  // }
-  //
-  // SWORDEntry se = util.createResponseAtom(depositItem, deposit, valid);
-  // if (deposit.isVerbose()) {
-  // se.setVerboseDescription(this.getVerbose());
-  // }
-  // dr.setEntry(se);
-  // return dr;
-  // }
 
   /**
    * Provides Service Document.
@@ -328,11 +252,6 @@ public class PubManSwordServer {
         collection.appendChild(format);
       }
 
-      // collection.appendChild(format1);
-      // collection.appendChild(format2);
-      // collection.appendChild(format3);
-      // collection.appendChild(format4);
-
       workspace.appendChild(collection);
     }
 
@@ -362,11 +281,11 @@ public class PubManSwordServer {
     this.currentUser = currentUser;
   }
 
-  public String getVerbose() {
+  private String getVerbose() {
     return this.verbose;
   }
 
-  public void setVerbose(String verbose) {
+  private void setVerbose(String verbose) {
     this.verbose += verbose + "\n";
   }
 

@@ -11,17 +11,18 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 
 public interface GenericService<E extends ValueObject> {
 
-  public E create(E object, String userToken) throws IngeServiceException, AaException,
+  public E create(E object, String authenticationToken) throws IngeServiceException, AaException,
       ItemInvalidException;
 
-  public E update(E object, String userToken) throws IngeServiceException, AaException,
+  public E update(E object, String authenticationToken) throws IngeServiceException, AaException,
       ItemInvalidException;
 
-  public void delete(String id, String userToken) throws IngeServiceException, AaException;
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException;
 
-  public E get(String id, String userToken) throws IngeServiceException, AaException;
+  public E get(String id, String authenticationToken) throws IngeServiceException, AaException;
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String userToken) throws IngeServiceException, AaException;
+      String authenticationToken) throws IngeServiceException, AaException;
 
 }

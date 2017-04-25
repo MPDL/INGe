@@ -107,8 +107,6 @@ public class ApplicationBean extends FacesBean {
 
   private boolean handlesActivated;
 
-
-
   @ManagedProperty("#{organizationServiceImpl}")
   private OrganizationService organizationService;
 
@@ -120,7 +118,6 @@ public class ApplicationBean extends FacesBean {
 
   @ManagedProperty("#{userAccountServiceImpl}")
   private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
-
 
   public static ApplicationBean INSTANCE;
 
