@@ -27,15 +27,9 @@
 
 package de.mpg.mpdl.inge.pubman;
 
-import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_CREATED;
-import static de.mpg.mpdl.inge.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -45,10 +39,7 @@ import org.springframework.stereotype.Service;
 
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnException;
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
-import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -59,7 +50,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
@@ -68,11 +58,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.exceptions.ExceptionHandler;
-import de.mpg.mpdl.inge.pubman.exceptions.MissingWithdrawalCommentException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.logging.ApplicationLog;
@@ -84,8 +70,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubItemService implements InitializingBean {
   private static final Logger logger = Logger.getLogger(PubItemService.class);
 
-  public static final String WORKFLOW_SIMPLE = "simple";
-  public static final String WORKFLOW_STANDARD = "standard";
+  // public static final String WORKFLOW_SIMPLE = "simple";
+  // public static final String WORKFLOW_STANDARD = "standard";
 
   @Autowired
   private PubItemDao<QueryBuilder> pubItemDao;
@@ -140,34 +126,34 @@ public class PubItemService implements InitializingBean {
   // return result;
   // }
 
-  public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
-      throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
-      SecurityException, TechnicalException {
-
-    if (pubItemRef == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".deletePubItem: pubItem reference is null.");
-    }
-
-    if (pubItemRef.getObjectId() == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".deletePubItem: pubItem reference does not contain an objectId.");
-    }
-
-    if (user == null) {
-      throw new IllegalArgumentException(PubItemService.class + ".deletePubItem: user is null.");
-    }
-
-    try {
-      pubItemDao.delete(pubItemRef.getObjectId());
-
-      ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
-          user.getUserid()});
-
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e, PubItemService.class + "deletePubItem");
-    }
-  }
+  // public void deletePubItem(final ItemRO pubItemRef, final AccountUserVO user)
+  // throws PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException,
+  // SecurityException, TechnicalException {
+  //
+  // if (pubItemRef == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".deletePubItem: pubItem reference is null.");
+  // }
+  //
+  // if (pubItemRef.getObjectId() == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".deletePubItem: pubItem reference does not contain an objectId.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(PubItemService.class + ".deletePubItem: user is null.");
+  // }
+  //
+  // try {
+  // pubItemDao.delete(pubItemRef.getObjectId());
+  //
+  // ApplicationLog.info(PMLogicMessages.PUBITEM_DELETED, new Object[] {pubItemRef.getObjectId(),
+  // user.getUserid()});
+  //
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, PubItemService.class + "deletePubItem");
+  // }
+  // }
 
   public static List<ContextVO> getPubCollectionListForDepositing() throws SecurityException,
       TechnicalException {
@@ -199,50 +185,50 @@ public class PubItemService implements InitializingBean {
     return null;
   }
 
-  public PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
-      throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
-      PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
-      PubItemStatusInvalidException, TechnicalException, AuthorizationException {
-
-    if (pubItem == null) {
-      throw new IllegalArgumentException(PubItemService.class.getSimpleName()
-          + ".savePubItem: pubItem is null.");
-    }
-
-    if (user == null) {
-      throw new IllegalArgumentException(PubItemService.class.getSimpleName()
-          + ".savePubItem: user is null.");
-    }
-
-    try {
-      PMLogicMessages message;
-      if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null) {
-        ItemRO itemVersion = new ItemRO();
-        itemVersion.setVersionNumber(1);
-        // TODO remove test objectID
-        itemVersion.setObjectId("pure:12345");
-        itemVersion.setState(PubItemVO.State.PENDING);
-        Date creationDate = Calendar.getInstance().getTime();
-        itemVersion.setModificationDate(creationDate);
-        pubItem.setVersion(itemVersion);
-        pubItem.setPublicStatus(PubItemVO.State.PENDING);
-        pubItem.setCreationDate(creationDate);
-        pubItem.setOwner(user.getReference());
-        pubItemDao.create(pubItem.getVersion().getObjectId(), pubItem);
-        message = PUBITEM_CREATED;
-      } else {
-        pubItemDao.update(pubItem.getVersion().getObjectId(), pubItem);
-        message = PUBITEM_UPDATED;
-      }
-
-      ApplicationLog.info(message,
-          new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e, PubItemService.class.getSimpleName() + ".savePubItem");
-    }
-
-    return pubItem;
-  }
+  // public PubItemVO savePubItem(final PubItemVO pubItem, final AccountUserVO user)
+  // throws PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException,
+  // PubItemLockedException, PubItemNotFoundException, PubItemAlreadyReleasedException,
+  // PubItemStatusInvalidException, TechnicalException, AuthorizationException {
+  //
+  // if (pubItem == null) {
+  // throw new IllegalArgumentException(PubItemService.class.getSimpleName()
+  // + ".savePubItem: pubItem is null.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(PubItemService.class.getSimpleName()
+  // + ".savePubItem: user is null.");
+  // }
+  //
+  // try {
+  // PMLogicMessages message;
+  // if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null) {
+  // ItemRO itemVersion = new ItemRO();
+  // itemVersion.setVersionNumber(1);
+  // // TODO remove test objectID
+  // itemVersion.setObjectId("pure:12345");
+  // itemVersion.setState(PubItemVO.State.PENDING);
+  // Date creationDate = Calendar.getInstance().getTime();
+  // itemVersion.setModificationDate(creationDate);
+  // pubItem.setVersion(itemVersion);
+  // pubItem.setPublicStatus(PubItemVO.State.PENDING);
+  // pubItem.setCreationDate(creationDate);
+  // pubItem.setOwner(user.getReference());
+  // pubItemDao.create(pubItem.getVersion().getObjectId(), pubItem);
+  // message = PUBITEM_CREATED;
+  // } else {
+  // pubItemDao.update(pubItem.getVersion().getObjectId(), pubItem);
+  // message = PUBITEM_UPDATED;
+  // }
+  //
+  // ApplicationLog.info(message,
+  // new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, PubItemService.class.getSimpleName() + ".savePubItem");
+  // }
+  //
+  // return pubItem;
+  // }
 
   // TODO: submissionComment verwenden! (-> siehe auch QualityAssuranceBean, PubItemPublishingBean)
   public PubItemVO submitPubItem(final PubItemVO pubItem, String comment, final AccountUserVO user)
@@ -273,47 +259,47 @@ public class PubItemService implements InitializingBean {
 
 
 
-  // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, PubItemPublishingBean)
-  public static PubItemVO revisePubItem(final ItemRO pubItemRef, String comment,
-      final AccountUserVO user) throws ServiceException, TechnicalException,
-      PubItemStatusInvalidException, SecurityException, PubItemNotFoundException {
-
-    if (pubItemRef == null) {
-      throw new IllegalArgumentException(PubItemService.class + ".submitPubItem: pubItem is null.");
-    }
-
-    if (user == null) {
-      throw new IllegalArgumentException(PubItemService.class + ".submitPubItem: user is null.");
-    }
-
-    ItemHandler itemHandler;
-    try {
-      itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-    } catch (Exception e) {
-      throw new TechnicalException(e);
-    }
-
-    PubItemVO pubItemActual = null;
-    try {
-      TaskParamVO taskParam = new TaskParamVO(pubItemRef.getModificationDate(), comment);
-      itemHandler.revise(pubItemRef.getObjectId(),
-          XmlTransformingService.transformToTaskParam(taskParam));
-
-      String item = itemHandler.retrieve(pubItemRef.getObjectId());
-      pubItemActual = XmlTransformingService.transformToPubItem(item);
-
-      ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED, new Object[] {pubItemRef.getObjectId(),
-          user.getUserid()});
-    } catch (InvalidStatusException e) {
-      throw new PubItemStatusInvalidException(pubItemRef, e);
-    } catch (ItemNotFoundException e) {
-      throw new PubItemNotFoundException(pubItemRef, e);
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e, "QualityAssuranceBean.revisePubItem");
-    }
-
-    return pubItemActual;
-  }
+  // // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, PubItemPublishingBean)
+  // public static PubItemVO revisePubItem(final ItemRO pubItemRef, String comment,
+  // final AccountUserVO user) throws ServiceException, TechnicalException,
+  // PubItemStatusInvalidException, SecurityException, PubItemNotFoundException {
+  //
+  // if (pubItemRef == null) {
+  // throw new IllegalArgumentException(PubItemService.class + ".submitPubItem: pubItem is null.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(PubItemService.class + ".submitPubItem: user is null.");
+  // }
+  //
+  // ItemHandler itemHandler;
+  // try {
+  // itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+  // } catch (Exception e) {
+  // throw new TechnicalException(e);
+  // }
+  //
+  // PubItemVO pubItemActual = null;
+  // try {
+  // TaskParamVO taskParam = new TaskParamVO(pubItemRef.getModificationDate(), comment);
+  // itemHandler.revise(pubItemRef.getObjectId(),
+  // XmlTransformingService.transformToTaskParam(taskParam));
+  //
+  // String item = itemHandler.retrieve(pubItemRef.getObjectId());
+  // pubItemActual = XmlTransformingService.transformToPubItem(item);
+  //
+  // ApplicationLog.info(PMLogicMessages.PUBITEM_REVISED, new Object[] {pubItemRef.getObjectId(),
+  // user.getUserid()});
+  // } catch (InvalidStatusException e) {
+  // throw new PubItemStatusInvalidException(pubItemRef, e);
+  // } catch (ItemNotFoundException e) {
+  // throw new PubItemNotFoundException(pubItemRef, e);
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, "QualityAssuranceBean.revisePubItem");
+  // }
+  //
+  // return pubItemActual;
+  // }
 
   // TODO: TaskParamVO ersetzen (siehe PubItemDepositingBean, QualityassuranceBean)
   public static PubItemVO releasePubItem(final ItemRO pubItemRef, final Date lastModificationDate,
@@ -476,54 +462,54 @@ public class PubItemService implements InitializingBean {
     return actualItemVO;
   }
 
-  public static void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
-      String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
-      PubItemNotFoundException, PubItemStatusInvalidException, TechnicalException,
-      PubItemLockedException, SecurityException {
-
-    if (pubItem == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".withdrawPubItem: pubItem reference is null.");
-    }
-
-    if (pubItem.getVersion().getObjectId() == null) {
-      throw new IllegalArgumentException(PubItemService.class
-          + ".withdrawPubItem: pubItem reference does not contain an objectId.");
-    }
-
-    if (user == null) {
-      throw new IllegalArgumentException(PubItemService.class + ".withdrawPubItem: user is null.");
-    }
-
-    if (user.getGrants().contains(
-        new GrantVO("escidoc:role-administrator", pubItem.getContext().getObjectId()))) {
-      throw new SecurityException();
-    }
-
-    // Check the withdrawal comment - must not be null or empty.
-    if (comment == null || comment.trim().length() == 0) {
-      throw new MissingWithdrawalCommentException(pubItem.getVersion());
-    }
-
-    try {
-      TaskParamVO param = new TaskParamVO(lastModificationDate, comment);
-      ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
-          XmlTransformingService.transformToTaskParam(param));
-
-      ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN, new Object[] {
-          pubItem.getVersion().getObjectId(), user.getUserid()});
-    } catch (LockingException e) {
-      throw new PubItemLockedException(pubItem.getVersion(), e);
-    } catch (AlreadyWithdrawnException e) {
-      throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
-    } catch (ItemNotFoundException e) {
-      throw new PubItemNotFoundException(pubItem.getVersion(), e);
-    } catch (NotPublishedException e) {
-      throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
-    } catch (InvalidStatusException e) {
-      throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
-    } catch (Exception e) {
-      ExceptionHandler.handleException(e, PubItemService.class + ".withdrawPubItem");
-    }
-  }
+  // public static void withdrawPubItem(final PubItemVO pubItem, final Date lastModificationDate,
+  // String comment, final AccountUserVO user) throws MissingWithdrawalCommentException,
+  // PubItemNotFoundException, PubItemStatusInvalidException, TechnicalException,
+  // PubItemLockedException, SecurityException {
+  //
+  // if (pubItem == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".withdrawPubItem: pubItem reference is null.");
+  // }
+  //
+  // if (pubItem.getVersion().getObjectId() == null) {
+  // throw new IllegalArgumentException(PubItemService.class
+  // + ".withdrawPubItem: pubItem reference does not contain an objectId.");
+  // }
+  //
+  // if (user == null) {
+  // throw new IllegalArgumentException(PubItemService.class + ".withdrawPubItem: user is null.");
+  // }
+  //
+  // if (user.getGrants().contains(
+  // new GrantVO("escidoc:role-administrator", pubItem.getContext().getObjectId()))) {
+  // throw new SecurityException();
+  // }
+  //
+  // // Check the withdrawal comment - must not be null or empty.
+  // if (comment == null || comment.trim().length() == 0) {
+  // throw new MissingWithdrawalCommentException(pubItem.getVersion());
+  // }
+  //
+  // try {
+  // TaskParamVO param = new TaskParamVO(lastModificationDate, comment);
+  // ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
+  // XmlTransformingService.transformToTaskParam(param));
+  //
+  // ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN, new Object[] {
+  // pubItem.getVersion().getObjectId(), user.getUserid()});
+  // } catch (LockingException e) {
+  // throw new PubItemLockedException(pubItem.getVersion(), e);
+  // } catch (AlreadyWithdrawnException e) {
+  // throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
+  // } catch (ItemNotFoundException e) {
+  // throw new PubItemNotFoundException(pubItem.getVersion(), e);
+  // } catch (NotPublishedException e) {
+  // throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
+  // } catch (InvalidStatusException e) {
+  // throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
+  // } catch (Exception e) {
+  // ExceptionHandler.handleException(e, PubItemService.class + ".withdrawPubItem");
+  // }
+  // }
 }

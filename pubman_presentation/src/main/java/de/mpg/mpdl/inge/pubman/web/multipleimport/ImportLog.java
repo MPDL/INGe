@@ -1311,7 +1311,7 @@ public class ImportLog {
   public String deleteAll() {
     this.connection = ImportLog.getConnection();
 
-    final DeleteProcess deleteProcess = new DeleteProcess(this);
+    final DeleteProcess deleteProcess = new DeleteProcess(this, this.authenticationToken);
     deleteProcess.start();
 
     try {

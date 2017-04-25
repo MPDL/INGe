@@ -332,7 +332,7 @@ public class ImportProcess extends Thread {
     this.log.finishItem();
     this.log.close();
 
-    final DeleteProcess deleteProcess = new DeleteProcess(this.log);
+    final DeleteProcess deleteProcess = new DeleteProcess(this.log, this.authenticationToken);
     deleteProcess.start();
   }
 

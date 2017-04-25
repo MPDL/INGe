@@ -494,29 +494,12 @@ public class EditItem extends FacesBean {
     return CommonUtils.getLanguageOptions();
   }
 
-  /**
-   * Validates the item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String validate() {
-    if (this.getPubItem() == null) {
+    if (check() == false) {
       return "";
     }
 
-    if (!this.restoreVO()) {
-      return "";
-    }
-
-    // cleanup item according to genre specific MD specification
-    final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (final Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
+    cleanUp();
 
     try {
       ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
@@ -531,7 +514,7 @@ public class EditItem extends FacesBean {
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
-    return null;
+    return "";
   }
 
   /**
@@ -540,55 +523,40 @@ public class EditItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String save() {
-    if (this.getPubItem() == null) {
+    if (check() == false) {
       return "";
     }
 
-    if (!this.restoreVO()) {
-      return "";
+    cleanUp();
+
+    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    String retVal = saveItem(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
-    // cleanup item according to genre specific MD specification
-    final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (final Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
-    }
-
-    String retVal = "";
-    try {
-      retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-    } catch (ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    }
-
-    if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
-      // set the current submission method to empty string (for GUI purpose)
-      this.getEditItemSessionBean().setCurrentSubmission("");
-      try {
-        if (this.isFromEasySubmission()) {
-          FacesTools.getExternalContext().redirect(
-              FacesTools.getRequest().getContextPath()
-                  + "/faces/ViewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId() + "&fromEasySub=true");
-        } else {
-          FacesTools.getExternalContext().redirect(
-              FacesTools.getRequest().getContextPath()
-                  + "/faces/ViewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId());
-        }
-      } catch (final IOException e) {
-        EditItem.logger.error("Could not redirect to View Item Page", e);
-      }
-    }
-
+    // set the current submission method to empty string (for GUI purpose)
+    this.getEditItemSessionBean().setCurrentSubmission("");
     this.getPubItemListSessionBean().update();
+
+    try {
+      if (this.isFromEasySubmission()) {
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
+                + "/faces/ViewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId() + "&fromEasySub=true");
+      } else {
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
+                + "/faces/ViewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId());
+      }
+    } catch (final IOException e) {
+      EditItem.logger.error("Could not redirect to View Item Page", e);
+    }
 
     return retVal;
   }
@@ -623,14 +591,35 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndRelease() {
-    if (this.getPubItem() == null) {
+    if (check() == false) {
       return "";
     }
 
-    if (!this.restoreVO()) {
-      return "";
+    cleanUp();
+
+    String navigateTo = SubmitItem.LOAD_SUBMITITEM;
+    String retVal = checkItemChanged(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
+    retVal = saveItem(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
+    }
+
+    this.getPubItemListSessionBean().update();
+
+    return retVal;
+  }
+
+  private boolean check() {
+    return this.getPubItem() != null && this.restoreVO();
+  }
+
+  private void cleanUp() {
     // cleanup item according to genre specific MD specification
     final GenreSpecificItemManager itemManager =
         new GenreSpecificItemManager(this.getPubItem(),
@@ -640,9 +629,9 @@ public class EditItem extends FacesBean {
     } catch (final Exception e) {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
+  }
 
-
-    // start: check if the item has been changed
+  private String checkItemChanged(String navigateTo) {
     final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
     PubItemVO oldPubItem = null;
     if (newPubItem.getVersion().getObjectId() != null) {
@@ -656,6 +645,10 @@ public class EditItem extends FacesBean {
       }
 
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
+        if (newPubItem.getVersion().getState() != State.RELEASED) {
+          return navigateTo;
+        }
+
         EditItem.logger.warn("Item has not been changed.");
         // create a validation report
         final ValidationReportVO changedReport = new ValidationReportVO();
@@ -665,33 +658,17 @@ public class EditItem extends FacesBean {
         changedReport.addItem(changedReportItem);
         // show report and stay on this page
         this.showValidationMessages(changedReport);
-        return null;
-      } else {
-        // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
-        // (save removed there)
-        try {
-          this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-        } catch (ItemInvalidException e) {
-          this.showValidationMessages(e.getReport());
-          return null;
-        }
-
-        /*
-         * this.getItemControllerSessionBean().submitCurrentPubItem(
-         * "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
-         */
-        try {
-          this.getItemControllerSessionBean().setCurrentPubItem(
-              this.getItemControllerSessionBean().retrieveItem(
-                  newPubItem.getVersion().getObjectId()));
-        } catch (final Exception e) {
-          throw new RuntimeException("Error retrieving submitted item", e);
-        }
-
-        this.getPubItemListSessionBean().update();
-
-        return SubmitItem.LOAD_SUBMITITEM;
       }
+    }
+
+    return "";
+  }
+
+  private String saveItem(String navigateTo) {
+    try {
+      return this.getItemControllerSessionBean().saveCurrentPubItem(navigateTo);
+    } catch (ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
     }
 
     return "";
@@ -704,72 +681,30 @@ public class EditItem extends FacesBean {
    *         by FrM: Inserted validation and call to "enter submission comment" page.
    */
   public String saveAndSubmit() {
-    if (this.getPubItem() == null) {
+    if (check() == false) {
       return "";
     }
 
-    if (!this.restoreVO()) {
-      return "";
+    cleanUp();
+
+    String navigateTo = SubmitItem.LOAD_SUBMITITEM;
+    String retVal = checkItemChanged(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
-    // cleanup item according to genre specific MD specification
-    final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (final Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    retVal = saveItem(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
-
-    // start: check if the item has been changed
-    final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    PubItemVO oldPubItem = null;
-    if (newPubItem.getVersion().getObjectId() != null) {
-      try {
-        oldPubItem =
-            this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
-      } catch (final Exception e) {
-        EditItem.logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-        return ErrorPage.LOAD_ERRORPAGE;
-      }
-
-      if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (newPubItem.getVersion().getState() == State.RELEASED) {
-          EditItem.logger.warn("Item has not been changed.");
-          // create a validation report
-          final ValidationReportVO changedReport = new ValidationReportVO();
-          final ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-          // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-          changedReportItem.setContent("itemHasNotBeenChanged");
-          changedReport.addItem(changedReportItem);
-          // show report and stay on this page
-          this.showValidationMessages(changedReport);
-          return null;
-        } else {
-          return SubmitItem.LOAD_SUBMITITEM;
-        }
-      }
-    }
-
-    String retVal = "";
-    try {
-      retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM);
-    } catch (ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    }
-
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      // set the current submission method to empty string (for GUI purpose)
-      this.getEditItemSessionBean().setCurrentSubmission("");
-      this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-          MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-    }
-
+    // set the current submission method to empty string (for GUI purpose)
+    this.getEditItemSessionBean().setCurrentSubmission("");
     this.getPubItemListSessionBean().update();
+    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
+        MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
 
     return retVal;
   }
@@ -857,84 +792,49 @@ public class EditItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String saveAndAccept() {
-    if (this.getPubItem() == null) {
+    if (check() == false) {
       return "";
     }
 
-    if (!this.restoreVO()) {
-      return "";
+    cleanUp();
+
+    String navigateTo = AcceptItem.LOAD_ACCEPTITEM;
+    String retVal = checkItemChanged(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
-    // cleanup item according to genre specific MD specification
-    final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
-    try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
-    } catch (final Exception e) {
-      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    retVal = saveItem(navigateTo);
+
+    if (!navigateTo.equals(retVal)) {
+      return retVal;
     }
 
-    // check if the item has been changed
-    final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    PubItemVO oldPubItem = null;
-    try {
-      oldPubItem =
-          this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
-    } catch (final Exception e) {
-      EditItem.logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-      ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-      return ErrorPage.LOAD_ERRORPAGE;
-    }
+    // try {
+    // if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
+    // .equals(State.RELEASED)) {
+    // this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
+    // retVal = this.getItemControllerSessionBean().submitCurrentPubItem(
+    // "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+    //
+    // } else {
+    // // only save it
+    // retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
+    // }
+    // } catch (ItemInvalidException e) {
+    // this.showValidationMessages(e.getReport());
+    // return null;
+    // }
 
-    if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-      if (newPubItem.getVersion().getState() == State.RELEASED) {
-        EditItem.logger.warn("Item has not been changed.");
-        // create a validation report
-        final ValidationReportVO changedReport = new ValidationReportVO();
-        final ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-        // changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-        changedReportItem.setContent("itemHasNotBeenChanged");
-        changedReport.addItem(changedReportItem);
-        // show report and stay on this page
-        this.showValidationMessages(changedReport);
-        return null;
-      }
-
-      return AcceptItem.LOAD_ACCEPTITEM;
-    }
-
-    String retVal = "";
-    // If item is released, submit it additionally (because it is pending after the save)
-    try {
-      if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState()
-          .equals(State.RELEASED)) {
-        // save the item first manually due to a change in the saveAndSubmitCurrentPubItem method
-        // (save removed there)
-        this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
-        retVal =
-            this.getItemControllerSessionBean().submitCurrentPubItem(
-                "Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
-
-      } else {
-        // only save it
-        retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM);
-      }
-    } catch (ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
-      return null;
-    }
-
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
-      // set the current submission method to empty string (for GUI purpose)
-      this.getEditItemSessionBean().setCurrentSubmission("");
-      this.getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
-      final String localMessage = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
-      this.info(localMessage);
-      this.getAcceptItemSessionBean().setMessage(localMessage);
-    }
-
+    // set the current submission method to empty string (for GUI purpose)
+    this.getEditItemSessionBean().setCurrentSubmission("");
     this.getPubItemListSessionBean().update();
+    this.getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+
+    final String localMessage = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
+    this.info(localMessage);
+    this.getAcceptItemSessionBean().setMessage(localMessage);
 
     return retVal;
   }

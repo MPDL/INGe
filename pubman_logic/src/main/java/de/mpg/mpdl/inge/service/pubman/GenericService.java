@@ -24,5 +24,4 @@ public interface GenericService<E extends ValueObject> {
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> srr,
       String authenticationToken) throws IngeServiceException, AaException;
-
 }

@@ -266,7 +266,6 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String deleteCurrentPubItem(String navigationRuleWhenSuccessfull) {
-
     try {
       ApplicationBean.INSTANCE.getPubItemService()
           .delete(currentPubItem.getVersion().getObjectId(),

@@ -7,6 +7,9 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 
 public interface PubItemService extends GenericService<PubItemVO> {
 
+  public static final String WORKFLOW_SIMPLE = "simple";
+  public static final String WORKFLOW_STANDARD = "standard";
+
   public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException;
 

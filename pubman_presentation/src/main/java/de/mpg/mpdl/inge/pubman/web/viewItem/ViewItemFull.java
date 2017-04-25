@@ -300,7 +300,7 @@ public class ViewItemFull extends FacesBean {
       }
     } else {
       // Cleanup needed if an edit site was loaded inbetween
-      // (e.g. local tags --> source without editors --> editors are created in the SourceBean an
+      // (e.g. local tags --> source without editors --> editors are created in the SourceBean and
       // not removed)
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
       PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
