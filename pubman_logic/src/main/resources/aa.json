@@ -6,6 +6,7 @@
 				"rolematch" : "CONTEXT"
 			}
 		],
+		
 		"update" : [
 			{
 				"workflow" : "SIMPLE",
@@ -34,14 +35,15 @@
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
+		
 		"delete" : [
 			{
 				"owner" : true,
 				"version-state" : ["PENDING", "IN_REVISION"],
 				"public-state" : ["PENDING", "SUBMITTED"]
 			}
-
 		],
+		
 		"get" : [
 			{
 				"version-state" : ["RELEASED"]
@@ -59,6 +61,7 @@
 				"version-state" : ["SUBMITED", "IN_REVISION"]
 			}
 		],
+		
 		"submit" : [
 			{
 				"workflow" : "STANDARD",
@@ -66,8 +69,8 @@
 				"version-state" : ["PENDING"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
-
 		],
+		
 		"release" : [
 			{
 				"workflow" : "SIMPLE",
@@ -82,8 +85,8 @@
 				"version-state" : ["SUBMITTED"],
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
-
 		],
+		
 		"revise" : [
 			{
 				"workflow" : "STANDARD",
@@ -93,13 +96,14 @@
 				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
+		
 		"withdraw" : [
 			{
 				"workflow" : "STANDARD",
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
-				"version-state" : ["SUBMITTED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"version-state" : ["RELEASED"],
+				"public-state" : ["RELEASED"]
 			}
 		]
 	}
