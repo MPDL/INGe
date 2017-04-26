@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
@@ -41,7 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 /**
  * Backing bean for ReviseItem.jspf
@@ -153,13 +153,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return this.getItemControllerSessionBean().getCurrentWorkflow()
-        .equals(PubItemService.WORKFLOW_STANDARD);
+    return PublicationAdminDescriptorVO.Workflow.STANDARD == this.getItemControllerSessionBean()
+        .getCurrentWorkflow();
   }
 
   public boolean getIsSimpleWorkflow() {
-    return this.getItemControllerSessionBean().getCurrentWorkflow()
-        .equals(PubItemService.WORKFLOW_SIMPLE);
+    return PublicationAdminDescriptorVO.Workflow.SIMPLE == this.getItemControllerSessionBean()
+        .getCurrentWorkflow();
   }
 
   public String getReviseComment() {

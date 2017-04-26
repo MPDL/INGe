@@ -308,16 +308,16 @@ public class ItemControllerSessionBean extends FacesBean {
     return this.currentPubItem;
   }
 
-  public String getCurrentWorkflow() {
+  public PublicationAdminDescriptorVO.Workflow getCurrentWorkflow() {
     final PublicationAdminDescriptorVO.Workflow workflow =
         this.getCurrentContext().getAdminDescriptor().getWorkflow();
     if (workflow == null || workflow == PublicationAdminDescriptorVO.Workflow.SIMPLE) {
-      return "simple";
+      return PublicationAdminDescriptorVO.Workflow.SIMPLE;
     } else if (workflow == PublicationAdminDescriptorVO.Workflow.STANDARD) {
-      return "standard";
+      return PublicationAdminDescriptorVO.Workflow.STANDARD;
     }
 
-    return "simple";
+    return PublicationAdminDescriptorVO.Workflow.SIMPLE;
   }
 
   private EditItemSessionBean getEditItemSessionBean() {

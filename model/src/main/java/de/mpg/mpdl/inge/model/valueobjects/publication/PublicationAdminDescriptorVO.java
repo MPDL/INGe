@@ -63,7 +63,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   private String contactEmail;
 
   public List<MdsPublicationVO.Genre> getAllowedGenres() {
-    return allowedGenres;
+    return this.allowedGenres;
   }
 
   public void setAllowedGenres(List<MdsPublicationVO.Genre> allowedGenres) {
@@ -74,7 +74,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
    * @return the allowedSubjectClassifications
    */
   public List<MdsPublicationVO.SubjectClassification> getAllowedSubjectClassifications() {
-    return allowedSubjectClassifications;
+    return this.allowedSubjectClassifications;
   }
 
   /**
@@ -86,15 +86,16 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   }
 
   public ItemRO getTemplateItem() {
-    return templateItem;
+    return this.templateItem;
   }
 
   public void setTemplateItem(ItemRO templateItem) {
     this.templateItem = templateItem;
   }
 
+  @Override
   public String getValidationSchema() {
-    return validationSchema;
+    return this.validationSchema;
   }
 
   public void setValidationSchema(String validationSchema) {
@@ -102,7 +103,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   }
 
   public String getVisibilityOfReferences() {
-    return visibilityOfReferences;
+    return this.visibilityOfReferences;
   }
 
   public void setVisibilityOfReferences(String visibilityOfReferences) {
@@ -110,7 +111,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   }
 
   public Workflow getWorkflow() {
-    return workflow;
+    return this.workflow;
   }
 
   public void setWorkflow(Workflow workflow) {
@@ -121,7 +122,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
    * @return the contactEmail
    */
   public String getContactEmail() {
-    return contactEmail;
+    return this.contactEmail;
   }
 
   /**
@@ -135,80 +136,96 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((allowedGenres == null) ? 0 : allowedGenres.hashCode());
+    result = prime * result + ((this.allowedGenres == null) ? 0 : this.allowedGenres.hashCode());
     result =
         prime
             * result
-            + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications
-                .hashCode());
-    result = prime * result + ((contactEmail == null) ? 0 : contactEmail.hashCode());
-    result = prime * result + ((templateItem == null) ? 0 : templateItem.hashCode());
-    result = prime * result + ((validationSchema == null) ? 0 : validationSchema.hashCode());
+            + ((this.allowedSubjectClassifications == null) ? 0
+                : this.allowedSubjectClassifications.hashCode());
+    result = prime * result + ((this.contactEmail == null) ? 0 : this.contactEmail.hashCode());
+    result = prime * result + ((this.templateItem == null) ? 0 : this.templateItem.hashCode());
     result =
-        prime * result + ((visibilityOfReferences == null) ? 0 : visibilityOfReferences.hashCode());
-    result = prime * result + ((workflow == null) ? 0 : workflow.hashCode());
+        prime * result + ((this.validationSchema == null) ? 0 : this.validationSchema.hashCode());
+    result =
+        prime * result
+            + ((this.visibilityOfReferences == null) ? 0 : this.visibilityOfReferences.hashCode());
+    result = prime * result + ((this.workflow == null) ? 0 : this.workflow.hashCode());
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
+    }
 
-    if (obj == null)
-      return false;
-
-    if (getClass() != obj.getClass())
-      return false;
-
-    PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
-
-    if (allowedGenres == null) {
-      if (other.allowedGenres != null)
-        return false;
-    } else if (other.allowedGenres == null)
-      return false;
-    else if (!allowedGenres.containsAll(other.allowedGenres) //
-        || !other.allowedGenres.containsAll(allowedGenres)) {
+    if (obj == null) {
       return false;
     }
 
-    if (allowedSubjectClassifications == null) {
-      if (other.allowedSubjectClassifications != null)
-        return false;
-    } else if (other.allowedSubjectClassifications == null)
-      return false;
-    else if (!allowedSubjectClassifications.containsAll(other.allowedSubjectClassifications) //
-        || !other.allowedSubjectClassifications.containsAll(allowedSubjectClassifications)) {
+    if (this.getClass() != obj.getClass()) {
       return false;
     }
 
-    if (contactEmail == null) {
-      if (other.contactEmail != null)
-        return false;
-    } else if (!contactEmail.equals(other.contactEmail))
-      return false;
+    final PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
 
-    if (templateItem == null) {
-      if (other.templateItem != null)
+    if (this.allowedGenres == null) {
+      if (other.allowedGenres != null) {
         return false;
-    } else if (!templateItem.equals(other.templateItem))
+      }
+    } else if (other.allowedGenres == null) {
       return false;
+    } else if (!this.allowedGenres.containsAll(other.allowedGenres) //
+        || !other.allowedGenres.containsAll(this.allowedGenres)) {
+      return false;
+    }
 
-    if (validationSchema == null) {
-      if (other.validationSchema != null)
+    if (this.allowedSubjectClassifications == null) {
+      if (other.allowedSubjectClassifications != null) {
         return false;
-    } else if (!validationSchema.equals(other.validationSchema))
+      }
+    } else if (other.allowedSubjectClassifications == null) {
       return false;
+    } else if (!this.allowedSubjectClassifications.containsAll(other.allowedSubjectClassifications) //
+        || !other.allowedSubjectClassifications.containsAll(this.allowedSubjectClassifications)) {
+      return false;
+    }
 
-    if (visibilityOfReferences == null) {
-      if (other.visibilityOfReferences != null)
+    if (this.contactEmail == null) {
+      if (other.contactEmail != null) {
         return false;
-    } else if (!visibilityOfReferences.equals(other.visibilityOfReferences))
+      }
+    } else if (!this.contactEmail.equals(other.contactEmail)) {
       return false;
+    }
 
-    if (workflow != other.workflow)
+    if (this.templateItem == null) {
+      if (other.templateItem != null) {
+        return false;
+      }
+    } else if (!this.templateItem.equals(other.templateItem)) {
       return false;
+    }
+
+    if (this.validationSchema == null) {
+      if (other.validationSchema != null) {
+        return false;
+      }
+    } else if (!this.validationSchema.equals(other.validationSchema)) {
+      return false;
+    }
+
+    if (this.visibilityOfReferences == null) {
+      if (other.visibilityOfReferences != null) {
+        return false;
+      }
+    } else if (!this.visibilityOfReferences.equals(other.visibilityOfReferences)) {
+      return false;
+    }
+
+    if (this.workflow != other.workflow) {
+      return false;
+    }
 
     return true;
   }
