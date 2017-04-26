@@ -42,7 +42,7 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"  
    xmlns:escidoc="urn:escidoc:functions"
-   xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle" 
+   xmlns:pm="https://dtd.nlm.nih.gov/ns/archiving/2.3/" 
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/">
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>

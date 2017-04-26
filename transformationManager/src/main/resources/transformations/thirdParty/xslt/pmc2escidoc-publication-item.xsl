@@ -33,7 +33,7 @@
 	$Revision$ 
 	$LastChangedDate$
 -->
-<xsl:stylesheet version="2.0" xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+<xsl:stylesheet version="2.0" xmlns:pm="https://dtd.nlm.nih.gov/ns/archiving/2.3/"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"

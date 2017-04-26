@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><OAI-PMH
+	xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2017-04-26T11:48:30Z</responseDate><request verb="GetRecord" identifier="oai:pubmedcentral.nih.gov:2043518" metadataPrefix="pmc_fm">https://www.ncbi.nlm.nih.gov/oai/oai.cgi</request><GetRecord><record><header><identifier>oai:pubmedcentral.nih.gov:2043518</identifier><datestamp>2008-04-30</datestamp><setSpec>amjpathol</setSpec></header><metadata><article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://dtd.nlm.nih.gov/ns/archiving/2.3/" xsi:schemaLocation="https://dtd.nlm.nih.gov/ns/archiving/2.3/ https://dtd.nlm.nih.gov/archiving/2.3/xsd/archivearticle.xsd">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Am J Pathol</journal-id>
+      <journal-title>The American Journal of Pathology</journal-title>
+      <issn pub-type="ppub">0002-9440</issn>
+      <issn pub-type="epub">1525-2191</issn>
+      <publisher>
+        <publisher-name>American Society for Investigative Pathology</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="accession">PMC2043518</article-id>
+      <article-id pub-id-type="pmcid">PMC2043518</article-id>
+      <article-id pub-id-type="pmc-uid">2043518</article-id>
+      <article-id pub-id-type="doi">10.2353/ajpath.2007.070452</article-id>
+      <article-id pub-id-type="pmid">17823278</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Regular Articles</subject>
+          <subj-group>
+            <subject>Musculoskeletal Pathology</subject>
+          </subj-group>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Enhanced Na<sup>+</sup>/H<sup>+</sup> Exchange Activity Contributes to the Pathogenesis of Muscular Dystrophy via Involvement of P2 Receptors</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Iwata</surname>
+            <given-names>Yuko</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Katanosaka</surname>
+            <given-names>Yuki</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Hisamitsu</surname>
+            <given-names>Takashi</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Wakabayashi</surname>
+            <given-names>Shigeo</given-names>
+          </name>
+        </contrib>
+      </contrib-group>
+      <pub-date pub-type="ppub">
+        <month>11</month>
+        <year>2007</year>
+      </pub-date>
+      <volume>171</volume>
+      <issue>5</issue>
+      <fpage>1576</fpage>
+      <lpage>1587</lpage>
+      <history>
+        <date date-type="accepted">
+          <day>24</day>
+          <month>7</month>
+          <year>2007</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Copyright © American Society for Investigative Pathology</copyright-statement>
+        <copyright-year>2007</copyright-year>
+      </permissions>
+      <self-uri xlink:href="zjh01107001576.pdf" xlink:title="pdf"/>
+    </article-meta>
+  </front>
+</article>
+
+</metadata></record></GetRecord></OAI-PMH>

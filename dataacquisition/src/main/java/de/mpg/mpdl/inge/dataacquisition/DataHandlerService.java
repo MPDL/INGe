@@ -111,10 +111,52 @@ public class DataHandlerService {
     return this.doFetch(sourceName, identifier, md.getName(), md.getMdFormat(), md.getEncoding());
   }
 
+
+
   /**
    * {@inheritDoc}
    */
-  public byte[] doFetch(String sourceName, String identifier, String trgFormatName,
+  public byte[] doFetch(String sourceName, String identifier, String[] formats)
+      throws DataaquisitionException {
+    if (sourceName.equalsIgnoreCase("escidoc")) {
+      // necessary for escidoc sources
+      sourceName = Util.trimSourceName(sourceName, identifier);
+      identifier = Util.setEsciDocIdentifier(identifier);
+    }
+    this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+    identifier = Util.trimIdentifier(this.currentSource, identifier);
+    FORMAT[] formatsF = mapFetchSettingsToFORMAT(formats);
+
+    return this.fetchData(identifier, formatsF);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public byte[] doFetch(String sourceName, String identifier, String formatName)
+      throws DataaquisitionException {
+    String type;
+    String enc;
+
+    // check if the format is in the name
+    if (formatName.contains(new String("\u005F")) && !formatName.equals("oai_dc")) {
+      String[] typeArr = formatName.split(new String("\u005F"));
+      formatName = typeArr[0];
+      type = typeArr[1];
+      enc = "*";
+    } else {
+      type = Util.getDefaultMimeType(formatName);
+      enc = Util.getDefaultEncoding(formatName);
+    }
+    return this.doFetch(sourceName, identifier, formatName, type, enc);
+  }
+
+
+
+  /**
+   * {@inheritDoc}
+   */
+  private byte[] doFetch(String sourceName, String identifier, String trgFormatName,
       String trgFormatType, String trgFormatEncoding) throws DataaquisitionException {
     byte[] fetchedData = null;
 
@@ -166,155 +208,6 @@ public class DataHandlerService {
       throw new DataaquisitionException(e);
     }
     return fetchedData;
-
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public byte[] doFetch(String sourceName, String identifier, String[] formats)
-      throws DataaquisitionException {
-    if (sourceName.equalsIgnoreCase("escidoc")) {
-      // necessary for escidoc sources
-      sourceName = Util.trimSourceName(sourceName, identifier);
-      identifier = Util.setEsciDocIdentifier(identifier);
-    }
-    this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-    identifier = Util.trimIdentifier(this.currentSource, identifier);
-    FORMAT[] formatsF = new FORMAT[formats.length];
-
-    for (int i = 0; i < formats.length; i++) {
-      formatsF[i] = FORMAT.valueOf(formats[i]);
-    }
-
-    return this.fetchData(identifier, formatsF);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public byte[] doFetch(String sourceName, String identifier, String formatName)
-      throws DataaquisitionException {
-    String type;
-    String enc;
-
-    // check if the format is in the name
-    if (formatName.contains(new String("\u005F")) && !formatName.equals("oai_dc")) {
-      String[] typeArr = formatName.split(new String("\u005F"));
-      formatName = typeArr[0];
-      type = typeArr[1];
-      enc = "*";
-    } else {
-      type = Util.getDefaultMimeType(formatName);
-      enc = Util.getDefaultEncoding(formatName);
-    }
-    return this.doFetch(sourceName, identifier, formatName, type, enc);
-  }
-
-  private String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
-      String trgFormatEncoding) throws DataaquisitionException {
-    String fetchedItem = null;
-    String item = null;
-    boolean supportedProtocol = false;
-    ProtocolHandler protocolHandler = new ProtocolHandler();
-
-    try {
-      MetadataVO md =
-          Util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
-              trgFormatEncoding);
-      if (md == null) {
-        return null;
-      }
-
-      String decoded =
-          java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
-      md.setMdUrl(new URL(decoded));
-      md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(regex, identifier.trim())));
-      this.currentSource = this.sourceHandler.updateMdEntry(currentSource, md);
-
-      // Select harvesting method
-      if (currentSource.getHarvestProtocol().equalsIgnoreCase("oai-pmh")) {
-        logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
-        item = fetchOAIRecord(md);
-        // Check the record for error codes
-        protocolHandler.checkOAIRecord(item);
-        supportedProtocol = true;
-      }
-
-      if (currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
-        logger.debug("Fetch record via EJB.");
-        item = this.fetchEjbRecord(md, identifier);
-        supportedProtocol = true;
-      }
-
-      if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
-        logger.debug("Fetch record via http.");
-        item = this.fetchHttpRecord(md);
-        supportedProtocol = true;
-      }
-
-      if (!supportedProtocol) {
-        logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol()
-            + " not supported.");
-        throw new DataaquisitionException("Harvesting protocol "
-            + this.currentSource.getHarvestProtocol() + " not supported.");
-      }
-
-      fetchedItem = item;
-
-      // Transform the itemXML if necessary
-      if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase())) {
-
-        Transformer transformer =
-            TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
-                Util.getFORMAT(trgFormatName));
-        StringWriter wr = new StringWriter();
-
-        transformer.transform(
-            new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(enc))),
-            new TransformerStreamResult(wr));
-
-        String itemAfterTransformaton = wr.toString();
-
-        if (currentSource.getItemUrl() != null) {
-          this.setItemUrl(new URL(currentSource.getItemUrl().toString()
-              .replace("GETID", identifier)));
-        }
-
-        try {
-          // Create component if supported
-          // String name = trgFormatName.replace("item", "component");
-          // Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
-
-          Transformer componentTransformer =
-              TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
-                  FORMAT.ESCIDOC_COMPONENT_XML);
-          if (componentTransformer != null) {
-            wr = new StringWriter();
-
-            componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
-                fetchedItem.getBytes(enc))), new TransformerStreamResult(wr));
-            byte[] componentBytes = wr.toString().getBytes(enc);
-
-            if (componentBytes != null) {
-              String componentXml = new String(componentBytes, enc);
-              this.componentVO = XmlTransformingService.transformToFileVO(componentXml);
-            }
-          }
-        } catch (Exception e) {
-          logger.info("No component was created from external sources metadata");
-        }
-      }
-
-      this.setContentType(trgFormatType);
-    } catch (AccessException e) {
-      logger.error("Access denied.", e);
-      throw new DataaquisitionException("Access denied to " + this.currentSource.getName(), e);
-    } catch (Exception e1) {
-      throw new DataaquisitionException(e1);
-    }
-
-    return item;
   }
 
   /**
@@ -388,6 +281,114 @@ public class DataHandlerService {
     return baos.toByteArray();
   }
 
+  String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
+      String trgFormatEncoding) throws DataaquisitionException {
+    String fetchedItem = null;
+    String item = null;
+    String itemAfterTransformaton = null;
+    boolean supportedProtocol = false;
+    ProtocolHandler protocolHandler = new ProtocolHandler();
+
+    try {
+      MetadataVO md =
+          Util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType,
+              trgFormatEncoding);
+      if (md == null) {
+        return null;
+      }
+
+      String decoded =
+          java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
+      md.setMdUrl(new URL(decoded));
+      md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(regex, identifier.trim())));
+      this.currentSource = this.sourceHandler.updateMdEntry(currentSource, md);
+
+      // Select harvesting method
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("oai-pmh")) {
+        logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
+        item = fetchOAIRecord(md);
+        // Check the record for error codes
+        protocolHandler.checkOAIRecord(item);
+        supportedProtocol = true;
+      }
+
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
+        logger.debug("Fetch record via EJB.");
+        item = this.fetchEjbRecord(md, identifier);
+        supportedProtocol = true;
+      }
+
+      if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
+        logger.debug("Fetch record via http.");
+        item = this.fetchHttpRecord(md);
+        supportedProtocol = true;
+      }
+
+      if (!supportedProtocol) {
+        logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol()
+            + " not supported.");
+        throw new DataaquisitionException("Harvesting protocol "
+            + this.currentSource.getHarvestProtocol() + " not supported.");
+      }
+
+      fetchedItem = item;
+      itemAfterTransformaton = item;
+
+      // Transform the itemXML if necessary
+      if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase())) {
+
+        Transformer transformer =
+            TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
+                Util.getFORMAT(trgFormatName));
+        StringWriter wr = new StringWriter();
+
+        transformer.transform(
+            new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(enc))),
+            new TransformerStreamResult(wr));
+
+        itemAfterTransformaton = wr.toString();
+
+        if (currentSource.getItemUrl() != null) {
+          this.setItemUrl(new URL(currentSource.getItemUrl().toString()
+              .replace("GETID", identifier)));
+        }
+
+        try {
+          // Create component if supported
+          // String name = trgFormatName.replace("item", "component");
+          // Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
+
+          Transformer componentTransformer =
+              TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
+                  FORMAT.ESCIDOC_COMPONENT_XML);
+          if (componentTransformer != null) {
+            wr = new StringWriter();
+
+            componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
+                fetchedItem.getBytes(enc))), new TransformerStreamResult(wr));
+            byte[] componentBytes = wr.toString().getBytes(enc);
+
+            if (componentBytes != null) {
+              String componentXml = new String(componentBytes, enc);
+              this.componentVO = XmlTransformingService.transformToFileVO(componentXml);
+            }
+          }
+        } catch (Exception e) {
+          logger.info("No component was created from external sources metadata");
+        }
+      }
+
+      this.setContentType(trgFormatType);
+    } catch (AccessException e) {
+      logger.error("Access denied.", e);
+      throw new DataaquisitionException("Access denied to " + this.currentSource.getName(), e);
+    } catch (Exception e1) {
+      throw new DataaquisitionException(e1);
+    }
+
+    return itemAfterTransformaton;
+  }
+
   /**
    * Operation for fetching data of type FILE.
    * 
@@ -397,7 +398,7 @@ public class DataHandlerService {
    * @return byte[] of the fetched file, zip file if more than one record was fetched
    * @throws DataaquisitionException
    */
-  private byte[] fetchData(String identifier, FORMAT[] formats) throws DataaquisitionException {
+  byte[] fetchData(String identifier, FORMAT[] formats) throws DataaquisitionException {
     byte[] in = null;
     FullTextVO fulltext = new FullTextVO();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -953,5 +954,26 @@ public class DataHandlerService {
       file.setDefaultMetadata(md);
       return file;
     }
+  }
+
+  /**
+   * Utility function to map the Strings used in sources.xml configuration to constants used in
+   * TransformationFactory
+   * 
+   * @param formats
+   * @return
+   */
+  private FORMAT[] mapFetchSettingsToFORMAT(String[] formats) {
+    FORMAT[] formatsF = new FORMAT[formats.length];
+
+    for (int i = 0; i < formats.length; i++) {
+      formatsF[i] = Util.getFORMAT(formats[i]);
+    }
+    return formatsF;
+  }
+
+  // for testing purposes
+  void setCurrentSource(DataSourceVO source) {
+    this.currentSource = source;
   }
 }

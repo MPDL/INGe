@@ -71,6 +71,7 @@ public class DataAcquisitionUnitTest {
   @Test
   public void fetchArxiv() throws Exception {
     byte[] test = this.datahandler.doFetch("arxiv", arxivId);
+    String s = new String(test, "UTF-8");
     Assert.assertNotNull(test);
   }
 

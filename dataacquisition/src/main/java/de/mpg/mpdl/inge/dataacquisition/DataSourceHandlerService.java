@@ -54,7 +54,6 @@ public class DataSourceHandlerService {
     List<DataSourceVO> sourceVec = new ArrayList<DataSourceVO>();
 
     try {
-      System.out.println();
       ClassLoader cl = this.getClass().getClassLoader();
       java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
       String xml = ResourceUtil.getStreamAsString(in);

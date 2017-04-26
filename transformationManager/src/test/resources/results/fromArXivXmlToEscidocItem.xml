@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
+                  xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                  xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                  xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                  xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3"
+                  xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                  xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8"
+                  xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:dcterms="http://purl.org/dc/terms/"
+                  xmlns:prop="http://escidoc.de/core/01/properties/"
+                  xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                  xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7"
+                  xmlns:version="http://escidoc.de/core/01/properties/version/"
+                  xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7"
+                  xmlns:release="http://escidoc.de/core/01/properties/release/"
+                  xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+                  xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                  xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
+                  xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+   <escidocItem:properties>
+      <srel:content-model objid="escidoc:2001"/>
+      <prop:content-model-specific/>
+   </escidocItem:properties>
+   <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+         <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                  xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                                  type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Cyr-Racine</eterms:family-name>
+                  <eterms:given-name>Francis-Yan</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>UBC</dc:title>
+                     <eterms:address/>
+                     <dc:identifier>escidoc:9019</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Profumo</eterms:family-name>
+                  <eterms:given-name>Stefano</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Sigurdson</eterms:family-name>
+                  <eterms:given-name>Kris</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Protohalo Constraints to the Resonant Annihilation of Dark Matter</dc:title>
+            <dc:identifier xsi:type="eterms:ARXIV">0904.3933</dc:identifier>
+            <dc:identifier xsi:type="eterms:DOI">10.1103/PhysRevD.80.081302</dc:identifier>
+            <eterms:publishing-info>
+               <dc:publisher/>
+               <eterms:place/>
+               <eterms:edition/>
+            </eterms:publishing-info>
+            <dcterms:created xsi:type="dcterms:W3CDTF">2009-04-27</dcterms:created>
+            <dcterms:modified xsi:type="dcterms:W3CDTF">2009-05-28</dcterms:modified>
+            <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+            <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+            <eterms:published-online xsi:type="dcterms:W3CDTF"/>
+            <dcterms:issued xsi:type="dcterms:W3CDTF"/>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>Phys.Rev.D80:081302,2009</dc:title>
+               <eterms:creator>
+                  <person:person>
+                     <eterms:family-name/>
+                     <eterms:given-name/>
+                     <organization:organization>
+                        <dc:title/>
+                        <eterms:address/>
+                     </organization:organization>
+                  </person:person>
+               </eterms:creator>
+               <eterms:volume/>
+               <eterms:issue/>
+               <eterms:start-page/>
+               <eterms:end-page/>
+               <eterms:sequence-number/>
+               <eterms:publishing-info>
+                  <dc:publisher/>
+                  <eterms:place/>
+                  <eterms:edition/>
+               </eterms:publishing-info>
+            </source:source>
+            <event:event>
+               <dc:title/>
+               <eterms:start-date xsi:type="dcterms:W3CDTF"/>
+               <eterms:end-date xsi:type="dcterms:W3CDTF"/>
+               <eterms:place/>
+            </event:event>
+            <eterms:total-number-of-pages>5 pages, 4 figures; References added, estimates refined and
+  discussion extended</eterms:total-number-of-pages>
+            <dcterms:abstract>  It has recently been argued that the PAMELA, ATIC and PPB-BETS data showing
+an anomalous excess of high-energy cosmic ray positrons and electrons might be
+explained by dark matter annihilating in the Galactic halo with a cross section
+resonantly enhanced compared to its value in the primeval plasma. We find that
+with a very large annihilation cross section the flash of energetic photons and
+electron-positron pairs expected from dark-matter annihilation in the first
+protohalos that form at redshift z~40 is likely substantial and observable. As
+a consequence, bounds on the allowed energy injection into the primordial gas
+and the energy density of the diffuse gamma-ray background give rise to limits
+on the low-velocity dark matter cross section that can be difficult to
+reconcile with this interpretation of the PAMELA, ATIC and PPB-BETS results.
+</dcterms:abstract>
+            <dcterms:subject>Astrophysics, Cosmology and Extragalactic Astrophysics, astro-ph.CO, Astrophysics, High Energy Astrophysical Phenomena, astro-ph.HE,High Energy Physics - Phenomenology, hep-ph</dcterms:subject>
+            <dcterms:tableOfContents/>
+            <eterms:location/>
+         </publication:publication>
+      </escidocMetadataRecords:md-record>
+   </escidocMetadataRecords:md-records>
+</escidocItem:item>

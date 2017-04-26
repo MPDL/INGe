@@ -71,7 +71,6 @@ public class Util {
 
   private static final Logger logger = Logger.getLogger(Util.class);
   private static final String internalFormat = FORMAT.ESCIDOC_ITEM_V3_XML.name();
-  private static final String transformationService = "escidoc";
   private static final String dummyFormat = "unknown";
   private static final String METADATA_XSLT_LOCATION = "transformations/thirdParty/xslt";
 
@@ -147,23 +146,19 @@ public class Util {
     // First: check if format can be fetched directly
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
-      boolean fetchMd = true;
 
       if (!sourceMd.getName().equalsIgnoreCase(trgFormatName)) {
-        fetchMd = false;
+        continue;
       }
       if (!sourceMd.getMdFormat().equalsIgnoreCase(trgFormatType)) {
-        fetchMd = false;
+        continue;
       }
       if ((!sourceMd.getEncoding().equals("*")) && (!trgFormatEndcoding.equals("*"))) {
         if (!sourceMd.getEncoding().equalsIgnoreCase(trgFormatEndcoding)) {
-          fetchMd = false;
+          continue;
         }
       }
-
-      if (fetchMd) {
-        return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
-      }
+      return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
     }
 
     // Second: check which format can be transformed into the given format
@@ -173,15 +168,8 @@ public class Util {
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
 
-      boolean fetchMd = false;
-
       if (Arrays.asList(possibleFormats).contains(getFORMAT(sourceMd.getName()))) {
         return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
-
-        /*
-         * if (!getFORMAT(sourceMd.getName()).equals(possibleFormat)) { fetchMd = false; } if
-         * (fetchMd) { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName()); }
-         */
       }
     }
     return null;
@@ -189,15 +177,27 @@ public class Util {
 
   static FORMAT getFORMAT(String formatName) {
     switch (formatName) {
-      case "eSciDoc-publication-item":
-        return FORMAT.ESCIDOC_ITEM_V3_XML;
-      case "esidoc-fulltext":
-        return FORMAT.ESCIDOC_COMPONENT_XML;
+
+      case "arXiv":
+        return FORMAT.ARXIV_OAIPMH_XML;
       case "bmc":
+        return FORMAT.BMC_OAIPMH_XML;
       case "bmcarticle":
       case "bmcreferences":
       case "bmcbibl":
         return FORMAT.BMC_OAIPMH_XML;
+      case "bmcarticleFullTextXml":
+        return FORMAT.BMC_FULLTEXT_XML;
+      case "bmcarticleFullTextHtml":
+        return FORMAT.BMC_FULLTEXT_XML;
+      case "eSciDoc-publication-item":
+        return FORMAT.ESCIDOC_ITEM_V3_XML;
+      case "esidoc-fulltext":
+        return FORMAT.ESCIDOC_COMPONENT_XML;
+      case "pmc":
+        return FORMAT.PMC_OAIPMH_XML;
+      case "spires":
+        return FORMAT.SPIRES_XML;
       default:
         return FORMAT.valueOf(formatName);
     }
@@ -251,10 +251,10 @@ public class Util {
       boolean fetchMd = true;
 
       if (!ft.getName().equalsIgnoreCase(formatName)) {
-        fetchMd = false;
+        continue;
       }
       if (!ft.getFtFormat().equalsIgnoreCase(formatType)) {
-        fetchMd = false;
+        continue;
       }
       if ((!"*".equals(ft.getEncoding())) && (!"*".equals(formatEncoding))) {
         if (!ft.getEncoding().equalsIgnoreCase(formatEncoding)) {
@@ -530,8 +530,6 @@ public class Util {
     }
   }
 
-
-
   /**
    * Retrieves the fileending for a given mimetype from the cone service.
    * 
@@ -582,10 +580,6 @@ public class Util {
 
   public static String getInternalFormat() {
     return internalFormat;
-  }
-
-  public static String getTransformationService() {
-    return transformationService;
   }
 
   public static String getDummyFormat() {

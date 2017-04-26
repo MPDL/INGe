@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ei:item xmlns:ei="${xsd.soap.item.item}">
+   <ei:properties>
+      <srel:context xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:event="${xsd.metadata.event}"
+                    xmlns:mdr="${xsd.soap.common.mdrecords}"
+                    xmlns:organization="${xsd.metadata.organization}"
+                    xmlns:eterms="${xsd.metadata.terms}"
+                    xmlns:pub="${xsd.metadata.publication}"
+                    xmlns:escidoc="urn:escidoc:functions"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:srel="${xsd.soap.common.srel}"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:prop="${xsd.soap.common.prop}"
+                    xmlns:pm="https://dtd.nlm.nih.gov/ns/archiving/2.3/"
+                    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                    xmlns:ec="${xsd.soap.item.components}"
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns:file="${xsd.metadata.file}"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:person="${xsd.metadata.person}"
+                    xmlns:dc="${xsd.metadata.dc}"
+                    xmlns:source="${xsd.metadata.source}"
+                    objid="dummy-context"/>
+      <srel:content-model xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:event="${xsd.metadata.event}"
+                          xmlns:mdr="${xsd.soap.common.mdrecords}"
+                          xmlns:organization="${xsd.metadata.organization}"
+                          xmlns:eterms="${xsd.metadata.terms}"
+                          xmlns:pub="${xsd.metadata.publication}"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:srel="${xsd.soap.common.srel}"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:prop="${xsd.soap.common.prop}"
+                          xmlns:pm="https://dtd.nlm.nih.gov/ns/archiving/2.3/"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                          xmlns:ec="${xsd.soap.item.components}"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:file="${xsd.metadata.file}"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:person="${xsd.metadata.person}"
+                          xmlns:dc="${xsd.metadata.dc}"
+                          xmlns:source="${xsd.metadata.source}"
+                          objid="escidoc:2001"/>
+      <prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="${xsd.soap.common.mdrecords}">
+      <mdr:md-record xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:event="${xsd.metadata.event}"
+                     xmlns:organization="${xsd.metadata.organization}"
+                     xmlns:eterms="${xsd.metadata.terms}"
+                     xmlns:pub="${xsd.metadata.publication}"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:srel="${xsd.soap.common.srel}"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:prop="${xsd.soap.common.prop}"
+                     xmlns:pm="https://dtd.nlm.nih.gov/ns/archiving/2.3/"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                     xmlns:ec="${xsd.soap.item.components}"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:file="${xsd.metadata.file}"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:person="${xsd.metadata.person}"
+                     xmlns:dc="${xsd.metadata.dc}"
+                     xmlns:source="${xsd.metadata.source}"
+                     name="escidoc">
+         <pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Iwata</eterms:family-name>
+                  <eterms:given-name>Yuko</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Katanosaka</eterms:family-name>
+                  <eterms:given-name>Yuki</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Hisamitsu</eterms:family-name>
+                  <eterms:given-name>Takashi</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Wakabayashi</eterms:family-name>
+                  <eterms:given-name>Shigeo</eterms:given-name>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Enhanced Na+/H+ Exchange Activity Contributes to the Pathogenesis of Muscular Dystrophy via Involvement of P2 Receptors</dc:title>
+            <dc:identifier xsi:type="eterms:OTHER">accessionPMC2043518</dc:identifier>
+            <dc:identifier xsi:type="eterms:OTHER">pmcidPMC2043518</dc:identifier>
+            <dc:identifier xsi:type="eterms:OTHER">pmc-uid2043518</dc:identifier>
+            <dc:identifier xsi:type="eterms:DOI">10.2353/ajpath.2007.070452</dc:identifier>
+            <dc:identifier xsi:type="eterms:PMID">17823278</dc:identifier>
+            <dc:identifier xsi:type="eterms:URI"/>
+            <dcterms:issued>2007-11</dcterms:issued>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>The American Journal of Pathology</dc:title>
+               <eterms:volume>171</eterms:volume>
+               <eterms:issue>5</eterms:issue>
+               <eterms:start-page>1576</eterms:start-page>
+               <eterms:end-page>1587</eterms:end-page>
+               <eterms:publishing-info>
+                  <dc:publisher>American Society for Investigative Pathology</dc:publisher>s
+			<eterms:place/>
+               </eterms:publishing-info>
+               <dc:identifier xsi:type="eterms:OTHER">Am J Pathol</dc:identifier>
+               <dc:identifier xsi:type="eterms:ISSN">0002-9440</dc:identifier>
+               <dc:identifier xsi:type="eterms:ISSN">1525-2191</dc:identifier>
+            </source:source>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="${xsd.soap.item.components}"/>
+</ei:item>
