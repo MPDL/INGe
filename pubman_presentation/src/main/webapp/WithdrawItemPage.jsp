@@ -8,7 +8,6 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
-    <f:event type="preRenderView" listener="#{WithdrawItemPage.init}" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />

@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.bean.ManagedBean;
 
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * BackingBean for AcceptItemPage.jsp. This one is empty because all code is implemented in the
@@ -39,17 +39,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  */
 @ManagedBean(name = "AcceptItemPage")
 @SuppressWarnings("serial")
-public class AcceptItemPage extends BreadcrumbPage {
-  public AcceptItemPage() {}
-
-  @Override
-  public void init() {
+public class AcceptItemPage extends FacesBean {
+  public AcceptItemPage() {
     this.checkForLogin();
-    super.init();
-  }
-
-  @Override
-  public boolean isItemSpecific() {
-    return true;
   }
 }

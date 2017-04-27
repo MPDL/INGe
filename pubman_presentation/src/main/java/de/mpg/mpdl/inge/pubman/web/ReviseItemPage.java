@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.bean.ManagedBean;
 
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * BackingBean for ReviseItemPage.jsp. This one is empty because all code is implemented in the
@@ -42,16 +42,8 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
  */
 @ManagedBean(name = "ReviseItemPage")
 @SuppressWarnings("serial")
-public class ReviseItemPage extends BreadcrumbPage {
-  public ReviseItemPage() {}
-
-  @Override
-  public void init() {
-    super.init();
-  }
-
-  @Override
-  public boolean isItemSpecific() {
-    return true;
+public class ReviseItemPage extends FacesBean {
+  public ReviseItemPage() {
+    this.checkForLogin();
   }
 }
