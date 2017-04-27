@@ -1071,13 +1071,6 @@ public class EditItem extends FacesBean {
       this.lnkSave.setRendered((isOwner && (isStatePending || isStateInRevision)) || isModerator
           && isStateSubmitted);
     }
-    /*
-     * this.lnkAccept.setRendered(this.isInModifyMode() &&
-     * loginHelper.getAccountUser().isModerator(this.getPubItem().getContext()));
-     * this.lnkDelete.setRendered(!this.isInModifyMode() && itemHasID);
-     * this.lnkSaveAndSubmit.setRendered(!this.isInModifyMode());
-     * this.lnkSave.setRendered(!this.isInModifyMode());
-     */
   }
 
   public boolean getLocalTagEditingAllowed() {

@@ -2163,19 +2163,17 @@ public class ViewItemFull extends FacesBean {
             RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
                 + ViewItemFull.FUNCTION_NEW_REVISION);
 
-    if (!this.isStateWithdrawn
-        && ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
+    if (((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
         || (this.isStateSubmitted && this.isLatestVersion && this.isModerator)) {
       this.canEdit = true;
     }
 
-    if (!this.isStateWithdrawn && (this.isStatePending || this.isStateInRevision)
+    if ((this.isStatePending || this.isStateInRevision)
         && this.isLatestVersion && this.isOwner && this.isWorkflowStandard) {
       this.canSubmit = true;
     }
 
-    if (!this.isStateWithdrawn
-        && this.isOwner
+    if (this.isOwner
         && this.isLatestVersion
         && (((this.isStatePending || this.isStateSubmitted) && this.isWorkflowSimple) || (this.isWorkflowStandard
             && this.isModerator && this.isStateSubmitted))) {
@@ -2183,34 +2181,32 @@ public class ViewItemFull extends FacesBean {
 
     }
 
-    if (!this.isStateWithdrawn && this.isStateSubmitted && this.isLatestVersion && this.isModerator
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
         && !this.isOwner && !this.isModifyDisabled) {
       this.canAccept = true;
     }
 
-    if (!this.isStateWithdrawn
-        && (this.isStateSubmitted && this.isLatestVersion && this.isModerator
-            && !this.isModifyDisabled && this.isWorkflowStandard && !this.isPublicStateReleased)) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
+            && !this.isModifyDisabled && this.isWorkflowStandard && !this.isPublicStateReleased) {
       this.canRevise = true;
     }
 
-    if (!this.isStateWithdrawn && !this.isPublicStateReleased
+    if (!this.isPublicStateReleased
         && (this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner) {
       this.canDelete = true;
     }
 
-    if (!this.isStateWithdrawn
-        && ((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)
+    if (((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)
         && (this.isOwner || this.isModerator)) {
       this.canWithdraw = true;
     }
 
-    if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestVersion
+    if (this.isStateReleased && this.isLatestVersion
         && !this.isModifyDisabled && (this.isModerator || this.isOwner)) {
       this.canModify = true;
     }
 
-    if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestRelease
+    if (this.isStateReleased && this.isLatestRelease
         && !this.isCreateNewRevisionDisabled && this.isDepositor) {
       this.canCreateNewRevision = true;
     }
