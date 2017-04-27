@@ -60,7 +60,7 @@ public class ReviseItem extends FacesBean {
 
   private String reviseComment;
   private String creators;
-  private String navigationStringToGoBack;
+//  private String navigationStringToGoBack;
 
   public ReviseItem() {
     this.init();
@@ -136,13 +136,13 @@ public class ReviseItem extends FacesBean {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 
-  public String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+//  public String getNavigationStringToGoBack() {
+//    return this.navigationStringToGoBack;
+//  }
+//
+//  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+//    this.navigationStringToGoBack = navigationStringToGoBack;
+//  }
 
   public String getCreators() {
     return this.creators;

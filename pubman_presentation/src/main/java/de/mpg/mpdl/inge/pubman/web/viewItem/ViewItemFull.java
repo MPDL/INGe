@@ -95,7 +95,6 @@ import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
 import de.mpg.mpdl.inge.pubman.web.reviseItem.ReviseItem;
 import de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
-import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -786,8 +785,8 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
+//    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
+//        this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return SubmitItem.LOAD_SUBMITITEM;
   }
@@ -2470,10 +2469,6 @@ public class ViewItemFull extends FacesBean {
 
   private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-  }
-
-  private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) FacesTools.findBean("SubmitItemSessionBean");
   }
 
   private RightsManagementSessionBean getRightsManagementSessionBean() {

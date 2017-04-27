@@ -35,7 +35,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;

@@ -30,7 +30,6 @@ import javax.faces.bean.ManagedBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
@@ -51,7 +50,7 @@ public class ExportEmailPage extends BreadcrumbPage {
     final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
-    sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
+//    sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
     sb.setExportEmailTxt(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
     sb.setEnableExport(false);
   }

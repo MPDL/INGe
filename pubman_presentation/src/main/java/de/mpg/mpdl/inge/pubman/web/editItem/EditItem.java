@@ -83,7 +83,6 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
-import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -703,8 +702,8 @@ public class EditItem extends FacesBean {
     // set the current submission method to empty string (for GUI purpose)
     this.getEditItemSessionBean().setCurrentSubmission("");
     this.getPubItemListSessionBean().update();
-    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-        MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+//    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
+//        MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
 
     return retVal;
   }
@@ -1556,10 +1555,6 @@ public class EditItem extends FacesBean {
 
   private YearbookItemSessionBean getYearbookItemSessionBean() {
     return (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-  }
-
-  private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) FacesTools.findBean("SubmitItemSessionBean");
   }
 
   private AcceptItemSessionBean getAcceptItemSessionBean() {
