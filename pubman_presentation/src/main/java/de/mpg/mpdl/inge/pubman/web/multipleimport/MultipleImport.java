@@ -36,6 +36,9 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
@@ -85,6 +88,32 @@ public class MultipleImport extends FacesBean {
   private UploadedFile uploadedImportFile;
   private boolean rollback = true;
   private int duplicateStrategy = 3;
+
+  /**
+  private Converter formatConverter = new Converter() {
+    public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1,
+        String value) {
+      if (value != null && !"".equals(value)) {
+        String[] parts = value.split("[\\[\\,\\]]");
+        if (parts.length > 0) {
+          return FORMAT.valueOf(parts[0]);
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    }
+
+    public String getAsString(FacesContext arg0, UIComponent arg1, Object format) {
+      if (format instanceof FORMAT) {
+        return format.toString();
+      } else {
+        return null;
+      }
+    }
+  };
+*/
 
   public MultipleImport() {
     this.importFormats.add(new SelectItem(FORMAT.ENDNOTE_STRING, this
