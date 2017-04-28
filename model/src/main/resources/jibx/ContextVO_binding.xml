@@ -40,14 +40,35 @@
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
+		<!-- Node: context.@last-modification-date -->
+		<!-- Field: ContextVO.lastModificationDate [java.util.Date] -->
+		<value style="attribute" name="last-modification-date" field="lastModificationDate" usage="optional" />
 		<!-- Node: context.properties -->
 		<structure name="properties" ns="${xsd.soap.context.context}" ordered="false" flexible="true" usage="optional">
 
+			<!-- Node: context.properties.creation-date -->
+			<!-- Field: ContextVO.creationDate [java.util.Date] -->
+			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}"
+				field="creationDate" usage="optional" />
+				
+				
 			<!-- Node: context.properties.created-by.@objid -->
 			<!-- Field: ContextVO.creator [AccountUserRO] -->
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
 				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
+			
+			<!-- Node:context.properties.modified-by -->
+			<!-- Type: AccountUserRO... -->
+			<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedBy"
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				usage="optional">
+
+				<!-- Node: organizational-unit.properties.created-by.@objid -->
+				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" get-method="getObjectId" usage="optional" />
+
 			</structure>
 
 			<!-- Node: context.properties.public-status -->

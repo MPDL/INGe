@@ -43,6 +43,8 @@
 	<namespace prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}" default="none" />
 	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
 	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
+	<namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
+	<namespace prefix="search-result" uri="${xsd.soap.searchresult.searchresult}" default="none"/>
     	
     <format type="java.util.Date"
       deserializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.deserializeDate"
@@ -64,5 +66,6 @@
     <include path="SuccessorAffiliationROListWrapper_binding.xml"/>
 	<include path="AffiliationRO_binding.xml"/>
 	<include path="publication/IdentifierVO_binding.xml"/>
+	<include path="SearchRetrieveResponse_binding_input.xml" />
 	
 </binding>

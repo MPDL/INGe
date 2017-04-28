@@ -1796,6 +1796,35 @@ public class XmlTransformingService {
     return searchRetrieveResponseVO;
   }
 
+  public static SearchRetrieveResponseVO transformToSearchRetrieveResponseOrganizationVO(
+      String searchRetrieveResponseXml) throws TechnicalException {
+    logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n"
+        + searchRetrieveResponseXml);
+    if (searchRetrieveResponseXml == null) {
+      throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
+          + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
+    }
+    SearchRetrieveResponseVO searchRetrieveResponseVO = null;
+
+    try {
+      // unmarshal pidServiceResponse from String
+      IBindingFactory bfact =
+          BindingDirectory.getFactory("AffiliationVO_input", SearchRetrieveResponseVO.class);
+      IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+      StringReader sr = new StringReader(searchRetrieveResponseXml);
+      Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+      searchRetrieveResponseVO = (SearchRetrieveResponseVO) unmarshalledObject;
+    } catch (JiBXException e) {
+      // throw a new UnmarshallingException, log the root cause of the JiBXException first
+      logger.error(e.getRootCause());
+      throw new UnmarshallingException(searchRetrieveResponseXml, e);
+    } catch (ClassCastException e) {
+      throw new TechnicalException(e);
+    }
+
+    return searchRetrieveResponseVO;
+  }
+
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup(
       String searchRetrieveResponseXml) throws TechnicalException {
     return transformToSearchRetrieveResponseGrant(searchRetrieveResponseXml);

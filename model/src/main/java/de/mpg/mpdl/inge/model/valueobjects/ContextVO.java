@@ -97,6 +97,9 @@ public class ContextVO extends ValueObject implements Searchable {
    * The creator of the collection.
    */
   private AccountUserRO creator;
+  private java.util.Date creationDate;
+  private java.util.Date lastModificationDate;
+  private AccountUserRO modifiedBy;
   /**
    * The set union of validation points for items in this collection.
    */
@@ -278,6 +281,30 @@ public class ContextVO extends ValueObject implements Searchable {
     } else {
       getAdminDescriptors().add(adminDescriptorVO);
     }
+  }
+
+  public java.util.Date getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(java.util.Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  public java.util.Date getLastModificationDate() {
+    return lastModificationDate;
+  }
+
+  public void setLastModificationDate(java.util.Date lastModificationDate) {
+    this.lastModificationDate = lastModificationDate;
+  }
+
+  public AccountUserRO getModifiedBy() {
+    return modifiedBy;
+  }
+
+  public void setModifiedBy(AccountUserRO modifiedBy) {
+    this.modifiedBy = modifiedBy;
   }
 
   public String getType() {
