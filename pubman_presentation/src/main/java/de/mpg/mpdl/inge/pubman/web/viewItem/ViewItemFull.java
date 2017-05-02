@@ -2178,7 +2178,6 @@ public class ViewItemFull extends FacesBean {
         && (((this.isStatePending || this.isStateSubmitted) && this.isWorkflowSimple) || (this.isWorkflowStandard
             && this.isModerator && this.isStateSubmitted))) {
       this.canRelease = true;
-
     }
 
     if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
