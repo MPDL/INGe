@@ -50,7 +50,7 @@ public class ExportEmailPage extends BreadcrumbPage {
     final ExportItemsSessionBean sb =
         (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
 
-//    sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
+    // sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);
     sb.setExportEmailTxt(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
     sb.setEnableExport(false);
   }

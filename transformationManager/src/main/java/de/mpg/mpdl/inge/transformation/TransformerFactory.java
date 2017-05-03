@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -51,15 +52,15 @@ public class TransformerFactory {
         case MAB_STRING:
         case RIS_STRING:
         case WOS_STRING:
-          return "text/plain";
+          return FileFormatVO.TEXT_MIMETYPE;
 
         case JUS_HTML_XML:
         case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
         case BMC_FULLTEXT_HTML:
-          return "text/html";
+          return FileFormatVO.HTML_PLAIN_MIMETYPE;
 
         default:
-          return "application/xml";
+          return FileFormatVO.SNIPPET_MIMETYPE;
       }
     }
 

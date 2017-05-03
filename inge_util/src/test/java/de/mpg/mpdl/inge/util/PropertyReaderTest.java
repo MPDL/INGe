@@ -66,7 +66,8 @@ public class PropertyReaderTest {
     assertTrue(loginUrl != null);
     assertTrue(loginUrl.equals("http://localhost:8080"));
 
-    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2", PropertyReader.getCounter() == 2);
+    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2",
+        PropertyReader.getCounter() == 2);
 
   }
 

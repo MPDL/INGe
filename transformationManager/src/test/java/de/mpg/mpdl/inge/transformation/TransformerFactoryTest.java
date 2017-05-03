@@ -387,6 +387,22 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromPmcOaiXmlToEscidocItem.xml");
   }
 
+  @Test
+  public void testSpiresToItemXmlV3() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.SPIRES_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("spires.html")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromSpiresXmlToEscidocItem.xml");
+  }
+
   /*
    * @Test public void testModsXmlToItemXmlV3() throws TransformationException, IOException {
    * 

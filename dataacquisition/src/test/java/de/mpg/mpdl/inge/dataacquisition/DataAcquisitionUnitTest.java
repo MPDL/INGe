@@ -90,6 +90,7 @@ public class DataAcquisitionUnitTest {
   @Test
   public void fetchSpires() throws Exception {
     byte[] test = this.datahandler.doFetch("spires", spiresId);
+    String s = new String(test, "UTF-8");
     Assert.assertNotNull(test);
   }
 
