@@ -99,18 +99,6 @@ public class PropertyReader {
     return getProperty("escidoc.framework_access.login.url");
   }
 
-  // public static void setProperty(String key, String value) {
-  //
-  // Object object = null;
-  // if ((object = properties.getProperty(key)) != null) {
-  // if (logger.isDebugEnabled()) {
-  // logger.debug("Overwriting property (" + key + ", " + object.toString() + ")" + " with "
-  // + value);
-  // }
-  // }
-  // properties.setProperty(key, value);
-  // }
-
   /**
    * Force the property file to be reloaded into the Properties object
    */

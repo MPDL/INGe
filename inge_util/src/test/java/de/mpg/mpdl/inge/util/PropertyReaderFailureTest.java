@@ -22,7 +22,6 @@ public class PropertyReaderFailureTest {
   public ExpectedException expectedEx = ExpectedException.none();
 
   @Test
-  @Ignore
   public void testPropertyFileNotExisting() {
     expectedEx.expect(ExceptionInInitializerError.class);
     PropertyReader.getProperty("xx");

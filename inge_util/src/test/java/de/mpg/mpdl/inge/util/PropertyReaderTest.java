@@ -18,7 +18,7 @@ public class PropertyReaderTest {
 
   @BeforeClass
   public static void createPropertiesFile() throws IOException {
-
+    FileUtils.deleteQuietly(propertiesFile);
 
     FileUtils.writeStringToFile(propertiesFile,
         "escidoc.framework_access.framework.url = http://dev-pubman.mpdl.mpg.de", true);
@@ -66,7 +66,7 @@ public class PropertyReaderTest {
     assertTrue(loginUrl != null);
     assertTrue(loginUrl.equals("http://localhost:8080"));
 
-    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2",
+    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 3",
         PropertyReader.getCounter() == 2);
 
   }
