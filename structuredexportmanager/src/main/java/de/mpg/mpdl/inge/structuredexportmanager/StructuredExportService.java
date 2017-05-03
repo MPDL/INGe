@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
  */
 public class StructuredExportService {
 
-
   // Mapping the format names to the enums used in transformationManager
   private static Map<String, FORMAT> map;
   static {

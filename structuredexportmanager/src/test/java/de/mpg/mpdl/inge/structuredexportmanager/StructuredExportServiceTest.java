@@ -47,13 +47,13 @@ public class StructuredExportServiceTest {
 
   @SuppressWarnings("serial")
   public static final Map<String, String> ITEM_LISTS_FILE_MAMES = new HashMap<String, String>() {
-    String pref = "target/test-classes/";
+    String pref = "target/test-classes/publicationItems/metadataV2/";
     {
-      put("MARCXML", pref + "publicationItems/metadataV2/item_book.xml");
-      put("BIBTEX", pref + "publicationItems/metadataV2/item_book.xml");
-      put("ENDNOTE", pref + "publicationItems/metadataV2/item_book.xml");
-      put("EDOC_EXPORT", pref + "publicationItems/metadataV2/full_item.xml");
-      put("EDOC_IMPORT", pref + "publicationItems/metadataV2/full_item.xml");
+      put("BIBTEX", pref + "item_book.xml");
+      put("EDOC_EXPORT", pref + "full_item.xml");
+      put("EDOC_IMPORT", pref + "full_item.xml");
+      put("ENDNOTE", pref + "item_book.xml");
+      put("MARCXML", pref + "item_book.xml");
     }
   };
 
@@ -165,6 +165,7 @@ public class StructuredExportServiceTest {
   public void testIsStructuredFormat() throws StructuredExportManagerException {
     assertTrue(StructuredExportService.isStructuredFormat("BIBTEX"));
     assertTrue(StructuredExportService.isStructuredFormat("ENDNOTE"));
+    // assertTrue(StructuredExportService.isStructuredFormat("ESCIDOC_XML"));
     assertTrue(StructuredExportService.isStructuredFormat("MARCXML"));
   }
 }
