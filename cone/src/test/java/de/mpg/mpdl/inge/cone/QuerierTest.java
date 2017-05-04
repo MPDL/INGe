@@ -88,12 +88,11 @@ public class QuerierTest {
         results.size() <= Integer.parseInt(PropertyReader
             .getProperty("escidoc.cone.maximum.results")));
 
-    logger.debug("Query returned " + results.size() + " hits");
+    logger.info("Query returned " + results.size() + " hits");
 
     for (Describable pair : results) {
-      assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(),
-          ((Pair) pair).getValue().toString().contains("of")
-              || ((Pair) pair).getValue().toString().contains("Of"));
+      assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
+          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of"));
     }
   }
 
@@ -105,11 +104,11 @@ public class QuerierTest {
     assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)",
         results.size() <= 10);
 
-    logger.debug("Query returned " + results.size() + " hits");
+    logger.info("Query returned " + results.size() + " hits");
 
     for (Describable pair : results) {
-      assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(),
-          ((Pair) pair).getValue().toString().contains("of"));
+      assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
+          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of"));
     }
   }
 

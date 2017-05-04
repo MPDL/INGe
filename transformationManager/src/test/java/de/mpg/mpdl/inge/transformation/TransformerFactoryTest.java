@@ -294,7 +294,6 @@ public class TransformerFactoryTest {
   }
 
   @Test
-  @Ignore
   public void testEdocXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -306,6 +305,8 @@ public class TransformerFactoryTest {
             .getResourceAsStream("edoc_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
+    
+    String s = wr.toString();
 
     assertXmlTransformation(wr, "results/fromEdocToEscidocItem.xml");
   }
