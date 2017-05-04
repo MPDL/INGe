@@ -44,6 +44,9 @@ public class PropertyReaderTest {
     String notDefinedProperty = PropertyReader.getProperty("notdefined", "defaultValue");
     assertTrue(notDefinedProperty != null);
     assertTrue(notDefinedProperty.equals("defaultValue"));
+
+    String notExistingProperty = PropertyReader.getProperty("notExistingProperty");
+    assertTrue(notExistingProperty == null);
   }
 
   @Test
@@ -66,7 +69,7 @@ public class PropertyReaderTest {
     assertTrue(loginUrl != null);
     assertTrue(loginUrl.equals("http://localhost:8080"));
 
-    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 3",
+    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2",
         PropertyReader.getCounter() == 2);
 
   }

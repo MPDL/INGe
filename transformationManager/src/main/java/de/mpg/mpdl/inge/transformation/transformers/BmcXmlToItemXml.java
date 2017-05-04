@@ -7,6 +7,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.xml.resolver.tools.CatalogResolver;
@@ -20,6 +21,7 @@ import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
@@ -93,6 +95,10 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
     return SingleTransformer.getDefaultConfigurationFromProperty(
         "escidoc.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
+  }
+
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
   }
 
 }

@@ -61,7 +61,7 @@ public class PropertyReader {
   private static Properties properties;
   private static URL solution;
   private static String fileLocation = "";
-  private static int counter = 0;
+  private static int counterForLoadingProperties = 0;
 
   private PropertyReader() {
     loadProperties();
@@ -136,8 +136,8 @@ public class PropertyReader {
    * <code>pubman.properties.file</code>. If this property is not set the default file path
    * <code>pubman.properties</code> is used. If no properties can be loaded, the jvm is terminated.
    */
-  public static void loadProperties() {
-    counter++;
+  private static void loadProperties() {
+    counterForLoadingProperties++;
 
     String propertiesFile = "";
     Properties solProperties = new Properties();
@@ -224,12 +224,8 @@ public class PropertyReader {
 
   // only for test purpose
   static int getCounter() {
-    return counter;
+    return counterForLoadingProperties;
   }
-
-  // static void clean() {
-  // properties = null;
-  // }
 
   private static class PropertyReaderHolder {
     private static final PropertyReader instance = new PropertyReader();
