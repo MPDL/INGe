@@ -31,8 +31,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -116,7 +120,7 @@ public class TransformContextTest extends TestBase {
     assertNotNull(contextVO);
 
     // check results
-    ContextVO expectedContext = getExpectedContext();
+    ContextVO expectedContext = getExpectedContextFull();
 
 
     List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
@@ -154,7 +158,7 @@ public class TransformContextTest extends TestBase {
 
     // check results
     assertEquals(2, contextVOList.size());
-    ContextVO expectedPubCollection = getExpectedContext();
+    ContextVO expectedPubCollection = getExpectedContextFull();
     for (ContextVO pubCollection : contextVOList) {
       assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
 
@@ -227,8 +231,9 @@ public class TransformContextTest extends TestBase {
    * Delivers a well-defined pubCollection.
    * 
    * @return The well-defined pubCollection.
+   * @throws ParseException
    */
-  private ContextVO getExpectedContext() {
+  private ContextVO getExpectedContextFull() throws ParseException {
     ContextVO expected = new ContextVO();
     expected.setName(PUBMAN_TEST_COLLECTION_NAME);
     expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
@@ -236,6 +241,69 @@ public class TransformContextTest extends TestBase {
     expected.setState(ContextVO.State.OPENED);
     expected.setReference(new ContextRO("escidoc:persistent3"));
     expected.setCreator(new AccountUserRO("escidoc:user42"));
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.SSS'Z'", Locale.GERMANY);
+    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+    String dateInString = "2007-03-26T11:11:58.853Z";
+    expected.setLastModificationDate(sdf.parse(dateInString));
+
+    String creationDateInString = "2007-01-16T11:23:24.359Z";
+    expected.setCreationDate(sdf.parse(creationDateInString));
+
+    PublicationAdminDescriptorVO adminDescriptor = new PublicationAdminDescriptorVO();
+    expected.getAdminDescriptors().add(adminDescriptor);
+    expected.setDefaultMetadata(null);
+    expected.getResponsibleAffiliations().add(new AffiliationRO("escidoc:persistent13"));
+    List<MdsPublicationVO.Genre> allowedGenres = adminDescriptor.getAllowedGenres();
+    // MdsPublicationVO.Genre.MANUSCRIPT must not be added!
+    allowedGenres.add(MdsPublicationVO.Genre.ARTICLE);
+    allowedGenres.add(MdsPublicationVO.Genre.BOOK);
+    allowedGenres.add(MdsPublicationVO.Genre.BOOK_ITEM);
+    allowedGenres.add(MdsPublicationVO.Genre.PROCEEDINGS);
+    allowedGenres.add(MdsPublicationVO.Genre.CONFERENCE_PAPER);
+    allowedGenres.add(MdsPublicationVO.Genre.TALK_AT_EVENT);
+    allowedGenres.add(MdsPublicationVO.Genre.CONFERENCE_REPORT);
+    allowedGenres.add(MdsPublicationVO.Genre.POSTER);
+    allowedGenres.add(MdsPublicationVO.Genre.COURSEWARE_LECTURE);
+    allowedGenres.add(MdsPublicationVO.Genre.THESIS);
+    allowedGenres.add(MdsPublicationVO.Genre.PAPER);
+    allowedGenres.add(MdsPublicationVO.Genre.REPORT);
+    allowedGenres.add(MdsPublicationVO.Genre.JOURNAL);
+    allowedGenres.add(MdsPublicationVO.Genre.ISSUE);
+    allowedGenres.add(MdsPublicationVO.Genre.SERIES);
+    allowedGenres.add(MdsPublicationVO.Genre.OTHER);
+    // adminDescriptor.setVisibilityOfReferences("standard");
+
+    adminDescriptor.setTemplateItem(new ItemRO("escidoc:123"));
+    adminDescriptor.setValidationSchema("publication");
+    adminDescriptor.setWorkflow(PublicationAdminDescriptorVO.Workflow.STANDARD);
+    adminDescriptor.setContactEmail("pubman@mpdl.mpg.de");
+    return expected;
+  }
+
+  /**
+   * Delivers a well-defined pubCollection.
+   * 
+   * @return The well-defined pubCollection.
+   * @throws ParseException
+   */
+  private ContextVO getExpectedContext() throws ParseException {
+    ContextVO expected = new ContextVO();
+    expected.setName(PUBMAN_TEST_COLLECTION_NAME);
+    expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
+    expected.setType("PubMan");
+    expected.setState(ContextVO.State.OPENED);
+    expected.setReference(new ContextRO("escidoc:persistent3"));
+    expected.setCreator(new AccountUserRO("escidoc:user42"));
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.SSS'Z'", Locale.GERMANY);
+    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+    String dateInString = "2007-07-18T07:48:33.656Z";
+    expected.setLastModificationDate(sdf.parse(dateInString));
+
+    String creationDateInString = "2007-01-16T11:23:24.359Z";
+    expected.setCreationDate(sdf.parse(creationDateInString));
+
     PublicationAdminDescriptorVO adminDescriptor = new PublicationAdminDescriptorVO();
     expected.getAdminDescriptors().add(adminDescriptor);
     expected.setDefaultMetadata(null);
