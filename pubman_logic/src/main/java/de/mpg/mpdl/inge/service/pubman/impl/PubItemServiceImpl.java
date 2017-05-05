@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -26,7 +28,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.service.identifier.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.services.IngeServiceException;
@@ -36,11 +37,11 @@ public class PubItemServiceImpl implements PubItemService {
 
   private final static Logger logger = Logger.getLogger(PubItemServiceImpl.class);
 
-  public static String INDEX_VERSION_OBJECT_ID = "version.objectId.keyword";
-  public static String INDEX_VERSION_STATE = "version.state.keyword";
-  public static String INDEX_PUBLIC_STATE = "publicStatus.keyword";
-  public static String INDEX_OWNER_OBJECT_ID = "owner.objectId.keyword";
-  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId.keyword";
+  public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
+  public static String INDEX_VERSION_STATE = "version.state";
+  public static String INDEX_PUBLIC_STATE = "publicStatus";
+  public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
+  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId";
   public static String INDEX_LOCAL_TAGS = "localTags";
 
   @Autowired
@@ -71,7 +72,7 @@ public class PubItemServiceImpl implements PubItemService {
     PubItemUtil.cleanUpItem(pubItemToCreate);
     validate(pubItemToCreate);
 
-    String id = idProviderService.getNewId();
+    String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
     pubItemToCreate.getVersion().setObjectId(id);
 
@@ -385,5 +386,11 @@ public class PubItemServiceImpl implements PubItemService {
     } catch (ValidationException e) {
       throw new IngeServiceException(e);
     }
+  }
+
+  @Override
+  public void reindex() {
+    // TODO Auto-generated method stub
+
   }
 }

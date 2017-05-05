@@ -84,7 +84,7 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
                           .setField("creator[" + i + "].organization[" + j + "]"));
                       ok = false;
                     }
-                    
+
                   }
 
                   j++;

@@ -17,4 +17,6 @@ public interface PubItemService extends GenericService<PubItemVO> {
 
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException;
+
+  public void reindex();
 }

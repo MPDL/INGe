@@ -57,7 +57,7 @@
 			
 				<!-- Node: component.properties.created-by.@objid -->
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
-					
+				<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" set-method="setTitle" get-method="getTitle" usage="optional" />	
 			</structure>
 
 			<!-- Node: component.properties.description -->
