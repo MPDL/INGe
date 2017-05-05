@@ -763,15 +763,15 @@ public class ItemControllerSessionBean extends FacesBean {
     return versionHistoryList;
   }
 
-  public String reviseCurrentPubItem(String reviseComment, String navigationStringToGoBack) {
+  public String reviseCurrentPubItem(String navigationRuleWhenSuccesfull, String comment) {
     try {
       PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().revisePubItem(
-              currentPubItem.getVersion().getObjectId(), reviseComment,
+              currentPubItem.getVersion().getObjectId(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
-      return navigationStringToGoBack;
+      return navigationRuleWhenSuccesfull;
     } catch (Exception e) {
       logger.error("Error while revising current PubItem", e);
       error("Error while revising current PubItem" + e.getMessage());

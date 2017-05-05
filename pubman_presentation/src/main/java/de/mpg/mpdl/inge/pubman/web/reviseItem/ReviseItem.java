@@ -101,9 +101,9 @@ public class ReviseItem extends FacesBean {
     final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
     final String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment, navigateTo);
+        this.getItemControllerSessionBean().reviseCurrentPubItem(navigateTo, this.reviseComment);
 
-    if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
+    if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
       this.getPubItemListSessionBean().update();
 

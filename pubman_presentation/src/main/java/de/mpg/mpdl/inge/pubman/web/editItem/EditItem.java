@@ -596,7 +596,7 @@ public class EditItem extends FacesBean {
 
     cleanUp();
 
-    String navigateTo = SubmitItem.LOAD_SUBMITITEM;
+    final String navigateTo = SubmitItem.LOAD_SUBMITITEM;
     String retVal = checkItemChanged(navigateTo);
 
     if (!navigateTo.equals(retVal)) {
@@ -688,7 +688,7 @@ public class EditItem extends FacesBean {
 
     cleanUp();
 
-    String navigateTo = SubmitItem.LOAD_SUBMITITEM;
+    final String navigateTo = SubmitItem.LOAD_SUBMITITEM;
     String retVal = checkItemChanged(navigateTo);
 
     if (!navigateTo.equals(retVal)) {
@@ -716,15 +716,14 @@ public class EditItem extends FacesBean {
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String delete() {
-    final String retVal =
-        this.getItemControllerSessionBean().deleteCurrentPubItem(
-            MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+    final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
 
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+    final String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(navigateTo);
+
+    if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
+      this.getPubItemListSessionBean().update();
     }
-
-    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -799,7 +798,7 @@ public class EditItem extends FacesBean {
 
     cleanUp();
 
-    String navigateTo = AcceptItem.LOAD_ACCEPTITEM;
+    final String navigateTo = AcceptItem.LOAD_ACCEPTITEM;
     String retVal = checkItemChanged(navigateTo);
 
     if (!navigateTo.equals(retVal)) {

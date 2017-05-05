@@ -794,23 +794,15 @@ public class ViewItemFull extends FacesBean {
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
-  /**
-   * deletes the selected item(s) an redirects the user to the page he came from (depositor
-   * workspace or search result list)
-   * 
-   * @return String nav rule to load the page the user came from
-   */
   public String deleteItem() {
-    if (this.getViewItemSessionBean().getNavigationStringToGoBack() == null) {
-      this.getViewItemSessionBean().setNavigationStringToGoBack(
-          MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-    }
-    final String retVal =
-        this.getItemControllerSessionBean().deleteCurrentPubItem(
-            this.getViewItemSessionBean().getNavigationStringToGoBack());
-    // show message
-    if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE)) {
+    final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
+
+    final String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(navigateTo);
+
+    if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
+      this.getPubItemListSessionBean().update();
+
       // redirect to last breadcrumb, if available
       final BreadcrumbItemHistorySessionBean bhsb =
           (BreadcrumbItemHistorySessionBean) FacesTools
@@ -826,7 +818,6 @@ public class ViewItemFull extends FacesBean {
         }
       } catch (final IOException e) {
         ViewItemFull.logger.error("Could not redirect to last breadcrumb!");
-        return "loadHome";
       }
     }
 

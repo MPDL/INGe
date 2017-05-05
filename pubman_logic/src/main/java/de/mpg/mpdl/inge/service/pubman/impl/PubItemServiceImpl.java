@@ -162,7 +162,6 @@ public class PubItemServiceImpl implements PubItemService {
   @Override
   public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
@@ -181,7 +180,6 @@ public class PubItemServiceImpl implements PubItemService {
     }
 
     logger.info("PubItem " + id + " successfully deleted");
-
   }
 
   @Override
