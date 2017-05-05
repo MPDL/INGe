@@ -644,10 +644,10 @@ public class EditItem extends FacesBean {
       }
 
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (newPubItem.getVersion().getState() != State.RELEASED) {
-          return navigateTo;
-        }
-
+//        if (newPubItem.getVersion().getState() != State.RELEASED) {
+//          return navigateTo;
+//        }
+//
         EditItem.logger.warn("Item has not been changed.");
         // create a validation report
         final ValidationReportVO changedReport = new ValidationReportVO();
@@ -657,10 +657,12 @@ public class EditItem extends FacesBean {
         changedReport.addItem(changedReportItem);
         // show report and stay on this page
         this.showValidationMessages(changedReport);
+        
+        return "";
       }
     }
 
-    return "";
+    return navigateTo;
   }
 
   private String saveItem(String navigateTo) {
