@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(value = Include.NON_NULL)
 @MappedSuperclass
-public class BasicRO implements Cloneable {
+public class BasicDbRO implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -73,18 +73,18 @@ public class BasicRO implements Cloneable {
   @AttributeOverrides({
       @AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
-  private AccountUserRO creator;
+  private AccountUserDbRO creator;
 
   @Embedded
   @AttributeOverrides({
       @AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
-  private AccountUserRO modifier;
+  private AccountUserDbRO modifier;
 
   /**
    * Creates a new instance.
    */
-  public BasicRO() {
+  public BasicDbRO() {
     super();
   }
 
@@ -138,25 +138,25 @@ public class BasicRO implements Cloneable {
 
 
 
-  public AccountUserRO getCreator() {
+  public AccountUserDbRO getCreator() {
     return creator;
   }
 
 
 
-  public void setCreator(AccountUserRO creator) {
+  public void setCreator(AccountUserDbRO creator) {
     this.creator = creator;
   }
 
 
 
-  public AccountUserRO getModifier() {
+  public AccountUserDbRO getModifier() {
     return modifier;
   }
 
 
 
-  public void setModifier(AccountUserRO modifier) {
+  public void setModifier(AccountUserDbRO modifier) {
     this.modifier = modifier;
   }
 

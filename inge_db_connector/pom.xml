@@ -53,8 +53,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model_new</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>model</artifactId>
 		</dependency>
 				
 		<!-- Spring dependencies -->

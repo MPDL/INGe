@@ -22,6 +22,11 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
@@ -43,11 +48,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemVersionVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -96,11 +96,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    de.mpg.mpdl.inge.model_new.valueobjects.ContextVO contextNew =
+    de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getContext().getObjectId());
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
-    PubItemVersionVO pubItemToCreate =
+    PubItemVersionDbVO pubItemToCreate =
         buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
             pubItemVO.getLocalTags(), userAccount.getReference().getTitle(), userAccount
                 .getReference().getObjectId());
@@ -130,27 +130,27 @@ public class PubItemServiceDbImpl implements PubItemService {
     return itemToReturn;
   }
 
-  private PubItemVersionVO buildPubItemToCreate(String objectId,
-      de.mpg.mpdl.inge.model_new.valueobjects.ContextVO context, MdsPublicationVO md,
+  private PubItemVersionDbVO buildPubItemToCreate(String objectId,
+      de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO context, MdsPublicationVO md,
       List<String> localTags, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
-    PubItemVersionVO pubItem = new PubItemVersionVO();
+    PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
     pubItem.getFiles().clear();// TODO
     pubItem.setMetadata(md);
     pubItem.setLastMessage(null);
     pubItem.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.model_new.valueobjects.AccountUserRO mod =
-        new de.mpg.mpdl.inge.model_new.valueobjects.AccountUserRO();
+    de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
+        new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     pubItem.setModifiedBy(mod);
     pubItem.setObjectId(objectId);
-    pubItem.setState(de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State.PENDING);
+    pubItem.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
     pubItem.setVersionNumber(1);
     pubItem.setVersionPid(null);// TODO
 
-    PubItemObjectVO pubItemObject = new PubItemObjectVO();
+    PubItemObjectDbVO pubItemObject = new PubItemObjectDbVO();
     pubItemObject.setContext(context);
     pubItemObject.setCreationDate(currentDate);
     pubItemObject.setLastModificationDate(currentDate);
@@ -159,7 +159,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemObject.setObjectId(objectId);
     pubItemObject.setOwner(mod);
     pubItemObject.setPid(null);// TODO
-    pubItemObject.setPublicStatus(de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State.PENDING);
+    pubItemObject.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
     pubItemObject.setPublicStatusComment(null);
 
     pubItem.setObject(pubItemObject);
@@ -167,15 +167,15 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
 
-  private PubItemRO updatePubItemWithTechnicalMd(PubItemVersionVO latestVersion,
+  private PubItemDbRO updatePubItemWithTechnicalMd(PubItemVersionDbVO latestVersion,
       String modifierName, String modifierId) {
     Date currentDate = new Date();
 
 
     latestVersion.getFiles().clear();// TODO
     latestVersion.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.model_new.valueobjects.AccountUserRO mod =
-        new de.mpg.mpdl.inge.model_new.valueobjects.AccountUserRO();
+    de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
+        new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     latestVersion.setModifiedBy(mod);
@@ -221,7 +221,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
 
-    PubItemVersionVO latestVersion =
+    PubItemVersionDbVO latestVersion =
         itemRepository.findLatestVersion(pubItemVO.getVersion().getObjectId());
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
@@ -233,13 +233,13 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (State.RELEASED.equals(latestVersion.getState())) {
       entityManager.detach(latestVersion);
       // Reset latestRelase reference because it is the same object as latest version
-      PubItemRO latestReleaseRO = new PubItemRO();
+      PubItemDbRO latestReleaseRO = new PubItemDbRO();
       latestReleaseRO.setObjectId(latestVersion.getObject().getLatestRelease().getObjectId());
       latestReleaseRO.setVersionNumber(latestVersion.getObject().getLatestRelease()
           .getVersionNumber());
       latestVersion.getObject().setLatestRelease(latestReleaseRO);
 
-      latestVersion.setState(de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State.PENDING);
+      latestVersion.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
       latestVersion.setVersionNumber(latestVersion.getVersionNumber() + 1);
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
@@ -271,7 +271,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    PubItemVersionVO latestPubItemVersion = itemRepository.findLatestVersion(id);
+    PubItemVersionDbVO latestPubItemVersion = itemRepository.findLatestVersion(id);
     if (latestPubItemVersion == null) {
       throw new IngeServiceException("Item " + id + " not found");
     }
@@ -398,7 +398,7 @@ public class PubItemServiceDbImpl implements PubItemService {
       String authenticationToken) throws IngeServiceException, AaException, ItemInvalidException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    PubItemVersionVO latestVersion = itemRepository.findLatestVersion(id);
+    PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
 
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
@@ -411,7 +411,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
     if (State.SUBMITTED.equals(state)
-        && !de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State.RELEASED.equals(latestVersion
+        && !de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.RELEASED.equals(latestVersion
             .getObject().getPublicStatus())) {
       latestVersion.getObject().setPublicStatus(State.SUBMITTED);
     }
@@ -439,7 +439,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
 
-  private void reindex(PubItemVersionVO item) throws IngeServiceException {
+  private void reindex(PubItemVersionDbVO item) throws IngeServiceException {
     pubItemDao
         .delete(new VersionableId(item.getObjectId(), item.getVersionNumber() - 1).toString());
 
@@ -448,7 +448,8 @@ public class PubItemServiceDbImpl implements PubItemService {
         && !item.getObjectIdAndVersion().equals(
             item.getObject().getLatestRelease().getObjectIdAndVersion())) {
       pubItemDao.create(item.getObject().getLatestRelease().getObjectIdAndVersion(),
-          EntityTransformer.transformToOld((PubItemVersionVO) item.getObject().getLatestRelease()));
+          EntityTransformer
+              .transformToOld((PubItemVersionDbVO) item.getObject().getLatestRelease()));
     }
   }
 
@@ -495,8 +496,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   public void reindex() {
 
-    Query<de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO> query =
-        (Query<de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO>) entityManager
+    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(5000);
@@ -505,17 +506,17 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     while (results.next()) {
       try {
-        de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO object =
-            (de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO) results.get(0);
+        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
         PubItemVO latestVersion =
-            EntityTransformer.transformToOld((PubItemVersionVO) object.getLatestVersion());
+            EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
         logger.info("Reindexing item latest version "
             + latestVersion.getVersion().getObjectIdAndVersion());
         pubItemDao.create(latestVersion.getVersion().getObjectId() + "_"
             + latestVersion.getVersion().getVersionNumber(), latestVersion);
         if (object.getLatestRelease() != null) {
           PubItemVO latestRelease =
-              EntityTransformer.transformToOld((PubItemVersionVO) object.getLatestRelease());
+              EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
           logger.info("Reindexing item latest release "
               + latestRelease.getVersion().getObjectIdAndVersion());
           pubItemDao.create(latestRelease.getVersion().getObjectId() + "_"

@@ -5,21 +5,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import de.mpg.mpdl.inge.db.model.hibernate.MdsFileVOJsonUserType;
+import de.mpg.mpdl.inge.db.model.hibernate.MdsPublicationVOJsonUserType;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model_new.hibernate.MdsFileVOJsonUserType;
-import de.mpg.mpdl.inge.model_new.hibernate.MdsPublicationVOJsonUserType;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemVersionVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.VersionableId;
 
 
 
-public interface ItemRepository extends JpaRepository<PubItemVersionVO, VersionableId> {
+public interface ItemRepository extends JpaRepository<PubItemVersionDbVO, VersionableId> {
 
 
   @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId)")
-  public PubItemVersionVO findLatestVersion(@Param("objectId") String objectId);
+  public PubItemVersionDbVO findLatestVersion(@Param("objectId") String objectId);
 
   @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.state='RELEASED' AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId)")
-  public PubItemVersionVO findLatestRelease(@Param("objectId") String objectId);
+  public PubItemVersionDbVO findLatestRelease(@Param("objectId") String objectId);
 
 }

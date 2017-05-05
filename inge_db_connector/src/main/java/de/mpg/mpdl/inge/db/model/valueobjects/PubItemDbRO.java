@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.util.Date;
 
@@ -6,22 +6,18 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
-public class PubItemRO {
+public class PubItemDbRO {
 
   public enum State {
     PENDING, SUBMITTED, RELEASED, WITHDRAWN, IN_REVISION
@@ -53,7 +49,7 @@ public class PubItemRO {
   @AttributeOverrides({
       @AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
-  private AccountUserRO modifiedBy;
+  private AccountUserDbRO modifiedBy;
   /**
    * The version PID of the item.
    */
@@ -67,11 +63,11 @@ public class PubItemRO {
     this.objectId = objectId;
   }
 
-  public AccountUserRO getModifiedBy() {
+  public AccountUserDbRO getModifiedBy() {
     return modifiedBy;
   }
 
-  public void setModifiedBy(AccountUserRO modifiedBy) {
+  public void setModifiedBy(AccountUserDbRO modifiedBy) {
     this.modifiedBy = modifiedBy;
   }
 

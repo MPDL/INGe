@@ -41,7 +41,6 @@
 		<module>inge_validation</module>
 		<module>inge_validation_presentation</module>
 		<module>model</module>
-		<module>model_new</module>
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
@@ -343,11 +342,6 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>model_new</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>

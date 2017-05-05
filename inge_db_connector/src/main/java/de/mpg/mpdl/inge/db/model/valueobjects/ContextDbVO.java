@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,9 +40,9 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import de.mpg.mpdl.inge.db.model.hibernate.ContextAdminDescriptorJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model_new.hibernate.ContextAdminDescriptorJsonUserType;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management
@@ -55,11 +55,11 @@ import de.mpg.mpdl.inge.model_new.hibernate.ContextAdminDescriptorJsonUserType;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
-@Entity
+@Entity(name = "ContextVO")
 @Table(name = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType",
     typeClass = ContextAdminDescriptorJsonUserType.class)
-public class ContextVO extends ContextRO implements Searchable {
+public class ContextDbVO extends ContextDbRO implements Searchable {
 
 
   /**
@@ -89,8 +89,8 @@ public class ContextVO extends ContextRO implements Searchable {
    * The list of responsible affiliations for this collection.
    */
   @ManyToMany(fetch = FetchType.EAGER)
-  private java.util.List<AffiliationRO> responsibleAffiliations =
-      new java.util.ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationDbRO> responsibleAffiliations =
+      new java.util.ArrayList<AffiliationDbRO>();
 
   @Type(type = "ContextAdminDescriptorJsonUserType")
   private PublicationAdminDescriptorVO adminDescriptor;
@@ -100,7 +100,7 @@ public class ContextVO extends ContextRO implements Searchable {
   /**
    * Default constructor.
    */
-  public ContextVO() {
+  public ContextDbVO() {
 
   }
 
@@ -131,7 +131,7 @@ public class ContextVO extends ContextRO implements Searchable {
   /**
    * Delivers the state of the collection.
    */
-  public ContextVO.State getState() {
+  public ContextDbVO.State getState() {
     return state;
   }
 
@@ -150,7 +150,7 @@ public class ContextVO extends ContextRO implements Searchable {
    * 
    * @param newVal
    */
-  public void setState(ContextVO.State newVal) {
+  public void setState(ContextDbVO.State newVal) {
     state = newVal;
   }
 
@@ -159,7 +159,7 @@ public class ContextVO extends ContextRO implements Searchable {
   /**
    * Delivers the list of affiliations which are responsible for this collection.
    */
-  public java.util.List<AffiliationRO> getResponsibleAffiliations() {
+  public java.util.List<AffiliationDbRO> getResponsibleAffiliations() {
     return responsibleAffiliations;
   }
 
@@ -181,7 +181,7 @@ public class ContextVO extends ContextRO implements Searchable {
     this.adminDescriptor = adminDescriptor;
   }
 
-  public void setResponsibleAffiliations(java.util.List<AffiliationRO> responsibleAffiliations) {
+  public void setResponsibleAffiliations(java.util.List<AffiliationDbRO> responsibleAffiliations) {
     this.responsibleAffiliations = responsibleAffiliations;
   }
 

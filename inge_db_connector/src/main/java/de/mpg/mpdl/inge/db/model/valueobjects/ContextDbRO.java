@@ -24,10 +24,9 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -44,10 +43,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @JsonInclude(value = Include.NON_NULL)
-@Entity
+@Entity(name = "ContextRO")
 @Table(name = "context_basic")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class ContextRO extends BasicRO {
+public class ContextDbRO extends BasicDbRO {
 
 
 }

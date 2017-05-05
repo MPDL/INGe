@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.io.Serializable;
 

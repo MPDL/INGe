@@ -32,7 +32,7 @@ public class JPAConfiguration {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
-    em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model_new", "de.mpg.mpdl.inge.db.model"});
+    em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.db.model"});
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
     em.setJpaProperties(hibernateProperties());

@@ -105,8 +105,8 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   public void reindex() {
 
-    Query<de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO> query =
-        (Query<de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO>) entityManager
+    Query<de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO> query =
+        (Query<de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO>) entityManager
             .createQuery("SELECT ou FROM AffiliationVO ou");
     query.setReadOnly(true);
     query.setFetchSize(1000);
@@ -115,8 +115,8 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
     while (results.next()) {
       try {
-        de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO object =
-            (de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO) results.get(0);
+        de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO object =
+            (de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO) results.get(0);
         AffiliationVO aff = EntityTransformer.transformToOld(object);
         logger.info("Reindexing ou " + aff.getReference().getObjectId());
         organizationDao.create(aff.getReference().getObjectId(), aff);

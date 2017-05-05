@@ -24,13 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -44,9 +38,55 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @JsonInclude(value = Include.NON_NULL)
-@Entity
-@Table(name = "organization_basic")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class AffiliationRO extends BasicRO {
+public class AccountUserDbRO implements Cloneable {
+  /**
+   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
+   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
+   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
+   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
+   * be compiled twice for testing (once for the Application Server, once for the local test).
+   * 
+   * @author Johannes Mueller
+   */
+  private static final long serialVersionUID = 1L;
+
+
+
+  private String name;
+
+  private String objectId;
+
+  /**
+   * Creates a new instance.
+   */
+  public AccountUserDbRO() {
+    super();
+  }
+
+
+
+  public String getObjectId() {
+    return objectId;
+  }
+
+
+
+  public void setObjectId(String objectId) {
+    this.objectId = objectId;
+  }
+
+
+
+  public String getName() {
+    return name;
+  }
+
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
 
 }

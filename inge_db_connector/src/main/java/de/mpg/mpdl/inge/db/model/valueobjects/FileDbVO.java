@@ -24,16 +24,14 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -41,8 +39,8 @@ import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import de.mpg.mpdl.inge.db.model.hibernate.MdsFileVOJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model_new.hibernate.MdsFileVOJsonUserType;
 
 /**
  * A file that is contained in an item.
@@ -51,11 +49,11 @@ import de.mpg.mpdl.inge.model_new.hibernate.MdsFileVOJsonUserType;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 12:05:47
  */
-@Entity
+@Entity(name = "FileVO")
 @Table(name = "file")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
-public class FileVO extends FileRO {
+public class FileDbVO extends FileDbRO {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -164,7 +162,7 @@ public class FileVO extends FileRO {
    * 
    * @author Thomas Diebaecker
    */
-  public FileVO() {}
+  public FileDbVO() {}
 
   /**
    * Copy constructor.

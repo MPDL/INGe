@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.model_new.hibernate;
+package de.mpg.mpdl.inge.db.model.hibernate;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,8 +15,6 @@ import java.sql.Types;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 

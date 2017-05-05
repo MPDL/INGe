@@ -1,6 +1,5 @@
-package de.mpg.mpdl.inge.model_new.hibernate;
+package de.mpg.mpdl.inge.db.model.hibernate;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 
 

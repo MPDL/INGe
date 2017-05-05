@@ -1,15 +1,10 @@
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.methods.HttpGet;
@@ -26,31 +21,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.ChecksumAlgorithm;
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Storage;
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.model_new.valueobjects.AccountUserRO;
-import de.mpg.mpdl.inge.model_new.valueobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.ContextRO;
-import de.mpg.mpdl.inge.model_new.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.FileVO.ChecksumAlgorithm;
-import de.mpg.mpdl.inge.model_new.valueobjects.FileVO.Storage;
-import de.mpg.mpdl.inge.model_new.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemVersionVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.util.AdminHelper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -113,10 +107,10 @@ public class TestDbConnector {
      */
   }
 
-  private AffiliationVO findOu(String ouId) {
+  private AffiliationDbVO findOu(String ouId) {
     long time = System.currentTimeMillis();
 
-    AffiliationVO aff = orgRepository.findOne(ouId);
+    AffiliationDbVO aff = orgRepository.findOne(ouId);
 
     System.out.println("OU took " + (System.currentTimeMillis() - time));
     return aff;
@@ -124,14 +118,14 @@ public class TestDbConnector {
 
   private void findLatestVersion(String objectId) throws Exception {
     long start = System.currentTimeMillis();
-    PubItemRO item = itemRepository.findLatestVersion(objectId);
+    PubItemDbRO item = itemRepository.findLatestVersion(objectId);
     long time = System.currentTimeMillis() - start;
     System.out.println("Took " + time + "  --  " + item.getObjectIdAndVersion());
   }
 
   private void findVersion(VersionableId id) throws Exception {
     long start = System.currentTimeMillis();
-    PubItemRO item = itemRepository.findOne(id);
+    PubItemDbRO item = itemRepository.findOne(id);
     long time = System.currentTimeMillis() - start;
     System.out.println("Took " + time + "  --  " + item.getObjectIdAndVersion());
   }
@@ -149,12 +143,12 @@ public class TestDbConnector {
   @Ignore
   public void test() throws Exception {
 
-    AccountUserRO user = new AccountUserRO();
+    AccountUserDbRO user = new AccountUserDbRO();
     user.setName("Martin Boosen");
     user.setObjectId("pure_boosen");
 
     Date now = new Date();
-    PubItemVersionVO pubItem = new PubItemVersionVO();
+    PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
     pubItem.setLastMessage("my last message");
     pubItem.setModificationDate(now);
     pubItem.setModifiedBy(user);
@@ -165,8 +159,8 @@ public class TestDbConnector {
 
     pubItem.getMetadata().setTitle("My first DB Item");
 
-    PubItemObjectVO object = new PubItemObjectVO();
-    ContextRO context = new ContextRO();
+    PubItemObjectDbVO object = new PubItemObjectDbVO();
+    ContextDbRO context = new ContextDbRO();
     context.setObjectId("pure_context_id");
     object.setContext(context);
     object.setCreationDate(now);
@@ -218,7 +212,7 @@ public class TestDbConnector {
 
   private void saveContext(de.mpg.mpdl.inge.model.valueobjects.ContextVO context) throws Exception {
     try {
-      ContextVO newVo = transformToNew(context);
+      ContextDbVO newVo = transformToNew(context);
       System.out.println("Saving " + newVo.getObjectId());
       contextRepository.save(newVo);
     } catch (Exception e) {
@@ -293,7 +287,7 @@ public class TestDbConnector {
   private void saveOuWithoutPredecessor(de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo)
       throws Exception {
 
-    AffiliationVO newVo = transformToNew(affVo);
+    AffiliationDbVO newVo = transformToNew(affVo);
     newVo.getPredecessorAffiliations().clear();
     System.out.println("Saving " + newVo.getObjectId());
     orgRepository.save(newVo);
@@ -304,12 +298,12 @@ public class TestDbConnector {
   private void updateOUWithPredecessors(de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
     String id = changeId("ou", affVo.getReference().getObjectId());
     if (!affVo.getPredecessorAffiliations().isEmpty()) {
-      AffiliationVO newVo = orgRepository.findOne(id);
+      AffiliationDbVO newVo = orgRepository.findOne(id);
 
       // newVo.setPredecessorAffiliations(new ArrayList<AffiliationRO>());
       for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo
           .getPredecessorAffiliations()) {
-        AffiliationRO newAffRo = new AffiliationRO();
+        AffiliationDbRO newAffRo = new AffiliationDbRO();
         newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
         newAffRo.setName(oldAffRo.getTitle());
 
@@ -392,7 +386,7 @@ public class TestDbConnector {
   private void savePubItem(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO pubItem)
       throws Exception {
     try {
-      PubItemVersionVO newVo = transformToNew(pubItem);
+      PubItemVersionDbVO newVo = transformToNew(pubItem);
       System.out.println("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       itemRepository.save(newVo);
     } catch (Exception e) {
@@ -401,17 +395,17 @@ public class TestDbConnector {
   }
 
 
-  private static AffiliationVO transformToNew(
+  private static AffiliationDbVO transformToNew(
       de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
-    AccountUserRO owner = new AccountUserRO();
-    AccountUserRO modifier = new AccountUserRO();
+    AccountUserDbRO owner = new AccountUserDbRO();
+    AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(changeId("user", affVo.getCreator().getObjectId()));
     owner.setName(affVo.getCreator().getTitle());
     modifier.setObjectId(changeId("user", affVo.getModifiedBy().getObjectId()));
     modifier.setName(affVo.getModifiedBy().getTitle());
 
-    AffiliationVO newAff = new AffiliationVO();
+    AffiliationDbVO newAff = new AffiliationDbVO();
     newAff.setCreationDate(affVo.getCreationDate());
 
     newAff.setCreator(owner);
@@ -424,20 +418,20 @@ public class TestDbConnector {
 
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo
         .getPredecessorAffiliations()) {
-      AffiliationRO newAffRo = new AffiliationRO();
+      AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
       newAff.getPredecessorAffiliations().add(newAffRo);
     }
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo
         .getParentAffiliations()) {
-      AffiliationRO newAffRo = new AffiliationRO();
+      AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
       newAff.getParentAffiliations().add(newAffRo);
     }
 
-    newAff.setPublicStatus(de.mpg.mpdl.inge.model_new.valueobjects.AffiliationVO.State
+    newAff.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State
         .valueOf(affVo.getPublicStatus().toUpperCase()));
     return newAff;
 
@@ -446,9 +440,9 @@ public class TestDbConnector {
 
 
 
-  private static ContextVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.ContextVO contextVo) {
-    AccountUserRO owner = new AccountUserRO();
-    AccountUserRO modifier = new AccountUserRO();
+  private static ContextDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.ContextVO contextVo) {
+    AccountUserDbRO owner = new AccountUserDbRO();
+    AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(changeId("user", contextVo.getCreator().getObjectId()));
     owner.setName(contextVo.getCreator().getTitle());
@@ -456,7 +450,7 @@ public class TestDbConnector {
     modifier.setObjectId(changeId("user", contextVo.getModifiedBy().getObjectId()));
     modifier.setName(contextVo.getModifiedBy().getTitle());
 
-    ContextVO newContext = new ContextVO();
+    ContextDbVO newContext = new ContextDbVO();
     newContext.setCreator(owner);
     newContext.setCreationDate(contextVo.getCreationDate());
     newContext.setLastModificationDate(contextVo.getLastModificationDate());
@@ -465,7 +459,7 @@ public class TestDbConnector {
     newContext.setName(contextVo.getName());
     newContext.setObjectId(changeId("ctx", contextVo.getReference().getObjectId()));
 
-    newContext.setState(de.mpg.mpdl.inge.model_new.valueobjects.ContextVO.State.valueOf(contextVo
+    newContext.setState(de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State.valueOf(contextVo
         .getState().name()));
 
     newContext.setType(contextVo.getType());
@@ -475,7 +469,7 @@ public class TestDbConnector {
 
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : contextVo
         .getResponsibleAffiliations()) {
-      AffiliationRO newAffRo = new AffiliationRO();
+      AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", changeId("ou", oldAffRo.getObjectId())));
       newAffRo.setName(oldAffRo.getTitle());
       newContext.getResponsibleAffiliations().add(newAffRo);
@@ -489,10 +483,10 @@ public class TestDbConnector {
   }
 
 
-  private static PubItemVersionVO transformToNew(
+  private static PubItemVersionDbVO transformToNew(
       de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
-    AccountUserRO owner = new AccountUserRO();
-    AccountUserRO modifier = new AccountUserRO();
+    AccountUserDbRO owner = new AccountUserDbRO();
+    AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(changeId("user", itemVo.getOwner().getObjectId()));
     owner.setName(itemVo.getOwner().getTitle());
@@ -501,10 +495,10 @@ public class TestDbConnector {
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
 
 
-    PubItemVersionVO newPubItem = new PubItemVersionVO();
+    PubItemVersionDbVO newPubItem = new PubItemVersionDbVO();
     for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
 
-      AccountUserRO fileOwner = new AccountUserRO();
+      AccountUserDbRO fileOwner = new AccountUserDbRO();
       // AccountUserRO fileModifier = new AccountUserRO();
 
       fileOwner.setObjectId(changeId("user", oldFile.getCreatedByRO().getObjectId()));
@@ -513,7 +507,7 @@ public class TestDbConnector {
       // fileModifier.setObjectId(changeId("user", oldFile.getM.getObjectId()));
       // fileModifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
 
-      FileVO file = new FileVO();
+      FileDbVO file = new FileDbVO();
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
@@ -546,10 +540,10 @@ public class TestDbConnector {
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
 
-    PubItemObjectVO pubItemObject = new PubItemObjectVO();
+    PubItemObjectDbVO pubItemObject = new PubItemObjectDbVO();
     newPubItem.setObject(pubItemObject);
 
-    ContextRO context = new ContextRO();
+    ContextDbRO context = new ContextDbRO();
     context.setObjectId(changeId("ctx", itemVo.getContext().getObjectId()));
     pubItemObject.setContext(context);
 
@@ -562,7 +556,7 @@ public class TestDbConnector {
         pubItemObject.setLatestRelease(newPubItem);
       } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion()
           .getVersionNumber()) {
-        PubItemRO latestRelease = new PubItemRO();
+        PubItemDbRO latestRelease = new PubItemDbRO();
         latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease()
             .getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
@@ -576,7 +570,7 @@ public class TestDbConnector {
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
     } else {
-      PubItemRO latestVersion = new PubItemRO();
+      PubItemDbRO latestVersion = new PubItemDbRO();
       latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion()
           .getObjectId()));
       latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());

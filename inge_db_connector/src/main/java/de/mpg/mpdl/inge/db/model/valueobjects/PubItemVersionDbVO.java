@@ -21,7 +21,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +32,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -50,8 +47,8 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import de.mpg.mpdl.inge.db.model.hibernate.MdsPublicationVOJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model_new.hibernate.MdsPublicationVOJsonUserType;
 
 
 /**
@@ -63,11 +60,11 @@ import de.mpg.mpdl.inge.model_new.hibernate.MdsPublicationVOJsonUserType;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
-@Entity
+@Entity(name = "PubItemVersionVO")
 @Table(name = "item_version")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
-public class PubItemVersionVO extends PubItemRO {
+public class PubItemVersionDbVO extends PubItemDbRO {
 
   /**
    * The version number of the referenced item. This attribute is optional.
@@ -78,12 +75,12 @@ public class PubItemVersionVO extends PubItemRO {
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
       CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
-  PubItemObjectVO object;
+  PubItemObjectDbVO object;
 
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
-  private List<FileVO> files = new ArrayList<FileVO>();
+  private List<FileDbVO> files = new ArrayList<FileDbVO>();
 
 
   @Column
@@ -91,11 +88,11 @@ public class PubItemVersionVO extends PubItemRO {
   private MdsPublicationVO metadata = new MdsPublicationVO();
 
 
-  public PubItemObjectVO getObject() {
+  public PubItemObjectDbVO getObject() {
     return object;
   }
 
-  public void setObject(PubItemObjectVO object) {
+  public void setObject(PubItemObjectDbVO object) {
     this.object = object;
   }
 
@@ -107,7 +104,7 @@ public class PubItemVersionVO extends PubItemRO {
     this.metadata = metadata;
   }
 
-  public void setFiles(List<FileVO> files) {
+  public void setFiles(List<FileDbVO> files) {
     this.files = files;
   }
 
@@ -116,7 +113,7 @@ public class PubItemVersionVO extends PubItemRO {
    * 
    * @author Thomas Diebaecker
    */
-  public PubItemVersionVO() {}
+  public PubItemVersionDbVO() {}
 
   /**
    * Copy constructor.
@@ -250,7 +247,7 @@ public class PubItemVersionVO extends PubItemRO {
   /**
    * Delivers the list of files in this item.
    */
-  public java.util.List<FileVO> getFiles() {
+  public java.util.List<FileDbVO> getFiles() {
     return this.files;
   }
 

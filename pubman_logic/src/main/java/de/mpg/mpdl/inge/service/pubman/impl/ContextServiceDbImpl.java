@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.ContextDao;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemObjectVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
@@ -43,7 +43,7 @@ public class ContextServiceDbImpl implements ContextService {
   @Override
   public ContextVO create(ContextVO contextVO, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    de.mpg.mpdl.inge.model_new.valueobjects.ContextVO contextToSave =
+    de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextToSave =
         EntityTransformer.transformToNew(contextVO);
     contextRepository.save(contextToSave);
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToSave);
@@ -55,7 +55,7 @@ public class ContextServiceDbImpl implements ContextService {
   public ContextVO update(ContextVO contextVO, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
 
-    de.mpg.mpdl.inge.model_new.valueobjects.ContextVO contextToSave =
+    de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextToSave =
         EntityTransformer.transformToNew(contextVO);
     contextRepository.save(contextToSave);
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToSave);
@@ -85,8 +85,8 @@ public class ContextServiceDbImpl implements ContextService {
 
   public void reindex() {
 
-    Query<de.mpg.mpdl.inge.model_new.valueobjects.ContextVO> query =
-        (Query<de.mpg.mpdl.inge.model_new.valueobjects.ContextVO>) entityManager
+    Query<de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO> query =
+        (Query<de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO>) entityManager
             .createQuery("SELECT context FROM ContextVO context");
     query.setReadOnly(true);
     query.setFetchSize(1000);
@@ -95,8 +95,8 @@ public class ContextServiceDbImpl implements ContextService {
 
     while (results.next()) {
       try {
-        de.mpg.mpdl.inge.model_new.valueobjects.ContextVO object =
-            (de.mpg.mpdl.inge.model_new.valueobjects.ContextVO) results.get(0);
+        de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO object =
+            (de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO) results.get(0);
         ContextVO context = EntityTransformer.transformToOld(object);
         logger.info("Reindexing context " + context.getReference().getObjectId());
         contextDao.create(context.getReference().getObjectId(), context);

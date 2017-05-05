@@ -790,7 +790,6 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String saveCurrentPubItem(String navigationRuleWhenSuccessfull)
       throws ItemInvalidException {
-    System.out.println("ICSB: save!!!!!!!!!!!!!!!!!!");
     try {
       PubItemVO updatedPubItem = null;
 

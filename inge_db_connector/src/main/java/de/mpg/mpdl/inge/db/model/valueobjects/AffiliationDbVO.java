@@ -23,32 +23,27 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.util.ArrayList;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import de.mpg.mpdl.inge.db.model.hibernate.MdsOrganizationalUnitVOJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model_new.hibernate.MdsOrganizationalUnitVOJsonUserType;
 
 /**
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external
@@ -61,11 +56,11 @@ import de.mpg.mpdl.inge.model_new.hibernate.MdsOrganizationalUnitVOJsonUserType;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
-@Entity
+@Entity(name = "AffiliationVO")
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType",
     typeClass = MdsOrganizationalUnitVOJsonUserType.class)
-public class AffiliationVO extends AffiliationRO {
+public class AffiliationDbVO extends AffiliationDbRO {
   public enum State {
     CREATED, CLOSED, OPENED, DELETED
   }
@@ -78,11 +73,12 @@ public class AffiliationVO extends AffiliationRO {
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_parent")
-  private java.util.List<AffiliationRO> parentAffiliations = new ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationDbRO> parentAffiliations = new ArrayList<AffiliationDbRO>();
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_predecessor")
-  private java.util.List<AffiliationRO> predecessorAffiliations = new ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationDbRO> predecessorAffiliations =
+      new ArrayList<AffiliationDbRO>();
 
   @Enumerated(EnumType.STRING)
   private State publicStatus;
@@ -90,7 +86,7 @@ public class AffiliationVO extends AffiliationRO {
   /**
    * Default constructor.
    */
-  public AffiliationVO() {
+  public AffiliationDbVO() {
 
   }
 
@@ -150,7 +146,7 @@ public class AffiliationVO extends AffiliationRO {
   /**
    * Delivers the list of the affiliations' parent affiliations.
    */
-  public java.util.List<AffiliationRO> getParentAffiliations() {
+  public java.util.List<AffiliationDbRO> getParentAffiliations() {
     return parentAffiliations;
   }
 
@@ -186,14 +182,14 @@ public class AffiliationVO extends AffiliationRO {
   /**
    * @return the predecessorAffiliations
    */
-  public java.util.List<AffiliationRO> getPredecessorAffiliations() {
+  public java.util.List<AffiliationDbRO> getPredecessorAffiliations() {
     return predecessorAffiliations;
   }
 
   /**
    * @param predecessorAffiliations the predecessorAffiliations to set
    */
-  public void setPredecessorAffiliations(java.util.List<AffiliationRO> predecessorAffiliations) {
+  public void setPredecessorAffiliations(java.util.List<AffiliationDbRO> predecessorAffiliations) {
     this.predecessorAffiliations = predecessorAffiliations;
   }
 

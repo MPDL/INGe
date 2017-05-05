@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.model_new.valueobjects;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,36 +7,27 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import de.mpg.mpdl.inge.model_new.hibernate.MdsPublicationVOJsonUserType;
-import de.mpg.mpdl.inge.model_new.hibernate.StringListJsonUserType;
-import de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State;
+import de.mpg.mpdl.inge.db.model.hibernate.StringListJsonUserType;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 
 
 
-@Entity
+@Entity(name = "PubItemObjectVO")
 @Table(name = "item_object")
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class PubItemObjectVO {
+public class PubItemObjectDbVO {
 
   @Id
   private String objectId;
@@ -46,25 +37,25 @@ public class PubItemObjectVO {
   @AttributeOverrides({
       @AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
-  private AccountUserRO owner;
+  private AccountUserDbRO owner;
 
 
   @ManyToOne(fetch = FetchType.EAGER)
-  private ContextRO context;
+  private ContextDbRO context;
 
   private Date creationDate;
 
   // @MapsId("objectId")
-  @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionVO.class, optional = true)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemRO latestRelease;
+  private PubItemDbRO latestRelease;
 
   // @MapsId("objectId")
-  @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionVO.class, optional = true)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemRO latestVersion;
+  private PubItemDbRO latestVersion;
 
   @Column(name = "objectPid")
   private String pid;
@@ -158,19 +149,19 @@ public class PubItemObjectVO {
 
 
 
-  public PubItemRO getLatestVersion() {
+  public PubItemDbRO getLatestVersion() {
     return this.latestVersion;
   }
 
-  public void setLatestVersion(PubItemRO latestVersion) {
+  public void setLatestVersion(PubItemDbRO latestVersion) {
     this.latestVersion = latestVersion;
   }
 
-  public PubItemRO getLatestRelease() {
+  public PubItemDbRO getLatestRelease() {
     return this.latestRelease;
   }
 
-  public void setLatestRelease(PubItemRO latestRelease) {
+  public void setLatestRelease(PubItemDbRO latestRelease) {
     this.latestRelease = latestRelease;
   }
 
@@ -210,19 +201,19 @@ public class PubItemObjectVO {
     this.lastModificationDate = lastModificationDate;
   }
 
-  public AccountUserRO getOwner() {
+  public AccountUserDbRO getOwner() {
     return owner;
   }
 
-  public void setOwner(AccountUserRO owner) {
+  public void setOwner(AccountUserDbRO owner) {
     this.owner = owner;
   }
 
-  public ContextRO getContext() {
+  public ContextDbRO getContext() {
     return context;
   }
 
-  public void setContext(ContextRO context) {
+  public void setContext(ContextDbRO context) {
     this.context = context;
   }
 
