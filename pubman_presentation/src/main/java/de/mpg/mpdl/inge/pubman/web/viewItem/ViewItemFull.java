@@ -77,7 +77,6 @@ import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -779,9 +778,6 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-    // this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-    // this.getViewItemSessionBean().getNavigationStringToGoBack());
-
     return SubmitItem.LOAD_SUBMITITEM;
   }
 
@@ -794,9 +790,6 @@ public class ViewItemFull extends FacesBean {
     } catch (final ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-
-    this.getAcceptItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return AcceptItem.LOAD_ACCEPTITEM;
   }
@@ -2430,10 +2423,6 @@ public class ViewItemFull extends FacesBean {
     }
 
     return retVal;
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {

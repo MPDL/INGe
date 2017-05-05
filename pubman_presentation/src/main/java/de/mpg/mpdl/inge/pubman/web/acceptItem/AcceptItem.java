@@ -99,24 +99,14 @@ public class AcceptItem extends FacesBean {
   }
 
   public String accept() {
-    // TODO: siehe SubmitItem
-    String navigateTo = this.getAcceptItemSessionBean().getNavigationStringToGoBack();
-    if (navigateTo == null) {
-      navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    }
-
-    navigateTo =
-        this.getItemControllerSessionBean()
-            .acceptCurrentPubItem(this.acceptanceComment, navigateTo);
-
-    return navigateTo;
+    return this.getItemControllerSessionBean().acceptCurrentPubItem(this.acceptanceComment,
+        ViewItemFull.LOAD_VIEWITEM);
   }
 
   public String cancel() {
     try {
-      FacesTools.getExternalContext().redirect(
-          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
-              + this.getPubItem().getVersion().getObjectId());
+      FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
+          + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getVersion().getObjectId());
     } catch (final IOException e) {
       AcceptItem.logger.error("Could not redirect to View Item Page", e);
     }
@@ -131,12 +121,12 @@ public class AcceptItem extends FacesBean {
    */
   public boolean getHasRightsInformation() {
     for (final FileVO file : this.getPubItem().getFiles()) {
-      if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
-          .getDefaultMetadata().getCopyrightDate()))
-          || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
-              .getDefaultMetadata().getLicense()))
-          || (file.getDefaultMetadata().getRights() != null && !"".equals(file.getDefaultMetadata()
-              .getRights()))) {
+      if ((file.getDefaultMetadata().getCopyrightDate() != null
+          && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
+          || (file.getDefaultMetadata().getLicense() != null
+              && !"".equals(file.getDefaultMetadata().getLicense()))
+          || (file.getDefaultMetadata().getRights() != null
+              && !"".equals(file.getDefaultMetadata().getRights()))) {
         return true;
       }
     }
@@ -172,9 +162,5 @@ public class AcceptItem extends FacesBean {
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 }

@@ -831,7 +831,6 @@ public class EditItem extends FacesBean {
     // set the current submission method to empty string (for GUI purpose)
     this.getEditItemSessionBean().setCurrentSubmission("");
     this.getPubItemListSessionBean().update();
-    this.getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
 
     final String localMessage = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
     this.info(localMessage);
