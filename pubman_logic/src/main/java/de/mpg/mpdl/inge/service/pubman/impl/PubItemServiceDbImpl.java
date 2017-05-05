@@ -120,7 +120,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemToCreate.getObject().setObjectId(id);
 
 
-    itemRepository.save(pubItemToCreate);
+    pubItemToCreate = itemRepository.save(pubItemToCreate);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
     reindex(pubItemToCreate);
 
@@ -231,10 +231,17 @@ public class PubItemServiceDbImpl implements PubItemService {
     aaService.checkPubItemAa(latestVersionOld, context, userAccount, "update");
 
     if (State.RELEASED.equals(latestVersion.getState())) {
+      entityManager.detach(latestVersion);
+      // Reset latestRelase reference because it is the same object as latest version
+      PubItemRO latestReleaseRO = new PubItemRO();
+      latestReleaseRO.setObjectId(latestVersion.getObject().getLatestRelease().getObjectId());
+      latestReleaseRO.setVersionNumber(latestVersion.getObject().getLatestRelease()
+          .getVersionNumber());
+      latestVersion.getObject().setLatestRelease(latestReleaseRO);
+
       latestVersion.setState(de.mpg.mpdl.inge.model_new.valueobjects.PubItemRO.State.PENDING);
       latestVersion.setVersionNumber(latestVersion.getVersionNumber() + 1);
       latestVersion.getObject().setLatestVersion(latestVersion);
-
     }
 
     updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference()
@@ -250,7 +257,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     String newFullId = latestVersion.getObjectIdAndVersion();
 
-    itemRepository.save(latestVersion);
+    latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     reindex(latestVersion);
 
@@ -425,7 +432,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         .getObjectId());
 
     latestVersion.setLastMessage(message);
-    itemRepository.save(latestVersion);
+    latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     reindex(latestVersion);
     return itemToReturn;
