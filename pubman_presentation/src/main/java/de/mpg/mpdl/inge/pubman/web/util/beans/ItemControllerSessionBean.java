@@ -801,11 +801,11 @@ public class ItemControllerSessionBean extends FacesBean {
 
       if (currentPubItem.getVersion() == null || currentPubItem.getVersion().getObjectId() == null) {
         updatedPubItem =
-            ApplicationBean.INSTANCE.getPubItemService().create(currentPubItem,
+            ApplicationBean.INSTANCE.getPubItemService().create(new PubItemVO(currentPubItem),
                 this.getLoginHelper().getAuthenticationToken());
       } else {
         updatedPubItem =
-            ApplicationBean.INSTANCE.getPubItemService().update(currentPubItem,
+            ApplicationBean.INSTANCE.getPubItemService().update(new PubItemVO(currentPubItem),
                 this.getLoginHelper().getAuthenticationToken());
       }
 

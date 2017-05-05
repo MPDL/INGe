@@ -109,8 +109,10 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     aaService.checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
 
+    logger.info("Before cleanup");
     PubItemUtil.cleanUpItem(pubItemToCreateOld);
-    validate(pubItemToCreateOld);
+    validate(pubItemToCreateOld, ValidationPoint.SAVE);
+    
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
@@ -241,8 +243,10 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
 
 
-    PubItemUtil.cleanUpItem(latestVersionOld);
+   
     validate(latestVersionOld);
+    PubItemUtil.cleanUpItem(latestVersionOld);
+
 
     String newFullId = latestVersion.getObjectIdAndVersion();
 
