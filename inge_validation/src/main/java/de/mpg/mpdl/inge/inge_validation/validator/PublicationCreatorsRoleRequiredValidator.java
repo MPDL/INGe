@@ -82,8 +82,9 @@ public class PublicationCreatorsRoleRequiredValidator extends ValidatorHandler<L
                       context.addError(ValidationError.create(
                           ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
                           .setField("creator[" + i + "].organization[" + j + "]"));
+                      ok = false;
                     }
-                    ok = false;
+                    
                   }
 
                   j++;
