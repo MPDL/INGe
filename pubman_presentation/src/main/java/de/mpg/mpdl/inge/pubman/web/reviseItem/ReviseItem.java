@@ -60,7 +60,6 @@ public class ReviseItem extends FacesBean {
 
   private String reviseComment;
   private String creators;
-//  private String navigationStringToGoBack;
 
   public ReviseItem() {
     this.init();
@@ -98,31 +97,24 @@ public class ReviseItem extends FacesBean {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
-  /**
-   * Submits the item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String revise() {
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+
     final String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment,
-            ViewItemFull.LOAD_VIEWITEM);
+        this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment, navigateTo);
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
+      this.getPubItemListSessionBean().update();
 
       try {
-        FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath()
-                + "/faces/ViewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
+            + "/faces/ViewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (final IOException e) {
         ReviseItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
-
-    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -136,13 +128,13 @@ public class ReviseItem extends FacesBean {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 
-//  public String getNavigationStringToGoBack() {
-//    return this.navigationStringToGoBack;
-//  }
-//
-//  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-//    this.navigationStringToGoBack = navigationStringToGoBack;
-//  }
+  // public String getNavigationStringToGoBack() {
+  // return this.navigationStringToGoBack;
+  // }
+  //
+  // public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
     return this.creators;

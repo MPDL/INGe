@@ -108,7 +108,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
-import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
@@ -145,7 +144,6 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_MODIFY = "modify";
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-
 
   private ContextVO context = null;
   private PubItemVOPresentation pubItem = null;
@@ -237,7 +235,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
-
 
   public ViewItemFull() {
     this.init();
@@ -680,9 +677,6 @@ public class ViewItemFull extends FacesBean {
    * @return Sring nav rule to load the withdraw item page
    */
   public String withdrawItem() {
-    this.getWithdrawItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
-
     return WithdrawItem.LOAD_WITHDRAWITEM;
   }
 
@@ -2456,10 +2450,6 @@ public class ViewItemFull extends FacesBean {
 
   private ViewItemSessionBean getViewItemSessionBean() {
     return (ViewItemSessionBean) FacesTools.findBean("ViewItemSessionBean");
-  }
-
-  private WithdrawItemSessionBean getWithdrawItemSessionBean() {
-    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {

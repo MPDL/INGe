@@ -98,43 +98,29 @@ public class WithdrawItem extends FacesBean {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
-  /**
-   * Saves the item.
-   * 
-   * TODO FrM: Revise this when the new item list is available.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String withdraw() {
-    if (this.withdrawalComment == null || "".equals(this.withdrawalComment)) {
+    if (this.withdrawalComment == null || "".equals(this.withdrawalComment.trim())) {
       FacesBean.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
 
-    String navigateTo = this.getWithDrawItemSessionBean().getNavigationStringToGoBack();
-    if (navigateTo == null) {
-      navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    }
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    String retVal =
-        this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
-            this.withdrawalComment);
+    final String retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
+        this.withdrawalComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
+      this.getPubItemListSessionBean().update();
 
       try {
-        FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath()
-                + "/faces/ViewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
+            + "/faces/ViewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (final IOException e) {
         WithdrawItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
-
-    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -146,8 +132,8 @@ public class WithdrawItem extends FacesBean {
    */
   public String cancel() {
     try {
-      FacesTools.getExternalContext().redirect(
-          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+      FacesTools.getExternalContext()
+          .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (final IOException e) {
       WithdrawItem.logger.error("Could not redirect to View Item Page", e);
@@ -174,10 +160,6 @@ public class WithdrawItem extends FacesBean {
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
-  private WithdrawItemSessionBean getWithDrawItemSessionBean() {
-    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
