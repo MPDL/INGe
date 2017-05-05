@@ -101,7 +101,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public ItemControllerSessionBean() {}
 
-
   /**
    * Accepts an item.
    * 
@@ -205,9 +204,7 @@ public class ItemControllerSessionBean extends FacesBean {
     this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
 
     return navigationRuleWhenSuccessful;
-
   }
-
 
   // public String createPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO)
   // throws ValidationException {
@@ -245,15 +242,12 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String createNewRevision(String navigationRuleWhenSuccessfull,
       final ContextRO pubContextRO, final PubItemVO pubItem, String comment) {
-
-
     final PubItemVO newRevision =
         PubItemUtil.createRevisionOfPubItem(pubItem, comment, pubContextRO, this.getLoginHelper()
             .getAccountUser());
 
     // setting the returned item as new currentItem
     this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newRevision)));
-
 
     return navigationRuleWhenSuccessfull;
   }
