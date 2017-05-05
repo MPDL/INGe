@@ -779,8 +779,8 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-//    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-//        this.getViewItemSessionBean().getNavigationStringToGoBack());
+    // this.getSubmitItemSessionBean().setNavigationStringToGoBack(
+    // this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return SubmitItem.LOAD_SUBMITITEM;
   }
@@ -2162,8 +2162,8 @@ public class ViewItemFull extends FacesBean {
       this.canEdit = true;
     }
 
-    if ((this.isStatePending || this.isStateInRevision)
-        && this.isLatestVersion && this.isOwner && this.isWorkflowStandard) {
+    if ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner
+        && this.isWorkflowStandard) {
       this.canSubmit = true;
     }
 
@@ -2174,18 +2174,18 @@ public class ViewItemFull extends FacesBean {
       this.canRelease = true;
     }
 
-    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
-        && !this.isOwner && !this.isModifyDisabled) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner
+        && !this.isModifyDisabled) {
       this.canAccept = true;
     }
 
-    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
-            && !this.isModifyDisabled && this.isWorkflowStandard && !this.isPublicStateReleased) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled
+        && this.isWorkflowStandard && !this.isPublicStateReleased) {
       this.canRevise = true;
     }
 
-    if (!this.isPublicStateReleased
-        && (this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner) {
+    if (!this.isPublicStateReleased && (this.isStatePending || this.isStateInRevision)
+        && this.isLatestVersion && this.isOwner) {
       this.canDelete = true;
     }
 
@@ -2194,13 +2194,13 @@ public class ViewItemFull extends FacesBean {
       this.canWithdraw = true;
     }
 
-    if (this.isStateReleased && this.isLatestVersion
-        && !this.isModifyDisabled && (this.isModerator || this.isOwner)) {
+    if (this.isStateReleased && this.isLatestVersion && !this.isModifyDisabled
+        && (this.isModerator || this.isOwner)) {
       this.canModify = true;
     }
 
-    if (this.isStateReleased && this.isLatestRelease
-        && !this.isCreateNewRevisionDisabled && this.isDepositor) {
+    if (this.isStateReleased && this.isLatestRelease && !this.isCreateNewRevisionDisabled
+        && this.isDepositor) {
       this.canCreateNewRevision = true;
     }
 

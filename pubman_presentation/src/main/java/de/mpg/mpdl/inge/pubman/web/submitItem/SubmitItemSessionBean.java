@@ -43,17 +43,18 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SuppressWarnings("serial")
 public class SubmitItemSessionBean extends FacesBean {
   private String message;
-//  private String navigationStringToGoBack = null;
+
+  // private String navigationStringToGoBack = null;
 
   public SubmitItemSessionBean() {}
 
-//  public final String getNavigationStringToGoBack() {
-//    return this.navigationStringToGoBack;
-//  }
-//
-//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-//    this.navigationStringToGoBack = navigationStringToGoBack;
-//  }
+  // public final String getNavigationStringToGoBack() {
+  // return this.navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getMessage() {
     return this.message;

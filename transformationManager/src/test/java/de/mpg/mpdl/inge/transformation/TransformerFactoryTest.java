@@ -305,7 +305,7 @@ public class TransformerFactoryTest {
             .getResourceAsStream("edoc_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
-    
+
     String s = wr.toString();
 
     assertXmlTransformation(wr, "results/fromEdocToEscidocItem.xml");
