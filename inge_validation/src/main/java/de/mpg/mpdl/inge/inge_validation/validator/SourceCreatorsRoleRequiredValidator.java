@@ -92,7 +92,6 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                         }
                       }
 
-
                       z++;
                     } // for
 
