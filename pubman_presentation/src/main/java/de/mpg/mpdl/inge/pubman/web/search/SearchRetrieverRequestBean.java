@@ -43,8 +43,8 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean
-    extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean extends
+    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**
@@ -375,8 +375,7 @@ public class SearchRetrieverRequestBean
   }
 
 
-  public ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
-      SearchRetrieveResponseVO result) {
+  public ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(SearchRetrieveResponseVO result) {
 
     final List<SearchRetrieveRecordVO> results = result.getRecords();
 

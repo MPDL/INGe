@@ -25,8 +25,8 @@
 
 package de.mpg.mpdl.inge.structuredexportmanager;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,14 +47,13 @@ public class StructuredExportServiceTest {
 
   @SuppressWarnings("serial")
   public static final Map<String, String> ITEM_LISTS_FILE_MAMES = new HashMap<String, String>() {
-    String pref = "target/test-classes/";
+    String pref = "target/test-classes/publicationItems/metadataV2/";
     {
-      put("MARCXML", pref + "publicationItems/metadataV2/item_book.xml");
-      put("BIBTEX", pref + "publicationItems/metadataV2/item_book.xml");
-      put("ENDNOTE", pref + "publicationItems/metadataV2/item_book.xml");
-      put("EDOC_EXPORT", pref + "publicationItems/metadataV2/full_item.xml");
-      put("EDOC_IMPORT", pref + "publicationItems/metadataV2/full_item.xml");
-      put("CSV", pref + "facesItems/item-list.xml");
+      put("BIBTEX", pref + "item_book.xml");
+      put("EDOC_EXPORT", pref + "full_item.xml");
+      put("EDOC_IMPORT", pref + "full_item.xml");
+      put("ENDNOTE", pref + "item_book.xml");
+      put("MARCXML", pref + "item_book.xml");
     }
   };
 
@@ -160,5 +159,13 @@ public class StructuredExportServiceTest {
   @Ignore
   public final void testBadItemsListEndNoteExport() throws Exception {
     StructuredExportService.getOutput(itemLists.get("BAD_ITEM_LIST"), "ENDNOTE");
+  }
+
+  @Test
+  public void testIsStructuredFormat() throws StructuredExportManagerException {
+    assertTrue(StructuredExportService.isStructuredFormat("BIBTEX"));
+    assertTrue(StructuredExportService.isStructuredFormat("ENDNOTE"));
+    // assertTrue(StructuredExportService.isStructuredFormat("ESCIDOC_XML"));
+    assertTrue(StructuredExportService.isStructuredFormat("MARCXML"));
   }
 }

@@ -107,20 +107,17 @@ public class ApplicationBean extends FacesBean {
 
   private boolean handlesActivated;
 
-
-
-  @ManagedProperty("#{organizationServiceImpl}")
+  @ManagedProperty("#{organizationServiceDbImpl}")
   private OrganizationService organizationService;
 
-  @ManagedProperty("#{contextServiceImpl}")
+  @ManagedProperty("#{contextServiceDbImpl}")
   private ContextService contextService;
 
-  @ManagedProperty("#{pubItemServiceImpl}")
+  @ManagedProperty("#{pubItemServiceDbImpl}")
   private de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService;
 
   @ManagedProperty("#{userAccountServiceImpl}")
   private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
-
 
   public static ApplicationBean INSTANCE;
 

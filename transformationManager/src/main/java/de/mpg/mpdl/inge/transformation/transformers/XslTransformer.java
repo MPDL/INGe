@@ -100,7 +100,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
         }
       }
 
-      logger.debug("Using <" + this.getClass().getSimpleName() + ">");
+      logger.info("Using <" + this.getClass().getSimpleName() + ">");
 
       xslTransformer.transform(source, result);
 
@@ -141,7 +141,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
   }
 
   public URIResolver getURIResolver() {
-    return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
+    return new LocalUriResolver("transformations/thirdParty/xslt");
   }
 
 

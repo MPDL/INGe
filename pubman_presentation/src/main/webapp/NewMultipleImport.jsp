@@ -111,7 +111,7 @@
 													onfocus="updateSelectionBox(this);"
 													value="#{MultipleImport.format}"
 													onchange="updateSelectionBox(this);"
-													converter="#{MultipleImport.formatConverter}">
+													>
 													<f:selectItems id="selFormats"
 														value="#{MultipleImport.importFormats}" />
 												</h:selectOneMenu>

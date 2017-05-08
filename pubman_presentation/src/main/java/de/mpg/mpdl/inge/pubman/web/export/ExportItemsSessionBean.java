@@ -208,15 +208,15 @@ public class ExportItemsSessionBean extends FacesBean {
   /*
    * navigationString to go back to the list where exportEmail has been called from
    */
-  private String navigationStringToGoBack = null;
-
-  public final String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+  // private String navigationStringToGoBack = null;
+  //
+  // public final String getNavigationStringToGoBack() {
+  // return this.navigationStringToGoBack;
+  // }
+  //
+  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public void setAttExportFile(File attFile) {
     this.attExportFile = new File(attFile.toURI());

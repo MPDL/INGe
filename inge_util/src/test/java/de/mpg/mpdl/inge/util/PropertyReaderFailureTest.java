@@ -4,10 +4,7 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class PropertyReaderFailureTest {
 
@@ -17,14 +14,9 @@ public class PropertyReaderFailureTest {
     FileUtils.deleteQuietly(new File("./target/test-classes/pubman.properties"));
   }
 
-
-  @Rule
-  public ExpectedException expectedEx = ExpectedException.none();
-
-  @Test
-  @Ignore
+  @Test(expected = ExceptionInInitializerError.class)
   public void testPropertyFileNotExisting() {
-    expectedEx.expect(ExceptionInInitializerError.class);
+
     PropertyReader.getProperty("xx");
   }
 

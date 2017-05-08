@@ -1,22 +1,16 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.stereotype.Service;
@@ -28,15 +22,14 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.service.exceptions.ValidationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -45,33 +38,30 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
-  public AccountUserVO create(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
-    // TODO Auto-generated method stub
+  public AccountUserVO create(AccountUserVO object, String authenticationToken)
+      throws IngeServiceException, AaException {
     return null;
   }
 
   @Override
-  public AccountUserVO update(AccountUserVO object, String userToken) throws IngeServiceException,
-      AaException, ValidationException {
-    // TODO Auto-generated method stub
+  public AccountUserVO update(AccountUserVO object, String authenticationToken)
+      throws IngeServiceException, AaException {
     return null;
   }
 
   @Override
-  public void delete(String id, String userToken) throws IngeServiceException, AaException {
-    // TODO Auto-generated method stub
-
-  }
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {}
 
   @Override
-  public AccountUserVO get(String id, String userToken) throws IngeServiceException, AaException {
+  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     try {
       final URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + id);
       final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", userToken);
+      conn.setRequestProperty("Authorization", authenticationToken);
 
       final ObjectMapper mapper = new ObjectMapper();
       final JsonNode rawUser = mapper.readTree(conn.getInputStream());
@@ -90,18 +80,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
   public SearchRetrieveResponseVO<AccountUserVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String userToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public AccountUserVO get(String userToken) throws IngeServiceException, AaException {
+  public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
 
     try {
-      DecodedJWT jwt = JWT.decode(userToken);
+      DecodedJWT jwt = JWT.decode(authenticationToken);
       String userId = jwt.getSubject();
-      return get(userId, userToken);
+      return get(userId, authenticationToken);
 
     } catch (JWTDecodeException e) {
       throw new AaException("Could not decode token", e);
@@ -142,7 +132,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     final AccountUserVO accountUser = new AccountUserVO();
 
     final AccountUserRO userRO = new AccountUserRO();
-    userRO.setObjectId(rawUser.path("exid").asText());
+    userRO.setObjectId(rawUser.path("exid").asText().replace("pure", ID_PREFIX.USER.getPrefix()));
     userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
 
     accountUser.setReference(userRO);
@@ -153,7 +143,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     email.setValue(rawUser.path("email").asText());
     final UserAttributeVO ou = new UserAttributeVO();
     ou.setName("o");
-    ou.setValue(rawUser.path("ouid").asText());
+    ou.setValue(rawUser.path("ouid").asText().replaceAll("pure", ID_PREFIX.OU.getPrefix()));
     attributes.add(email);
     attributes.add(ou);
     accountUser.setAttributes(attributes);
@@ -176,7 +166,8 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (grant.path("targetId").asText().contains("all")) {
 
         } else {
-          grantVo.setObjectRef(grant.path("targetId").asText());
+          grantVo.setObjectRef(grant.path("targetId").asText()
+              .replaceAll("pure", ID_PREFIX.CONTEXT.getPrefix()));
           grantVo.setGrantType(grant.path("targetType").asText());
           final String roleName = grant.path("role").path("name").asText();
           grantVo.setRole(roleName);

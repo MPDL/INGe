@@ -26,17 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 /**
  * TODO Description
@@ -48,13 +41,14 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  */
 public class SubmitProcess extends Thread {
   private final ImportLog log;
-  private ItemHandler itemHandler;
   private AccountUserVO user;
   private final boolean alsoRelease;
+  private final String authenticationToken;
 
-  public SubmitProcess(ImportLog log, boolean alsoRelease) {
+  public SubmitProcess(ImportLog log, boolean alsoRelease, String authenticationToken) {
     this.log = log;
     this.alsoRelease = alsoRelease;
+    this.authenticationToken = authenticationToken;
 
     this.log.reopen();
     this.log.setPercentage(5);
@@ -65,7 +59,6 @@ public class SubmitProcess extends Thread {
       this.user = new AccountUserVO();
       this.user.setHandle(log.getUserHandle());
       this.user.setUserid(log.getUser());
-      this.itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
     } catch (final Exception e) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error");
       this.log.addDetail(ErrorLevel.FATAL, e);
@@ -97,33 +90,31 @@ public class SubmitProcess extends Thread {
         this.log.activateItem(item);
 
         try {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
+          // this.log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
+          //
+          // final String itemXml = this.itemHandler.retrieve(item.getItemId());
+          // final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
+          //
+          // try {
+          // ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
+          // } catch (final ItemInvalidException e) {
+          // this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
+          // for (final ValidationReportItemVO v : e.getReport().getItems()) {
+          // this.log.addDetail(ErrorLevel.WARNING, v.getContent());
+          // }
+          // throw e;
+          // }
 
-          final String itemXml = this.itemHandler.retrieve(item.getItemId());
-          PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
-
-          try {
-            ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
-          } catch (final ItemInvalidException e) {
-            this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
-            for (final ValidationReportItemVO v : e.getReport().getItems()) {
-              this.log.addDetail(ErrorLevel.WARNING, v.getContent());
-            }
-            throw e;
-          }
-
+          final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
           if (this.alsoRelease) {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            pubItemVO =
-                PubItemService.INSTANCE.submitPubItem(pubItemVO,
-                    "Batch submit/release from import " + this.log.getMessage(), this.user);
-            PubItemService.releasePubItem(pubItemVO.getVersion(), pubItemVO.getModificationDate(),
-                "Batch submit/release from import " + this.log.getMessage(), this.user);
+            pubItemService.releasePubItem(item.getItemId(), "Batch submit/release from import "
+                + this.log.getMessage(), this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
           } else {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            PubItemService.INSTANCE.submitPubItem(pubItemVO,
-                "Batch submit from import " + this.log.getMessage(), this.user);
+            pubItemService.submitPubItem(item.getItemId(),
+                "Batch submit from import " + this.log.getMessage(), this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }
 

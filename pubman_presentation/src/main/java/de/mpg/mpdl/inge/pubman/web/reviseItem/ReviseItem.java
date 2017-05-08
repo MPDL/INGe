@@ -34,9 +34,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.PubItemService;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -61,7 +60,6 @@ public class ReviseItem extends FacesBean {
 
   private String reviseComment;
   private String creators;
-  private String navigationStringToGoBack;
 
   public ReviseItem() {
     this.init();
@@ -99,21 +97,16 @@ public class ReviseItem extends FacesBean {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
-  /**
-   * Submits the item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String revise() {
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+
     final String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(this.reviseComment,
-            ViewItemFull.LOAD_VIEWITEM);
+        this.getItemControllerSessionBean().reviseCurrentPubItem(navigateTo, this.reviseComment);
 
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+    if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
-    }
+      this.getPubItemListSessionBean().update();
 
-    if (ViewItemFull.LOAD_VIEWITEM.equals(retVal)) {
       try {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath()
@@ -124,8 +117,6 @@ public class ReviseItem extends FacesBean {
         ReviseItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
-
-    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -139,13 +130,13 @@ public class ReviseItem extends FacesBean {
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 
-  public String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
+  // public String getNavigationStringToGoBack() {
+  // return this.navigationStringToGoBack;
+  // }
+  //
+  // public void setNavigationStringToGoBack(final String navigationStringToGoBack) {
+  // this.navigationStringToGoBack = navigationStringToGoBack;
+  // }
 
   public String getCreators() {
     return this.creators;
@@ -156,13 +147,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public boolean getIsStandardWorkflow() {
-    return this.getItemControllerSessionBean().getCurrentWorkflow()
-        .equals(PubItemService.WORKFLOW_STANDARD);
+    return PublicationAdminDescriptorVO.Workflow.STANDARD == this.getItemControllerSessionBean()
+        .getCurrentWorkflow();
   }
 
   public boolean getIsSimpleWorkflow() {
-    return this.getItemControllerSessionBean().getCurrentWorkflow()
-        .equals(PubItemService.WORKFLOW_SIMPLE);
+    return PublicationAdminDescriptorVO.Workflow.SIMPLE == this.getItemControllerSessionBean()
+        .getCurrentWorkflow();
   }
 
   public String getReviseComment() {

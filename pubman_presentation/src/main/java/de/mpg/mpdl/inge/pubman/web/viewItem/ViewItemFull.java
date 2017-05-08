@@ -77,7 +77,6 @@ import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -95,7 +94,6 @@ import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
 import de.mpg.mpdl.inge.pubman.web.reviseItem.ReviseItem;
 import de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
-import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -109,7 +107,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
-import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
@@ -146,7 +143,6 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_MODIFY = "modify";
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-
 
   private ContextVO context = null;
   private PubItemVOPresentation pubItem = null;
@@ -239,7 +235,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
   private boolean isStateWasReleased = false;
 
-
   public ViewItemFull() {
     this.init();
   }
@@ -300,7 +295,7 @@ public class ViewItemFull extends FacesBean {
       }
     } else {
       // Cleanup needed if an edit site was loaded inbetween
-      // (e.g. local tags --> source without editors --> editors are created in the SourceBean an
+      // (e.g. local tags --> source without editors --> editors are created in the SourceBean and
       // not removed)
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
       PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
@@ -681,9 +676,6 @@ public class ViewItemFull extends FacesBean {
    * @return Sring nav rule to load the withdraw item page
    */
   public String withdrawItem() {
-    this.getWithdrawItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
-
     return WithdrawItem.LOAD_WITHDRAWITEM;
   }
 
@@ -778,25 +770,20 @@ public class ViewItemFull extends FacesBean {
    */
   public String submitItem() {
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
     } catch (final ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
-
-    this.getSubmitItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
 
     return SubmitItem.LOAD_SUBMITITEM;
   }
 
   public String acceptItem() {
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()),
-          ValidationPoint.STANDARD);
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -804,29 +791,18 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Validation error", e);
     }
 
-    this.getAcceptItemSessionBean().setNavigationStringToGoBack(
-        this.getViewItemSessionBean().getNavigationStringToGoBack());
-
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
-  /**
-   * deletes the selected item(s) an redirects the user to the page he came from (depositor
-   * workspace or search result list)
-   * 
-   * @return String nav rule to load the page the user came from
-   */
   public String deleteItem() {
-    if (this.getViewItemSessionBean().getNavigationStringToGoBack() == null) {
-      this.getViewItemSessionBean().setNavigationStringToGoBack(
-          MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
-    }
-    final String retVal =
-        this.getItemControllerSessionBean().deleteCurrentPubItem(
-            this.getViewItemSessionBean().getNavigationStringToGoBack());
-    // show message
-    if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE)) {
+    final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
+
+    final String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(navigateTo);
+
+    if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
+      this.getPubItemListSessionBean().update();
+
       // redirect to last breadcrumb, if available
       final BreadcrumbItemHistorySessionBean bhsb =
           (BreadcrumbItemHistorySessionBean) FacesTools
@@ -842,7 +818,6 @@ public class ViewItemFull extends FacesBean {
         }
       } catch (final IOException e) {
         ViewItemFull.logger.error("Could not redirect to last breadcrumb!");
-        return "loadHome";
       }
     }
 
@@ -2166,55 +2141,50 @@ public class ViewItemFull extends FacesBean {
             RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
                 + ViewItemFull.FUNCTION_NEW_REVISION);
 
-    if (!this.isStateWithdrawn
-        && ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
+    if (((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
         || (this.isStateSubmitted && this.isLatestVersion && this.isModerator)) {
       this.canEdit = true;
     }
 
-    if (!this.isStateWithdrawn && (this.isStatePending || this.isStateInRevision)
-        && this.isLatestVersion && this.isOwner && this.isWorkflowStandard) {
+    if ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner
+        && this.isWorkflowStandard) {
       this.canSubmit = true;
     }
 
-    if (!this.isStateWithdrawn
-        && this.isOwner
+    if (this.isOwner
         && this.isLatestVersion
         && (((this.isStatePending || this.isStateSubmitted) && this.isWorkflowSimple) || (this.isWorkflowStandard
             && this.isModerator && this.isStateSubmitted))) {
       this.canRelease = true;
-
     }
 
-    if (!this.isStateWithdrawn && this.isStateSubmitted && this.isLatestVersion && this.isModerator
-        && !this.isOwner && !this.isModifyDisabled) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner
+        && !this.isModifyDisabled) {
       this.canAccept = true;
     }
 
-    if (!this.isStateWithdrawn
-        && (this.isStateSubmitted && this.isLatestVersion && this.isModerator
-            && !this.isModifyDisabled && this.isWorkflowStandard && !this.isPublicStateReleased)) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled
+        && this.isWorkflowStandard && !this.isPublicStateReleased) {
       this.canRevise = true;
     }
 
-    if (!this.isStateWithdrawn && !this.isPublicStateReleased
-        && (this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner) {
+    if (!this.isPublicStateReleased && (this.isStatePending || this.isStateInRevision)
+        && this.isLatestVersion && this.isOwner) {
       this.canDelete = true;
     }
 
-    if (!this.isStateWithdrawn
-        && ((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)
+    if (((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)
         && (this.isOwner || this.isModerator)) {
       this.canWithdraw = true;
     }
 
-    if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestVersion
-        && !this.isModifyDisabled && (this.isModerator || this.isOwner)) {
+    if (this.isStateReleased && this.isLatestVersion && !this.isModifyDisabled
+        && (this.isModerator || this.isOwner)) {
       this.canModify = true;
     }
 
-    if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestRelease
-        && !this.isCreateNewRevisionDisabled && this.isDepositor) {
+    if (this.isStateReleased && this.isLatestRelease && !this.isCreateNewRevisionDisabled
+        && this.isDepositor) {
       this.canCreateNewRevision = true;
     }
 
@@ -2339,12 +2309,6 @@ public class ViewItemFull extends FacesBean {
   public String getHtmlMetaTags() {
     try {
       final String itemXml = XmlTransformingService.transformToItem(new PubItemVO(this.pubItem));
-      /*
-       * Format source = new Format("eSciDoc-publication-item", "application/xml", "UTF-8"); Format
-       * targetHighwire = new Format("html-meta-tags-highwire-press-citation", "text/html",
-       * "UTF-8");
-       */
-
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire =
@@ -2366,44 +2330,40 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addDoi() {
-    String returnValue = "";
+    String navigationRuleWhenSucces = ViewItemFull.LOAD_VIEWITEM;
+    String retVal = "";
 
     try {
       // get a new DOI including a consistency check
       final String doi = DoiRestService.getNewDoi(this.getPubItem());
-
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
 
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      returnValue = icsb.saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM);
-      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
 
-      if (success) {
-        returnValue =
+      if (retVal.equals(navigationRuleWhenSucces)) {
+        retVal =
             icsb.submitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
-        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
 
-        if (success) {
-          returnValue =
+        if (retVal.equals(navigationRuleWhenSucces)) {
+          retVal =
               icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
-          success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
         }
       }
 
-      if (success) {
+      if (retVal.equals(navigationRuleWhenSucces)) {
         this.info(this.getMessage("ViewItem_doiAddedSuccessfully"));
       } else {
         FacesBean.error(this.getMessage("ViewItem_doiAddingProblem"));
       }
 
-      // update Lists with current item version
       this.getPubItemListSessionBean().update();
     } catch (final Exception e) {
       ViewItemFull.logger.error("Error creating new DOI", e);
       FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
-    return returnValue;
+    return retVal;
   }
 
   public String addSsrnTag() {
@@ -2414,7 +2374,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeSsrnTag() {
-    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+    this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
 
     return this.getSsrnReturnValue("Submission during removing SSRN-Tag.",
         "ViewItem_ssrnRemovedSuccessfully", "ViewItem_ssrnRemovingProblem");
@@ -2432,34 +2392,28 @@ public class ViewItemFull extends FacesBean {
     }
 
     final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    String returnValue = null;
+    String retVal = "";
     try {
-      returnValue = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
-      boolean success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
 
-      if (success && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
-        returnValue = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
-        success = !"".equals(returnValue) && !ErrorPage.LOAD_ERRORPAGE.equals(returnValue);
+      if (AcceptItem.LOAD_ACCEPTITEM.equals(retVal)
+          && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
+        retVal = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
       }
 
-      if (success) {
+      if (retVal.equals(navigationRuleWhenSucces)) {
         this.info(this.getMessage(messageSuccess));
       } else {
         FacesBean.error(this.getMessage(messageError));
       }
 
       this.getPubItemListSessionBean().update();
-
-    } catch (de.mpg.mpdl.inge.service.exceptions.ValidationException e) {
-      logger.error("Problems with validation", e);
+    } catch (final Exception e) {
+      ViewItemFull.logger.error("Problems with validation", e);
+      FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
-    return returnValue;
-
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
+    return retVal;
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
@@ -2478,16 +2432,8 @@ public class ViewItemFull extends FacesBean {
     return (ViewItemSessionBean) FacesTools.findBean("ViewItemSessionBean");
   }
 
-  private WithdrawItemSessionBean getWithdrawItemSessionBean() {
-    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
-  }
-
   private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-  }
-
-  private SubmitItemSessionBean getSubmitItemSessionBean() {
-    return (SubmitItemSessionBean) FacesTools.findBean("SubmitItemSessionBean");
   }
 
   private RightsManagementSessionBean getRightsManagementSessionBean() {
@@ -2509,6 +2455,4 @@ public class ViewItemFull extends FacesBean {
   private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
-
-
 }

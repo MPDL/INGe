@@ -77,12 +77,10 @@ import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -93,7 +91,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
 import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
@@ -109,8 +106,11 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -304,7 +304,7 @@ public class SwordUtil extends FacesBean {
    */
   public AccountUserVO getAccountUser(String user, String pwd) {
     try {
-      String token = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
+      final String token = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
       return ApplicationBean.INSTANCE.getUserAccountService().get(token);
     } catch (final Exception e) {
       e.printStackTrace();
@@ -403,7 +403,7 @@ public class SwordUtil extends FacesBean {
       // TEI metadata.
       if (this.currentDeposit.getFormatNamespace().equals(SwordUtil.mdFormatPeerTEI)) {
 
-        ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
+        final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
         final String fileXml =
             itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML,
@@ -476,9 +476,7 @@ public class SwordUtil extends FacesBean {
       }
 
       if (transform) {
-
-        ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-
+        final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
         transformedItem =
             itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML, trgFormat, item);
       }
@@ -513,6 +511,8 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    * @throws NamingException
    * @throws PubItemStatusInvalidException
+   * @throws IngeServiceException
+   * @throws AaException
    * @throws ItemInvalidException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
@@ -523,11 +523,8 @@ public class SwordUtil extends FacesBean {
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(AccountUserVO user, PubItemVO item) throws NamingException,
-      PubItemStatusInvalidException, AuthorizationException,
-      PubItemMandatoryAttributesMissingException, PubItemLockedException,
-      PubCollectionNotFoundException, PubItemNotFoundException, PubItemAlreadyReleasedException,
-      SecurityException, TechnicalException {
+  public PubItemVO doDeposit(PubItemVO item) throws PubItemStatusInvalidException, AaException,
+      IngeServiceException, ItemInvalidException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);
@@ -536,17 +533,22 @@ public class SwordUtil extends FacesBean {
       throw new PubItemStatusInvalidException(null, null);
     }
 
+    final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
+    final String authenticationToken =
+        this.getItemControllerSessionBean().getLoginHelper().getAuthenticationToken();
+
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
-      depositedItem = PubItemService.INSTANCE.savePubItem(item, user);
-      depositedItem = PubItemService.INSTANCE.submitPubItem(depositedItem, "", user);
+      depositedItem = pubItemService.create(item, authenticationToken);
+      depositedItem =
+          pubItemService.submitPubItem(depositedItem.getVersion().getObjectId(), "",
+              authenticationToken);
     }
 
     if (method.equals("RELEASE")) {
-      depositedItem = PubItemService.INSTANCE.savePubItem(item, user);
-      depositedItem = PubItemService.INSTANCE.submitPubItem(depositedItem, "", user);
+      depositedItem = pubItemService.create(item, authenticationToken);
       depositedItem =
-          PubItemService.INSTANCE.releasePubItem(depositedItem.getVersion(),
-              depositedItem.getModificationDate(), "", user);
+          pubItemService.releasePubItem(depositedItem.getVersion().getObjectId(), "",
+              authenticationToken);
     }
 
     return depositedItem;
@@ -796,11 +798,6 @@ public class SwordUtil extends FacesBean {
     return se;
   }
 
-  public void validateItem(PubItemVO item) throws NamingException, ValidationException,
-      ItemInvalidException {
-    ItemValidatingService.validate(item, ValidationPoint.STANDARD);
-  }
-
   public boolean checkMetadatFormat(String format) {
     for (int i = 0; i < this.packaging.length; i++) {
       final String pack = this.packaging[i];
@@ -812,17 +809,9 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  // public String getAcceptedFormat() {
-  // return acceptedFormat;
-  // }
-
   public String getTreatmentText() {
     return SwordUtil.treatmentText;
   }
-
-  // public Deposit getCurrentDeposit() {
-  // return this.currentDeposit;
-  // }
 
   public void setCurrentDeposit(Deposit currentDeposit) {
     this.currentDeposit = currentDeposit;

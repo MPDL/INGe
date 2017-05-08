@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
  */
 public class StructuredExportService {
 
-
   // Mapping the format names to the enums used in transformationManager
   private static Map<String, FORMAT> map;
   static {
@@ -103,7 +102,7 @@ public class StructuredExportService {
       throw new StructuredExportManagerException("Empty export format");
     }
 
-    return Arrays.asList(TransformerCache.getAllSourceFormatsFor(FORMAT.valueOf(exportFormat)))
-        .contains(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+    return Arrays.asList(TransformerCache.getAllSourceFormatsFor(map.get(exportFormat))).contains(
+        FORMAT.ESCIDOC_ITEMLIST_V3_XML);
   }
 }

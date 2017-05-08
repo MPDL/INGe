@@ -35,7 +35,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -99,31 +98,22 @@ public class WithdrawItem extends FacesBean {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 
-  /**
-   * Saves the item.
-   * 
-   * TODO FrM: Revise this when the new item list is available.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
   public String withdraw() {
-    String retVal;
-    String navigateTo = this.getWithDrawItemSessionBean().getNavigationStringToGoBack();
-    if (navigateTo == null) {
-      navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    }
-
-    if (this.withdrawalComment == null || "".equals(this.withdrawalComment)) {
+    if (this.withdrawalComment == null || "".equals(this.withdrawalComment.trim())) {
       FacesBean.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
 
-    retVal =
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+
+    final String retVal =
         this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
             this.withdrawalComment);
 
-    // redirect to the view item page afterwards (if no error occured)
-    if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0) {
+    if (navigateTo.equals(retVal)) {
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
+      this.getPubItemListSessionBean().update();
+
       try {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath()
@@ -134,12 +124,6 @@ public class WithdrawItem extends FacesBean {
         WithdrawItem.logger.error("Could not redirect to View Item Page", e);
       }
     }
-
-    if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal)) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
-    }
-
-    this.getPubItemListSessionBean().update();
 
     return retVal;
   }
@@ -179,10 +163,6 @@ public class WithdrawItem extends FacesBean {
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
-  private WithdrawItemSessionBean getWithDrawItemSessionBean() {
-    return (WithdrawItemSessionBean) FacesTools.findBean("WithdrawItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {

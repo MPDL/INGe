@@ -26,29 +26,17 @@
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -61,8 +49,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.services.IngeServiceException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -81,7 +67,6 @@ public class LoginHelper extends FacesBean {
   private AccountUserVO accountUser = new AccountUserVO();
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
-  private List<GrantVO> userGrants;
   private List<UserGroupVO> userAccountUserGroups;
 
   private String authenticationToken = null;
@@ -112,11 +97,10 @@ public class LoginHelper extends FacesBean {
    * @throws TechnicalException TechnicalException
    */
   public void login() {
-
-
     try {
       final String token =
-          ApplicationBean.INSTANCE.getUserAccountService().login(getUsername(), getPassword());
+          ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(),
+              this.getPassword());
       this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(token);
       if (token != null) {
         this.authenticationToken = token;
@@ -134,22 +118,18 @@ public class LoginHelper extends FacesBean {
         }
 
       }
-    } catch (AaException e) {
-      logger.error("Error while logging in", e);
-      error("Username and/or password not correct");
-    } catch (Exception e) {
-      logger.error("Error while logging in", e);
-      error("Technical error while logging in.");
+    } catch (final AaException e) {
+      LoginHelper.logger.error("Error while logging in", e);
+      FacesBean.error("Username and/or password not correct");
+    } catch (final Exception e) {
+      LoginHelper.logger.error("Error while logging in", e);
+      FacesBean.error("Technical error while logging in.");
     }
-
   }
 
-
   public void logout() {
-
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
-
   }
 
   public void logoutCallBySessionListener() {
@@ -157,34 +137,6 @@ public class LoginHelper extends FacesBean {
     this.loggedIn = false;
     this.detailedMode = false;
   }
-
-
-  // /**
-  // * changes the language in the navigation menu (according to login state)
-  // *
-  // * @param bundle the resource bundle of the currently selected language
-  // */
-  // public void changeLanguage(ResourceBundle bundle) {
-  // // change the language for the Depositor WS navigation info
-  // DepositorWSSessionBean depWSSessionBean =
-  // (DepositorWSSessionBean) FacesTools.findBean(DepositorWSSessionBean.class);
-  // // change the button language
-  //
-  // if (this.authenticationToken == null || this.authenticationToken.equals("")) {
-  // this.btnLoginLogout = "login_btLogin";
-  // } else {
-  // this.btnLoginLogout = "login_btLogout";
-  // if (this.accountUser != null) {
-  // if (this.accountUser.isDepositor()) {
-  // depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
-  // depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
-  // depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
-  // }
-  // }
-  // }
-  // }
-
-
 
   public String getAuthenticationToken() {
     return this.authenticationToken;
@@ -202,8 +154,6 @@ public class LoginHelper extends FacesBean {
     this.accountUser = accountUser;
   }
 
-
-
   public boolean isLoggedIn() {
     return this.loggedIn;
   }
@@ -219,7 +169,6 @@ public class LoginHelper extends FacesBean {
   public String getUser() {
     return this.authenticationToken;
   }
-
 
   public String getDisplayUserName() {
     return this.displayUserName;
@@ -290,8 +239,8 @@ public class LoginHelper extends FacesBean {
         }
       }
     }
-    return this.userAccountAffiliations;
 
+    return this.userAccountAffiliations;
   }
 
   // only active UserGroups!
@@ -314,6 +263,7 @@ public class LoginHelper extends FacesBean {
        * userAccountUserGroups = ugl.getUserGroupLists();
        */
     }
+
     return this.userAccountUserGroups;
   }
 
@@ -367,7 +317,4 @@ public class LoginHelper extends FacesBean {
   public boolean isDetailedMode() {
     return this.detailedMode;
   }
-
-
-
 }

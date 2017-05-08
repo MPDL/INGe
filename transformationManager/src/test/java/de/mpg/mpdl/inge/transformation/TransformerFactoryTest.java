@@ -236,6 +236,25 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromEscidocItemToZimXml.xml");
   }
 
+  // target ItemXml
+
+  @Test
+  public void testArXivOaiXmlToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ARXIV_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("arXiv.xml")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromArXivXmlToEscidocItem.xml");
+  }
+
   @Test
   public void testBibtexToItemXmlV3() throws TransformationException, IOException {
 
@@ -275,7 +294,6 @@ public class TransformerFactoryTest {
   }
 
   @Test
-  @Ignore
   public void testEdocXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
@@ -287,6 +305,8 @@ public class TransformerFactoryTest {
             .getResourceAsStream("edoc_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
+
+    String s = wr.toString();
 
     assertXmlTransformation(wr, "results/fromEdocToEscidocItem.xml");
   }
@@ -349,6 +369,39 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMarcXmlToEscidocItem.xml");
+  }
+
+  @Test
+  public void testPmcOaiXmlToItemXmlV3() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.PMC_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("pmcOai.xml")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromPmcOaiXmlToEscidocItem.xml");
+  }
+
+  @Test
+  public void testSpiresToItemXmlV3() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newInstance(FORMAT.SPIRES_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("spires.html")),
+        new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromSpiresXmlToEscidocItem.xml");
   }
 
   /*

@@ -36,7 +36,6 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
@@ -156,7 +155,8 @@ public class MultipleImport extends FacesBean {
     final ImportProcess importProcess =
         new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
             this.format, this.context.getReference(), this.getLoginHelper().getAccountUser(),
-            this.rollback, this.duplicateStrategy, configuration);
+            this.rollback, this.duplicateStrategy, configuration, this.getLoginHelper()
+                .getAuthenticationToken());
     importProcess.start();
 
     FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
@@ -206,7 +206,7 @@ public class MultipleImport extends FacesBean {
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer = TransformerCache.getTransformer(format, FORMAT.ESCIDOC_ITEM_V3_XML);
+      transformer = TransformerCache.getTransformer(this.format, FORMAT.ESCIDOC_ITEM_V3_XML);
 
       config = transformer.getConfiguration();
     }

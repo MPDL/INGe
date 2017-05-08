@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.PostConstruct;
-
-import org.apache.lucene.search.BooleanQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -56,10 +53,10 @@ public class AuthorizationService {
 
 
   // @Around("execution(public * de.mpg.mpdl.inge.service.pubman.PubItemService.create(PubItemVO,
-  // String)) && args(pubItemVo, userToken)")
+  // String)) && args(pubItemVo, authenticationToken)")
   // private void checkPubItemServiceCreate(ProceedingJoinPoint jp, PubItemVO pubItem,
-  // String userToken) throws Throwable {
-  // AccountUserVO userAccount = checkLoginRequired(userToken);
+  // String authenticationToken) throws Throwable {
+  // AccountUserVO userAccount = checkLoginRequired(authenticationToken);
   // checkRole(userAccount, "depositor", pubItem.getContext().getObjectId());
   // }
 
@@ -256,10 +253,10 @@ public class AuthorizationService {
 
   }
 
-  public AccountUserVO checkLoginRequired(String userToken) throws AaException {
+  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException {
 
     try {
-      return userAccountService.get(userToken);
+      return userAccountService.get(authenticationToken);
     } catch (IngeServiceException e) {
       throw new AaException("You have to be logged in with a valid token", e);
     }

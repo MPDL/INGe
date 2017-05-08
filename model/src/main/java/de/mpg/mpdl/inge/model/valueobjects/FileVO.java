@@ -159,6 +159,7 @@ public class FileVO extends ValueObject implements Cloneable {
     content = other.content;
     contentCategory = other.contentCategory;
     creationDate = other.creationDate;
+    createdByRO = other.createdByRO;
     description = other.description;
     lastModificationDate = other.lastModificationDate;
     mimeType = other.mimeType;

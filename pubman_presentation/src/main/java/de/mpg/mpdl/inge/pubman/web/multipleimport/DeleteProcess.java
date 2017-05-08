@@ -26,10 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 /**
  * A {@link Thread} that deletes asynchronously all imported items of an import.
@@ -41,31 +39,21 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
  */
 public class DeleteProcess extends Thread {
   private final ImportLog log;
-  private AccountUserVO user;
+  private String authenticationToken;
 
   /**
    * Constructor taking an {@link ImportLog}. Reopens the log again and checks user data.
    * 
    * @param log The {@link ImportLog} whose items should be deleted
    */
-  public DeleteProcess(ImportLog log) {
+  public DeleteProcess(ImportLog log, String authenticationToken) {
+    this.authenticationToken = authenticationToken;
+
     this.log = log;
     this.log.reopen();
     this.log.setPercentage(5);
     this.log.startItem("import_process_delete_items");
     this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process");
-
-    try {
-      this.user = new AccountUserVO();
-      this.user.setHandle(log.getUserHandle());
-      this.user.setUserid(log.getUser());
-    } catch (final Exception e) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_delete_process_error");
-      this.log.addDetail(ErrorLevel.FATAL, e);
-      this.log.close();
-      throw new RuntimeException(e);
-    }
-
     this.log.finishItem();
     this.log.setPercentage(5);
   }
@@ -92,9 +80,9 @@ public class DeleteProcess extends Thread {
       if (item.getItemId() != null && !"".equals(item.getItemId())) {
         this.log.activateItem(item);
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
-        final ItemRO itemRO = new ItemRO(item.getItemId());
         try {
-          PubItemService.INSTANCE.deletePubItem(itemRO, this.user);
+          ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(),
+              this.authenticationToken);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);

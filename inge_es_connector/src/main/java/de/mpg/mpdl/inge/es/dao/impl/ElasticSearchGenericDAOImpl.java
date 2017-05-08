@@ -88,6 +88,28 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param vo
    * @return {@link String}
    */
+  public String createNotImmediately(String id, E entity) throws IngeServiceException {
+    try {
+      IndexResponse indexResponse =
+          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+              .setSource(mapper.writeValueAsBytes(entity)).get();
+      return indexResponse.getId();
+
+    } catch (JsonProcessingException e) {
+      throw new IngeServiceException(e);
+    }
+
+
+  }
+
+  /**
+   * 
+   * @param indexName
+   * @param indexType
+   * @param id
+   * @param vo
+   * @return {@link String}
+   */
   public String create(String id, E entity) throws IngeServiceException {
     try {
       IndexResponse indexResponse =
