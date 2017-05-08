@@ -17,6 +17,8 @@ public interface GenericDao<E extends ValueObject, Query> {
    */
   public String create(String id, E entity) throws IngeServiceException;
 
+  public String createNotImmediately(String id, E entity) throws IngeServiceException;
+
   /**
    * 
    * @param indexName

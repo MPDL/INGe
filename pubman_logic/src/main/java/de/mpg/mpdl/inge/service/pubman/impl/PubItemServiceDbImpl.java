@@ -512,14 +512,16 @@ public class PubItemServiceDbImpl implements PubItemService {
             EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
         logger.info("Reindexing item latest version "
             + latestVersion.getVersion().getObjectIdAndVersion());
-        pubItemDao.create(latestVersion.getVersion().getObjectId() + "_"
+        pubItemDao.createNotImmediately(latestVersion.getVersion().getObjectId() + "_"
             + latestVersion.getVersion().getVersionNumber(), latestVersion);
-        if (object.getLatestRelease() != null) {
+        if (object.getLatestRelease() != null
+            && object.getLatestRelease().getVersionNumber() != object.getLatestVersion()
+                .getVersionNumber()) {
           PubItemVO latestRelease =
               EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
           logger.info("Reindexing item latest release "
               + latestRelease.getVersion().getObjectIdAndVersion());
-          pubItemDao.create(latestRelease.getVersion().getObjectId() + "_"
+          pubItemDao.createNotImmediately(latestRelease.getVersion().getObjectId() + "_"
               + latestRelease.getVersion().getVersionNumber(), latestRelease);
         }
 
