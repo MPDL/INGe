@@ -165,29 +165,29 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
     SearchRetrieveResponseVO<E> srrVO;
     try {
 
-      SearchRequestBuilder secondSrb =
+      SearchRequestBuilder srb =
           client.getClient().prepareSearch(indexName).setTypes(indexType);
-      secondSrb.setQuery(searchQuery.getQueryObject());
+      srb.setQuery(searchQuery.getQueryObject());
 
 
       if (searchQuery.getOffset() != 0) {
-        secondSrb.setFrom(searchQuery.getOffset());
+        srb.setFrom(searchQuery.getOffset());
       }
 
       if (searchQuery.getLimit() != -1) {
-        secondSrb.setSize(searchQuery.getLimit());
+        srb.setSize(searchQuery.getLimit());
       } else {
-        secondSrb.setSize(10000);
+        srb.setSize(10000);
       }
 
       if (searchQuery.getSortKeys() != null) {
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          secondSrb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
+          srb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
         }
       }
 
       // logger.info(secondSrb.toString());
-      SearchResponse response2 = secondSrb.get();
+      SearchResponse response2 = srb.get();
       // logger.info(response2.toString());
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2);
