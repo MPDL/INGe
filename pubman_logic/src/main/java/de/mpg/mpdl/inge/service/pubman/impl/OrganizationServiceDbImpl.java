@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -32,7 +33,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class OrganizationServiceDbImpl implements OrganizationService {
 
-  private static Logger logger = Logger.getLogger(OrganizationServiceDbImpl.class);
+  private final static Logger logger = LogManager.getLogger();
 
   @Autowired
   private OrganizationDao<QueryBuilder> organizationDao;

@@ -9,7 +9,8 @@ import javax.persistence.TypedQuery;
 import javax.swing.Scrollable;
 import javax.transaction.Transactional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -59,7 +60,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class PubItemServiceDbImpl implements PubItemService {
 
-  private final static Logger logger = Logger.getLogger(PubItemServiceDbImpl.class);
+  private final static Logger logger = LogManager.getLogger();
 
 
   @Autowired
@@ -183,7 +184,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Transactional
   public PubItemVO update(PubItemVO pubItemVO, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-
+    long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
 
@@ -221,12 +222,13 @@ public class PubItemServiceDbImpl implements PubItemService {
     PubItemUtil.cleanUpItem(latestVersionOld);
 
 
-    String newFullId = latestVersion.getObjectIdAndVersion();
 
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     reindex(latestVersion);
 
+    logger.info("PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in "
+        + (System.currentTimeMillis() - start) + " ms");
     return itemToReturn;
   }
 
@@ -327,7 +329,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
 
     srr.setQueryObject(authorizedQuery);
-    logger.info("Searching with authorized query: \n" + authorizedQuery.toString());
+    logger.debug("Searching with authorized query: \n" + authorizedQuery.toString());
     return pubItemDao.search(srr);
   }
 
@@ -441,7 +443,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
       throws IngeServiceException {
-    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, objectId);
+    QueryBuilder latestReleaseQuery =
+        QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 

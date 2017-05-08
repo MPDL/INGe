@@ -187,8 +187,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
     SearchRetrieveResponseVO<E> srrVO;
     try {
 
-      SearchRequestBuilder srb =
-          client.getClient().prepareSearch(indexName).setTypes(indexType);
+      SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
       srb.setQuery(searchQuery.getQueryObject());
 
 

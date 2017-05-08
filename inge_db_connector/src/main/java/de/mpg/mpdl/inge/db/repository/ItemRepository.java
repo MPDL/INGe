@@ -19,7 +19,7 @@ public interface ItemRepository extends JpaRepository<PubItemVersionDbVO, Versio
   @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId)")
   public PubItemVersionDbVO findLatestVersion(@Param("objectId") String objectId);
 
-  @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.state='RELEASED' AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId)")
+  @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.state='RELEASED')")
   public PubItemVersionDbVO findLatestRelease(@Param("objectId") String objectId);
 
 }

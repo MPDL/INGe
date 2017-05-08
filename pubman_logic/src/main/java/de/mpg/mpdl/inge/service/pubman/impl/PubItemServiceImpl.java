@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Service
 public class PubItemServiceImpl implements PubItemService {
 
-  private final static Logger logger = Logger.getLogger(PubItemServiceImpl.class);
+  private final static Logger logger = LogManager.getLogger();
 
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
   public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
