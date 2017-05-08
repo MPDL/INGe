@@ -55,10 +55,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.baidu.unbiz</groupId>
 			<artifactId>fluent-validator</artifactId>
 			<version>1.0.5</version>

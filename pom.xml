@@ -201,6 +201,25 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+		</dependency>
+	</dependencies>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -400,6 +419,16 @@
 				<version>2.8.2</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-1.2-api</artifactId>
+				<version>2.8.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>2.8.2</version>
+			</dependency>
+			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>
 				<version>2.2.14</version>
@@ -453,30 +482,30 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		    <dependency>
-		        <groupId>org.springframework.data</groupId>
-		        <artifactId>spring-data-jpa</artifactId>
-		        <version>1.11.1.RELEASE</version>
-		    </dependency>
-    		<dependency>
-			   <groupId>org.hibernate</groupId>
-			   <artifactId>hibernate-core</artifactId>
-			   <version>5.2.10.Final</version>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>1.11.1.RELEASE</version>
 			</dependency>
 			<dependency>
-			   <groupId>org.hibernate</groupId>
-			   <artifactId>hibernate-entitymanager</artifactId>
-			   <version>5.2.10.Final</version>
-			</dependency>
-    		<dependency>
-			    <groupId>postgresql</groupId>
-			    <artifactId>postgresql</artifactId>
-			    <version>9.4.1208-jdbc42-atlassian-hosted</version>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>5.2.10.Final</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.aspectj</groupId>
-			    <artifactId>aspectjweaver</artifactId>
-			    <version>1.8.10</version>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>5.2.10.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.4.1208-jdbc42-atlassian-hosted</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.8.10</version>
 			</dependency>
 			<dependency>
 				<groupId>javax</groupId>
@@ -808,7 +837,8 @@
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-		<!-- Identifier of the content type "publication" in the actual framework instance -->
+		<!-- Identifier of the content type "publication" in the actual framework 
+			instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
 		<escidoc.pubman.external.organisation.id>escidoc:9019</escidoc.pubman.external.organisation.id>
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
@@ -839,13 +869,13 @@
 		<!-- PubMan AA -->
 		<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
 		<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
-		
+
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 
 		<inge.database.user.name>postgres</inge.database.user.name>
 		<inge.database.user.password>postgres</inge.database.user.password>
 		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
-		
+
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
@@ -917,7 +947,8 @@
 		<escidoc.pubman.survey.title />
 		<escidoc.pubman.survey.text />
 		<escidoc.pubman.survey.styles />
-		<!-- version of the pubman cookie (has to be changed if style information is changed) -->
+		<!-- version of the pubman cookie (has to be changed if style information 
+			is changed) -->
 		<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
 		<!-- Sitemaps -->
 		<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
@@ -947,7 +978,8 @@
 		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
-		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ; -->
+		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is 
+			; -->
 		<escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<!-- import-source -->
@@ -965,7 +997,8 @@
 		<!-- Dataacquisition - Apache FOP configuration file -->
 		<escidoc.dataacquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
+		<!-- Number of creator displayed on load of the view full item page, the 
+			rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<!-- Blog integration -->
 		<escidoc.pubman.blog.baseUrl />
@@ -1080,7 +1113,8 @@
 		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
-		<!-- User data used in JUnit tests; these users are assumed to have the	Depositor and the Moderator role for the defined contexts -->
+		<!-- User data used in JUnit tests; these users are assumed to have the 
+			Depositor and the Moderator role for the defined contexts -->
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
@@ -1110,7 +1144,8 @@
 				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<escidoc.handles.activated>false</escidoc.handles.activated>
-				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
+				<!-- Name of the organization its (sub-)authors are shown in the overview 
+					page -->
 				<escidoc.pubman_presentation.overview_page.authors_ou />
 				<escidoc.pubman.build.mode />
 				<escidoc.pubman.build.hyphen />
@@ -1149,8 +1184,10 @@
 				<!-- Instance of the CSL-Editor -->
 				<escidoc.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</escidoc.pubman.csl_editor.instance>
 				<escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
-				<!-- Name of the organization its (sub-)authors are shown in the overview page -->
-				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck Society</escidoc.pubman_presentation.overview_page.authors_ou>
+				<!-- Name of the organization its (sub-)authors are shown in the overview 
+					page -->
+				<escidoc.pubman_presentation.overview_page.authors_ou>Max Planck
+					Society</escidoc.pubman_presentation.overview_page.authors_ou>
 				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
 				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
 				<escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
@@ -1365,7 +1402,8 @@
 			</build>
 		</profile>
 
-		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
+		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse 
+			warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
 			<activation>
