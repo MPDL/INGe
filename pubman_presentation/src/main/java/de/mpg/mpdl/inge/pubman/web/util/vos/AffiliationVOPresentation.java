@@ -80,7 +80,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
       List<AffiliationVO> childOus =
-          ((OrganizationServiceImpl) ApplicationBean.INSTANCE.getOrganizationService())
+          (ApplicationBean.INSTANCE.getOrganizationService())
               .searchChildOrganizations(this.getReference().getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);

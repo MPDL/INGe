@@ -38,6 +38,8 @@ public class PubItemServiceImpl implements PubItemService {
   private final static Logger logger = Logger.getLogger(PubItemServiceImpl.class);
 
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
+  public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
+  public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
   public static String INDEX_VERSION_STATE = "version.state";
   public static String INDEX_PUBLIC_STATE = "publicStatus";
   public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";

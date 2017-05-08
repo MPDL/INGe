@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.script.Script;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -157,6 +158,9 @@ public class MyItemsRetrieverRequestBean extends
       this.checkSortCriterias(sc);
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+      //display only latest versions
+      bq.must(QueryBuilders.scriptQuery(new Script("doc['"+ PubItemServiceImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['" + PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER +"']")));
+      
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));

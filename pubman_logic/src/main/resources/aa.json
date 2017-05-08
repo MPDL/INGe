@@ -58,7 +58,7 @@
 			{
 				"rolename" : "MODERATOR",
 				"rolematch" : "CONTEXT",
-				"version-state" : ["SUBMITED", "IN_REVISION"]
+				"version-state" : ["SUBMITTED", "IN_REVISION"]
 			}
 		],
 		

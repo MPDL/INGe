@@ -61,12 +61,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private final static Logger logger = Logger.getLogger(PubItemServiceDbImpl.class);
 
-  public static String INDEX_VERSION_OBJECT_ID = "version.objectId.keyword";
-  public static String INDEX_VERSION_STATE = "version.state.keyword";
-  public static String INDEX_PUBLIC_STATE = "publicStatus.keyword";
-  public static String INDEX_OWNER_OBJECT_ID = "owner.objectId.keyword";
-  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId.keyword";
-  public static String INDEX_LOCAL_TAGS = "localTags";
 
   @Autowired
   private AuthorizationService aaService;
@@ -184,34 +178,6 @@ public class PubItemServiceDbImpl implements PubItemService {
     return latestVersion;
   }
 
-  /*
-   * 
-   * private PubItemVO buildPubItemToCreate(PubItemVO templateVO, PubItemVO latestVersion,
-   * AccountUserVO userAccount, ContextVO context, int versionNumber, State versionState, State
-   * publicState) { PubItemVO pubItemToCreate = new PubItemVO(templateVO);
-   * 
-   * Date currentDate = new Date(); pubItemToCreate.setContentModel(null);
-   * pubItemToCreate.setContentModelHref(null); pubItemToCreate.setLatestRelease(null);
-   * pubItemToCreate.setLatestVersion(null); pubItemToCreate.setLockStatus(null);
-   * 
-   * pubItemToCreate.setContext(context.getReference());
-   * pubItemToCreate.setPublicStatus(publicState);
-   * 
-   * ItemRO itemRO = new ItemRO(); pubItemToCreate.setVersion(itemRO);
-   * itemRO.setVersionNumber(versionNumber); itemRO.setModifiedByRO(userAccount.getReference());
-   * itemRO.setModificationDate(currentDate); itemRO.setState(versionState);
-   * 
-   * 
-   * 
-   * if (latestVersion == null) { pubItemToCreate.setOwner(userAccount.getReference());
-   * pubItemToCreate.setCreationDate(currentDate);
-   * 
-   * } else { itemRO.setObjectId(latestVersion.getVersion().getObjectId());
-   * pubItemToCreate.setOwner(latestVersion.getOwner());
-   * pubItemToCreate.setCreationDate(latestVersion.getCreationDate());
-   * itemRO.setPid(latestVersion.getPid());
-   * itemRO.setLastMessage(latestVersion.getVersion().getObjectId()); } return pubItemToCreate; }
-   */
 
   @Override
   @Transactional
@@ -250,7 +216,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
 
 
-
+    latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
     PubItemUtil.cleanUpItem(latestVersionOld);
 
@@ -475,7 +441,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
       throws IngeServiceException {
-    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(INDEX_VERSION_OBJECT_ID, objectId);
+    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 
@@ -486,7 +452,7 @@ public class PubItemServiceDbImpl implements PubItemService {
       int limit, int offset) throws IngeServiceException {
 
     SearchSortCriteria sortByVersion =
-        new SearchSortCriteria(INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
+        new SearchSortCriteria(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(query, limit, offset, sortByVersion);
     return pubItemDao.search(srr);
