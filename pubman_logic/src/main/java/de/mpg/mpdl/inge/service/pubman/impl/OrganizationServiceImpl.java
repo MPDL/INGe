@@ -51,7 +51,7 @@ public class OrganizationServiceImpl implements OrganizationService {
    * @return all child affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId) throws Exception {
+  public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId) throws IngeServiceException {
     final QueryBuilder qb = QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.organizationDao.search(srr);
