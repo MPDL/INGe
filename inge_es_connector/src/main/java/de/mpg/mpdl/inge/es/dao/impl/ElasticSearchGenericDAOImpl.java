@@ -186,11 +186,9 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
         }
       }
 
-      // logger.info(secondSrb.toString());
-      SearchResponse response2 = srb.get();
-      // logger.info(response2.toString());
+      SearchResponse response = srb.get();
 
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2);
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
     } catch (Exception e) {
       throw new IngeServiceException(e.getMessage(), e);
     }
