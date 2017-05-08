@@ -216,7 +216,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
 
 
-
+    latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
     PubItemUtil.cleanUpItem(latestVersionOld);
 
