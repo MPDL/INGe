@@ -73,6 +73,7 @@ public abstract class ReferenceObject implements Serializable {
    */
   public ReferenceObject(ReferenceObject other) {
     this.setObjectId(other.getObjectId());
+    this.setTitle(other.title);
   }
 
   /**

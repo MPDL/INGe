@@ -1346,9 +1346,6 @@ public class ViewItemFull extends FacesBean {
   }
 
   public AccountUserRO getOwner() {
-
-    // System.out.println(this.pubItem.getOwner().getTitle());
-    // System.out.println(this.pubItem.getOwner().getObjectId());
     return this.pubItem.getOwner();
   }
 
