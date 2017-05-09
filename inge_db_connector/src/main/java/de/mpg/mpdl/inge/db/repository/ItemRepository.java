@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.db.repository;
 
+import java.util.List;
+
 import org.hibernate.annotations.TypeDef;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +23,6 @@ public interface ItemRepository extends JpaRepository<PubItemVersionDbVO, Versio
 
   @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.state='RELEASED')")
   public PubItemVersionDbVO findLatestRelease(@Param("objectId") String objectId);
+
 
 }

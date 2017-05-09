@@ -729,34 +729,10 @@ public class ItemControllerSessionBean extends FacesBean {
    * @throws Exception if framework access fails
    */
   public List<VersionHistoryEntryVO> retrieveVersionHistoryForItem(String itemID) throws Exception {
-    List<VersionHistoryEntryVO> versionHistoryList = new ArrayList<VersionHistoryEntryVO>();
-    String xmlVersionHistoryList = "";
 
-    // login with escidoc user handle
-    if (this.getLoginHelper().getESciDocUserHandle() != null) {
-      try {
-        xmlVersionHistoryList =
-            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
-                .retrieveVersionHistory(itemID);
-      } catch (final AuthenticationException e) {
-        ItemControllerSessionBean.logger.debug(e.toString());
-        getLoginHelper().logout();
-        throw e;
-      }
-    }
-    // anonymous login
-    else {
-      try {
-        xmlVersionHistoryList = ServiceLocator.getItemHandler().retrieveVersionHistory(itemID);
-      } catch (final AuthenticationException e) {
-        ItemControllerSessionBean.logger.debug(e.toString());
-        getLoginHelper().logout();
-        throw e;
-      }
-    }
-
-    versionHistoryList = XmlTransformingService.transformToEventVOList(xmlVersionHistoryList);
-
+    List<VersionHistoryEntryVO> versionHistoryList =
+        ApplicationBean.INSTANCE.getPubItemService().getVersionHistory(itemID,
+            this.getLoginHelper().getAuthenticationToken());
     return versionHistoryList;
   }
 

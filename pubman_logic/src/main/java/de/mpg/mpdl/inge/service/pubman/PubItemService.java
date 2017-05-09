@@ -1,6 +1,9 @@
 package de.mpg.mpdl.inge.service.pubman;
 
+import java.util.List;
+
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.services.IngeServiceException;
@@ -17,6 +20,9 @@ public interface PubItemService extends GenericService<PubItemVO> {
 
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException;
+
+  public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
+      throws IngeServiceException, AaException;
 
   public void reindex();
 }

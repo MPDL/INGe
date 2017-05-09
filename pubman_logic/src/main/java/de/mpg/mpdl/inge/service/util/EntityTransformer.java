@@ -1,9 +1,13 @@
 package de.mpg.mpdl.inge.service.util;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
@@ -16,6 +20,9 @@ import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class EntityTransformer {
@@ -208,6 +215,10 @@ public class EntityTransformer {
 
   private static de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO transformToOld(
       AccountUserDbRO newAccountUserRo) {
+    if(newAccountUserRo==null)
+    {
+      return null;
+    }
     de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO modifier =
         new de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO();
     modifier.setObjectId(newAccountUserRo.getObjectId());
@@ -224,8 +235,12 @@ public class EntityTransformer {
     oldItemRo.setModifiedByRO(transformToOld(newItemRo.getModifiedBy()));
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
-    oldItemRo.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo
-        .getState().name()));
+    if(newItemRo.getState()!=null)
+    {
+      oldItemRo.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo
+          .getState().name()));
+    }
+
     oldItemRo.setTitle(null);// TODO
     oldItemRo.setVersionNumber(newItemRo.getVersionNumber());
     return oldItemRo;
@@ -374,6 +389,74 @@ public class EntityTransformer {
     return oldAffVo;
 
 
+
+  }
+
+  public static List<VersionHistoryEntryVO> transformToVersionHistory(List<AuditDbVO> auditList) {
+    
+    if(auditList==null)
+    {
+      return null;
+    }
+    
+    List<VersionHistoryEntryVO> vhList = new ArrayList<>();
+
+    VersionHistoryEntryVO vhEntry = null;
+
+    for (AuditDbVO audit : auditList) {
+
+      if (vhEntry == null
+          || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
+        vhEntry = new VersionHistoryEntryVO();
+        vhEntry.setModificationDate(audit.getModificationDate());
+        ItemRO ref = new ItemRO();
+        ref.setObjectId(audit.getPubItem().getObjectId());
+        ref.setVersionNumber(audit.getPubItem().getVersionNumber());
+        vhEntry.setReference(ref);
+        vhEntry.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(audit
+            .getPubItem().getState().name()));
+        vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
+        vhList.add(vhEntry);
+        
+      }
+
+
+      EventLogEntryVO event = new EventLogEntryVO();
+      event.setComment(audit.getComment());
+      event.setDate(audit.getModificationDate());
+
+      switch (audit.getEvent()) {
+        case CREATE: {
+          event.setType(EventType.CREATE);
+          break;
+        }
+        case RELEASE: {
+          event.setType(EventType.RELEASE);
+          break;
+        }
+        case SUBMIT: {
+          event.setType(EventType.SUBMIT);
+          break;
+        }
+        case REVISE: {
+          event.setType(EventType.IN_REVISION);
+          break;
+        }
+        case UPDATE: {
+          event.setType(EventType.UPDATE);
+          break;
+        }
+        case WITHDRAW: {
+          event.setType(EventType.WITHDRAW);
+          break;
+        }
+      }
+
+      vhEntry.getEvents().add(event);
+
+    }
+
+    return vhList;
 
   }
 

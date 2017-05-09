@@ -19,11 +19,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
@@ -40,6 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -70,6 +74,9 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Autowired
   private ItemObjectRepository itemObjectRepository;
+
+  @Autowired
+  private AuditRepository auditRepository;
 
   @Autowired
   private PubItemDao<QueryBuilder> pubItemDao;
@@ -111,11 +118,21 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemToCreate = itemRepository.save(pubItemToCreate);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
     reindex(pubItemToCreate);
-
+    createAuditEntry(pubItemToCreate, EventType.CREATE);
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
 
     return itemToReturn;
+  }
+
+  private void createAuditEntry(PubItemVersionDbVO pubItem, EventType event) {
+    AuditDbVO audit = new AuditDbVO();
+    audit.setEvent(event);
+    audit.setComment(pubItem.getLastMessage());
+    audit.setModificationDate(pubItem.getModificationDate());
+    audit.setModifier(pubItem.getModifiedBy());
+    audit.setPubItem(pubItem);
+    auditRepository.save(audit);
   }
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
@@ -219,6 +236,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     reindex(latestVersion);
+    createAuditEntry(latestVersion, EventType.UPDATE);
 
     logger.info("PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in "
         + (System.currentTimeMillis() - start) + " ms");
@@ -330,33 +348,38 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Transactional
   public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken);
+    return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken,
+        EventType.SUBMIT);
   }
 
   @Override
   @Transactional
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken);
+    return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken,
+        EventType.REVISE);
   }
 
   @Override
   @Transactional
   public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken);
+    return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken,
+        EventType.RELEASE);
   }
 
   @Override
   @Transactional
   public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-    return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken);
+    return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken,
+        EventType.WITHDRAW);
   }
 
 
   private PubItemVO changeState(String id, State state, String message, String aaMethod,
-      String authenticationToken) throws IngeServiceException, AaException, ItemInvalidException {
+      String authenticationToken, EventType auditEventType) throws IngeServiceException,
+      AaException, ItemInvalidException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
@@ -396,6 +419,9 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     reindex(latestVersion);
+
+    createAuditEntry(latestVersion, auditEventType);
+
     return itemToReturn;
   }
 
@@ -494,6 +520,16 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     }
 
+  }
+
+  @Override
+  public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
+      throws IngeServiceException, AaException {
+
+    List<AuditDbVO> list =
+        auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
+
+    return EntityTransformer.transformToVersionHistory(list);
   }
 
 }

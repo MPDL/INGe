@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
@@ -393,5 +395,12 @@ public class PubItemServiceImpl implements PubItemService {
   public void reindex() {
     // TODO Auto-generated method stub
 
+  }
+
+  @Override
+  public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
+      throws IngeServiceException, AaException {
+    // TODO Auto-generated method stub
+    return null;
   }
 }
