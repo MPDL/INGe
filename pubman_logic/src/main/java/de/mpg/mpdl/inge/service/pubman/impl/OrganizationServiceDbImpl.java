@@ -21,7 +21,6 @@ import de.mpg.mpdl.inge.dao.OrganizationDao;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;

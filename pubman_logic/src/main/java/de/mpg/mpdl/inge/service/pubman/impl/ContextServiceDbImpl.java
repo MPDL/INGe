@@ -14,13 +14,11 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.dao.ContextDao;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
