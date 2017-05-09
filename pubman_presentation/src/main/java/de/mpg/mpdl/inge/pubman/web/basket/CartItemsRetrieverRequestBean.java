@@ -2,18 +2,20 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -21,7 +23,9 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
@@ -77,51 +81,37 @@ public class CartItemsRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
 
+    
     try {
       final PubItemStorageSessionBean pssb =
           (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
 
-      final List<ItemRO> idList = new ArrayList<ItemRO>();
-      for (final ItemRO id : pssb.getStoredPubItems().values()) {
-        idList.add(id);
-      }
 
-      if (idList.size() > 0) {
+      if (pssb.getStoredPubItems().size() > 0) {
         this.checkSortCriterias(sc);
+        
+        BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-        // define the filter criteria
-        final FilterTaskParamVO filter = new FilterTaskParamVO();
-
-        final Filter f1 = filter.new ItemRefVersionFilter(idList);
-        filter.getFilterList().add(0, f1);
-
-        final Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-        filter.getFilterList().add(f10);
-        if (limit > 0) {
-          final Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-          filter.getFilterList().add(f8);
+        for (final ItemRO id : pssb.getStoredPubItems().values()) {
+         BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
+         subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+         subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
+         bq.should(subQuery);
         }
-        final Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-        filter.getFilterList().add(f9);
+        
+        
+        //TODO Sorting!!
+        SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset);
 
-        String xmlItemList = "";
-        if (this.getLoginHelper().getESciDocUserHandle() != null) {
-          xmlItemList =
-              ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
-                  .retrieveItems(filter.toMap());
-        } else {
-          xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
-        }
 
-        System.out.println(filter.toMap());
+        SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
-        final ItemVOListWrapper pubItemList =
-            XmlTransformingService.transformSearchRetrieveResponseToItemList(xmlItemList);
-
-        this.numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
+        this.numberOfRecords = resp.getNumberOfRecords();
+        
+        List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
         returnList =
-            CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList
-                .getItemVOList());
+            CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+
       } else {
         this.numberOfRecords = 0;
       }

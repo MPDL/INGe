@@ -28,11 +28,15 @@ package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -41,8 +45,10 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -84,6 +90,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -609,38 +616,28 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return all items for a user with the given ids
    * @throws Exception if framework access fails
    */
-  private ArrayList<PubItemVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
+  private List<PubItemVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
     if (itemRefs == null || itemRefs.isEmpty()) {
       return new ArrayList<PubItemVO>();
     }
+    
+    
+    BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-    // define the filter criteria
-    final FilterTaskParamVO filter = new FilterTaskParamVO();
-    final FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
-    filter.getFilterList().add(f1);
-
-    // retrieve the items applying the filter criteria
-    String xmlItemList = "";
-    try {
-      if (this.getLoginHelper().getESciDocUserHandle() != null) {
-        xmlItemList =
-            ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
-                .retrieveItems(filter.toMap());
-      } else {
-        xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
-      }
-    } catch (final AuthenticationException e) {
-      ItemControllerSessionBean.logger.debug(e.toString());
-      getLoginHelper().logout();
-      throw e;
+    for (final ItemRO id : itemRefs) {
+     BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
+     subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+     subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
+     bq.should(subQuery);
     }
 
-    // transform the itemList
-    final ArrayList<PubItemVO> itemList =
-        (ArrayList<PubItemVO>) XmlTransformingService.transformSearchRetrieveResponseToItemList(
-            xmlItemList).getItemVOList();
+     SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
 
-    return itemList;
+
+     SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
+
+
+    return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
   /**

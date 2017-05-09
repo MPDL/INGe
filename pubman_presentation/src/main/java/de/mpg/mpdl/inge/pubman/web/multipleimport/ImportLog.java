@@ -44,14 +44,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -1414,11 +1412,7 @@ public class ImportLog {
   private Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
-        ContextVO contextVO;
-        final ContextHandler contextHandler = ServiceLocator.getContextHandler();
-
-        final String contextXml = contextHandler.retrieve(this.context);
-        contextVO = XmlTransformingService.transformToContext(contextXml);
+        ContextVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
       } catch (final Exception e) {

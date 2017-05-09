@@ -167,73 +167,7 @@ public class SearchRetrieverRequestBean extends
 
   }
 
-  /*
-   * public List<PubItemVOPresentation> retrieveListGenericSearch(int offset, int limit,
-   * SORT_CRITERIA sc) { List<PubItemVOPresentation> pubItemList = null; //new
-   * ArrayList<PubItemVOPresentation>(); //checkSortCriterias(sc); try {
-   * 
-   * 
-   * 
-   * PlainCqlQuery query = new PlainCqlQuery(getCqlQuery()); query.setStartRecord(new
-   * PositiveInteger(String.valueOf(offset+1))); query.setMaximumRecords(new
-   * NonNegativeInteger(String.valueOf(limit)));
-   * 
-   * if(sc.getIndex()!=null) { query.setSortKeys(sc.getIndex()); }
-   * 
-   * if(sc.getIndex() == null || !sc.getIndex().equals("")) { if
-   * (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING)) {
-   * 
-   * query.setSortOrder(SortingOrder.DESCENDING); }
-   * 
-   * else { query.setSortOrder(SortingOrder.ASCENDING); } } ItemContainerSearchResult result =
-   * this.searchService.searchForItemContainer(query);
-   * 
-   * pubItemList = extractItemsOfSearchResult(result); this.numberOfRecords =
-   * Integer.parseInt(result.getTotalNumberOfResults().toString()); } catch (Exception e) {
-   * error("Error in search!"); logger.error("Error during search. ", e); }
-   * 
-   * return pubItemList; }
-   */
-
-  /*
-   * public List<PubItemVOPresentation> retrieveListAdminSearch(int offset, int limit, SORT_CRITERIA
-   * sc) { List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-   * LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class); try {
-   * ItemHandler itemHandler = null;
-   * 
-   * if(loginHelper.getESciDocUserHandle()!=null) { itemHandler =
-   * ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()); } else { itemHandler =
-   * ServiceLocator.getItemHandler(); }
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * checkSortCriterias(sc);
-   * 
-   * FilterTaskParamVO filter = new FilterTaskParamVO(); Filter f1 = filter.new
-   * CqlFilter(getCqlQuery()); filter.getFilterList().add(f1); Filter f2 = filter.new
-   * OrderFilter(sc.getSortPath(), sc.getSortOrder()); filter.getFilterList().add(f2); Filter f3 =
-   * filter.new LimitFilter(String.valueOf(limit)); filter.getFilterList().add(f3); Filter f4 =
-   * filter.new OffsetFilter(String.valueOf(offset)); filter.getFilterList().add(f4);
-   * 
-   * 
-   * String xmlItemList = itemHandler.retrieveItems(filter.toMap());
-   * 
-   * 
-   * ItemVOListWrapper pubItemList =
-   * xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
-   * 
-   * numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords()); returnList =
-   * CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
-   * } catch (Exception e) { logger.error("Error in retrieving items", e);
-   * error("Error in retrieving items"); numberOfRecords = 0; } return returnList; } /*
-   * 
-   * 
-   * /** Calls the search service and requests the items for the current cql query.
-   */
+ 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
 
