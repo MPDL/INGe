@@ -108,7 +108,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return string, identifying the page that should be navigated to after this method call
    * @throws Exception if framework access fails
    */
-  public String acceptCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  public String acceptCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().releasePubItem(

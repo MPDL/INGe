@@ -99,8 +99,8 @@ public class AcceptItem extends FacesBean {
   }
 
   public String accept() {
-    return this.getItemControllerSessionBean().acceptCurrentPubItem(this.acceptanceComment,
-        ViewItemFull.LOAD_VIEWITEM);
+    return this.getItemControllerSessionBean().acceptCurrentPubItem(ViewItemFull.LOAD_VIEWITEM,
+        this.acceptanceComment);
   }
 
   public String cancel() {
