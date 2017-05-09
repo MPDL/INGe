@@ -76,7 +76,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
@@ -833,7 +832,6 @@ public class EditItem extends FacesBean {
 
     final String localMessage = this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
     this.info(localMessage);
-    this.getAcceptItemSessionBean().setMessage(localMessage);
 
     return retVal;
   }
@@ -1548,10 +1546,6 @@ public class EditItem extends FacesBean {
 
   private YearbookItemSessionBean getYearbookItemSessionBean() {
     return (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-  }
-
-  private AcceptItemSessionBean getAcceptItemSessionBean() {
-    return (AcceptItemSessionBean) FacesTools.findBean("AcceptItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
