@@ -807,7 +807,7 @@ public class ViewItemFull extends FacesBean {
 
     return ReleaseItem.LOAD_RELEASEITEM;
   }
-  
+
   public String deleteItem() {
     final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
 

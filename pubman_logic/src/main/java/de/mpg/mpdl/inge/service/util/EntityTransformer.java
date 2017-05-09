@@ -215,8 +215,7 @@ public class EntityTransformer {
 
   private static de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO transformToOld(
       AccountUserDbRO newAccountUserRo) {
-    if(newAccountUserRo==null)
-    {
+    if (newAccountUserRo == null) {
       return null;
     }
     de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO modifier =
@@ -235,8 +234,7 @@ public class EntityTransformer {
     oldItemRo.setModifiedByRO(transformToOld(newItemRo.getModifiedBy()));
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
-    if(newItemRo.getState()!=null)
-    {
+    if (newItemRo.getState() != null) {
       oldItemRo.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo
           .getState().name()));
     }
@@ -393,12 +391,11 @@ public class EntityTransformer {
   }
 
   public static List<VersionHistoryEntryVO> transformToVersionHistory(List<AuditDbVO> auditList) {
-    
-    if(auditList==null)
-    {
+
+    if (auditList == null) {
       return null;
     }
-    
+
     List<VersionHistoryEntryVO> vhList = new ArrayList<>();
 
     VersionHistoryEntryVO vhEntry = null;
@@ -417,7 +414,7 @@ public class EntityTransformer {
             .getPubItem().getState().name()));
         vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
         vhList.add(vhEntry);
-        
+
       }
 
 

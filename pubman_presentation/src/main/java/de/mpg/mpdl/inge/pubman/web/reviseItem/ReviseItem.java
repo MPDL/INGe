@@ -95,9 +95,11 @@ public class ReviseItem extends FacesBean {
       this.getPubItemListSessionBean().update();
 
       try {
-        FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
-            + "/faces/ViewItemFullPage.jsp?itemId="
-            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+        FacesTools.getExternalContext().redirect(
+            FacesTools.getRequest().getContextPath()
+                + "/faces/ViewItemFullPage.jsp?itemId="
+                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
+                    .getObjectId());
       } catch (final IOException e) {
         ReviseItem.logger.error("Could not redirect to View Item Page", e);
       }

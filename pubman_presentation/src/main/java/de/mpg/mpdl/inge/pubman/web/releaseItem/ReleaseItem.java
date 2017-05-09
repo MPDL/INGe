@@ -56,8 +56,9 @@ public class ReleaseItem extends FacesBean {
 
   public String cancel() {
     try {
-      FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
-          + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getVersion().getObjectId());
+      FacesTools.getExternalContext().redirect(
+          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+              + this.getPubItem().getVersion().getObjectId());
     } catch (final IOException e) {
       ReleaseItem.logger.error("Could not redirect to View Item Page", e);
     }
@@ -82,12 +83,12 @@ public class ReleaseItem extends FacesBean {
    */
   public boolean getHasRightsInformation() {
     for (final FileVO file : this.getPubItem().getFiles()) {
-      if ((file.getDefaultMetadata().getCopyrightDate() != null
-          && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
-          || (file.getDefaultMetadata().getLicense() != null
-              && !"".equals(file.getDefaultMetadata().getLicense()))
-          || (file.getDefaultMetadata().getRights() != null
-              && !"".equals(file.getDefaultMetadata().getRights()))) {
+      if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file
+          .getDefaultMetadata().getCopyrightDate()))
+          || (file.getDefaultMetadata().getLicense() != null && !"".equals(file
+              .getDefaultMetadata().getLicense()))
+          || (file.getDefaultMetadata().getRights() != null && !"".equals(file.getDefaultMetadata()
+              .getRights()))) {
         return true;
       }
     }
