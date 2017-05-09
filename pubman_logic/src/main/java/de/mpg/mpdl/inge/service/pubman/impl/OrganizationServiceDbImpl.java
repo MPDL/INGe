@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class OrganizationServiceDbImpl implements OrganizationService {
 
-  private final static Logger logger = LogManager.getLogger();
+  private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   @Autowired
   private OrganizationDao<QueryBuilder> organizationDao;

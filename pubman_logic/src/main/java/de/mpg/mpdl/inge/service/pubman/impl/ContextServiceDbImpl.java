@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class ContextServiceDbImpl implements ContextService {
 
-  private final static Logger logger = LogManager.getLogger();
+  private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   @Autowired
   private ContextDao<QueryBuilder> contextDao;

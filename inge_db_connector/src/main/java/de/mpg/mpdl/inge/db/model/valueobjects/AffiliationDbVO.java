@@ -83,6 +83,8 @@ public class AffiliationDbVO extends AffiliationDbRO {
   @Enumerated(EnumType.STRING)
   private State publicStatus;
 
+  private boolean hasChildren;
+
   /**
    * Default constructor.
    */
@@ -208,6 +210,14 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   public void setMetadata(MdsOrganizationalUnitDetailsVO metadata) {
     this.metadata = metadata;
+  }
+
+  public boolean getHasChildren() {
+    return hasChildren;
+  }
+
+  public void setHasChildren(boolean hasChildren) {
+    this.hasChildren = hasChildren;
   }
 
   /*

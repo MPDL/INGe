@@ -102,4 +102,10 @@ public class TestPubmanLogic {
 
   }
 
+  @Test
+  @Ignore
+  public void testGet() throws Exception {
+    pubItemService.get("item_3000005", null);
+  }
+
 }

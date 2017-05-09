@@ -172,6 +172,7 @@ public class EntityTransformer {
     newAff.setCreationDate(affVo.getCreationDate());
 
     newAff.setCreator(owner);
+    newAff.setHasChildren(affVo.getHasChildren());
     newAff.setLastModificationDate(affVo.getLastModificationDate());
     newAff.setMetadata(affVo.getDefaultMetadata());
     newAff.setModifier(modifier);
@@ -354,7 +355,7 @@ public class EntityTransformer {
     oldAffVo.setLastModificationDate(newAffVo.getLastModificationDate());
     oldAffVo.setCreator(transformToOld(newAffVo.getCreator()));
     oldAffVo.setDefaultMetadata(newAffVo.getMetadata());
-    oldAffVo.setHasChildren(false);// TODO
+    oldAffVo.setHasChildren(newAffVo.getHasChildren());
     oldAffVo.setModifiedBy(transformToOld(newAffVo.getModifier()));
 
     for (AffiliationDbRO predecessor : newAffVo.getPredecessorAffiliations()) {

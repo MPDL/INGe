@@ -53,7 +53,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class PubItemServiceDbImpl implements PubItemService {
 
-  private final static Logger logger = LogManager.getLogger();
+  private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
 
   @Autowired

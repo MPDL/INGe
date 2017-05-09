@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Service
 public class PubItemServiceImpl implements PubItemService {
 
-  private final static Logger logger = LogManager.getLogger();
+  private final static Logger logger = LogManager.getLogger(PubItemServiceImpl.class);
 
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
   public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
