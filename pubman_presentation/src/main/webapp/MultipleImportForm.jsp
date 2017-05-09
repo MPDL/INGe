@@ -192,7 +192,7 @@
                         </div>
                         <div class="full_area0 formButtonArea">
                             <h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-                                <h:outputText value="#{lbl.EditItem_lnkCancel}" />
+                                <h:outputText value="#{lbl.cancel}" />
                             </h:outputLink>
                             <h:commandLink id="lnkStartImport" styleClass="free_area1_p8 activeButton" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.startImport}" onclick="fullItemReloadAjax();">
                                 <h:outputText value="#{lbl.easy_submission_btnImport}" />

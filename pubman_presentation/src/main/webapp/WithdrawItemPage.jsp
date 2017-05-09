@@ -17,7 +17,7 @@
             <ui:include src="header/Header.jspf" />
             <h:form>
                 <div id="content" class="full_area0 clear">
-                    <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+                    <!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
                         <div class="headerSection">
                             <ui:include src="header/Breadcrumb.jspf" />
@@ -38,6 +38,11 @@
                                     <!-- content menu lower line ends here -->
                                 </div>
                                 <!-- content menu ends here -->
+                            </div>
+                            <div class="subHeader">
+                                <!-- Subheadline starts here -->
+                                &#160;
+                                <!-- Subheadline ends here -->
                             </div>
                             <h:panelGroup id="messages" styleClass="subHeader">
                                 <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{WithdrawItemPage.hasErrorMessages}">
@@ -80,7 +85,7 @@
                             <ui:include src="withdrawItem/WithdrawItem.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.WithdrawItem_lnkCancel}" action="#{WithdrawItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{WithdrawItem.cancel}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.WithdrawItem_lnkWithdraw}" action="#{WithdrawItem.withdraw}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>

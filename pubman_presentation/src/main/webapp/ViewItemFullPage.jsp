@@ -70,9 +70,9 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canEdit}" />
                                     <h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.canSubmit}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canSubmit}" />
-                                    <h:commandLink id="lnkRelease" action="#{ViewItemFull.submitItem}" value="#{lbl.actionMenu_lnkRelease}" rendered="#{ViewItemFull.canRelease}" onclick="fullItemReloadAjax();" />
+                                    <h:commandLink id="lnkRelease" action="#{ViewItemFull.releaseItem}" value="#{lbl.actionMenu_lnkRelease}" rendered="#{ViewItemFull.canRelease}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRelease}" />
-                                    <h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" value="#{lbl.actionMenu_lnkAccept}" rendered="#{ViewItemFull.canAccept}" onclick="fullItemReloadAjax();" />
+                                    <h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" value="#{lbl.accept}" rendered="#{ViewItemFull.canAccept}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canAccept}" />
                                     <h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" value="#{lbl.actionMenu_lnkRevise}" rendered="#{ViewItemFull.canRevise}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRevise}" />

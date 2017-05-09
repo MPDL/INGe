@@ -63,6 +63,15 @@
 		<from-view-id>
 			*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadReleaseItem</from-outcome>
+			<to-view-id>
+				/ReleaseItemPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+			*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadWithdrawItem</from-outcome>
 			<to-view-id>
 				/WithdrawItemPage.jsp</to-view-id>

@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<div class="full_area0 itemHeader">
 		<h:panelGroup styleClass="xLarge_area0 endline">
 		&#160;
@@ -21,7 +21,8 @@
 		<div class="free_area0 itemBlockContent endline">
 			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-						value="Publication" /><span class="noDisplay">: </span>
+						value="#{lbl.SubmitItem_lblPublication}" /><span
+					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						value="#{ItemControllerSessionBean.currentPubItem.version.objectId}" />
 				</span>
@@ -41,11 +42,7 @@
 					class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}"
-						rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
-					<h:outputText
-						value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}"
-						rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
+						value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder"
@@ -55,22 +52,19 @@
 					class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" /> <!--<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>-->
+						value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" />
 				</span>
 			</h:panelGroup>
 			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-						value="#{lbl.SubmitItem_lblSubmitComment}"
-						rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
-					<h:outputText value="#{lbl.SubmitItem_lblReleaseComment}"
-						rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
-					&#160;<span class="noDisplay">: </span>
+						value="#{lbl.SubmitItem_lblComment}" />&#160;<span
+					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:inputTextarea
 						styleClass="quad_txtArea inputTxtArea"
-						value="#{SubmitItem.submissionComment}" cols="15" rows="3"></h:inputTextarea>
+						value="#{'SubmitItem.submitComment}" cols="15" rows="3"></h:inputTextarea>
 				</span>
 			</div>
 		</div>
 	</div>
-	
+
 </ui:composition>

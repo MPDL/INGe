@@ -37,7 +37,7 @@
 			</div>
 			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-						value="#{lbl.ReviseItem_lblReviseComment}" />&#160;<span
+						value="#{lbl.ReviseItem_lblComment}" />&#160;<span
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:inputTextarea
 						styleClass="quad_txtArea inputTxtArea"

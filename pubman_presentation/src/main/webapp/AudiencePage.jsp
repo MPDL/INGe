@@ -136,8 +136,8 @@
                             <ui:include src="audience/Audience.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{AudienceBean.cancel}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" value="#{lbl.EditItem_lnkSave}" action="#{AudienceBean.save}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{AudienceBean.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" value="#{lbl.save}" action="#{AudienceBean.save}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>
                     <!-- end: content section -->

@@ -33,7 +33,7 @@
 					</span>
 					<span class="large_area0_p8 lineToolSection"> <h:commandButton
 							id="lblEasySubmissionSaveLocator"
-							styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_lnkSave}"
+							styleClass="free_txtBtn groupBtn" value="#{lbl.save}"
 							action="#{EasySubmission.saveLocator}" />
 					</span>
 				</h:panelGroup>
@@ -54,7 +54,7 @@
 					</span>
 					<span class="large_area0_p8 lineToolSection"> <h:commandButton
 							id="tr" styleClass="free_txtBtn groupBtn"
-							value="#{lbl.EditItem_lnkSave}"
+							value="#{lbl.save}"
 							action="#{EasySubmission.saveLocator}" />
 					</span>
 				</h:panelGroup>

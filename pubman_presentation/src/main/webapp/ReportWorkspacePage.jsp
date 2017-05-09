@@ -99,7 +99,7 @@
                         </div>
                         <div class="full_area0 formButtonArea">
                             <h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}WorkspacesPage.jsp">
-                                <h:outputText value="#{lbl.EditItem_lnkCancel}" />
+                                <h:outputText value="#{lbl.cancel}" />
                             </h:outputLink>
                             <h:commandLink id="lnkGenerateReport" styleClass="free_area1_p8 activeButton" title="#{tip.easy_submission_btnImport}" action="#{ReportWorkspaceBean.generateReport}">
                                 <h:outputText value="#{lbl.ReportWorkspace_btnGenereateList}" />

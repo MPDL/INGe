@@ -202,13 +202,13 @@
                             <div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;">&#160;</div>
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" binding="#{EditItem.lnkDelete}" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" binding="#{EditItem.lnkRelease}" value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndSubmit}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkReleaseReleasedItem" binding="#{EditItem.lnkReleaseReleasedItem}" value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndRelease}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" binding="#{EditItem.lnkAccept}" value="#{lbl.EditItem_lnkAccept}" action="#{EditItem.saveAndAccept}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" binding="#{EditItem.lnkAccept}" value="#{lbl.accept}" action="#{EditItem.saveAndAccept}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSaveAndSubmit" binding="#{EditItem.lnkSaveAndSubmit}" value="#{lbl.EditItem_lnkSaveAndSubmit}" action="#{EditItem.saveAndSubmit}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" binding="#{EditItem.lnkSave}" value="#{lbl.EditItem_lnkSave}" action="#{EditItem.save}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" binding="#{EditItem.lnkSave}" value="#{lbl.save}" action="#{EditItem.save}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkValidate" value="#{lbl.EditItem_lnkValidate}" action="#{EditItem.validate}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>

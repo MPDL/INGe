@@ -123,7 +123,6 @@ public class ItemControllerSessionBean extends FacesBean {
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
-      info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
       return navigationRuleWhenSuccessfull;
     } catch (Exception e) {
       logger.error("Error while releasing current PubItem", e);
@@ -846,7 +845,6 @@ public class ItemControllerSessionBean extends FacesBean {
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
-      info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       return navigationRuleWhenSuccessfull;
     } catch (Exception e) {
       logger.error("Error while releasing current PubItem", e);

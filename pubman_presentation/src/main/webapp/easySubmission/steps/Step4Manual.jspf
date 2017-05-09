@@ -222,7 +222,7 @@
 				<h:outputText value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			<h:commandLink styleClass="free_area1_p8 cancelButton" id="lnkCancel"
-				value="#{lbl.EditItem_lnkCancel}" action="#{EasySubmission.cancel}"
+				value="#{lbl.cancel}" action="#{EasySubmission.cancel}"
 				onclick="fullItemReloadAjax();" />
 			<h:commandLink id="lnkNext" title="#{tip.easy_submission_btnNext}"
 				styleClass="free_area1_p8 activeButton"

@@ -17,7 +17,7 @@
             <ui:include src="header/Header.jspf" />
             <h:form>
                 <div id="content" class="full_area0 clear">
-                    <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+                    <!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
                         <div class="headerSection">
                             <ui:include src="header/Breadcrumb.jspf" />
@@ -51,7 +51,7 @@
                             <ui:include src="reviseItem/ReviseItem.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.ReviseItem_lnkCancel}" action="#{ReviseItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{ReviseItem.cancel}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ReviseItem_lnkRevise}" action="#{ReviseItem.revise}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.pubman.web.submitItem;
+package de.mpg.mpdl.inge.pubman.web.releaseItem;
 
 import java.io.IOException;
 
@@ -18,17 +18,17 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 
-@ManagedBean(name = "SubmitItem")
+@ManagedBean(name = "ReleaseItem")
 @SuppressWarnings("serial")
-public class SubmitItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(SubmitItem.class);
+public class ReleaseItem extends FacesBean {
+  private static final Logger logger = Logger.getLogger(ReleaseItem.class);
 
-  public static final String LOAD_SUBMITITEM = "loadSubmitItem";
+  public static final String LOAD_RELEASEITEM = "loadReleaseItem";
 
-  private String submissionComment = null;
+  private String releaseComment = null;
   private String creators;
 
-  public SubmitItem() {
+  public ReleaseItem() {
     this.init();
   }
 
@@ -59,7 +59,7 @@ public class SubmitItem extends FacesBean {
       FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath()
           + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getVersion().getObjectId());
     } catch (final IOException e) {
-      SubmitItem.logger.error("Could not redirect to View Item Page", e);
+      ReleaseItem.logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
@@ -107,12 +107,12 @@ public class SubmitItem extends FacesBean {
     return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
   }
 
-  public void setSubmissionComment(String submissionComment) {
-    this.submissionComment = submissionComment;
+  public void setReleaseComment(String releaseComment) {
+    this.releaseComment = releaseComment;
   }
 
-  public String getSubmissionComment() {
-    return this.submissionComment;
+  public String getReleaseComment() {
+    return this.releaseComment;
   }
 
   public void setCreators(String creators) {
@@ -123,14 +123,14 @@ public class SubmitItem extends FacesBean {
     return this.creators;
   }
 
-  public String submit() {
+  public String release() {
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    final String retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(navigateTo,
-        this.submissionComment);
+    final String retVal =
+        this.getItemControllerSessionBean().releaseCurrentPubItem(navigateTo, this.releaseComment);
 
     if (navigateTo.equals(retVal)) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
+      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
       this.getPubItemListSessionBean().update();
     }
 

@@ -89,6 +89,7 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemLog.ViewItemLog;
+import de.mpg.mpdl.inge.pubman.web.releaseItem.ReleaseItem;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
 import de.mpg.mpdl.inge.pubman.web.reviseItem.ReviseItem;
@@ -794,6 +795,19 @@ public class ViewItemFull extends FacesBean {
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
+  public String releaseItem() {
+    try {
+      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
+    } catch (final ItemInvalidException e) {
+      this.showValidationMessages(e.getReport());
+      return null;
+    } catch (final ValidationException e) {
+      throw new RuntimeException("Validation error", e);
+    }
+
+    return ReleaseItem.LOAD_RELEASEITEM;
+  }
+  
   public String deleteItem() {
     final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
 

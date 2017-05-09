@@ -24,7 +24,7 @@
                             <div id="contentSkipLinkAnchor" class="clear headLine">
                                 <!-- Headline starts here -->
                                 <h1>
-                                    <h:outputText value="#{lbl.AcceptItemPage}" />
+                                    <h:outputText value="#{lbl.ReleaseItemPage}" />
                                 </h1>
                                 <!-- Headline ends here -->
                             </div>
@@ -45,30 +45,30 @@
                                 <!-- Subheadline ends here -->
                             </div>
                             <h:panelGroup id="messages" styleClass="subHeader">
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{AcceptItemPage.hasErrorMessages}">
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{ReleaseItemPage.hasErrorMessages}">
                                     <input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
                                     <h2>
                                         <h:outputText value="#{lbl.warning_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReleaseItemPage.hasMessages}" />
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{AcceptItemPage.hasMessages and !AcceptItemPage.hasErrorMessages}">
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{ReleaseItemPage.hasMessages and !ReleaseItemPage.hasErrorMessages}">
                                     <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
                                     <h2>
                                         <h:outputText value="#{lbl.info_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReleaseItemPage.hasMessages}" />
                                 </h:panelGroup>
                             </h:panelGroup>
                         </div>
                     </div>
                     <div class="full_area0">
                         <div class="full_area0 fullItem">
-                            <ui:include src="acceptItem/AcceptItem.jspf" />
+                            <ui:include src="releaseItem/ReleaseItem.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{AcceptItem.cancel}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.accept}" action="#{AcceptItem.accept}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{ReleaseItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.ReleaseItem_lnkRelease}" action="#{ReleaseItem.release}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>
                     <!-- end: content section -->
