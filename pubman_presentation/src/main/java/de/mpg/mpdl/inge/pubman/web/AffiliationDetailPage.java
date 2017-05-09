@@ -29,13 +29,10 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 /**
@@ -57,22 +54,23 @@ public class AffiliationDetailPage extends FacesBean {
 
   public AffiliationDetailPage() {
     try {
-      String ouXml = null;
+
       final String affiliationId =
           FacesTools.getExternalContext().getRequestParameterMap().get("id");
-      final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-      try {
-        ouXml = ouHandler.retrieve(affiliationId);
-      } catch (final OrganizationalUnitNotFoundException onfe) {
+
+      AffiliationVO affVO =
+          ApplicationBean.INSTANCE.getOrganizationService().get(affiliationId, null);
+      if (affVO == null) {
         AffiliationDetailPage.logger.info("Organizational unit not found: " + affiliationId);
         FacesBean.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
-        return;
       }
-      final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
+
+
       this.affiliation = new AffiliationVOPresentation(affVO);
     } catch (final Exception e) {
       FacesBean.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
-      throw new RuntimeException("Error getting affiliation details", e);
+      logger.error("Error getting affiliation details", e);
+
     }
   }
 

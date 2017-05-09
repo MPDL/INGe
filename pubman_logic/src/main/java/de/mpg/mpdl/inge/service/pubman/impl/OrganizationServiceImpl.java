@@ -19,6 +19,9 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+
+  public final static String INDEX_OBJECT_ID = "reference.objectId";
+
   @Autowired
   private OrganizationDao<QueryBuilder> organizationDao;
 

@@ -163,8 +163,9 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     final List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-    final AffiliationVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
-       
+    final AffiliationVO affiliation =
+        ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
+
     allAffs.add(affiliation);
 
     final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
