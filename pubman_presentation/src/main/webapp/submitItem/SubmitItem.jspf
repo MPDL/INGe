@@ -61,7 +61,7 @@
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:inputTextarea
 						styleClass="quad_txtArea inputTxtArea"
-						value="#{'SubmitItem.submitComment}" cols="15" rows="3"></h:inputTextarea>
+						value="#{SubmitItem.submissionComment}" cols="15" rows="3"></h:inputTextarea>
 				</span>
 			</div>
 		</div>
