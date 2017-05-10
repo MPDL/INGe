@@ -2341,34 +2341,27 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addDoi() {
-    String navigationRuleWhenSucces = ViewItemFull.LOAD_VIEWITEM;
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal = "";
+    final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
 
     try {
       // get a new DOI including a consistency check
       final String doi = DoiRestService.getNewDoi(this.getPubItem());
       this.getPubItem().getMetadata().getIdentifiers().add(new IdentifierVO(IdType.DOI, doi));
 
-      final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
+      retVal = icsb.saveCurrentPubItem(navigateTo);
 
-      if (retVal.equals(navigationRuleWhenSucces)) {
-        retVal =
-            icsb.submitCurrentPubItem("Submission during adding DOI.", ViewItemFull.LOAD_VIEWITEM);
-
-        if (retVal.equals(navigationRuleWhenSucces)) {
-          retVal =
-              icsb.acceptCurrentPubItem("Release during adding DOI", ViewItemFull.LOAD_VIEWITEM);
-        }
+      if (navigateTo.equals(retVal)) {
+        retVal = icsb.acceptCurrentPubItem("Release during adding DOI", navigateTo);
       }
 
-      if (retVal.equals(navigationRuleWhenSucces)) {
+      if (navigateTo.equals(retVal)) {
         this.info(this.getMessage("ViewItem_doiAddedSuccessfully"));
+        this.getPubItemListSessionBean().update();
       } else {
         FacesBean.error(this.getMessage("ViewItem_doiAddingProblem"));
       }
-
-      this.getPubItemListSessionBean().update();
     } catch (final Exception e) {
       ViewItemFull.logger.error("Error creating new DOI", e);
       FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
@@ -2392,33 +2385,37 @@ public class ViewItemFull extends FacesBean {
   }
 
   private String getSsrnReturnValue(String messageSubmit, String messageSuccess, String messageError) {
-    String navigationRuleWhenSucces = ViewItemFull.LOAD_VIEWITEM;
-
+    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    String retVal = "";
+    final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
     final State state = this.getPubItem().getVersion().getState();
 
-    if (this.isModerator && State.RELEASED.equals(state)) {
-      navigationRuleWhenSucces = AcceptItem.LOAD_ACCEPTITEM;
-    } else if (State.SUBMITTED.equals(state) || State.RELEASED.equals(state)) {
-      navigationRuleWhenSucces = SubmitItem.LOAD_SUBMITITEM;
-    }
-
-    final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    String retVal = "";
     try {
-      retVal = icsb.saveCurrentPubItem(navigationRuleWhenSucces);
-
-      if (AcceptItem.LOAD_ACCEPTITEM.equals(retVal)
-          && AcceptItem.LOAD_ACCEPTITEM.equals(navigationRuleWhenSucces)) {
-        retVal = icsb.submitCurrentPubItem(messageSubmit, navigationRuleWhenSucces);
+      if (State.PENDING.equals(state) || State.IN_REVISION.equals(state)) {
+        retVal = icsb.saveCurrentPubItem(navigateTo);
+      } else if (State.SUBMITTED.equals(state) || State.RELEASED.equals(state)) {
+        if (this.isModerator && State.SUBMITTED.equals(state)) {
+          retVal = icsb.saveCurrentPubItem(navigateTo);
+        } else if (this.isModerator && State.RELEASED.equals(state)) {
+          navigateTo = AcceptItem.LOAD_ACCEPTITEM;
+          retVal = icsb.saveCurrentPubItem(navigateTo);
+          if (navigateTo.equals(retVal)) {
+            retVal = icsb.submitCurrentPubItem(messageSubmit, navigateTo);
+          }
+        } else {
+          navigateTo = SubmitItem.LOAD_SUBMITITEM;
+          retVal = icsb.saveCurrentPubItem(navigateTo);
+        }
+      } else {
+        FacesBean.error(getMessage("ViewItem_ssrnAddingProblem"));
       }
 
-      if (retVal.equals(navigationRuleWhenSucces)) {
+      if (navigateTo.equals(retVal)) {
         this.info(this.getMessage(messageSuccess));
+        this.getPubItemListSessionBean().update();
       } else {
         FacesBean.error(this.getMessage(messageError));
       }
-
-      this.getPubItemListSessionBean().update();
     } catch (final Exception e) {
       ViewItemFull.logger.error("Problems with validation", e);
       FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
