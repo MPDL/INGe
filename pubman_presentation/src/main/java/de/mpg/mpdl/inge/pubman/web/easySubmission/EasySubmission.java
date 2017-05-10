@@ -144,9 +144,11 @@ public class EasySubmission extends FacesBean {
       this.DATE_MODIFIED};
 
   private final DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
-  private HtmlSelectOneMenu dateSelect;
+  // für Binding in jsp seite
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
+  // für Binding in jsp seite
   private HtmlSelectOneRadio radioSelect;
+  
   private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
   private IdentifierCollection identifierCollection;
   private List<DataSourceVO> dataSources = new ArrayList<DataSourceVO>();
@@ -1515,14 +1517,6 @@ public class EasySubmission extends FacesBean {
 
   public void setSelectedDate(String selectedDate) {
     this.selectedDate = selectedDate;
-  }
-
-  public HtmlSelectOneMenu getDateSelect() {
-    return this.dateSelect;
-  }
-
-  public void setDateSelect(HtmlSelectOneMenu dateSelect) {
-    this.dateSelect = dateSelect;
   }
 
   public String getServiceID() {
