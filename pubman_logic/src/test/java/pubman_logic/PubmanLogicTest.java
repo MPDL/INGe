@@ -1,7 +1,13 @@
 package pubman_logic;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.query.Query;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -21,6 +30,7 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfigPubmanLogic.class)
@@ -38,6 +48,12 @@ public class PubmanLogicTest {
 
   @Autowired
   private UserAccountService userAccountService;
+
+  @PersistenceContext
+  private EntityManager entityManager;
+
+  @Autowired
+  private ItemRepository itemRepository;
 
   @Test
   @Ignore
@@ -105,7 +121,37 @@ public class PubmanLogicTest {
   @Test
   @Ignore
   public void testGet() throws Exception {
-    pubItemService.get("item_3000005", null);
+    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+            .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
+    // query.setHint("org.hibernate.cacheable", "true");
+    // query.addQueryHint("org.hibernate.cacheable=true");
+    query.setReadOnly(true);
+    query.setFetchSize(100);
+    query.setCacheable(false);
+    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+
+    while (results.next()) {
+      try {
+
+        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
+
+        long time = System.currentTimeMillis();
+        itemRepository.findOne(new VersionableId(object.getObjectId(), 1));
+        System.out.println("time 1st findOne: " + (System.currentTimeMillis() - time));
+        time = System.currentTimeMillis();
+
+        itemRepository.findOne(new VersionableId(object.getObjectId(), 1));
+        System.out.println("time 2nd findOne: " + (System.currentTimeMillis() - time));
+
+
+      } catch (Exception e) {
+
+      }
+
+
+    }
   }
 
 }

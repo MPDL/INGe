@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.fluent.Request;
@@ -63,6 +66,10 @@ public class TestDbConnector {
   @Autowired
   private IdentifierProviderServiceImpl idProvider;
 
+  @PersistenceContext
+  private EntityManager entityManager;
+
+
   private Queue<de.mpg.mpdl.inge.model.valueobjects.AffiliationVO> updateLaterAffs =
       new LinkedList<de.mpg.mpdl.inge.model.valueobjects.AffiliationVO>();
 
@@ -83,8 +90,64 @@ public class TestDbConnector {
   @Test
   @Ignore
   public void testRetrieve() throws Exception {
-    System.out.println(idProvider.getNewId(ID_PREFIX.ITEM));
-    System.out.println(idProvider.getNewId(ID_PREFIX.ITEM));
+
+    while (true) {
+      /*
+       * SessionFactory sessionFactory =
+       * entityManager.getEntityManagerFactory().unwrap(SessionFactory.class); long oldMissCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount(); long
+       * oldHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount();
+       */
+      long time = System.currentTimeMillis();
+      PubItemVersionDbVO returnedfindOne1 =
+          itemRepository.findOne(new VersionableId("item_1000592", 1));
+      // PubItemVersionDbVO returnedfindOne1 = entityManager.find(PubItemVersionDbVO.class, new
+      // VersionableId("item_1000592", 1));
+      System.out.println("1st findOne needed " + (System.currentTimeMillis() - time) + " ms");
+      entityManager.clear();
+      /*
+       * long newMissCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount(); long
+       * newHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount(); if
+       * (oldHitCount + 1 == newHitCount && oldMissCount + 1 == newMissCount) {
+       * System.out.println("came from DB"); } else if (oldHitCount + 1 == newHitCount &&
+       * oldMissCount == newMissCount) { System.out.println("came from cache"); }
+       * 
+       * oldHitCount = newHitCount; oldMissCount = newMissCount;
+       */
+      time = System.currentTimeMillis();
+      PubItemVersionDbVO returnedfindOne2 =
+          itemRepository.findOne(new VersionableId("item_1000592", 1));
+      // PubItemVersionDbVO returnedfindOne2 = entityManager.find(PubItemVersionDbVO.class, new
+      // VersionableId("item_1000592", 1));
+      System.out.println("2nd findOne needed " + (System.currentTimeMillis() - time) + " ms");
+      entityManager.clear();
+
+      time = System.currentTimeMillis();
+      PubItemVersionDbVO returnedLatestRelease1 = itemRepository.findLatestRelease("item_1000592");
+      System.out.println("1st findLastestRelease needed " + (System.currentTimeMillis() - time)
+          + " ms");
+      entityManager.clear();
+
+      time = System.currentTimeMillis();
+      PubItemVersionDbVO returnedLatestRelease2 = itemRepository.findLatestRelease("item_1000592");
+      System.out.println("2nd findLatestRelease needed " + (System.currentTimeMillis() - time)
+          + " ms ");
+      entityManager.clear();
+      /*
+       * newMissCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount();
+       * newHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount(); if
+       * (oldHitCount + 1 == newHitCount && oldMissCount + 1 == newMissCount) {
+       * System.out.println("came from DB"); } else if (oldHitCount + 1 == newHitCount &&
+       * oldMissCount == newMissCount) { System.out.println("came from cache"); }
+       */
+    }
+
+
 
     /*
      * AffiliationVO affVo = findOu("ou_1113549"); findOu("ou_1113572"); findOu("ou_1113580");

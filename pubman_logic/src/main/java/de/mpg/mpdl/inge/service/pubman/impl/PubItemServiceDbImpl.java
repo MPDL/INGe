@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -17,6 +16,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
@@ -117,8 +117,9 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     pubItemToCreate = itemRepository.save(pubItemToCreate);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
-    reindex(pubItemToCreate);
+
     createAuditEntry(pubItemToCreate, EventType.CREATE);
+    reindex(pubItemToCreate);
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
 
@@ -235,9 +236,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
-    reindex(latestVersion);
     createAuditEntry(latestVersion, EventType.UPDATE);
-
+    reindex(latestVersion);
     logger.info("PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in "
         + (System.currentTimeMillis() - start) + " ms");
     return itemToReturn;
@@ -274,6 +274,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public PubItemVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     long start = System.currentTimeMillis();
@@ -303,7 +304,6 @@ public class PubItemServiceDbImpl implements PubItemService {
             EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
                 .getObjectId()));
         aaService.checkPubItemAa(requestedItem, context, userAccount, "get");
-        return requestedItem;
       } else {
         requestedItem =
             EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
@@ -418,10 +418,10 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersion.setLastMessage(message);
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
-    reindex(latestVersion);
+
 
     createAuditEntry(latestVersion, auditEventType);
-
+    reindex(latestVersion);
     return itemToReturn;
   }
 
@@ -523,6 +523,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
       throws IngeServiceException, AaException {
 

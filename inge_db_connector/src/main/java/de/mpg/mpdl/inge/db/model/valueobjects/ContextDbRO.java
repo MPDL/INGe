@@ -26,10 +26,14 @@
 
 package de.mpg.mpdl.inge.db.model.valueobjects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -45,6 +49,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "ContextRO")
 @Table(name = "context_basic")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ContextDbRO extends BasicDbRO {
 

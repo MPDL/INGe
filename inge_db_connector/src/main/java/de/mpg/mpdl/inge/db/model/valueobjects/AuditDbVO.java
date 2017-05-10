@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -46,6 +48,7 @@ public class AuditDbVO {
 
   @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToOne(targetEntity = PubItemVersionDbVO.class)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private PubItemVersionDbVO pubItem;
 
   public int getId() {

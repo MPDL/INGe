@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
@@ -62,6 +65,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "PubItemVersionVO")
 @Table(name = "item_version")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
 public class PubItemVersionDbVO extends PubItemDbRO {
@@ -75,11 +80,13 @@ public class PubItemVersionDbVO extends PubItemDbRO {
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
       CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   PubItemObjectDbVO object;
 
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
 
 

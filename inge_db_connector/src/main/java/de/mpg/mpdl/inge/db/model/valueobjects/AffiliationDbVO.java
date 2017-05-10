@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import java.util.ArrayList;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,6 +37,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -58,6 +61,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "AffiliationVO")
 @Table(name = "organization")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType",
     typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO {
@@ -73,10 +78,12 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_parent")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   private java.util.List<AffiliationDbRO> parentAffiliations = new ArrayList<AffiliationDbRO>();
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_predecessor")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   private java.util.List<AffiliationDbRO> predecessorAffiliations =
       new ArrayList<AffiliationDbRO>();
 

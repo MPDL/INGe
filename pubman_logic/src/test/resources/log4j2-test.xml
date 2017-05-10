@@ -9,5 +9,7 @@
     <Root level="info">
       <AppenderRef ref="Console"/>
     </Root>
+    <Logger name="org.hibernate.cache" level="debug" />
+    <Logger name="net.sf.ehcache" level="info" />
   </Loggers>
 </Configuration>

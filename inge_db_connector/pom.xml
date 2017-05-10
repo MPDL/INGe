@@ -55,7 +55,7 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
-				
+
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -81,20 +81,27 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>fluent-hc</artifactId>
-		  <version>4.5.2</version>
-		  <scope>test</scope>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -102,6 +109,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		
+
 	</dependencies>
 </project>

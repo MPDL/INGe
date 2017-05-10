@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.db.model.valueobjects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,6 +35,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -57,6 +60,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "ContextVO")
 @Table(name = "context")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType",
     typeClass = ContextAdminDescriptorJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable {
@@ -89,6 +94,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable {
    * The list of responsible affiliations for this collection.
    */
   @ManyToMany(fetch = FetchType.EAGER)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   private java.util.List<AffiliationDbRO> responsibleAffiliations =
       new java.util.ArrayList<AffiliationDbRO>();
 

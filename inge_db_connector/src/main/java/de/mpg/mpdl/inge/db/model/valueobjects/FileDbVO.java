@@ -28,12 +28,15 @@ package de.mpg.mpdl.inge.db.model.valueobjects;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -51,6 +54,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
  */
 @Entity(name = "FileVO")
 @Table(name = "file")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
 public class FileDbVO extends FileDbRO {

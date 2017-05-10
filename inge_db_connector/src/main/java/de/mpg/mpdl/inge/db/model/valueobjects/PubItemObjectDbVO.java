@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -26,6 +29,8 @@ import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 
 @Entity(name = "PubItemObjectVO")
 @Table(name = "item_object")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class PubItemObjectDbVO {
 
@@ -41,18 +46,21 @@ public class PubItemObjectDbVO {
 
 
   @ManyToOne(fetch = FetchType.EAGER)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
   private ContextDbRO context;
 
   private Date creationDate;
 
   // @MapsId("objectId")
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
   private PubItemDbRO latestRelease;
 
   // @MapsId("objectId")
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
   private PubItemDbRO latestVersion;
