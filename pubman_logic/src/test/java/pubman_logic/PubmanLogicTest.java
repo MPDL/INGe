@@ -137,13 +137,17 @@ public class PubmanLogicTest {
         de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
             (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
 
-        long time = System.currentTimeMillis();
-        itemRepository.findOne(new VersionableId(object.getObjectId(), 1));
-        System.out.println("time 1st findOne: " + (System.currentTimeMillis() - time));
-        time = System.currentTimeMillis();
+        try {
+          long time = System.currentTimeMillis();
+          pubItemService.get(object.getObjectId() + "_" + "1", null);
+          System.out.println("time 1st findOne: " + (System.currentTimeMillis() - time));
+          time = System.currentTimeMillis();
 
-        itemRepository.findOne(new VersionableId(object.getObjectId(), 1));
-        System.out.println("time 2nd findOne: " + (System.currentTimeMillis() - time));
+          pubItemService.get(object.getObjectId() + "_" + "1", null);
+          System.out.println("time 2nd findOne: " + (System.currentTimeMillis() - time));
+        } catch (Exception e) {
+          System.out.println("Not allowed: " + e.getMessage());
+        }
 
 
       } catch (Exception e) {

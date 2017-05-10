@@ -88,7 +88,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -623,8 +623,8 @@ public class ItemControllerSessionBean extends FacesBean {
 
     for (final ItemRO id : itemRefs) {
      final BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-     subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
-     subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
+     subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+     subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
      bq.should(subQuery);
     }
 

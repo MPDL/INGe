@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Quality
@@ -103,28 +103,28 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
         BoolQueryBuilder stateQueryBuilder = QueryBuilders.boolQuery();
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE, "SUBMITTED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE, "RELEASED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE, "IN_REVISION"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "SUBMITTED"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "IN_REVISION"));
         bq.must(stateQueryBuilder);
         
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE,
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
             State.valueOf(getSelectedItemState()).name()));
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
 
       }
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
         bq.must(
-            QueryBuilders.termQuery(PubItemServiceImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
 
@@ -136,10 +136,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         for (int i = 1; i < this.getContextSelectItems().size(); i++) {
           final String contextId = (String) this.getContextSelectItems().get(i).getValue();
           contextQueryBuilder.should(
-              QueryBuilders.termQuery(PubItemServiceImpl.INDEX_CONTEXT_OBEJCT_ID, contextId));
+              QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBEJCT_ID, contextId));
         }
       } else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_CONTEXT_OBEJCT_ID,
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBEJCT_ID,
             getSelectedContext()));
       }
 
@@ -151,11 +151,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
         bq.must(
-            QueryBuilders.termQuery(PubItemServiceImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
       // TODO Sorting!!
-      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
+      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       SearchRetrieveRequestVO<QueryBuilder> srr =
           new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
 

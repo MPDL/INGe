@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -364,7 +364,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     try {
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (final AffiliationRO id : affiliations) {
-        bq.should(QueryBuilders.termQuery(OrganizationServiceImpl.INDEX_OBJECT_ID, id.getObjectId()));
+        bq.should(QueryBuilders.termQuery(OrganizationServiceDbImpl.INDEX_OBJECT_ID, id.getObjectId()));
        }
       
       SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);

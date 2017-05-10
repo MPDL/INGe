@@ -25,7 +25,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
@@ -94,8 +94,8 @@ public class CartItemsRetrieverRequestBean extends
 
         for (final ItemRO id : pssb.getStoredPubItems().values()) {
          BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-         subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
-         subQuery.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
+         subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+         subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
          bq.should(subQuery);
         }
         

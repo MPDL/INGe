@@ -84,6 +84,33 @@ public class PubItemServiceDbImpl implements PubItemService {
   @PersistenceContext
   EntityManager entityManager;
 
+
+  public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
+
+
+  public static String INDEX_LOCAL_TAGS = "localTags";
+
+
+  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId";
+
+
+  public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
+
+
+  public static String INDEX_PUBLIC_STATE = "publicStatus";
+
+
+  public static String INDEX_VERSION_STATE = "version.state";
+
+
+  public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
+
+
+  public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
+
+
+  public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
+
   @Override
   @Transactional
   public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
@@ -286,12 +313,9 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
 
     PubItemVO requestedItem = null;
-    
-    
-    
-    
-    
-    
+
+
+
     if (authenticationToken == null && version == null) {
       // Return latest Release
       requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
@@ -469,7 +493,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
       throws IngeServiceException {
     QueryBuilder latestReleaseQuery =
-        QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, objectId);
+        QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 
@@ -480,7 +504,7 @@ public class PubItemServiceDbImpl implements PubItemService {
       int limit, int offset) throws IngeServiceException {
 
     SearchSortCriteria sortByVersion =
-        new SearchSortCriteria(PubItemServiceImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
+        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(query, limit, offset, sortByVersion);
     return pubItemDao.search(srr);

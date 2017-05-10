@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items
@@ -159,30 +159,30 @@ public class MyItemsRetrieverRequestBean extends
       
       this.checkSortCriterias(sc);
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
       //display only latest versions
-      bq.must(QueryBuilders.scriptQuery(new Script("doc['"+ PubItemServiceImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['" + PubItemServiceImpl.INDEX_VERSION_VERSIONNUMBER +"']")));
+      bq.must(QueryBuilders.scriptQuery(new Script("doc['"+ PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['" + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER +"']")));
       
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
       else if (this.selectedItemState.toLowerCase().equals("all")) {
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
      
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_VERSION_STATE, State.valueOf(this.selectedItemState).name()));
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.valueOf(this.selectedItemState).name()));
+        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
         
       }
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
      //TODO Sorting!!
-      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
+      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
 
 

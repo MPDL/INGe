@@ -32,6 +32,8 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @Primary
 public class OrganizationServiceDbImpl implements OrganizationService {
 
+  public final static String INDEX_OBJECT_ID = "reference.objectId";
+
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   @Autowired

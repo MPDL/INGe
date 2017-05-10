@@ -27,7 +27,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AffiliationBean")
@@ -353,7 +353,7 @@ public class AffiliationBean extends FacesBean {
   public String getResetMessage() throws Exception {
     this.topLevelAffs =
         CommonUtils
-            .convertToAffiliationVOPresentationList(((OrganizationServiceImpl) ApplicationBean.INSTANCE
+            .convertToAffiliationVOPresentationList(((OrganizationServiceDbImpl) ApplicationBean.INSTANCE
                 .getOrganizationService()).searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     return this.getMessage("Affiliations_reloaded");
