@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfigPubmanLogic.class)
-public class TestPubmanLogic {
+public class PubmanLogicTest {
 
   @Autowired
   private PubItemService pubItemService;

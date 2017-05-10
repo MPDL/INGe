@@ -45,7 +45,7 @@ import javax.xml.transform.stream.StreamSource;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class TestFileTransformer {
+public class FileTransformerTest {
   public static final String STYLESHEET =
       "C:/repository/common_services/common_logic/src/test/resources/transformTestFiles.xsl";
   private static TransformerFactory factory = TransformerFactory.newInstance(
@@ -57,17 +57,17 @@ public class TestFileTransformer {
   public static void main(String[] args) throws Exception {
     System.out.println("Using " + factory.getClass().getName());
     for (String arg : args) {
-      new TestFileTransformer(new File(arg));
+      new FileTransformerTest(new File(arg));
     }
   }
 
-  public TestFileTransformer(File source) throws Exception {
+  public FileTransformerTest(File source) throws Exception {
     if (source.isHidden() || source.getName().startsWith(".")) {
       System.out.println("Ignoring file " + source.getAbsolutePath());
     } else if (source.isDirectory()) {
       File[] subFiles = source.listFiles();
       for (File subFile : subFiles) {
-        new TestFileTransformer(subFile);
+        new FileTransformerTest(subFile);
       }
     } else if (source.getName().endsWith(".xml")) {
       System.out.println("Transforming file " + source.getAbsolutePath());

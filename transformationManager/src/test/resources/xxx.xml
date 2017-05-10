@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edoc>
+  <record id="732091">
+    <metadata>
+      <basic>
+        <genre>Article</genre>
+        <title>Glycomic Characterization of Induced Pluripotent Stem Cells Derived from a Patient Suffering from Phosphomannomutase 2 Congenital Disorder of Glycosylation (PMM2-CDG)</title>
+        <datepublished>2016-04</datepublished>
+        <spage>1435</spage>
+        <epage>1452</epage>
+        <journaltitle>Mol Cell Proteomics</journaltitle>
+        <issuenr>4</issuenr>
+        <volume>15</volume>
+        <abstract>PMM2-CDG, formerly known as congenital disorder of glycosylation-Ia (CDG-Ia), is caused by mutations in the gene encoding phosphomannomutase 2 (PMM2). This disease is the most frequent form of inherited CDG-diseases affecting protein N-glycosylation in human. PMM2-CDG is a multisystemic disease with severe psychomotor and mental retardation. In order to study the pathophysiology of PMM2-CDG in a human cell culture model, we generated induced pluripotent stem cells (iPSCs) from fibroblasts of a PMM2-CDG-patient (PMM2-iPSCs). Expression of pluripotency factors andin vitrodifferentiation into cell types of the three germ layers was unaffected in the analyzed clone PMM2-iPSC-C3 compared with nondiseased human pluripotent stem cells (hPSCs), revealing no broader influence of the PMM2 mutation on pluripotency in cell culture. Analysis of gene expression by deep-sequencing did not show obvious differences in the transcriptome between PMM2-iPSC-C3 and nondiseased hPSCs. By multiplexed capillary gel electrophoresis coupled to laser induced fluorescence detection (xCGE-LIF) we could show that PMM2-iPSC-C3 exhibit the common hPSC N-glycosylation pattern with high-mannose-type N-glycans as the predominant species. However, phosphomannomutase activity of PMM2-iPSC-C3 was 27% compared with control hPSCs and lectin staining revealed an overall reduced protein glycosylation. In addition, quantitative assessment of N-glycosylation by xCGE-LIF showed an up to 40% reduction of high-mannose-type N-glycans in PMM2-iPSC-C3, which was in concordance to the observed reduction of the Glc3Man9GlcNAc2 lipid-linked oligosaccharide compared with control hPSCs. Thus we could model the PMM2-CDG disease phenotype of hypoglycosylation with patient derived iPSCsin vitro Knock-down ofPMM2by shRNA in PMM2-iPSC-C3 led to a residual activity of 5% and to a further reduction of the level of N-glycosylation. Taken together we have developed human stem cell-based cell culture models with stepwise reduced levels of N-glycosylation now enabling to study the role of N-glycosylation during early human development.</abstract>
+        <keywords>Cells, Cultured; Congenital Disorders of Glycosylation/metabolism/*pathology; Gene Expression Profiling/methods; Glycomics/*methods; Glycosylation; High-Throughput Nucleotide Sequencing/methods; Humans; Induced Pluripotent Stem Cells/*metabolism/pathology; *Models, Biological; Phosphotransferases (Phosphomutases)/*deficiency/metabolism; Polysaccharides/metabolism</keywords>
+        <enduser>notspecified</enduser>
+        <pubstatus>published</pubstatus>
+        <refereed>intrev</refereed>
+      </basic>
+      <creators>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C. T.</creatorini>
+          <creatornfamily>Thiesler</creatornfamily>
+          <creatorngiven>C. T.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>S.</creatorini>
+          <creatornfamily>Cajic</creatornfamily>
+          <creatorngiven>S.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>D.</creatorini>
+          <creatornfamily>Hoffmann</creatornfamily>
+          <creatorngiven>D.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C.</creatorini>
+          <creatornfamily>Thiel</creatornfamily>
+          <creatorngiven>C.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>L.</creatorini>
+          <creatornfamily>van Diepen</creatornfamily>
+          <creatorngiven>L.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>R.</creatorini>
+          <creatornfamily>Hennig</creatornfamily>
+          <creatorngiven>R.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>M.</creatorini>
+          <creatornfamily>Sgodda</creatornfamily>
+          <creatorngiven>M.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>R.</creatorini>
+          <creatornfamily>Weibetamann</creatornfamily>
+          <creatorngiven>R.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>U.</creatorini>
+          <creatornfamily>Reichl</creatornfamily>
+          <creatorngiven>U.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>D.</creatorini>
+          <creatornfamily>Steinemann</creatornfamily>
+          <creatorngiven>D.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>U.</creatorini>
+          <creatornfamily>Diekmann</creatornfamily>
+          <creatorngiven>U.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>N. M.</creatorini>
+          <creatornfamily>Huber</creatornfamily>
+          <creatorngiven>N. M.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>A.</creatorini>
+          <creatornfamily>Oberbeck</creatornfamily>
+          <creatorngiven>A.</creatorngiven>
+        </creator>
+        <creator internextern="mpg" role="author" creatorType="individual">
+          <creatorini>T.</creatorini>
+          <creatornfamily>Cantz</creatornfamily>
+          <creatorngiven>T.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>A. W.</creatorini>
+          <creatornfamily>Kuss</creatornfamily>
+          <creatorngiven>A. W.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C.</creatorini>
+          <creatornfamily>Korner</creatornfamily>
+          <creatorngiven>C.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>A.</creatorini>
+          <creatornfamily>Schambach</creatornfamily>
+          <creatorngiven>A.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>E.</creatorini>
+          <creatornfamily>Rapp</creatornfamily>
+          <creatorngiven>E.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>F. F.</creatorini>
+          <creatornfamily>Buettner</creatornfamily>
+          <creatorngiven>F. F.</creatorngiven>
+        </creator>
+      </creators>
+      <relations></relations>
+      <identifiers>
+        <identifier type="issn" comment="ID No:1">1535-9484 (Electronic) 1535-9476 (Linking) %R 10.1074/mcp.M115.054122</identifier>
+        <identifier type="url" comment="ID No:2">https://www.ncbi.nlm.nih.gov/pubmed/26785728</identifier>
+      </identifiers>
+    </metadata>
+    <docaff>
+      <docaff_external>paragraph signMax Planck Institute for Dynamics of Complex Technical Systems, 39106 Magdeburg, Germany; From the double daggerREBIRTH-Cluster of Excellence, Hannover Medical School, 30625 Hannover, Germany; ||Institute of Experimental Hematology, Hannover Medical School, 30625 Hannover, Germany; **Center for Child and Adolescent Medicine, Department Kinderheilkunde I, 69120 Heidelberg, Germany; double daggerdouble daggerDepartment of Human Genetics, University Medicine Greifswald and Interfaculty Institute for Genetics and Functional Genomics, Ernst-Moritz-Arndt University, 17475 Greifswald, Germany; paragraph signMax Planck Institute for Dynamics of Complex Technical Systems, 39106 Magdeburg, Germany; section sign section signglyXera GmbH, 39120 Magdeburg, Germany; From the double daggerREBIRTH-Cluster of Excellence, Hannover Medical School, 30625 Hannover, Germany; paragraph sign paragraph signTranslational Hepatology and Stem Cell Biology, Dept. of Gastroenterology, Hepatology, and Endocrinology, Hannover Medical School, 30625 Hannover, Germany; From the double daggerREBIRTH-Cluster of Excellence, Hannover Medical School, 30625 Hannover, Germany; || ||Institute of Human Genetics, Hannover Medical School, 30625 Hannover, Germany; Institute of Clinical Biochemistry, Hannover Medical School, Hannover, Germany. From the double daggerREBIRTH-Cluster of Excellence, Hannover Medical School, 30625 Hannover, Germany; section signInstitute for Cellular Chemistry, Hannover Medical School, 30625 Hannover, Germany; buettner.falk@mh-hannover.de.</docaff_external>
+      <institute id="77">MPI für molekulare Biomedizin</institute>
+      <collection id="4035">Jahrbuch 2017 (publ. 2016, arch)</collection>
+      <affiliation>
+        <mpgunit id="17394">MPI für molekulare Biomedizin</mpgunit>
+      </affiliation>
+    </docaff>
+    <MPGyearbook status="Released">2017</MPGyearbook>
+    <metametadata>
+      <lastmodified>2017-04-25 15:06:56.498981</lastmodified>
+      <owner>
+        <fullname>Jeanine Müller-Keuker</fullname>
+        <email>j.mueller-keuker@mpi-muenster.mpg.de</email>
+        <insid>77</insid>
+      </owner>
+    </metametadata>
+  </record>
+</edoc>

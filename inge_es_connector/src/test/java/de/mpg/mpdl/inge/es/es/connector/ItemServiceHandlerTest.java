@@ -14,8 +14,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestItemServiceHandler extends TestBase {
-  private static final Logger LOG = Logger.getLogger(TestItemServiceHandler.class);
+public class ItemServiceHandlerTest extends TestBase {
+  private static final Logger LOG = Logger.getLogger(ItemServiceHandlerTest.class);
 
   @Autowired
   private PubItemDao<QueryBuilder> itemDao;

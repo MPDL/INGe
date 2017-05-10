@@ -70,7 +70,7 @@ import de.mpg.mpdl.inge.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  */
 
-public class TestCitationStylesSubstantial {
+public class CitationStylesSubstantialTest {
 
   private Logger logger = Logger.getLogger(getClass());
 

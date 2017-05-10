@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
@@ -49,6 +51,11 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     return SingleTransformer.getDefaultConfigurationFromProperty(
         "escidoc.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties");
+  }
+
+  @Override
+  public URIResolver getURIResolver() {
+    return new LocalUriResolver("transformations/otherFormats/xslt");
   }
 
 }

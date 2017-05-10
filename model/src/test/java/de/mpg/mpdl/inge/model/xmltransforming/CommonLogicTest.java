@@ -24,10 +24,12 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.cone;
+package de.mpg.mpdl.inge.model.xmltransforming;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTest;
 
 /**
  * Component test suite for common_logic.
@@ -37,6 +39,6 @@ import org.junit.runners.Suite;
  * @revised by MuJ: 06.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({QuerierTest.class, UtilTest.class})
-public class TestCone {
+@Suite.SuiteClasses({XmlTransformingTest.class})
+public class CommonLogicTest {
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edoc>
+  <record id="727914">
+    <metadata>
+      <basic>
+        <genre>Thesis</genre>
+        <title>Measurement of the Plasma Radius in a Vapor Cell using Schlieren Imaging</title>
+        <publisher>Heinrich Heine Universität Düsseldorf</publisher>
+        <publisheradd>Düsseldorf</publisheradd>
+        <dateaccepted>2016-12-19</dateaccepted>
+        <abstract>AWAKE (Advanced Wakefield Experiment) develops a new plasma wakefield accelerator using the
+CERN SPS proton bunch as a driver. It is propagating through a 10m long rubidium plasma,
+induced by an ionizing laser pulse. Since the transverse component of the wakefield has a
+significant value up to a radius of approximately 1mm the plasma radius must be determined
+experimentally, to ensure its value is larger than this value along the cell.
+We use the bending of the rays of a laser pulse caused by the change of index of refraction and
+deflection induced by the ionizing laser pulse propagation to measure this radius. Schlieren Imaging
+is an optical method, which allows to increase the plasma column image contrast by blocking non-
+deflected rays, acting as a background, while imaging the transparent object, the plasma column in
+this case. The refractive index of plasma is slightly lower than 1 while the value for vapor differs
+strongly from 1 for light with a frequency very close to the transition frequency of the given
+element. Rubidium has a transition line in the visible range from the ground to the first excited
+state, the D2 line at 780nm. Using a tunable laser in this range, one can make the effect of the
+disappearing vapor in the center of the ionizing laser beam visible.
+We will describe the method, explain the experimental setup and present experimental results.</abstract>
+        <discipline>AWAKE</discipline>
+        <educationalpurpose>No</educationalpurpose>
+        <enduser>notspecified</enduser>
+        <pubstatus>published</pubstatus>
+        <fturl comment="file from upload service" filename="FullText.pdf" viewftext="INSTITUT" size="395">http://edoc.mpg.de/get.epl?fid=124824&amp;did=727914&amp;ver=0</fturl>
+      </basic>
+      <creators>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>A.-M.</creatorini>
+          <creatornfamily>Bachmann</creatornfamily>
+          <creatorngiven>Anna-Maria</creatorngiven>
+        </creator>
+      </creators>
+      <relations></relations>
+      <identifiers>
+        <identifier type="url">https://publications.mppmu.mpg.de/?action=search&amp;mpi=MPP-2016-350</identifier>
+        <identifier type="localid">MPP-2016-350</identifier>
+      </identifiers>
+    </metadata>
+    <docaff>
+      <docaff_external>Heinrich Heine Universität Düsseldorf</docaff_external>
+      <institute id="61">MPI für Physik</institute>
+      <collection id="4024">YB 2017</collection>
+      <affiliation>
+        <mpgunit id="9362">MPI für Physik</mpgunit>
+      </affiliation>
+    </docaff>
+    <MPGyearbook status="Released">2017</MPGyearbook>
+    <metametadata>
+      <lastmodified>2017-03-21 09:17:38.726767</lastmodified>
+      <owner>
+        <fullname>eDoc Administrator</fullname>
+        <email>makarenko@mpdl.mpg.de</email>
+        <insid>100</insid>
+      </owner>
+    </metametadata>
+  </record>
+</edoc>

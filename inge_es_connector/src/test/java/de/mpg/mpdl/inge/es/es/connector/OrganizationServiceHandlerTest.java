@@ -14,8 +14,8 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestOrganizationServiceHandler extends TestBase {
-  private static final Logger LOG = Logger.getLogger(TestContextServiceHandler.class);
+public class OrganizationServiceHandlerTest extends TestBase {
+  private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
   private OrganizationDao<QueryBuilder> organizationDao;

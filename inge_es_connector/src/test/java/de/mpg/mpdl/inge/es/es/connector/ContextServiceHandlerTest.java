@@ -15,8 +15,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestContextServiceHandler extends TestBase {
-  private static final Logger LOG = Logger.getLogger(TestContextServiceHandler.class);
+public class ContextServiceHandlerTest extends TestBase {
+  private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
   private ContextDao<QueryBuilder> contextDao;

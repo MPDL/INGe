@@ -6,12 +6,12 @@ import java.util.List;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 
-public class TestConeCache {
+public class ConeCacheTest {
 
   public static void main(String[] args) {
     System.out.println("Start");
 
-    final TestConeCache t = new TestConeCache();
+    final ConeCacheTest t = new ConeCacheTest();
     t.go();
 
     System.out.println("Ende");
@@ -175,7 +175,7 @@ public class TestConeCache {
           System.out.println(e);
         }
         System.out.println("Ende refreshCache");
-        TestConeCache.this.logCacheSetSizes(this.cache);
+        ConeCacheTest.this.logCacheSetSizes(this.cache);
         try {
           Thread.sleep(10000);
         } catch (final Exception e) {
