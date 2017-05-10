@@ -1198,7 +1198,7 @@
 
 		<!-- profile for the daily build on continuum -->
 		<profile>
-			<id>env-testing-continuum</id>
+			<id>jenkins_deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -1226,9 +1226,8 @@
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
-				<!-- <jboss.install.dir>/mnt/pubman/dev-pubman</jboss.install.dir> -->
-				<jboss.install.dir>/usr/share/escidoc/wildfly</jboss.install.dir>
-				<jboss.user.scp>jboss@dev-pubman.mpdl.mpg.de</jboss.user.scp>
+				<jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
+				<jboss.user.scp>jboss@dev-inge.mpdl.mpg.de</jboss.user.scp>
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				<!-- AA -->

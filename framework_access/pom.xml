@@ -163,7 +163,7 @@
 				<configuration>
 					<skip>false</skip>
 					<argLine>${jacoco.arguments.ut}</argLine>
-					<test>TestFrameworkAccess</test>
+					<test>*Test</test>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -188,56 +188,6 @@
 	</build>
 
 	<profiles>
-		<profile>
-			<id>env-testing-continuum</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.3</version>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<target>
-										<!-- copy over the stylesheets -->
-										<scp
-											file="${project.build.directory}/classes/itemContainerAdminXmlToLucene.xslt"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/item_container_admin"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
-
-										<scp
-											file="${project.build.directory}/classes/mpdlEscidocXmlToLucene.xslt"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/escidoc/main/search/config/index/escidoc_all"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
-									</target>
-								</configuration>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.ant</groupId>
-								<artifactId>ant-jsch</artifactId>
-								<version>1.9.6</version>
-							</dependency>
-							<dependency>
-								<groupId>com.jcraft</groupId>
-								<artifactId>jsch</artifactId>
-								<version>0.1.53</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 	</profiles>
 
 	<dependencies>

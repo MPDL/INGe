@@ -213,7 +213,7 @@
 		</profile>
 
 		<profile>
-			<id>env-testing-continuum</id>
+			<id>jenkins_deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
