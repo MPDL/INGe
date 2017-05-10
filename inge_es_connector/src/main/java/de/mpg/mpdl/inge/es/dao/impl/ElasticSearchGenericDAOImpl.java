@@ -88,6 +88,28 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param vo
    * @return {@link String}
    */
+  public String createNotImmediately(String id, E entity) throws IngeServiceException {
+    try {
+      IndexResponse indexResponse =
+          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+              .setSource(mapper.writeValueAsBytes(entity)).get();
+      return indexResponse.getId();
+
+    } catch (JsonProcessingException e) {
+      throw new IngeServiceException(e);
+    }
+
+
+  }
+
+  /**
+   * 
+   * @param indexName
+   * @param indexType
+   * @param id
+   * @param vo
+   * @return {@link String}
+   */
   public String create(String id, E entity) throws IngeServiceException {
     try {
       IndexResponse indexResponse =
@@ -165,32 +187,29 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
     SearchRetrieveResponseVO<E> srrVO;
     try {
 
-      SearchRequestBuilder secondSrb =
-          client.getClient().prepareSearch(indexName).setTypes(indexType);
-      secondSrb.setQuery(searchQuery.getQueryObject());
+      SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
+      srb.setQuery(searchQuery.getQueryObject());
 
 
       if (searchQuery.getOffset() != 0) {
-        secondSrb.setFrom(searchQuery.getOffset());
+        srb.setFrom(searchQuery.getOffset());
       }
 
       if (searchQuery.getLimit() != -1) {
-        secondSrb.setSize(searchQuery.getLimit());
+        srb.setSize(searchQuery.getLimit());
       } else {
-        secondSrb.setSize(10000);
+        srb.setSize(10000);
       }
 
       if (searchQuery.getSortKeys() != null) {
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          secondSrb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
+          srb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
         }
       }
 
-      // logger.info(secondSrb.toString());
-      SearchResponse response2 = secondSrb.get();
-      // logger.info(response2.toString());
+      SearchResponse response = srb.get();
 
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response2);
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
     } catch (Exception e) {
       throw new IngeServiceException(e.getMessage(), e);
     }

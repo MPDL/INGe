@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -131,7 +132,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     final AccountUserVO accountUser = new AccountUserVO();
 
     final AccountUserRO userRO = new AccountUserRO();
-    userRO.setObjectId(rawUser.path("exid").asText());
+    userRO.setObjectId(rawUser.path("exid").asText().replace("pure", ID_PREFIX.USER.getPrefix()));
     userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
 
     accountUser.setReference(userRO);
@@ -142,7 +143,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     email.setValue(rawUser.path("email").asText());
     final UserAttributeVO ou = new UserAttributeVO();
     ou.setName("o");
-    ou.setValue(rawUser.path("ouid").asText());
+    ou.setValue(rawUser.path("ouid").asText().replaceAll("pure", ID_PREFIX.OU.getPrefix()));
     attributes.add(email);
     attributes.add(ou);
     accountUser.setAttributes(attributes);
@@ -165,7 +166,8 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (grant.path("targetId").asText().contains("all")) {
 
         } else {
-          grantVo.setObjectRef(grant.path("targetId").asText());
+          grantVo.setObjectRef(grant.path("targetId").asText()
+              .replaceAll("pure", ID_PREFIX.CONTEXT.getPrefix()));
           grantVo.setGrantType(grant.path("targetType").asText());
           final String roleName = grant.path("role").path("name").asText();
           grantVo.setRole(roleName);

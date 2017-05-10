@@ -41,19 +41,10 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ViewItemSessionBean extends FacesBean {
-  private String navigationStringToGoBack = null;
   private String subMenu;
 
   public ViewItemSessionBean() {
     this.subMenu = "ACTIONS";
-  }
-
-  public String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public void setNavigationStringToGoBack(String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
   }
 
   public void setSubMenu(String subMenu) {

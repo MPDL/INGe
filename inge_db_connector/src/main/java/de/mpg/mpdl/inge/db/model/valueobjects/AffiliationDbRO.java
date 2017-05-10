@@ -24,34 +24,28 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.withdrawItem;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * Keeps all attributes that are used for the whole session by WithdrawItem.
+ * The class for AccountUser references.
  * 
- * @author: Michael Franke, created 15.06.2007
- * @author: $Author$
- * @version: $Revision$ $LastChangedDate$ Revised by FrM: 09.08.2007 * Checkstyled, commented.
+ * @revised by MuJ: 27.08.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ * @updated 21-Nov-2007 12:08:27
  */
-@ManagedBean(name = "WithdrawItemSessionBean")
-@SessionScoped
-@SuppressWarnings("serial")
-public class WithdrawItemSessionBean extends FacesBean {
-  // navigationString to go back to the list where withdrawItem has been called from
-  private String navigationStringToGoBack = null;
+@JsonInclude(value = Include.NON_NULL)
+@Entity(name = "AffiliationRO")
+@Table(name = "organization_basic")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class AffiliationDbRO extends BasicDbRO {
 
-  public WithdrawItemSessionBean() {}
-
-  public final String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
 }

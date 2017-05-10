@@ -60,11 +60,6 @@ public class EditItemSessionBean extends EditItemBean {
   /** The offset of the page where to jump back */
   private String offset;
 
-  /**
-   * A creator bean that holds the data from the author copy&paste organizations
-   */
-  // private CreatorBean authorCopyPasteOrganizationsCreatorBean;
-
   private List<SourceBean> sources = new ArrayList<SourceBean>();
 
   /**
@@ -81,20 +76,12 @@ public class EditItemSessionBean extends EditItemBean {
   public void initEmptyComponents() {
     this.clean();
 
-    // make sure that at least one locator and one file is stored in the EditItemSessionBean
-    /*
-     * if(this.getFiles().size() < 1) { FileVO newFile = new FileVO();
-     * newFile.getMetadataSets().add(new MdsFileVO());
-     * newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED); this.getFiles().add(new
-     * PubFileVOPresentation(this.getFiles().size(), newFile, false)); }
-     */
     if (this.getLocators().size() < 1) {
       final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
-    // initAuthorCopyPasteCreatorBean();
   }
 
   /**
@@ -188,34 +175,6 @@ public class EditItemSessionBean extends EditItemBean {
   public void setSources(List<SourceBean> sources) {
     this.sources = sources;
   }
-
-  // /**
-  // * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste
-  // * organizations.
-  // */
-  // public void initAuthorCopyPasteCreatorBean() {
-  // // CreatorVO newVO = new CreatorVO();
-  // // TODO MF.
-  // }
-
-  // /**
-  // * Sets the CreatorBean that manages the author copy&paste organizations.
-  // *
-  // * @param authorCopyPasteOrganizationsCreatorBean
-  // */
-  // public void setAuthorCopyPasteOrganizationsCreatorBean(
-  // CreatorBean authorCopyPasteOrganizationsCreatorBean) {
-  // this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
-  // }
-
-  // /**
-  // * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
-  // *
-  // * @return
-  // */
-  // public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean() {
-  // return authorCopyPasteOrganizationsCreatorBean;
-  // }
 
   public String getCurrentSubmission() {
     return this.currentSubmission;

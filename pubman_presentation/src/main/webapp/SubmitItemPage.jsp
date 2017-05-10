@@ -17,15 +17,14 @@
             <ui:include src="header/Header.jspf" />
             <h:form>
                 <div id="content" class="full_area0 clear">
-                    <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+                    <!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
                         <div class="headerSection">
                             <ui:include src="header/Breadcrumb.jspf" />
                             <div id="contentSkipLinkAnchor" class="clear headLine">
                                 <!-- Headline starts here -->
                                 <h1>
-                                    <h:outputText value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
-                                    <h:outputText value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
+                                    <h:outputText value="#{lbl.SubmitItemPage_Submit}" />
                                 </h1>
                                 <!-- Headline ends here -->
                             </div>
@@ -68,9 +67,8 @@
                             <ui:include src="submitItem/SubmitItem.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{SubmitItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>
                     <!-- end: content section -->

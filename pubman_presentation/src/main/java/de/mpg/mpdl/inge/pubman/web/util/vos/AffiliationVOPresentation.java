@@ -28,15 +28,20 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -80,8 +85,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
       List<AffiliationVO> childOus =
-          ((OrganizationServiceImpl) ApplicationBean.INSTANCE.getOrganizationService())
-              .searchChildOrganizations(this.getReference().getObjectId());
+          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this
+              .getReference().getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
@@ -357,28 +362,17 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       return transformedAffs;
     }
     try {
-      final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-
-      if (affiliations.size() == 1) {
-
-        final String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
-        final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(ouXml);
-        transformedAffs.add(affVO);
-        return transformedAffs;
-      } else {
-        final FilterTaskParamVO filter = new FilterTaskParamVO();
-
-        final AffiliationRefFilter affiliationFilter = filter.new AffiliationRefFilter();
-        filter.getFilterList().add(affiliationFilter);
-
-        for (final AffiliationRO affiliation : affiliations) {
-          affiliationFilter.getIdList().add(affiliation);
-        }
-
-        final String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
-        transformedAffs = XmlTransformingService.transformToAffiliationList(ouXml);
-
-      }
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      for (final AffiliationRO id : affiliations) {
+        bq.should(QueryBuilders.termQuery(OrganizationServiceImpl.INDEX_OBJECT_ID, id.getObjectId()));
+       }
+      
+      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
+      SearchRetrieveResponseVO<AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+      
+      
+     
     } catch (final Exception e) {
     }
 

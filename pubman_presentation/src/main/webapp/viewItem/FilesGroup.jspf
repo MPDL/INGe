@@ -62,7 +62,7 @@
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon "></span>
-											<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
 										<!-- Link for fulltext searchhits with open pdf params-->
 										<h:outputLink id="lnkSearchHitsURLDownload"
@@ -71,7 +71,7 @@
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon"></span>
-											<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
 									</div>
 								</div>

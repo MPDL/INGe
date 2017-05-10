@@ -12,23 +12,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
@@ -267,9 +263,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   public List<String> getChildOUs(String orgId) throws Exception {
     final List<String> affListAsString = new ArrayList<String>();
-    final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-    final String topLevelOU = ouHandler.retrieve(orgId);
-    final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
+    final AffiliationVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
     final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 

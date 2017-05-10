@@ -136,8 +136,8 @@
                             <ui:include src="localTags/LocalTags.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" value="#{lbl.EditItem_lnkSave}" action="#{EditItem.acceptLocalTags}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();" />
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" value="#{lbl.save}" action="#{EditItem.acceptLocalTags}" onclick="fullItemReloadAjax();" />
                         </div>
                     </div>
                     <!-- end: content section -->

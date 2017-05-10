@@ -136,7 +136,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    */
   public String getObjectIdAndVersion() {
     if (versionNumber != 0) {
-      return getObjectId() + ":" + versionNumber;
+      return getObjectId() + "_" + versionNumber;
     } else {
       return getObjectId();
     }

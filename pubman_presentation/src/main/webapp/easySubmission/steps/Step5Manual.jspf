@@ -933,12 +933,12 @@
 				<h:outputText value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			<h:commandLink styleClass="free_area1_p8 cancelButton" id="lnkCancel"
-				value="#{lbl.EditItem_lnkCancel}" action="#{EasySubmission.cancel}"
+				value="#{lbl.cancel}" action="#{EasySubmission.cancel}"
 				onclick="fullItemReloadAjax();" />
 			<h:commandLink id="lnkSave" title="#{tip.easy_submission_btnSave}"
 				styleClass="free_area1_p8 endline activeButton"
 				action="#{EasySubmission.save}" onclick="fullItemReloadAjax();">
-				<h:outputText value="#{lbl.easy_submission_btnSave}" />
+				<h:outputText value="#{lbl.save}" />
 			</h:commandLink>
 			<h:commandLink id="lnkAddDetails"
 				title="#{tip.easy_submission_btnAddDetails}"

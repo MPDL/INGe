@@ -9,15 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.mpg.mpdl.inge.es.spring.AppConfig;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.service.identifier.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +30,11 @@ public class TestPubmanLogic {
   private PubItemService pubItemService;
 
   @Autowired
-  private IdentifierProviderServiceImpl idProvider;
+  private ContextService contextService;
+
+  @Autowired
+  private OrganizationService organizationService;
+
 
   @Autowired
   private UserAccountService userAccountService;
@@ -57,13 +63,10 @@ public class TestPubmanLogic {
     System.out.println("Needed time " + time);
   }
 
-  @Test
-  @Ignore
-  public void testIdentifierProvider() {
-    System.out.println(idProvider.getNewId());
-  }
+
 
   @Test
+  @Ignore
   public void testSearch() throws Exception {
     String token = userAccountService.login("boosen", "boosen");
 
@@ -73,6 +76,36 @@ public class TestPubmanLogic {
         new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
     SearchRetrieveResponseVO<PubItemVO> resp = pubItemService.search(srr, null);
     System.out.println("Found: " + resp.getNumberOfRecords() + " records");
+  }
+
+  @Test
+  @Ignore
+  public void testReindexContext() throws Exception {
+
+    ((ContextServiceDbImpl) contextService).reindex();
+
+  }
+
+  @Test
+  @Ignore
+  public void testReindexOu() throws Exception {
+
+    ((OrganizationServiceDbImpl) organizationService).reindex();
+
+  }
+
+  @Test
+  @Ignore
+  public void testReindexItems() throws Exception {
+
+    pubItemService.reindex();
+
+  }
+
+  @Test
+  @Ignore
+  public void testGet() throws Exception {
+    pubItemService.get("item_3000005", null);
   }
 
 }

@@ -218,7 +218,7 @@
 			<h:outputLink id="lnkCancel"
 				styleClass="free_area1_p8 cancelButton xLarge_marginLIncl"
 				value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-				<h:outputText value="#{lbl.EditItem_lnkCancel}" />
+				<h:outputText value="#{lbl.cancel}" />
 			</h:outputLink>
 			<ui:remove>
 				<!-- 

@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class RightsManagementSessionBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(RightsManagementSessionBean.class);
 
-  // prefix for disableing functions in properties file (has to be followed by ".<functionname>")
+  // prefix for disabling functions in properties file (has to be followed by ".<functionname>")
   public static final String PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS =
       "escidoc.pubman_presentation.disable";
   // constant for the string that marks a function as disabled

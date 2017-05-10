@@ -24,42 +24,23 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.submitItem;
+package de.mpg.mpdl.inge.pubman.web;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
- * Keeps all attributes that are used for the whole session by SubmitItem.
+ * BackingBean for ReleaseItemPage.jsp. This one is empty because all code is implemented in the
+ * BackingBean of the fragment.
  * 
- * @author: Michael Franke, created 06.09.2007
- * @author: $Author$
- * @version: $Revision$ $LastChangedDate$
+ * @author: Thomas Diebäcker, created 10.01.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
-@ManagedBean(name = "SubmitItemSessionBean")
-@SessionScoped
+@ManagedBean(name = "ReleaseItemPage")
 @SuppressWarnings("serial")
-public class SubmitItemSessionBean extends FacesBean {
-  private String message;
-//  private String navigationStringToGoBack = null;
-
-  public SubmitItemSessionBean() {}
-
-//  public final String getNavigationStringToGoBack() {
-//    return this.navigationStringToGoBack;
-//  }
-//
-//  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-//    this.navigationStringToGoBack = navigationStringToGoBack;
-//  }
-
-  public String getMessage() {
-    return this.message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
+public class ReleaseItemPage extends FacesBean {
+  public ReleaseItemPage() {
+    this.checkForLogin();
   }
 }

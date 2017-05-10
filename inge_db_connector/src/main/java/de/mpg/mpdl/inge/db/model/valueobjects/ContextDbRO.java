@@ -24,42 +24,29 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.acceptItem;
+package de.mpg.mpdl.inge.db.model.valueobjects;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * Keeps all attributes that are used for the whole session by AcceptItem.
+ * The class for AccountUser references.
  * 
- * @author: Michael Franke, created 06.09.2007
- * @author: $Author$
- * @version: $Revision$ $LastChangedDate$
+ * @revised by MuJ: 27.08.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ * @updated 21-Nov-2007 12:08:27
  */
-@ManagedBean(name = "AcceptItemSessionBean")
-@SessionScoped
-@SuppressWarnings("serial")
-public class AcceptItemSessionBean extends FacesBean {
-  private String message;
-  private String navigationStringToGoBack = null;
+@JsonInclude(value = Include.NON_NULL)
+@Entity(name = "ContextRO")
+@Table(name = "context_basic")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ContextDbRO extends BasicDbRO {
 
-  public AcceptItemSessionBean() {}
 
-  public final String getNavigationStringToGoBack() {
-    return this.navigationStringToGoBack;
-  }
-
-  public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-    this.navigationStringToGoBack = navigationStringToGoBack;
-  }
-
-  public String getMessage() {
-    return this.message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
 }

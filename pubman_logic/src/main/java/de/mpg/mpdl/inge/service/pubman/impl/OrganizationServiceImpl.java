@@ -19,6 +19,9 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+
+  public final static String INDEX_OBJECT_ID = "reference.objectId";
+
   @Autowired
   private OrganizationDao<QueryBuilder> organizationDao;
 
@@ -51,7 +54,7 @@ public class OrganizationServiceImpl implements OrganizationService {
    * @return all child affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId) throws Exception {
+  public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId) throws IngeServiceException {
     final QueryBuilder qb = QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.organizationDao.search(srr);

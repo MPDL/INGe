@@ -136,7 +136,7 @@
                         </div>
                         <h:panelGroup id="buttons" layout="block" styleClass="full_area0 formButtonArea">
                             <h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-                                <h:outputText value="#{lbl.EditItem_lnkCancel}" />
+                                <h:outputText value="#{lbl.cancel}" />
                             </h:outputLink>
                             <h:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton #{empty MultipleImport.uploadedImportFile ? 'disabled' : ''}" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}" disabled="#{empty MultipleImport.uploadedImportFile}">
                                 <h:outputText value="#{lbl.easy_submission_btnImport}" />

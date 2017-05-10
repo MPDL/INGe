@@ -74,6 +74,10 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_db_connector</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
@@ -105,14 +109,6 @@
 			      <artifactId>bcprov-jdk15on</artifactId>
         		</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
