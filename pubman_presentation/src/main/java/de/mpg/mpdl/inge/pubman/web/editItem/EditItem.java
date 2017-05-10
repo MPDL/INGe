@@ -116,6 +116,7 @@ public class EditItem extends FacesBean {
   public static final String LOAD_EDITITEM = "loadEditItem";
   public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
 
+  // für Binding in jsp Seite
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
   private HtmlCommandLink lnkDelete = new HtmlCommandLink();
