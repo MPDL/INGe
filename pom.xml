@@ -1227,7 +1227,7 @@
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
-				<jboss.user.scp>jboss@dev-inge.mpdl.mpg.de</jboss.user.scp>
+				<jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				<!-- AA -->
