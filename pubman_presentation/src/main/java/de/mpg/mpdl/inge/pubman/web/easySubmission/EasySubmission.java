@@ -148,7 +148,7 @@ public class EasySubmission extends FacesBean {
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   // für Binding in jsp seite
   private HtmlSelectOneRadio radioSelect;
-  
+
   private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
   private IdentifierCollection identifierCollection;
   private List<DataSourceVO> dataSources = new ArrayList<DataSourceVO>();

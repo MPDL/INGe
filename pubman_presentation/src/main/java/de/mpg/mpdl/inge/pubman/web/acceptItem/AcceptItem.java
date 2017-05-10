@@ -125,7 +125,7 @@ public class AcceptItem extends FacesBean {
   }
 
   public String accept() {
-    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
     final String retVal =
         this.getItemControllerSessionBean()

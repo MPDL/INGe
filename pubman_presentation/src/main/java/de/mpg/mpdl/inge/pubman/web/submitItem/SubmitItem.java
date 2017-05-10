@@ -125,11 +125,11 @@ public class SubmitItem extends FacesBean {
   }
 
   public String submit() {
-    String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
     final String retVal =
         this.getItemControllerSessionBean()
-            .reviseCurrentPubItem(navigateTo, this.submissionComment);
+            .submitCurrentPubItem(navigateTo, this.submissionComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
