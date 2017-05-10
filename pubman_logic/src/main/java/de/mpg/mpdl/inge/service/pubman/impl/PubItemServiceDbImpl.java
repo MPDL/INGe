@@ -286,7 +286,13 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
 
     PubItemVO requestedItem = null;
-    if (authenticationToken == null) {
+    
+    
+    
+    
+    
+    
+    if (authenticationToken == null && version == null) {
       // Return latest Release
       requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
     } else {

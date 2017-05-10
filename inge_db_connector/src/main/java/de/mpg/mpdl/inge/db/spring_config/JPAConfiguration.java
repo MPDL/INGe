@@ -70,6 +70,7 @@ public class JPAConfiguration {
     dataSource.setMaxPoolSize(20);
     dataSource.setMinPoolSize(5);
     dataSource.setMaxStatements(50);
+    dataSource.setInitialPoolSize(10);
 
     return dataSource;
   }

@@ -237,12 +237,12 @@ public class AuthorizationService {
             break;
           }
 
-          if (lastExceptionOfRule == null) {
-            return;
-          }
+         
         }
 
-
+        if (lastExceptionOfRule == null) {
+          return;
+        }
       }
       throw new AaException(lastExceptionOfAll);
 
@@ -296,7 +296,7 @@ public class AuthorizationService {
 
   private void checkVersionState(State currentVersionState, String... requiredStates)
       throws AaException {
-    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equals(currentVersionState))) {
+    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equalsIgnoreCase(currentVersionState.name()))) {
       throw new AaException(
           "Item is not in one of the required version states: " + Arrays.toString(requiredStates));
     }
@@ -305,7 +305,7 @@ public class AuthorizationService {
 
   private void checkPublicState(State currentPublicState, String... requiredStates)
       throws AaException {
-    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equals(currentPublicState))) {
+    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equalsIgnoreCase(currentPublicState.name()))) {
       throw new AaException(
           "Item is not in one of the required public states: " + Arrays.toString(requiredStates));
     }
@@ -313,7 +313,7 @@ public class AuthorizationService {
   }
 
   private void checkWorkflow(Workflow currentWorkflow, String requiredWorkflow) throws AaException {
-    if (!currentWorkflow.toString().equalsIgnoreCase(requiredWorkflow)) {
+    if (!currentWorkflow.name().equalsIgnoreCase(requiredWorkflow)) {
       throw new AaException("Context is set to workflow " + currentWorkflow
           + ". Required workflow: " + requiredWorkflow);
     }

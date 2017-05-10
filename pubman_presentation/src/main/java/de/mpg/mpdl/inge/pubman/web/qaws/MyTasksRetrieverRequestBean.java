@@ -17,9 +17,11 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -153,8 +155,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       // TODO Sorting!!
+      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       SearchRetrieveRequestVO<QueryBuilder> srr =
-          new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset);
+          new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
 
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
           .search(srr, getLoginHelper().getAuthenticationToken());

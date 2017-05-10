@@ -27,7 +27,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class EntityTransformer {
 
-  public static ContextDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.ContextVO contextVo) {
+  public static ContextDbVO transformToNew(
+      de.mpg.mpdl.inge.model.valueobjects.ContextVO contextVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -46,8 +47,8 @@ public class EntityTransformer {
     newContext.setName(contextVo.getName());
     newContext.setObjectId(changeId("ctx", contextVo.getReference().getObjectId()));
 
-    newContext.setState(de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State.valueOf(contextVo
-        .getState().name()));
+    newContext.setState(de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State
+        .valueOf(contextVo.getState().name()));
     newContext.setType(contextVo.getType());
 
     newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
@@ -235,8 +236,8 @@ public class EntityTransformer {
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
     if (newItemRo.getState() != null) {
-      oldItemRo.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo
-          .getState().name()));
+      oldItemRo.setState(
+          de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo.getState().name()));
     }
 
     oldItemRo.setTitle(null);// TODO
@@ -267,10 +268,10 @@ public class EntityTransformer {
     oldFileRo.setTitle(newFileVo.getName());
     oldFileVo.setReference(oldFileRo);
 
-    oldFileVo.setStorage(de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage.valueOf(newFileVo
-        .getStorage().name()));
-    oldFileVo.setVisibility(de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility.valueOf(newFileVo
-        .getVisibility().name()));
+    oldFileVo.setStorage(
+        de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage.valueOf(newFileVo.getStorage().name()));
+    oldFileVo.setVisibility(de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility
+        .valueOf(newFileVo.getVisibility().name()));
 
     return oldFileVo;
   }
@@ -286,6 +287,10 @@ public class EntityTransformer {
 
   public static PubItemVO transformToOld(PubItemVersionDbVO itemVo) {
 
+    if(itemVo == null)
+    {
+      return null;
+    }
     PubItemVO oldPubItem = new PubItemVO();
     oldPubItem.setContentModel("escidoc:persistent4");
 
@@ -324,6 +329,9 @@ public class EntityTransformer {
   public static de.mpg.mpdl.inge.model.valueobjects.ContextVO transformToOld(
       ContextDbVO newContextVo) {
 
+    if (newContextVo == null) {
+      return null;
+    }
     de.mpg.mpdl.inge.model.valueobjects.ContextVO oldContextVo =
         new de.mpg.mpdl.inge.model.valueobjects.ContextVO();
     oldContextVo.setAdminDescriptor(newContextVo.getAdminDescriptor());
@@ -336,8 +344,8 @@ public class EntityTransformer {
 
 
     oldContextVo.setReference(transformToOld((ContextDbRO) newContextVo));
-    oldContextVo.setState(de.mpg.mpdl.inge.model.valueobjects.ContextVO.State.valueOf(newContextVo
-        .getState().name()));
+    oldContextVo.setState(de.mpg.mpdl.inge.model.valueobjects.ContextVO.State
+        .valueOf(newContextVo.getState().name()));
     oldContextVo.setType(newContextVo.getType());
 
 
@@ -362,6 +370,9 @@ public class EntityTransformer {
 
   public static de.mpg.mpdl.inge.model.valueobjects.AffiliationVO transformToOld(
       AffiliationDbVO newAffVo) {
+    if (newAffVo == null) {
+      return null;
+    }
     de.mpg.mpdl.inge.model.valueobjects.AffiliationVO oldAffVo =
         new de.mpg.mpdl.inge.model.valueobjects.AffiliationVO();
     oldAffVo.setCreationDate(newAffVo.getCreationDate());
@@ -410,8 +421,8 @@ public class EntityTransformer {
         ref.setObjectId(audit.getPubItem().getObjectId());
         ref.setVersionNumber(audit.getPubItem().getVersionNumber());
         vhEntry.setReference(ref);
-        vhEntry.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(audit
-            .getPubItem().getState().name()));
+        vhEntry.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State
+            .valueOf(audit.getPubItem().getState().name()));
         vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
         vhList.add(vhEntry);
 

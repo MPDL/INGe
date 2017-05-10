@@ -48,6 +48,7 @@ public class PubItemServiceImpl implements PubItemService {
   public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
   public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId";
   public static String INDEX_LOCAL_TAGS = "localTags";
+  public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
 
   @Autowired
   private PubItemDao<QueryBuilder> pubItemDao;
