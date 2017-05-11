@@ -2353,7 +2353,7 @@ public class ViewItemFull extends FacesBean {
       retVal = icsb.saveCurrentPubItem(navigateTo);
 
       if (navigateTo.equals(retVal)) {
-        retVal = icsb.acceptCurrentPubItem("Release during adding DOI", navigateTo);
+        retVal = icsb.acceptCurrentPubItem(navigateTo, "Release during adding DOI");
       }
 
       if (navigateTo.equals(retVal)) {
@@ -2400,7 +2400,7 @@ public class ViewItemFull extends FacesBean {
           navigateTo = AcceptItem.LOAD_ACCEPTITEM;
           retVal = icsb.saveCurrentPubItem(navigateTo);
           if (navigateTo.equals(retVal)) {
-            retVal = icsb.submitCurrentPubItem(messageSubmit, navigateTo);
+            retVal = icsb.submitCurrentPubItem(navigateTo, messageSubmit);
           }
         } else {
           navigateTo = SubmitItem.LOAD_SUBMITITEM;

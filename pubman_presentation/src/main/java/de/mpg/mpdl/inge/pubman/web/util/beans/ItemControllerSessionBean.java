@@ -72,7 +72,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.DoiRestService;
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -538,7 +537,7 @@ public class ItemControllerSessionBean extends FacesBean {
    *        operation is successful.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String submitCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  public String submitCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().submitPubItem(
@@ -837,7 +836,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param comment Optional comment.
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String releaseCurrentPubItem(String comment, String navigationRuleWhenSuccessfull) {
+  public String releaseCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
