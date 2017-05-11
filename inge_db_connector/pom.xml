@@ -1,11 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	
 	<artifactId>inge_db_connector</artifactId>
 	<name>inge_db_connector</name>
 
@@ -54,6 +58,11 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>framework_access</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Spring dependencies -->
 		<dependency>
@@ -87,6 +96,8 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+
+		<!-- Sonstige -->
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
@@ -102,12 +113,6 @@
 			<version>4.5.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>framework_access</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-
 	</dependencies>
+	
 </project>
