@@ -133,8 +133,8 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     contextRepository.delete(id);
     contextDao.delete(id);
@@ -143,8 +143,8 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional(readOnly = true)
-  public ContextVO get(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public ContextVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return EntityTransformer.transformToOld(contextRepository.findOne(id));
   }
 
@@ -183,16 +183,16 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional
-  public ContextVO open(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public ContextVO open(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return changeState(id, authenticationToken, State.OPENED);
   }
 
 
   @Override
   @Transactional
-  public ContextVO close(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public ContextVO close(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return changeState(id, authenticationToken, State.CLOSED);
   }
 

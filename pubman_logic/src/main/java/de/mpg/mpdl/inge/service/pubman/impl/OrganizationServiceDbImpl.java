@@ -82,8 +82,8 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional(readOnly = true)
-  public AffiliationVO get(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public AffiliationVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return EntityTransformer.transformToOld(this.organizationRepository.findOne(id));
   }
 
@@ -140,16 +140,6 @@ public class OrganizationServiceDbImpl implements OrganizationService {
     toBeUpdatedAff.setModifier(mod);
 
 
-    // Set old parents hasChildren to false
-    if (toBeUpdatedAff.getParentAffiliations() != null
-        && !toBeUpdatedAff.getParentAffiliations().isEmpty()) {
-      for (AffiliationDbRO affRo : toBeUpdatedAff.getParentAffiliations()) {
-        AffiliationDbVO parentAff = organizationRepository.findOne(affRo.getObjectId());
-        parentAff.setHasChildren(false);
-        organizationRepository.save(parentAff);
-      }
-    }
-
     // Set new parents
     if (givenAff.getParentAffiliations() != null) {
       toBeUpdatedAff.getParentAffiliations().clear();
@@ -157,9 +147,6 @@ public class OrganizationServiceDbImpl implements OrganizationService {
         AffiliationDbRO newAffRo = new AffiliationDbRO();
         newAffRo.setObjectId(affRo.getObjectId());
         toBeUpdatedAff.getParentAffiliations().add(newAffRo);
-        AffiliationDbVO parentAff = organizationRepository.findOne(affRo.getObjectId());
-        parentAff.setHasChildren(true);
-        organizationRepository.save(parentAff);
       }
     }
 
@@ -205,8 +192,8 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     organizationRepository.delete(id);
     organizationDao.delete(id);
@@ -216,16 +203,16 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public AffiliationVO open(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return changeState(id, authenticationToken, State.OPENED);
   }
 
 
   @Override
   @Transactional
-  public AffiliationVO close(String id, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     return changeState(id, authenticationToken, State.CLOSED);
   }
 

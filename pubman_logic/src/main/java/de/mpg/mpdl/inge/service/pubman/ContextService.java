@@ -5,9 +5,11 @@ import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.services.IngeServiceException;
 
 public interface ContextService extends GenericService<ContextVO> {
-  
-  public ContextVO open(String contextId, String authenticationToken) throws IngeServiceException, AaException;
-  
-  public ContextVO close(String contextId, String authenticationToken) throws IngeServiceException, AaException;
+
+  public ContextVO open(String contextId, String authenticationToken) throws IngeServiceException,
+      AaException;
+
+  public ContextVO close(String contextId, String authenticationToken) throws IngeServiceException,
+      AaException;
 
 }

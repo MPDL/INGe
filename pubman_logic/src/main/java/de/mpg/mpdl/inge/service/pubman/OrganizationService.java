@@ -9,11 +9,13 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 
 public interface OrganizationService extends GenericService<AffiliationVO> {
 
-  
-  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException, AaException;
-  
-  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException, AaException;
-  
+
+  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
+      AaException;
+
+  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
+      AaException;
+
   public List<AffiliationVO> searchTopLevelOrganizations() throws IngeServiceException;
 
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)

@@ -39,6 +39,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -90,6 +91,8 @@ public class AffiliationDbVO extends AffiliationDbRO {
   @Enumerated(EnumType.STRING)
   private State publicStatus;
 
+  
+  @Formula("(select count(*)>0 from organization_parent op WHERE op.parentaffiliations_objectid=objectId)")
   private boolean hasChildren;
 
   /**
