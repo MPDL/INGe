@@ -73,27 +73,22 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>framework_access</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformationManager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>jasperreports</groupId>
@@ -120,7 +115,7 @@
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
-			
+
 			</exclusions>
 		</dependency>
 		<dependency>

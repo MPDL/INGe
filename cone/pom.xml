@@ -53,12 +53,10 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_logic</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

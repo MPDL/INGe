@@ -9,7 +9,7 @@
 		<artifactId>INGe</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>exportmanager</artifactId>
 	<name>exportmanager</name>
 	<version>1.0.94-SNAPSHOT</version>
@@ -45,22 +45,18 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -76,5 +72,5 @@
 			<version>1.7.0</version>
 		</dependency>
 	</dependencies>
-	
+
 </project>

@@ -155,12 +155,10 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>framework_access</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>

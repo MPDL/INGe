@@ -41,37 +41,30 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>framework_access</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_services</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>transformationManager</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_es_connector</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -105,20 +98,19 @@
 			<version>3.0.1</version>
 			<exclusions>
 				<exclusion>
-			      <groupId>org.bouncycastle</groupId>
-			      <artifactId>bcprov-jdk15on</artifactId>
-        		</exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcprov-jdk15on</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
-		  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>fluent-hc</artifactId>
-		  <version>4.5.2</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.2</version>
 		</dependency>
 	</dependencies>
 
