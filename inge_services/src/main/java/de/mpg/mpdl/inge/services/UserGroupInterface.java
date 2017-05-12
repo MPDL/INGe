@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.services;
 
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 
 /**
@@ -16,37 +17,37 @@ public interface UserGroupInterface {
    * 
    * @param userGroup
    * @param userGroupId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link String}
    */
   public String createUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws IngeServiceException;
+      throws IngeEsServiceException;
 
   /**
    * 
    * @param userGroupId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link UserGroupVO}
    */
-  public UserGroupVO readUserGroup(String userGroupId) throws IngeServiceException;
+  public UserGroupVO readUserGroup(String userGroupId) throws IngeEsServiceException;
 
 
   /**
    * 
    * @param userGroup
    * @param userGroupId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link String}
    */
   public String updateUserGroup(UserGroupVO userGroup, String userGroupId)
-      throws IngeServiceException;
+      throws IngeEsServiceException;
 
 
   /**
    * 
    * @param userGroupId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link String}
    */
-  public String deleteUserGroup(String userGroupId) throws IngeServiceException;
+  public String deleteUserGroup(String userGroupId) throws IngeEsServiceException;
 }

@@ -41,7 +41,7 @@ import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusExcept
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -74,7 +74,7 @@ public class PubItemService implements InitializingBean {
   // public static final String WORKFLOW_STANDARD = "standard";
 
   @Autowired
-  private PubItemDao<QueryBuilder> pubItemDao;
+  private PubItemDaoEs<QueryBuilder> pubItemDao;
 
   public static PubItemService INSTANCE;
 

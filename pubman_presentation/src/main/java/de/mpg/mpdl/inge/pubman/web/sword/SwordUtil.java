@@ -77,6 +77,7 @@ import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -110,7 +111,6 @@ import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -511,7 +511,7 @@ public class SwordUtil extends FacesBean {
    * @throws URISyntaxException
    * @throws NamingException
    * @throws PubItemStatusInvalidException
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @throws AaException
    * @throws ItemInvalidException
    * @throws PubItemAlreadyReleasedException
@@ -524,7 +524,7 @@ public class SwordUtil extends FacesBean {
    * @throws DepositingException
    */
   public PubItemVO doDeposit(PubItemVO item) throws PubItemStatusInvalidException, AaException,
-      IngeServiceException, ItemInvalidException {
+      IngeEsServiceException, ItemInvalidException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);

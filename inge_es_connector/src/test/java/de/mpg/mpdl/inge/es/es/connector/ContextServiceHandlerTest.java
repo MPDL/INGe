@@ -9,17 +9,17 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.dao.ContextDao;
+import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContextServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
-  private ContextDao<QueryBuilder> contextDao;
+  private ContextDaoEs<QueryBuilder> contextDao;
   private String test_context_id = "test_context";
 
 
@@ -31,7 +31,7 @@ public class ContextServiceHandlerTest extends TestBase {
     try {
       String contextId = this.contextDao.create(test_context_id, test_context());
       assert contextId.equals(test_context_id);
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -42,7 +42,7 @@ public class ContextServiceHandlerTest extends TestBase {
     try {
       ContextVO contextVO = this.contextDao.get(test_context_id);
       assert contextVO.equals(test_context());
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -56,7 +56,7 @@ public class ContextServiceHandlerTest extends TestBase {
       this.contextDao.update(test_context_id, contextVO);
       ContextVO contextVO2 = this.contextDao.get(test_context_id);
       assert contextVO2.getState().equals(State.CREATED);
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }

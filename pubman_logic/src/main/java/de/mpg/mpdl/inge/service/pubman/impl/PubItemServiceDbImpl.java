@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.dao.PubItemDao;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
@@ -30,6 +29,7 @@ import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
@@ -79,7 +79,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   private AuditRepository auditRepository;
 
   @Autowired
-  private PubItemDao<QueryBuilder> pubItemDao;
+  private PubItemDaoEs<QueryBuilder> pubItemDao;
 
   @PersistenceContext
   EntityManager entityManager;

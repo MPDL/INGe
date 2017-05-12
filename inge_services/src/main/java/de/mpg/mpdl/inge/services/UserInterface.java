@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.services;
 
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
@@ -15,36 +16,36 @@ public interface UserInterface {
    * 
    * @param user
    * @param userId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link String}
    */
-  public String createUser(AccountUserVO user, String userId) throws IngeServiceException;
+  public String createUser(AccountUserVO user, String userId) throws IngeEsServiceException;
 
   /**
    * 
    * @param userId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return {@link AccountUserVO}
    */
-  public AccountUserVO readUser(String userId) throws IngeServiceException;
+  public AccountUserVO readUser(String userId) throws IngeEsServiceException;
 
 
   /**
    * 
    * @param user
    * @param userId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return modified user
    */
-  public String updateUser(AccountUserVO user, String userId) throws IngeServiceException;
+  public String updateUser(AccountUserVO user, String userId) throws IngeEsServiceException;
 
 
 
   /**
    * 
    * @param userId
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @return deleted user
    */
-  public String deleteUser(String userId) throws IngeServiceException;
+  public String deleteUser(String userId) throws IngeEsServiceException;
 }

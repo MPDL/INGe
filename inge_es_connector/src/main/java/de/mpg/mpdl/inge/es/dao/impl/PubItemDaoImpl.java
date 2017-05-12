@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
 public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<PubItemVO> implements
-    PubItemDao<QueryBuilder> {
+    PubItemDaoEs<QueryBuilder> {
 
   private static final String indexName = PropertyReader.getProperty("item_index_name");
   private static final String indexType = PropertyReader.getProperty("item_index_type");

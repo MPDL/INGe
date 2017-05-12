@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.dao.ContextDao;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
@@ -26,6 +25,7 @@ import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
+import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -53,7 +53,7 @@ public class ContextServiceDbImpl implements ContextService {
   private IdentifierProviderServiceImpl idProviderService;
 
   @Autowired
-  private ContextDao<QueryBuilder> contextDao;
+  private ContextDaoEs<QueryBuilder> contextDao;
 
   @Autowired
   private ContextRepository contextRepository;

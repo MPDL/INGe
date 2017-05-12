@@ -9,16 +9,16 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.dao.OrganizationDao;
+import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OrganizationServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
-  private OrganizationDao<QueryBuilder> organizationDao;
+  private OrganizationDaoEs<QueryBuilder> organizationDao;
 
   private String test_ou_id = "test_ou";
 
@@ -30,7 +30,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
     try {
       String ouId = this.organizationDao.create(test_ou_id, test_ou());
       assert ouId.equals(test_ou_id);
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -41,7 +41,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
     try {
       AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
       assert affiliationVO.equals(test_ou());
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -55,7 +55,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
       this.organizationDao.update(test_ou_id, affiliationVO);
       AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
       assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }

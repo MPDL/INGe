@@ -9,16 +9,16 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.dao.PubItemDao;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ItemServiceHandlerTest.class);
 
   @Autowired
-  private PubItemDao<QueryBuilder> itemDao;
+  private PubItemDaoEs<QueryBuilder> itemDao;
   private String test_item_id = "test_item";
 
 
@@ -31,7 +31,7 @@ public class ItemServiceHandlerTest extends TestBase {
     try {
       String contextId = this.itemDao.create(test_item_id, test_item());
       assert contextId.equals(test_item_id);
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -42,7 +42,7 @@ public class ItemServiceHandlerTest extends TestBase {
     try {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }
@@ -79,7 +79,7 @@ public class ItemServiceHandlerTest extends TestBase {
       this.itemDao.update(test_item_id, pubItemVO);
       PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       LOG.error(e);
       System.out.println(e);
     }

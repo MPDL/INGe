@@ -38,6 +38,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -89,7 +90,6 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -273,7 +273,7 @@ public class ItemControllerSessionBean extends FacesBean {
       ItemControllerSessionBean.logger.error("Authentication error while deleting current PubItem",
           e);
       FacesBean.error("Authentication error while deleting current PubItem");
-    } catch (final IngeServiceException e) {
+    } catch (final IngeEsServiceException e) {
       ItemControllerSessionBean.logger.error("Technical Error while deleting current PubItem", e);
       FacesBean.error("Technical error while deleting current PubItem");
     }
@@ -781,7 +781,7 @@ public class ItemControllerSessionBean extends FacesBean {
       ItemControllerSessionBean.logger
           .error("Authentication error while saving current PubItem", e);
       FacesBean.error("Authentication error while saving current PubItem");
-    } catch (final IngeServiceException e) {
+    } catch (final IngeEsServiceException e) {
       ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
       FacesBean.error("Technical error while saving current PubItem");
     }

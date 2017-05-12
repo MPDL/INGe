@@ -54,6 +54,7 @@ import org.w3c.dom.Element;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -76,7 +77,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.services.IngeServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -104,7 +104,7 @@ public class PubManSwordServer {
    * @throws ValidationException
    * @throws NamingException
    * @throws SWORDContentTypeException
-   * @throws IngeServiceException
+   * @throws IngeEsServiceException
    * @throws AaException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
@@ -122,7 +122,7 @@ public class PubManSwordServer {
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
       throws ContentStreamNotFoundException, SWORDContentTypeException,
-      PubItemStatusInvalidException, AaException, IngeServiceException, ItemInvalidException,
+      PubItemStatusInvalidException, AaException, IngeEsServiceException, ItemInvalidException,
       ValidationException {
 
     final SwordUtil util = new SwordUtil();
