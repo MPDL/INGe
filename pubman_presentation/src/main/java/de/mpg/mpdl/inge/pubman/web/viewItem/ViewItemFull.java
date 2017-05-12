@@ -2391,23 +2391,16 @@ public class ViewItemFull extends FacesBean {
     final State state = this.getPubItem().getVersion().getState();
 
     try {
-      if (State.PENDING.equals(state) || State.IN_REVISION.equals(state)) {
-        retVal = icsb.saveCurrentPubItem(navigateTo);
-      } else if (State.SUBMITTED.equals(state) || State.RELEASED.equals(state)) {
-        if (this.isModerator && State.SUBMITTED.equals(state)) {
-          retVal = icsb.saveCurrentPubItem(navigateTo);
-        } else if (this.isModerator && State.RELEASED.equals(state)) {
+      retVal = icsb.saveCurrentPubItem(navigateTo);
+      if (State.RELEASED.equals(state)) {
+        if (this.isModerator) {
           navigateTo = AcceptItem.LOAD_ACCEPTITEM;
-          retVal = icsb.saveCurrentPubItem(navigateTo);
           if (navigateTo.equals(retVal)) {
             retVal = icsb.submitCurrentPubItem(navigateTo, messageSubmit);
           }
         } else {
           navigateTo = SubmitItem.LOAD_SUBMITITEM;
-          retVal = icsb.saveCurrentPubItem(navigateTo);
         }
-      } else {
-        FacesBean.error(getMessage("ViewItem_ssrnAddingProblem"));
       }
 
       if (navigateTo.equals(retVal)) {
