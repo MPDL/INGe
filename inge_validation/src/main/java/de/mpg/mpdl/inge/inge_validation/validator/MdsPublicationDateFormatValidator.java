@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * DateFormatIncorrect</iso:assert> </iso:rule> </iso:pattern>
  */
 
-// TODO: dcterms:available + dcterms:dateCopyrighted
+// TODO: dcterms:available + dcterms:dateCopyrighted / Kontext prüfen
 public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements
     Validator<MdsPublicationVO> {
 
