@@ -79,8 +79,7 @@ public class ValidationTest {
   @Ignore
   @Test
   public void testClassifiedKeywords1() throws Exception {
-    logger
-        .info("--------------------- STARTING testClassifiedKeywords1 ---------------------");
+    logger.info("--------------------- STARTING testClassifiedKeywords1 ---------------------");
 
     final SubjectVO s1 = new SubjectVO();
     s1.setType(ClassifiedKeywordsValidator.DDC);
@@ -124,15 +123,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testClassifiedKeywords1 ---------------------");
+    logger.info("--------------------- FINISHED testClassifiedKeywords1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testClassifiedKeywords2() throws Exception {
-    logger
-        .info("--------------------- STARTING testClassifiedKeywords2 ---------------------");
+    logger.info("--------------------- STARTING testClassifiedKeywords2 ---------------------");
 
     final SubjectVO s1 = new SubjectVO();
     s1.setType(ClassifiedKeywordsValidator.DDC);
@@ -176,8 +173,7 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testClassifiedKeywords2 ---------------------");
+    logger.info("--------------------- FINISHED testClassifiedKeywords2 ---------------------");
   }
 
   @Ignore
@@ -258,8 +254,7 @@ public class ValidationTest {
   @Ignore
   @Test
   public void testComponentDataRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testComponentDataRequired1 ---------------------");
+    logger.info("--------------------- STARTING testComponentDataRequired1 ---------------------");
 
     final FileVO f1 = new FileVO();
     final MdsFileVO m1 = new MdsFileVO();
@@ -291,15 +286,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testComponentDataRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testComponentDataRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testComponentDataRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testComponentDataRequired2 ---------------------");
+    logger.info("--------------------- STARTING testComponentDataRequired2 ---------------------");
 
     final FileVO f1 = new FileVO();
     final MdsFileVO m1 = new MdsFileVO();
@@ -335,15 +328,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testComponentDataRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testComponentDataRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testComponentMimeTypes1() throws Exception {
-    logger
-        .info("--------------------- STARTING testComponentMimeTypes1 ---------------------");
+    logger.info("--------------------- STARTING testComponentMimeTypes1 ---------------------");
 
     final FileVO f1 = new FileVO();
     final MdsFileVO m1 = new MdsFileVO();
@@ -388,15 +379,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testComponentMimeTypes1 ---------------------");
+    logger.info("--------------------- FINISHED testComponentMimeTypes1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testComponentMimeTypes2() throws Exception {
-    logger
-        .info("--------------------- STARTING testComponentMimeTypes2 ---------------------");
+    logger.info("--------------------- STARTING testComponentMimeTypes2 ---------------------");
 
     final FileVO f1 = new FileVO();
     final MdsFileVO m1 = new MdsFileVO();
@@ -441,15 +430,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testComponentMimeTypes2 ---------------------");
+    logger.info("--------------------- FINISHED testComponentMimeTypes2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testCreatorRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testCreatorRequired1 ---------------------");
+    logger.info("--------------------- STARTING testCreatorRequired1 ---------------------");
 
     final CreatorVO c1 = new CreatorVO();
     c1.setType(CreatorType.ORGANIZATION);
@@ -480,15 +467,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testCreatorRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testCreatorRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testCreatorRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testCreatorRequired2 ---------------------");
+    logger.info("--------------------- STARTING testCreatorRequired2 ---------------------");
 
     final CreatorVO c = new CreatorVO();
     c.setType(CreatorType.ORGANIZATION);
@@ -509,15 +494,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testCreatorRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testCreatorRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testCreatorRequired3() throws Exception {
-    logger
-        .info("--------------------- STARTING testCreatorRequired3 ---------------------");
+    logger.info("--------------------- STARTING testCreatorRequired3 ---------------------");
 
     final CreatorVO c = new CreatorVO();
     c.setType(CreatorType.PERSON);
@@ -541,15 +524,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testCreatorRequired3 ---------------------");
+    logger.info("--------------------- FINISHED testCreatorRequired3 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired1 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired1 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
@@ -564,15 +545,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired2 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired2 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateAccepted("01.01.2017");
@@ -588,15 +567,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired3() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired3 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired3 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateCreated("01.01.2017");
@@ -612,15 +589,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired3 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired3 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired4() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired4 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired4 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateModified("01.01.2017");
@@ -636,15 +611,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired4 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired4 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired5() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired5 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired5 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDatePublishedInPrint("01.01.2017");
@@ -660,15 +633,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired5 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired5 ---------------------");
   }
 
   @Ignore
   @Test
   public void testDateRequired6() throws Exception {
-    logger
-        .info("--------------------- STARTING testDateRequired6 ---------------------");
+    logger.info("--------------------- STARTING testDateRequired6 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateSubmitted("01.01.2017");
@@ -684,15 +655,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testDateRequired6 ---------------------");
+    logger.info("--------------------- FINISHED testDateRequired6 ---------------------");
   }
 
   @Ignore
   @Test
   public void testEventTitleRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testEventTitleRequired1 ---------------------");
+    logger.info("--------------------- STARTING testEventTitleRequired1 ---------------------");
 
     final EventVO e = new EventVO();
     this.mdsPublicationVO.setEvent(e);
@@ -709,15 +678,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testEventTitleRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testEventTitleRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testEventTitleRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testEventTitleRequired2 ---------------------");
+    logger.info("--------------------- STARTING testEventTitleRequired2 ---------------------");
 
     final EventVO e = new EventVO();
     e.setEndDate("01.01.2017");
@@ -736,15 +703,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testEventTitleRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testEventTitleRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testEventTitleRequired3() throws Exception {
-    logger
-        .info("--------------------- STARTING testEventTitleRequired3 ---------------------");
+    logger.info("--------------------- STARTING testEventTitleRequired3 ---------------------");
 
     final EventVO e = new EventVO();
     e.setInvitationStatus(InvitationStatus.INVITED);
@@ -763,15 +728,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testEventTitleRequired3 ---------------------");
+    logger.info("--------------------- FINISHED testEventTitleRequired3 ---------------------");
   }
 
   @Ignore
   @Test
   public void testEventTitleRequired4() throws Exception {
-    logger
-        .info("--------------------- STARTING testEventTitleRequired4 ---------------------");
+    logger.info("--------------------- STARTING testEventTitleRequired4 ---------------------");
 
     final EventVO e = new EventVO();
     e.setPlace("blubb");
@@ -790,15 +753,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testEventTitleRequired4 ---------------------");
+    logger.info("--------------------- FINISHED testEventTitleRequired4 ---------------------");
   }
 
   @Ignore
   @Test
   public void testEventTitleRequired5() throws Exception {
-    logger
-        .info("--------------------- STARTING testEventTitleRequired5 ---------------------");
+    logger.info("--------------------- STARTING testEventTitleRequired5 ---------------------");
 
     final EventVO e = new EventVO();
     e.setStartDate("01.01.2017");
@@ -817,15 +778,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testEventTitleRequired5 ---------------------");
+    logger.info("--------------------- FINISHED testEventTitleRequired5 ---------------------");
   }
 
   @Ignore
   @Test
   public void testGenreRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testGenreRequired1 ---------------------");
+    logger.info("--------------------- STARTING testGenreRequired1 ---------------------");
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(),
@@ -839,15 +798,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testGenreRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testGenreRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testGenreRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testGenreRequired2 ---------------------");
+    logger.info("--------------------- STARTING testGenreRequired2 ---------------------");
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
@@ -863,15 +820,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testGenreRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testGenreRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testIdTypeRequired1() throws Exception {
-    logger
-        .info("--------------------- STARTING testIdTypeRequired1 ---------------------");
+    logger.info("--------------------- STARTING testIdTypeRequired1 ---------------------");
 
     final IdentifierVO i1 = new IdentifierVO();
     i1.setId("blubb");
@@ -893,15 +848,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testIdTypeRequired1 ---------------------");
+    logger.info("--------------------- FINISHED testIdTypeRequired1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testIdTypeRequired2() throws Exception {
-    logger
-        .info("--------------------- STARTING testIdTypeRequired2 ---------------------");
+    logger.info("--------------------- STARTING testIdTypeRequired2 ---------------------");
 
     final IdentifierVO i = new IdentifierVO();
     i.setId("blubb");
@@ -920,15 +873,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testIdTypeRequired2 ---------------------");
+    logger.info("--------------------- FINISHED testIdTypeRequired2 ---------------------");
   }
 
   @Ignore
   @Test
   public void testLanguageCode1() throws Exception {
-    logger
-        .info("--------------------- STARTING testLanguageCode1 ---------------------");
+    logger.info("--------------------- STARTING testLanguageCode1 ---------------------");
 
     this.mdsPublicationVO.getLanguages().add("blubb");
     this.mdsPublicationVO.getLanguages().add("blubber");
@@ -945,15 +896,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testLanguageCode1 ---------------------");
+    logger.info("--------------------- FINISHED testLanguageCode1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testLanguageCode2() throws Exception {
-    logger
-        .info("--------------------- STARTING testLanguageCode2 ---------------------");
+    logger.info("--------------------- STARTING testLanguageCode2 ---------------------");
 
     this.mdsPublicationVO.getLanguages().add("aaa");
     this.mdsPublicationVO.getLanguages().add("bbb");
@@ -970,8 +919,7 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testLanguageCode2 ---------------------");
+    logger.info("--------------------- FINISHED testLanguageCode2 ---------------------");
   }
 
   @Ignore
@@ -1093,8 +1041,7 @@ public class ValidationTest {
   @Ignore
   @Test
   public void testNoSlashesInFileName1() throws Exception {
-    logger
-        .info("--------------------- STARTING testNoSlashesInFileName1 ---------------------");
+    logger.info("--------------------- STARTING testNoSlashesInFileName1 ---------------------");
 
     final FileVO f1 = new FileVO();
     f1.setStorage(Storage.INTERNAL_MANAGED);
@@ -1124,15 +1071,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testNoSlashesInFileName1 ---------------------");
+    logger.info("--------------------- FINISHED testNoSlashesInFileName1 ---------------------");
   }
 
   @Ignore
   @Test
   public void testNoSlashesInFileName2() throws Exception {
-    logger
-        .info("--------------------- STARTING testNoSlashesInFileName2 ---------------------");
+    logger.info("--------------------- STARTING testNoSlashesInFileName2 ---------------------");
 
     final FileVO f1 = new FileVO();
     f1.setStorage(Storage.INTERNAL_MANAGED);
@@ -1162,8 +1107,7 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("--------------------- FINISHED testNoSlashesInFileName2 ---------------------");
+    logger.info("--------------------- FINISHED testNoSlashesInFileName2 ---------------------");
   }
 
   @Ignore
@@ -1381,8 +1325,7 @@ public class ValidationTest {
   @Ignore
   @Test
   public void testSourceCreatorsRoleRequired1() throws Exception {
-    logger
-        .info("------------------- STARTING testSourceCreatorsRoleRequired1 -------------------");
+    logger.info("------------------- STARTING testSourceCreatorsRoleRequired1 -------------------");
 
     final CreatorVO c1 = new CreatorVO();
     c1.setType(CreatorType.ORGANIZATION);
@@ -1438,15 +1381,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("------------------- FINISHED testSourceCreatorsRoleRequired1 -------------------");
+    logger.info("------------------- FINISHED testSourceCreatorsRoleRequired1 -------------------");
   }
 
   @Ignore
   @Test
   public void testSourceCreatorsRoleRequired2() throws Exception {
-    logger
-        .info("------------------- STARTING testSourceCreatorsRoleRequired2 -------------------");
+    logger.info("------------------- STARTING testSourceCreatorsRoleRequired2 -------------------");
 
     final CreatorVO c1 = new CreatorVO();
     c1.setType(CreatorType.ORGANIZATION);
@@ -1506,15 +1447,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("------------------- FINISHED testSourceCreatorsRoleRequired2 -------------------");
+    logger.info("------------------- FINISHED testSourceCreatorsRoleRequired2 -------------------");
   }
 
   @Ignore
   @Test
   public void testSourceGenresRequired1() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceGenresRequired1 ----------------------");
+    logger.info("---------------------- STARTING testSourceGenresRequired1 ----------------------");
 
     final SourceVO s1 = new SourceVO();
     s1.setTitle("blubb");
@@ -1536,15 +1475,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceGenresRequired1 ----------------------");
+    logger.info("---------------------- FINISHED testSourceGenresRequired1 ----------------------");
   }
 
   @Ignore
   @Test
   public void testSourceGenresRequired2() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceGenresRequired2 ----------------------");
+    logger.info("---------------------- STARTING testSourceGenresRequired2 ----------------------");
 
     final SourceVO s1 = new SourceVO();
     s1.setTitle("blubb");
@@ -1568,15 +1505,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceGenresRequired2 ----------------------");
+    logger.info("---------------------- FINISHED testSourceGenresRequired2 ----------------------");
   }
 
   @Ignore
   @Test
   public void testSourceRequired1() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceRequired1 ----------------------");
+    logger.info("---------------------- STARTING testSourceRequired1 ----------------------");
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
@@ -1590,15 +1525,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceRequired1 ----------------------");
+    logger.info("---------------------- FINISHED testSourceRequired1 ----------------------");
   }
 
   @Ignore
   @Test
   public void testSourceRequired2() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceRequired2 ----------------------");
+    logger.info("---------------------- STARTING testSourceRequired2 ----------------------");
 
     final SourceVO s = new SourceVO();
     this.mdsPublicationVO.getSources().add(s);
@@ -1615,15 +1548,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceRequired2 ----------------------");
+    logger.info("---------------------- FINISHED testSourceRequired2 ----------------------");
   }
 
   @Ignore
   @Test
   public void testSourceTitlesRequired1() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceTitlesRequired1 ----------------------");
+    logger.info("---------------------- STARTING testSourceTitlesRequired1 ----------------------");
 
     final SourceVO s1 = new SourceVO();
     s1.setVolume("blubb");
@@ -1689,15 +1620,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceTitlesRequired1 ----------------------");
+    logger.info("---------------------- FINISHED testSourceTitlesRequired1 ----------------------");
   }
 
   @Ignore
   @Test
   public void testSourceTitlesRequired2() throws Exception {
-    logger
-        .info("---------------------- STARTING testSourceTitlesRequired2 ----------------------");
+    logger.info("---------------------- STARTING testSourceTitlesRequired2 ----------------------");
 
     final SourceVO s1 = new SourceVO();
     s1.setVolume("blubb");
@@ -1776,15 +1705,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testSourceTitlesRequired2 ----------------------");
+    logger.info("---------------------- FINISHED testSourceTitlesRequired2 ----------------------");
   }
 
   @Ignore
   @Test
   public void testTitleRequired1() throws Exception {
-    logger
-        .info("---------------------- STARTING testTileRequired1 ----------------------");
+    logger.info("---------------------- STARTING testTileRequired1 ----------------------");
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getTitle(),
@@ -1798,15 +1725,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testTitleRequired1 ----------------------");
+    logger.info("---------------------- FINISHED testTitleRequired1 ----------------------");
   }
 
   @Ignore
   @Test
   public void testTitleRequired2() throws Exception {
-    logger
-        .info("---------------------- STARTING testTileRequired2 ----------------------");
+    logger.info("---------------------- STARTING testTileRequired2 ----------------------");
 
     this.mdsPublicationVO.setTitle("blubb");
 
@@ -1822,15 +1747,13 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testTitleRequired2 ----------------------");
+    logger.info("---------------------- FINISHED testTitleRequired2 ----------------------");
   }
 
   @Ignore
   @Test
   public void testUriAsLocator1() throws Exception {
-    logger
-        .info("---------------------- STARTING testUriAsLocator1 ----------------------");
+    logger.info("---------------------- STARTING testUriAsLocator1 ----------------------");
 
     final FileVO f1 = new FileVO();
     f1.setContent("blubb");
@@ -1848,15 +1771,13 @@ public class ValidationTest {
 
     Assert.assertFalse(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testUriAsLocator1 ----------------------");
+    logger.info("---------------------- FINISHED testUriAsLocator1 ----------------------");
   }
 
   @Ignore
   @Test
   public void testUriAsLocator2() throws Exception {
-    logger
-        .info("---------------------- STARTING testUriAsLocator2 ----------------------");
+    logger.info("---------------------- STARTING testUriAsLocator2 ----------------------");
 
     final FileVO f1 = new FileVO();
     f1.setContent("www.google.de");
@@ -1894,7 +1815,6 @@ public class ValidationTest {
 
     Assert.assertTrue(complexResult.isSuccess());
 
-    logger
-        .info("---------------------- FINISHED testUriAsLocator2 ----------------------");
+    logger.info("---------------------- FINISHED testUriAsLocator2 ----------------------");
   }
 }
