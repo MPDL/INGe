@@ -30,16 +30,6 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
-/**
- * BackingBean for ReviseItemPage.jsp. This one is empty because all code is implemented in the
- * BackingBean of the fragment.
- * 
- * 
- * @author Markus Haarlaender (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
- */
 @ManagedBean(name = "ReviseItemPage")
 @SuppressWarnings("serial")
 public class ReviseItemPage extends FacesBean {

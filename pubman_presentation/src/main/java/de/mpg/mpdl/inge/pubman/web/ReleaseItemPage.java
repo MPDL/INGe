@@ -30,13 +30,6 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
-/**
- * BackingBean for ReleaseItemPage.jsp. This one is empty because all code is implemented in the
- * BackingBean of the fragment.
- * 
- * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
- */
 @ManagedBean(name = "ReleaseItemPage")
 @SuppressWarnings("serial")
 public class ReleaseItemPage extends FacesBean {
