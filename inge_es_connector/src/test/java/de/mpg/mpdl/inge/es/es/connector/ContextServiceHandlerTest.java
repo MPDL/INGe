@@ -6,14 +6,17 @@ import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContextServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
@@ -68,5 +71,4 @@ public class ContextServiceHandlerTest extends TestBase {
     String contextId = this.contextDao.delete(test_context_id);
     assert contextId.equals(test_context_id);
   }
-
 }

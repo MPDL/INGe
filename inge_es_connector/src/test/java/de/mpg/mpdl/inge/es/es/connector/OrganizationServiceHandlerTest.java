@@ -6,13 +6,16 @@ import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OrganizationServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
@@ -67,5 +70,4 @@ public class OrganizationServiceHandlerTest extends TestBase {
     String ouId = this.organizationDao.delete(test_ou_id);
     assert ouId.equals(test_ou_id);
   }
-
 }

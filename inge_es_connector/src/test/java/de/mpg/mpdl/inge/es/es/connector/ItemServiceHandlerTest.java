@@ -6,13 +6,16 @@ import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemServiceHandlerTest extends TestBase {
   private static final Logger LOG = Logger.getLogger(ItemServiceHandlerTest.class);
@@ -20,8 +23,6 @@ public class ItemServiceHandlerTest extends TestBase {
   @Autowired
   private PubItemDaoEs<QueryBuilder> itemDao;
   private String test_item_id = "test_item";
-
-
 
   @After
   public void tearDown() throws Exception {}
@@ -70,7 +71,6 @@ public class ItemServiceHandlerTest extends TestBase {
     }
   }
 
-  @Ignore
   @Test
   public void testUpdate() {
     try {
@@ -91,5 +91,4 @@ public class ItemServiceHandlerTest extends TestBase {
     String itemId = this.itemDao.delete(test_item_id);
     assert itemId.equals(test_item_id);
   }
-
 }
