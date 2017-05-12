@@ -44,13 +44,13 @@
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
+		<module>pubman_rest</module>
 		<module>reporting</module>
 		<module>search</module>
 		<module>search_presentation</module>
 		<module>structuredexportmanager</module>
 		<module>syndication_presentation</module>
 		<module>transformationManager</module>
-		<module>pubman_rest</module>
 	</modules>
 
 	<licenses>
