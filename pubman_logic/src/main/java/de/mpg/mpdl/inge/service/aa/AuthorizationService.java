@@ -22,7 +22,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -257,7 +257,7 @@ public class AuthorizationService {
 
     try {
       return userAccountService.get(authenticationToken);
-    } catch (IngeServiceException e) {
+    } catch (IngeEsServiceException e) {
       throw new AaException("You have to be logged in with a valid token", e);
     }
   }

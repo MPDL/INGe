@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
@@ -42,7 +42,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   @Override
   public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList)
-      throws IngeServiceException {
+      throws IngeEsServiceException {
 
     byte[] exportData = null;
 
@@ -53,7 +53,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         try {
           exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
         } catch (CitationStyleManagerException e) {
-          throw new IngeServiceException(e);
+          throw new IngeEsServiceException(e);
         }
         break;
 
@@ -79,12 +79,12 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         } catch (UnsupportedEncodingException | TransformationException e) {
           logger.warn("Exception occured when transforming from <" + FORMAT.ESCIDOC_ITEMLIST_V3_XML
               + "> to <" + map.get(exportFormat));
-          throw new IngeServiceException(e);
+          throw new IngeEsServiceException(e);
         }
         break;
 
       default:
-        throw new IngeServiceException("format Type <" + exportFormat.getFormatType()
+        throw new IngeEsServiceException("format Type <" + exportFormat.getFormatType()
             + "> is not supported");
     }
 

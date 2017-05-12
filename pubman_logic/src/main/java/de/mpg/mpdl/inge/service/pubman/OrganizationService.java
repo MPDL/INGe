@@ -5,20 +5,20 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
 public interface OrganizationService extends GenericService<AffiliationVO> {
 
 
-  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
+  public AffiliationVO open(String id, String authenticationToken) throws IngeEsServiceException,
       AaException;
 
-  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
+  public AffiliationVO close(String id, String authenticationToken) throws IngeEsServiceException,
       AaException;
 
-  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeServiceException;
+  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeEsServiceException;
 
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
-      throws IngeServiceException;
+      throws IngeEsServiceException;
 
 }

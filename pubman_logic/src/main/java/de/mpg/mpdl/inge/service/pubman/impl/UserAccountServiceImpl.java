@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.services.IngeServiceException;
+import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
@@ -39,22 +39,22 @@ public class UserAccountServiceImpl implements UserAccountService {
 
   @Override
   public AccountUserVO create(AccountUserVO object, String authenticationToken)
-      throws IngeServiceException, AaException {
+      throws IngeEsServiceException, AaException {
     return null;
   }
 
   @Override
   public AccountUserVO update(AccountUserVO object, String authenticationToken)
-      throws IngeServiceException, AaException {
+      throws IngeEsServiceException, AaException {
     return null;
   }
 
   @Override
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
+  public void delete(String id, String authenticationToken) throws IngeEsServiceException,
       AaException {}
 
   @Override
-  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
+  public AccountUserVO get(String id, String authenticationToken) throws IngeEsServiceException,
       AaException {
     try {
       final URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + id);
@@ -69,24 +69,24 @@ public class UserAccountServiceImpl implements UserAccountService {
 
       return jsonToAccountUser(rawUser);
     } catch (final MalformedURLException e) {
-      throw new IngeServiceException("Could not get user", e);
+      throw new IngeEsServiceException("Could not get user", e);
     } catch (final JsonParseException e) {
-      throw new IngeServiceException("Could not get user", e);
+      throw new IngeEsServiceException("Could not get user", e);
     } catch (final IOException e) {
-      throw new IngeServiceException("Could not get user", e);
+      throw new IngeEsServiceException("Could not get user", e);
     }
 
   }
 
   @Override
   public SearchRetrieveResponseVO<AccountUserVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeEsServiceException, AaException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
+  public AccountUserVO get(String authenticationToken) throws IngeEsServiceException, AaException {
 
     try {
       DecodedJWT jwt = JWT.decode(authenticationToken);
@@ -102,7 +102,7 @@ public class UserAccountServiceImpl implements UserAccountService {
   }
 
   @Override
-  public String login(String username, String password) throws IngeServiceException, AaException {
+  public String login(String username, String password) throws IngeEsServiceException, AaException {
     try {
       final URI url = new URL(PropertyReader.getProperty("auth.token.url")).toURI();
       final String input = "{\"userid\":\"" + username + "\",\"password\":\"" + password + "\"}";
@@ -120,7 +120,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     } catch (AaException e) {
       throw e;
     } catch (Exception e) {
-      throw new IngeServiceException(e);
+      throw new IngeEsServiceException(e);
     }
 
 
