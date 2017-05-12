@@ -3,14 +3,11 @@ package de.mpg.mpdl.inge.es.es.connector;
 import java.io.IOException;
 import java.util.Date;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
 import de.mpg.mpdl.inge.es.spring.AppConfig;
@@ -60,7 +57,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 public class TestBase {
   private static final Date DATE = new Date();
@@ -547,5 +543,4 @@ public class TestBase {
     PubItemVO item = mapper.readValue(src, PubItemVO.class);
     return item;
   }
-
 }
