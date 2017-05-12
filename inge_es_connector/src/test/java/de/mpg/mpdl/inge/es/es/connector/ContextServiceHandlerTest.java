@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContextServiceHandlerTest extends TestBase {
-  private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
+  private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
   private ContextDaoEs<QueryBuilder> contextDao;

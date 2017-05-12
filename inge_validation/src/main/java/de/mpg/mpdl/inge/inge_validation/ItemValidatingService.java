@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
 public class ItemValidatingService {
-  private static final Logger LOG = Logger.getLogger(ItemValidatingService.class);
+  private static final Logger logger = Logger.getLogger(ItemValidatingService.class);
 
   public static void validate(final ItemVO itemVO, final ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
@@ -18,12 +18,12 @@ public class ItemValidatingService {
     try {
       Validation.validate(itemVO, validationPoint);
     } catch (final ValidationException e) {
-      ItemValidatingService.LOG.error("validateItemObject:", e);
+      logger.error("validateItemObject:", e);
       throw e;
     } catch (final ItemInvalidException e) {
       throw e;
     } catch (final Exception e) {
-      ItemValidatingService.LOG.error("validateItemObject: " + itemVO + validationPoint, e);
+      logger.error("validateItemObject: " + itemVO + validationPoint, e);
       throw new ValidationException("validateItemObject:", e);
     }
   }
@@ -32,7 +32,7 @@ public class ItemValidatingService {
     try {
       ConeCache.getInstance().refreshCache();
     } catch (final ValidationConeCacheConfigException e) {
-      ItemValidatingService.LOG.error("refreshValidationSchemaCache:", e);
+      logger.error("refreshValidationSchemaCache:", e);
       throw e;
     }
   }

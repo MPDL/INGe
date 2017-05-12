@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OrganizationServiceHandlerTest extends TestBase {
-  private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
+  private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
   private OrganizationDaoEs<QueryBuilder> organizationDao;

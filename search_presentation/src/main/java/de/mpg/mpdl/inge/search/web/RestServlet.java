@@ -59,7 +59,7 @@ public class RestServlet extends HttpServlet {
 
   /** Serial identifier. */
   private static final long serialVersionUID = 1L;
-  private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
+  private static final Logger logger = Logger.getLogger(RestServlet.class);
 
   /** Counter for the concurrent searches */
   private static int searchCounter = 0;
@@ -91,7 +91,7 @@ public class RestServlet extends HttpServlet {
     boolean isCitationStyle = false;
     try {
       String qs = req.getQueryString();
-      LOGGER.debug("QueryString: " + qs);
+      logger.debug("QueryString: " + qs);
       // Init exporting service
       // InitialContext ctx = new InitialContext();
       // itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
@@ -150,7 +150,7 @@ public class RestServlet extends HttpServlet {
       // check the max number of the concurrent searches
       if (CitationStyleExecuterService.isCitationStyle(exportFormat)) {
         isCitationStyle = true;
-        LOGGER.debug("Number of the concurrent searches 1:" + searchCounter);
+        logger.debug("Number of the concurrent searches 1:" + searchCounter);
         if (searchCounter > MAX_SEARCHES_NUMBER) {
           resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,
               "Too many Search&Export requests");
@@ -199,13 +199,13 @@ public class RestServlet extends HttpServlet {
       byte[] result = queryResult.getExportedResults();
 
       String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
-      LOGGER.debug("fileName: " + fileName);
+      logger.debug("fileName: " + fileName);
 
       setContentType(resp, outputFormat);
-      LOGGER.debug("contentType: " + resp.getContentType());
+      logger.debug("contentType: " + resp.getContentType());
 
       setCharacterEncoding(resp, outputFormat);
-      LOGGER.debug("charset: " + resp.getCharacterEncoding());
+      logger.debug("charset: " + resp.getCharacterEncoding());
 
       ServletOutputStream os = resp.getOutputStream();
 
@@ -304,7 +304,7 @@ public class RestServlet extends HttpServlet {
   private void decreaseCounter(boolean flag) {
     if (flag) {
       searchCounter--;
-      LOGGER.debug("Number of the concurrent searches 2:" + searchCounter);
+      logger.debug("Number of the concurrent searches 2:" + searchCounter);
     }
   }
 

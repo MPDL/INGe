@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
-  private static final Logger LOG = Logger.getLogger(Validation.class);
+  private static final Logger logger = Logger.getLogger(Validation.class);
 
   public static void validate(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationException, ItemInvalidException {
@@ -57,7 +57,7 @@ public class Validation {
         final ComplexResult resultSave =
             vSave.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        Validation.LOG.info(resultSave);
+        logger.info(resultSave);
 
         Validation.checkResult(resultSave);
 
@@ -92,7 +92,7 @@ public class Validation {
             vSimple.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        Validation.LOG.info(resultSimple);
+        logger.info(resultSimple);
 
         Validation.checkResult(resultSimple);
 
@@ -144,7 +144,7 @@ public class Validation {
             vStandard.doValidate().result(
                 com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        Validation.LOG.info(resultStandard);
+        logger.info(resultStandard);
 
         Validation.checkResult(resultStandard);
 
@@ -165,7 +165,7 @@ public class Validation {
             vEasy3.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        Validation.LOG.info(resultEasy3);
+        logger.info(resultEasy3);
 
         Validation.checkResult(resultEasy3);
 
@@ -192,7 +192,7 @@ public class Validation {
             vEasy4.doValidate()
                 .result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
-        Validation.LOG.info(resultEasy4);
+        logger.info(resultEasy4);
 
         Validation.checkResult(resultEasy4);
 
