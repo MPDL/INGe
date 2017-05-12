@@ -91,7 +91,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
   @Enumerated(EnumType.STRING)
   private State publicStatus;
 
-  
+
   @Formula("(select count(*)>0 from organization_parent op WHERE op.parentaffiliations_objectid=objectId)")
   private boolean hasChildren;
 
