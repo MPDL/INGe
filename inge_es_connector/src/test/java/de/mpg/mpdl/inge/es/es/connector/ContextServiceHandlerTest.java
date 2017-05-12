@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContextServiceHandlerTest extends TestBase {
-  private static final Logger LOG = Logger.getLogger(ContextServiceHandlerTest.class);
+  private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
   private ContextDao<QueryBuilder> contextDao;
@@ -35,7 +35,7 @@ public class ContextServiceHandlerTest extends TestBase {
       String contextId = this.contextDao.create(test_context_id, test_context());
       assert contextId.equals(test_context_id);
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -46,7 +46,7 @@ public class ContextServiceHandlerTest extends TestBase {
       ContextVO contextVO = this.contextDao.get(test_context_id);
       assert contextVO.equals(test_context());
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -60,7 +60,7 @@ public class ContextServiceHandlerTest extends TestBase {
       ContextVO contextVO2 = this.contextDao.get(test_context_id);
       assert contextVO2.getState().equals(State.CREATED);
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }

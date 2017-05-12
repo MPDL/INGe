@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @author $Author$ (last modification)
  */
 public class DataSourceHandlerService {
-  private static final Logger LOGGER = Logger.getLogger(DataSourceHandlerService.class);
+  private static final Logger logger = Logger.getLogger(DataSourceHandlerService.class);
 
   private ImportSourcesDocument sourceDoc = null;
   private ImportSourcesType sourceType = null;
@@ -40,7 +40,7 @@ public class DataSourceHandlerService {
    */
   public DataSourceHandlerService() {
     sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
-    LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
+    logger.info("SourcesXml-Property: " + sourceXmlPath);
   }
 
   /**
@@ -154,10 +154,10 @@ public class DataSourceHandlerService {
         }
       }
     } catch (MalformedURLException e) {
-      LOGGER.error("Processing the source URL caused an error", e);
+      logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      LOGGER.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
     return sourceVec;
@@ -268,10 +268,10 @@ public class DataSourceHandlerService {
         sourceVO.setFtFormats(fulltextVec);
       }
     } catch (MalformedURLException e) {
-      LOGGER.error("Processing the source URL caused an error", e);
+      logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      LOGGER.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
     // this.printSourceXML(sourceVO);
@@ -295,7 +295,7 @@ public class DataSourceHandlerService {
       java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
       this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
     } catch (Exception e) {
-      LOGGER.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
     this.sourceType = this.sourceDoc.getImportSources();
@@ -327,7 +327,7 @@ public class DataSourceHandlerService {
       java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
       this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
     } catch (Exception e) {
-      LOGGER.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
     this.sourceType = this.sourceDoc.getImportSources();

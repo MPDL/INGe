@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.services.IngeServiceException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemServiceHandlerTest extends TestBase {
-  private static final Logger LOG = Logger.getLogger(ItemServiceHandlerTest.class);
+  private static final Logger logger = Logger.getLogger(ItemServiceHandlerTest.class);
 
   @Autowired
   private PubItemDao<QueryBuilder> itemDao;
@@ -33,7 +33,7 @@ public class ItemServiceHandlerTest extends TestBase {
       String contextId = this.itemDao.create(test_item_id, test_item());
       assert contextId.equals(test_item_id);
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -44,7 +44,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -55,7 +55,7 @@ public class ItemServiceHandlerTest extends TestBase {
       String contextId = this.itemDao.create(test_item_id, create_item());
       assert contextId.equals(test_item_id);
     } catch (Exception e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -66,7 +66,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(create_item());
     } catch (Exception e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -80,7 +80,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
     } catch (IngeServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
