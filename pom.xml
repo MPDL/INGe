@@ -36,7 +36,6 @@
 		<module>inge_es_connector</module>
 		<module>inge_db_connector</module>
 		<module>inge_filestorage_connector</module>
-		<module>inge_services</module>
 		<module>inge_util</module>
 		<module>inge_validation</module>
 		<module>inge_validation_presentation</module>
@@ -364,11 +363,6 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>inge_services</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -891,12 +885,6 @@
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
-		<!-- Elasticsearch connection -->
-		<inge.inge_services.context_interface.connector_class>de.mpg.mpdl.inge.es.handler.ContextServiceHandler</inge.inge_services.context_interface.connector_class>
-		<inge.inge_services.file_storage_interface.connector_class>de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean</inge.inge_services.file_storage_interface.connector_class>
-		<inge.inge_services.item_interface.connector_class>de.mpg.mpdl.inge.es.handler.ItemServiceHandler</inge.inge_services.item_interface.connector_class>
-		<inge.inge_services.organization_interface.connector_class>de.mpg.mpdl.inge.es.handler.OrganizationServiceHandler</inge.inge_services.organization_interface.connector_class>
-		<inge.inge_services.search_interface.connector_class>de.mpg.mpdl.inge.es.handler.SearchServiceHandler</inge.inge_services.search_interface.connector_class>
 		<!-- PubMan AA -->
 		<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
 		<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
