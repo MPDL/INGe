@@ -33,7 +33,7 @@ public class ItemServiceHandlerTest extends TestBase {
       String contextId = this.itemDao.create(test_item_id, test_item());
       assert contextId.equals(test_item_id);
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -44,7 +44,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -55,7 +55,7 @@ public class ItemServiceHandlerTest extends TestBase {
       String contextId = this.itemDao.create(test_item_id, create_item());
       assert contextId.equals(test_item_id);
     } catch (Exception e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -66,7 +66,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(create_item());
     } catch (Exception e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -80,7 +80,7 @@ public class ItemServiceHandlerTest extends TestBase {
       PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }

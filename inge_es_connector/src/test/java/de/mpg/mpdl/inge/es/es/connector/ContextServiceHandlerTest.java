@@ -35,7 +35,7 @@ public class ContextServiceHandlerTest extends TestBase {
       String contextId = this.contextDao.create(test_context_id, test_context());
       assert contextId.equals(test_context_id);
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -46,7 +46,7 @@ public class ContextServiceHandlerTest extends TestBase {
       ContextVO contextVO = this.contextDao.get(test_context_id);
       assert contextVO.equals(test_context());
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -60,7 +60,7 @@ public class ContextServiceHandlerTest extends TestBase {
       ContextVO contextVO2 = this.contextDao.get(test_context_id);
       assert contextVO2.getState().equals(State.CREATED);
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }

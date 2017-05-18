@@ -34,7 +34,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
       String ouId = this.organizationDao.create(test_ou_id, test_ou());
       assert ouId.equals(test_ou_id);
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -45,7 +45,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
       AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
       assert affiliationVO.equals(test_ou());
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
@@ -59,7 +59,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
       AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
       assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
     } catch (IngeEsServiceException e) {
-      LOG.error(e);
+      logger.error(e);
       System.out.println(e);
     }
   }
