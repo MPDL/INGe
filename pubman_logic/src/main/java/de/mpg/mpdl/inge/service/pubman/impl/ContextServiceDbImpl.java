@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
@@ -27,7 +26,7 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -64,7 +63,7 @@ public class ContextServiceDbImpl implements ContextService {
   @Override
   @Transactional
   public ContextVO create(ContextVO contextVO, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextToCreate = new ContextDbVO();
@@ -114,13 +113,13 @@ public class ContextServiceDbImpl implements ContextService {
   @Override
   @Transactional
   public ContextVO update(ContextVO contextVO, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextToBeUpdated =
         contextRepository.findOne(contextVO.getReference().getObjectId());
     if (contextToBeUpdated == null) {
-      throw new IngeEsServiceException("Context with given id not found.");
+      throw new IngeServiceException("Context with given id not found.");
     }
     updateContextWithValues(contextVO, contextToBeUpdated, userAccount, false);
 
@@ -133,7 +132,7 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken) throws IngeEsServiceException,
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     contextRepository.delete(id);
@@ -143,14 +142,14 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional(readOnly = true)
-  public ContextVO get(String id, String authenticationToken) throws IngeEsServiceException,
+  public ContextVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return EntityTransformer.transformToOld(contextRepository.findOne(id));
   }
 
   @Override
   public SearchRetrieveResponseVO<ContextVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeEsServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
     return contextDao.search(srr);
   }
 
@@ -183,7 +182,7 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional
-  public ContextVO open(String id, String authenticationToken) throws IngeEsServiceException,
+  public ContextVO open(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return changeState(id, authenticationToken, State.OPENED);
   }
@@ -191,17 +190,17 @@ public class ContextServiceDbImpl implements ContextService {
 
   @Override
   @Transactional
-  public ContextVO close(String id, String authenticationToken) throws IngeEsServiceException,
+  public ContextVO close(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return changeState(id, authenticationToken, State.CLOSED);
   }
 
   private ContextVO changeState(String id, String authenticationToken, State state)
-      throws IngeEsServiceException, AaException {
+      throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextToBeUpdated = contextRepository.findOne(id);
     if (contextToBeUpdated == null) {
-      throw new IngeEsServiceException("Context with given id " + id + " not found.");
+      throw new IngeServiceException("Context with given id " + id + " not found.");
     }
 
     contextToBeUpdated.setState(state);

@@ -28,8 +28,8 @@ package de.mpg.mpdl.inge.pubman.exceptions;
 
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * Exception class used to determine that the content for a given file could not be found.

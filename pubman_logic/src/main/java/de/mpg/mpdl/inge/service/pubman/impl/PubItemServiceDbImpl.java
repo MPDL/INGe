@@ -29,14 +29,14 @@ import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
-import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -114,7 +114,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -221,7 +221,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO update(PubItemVO pubItemVO, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -272,14 +272,14 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken) throws IngeEsServiceException,
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVersionDbVO latestPubItemVersion = itemRepository.findLatestVersion(id);
     if (latestPubItemVersion == null) {
-      throw new IngeEsServiceException("Item " + id + " not found");
+      throw new IngeServiceException("Item " + id + " not found");
     }
 
     PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemVersion);
@@ -302,7 +302,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   @Transactional(readOnly = true)
-  public PubItemVO get(String id, String authenticationToken) throws IngeEsServiceException,
+  public PubItemVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     long start = System.currentTimeMillis();
     String[] splittedId = id.split("_");
@@ -358,7 +358,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   public SearchRetrieveResponseVO<PubItemVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeEsServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
 
     QueryBuilder authorizedQuery;
 
@@ -377,7 +377,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken,
         EventType.SUBMIT);
   }
@@ -385,7 +385,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken,
         EventType.REVISE);
   }
@@ -393,7 +393,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken,
         EventType.RELEASE);
   }
@@ -401,14 +401,14 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
     return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken,
         EventType.WITHDRAW);
   }
 
 
   private PubItemVO changeState(String id, State state, String message, String aaMethod,
-      String authenticationToken, EventType auditEventType) throws IngeEsServiceException,
+      String authenticationToken, EventType auditEventType) throws IngeServiceException,
       AaException, ItemInvalidException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -456,7 +456,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
 
-  private void reindex(PubItemVersionDbVO item) throws IngeEsServiceException {
+  private void reindex(PubItemVersionDbVO item) throws IngeServiceException {
     pubItemDao
         .delete(new VersionableId(item.getObjectId(), item.getVersionNumber() - 1).toString());
 
@@ -471,7 +471,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
 
-  private void validate(PubItemVO pubItem) throws IngeEsServiceException, ItemInvalidException {
+  private void validate(PubItemVO pubItem) throws IngeServiceException, ItemInvalidException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
     if (pubItem.getPublicStatus() != null && State.PENDING.equals(pubItem.getPublicStatus())) {
@@ -481,17 +481,17 @@ public class PubItemServiceDbImpl implements PubItemService {
     validate(pubItem, vp);
   }
 
-  private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeEsServiceException,
+  private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
       ItemInvalidException {
     try {
       ItemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
-      throw new IngeEsServiceException(e);
+      throw new IngeServiceException(e);
     }
   }
 
   private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
-      throws IngeEsServiceException {
+      throws IngeServiceException {
     QueryBuilder latestReleaseQuery =
         QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
     SearchRetrieveResponseVO<PubItemVO> resp =
@@ -501,7 +501,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   private SearchRetrieveResponseVO<PubItemVO> executeSearchSortByVersion(QueryBuilder query,
-      int limit, int offset) throws IngeEsServiceException {
+      int limit, int offset) throws IngeServiceException {
 
     SearchSortCriteria sortByVersion =
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
@@ -555,7 +555,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional(readOnly = true)
   public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
-      throws IngeEsServiceException, AaException {
+      throws IngeServiceException, AaException {
 
     List<AuditDbVO> list =
         auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);

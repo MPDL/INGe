@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,17 +23,15 @@ import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State;
-import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
-import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
+import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -71,7 +68,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
    * @return all top-level affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeEsServiceException {
+  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeServiceException {
     final QueryBuilder qb =
         QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
@@ -82,7 +79,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional(readOnly = true)
-  public AffiliationVO get(String id, String authenticationToken) throws IngeEsServiceException,
+  public AffiliationVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return EntityTransformer.transformToOld(this.organizationRepository.findOne(id));
   }
@@ -96,7 +93,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
-      throws IngeEsServiceException {
+      throws IngeServiceException {
     final QueryBuilder qb =
         QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
@@ -107,14 +104,14 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   public SearchRetrieveResponseVO<AffiliationVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeEsServiceException, AaException {
+      String authenticationToken) throws IngeServiceException, AaException {
     return this.organizationDao.search(srr);
   }
 
   @Override
   @Transactional
   public AffiliationVO create(AffiliationVO affVo, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToCreate = new AffiliationDbVO();
@@ -173,13 +170,13 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   @Override
   @Transactional
   public AffiliationVO update(AffiliationVO affVO, String authenticationToken)
-      throws IngeEsServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ItemInvalidException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToBeUpdated =
         organizationRepository.findOne(affVO.getReference().getObjectId());
     if (affToBeUpdated == null) {
-      throw new IngeEsServiceException("Organization with given id not found.");
+      throw new IngeServiceException("Organization with given id not found.");
     }
     updateOuWithValues(affVO, affToBeUpdated, userAccount, false);
 
@@ -192,7 +189,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken) throws IngeEsServiceException,
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     organizationRepository.delete(id);
@@ -203,7 +200,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public AffiliationVO open(String id, String authenticationToken) throws IngeEsServiceException,
+  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return changeState(id, authenticationToken, State.OPENED);
   }
@@ -211,17 +208,17 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public AffiliationVO close(String id, String authenticationToken) throws IngeEsServiceException,
+  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     return changeState(id, authenticationToken, State.CLOSED);
   }
 
   private AffiliationVO changeState(String id, String authenticationToken, State state)
-      throws IngeEsServiceException, AaException {
+      throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToBeUpdated = organizationRepository.findOne(id);
     if (affToBeUpdated == null) {
-      throw new IngeEsServiceException("Organization with given id " + id + " not found.");
+      throw new IngeServiceException("Organization with given id " + id + " not found.");
     }
 
     affToBeUpdated.setPublicStatus(state);
