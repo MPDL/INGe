@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
-import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
 
 public class AaException extends IngeEsServiceException {
 

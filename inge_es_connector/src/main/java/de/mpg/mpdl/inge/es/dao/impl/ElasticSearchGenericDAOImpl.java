@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -43,7 +44,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -88,7 +88,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param vo
    * @return {@link String}
    */
-  public String createNotImmediately(String id, E entity) throws IngeEsServiceException {
+  public String createNotImmediately(String id, E entity) throws IngeServiceException {
     try {
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
@@ -96,7 +96,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
-      throw new IngeEsServiceException(e);
+      throw new IngeServiceException(e);
     }
 
 
@@ -110,7 +110,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param vo
    * @return {@link String}
    */
-  public String create(String id, E entity) throws IngeEsServiceException {
+  public String create(String id, E entity) throws IngeServiceException {
     try {
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
@@ -119,7 +119,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
-      throw new IngeEsServiceException(e);
+      throw new IngeServiceException(e);
     }
 
 
@@ -132,13 +132,13 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param id
    * @return {@link ValueObject}
    */
-  public E get(String id) throws IngeEsServiceException {
+  public E get(String id) throws IngeServiceException {
     try {
       GetResponse getResponse =
           client.getClient().prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
       return mapper.readValue(getResponse.getSourceAsBytes(), typeParameterClass);
     } catch (Exception e) {
-      throw new IngeEsServiceException(e);
+      throw new IngeServiceException(e);
     }
 
 
@@ -152,7 +152,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
    * @param vo
    * @return {@link String}
    */
-  public String update(String id, E entity) throws IngeEsServiceException {
+  public String update(String id, E entity) throws IngeServiceException {
 
     try {
       UpdateResponse updateResponse =
@@ -160,7 +160,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
               .setDoc(mapper.writeValueAsBytes(entity)).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
-      throw new IngeEsServiceException(e);
+      throw new IngeServiceException(e);
     }
 
   }
@@ -182,7 +182,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
   }
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
-      throws IngeEsServiceException {
+      throws IngeServiceException {
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
@@ -211,7 +211,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
     } catch (Exception e) {
-      throw new IngeEsServiceException(e.getMessage(), e);
+      throw new IngeServiceException(e.getMessage(), e);
     }
 
 

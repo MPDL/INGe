@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -33,7 +33,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
     try {
       String ouId = this.organizationDao.create(test_ou_id, test_ou());
       assert ouId.equals(test_ou_id);
-    } catch (IngeEsServiceException e) {
+    } catch (IngeServiceException e) {
       logger.error(e);
       System.out.println(e);
     }
@@ -44,7 +44,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
     try {
       AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
       assert affiliationVO.equals(test_ou());
-    } catch (IngeEsServiceException e) {
+    } catch (IngeServiceException e) {
       logger.error(e);
       System.out.println(e);
     }
@@ -58,7 +58,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
       this.organizationDao.update(test_ou_id, affiliationVO);
       AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
       assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
-    } catch (IngeEsServiceException e) {
+    } catch (IngeServiceException e) {
       logger.error(e);
       System.out.println(e);
     }

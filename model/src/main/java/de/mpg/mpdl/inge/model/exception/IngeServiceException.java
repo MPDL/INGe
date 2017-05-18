@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.es.exception;
+package de.mpg.mpdl.inge.model.exception;
 
 /**
  * Exception if a service fails
@@ -8,21 +8,21 @@ package de.mpg.mpdl.inge.es.exception;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class IngeEsServiceException extends Exception {
+public class IngeServiceException extends Exception {
 
   private static final long serialVersionUID = -2755845075749766737L;
 
-  public IngeEsServiceException() {}
+  public IngeServiceException() {}
 
-  public IngeEsServiceException(final String message, final Throwable cause) {
+  public IngeServiceException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
-  public IngeEsServiceException(final String message) {
+  public IngeServiceException(final String message) {
     super(message);
   }
 
-  public IngeEsServiceException(final Throwable cause) {
+  public IngeServiceException(final Throwable cause) {
     super(cause);
   }
 
