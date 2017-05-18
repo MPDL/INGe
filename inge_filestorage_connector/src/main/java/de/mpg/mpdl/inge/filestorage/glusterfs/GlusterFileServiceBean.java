@@ -11,7 +11,8 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.services.FileStorageInterface;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+
 
 /**
  * File storage service for gluster

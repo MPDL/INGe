@@ -26,7 +26,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.mpg.mpdl.inge.services.FileStorageInterface;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+
 
 /**
  * File storage service for seaweed (handling full text files and so on)
