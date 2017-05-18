@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -122,7 +122,7 @@ public class PubManSwordServer {
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
       throws ContentStreamNotFoundException, SWORDContentTypeException,
-      PubItemStatusInvalidException, AaException, IngeEsServiceException, ItemInvalidException,
+      PubItemStatusInvalidException, AaException, IngeServiceException, ItemInvalidException,
       ValidationException {
 
     final SwordUtil util = new SwordUtil();

@@ -81,7 +81,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.model.exception.IngeEsServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
@@ -524,7 +524,7 @@ public class SwordUtil extends FacesBean {
    * @throws DepositingException
    */
   public PubItemVO doDeposit(PubItemVO item) throws PubItemStatusInvalidException, AaException,
-      IngeEsServiceException, ItemInvalidException {
+      IngeServiceException, ItemInvalidException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);
