@@ -129,7 +129,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVO pubItemToCreateOld = EntityTransformer.transformToOld(pubItemToCreate);
 
-    aaService.checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
+    checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
 
     logger.info("Before cleanup");
     PubItemUtil.cleanUpItem(pubItemToCreateOld);
@@ -233,7 +233,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
             .getObjectId()));
-    aaService.checkPubItemAa(latestVersionOld, context, userAccount, "update");
+    checkPubItemAa(latestVersionOld, context, userAccount, "update");
 
     if (State.RELEASED.equals(latestVersion.getState())) {
       entityManager.detach(latestVersion);
@@ -287,7 +287,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestPubItem.getContext()
             .getObjectId()));
-    aaService.checkPubItemAa(latestPubItem, context, userAccount, "delete");
+    checkPubItemAa(latestPubItem, context, userAccount, "delete");
 
     itemObjectRepository.delete(latestPubItemVersion.getObject());
 
@@ -333,7 +333,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         ContextVO context =
             EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
                 .getObjectId()));
-        aaService.checkPubItemAa(requestedItem, context, userAccount, "get");
+        checkPubItemAa(requestedItem, context, userAccount, "get");
       } else {
         requestedItem =
             EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
@@ -341,7 +341,7 @@ public class PubItemServiceDbImpl implements PubItemService {
             EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
                 .getObjectId()));
         try {
-          aaService.checkPubItemAa(requestedItem, context, userAccount, "get");
+          checkPubItemAa(requestedItem, context, userAccount, "get");
         } catch (AaException e) {
           requestedItem =
               EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
@@ -363,10 +363,14 @@ public class PubItemServiceDbImpl implements PubItemService {
     QueryBuilder authorizedQuery;
 
     if (authenticationToken == null) {
-      authorizedQuery = aaService.modifyPubItemQueryForAa(srr.getQueryObject(), null);
+      authorizedQuery =
+          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
+              srr.getQueryObject(), null);
     } else {
       AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-      authorizedQuery = aaService.modifyPubItemQueryForAa(srr.getQueryObject(), userAccount);
+      authorizedQuery =
+          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
+              srr.getQueryObject(), userAccount);
     }
 
     srr.setQueryObject(authorizedQuery);
@@ -421,7 +425,7 @@ public class PubItemServiceDbImpl implements PubItemService {
             .getContext().getObjectId()));
 
 
-    aaService.checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
+    checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
 
 
     if (State.SUBMITTED.equals(state)
@@ -561,6 +565,13 @@ public class PubItemServiceDbImpl implements PubItemService {
         auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
     return EntityTransformer.transformToVersionHistory(list);
+  }
+
+
+  private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
+      String method) throws AaException {
+    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.PubItemService", method, item,
+        context, userAccount);
   }
 
 }

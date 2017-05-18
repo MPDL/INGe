@@ -1,109 +1,151 @@
 {
 	"de.mpg.mpdl.inge.service.pubman.PubItemService" : {
+		"technical" : {
+			"order" : ["item", "context", "user"],
+			"indices" : {
+				"item.owner.objectId" : "owner.objectId",
+				"item.context.objectId" : "context.objectId",
+				"item.version.state" : "version.state",
+				"item.publicStatus" : "publicStatus"
+			}
+		}, 
 		"create" : [
 			{
-				"rolename" : "DEPOSITOR",
-				"rolematch" : "CONTEXT"
+				"user" : {
+					"role" : "DEPOSITOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				}
 			}
 		],
 		
 		"update" : [
 			{
-				"workflow" : "SIMPLE",
-				"owner" : true,
-				"version-state" : ["PENDING", "RELEASED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"context.adminDescriptor.workflow" : "SIMPLE",
+				"item.version.state" : ["PENDING", "RELEASED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "SIMPLE",
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["RELEASED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "SIMPLE",
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["RELEASED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "STANDARD",
-				"owner" : true,
-				"version-state" : ["PENDING", "RELEASED", "IN_REVISION"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["PENDING", "RELEASED", "IN_REVISION"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "STANDARD",
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["RELEASED", "SUBMITTED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["RELEASED", "SUBMITTED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
 		"delete" : [
 			{
-				"owner" : true,
-				"version-state" : ["PENDING", "IN_REVISION"],
-				"public-state" : ["PENDING", "SUBMITTED"]
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["PENDING", "IN_REVISION"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED"]
 			}
 		],
 		
 		"get" : [
 			{
-				"version-state" : ["RELEASED"]
+				"item.version.state" : ["RELEASED"]
 			},
 			{
-				"public-state" : ["WITHDRAWN"]
+				"item.publicStatus" : ["WITHDRAWN"]
 			},
 			{
-				"owner" : true,
-				"version-state" : ["PENDING", "IN_REVISION", "SUBMITTED"]
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["PENDING", "IN_REVISION", "SUBMITTED"]
 			},
 			{
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["SUBMITTED", "IN_REVISION"]
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["SUBMITTED", "IN_REVISION"]
 			}
 		],
 		
 		"submit" : [
 			{
-				"workflow" : "STANDARD",
-				"owner" : true,
-				"version-state" : ["PENDING"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["PENDING"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
 		"release" : [
 			{
-				"workflow" : "SIMPLE",
-				"owner" : true,
-				"version-state" : ["PENDING", "SUBMITTED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "SIMPLE",
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["PENDING", "SUBMITTED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"workflow" : "STANDARD",
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["SUBMITTED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["SUBMITTED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
 		"revise" : [
 			{
-				"workflow" : "STANDARD",
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["SUBMITTED"],
-				"public-state" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["SUBMITTED"],
+				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
 		"withdraw" : [
 			{
-				"workflow" : "STANDARD",
-				"rolename" : "MODERATOR",
-				"rolematch" : "CONTEXT",
-				"version-state" : ["RELEASED"],
-				"public-state" : ["RELEASED"]
+				"context.adminDescriptor.workflow" : "STANDARD",
+				"user" : {
+					"role" : "MODERATOR",
+					"grant_type" : "CONTEXT",
+					"field_grant_id_match" : "item.context.objectId"
+				},
+				"item.version.state" : ["RELEASED"],
+				"item.publicStatus" : ["RELEASED"]
 			}
 		]
 	}

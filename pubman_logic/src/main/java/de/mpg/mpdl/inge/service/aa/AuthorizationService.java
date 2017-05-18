@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.service.aa;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.beans.PropertyDescriptor;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,16 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-import de.mpg.mpdl.inge.es.exception.IngeEsServiceException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -30,7 +25,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public class AuthorizationService {
 
 
-  private Map<String, Map<String, List<Map<String, Object>>>> aaMap;
+  private Map<String, Object> aaMap;
 
   @Autowired
   private UserAccountService userAccountService;
@@ -40,6 +35,7 @@ public class AuthorizationService {
 
   @Autowired
   public AuthorizationService(ModelMapper modelMapper) {
+
     try {
       aaMap =
           modelMapper.readValue(
@@ -50,33 +46,10 @@ public class AuthorizationService {
     }
   }
 
+  public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query,
+      AccountUserVO userAccount) throws AaException {
 
-
-  // @Around("execution(public * de.mpg.mpdl.inge.service.pubman.PubItemService.create(PubItemVO,
-  // String)) && args(pubItemVo, authenticationToken)")
-  // private void checkPubItemServiceCreate(ProceedingJoinPoint jp, PubItemVO pubItem,
-  // String authenticationToken) throws Throwable {
-  // AccountUserVO userAccount = checkLoginRequired(authenticationToken);
-  // checkRole(userAccount, "depositor", pubItem.getContext().getObjectId());
-  // }
-
-
-
-  public void checkPubItemAa(PubItemVO pubItem, ContextVO context, AccountUserVO userAccount,
-      String methodName) throws AaException {
-
-    checkAa("de.mpg.mpdl.inge.service.pubman.PubItemService", methodName, userAccount, pubItem
-        .getOwner().getObjectId(),
-        pubItem.getContext().getObjectId().replace("/ir/context/escidoc:", "pure_"), pubItem
-            .getVersion().getState(), context.getAdminDescriptor().getWorkflow());
-
-  }
-
-  public QueryBuilder modifyPubItemQueryForAa(QueryBuilder query, AccountUserVO userAccount)
-      throws AaException {
-
-    QueryBuilder filterQuery =
-        getAaFilterQuery("de.mpg.mpdl.inge.service.pubman.PubItemService", userAccount);
+    QueryBuilder filterQuery = getAaFilterQuery(serviceName, userAccount);
 
     if (filterQuery != null) {
       BoolQueryBuilder completeQuery = QueryBuilders.boolQuery();
@@ -91,144 +64,180 @@ public class AuthorizationService {
 
 
   private QueryBuilder getAaFilterQuery(String serviceName, AccountUserVO userAccount) {
-    List<Map<String, Object>> allowedMap = aaMap.get(serviceName).get("get");
 
-    /*
-     * if (userAccount == null) { return
-     * QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("version.state", "RELEASED")); }
-     */
+    Map<String, Map<String, Object>> serviceMap =
+        (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+    List<String> order = (List<String>) serviceMap.get("technical").get("order");
+    Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
+    List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
+
 
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
     if (allowedMap != null) {
 
-      for (Map<String, Object> rules : allowedMap) {
-        List<GrantVO> matchedGrants = new ArrayList<GrantVO>();
-        if (rules.containsKey("rolename") && userAccount != null) {
-          for (GrantVO grant : userAccount.getGrants()) {
-            if (grant.getRole().equals((String) rules.get("rolename"))) {
-              matchedGrants.add(grant);
+      rulesLoop: for (Map<String, Object> rules : allowedMap) {
+
+        BoolQueryBuilder subQb = QueryBuilders.boolQuery();
+
+        for (Entry<String, Object> rule : rules.entrySet()) {
+          switch (rule.getKey()) {
+            case "user": {
+              boolean userMatch = false;
+
+              if (userAccount != null) {
+
+                Map<String, String> userMap = (Map<String, String>) rule.getValue();
+
+                if (userMap.containsKey("field_user_id_match")) {
+                  String value = (String) userMap.get("field_user_id_match");
+
+                  subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
+                      .getObjectId()));
+                  userMatch = true;
+
+                }
+
+                if (userMap.containsKey("role") || userMap.containsKey("grant_type")
+                    || userMap.containsKey("field_grant_id_match")) {
+
+
+                  BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
+                  for (GrantVO grant : userAccount.getGrants()) {
+                    if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))
+                        && (userMap.get("grant_type") == null || userMap.get("grant_type")
+                            .equalsIgnoreCase(grant.getGrantType()))) {
+                      userMatch = true;
+                      if (userMap.get("field_grant_id_match") != null) {
+                        grantQueryBuilder
+                            .should(QueryBuilders.termQuery(
+                                indices.get(userMap.get("field_grant_id_match")),
+                                grant.getObjectRef()));
+                      }
+
+                    }
+                  }
+
+                  if (grantQueryBuilder.hasClauses()) {
+                    subQb.must(grantQueryBuilder);
+                  }
+
+                }
+
+              }
+              if (!userMatch) {
+                break rulesLoop;
+              }
+
+
               break;
             }
-          }
-
-        }
-
-        // If only role is set and matches everything can be retrieved
-        if (!matchedGrants.isEmpty() && rules.size() == 1) {
-          return null;
-        } else {
-          QueryBuilder subQuery = getAaSubQuery(rules, userAccount, matchedGrants);
-          if (subQuery != null) {
-            bqb.should(subQuery);
-          }
-        }
-
-      }
-      return bqb;
-    }
-    return null;
-  }
+            default: {
+              String key = rule.getKey();
+              String index = indices.get(key);
 
 
-  private QueryBuilder getAaSubQuery(Map<String, Object> ruleMap, AccountUserVO userAccount,
-      List<GrantVO> matchedGrants) {
-    BoolQueryBuilder currentQb = QueryBuilders.boolQuery();
-    for (Entry<String, Object> rule : ruleMap.entrySet()) {
-      switch (rule.getKey()) {
-        case "owner": {
-          if (userAccount != null) {
-            currentQb.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-                userAccount.getReference().getObjectId()));
-          } else {
-            return null;
-          }
+              if (rule.getValue() instanceof Collection<?>) {
+                List<String> valuesToCompare = (List<String>) rule.getValue();
+                if (valuesToCompare.size() > 1) {
+                  BoolQueryBuilder valueQueryBuilder = QueryBuilders.boolQuery();
+                  for (String val : valuesToCompare) {
+                    valueQueryBuilder.should(QueryBuilders.termQuery(index, val));
+                  }
+                  subQb.must(valueQueryBuilder);
+                } else {
+                  subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
+                }
 
-          break;
-        }
-        case "rolematch": {
-          BoolQueryBuilder contextQb = QueryBuilders.boolQuery();
 
-          for (GrantVO grant : matchedGrants) {
-            if (ruleMap.get("rolematch").equals(grant.getGrantType())) {
-              contextQb.should(QueryBuilders.termQuery(
-                  PubItemServiceDbImpl.INDEX_CONTEXT_OBEJCT_ID, grant.getObjectRef()));
+
+              } else {
+                String value = (String) rule.getValue();
+                subQb.must(QueryBuilders.termQuery(index, value));
+              }
+
+
+              break;
             }
-          }
-          if (contextQb.hasClauses()) {
-            currentQb.must(contextQb);
-          } else {
-            return null;
-          }
-          break;
-        }
 
-        case "version-state": {
-          BoolQueryBuilder versionStateQb = QueryBuilders.boolQuery();
-          for (String versionState : (List<String>) rule.getValue()) {
-            versionStateQb.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-                versionState));
+
           }
-          currentQb.must(versionStateQb);
-          break;
+
+
 
         }
-        case "public-state": {
-          BoolQueryBuilder publicStateQb = QueryBuilders.boolQuery();
-          for (String publicState : (List<String>) rule.getValue()) {
-            publicStateQb.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-                publicState));
-          }
 
-          currentQb.must(publicStateQb);
-          break;
+        if (subQb.hasClauses()) {
+          bqb.should(subQb);
+        } else {
+          // Allowed to see everything
+          return null;
         }
 
       }
+
     }
-    return currentQb;
+    return bqb;
   }
 
 
 
-  private void checkAa(String serviceName, String methodName, AccountUserVO userAccount,
-      String currentOwnerId, String currentRoleMatch, State currentVersionState,
-      Workflow currentWorkflow) throws AaException {
-    List<Map<String, Object>> allowedMap = aaMap.get(serviceName).get(methodName);
+  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException {
+
+    try {
+      return userAccountService.get(authenticationToken);
+    } catch (IngeServiceException e) {
+      throw new AaException("You have to be logged in with a valid token", e);
+    }
+  }
+
+
+
+  public void checkAuthorization(String serviceName, String methodName,
+      Object... objects) throws AaException {
+
+    Map<String, Map<String, Object>> serviceMap =
+        (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+    List<String> order = (List<String>) serviceMap.get("technical").get("order");
+    List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
     if (allowedMap != null) {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
+
         for (Entry<String, Object> rule : rules.entrySet()) {
 
           try {
             switch (rule.getKey()) {
-              case "owner": {
-                checkIsOwner(userAccount, currentOwnerId);
+              case "user": {
+                checkUser((Map<String, Object>) rule.getValue(), order, objects);
                 break;
               }
-              case "rolename": {
-                if (rules.containsKey("rolematch")) {
-                  checkRole(userAccount, (String) rule.getValue(), currentRoleMatch);
+              default: { 
+                String key = rule.getKey();
+                String keyValue = getFieldValueOrString(order, objects, key);
+                boolean check = false;
+                if (rule.getValue() instanceof Collection<?>) {
+                  List<String> valuesToCompare = (List<String>) rule.getValue();
+                  check = valuesToCompare.stream()
+                      .anyMatch(val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
+                  if (!check) {
+                    throw new AaException("Expected one of " + valuesToCompare + " for field " + key
+                        + " (" + keyValue + ")");
+                  }
                 } else {
-                  checkRole(userAccount, (String) rule.getValue());
+                  String value = getFieldValueOrString(order, objects, (String) rule.getValue());
+                  check = (keyValue != null && keyValue.equalsIgnoreCase(value));
+                  if (!check) {
+                    throw new AaException("Expected value [" + value + "] for field " + key + " ("
+                        + keyValue + ")");
+                  }
                 }
+
+
                 break;
               }
-              case "version-state": {
-                checkVersionState(currentVersionState,
-                    ((List<String>) rule.getValue()).toArray(new String[] {}));
-                break;
-              }
-              case "public-state": {
-                checkPublicState(currentVersionState,
-                    ((List<String>) rule.getValue()).toArray(new String[] {}));
-                break;
-              }
-              case "workflow": {
-                checkWorkflow(currentWorkflow, (String) rule.getValue());
-                break;
-              }
+
 
             }
           } catch (AaException e) {
@@ -249,74 +258,104 @@ public class AuthorizationService {
 
     }
 
-
-
   }
 
-  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException {
+  private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
+      throws AaException {
 
-    try {
-      return userAccountService.get(authenticationToken);
-    } catch (IngeEsServiceException e) {
-      throw new AaException("You have to be logged in with a valid token", e);
+    AccountUserVO userAccount = (AccountUserVO) objects[order.indexOf("user")];
+
+    if (userAccount == null) {
+      throw new AaException("You have to be logged in.");
     }
-  }
 
-  public void checkUserAccountExists(AccountUserVO userAccount) throws AaException {
+    String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
 
-    if (userAccount == null)
-      throw new AaException("You have to be logged in with a valid token");
+    if (userIdFieldMatch != null) {
+      String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch);
 
-  }
+      if (expectedUserId == null
+          || !expectedUserId.equals(userAccount.getReference().getObjectId())) {
+        throw new AaException("User is not owner of object.");
+      }
+    }
 
-  private void checkRole(AccountUserVO providedUserAccountVO, String requiredRoleName,
-      String... requiredMatchIds) throws AaException {
-    checkUserAccountExists(providedUserAccountVO);
-    for (GrantVO grant : providedUserAccountVO.getGrants()) {
-      if (grant.getRole().equals(requiredRoleName) && (requiredMatchIds == null
-          || Arrays.stream(requiredMatchIds).anyMatch(id -> id.equals(grant.getObjectRef())))) {
-        return;
+
+    if (ruleMap.containsKey("role") || ruleMap.containsKey("grant_type")
+        || ruleMap.containsKey("field_grant_id_match")) {
+      boolean check = false;
+      String role = (String) ruleMap.get("role");
+      String grantType = (String) ruleMap.get("grant_type");
+      String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
+
+
+
+      for (GrantVO grant : userAccount.getGrants()) {
+        check =
+            (role == null || role.equals(grant.getRole()))
+                && (grantType == null || grantType.equals(grant.getGrantType()))
+                && (grant.getObjectRef() == null || grant.getObjectRef().equals(
+                    getFieldValueOrString(order, objects, grantFieldMatch)));
+
+        if (check) {
+          return;
+        }
+      }
+
+      if (!check) {
+        throw new AaException("Expected user with role [" + role + "], grant-type [" + grantType
+            + "] on object [" + grantFieldMatch + "]");
       }
 
     }
-    throw new AaException("User " + providedUserAccountVO.getName() + " ("
-        + providedUserAccountVO.getReference().getObjectId() + ") " + " has no " + requiredRoleName
-        + " grant for " + Arrays.toString(requiredMatchIds));
-  }
 
-  private void checkIsOwner(AccountUserVO providedUserAccountVO, String ownerId) throws AaException {
-    checkUserAccountExists(providedUserAccountVO);
-    if (!providedUserAccountVO.getReference().getObjectId().equals(ownerId)) {
-      throw new AaException("User " + providedUserAccountVO.getName() + " ("
-          + providedUserAccountVO.getReference().getObjectId() + ") "
-          + " is required to be an owner of object");
-    }
+
   }
 
 
-  private void checkVersionState(State currentVersionState, String... requiredStates)
+  private String getFieldValueOrString(List<String> order, Object[] objects, String field)
       throws AaException {
-    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equalsIgnoreCase(currentVersionState.name()))) {
-      throw new AaException(
-          "Item is not in one of the required version states: " + Arrays.toString(requiredStates));
-    }
+    if (field.contains(".")) {
+      String[] fieldHierarchy = field.split("\\.");
+      Object object = objects[order.indexOf(fieldHierarchy[0])];
+      if (object == null) {
+        return null;
+      } else {
+        return getFieldValueViaGetter(object,
+            field.substring(field.indexOf(".") + 1, field.length()));
+      }
 
+
+
+    } else {
+      return field;
+    }
   }
 
-  private void checkPublicState(State currentPublicState, String... requiredStates)
-      throws AaException {
-    if (!Arrays.stream(requiredStates).anyMatch(state -> state.equalsIgnoreCase(currentPublicState.name()))) {
-      throw new AaException(
-          "Item is not in one of the required public states: " + Arrays.toString(requiredStates));
+  private String getFieldValueViaGetter(Object object, String field) throws AaException {
+    try {
+      String[] fieldHierarchy = field.split("\\.");
+      Object value =
+          new PropertyDescriptor(fieldHierarchy[0], object.getClass()).getReadMethod().invoke(
+              object);
+
+      if (value == null) {
+        return null;
+      }
+
+      if (fieldHierarchy.length == 1) {
+        return value.toString();
+
+      }
+
+      else {
+        return getFieldValueViaGetter(value,
+            field.substring(field.indexOf(".") + 1, field.length()));
+      }
+    } catch (Exception e) {
+      throw new AaException("Error while calling getter in object", e);
     }
 
-  }
-
-  private void checkWorkflow(Workflow currentWorkflow, String requiredWorkflow) throws AaException {
-    if (!currentWorkflow.name().equalsIgnoreCase(requiredWorkflow)) {
-      throw new AaException("Context is set to workflow " + currentWorkflow
-          + ". Required workflow: " + requiredWorkflow);
-    }
   }
 
 
