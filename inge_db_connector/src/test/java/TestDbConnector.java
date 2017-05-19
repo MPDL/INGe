@@ -87,6 +87,25 @@ public class TestDbConnector {
         HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
   }
 
+
+  @Test
+  @Ignore
+  public void testGetOu() throws Exception {
+
+    AffiliationDbVO aff = orgRepository.findOne("ou_persistent13");
+    System.out.println(aff.getHasChildren());
+
+    aff = orgRepository.findOne("ou_2063313");
+    System.out.println(aff.getHasChildren());
+
+    aff = orgRepository.findOne("ou_2063313");
+    System.out.println(aff.getHasChildren());
+
+    aff = orgRepository.findOne("ou_2063313");
+    System.out.println(aff.getHasChildren());
+  }
+
+
   @Test
   @Ignore
   public void testRetrieve() throws Exception {
@@ -492,7 +511,7 @@ public class TestDbConnector {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
-      newAff.getParentAffiliations().add(newAffRo);
+      newAff.setParentAffiliation(newAffRo);
     }
 
     newAff.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State

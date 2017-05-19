@@ -1,5 +1,9 @@
 package pubman_logic;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,14 +19,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
+
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -55,28 +64,39 @@ public class PubmanLogicTest {
   @Autowired
   private ItemRepository itemRepository;
 
+  @Autowired
+  private AuthorizationService authorizationService;
+
   @Test
   @Ignore
   public void test() throws Exception {
 
 
     String token = userAccountService.login("boosen", "boosen");
+    AccountUserVO userAccount = authorizationService.checkLoginRequired(token);
 
+    AffiliationVO affv0 = organizationService.get("ou_1113557", token);
+    System.out.println("HasChildren :" + affv0.getHasChildren());
+    affv0 = organizationService.get("ou_persistent13", token);
+    System.out.println("HasChildren :" + affv0.getHasChildren());
 
-    PubItemVO pubItemVO = new PubItemVO();
-    pubItemVO.setContext(new ContextRO("pure_28054"));
-    MdsPublicationVO mds = new MdsPublicationVO();
-    mds.setFreeKeywords("xyz");
-    mds.setTitle("First Test of Service");
-    pubItemVO.setMetadata(mds);
+    QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
+    SearchRetrieveRequestVO<QueryBuilder> srr =
+        new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
+    SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
+    System.out.println("Found: " + resp.getNumberOfRecords() + " records");
 
-    long start = System.currentTimeMillis();
-    PubItemVO createdPubItem = pubItemService.create(pubItemVO, token);
-    pubItemService.delete(createdPubItem.getVersion().getObjectId(), token);
+    /*
+     * 
+     * QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", "test"); QueryBuilder aaQuery =
+     * authorizationService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
+     * matchQuery, userAccount); System.out.println(aaQuery.toString());
+     * 
+     * pubItemService.get("item_3000007_5", token);
+     * 
+     * pubItemService.getVersionHistory("item_3000007", null);
+     */
 
-    long time = System.currentTimeMillis() - start;
-
-    System.out.println("Needed time " + time);
   }
 
 
@@ -157,5 +177,7 @@ public class PubmanLogicTest {
 
     }
   }
+
+
 
 }
