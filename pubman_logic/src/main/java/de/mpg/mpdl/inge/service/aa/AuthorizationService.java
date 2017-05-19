@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.aa;
 
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.Collection;
 import java.util.List;
@@ -158,12 +159,7 @@ public class AuthorizationService {
 
               break;
             }
-
-
           }
-
-
-
         }
 
         if (subQb.hasClauses()) {
@@ -176,7 +172,10 @@ public class AuthorizationService {
       }
 
     }
-    return bqb;
+    if (bqb.hasClauses()) {
+      return bqb;
+    }
+    return null;
   }
 
 
@@ -192,15 +191,20 @@ public class AuthorizationService {
 
 
 
-  public void checkAuthorization(String serviceName, String methodName,
-      Object... objects) throws AaException {
+  public void checkAuthorization(String serviceName, String methodName, Object... objects)
+      throws AaException {
 
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
-    if (allowedMap != null) {
+    if(allowedMap==null)
+    {
+      throw new AaException("No rules for service " + serviceName + ", method " + methodName);
+    }
+    
+     else {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
@@ -213,14 +217,14 @@ public class AuthorizationService {
                 checkUser((Map<String, Object>) rule.getValue(), order, objects);
                 break;
               }
-              default: { 
+              default: {
                 String key = rule.getKey();
                 String keyValue = getFieldValueOrString(order, objects, key);
                 boolean check = false;
                 if (rule.getValue() instanceof Collection<?>) {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
-                  check = valuesToCompare.stream()
-                      .anyMatch(val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
+                  check = valuesToCompare.stream().anyMatch(
+                      val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
                   if (!check) {
                     throw new AaException("Expected one of " + valuesToCompare + " for field " + key
                         + " (" + keyValue + ")");
@@ -229,8 +233,8 @@ public class AuthorizationService {
                   String value = getFieldValueOrString(order, objects, (String) rule.getValue());
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
-                    throw new AaException("Expected value [" + value + "] for field " + key + " ("
-                        + keyValue + ")");
+                    throw new AaException(
+                        "Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
                   }
                 }
 
@@ -253,7 +257,14 @@ public class AuthorizationService {
           return;
         }
       }
+      if(lastExceptionOfAll==null)
+      {
+        return;
+      }
+      else
+      {
       throw new AaException(lastExceptionOfAll);
+      }
 
 
     }
@@ -335,26 +346,32 @@ public class AuthorizationService {
   private String getFieldValueViaGetter(Object object, String field) throws AaException {
     try {
       String[] fieldHierarchy = field.split("\\.");
-      Object value =
-          new PropertyDescriptor(fieldHierarchy[0], object.getClass()).getReadMethod().invoke(
-              object);
 
-      if (value == null) {
-        return null;
+      for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass())
+          .getPropertyDescriptors()) {
+
+        if (pd.getName().equals(fieldHierarchy[0])) {
+          Object value = pd.getReadMethod().invoke(object);
+          if (value == null) {
+            return null;
+          }
+
+          if (fieldHierarchy.length == 1) {
+            return value.toString();
+
+          } else {
+            return getFieldValueViaGetter(value,
+                field.substring(field.indexOf(".") + 1, field.length()));
+          }
+        }
+
       }
 
-      if (fieldHierarchy.length == 1) {
-        return value.toString();
 
-      }
-
-      else {
-        return getFieldValueViaGetter(value,
-            field.substring(field.indexOf(".") + 1, field.length()));
-      }
     } catch (Exception e) {
       throw new AaException("Error while calling getter in object", e);
     }
+    return null;
 
   }
 

@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,7 +82,16 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   @Transactional(readOnly = true)
   public AffiliationVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-    return EntityTransformer.transformToOld(this.organizationRepository.findOne(id));
+    AccountUserVO userAccount = null;
+    AffiliationVO ouVo = EntityTransformer.transformToOld(this.organizationRepository.findOne(id));
+
+    if (authenticationToken != null) {
+      userAccount = aaService.checkLoginRequired(authenticationToken);
+    }
+
+    checkAa(ouVo, userAccount, "get");
+
+    return ouVo;
   }
 
   /**
@@ -105,6 +115,19 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   @Override
   public SearchRetrieveResponseVO<AffiliationVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
       String authenticationToken) throws IngeServiceException, AaException {
+
+    QueryBuilder qb = srr.getQueryObject();
+    if (authenticationToken != null) {
+      qb =
+          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.OrganizationService", qb,
+              aaService.checkLoginRequired(authenticationToken));
+    } else {
+      qb =
+          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.OrganizationService", qb,
+              null);
+    }
+    srr.setQueryObject(qb);
+    System.out.println(srr.getQueryObject().toString());
     return this.organizationDao.search(srr);
   }
 
@@ -115,35 +138,69 @@ public class OrganizationServiceDbImpl implements OrganizationService {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToCreate = new AffiliationDbVO();
-    updateOuWithValues(affVo, affToCreate, userAccount, true);
+    List<String> reindexList = updateOuWithValues(affVo, affToCreate, userAccount, true);
 
+    checkAa(EntityTransformer.transformToOld(affToCreate), userAccount, "create");
 
     affToCreate = organizationRepository.save(affToCreate);
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affToCreate);
     organizationDao.create(affToCreate.getObjectId(), affToReturn);
+
+    reindex(reindexList);
+
     return affToReturn;
   }
 
 
-  private void updateOuWithValues(AffiliationVO givenAff, AffiliationDbVO toBeUpdatedAff,
-      AccountUserVO userAccount, boolean createNew) {
+
+  private List<String> updateOuWithValues(AffiliationVO givenAff, AffiliationDbVO toBeUpdatedAff,
+      AccountUserVO userAccount, boolean createNew) throws IngeServiceException {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(userAccount.getName());
     mod.setObjectId(userAccount.getReference().getObjectId());
 
+    if (createNew) {
+      toBeUpdatedAff.setCreationDate(currentDate);
+      toBeUpdatedAff.setCreator(mod);
+      toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
+      toBeUpdatedAff.setPublicStatus(State.CREATED);
+    }
+
     toBeUpdatedAff.setMetadata(givenAff.getDefaultMetadata());
     toBeUpdatedAff.setLastModificationDate(currentDate);
     toBeUpdatedAff.setModifier(mod);
 
+    List<String> reindexList = new ArrayList<>();
 
-    // Set new parents
-    if (givenAff.getParentAffiliations() != null) {
-      toBeUpdatedAff.getParentAffiliations().clear();
-      for (AffiliationRO affRo : givenAff.getParentAffiliations()) {
-        AffiliationDbRO newAffRo = new AffiliationDbRO();
-        newAffRo.setObjectId(affRo.getObjectId());
-        toBeUpdatedAff.getParentAffiliations().add(newAffRo);
+    // Set new parents, parents must be in state CREATED or OPENED
+    String oldParentAffId =
+        toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation()
+            .getObjectId() : null;
+    String newParentAffId =
+        givenAff.getParentAffiliations() != null && givenAff.getParentAffiliations().size() > 0 ? givenAff
+            .getParentAffiliations().get(0).getObjectId()
+            : null;
+
+
+    if ((oldParentAffId != null && newParentAffId == null)
+        || (oldParentAffId == null && newParentAffId != null)
+        || !oldParentAffId.equals(newParentAffId)) {
+
+      if (oldParentAffId != null) {
+        reindexList.add(oldParentAffId);
+      }
+      if (newParentAffId != null) {
+        AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
+        if (newAffVo.getPublicStatus() != State.CREATED
+            && newAffVo.getPublicStatus() != State.OPENED) {
+          throw new AaException("Parent Affiliation " + newAffVo.getObjectId()
+              + " has wrong state " + newAffVo.getPublicStatus().toString());
+        }
+        toBeUpdatedAff.setParentAffiliation(newAffVo);
+        reindexList.add(newParentAffId);
+      } else {
+        toBeUpdatedAff.setParentAffiliation(null);
       }
     }
 
@@ -157,14 +214,8 @@ public class OrganizationServiceDbImpl implements OrganizationService {
       }
     }
 
+    return reindexList;
 
-
-    if (createNew) {
-      toBeUpdatedAff.setCreationDate(currentDate);
-      toBeUpdatedAff.setCreator(mod);
-      toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
-      toBeUpdatedAff.setPublicStatus(State.CREATED);
-    }
   }
 
   @Override
@@ -178,12 +229,15 @@ public class OrganizationServiceDbImpl implements OrganizationService {
     if (affToBeUpdated == null) {
       throw new IngeServiceException("Organization with given id not found.");
     }
-    updateOuWithValues(affVO, affToBeUpdated, userAccount, false);
+    List<String> reindexList = updateOuWithValues(affVO, affToBeUpdated, userAccount, false);
+
+    checkAa(EntityTransformer.transformToOld(affToBeUpdated), userAccount, "update");
 
     affToBeUpdated = organizationRepository.save(affToBeUpdated);
 
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affToBeUpdated);
     organizationDao.update(affToBeUpdated.getObjectId(), affToReturn);
+    reindex(reindexList);
     return affToReturn;
   }
 
@@ -191,9 +245,20 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   @Transactional
   public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
+
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AffiliationDbVO ouTobeDeleted = organizationRepository.findOne(id);
+
+    checkAa(EntityTransformer.transformToOld(ouTobeDeleted), userAccount, "delete");
+
     organizationRepository.delete(id);
     organizationDao.delete(id);
+    if (ouTobeDeleted.getParentAffiliation() != null) {
+      AffiliationDbVO parentVO =
+          organizationRepository.findOne(ouTobeDeleted.getParentAffiliation().getObjectId());
+      organizationDao.create(parentVO.getObjectId(), EntityTransformer.transformToOld(parentVO));
+    }
+
 
 
   }
@@ -220,6 +285,17 @@ public class OrganizationServiceDbImpl implements OrganizationService {
     if (affToBeUpdated == null) {
       throw new IngeServiceException("Organization with given id " + id + " not found.");
     }
+    if (affToBeUpdated.getParentAffiliation() != null && state == State.OPENED) {
+      AffiliationDbVO parentVo =
+          organizationRepository.findOne(affToBeUpdated.getParentAffiliation().getObjectId());
+      if (parentVo.getPublicStatus() != State.OPENED) {
+        throw new AaException("Parent organization " + parentVo.getObjectId()
+            + " must be in state OPENED");
+      }
+    }
+
+    checkAa(EntityTransformer.transformToOld(affToBeUpdated), userAccount,
+        (state == State.OPENED ? "open" : "close"));
 
     affToBeUpdated.setPublicStatus(state);
 
@@ -252,6 +328,22 @@ public class OrganizationServiceDbImpl implements OrganizationService {
       }
 
 
+    }
+
+  }
+
+  private void checkAa(AffiliationVO aff, AccountUserVO userAccount, String method)
+      throws AaException {
+    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.OrganizationService", method,
+        aff, userAccount);
+
+  }
+
+  private void reindex(List<String> ouList) throws IngeServiceException {
+    // Reindex old and new Parents
+    for (String ouId : ouList) {
+      AffiliationVO affVo = EntityTransformer.transformToOld(organizationRepository.findOne(ouId));
+      organizationDao.create(ouId, affVo);
     }
 
   }
