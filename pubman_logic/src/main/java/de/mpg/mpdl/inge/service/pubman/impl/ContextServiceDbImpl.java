@@ -29,6 +29,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -68,7 +69,7 @@ public class ContextServiceDbImpl implements ContextService {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextToCreate = new ContextDbVO();
     updateContextWithValues(contextVO, contextToCreate, userAccount, true);
-
+    checkAa(EntityTransformer.transformToOld(contextToCreate), userAccount, "create");
     contextToCreate = contextRepository.save(contextToCreate);
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToCreate);
     contextDao.create(contextToCreate.getObjectId(), contextToReturn);
@@ -123,6 +124,7 @@ public class ContextServiceDbImpl implements ContextService {
     }
     updateContextWithValues(contextVO, contextToBeUpdated, userAccount, false);
 
+    checkAa(EntityTransformer.transformToOld(contextToBeUpdated), userAccount, "update");
     contextToBeUpdated = contextRepository.save(contextToBeUpdated);
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
@@ -135,6 +137,8 @@ public class ContextServiceDbImpl implements ContextService {
   public void delete(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    ContextDbVO contextToBeDeleted = contextRepository.findOne(id);
+    checkAa(EntityTransformer.transformToOld(contextToBeDeleted), userAccount, "delete");
     contextRepository.delete(id);
     contextDao.delete(id);
 
@@ -144,7 +148,14 @@ public class ContextServiceDbImpl implements ContextService {
   @Transactional(readOnly = true)
   public ContextVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-    return EntityTransformer.transformToOld(contextRepository.findOne(id));
+    AccountUserVO userAccount = null;
+    ContextVO context = EntityTransformer.transformToOld(contextRepository.findOne(id));
+    if (authenticationToken != null) {
+      userAccount = aaService.checkLoginRequired(authenticationToken);
+    }
+
+    checkAa(context, userAccount, "get");
+    return context;
   }
 
   @Override
@@ -203,6 +214,9 @@ public class ContextServiceDbImpl implements ContextService {
       throw new IngeServiceException("Context with given id " + id + " not found.");
     }
 
+    checkAa(EntityTransformer.transformToOld(contextToBeUpdated), userAccount,
+        (state == State.OPENED ? "open" : "close"));
+    
     contextToBeUpdated.setState(state);
 
     contextToBeUpdated = contextRepository.save(contextToBeUpdated);
@@ -210,5 +224,12 @@ public class ContextServiceDbImpl implements ContextService {
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
     contextDao.update(contextToBeUpdated.getObjectId(), contextToReturn);
     return contextToReturn;
+  }
+  
+  private void checkAa(ContextVO context, AccountUserVO userAccount, String method)
+      throws AaException {
+    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.ContextService", method,
+        context, userAccount);
+
   }
 }

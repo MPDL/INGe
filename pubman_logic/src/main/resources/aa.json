@@ -177,7 +177,7 @@
 					"role" : "SYSTEM_ADMINISTRATOR"
 				},
 				"ou.hasChildren" : "false",
-				"ou.publicStatus" : "CREATED"
+				"context.state" : "CREATED"
 				
 			}
 		],
@@ -191,7 +191,7 @@
 				"user" : {
 					"role" : "SYSTEM_ADMINISTRATOR"
 				},
-				"ou.publicStatus" : "CREATED"
+				"context.state" : "CREATED"
 			}
 		],
 		"close" : [
@@ -199,7 +199,60 @@
 				"user" : {
 					"role" : "SYSTEM_ADMINISTRATOR"
 				},
-				"ou.publicStatus" : "OPENED"
+				"context.state" : "OPENED"
+			}
+		]
+	},
+	"de.mpg.mpdl.inge.service.pubman.ContextService" : {
+		"technical" : {
+			"order" : ["context", "user"],
+			"indices" : {
+			}
+		}, 
+		"create" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"update" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"delete" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "CREATED"
+				
+			}
+		],
+		
+		"get" : [
+
+		],
+		
+		"open" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "CREATED"
+			}
+		],
+		"close" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "OPENED"
 			}
 		]
 	}
