@@ -29,7 +29,6 @@ import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -41,13 +40,10 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 @Service
 @Primary
 public class ContextServiceDbImpl implements ContextService {
+  private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
   public final static String INDEX_STATE = "state";
-
-  private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
-  // private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
-
 
   @Autowired
   private AuthorizationService aaService;

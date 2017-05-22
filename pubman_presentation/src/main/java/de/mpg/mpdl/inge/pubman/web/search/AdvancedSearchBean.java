@@ -42,12 +42,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.DisplayType;
@@ -79,7 +83,9 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
+import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
@@ -755,13 +761,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     if (this.contextListMenu == null) {
 
       try {
+        
+        QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
-        final List<ContextVO> contexts = PubItemService.getPubCollectionListForDepositing();
+        SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb, 1000, 0);
+        SearchRetrieveResponseVO<ContextVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);
 
         this.contextListMenu = new ArrayList<SelectItem>();
 
-        for (final ContextVO c : contexts) {
-          this.contextListMenu.add(new SelectItem(c.getReference().getObjectId(), c.getName()));
+        for (final SearchRetrieveRecordVO<ContextVO> c : result.getRecords()) {
+          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c.getData().getName()));
         }
 
         Collections.sort(this.contextListMenu, new SelectItemComparator());
