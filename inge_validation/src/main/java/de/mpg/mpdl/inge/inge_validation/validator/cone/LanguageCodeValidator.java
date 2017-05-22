@@ -32,12 +32,15 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
       final Set<String> iso639_3_IdentifierSet =
           ConeCache.getInstance().getIso639_3_IdentifierSet();
 
+      if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
+        context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE));
+        return false;
+      }
+
       int i = 1;
       for (final String language : languages) {
 
-        if (ValidationTools.isNotEmpty(language) //
-            && ValidationTools.isNotEmpty(iso639_3_IdentifierSet) //
-            && !iso639_3_IdentifierSet.contains(language)) {
+        if (!iso639_3_IdentifierSet.contains(language)) {
           context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField(
               "language[" + i + "]"));
           ok = false;

@@ -77,6 +77,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -143,6 +144,7 @@ public class PubManSwordServer {
 
     // Validate Item
     try {
+      PubItemUtil.cleanUpItem(depositItem);
       ItemValidatingService.validate(depositItem, ValidationPoint.STANDARD);
     } catch (final ValidationException e) {
       this.setVerbose("Following validation error(s) occurred: " + e);

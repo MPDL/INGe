@@ -132,15 +132,12 @@ public class PubItemServiceDbImpl implements PubItemService {
     checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
 
     logger.info("Before cleanup");
-    PubItemUtil.cleanUpItem(pubItemToCreateOld);
     validate(pubItemToCreateOld, ValidationPoint.SAVE);
-
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
-
 
     pubItemToCreate = itemRepository.save(pubItemToCreate);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
@@ -257,9 +254,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
-    PubItemUtil.cleanUpItem(latestVersionOld);
-
-
 
     latestVersion = itemRepository.save(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
@@ -381,7 +375,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException {
     return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken,
         EventType.SUBMIT);
   }
@@ -389,7 +383,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException {
     return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken,
         EventType.REVISE);
   }
@@ -397,7 +391,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException {
     return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken,
         EventType.RELEASE);
   }
@@ -405,15 +399,14 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException {
     return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken,
         EventType.WITHDRAW);
   }
 
-
   private PubItemVO changeState(String id, State state, String message, String aaMethod,
       String authenticationToken, EventType auditEventType) throws IngeServiceException,
-      AaException, ItemInvalidException {
+      AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
@@ -488,6 +481,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
       ItemInvalidException {
     try {
+      PubItemUtil.cleanUpItem(pubItem);
       ItemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
       throw new IngeServiceException(e);

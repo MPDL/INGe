@@ -42,6 +42,9 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 @Primary
 public class ContextServiceDbImpl implements ContextService {
 
+  public final static String INDEX_OBJECT_ID = "reference.objectId";
+  public final static String INDEX_STATE = "state";
+
   private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
   // private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
@@ -216,7 +219,7 @@ public class ContextServiceDbImpl implements ContextService {
 
     checkAa(EntityTransformer.transformToOld(contextToBeUpdated), userAccount,
         (state == State.OPENED ? "open" : "close"));
-    
+
     contextToBeUpdated.setState(state);
 
     contextToBeUpdated = contextRepository.save(contextToBeUpdated);
@@ -225,11 +228,11 @@ public class ContextServiceDbImpl implements ContextService {
     contextDao.update(contextToBeUpdated.getObjectId(), contextToReturn);
     return contextToReturn;
   }
-  
+
   private void checkAa(ContextVO context, AccountUserVO userAccount, String method)
       throws AaException {
-    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.ContextService", method,
-        context, userAccount);
+    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.ContextService", method, context,
+        userAccount);
 
   }
 }

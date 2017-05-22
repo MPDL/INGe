@@ -51,7 +51,7 @@ public class ConeCache {
   private final ConeSet mpipksTitle = ConeSet.MPIPKS_TITLE;
   private final ConeSet mpirgTitle = ConeSet.MPIRG_TITLE;
   private final ConeSet mpisGroupsTitle = ConeSet.MPIS_GROUPS_TITLE;
-  private final ConeSet mpisProjectTitle = ConeSet.MPIS_PROJECTS_TITLE;
+  private final ConeSet mpisProjectsTitle = ConeSet.MPIS_PROJECTS_TITLE;
 
   private ConeCache() {}
 
@@ -76,7 +76,7 @@ public class ConeCache {
         + ConeCache.MPIRG_TITLE_QUERY);
     this.refresh(this.mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_GROUPS_TITLE_QUERY);
-    this.refresh(this.mpisProjectTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
+    this.refresh(this.mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
     logger.info("*** Ende Refresh-Cycle ***");
   }
@@ -181,11 +181,11 @@ public class ConeCache {
     return this.mpisGroupsTitle.set();
   }
 
-  public Set<String> getMpisProjectTitleSet() {
-    if (this.mpisProjectTitle.set().isEmpty()) {
+  public Set<String> getMpisProjectsTitleSet() {
+    if (this.mpisProjectsTitle.set().isEmpty()) {
       logger.error("CONE mpisProjectTitleSet is empty.");
     }
 
-    return this.mpisProjectTitle.set();
+    return this.mpisProjectsTitle.set();
   }
 }

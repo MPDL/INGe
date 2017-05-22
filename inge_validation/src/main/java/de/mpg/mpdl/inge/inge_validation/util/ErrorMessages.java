@@ -39,4 +39,12 @@ public class ErrorMessages {
   public static final String TITLE_NOT_PROVIDED = "TitleNotProvided";
   public static final String UNKNOWN_LANGUAGE_CODE = "UnknownLanguageCode";
 
+  public static final String CONE_EMPTY_LANGUAGE_CODE = "ConeEmptyLanguageCode";
+  public static final String CONE_EMPTY_MIME_TYPE = "ConeEmptyMimeType";
+  public static final String CONE_EMPTY_ISO639_3_TITLE = "ConeEmptyIso639_3_Title";
+  public static final String CONE_EMPTY_DDC_TITLE = "ConeEmptyDdcTitle";
+  public static final String CONE_EMPTY_MPIPKS_TITLE = "ConeEmptyMpipksTitle";
+  public static final String CONE_EMPTY_MPIRG_TITLE = "ConeEmptyMpirgTitle";
+  public static final String CONE_EMPTY_MPIS_GROUPS_TITLE = "ConeEmptyMpisGroupsTitle";
+  public static final String CONE_EMPTY_MPIS_PROJECTS_TITLE = "ConeEmptyMpisProjectsTitle";
 }

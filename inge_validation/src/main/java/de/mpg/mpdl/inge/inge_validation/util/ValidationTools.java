@@ -23,4 +23,8 @@ public class ValidationTools {
   public static boolean isNotEmpty(Set<?> s) {
     return s != null && !s.isEmpty();
   }
+
+  public static boolean isEmpty(Set<?> s) {
+    return s == null || s.isEmpty();
+  }
 }

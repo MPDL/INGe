@@ -102,6 +102,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -1172,6 +1173,7 @@ public class EasySubmission extends FacesBean {
       }
 
       PubItemVO itemVO = new PubItemVO(pubItem);
+      PubItemUtil.cleanUpItem(itemVO);
 
       // cleanup item according to genre specific MD specification
       final GenreSpecificItemManager itemManager =

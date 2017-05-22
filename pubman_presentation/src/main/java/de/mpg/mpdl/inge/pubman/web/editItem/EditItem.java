@@ -96,6 +96,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -152,20 +153,21 @@ public class EditItem extends FacesBean {
     }
 
     // if item is currently part of invalid yearbook items, show Validation Messages
-    if (this.getItem() == null) {
+    if (this.getPubItem() == null) {
       return;
     }
 
-    if (this.getItem().getVersion() != null && this.getItem().getVersion().getObjectId() != null
+    if (this.getPubItem().getVersion() != null
+        && this.getPubItem().getVersion().getObjectId() != null
         && this.getLoginHelper().getIsYearbookEditor()) {
       if (this.getYearbookItemSessionBean().getYearbookItem() != null
           && this.getYearbookItemSessionBean().getInvalidItemMap()
-              .get(this.getItem().getVersion().getObjectId()) != null) {
+              .get(this.getPubItem().getVersion().getObjectId()) != null) {
         try {
-          this.getYearbookItemSessionBean().validateItem(this.getItem());
+          this.getYearbookItemSessionBean().validateItem(this.getPubItem());
           final YearbookInvalidItemRO invItem =
               this.getYearbookItemSessionBean().getInvalidItemMap()
-                  .get(this.getItem().getVersion().getObjectId());
+                  .get(this.getPubItem().getVersion().getObjectId());
 
           if (invItem != null) {
             (this.getPubItem()).setValidationReport(invItem.getValidationReport());
@@ -332,7 +334,7 @@ public class EditItem extends FacesBean {
     int locatorCount = 0;
 
     // add files
-    for (final FileVO file : this.item.getFiles()) {
+    for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
         // Add identifierVO if not available yet
         if (file.getDefaultMetadata() != null
@@ -349,7 +351,7 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().setFiles(files);
 
     // add locators
-    for (final FileVO file : this.item.getFiles()) {
+    for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL)) {
         final PubFileVOPresentation locatorpres =
             new PubFileVOPresentation(locatorCount, file, true);
@@ -481,10 +483,10 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    cleanUp();
-
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
+      PubItemVO itemVO = new PubItemVO(this.getPubItem());
+      PubItemUtil.cleanUpItem(itemVO);
+      ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
     } catch (final ItemInvalidException e) {
@@ -515,7 +517,7 @@ public class EditItem extends FacesBean {
     }
 
     // write creators back to VO
-    this.getEditItemSessionBean().bindCreatorsToVO(this.item.getMetadata().getCreators());
+    this.getEditItemSessionBean().bindCreatorsToVO(this.getPubItem().getMetadata().getCreators());
 
     // write source creators back to VO
     for (final SourceBean sourceBean : this.getEditItemSessionBean().getSources()) {
@@ -523,7 +525,7 @@ public class EditItem extends FacesBean {
     }
 
     // write sources back to VO
-    this.getEditItemSessionBean().bindSourcesToVO(this.item.getMetadata().getSources());
+    this.getEditItemSessionBean().bindSourcesToVO(this.getPubItem().getMetadata().getSources());
 
     return true;
   }
@@ -1141,54 +1143,49 @@ public class EditItem extends FacesBean {
     return 0;
   }
 
-  public PubItemVO getItem() {
-    return this.item;
-  }
-
   public void setItem(PubItemVOPresentation item) {
     this.item = item;
   }
 
   public String getOwner() throws Exception {
-
-
-    if (this.item.getOwner() != null) {
-      if (this.item.getOwner().getTitle() != null && this.item.getOwner().getTitle().trim() != "") {
-        return this.item.getOwner().getTitle();
+    if (this.getPubItem().getOwner() != null) {
+      if (this.getPubItem().getOwner().getTitle() != null
+          && this.getPubItem().getOwner().getTitle().trim() != "") {
+        return this.getPubItem().getOwner().getTitle();
       }
 
-      if (this.item.getOwner().getObjectId() != null && this.item.getOwner().getObjectId() != "") {
-        return this.item.getOwner().getObjectId();
+      if (this.getPubItem().getOwner().getObjectId() != null
+          && this.getPubItem().getOwner().getObjectId() != "") {
+        return this.getPubItem().getOwner().getObjectId();
       }
     }
-
 
     return null;
   }
 
   public String getCreationDate() {
-    if (this.item.getCreationDate() != null) {
-      return this.item.getCreationDate().toString();
+    if (this.getPubItem().getCreationDate() != null) {
+      return this.getPubItem().getCreationDate().toString();
     }
 
     return null;
   }
 
   public String getLastModifier() throws Exception {
-    if (this.item.getVersion().getModifiedByRO() != null
-        && this.item.getVersion().getModifiedByRO().getTitle() != null) {
-      return this.item.getVersion().getModifiedByRO().getTitle();
-    } else if (this.item.getVersion().getModifiedByRO() != null
-        && this.item.getVersion().getModifiedByRO().getObjectId() != null) {
-      return this.item.getVersion().getModifiedByRO().getObjectId();
+    if (this.getPubItem().getVersion().getModifiedByRO() != null
+        && this.getPubItem().getVersion().getModifiedByRO().getTitle() != null) {
+      return this.getPubItem().getVersion().getModifiedByRO().getTitle();
+    } else if (this.getPubItem().getVersion().getModifiedByRO() != null
+        && this.getPubItem().getVersion().getModifiedByRO().getObjectId() != null) {
+      return this.getPubItem().getVersion().getModifiedByRO().getObjectId();
     }
 
     return null;
   }
 
   public String getLastModificationDate() {
-    if (this.item.getModificationDate() != null) {
-      return this.item.getModificationDate().toString();
+    if (this.getPubItem().getModificationDate() != null) {
+      return this.getPubItem().getModificationDate().toString();
     }
 
     return null;
@@ -1275,12 +1272,12 @@ public class EditItem extends FacesBean {
    * @return String null
    */
   public void changeGenre() {
-    String newGenre = this.getItem().getMetadata().getGenre().name();
+    String newGenre = this.getPubItem().getMetadata().getGenre().name();
     final Genre[] possibleGenres = MdsPublicationVO.Genre.values();
 
     for (int i = 0; i < possibleGenres.length; i++) {
       if (possibleGenres[i].toString().equals(newGenre)) {
-        this.item.getMetadata().setGenre(possibleGenres[i]);
+        this.getPubItem().getMetadata().setGenre(possibleGenres[i]);
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
             .setGenre(possibleGenres[i]);
       }

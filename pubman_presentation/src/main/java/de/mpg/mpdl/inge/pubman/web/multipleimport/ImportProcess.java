@@ -80,6 +80,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -607,6 +608,7 @@ public class ImportProcess extends Thread {
       // Simple Validation
       this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
       try {
+        PubItemUtil.cleanUpItem(pubItemVO);
         ItemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
         this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
 

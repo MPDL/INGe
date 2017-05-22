@@ -770,42 +770,42 @@ public class ViewItemFull extends FacesBean {
    * @return String nav rule to load the page the user came from
    */
   public String submitItem() {
-    try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
+    if (!validate()) {
       return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
+    };
 
     return SubmitItem.LOAD_SUBMITITEM;
   }
 
   public String acceptItem() {
-    try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
-      this.showValidationMessages(e.getReport());
+    if (!validate()) {
       return null;
-    } catch (final ValidationException e) {
-      throw new RuntimeException("Validation error", e);
-    }
+    };
 
     return AcceptItem.LOAD_ACCEPTITEM;
   }
 
   public String releaseItem() {
+    if (!validate()) {
+      return null;
+    };
+
+    return ReleaseItem.LOAD_RELEASEITEM;
+  }
+
+  private boolean validate() {
     try {
-      ItemValidatingService.validate(new PubItemVO(this.getPubItem()), ValidationPoint.STANDARD);
+      PubItemVO itemVO = new PubItemVO(this.getPubItem());
+      PubItemUtil.cleanUpItem(itemVO);
+      ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
     } catch (final ItemInvalidException e) {
       this.showValidationMessages(e.getReport());
-      return null;
+      return false;
     } catch (final ValidationException e) {
       throw new RuntimeException("Validation error", e);
     }
 
-    return ReleaseItem.LOAD_RELEASEITEM;
+    return true;
   }
 
   public String deleteItem() {
