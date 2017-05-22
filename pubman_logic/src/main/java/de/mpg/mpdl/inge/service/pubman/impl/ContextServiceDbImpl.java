@@ -77,7 +77,7 @@ public class ContextServiceDbImpl implements ContextService {
 
 
   private void updateContextWithValues(ContextVO givenContext, ContextDbVO toBeUpdatedContext,
-      AccountUserVO userAccount, boolean createNew) throws AaException, IngeServiceException{
+      AccountUserVO userAccount, boolean createNew) throws AaException, IngeServiceException {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(userAccount.getName());
@@ -90,8 +90,8 @@ public class ContextServiceDbImpl implements ContextService {
     toBeUpdatedContext.setLastModificationDate(currentDate);
     toBeUpdatedContext.setModifier(mod);
     toBeUpdatedContext.setName(givenContext.getName());
-    
-    if(givenContext.getName()==null || givenContext.getName().trim().isEmpty()) {
+
+    if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
       throw new IngeServiceException("A name is required");
     }
 

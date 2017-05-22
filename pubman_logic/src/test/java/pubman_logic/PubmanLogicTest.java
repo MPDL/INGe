@@ -148,17 +148,17 @@ public class PubmanLogicTest {
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     // query.setHint("org.hibernate.cacheable", "true");
     // query.addQueryHint("org.hibernate.cacheable=true");
-   query.setMaxResults(500);
+    query.setMaxResults(500);
     query.setReadOnly(true);
     query.setFetchSize(500);
     query.setCacheable(false);
-    //ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+    // ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
     List<PubItemObjectDbVO> resultList = query.list();
-    
+
     entityManager.clear();
 
-    //while (results.next()) {
-    for(PubItemObjectDbVO pi : resultList) {
+    // while (results.next()) {
+    for (PubItemObjectDbVO pi : resultList) {
       try {
 
         de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
