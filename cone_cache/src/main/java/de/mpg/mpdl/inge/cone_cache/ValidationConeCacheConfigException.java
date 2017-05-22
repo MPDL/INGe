@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.inge_validation.exception;
+package de.mpg.mpdl.inge.cone_cache;
 
 @SuppressWarnings("serial")
 public class ValidationConeCacheConfigException extends Exception {

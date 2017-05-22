@@ -68,6 +68,11 @@
 							<artifactId>dataacquisition_presentation</artifactId>
 							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
+						<webModule>
+							<groupId>de.mpg.mpdl.inge</groupId>
+							<artifactId>cone_cache_presentation</artifactId>
+							<contextRoot>/cone_cache</contextRoot>
+						</webModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -297,6 +302,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>cone_cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_presentation</artifactId>
 			<type>war</type>
 		</dependency>
@@ -324,6 +333,11 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>cone_cache_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 	</dependencies>

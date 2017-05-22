@@ -3,8 +3,8 @@ package de.mpg.mpdl.inge.inge_validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
-import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
+import de.mpg.mpdl.inge.cone_cache.ConeCache;
+import de.mpg.mpdl.inge.cone_cache.ValidationConeCacheConfigException;
 
 public class ConeCacheTest {
 

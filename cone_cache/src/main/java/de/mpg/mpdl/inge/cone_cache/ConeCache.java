@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.inge_validation.validator.cone;
+package de.mpg.mpdl.inge.cone_cache;
 
 import java.io.IOException;
 import java.util.Set;
@@ -12,9 +12,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ConeException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
-import de.mpg.mpdl.inge.inge_validation.util.Properties;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -37,7 +34,7 @@ public class ConeCache {
   private static final String MPIPKS_TITLE_QUERY = "mpipks/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIRG_TITLE_QUERY = "mpirg/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIS_GROUPS_TITLE_QUERY =
-      "/mpis-groups/query?format=rdf&q=*&mode=full&n=0";
+      "mpis-groups/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIS_PROJECTS_TITLE_QUERY =
       "mpis-projects/query?format=rdf&q=*&mode=full&n=0";
 
@@ -100,7 +97,7 @@ public class ConeCache {
           coneSet.set().addAll(result);
         }
       }
-    } catch (IOException | ParserConfigurationException | SAXException | ConeException e) {
+    } catch (IOException | ParserConfigurationException | SAXException | ConeCacheException e) {
       logger.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
         logger.error("Cone Set is empty: Url: " + queryUrl);
@@ -111,7 +108,7 @@ public class ConeCache {
   }
 
   private Set<String> getData(ConeHandler handler, String queryUrl)
-      throws ParserConfigurationException, SAXException, ConeException, IOException {
+      throws ParserConfigurationException, SAXException, ConeCacheException, IOException {
     final HttpClient client = new HttpClient();
     final GetMethod method = new GetMethod(queryUrl);
 
@@ -124,7 +121,7 @@ public class ConeCache {
       return handler.getResult();
     } else {
       logger.error("Could not load CONE attributes:" + method.getStatusCode());
-      throw new ConeException("Could not load CONE attributes: " + method.getStatusCode());
+      throw new ConeCacheException("Could not load CONE attributes: " + method.getStatusCode());
     }
   }
 

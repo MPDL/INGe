@@ -10,12 +10,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>inge_validation</artifactId>
-	<name>inge_validation</name>
+	<artifactId>cone_cache</artifactId>
+	<name>cone_cache</name>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL/INGe/inge_validation</connection>
-		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_validation</developerConnection>
+		<connection>scm:git:git@github.com:MPDL/INGe/cone_cache</connection>
+		<developerConnection>scm:git:git@github.com:MPDL/INGe/cone_cache</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
 		<tag>HEAD</tag>
 	</scm>
@@ -46,30 +46,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>cone_cache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.baidu.unbiz</groupId>
-			<artifactId>fluent-validator</artifactId>
-			<version>1.0.5</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

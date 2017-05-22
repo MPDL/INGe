@@ -1,8 +1,7 @@
-package de.mpg.mpdl.inge.inge_validation.validator.cone;
+package de.mpg.mpdl.inge.cone_cache;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class RefreshTask extends Thread {
@@ -24,7 +23,7 @@ public class RefreshTask extends Thread {
 
       while (!this.terminate) {
         logger.info("Starting refresh of validation database <- Refresh Task.");
-        ItemValidatingService.refreshValidationSchemaCache();
+        ConeCache.getInstance().refreshCache();
         logger.info("Finished refresh of validation database <- Refresh Task.");
         Thread.sleep(timeout * 60 * 1000);
       }
