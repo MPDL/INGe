@@ -1,5 +1,7 @@
 package pubman_logic;
 
+import java.util.List;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -21,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
@@ -139,23 +142,27 @@ public class PubmanLogicTest {
   }
 
   @Test
-  @Ignore
   public void testGet() throws Exception {
     Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
         (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     // query.setHint("org.hibernate.cacheable", "true");
     // query.addQueryHint("org.hibernate.cacheable=true");
+   query.setMaxResults(500);
     query.setReadOnly(true);
-    query.setFetchSize(100);
+    query.setFetchSize(500);
     query.setCacheable(false);
-    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+    //ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+    List<PubItemObjectDbVO> resultList = query.list();
+    
+    entityManager.clear();
 
-    while (results.next()) {
+    //while (results.next()) {
+    for(PubItemObjectDbVO pi : resultList) {
       try {
 
         de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
+            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) pi;
 
         try {
           long time = System.currentTimeMillis();

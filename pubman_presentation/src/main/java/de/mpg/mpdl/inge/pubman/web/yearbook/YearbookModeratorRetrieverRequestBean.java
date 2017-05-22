@@ -224,8 +224,10 @@ public class YearbookModeratorRetrieverRequestBean extends
         for (final PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) this
             .getBasePaginatorListSessionBean()).getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            ApplicationBean.INSTANCE.getPubItemService().releasePubItem(yearbookItem.getVersion().getObjectId(), "Releasing yearbook", this.getLoginHelper().getAuthenticationToken());
-           
+            ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
+                yearbookItem.getVersion().getObjectId(), "Releasing yearbook",
+                this.getLoginHelper().getAuthenticationToken());
+
           } else {
             this.warn("\"" + yearbookItem.getFullTitle() + "\""
                 + this.getMessage("Yearbook_itemNotReleasedWarning"));

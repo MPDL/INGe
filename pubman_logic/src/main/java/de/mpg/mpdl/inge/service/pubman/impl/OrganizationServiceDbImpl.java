@@ -171,6 +171,12 @@ public class OrganizationServiceDbImpl implements OrganizationService {
     toBeUpdatedAff.setLastModificationDate(currentDate);
     toBeUpdatedAff.setModifier(mod);
 
+    toBeUpdatedAff.setName(givenAff.getDefaultMetadata().getName());
+    
+    if(givenAff.getDefaultMetadata().getName()==null || givenAff.getDefaultMetadata().getName().trim().isEmpty()) {
+      throw new IngeServiceException("Please provide a name for the organization.");
+    }
+    
     List<String> reindexList = new ArrayList<>();
 
     // Set new parents, parents must be in state CREATED or OPENED

@@ -11,6 +11,9 @@
 			<subsystem name="jaxrs" />
 			<subsystem name="weld"/>
 			<subsystem name="security"/>
+			<subsystem name="ejb3"/>
+			<subsystem name="jpa"/>
+			<subsystem name="transactions"/>
 		</exclude-subsystems>  
 	
 		<dependencies>

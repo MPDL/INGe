@@ -761,16 +761,21 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     if (this.contextListMenu == null) {
 
       try {
-        
-        QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
-        SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb, 1000, 0);
-        SearchRetrieveResponseVO<ContextVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);
+        QueryBuilder qb =
+            QueryBuilders.boolQuery().must(
+                QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
+
+        SearchRetrieveRequestVO<QueryBuilder> srr =
+            new SearchRetrieveRequestVO<QueryBuilder>(qb, 1000, 0);
+        SearchRetrieveResponseVO<ContextVO> result =
+            ApplicationBean.INSTANCE.getContextService().search(srr, null);
 
         this.contextListMenu = new ArrayList<SelectItem>();
 
         for (final SearchRetrieveRecordVO<ContextVO> c : result.getRecords()) {
-          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c.getData().getName()));
+          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c
+              .getData().getName()));
         }
 
         Collections.sort(this.contextListMenu, new SelectItemComparator());

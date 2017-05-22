@@ -53,13 +53,16 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
 
-    final de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
-   
+    final de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService =
+        ApplicationBean.INSTANCE.getPubItemService();
+
 
     // Get the two versions
-    final PubItemVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
+    final PubItemVO pubItemVOLatestVersion =
+        pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
     final PubItemVO pubItemVOThisVersion =
-        pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
+        pubItemService.get(this.getReference().getObjectIdAndVersion(),
+            loginHelper.getAuthenticationToken());
 
 
     // Now copy the old stuff into the current item
@@ -76,12 +79,21 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     }
 
     // Then process it into the framework ...
-    PubItemVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
+    PubItemVO pubItemVONewVersion =
+        pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
     if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED
         && pubItemVONewVersion.getVersion().getState() == State.PENDING) {
-      pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().submitPubItem(pubItemVONewVersion.getVersion().getObjectId(), "Submit and release after rollback to version "+ this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
-      pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getVersion().getObjectId(), "Submit and release after rollback to version "+ this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
+      pubItemVONewVersion =
+          ApplicationBean.INSTANCE.getPubItemService().submitPubItem(
+              pubItemVONewVersion.getVersion().getObjectId(),
+              "Submit and release after rollback to version "
+                  + this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
+      pubItemVONewVersion =
+          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
+              pubItemVONewVersion.getVersion().getObjectId(),
+              "Submit and release after rollback to version "
+                  + this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
 
     }
 
