@@ -42,6 +42,9 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 @Primary
 public class ContextServiceDbImpl implements ContextService {
 
+  public final static String INDEX_OBJECT_ID = "reference.objectId";
+  public final static String INDEX_STATE = "state";
+  
   private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
   // private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
