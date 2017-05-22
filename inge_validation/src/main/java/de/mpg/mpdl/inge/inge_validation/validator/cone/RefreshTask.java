@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.inge_validation.web;
+package de.mpg.mpdl.inge.inge_validation.validator.cone;
 
 import org.apache.log4j.Logger;
 

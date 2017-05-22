@@ -38,7 +38,6 @@
 		<module>inge_filestorage_connector</module>
 		<module>inge_util</module>
 		<module>inge_validation</module>
-		<module>inge_validation_presentation</module>
 		<module>model</module>
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
@@ -348,12 +347,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>inge_validation_presentation</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>

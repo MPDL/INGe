@@ -153,7 +153,7 @@ public class ConeCacheTest {
     public void run() {
       while (true) {
         try {
-          System.out.println("MPIS_PROJECT_Title: " + this.cache.getMpisProjectTitleSet().size());
+          System.out.println("MPIS_PROJECT_Title: " + this.cache.getMpisProjectsTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
         } catch (final Exception e) {
           System.out.println(e);
@@ -193,7 +193,6 @@ public class ConeCacheTest {
     System.out.println("cMPIPKS_Title: " + cache.getMpipksTitleSet().size());
     System.out.println("cMPIRK_Title: " + cache.getMpirgTitleSet().size());
     System.out.println("cMPIS_GROUP_Title: " + cache.getMpisGroupsTitleSet().size());
-    System.out.println("cMPIS_PROJECT_Title: " + cache.getMpisProjectTitleSet().size());
+    System.out.println("cMPIS_PROJECT_Title: " + cache.getMpisProjectsTitleSet().size());
   }
-
 }

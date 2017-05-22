@@ -60,8 +60,10 @@ public class ConeCache {
   }
 
   public void refreshCache() throws ValidationConeCacheConfigException {
+    logger.info("*** Start CONE CACHE Refresh-Cycle ***");
+
     String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
-    logger.info("*** Start Refresh-Cycle ***");
+
     this.refresh(this.iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl
         + ConeCache.ISO639_3_IDENTIFIER_QUERY);
     this.refresh(this.iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl
@@ -78,14 +80,15 @@ public class ConeCache {
         + ConeCache.MPIS_GROUPS_TITLE_QUERY);
     this.refresh(this.mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
-    logger.info("*** Ende Refresh-Cycle ***");
+
+    logger.info("*** Ende CONE CASH Refresh-Cycle ***");
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
       throws ValidationConeCacheConfigException {
     logger.info("*** Start refresh: " + queryUrl);
     try {
-      final Set<String> result = this.fill(handler, queryUrl);
+      final Set<String> result = this.getData(handler, queryUrl);
       if (0 == result.size()) {
         logger.warn("    " + "Size: " + result.size() + " " + queryUrl);
       } else {
@@ -107,7 +110,7 @@ public class ConeCache {
     logger.info("*** Ende refresh: " + queryUrl);
   }
 
-  private Set<String> fill(ConeHandler handler, String queryUrl)
+  private Set<String> getData(ConeHandler handler, String queryUrl)
       throws ParserConfigurationException, SAXException, ConeException, IOException {
     final HttpClient client = new HttpClient();
     final GetMethod method = new GetMethod(queryUrl);
