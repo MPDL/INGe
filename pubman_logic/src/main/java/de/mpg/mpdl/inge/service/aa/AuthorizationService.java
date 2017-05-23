@@ -47,9 +47,10 @@ public class AuthorizationService {
   public AuthorizationService(ModelMapper modelMapper) {
 
     try {
-      aaMap = modelMapper.readValue(
-          ResourceUtil.getResourceAsStream("aa.json", AuthorizationService.class.getClassLoader()),
-          Map.class);
+      aaMap =
+          modelMapper.readValue(
+              ResourceUtil.getResourceAsStream("aa.json",
+                  AuthorizationService.class.getClassLoader()), Map.class);
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
@@ -100,8 +101,8 @@ public class AuthorizationService {
                 if (userMap.containsKey("field_user_id_match")) {
                   String value = (String) userMap.get("field_user_id_match");
 
-                  subQb.must(QueryBuilders.termQuery(indices.get(value),
-                      userAccount.getReference().getObjectId()));
+                  subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
+                      .getObjectId()));
                   userMatch = true;
 
                 }
@@ -113,13 +114,14 @@ public class AuthorizationService {
                   BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                   for (GrantVO grant : userAccount.getGrants()) {
                     if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))
-                        && (userMap.get("grant_type") == null
-                            || userMap.get("grant_type").equalsIgnoreCase(grant.getGrantType()))) {
+                        && (userMap.get("grant_type") == null || userMap.get("grant_type")
+                            .equalsIgnoreCase(grant.getGrantType()))) {
                       userMatch = true;
                       if (userMap.get("field_grant_id_match") != null) {
-                        grantQueryBuilder.should(QueryBuilders.termQuery(
-                            indices.get(userMap.get("field_grant_id_match")),
-                            grant.getObjectRef()));
+                        grantQueryBuilder
+                            .should(QueryBuilders.termQuery(
+                                indices.get(userMap.get("field_grant_id_match")),
+                                grant.getObjectRef()));
                       }
 
                     }
@@ -338,16 +340,13 @@ public class AuthorizationService {
 
   }
 
-  
-  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationVO> completeList)
-      throws IngeServiceException {
-    
+  private void searchAllChildOrganizations(String parentAffiliationId,
+      List<AffiliationVO> completeList) throws IngeServiceException {
+
 
     List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
-    if(children!=null)
-    {
-      for(AffiliationVO child : children)
-      {
+    if (children != null) {
+      for (AffiliationVO child : children) {
         completeList.add(child);
         searchAllChildOrganizations(child.getReference().getObjectId(), completeList);
       }
