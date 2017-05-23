@@ -2,10 +2,12 @@ package de.mpg.mpdl.inge.service.aa;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -13,11 +15,15 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
+import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -35,13 +41,15 @@ public class AuthorizationService {
   ModelMapper modelMapper;
 
   @Autowired
+  OrganizationService ouService;
+
+  @Autowired
   public AuthorizationService(ModelMapper modelMapper) {
 
     try {
-      aaMap =
-          modelMapper.readValue(
-              ResourceUtil.getResourceAsStream("aa.json",
-                  AuthorizationService.class.getClassLoader()), Map.class);
+      aaMap = modelMapper.readValue(
+          ResourceUtil.getResourceAsStream("aa.json", AuthorizationService.class.getClassLoader()),
+          Map.class);
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
@@ -92,8 +100,8 @@ public class AuthorizationService {
                 if (userMap.containsKey("field_user_id_match")) {
                   String value = (String) userMap.get("field_user_id_match");
 
-                  subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
-                      .getObjectId()));
+                  subQb.must(QueryBuilders.termQuery(indices.get(value),
+                      userAccount.getReference().getObjectId()));
                   userMatch = true;
 
                 }
@@ -105,14 +113,13 @@ public class AuthorizationService {
                   BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                   for (GrantVO grant : userAccount.getGrants()) {
                     if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))
-                        && (userMap.get("grant_type") == null || userMap.get("grant_type")
-                            .equalsIgnoreCase(grant.getGrantType()))) {
+                        && (userMap.get("grant_type") == null
+                            || userMap.get("grant_type").equalsIgnoreCase(grant.getGrantType()))) {
                       userMatch = true;
                       if (userMap.get("field_grant_id_match") != null) {
-                        grantQueryBuilder
-                            .should(QueryBuilders.termQuery(
-                                indices.get(userMap.get("field_grant_id_match")),
-                                grant.getObjectRef()));
+                        grantQueryBuilder.should(QueryBuilders.termQuery(
+                            indices.get(userMap.get("field_grant_id_match")),
+                            grant.getObjectRef()));
                       }
 
                     }
@@ -192,19 +199,18 @@ public class AuthorizationService {
 
 
   public void checkAuthorization(String serviceName, String methodName, Object... objects)
-      throws AaException {
+      throws AaException, IngeServiceException {
 
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
-    if(allowedMap==null)
-    {
+    if (allowedMap == null) {
       throw new AaException("No rules for service " + serviceName + ", method " + methodName);
     }
-    
-     else {
+
+    else {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
@@ -257,13 +263,10 @@ public class AuthorizationService {
           return;
         }
       }
-      if(lastExceptionOfAll==null)
-      {
+      if (lastExceptionOfAll == null) {
         return;
-      }
-      else
-      {
-      throw new AaException(lastExceptionOfAll);
+      } else {
+        throw new AaException(lastExceptionOfAll);
       }
 
 
@@ -272,7 +275,7 @@ public class AuthorizationService {
   }
 
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
-      throws AaException {
+      throws AaException, IngeServiceException {
 
     AccountUserVO userAccount = (AccountUserVO) objects[order.indexOf("user")];
 
@@ -299,14 +302,26 @@ public class AuthorizationService {
       String grantType = (String) ruleMap.get("grant_type");
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
 
+      List<String> grantFieldMatchValues = new ArrayList<>();
+      if (grantFieldMatch != null) {
+        grantFieldMatchValues.add(getFieldValueOrString(order, objects, grantFieldMatch));
+      }
+
+
+      // If grant is of type "ORGANIZATION", get all children of organization as potential matches
+      if ("ORGANIZATION".equals(grantType)) {
+        List<AffiliationVO> childList = new ArrayList<>();
+        searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
+        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getReference().getObjectId()).collect(Collectors.toList()));
+
+      }
 
 
       for (GrantVO grant : userAccount.getGrants()) {
-        check =
-            (role == null || role.equals(grant.getRole()))
-                && (grantType == null || grantType.equals(grant.getGrantType()))
-                && (grant.getObjectRef() == null || grant.getObjectRef().equals(
-                    getFieldValueOrString(order, objects, grantFieldMatch)));
+        check = (role == null || role.equals(grant.getRole()))
+            && (grantType == null || grantType.equals(grant.getGrantType()))
+            && (grantFieldMatch == null || (grant.getObjectRef() != null
+                && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
         if (check) {
           return;
@@ -315,7 +330,7 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AaException("Expected user with role [" + role + "], grant-type [" + grantType
-            + "] on object [" + grantFieldMatch + "]");
+            + "] on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
       }
 
     }
@@ -323,6 +338,21 @@ public class AuthorizationService {
 
   }
 
+  
+  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationVO> completeList)
+      throws IngeServiceException {
+    
+
+    List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
+    if(children!=null)
+    {
+      for(AffiliationVO child : children)
+      {
+        completeList.add(child);
+        searchAllChildOrganizations(child.getReference().getObjectId(), completeList);
+      }
+    }
+  }
 
   private String getFieldValueOrString(List<String> order, Object[] objects, String field)
       throws AaException {
