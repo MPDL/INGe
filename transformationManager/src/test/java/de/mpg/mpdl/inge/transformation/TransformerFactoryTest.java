@@ -56,7 +56,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -74,7 +74,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -93,7 +93,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_doi_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_doi_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -109,7 +109,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -126,7 +126,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -142,7 +142,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -159,7 +159,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -178,7 +178,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -194,7 +194,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
     logger.info("\n" + wr.toString());
 
     assertXmlTransformationWithIgnore(
@@ -213,7 +213,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -229,7 +229,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -247,8 +247,8 @@ public class TransformerFactoryTest {
         TransformerFactory.newInstance(FORMAT.ARXIV_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("arXiv.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/arXiv.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -264,8 +264,8 @@ public class TransformerFactoryTest {
         TransformerFactory.newInstance(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("bibtex.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/bibtex.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -284,8 +284,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("bmc.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/bmc.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -301,11 +301,12 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     TransformerStreamSource streamSource =
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("xxx.xml"));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/xxx.xml"));
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("xxx.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/xxx.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -323,7 +324,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "endnote_item.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/endnote_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -339,7 +340,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "mabXml_item.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/mabXml_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -355,7 +356,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "mabXml_item_wronglink.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/mabXml_item_wronglink.xml")), new TransformerStreamResult(wr));
   }
 
   @Test
@@ -366,8 +367,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader()
-            .getResourceAsStream("marc_item.xml")), new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/marc_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -383,8 +384,8 @@ public class TransformerFactoryTest {
         TransformerFactory.newInstance(FORMAT.PMC_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("pmcOai.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/pmcOai.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -399,8 +400,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.SPIRES_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("spires.html")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/spires.html")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -436,7 +437,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "endnote_item.txt")), new TransformerStreamResult(wr));
+            "sourceFiles/endnote_item.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -452,7 +453,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "mab_item_list.txt")), new TransformerStreamResult(wr));
+            "sourceFiles/mab_item_list.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -468,7 +469,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "marc_record.mrc")), new TransformerStreamResult(wr));
+            "sourceFiles/marc_record.mrc")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -484,8 +485,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.MARC_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader()
-            .getResourceAsStream("mods_item.xml")), new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/mods_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -500,8 +501,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.OAI_DC);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader()
-            .getResourceAsStream("mods_item.xml")), new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/mods_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -516,8 +517,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.RIS_STRING, FORMAT.RIS_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("ris.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/ris.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -533,8 +534,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("ris_item.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/ris_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -550,8 +551,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.WOS_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/wos_item.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -567,8 +568,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.xml")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/wos_item.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -607,7 +608,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "endnote_item.txt")), new TransformerStreamResult(wr));
+            "sourceFiles/endnote_item.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -622,8 +623,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mab_item.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/mab_item.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -638,8 +639,8 @@ public class TransformerFactoryTest {
     Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("wos_item.txt")),
-        new TransformerStreamResult(wr));
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/wos_item.txt")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -661,7 +662,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v2.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v2.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -679,7 +680,7 @@ public class TransformerFactoryTest {
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
