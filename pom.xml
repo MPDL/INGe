@@ -28,6 +28,8 @@
 		<module>aa_presentation</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
+		<module>cone_cache</module>
+		<module>cone_cache_presentation</module>
 		<module>cone</module>
 		<module>cone_presentation</module>
 		<module>dataacquisition</module>
@@ -38,7 +40,6 @@
 		<module>inge_filestorage_connector</module>
 		<module>inge_util</module>
 		<module>inge_validation</module>
-		<module>inge_validation_presentation</module>
 		<module>model</module>
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
@@ -297,6 +298,17 @@
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>cone_cache</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+ 			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>cone_cache_presentation</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>war</type>
+			</dependency>
+			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
 				<version>1.2.55-SNAPSHOT</version>
 				<type>war</type>
@@ -348,12 +360,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>inge_validation_presentation</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
@@ -436,18 +442,6 @@
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>2.8.2</version>
 			</dependency>
-			<!--
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>1.2.17</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.slf4j</groupId>
-			    <artifactId>slf4j-log4j12</artifactId>
-			    <version>1.7.25</version>
-			</dependency>
-			-->
 			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>
@@ -1239,11 +1233,11 @@
 			</activation>
 			<properties>
                 <!-- URL of the FIZ framework instance -->
-                <escidoc.cone.service.url>http://dev.inge.mpdl.mpg.de/cone/</escidoc.cone.service.url>
+                <escidoc.cone.service.url>https://dev.inge.mpdl.mpg.de/cone/</escidoc.cone.service.url>
                 <escidoc.cone.database.server.name>dev.inge.mpdl.mpg.de</escidoc.cone.database.server.name>
                 <!-- Pid cache properties -->
-                <escidoc.pid.pidcache.service.url>http://dev.inge.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
-                <escidoc.pidcache.dummy.url>http://dev.inge.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+                <escidoc.pid.pidcache.service.url>https://dev.inge.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
+                <escidoc.pidcache.dummy.url>https://dev.inge.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
                 <escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
                 <escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
                 <escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
@@ -1256,19 +1250,19 @@
                 <!-- DOI service properties -->
                 <escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
                 <escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
-                <escidoc.pubman.instance.url>http://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
+                <escidoc.pubman.instance.url>https://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
                 <escidoc.systemtype>dev</escidoc.systemtype>
-                <escidoc.unapi.download.server>http://dev.inge.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
-                <escidoc.unapi.view.server>http://dev.inge.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
+                <escidoc.unapi.download.server>https://dev.inge.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
+                <escidoc.unapi.view.server>https://dev.inge.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
                 <jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
                 <!-- syndication service -->
-                <escidoc.syndication.service.url>http://dev.inge.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
+                <escidoc.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
                 <!-- AA -->
-                <escidoc.aa.instance.url>http://dev.inge.mpdl.mpg.de/cone/auth/</escidoc.aa.instance.url>
-                <escidoc.aa.default.target>http://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</escidoc.aa.default.target>
+                <escidoc.aa.instance.url>https://dev.inge.mpdl.mpg.de/cone/auth/</escidoc.aa.instance.url>
+                <escidoc.aa.default.target>https://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</escidoc.aa.default.target>
             </properties>
 			<distributionManagement>
 				<site>

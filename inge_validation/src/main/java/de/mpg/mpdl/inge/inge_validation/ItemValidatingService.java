@@ -3,10 +3,8 @@ package de.mpg.mpdl.inge.inge_validation;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationConeCacheConfigException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
 public class ItemValidatingService {
@@ -25,15 +23,6 @@ public class ItemValidatingService {
     } catch (final Exception e) {
       logger.error("validateItemObject: " + itemVO + validationPoint, e);
       throw new ValidationException("validateItemObject:", e);
-    }
-  }
-
-  public static void refreshValidationSchemaCache() throws ValidationConeCacheConfigException {
-    try {
-      ConeCache.getInstance().refreshCache();
-    } catch (final ValidationConeCacheConfigException e) {
-      logger.error("refreshValidationSchemaCache:", e);
-      throw e;
     }
   }
 }

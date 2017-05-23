@@ -102,6 +102,12 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>de.mpg.mpdl.inge</groupId>
+					<artifactId>cone_cache</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

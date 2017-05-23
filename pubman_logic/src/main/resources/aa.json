@@ -148,5 +148,112 @@
 				"item.publicStatus" : ["RELEASED"]
 			}
 		]
+	},
+	"de.mpg.mpdl.inge.service.pubman.OrganizationService" : {
+		"technical" : {
+			"order" : ["ou", "user"],
+			"indices" : {
+			}
+		}, 
+		"create" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"update" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"delete" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"ou.hasChildren" : "false",
+				"context.state" : "CREATED"
+				
+			}
+		],
+		
+		"get" : [
+
+		],
+		
+		"open" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "CREATED"
+			}
+		],
+		"close" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "OPENED"
+			}
+		]
+	},
+	"de.mpg.mpdl.inge.service.pubman.ContextService" : {
+		"technical" : {
+			"order" : ["context", "user"],
+			"indices" : {
+			}
+		}, 
+		"create" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"update" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				}
+			}
+		],
+		
+		"delete" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "CREATED"
+				
+			}
+		],
+		
+		"get" : [
+
+		],
+		
+		"open" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "CREATED"
+			}
+		],
+		"close" : [
+			{
+				"user" : {
+					"role" : "SYSTEM_ADMINISTRATOR"
+				},
+				"context.state" : "OPENED"
+			}
+		]
 	}
 }

@@ -15,6 +15,7 @@ import org.junit.runners.MethodSorters;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 
+import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorRequiredValidator;
@@ -34,7 +35,6 @@ import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.UriAsLocatorValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentMimeTypesValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.cone.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;

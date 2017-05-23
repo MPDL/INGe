@@ -70,7 +70,7 @@
                             <!-- content menu ends here -->
                             <div class="subHeader">
                                 <!-- Subheadline starts here -->
-                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.item.version.objectId}'." rendered="#{EditItem.item.version.objectId != null}" />
+                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.pubItem.version.objectId}'." rendered="#{EditItem.pubItem.version.objectId != null}" />
                                 <br />
                                 <h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{EditItem.contextName}'." />
                                 <br />
@@ -84,12 +84,12 @@
                             </div>
                             <h:panelGroup id="messages" styleClass="subHeader">
                                 <!-- Special validation messages for yearbook -->
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.item.validationReport!=null}">
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.pubItem.validationReport!=null}">
                                     <h2>
                                         <h:outputText value="#{lbl.Yearbook_validationMessageHeader}" />
                                     </h2>
                                     <ul>
-                                        <ui:repeat var="valitem" value="#{EditItem.item.validationReport.items}">
+                                        <ui:repeat var="valitem" value="#{EditItem.pubItem.validationReport.items}">
                                             <h:panelGroup rendered="#{valitem.restrictive}">
                                                 <li class="messageWarn">
                                                     <h:outputText value="#{msg[valitem.content]}" />

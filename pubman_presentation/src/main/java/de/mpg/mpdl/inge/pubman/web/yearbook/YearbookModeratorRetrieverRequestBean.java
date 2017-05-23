@@ -20,7 +20,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -29,6 +28,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -224,9 +224,10 @@ public class YearbookModeratorRetrieverRequestBean extends
         for (final PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) this
             .getBasePaginatorListSessionBean()).getSelectedItems()) {
           if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
-            PubItemService
-                .releasePubItem(yearbookItem.getVersion(), yearbookItem.getModificationDate(),
-                    "Releasing pubItem", this.getLoginHelper().getAccountUser());
+            ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
+                yearbookItem.getVersion().getObjectId(), "Releasing yearbook",
+                this.getLoginHelper().getAuthenticationToken());
+
           } else {
             this.warn("\"" + yearbookItem.getFullTitle() + "\""
                 + this.getMessage("Yearbook_itemNotReleasedWarning"));

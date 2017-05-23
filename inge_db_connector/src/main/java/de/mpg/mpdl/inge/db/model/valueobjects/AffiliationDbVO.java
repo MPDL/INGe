@@ -35,6 +35,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -77,10 +78,11 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   // private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "organization_parent")
+  @ManyToOne(fetch = FetchType.EAGER)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  private java.util.List<AffiliationDbRO> parentAffiliations = new ArrayList<AffiliationDbRO>();
+  private AffiliationDbRO parentAffiliation;
+
+
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_predecessor")
@@ -92,7 +94,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
   private State publicStatus;
 
 
-  @Formula("(select count(*)>0 from organization_parent op WHERE op.parentaffiliations_objectid=objectId)")
+  @Formula("(select count(*)>0 from organization op WHERE op.parentAffiliation_objectid=objectId)")
   private boolean hasChildren;
 
   /**
@@ -102,66 +104,18 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   }
 
-  /**
-   * Clone constructor.
-   */
-  /*
-   * public AffiliationVO(AffiliationVO affiliation) {
-   * 
-   * this.childAffiliations = affiliation.childAffiliations;
-   * 
-   * this.parentAffiliations = affiliation.parentAffiliations; this.objectId = affiliation.objectId;
-   * this.creationDate = affiliation.creationDate; this.lastModificationDate =
-   * affiliation.lastModificationDate; this.creator = affiliation.creator; this.modifiedBy =
-   * affiliation.modifiedBy; this.hasChildren = affiliation.hasChildren; this.publicStatus =
-   * affiliation.publicStatus; this.metadata = affiliation.metadata; this.predecessorAffiliations =
-   * affiliation.predecessorAffiliations; }
-   * 
-   * 
-   * @Override protected Object clone() throws CloneNotSupportedException { return new
-   * AffiliationVO(this); }
-   */
 
-
-  /**
-   * Helper method for JiBX transformations. This method helps JiBX to determine if a "parents" XML
-   * structure has to be created during marshalling.
-   */
-  boolean hasParentAffiliations() {
-    return (this.parentAffiliations.size() >= 1);
-  }
-
-
-  /**
-   * Convenience method to retrieve escidoc metadat set.
-   * 
-   * 
-   * @return A {@link MdsOrganizationalUnitDetailsVO}.
-   */
-  /*
-   * public MdsOrganizationalUnitDetailsVO getDefaultMetadata() { if (metadataSets.size() > 0 &&
-   * metadataSets.get(0) instanceof MdsOrganizationalUnitDetailsVO) { return
-   * (MdsOrganizationalUnitDetailsVO) metadataSets.get(0); } else { return null; } }
-   */
-
-  /**
-   * Convenience method to set escidoc metadata set.
-   * 
-   * @param detailsVO A {@link MdsOrganizationalUnitDetailsVO} containing the default metadata.
-   */
-  /*
-   * public void setDefaultMetadata(MdsOrganizationalUnitDetailsVO detailsVO) { if
-   * (metadataSets.size() == 0) { metadataSets.add(detailsVO); } else { metadataSets.set(0,
-   * detailsVO); } }
-   */
 
   /**
    * Delivers the list of the affiliations' parent affiliations.
    */
-  public java.util.List<AffiliationDbRO> getParentAffiliations() {
-    return parentAffiliations;
+  public AffiliationDbRO getParentAffiliation() {
+    return parentAffiliation;
   }
 
+  public void setParentAffiliation(AffiliationDbRO parentAffiliation) {
+    this.parentAffiliation = parentAffiliation;
+  }
 
 
   /**
@@ -182,13 +136,6 @@ public class AffiliationDbVO extends AffiliationDbRO {
     publicStatus = newVal;
   }
 
-  /**
-   * Helper method for JiBX transformations. This method helps JiBX to determine if a "parents" XML
-   * structure has to be created during marshalling.
-   */
-  boolean hasParents() {
-    return (this.parentAffiliations.size() >= 1);
-  }
 
 
   /**

@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -194,13 +195,15 @@ public class EntityTransformer {
       newAffRo.setName(oldAffRo.getTitle());
       newAff.getPredecessorAffiliations().add(newAffRo);
     }
-    for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo
-        .getParentAffiliations()) {
+
+    if (affVo.getParentAffiliations().size() > 0) {
+      AffiliationRO oldAffRo = affVo.getParentAffiliations().get(0);
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
-      newAff.getParentAffiliations().add(newAffRo);
+      newAff.setParentAffiliation(newAffRo);
     }
+
 
     newAff.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State
         .valueOf(affVo.getPublicStatus().toUpperCase()));
@@ -385,10 +388,11 @@ public class EntityTransformer {
 
     }
 
-    for (AffiliationDbRO parent : newAffVo.getParentAffiliations()) {
-      oldAffVo.getParentAffiliations().add(transformToOld((AffiliationDbRO) parent));
-
+    if (newAffVo.getParentAffiliation() != null) {
+      oldAffVo.getParentAffiliations().add(
+          transformToOld((AffiliationDbRO) newAffVo.getParentAffiliation()));
     }
+
 
 
     oldAffVo.setPublicStatus(newAffVo.getPublicStatus().name());

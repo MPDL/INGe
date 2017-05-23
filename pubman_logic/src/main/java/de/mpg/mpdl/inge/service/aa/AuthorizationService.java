@@ -1,10 +1,13 @@
 package de.mpg.mpdl.inge.service.aa;
 
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -12,11 +15,15 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
+import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -32,6 +39,9 @@ public class AuthorizationService {
 
   @Autowired
   ModelMapper modelMapper;
+
+  @Autowired
+  OrganizationService ouService;
 
   @Autowired
   public AuthorizationService(ModelMapper modelMapper) {
@@ -158,12 +168,7 @@ public class AuthorizationService {
 
               break;
             }
-
-
           }
-
-
-
         }
 
         if (subQb.hasClauses()) {
@@ -176,7 +181,10 @@ public class AuthorizationService {
       }
 
     }
-    return bqb;
+    if (bqb.hasClauses()) {
+      return bqb;
+    }
+    return null;
   }
 
 
@@ -192,15 +200,19 @@ public class AuthorizationService {
 
 
 
-  public void checkAuthorization(String serviceName, String methodName,
-      Object... objects) throws AaException {
+  public void checkAuthorization(String serviceName, String methodName, Object... objects)
+      throws AaException, IngeServiceException {
 
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
-    if (allowedMap != null) {
+    if (allowedMap == null) {
+      throw new AaException("No rules for service " + serviceName + ", method " + methodName);
+    }
+
+    else {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
@@ -213,14 +225,14 @@ public class AuthorizationService {
                 checkUser((Map<String, Object>) rule.getValue(), order, objects);
                 break;
               }
-              default: { 
+              default: {
                 String key = rule.getKey();
                 String keyValue = getFieldValueOrString(order, objects, key);
                 boolean check = false;
                 if (rule.getValue() instanceof Collection<?>) {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
-                  check = valuesToCompare.stream()
-                      .anyMatch(val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
+                  check = valuesToCompare.stream().anyMatch(
+                      val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
                   if (!check) {
                     throw new AaException("Expected one of " + valuesToCompare + " for field " + key
                         + " (" + keyValue + ")");
@@ -229,8 +241,8 @@ public class AuthorizationService {
                   String value = getFieldValueOrString(order, objects, (String) rule.getValue());
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
-                    throw new AaException("Expected value [" + value + "] for field " + key + " ("
-                        + keyValue + ")");
+                    throw new AaException(
+                        "Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
                   }
                 }
 
@@ -253,7 +265,11 @@ public class AuthorizationService {
           return;
         }
       }
-      throw new AaException(lastExceptionOfAll);
+      if (lastExceptionOfAll == null) {
+        return;
+      } else {
+        throw new AaException(lastExceptionOfAll);
+      }
 
 
     }
@@ -261,7 +277,7 @@ public class AuthorizationService {
   }
 
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
-      throws AaException {
+      throws AaException, IngeServiceException {
 
     AccountUserVO userAccount = (AccountUserVO) objects[order.indexOf("user")];
 
@@ -288,14 +304,26 @@ public class AuthorizationService {
       String grantType = (String) ruleMap.get("grant_type");
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
 
+      List<String> grantFieldMatchValues = new ArrayList<>();
+      if (grantFieldMatch != null) {
+        grantFieldMatchValues.add(getFieldValueOrString(order, objects, grantFieldMatch));
+      }
+
+
+      // If grant is of type "ORGANIZATION", get all children of organization as potential matches
+      if ("ORGANIZATION".equals(grantType)) {
+        List<AffiliationVO> childList = new ArrayList<>();
+        searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
+        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getReference().getObjectId()).collect(Collectors.toList()));
+
+      }
 
 
       for (GrantVO grant : userAccount.getGrants()) {
-        check =
-            (role == null || role.equals(grant.getRole()))
-                && (grantType == null || grantType.equals(grant.getGrantType()))
-                && (grant.getObjectRef() == null || grant.getObjectRef().equals(
-                    getFieldValueOrString(order, objects, grantFieldMatch)));
+        check = (role == null || role.equals(grant.getRole()))
+            && (grantType == null || grantType.equals(grant.getGrantType()))
+            && (grantFieldMatch == null || (grant.getObjectRef() != null
+                && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
         if (check) {
           return;
@@ -304,7 +332,7 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AaException("Expected user with role [" + role + "], grant-type [" + grantType
-            + "] on object [" + grantFieldMatch + "]");
+            + "] on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
       }
 
     }
@@ -312,6 +340,18 @@ public class AuthorizationService {
 
   }
 
+  private void searchAllChildOrganizations(String parentAffiliationId,
+      List<AffiliationVO> completeList) throws IngeServiceException {
+
+
+    List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
+    if (children != null) {
+      for (AffiliationVO child : children) {
+        completeList.add(child);
+        searchAllChildOrganizations(child.getReference().getObjectId(), completeList);
+      }
+    }
+  }
 
   private String getFieldValueOrString(List<String> order, Object[] objects, String field)
       throws AaException {
@@ -335,26 +375,32 @@ public class AuthorizationService {
   private String getFieldValueViaGetter(Object object, String field) throws AaException {
     try {
       String[] fieldHierarchy = field.split("\\.");
-      Object value =
-          new PropertyDescriptor(fieldHierarchy[0], object.getClass()).getReadMethod().invoke(
-              object);
 
-      if (value == null) {
-        return null;
+      for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass())
+          .getPropertyDescriptors()) {
+
+        if (pd.getName().equals(fieldHierarchy[0])) {
+          Object value = pd.getReadMethod().invoke(object);
+          if (value == null) {
+            return null;
+          }
+
+          if (fieldHierarchy.length == 1) {
+            return value.toString();
+
+          } else {
+            return getFieldValueViaGetter(value,
+                field.substring(field.indexOf(".") + 1, field.length()));
+          }
+        }
+
       }
 
-      if (fieldHierarchy.length == 1) {
-        return value.toString();
 
-      }
-
-      else {
-        return getFieldValueViaGetter(value,
-            field.substring(field.indexOf(".") + 1, field.length()));
-      }
     } catch (Exception e) {
       throw new AaException("Error while calling getter in object", e);
     }
+    return null;
 
   }
 

@@ -5,16 +5,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.PubItemService;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
@@ -56,17 +53,17 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
 
-    final ItemHandler itemHandler =
-        ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+    final de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService =
+        ApplicationBean.INSTANCE.getPubItemService();
+
 
     // Get the two versions
-    final String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
-    final String xmlItemThisVersion =
-        itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
     final PubItemVO pubItemVOLatestVersion =
-        XmlTransformingService.transformToPubItem(xmlItemLatestVersion);
+        pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
     final PubItemVO pubItemVOThisVersion =
-        XmlTransformingService.transformToPubItem(xmlItemThisVersion);
+        pubItemService.get(this.getReference().getObjectIdAndVersion(),
+            loginHelper.getAuthenticationToken());
+
 
     // Now copy the old stuff into the current item
     pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
@@ -82,23 +79,22 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     }
 
     // Then process it into the framework ...
-    String xmlItemNewVersion = XmlTransformingService.transformToItem(pubItemVOLatestVersion);
-    xmlItemNewVersion = itemHandler.update(this.getReference().getObjectId(), xmlItemNewVersion);
-    PubItemVO pubItemVONewVersion = XmlTransformingService.transformToPubItem(xmlItemNewVersion);
+    PubItemVO pubItemVONewVersion =
+        pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
     if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED
         && pubItemVONewVersion.getVersion().getState() == State.PENDING) {
       pubItemVONewVersion =
-          PubItemService.INSTANCE.submitPubItem(pubItemVONewVersion,
+          ApplicationBean.INSTANCE.getPubItemService().submitPubItem(
+              pubItemVONewVersion.getVersion().getObjectId(),
               "Submit and release after rollback to version "
-                  + this.getReference().getVersionNumber(), loginHelper.getAccountUser());
-      PubItemService.INSTANCE.releasePubItem(pubItemVONewVersion.getVersion(),
-          pubItemVONewVersion.getModificationDate(),
-          "Submit and release after rollback to version " + this.getReference().getVersionNumber(),
-          loginHelper.getAccountUser());
+                  + this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
+      pubItemVONewVersion =
+          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
+              pubItemVONewVersion.getVersion().getObjectId(),
+              "Submit and release after rollback to version "
+                  + this.getReference().getVersionNumber(), loginHelper.getAuthenticationToken());
 
-      xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
-      pubItemVONewVersion = XmlTransformingService.transformToPubItem(xmlItemNewVersion);
     }
 
     // ... and set the new version as current item in PubMan
