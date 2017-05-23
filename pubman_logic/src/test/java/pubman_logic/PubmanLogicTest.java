@@ -142,6 +142,7 @@ public class PubmanLogicTest {
   }
 
   @Test
+  @Ignore
   public void testGet() throws Exception {
     Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
         (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager

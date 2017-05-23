@@ -92,14 +92,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -523,14 +515,14 @@ public class SwordUtil extends FacesBean {
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(PubItemVO item) throws PubItemStatusInvalidException, AaException,
-      IngeServiceException, ItemInvalidException {
+  public PubItemVO doDeposit(PubItemVO item) throws AaException, IngeServiceException,
+      ItemInvalidException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);
 
     if (method == null) {
-      throw new PubItemStatusInvalidException(null, null);
+      throw new IngeServiceException(null, null);
     }
 
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();

@@ -46,8 +46,8 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
 
 /**
@@ -183,7 +183,7 @@ public class PubManDepositServlet extends HttpServlet {
       this.errorDoc.setSummary(e.getMessage());
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);
       this.validDeposit = false;
-    } catch (final PubItemStatusInvalidException e) {
+    } catch (final IngeServiceException e) {
       PubManDepositServlet.logger.error("Error in sword processing", e);
       this.errorDoc.setSummary("Provided item has wrong status.");
       this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);

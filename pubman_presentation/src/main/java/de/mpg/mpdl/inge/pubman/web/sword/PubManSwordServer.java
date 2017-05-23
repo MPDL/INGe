@@ -64,14 +64,6 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.exceptions.DepositingException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubCollectionNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemAlreadyReleasedException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemLockedException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemMandatoryAttributesMissingException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemNotFoundException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.mpdl.inge.pubman.exceptions.PubManException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -122,9 +114,8 @@ public class PubManSwordServer {
    * @throws ItemInvalidException
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
-      throws ContentStreamNotFoundException, SWORDContentTypeException,
-      PubItemStatusInvalidException, AaException, IngeServiceException, ItemInvalidException,
-      ValidationException {
+      throws ContentStreamNotFoundException, SWORDContentTypeException, AaException,
+      IngeServiceException, ItemInvalidException, ValidationException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
