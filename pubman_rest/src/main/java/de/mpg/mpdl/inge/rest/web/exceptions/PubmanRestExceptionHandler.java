@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.exceptions;
 
 import org.springframework.hateoas.VndErrors;
+import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

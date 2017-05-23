@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,9 @@ public class ItemRestController {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER) String token, @RequestBody SearchRetrieveRequestVO srr)
-      throws AaException, IngeServiceException {
+      value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody SearchRetrieveRequestVO<QueryBuilder> srr) throws AaException,
+      IngeServiceException {
     SearchRetrieveResponseVO<PubItemVO> response = pis.search(srr, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(response, HttpStatus.OK);
   }
@@ -124,8 +126,7 @@ public class ItemRestController {
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = ITEM_ID_VAR) String itemId, @RequestBody String message) throws AaException,
-      IngeServiceException {
+      value = ITEM_ID_VAR) String itemId) throws AaException, IngeServiceException {
     pis.delete(itemId, token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }
