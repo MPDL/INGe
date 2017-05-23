@@ -934,17 +934,17 @@ public class EditItem extends FacesBean {
       this.lnkSaveAndSubmit.setRendered(false);
       this.lnkSave.setRendered(false);
     } else {
-      this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
+
       this.lnkRelease.setRendered(isOwner && isWorkflowSimple
-          && (isStatePending || isStateSubmitted)
-          || (isModerator && isWorkflowStandard && isStateSubmitted));
-      this.lnkReleaseReleasedItem.setRendered(isOwner && isStateReleased && isWorkflowSimple
-          || isOwner && isModerator && isWorkflowStandard && isStateReleased);
-      this.lnkDelete.setRendered(isOwner && isStatePending && !isPublicStateReleased && itemHasID);
+          && (isStatePending || isStateReleased));
+      this.lnkAccept.setRendered(isModerator && (isStateSubmitted || isStateReleased)
+          && !lnkRelease.isRendered());
+      this.lnkSave.setRendered(isOwner || isModerator);
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
           && (isStatePending || isStateInRevision || isStateReleased));
-      this.lnkSave.setRendered((isOwner && (isStatePending || isStateInRevision)) || isModerator
-          && isStateSubmitted);
+      this.lnkDelete.setRendered(isOwner && isStatePending && !isPublicStateReleased && itemHasID);
+      this.lnkReleaseReleasedItem.setRendered(false);
+
     }
   }
 
