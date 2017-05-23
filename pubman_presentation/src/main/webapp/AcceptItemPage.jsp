@@ -52,6 +52,8 @@
                                     </h2>
                                     <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
                                 </h:panelGroup>
+                                <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages and !AcceptItemPage.hasErrorMessages}" />
+<!--                                 
                                 <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{AcceptItemPage.hasMessages and !AcceptItemPage.hasErrorMessages}">
                                     <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
                                     <h2>
@@ -59,6 +61,7 @@
                                     </h2>
                                     <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AcceptItemPage.hasMessages}" />
                                 </h:panelGroup>
+ -->                                
                             </h:panelGroup>
                         </div>
                     </div>
