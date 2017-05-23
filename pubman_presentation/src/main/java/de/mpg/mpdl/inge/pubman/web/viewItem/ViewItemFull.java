@@ -71,7 +71,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.DoiRestService;
-import de.mpg.mpdl.inge.pubman.ItemExportingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -2097,7 +2096,7 @@ public class ViewItemFull extends FacesBean {
       fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
 
       expFormat.setSelectedFileFormat(fileFormat);
-      
+
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
       byte[] exportFileData = itemTransformingService.getOutputForExport(expFormat, pubItemList);
 
