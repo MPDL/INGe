@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
-import de.mpg.mpdl.inge.cone_cache.ValidationConeCacheConfigException;
+import de.mpg.mpdl.inge.cone_cache.ConeCacheConfigException;
 
 public class ConeCacheTest {
 
@@ -171,7 +171,7 @@ public class ConeCacheTest {
         System.out.println("Start refreshCache");
         try {
           this.cache.refreshCache();
-        } catch (final ValidationConeCacheConfigException e) {
+        } catch (final ConeCacheConfigException e) {
           System.out.println(e);
         }
         System.out.println("Ende refreshCache");

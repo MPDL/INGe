@@ -56,7 +56,7 @@ public class ConeCache {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
-  public void refreshCache() throws ValidationConeCacheConfigException {
+  public void refreshCache() throws ConeCacheConfigException {
     logger.info("*** Start CONE CACHE Refresh-Cycle ***");
 
     String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
@@ -82,7 +82,7 @@ public class ConeCache {
   }
 
   private void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
-      throws ValidationConeCacheConfigException {
+      throws ConeCacheConfigException {
     logger.info("*** Start refresh: " + queryUrl);
     try {
       final Set<String> result = this.getData(handler, queryUrl);
@@ -101,7 +101,7 @@ public class ConeCache {
       logger.warn("Could not refresh Cone Set with Url: " + queryUrl);
       if (coneSet.set().isEmpty()) {
         logger.error("Cone Set is empty: Url: " + queryUrl);
-        throw new ValidationConeCacheConfigException(e);
+        throw new ConeCacheConfigException(e);
       }
     }
     logger.info("*** Ende refresh: " + queryUrl);
