@@ -41,12 +41,7 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_cache</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>de.mpg.mpdl.inge</groupId>
-					<artifactId>cone_cache</artifactId>
-				</exclusion>
-			</exclusions>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
