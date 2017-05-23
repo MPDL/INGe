@@ -230,7 +230,7 @@ public class ContextServiceDbImpl implements ContextService {
   }
 
   private void checkAa(ContextVO context, AccountUserVO userAccount, String method)
-      throws AaException {
+      throws AaException, IngeServiceException {
     aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.ContextService", method, context,
         userAccount);
 

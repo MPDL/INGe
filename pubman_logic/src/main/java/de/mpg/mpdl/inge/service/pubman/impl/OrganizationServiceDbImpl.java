@@ -340,7 +340,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   }
 
   private void checkAa(AffiliationVO aff, AccountUserVO userAccount, String method)
-      throws AaException {
+      throws AaException, IngeServiceException {
     aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.OrganizationService", method,
         aff, userAccount);
 

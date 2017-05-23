@@ -563,7 +563,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
   private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
-      String method) throws AaException {
+      String method) throws AaException, IngeServiceException {
     aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.PubItemService", method, item,
         context, userAccount);
   }

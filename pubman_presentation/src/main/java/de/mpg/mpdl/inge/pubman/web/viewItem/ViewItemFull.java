@@ -2097,9 +2097,9 @@ public class ViewItemFull extends FacesBean {
       fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
 
       expFormat.setSelectedFileFormat(fileFormat);
-
-      byte[] exportFileData = null;
-      exportFileData = ItemExportingService.getOutput(expFormat, pubItemList);
+      
+      ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
+      byte[] exportFileData = itemTransformingService.getOutputForExport(expFormat, pubItemList);
 
       final String exportHtml = new String(exportFileData, "UTF-8");
       try {
