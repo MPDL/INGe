@@ -1,0 +1,116 @@
+package de.mpg.mpdl.inge.rest.web.controller;
+
+import java.util.List;
+
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+
+@RestController
+@RequestMapping("/ous")
+public class OrganizationRestController {
+
+  private final String AUTHZ_HEADER = "Authorization";
+  private final String OU_ID_PATH = "/{ouId}";
+  private final String OU_ID_VAR = "ouId";
+  private OrganizationService organizationSvc;
+
+  @Autowired
+  public OrganizationRestController(OrganizationService ouSvc) {
+    this.organizationSvc = ouSvc;
+  }
+
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody SearchRetrieveRequestVO<QueryBuilder> srr) throws AaException,
+      IngeServiceException {
+    SearchRetrieveResponseVO<AffiliationVO> response = organizationSvc.search(srr, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/toplevel", method = RequestMethod.GET)
+  public ResponseEntity<List<AffiliationVO>> searchTopLevel() throws AaException,
+      IngeServiceException {
+    List<AffiliationVO> response = organizationSvc.searchTopLevelOrganizations();
+    return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH + "/children", method = RequestMethod.GET)
+  public ResponseEntity<List<AffiliationVO>> searchChildOrganizations(@PathVariable(
+      value = OU_ID_VAR) String parentAffiliationId) throws AaException, IngeServiceException {
+    List<AffiliationVO> response = organizationSvc.searchChildOrganizations(parentAffiliationId);
+    return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<AffiliationVO> get(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @PathVariable(
+          value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
+    AffiliationVO ou = null;
+    if (token != null && !token.isEmpty()) {
+      ou = organizationSvc.get(ouId, token);
+    } else {
+      ou = organizationSvc.get(ouId, null);
+    }
+    return new ResponseEntity<AffiliationVO>(ou, HttpStatus.OK);
+  }
+
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<AffiliationVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @RequestBody AffiliationVO ou) throws AaException, IngeServiceException, ItemInvalidException {
+    AffiliationVO created = null;
+    created = organizationSvc.create(ou, token);
+    return new ResponseEntity<AffiliationVO>(created, HttpStatus.CREATED);
+  }
+
+  @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
+  public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
+    AffiliationVO opened = null;
+    opened = organizationSvc.open(ouId, token);
+    return new ResponseEntity<AffiliationVO>(opened, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH + "/close", method = RequestMethod.PUT)
+  public ResponseEntity<AffiliationVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
+    AffiliationVO closed = null;
+    closed = organizationSvc.close(ouId, token);
+    return new ResponseEntity<AffiliationVO>(closed, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH, method = RequestMethod.PUT)
+  public ResponseEntity<AffiliationVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody AffiliationVO ou)
+      throws AaException, IngeServiceException, ItemInvalidException {
+    AffiliationVO updated = null;
+    updated = organizationSvc.update(ou, token);
+    return new ResponseEntity<AffiliationVO>(updated, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
+  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
+      value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
+    organizationSvc.delete(ouId, token);
+    return new ResponseEntity<>(HttpStatus.GONE);
+  }
+
+}
