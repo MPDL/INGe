@@ -560,16 +560,18 @@ public class EditItem extends FacesBean {
       }
 
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        EditItem.logger.warn("Item has not been changed.");
-        // create a validation report
-        final ValidationReportVO changedReport = new ValidationReportVO();
-        final ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-        changedReportItem.setContent("itemHasNotBeenChanged");
-        changedReport.addItem(changedReportItem);
-        // show report and stay on this page
-        this.showValidationMessages(changedReport);
+        if (newPubItem.getVersion().getState() == State.RELEASED) {
+          EditItem.logger.warn("Item has not been changed.");
+          // create a validation report
+          final ValidationReportVO changedReport = new ValidationReportVO();
+          final ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+          changedReportItem.setContent("itemHasNotBeenChanged");
+          changedReport.addItem(changedReportItem);
+          // show report and stay on this page
+          this.showValidationMessages(changedReport);
 
-        return "";
+          return "";
+        }
       }
     }
 
