@@ -131,7 +131,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
 
-    logger.info("Before cleanup");
     validate(pubItemToCreateOld, ValidationPoint.SAVE);
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
@@ -222,7 +221,6 @@ public class PubItemServiceDbImpl implements PubItemService {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-
     PubItemVersionDbVO latestVersion =
         itemRepository.findLatestVersion(pubItemVO.getVersion().getObjectId());
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
@@ -230,6 +228,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
             .getObjectId()));
+
     checkPubItemAa(latestVersionOld, context, userAccount, "update");
 
     if (State.RELEASED.equals(latestVersion.getState())) {
@@ -248,8 +247,6 @@ public class PubItemServiceDbImpl implements PubItemService {
       } else {
         latestVersion.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.SUBMITTED);
       }
-
-
 
       latestVersion.setVersionNumber(latestVersion.getVersionNumber() + 1);
       latestVersion.getObject().setLatestVersion(latestVersion);
@@ -428,7 +425,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
     checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
-
 
     if (State.SUBMITTED.equals(state)
         && !de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.RELEASED.equals(latestVersion

@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.exceptions;
 
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 
+@SuppressWarnings("serial")
 public class AaException extends IngeServiceException {
 
   public AaException() {

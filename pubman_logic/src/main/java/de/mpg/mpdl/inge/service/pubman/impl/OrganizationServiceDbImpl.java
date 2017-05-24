@@ -134,7 +134,7 @@ public class OrganizationServiceDbImpl implements OrganizationService {
   @Override
   @Transactional
   public AffiliationVO create(AffiliationVO affVo, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToCreate = new AffiliationDbVO();
