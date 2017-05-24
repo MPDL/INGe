@@ -97,7 +97,7 @@
 				"user" : {
 					"field_user_id_match" : "item.owner.objectId"
 				},
-				"item.version.state" : ["PENDING"],
+				"item.version.state" : ["PENDING", "IN_REVISION"],
 				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
