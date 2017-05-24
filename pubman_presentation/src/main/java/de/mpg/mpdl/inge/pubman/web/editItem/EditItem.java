@@ -123,7 +123,6 @@ public class EditItem extends FacesBean {
   private HtmlCommandLink lnkDelete = new HtmlCommandLink();
   private HtmlCommandLink lnkAccept = new HtmlCommandLink();
   private HtmlCommandLink lnkRelease = new HtmlCommandLink();
-  private HtmlCommandLink lnkReleaseReleasedItem = new HtmlCommandLink();
 
   private String contextName = null;
   // FIXME delegated internal collections
@@ -480,7 +479,7 @@ public class EditItem extends FacesBean {
 
   public String validate() {
     if (check() == false) {
-      return "";
+      return null;
     }
 
     try {
@@ -702,10 +701,26 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndSubmit() {
+    if (this.getPubItem().getVersion() == null
+        || this.getPubItem().getVersion().getObjectId() == null) {
+      String retVal = this.validate();
+      if ("".equals(retVal) == false) {
+        return retVal;
+      }
+    }
+
     return saveAndGoto(SubmitItem.LOAD_SUBMITITEM);
   }
 
   public String saveAndRelease() {
+    if (this.getPubItem().getVersion() == null
+        || this.getPubItem().getVersion().getObjectId() == null) {
+      String retVal = this.validate();
+      if ("".equals(retVal) == false) {
+        return retVal;
+      }
+    }
+
     return saveAndGoto(ReleaseItem.LOAD_RELEASEITEM);
   }
 
@@ -929,12 +944,10 @@ public class EditItem extends FacesBean {
     if (!isItem) {
       this.lnkAccept.setRendered(false);
       this.lnkRelease.setRendered(false);
-      this.lnkReleaseReleasedItem.setRendered(false);
       this.lnkDelete.setRendered(false);
       this.lnkSaveAndSubmit.setRendered(false);
       this.lnkSave.setRendered(false);
     } else {
-
       this.lnkRelease.setRendered(isOwner && isWorkflowSimple
           && (isStatePending || isStateReleased));
       this.lnkAccept.setRendered(isModerator && (isStateSubmitted || isStateReleased)
@@ -943,8 +956,6 @@ public class EditItem extends FacesBean {
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
           && (isStatePending || isStateInRevision || isStateReleased));
       this.lnkDelete.setRendered(isOwner && isStatePending && !isPublicStateReleased && itemHasID);
-      this.lnkReleaseReleasedItem.setRendered(false);
-
     }
   }
 
@@ -1207,14 +1218,6 @@ public class EditItem extends FacesBean {
 
   public void setLnkRelease(HtmlCommandLink lnkRelease) {
     this.lnkRelease = lnkRelease;
-  }
-
-  public HtmlCommandLink getLnkReleaseReleasedItem() {
-    return this.lnkReleaseReleasedItem;
-  }
-
-  public void setLnkReleaseReleasedItem(HtmlCommandLink lnkReleaseReleasedItem) {
-    this.lnkReleaseReleasedItem = lnkReleaseReleasedItem;
   }
 
   public void addCreatorString() {
