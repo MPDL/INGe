@@ -471,7 +471,24 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 			</result>
 		</results>
 	</model>
-	
+	<model>
+		<name>mpiwg-projects</name>
+		<aliases>
+			<alias>mpiwg-projects</alias>
+		</aliases>
+		<description>Project classification for MPI for the History of Science</description>
+		<primary-identifier control="false" generate-cone-id="true"></primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
 	
 	<model>
 		<name>jel</name>
