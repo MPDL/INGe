@@ -128,10 +128,6 @@ public class ViewItemFull extends FacesBean {
 
   public static final String LOAD_VIEWITEM = "loadViewItem";
 
-  public boolean isDepositor = false;
-  public boolean isModerator = false;
-  public boolean isPrivilegedViewer = false;
-
   private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
   private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
   private static final String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
@@ -144,50 +140,24 @@ public class ViewItemFull extends FacesBean {
   private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
-  private ContextVO context = null;
-  private PubItemVOPresentation pubItem = null;
-  private String languages;
-  private YearbookItemSessionBean yisb;
-  private int defaultSize = 20;
-
-  /**
-   * The list of formatted organzations in an ArrayList.
-   */
   private ArrayList<String> organizationArray;
-
-  /**
-   * The list of affiliated organizations as VO List.
-   */
+  private ArrayList<ViewItemCreators> creators;
   private ArrayList<ViewItemOrganization> organizationList;
 
-  /**
-   * The list of affiliated organizations in a list.
-   */
+  private ContextVO context = null;
+
   private List<OrganizationVO> affiliatedOrganizationsList;
-
-  /**
-   * The list of formatted creators which are persons and organizations in an ArrayList.
-   */
-  private ArrayList<ViewItemCreators> creators;
-
   private List<SourceBean> sourceList;
-
-  /** Context list, where SSRN-Button will be available */
   private List<String> ssrnContexts;
 
-  /** The url used for the citation */
-  private String citationURL;
+  private PubItemVOPresentation pubItem = null;
 
-  /** The url used for the latestVersion */
+  private String citationURL;
+  private String fwUrl;
+  private String itemPattern;
+  private String languages;
   private String latestVersionURL;
 
-  /** The url of the Coreservice for file downloads */
-  private String fwUrl;
-
-  /** Version and ObjectId of the item */
-  private String itemPattern;
-
-  /** unapi */
   private String unapiURLdownload;
   private String unapiURLview;
   private String unapiEscidoc;
@@ -195,25 +165,10 @@ public class ViewItemFull extends FacesBean {
   private String unapiBibtex;
   private String unapiApa;
 
-  /** Properties for action links rendering conditions */
-  private boolean isStateWithdrawn;
-  private boolean isLoggedIn;
-  private boolean isLatestVersion;
-  private boolean isLatestRelease;
-  private boolean isStateSubmitted;
-  private boolean isStateReleased;
-  private boolean isStatePending;
-  private boolean isOwner;
-  private boolean isModifyDisabled;
-  private boolean isCreateNewRevisionDisabled;
-  private boolean isWorkflowStandard;
-  private boolean isWorkflowSimple;
-  private boolean isStateInRevision;
-  private boolean isPublicStateReleased;
-  private boolean isMemberOfYearbook;
-  private boolean isCandidateOfYearbook;
+  private YearbookItemSessionBean yisb;
 
-  // for inclusion into the ViewItemFull page, test if rendering conditions can be made faster
+  private int defaultSize = 20;
+
   private boolean canEdit = false;
   private boolean canSubmit = false;
   private boolean canRelease = false;
@@ -233,32 +188,43 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowRevisions = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
+
+  private boolean isCandidateOfYearbook;
+  private boolean isCreateNewRevisionDisabled;
+  private boolean isDepositor = false;
+  private boolean isLatestRelease;
+  private boolean isLatestVersion;
+  private boolean isLoggedIn;
+  private boolean isMemberOfYearbook;
+  private boolean isModerator = false;
+  private boolean isModifyDisabled;
+  private boolean isOwner;
+  private boolean isPrivilegedViewer = false;
+  private boolean isPublicStateReleased;
+  private boolean isStateInRevision;
+  private boolean isStatePending;
+  private boolean isStateReleased;
+  private boolean isStateSubmitted;
   private boolean isStateWasReleased = false;
+  private boolean isStateWithdrawn;
+  private boolean isWorkflowSimple;
+  private boolean isWorkflowStandard;
 
   public ViewItemFull() {
     this.init();
   }
 
   public void init() {
-    String itemID = "";
-
-    // populate the core service Url
-    this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    this.defaultSize =
-        Integer.parseInt(PropertyReader.getProperty(
-            "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
-
-    if (this.getLoginHelper() != null) {
-      final String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
-      if ("/ViewItemOverviewPage.jsp".equals(viewId)) {
-        this.getLoginHelper().setDetailedMode(false);
-      } else if ("/ViewItemFullPage.jsp".equals(viewId)) {
-        this.getLoginHelper().setDetailedMode(true);
-      }
+    // DetailedMode
+    final String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
+    if ("/ViewItemOverviewPage.jsp".equals(viewId)) {
+      this.getLoginHelper().setDetailedMode(false);
+    } else if ("/ViewItemFullPage.jsp".equals(viewId)) {
+      this.getLoginHelper().setDetailedMode(true);
     }
 
     // Try to get a pubitem either via the controller session bean or an URL Parameter
-    itemID = FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
+    final String itemID = FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
     if (itemID != null) {
       try {
         this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
@@ -292,16 +258,27 @@ public class ViewItemFull extends FacesBean {
       } catch (final Exception e) {
         ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
         this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
+        // TODO Hier muss ein Redirect zur aufrufenden Seite hin
       }
     } else {
       // Cleanup needed if an edit site was loaded inbetween
       // (e.g. local tags --> source without editors --> editors are created in the SourceBean and
       // not removed)
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
+      if (icsb.getCurrentPubItem() != null) {
+        PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
+      } else {
+        // TODO: was soll hier passieren?
+      }
       this.pubItem = icsb.getCurrentPubItem();
     }
 
+    this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+    this.defaultSize =
+        Integer.parseInt(PropertyReader.getProperty(
+            "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
+
+    // Submenu
     final String subMenu =
         FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
     if (subMenu != null) {
@@ -312,7 +289,7 @@ public class ViewItemFull extends FacesBean {
       ViewItemFull.logger.info("Initializing view for item: "
           + this.pubItem.getVersion().getObjectIdAndVersion());
 
-      // set citation url
+      // Citation url
       try {
         String pubmanUrl =
             PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -356,11 +333,6 @@ public class ViewItemFull extends FacesBean {
 
         if (this.getLoginHelper().getAccountUser().getReference() != null
             && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
-          this.isModerator = false;
-          this.isPrivilegedViewer = false;
-          this.isDepositor = false;
-
-
           this.isModerator =
               this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
           this.isDepositor = this.getLoginHelper().getIsDepositor();
@@ -380,33 +352,56 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
-      // @author Markus Haarlaender - setting properties for Action Links
+      // Setting properties for Action Links
       this.isLoggedIn = this.getLoginHelper().isLoggedIn();
+
       this.isLatestVersion =
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
               .getVersionNumber();
+
       this.isLatestRelease =
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
               .getVersionNumber();
-      this.isStateWithdrawn =
-          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
-      this.isStateSubmitted =
-          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
-              && !this.isStateWithdrawn;;
-      this.isStateReleased =
-          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
-              && !this.isStateWithdrawn;
-      this.isStatePending =
-          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
-              && !this.isStateWithdrawn;;
-      this.isStateInRevision =
-          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
-              && !this.isStateWithdrawn;;
+
       this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
+
       this.isStateWasReleased =
           this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
-      // display a warn message if the item version is not the latest
+      this.isStateWithdrawn =
+          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
+      if (this.isStateWithdrawn) {
+        this.getViewItemSessionBean().itemChanged();
+      }
+
+      this.isStateSubmitted =
+          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
+              && !this.isStateWithdrawn;;
+
+      this.isStateReleased =
+          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
+              && !this.isStateWithdrawn;
+
+      this.isStatePending =
+          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
+              && !this.isStateWithdrawn;;
+
+      this.isStateInRevision =
+          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
+              && !this.isStateWithdrawn;;
+
+      // Workflow
+      try {
+        this.isWorkflowStandard =
+            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+        this.isWorkflowSimple =
+            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+      } catch (final Exception e) {
+        this.isWorkflowSimple = true;
+        this.isWorkflowStandard = false;
+      }
+
+      // Warn message if the item version is not the latest
       if (this.isLatestVersion == false
           && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
               .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
@@ -444,31 +439,18 @@ public class ViewItemFull extends FacesBean {
         this.warn(this.getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\""
             + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
       }
-      try {
-        this.isWorkflowStandard =
-            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-        this.isWorkflowSimple =
-            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
-      } catch (final Exception e) {
-        this.isWorkflowSimple = true;
-        this.isWorkflowStandard = false;
-      }
 
-      if (this.isStateWithdrawn) {
-        this.getViewItemSessionBean().itemChanged();
-      }
+      // Prerequisites
 
-      // set up some pre-requisites
-      // the list of numbered affiliated organizations
+      // List of numbered affiliated organizations
       this.createCreatorsList();
 
-      // START - retrieve languages from CoNE
+      // Languages from CoNE
       if (this.getPubItem().getMetadata().getLanguages() != null
           && this.getPubItem().getMetadata().getLanguages().size() > 0) {
 
         final StringWriter result = new StringWriter();
         for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++) {
-
           if (i > 0) {
             result.append(", ");
           }
@@ -489,12 +471,11 @@ public class ViewItemFull extends FacesBean {
             }
           }
         }
+
         this.languages = result.toString();
       }
 
-      // END - retrieve languages from CoNE
-
-      // clear source list first
+      // Source list
       if (this.getPubItem().getMetadata().getSources().size() > 0) {
         this.sourceList = new ArrayList<SourceBean>();
         for (int i = 0; i < this.getPubItem().getMetadata().getSources().size(); i++) {
@@ -502,40 +483,30 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
-      // the list of files
+      // List of files
       // Check if the item is also in the search result list
       final List<PubItemVOPresentation> currentPubItemList =
           this.getPubItemListSessionBean().getCurrentPartList();
 
-      // removed unnecessary creation of new array list
-      // List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
       if (currentPubItemList != null) {
         for (int i = 0; i < currentPubItemList.size(); i++) {
-          if ((this.getPubItem().getVersion().getObjectId().equals(currentPubItemList.get(i)
-              .getVersion().getObjectId()))
-              &&
-
-              (this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
-                  .getVersion().getVersionNumber())
-              &&
-
-              (currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i)
-                  .getSearchHitList().size() > 0)) {
+          if (this.getPubItem().getVersion().getObjectId()
+              .equals(currentPubItemList.get(i).getVersion().getObjectId())
+              && this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
+                  .getVersion().getVersionNumber()
+              && currentPubItemList.get(i).getSearchHitList() != null
+              && currentPubItemList.get(i).getSearchHitList().size() > 0) {
             this.pubItem.setSearchResult(true);
             this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
             this.pubItem.setScore(currentPubItemList.get(i).getScore());
             this.pubItem.setSearchHitBeanList();
-            // this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem,
-            // currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
           }
         }
       }
 
+      // Yearbook
       // if item is currently part of invalid yearbook items, show Validation Messages
-      // ContextListSessionBean clsb =
-      // (ContextListSessionBean)FacesTools.findBean(ContextListSessionBean.class);
       if (this.getLoginHelper().getIsYearbookEditor()) {
-
         this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
         if (this.yisb.getYearbookItem() != null) {
@@ -584,25 +555,7 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException(e);
     }
 
-    /*
-     * if (logViewAction) { logViewAction(); }
-     */
-
-    // TODO: remove into separate method, must this be in the initializer?
-    // not certain why is this method it always returns null (for languages or not)
-    // therefore now it is commented, if needed again to be uncomented and getConeLanguageCode to be
-    // fixed
-
-    /*
-     * if (this.pubItem.getMetadata().getSubjects().size()>0) { for (TextVO subject :
-     * this.pubItem.getMetadata().getSubjects()) { if (subject.getType() != null &&
-     * subject.getType().equals(SubjectClassification.ISO639_3.name())) { try {
-     * subject.setLanguage(CommonUtils.getConeLanguageCode(subject.getValue())); } catch (Exception
-     * e) { throw new RuntimeException("Error retrieving language code for '" + subject.getValue() +
-     * "'", e); } } } }
-     */
-
-    // set SSRN contexts
+    // SSRN
     try {
       String contexts = PropertyReader.getProperty("escidoc.pubman.instance.ssrn_contexts");
       if (contexts != null && !"".equals(contexts)) {
@@ -613,11 +566,11 @@ public class ViewItemFull extends FacesBean {
         }
         this.ssrnContexts.add(contexts);
       }
-
     } catch (final Exception e) {
       ViewItemFull.logger.error("couldn't load ssrn context list", e);
     }
 
+    // Links
     this.setLinks();
   }
 
