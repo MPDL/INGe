@@ -63,23 +63,10 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 public class ContextListSessionBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
-  private List<PubContextVOPresentation> depositorContextList =
-      new ArrayList<PubContextVOPresentation>();
-
-  private List<PubContextVOPresentation> moderatorContextList =
-      new ArrayList<PubContextVOPresentation>();
-
-  private List<PubContextVOPresentation> yearbookContextList =
-      new ArrayList<PubContextVOPresentation>();
-
-  private List<PubContextVOPresentation> yearbookModeratorContextList =
-      new ArrayList<PubContextVOPresentation>();
-
-  private List<PubContextVOPresentation> allPrivilegedContextList =
-      new ArrayList<PubContextVOPresentation>();
-
-
-  // private UIXIterator contextIterator = new UIXIterator();
+  private List<PubContextVOPresentation> depositorContextList;
+  private List<PubContextVOPresentation> moderatorContextList;
+  private List<PubContextVOPresentation> yearbookContextList;
+  private List<PubContextVOPresentation> yearbookModeratorContextList;
 
   public ContextListSessionBean() {
     this.init();
@@ -111,27 +98,17 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public boolean getOpenContextsAvailable() {
-    State state = State.CLOSED;
-
     for (final PubContextVOPresentation context : this.depositorContextList) {
       if (context.getState() == State.OPENED) {
-        state = State.OPENED;
+        return true;
       }
-    }
-
-    if (state == State.OPENED) {
-      return true;
     }
 
     return false;
   }
 
   public int getDepositorContextListSize() {
-    if (this.depositorContextList == null) {
-      return 0;
-    }
-
-    return this.depositorContextList.size();
+    return this.depositorContextList == null ? 0 : this.depositorContextList.size();
   }
 
   public void setDepositorContextList(List<PubContextVOPresentation> contextList) {
@@ -153,23 +130,12 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public int getModeratorContextListSize() {
-    if (this.moderatorContextList == null) {
-      return 0;
-    }
-
-    return this.moderatorContextList.size();
+    return this.moderatorContextList == null ? 0 : this.moderatorContextList.size();
   }
 
   public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList) {
     this.moderatorContextList = moderatorContextList;
   }
-
-  /*
-   * public UIXIterator getContextIterator() { return contextIterator; }
-   * 
-   * public void setContextIterator(UIXIterator contextIterator) { this.contextIterator =
-   * contextIterator; }
-   */
 
   public void setYearbookContextList(List<PubContextVOPresentation> yearbookContextList) {
     this.yearbookContextList = yearbookContextList;
@@ -180,19 +146,11 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public int getYearbookContextListSize() {
-    if (this.yearbookContextList == null) {
-      return 0;
-    }
-
-    return this.yearbookContextList.size();
+    return this.yearbookContextList == null ? 0 : this.yearbookContextList.size();
   }
 
   public int getYearbookModeratorContextListSize() {
-    if (this.yearbookModeratorContextList == null) {
-      return 0;
-    }
-
-    return this.yearbookModeratorContextList.size();
+    return this.yearbookModeratorContextList == null ? 0 : this.yearbookModeratorContextList.size();
   }
 
   public void setYearbookModeratorContextList(
@@ -214,101 +172,83 @@ public class ContextListSessionBean extends FacesBean {
    * @throws TechnicalException
    */
   private void retrieveAllContextsForUser() throws SecurityException, TechnicalException {
+    this.depositorContextList = new ArrayList<PubContextVOPresentation>();
+    this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
+    this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
+    this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
+
     if (this.getLoginHelper().isLoggedIn()
         && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
       try {
-
         boolean hasGrants = false;
-
         final ArrayList<String> ctxIdList = new ArrayList<>();
         for (final GrantVO grant : this.getLoginHelper().getAccountUser()
             .getGrantsWithoutAudienceGrants()) {
           if (grant.getObjectRef() != null) {
-            final String id = grant.getObjectRef();
-            ctxIdList.add(id);
+            ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
           }
         }
 
         // ... and transform filter to xml
         if (hasGrants) {
-
-          
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
-          
-          SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO<QueryBuilder>(bq), null);
-          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
-          
+
+          SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE
+              .getContextService().search(new SearchRetrieveRequestVO<QueryBuilder>(bq), null);
+          List<ContextVO> ctxList =
+              response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+
           // ... and transform to PubCollections.
-          this.allPrivilegedContextList =
+          List<PubContextVOPresentation> allPrivilegedContextList =
               CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
-        }
 
-        this.depositorContextList = new ArrayList<PubContextVOPresentation>();
-        this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
-        this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
-        this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
+          for (final PubContextVOPresentation context : allPrivilegedContextList) {
+            // TODO NBU: change this dummy looping once AccountUserVO
+            // provides method for
+            // isDepositor(ObjectRef)
+            // At present it only provides this function for Moderator
+            // and Privileged viewer
 
-        for (final PubContextVOPresentation context : this.allPrivilegedContextList) {
-          // TODO NBU: change this dummy looping once AccountUserVO
-          // provides method for
-          // isDepositor(ObjectRef)
-          // At present it only provides this function for Moderator
-          // and Privileged viewer
+            for (final GrantVO grant : this.getLoginHelper().getAccountUser()
+                .getGrantsWithoutAudienceGrants()) {
+              
+              if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
+                if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
+                    && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
+                  this.depositorContextList.add(context);
+                }
+                
+                if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
+                    && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
+                  this.moderatorContextList.add(context);
+                }
 
-          for (final GrantVO grant : this.getLoginHelper().getAccountUser()
-              .getGrantsWithoutAudienceGrants()) {
-            if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
+                if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
+                    && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
+                  this.yearbookContextList.add(context);
+                }
 
-              if (!grant.getObjectRef().equals("")
-                  && grant.getObjectRef().equals(context.getReference().getObjectId())
-                  && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
-                  && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
-
-                this.depositorContextList.add(context);
-              }
-              if (!grant.getObjectRef().equals("")
-                  && grant.getObjectRef().equals(context.getReference().getObjectId())
-                  && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
-                  && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
-
-                this.moderatorContextList.add(context);
-              }
-
-              if (!grant.getObjectRef().equals("")
-                  && grant.getObjectRef().equals(context.getReference().getObjectId())
-                  && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
-                  && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
-                this.yearbookContextList.add(context);
-              }
-
-              if (!grant.getObjectRef().equals("")
-                  && grant.getObjectRef().equals(context.getReference().getObjectId())
-                  && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
-                  && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
-                this.yearbookModeratorContextList.add(context);
+                if (!grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
+                    && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
+                  this.yearbookModeratorContextList.add(context);
+                }
               }
             }
           }
         }
-
       } catch (final Exception e) {
         // No business exceptions expected.
         throw new TechnicalException(e);
       }
     }
   }
-
-  public List<PubContextVOPresentation> getAllPrivilegedContextList() {
-    return this.allPrivilegedContextList;
-  }
-
-  public void setAllPrivilegedContextList(List<PubContextVOPresentation> allPrivilegedContextList) {
-    this.allPrivilegedContextList = allPrivilegedContextList;
-  }
-
 }
