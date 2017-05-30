@@ -306,55 +306,52 @@ public class PubItemServiceDbImpl implements PubItemService {
   public PubItemVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
     long start = System.currentTimeMillis();
+
     String[] splittedId = id.split("_");
-    String version = null;
     String objectId = splittedId[0] + "_" + splittedId[1];
+    String version = null;
     if (splittedId.length == 3) {
       version = splittedId[2];
     }
 
     PubItemVO requestedItem = null;
 
-
-
     if (authenticationToken == null && version == null) {
-      // Return latest Release
       requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
+    } else if (version != null) {
+      requestedItem =
+          EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
+              Integer.parseInt(version))));
     } else {
-      AccountUserVO userAccount = null;
-      if (authenticationToken != null) {
-        userAccount = aaService.checkLoginRequired(authenticationToken);
-      }
+      requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
+    }
 
-
-      if (version != null) {
-        requestedItem =
-            EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
-                Integer.parseInt(version))));
-        ContextVO context =
-            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-                .getObjectId()));
+    if (requestedItem != null && (authenticationToken != null || version != null)) {
+      ContextVO context =
+          EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
+              .getObjectId()));
+      try {
+        AccountUserVO userAccount = null;
+        if (authenticationToken != null) {
+          userAccount = aaService.checkLoginRequired(authenticationToken);
+        }
         checkPubItemAa(requestedItem, context, userAccount, "get");
-      } else {
-        requestedItem =
-            EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
-        ContextVO context =
-            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-                .getObjectId()));
-        try {
-          checkPubItemAa(requestedItem, context, userAccount, "get");
-        } catch (AaException e) {
+      } catch (AaException e) {
+        if (version == null) {
           requestedItem =
               EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
         }
       }
-
-
     }
+
+    if (requestedItem == null) {
+      throw new IngeServiceException("Item " + id + " not found");
+    }
+
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + id + " successfully retrieved in " + time + " ms");
-    return requestedItem;
 
+    return requestedItem;
   }
 
   @Override
