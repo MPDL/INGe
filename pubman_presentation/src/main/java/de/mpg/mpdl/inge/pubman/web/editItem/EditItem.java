@@ -950,7 +950,8 @@ public class EditItem extends FacesBean {
     } else {
       this.lnkRelease.setRendered(isOwner && isWorkflowSimple
           && (isStatePending || isStateReleased));
-      this.lnkAccept.setRendered(isModerator && !isOwner && isWorkflowStandard && (isStateSubmitted || isStateReleased));
+      this.lnkAccept.setRendered(isModerator && !isOwner && isWorkflowStandard
+          && (isStateSubmitted || isStateReleased));
       this.lnkSave.setRendered(isOwner || isModerator);
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
           && (isStatePending || isStateInRevision || isStateReleased));

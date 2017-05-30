@@ -77,11 +77,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public enum DegreeType {
     MASTER("http://purl.org/escidoc/metadata/ves/academic-degrees/master"), DIPLOMA(
         "http://purl.org/escidoc/metadata/ves/academic-degrees/diploma"), MAGISTER(
-            "http://purl.org/escidoc/metadata/ves/academic-degrees/magister"), PHD(
-                "http://purl.org/escidoc/metadata/ves/academic-degrees/phd"), STAATSEXAMEN(
-                    "http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen"), HABILITATION(
-                        "http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation"), BACHELOR(
-                            "http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor");
+        "http://purl.org/escidoc/metadata/ves/academic-degrees/magister"), PHD(
+        "http://purl.org/escidoc/metadata/ves/academic-degrees/phd"), STAATSEXAMEN(
+        "http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen"), HABILITATION(
+        "http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation"), BACHELOR(
+        "http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor");
 
     private String uri;
 
@@ -105,7 +105,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public enum ReviewMethod {
     INTERNAL("http://purl.org/escidoc/metadata/ves/review-methods/internal"), PEER(
         "http://purl.org/eprint/status/PeerReviewed"), NO_REVIEW(
-            "http://purl.org/escidoc/metadata/ves/review-methods/no-review");
+        "http://purl.org/escidoc/metadata/ves/review-methods/no-review");
 
     private String uri;
 
@@ -125,44 +125,43 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public enum Genre {
     ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"), NEWSPAPER_ARTICLE(
         "http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article"), BOOK(
-            "http://purl.org/eprint/type/Book"), BOOK_ITEM(
-                "http://purl.org/eprint/type/BookItem"), PROCEEDINGS(
-                    "http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), CONFERENCE_PAPER(
-                        "http://purl.org/eprint/type/ConferencePaper"), MEETING_ABSTRACT(
-                            "http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract"), TALK_AT_EVENT(
-                                "http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"), CONFERENCE_REPORT(
-                                    "http://purl.org/escidoc/metadata/ves/publication-types/conference-report"), POSTER(
-                                        "http://purl.org/eprint/type/ConferencePoster"), COURSEWARE_LECTURE(
-                                            "http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"), THESIS(
-                                                "http://purl.org/eprint/type/Thesis"), PAPER(
-                                                    "http://purl.org/escidoc/metadata/ves/publication-types/paper"), REPORT(
-                                                        "http://purl.org/eprint/type/Report"), ISSUE(
-                                                            "http://purl.org/escidoc/metadata/ves/publication-types/issue"), JOURNAL(
-                                                                "http://purl.org/escidoc/metadata/ves/publication-types/journal"), MANUSCRIPT(
-                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/manuscript"), SERIES(
-                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/series"), OTHER(
-                                                                            "http://purl.org/escidoc/metadata/ves/publication-types/other"), EDITORIAL(
-                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/editorial"), CONTRIBUTION_TO_HANDBOOK(
-                                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"), CONTRIBUTION_TO_ENCYCLOPEDIA(
-                                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia"), CONTRIBUTION_TO_FESTSCHRIFT(
-                                                                                            "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"), CONTRIBUTION_TO_COMMENTARY(
-                                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary"), CONTRIBUTION_TO_COLLECTED_EDITION(
-                                                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition"), BOOK_REVIEW(
-                                                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/book-review"), OPINION(
-                                                                                                            "http://purl.org/escidoc/metadata/ves/publication-types/opinion"), CASE_STUDY(
-                                                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/case-study"), CASE_NOTE(
-                                                                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/case-note"), MONOGRAPH(
-                                                                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/monograph"), NEWSPAPER(
-                                                                                                                            "http://purl.org/escidoc/metadata/ves/publication-types/newspaper"), ENCYCLOPEDIA(
-                                                                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), MULTI_VOLUME(
-                                                                                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"), COMMENTARY(
-                                                                                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/commentary"), HANDBOOK(
-                                                                                                                                            "http://purl.org/escidoc/metadata/ves/publication-types/handbook"), COLLECTED_EDITION(
-                                                                                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), FESTSCHRIFT(
-                                                                                                                                                    "http://purl.org/escidoc/metadata/ves/publication-types/festschrift"), MANUAL(
-                                                                                                                                                        "http://purl.org/escidoc/metadata/ves/publication-types/manual"), PATENT(
-                                                                                                                                                            "http://purl.org/eprint/type/Patent"), FILM(
-                                                                                                                                                                "http://purl.org/escidoc/metadata/ves/publication-types/film");
+        "http://purl.org/eprint/type/Book"), BOOK_ITEM("http://purl.org/eprint/type/BookItem"), PROCEEDINGS(
+        "http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), CONFERENCE_PAPER(
+        "http://purl.org/eprint/type/ConferencePaper"), MEETING_ABSTRACT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract"), TALK_AT_EVENT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"), CONFERENCE_REPORT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/conference-report"), POSTER(
+        "http://purl.org/eprint/type/ConferencePoster"), COURSEWARE_LECTURE(
+        "http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"), THESIS(
+        "http://purl.org/eprint/type/Thesis"), PAPER(
+        "http://purl.org/escidoc/metadata/ves/publication-types/paper"), REPORT(
+        "http://purl.org/eprint/type/Report"), ISSUE(
+        "http://purl.org/escidoc/metadata/ves/publication-types/issue"), JOURNAL(
+        "http://purl.org/escidoc/metadata/ves/publication-types/journal"), MANUSCRIPT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/manuscript"), SERIES(
+        "http://purl.org/escidoc/metadata/ves/publication-types/series"), OTHER(
+        "http://purl.org/escidoc/metadata/ves/publication-types/other"), EDITORIAL(
+        "http://purl.org/escidoc/metadata/ves/publication-types/editorial"), CONTRIBUTION_TO_HANDBOOK(
+        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"), CONTRIBUTION_TO_ENCYCLOPEDIA(
+        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia"), CONTRIBUTION_TO_FESTSCHRIFT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"), CONTRIBUTION_TO_COMMENTARY(
+        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary"), CONTRIBUTION_TO_COLLECTED_EDITION(
+        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition"), BOOK_REVIEW(
+        "http://purl.org/escidoc/metadata/ves/publication-types/book-review"), OPINION(
+        "http://purl.org/escidoc/metadata/ves/publication-types/opinion"), CASE_STUDY(
+        "http://purl.org/escidoc/metadata/ves/publication-types/case-study"), CASE_NOTE(
+        "http://purl.org/escidoc/metadata/ves/publication-types/case-note"), MONOGRAPH(
+        "http://purl.org/escidoc/metadata/ves/publication-types/monograph"), NEWSPAPER(
+        "http://purl.org/escidoc/metadata/ves/publication-types/newspaper"), ENCYCLOPEDIA(
+        "http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), MULTI_VOLUME(
+        "http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"), COMMENTARY(
+        "http://purl.org/escidoc/metadata/ves/publication-types/commentary"), HANDBOOK(
+        "http://purl.org/escidoc/metadata/ves/publication-types/handbook"), COLLECTED_EDITION(
+        "http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), FESTSCHRIFT(
+        "http://purl.org/escidoc/metadata/ves/publication-types/festschrift"), MANUAL(
+        "http://purl.org/escidoc/metadata/ves/publication-types/manual"), PATENT(
+        "http://purl.org/eprint/type/Patent"), FILM(
+        "http://purl.org/escidoc/metadata/ves/publication-types/film");
 
 
     private String uri;
@@ -180,15 +179,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public enum SubjectClassification {
     DDC("http://purl.org/escidoc/metadata/terms/0.1/DDC"), MPIPKS(
         "http://purl.org/escidoc/metadata/terms/0.1/MPIPKS"), MPIRG(
-            "http://purl.org/escidoc/metadata/terms/0.1/MPIRG"), ISO639_3(
-                "http://purl.org/escidoc/metadata/terms/0.1/ISO639-3"), MPIS_GROUPS(
-                    "http://purl.org/escidoc/metadata/terms/0.1/MPIS_GROUPS"), MPIS_PROJECTS(
-                        "http://purl.org/escidoc/metadata/terms/0.1/MPIS_PROJECTS"), PACS(
-                            "http://purl.org/escidoc/metadata/terms/0.1/PACS"), JUS(
-                                "http://purl.org/escidoc/metadata/terms/0.1/JUS"), MPINP(
-                                    "http://purl.org/escidoc/metadata/terms/0.1/MPINP"), JEL(
-                                        "http://purl.org/escidoc/metadata/terms/0.1/JEL"), MPIWG_PROJECTS(
-                                            "http://purl.org/escidoc/metadata/terms/0.1/MPIWG_PROJECTS");
+        "http://purl.org/escidoc/metadata/terms/0.1/MPIRG"), ISO639_3(
+        "http://purl.org/escidoc/metadata/terms/0.1/ISO639-3"), MPIS_GROUPS(
+        "http://purl.org/escidoc/metadata/terms/0.1/MPIS_GROUPS"), MPIS_PROJECTS(
+        "http://purl.org/escidoc/metadata/terms/0.1/MPIS_PROJECTS"), PACS(
+        "http://purl.org/escidoc/metadata/terms/0.1/PACS"), JUS(
+        "http://purl.org/escidoc/metadata/terms/0.1/JUS"), MPINP(
+        "http://purl.org/escidoc/metadata/terms/0.1/MPINP"), JEL(
+        "http://purl.org/escidoc/metadata/terms/0.1/JEL"), MPIWG_PROJECTS(
+        "http://purl.org/escidoc/metadata/terms/0.1/MPIWG_PROJECTS");
 
     private String uri;
 
