@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.rest.spring;
+package de.mpg.mpdl.inge.rest.web.controller;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
