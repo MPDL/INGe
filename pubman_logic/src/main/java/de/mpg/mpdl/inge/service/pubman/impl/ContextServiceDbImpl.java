@@ -117,8 +117,8 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
       throw new IngeServiceException("Context with given id " + id + " not found.");
     }
 
-    checkAa(transformToOld(contextToBeUpdated), userAccount, (state == State.OPENED ? "open"
-        : "close"));
+    checkAa((state == State.OPENED ? "open" : "close"), userAccount,
+        transformToOld(contextToBeUpdated));
 
     contextToBeUpdated.setState(state);
 

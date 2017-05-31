@@ -74,9 +74,9 @@ public class AuthorizationService {
 
 
   private QueryBuilder getAaFilterQuery(String serviceName, AccountUserVO userAccount) {
-    System.out.println(serviceName + "");
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
@@ -201,6 +201,10 @@ public class AuthorizationService {
 
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+    if(serviceMap==null)
+    {
+      throw new AaException("Nor rules for service " + serviceName);
+    }
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 

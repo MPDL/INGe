@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.log4j.LogManager;
@@ -24,7 +25,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
@@ -37,6 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -65,6 +71,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private ContextRepository contextRepository;
+
+  @Autowired
+  private OrganizationRepository organizationRepository;
+
 
   private Algorithm jwtAlgorithmKey;
 
@@ -90,7 +102,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
 
-    AccountUserVO accountUser = create(givenUser, authenticationToken);
+    AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     userLoginRepository.insertLogin(accountUser.getUserid(),
         passwordEncoder.encode("default-password"));
     return accountUser;
@@ -101,9 +113,97 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   public AccountUserVO create(AccountUserVO givenUser, String password, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
 
-    AccountUserVO accountUser = create(givenUser, authenticationToken);
+    AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     userLoginRepository.insertLogin(accountUser.getUserid(), passwordEncoder.encode(password));
     return accountUser;
+
+  }
+
+  @Transactional
+  public AccountUserVO addGrant(String userId, GrantVO grant, String authenticationToken)
+      throws IngeServiceException, AaException {
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
+    if (objectToBeUpdated == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    }
+
+    for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
+      if (Objects.equals(grant.getRole(), existingGrant.getRole())
+          && Objects.equals(grant.getObjectRef(), existingGrant.getObjectRef())) {
+        throw new IngeServiceException("Grant with given values already exists in user account "
+            + objectToBeUpdated.getObjectId());
+      }
+    }
+
+    grant.setGrantedTo(null);
+    grant.setGrantType(null);
+    grant.setReference(null);
+    grant.setLastModificationDate(null);
+
+    Object referencedObject = null;
+
+    if (grant.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
+      ContextDbVO referencedContext = contextRepository.findOne(grant.getObjectRef());
+      if (referencedContext != null) {
+        referencedObject = EntityTransformer.transformToOld(referencedContext);
+      }
+    } else if (grant.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
+      AffiliationDbVO referencedOu = organizationRepository.findOne(grant.getObjectRef());
+      if (referencedOu != null) {
+        referencedObject = EntityTransformer.transformToOld(referencedOu);
+      }
+    }
+
+    if (referencedObject == null) {
+      throw new IngeServiceException("Unknown identifier reference: " + grant.getObjectRef());
+    }
+
+
+    checkAa("addGrant", userAccount, transformToOld(objectToBeUpdated), grant, referencedObject);
+    objectToBeUpdated.getGrantList().add(grant);
+
+
+    objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
+
+    AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
+    getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
+
+    return objectToReturn;
+
+  }
+
+  @Transactional
+  public AccountUserVO removeGrant(String userId, GrantVO grant, String authenticationToken)
+      throws IngeServiceException, AaException {
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
+    if (objectToBeUpdated == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    }
+
+    GrantVO grantToBeRemoved = null;
+    for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
+      if (Objects.equals(grant.getRole(), existingGrant.getRole())
+          && Objects.equals(grant.getObjectRef(), existingGrant.getObjectRef())) {
+        grantToBeRemoved = existingGrant;
+      }
+    }
+
+    if (grantToBeRemoved == null) {
+      throw new IngeServiceException("Grant with given values does not exist in user account "
+          + objectToBeUpdated.getObjectId());
+    }
+
+    objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
+
+    checkAa("removeGrant", userAccount, transformToOld(objectToBeUpdated), grant);
+    objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
+
+    AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
+    getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
+
+    return objectToReturn;
 
   }
 
@@ -236,7 +336,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     if (create) {
       tobeUpdatedUser.setCreationDate(currentDate);
       tobeUpdatedUser.setCreator(mod);
-      tobeUpdatedUser.setObjectId(idProviderService.getNewId(ID_PREFIX.CONTEXT));
+      tobeUpdatedUser.setObjectId(idProviderService.getNewId(ID_PREFIX.USER));
     }
     return null;
 

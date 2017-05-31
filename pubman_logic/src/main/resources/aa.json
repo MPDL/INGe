@@ -1,7 +1,7 @@
 {
 	"de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl" : {
 		"technical" : {
-			"order" : ["item", "context", "user"],
+			"order" : ["user", "item", "context"],
 			"indices" : {
 				"item.owner.objectId" : "owner.objectId",
 				"item.context.objectId" : "context.objectId",
@@ -151,7 +151,7 @@
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl" : {
 		"technical" : {
-			"order" : ["ou", "user"],
+			"order" : ["user", "ou"],
 			"indices" : {
 			}
 		}, 
@@ -205,7 +205,7 @@
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {
 		"technical" : {
-			"order" : ["context", "user"],
+			"order" : [ "user", "context"],
 			"indices" : {
 			}
 		}, 
@@ -258,7 +258,7 @@
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl" : {
 		"technical" : {
-			"order" : ["givenUser", "user"],
+			"order" : ["user", "givenUser"],
 			"indices" : {
 			}
 		}, 
@@ -282,9 +282,7 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				},
-				"context.state" : "CREATED"
-				
+				}
 			}
 		],
 		
@@ -297,6 +295,21 @@
 			{
 				"user" : {
 					"field_user_id_match" : "givenUser.reference.objectId"
+				}
+			}
+		],
+		
+		"addGrant" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			}
+		],
+		"removeGrant" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
 				}
 			}
 		]

@@ -34,7 +34,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
-    checkAa(transformToOld(objectToCreate), userAccount, "create");
+    checkAa("create", userAccount, transformToOld(objectToCreate));
     objectToCreate = getDbRepository().save(objectToCreate);
     ModelObject objectToReturn = transformToOld(objectToCreate);
     getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
@@ -56,7 +56,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
 
-    checkAa(transformToOld(objectToBeUpdated), userAccount, "update");
+    checkAa("update", userAccount, transformToOld(objectToBeUpdated));
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
@@ -75,7 +75,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
-    checkAa(transformToOld(objectToBeDeleted), userAccount, "delete");
+    checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
     getElasticDao().delete(id);
 
@@ -91,7 +91,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       userAccount = aaService.checkLoginRequired(authenticationToken);
     }
 
-    checkAa(object, userAccount, "get");
+    checkAa("get", userAccount, object);
     return object;
   }
 
@@ -112,9 +112,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
 
-  protected void checkAa(ModelObject object, AccountUserVO userAccount, String method)
+  protected void checkAa(String method, AccountUserVO userAccount, Object... object)
       throws AaException, IngeServiceException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, object, userAccount);
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, object);
   }
 
   protected abstract DbObject createEmptyDbObject();

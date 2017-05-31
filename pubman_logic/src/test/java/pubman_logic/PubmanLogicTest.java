@@ -34,9 +34,12 @@ import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
+import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
@@ -51,6 +54,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfigPubmanLogic.class)
@@ -216,6 +220,40 @@ public class PubmanLogicTest {
      * 
      * contextService.open("ctx_3000022", token);
      */
+
+
+  }
+
+  @Test
+  @Ignore
+  public void createUser() throws Exception {
+
+
+
+    String adminUsername = PropertyReader.getProperty("framework.admin.username");
+    String adminPass = PropertyReader.getProperty("framework.admin.password");
+    String token = userAccountService.login(adminUsername, adminPass);
+
+    // userAccountService.delete("ctx_3000055", token);
+
+    AccountUserVO user = new AccountUserVO();
+    user.setEmail("a@b.de");
+    user.setName("Test Moderator");
+    user.setUserid("test_moderator");
+
+    AffiliationRO aff = new AffiliationRO();
+    aff.setObjectId("ou_persistent25");
+    user.getAffiliations().add(aff);
+
+
+
+    AccountUserVO userAccount = userAccountService.create(user, "tseT", token);
+
+    GrantVO grant = new GrantVO();
+    grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
+    grant.setObjectRef("ctx_2322554");
+
+    userAccountService.addGrant(userAccount.getReference().getObjectId(), grant, token);
 
 
   }

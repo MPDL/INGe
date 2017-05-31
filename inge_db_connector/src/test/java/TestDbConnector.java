@@ -1,8 +1,12 @@
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,15 +20,22 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.util.EntityUtils;
+import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
@@ -43,12 +54,19 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
+import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
+import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.AdminHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JPAConfiguration.class)
@@ -64,10 +82,17 @@ public class TestDbConnector {
   private ContextRepository contextRepository;
 
   @Autowired
+  private UserAccountRepository userRepository;
+
+  @Autowired
+  private UserLoginRepository userLoginRepository;
+
+  @Autowired
   private IdentifierProviderServiceImpl idProvider;
 
   @PersistenceContext
   private EntityManager entityManager;
+
 
 
   private Queue<de.mpg.mpdl.inge.model.valueobjects.AffiliationVO> updateLaterAffs =
@@ -219,6 +244,8 @@ public class TestDbConnector {
     // importAffs();
     // importContexts();
     // importPubItems();
+    // importUsers();
+    // importLogins();
   }
 
   @Test
@@ -334,6 +361,63 @@ public class TestDbConnector {
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+    }
+
+  }
+
+
+  private void importUsers() throws Exception {
+    URI uri =
+        new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-accounts")
+            .addParameter("maximumRecords", String.valueOf(5000))
+            .addParameter("startRecord", String.valueOf(1)).build();
+    final HttpGet request = new HttpGet(uri);
+    HttpResponse response = httpClientWithEscidocCookie.execute(request);
+    String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+    // System.out.println(xml);
+
+    SearchRetrieveResponseVO<AccountUserVO> userList =
+        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xml);
+    for (SearchRetrieveRecordVO<AccountUserVO> accountUser : userList.getRecords()) {
+
+      String objectId = accountUser.getData().getReference().getObjectId();
+      objectId = objectId.substring(objectId.lastIndexOf("/") + 1, objectId.length());
+
+      uri =
+          new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId
+              + "/resources/current-grants").addParameter("maximumRecords", String.valueOf(5000))
+              .addParameter("startRecord", String.valueOf(1)).build();
+      final HttpGet requestGrant = new HttpGet(uri);
+      HttpResponse responseGrant = httpClientWithEscidocCookie.execute(requestGrant);
+      String grantXml = EntityUtils.toString(responseGrant.getEntity(), StandardCharsets.UTF_8);
+      List<GrantVO> grantList = XmlTransformingService.transformToGrantVOList(grantXml);
+
+      uri =
+          new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId
+              + "/resources/attributes").addParameter("maximumRecords", String.valueOf(5000))
+              .addParameter("startRecord", String.valueOf(1)).build();
+      final HttpGet requestAttrs = new HttpGet(uri);
+      HttpResponse responseAttrs = httpClientWithEscidocCookie.execute(requestAttrs);
+      String attrXml = EntityUtils.toString(responseAttrs.getEntity(), StandardCharsets.UTF_8);
+      List<UserAttributeVO> userAttrList =
+          XmlTransformingService.transformToUserAttributesList(attrXml);
+
+
+
+      // System.out.println(srrList);
+
+      // List<GrantVO> grantList = srrList.getRecords().stream().map(srr ->
+      // srr.getData()).collect(Collectors.toList());
+      System.out.println("Saving user" + accountUser.getData().getName() + " - "
+          + accountUser.getData().getReference().getObjectId());
+      try {
+        userRepository.save(transformToNew(accountUser.getData(), grantList, userAttrList));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+
+
     }
 
   }
@@ -669,6 +753,127 @@ public class TestDbConnector {
     pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
+
+
+  }
+
+
+  private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants,
+      List<UserAttributeVO> attributes) {
+
+    AccountUserDbRO owner = new AccountUserDbRO();
+    AccountUserDbRO modifier = new AccountUserDbRO();
+
+    owner.setObjectId(changeId("user", oldAccountUserVO.getCreator().getObjectId()));
+    owner.setName(oldAccountUserVO.getCreator().getTitle());
+
+    modifier.setObjectId(changeId("user", oldAccountUserVO.getModifiedBy().getObjectId()));
+    modifier.setName(oldAccountUserVO.getModifiedBy().getTitle());
+
+    AccountUserDbVO newAccountUser = new AccountUserDbVO();
+
+    newAccountUser.setActive(oldAccountUserVO.isActive());
+    if (oldAccountUserVO.getAffiliations() != null && oldAccountUserVO.getAffiliations().size() > 0) {
+      AffiliationDbRO affRO = new AffiliationDbRO();
+      affRO.setObjectId(changeId("ou", oldAccountUserVO.getAffiliations().get(0).getObjectId()));
+      newAccountUser.setAffiliation(affRO);
+    }
+
+
+    newAccountUser.setCreationDate(oldAccountUserVO.getCreationDate());
+    newAccountUser.setCreator(owner);
+    newAccountUser.setEmail(oldAccountUserVO.getEmail());
+
+    if (grants != null) {
+
+
+      for (GrantVO grant : grants) {
+        grant.setGrantedTo(null);
+        grant.setLastModificationDate(null);
+        grant.setReference(null);
+        if (grant.getObjectRef() != null) {
+          if (grant.getObjectRef().contains("context")) {
+            grant.setObjectRef(changeId("ctx", grant.getObjectRef()));
+          } else if (grant.getObjectRef().contains("organizational-unit")) {
+            grant.setObjectRef(changeId("ou", grant.getObjectRef()));
+          } else {
+            System.out.println("Unknown grant object: " + grant.getObjectRef());
+          }
+        }
+
+        if (grant.getRole().contains("depositor")) {
+          grant.setRole("DEPOSITOR");
+        } else if (grant.getRole().contains("moderator")) {
+          grant.setRole("MODERATOR");
+        } else if (grant.getRole().contains("system-administrator")) {
+          grant.setRole("SYSADMIN");
+        } else if (grant.getRole().contains("reporter")) {
+          grant.setRole("REPORTER");
+        } else if (grant.getRole().contains("cone-open")) {
+          grant.setRole("CONE_OPEN_VOCABULARY_EDITOR");
+        } else if (grant.getRole().contains("cone-closed")) {
+          grant.setRole("CONE_CLOSED_VOCABULARY_EDITOR");
+        } else {
+          System.out.println("Unknown role: " + grant.getRole());
+        }
+
+
+      }
+    }
+
+    if (attributes != null) {
+      for (UserAttributeVO attr : attributes) {
+
+        if (attr.getName().equals("o")) {
+          AffiliationDbRO affRO = new AffiliationDbRO();
+          affRO.setObjectId(changeId("ou", attr.getValue()));
+          newAccountUser.setAffiliation(affRO);
+        }
+
+        if (attr.getName().equals("email")) {
+          newAccountUser.setEmail(attr.getValue());
+        }
+
+      }
+    }
+
+    newAccountUser.setGrantList(grants);
+    newAccountUser.setLastModificationDate(oldAccountUserVO.getLastModificationDate());
+    newAccountUser.setLoginname(oldAccountUserVO.getUserid());
+    newAccountUser.setModifier(modifier);
+    newAccountUser.setName(oldAccountUserVO.getName());
+    newAccountUser.setObjectId(changeId("user", oldAccountUserVO.getReference().getObjectId()));
+
+    return newAccountUser;
+
+
+  }
+
+  private void importLogins() throws Exception {
+
+    PGSimpleDataSource dataSource = new PGSimpleDataSource();
+    dataSource.setUser("postgres");
+    dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
+    dataSource.setDatabaseName("escidoc-core");
+    dataSource.setServerName("srv02.mpdl.mpg.de");
+    dataSource.setPortNumber(5432);
+
+    Connection conn = dataSource.getConnection();
+
+    ResultSet res =
+        conn.createStatement().executeQuery("SELECT loginname,password FROM aa.user_account;");
+
+    PasswordEncoder pe = new BCryptPasswordEncoder();
+
+    while (res.next()) {
+
+      System.out.println("Saving " + res.getString(1));
+      try {
+        userLoginRepository.insertLogin(res.getString(1), pe.encode(res.getString(2)));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
 
 
   }

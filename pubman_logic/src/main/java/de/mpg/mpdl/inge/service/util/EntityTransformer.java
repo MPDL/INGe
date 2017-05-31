@@ -491,14 +491,16 @@ public class EntityTransformer {
     oldAccountUser.setName(newAccountUser.getName());
     oldAccountUser.setActive(newAccountUser.isActive());
     oldAccountUser.setEmail(newAccountUser.getEmail());
-    oldAccountUser.setPassword(newAccountUser.getPassword());
     oldAccountUser.setUserid(newAccountUser.getLoginname());
 
 
-    AffiliationRO affRo = new AffiliationRO();
-    affRo.setObjectId(newAccountUser.getAffiliation().getObjectId());
-    affRo.setTitle(newAccountUser.getAffiliation().getName());
-    oldAccountUser.getAffiliations().add(affRo);
+    if (newAccountUser.getAffiliation() != null) {
+      AffiliationRO affRo = new AffiliationRO();
+      affRo.setObjectId(newAccountUser.getAffiliation().getObjectId());
+      affRo.setTitle(newAccountUser.getAffiliation().getName());
+      oldAccountUser.getAffiliations().add(affRo);
+    }
+
 
 
     AccountUserRO userRo = new AccountUserRO();

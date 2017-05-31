@@ -148,8 +148,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       }
     }
 
-    checkAa(EntityTransformer.transformToOld(affToBeUpdated), userAccount,
-        (state == State.OPENED ? "open" : "close"));
+    checkAa((state == State.OPENED ? "open" : "close"), userAccount,
+        EntityTransformer.transformToOld(affToBeUpdated));
 
     affToBeUpdated.setPublicStatus(state);
 
