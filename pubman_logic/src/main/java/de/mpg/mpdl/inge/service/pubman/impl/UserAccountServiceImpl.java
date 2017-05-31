@@ -1,18 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import static java.time.ZoneOffset.UTC;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,10 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
@@ -45,10 +32,8 @@ import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
-import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
@@ -126,9 +111,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Override
   public String login(String username, String password) throws IngeServiceException, AaException {
+    if (username == null || username.trim().isEmpty()) {
+      throw new AaException("Could not login, Please provide correct username and password!");
+    }
 
     // Helper to login as any user if you are sysadmin
-
     if (username.contains("#")) {
       String[] parts = username.split("#");
       AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
