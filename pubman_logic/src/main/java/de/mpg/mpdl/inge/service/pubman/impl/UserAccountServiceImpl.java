@@ -81,6 +81,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   private Algorithm jwtAlgorithmKey;
 
   private String jwtIssuer;
+  
+  //private final static String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=\\S+$).{6,}$";
 
 
   public UserAccountServiceImpl() throws Exception {
@@ -102,13 +105,24 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
-    if(givenUser.getPassword()==null || givenUser.getPassword().trim().isEmpty())
-    {
-      throw new IngeServiceException("A password has to be provided");
-    }
+    validatePassword(givenUser.getPassword());
     userLoginRepository.insertLogin(accountUser.getUserid(),
         passwordEncoder.encode(givenUser.getPassword()));
     return accountUser;
+  }
+  
+  @Transactional
+  @Override
+  public void changePassword(String userId, String newPassword, String authenticationToken)
+      throws IngeServiceException, AaException {
+    
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    validatePassword(newPassword);
+    AccountUserDbVO userToUpdated = userAccountRepository.findOne(userId);
+    checkAa("changePassword", userAccount, transformToOld(userToUpdated));
+    userLoginRepository.updateLogin(userId,
+        passwordEncoder.encode(newPassword));
+    
   }
 
 
@@ -304,7 +318,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeServiceException("A name and user id is required");
     }
 
-    tobeUpdatedUser.setActive(true);
+    if(create)
+    {
+      tobeUpdatedUser.setActive(true);
+    }
+    
 
     if (givenUser.getAffiliations() == null || givenUser.getAffiliations().size() == 0) {
       tobeUpdatedUser.setAffiliation(null);
@@ -350,6 +368,18 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Override
   protected String getObjectId(AccountUserVO object) {
     return object.getReference().getObjectId();
+  }
+  
+  private void validatePassword(String password) throws IngeServiceException
+  {
+    if(password==null || password.trim().isEmpty())
+    {
+      throw new IngeServiceException("A password has to be provided");
+    } else if (!password.matches(PASSWORD_REGEX))
+    {
+      throw new IngeServiceException("Password  must consist of at least 6 characters, no whitespaces");
+    }
+    
   }
 
 
