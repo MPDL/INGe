@@ -250,7 +250,7 @@ public class ViewItemFull extends FacesBean {
         this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
         return;
       }
-    } else {
+    } else { // TODO: Dieser ELSE Teil ist aeusserst dubios!!!!
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
       if (icsb.getCurrentPubItem() == null) {
         return;
@@ -263,303 +263,306 @@ public class ViewItemFull extends FacesBean {
       this.pubItem = icsb.getCurrentPubItem();
     }
 
-    this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    this.defaultSize =
-        Integer.parseInt(PropertyReader.getProperty(
-            "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
-
-    // Submenu
-    final String subMenu =
-        FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
-    if (subMenu != null) {
-      this.getViewItemSessionBean().setSubMenu(subMenu);
-    }
-
-    // if (this.pubItem != null) {
     ViewItemFull.logger.info("Initializing view for item: "
         + this.pubItem.getVersion().getObjectIdAndVersion());
 
-    // Citation url
-    try {
-      String pubmanUrl =
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+    if (this.getPubItem().getVersion().getObjectIdAndVersion() != null) {
 
-      this.itemPattern =
-          PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-              this.getPubItem().getVersion().getObjectIdAndVersion());
-      if (!pubmanUrl.endsWith("/")) {
-        pubmanUrl = pubmanUrl + "/";
-      }
-      if (this.itemPattern.startsWith("/")) {
-        this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
-      }
-      // MF: Removed exclusion of pending items here
-      this.citationURL = pubmanUrl + this.itemPattern;
+      // Citation url
+      try {
+        String pubmanUrl =
+            PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
 
-      if (this.getPubItem().getLatestVersion() != null
-          && this.getPubItem().getLatestVersion().getObjectIdAndVersion() != null) {
-        String latestVersionItemPattern =
+        this.itemPattern =
             PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-                this.getPubItem().getLatestVersion().getObjectIdAndVersion());
-        if (latestVersionItemPattern.startsWith("/")) {
-          latestVersionItemPattern =
-              latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
+                this.getPubItem().getVersion().getObjectIdAndVersion());
+        if (!pubmanUrl.endsWith("/")) {
+          pubmanUrl = pubmanUrl + "/";
         }
-        this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
+        if (this.itemPattern.startsWith("/")) {
+          this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
+        }
+        // MF: Removed exclusion of pending items here
+        this.citationURL = pubmanUrl + this.itemPattern;
+
+        if (this.getPubItem().getLatestVersion() != null
+            && this.getPubItem().getLatestVersion().getObjectIdAndVersion() != null) {
+          String latestVersionItemPattern =
+              PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                  this.getPubItem().getLatestVersion().getObjectIdAndVersion());
+          if (latestVersionItemPattern.startsWith("/")) {
+            latestVersionItemPattern =
+                latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
+          }
+          this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        this.citationURL = "";
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-      this.citationURL = "";
-    }
 
-    this.isOwner = true;
+      // Owner
+      this.isOwner = true;
 
-    if (this.pubItem.getOwner() != null) {
-      this.isOwner =
-          (this.getLoginHelper().getAccountUser().getReference() != null ? this.getLoginHelper()
-              .getAccountUser().getReference().getObjectId()
-              .equals(this.getPubItem().getOwner().getObjectId()) : false);
+      if (this.pubItem.getOwner() != null) {
+        this.isOwner =
+            (this.getLoginHelper().getAccountUser().getReference() != null ? this.getLoginHelper()
+                .getAccountUser().getReference().getObjectId()
+                .equals(this.getPubItem().getOwner().getObjectId()) : false);
 
-      if (this.getLoginHelper().getAccountUser().getReference() != null
-          && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
-        this.isModerator =
-            this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
-        this.isDepositor = this.getLoginHelper().getIsDepositor();
-        this.isPrivilegedViewer =
-            this.getLoginHelper().getAccountUser()
-                .isPrivilegedViewer(this.getPubItem().getContext());
+        if (this.getLoginHelper().getAccountUser().getReference() != null
+            && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+          this.isModerator =
+              this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
+          this.isDepositor = this.getLoginHelper().getIsDepositor();
+          this.isPrivilegedViewer =
+              this.getLoginHelper().getAccountUser()
+                  .isPrivilegedViewer(this.getPubItem().getContext());
 
-        if (!this.isOwner) {
-          for (final GrantVO grant : this.getLoginHelper().getAccountUser()
-              .getGrantsWithoutAudienceGrants()) {
-            if (grant.getRole().equals("escidoc:role-system-administrator")) {
-              this.isOwner = true;
-              break;
+          if (!this.isOwner) {
+            for (final GrantVO grant : this.getLoginHelper().getAccountUser()
+                .getGrantsWithoutAudienceGrants()) {
+              if (grant.getRole().equals("escidoc:role-system-administrator")) {
+                this.isOwner = true;
+                break;
+              }
             }
           }
         }
       }
-    }
 
-    // Setting properties for Action Links
-    this.isLoggedIn = this.getLoginHelper().isLoggedIn();
+      // Setting properties for Action Links
+      this.isLoggedIn = this.getLoginHelper().isLoggedIn();
 
-    this.isLatestVersion =
-        this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
-            .getVersionNumber();
+      this.isLatestVersion =
+          this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
+              .getVersionNumber();
 
-    this.isLatestRelease =
-        this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
-            .getVersionNumber();
+      this.isLatestRelease =
+          this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
+              .getVersionNumber();
 
-    this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
+      this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
 
-    this.isStateWasReleased =
-        this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
+      this.isStateWasReleased =
+          this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
-    this.isStateWithdrawn =
-        this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
-    if (this.isStateWithdrawn) {
-      this.getViewItemSessionBean().itemChanged();
-    }
-
-    this.isStateSubmitted =
-        this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
-            && !this.isStateWithdrawn;;
-
-    this.isStateReleased =
-        this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
-            && !this.isStateWithdrawn;
-
-    this.isStatePending =
-        this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
-            && !this.isStateWithdrawn;;
-
-    this.isStateInRevision =
-        this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
-            && !this.isStateWithdrawn;;
-
-    // Workflow
-    try {
-      this.isWorkflowStandard =
-          (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-      this.isWorkflowSimple =
-          (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
-    } catch (Exception e) {
-      this.isWorkflowSimple = true;
-      this.isWorkflowStandard = false;
-    }
-
-    // Warn message if the item version is not the latest
-    if (this.isLatestVersion == false
-        && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
-            .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
-      String link = null;
-      try {
-        link =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
-                    "\\$1",
-                    this.getPubItem().getVersion().getObjectId()
-                        + (this.getPubItem().getLatestVersion().getVersionNumber() != 0 ? ":"
-                            + this.getPubItem().getLatestVersion().getVersionNumber() : ""));
-      } catch (Exception e) {
-        ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
+      this.isStateWithdrawn =
+          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
+      if (this.isStateWithdrawn) {
+        this.getViewItemSessionBean().itemChanged();
       }
-      this.warn(this.getMessage("itemIsNotLatestVersion") + "<br/><a href=\""
-          + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
-    } else if (this.isLatestVersion == false
-        && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem().getVersion()
-            .getVersionNumber()) {
-      String link = null;
-      try {
-        link =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
-                    "\\$1",
-                    this.getPubItem().getVersion().getObjectId()
-                        + (this.getPubItem().getLatestRelease().getVersionNumber() != 0 ? ":"
-                            + this.getPubItem().getLatestRelease().getVersionNumber() : ""));
-      } catch (Exception e) {
-        ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
-      }
-      this.warn(this.getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\""
-          + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
-    }
 
-    // Prerequisites
+      this.isStateSubmitted =
+          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
+              && !this.isStateWithdrawn;;
 
-    // List of numbered affiliated organizations
-    this.createCreatorsList();
+      this.isStateReleased =
+          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
+              && !this.isStateWithdrawn;
 
-    // Languages from CoNE
-    if (this.getPubItem().getMetadata().getLanguages() != null
-        && this.getPubItem().getMetadata().getLanguages().size() > 0) {
+      this.isStatePending =
+          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
+              && !this.isStateWithdrawn;;
 
-      final StringWriter result = new StringWriter();
-      for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++) {
-        if (i > 0) {
-          result.append(", ");
-        }
+      this.isStateInRevision =
+          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
+              && !this.isStateWithdrawn;;
 
-        final String language = this.getPubItem().getMetadata().getLanguages().get(i);
-        String languageName = null;
+      // Warn message if the item version is not the latest
+      if (this.isLatestVersion == false
+          && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
+              .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
+        String link = null;
         try {
-          languageName =
-              CommonUtils.getConeLanguageName(language, this.getI18nHelper().getLocale());
+          link =
+              PropertyReader.getProperty("escidoc.pubman.instance.url")
+                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+                      "\\$1",
+                      this.getPubItem().getVersion().getObjectId()
+                          + (this.getPubItem().getLatestVersion().getVersionNumber() != 0 ? ":"
+                              + this.getPubItem().getLatestVersion().getVersionNumber() : ""));
         } catch (Exception e) {
-          ViewItemFull.logger.error("Cannot retrieve language information from CoNE", e);
+          ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
         }
-        if (languageName != null) {
-          result.append(language);
-          if (!"".equals(languageName)) {
-            result.append(" - ");
-            result.append(languageName);
-          }
-        }
-      }
-
-      this.languages = result.toString();
-    }
-
-    // Source list
-    if (this.getPubItem().getMetadata().getSources().size() > 0) {
-      this.sourceList = new ArrayList<SourceBean>();
-      for (int i = 0; i < this.getPubItem().getMetadata().getSources().size(); i++) {
-        this.sourceList.add(new SourceBean(this.getPubItem().getMetadata().getSources().get(i)));
-      }
-    }
-
-    // List of files
-    // Check if the item is also in the search result list
-    final List<PubItemVOPresentation> currentPubItemList =
-        this.getPubItemListSessionBean().getCurrentPartList();
-
-    if (currentPubItemList != null) {
-      for (int i = 0; i < currentPubItemList.size(); i++) {
-        if (this.getPubItem().getVersion().getObjectId()
-            .equals(currentPubItemList.get(i).getVersion().getObjectId())
-            && this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
-                .getVersion().getVersionNumber()
-            && currentPubItemList.get(i).getSearchHitList() != null
-            && currentPubItemList.get(i).getSearchHitList().size() > 0) {
-          this.pubItem.setSearchResult(true);
-          this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
-          this.pubItem.setScore(currentPubItemList.get(i).getScore());
-          this.pubItem.setSearchHitBeanList();
-        }
-      }
-    }
-
-    // Yearbook
-    // if item is currently part of invalid yearbook items, show Validation Messages
-    if (this.getLoginHelper().getIsYearbookEditor()) {
-      this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-
-      if (this.yisb.getYearbookItem() != null) {
-        if (this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
-          try {
-            // revalidate
-            this.yisb.validateItem(this.getPubItem());
-            final YearbookInvalidItemRO invItem =
-                this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId());
-            if (invItem != null) {
-              ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem
-                  .getValidationReport());
-            }
-          } catch (Exception e) {
-            ViewItemFull.logger.error("Error in Yearbook validation", e);
-          }
-        }
-
+        this.warn(this.getMessage("itemIsNotLatestVersion") + "<br/><a href=\""
+            + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
+      } else if (this.isLatestVersion == false
+          && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem()
+              .getVersion().getVersionNumber()) {
+        String link = null;
         try {
-          if (State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
-              || State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion().getState())) {
-            this.isCandidateOfYearbook =
-                this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-            if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
-              this.isMemberOfYearbook = this.yisb.isMember(this.pubItem.getVersion().getObjectId());
+          link =
+              PropertyReader.getProperty("escidoc.pubman.instance.url")
+                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+                      "\\$1",
+                      this.getPubItem().getVersion().getObjectId()
+                          + (this.getPubItem().getLatestRelease().getVersionNumber() != 0 ? ":"
+                              + this.getPubItem().getLatestRelease().getVersionNumber() : ""));
+        } catch (Exception e) {
+          ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
+        }
+        this.warn(this.getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\""
+            + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
+      }
+
+      // Prerequisites
+      // Workflow
+      try {
+        this.isWorkflowStandard =
+            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+        this.isWorkflowSimple =
+            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+      } catch (Exception e) {
+        this.isWorkflowSimple = true;
+        this.isWorkflowStandard = false;
+      }
+
+      this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+      this.defaultSize =
+          Integer.parseInt(PropertyReader.getProperty(
+              "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
+
+      // Submenu
+      final String subMenu =
+          FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
+      if (subMenu != null) {
+        this.getViewItemSessionBean().setSubMenu(subMenu);
+      }
+
+      // List of numbered affiliated organizations
+      this.createCreatorsList();
+
+      // Languages from CoNE
+      if (this.getPubItem().getMetadata().getLanguages() != null
+          && this.getPubItem().getMetadata().getLanguages().size() > 0) {
+
+        final StringWriter result = new StringWriter();
+        for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++) {
+          if (i > 0) {
+            result.append(", ");
+          }
+
+          final String language = this.getPubItem().getMetadata().getLanguages().get(i);
+          String languageName = null;
+          try {
+            languageName =
+                CommonUtils.getConeLanguageName(language, this.getI18nHelper().getLocale());
+          } catch (Exception e) {
+            ViewItemFull.logger.error("Cannot retrieve language information from CoNE", e);
+          }
+          if (languageName != null) {
+            result.append(language);
+            if (!"".equals(languageName)) {
+              result.append(" - ");
+              result.append(languageName);
             }
           }
-        } catch (final Exception e) {
-          e.printStackTrace();
+        }
+
+        this.languages = result.toString();
+      }
+
+      // Source list
+      if (this.getPubItem().getMetadata().getSources().size() > 0) {
+        this.sourceList = new ArrayList<SourceBean>();
+        for (int i = 0; i < this.getPubItem().getMetadata().getSources().size(); i++) {
+          this.sourceList.add(new SourceBean(this.getPubItem().getMetadata().getSources().get(i)));
         }
       }
-    }
 
-    // Unapi Export
-    try {
-      this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
-      this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
-      this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
-      this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
-      this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
-      this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
-    } catch (Exception e) {
-      ViewItemFull.logger.error("Error getting unapi url property", e);
-      throw new RuntimeException(e);
-    }
+      // List of files
+      // Check if the item is also in the search result list
+      final List<PubItemVOPresentation> currentPubItemList =
+          this.getPubItemListSessionBean().getCurrentPartList();
 
-    // SSRN
-    try {
-      String contexts = PropertyReader.getProperty("escidoc.pubman.instance.ssrn_contexts");
-      if (contexts != null && !"".equals(contexts)) {
-        this.ssrnContexts = new ArrayList<String>();
-        while (contexts.contains(",")) {
-          this.ssrnContexts.add(contexts.substring(0, contexts.indexOf(",")));
-          contexts = contexts.substring(contexts.indexOf(",") + 1, contexts.length());
+      if (currentPubItemList != null) {
+        for (int i = 0; i < currentPubItemList.size(); i++) {
+          if (this.getPubItem().getVersion().getObjectId()
+              .equals(currentPubItemList.get(i).getVersion().getObjectId())
+              && this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
+                  .getVersion().getVersionNumber()
+              && currentPubItemList.get(i).getSearchHitList() != null
+              && currentPubItemList.get(i).getSearchHitList().size() > 0) {
+            this.pubItem.setSearchResult(true);
+            this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
+            this.pubItem.setScore(currentPubItemList.get(i).getScore());
+            this.pubItem.setSearchHitBeanList();
+          }
         }
-        this.ssrnContexts.add(contexts);
       }
-    } catch (final Exception e) {
-      ViewItemFull.logger.error("couldn't load ssrn context list", e);
-    }
 
-    // Links
-    this.setLinks();
+      // Yearbook
+      // if item is currently part of invalid yearbook items, show Validation Messages
+      if (this.getLoginHelper().getIsYearbookEditor()) {
+        this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+
+        if (this.yisb.getYearbookItem() != null) {
+          if (this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
+            try {
+              // revalidate
+              this.yisb.validateItem(this.getPubItem());
+              final YearbookInvalidItemRO invItem =
+                  this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId());
+              if (invItem != null) {
+                ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem
+                    .getValidationReport());
+              }
+            } catch (Exception e) {
+              ViewItemFull.logger.error("Error in Yearbook validation", e);
+            }
+          }
+
+          try {
+            if (State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
+                || State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion().getState())) {
+              this.isCandidateOfYearbook =
+                  this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+              if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
+                this.isMemberOfYearbook =
+                    this.yisb.isMember(this.pubItem.getVersion().getObjectId());
+              }
+            }
+          } catch (final Exception e) {
+            e.printStackTrace();
+          }
+        }
+      }
+
+      // Unapi Export
+      try {
+        this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+        this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+        this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
+        this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
+        this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
+        this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
+      } catch (Exception e) {
+        ViewItemFull.logger.error("Error getting unapi url property", e);
+        throw new RuntimeException(e);
+      }
+
+      // SSRN
+      try {
+        String contexts = PropertyReader.getProperty("escidoc.pubman.instance.ssrn_contexts");
+        if (contexts != null && !"".equals(contexts)) {
+          this.ssrnContexts = new ArrayList<String>();
+          while (contexts.contains(",")) {
+            this.ssrnContexts.add(contexts.substring(0, contexts.indexOf(",")));
+            contexts = contexts.substring(contexts.indexOf(",") + 1, contexts.length());
+          }
+          this.ssrnContexts.add(contexts);
+        }
+      } catch (final Exception e) {
+        ViewItemFull.logger.error("couldn't load ssrn context list", e);
+      }
+
+      // Links
+      this.setLinks();
+    }
   }
 
   public boolean isSsrnContext() {
