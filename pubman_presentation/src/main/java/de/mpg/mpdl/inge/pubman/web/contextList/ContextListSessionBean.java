@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,30 +80,11 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public List<PubContextVOPresentation> getDepositorContextList() {
-    final List<PubContextVOPresentation> newDepositorContextList =
-        new ArrayList<PubContextVOPresentation>();
-
-    if (this.getOpenContextsAvailable()) {
-      for (final PubContextVOPresentation context : this.depositorContextList) {
-        if (context.getState() == State.OPENED) {
-          newDepositorContextList.add(context);
-        }
-      }
-      Collections.sort(newDepositorContextList);
-      this.setDepositorContextList(newDepositorContextList);
-    }
-
     return this.depositorContextList;
   }
 
   public boolean getOpenContextsAvailable() {
-    for (final PubContextVOPresentation context : this.depositorContextList) {
-      if (context.getState() == State.OPENED) {
-        return true;
-      }
-    }
-
-    return false;
+    return this.getDepositorContextList().isEmpty() == false;
   }
 
   public int getDepositorContextListSize() {
@@ -193,6 +173,7 @@ public class ContextListSessionBean extends FacesBean {
         // ... and transform filter to xml
         if (hasGrants) {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
+          bq.must(QueryBuilders.termQuery("state", State.OPENED.name()));
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
