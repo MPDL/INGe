@@ -239,12 +239,12 @@ public class XmlComparator {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
       }
     }
-    
+
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException {
-      
+
       List<String> namesOfElementsToIgnore = new ArrayList<String>();
-      
+
       for (XmlNode node : elementsToIgnore) {
         namesOfElementsToIgnore.add(node.name);
       }
@@ -253,8 +253,8 @@ public class XmlComparator {
         omit = false;
       }
     }
-    
-    
+
+
   }
 
   private interface Node {
