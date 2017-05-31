@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.pubman.web.HomePage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -69,16 +70,29 @@ public class LoginHelper extends FacesBean {
   private List<AffiliationVOPresentation> userAccountAffiliations;
   private List<UserGroupVO> userAccountUserGroups;
 
-  private String authenticationToken = null;
-  private String displayUserName = "";
-  private String eSciDocUserHandle = null;
-  private String password = "";
-  private String username = "";
+  private String authenticationToken;
+  private String displayUserName;
+  private String eSciDocUserHandle;
+  private String password;
+  private String username;
 
-  private boolean detailedMode = false;
-  private boolean loggedIn = false;
+  private boolean detailedMode;
+  private boolean loggedIn;
 
-  public LoginHelper() {}
+  public LoginHelper() {
+    this.init();
+  }
+
+  private void init() {
+    this.authenticationToken = null;
+    this.displayUserName = null;
+    this.eSciDocUserHandle = null;
+    this.password = null;
+    this.username = null;
+
+    this.detailedMode = false;
+    this.loggedIn = false;
+  }
 
   public String getESciDocUserHandle() {
     return this.eSciDocUserHandle;
@@ -96,7 +110,7 @@ public class LoginHelper extends FacesBean {
    * @throws ServiceException ServiceException
    * @throws TechnicalException TechnicalException
    */
-  public void login() {
+  public String login() {
     try {
       final String token =
           ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(),
@@ -116,7 +130,6 @@ public class LoginHelper extends FacesBean {
           depWSSessionBean.setDepositorWS(true);
           depWSSessionBean.setNewSubmission(true);
         }
-
       }
     } catch (final AaException e) {
       LoginHelper.logger.error("Error while logging in", e);
@@ -125,17 +138,31 @@ public class LoginHelper extends FacesBean {
       LoginHelper.logger.error("Error while logging in", e);
       FacesBean.error("Technical error while logging in.");
     }
+
+    return HomePage.LOAD_HOMEPAGE;
   }
 
-  public void logout() {
+  public String logout() {
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
+
+    this.init();
+
+    return HomePage.LOAD_HOMEPAGE;
   }
 
   public void logoutCallBySessionListener() {
-    this.authenticationToken = null;
-    this.loggedIn = false;
-    this.detailedMode = false;
+    this.init();
+    this.gotoHomePage();
+  }
+
+  private void gotoHomePage() {
+    try {
+      FacesTools.getExternalContext().redirect(
+          FacesTools.getRequest().getContextPath() + "/faces/HomePage.jsp");
+    } catch (IOException e) {
+      LoginHelper.logger.error("Could not redirect to HomePage", e);
+    }
   }
 
   public String getAuthenticationToken() {

@@ -56,6 +56,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class HomePage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(HomePage.class);
 
+  public static final String LOAD_HOMEPAGE = "loadHomePage";
+
   public HomePage() {}
 
   @Override
