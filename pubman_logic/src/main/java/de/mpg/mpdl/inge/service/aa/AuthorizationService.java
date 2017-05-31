@@ -74,7 +74,7 @@ public class AuthorizationService {
 
 
   private QueryBuilder getAaFilterQuery(String serviceName, AccountUserVO userAccount) {
-
+    System.out.println(serviceName + "");
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
@@ -189,13 +189,9 @@ public class AuthorizationService {
 
 
 
-  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException {
-
-    try {
-      return userAccountService.get(authenticationToken);
-    } catch (IngeServiceException e) {
-      throw new AaException("You have to be logged in with a valid token", e);
-    }
+  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException,
+      IngeServiceException {
+    return userAccountService.get(authenticationToken);
   }
 
 
@@ -297,11 +293,11 @@ public class AuthorizationService {
     }
 
 
-    if (ruleMap.containsKey("role") || ruleMap.containsKey("grant_type")
+    if (ruleMap.containsKey("role")
         || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
-      String grantType = (String) ruleMap.get("grant_type");
+     
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
 
       List<String> grantFieldMatchValues = new ArrayList<>();
@@ -311,7 +307,7 @@ public class AuthorizationService {
 
 
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-      if ("ORGANIZATION".equals(grantType)) {
+      if (grantFieldMatch!=null && grantFieldMatchValues.get(0).startsWith("ou")) {
         List<AffiliationVO> childList = new ArrayList<>();
         searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
         grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getReference().getObjectId()).collect(Collectors.toList()));
@@ -321,7 +317,6 @@ public class AuthorizationService {
 
       for (GrantVO grant : userAccount.getGrants()) {
         check = (role == null || role.equals(grant.getRole()))
-            && (grantType == null || grantType.equals(grant.getGrantType()))
             && (grantFieldMatch == null || (grant.getObjectRef() != null
                 && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
@@ -331,8 +326,7 @@ public class AuthorizationService {
       }
 
       if (!check) {
-        throw new AaException("Expected user with role [" + role + "], grant-type [" + grantType
-            + "] on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
+        throw new AaException("Expected user with role [" + role + "], on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
       }
 
     }

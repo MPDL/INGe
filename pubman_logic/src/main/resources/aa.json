@@ -1,5 +1,5 @@
 {
-	"de.mpg.mpdl.inge.service.pubman.PubItemService" : {
+	"de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl" : {
 		"technical" : {
 			"order" : ["item", "context", "user"],
 			"indices" : {
@@ -149,7 +149,7 @@
 			}
 		]
 	},
-	"de.mpg.mpdl.inge.service.pubman.OrganizationService" : {
+	"de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl" : {
 		"technical" : {
 			"order" : ["ou", "user"],
 			"indices" : {
@@ -158,7 +158,7 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				}
 			}
 		],
@@ -166,7 +166,7 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				}
 			}
 		],
@@ -174,7 +174,7 @@
 		"delete" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"ou.hasChildren" : "false",
 				"context.state" : "CREATED"
@@ -189,7 +189,7 @@
 		"open" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"context.state" : "CREATED"
 			}
@@ -197,13 +197,13 @@
 		"close" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"context.state" : "OPENED"
 			}
 		]
 	},
-	"de.mpg.mpdl.inge.service.pubman.ContextService" : {
+	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {
 		"technical" : {
 			"order" : ["context", "user"],
 			"indices" : {
@@ -212,7 +212,7 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				}
 			}
 		],
@@ -220,7 +220,7 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				}
 			}
 		],
@@ -228,7 +228,7 @@
 		"delete" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"context.state" : "CREATED"
 				
@@ -242,7 +242,7 @@
 		"open" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"context.state" : "CREATED"
 			}
@@ -250,9 +250,54 @@
 		"close" : [
 			{
 				"user" : {
-					"role" : "SYSTEM_ADMINISTRATOR"
+					"role" : "SYSADMIN"
 				},
 				"context.state" : "OPENED"
+			}
+		]
+	},
+	"de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl" : {
+		"technical" : {
+			"order" : ["givenUser", "user"],
+			"indices" : {
+			}
+		}, 
+		"create" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			}
+		],
+		
+		"update" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			}
+		],
+		
+		"delete" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				},
+				"context.state" : "CREATED"
+				
+			}
+		],
+		
+		"get" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"field_user_id_match" : "givenUser.reference.objectId"
+				}
 			}
 		]
 	}

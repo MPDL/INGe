@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
@@ -18,6 +19,7 @@ import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -467,6 +469,52 @@ public class EntityTransformer {
     }
 
     return vhList;
+
+  }
+
+  public static de.mpg.mpdl.inge.model.valueobjects.AccountUserVO transformToOld(
+      AccountUserDbVO newAccountUser) {
+
+    if (newAccountUser == null) {
+      return null;
+    }
+    de.mpg.mpdl.inge.model.valueobjects.AccountUserVO oldAccountUser =
+        new de.mpg.mpdl.inge.model.valueobjects.AccountUserVO();
+
+
+
+    oldAccountUser.setCreationDate(newAccountUser.getCreationDate());
+    oldAccountUser.setCreator(transformToOld(newAccountUser.getCreator()));
+    oldAccountUser.setLastModificationDate(newAccountUser.getLastModificationDate());
+    oldAccountUser.setModifiedBy(transformToOld(newAccountUser.getModifier()));
+
+    oldAccountUser.setName(newAccountUser.getName());
+    oldAccountUser.setActive(newAccountUser.isActive());
+    oldAccountUser.setEmail(newAccountUser.getEmail());
+    oldAccountUser.setPassword(newAccountUser.getPassword());
+    oldAccountUser.setUserid(newAccountUser.getLoginname());
+
+
+    AffiliationRO affRo = new AffiliationRO();
+    affRo.setObjectId(newAccountUser.getAffiliation().getObjectId());
+    affRo.setTitle(newAccountUser.getAffiliation().getName());
+    oldAccountUser.getAffiliations().add(affRo);
+
+
+    AccountUserRO userRo = new AccountUserRO();
+    userRo.setObjectId(newAccountUser.getObjectId());
+    userRo.setTitle(newAccountUser.getName());
+
+    oldAccountUser.setReference(userRo);
+
+
+    oldAccountUser.getGrants().clear();
+    oldAccountUser.getGrants().addAll(newAccountUser.getGrantList());
+
+
+
+    return oldAccountUser;
+
 
   }
 

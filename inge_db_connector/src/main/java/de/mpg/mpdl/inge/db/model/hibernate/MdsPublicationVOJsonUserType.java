@@ -1,11 +1,14 @@
 package de.mpg.mpdl.inge.db.model.hibernate;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
-public class MdsPublicationVOJsonUserType extends StringJsonUserType<MdsPublicationVO> {
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+
+public class MdsPublicationVOJsonUserType extends StringJsonUserType {
 
   public MdsPublicationVOJsonUserType() {
-    super(MdsPublicationVO.class);
+    super(TypeFactory.defaultInstance().constructType(MdsPublicationVO.class));
   }
 
 }

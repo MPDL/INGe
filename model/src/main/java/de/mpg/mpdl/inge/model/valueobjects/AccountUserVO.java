@@ -93,6 +93,12 @@ public class AccountUserVO extends ValueObject {
   private List<GrantVO> grants = new java.util.ArrayList<GrantVO>();
   private List<GrantVO> grantsWithoutAudience = new ArrayList<GrantVO>();
 
+  private AccountUserRO creator;
+
+  private java.util.Date creationDate;
+
+  private AccountUserRO modifiedBy;
+
   /**
    * Delivers the active flag of the user account. The active flag is true if the user account can
    * be used, false otherwise.
@@ -482,5 +488,38 @@ public class AccountUserVO extends ValueObject {
 
     return true;
   }
+
+  public AccountUserRO getCreator() {
+    return creator;
+  }
+
+  public void setCreator(AccountUserRO creator) {
+    this.creator = creator;
+  }
+
+  public java.util.Date getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(java.util.Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  public AccountUserRO getModifiedBy() {
+    return modifiedBy;
+  }
+
+  public void setModifiedBy(AccountUserRO modifiedBy) {
+    this.modifiedBy = modifiedBy;
+  }
+
+  /**
+   * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
+   * 'create' or an 'update' transformation.
+   */
+  public boolean alreadyExistsInFramework() {
+    return (this.reference != null);
+  }
+
 
 }

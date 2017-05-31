@@ -1,0 +1,32 @@
+package de.mpg.mpdl.inge.db.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+
+
+
+public interface UserAccountRepository extends JpaRepository<AccountUserDbVO, String> {
+
+  /*
+   * @Query(value= "INSERT INTO user_login(loginname, password) VALUES (:loginname, :password)",
+   * nativeQuery=true) public void insertLogin(@Param("loginname") String loginName,
+   * 
+   * @Param("password") String encodedPassword);
+   * 
+   * @Query(value= "UPDATE user_login SET password=:password WHERE loginname=:loginname",
+   * nativeQuery=true) public void updateLogin(@Param("loginname") String loginName,
+   * 
+   * @Param("password") String encodedPassword);
+   * 
+   * @Query(value= "SELECT password FROM user_login WHERE loginname=:loginname", nativeQuery=true)
+   * public String findPassword(@Param("loginname") String loginName);
+   */
+  public AccountUserDbVO findByLoginname(@Param("loginname") String loginname);
+
+}

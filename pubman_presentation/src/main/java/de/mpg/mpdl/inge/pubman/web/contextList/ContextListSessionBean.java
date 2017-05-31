@@ -178,12 +178,12 @@ public class ContextListSessionBean extends FacesBean {
     this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
 
     if (this.getLoginHelper().isLoggedIn()
-        && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+        && this.getLoginHelper().getAccountUser().getGrants() != null) {
       try {
         boolean hasGrants = false;
         final ArrayList<String> ctxIdList = new ArrayList<>();
         for (final GrantVO grant : this.getLoginHelper().getAccountUser()
-            .getGrantsWithoutAudienceGrants()) {
+            .getGrants()) {
           if (grant.getObjectRef() != null) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
@@ -215,7 +215,7 @@ public class ContextListSessionBean extends FacesBean {
             // and Privileged viewer
 
             for (final GrantVO grant : this.getLoginHelper().getAccountUser()
-                .getGrantsWithoutAudienceGrants()) {
+                .getGrants()) {
               
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
                 if (grant.getObjectRef().equals(context.getReference().getObjectId())

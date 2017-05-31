@@ -77,6 +77,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
@@ -105,6 +106,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.MemberLis
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.StatisticReportWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.SuccessorROListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.URLWrapper;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.UserAttributesWrapper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -367,6 +369,7 @@ public class XmlTransformingService {
     List<GrantVO> grantVOList = grantVOListWrapper.getGrantVOList();
     return grantVOList;
   }
+
 
   /**
    * {@inheritDoc}
@@ -1917,33 +1920,33 @@ public class XmlTransformingService {
     return searchRetrieveResponseVO;
   }
 
-  // /**
-  // * {@inheritDoc}
-  // */
-  // public static List<UserAttributeVO> transformToUserAttributesList(String userAttributesList)
-  // throws TechnicalException {
-  // logger.debug("transformToUserAttributesList(String) - String userAttributesList=\n"
-  // + userAttributesList);
-  // if (userAttributesList == null) {
-  // throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
-  // + ":transformToUserAttributesList:userAttributesList is null");
-  // }
-  // UserAttributesWrapper listWrapper = null;
-  // try {
-  // // unmarshal MemberListWrapper from String
-  // IBindingFactory bfact = BindingDirectory.getFactory(UserAttributesWrapper.class);
-  // IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-  // StringReader sr = new StringReader(userAttributesList);
-  // Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-  // listWrapper = (UserAttributesWrapper) unmarshalledObject;
-  // } catch (JiBXException e) {
-  // // throw a new UnmarshallingException, log the root cause of the JiBXException first
-  // logger.error(e.getRootCause());
-  // throw new UnmarshallingException(userAttributesList, e);
-  // } catch (ClassCastException e) {
-  // throw new TechnicalException(e);
-  // }
-  //
-  // return listWrapper.getUserAttributes();
-  // }
+  /**
+   * {@inheritDoc}
+   */
+  public static List<UserAttributeVO> transformToUserAttributesList(String userAttributesList)
+      throws TechnicalException {
+    logger.debug("transformToUserAttributesList(String) - String userAttributesList=\n"
+        + userAttributesList);
+    if (userAttributesList == null) {
+      throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
+          + ":transformToUserAttributesList:userAttributesList is null");
+    }
+    UserAttributesWrapper listWrapper = null;
+    try {
+      // unmarshal MemberListWrapper from String
+      IBindingFactory bfact = BindingDirectory.getFactory(UserAttributesWrapper.class);
+      IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+      StringReader sr = new StringReader(userAttributesList);
+      Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+      listWrapper = (UserAttributesWrapper) unmarshalledObject;
+    } catch (JiBXException e) {
+      // throw a new UnmarshallingException, log the root cause of the JiBXException first
+      logger.error(e.getRootCause());
+      throw new UnmarshallingException(userAttributesList, e);
+    } catch (ClassCastException e) {
+      throw new TechnicalException(e);
+    }
+
+    return listWrapper.getUserAttributes();
+  }
 }

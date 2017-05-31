@@ -506,6 +506,16 @@
 				<artifactId>spring-data-rest-webmvc</artifactId>
                 <version>2.6.3.RELEASE</version>
             </dependency>
+            <dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>4.2.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>4.2.2.RELEASE</version>
+			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>

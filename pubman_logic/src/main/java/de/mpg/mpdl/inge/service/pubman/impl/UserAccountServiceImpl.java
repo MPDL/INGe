@@ -1,185 +1,278 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import static java.time.ZoneOffset.UTC;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.entity.ContentType;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
+import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
+import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
+import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
+import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
-public class UserAccountServiceImpl implements UserAccountService {
+public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, AccountUserDbVO>
+    implements UserAccountService {
 
-  @Override
-  public AccountUserVO create(AccountUserVO object, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return null;
-  }
+  private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
-  @Override
-  public AccountUserVO update(AccountUserVO object, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return null;
-  }
+  @Autowired
+  private AuthorizationService aaService;
 
-  @Override
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException {}
+  @Autowired
+  private IdentifierProviderServiceImpl idProviderService;
 
-  @Override
-  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
-    try {
-      final URL url = new URL(PropertyReader.getProperty("auth.users.url") + "/" + id);
-      final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", authenticationToken);
+  @Autowired
+  private UserAccountRepository userAccountRepository;
 
-      final ObjectMapper mapper = new ObjectMapper();
-      final JsonNode rawUser = mapper.readTree(conn.getInputStream());
-      conn.disconnect();
+  @Autowired
+  private UserLoginRepository userLoginRepository;
 
-      return jsonToAccountUser(rawUser);
-    } catch (final MalformedURLException e) {
-      throw new IngeServiceException("Could not get user", e);
-    } catch (final JsonParseException e) {
-      throw new IngeServiceException("Could not get user", e);
-    } catch (final IOException e) {
-      throw new IngeServiceException("Could not get user", e);
+  @Autowired
+  private UserAccountDaoEs<QueryBuilder> userAccountDao;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+
+  private Algorithm jwtAlgorithmKey;
+
+  private String jwtIssuer;
+
+
+  public UserAccountServiceImpl() throws Exception {
+    String key = PropertyReader.getProperty("inge.jwt.shared-secret");
+    if (key == null) {
+      logger
+          .warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
+      key = UUID.randomUUID().toString();
     }
 
+    jwtAlgorithmKey = Algorithm.HMAC512(key);
+
+    jwtIssuer = PropertyReader.getProperty("pubman.instance.url");
+
   }
 
+  @Transactional
   @Override
-  public SearchRetrieveResponseVO<AccountUserVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeServiceException, AaException {
-    // TODO Auto-generated method stub
-    return null;
+  public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
+
+    AccountUserVO accountUser = create(givenUser, authenticationToken);
+    userLoginRepository.insertLogin(accountUser.getUserid(),
+        passwordEncoder.encode("default-password"));
+    return accountUser;
   }
 
-  @Override
-  public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
 
-    try {
-      DecodedJWT jwt = JWT.decode(authenticationToken);
-      String userId = jwt.getSubject();
-      return get(userId, authenticationToken);
+  @Transactional
+  public AccountUserVO create(AccountUserVO givenUser, String password, String authenticationToken)
+      throws IngeServiceException, AaException, ItemInvalidException {
 
-    } catch (JWTDecodeException e) {
-      throw new AaException("Could not decode token", e);
-    }
-
-
+    AccountUserVO accountUser = create(givenUser, authenticationToken);
+    userLoginRepository.insertLogin(accountUser.getUserid(), passwordEncoder.encode(password));
+    return accountUser;
 
   }
+
+
 
   @Override
   public String login(String username, String password) throws IngeServiceException, AaException {
-    try {
-      final URI url = new URL(PropertyReader.getProperty("auth.token.url")).toURI();
-      final String input = "{\"userid\":\"" + username + "\",\"password\":\"" + password + "\"}";
 
-      HttpResponse resp =
-          Request.Post(url).bodyString(input, ContentType.APPLICATION_JSON).execute()
-              .returnResponse();
+    // Helper to login as any user if you are sysadmin
 
-      if (resp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-        throw new AaException("Could not login, Please provide correct username and password");
+    if (username.contains("#")) {
+      String[] parts = username.split("#");
+      AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
+      String encodedPassword = userLoginRepository.findPassword(parts[0]);
+
+      if (userAccountSysadmin != null && encodedPassword != null
+          && passwordEncoder.matches(password, encodedPassword)) {
+        for (GrantVO grant : userAccountSysadmin.getGrantList()) {
+          if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
+            AccountUserVO userAccountToLogin =
+                transformToOld(userAccountRepository.findByLoginname(parts[1]));
+            return createToken(userAccountToLogin);
+          }
+        }
       }
-
-      return resp.getHeaders("Token")[0].getValue();
-
-    } catch (AaException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new IngeServiceException(e);
+      throw new AaException("Could not login, Please provide correct username and password!");
     }
+
+    else {
+      AccountUserVO userAccount = transformToOld(userAccountRepository.findByLoginname(username));
+      String encodedPassword = userLoginRepository.findPassword(username);
+
+      if (userAccount != null && encodedPassword != null
+          && passwordEncoder.matches(password, encodedPassword)) {
+
+        return createToken(userAccount);
+
+      } else {
+        throw new AaException("Could not login, Please provide correct username and password!");
+      }
+    }
+
 
 
   }
 
 
 
-  private static AccountUserVO jsonToAccountUser(JsonNode rawUser) {
-    final AccountUserVO accountUser = new AccountUserVO();
-
-    final AccountUserRO userRO = new AccountUserRO();
-    userRO.setObjectId(rawUser.path("exid").asText().replace("pure", ID_PREFIX.USER.getPrefix()));
-    userRO.setTitle(rawUser.path("lastName").asText() + ", " + rawUser.path("firstName").asText());
-
-    accountUser.setReference(userRO);
-    accountUser.setUserid(rawUser.path("sub").asText());
-    final List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
-    final UserAttributeVO email = new UserAttributeVO();
-    email.setName("email");
-    email.setValue(rawUser.path("email").asText());
-    final UserAttributeVO ou = new UserAttributeVO();
-    ou.setName("o");
-    ou.setValue(rawUser.path("ouid").asText().replaceAll("pure", ID_PREFIX.OU.getPrefix()));
-    attributes.add(email);
-    attributes.add(ou);
-    accountUser.setAttributes(attributes);
-    accountUser.setActive(rawUser.path("active").asBoolean());
-    accountUser.setName(rawUser.path("lastName").asText() + ", "
-        + rawUser.path("firstName").asText());
+  @Override
+  public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
+    DecodedJWT jwt = verifyToken(authenticationToken);
+    String userId = jwt.getSubject();
+    return transformToOld(userAccountRepository.findByLoginname(userId));
+  }
 
 
-
-    // get all user-grants
-
-    final JsonNode grants = rawUser.path("grants");
-
-    if (grants.isArray()) {
-      for (final JsonNode grant : grants) {
-
-        final GrantVO grantVo = new GrantVO();
-        grantVo.setGrantedTo(rawUser.path("exid").asText());
-        grantVo.setGrantType("");
-        if (grant.path("targetId").asText().contains("all")) {
-
-        } else {
-          grantVo.setObjectRef(grant.path("targetId").asText()
-              .replaceAll("pure", ID_PREFIX.CONTEXT.getPrefix()));
-          grantVo.setGrantType(grant.path("targetType").asText());
-          final String roleName = grant.path("role").path("name").asText();
-          grantVo.setRole(roleName);
-          accountUser.getGrants().add(grantVo);
-          accountUser.getGrantsWithoutAudienceGrants().add(grantVo);
-
-        }
-
-      }
+  public DecodedJWT verifyToken(String authenticationToken) throws AaException {
+    try {
+      JWTVerifier verifier = JWT.require(jwtAlgorithmKey).withIssuer(jwtIssuer).build();
+      DecodedJWT jwt = verifier.verify(authenticationToken);
+      return jwt;
+    } catch (JWTVerificationException e) {
+      throw new AaException("Could not verify token: " + e.getMessage(), e);
     }
-    return accountUser;
 
+  }
+
+  private String createToken(AccountUserVO user) throws IngeServiceException {
+    try {
+      Instant now = Instant.now();
+      Date issueDate = Date.from(now);
+      Date expirationDate = Date.from(now.plus(2, ChronoUnit.HOURS));
+      logger.info("Creating token with issue date: " + issueDate + " and expiration date "
+          + expirationDate);
+
+      return JWT.create().withSubject(user.getUserid()).withIssuedAt(issueDate)
+          .withIssuer(jwtIssuer).withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
+    } catch (Exception e) {
+      throw new IngeServiceException("Could not generate token " + e.getMessage(), e);
+    }
+
+  }
+
+
+
+  @Override
+  protected AccountUserDbVO createEmptyDbObject() {
+    return new AccountUserDbVO();
+  }
+
+  @Override
+  protected List<String> updateObjectWithValues(AccountUserVO givenUser,
+      AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser, boolean create)
+      throws IngeServiceException {
+    Date currentDate = new Date();
+    AccountUserDbRO mod = new AccountUserDbRO();
+    mod.setName(callingUser.getName());
+    mod.setObjectId(callingUser.getReference().getObjectId());
+
+    if (givenUser.getName() == null || givenUser.getName().trim().isEmpty()
+        || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
+      throw new IngeServiceException("A name and user id is required");
+    }
+
+    tobeUpdatedUser.setActive(true);
+
+    if (givenUser.getAffiliations() == null || givenUser.getAffiliations().size() == 0) {
+      tobeUpdatedUser.setAffiliation(null);
+    } else {
+      AffiliationDbRO affRo = new AffiliationDbRO();
+      affRo.setObjectId(givenUser.getAffiliations().get(0).getObjectId());
+      tobeUpdatedUser.setAffiliation(affRo);
+    }
+
+
+    tobeUpdatedUser.setEmail(givenUser.getEmail());
+    tobeUpdatedUser.setLoginname(givenUser.getUserid());
+    tobeUpdatedUser.setName(givenUser.getName());
+    // tobeUpdatedUser.setPassword(givenUser.getPassword());
+
+    tobeUpdatedUser.setLastModificationDate(currentDate);
+    tobeUpdatedUser.setModifier(mod);
+
+    // tobeUpdatedUser.setGrantList(givenUser.getGrants());
+
+
+
+    if (create) {
+      tobeUpdatedUser.setCreationDate(currentDate);
+      tobeUpdatedUser.setCreator(mod);
+      tobeUpdatedUser.setObjectId(idProviderService.getNewId(ID_PREFIX.CONTEXT));
+    }
+    return null;
+
+  }
+
+  @Override
+  protected AccountUserVO transformToOld(AccountUserDbVO dbObject) {
+    return EntityTransformer.transformToOld(dbObject);
+  }
+
+  @Override
+  protected JpaRepository<AccountUserDbVO, String> getDbRepository() {
+    return userAccountRepository;
+  }
+
+  @Override
+  protected GenericDaoEs<AccountUserVO, QueryBuilder> getElasticDao() {
+    return userAccountDao;
+  }
+
+  @Override
+  protected String getObjectId(AccountUserVO object) {
+    return object.getReference().getObjectId();
   }
 
 

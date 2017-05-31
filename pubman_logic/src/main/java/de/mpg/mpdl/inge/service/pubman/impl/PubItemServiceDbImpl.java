@@ -362,12 +362,12 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     if (authenticationToken == null) {
       authorizedQuery =
-          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
+          aaService.modifyQueryForAa(this.getClass().getCanonicalName(),
               srr.getQueryObject(), null);
     } else {
       AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
       authorizedQuery =
-          aaService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
+          aaService.modifyQueryForAa(this.getClass().getCanonicalName(),
               srr.getQueryObject(), userAccount);
     }
 
@@ -567,7 +567,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
       String method) throws AaException, IngeServiceException {
-    aaService.checkAuthorization("de.mpg.mpdl.inge.service.pubman.PubItemService", method, item,
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, item,
         context, userAccount);
   }
 

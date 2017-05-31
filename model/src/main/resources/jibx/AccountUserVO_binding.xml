@@ -49,6 +49,33 @@
 			<value style="element" name="active" ns="${xsd.soap.common.prop}" field="active"
 				deserializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.deserializeBoolean"
 				serializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.serializeBoolean" usage="optional" />
+				
+				
+				<!-- Node: user.properties.creation-date -->
+			<!-- Field: ContextVO.creationDate [java.util.Date] -->
+			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}"
+				field="creationDate" usage="optional" />
+				
+				
+			<!-- Node: user.properties.created-by.@objid -->
+			<!-- Field: ContextVO.creator [AccountUserRO] -->
+			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
+			
+			<!-- Node:user.properties.modified-by -->
+			<!-- Type: AccountUserRO... -->
+			<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedBy"
+				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				usage="optional">
+
+				<!-- Node: organizational-unit.properties.created-by.@objid -->
+				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setObjectId" get-method="getObjectId" usage="optional" />
+
+			</structure>
+			
 			<!-- structure name="person-ref" ns="${xsd.soap.useraccount.useraccount}" />usage="optional" 
 				<structure name="creation-date" ns="${xsd.soap.useraccount.useraccount}" usage="optional" />
 				<structure name="last-modification-date" ns="${xsd.soap.useraccount.useraccount}" usage="optional" />

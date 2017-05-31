@@ -16,14 +16,20 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 
-public abstract class StringJsonUserType<T> implements UserType {
+public abstract class StringJsonUserType implements UserType {
 
-  final Class<T> typeParameterClass;
+  // final Class<ReturnType> typeParameterClass;
 
-  public StringJsonUserType(Class<T> typeParameterClass) {
-    this.typeParameterClass = typeParameterClass;
+  final JavaType typeReference;
+
+  public StringJsonUserType(JavaType javaType) {
+    // this.typeParameterClass = typeParameterClass;
+    this.typeReference = javaType;
   }
 
   @Override
@@ -32,8 +38,8 @@ public abstract class StringJsonUserType<T> implements UserType {
   }
 
   @Override
-  public Class<T> returnedClass() {
-    return typeParameterClass;
+  public Class<?> returnedClass() {
+    return typeReference.getRawClass();
   }
 
   @Override
@@ -61,13 +67,13 @@ public abstract class StringJsonUserType<T> implements UserType {
     try {
       // long start = System.currentTimeMillis();
       Object retVal =
-          JsonObjectMapperFactory.getObjectMapper().readerFor(typeParameterClass)
+          JsonObjectMapperFactory.getObjectMapper().readerFor(typeReference)
               .readValue(cellContent.getBytes("UTF-8"));
 
       // System.out.println("Conversion of metadata took " + (System.currentTimeMillis() - start));
       return retVal;
     } catch (final Exception ex) {
-      throw new RuntimeException("Failed to convert String to : " + typeParameterClass + " "
+      throw new RuntimeException("Failed to convert String to : " + typeReference.toString() + " "
           + ex.getMessage(), ex);
     }
   }
@@ -81,7 +87,7 @@ public abstract class StringJsonUserType<T> implements UserType {
     }
     try {
       final StringWriter w = new StringWriter();
-      JsonObjectMapperFactory.getObjectMapper().writerFor(typeParameterClass).writeValue(w, value);
+      JsonObjectMapperFactory.getObjectMapper().writerFor(typeReference).writeValue(w, value);
       ps.setObject(idx, w.toString(), Types.OTHER);
     } catch (final Exception ex) {
       throw new RuntimeException("Failed to convert Invoice to String: " + ex.getMessage(), ex);

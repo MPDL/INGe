@@ -1,5 +1,7 @@
 package pubman_logic;
 
+import java.io.StringWriter;
+import java.util.Date;
 import java.util.List;
 
 import javax.json.Json;
@@ -13,25 +15,31 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
+import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -69,6 +77,8 @@ public class PubmanLogicTest {
 
   @Autowired
   private AuthorizationService authorizationService;
+
+
 
   @Test
   @Ignore
@@ -184,6 +194,44 @@ public class PubmanLogicTest {
 
 
     }
+  }
+
+  @Test
+  @Ignore
+  public void testOpenContext() throws Exception {
+
+    String token = userAccountService.login("haarlaender", "demo");
+    AccountUserVO userAccount = userAccountService.get("user_104231", token);
+
+    StringWriter sw = new StringWriter();
+    JsonObjectMapperFactory.getObjectMapper().writerFor(AccountUserVO.class)
+        .writeValue(sw, userAccount);
+    System.out.println(sw.toString());
+
+
+
+    /*
+     * String token = userAccountService.login("frank", "mlehliW"); AccountUserVO userAccount =
+     * authorizationService.checkLoginRequired(token);
+     * 
+     * contextService.open("ctx_3000022", token);
+     */
+
+
+  }
+
+  public static void main(String[] args) {
+    Date now = new Date();
+    System.out.println(now.getTime());
+    System.out.println(now.getTimezoneOffset());
+    System.out.println(now.toGMTString());
+    System.out.println(now.toString());
+    System.out.println(now.toLocaleString());
+
+
+    JavaType jt =
+        TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
+    System.out.println(jt.getRawClass());
   }
 
 
