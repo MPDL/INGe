@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.sword;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -38,36 +37,24 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
-import org.purl.sword.base.ServiceDocumentRequest;
 import org.w3.atom.Author;
 import org.w3.atom.Content;
 import org.w3.atom.Generator;
@@ -89,7 +76,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -104,7 +90,6 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -118,9 +103,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SwordUtil extends FacesBean {
   private static final Logger logger = Logger.getLogger(SwordUtil.class);
 
-  private static final String LOGIN_URL = "/aa/login";
-  private static final String LOGOUT_URL = "/aa/logout/clear.jsp";
-  private static final int NUMBER_OF_URL_TOKENS = 2;
+  // private static final String LOGIN_URL = "/aa/login";
+  // private static final String LOGOUT_URL = "/aa/logout/clear.jsp";
+  // private static final int NUMBER_OF_URL_TOKENS = 2;
 
   // private static final String acceptedFormat = "application/zip";
   private static final String itemPath = "/pubman/item/";
@@ -151,30 +136,30 @@ public class SwordUtil extends FacesBean {
     this.filenames.clear();
   }
 
-  /**
-   * Logs in a user.
-   * 
-   * @return AccountUserVO
-   */
-  public AccountUserVO checkUser(ServiceDocumentRequest sdr) {
-    AccountUserVO userVO = null;
-
-    // Forward http authentification
-    if (sdr.getUsername() != null && sdr.getPassword() != null) {
-      final String username = sdr.getUsername();
-      final String pwd = sdr.getPassword();
-      try {
-        final String handle = AdminHelper.loginUser(username, pwd);
-        this.getLoginHelper().setESciDocUserHandle(handle);
-        userVO = this.getLoginHelper().getAccountUser();
-      } catch (final Exception e) {
-        SwordUtil.logger.error(e);
-        return null;
-      }
-    }
-
-    return userVO;
-  }
+  // /**
+  // * Logs in a user.
+  // *
+  // * @return AccountUserVO
+  // */
+  // public AccountUserVO checkUser(ServiceDocumentRequest sdr) {
+  // AccountUserVO userVO = null;
+  //
+  // // Forward http authentification
+  // if (sdr.getUsername() != null && sdr.getPassword() != null) {
+  // final String username = sdr.getUsername();
+  // final String pwd = sdr.getPassword();
+  // try {
+  // final String handle = AdminHelper.loginUser(username, pwd);
+  // this.getLoginHelper().setESciDocUserHandle(handle);
+  // userVO = this.getLoginHelper().getAccountUser();
+  // } catch (final Exception e) {
+  // SwordUtil.logger.error(e);
+  // return null;
+  // }
+  // }
+  //
+  // return userVO;
+  // }
 
   /**
    * Checks if a user has depositing rights for a collection.
@@ -199,93 +184,93 @@ public class SwordUtil extends FacesBean {
     return false;
   }
 
-  /**
-   * Logs in the given user with the given password.
-   * 
-   * @param userid The id of the user to log in.
-   * @param password The password of the user to log in.
-   * @return The handle for the logged in user.
-   * @throws HttpException
-   * @throws IOException
-   * @throws ServiceException
-   * @throws URISyntaxException
-   */
-  @Deprecated
-  public String loginUser(String userid, String password) throws HttpException, IOException,
-      ServiceException, URISyntaxException {
-    final String frameworkUrl = PropertyReader.getFrameworkUrl();
-    final StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
-    if (tokens.countTokens() != SwordUtil.NUMBER_OF_URL_TOKENS) {
-      throw new IOException(
-          "Url in the config file is in the wrong format, needs to be http://<host>:<port>");
-    }
-    tokens.nextToken();
-    final StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+  // /**
+  // * Logs in the given user with the given password.
+  // *
+  // * @param userid The id of the user to log in.
+  // * @param password The password of the user to log in.
+  // * @return The handle for the logged in user.
+  // * @throws HttpException
+  // * @throws IOException
+  // * @throws ServiceException
+  // * @throws URISyntaxException
+  // */
+  // @Deprecated
+  // public String loginUser(String userid, String password) throws HttpException, IOException,
+  // ServiceException, URISyntaxException {
+  // final String frameworkUrl = PropertyReader.getFrameworkUrl();
+  // final StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
+  // if (tokens.countTokens() != SwordUtil.NUMBER_OF_URL_TOKENS) {
+  // throw new IOException(
+  // "Url in the config file is in the wrong format, needs to be http://<host>:<port>");
+  // }
+  // tokens.nextToken();
+  // final StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+  //
+  // if (hostPort.countTokens() != SwordUtil.NUMBER_OF_URL_TOKENS) {
+  // throw new IOException(
+  // "Url in the config file is in the wrong format, needs to be http://<host>:<port>");
+  // }
+  // final String host = hostPort.nextToken();
+  // final int port = Integer.parseInt(hostPort.nextToken());
+  //
+  // final HttpClient client = new HttpClient();
+  //
+  // client.getHostConfiguration().setHost(host, port, "http");
+  // client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+  //
+  // final PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
+  // login.addParameter("j_username", userid);
+  // login.addParameter("j_password", password);
+  //
+  // client.executeMethod(login);
+  //
+  // login.releaseConnection();
+  // final CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
+  // final Cookie[] logoncookies =
+  // cookiespec.match(host, port, "/", false, client.getState().getCookies());
+  //
+  // final Cookie sessionCookie = logoncookies[0];
+  //
+  // final PostMethod postMethod = new PostMethod(SwordUtil.LOGIN_URL);
+  // postMethod.addParameter("target", frameworkUrl);
+  // client.getState().addCookie(sessionCookie);
+  // client.executeMethod(postMethod);
+  //
+  // if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode()) {
+  // throw new HttpException("Wrong status code: " + login.getStatusCode());
+  // }
+  //
+  // String userHandle = null;
+  // final Header[] headers = postMethod.getResponseHeaders();
+  // for (int i = 0; i < headers.length; ++i) {
+  // if ("Location".equals(headers[i].getName())) {
+  // final String location = headers[i].getValue();
+  // final int index = location.indexOf('=');
+  // userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+  // }
+  // }
+  // if (userHandle == null) {
+  // throw new ServiceException("User not logged in.");
+  // }
+  // return userHandle;
+  // }
 
-    if (hostPort.countTokens() != SwordUtil.NUMBER_OF_URL_TOKENS) {
-      throw new IOException(
-          "Url in the config file is in the wrong format, needs to be http://<host>:<port>");
-    }
-    final String host = hostPort.nextToken();
-    final int port = Integer.parseInt(hostPort.nextToken());
-
-    final HttpClient client = new HttpClient();
-
-    client.getHostConfiguration().setHost(host, port, "http");
-    client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-    final PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
-    login.addParameter("j_username", userid);
-    login.addParameter("j_password", password);
-
-    client.executeMethod(login);
-
-    login.releaseConnection();
-    final CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-    final Cookie[] logoncookies =
-        cookiespec.match(host, port, "/", false, client.getState().getCookies());
-
-    final Cookie sessionCookie = logoncookies[0];
-
-    final PostMethod postMethod = new PostMethod(SwordUtil.LOGIN_URL);
-    postMethod.addParameter("target", frameworkUrl);
-    client.getState().addCookie(sessionCookie);
-    client.executeMethod(postMethod);
-
-    if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode()) {
-      throw new HttpException("Wrong status code: " + login.getStatusCode());
-    }
-
-    String userHandle = null;
-    final Header[] headers = postMethod.getResponseHeaders();
-    for (int i = 0; i < headers.length; ++i) {
-      if ("Location".equals(headers[i].getName())) {
-        final String location = headers[i].getValue();
-        final int index = location.indexOf('=');
-        userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-      }
-    }
-    if (userHandle == null) {
-      throw new ServiceException("User not logged in.");
-    }
-    return userHandle;
-  }
-
-  /**
-   * @param fc
-   * @throws IOException
-   * @throws ServiceException
-   * @throws URISyntaxException
-   */
-  public void logoutUser() throws IOException, ServiceException, URISyntaxException {
-    FacesTools.getExternalContext().redirect(
-        PropertyReader.getFrameworkUrl()
-            + SwordUtil.LOGOUT_URL
-            + "?target="
-            + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + "?logout=true", "UTF-8"));
-  }
+  // /**
+  // * @param fc
+  // * @throws IOException
+  // * @throws ServiceException
+  // * @throws URISyntaxException
+  // */
+  // public void logoutUser() throws IOException, ServiceException, URISyntaxException {
+  // FacesTools.getExternalContext().redirect(
+  // PropertyReader.getFrameworkUrl()
+  // + SwordUtil.LOGOUT_URL
+  // + "?target="
+  // + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+  // + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+  // + "?logout=true", "UTF-8"));
+  // }
 
   /**
    * Creates a Account User.
@@ -302,7 +287,6 @@ public class SwordUtil extends FacesBean {
       e.printStackTrace();
       return null;
     }
-
   }
 
   /**
@@ -546,22 +530,24 @@ public class SwordUtil extends FacesBean {
     return depositedItem;
   }
 
-  /**
-   * Returns the Workflow of the current context.
-   */
-  public PublicationAdminDescriptorVO.Workflow getWorkflow() {
-    if ((this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD)) {
-      return Workflow.STANDARD;
-    }
+  // /**
+  // * Returns the Workflow of the current context.
+  // */
+  // public PublicationAdminDescriptorVO.Workflow getWorkflow() {
+  // if ((this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()
+  // == PublicationAdminDescriptorVO.Workflow.STANDARD)) {
+  // return Workflow.STANDARD;
+  // }
+  //
+  // if ((this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()
+  // == PublicationAdminDescriptorVO.Workflow.SIMPLE)) {
+  // return Workflow.SIMPLE;
+  // }
+  //
+  // return null;
+  // }
 
-    if ((this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE)) {
-      return Workflow.SIMPLE;
-    }
-
-    return null;
-  }
-
-  public String getMethod(PubItemVO item) {
+  private String getMethod(PubItemVO item) {
     boolean isWorkflowStandard = false;
     boolean isWorkflowSimple = true;
 

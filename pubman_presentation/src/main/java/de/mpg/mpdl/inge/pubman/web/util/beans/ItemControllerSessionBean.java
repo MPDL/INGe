@@ -574,7 +574,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * Returns the export data stream with the selelcted items in the proper export format
+   * Returns the export data stream with the selected items in the proper export format
    * 
    * @author: StG
    * @param exportFormatVO is containing the selected export format and the file format
