@@ -2,6 +2,9 @@ package de.mpg.mpdl.inge.transformation;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -22,6 +25,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.util.XmlComparator;
 
+// @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class TransformerFactoryTest {
 
@@ -334,9 +338,11 @@ public class TransformerFactoryTest {
     String s = wr.toString();
 
 
-    assertXmlTransformationWithIgnore(wr, "results/fromEndnoteXmlToEscidocItem.xml",
+    assertXmlTransformationWithIgnore(
+        wr,
+        "results/fromEndnoteXmlToEscidocItem.xml",
         Arrays
-            .asList(new String[] {"person, ,http://purl.org/escidoc/metadata/profiles/0.1/person"}));
+            .asList(new String[] {"creator,role=http://www.loc.gov/loc.terms/relators/AUT,http://purl.org/escidoc/metadata/terms/0.1/"}));
   }
 
   @Test

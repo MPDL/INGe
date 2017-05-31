@@ -186,9 +186,6 @@ public class XmlComparator {
       if (!textNode.equals(other) && !omit) {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
       }
-      if (omit) {
-        omit = false;
-      }
     }
 
     @Override
@@ -238,10 +235,26 @@ public class XmlComparator {
 
       Node other = firstXmlHandler.nodeList.poll();
 
-      if (!xmlNode.equals(other)) {
+      if (!xmlNode.equals(other) && !omit) {
         errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
       }
     }
+    
+    @Override
+    public void endElement(String uri, String localName, String name) throws SAXException {
+      
+      List<String> namesOfElementsToIgnore = new ArrayList<String>();
+      
+      for (XmlNode node : elementsToIgnore) {
+        namesOfElementsToIgnore.add(node.name);
+      }
+      super.endElement(uri, localName, name);
+      if (omit && namesOfElementsToIgnore.contains(name.substring(name.indexOf(":") + 1))) {
+        omit = false;
+      }
+    }
+    
+    
   }
 
   private interface Node {
