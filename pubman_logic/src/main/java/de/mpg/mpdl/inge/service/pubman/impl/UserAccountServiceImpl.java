@@ -101,23 +101,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Override
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeServiceException, AaException, ItemInvalidException {
-
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
+    if(givenUser.getPassword()==null || givenUser.getPassword().trim().isEmpty())
+    {
+      throw new IngeServiceException("A password has to be provided");
+    }
     userLoginRepository.insertLogin(accountUser.getUserid(),
-        passwordEncoder.encode("default-password"));
+        passwordEncoder.encode(givenUser.getPassword()));
     return accountUser;
   }
 
-
-  @Transactional
-  public AccountUserVO create(AccountUserVO givenUser, String password, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
-
-    AccountUserVO accountUser = super.create(givenUser, authenticationToken);
-    userLoginRepository.insertLogin(accountUser.getUserid(), passwordEncoder.encode(password));
-    return accountUser;
-
-  }
 
   @Transactional
   public AccountUserVO addGrant(String userId, GrantVO grant, String authenticationToken)
