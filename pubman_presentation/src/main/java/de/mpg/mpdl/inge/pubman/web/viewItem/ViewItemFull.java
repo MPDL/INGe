@@ -189,26 +189,26 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
 
-  private boolean isCandidateOfYearbook;
-  private boolean isCreateNewRevisionDisabled;
+  private boolean isCandidateOfYearbook = false;
+  private boolean isCreateNewRevisionDisabled = false;
   private boolean isDepositor = false;
-  private boolean isLatestRelease;
-  private boolean isLatestVersion;
-  private boolean isLoggedIn;
-  private boolean isMemberOfYearbook;
+  private boolean isLatestRelease = false;
+  private boolean isLatestVersion = false;
+  private boolean isLoggedIn = false;
+  private boolean isMemberOfYearbook = false;
   private boolean isModerator = false;
-  private boolean isModifyDisabled;
-  private boolean isOwner;
+  private boolean isModifyDisabled = false;
+  private boolean isOwner = false;
   private boolean isPrivilegedViewer = false;
-  private boolean isPublicStateReleased;
-  private boolean isStateInRevision;
-  private boolean isStatePending;
-  private boolean isStateReleased;
-  private boolean isStateSubmitted;
+  private boolean isPublicStateReleased = false;
+  private boolean isStateInRevision = false;
+  private boolean isStatePending = false;
+  private boolean isStateReleased = false;
+  private boolean isStateSubmitted = false;
   private boolean isStateWasReleased = false;
-  private boolean isStateWithdrawn;
-  private boolean isWorkflowSimple;
-  private boolean isWorkflowStandard;
+  private boolean isStateWithdrawn = false;
+  private boolean isWorkflowSimple = false;
+  private boolean isWorkflowStandard = false;
 
   public ViewItemFull() {
     this.init();
@@ -239,37 +239,27 @@ public class ViewItemFull extends FacesBean {
           this.getViewItemSessionBean().itemChanged();
         }
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
-      } catch (final AuthorizationException e) {
+      } catch (AuthorizationException | AuthenticationException e) {
         if (this.getLoginHelper().isLoggedIn()) {
           FacesBean.error(this.getMessage("ViewItemFull_noPermission"));
         } else {
-          // redirect to login
           getLoginHelper().logout();
-          // ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
         }
-      } catch (final AuthenticationException e) {
-        if (this.getLoginHelper().isLoggedIn()) {
-          FacesBean.error(this.getMessage("ViewItemFull_noPermission"));
-        } else {
-          // redirect to login
-          getLoginHelper().logout();
-          // ((Login) FacesTools.findBean("Login")).forceLogout(itemID);
-        }
-      } catch (final Exception e) {
+      } catch (Exception e) {
         ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
         this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
-        // TODO Hier muss ein Redirect zur aufrufenden Seite hin
+        return;
       }
     } else {
+      final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
+      if (icsb.getCurrentPubItem() == null) {
+        return;
+      }
+
       // Cleanup needed if an edit site was loaded inbetween
       // (e.g. local tags --> source without editors --> editors are created in the SourceBean and
       // not removed)
-      final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-      if (icsb.getCurrentPubItem() != null) {
-        PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
-      } else {
-        // TODO: was soll hier passieren?
-      }
+      PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
       this.pubItem = icsb.getCurrentPubItem();
     }
 
@@ -285,259 +275,257 @@ public class ViewItemFull extends FacesBean {
       this.getViewItemSessionBean().setSubMenu(subMenu);
     }
 
-    if (this.pubItem != null) {
-      ViewItemFull.logger.info("Initializing view for item: "
-          + this.pubItem.getVersion().getObjectIdAndVersion());
+    // if (this.pubItem != null) {
+    ViewItemFull.logger.info("Initializing view for item: "
+        + this.pubItem.getVersion().getObjectIdAndVersion());
 
-      // Citation url
-      try {
-        String pubmanUrl =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+    // Citation url
+    try {
+      String pubmanUrl =
+          PropertyReader.getProperty("escidoc.pubman.instance.url")
+              + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
 
-        this.itemPattern =
+      this.itemPattern =
+          PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+              this.getPubItem().getVersion().getObjectIdAndVersion());
+      if (!pubmanUrl.endsWith("/")) {
+        pubmanUrl = pubmanUrl + "/";
+      }
+      if (this.itemPattern.startsWith("/")) {
+        this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
+      }
+      // MF: Removed exclusion of pending items here
+      this.citationURL = pubmanUrl + this.itemPattern;
+
+      if (this.getPubItem().getLatestVersion() != null
+          && this.getPubItem().getLatestVersion().getObjectIdAndVersion() != null) {
+        String latestVersionItemPattern =
             PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-                this.getPubItem().getVersion().getObjectIdAndVersion());
-        if (!pubmanUrl.endsWith("/")) {
-          pubmanUrl = pubmanUrl + "/";
+                this.getPubItem().getLatestVersion().getObjectIdAndVersion());
+        if (latestVersionItemPattern.startsWith("/")) {
+          latestVersionItemPattern =
+              latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
         }
-        if (this.itemPattern.startsWith("/")) {
-          this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
-        }
-        // MF: Removed exclusion of pending items here
-        this.citationURL = pubmanUrl + this.itemPattern;
-
-        if (this.getPubItem().getLatestVersion() != null
-            && this.getPubItem().getLatestVersion().getObjectIdAndVersion() != null) {
-          String latestVersionItemPattern =
-              PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-                  this.getPubItem().getLatestVersion().getObjectIdAndVersion());
-          if (latestVersionItemPattern.startsWith("/")) {
-            latestVersionItemPattern =
-                latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
-          }
-          this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
-        }
-      } catch (final Exception e) {
-        e.printStackTrace();
-        this.citationURL = "";
+        this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
       }
+    } catch (Exception e) {
+      e.printStackTrace();
+      this.citationURL = "";
+    }
 
-      this.isOwner = true;
+    this.isOwner = true;
 
-      if (this.pubItem.getOwner() != null) {
-        this.isOwner =
-            (this.getLoginHelper().getAccountUser().getReference() != null ? this.getLoginHelper()
-                .getAccountUser().getReference().getObjectId()
-                .equals(this.getPubItem().getOwner().getObjectId()) : false);
+    if (this.pubItem.getOwner() != null) {
+      this.isOwner =
+          (this.getLoginHelper().getAccountUser().getReference() != null ? this.getLoginHelper()
+              .getAccountUser().getReference().getObjectId()
+              .equals(this.getPubItem().getOwner().getObjectId()) : false);
 
-        if (this.getLoginHelper().getAccountUser().getReference() != null
-            && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
-          this.isModerator =
-              this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
-          this.isDepositor = this.getLoginHelper().getIsDepositor();
-          this.isPrivilegedViewer =
-              this.getLoginHelper().getAccountUser()
-                  .isPrivilegedViewer(this.getPubItem().getContext());
+      if (this.getLoginHelper().getAccountUser().getReference() != null
+          && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
+        this.isModerator =
+            this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
+        this.isDepositor = this.getLoginHelper().getIsDepositor();
+        this.isPrivilegedViewer =
+            this.getLoginHelper().getAccountUser()
+                .isPrivilegedViewer(this.getPubItem().getContext());
 
-          if (!this.isOwner) {
-            for (final GrantVO grant : this.getLoginHelper().getAccountUser()
-                .getGrantsWithoutAudienceGrants()) {
-              if (grant.getRole().equals("escidoc:role-system-administrator")) {
-                this.isOwner = true;
-                break;
-              }
+        if (!this.isOwner) {
+          for (final GrantVO grant : this.getLoginHelper().getAccountUser()
+              .getGrantsWithoutAudienceGrants()) {
+            if (grant.getRole().equals("escidoc:role-system-administrator")) {
+              this.isOwner = true;
+              break;
             }
           }
         }
       }
+    }
 
-      // Setting properties for Action Links
-      this.isLoggedIn = this.getLoginHelper().isLoggedIn();
+    // Setting properties for Action Links
+    this.isLoggedIn = this.getLoginHelper().isLoggedIn();
 
-      this.isLatestVersion =
-          this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
-              .getVersionNumber();
+    this.isLatestVersion =
+        this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestVersion()
+            .getVersionNumber();
 
-      this.isLatestRelease =
-          this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
-              .getVersionNumber();
+    this.isLatestRelease =
+        this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
+            .getVersionNumber();
 
-      this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
+    this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
 
-      this.isStateWasReleased =
-          this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
+    this.isStateWasReleased =
+        this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
-      this.isStateWithdrawn =
-          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
-      if (this.isStateWithdrawn) {
-        this.getViewItemSessionBean().itemChanged();
-      }
+    this.isStateWithdrawn =
+        this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
+    if (this.isStateWithdrawn) {
+      this.getViewItemSessionBean().itemChanged();
+    }
 
-      this.isStateSubmitted =
-          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
-              && !this.isStateWithdrawn;;
+    this.isStateSubmitted =
+        this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
+            && !this.isStateWithdrawn;;
 
-      this.isStateReleased =
-          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
-              && !this.isStateWithdrawn;
+    this.isStateReleased =
+        this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
+            && !this.isStateWithdrawn;
 
-      this.isStatePending =
-          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
-              && !this.isStateWithdrawn;;
+    this.isStatePending =
+        this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
+            && !this.isStateWithdrawn;;
 
-      this.isStateInRevision =
-          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
-              && !this.isStateWithdrawn;;
+    this.isStateInRevision =
+        this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
+            && !this.isStateWithdrawn;;
 
-      // Workflow
+    // Workflow
+    try {
+      this.isWorkflowStandard =
+          (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+      this.isWorkflowSimple =
+          (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+    } catch (Exception e) {
+      this.isWorkflowSimple = true;
+      this.isWorkflowStandard = false;
+    }
+
+    // Warn message if the item version is not the latest
+    if (this.isLatestVersion == false
+        && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
+            .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
+      String link = null;
       try {
-        this.isWorkflowStandard =
-            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-        this.isWorkflowSimple =
-            (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
-      } catch (final Exception e) {
-        this.isWorkflowSimple = true;
-        this.isWorkflowStandard = false;
+        link =
+            PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+                    "\\$1",
+                    this.getPubItem().getVersion().getObjectId()
+                        + (this.getPubItem().getLatestVersion().getVersionNumber() != 0 ? ":"
+                            + this.getPubItem().getLatestVersion().getVersionNumber() : ""));
+      } catch (Exception e) {
+        ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
       }
+      this.warn(this.getMessage("itemIsNotLatestVersion") + "<br/><a href=\""
+          + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
+    } else if (this.isLatestVersion == false
+        && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem().getVersion()
+            .getVersionNumber()) {
+      String link = null;
+      try {
+        link =
+            PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+                    "\\$1",
+                    this.getPubItem().getVersion().getObjectId()
+                        + (this.getPubItem().getLatestRelease().getVersionNumber() != 0 ? ":"
+                            + this.getPubItem().getLatestRelease().getVersionNumber() : ""));
+      } catch (Exception e) {
+        ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
+      }
+      this.warn(this.getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\""
+          + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
+    }
 
-      // Warn message if the item version is not the latest
-      if (this.isLatestVersion == false
-          && this.getPubItem().getLatestVersion().getVersionNumber() != this.getPubItem()
-              .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
-        String link = null;
+    // Prerequisites
+
+    // List of numbered affiliated organizations
+    this.createCreatorsList();
+
+    // Languages from CoNE
+    if (this.getPubItem().getMetadata().getLanguages() != null
+        && this.getPubItem().getMetadata().getLanguages().size() > 0) {
+
+      final StringWriter result = new StringWriter();
+      for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++) {
+        if (i > 0) {
+          result.append(", ");
+        }
+
+        final String language = this.getPubItem().getMetadata().getLanguages().get(i);
+        String languageName = null;
         try {
-          link =
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
-                      "\\$1",
-                      this.getPubItem().getVersion().getObjectId()
-                          + (this.getPubItem().getLatestVersion().getVersionNumber() != 0 ? ":"
-                              + this.getPubItem().getLatestVersion().getVersionNumber() : ""));
-        } catch (final Exception e) {
-          ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
+          languageName =
+              CommonUtils.getConeLanguageName(language, this.getI18nHelper().getLocale());
+        } catch (Exception e) {
+          ViewItemFull.logger.error("Cannot retrieve language information from CoNE", e);
         }
-        this.warn(this.getMessage("itemIsNotLatestVersion") + "<br/><a href=\""
-            + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
-      } else if (this.isLatestVersion == false
-          && this.getPubItem().getLatestRelease().getVersionNumber() > this.getPubItem()
-              .getVersion().getVersionNumber()) {
-        String link = null;
+        if (languageName != null) {
+          result.append(language);
+          if (!"".equals(languageName)) {
+            result.append(" - ");
+            result.append(languageName);
+          }
+        }
+      }
+
+      this.languages = result.toString();
+    }
+
+    // Source list
+    if (this.getPubItem().getMetadata().getSources().size() > 0) {
+      this.sourceList = new ArrayList<SourceBean>();
+      for (int i = 0; i < this.getPubItem().getMetadata().getSources().size(); i++) {
+        this.sourceList.add(new SourceBean(this.getPubItem().getMetadata().getSources().get(i)));
+      }
+    }
+
+    // List of files
+    // Check if the item is also in the search result list
+    final List<PubItemVOPresentation> currentPubItemList =
+        this.getPubItemListSessionBean().getCurrentPartList();
+
+    if (currentPubItemList != null) {
+      for (int i = 0; i < currentPubItemList.size(); i++) {
+        if (this.getPubItem().getVersion().getObjectId()
+            .equals(currentPubItemList.get(i).getVersion().getObjectId())
+            && this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
+                .getVersion().getVersionNumber()
+            && currentPubItemList.get(i).getSearchHitList() != null
+            && currentPubItemList.get(i).getSearchHitList().size() > 0) {
+          this.pubItem.setSearchResult(true);
+          this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
+          this.pubItem.setScore(currentPubItemList.get(i).getScore());
+          this.pubItem.setSearchHitBeanList();
+        }
+      }
+    }
+
+    // Yearbook
+    // if item is currently part of invalid yearbook items, show Validation Messages
+    if (this.getLoginHelper().getIsYearbookEditor()) {
+      this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+
+      if (this.yisb.getYearbookItem() != null) {
+        if (this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
+          try {
+            // revalidate
+            this.yisb.validateItem(this.getPubItem());
+            final YearbookInvalidItemRO invItem =
+                this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId());
+            if (invItem != null) {
+              ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem
+                  .getValidationReport());
+            }
+          } catch (Exception e) {
+            ViewItemFull.logger.error("Error in Yearbook validation", e);
+          }
+        }
+
         try {
-          link =
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
-                      "\\$1",
-                      this.getPubItem().getVersion().getObjectId()
-                          + (this.getPubItem().getLatestRelease().getVersionNumber() != 0 ? ":"
-                              + this.getPubItem().getLatestRelease().getVersionNumber() : ""));
+          if (State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
+              || State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion().getState())) {
+            this.isCandidateOfYearbook =
+                this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+            if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
+              this.isMemberOfYearbook = this.yisb.isMember(this.pubItem.getVersion().getObjectId());
+            }
+          }
         } catch (final Exception e) {
-          ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
-        }
-        this.warn(this.getMessage("itemIsNotLatestReleasedVersion") + "<br/><a href=\""
-            + (link != null ? link : "") + "\" >" + (link != null ? link : "") + "</a>");
-      }
-
-      // Prerequisites
-
-      // List of numbered affiliated organizations
-      this.createCreatorsList();
-
-      // Languages from CoNE
-      if (this.getPubItem().getMetadata().getLanguages() != null
-          && this.getPubItem().getMetadata().getLanguages().size() > 0) {
-
-        final StringWriter result = new StringWriter();
-        for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++) {
-          if (i > 0) {
-            result.append(", ");
-          }
-
-          final String language = this.getPubItem().getMetadata().getLanguages().get(i);
-          String languageName = null;
-          try {
-            languageName =
-                CommonUtils.getConeLanguageName(language, this.getI18nHelper().getLocale());
-          } catch (final Exception e) {
-            ViewItemFull.logger.error("Cannot retrieve language information from CoNE", e);
-          }
-          if (languageName != null) {
-            result.append(language);
-            if (!"".equals(languageName)) {
-              result.append(" - ");
-              result.append(languageName);
-            }
-          }
-        }
-
-        this.languages = result.toString();
-      }
-
-      // Source list
-      if (this.getPubItem().getMetadata().getSources().size() > 0) {
-        this.sourceList = new ArrayList<SourceBean>();
-        for (int i = 0; i < this.getPubItem().getMetadata().getSources().size(); i++) {
-          this.sourceList.add(new SourceBean(this.getPubItem().getMetadata().getSources().get(i)));
-        }
-      }
-
-      // List of files
-      // Check if the item is also in the search result list
-      final List<PubItemVOPresentation> currentPubItemList =
-          this.getPubItemListSessionBean().getCurrentPartList();
-
-      if (currentPubItemList != null) {
-        for (int i = 0; i < currentPubItemList.size(); i++) {
-          if (this.getPubItem().getVersion().getObjectId()
-              .equals(currentPubItemList.get(i).getVersion().getObjectId())
-              && this.getPubItem().getVersion().getVersionNumber() == currentPubItemList.get(i)
-                  .getVersion().getVersionNumber()
-              && currentPubItemList.get(i).getSearchHitList() != null
-              && currentPubItemList.get(i).getSearchHitList().size() > 0) {
-            this.pubItem.setSearchResult(true);
-            this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
-            this.pubItem.setScore(currentPubItemList.get(i).getScore());
-            this.pubItem.setSearchHitBeanList();
-          }
-        }
-      }
-
-      // Yearbook
-      // if item is currently part of invalid yearbook items, show Validation Messages
-      if (this.getLoginHelper().getIsYearbookEditor()) {
-        this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-
-        if (this.yisb.getYearbookItem() != null) {
-          if (this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
-            try {
-              // revalidate
-              this.yisb.validateItem(this.getPubItem());
-              final YearbookInvalidItemRO invItem =
-                  this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId());
-              if (invItem != null) {
-                ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem
-                    .getValidationReport());
-              }
-            } catch (final Exception e) {
-              ViewItemFull.logger.error("Error in Yearbook validation", e);
-            }
-          }
-
-          try {
-            if (State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
-                || State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion().getState())) {
-              this.isCandidateOfYearbook =
-                  this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-              if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
-                this.isMemberOfYearbook =
-                    this.yisb.isMember(this.pubItem.getVersion().getObjectId());
-              }
-            }
-          } catch (final Exception e) {
-            e.printStackTrace();
-          }
+          e.printStackTrace();
         }
       }
     }
@@ -550,7 +538,7 @@ public class ViewItemFull extends FacesBean {
       this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
       this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
       this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
-    } catch (final Exception e) {
+    } catch (Exception e) {
       ViewItemFull.logger.error("Error getting unapi url property", e);
       throw new RuntimeException(e);
     }

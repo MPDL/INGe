@@ -1423,5 +1423,9 @@
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources" class-attribute="metadata.sources"></group>
 		</genre>
 		<!-- NIMS-specific publication types END -->
+		
+		<!-- NEEDED FOR THE CASE THAT THE PUBITEM CANNOT BE FOUND -->
+		<genre id="" label="">
+		</genre>
 	</configuration>
 </configuration-settings>
