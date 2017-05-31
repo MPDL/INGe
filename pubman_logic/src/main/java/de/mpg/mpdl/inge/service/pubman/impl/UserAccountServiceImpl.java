@@ -161,8 +161,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
     checkAa("addGrant", userAccount, transformToOld(objectToBeUpdated), grant, referencedObject);
+    
     objectToBeUpdated.getGrantList().add(grant);
-
+    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
+   
 
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
@@ -195,9 +197,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
           + objectToBeUpdated.getObjectId());
     }
 
-    objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
 
     checkAa("removeGrant", userAccount, transformToOld(objectToBeUpdated), grant);
+    objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
+    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
+    
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
@@ -300,10 +304,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   protected List<String> updateObjectWithValues(AccountUserVO givenUser,
       AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser, boolean create)
       throws IngeServiceException {
-    Date currentDate = new Date();
-    AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(callingUser.getName());
-    mod.setObjectId(callingUser.getReference().getObjectId());
+   
 
     if (givenUser.getName() == null || givenUser.getName().trim().isEmpty()
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
@@ -326,16 +327,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     tobeUpdatedUser.setName(givenUser.getName());
     // tobeUpdatedUser.setPassword(givenUser.getPassword());
 
-    tobeUpdatedUser.setLastModificationDate(currentDate);
-    tobeUpdatedUser.setModifier(mod);
 
     // tobeUpdatedUser.setGrantList(givenUser.getGrants());
 
 
 
     if (create) {
-      tobeUpdatedUser.setCreationDate(currentDate);
-      tobeUpdatedUser.setCreator(mod);
       tobeUpdatedUser.setObjectId(idProviderService.getNewId(ID_PREFIX.USER));
     }
     return null;

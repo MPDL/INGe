@@ -567,7 +567,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
       String method) throws AaException, IngeServiceException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, item, context);
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, item,
+        context);
   }
 
 }
