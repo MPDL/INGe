@@ -112,9 +112,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
 
-  protected void checkAa(String method, AccountUserVO userAccount, Object... object)
+  protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
       throws AaException, IngeServiceException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, object);
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, objects);
   }
 
   protected abstract DbObject createEmptyDbObject();
