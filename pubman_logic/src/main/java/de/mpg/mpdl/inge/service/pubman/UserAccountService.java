@@ -8,8 +8,6 @@ import de.mpg.mpdl.inge.service.exceptions.AaException;
 
 public interface UserAccountService extends GenericService<AccountUserVO> {
 
-  public AccountUserVO create(AccountUserVO givenUser, String password, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException;
 
   public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException;
 

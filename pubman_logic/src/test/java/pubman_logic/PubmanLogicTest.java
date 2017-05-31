@@ -240,14 +240,15 @@ public class PubmanLogicTest {
     user.setEmail("a@b.de");
     user.setName("Test Moderator");
     user.setUserid("test_moderator");
-
+    user.setPassword("tseT");
+    
     AffiliationRO aff = new AffiliationRO();
     aff.setObjectId("ou_persistent25");
     user.getAffiliations().add(aff);
 
 
 
-    AccountUserVO userAccount = userAccountService.create(user, "tseT", token);
+    AccountUserVO userAccount = userAccountService.create(user, token);
 
     GrantVO grant = new GrantVO();
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
