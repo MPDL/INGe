@@ -283,7 +283,6 @@ public class FacesBean implements Serializable {
   }
 
   public void checkForLogin() {
-    // if not logged in redirect to login page
     if (!this.getLoginHelper().isLoggedIn()) {
       this.info(this.getI18nHelper().getMessage("NotLoggedIn"));
     }
