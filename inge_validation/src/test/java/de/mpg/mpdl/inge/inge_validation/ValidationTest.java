@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.inge_validation;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
