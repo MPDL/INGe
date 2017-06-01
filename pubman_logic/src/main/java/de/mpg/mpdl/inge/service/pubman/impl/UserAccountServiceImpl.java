@@ -85,7 +85,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   // private final static String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=\\S+$).{6,}$";
+  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+  
+  /**
+   * Loginname must consist of a-z, A-Z, 0-9, @, _, -, .
+   */
+  private final static String LOGINNAME_REGEX = "^[A-Za-z0-9@_\\-\\.]{4,}$";
 
 
   public UserAccountServiceImpl() throws Exception {
@@ -349,6 +354,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
       throw new IngeServiceException("A name and user id is required");
     }
+    
+    validateLoginname(givenUser.getUserid());
 
     if (create) {
       tobeUpdatedUser.setActive(true);
@@ -407,6 +414,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     } else if (!password.matches(PASSWORD_REGEX)) {
       throw new IngeServiceException(
           "Password  must consist of at least 6 characters, no whitespaces");
+    }
+
+  }
+  
+  private void validateLoginname(String loginname) throws IngeServiceException {
+    if (loginname == null || loginname.trim().isEmpty()) {
+      throw new IngeServiceException("A loginname (userId) has to be provided");
+    } else if (!loginname.matches(LOGINNAME_REGEX)) {
+      throw new IngeServiceException(
+          "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
     }
 
   }
