@@ -86,9 +86,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   // private final static String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
   private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
-  
+
   /**
-   * Loginname must consist of a-z, A-Z, 0-9, @, _, -, .
+   * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
    */
   private final static String LOGINNAME_REGEX = "^[A-Za-z0-9@_\\-\\.]{4,}$";
 
@@ -287,20 +287,18 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Override
   public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-    
+
     String userId = id;
-    if(!id.startsWith(ID_PREFIX.USER.getPrefix()))
-    {
+    if (!id.startsWith(ID_PREFIX.USER.getPrefix())) {
       AccountUserDbVO user = userAccountRepository.findByLoginname(id);
-      if(user!=null)
-      {
+      if (user != null) {
         userId = user.getObjectId();
       }
     }
     return super.get(userId, authenticationToken);
-    
+
   }
-  
+
 
   @Override
   public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
@@ -354,7 +352,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
       throw new IngeServiceException("A name and user id is required");
     }
-    
+
     validateLoginname(givenUser.getUserid());
 
     if (create) {
@@ -417,7 +415,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
 
   }
-  
+
   private void validateLoginname(String loginname) throws IngeServiceException {
     if (loginname == null || loginname.trim().isEmpty()) {
       throw new IngeServiceException("A loginname (userId) has to be provided");

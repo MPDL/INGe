@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -219,6 +220,8 @@ public class PubmanLogicTest {
     String adminPass = PropertyReader.getProperty("framework.admin.password");
     String token = userAccountService.login(adminUsername, adminPass);
 
+
+
     // userAccountService.delete("ctx_3000055", token);
 
     AccountUserVO user = new AccountUserVO();
@@ -239,11 +242,25 @@ public class PubmanLogicTest {
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
 
+
     userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
         token);
   }
 
-  public static void main(String[] args) {
+
+  private static void validateLoginname(String loginname) throws IngeServiceException {
+    if (loginname == null || loginname.trim().isEmpty()) {
+      throw new IngeServiceException("A loginname (userId) has to be provided");
+    } else if (!loginname.matches("^[a-zA-Z0-9@_\\-\\.]{4,}$")) {
+      throw new IngeServiceException(
+          "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
+    }
+
+  }
+
+
+
+  public static void main(String[] args) throws Exception {
     Date now = new Date();
     System.out.println(now.getTime());
     System.out.println(now.getTimezoneOffset());
@@ -255,6 +272,8 @@ public class PubmanLogicTest {
     JavaType jt =
         TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
     System.out.println(jt.getRawClass());
+
+    validateLoginname("mark");
   }
 
 
