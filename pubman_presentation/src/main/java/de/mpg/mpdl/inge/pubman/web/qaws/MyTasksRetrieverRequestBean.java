@@ -162,6 +162,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
           .search(srr, getLoginHelper().getAuthenticationToken());
 
+      this.numberOfRecords = resp.getNumberOfRecords();
+      
       List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
           .collect(Collectors.toList());
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
