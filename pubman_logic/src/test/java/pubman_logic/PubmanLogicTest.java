@@ -241,7 +241,7 @@ public class PubmanLogicTest {
     user.setName("Test Moderator");
     user.setUserid("test_moderator");
     user.setPassword("tseT");
-    
+
     AffiliationRO aff = new AffiliationRO();
     aff.setObjectId("ou_persistent25");
     user.getAffiliations().add(aff);

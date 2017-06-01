@@ -20,27 +20,28 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 @RestController
 @RequestMapping("login")
 public class LoginRestController {
-	
-	private final String AUTHZ_HEADER = "Authorization";
-	
-	private UserAccountService userSvc;
-	
-	@Autowired
-	public LoginRestController(UserAccountService userSvc) {
-		this.userSvc = userSvc;
-	}
-	
-    @RequestMapping(path = "", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody String credendials) throws AaException, IngeServiceException {
-    	String username = credendials.split(":")[0];
-    	String password = credendials.split(":")[1];
-    	String token = userSvc.login(username, password);
-    	if (token != null && !token.isEmpty()) {
-    		HttpHeaders headers = new HttpHeaders();
-    		headers.add(AUTHZ_HEADER, token);
-    		return new ResponseEntity<>(headers, HttpStatus.OK);
-    	}
-		return null;
+
+  private final String AUTHZ_HEADER = "Authorization";
+
+  private UserAccountService userSvc;
+
+  @Autowired
+  public LoginRestController(UserAccountService userSvc) {
+    this.userSvc = userSvc;
+  }
+
+  @RequestMapping(path = "", method = POST, produces = APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> login(@RequestBody String credendials) throws AaException,
+      IngeServiceException {
+    String username = credendials.split(":")[0];
+    String password = credendials.split(":")[1];
+    String token = userSvc.login(username, password);
+    if (token != null && !token.isEmpty()) {
+      HttpHeaders headers = new HttpHeaders();
+      headers.add(AUTHZ_HEADER, token);
+      return new ResponseEntity<>(headers, HttpStatus.OK);
     }
+    return null;
+  }
 
 }

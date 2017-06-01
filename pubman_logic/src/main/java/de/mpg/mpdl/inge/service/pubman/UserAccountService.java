@@ -18,7 +18,7 @@ public interface UserAccountService extends GenericService<AccountUserVO> {
 
   public AccountUserVO addGrants(String userId, GrantVO[] grants, String authenticationToken)
       throws IngeServiceException, AaException;
-  
+
   public void changePassword(String userId, String newPassword, String authenticationToken)
       throws IngeServiceException, AaException;
 }

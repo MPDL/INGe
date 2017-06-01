@@ -122,9 +122,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       throws AaException, IngeServiceException {
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, objects);
   }
-  
-  protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount, boolean create)
-  {
+
+  protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount,
+      boolean create) {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(userAccount.getName());
@@ -134,7 +134,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       object.setCreationDate(currentDate);
       object.setCreator(mod);
     }
-    
+
     object.setLastModificationDate(currentDate);
     object.setModifier(mod);
   }
