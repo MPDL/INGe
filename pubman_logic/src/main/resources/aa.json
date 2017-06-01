@@ -299,14 +299,14 @@
 			}
 		],
 		
-		"addGrant" : [
+		"addGrants" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				}
 			}
 		],
-		"removeGrant" : [
+		"removeGrants" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
