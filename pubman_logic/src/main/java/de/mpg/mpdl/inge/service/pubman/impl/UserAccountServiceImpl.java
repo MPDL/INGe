@@ -278,7 +278,24 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-
+  @Transactional(readOnly = true)
+  @Override
+  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
+    
+    String userId = id;
+    if(!id.startsWith(ID_PREFIX.USER.getPrefix()))
+    {
+      AccountUserDbVO user = userAccountRepository.findByLoginname(id);
+      if(user!=null)
+      {
+        userId = user.getObjectId();
+      }
+    }
+    return super.get(userId, authenticationToken);
+    
+  }
+  
 
   @Override
   public AccountUserVO get(String authenticationToken) throws IngeServiceException, AaException {
