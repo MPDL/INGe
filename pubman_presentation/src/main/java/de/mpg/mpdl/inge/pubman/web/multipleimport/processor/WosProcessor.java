@@ -123,7 +123,7 @@ public class WosProcessor extends FormatProcessor {
 
       bufferedReader.close();
 
-      if (line != null && line.matches("ER\\s+-")) {
+      if (lastLine != null && lastLine.matches("ER\\s+-")) {
         itemList.add(stringWriter.toString());
       }
 
