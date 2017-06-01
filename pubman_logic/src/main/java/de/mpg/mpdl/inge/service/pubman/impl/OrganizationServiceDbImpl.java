@@ -148,11 +148,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       }
     }
 
-    checkAa(EntityTransformer.transformToOld(affToBeUpdated), userAccount,
-        (state == State.OPENED ? "open" : "close"));
+    checkAa((state == State.OPENED ? "open" : "close"), userAccount,
+        EntityTransformer.transformToOld(affToBeUpdated));
 
     affToBeUpdated.setPublicStatus(state);
-
+    updateWithTechnicalMetadata(affToBeUpdated, userAccount, false);
     affToBeUpdated = organizationRepository.save(affToBeUpdated);
 
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affToBeUpdated);
@@ -197,21 +197,14 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   protected List<String> updateObjectWithValues(AffiliationVO givenAff,
       AffiliationDbVO toBeUpdatedAff, AccountUserVO userAccount, boolean createNew)
       throws IngeServiceException {
-    Date currentDate = new Date();
-    AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(userAccount.getName());
-    mod.setObjectId(userAccount.getReference().getObjectId());
+
 
     if (createNew) {
-      toBeUpdatedAff.setCreationDate(currentDate);
-      toBeUpdatedAff.setCreator(mod);
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
       toBeUpdatedAff.setPublicStatus(State.CREATED);
     }
 
     toBeUpdatedAff.setMetadata(givenAff.getDefaultMetadata());
-    toBeUpdatedAff.setLastModificationDate(currentDate);
-    toBeUpdatedAff.setModifier(mod);
 
     toBeUpdatedAff.setName(givenAff.getDefaultMetadata().getName());
 

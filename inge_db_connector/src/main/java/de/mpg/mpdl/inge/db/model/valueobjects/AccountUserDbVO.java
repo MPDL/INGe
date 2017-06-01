@@ -36,7 +36,6 @@ public class AccountUserDbVO extends BasicDbRO {
   @Column(unique = true)
   private String loginname;
 
-  private String password;
 
   @Type(type = "GrantVOListJsonUserType")
   private List<GrantVO> grantList = new ArrayList<GrantVO>();
@@ -83,14 +82,6 @@ public class AccountUserDbVO extends BasicDbRO {
 
   public void setAffiliation(AffiliationDbRO affiliation) {
     this.affiliation = affiliation;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
 

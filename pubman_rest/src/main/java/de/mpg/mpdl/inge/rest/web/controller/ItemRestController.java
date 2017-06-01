@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -14,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lowagie.text.pdf.AcroFields.Item;
-
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;

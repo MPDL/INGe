@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -7,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
@@ -34,7 +38,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
-    checkAa(transformToOld(objectToCreate), userAccount, "create");
+    updateWithTechnicalMetadata(objectToCreate, userAccount, true);
+    checkAa("create", userAccount, transformToOld(objectToCreate));
     objectToCreate = getDbRepository().save(objectToCreate);
     ModelObject objectToReturn = transformToOld(objectToCreate);
     getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
@@ -55,8 +60,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
-    checkAa(transformToOld(objectToBeUpdated), userAccount, "update");
+    checkAa("update", userAccount, transformToOld(objectToBeUpdated));
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
@@ -75,7 +81,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
-    checkAa(transformToOld(objectToBeDeleted), userAccount, "delete");
+    checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
     getElasticDao().delete(id);
 
@@ -91,7 +97,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       userAccount = aaService.checkLoginRequired(authenticationToken);
     }
 
-    checkAa(object, userAccount, "get");
+    checkAa("get", userAccount, object);
     return object;
   }
 
@@ -112,9 +118,25 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
 
-  protected void checkAa(ModelObject object, AccountUserVO userAccount, String method)
+  protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
       throws AaException, IngeServiceException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, object, userAccount);
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, objects);
+  }
+  
+  protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount, boolean create)
+  {
+    Date currentDate = new Date();
+    AccountUserDbRO mod = new AccountUserDbRO();
+    mod.setName(userAccount.getName());
+    mod.setObjectId(userAccount.getReference().getObjectId());
+
+    if (create) {
+      object.setCreationDate(currentDate);
+      object.setCreator(mod);
+    }
+    
+    object.setLastModificationDate(currentDate);
+    object.setModifier(mod);
   }
 
   protected abstract DbObject createEmptyDbObject();

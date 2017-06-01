@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -69,6 +70,7 @@ public class GrantVO extends ValueObject {
   /**
    * The object to which this grant was granted.
    */
+  @JsonIgnore
   private String grantedTo;
 
   /**
@@ -83,8 +85,10 @@ public class GrantVO extends ValueObject {
    * "role-moderator" is not the same as the PubMan role MODERATOR!)
    */
 
+  @JsonIgnore
   private GrantRO reference;
 
+  @JsonIgnore
   private Date lastModificationDate;
 
 

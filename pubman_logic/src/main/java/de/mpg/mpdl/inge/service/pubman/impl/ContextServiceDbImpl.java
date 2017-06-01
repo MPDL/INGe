@@ -117,11 +117,12 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
       throw new IngeServiceException("Context with given id " + id + " not found.");
     }
 
-    checkAa(transformToOld(contextToBeUpdated), userAccount, (state == State.OPENED ? "open"
-        : "close"));
+    checkAa((state == State.OPENED ? "open" : "close"), userAccount,
+        transformToOld(contextToBeUpdated));
 
     contextToBeUpdated.setState(state);
-
+    updateWithTechnicalMetadata(contextToBeUpdated, userAccount, false);
+    
     contextToBeUpdated = contextRepository.save(contextToBeUpdated);
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
@@ -142,17 +143,10 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   protected List<String> updateObjectWithValues(ContextVO givenContext,
       ContextDbVO toBeUpdatedContext, AccountUserVO userAccount, boolean createNew)
       throws IngeServiceException {
-    Date currentDate = new Date();
-    AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(userAccount.getName());
-    mod.setObjectId(userAccount.getReference().getObjectId());
-
-
+   
     toBeUpdatedContext.setAdminDescriptor(givenContext.getAdminDescriptor());
 
     toBeUpdatedContext.setDescription(givenContext.getDescription());
-    toBeUpdatedContext.setLastModificationDate(currentDate);
-    toBeUpdatedContext.setModifier(mod);
     toBeUpdatedContext.setName(givenContext.getName());
 
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
@@ -171,8 +165,6 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
     if (createNew) {
-      toBeUpdatedContext.setCreationDate(currentDate);
-      toBeUpdatedContext.setCreator(mod);
       toBeUpdatedContext.setObjectId(idProviderService.getNewId(ID_PREFIX.CONTEXT));
       toBeUpdatedContext.setState(State.CREATED);
     }
