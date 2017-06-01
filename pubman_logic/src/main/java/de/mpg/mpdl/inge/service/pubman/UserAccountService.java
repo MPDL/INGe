@@ -13,10 +13,10 @@ public interface UserAccountService extends GenericService<AccountUserVO> {
 
   public String login(String username, String password) throws IngeServiceException, AaException;
 
-  public AccountUserVO removeGrant(String userId, GrantVO grant, String authenticationToken)
+  public AccountUserVO removeGrants(String userId, GrantVO[] grants, String authenticationToken)
       throws IngeServiceException, AaException;
 
-  public AccountUserVO addGrant(String userId, GrantVO grant, String authenticationToken)
+  public AccountUserVO addGrants(String userId, GrantVO[] grants, String authenticationToken)
       throws IngeServiceException, AaException;
   
   public void changePassword(String userId, String newPassword, String authenticationToken)

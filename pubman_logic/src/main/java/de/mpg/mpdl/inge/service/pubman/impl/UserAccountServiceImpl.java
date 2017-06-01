@@ -127,7 +127,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Transactional
-  public AccountUserVO addGrant(String userId, GrantVO grant, String authenticationToken)
+  public AccountUserVO addGrants(String userId, GrantVO[] grants, String authenticationToken)
       throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
@@ -135,41 +135,44 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeServiceException("Object with given id not found.");
     }
 
-    for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
-      if (Objects.equals(grant.getRole(), existingGrant.getRole())
-          && Objects.equals(grant.getObjectRef(), existingGrant.getObjectRef())) {
-        throw new IngeServiceException("Grant with given values already exists in user account "
-            + objectToBeUpdated.getObjectId());
-      }
-    }
-
-    grant.setGrantedTo(null);
-    grant.setGrantType(null);
-    grant.setReference(null);
-    grant.setLastModificationDate(null);
-
-    Object referencedObject = null;
-
-    if (grant.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
-      ContextDbVO referencedContext = contextRepository.findOne(grant.getObjectRef());
-      if (referencedContext != null) {
-        referencedObject = EntityTransformer.transformToOld(referencedContext);
-      }
-    } else if (grant.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
-      AffiliationDbVO referencedOu = organizationRepository.findOne(grant.getObjectRef());
-      if (referencedOu != null) {
-        referencedObject = EntityTransformer.transformToOld(referencedOu);
-      }
-    }
-
-    if (referencedObject == null) {
-      throw new IngeServiceException("Unknown identifier reference: " + grant.getObjectRef());
-    }
-
-
-    checkAa("addGrant", userAccount, transformToOld(objectToBeUpdated), grant, referencedObject);
+    for(GrantVO grantToBeAdded : grants){
     
-    objectToBeUpdated.getGrantList().add(grant);
+      for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
+        if (Objects.equals(grantToBeAdded.getRole(), existingGrant.getRole())
+            && Objects.equals(grantToBeAdded.getObjectRef(), existingGrant.getObjectRef())) {
+          throw new IngeServiceException("Grant with given value [role=" + grantToBeAdded.getRole() + ", objectRef= "+ grantToBeAdded.getObjectRef() + "] already exists in user account "
+              + objectToBeUpdated.getObjectId());
+        }
+      }
+  
+      grantToBeAdded.setGrantedTo(null);
+      grantToBeAdded.setGrantType(null);
+      grantToBeAdded.setReference(null);
+      grantToBeAdded.setLastModificationDate(null);
+  
+      Object referencedObject = null;
+  
+      if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
+        ContextDbVO referencedContext = contextRepository.findOne(grantToBeAdded.getObjectRef());
+        if (referencedContext != null) {
+          referencedObject = EntityTransformer.transformToOld(referencedContext);
+        }
+      } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
+        AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
+        if (referencedOu != null) {
+          referencedObject = EntityTransformer.transformToOld(referencedOu);
+        }
+      }
+  
+      if (referencedObject == null) {
+        throw new IngeServiceException("Unknown identifier reference: " + grantToBeAdded.getObjectRef());
+      }
+  
+  
+      checkAa("addGrant", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
+      
+      objectToBeUpdated.getGrantList().add(grantToBeAdded);
+    }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
    
 
@@ -183,7 +186,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Transactional
-  public AccountUserVO removeGrant(String userId, GrantVO grant, String authenticationToken)
+  public AccountUserVO removeGrants(String userId, GrantVO[] grants, String authenticationToken)
       throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
@@ -191,22 +194,24 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeServiceException("Object with given id not found.");
     }
 
-    GrantVO grantToBeRemoved = null;
-    for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
-      if (Objects.equals(grant.getRole(), existingGrant.getRole())
-          && Objects.equals(grant.getObjectRef(), existingGrant.getObjectRef())) {
-        grantToBeRemoved = existingGrant;
+    for(GrantVO givenGrant : grants){
+      GrantVO grantToBeRemoved = null;
+      for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
+        if (Objects.equals(givenGrant.getRole(), existingGrant.getRole())
+            && Objects.equals(givenGrant.getObjectRef(), existingGrant.getObjectRef())) {
+          grantToBeRemoved = existingGrant;
+        }
       }
+  
+      if (grantToBeRemoved == null) {
+        throw new IngeServiceException("Grant with given values [role=" + givenGrant.getRole() + ", objectRef= "+ givenGrant.getObjectRef() + "] does not exist in user account "
+            + objectToBeUpdated.getObjectId());
+      }
+  
+  
+      checkAa("removeGrant", userAccount, transformToOld(objectToBeUpdated), givenGrant);
+      objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     }
-
-    if (grantToBeRemoved == null) {
-      throw new IngeServiceException("Grant with given values does not exist in user account "
-          + objectToBeUpdated.getObjectId());
-    }
-
-
-    checkAa("removeGrant", userAccount, transformToOld(objectToBeUpdated), grant);
-    objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
     
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
