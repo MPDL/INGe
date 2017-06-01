@@ -152,24 +152,28 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   
       Object referencedObject = null;
   
-      if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
-        ContextDbVO referencedContext = contextRepository.findOne(grantToBeAdded.getObjectRef());
-        if (referencedContext != null) {
-          referencedObject = EntityTransformer.transformToOld(referencedContext);
+      if(grantToBeAdded.getObjectRef()!=null)
+      {
+        if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
+          ContextDbVO referencedContext = contextRepository.findOne(grantToBeAdded.getObjectRef());
+          if (referencedContext != null) {
+            referencedObject = EntityTransformer.transformToOld(referencedContext);
+          }
+        } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
+          AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
+          if (referencedOu != null) {
+            referencedObject = EntityTransformer.transformToOld(referencedOu);
+          }
         }
-      } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
-        AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
-        if (referencedOu != null) {
-          referencedObject = EntityTransformer.transformToOld(referencedOu);
+    
+        if (referencedObject == null) {
+          throw new IngeServiceException("Unknown identifier reference: " + grantToBeAdded.getObjectRef());
         }
       }
-  
-      if (referencedObject == null) {
-        throw new IngeServiceException("Unknown identifier reference: " + grantToBeAdded.getObjectRef());
-      }
+      
   
   
-      checkAa("addGrant", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
+      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
       
       objectToBeUpdated.getGrantList().add(grantToBeAdded);
     }
@@ -209,7 +213,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       }
   
   
-      checkAa("removeGrant", userAccount, transformToOld(objectToBeUpdated), givenGrant);
+      checkAa("removeGrants", userAccount, transformToOld(objectToBeUpdated), givenGrant);
       objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
