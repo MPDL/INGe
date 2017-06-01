@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -81,8 +82,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   private Algorithm jwtAlgorithmKey;
 
   private String jwtIssuer;
-  
-  //private final static String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+
+  // private final static String PASSWORD_REGEX =
+  // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
   private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=\\S+$).{6,}$";
 
 
@@ -110,19 +112,18 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         passwordEncoder.encode(givenUser.getPassword()));
     return accountUser;
   }
-  
+
   @Transactional
   @Override
   public void changePassword(String userId, String newPassword, String authenticationToken)
       throws IngeServiceException, AaException {
-    
+
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
     AccountUserDbVO userToUpdated = userAccountRepository.findOne(userId);
     checkAa("changePassword", userAccount, transformToOld(userToUpdated));
-    userLoginRepository.updateLogin(userId,
-        passwordEncoder.encode(newPassword));
-    
+    userLoginRepository.updateLogin(userId, passwordEncoder.encode(newPassword));
+
   }
 
 
@@ -135,50 +136,54 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeServiceException("Object with given id not found.");
     }
 
-    for(GrantVO grantToBeAdded : grants){
-    
+    for (GrantVO grantToBeAdded : grants) {
+
       for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
         if (Objects.equals(grantToBeAdded.getRole(), existingGrant.getRole())
             && Objects.equals(grantToBeAdded.getObjectRef(), existingGrant.getObjectRef())) {
-          throw new IngeServiceException("Grant with given value [role=" + grantToBeAdded.getRole() + ", objectRef= "+ grantToBeAdded.getObjectRef() + "] already exists in user account "
-              + objectToBeUpdated.getObjectId());
+          throw new IngeServiceException("Grant with given value [role=" + grantToBeAdded.getRole()
+              + ", objectRef= " + grantToBeAdded.getObjectRef()
+              + "] already exists in user account " + objectToBeUpdated.getObjectId());
         }
       }
-  
+
       grantToBeAdded.setGrantedTo(null);
       grantToBeAdded.setGrantType(null);
       grantToBeAdded.setReference(null);
       grantToBeAdded.setLastModificationDate(null);
-  
+
       Object referencedObject = null;
-  
-      if(grantToBeAdded.getObjectRef()!=null)
-      {
+
+      if (grantToBeAdded.getObjectRef() != null) {
         if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
           ContextDbVO referencedContext = contextRepository.findOne(grantToBeAdded.getObjectRef());
           if (referencedContext != null) {
             referencedObject = EntityTransformer.transformToOld(referencedContext);
           }
         } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
-          AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
+          AffiliationDbVO referencedOu =
+              organizationRepository.findOne(grantToBeAdded.getObjectRef());
           if (referencedOu != null) {
             referencedObject = EntityTransformer.transformToOld(referencedOu);
           }
         }
-    
+
         if (referencedObject == null) {
-          throw new IngeServiceException("Unknown identifier reference: " + grantToBeAdded.getObjectRef());
+          throw new IngeServiceException("Unknown identifier reference: "
+              + grantToBeAdded.getObjectRef());
         }
       }
-      
-  
-  
-      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
-      
-      objectToBeUpdated.getGrantList().add(grantToBeAdded);
+
+
+
+      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded,
+          referencedObject);
+
+
     }
+    objectToBeUpdated.getGrantList().addAll(Arrays.asList(grants));
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
-   
+
 
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
@@ -198,7 +203,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeServiceException("Object with given id not found.");
     }
 
-    for(GrantVO givenGrant : grants){
+    for (GrantVO givenGrant : grants) {
       GrantVO grantToBeRemoved = null;
       for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
         if (Objects.equals(givenGrant.getRole(), existingGrant.getRole())
@@ -206,18 +211,19 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
           grantToBeRemoved = existingGrant;
         }
       }
-  
+
       if (grantToBeRemoved == null) {
-        throw new IngeServiceException("Grant with given values [role=" + givenGrant.getRole() + ", objectRef= "+ givenGrant.getObjectRef() + "] does not exist in user account "
+        throw new IngeServiceException("Grant with given values [role=" + givenGrant.getRole()
+            + ", objectRef= " + givenGrant.getObjectRef() + "] does not exist in user account "
             + objectToBeUpdated.getObjectId());
       }
-  
-  
+
+
       checkAa("removeGrants", userAccount, transformToOld(objectToBeUpdated), givenGrant);
       objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
-    
+
     objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
 
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
@@ -320,18 +326,17 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   protected List<String> updateObjectWithValues(AccountUserVO givenUser,
       AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser, boolean create)
       throws IngeServiceException {
-   
+
 
     if (givenUser.getName() == null || givenUser.getName().trim().isEmpty()
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
       throw new IngeServiceException("A name and user id is required");
     }
 
-    if(create)
-    {
+    if (create) {
       tobeUpdatedUser.setActive(true);
     }
-    
+
 
     if (givenUser.getAffiliations() == null || givenUser.getAffiliations().size() == 0) {
       tobeUpdatedUser.setAffiliation(null);
@@ -378,17 +383,15 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   protected String getObjectId(AccountUserVO object) {
     return object.getReference().getObjectId();
   }
-  
-  private void validatePassword(String password) throws IngeServiceException
-  {
-    if(password==null || password.trim().isEmpty())
-    {
+
+  private void validatePassword(String password) throws IngeServiceException {
+    if (password == null || password.trim().isEmpty()) {
       throw new IngeServiceException("A password has to be provided");
-    } else if (!password.matches(PASSWORD_REGEX))
-    {
-      throw new IngeServiceException("Password  must consist of at least 6 characters, no whitespaces");
+    } else if (!password.matches(PASSWORD_REGEX)) {
+      throw new IngeServiceException(
+          "Password  must consist of at least 6 characters, no whitespaces");
     }
-    
+
   }
 
 

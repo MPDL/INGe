@@ -122,7 +122,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
     contextToBeUpdated.setState(state);
     updateWithTechnicalMetadata(contextToBeUpdated, userAccount, false);
-    
+
     contextToBeUpdated = contextRepository.save(contextToBeUpdated);
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
@@ -143,7 +143,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   protected List<String> updateObjectWithValues(ContextVO givenContext,
       ContextDbVO toBeUpdatedContext, AccountUserVO userAccount, boolean createNew)
       throws IngeServiceException {
-   
+
     toBeUpdatedContext.setAdminDescriptor(givenContext.getAdminDescriptor());
 
     toBeUpdatedContext.setDescription(givenContext.getDescription());

@@ -4,38 +4,25 @@ import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.hibernate.ScrollMode;
-import org.hibernate.ScrollableResults;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
-import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -43,7 +30,6 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
@@ -53,7 +39,6 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -76,8 +61,8 @@ public class PubmanLogicTest {
   @PersistenceContext
   private EntityManager entityManager;
 
-  @Autowired
-  private ItemRepository itemRepository;
+//  @Autowired
+//  private ItemRepository itemRepository;
 
   @Autowired
   private AuthorizationService authorizationService;
@@ -241,7 +226,7 @@ public class PubmanLogicTest {
     user.setName("Test Moderator");
     user.setUserid("test_moderator");
     user.setPassword("tseT");
-    
+
     AffiliationRO aff = new AffiliationRO();
     aff.setObjectId("ou_persistent25");
     user.getAffiliations().add(aff);
@@ -254,9 +239,7 @@ public class PubmanLogicTest {
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
 
-    userAccountService.addGrant(userAccount.getReference().getObjectId(), grant, token);
-
-
+    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[]{grant}, token);
   }
 
   public static void main(String[] args) {
