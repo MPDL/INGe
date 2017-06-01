@@ -46,7 +46,7 @@ public class DepositorWSPage extends BreadcrumbPage {
   public static final String MESSAGE_SUCCESSFULLY_SAVED = "depositorWS_SuccessfullySaved";
   public static final String MESSAGE_SUCCESSFULLY_ACCEPTED = "depositorWS_SuccessfullyAccepted";
   public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
-  
+
   public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
 
   public DepositorWSPage() {}
