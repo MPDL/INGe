@@ -1,7 +1,9 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +122,12 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
       throws AaException, IngeServiceException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, objects);
+    if(objects==null)
+    {
+      objects = new Object[0];
+    }
+    objects = Stream.concat(Arrays.stream(new Object[]{userAccount}), Arrays.stream(objects)).toArray();
+    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
   protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount,

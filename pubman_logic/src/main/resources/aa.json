@@ -293,9 +293,8 @@
 				}
 			},
 			{
-				"user" : {
-					"field_user_id_match" : "givenUser.reference.objectId"
-				}
+				"user.reference.objectId": "givenUser.reference.objectId"
+
 			}
 		],
 		
