@@ -521,6 +521,10 @@ public class EasySubmission extends FacesBean {
 
     ((EditItem) FacesTools.findBean("EditItem")).setFromEasySubmission(true);
 
+    if (this.validate(ValidationPoint.STANDARD, ViewItemFull.LOAD_VIEWITEM) == null) {
+      return "";
+    }
+
     String returnValue;
     try {
       returnValue =

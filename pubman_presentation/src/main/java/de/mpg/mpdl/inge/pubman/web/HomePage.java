@@ -32,17 +32,20 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -161,15 +164,15 @@ public class HomePage extends BreadcrumbPage {
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
-    final String cqlQuery =
-        "escidoc.objecttype=item and escidoc.content-model.objid="
-            + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    final SearchQuery cql = new PlainCqlQuery(cqlQuery);
-    cql.setMaximumRecords("4");
-    cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
-    final ItemContainerSearchResult icsr = SearchService.searchForItemContainer(cql);
+
+    SearchSortCriteria sc =
+        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
+    SearchRetrieveRequestVO<QueryBuilder> srr =
+        new SearchRetrieveRequestVO<QueryBuilder>(null, 4, 1, sc);
+    SearchRetrieveResponseVO<PubItemVO> resp =
+        ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     final List<PubItemVOPresentation> list =
-        SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+        SearchRetrieverRequestBean.extractItemsOfSearchResult(resp);
 
     return list;
   }

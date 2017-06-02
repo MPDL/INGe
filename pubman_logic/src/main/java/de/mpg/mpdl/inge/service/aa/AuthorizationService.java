@@ -63,7 +63,9 @@ public class AuthorizationService {
 
     if (filterQuery != null) {
       BoolQueryBuilder completeQuery = QueryBuilders.boolQuery();
-      completeQuery.must(query);
+      if (query != null) {
+        completeQuery.must(query);
+      }
       completeQuery.filter(filterQuery);
       return completeQuery;
     }

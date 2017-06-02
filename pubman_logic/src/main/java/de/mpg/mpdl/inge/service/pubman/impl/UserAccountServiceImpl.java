@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -85,7 +86,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   // private final static String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=\\S+$).{6,}$";
+  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+
+  /**
+   * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
+   */
+  private final static String LOGINNAME_REGEX = "^[A-Za-z0-9@_\\-\\.]{4,}$";
 
 
   public UserAccountServiceImpl() throws Exception {
@@ -110,8 +116,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     validatePassword(givenUser.getPassword());
     userLoginRepository.insertLogin(accountUser.getUserid(),
         passwordEncoder.encode(givenUser.getPassword()));
+    if(givenUser.getGrants()!=null && !givenUser.getGrants().isEmpty())
+    {
+      accountUser = this.addGrants(accountUser.getReference().getObjectId(), givenUser.getGrants().toArray(new GrantVO[]{}), authenticationToken);
+    }
+    
+    
     return accountUser;
   }
+  
+
 
   @Transactional
   @Override
@@ -185,7 +199,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
 
-    objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
+    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
 
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
@@ -224,7 +238,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
-    objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
+    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
 
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
@@ -278,6 +292,21 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
+  @Transactional(readOnly = true)
+  @Override
+  public AccountUserVO get(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
+
+    String userId = id;
+    if (!id.startsWith(ID_PREFIX.USER.getPrefix())) {
+      AccountUserDbVO user = userAccountRepository.findByLoginname(id);
+      if (user != null) {
+        userId = user.getObjectId();
+      }
+    }
+    return super.get(userId, authenticationToken);
+
+  }
 
 
   @Override
@@ -333,6 +362,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
       throw new IngeServiceException("A name and user id is required");
     }
+
+    validateLoginname(givenUser.getUserid());
 
     if (create) {
       tobeUpdatedUser.setActive(true);
@@ -391,6 +422,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     } else if (!password.matches(PASSWORD_REGEX)) {
       throw new IngeServiceException(
           "Password  must consist of at least 6 characters, no whitespaces");
+    }
+
+  }
+
+  private void validateLoginname(String loginname) throws IngeServiceException {
+    if (loginname == null || loginname.trim().isEmpty()) {
+      throw new IngeServiceException("A loginname (userId) has to be provided");
+    } else if (!loginname.matches(LOGINNAME_REGEX)) {
+      throw new IngeServiceException(
+          "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
     }
 
   }

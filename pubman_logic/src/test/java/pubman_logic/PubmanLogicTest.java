@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -210,7 +211,6 @@ public class PubmanLogicTest {
   }
 
   @Test
-  @Ignore
   public void createUser() throws Exception {
 
 
@@ -219,31 +219,56 @@ public class PubmanLogicTest {
     String adminPass = PropertyReader.getProperty("framework.admin.password");
     String token = userAccountService.login(adminUsername, adminPass);
 
+
+
     // userAccountService.delete("ctx_3000055", token);
 
     AccountUserVO user = new AccountUserVO();
     user.setEmail("a@b.de");
     user.setName("Test Moderator");
-    user.setUserid("test_moderator");
-    user.setPassword("tseT");
+    user.setUserid("testCreateUserWithGrant");
+    user.setPassword("michael");
 
     AffiliationRO aff = new AffiliationRO();
     aff.setObjectId("ou_persistent25");
     user.getAffiliations().add(aff);
 
-
-
-    AccountUserVO userAccount = userAccountService.create(user, token);
-
     GrantVO grant = new GrantVO();
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
+    
+    user.getGrants().add(grant);
+
+<<<<<<< HEAD
+    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
+        token);
+=======
+    AccountUserVO userAccount = userAccountService.create(user, token);
+
+    /*
+   
+
 
     userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
         token);
+        */
+>>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
   }
 
-  public static void main(String[] args) {
+
+  private static void validateLoginname(String loginname) throws IngeServiceException {
+    if (loginname == null || loginname.trim().isEmpty()) {
+      throw new IngeServiceException("A loginname (userId) has to be provided");
+    } else if (!loginname.matches("^[a-zA-Z0-9@_\\-\\.]{4,}$")) {
+      throw new IngeServiceException(
+          "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
+    }
+
+  }
+
+
+
+  public static void main(String[] args) throws Exception {
     Date now = new Date();
     System.out.println(now.getTime());
     System.out.println(now.getTimezoneOffset());
@@ -255,6 +280,8 @@ public class PubmanLogicTest {
     JavaType jt =
         TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
     System.out.println(jt.getRawClass());
+
+    validateLoginname("mark");
   }
 
 

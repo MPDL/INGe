@@ -153,7 +153,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     affToBeUpdated.setPublicStatus(state);
     updateWithTechnicalMetadata(affToBeUpdated, userAccount, false);
-    affToBeUpdated = organizationRepository.save(affToBeUpdated);
+    affToBeUpdated = organizationRepository.saveAndFlush(affToBeUpdated);
 
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affToBeUpdated);
     organizationDao.update(affToBeUpdated.getObjectId(), affToReturn);

@@ -309,7 +309,8 @@ public class SearchRetrieverRequestBean extends
   }
 
 
-  public ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(SearchRetrieveResponseVO result) {
+  public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
+      SearchRetrieveResponseVO result) {
 
     final List<SearchRetrieveRecordVO> results = result.getRecords();
 

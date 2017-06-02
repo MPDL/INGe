@@ -40,7 +40,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
     updateWithTechnicalMetadata(objectToCreate, userAccount, true);
     checkAa("create", userAccount, transformToOld(objectToCreate));
-    objectToCreate = getDbRepository().save(objectToCreate);
+    objectToCreate = getDbRepository().saveAndFlush(objectToCreate);
     ModelObject objectToReturn = transformToOld(objectToCreate);
     getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
     if (reindexList != null) {
@@ -63,7 +63,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
     checkAa("update", userAccount, transformToOld(objectToBeUpdated));
-    objectToBeUpdated = getDbRepository().save(objectToBeUpdated);
+    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
