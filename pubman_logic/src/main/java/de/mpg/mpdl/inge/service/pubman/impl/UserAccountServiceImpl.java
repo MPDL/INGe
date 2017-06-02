@@ -336,8 +336,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       logger.info("Creating token with issue date: " + issueDate + " and expiration date "
           + expirationDate);
 
-      return JWT.create().withSubject(user.getUserid()).withIssuedAt(issueDate)
-          .withIssuer(jwtIssuer).withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
+      return JWT.create().withClaim("id", user.getReference().getObjectId())
+          .withSubject(user.getUserid()).withIssuedAt(issueDate).withIssuer(jwtIssuer)
+          .withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
     } catch (Exception e) {
       throw new IngeServiceException("Could not generate token " + e.getMessage(), e);
     }
