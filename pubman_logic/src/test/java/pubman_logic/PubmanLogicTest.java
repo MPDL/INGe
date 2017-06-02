@@ -239,10 +239,8 @@ public class PubmanLogicTest {
     
     user.getGrants().add(grant);
 
-<<<<<<< HEAD
-    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
-        token);
-=======
+  
+
     AccountUserVO userAccount = userAccountService.create(user, token);
 
     /*
@@ -252,7 +250,7 @@ public class PubmanLogicTest {
     userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
         token);
         */
->>>>>>> branch 'master' of https://github.com/MPDL/INGe.git
+
   }
 
 
