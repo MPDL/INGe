@@ -138,7 +138,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
 
-    pubItemToCreate = itemRepository.save(pubItemToCreate);
+    pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
 
     createAuditEntry(pubItemToCreate, EventType.CREATE);
@@ -156,7 +156,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     audit.setModificationDate(pubItem.getModificationDate());
     audit.setModifier(pubItem.getModifiedBy());
     audit.setPubItem(pubItem);
-    auditRepository.save(audit);
+    auditRepository.saveAndFlush(audit);
   }
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
@@ -262,7 +262,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
 
-    latestVersion = itemRepository.save(latestVersion);
+    latestVersion = itemRepository.saveAndFlush(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     createAuditEntry(latestVersion, EventType.UPDATE);
     reindex(latestVersion);
@@ -446,7 +446,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         .getObjectId());
 
     latestVersion.setLastMessage(message);
-    latestVersion = itemRepository.save(latestVersion);
+    latestVersion = itemRepository.saveAndFlush(latestVersion);
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
 
 

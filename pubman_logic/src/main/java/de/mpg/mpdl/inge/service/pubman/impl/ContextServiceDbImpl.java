@@ -123,7 +123,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
     contextToBeUpdated.setState(state);
     updateWithTechnicalMetadata(contextToBeUpdated, userAccount, false);
 
-    contextToBeUpdated = contextRepository.save(contextToBeUpdated);
+    contextToBeUpdated = contextRepository.saveAndFlush(contextToBeUpdated);
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
     contextDao.update(contextToBeUpdated.getObjectId(), contextToReturn);

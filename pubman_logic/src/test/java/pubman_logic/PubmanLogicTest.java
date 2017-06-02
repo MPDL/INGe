@@ -211,7 +211,6 @@ public class PubmanLogicTest {
   }
 
   @Test
-  @Ignore
   public void createUser() throws Exception {
 
 
@@ -227,24 +226,28 @@ public class PubmanLogicTest {
     AccountUserVO user = new AccountUserVO();
     user.setEmail("a@b.de");
     user.setName("Test Moderator");
-    user.setUserid("test_moderator");
-    user.setPassword("tseT");
+    user.setUserid("testCreateUserWithGrant");
+    user.setPassword("michael");
 
     AffiliationRO aff = new AffiliationRO();
     aff.setObjectId("ou_persistent25");
     user.getAffiliations().add(aff);
 
-
-
-    AccountUserVO userAccount = userAccountService.create(user, token);
-
     GrantVO grant = new GrantVO();
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
+    
+    user.getGrants().add(grant);
+
+    AccountUserVO userAccount = userAccountService.create(user, token);
+
+    /*
+   
 
 
     userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
         token);
+        */
   }
 
 
