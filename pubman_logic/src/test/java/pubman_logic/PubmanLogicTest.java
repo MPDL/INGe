@@ -61,8 +61,8 @@ public class PubmanLogicTest {
   @PersistenceContext
   private EntityManager entityManager;
 
-//  @Autowired
-//  private ItemRepository itemRepository;
+  // @Autowired
+  // private ItemRepository itemRepository;
 
   @Autowired
   private AuthorizationService authorizationService;
@@ -239,7 +239,8 @@ public class PubmanLogicTest {
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
 
-    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[]{grant}, token);
+    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
+        token);
   }
 
   public static void main(String[] args) {
