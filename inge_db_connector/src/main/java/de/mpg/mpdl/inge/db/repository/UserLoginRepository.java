@@ -3,14 +3,9 @@ package de.mpg.mpdl.inge.db.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +14,6 @@ public class UserLoginRepository {
 
   @PersistenceContext
   private EntityManager entityManager;
-
-
 
   @Transactional
   public void insertLogin(String loginName, String encodedPassword) {
@@ -38,12 +31,13 @@ public class UserLoginRepository {
   @Query(value = "SELECT password FROM user_login WHERE loginname=:loginname", nativeQuery = true)
   public String findPassword(String loginName) {
 
-    List result =
+    List<?> result =
         entityManager.createNativeQuery("SELECT password FROM user_login WHERE loginname=?1")
             .setParameter(1, loginName).getResultList();
     if (!result.isEmpty()) {
       return (String) result.get(0);
     }
+
     return null;
     /*
      * return

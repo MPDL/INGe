@@ -14,8 +14,6 @@ public class IdentifierProviderServiceImpl {
   @PersistenceContext
   EntityManager entityManager;
 
-
-
   public enum ID_PREFIX {
     ITEM("item"), OU("ou"), CONTEXT("ctx"), USER("user");
 
@@ -28,7 +26,6 @@ public class IdentifierProviderServiceImpl {
     public String getPrefix() {
       return prefix;
     }
-
   }
 
   @Transactional
@@ -41,8 +38,5 @@ public class IdentifierProviderServiceImpl {
         .executeUpdate();
 
     return new StringBuilder(prefix.getPrefix()).append("_").append(res.intValue()).toString();
-
   }
-
-
 }

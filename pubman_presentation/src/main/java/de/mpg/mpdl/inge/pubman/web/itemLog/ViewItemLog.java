@@ -42,9 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
  * Fragment class for viewItemLog.jspf
  * 
  * @author Markus Haarlaender (initial creation)
- * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
  */
 @ManagedBean(name = "ViewItemLog")
 @SuppressWarnings("serial")
@@ -61,7 +59,7 @@ public class ViewItemLog extends FacesBean {
     final ItemVersionListSessionBean ivlsb =
         (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
     if (ivlsb.getVersionList() == null) {
-      ivlsb.initVersionLists(this.getVersionHistory(((ItemControllerSessionBean) FacesTools
+      ivlsb.initLists(this.getVersionHistory(((ItemControllerSessionBean) FacesTools
           .findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
     }
   }

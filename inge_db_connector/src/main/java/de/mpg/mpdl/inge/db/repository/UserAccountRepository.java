@@ -1,15 +1,9 @@
 package de.mpg.mpdl.inge.db.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-
-
 
 public interface UserAccountRepository extends JpaRepository<AccountUserDbVO, String> {
 
@@ -28,5 +22,4 @@ public interface UserAccountRepository extends JpaRepository<AccountUserDbVO, St
    * public String findPassword(@Param("loginname") String loginName);
    */
   public AccountUserDbVO findByLoginname(@Param("loginname") String loginname);
-
 }
