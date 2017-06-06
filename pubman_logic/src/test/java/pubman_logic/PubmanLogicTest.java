@@ -236,20 +236,20 @@ public class PubmanLogicTest {
     GrantVO grant = new GrantVO();
     grant.setRole(PredefinedRoles.MODERATOR.frameworkValue());
     grant.setObjectRef("ctx_2322554");
-    
+
     user.getGrants().add(grant);
 
-  
+
 
     AccountUserVO userAccount = userAccountService.create(user, token);
 
     /*
-   
-
-
-    userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
-        token);
-        */
+     * 
+     * 
+     * 
+     * userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
+     * token);
+     */
 
   }
 

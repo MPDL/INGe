@@ -116,15 +116,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     validatePassword(givenUser.getPassword());
     userLoginRepository.insertLogin(accountUser.getUserid(),
         passwordEncoder.encode(givenUser.getPassword()));
-    if(givenUser.getGrants()!=null && !givenUser.getGrants().isEmpty())
-    {
-      accountUser = this.addGrants(accountUser.getReference().getObjectId(), givenUser.getGrants().toArray(new GrantVO[]{}), authenticationToken);
+    if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
+      accountUser =
+          this.addGrants(accountUser.getReference().getObjectId(),
+              givenUser.getGrants().toArray(new GrantVO[] {}), authenticationToken);
     }
-    
-    
+
+
     return accountUser;
   }
-  
+
 
 
   @Transactional

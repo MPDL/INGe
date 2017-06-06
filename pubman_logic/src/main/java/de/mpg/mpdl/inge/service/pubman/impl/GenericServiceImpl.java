@@ -122,11 +122,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
       throws AaException, IngeServiceException {
-    if(objects==null)
-    {
+    if (objects == null) {
       objects = new Object[0];
     }
-    objects = Stream.concat(Arrays.stream(new Object[]{userAccount}), Arrays.stream(objects)).toArray();
+    objects =
+        Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
