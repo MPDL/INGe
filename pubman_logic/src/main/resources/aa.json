@@ -138,6 +138,14 @@
 		
 		"withdraw" : [
 			{
+				"context.adminDescriptor.workflow" : "SIMPLE",
+				"user" : {
+					"field_user_id_match" : "item.owner.objectId"
+				},
+				"item.version.state" : ["RELEASED"],
+				"item.publicStatus" : ["RELEASED"]
+			},
+			{
 				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
