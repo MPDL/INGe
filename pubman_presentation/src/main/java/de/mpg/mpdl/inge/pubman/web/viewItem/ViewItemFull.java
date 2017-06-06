@@ -205,7 +205,6 @@ public class ViewItemFull extends FacesBean {
   private boolean isStatePending = false;
   private boolean isStateReleased = false;
   private boolean isStateSubmitted = false;
-  private boolean isStateWasReleased = false;
   private boolean isStateWithdrawn = false;
   private boolean isWorkflowSimple = false;
   private boolean isWorkflowStandard = false;
@@ -345,9 +344,6 @@ public class ViewItemFull extends FacesBean {
 
       this.isPublicStateReleased =
           ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
-
-      this.isStateWasReleased =
-          this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
       this.isStateWithdrawn = ItemVO.State.WITHDRAWN.equals(this.getPubItem().getPublicStatus());
       if (this.isStateWithdrawn) {
@@ -1251,19 +1247,6 @@ public class ViewItemFull extends FacesBean {
   }
 
   /**
-   * Returns a true or a false according to the state of the current item
-   * 
-   * @return boolean
-   */
-  public boolean getItemIsWithdrawn() {
-    if (ItemVO.State.WITHDRAWN.equals(this.pubItem.getVersion().getState())) {
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
    * Returns the formatted withdrawal date as string
    * 
    * @return String formatted withdrawal date
@@ -1575,7 +1558,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getIsStateWithdrawn() {
-    return this.getPubItem().getPublicStatus().equals(ItemVO.State.WITHDRAWN);
+    return ItemVO.State.WITHDRAWN.equals(this.getPubItem().getPublicStatus());
   }
 
   public void setStateWithdrawn(boolean isStateWithdrawn) {
@@ -2129,8 +2112,7 @@ public class ViewItemFull extends FacesBean {
       this.canDelete = true;
     }
 
-    if (((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)
-        && (this.isOwner || this.isModerator)) {
+    if (this.isStateReleased && this.isLatestVersion && (this.isOwner || this.isModerator)) {
       this.canWithdraw = true;
     }
 

@@ -1161,7 +1161,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is released
    */
   public boolean getIsStateReleased() {
-    return ItemVO.State.RELEASED.equals(this.getVersion().getState().toString());
+    return ItemVO.State.RELEASED.equals(this.getVersion().getState());
   }
 
   /**

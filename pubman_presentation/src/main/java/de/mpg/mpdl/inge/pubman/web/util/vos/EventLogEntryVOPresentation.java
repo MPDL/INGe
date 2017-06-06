@@ -79,7 +79,7 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
 
   /** Returns all comments except for update, because update-comments are not possible */
   public String getFormattedComment() {
-    if (this.getType() == EventLogEntryVO.EventType.UPDATE) {
+    if (EventLogEntryVO.EventType.UPDATE.equals(this.getType())) {
       return "Item updated";
     } else {
       return this.getComment();

@@ -61,33 +61,22 @@ public class ItemVersionListSessionBean extends FacesBean {
 
   public ItemVersionListSessionBean() {}
 
-  public List<VersionHistoryVOPresentation> getVersionList() {
-    return this.versionList;
-  }
-
-  public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
-    this.versionList = versionList;
-  }
-
-  public void initVersionLists(List<VersionHistoryEntryVO> vList) {
+  public void initLists(List<VersionHistoryEntryVO> vList) {
     this.versionList = new ArrayList<VersionHistoryVOPresentation>();
+    this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
+    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 
     for (final VersionHistoryEntryVO vEntry : vList) {
       this.versionList.add(new VersionHistoryVOPresentation(vEntry));
     }
 
-    this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
-    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
-
     for (final VersionHistoryVOPresentation vEntry : this.versionList) {
       final List<EventLogEntryVO> eventList = vEntry.getEvents();
       for (final EventLogEntryVO eEntry : eventList) {
-        // if state=released add to release list
-        if (eEntry.getType() == EventType.RELEASE) {
+        if (EventType.RELEASE.equals(eEntry.getType())) {
           this.releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
         }
 
-        // add all eventlog-entries to eventloglist
         this.eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
       }
     }
@@ -99,20 +88,27 @@ public class ItemVersionListSessionBean extends FacesBean {
     this.eventLogList = null;
   }
 
-  public List<EventLogEntryVOPresentation> getEventLogList() {
-    return this.eventLogList;
-  }
-
-  public void setEventLogList(List<EventLogEntryVOPresentation> eventLogList) {
-    this.eventLogList = eventLogList;
-  }
-
-  public void setReleaseList(List<EventLogEntryVOPresentation> releaseList) {
-    this.releaseList = releaseList;
+  public List<VersionHistoryVOPresentation> getVersionList() {
+    return this.versionList;
   }
 
   public List<EventLogEntryVOPresentation> getReleaseList() {
     return this.releaseList;
   }
 
+  public List<EventLogEntryVOPresentation> getEventLogList() {
+    return this.eventLogList;
+  }
+
+  public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
+    this.versionList = versionList;
+  }
+
+  public void setReleaseList(List<EventLogEntryVOPresentation> releaseList) {
+    this.releaseList = releaseList;
+  }
+
+  public void setEventLogList(List<EventLogEntryVOPresentation> eventLogList) {
+    this.eventLogList = eventLogList;
+  }
 }

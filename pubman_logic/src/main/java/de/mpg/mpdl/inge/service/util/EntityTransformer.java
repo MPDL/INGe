@@ -12,20 +12,19 @@ import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.ChecksumAlgorithm;
-import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Storage;
-import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -98,7 +97,8 @@ public class EntityTransformer {
 
       FileDbVO file = new FileDbVO();
       file.setChecksum(oldFile.getChecksum());
-      file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
+      file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm()
+          .name()));
       file.setContent(oldFile.getContent());
       file.setContentCategory(oldFile.getContentCategory());
       file.setCreationDate(oldFile.getCreationDate());
@@ -111,8 +111,8 @@ public class EntityTransformer {
       file.setName(oldFile.getName());
       file.setObjectId(changeId("file", oldFile.getReference().getObjectId()));
       file.setPid(oldFile.getPid());
-      file.setStorage(Storage.valueOf(oldFile.getStorage().name()));
-      file.setVisibility(Visibility.valueOf(oldFile.getVisibility().name()));
+      file.setStorage(FileDbVO.Storage.valueOf(oldFile.getStorage().name()));
+      file.setVisibility(FileDbVO.Visibility.valueOf(oldFile.getVisibility().name()));
 
       newPubItem.getFiles().add(file);
     }
@@ -220,14 +220,15 @@ public class EntityTransformer {
     if (newAccountUserRo == null) {
       return null;
     }
+
     AccountUserRO modifier = new AccountUserRO();
     modifier.setObjectId(newAccountUserRo.getObjectId());
     modifier.setTitle(newAccountUserRo.getName());
+
     return modifier;
   }
 
   private static ItemRO transformToOld(PubItemDbRO newItemRo) {
-
     ItemRO oldItemRo = new ItemRO();
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setLastMessage(newItemRo.getLastMessage());
@@ -235,22 +236,22 @@ public class EntityTransformer {
     oldItemRo.setModifiedByRO(transformToOld(newItemRo.getModifiedBy()));
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
+
     if (newItemRo.getState() != null) {
       oldItemRo.setState(ItemVO.State.valueOf(newItemRo.getState().name()));
     }
 
     oldItemRo.setTitle(null);// TODO
     oldItemRo.setVersionNumber(newItemRo.getVersionNumber());
-    return oldItemRo;
 
+    return oldItemRo;
   }
 
-  private static de.mpg.mpdl.inge.model.valueobjects.FileVO transformToOld(FileDbVO newFileVo) {
-    de.mpg.mpdl.inge.model.valueobjects.FileVO oldFileVo =
-        new de.mpg.mpdl.inge.model.valueobjects.FileVO();
+  private static FileVO transformToOld(FileDbVO newFileVo) {
+    FileVO oldFileVo = new FileVO();
     oldFileVo.setChecksum(newFileVo.getChecksum());
-    oldFileVo.setChecksumAlgorithm(de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm
-        .valueOf(newFileVo.getChecksumAlgorithm().name()));
+    oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+        .getChecksumAlgorithm().name()));
     oldFileVo.setContent(newFileVo.getContent());
     oldFileVo.setContentCategory(newFileVo.getContentCategory());
     oldFileVo.setCreatedByRO(transformToOld(newFileVo.getCreator()));
@@ -267,71 +268,55 @@ public class EntityTransformer {
     oldFileRo.setTitle(newFileVo.getName());
     oldFileVo.setReference(oldFileRo);
 
-    oldFileVo.setStorage(de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage.valueOf(newFileVo
-        .getStorage().name()));
-    oldFileVo.setVisibility(de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility.valueOf(newFileVo
-        .getVisibility().name()));
+    oldFileVo.setStorage(FileVO.Storage.valueOf(newFileVo.getStorage().name()));
+    oldFileVo.setVisibility(FileVO.Visibility.valueOf(newFileVo.getVisibility().name()));
 
     return oldFileVo;
   }
 
-  private static de.mpg.mpdl.inge.model.referenceobjects.ContextRO transformToOld(
-      ContextDbRO newContextRo) {
-    de.mpg.mpdl.inge.model.referenceobjects.ContextRO context =
-        new de.mpg.mpdl.inge.model.referenceobjects.ContextRO();
+  private static ContextRO transformToOld(ContextDbRO newContextRo) {
+    ContextRO context = new ContextRO();
     context.setObjectId(newContextRo.getObjectId());
     context.setTitle(newContextRo.getName());
+
     return context;
   }
 
   public static PubItemVO transformToOld(PubItemVersionDbVO itemVo) {
-
     if (itemVo == null) {
       return null;
     }
+
     PubItemVO oldPubItem = new PubItemVO();
     oldPubItem.setContentModel("escidoc:persistent4");
-
-
     oldPubItem.setContext(transformToOld(itemVo.getObject().getContext()));
-
     oldPubItem.setCreationDate(itemVo.getObject().getCreationDate());
-
 
     if (itemVo.getObject().getLatestRelease() != null) {
       oldPubItem.setLatestRelease(transformToOld(itemVo.getObject().getLatestRelease()));
     }
+
     oldPubItem.setLatestVersion(transformToOld(itemVo.getObject().getLatestVersion()));
-
-
     oldPubItem.setMetadata(itemVo.getMetadata());
-
-
     oldPubItem.setOwner(transformToOld(itemVo.getObject().getOwner()));
     oldPubItem.setPid(itemVo.getObject().getPid());
     oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicStatus()));
     oldPubItem.setPublicStatusComment(itemVo.getObject().getPublicStatusComment());
-
     oldPubItem.setVersion(transformToOld((PubItemDbRO) itemVo));
-
 
     for (FileDbVO newFile : itemVo.getFiles()) {
       oldPubItem.getFiles().add(transformToOld(newFile));
     }
 
     return oldPubItem;
-
-
   }
 
-  public static de.mpg.mpdl.inge.model.valueobjects.ContextVO transformToOld(
-      ContextDbVO newContextVo) {
+  public static ContextVO transformToOld(ContextDbVO newContextVo) {
 
     if (newContextVo == null) {
       return null;
     }
-    de.mpg.mpdl.inge.model.valueobjects.ContextVO oldContextVo =
-        new de.mpg.mpdl.inge.model.valueobjects.ContextVO();
+    ContextVO oldContextVo = new ContextVO();
     oldContextVo.setAdminDescriptor(newContextVo.getAdminDescriptor());
     oldContextVo.setCreationDate(newContextVo.getCreationDate());
     oldContextVo.setCreator(transformToOld(newContextVo.getCreator()));
@@ -342,8 +327,7 @@ public class EntityTransformer {
 
 
     oldContextVo.setReference(transformToOld((ContextDbRO) newContextVo));
-    oldContextVo.setState(de.mpg.mpdl.inge.model.valueobjects.ContextVO.State.valueOf(newContextVo
-        .getState().name()));
+    oldContextVo.setState(ContextVO.State.valueOf(newContextVo.getState().name()));
     oldContextVo.setType(newContextVo.getType());
 
 
@@ -357,22 +341,24 @@ public class EntityTransformer {
 
   }
 
-  private static de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO transformToOld(
-      AffiliationDbRO newAffiliationRO) {
-    de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRO =
-        new de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO();
+  private static AffiliationRO transformToOld(AffiliationDbRO newAffiliationRO) {
+    if (newAffiliationRO == null) {
+      return null;
+    }
+
+    AffiliationRO oldAffRO = new AffiliationRO();
     oldAffRO.setObjectId(newAffiliationRO.getObjectId());
     oldAffRO.setTitle(newAffiliationRO.getName());
+
     return oldAffRO;
   }
 
-  public static de.mpg.mpdl.inge.model.valueobjects.AffiliationVO transformToOld(
-      AffiliationDbVO newAffVo) {
+  public static AffiliationVO transformToOld(AffiliationDbVO newAffVo) {
     if (newAffVo == null) {
       return null;
     }
-    de.mpg.mpdl.inge.model.valueobjects.AffiliationVO oldAffVo =
-        new de.mpg.mpdl.inge.model.valueobjects.AffiliationVO();
+
+    AffiliationVO oldAffVo = new AffiliationVO();
     oldAffVo.setCreationDate(newAffVo.getCreationDate());
     oldAffVo.setLastModificationDate(newAffVo.getLastModificationDate());
     oldAffVo.setCreator(transformToOld(newAffVo.getCreator()));
@@ -382,7 +368,6 @@ public class EntityTransformer {
 
     for (AffiliationDbRO predecessor : newAffVo.getPredecessorAffiliations()) {
       oldAffVo.getPredecessorAffiliations().add(transformToOld((AffiliationDbRO) predecessor));
-
     }
 
     if (newAffVo.getParentAffiliation() != null) {
@@ -390,18 +375,13 @@ public class EntityTransformer {
           transformToOld((AffiliationDbRO) newAffVo.getParentAffiliation()));
     }
 
-
-
     oldAffVo.setPublicStatus(newAffVo.getPublicStatus().name());
     oldAffVo.setReference(transformToOld((AffiliationDbRO) newAffVo));
+
     return oldAffVo;
-
-
-
   }
 
   public static List<VersionHistoryEntryVO> transformToVersionHistory(List<AuditDbVO> auditList) {
-
     if (auditList == null) {
       return null;
     }
@@ -414,19 +394,21 @@ public class EntityTransformer {
 
       if (vhEntry == null
           || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
+
         vhEntry = new VersionHistoryEntryVO();
         vhEntry.setModificationDate(audit.getModificationDate());
+
         ItemRO ref = new ItemRO();
         ref.setObjectId(audit.getPubItem().getObjectId());
         ref.setVersionNumber(audit.getPubItem().getVersionNumber());
+        ref.setLastMessage(audit.getComment());
+
         vhEntry.setReference(ref);
-        vhEntry.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(audit
-            .getPubItem().getState().name()));
+        vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getState().name()));
         vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
+
         vhList.add(vhEntry);
-
       }
-
 
       EventLogEntryVO event = new EventLogEntryVO();
       event.setComment(audit.getComment());
@@ -434,60 +416,51 @@ public class EntityTransformer {
 
       switch (audit.getEvent()) {
         case CREATE: {
-          event.setType(EventType.CREATE);
+          event.setType(EventLogEntryVO.EventType.CREATE);
           break;
         }
         case RELEASE: {
-          event.setType(EventType.RELEASE);
+          event.setType(EventLogEntryVO.EventType.RELEASE);
           break;
         }
         case SUBMIT: {
-          event.setType(EventType.SUBMIT);
+          event.setType(EventLogEntryVO.EventType.SUBMIT);
           break;
         }
         case REVISE: {
-          event.setType(EventType.IN_REVISION);
+          event.setType(EventLogEntryVO.EventType.IN_REVISION);
           break;
         }
         case UPDATE: {
-          event.setType(EventType.UPDATE);
+          event.setType(EventLogEntryVO.EventType.UPDATE);
           break;
         }
         case WITHDRAW: {
-          event.setType(EventType.WITHDRAW);
+          event.setType(EventLogEntryVO.EventType.WITHDRAW);
           break;
         }
       }
 
       vhEntry.getEvents().add(event);
-
     }
 
     return vhList;
-
   }
 
-  public static de.mpg.mpdl.inge.model.valueobjects.AccountUserVO transformToOld(
-      AccountUserDbVO newAccountUser) {
-
+  public static AccountUserVO transformToOld(AccountUserDbVO newAccountUser) {
     if (newAccountUser == null) {
       return null;
     }
-    de.mpg.mpdl.inge.model.valueobjects.AccountUserVO oldAccountUser =
-        new de.mpg.mpdl.inge.model.valueobjects.AccountUserVO();
 
-
-
+    AccountUserVO oldAccountUser = new AccountUserVO();
     oldAccountUser.setCreationDate(newAccountUser.getCreationDate());
     oldAccountUser.setCreator(transformToOld(newAccountUser.getCreator()));
     oldAccountUser.setLastModificationDate(newAccountUser.getLastModificationDate());
     oldAccountUser.setModifiedBy(transformToOld(newAccountUser.getModifier()));
-
     oldAccountUser.setName(newAccountUser.getName());
     oldAccountUser.setActive(newAccountUser.isActive());
     oldAccountUser.setEmail(newAccountUser.getEmail());
     oldAccountUser.setUserid(newAccountUser.getLoginname());
-
 
     if (newAccountUser.getAffiliation() != null) {
       AffiliationRO affRo = new AffiliationRO();
@@ -496,23 +469,15 @@ public class EntityTransformer {
       oldAccountUser.getAffiliations().add(affRo);
     }
 
-
-
     AccountUserRO userRo = new AccountUserRO();
     userRo.setObjectId(newAccountUser.getObjectId());
     userRo.setTitle(newAccountUser.getName());
 
     oldAccountUser.setReference(userRo);
-
-
     oldAccountUser.getGrants().clear();
     oldAccountUser.getGrants().addAll(newAccountUser.getGrantList());
 
-
-
     return oldAccountUser;
-
-
   }
 
   private static String changeId(String prefix, String href) {
