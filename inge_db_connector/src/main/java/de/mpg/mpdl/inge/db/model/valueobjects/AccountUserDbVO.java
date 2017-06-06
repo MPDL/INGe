@@ -17,7 +17,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import de.mpg.mpdl.inge.db.model.hibernate.GrantVOListJsonUserType;
-import de.mpg.mpdl.inge.db.model.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
 @Entity(name = "AccountUserVO")

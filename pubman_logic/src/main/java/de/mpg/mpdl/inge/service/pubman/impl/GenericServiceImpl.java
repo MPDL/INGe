@@ -12,20 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObject extends BasicDbRO>
     implements GenericService<ModelObject> {

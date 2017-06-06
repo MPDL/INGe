@@ -56,9 +56,6 @@ public class BasicDbRO implements Cloneable {
    * 
    * @author Johannes Mueller
    */
-  private static final long serialVersionUID = 1L;
-
-
   @Id
   private String objectId;
 
