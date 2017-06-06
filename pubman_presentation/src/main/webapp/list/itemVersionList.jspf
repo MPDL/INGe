@@ -4,29 +4,29 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:repeat value="#{ItemVersionListSessionBean.releaseList}"
-		var="entry">
+	<ui:repeat value="#{ItemVersionListSessionBean.releaseList}" var="entry">
 		<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText
-					value="#{lbl.ViewItemFull_lblVersion} #{entry.versionHistoryVO.reference.versionNumber}" />
+				<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.versionHistoryVO.reference.versionNumber}" />
 			</h3>
 			<h:panelGroup styleClass="seperator" />
 			<div class="free_area0 itemBlockContent endline">
 				<div class="free_area0 endline itemLine noTopBorder">
-					<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{lbl.ViewItemReleaseHistory_lblReleaseDate}" /><span
-						class="noDisplay">: </span>
-					</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{entry.formattedDate}" />
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate}" />
+						<span class="noDisplay">: </span>
+					</b> 
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText value="#{entry.formattedDate}" />
 					</span>
 				</div>
 				<div class="free_area0 endline itemLine noTopBorder">
-					<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{lbl.ViewItemReleaseHistory_lblComment}" /><span
-						class="noDisplay">: </span>
-					</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{entry.versionHistoryVO.reference.lastMessage}" />
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}" />
+						<span class="noDisplay">: </span>
+					</b> 
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText value="#{entry.versionHistoryVO.reference.lastMessage}" />
 					</span>
 				</div>
 			</div>
