@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
@@ -343,31 +343,31 @@ public class ViewItemFull extends FacesBean {
           this.getPubItem().getVersion().getVersionNumber() == this.getPubItem().getLatestRelease()
               .getVersionNumber();
 
-      this.isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
+      this.isPublicStateReleased =
+          ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
 
       this.isStateWasReleased =
           this.getPubItem().getLatestRelease().getObjectId() != null ? true : false;
 
-      this.isStateWithdrawn =
-          this.getPubItem().getPublicStatus().toString().equals(State.WITHDRAWN.toString());
+      this.isStateWithdrawn = ItemVO.State.WITHDRAWN.equals(this.getPubItem().getPublicStatus());
       if (this.isStateWithdrawn) {
         this.getViewItemSessionBean().itemChanged();
       }
 
       this.isStateSubmitted =
-          this.getPubItem().getVersion().getState().toString().equals(State.SUBMITTED.toString())
+          ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersion().getState())
               && !this.isStateWithdrawn;;
 
       this.isStateReleased =
-          this.getPubItem().getVersion().getState().toString().equals(State.RELEASED.toString())
+          ItemVO.State.RELEASED.equals(this.getPubItem().getVersion().getState())
               && !this.isStateWithdrawn;
 
       this.isStatePending =
-          this.getPubItem().getVersion().getState().toString().equals(State.PENDING.toString())
+          ItemVO.State.PENDING.equals(this.getPubItem().getVersion().getState())
               && !this.isStateWithdrawn;;
 
       this.isStateInRevision =
-          this.getPubItem().getVersion().getState().toString().equals(State.IN_REVISION.toString())
+          ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersion().getState())
               && !this.isStateWithdrawn;;
 
       // Warn message if the item version is not the latest
@@ -517,8 +517,9 @@ public class ViewItemFull extends FacesBean {
           }
 
           try {
-            if (State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
-                || State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion().getState())) {
+            if (ItemVO.State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
+                || ItemVO.State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion()
+                    .getState())) {
               this.isCandidateOfYearbook =
                   this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
               if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
@@ -1196,11 +1197,11 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getShowCiteItem() {
-    if (this.getPubItem().getPublicStatus().equals(State.WITHDRAWN)) {
+    if (this.getPubItem().getPublicStatus().equals(ItemVO.State.WITHDRAWN)) {
       return false;
     }
 
-    return this.getPubItem().getVersion().getState().equals(State.RELEASED);
+    return this.getPubItem().getVersion().getState().equals(ItemVO.State.RELEASED);
   }
 
   public String getDates() {
@@ -1240,8 +1241,8 @@ public class ViewItemFull extends FacesBean {
    */
   public boolean getInvited() {
     if (this.pubItem.getMetadata().getEvent().getInvitationStatus() != null) {
-      if (this.pubItem.getMetadata().getEvent().getInvitationStatus()
-          .equals(EventVO.InvitationStatus.INVITED)) {
+      if (EventVO.InvitationStatus.INVITED.equals(this.pubItem.getMetadata().getEvent()
+          .getInvitationStatus())) {
         return true;
       }
     }
@@ -1255,7 +1256,7 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getItemIsWithdrawn() {
-    if (this.pubItem.getVersion().getState().equals(State.WITHDRAWN)) {
+    if (ItemVO.State.WITHDRAWN.equals(this.pubItem.getVersion().getState())) {
       return true;
     }
 
@@ -1269,7 +1270,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String getWithdrawalDate() {
     String date = "";
-    if (this.pubItem.getPublicStatus().equals(State.WITHDRAWN)) {
+    if (ItemVO.State.WITHDRAWN.equals(this.pubItem.getPublicStatus())) {
       if (this.pubItem.getModificationDate() != null) {
         date = CommonUtils.format(this.pubItem.getModificationDate());
       }
@@ -1574,7 +1575,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getIsStateWithdrawn() {
-    return this.getPubItem().getPublicStatus().equals(State.WITHDRAWN);
+    return this.getPubItem().getPublicStatus().equals(ItemVO.State.WITHDRAWN);
   }
 
   public void setStateWithdrawn(boolean isStateWithdrawn) {
@@ -1679,11 +1680,12 @@ public class ViewItemFull extends FacesBean {
 
   public boolean getHasAudience() {
     if (this.pubItem != null
-        && (this.pubItem.getVersion().getState() == State.RELEASED || this.pubItem.getVersion()
-            .getState() == State.SUBMITTED) && (this.getIsModerator() || this.getIsDepositor())) {
+        && (ItemVO.State.RELEASED.equals(this.pubItem.getVersion().getState()) || ItemVO.State.SUBMITTED
+            .equals(this.pubItem.getVersion().getState()))
+        && (this.getIsModerator() || this.getIsDepositor())) {
 
       for (final FileVO file : this.pubItem.getFiles()) {
-        if (file.getVisibility() == Visibility.AUDIENCE) {
+        if (Visibility.AUDIENCE.equals(file.getVisibility())) {
           return true;
         }
       }
@@ -2331,11 +2333,11 @@ public class ViewItemFull extends FacesBean {
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal = "";
     final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    final State state = this.getPubItem().getVersion().getState();
+    final ItemVO.State state = this.getPubItem().getVersion().getState();
 
     try {
       retVal = icsb.saveCurrentPubItem(navigateTo);
-      if (State.RELEASED.equals(state)) {
+      if (ItemVO.State.RELEASED.equals(state)) {
         if (this.isModerator) {
           navigateTo = AcceptItem.LOAD_ACCEPTITEM;
           if (navigateTo.equals(retVal)) {

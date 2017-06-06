@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -82,8 +82,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     PubItemVO pubItemVONewVersion =
         pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
-    if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED
-        && pubItemVONewVersion.getVersion().getState() == State.PENDING) {
+    if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersion().getState())
+        && ItemVO.State.PENDING.equals(pubItemVONewVersion.getVersion().getState())) {
       pubItemVONewVersion =
           ApplicationBean.INSTANCE.getPubItemService().submitPubItem(
               pubItemVONewVersion.getVersion().getObjectId(),

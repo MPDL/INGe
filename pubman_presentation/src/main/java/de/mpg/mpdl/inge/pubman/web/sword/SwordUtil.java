@@ -71,7 +71,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -556,15 +556,17 @@ public class SwordUtil extends FacesBean {
     boolean isStateInRevision = false;
 
     if (item != null && item.getVersion() != null && item.getVersion().getState() != null) {
-      isStatePending = item.getVersion().getState().equals(State.PENDING);
-      isStateSubmitted = item.getVersion().getState().equals(State.SUBMITTED);
-      isStateInRevision = item.getVersion().getState().equals(State.IN_REVISION);
+      isStatePending = ItemVO.State.PENDING.equals(item.getVersion().getState());
+      isStateSubmitted = ItemVO.State.SUBMITTED.equals(item.getVersion().getState());
+      isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersion().getState());
     }
 
     isWorkflowStandard =
-        this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
+        PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean()
+            .getCurrentContext().getAdminDescriptor().getWorkflow());
     isWorkflowSimple =
-        this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
+        PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean()
+            .getCurrentContext().getAdminDescriptor().getWorkflow());
 
     final boolean isModerator =
         this.getLoginHelper().getAccountUser().isModerator(item.getContext());

@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -55,10 +54,10 @@ public class ContextServiceHandlerTest extends TestBase {
   public void testUpdate() {
     try {
       ContextVO contextVO = this.contextDao.get(test_context_id);
-      contextVO.setState(State.CREATED);
+      contextVO.setState(ContextVO.State.CREATED);
       this.contextDao.update(test_context_id, contextVO);
       ContextVO contextVO2 = this.contextDao.get(test_context_id);
-      assert contextVO2.getState().equals(State.CREATED);
+      assert contextVO2.getState().equals(ContextVO.State.CREATED);
     } catch (IngeServiceException e) {
       logger.error(e);
       System.out.println(e);

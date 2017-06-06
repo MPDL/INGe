@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 
 /**
  * The class for item references.
@@ -316,9 +315,9 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   @JsonIgnore
-  public State getStateForXml() {
+  public ItemVO.State getStateForXml() {
     if (state == null) {
-      return State.PENDING;
+      return ItemVO.State.PENDING;
     } else {
       return state;
     }

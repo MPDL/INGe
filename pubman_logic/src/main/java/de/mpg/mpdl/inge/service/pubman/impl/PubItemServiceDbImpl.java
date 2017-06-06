@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
@@ -39,6 +38,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -175,7 +175,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     mod.setObjectId(modifierId);
     pubItem.setModifiedBy(mod);
     pubItem.setObjectId(objectId);
-    pubItem.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
+    pubItem.setState(PubItemDbRO.State.PENDING);
     pubItem.setVersionNumber(1);
     pubItem.setVersionPid(null);// TODO
 
@@ -188,7 +188,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemObject.setObjectId(objectId);
     pubItemObject.setOwner(mod);
     pubItemObject.setPid(null);// TODO
-    pubItemObject.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
+    pubItemObject.setPublicStatus(PubItemDbRO.State.PENDING);
     pubItemObject.setPublicStatusComment(null);
 
     pubItem.setObject(pubItemObject);
@@ -231,7 +231,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     checkPubItemAa(latestVersionOld, context, userAccount, "update");
 
-    if (State.RELEASED.equals(latestVersion.getState())) {
+    if (PubItemDbRO.State.RELEASED.equals(latestVersion.getState())) {
       entityManager.detach(latestVersion);
       // Reset latestRelase reference because it is the same object as latest version
       PubItemDbRO latestReleaseRO = new PubItemDbRO();
@@ -243,9 +243,9 @@ public class PubItemServiceDbImpl implements PubItemService {
       // if current user is owner, set to status pending. Else, set to status submitted
 
       if (userAccount.isModerator(context.getReference())) {
-        latestVersion.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.SUBMITTED);
+        latestVersion.setState(PubItemDbRO.State.SUBMITTED);
       } else {
-        latestVersion.setState(de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.PENDING);
+        latestVersion.setState(PubItemDbRO.State.PENDING);
       }
 
 
@@ -380,37 +380,37 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Transactional
   public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException {
-    return changeState(pubItemId, State.SUBMITTED, message, "submit", authenticationToken,
-        EventType.SUBMIT);
+    return changeState(pubItemId, PubItemDbRO.State.SUBMITTED, message, "submit",
+        authenticationToken, EventType.SUBMIT);
   }
 
   @Override
   @Transactional
   public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException {
-    return changeState(pubItemId, State.IN_REVISION, message, "revise", authenticationToken,
-        EventType.REVISE);
+    return changeState(pubItemId, PubItemDbRO.State.IN_REVISION, message, "revise",
+        authenticationToken, EventType.REVISE);
   }
 
   @Override
   @Transactional
   public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException {
-    return changeState(pubItemId, State.RELEASED, message, "release", authenticationToken,
-        EventType.RELEASE);
+    return changeState(pubItemId, PubItemDbRO.State.RELEASED, message, "release",
+        authenticationToken, EventType.RELEASE);
   }
 
   @Override
   @Transactional
   public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
       throws IngeServiceException, AaException {
-    return changeState(pubItemId, State.WITHDRAWN, message, "withdraw", authenticationToken,
-        EventType.WITHDRAW);
+    return changeState(pubItemId, PubItemDbRO.State.WITHDRAWN, message, "withdraw",
+        authenticationToken, EventType.WITHDRAW);
   }
 
-  private PubItemVO changeState(String id, State state, String message, String aaMethod,
-      String authenticationToken, EventType auditEventType) throws IngeServiceException,
-      AaException {
+  private PubItemVO changeState(String id, PubItemDbRO.State state, String message,
+      String aaMethod, String authenticationToken, EventType auditEventType)
+      throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
@@ -424,19 +424,18 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
 
-    if (State.SUBMITTED.equals(state)
-        && !de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State.RELEASED.equals(latestVersion
-            .getObject().getPublicStatus())) {
-      latestVersion.getObject().setPublicStatus(State.SUBMITTED);
+    if (PubItemDbRO.State.SUBMITTED.equals(state)
+        && !PubItemDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicStatus())) {
+      latestVersion.getObject().setPublicStatus(PubItemDbRO.State.SUBMITTED);
     }
-    if (State.RELEASED.equals(state)) {
-      latestVersion.getObject().setPublicStatus(State.RELEASED);
+    if (PubItemDbRO.State.RELEASED.equals(state)) {
+      latestVersion.getObject().setPublicStatus(PubItemDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
     }
 
-    if (State.WITHDRAWN.equals(state)) {
+    if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
       // change public state to withdrawn, leave version state as is
-      latestVersion.getObject().setPublicStatus(State.WITHDRAWN);
+      latestVersion.getObject().setPublicStatus(PubItemDbRO.State.WITHDRAWN);
     } else {
       latestVersion.setState(state);
     }
@@ -474,7 +473,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   private void validate(PubItemVO pubItem) throws IngeServiceException, ItemInvalidException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
-    if (pubItem.getPublicStatus() != null && State.PENDING.equals(pubItem.getPublicStatus())) {
+    if (pubItem.getPublicStatus() != null && ItemVO.State.PENDING.equals(pubItem.getPublicStatus())) {
       vp = ValidationPoint.SAVE;
     }
 

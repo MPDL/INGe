@@ -17,7 +17,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -173,7 +173,7 @@ public class MyItemsRetrieverRequestBean extends
       }
      
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.valueOf(this.selectedItemState).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
         
       }
@@ -236,16 +236,16 @@ public class MyItemsRetrieverRequestBean extends
     this.itemStateSelectItems = new ArrayList<SelectItem>();
     this.itemStateSelectItems.add(new SelectItem("all", this
         .getLabel("ItemList_filterAllExceptWithdrawn")));
-    this.itemStateSelectItems.add(new SelectItem(State.PENDING.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(State.PENDING))));
-    this.itemStateSelectItems.add(new SelectItem(State.SUBMITTED.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(State.SUBMITTED))));
-    this.itemStateSelectItems.add(new SelectItem(State.RELEASED.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(State.RELEASED))));
-    this.itemStateSelectItems.add(new SelectItem(State.WITHDRAWN.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(State.WITHDRAWN))));
-    this.itemStateSelectItems.add(new SelectItem(State.IN_REVISION.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(State.IN_REVISION))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.PENDING.name(), this.getLabel(this
+        .getI18nHelper().convertEnumToString(ItemVO.State.PENDING))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.SUBMITTED.name(), this.getLabel(this
+        .getI18nHelper().convertEnumToString(ItemVO.State.SUBMITTED))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.RELEASED.name(), this.getLabel(this
+        .getI18nHelper().convertEnumToString(ItemVO.State.RELEASED))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.WITHDRAWN.name(), this.getLabel(this
+        .getI18nHelper().convertEnumToString(ItemVO.State.WITHDRAWN))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.IN_REVISION.name(), this
+        .getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.IN_REVISION))));
 
     return this.itemStateSelectItems;
   }
@@ -296,7 +296,7 @@ public class MyItemsRetrieverRequestBean extends
     if (this.getSelectedItemState() != null && !this.getSelectedItemState().equals("all")) {
       returnString =
           this.getLabel(this.getI18nHelper().convertEnumToString(
-              State.valueOf(this.getSelectedItemState())));
+              ItemVO.State.valueOf(this.getSelectedItemState())));
     }
     return returnString;
 

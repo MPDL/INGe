@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -154,9 +154,9 @@ public class ItemControllerSessionBean extends FacesBean {
     newItem.getVersion().setObjectId(null);
     newItem.setPid(null);
     newItem.getVersion().setVersionNumber(0);
-    newItem.getVersion().setState(State.PENDING);
+    newItem.getVersion().setState(ItemVO.State.PENDING);
     newItem.getVersion().setPid(null);
-    newItem.setPublicStatus(State.PENDING);
+    newItem.setPublicStatus(ItemVO.State.PENDING);
     newItem.setOwner(null);
     newItem.getFiles().clear();
     // clear local tags [PUBMAN-2478]
@@ -367,7 +367,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Status
     if (newPubItem.getVersion().getState() == null) {
-      newPubItem.getVersion().setState(State.PENDING);
+      newPubItem.getVersion().setState(ItemVO.State.PENDING);
     }
 
     // Title

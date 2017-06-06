@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -74,7 +74,7 @@ public class FileBean extends FacesBean {
 
   private FileVO file;
   private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
-  private final State itemState;
+  private final ItemVO.State itemState;
   private boolean fileAccessGranted = false;
 
   /**
@@ -84,7 +84,7 @@ public class FileBean extends FacesBean {
    * @param position
    * @param itemState
    */
-  public FileBean(FileVO file, State itemState) {
+  public FileBean(FileVO file, ItemVO.State itemState) {
     this.file = file;
     this.itemState = itemState;
     if (this.getLoginHelper().getLoggedIn() == true) {
@@ -100,7 +100,7 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  public FileBean(FileVO file, State itemState, List<SearchHitVO> searchHitList) {
+  public FileBean(FileVO file, ItemVO.State itemState, List<SearchHitVO> searchHitList) {
     this.file = file;
     this.itemState = itemState;
     this.initialize(file, itemState, searchHitList);
@@ -117,7 +117,7 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  protected void initialize(FileVO file, State itemState, List<SearchHitVO> searchHitList) {
+  protected void initialize(FileVO file, ItemVO.State itemState, List<SearchHitVO> searchHitList) {
     // set some html elements which cannot be completely constructed in the jsp
 
     String beforeSearchHitString;
@@ -313,7 +313,7 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getItemWithdrawn() {
-    if (this.itemState.equals(State.WITHDRAWN)) {
+    if (this.itemState.equals(ItemVO.State.WITHDRAWN)) {
       return true;
     }
 

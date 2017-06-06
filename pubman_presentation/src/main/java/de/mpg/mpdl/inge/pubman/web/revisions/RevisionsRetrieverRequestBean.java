@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -79,8 +79,7 @@ public class RevisionsRetrieverRequestBean extends
       for (final RelationVOPresentation relationVO : relationVOList) {
         final PubItemVO sourceItem = relationVO.getSourceItem();
 
-        if (sourceItem != null
-            && sourceItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
+        if (sourceItem != null && ItemVO.State.RELEASED.equals(sourceItem.getVersion().getState())) {
           pubItemVOList.add(sourceItem);
         }
 
@@ -93,8 +92,7 @@ public class RevisionsRetrieverRequestBean extends
 
       for (final RelationVOPresentation relationVO : relationVOList2) {
         final PubItemVO targetItem = relationVO.getTargetItem();
-        if (targetItem != null
-            && targetItem.getVersion().getState().toString().equals(State.RELEASED.toString())) {
+        if (targetItem != null && ItemVO.State.RELEASED.equals(targetItem.getVersion().getState())) {
           pubItemVOList.add(targetItem);
         }
 

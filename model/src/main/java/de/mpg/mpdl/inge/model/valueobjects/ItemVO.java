@@ -383,11 +383,11 @@ public class ItemVO extends ValueObject implements Searchable {
     this.setContentModel(contentModelHref);
   }
 
-  public State getPublicStatus() {
-    return publicStatus;
+  public ItemVO.State getPublicStatus() {
+    return this.publicStatus;
   }
 
-  public void setPublicStatus(State publicStatus) {
+  public void setPublicStatus(ItemVO.State publicStatus) {
     this.publicStatus = publicStatus;
   }
 

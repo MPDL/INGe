@@ -84,7 +84,7 @@ public class ContextVO extends ValueObject implements Searchable {
   /**
    * The state of the PubCollection.
    */
-  private State state;
+  private ContextVO.State state;
   /**
    * A short description of the collection and the collection policy.
    */

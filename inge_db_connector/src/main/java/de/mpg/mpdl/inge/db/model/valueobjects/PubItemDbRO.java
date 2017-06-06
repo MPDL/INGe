@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EnumType;
@@ -12,9 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.MappedSuperclass;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,7 +41,7 @@ public class PubItemDbRO {
    * The state of the item.
    */
   @Enumerated(EnumType.STRING)
-  private State state;
+  private PubItemDbRO.State state;
   /**
    * The eSciDoc ID of the user that modified that version.
    */
@@ -116,8 +112,8 @@ public class PubItemDbRO {
    * 
    * @return The current State.
    */
-  public State getState() {
-    return state;
+  public PubItemDbRO.State getState() {
+    return this.state;
   }
 
   /**
@@ -125,7 +121,7 @@ public class PubItemDbRO {
    * 
    * @param newVal The new state.
    */
-  public void setState(State newVal) {
+  public void setState(PubItemDbRO.State newVal) {
     state = newVal;
   }
 
@@ -165,9 +161,9 @@ public class PubItemDbRO {
   }
 
   @JsonIgnore
-  public State getStateForXml() {
+  public PubItemDbRO.State getStateForXml() {
     if (state == null) {
-      return State.PENDING;
+      return PubItemDbRO.State.PENDING;
     } else {
       return state;
     }

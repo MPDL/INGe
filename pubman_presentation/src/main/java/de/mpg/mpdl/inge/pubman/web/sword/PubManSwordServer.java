@@ -61,7 +61,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -150,7 +150,7 @@ public class PubManSwordServer {
     // Deposit item
     if (!deposit.isNoOp()) {
       depositItem = util.doDeposit(depositItem);
-      if (depositItem.getVersion().getState().equals(State.RELEASED)) {
+      if (ItemVO.State.RELEASED.equals(depositItem.getVersion().getState())) {
         dr = new DepositResponse(Deposit.CREATED);
         this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
             + depositItem.getPublicStatus() + ").");

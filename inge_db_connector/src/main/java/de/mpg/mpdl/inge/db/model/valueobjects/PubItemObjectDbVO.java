@@ -23,7 +23,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import de.mpg.mpdl.inge.db.model.hibernate.StringListJsonUserType;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 
 
 
@@ -70,7 +69,7 @@ public class PubItemObjectDbVO {
 
 
   @Enumerated(EnumType.STRING)
-  private State publicStatus;
+  private PubItemDbRO.State publicStatus;
 
   @Column(columnDefinition = "TEXT")
   private String publicStatusComment;
@@ -175,11 +174,11 @@ public class PubItemObjectDbVO {
 
 
 
-  public State getPublicStatus() {
+  public PubItemDbRO.State getPublicStatus() {
     return publicStatus;
   }
 
-  public void setPublicStatus(State publicStatus) {
+  public void setPublicStatus(PubItemDbRO.State publicStatus) {
     this.publicStatus = publicStatus;
   }
 

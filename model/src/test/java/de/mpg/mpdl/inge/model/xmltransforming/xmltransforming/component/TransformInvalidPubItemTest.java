@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
@@ -93,7 +93,7 @@ public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
   private PubItemVO getSmallPubItemVOWithStateAndEmptyMdsAndMinimalCollection() {
     PubItemVO item = new PubItemVO();
     // State
-    item.getVersion().setState(State.PENDING);
+    item.getVersion().setState(ItemVO.State.PENDING);
 
     // (1) metadata
     MdsPublicationVO mds = new MdsPublicationVO();

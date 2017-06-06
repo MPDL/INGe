@@ -25,7 +25,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -273,7 +273,7 @@ public class YearbookItemCreateBean extends FacesBean {
             } else if (yearbookPubItem.getYearbookMetadata().getYear() != null
                 && yearbookPubItem.getYearbookMetadata().getYear()
                     .equals(Integer.toString((Integer.valueOf(this.getYear()) - 1)))
-                && !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
+                && !yearbookPubItem.getPublicStatus().equals(ItemVO.State.RELEASED)) {
               FacesBean
                   .error("A yearbook related to this organization object id already exists for the previous year and has not been released until now");
               return "";

@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -117,7 +117,7 @@ public class TestBase {
     }
     ItemRO version = new ItemRO("escidoc:123");
     version.setVersionNumber(1);
-    version.setState(State.PENDING);
+    version.setState(ItemVO.State.PENDING);
     version.setModificationDate(new Date());
 
     item.setVersion(version);

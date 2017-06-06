@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
-@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "AffiliationVO")
 @Table(name = "organization")
@@ -91,7 +90,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
       new ArrayList<AffiliationDbRO>();
 
   @Enumerated(EnumType.STRING)
-  private State publicStatus;
+  private AffiliationDbVO.State publicStatus;
 
 
   @Formula("(select count(*)>0 from organization op WHERE op.parentAffiliation_objectid=objectId)")
@@ -122,7 +121,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
    * Delivers the publicly visible status of the affiliation. The public status can only be changed
    * by the system.
    */
-  public State getPublicStatus() {
+  public AffiliationDbVO.State getPublicStatus() {
     return publicStatus;
   }
 
@@ -132,7 +131,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
    * 
    * @param newVal
    */
-  public void setPublicStatus(State newVal) {
+  public void setPublicStatus(AffiliationDbVO.State newVal) {
     publicStatus = newVal;
   }
 
@@ -176,66 +175,4 @@ public class AffiliationDbVO extends AffiliationDbRO {
   public void setHasChildren(boolean hasChildren) {
     this.hasChildren = hasChildren;
   }
-
-  /*
-   * @Override public int hashCode() { final int prime = 31; int result = 1; result = prime * result
-   * + ((childAffiliations == null) ? 0 : childAffiliations.hashCode()); result = prime * result +
-   * ((creationDate == null) ? 0 : creationDate.hashCode()); result = prime * result + ((creator ==
-   * null) ? 0 : creator.hashCode()); result = prime * result + (hasChildren ? 1231 : 1237); result
-   * = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-   * result = prime * result + ((metadata == null) ? 0 : metadata.hashCode()); result = prime *
-   * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode()); result = prime * result +
-   * ((parentAffiliations == null) ? 0 : parentAffiliations.hashCode()); result = prime * result +
-   * ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode()); result = prime *
-   * result + ((publicStatus == null) ? 0 : publicStatus.hashCode()); result = prime * result +
-   * ((objectId == null) ? 0 : objectId.hashCode()); return result; }
-   * 
-   * @Override public boolean equals(Object obj) { if (this == obj) return true;
-   * 
-   * if (obj == null) return false;
-   * 
-   * if (getClass() != obj.getClass()) return false;
-   * 
-   * AffiliationVO other = (AffiliationVO) obj;
-   * 
-   * if (childAffiliations == null) { if (other.childAffiliations != null) return false; } else if
-   * (other.childAffiliations == null) return false; else if
-   * (!childAffiliations.containsAll(other.childAffiliations) // ||
-   * !other.childAffiliations.containsAll(childAffiliations)) { return false; }
-   * 
-   * if (creationDate == null) { if (other.creationDate != null) return false; } else if
-   * (!creationDate.equals(other.creationDate)) return false;
-   * 
-   * if (creator == null) { if (other.creator != null) return false; } else if
-   * (!creator.equals(other.creator)) return false;
-   * 
-   * if (hasChildren != other.hasChildren) return false;
-   * 
-   * if (lastModificationDate == null) { if (other.lastModificationDate != null) return false; }
-   * else if (!lastModificationDate.equals(other.lastModificationDate)) return false;
-   * 
-   * if (metadata == null) { if (other.metadata != null) return false; } else if (other.metadata ==
-   * null) return false; else if (!metadata.equals(other.metadata)) { return false; }
-   * 
-   * if (modifiedBy == null) { if (other.modifiedBy != null) return false; } else if
-   * (!modifiedBy.equals(other.modifiedBy)) return false;
-   * 
-   * if (parentAffiliations == null) { if (other.parentAffiliations != null) return false; } else if
-   * (other.parentAffiliations == null) return false; else if
-   * (!parentAffiliations.containsAll(other.parentAffiliations) // ||
-   * !other.parentAffiliations.containsAll(parentAffiliations)) { return false; }
-   * 
-   * if (predecessorAffiliations == null) { if (other.predecessorAffiliations != null) return false;
-   * } else if (other.predecessorAffiliations == null) return false; else if
-   * (!predecessorAffiliations.containsAll(other.predecessorAffiliations) // ||
-   * !other.predecessorAffiliations.containsAll(predecessorAffiliations)) { return false; }
-   * 
-   * if (publicStatus == null) { if (other.publicStatus != null) return false; } else if
-   * (!publicStatus.equals(other.publicStatus)) return false;
-   * 
-   * if (objectId == null) { if (other.objectId != null) return false; } else if
-   * (!objectId.equals(other.objectId)) return false;
-   * 
-   * return true; }
-   */
 }

@@ -40,9 +40,9 @@ import org.junit.Test;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.xmltransforming.TestBase;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -103,7 +103,7 @@ public class TransformParamTest extends TestBase {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
     Filter f1 = filter.new OwnerFilter(new AccountUserRO("escidoc:user1"));
-    Filter f2 = filter.new ItemStatusFilter(State.PENDING);
+    Filter f2 = filter.new ItemStatusFilter(ItemVO.State.PENDING);
     filter.getFilterList().add(f1);
     filter.getFilterList().add(f2);
 
@@ -142,8 +142,8 @@ public class TransformParamTest extends TestBase {
 
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    Filter f1 = filter.new ItemStatusFilter(State.PENDING);
-    Filter f2 = filter.new ItemStatusFilter(State.SUBMITTED);
+    Filter f1 = filter.new ItemStatusFilter(ItemVO.State.PENDING);
+    Filter f2 = filter.new ItemStatusFilter(ItemVO.State.SUBMITTED);
     filter.getFilterList().add(f1);
     filter.getFilterList().add(f2);
 

@@ -56,7 +56,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
@@ -186,7 +186,7 @@ public class EditItem extends FacesBean {
 
   public String acceptLocalTags() {
     this.getPubItem().writeBackLocalTags(null);
-    if (this.getPubItem().getVersion().getState().equals(State.RELEASED)) {
+    if (this.getPubItem().getVersion().getState().equals(ItemVO.State.RELEASED)) {
       this.bindFilesAndLocators = false;
       return this.saveAndAccept();
     }
@@ -559,7 +559,7 @@ public class EditItem extends FacesBean {
       }
 
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (newPubItem.getVersion().getState() == State.RELEASED) {
+        if (ItemVO.State.RELEASED.equals(newPubItem.getVersion().getState())) {
           EditItem.logger.warn("Item has not been changed.");
           // create a validation report
           final ValidationReportVO changedReport = new ValidationReportVO();
@@ -897,11 +897,12 @@ public class EditItem extends FacesBean {
 
     if (this.getPubItem() != null && this.getPubItem().getVersion() != null
         && this.getPubItem().getVersion().getState() != null) {
-      isStatePending = this.getPubItem().getVersion().getState().equals(State.PENDING);
-      isStateSubmitted = this.getPubItem().getVersion().getState().equals(State.SUBMITTED);
-      isStateReleased = this.getPubItem().getVersion().getState().equals(State.RELEASED);
-      isStateInRevision = this.getPubItem().getVersion().getState().equals(State.IN_REVISION);
-      isPublicStateReleased = this.getPubItem().getPublicStatus() == State.RELEASED;
+      isStatePending = ItemVO.State.PENDING.equals(this.getPubItem().getVersion().getState());
+      isStateSubmitted = ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersion().getState());
+      isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersion().getState());
+      isStateInRevision =
+          ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersion().getState());
+      isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
     }
 
     boolean isOwner = true;
@@ -925,11 +926,13 @@ public class EditItem extends FacesBean {
       if (this.getItemControllerSessionBean().getCurrentContext() != null
           && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
         isWorkflowStandard =
-            (this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-                .getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+            (PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this
+                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
+                .getWorkflow()));
         isWorkflowSimple =
-            (this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-                .getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this
+                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
+                .getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);

@@ -32,7 +32,7 @@ public class PubContextVOPresentation extends ContextVO implements
   }
 
   public boolean getDisabled() {
-    if (this.getState().equals(State.CLOSED)) {
+    if (ContextVO.State.CLOSED.equals(this.getState())) {
       return Boolean.TRUE;
     } else {
       return Boolean.FALSE;

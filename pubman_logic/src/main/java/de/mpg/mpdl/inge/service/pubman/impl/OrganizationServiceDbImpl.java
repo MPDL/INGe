@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,16 +20,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -121,7 +117,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   @Transactional
   public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-    return changeState(id, authenticationToken, State.OPENED);
+    return changeState(id, authenticationToken, AffiliationDbVO.State.OPENED);
   }
 
 
@@ -129,26 +125,26 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   @Transactional
   public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
       AaException {
-    return changeState(id, authenticationToken, State.CLOSED);
+    return changeState(id, authenticationToken, AffiliationDbVO.State.CLOSED);
   }
 
-  private AffiliationVO changeState(String id, String authenticationToken, State state)
-      throws IngeServiceException, AaException {
+  private AffiliationVO changeState(String id, String authenticationToken,
+      AffiliationDbVO.State state) throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affToBeUpdated = organizationRepository.findOne(id);
     if (affToBeUpdated == null) {
       throw new IngeServiceException("Organization with given id " + id + " not found.");
     }
-    if (affToBeUpdated.getParentAffiliation() != null && state == State.OPENED) {
+    if (affToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
       AffiliationDbVO parentVo =
           organizationRepository.findOne(affToBeUpdated.getParentAffiliation().getObjectId());
-      if (parentVo.getPublicStatus() != State.OPENED) {
+      if (parentVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
         throw new AaException("Parent organization " + parentVo.getObjectId()
             + " must be in state OPENED");
       }
     }
 
-    checkAa((state == State.OPENED ? "open" : "close"), userAccount,
+    checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), userAccount,
         EntityTransformer.transformToOld(affToBeUpdated));
 
     affToBeUpdated.setPublicStatus(state);
@@ -201,7 +197,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
-      toBeUpdatedAff.setPublicStatus(State.CREATED);
+      toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.CREATED);
     }
 
     toBeUpdatedAff.setMetadata(givenAff.getDefaultMetadata());
@@ -234,8 +230,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       }
       if (newParentAffId != null) {
         AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
-        if (newAffVo.getPublicStatus() != State.CREATED
-            && newAffVo.getPublicStatus() != State.OPENED) {
+        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.CREATED
+            && newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
           throw new AaException("Parent Affiliation " + newAffVo.getObjectId()
               + " has wrong state " + newAffVo.getPublicStatus().toString());
         }

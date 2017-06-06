@@ -39,7 +39,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -173,7 +172,7 @@ public class ContextListSessionBean extends FacesBean {
         // ... and transform filter to xml
         if (hasGrants) {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          bq.must(QueryBuilders.termQuery("state", State.OPENED.name()));
+          bq.must(QueryBuilders.termQuery("state", ContextVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));

@@ -16,21 +16,23 @@ import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO.State;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class EntityTransformer {
 
-  public static ContextDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.ContextVO contextVo) {
+  public static ContextDbVO transformToNew(ContextVO contextVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -49,8 +51,7 @@ public class EntityTransformer {
     newContext.setName(contextVo.getName());
     newContext.setObjectId(changeId("ctx", contextVo.getReference().getObjectId()));
 
-    newContext.setState(de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO.State.valueOf(contextVo
-        .getState().name()));
+    newContext.setState(ContextDbVO.State.valueOf(contextVo.getState().name()));
     newContext.setType(contextVo.getType());
 
     newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
@@ -72,8 +73,7 @@ public class EntityTransformer {
   }
 
 
-  public static PubItemDbRO transformToNew(
-      de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
+  public static PubItemDbRO transformToNew(PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -124,7 +124,7 @@ public class EntityTransformer {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setState(State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setState(PubItemDbRO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -158,7 +158,7 @@ public class EntityTransformer {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicStatus(State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setPublicStatus(PubItemDbRO.State.valueOf(itemVo.getPublicStatus().name()));
     pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
@@ -168,8 +168,7 @@ public class EntityTransformer {
 
 
 
-  public static AffiliationDbVO transformToNew(
-      de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
+  public static AffiliationDbVO transformToNew(AffiliationVO affVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -207,24 +206,21 @@ public class EntityTransformer {
     }
 
 
-    newAff.setPublicStatus(de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO.State
-        .valueOf(affVo.getPublicStatus().toUpperCase()));
+    newAff.setPublicStatus(AffiliationDbVO.State.valueOf(affVo.getPublicStatus().toUpperCase()));
     return newAff;
 
 
   }
 
-  private static de.mpg.mpdl.inge.model.valueobjects.ItemVO.State transformToOld(State state) {
-    return de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(state.name());
+  private static ItemVO.State transformToOld(PubItemDbRO.State state) {
+    return ItemVO.State.valueOf(state.name());
   }
 
-  private static de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO transformToOld(
-      AccountUserDbRO newAccountUserRo) {
+  private static AccountUserRO transformToOld(AccountUserDbRO newAccountUserRo) {
     if (newAccountUserRo == null) {
       return null;
     }
-    de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO modifier =
-        new de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO();
+    AccountUserRO modifier = new AccountUserRO();
     modifier.setObjectId(newAccountUserRo.getObjectId());
     modifier.setTitle(newAccountUserRo.getName());
     return modifier;
@@ -240,8 +236,7 @@ public class EntityTransformer {
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
     if (newItemRo.getState() != null) {
-      oldItemRo.setState(de.mpg.mpdl.inge.model.valueobjects.ItemVO.State.valueOf(newItemRo
-          .getState().name()));
+      oldItemRo.setState(ItemVO.State.valueOf(newItemRo.getState().name()));
     }
 
     oldItemRo.setTitle(null);// TODO

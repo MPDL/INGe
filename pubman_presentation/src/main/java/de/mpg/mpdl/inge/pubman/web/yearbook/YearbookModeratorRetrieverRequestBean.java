@@ -14,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
@@ -223,7 +223,7 @@ public class YearbookModeratorRetrieverRequestBean extends
           .size() > 0) {
         for (final PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) this
             .getBasePaginatorListSessionBean()).getSelectedItems()) {
-          if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
+          if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
                 yearbookItem.getVersion().getObjectId(), "Releasing yearbook",
                 this.getLoginHelper().getAuthenticationToken());
@@ -262,7 +262,7 @@ public class YearbookModeratorRetrieverRequestBean extends
         String paramXml = null;
         for (final PubItemVOPresentation yearbookItem : ((PubItemListSessionBean) this
             .getBasePaginatorListSessionBean()).getSelectedItems()) {
-          if (State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
+          if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             param =
                 new TaskParamVO(yearbookItem.getModificationDate(), "Send yearbook back for rework");
             paramXml = XmlTransformingService.transformToTaskParam(param);
