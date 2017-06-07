@@ -638,7 +638,7 @@ public class PubItemListSessionBean extends
    * Returns the currently selected sorting criteria which is used as an additional filter
    */
   @Override
-  public SORT_CRITERIA getAdditionalFilters() {
+  public SORT_CRITERIA getSortCriteria() {
     final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.getSelectedSortBy());
     sc.setSortOrder(this.getSelectedSortOrder());
 
@@ -866,7 +866,7 @@ public class PubItemListSessionBean extends
    */
   private List<PubItemVOPresentation> retrieveAll() {
     final List<PubItemVOPresentation> itemList =
-        this.getPaginatorListRetriever().retrieveList(0, 0, this.getAdditionalFilters());
+        this.getPaginatorListRetriever().retrieveList(0, 0, this.getSortCriteria());
     return itemList;
   }
 

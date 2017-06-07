@@ -32,11 +32,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
  * @version $Revision$ $LastChangedDate$
  * 
  * @param <ListElementType> The Type of the list elements managed by this bean
- * @param <FilterType> The type of filters managed by this bean that are usable for every
+ * @param <SortCriteria> The type of filters managed by this bean that are usable for every
  *        ListRetriever, eg. sorting of PubItems.
  */
 @SuppressWarnings("serial")
-public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> extends FacesBean {
+public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria> extends FacesBean {
   private static final Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
 
   /**
@@ -117,7 +117,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
   /**
    * The current BaseListRetrieverRequestBean
    */
-  private BaseListRetrieverRequestBean<ListElementType, FilterType> paginatorListRetriever;
+  private BaseListRetrieverRequestBean<ListElementType, SortCriteria> paginatorListRetriever;
 
   /**
    * The total number of elements that are in the complete list (without any limit or offset
@@ -190,7 +190,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     if (!this.getNoListUpdate() && this.getPaginatorListRetriever() != null) {
       this.currentPartList =
           this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-              this.getAdditionalFilters());
+              this.getSortCriteria());
       this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
@@ -201,7 +201,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             .getElementsPerPage()) + 1);
         this.currentPartList =
             this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-                this.getAdditionalFilters());
+                this.getSortCriteria());
         this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -224,7 +224,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     if (!this.getNoListUpdate()) {
       this.currentPartList =
           this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-              this.getAdditionalFilters());
+              this.getSortCriteria());
       this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
@@ -235,7 +235,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             .getElementsPerPage()) + 1);
         this.currentPartList =
             this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-                this.getAdditionalFilters());
+                this.getSortCriteria());
         this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -290,7 +290,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * 
    * @return
    */
-  protected BaseListRetrieverRequestBean<ListElementType, FilterType> getPaginatorListRetriever() {
+  protected BaseListRetrieverRequestBean<ListElementType, SortCriteria> getPaginatorListRetriever() {
     return this.paginatorListRetriever;
   }
 
@@ -718,7 +718,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * @param paginatorListRetriever
    */
   public void setPaginatorListRetriever(
-      BaseListRetrieverRequestBean<ListElementType, FilterType> paginatorListRetriever) {
+      BaseListRetrieverRequestBean<ListElementType, SortCriteria> paginatorListRetriever) {
     this.paginatorListRetriever = paginatorListRetriever;
   }
 
@@ -729,7 +729,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
    * 
    * @return
    */
-  public abstract FilterType getAdditionalFilters();
+  public abstract SortCriteria getSortCriteria();
 
   /**
    * Returns the pageType, a String that describes the current page with which this list is used.

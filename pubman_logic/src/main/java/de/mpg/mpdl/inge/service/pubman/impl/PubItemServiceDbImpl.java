@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
@@ -91,7 +92,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_LOCAL_TAGS = "localTags";
 
 
-  public static String INDEX_CONTEXT_OBEJCT_ID = "context.objectId";
+  public static String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
 
 
   public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
@@ -169,8 +170,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItem.setMetadata(md);
     pubItem.setLastMessage(null);
     pubItem.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
-        new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
+    AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     pubItem.setModifiedBy(mod);
@@ -372,6 +372,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
 
     srr.setQueryObject(authorizedQuery);
+    System.out.println(authorizedQuery);
     logger.debug("Searching with authorized query: \n" + authorizedQuery.toString());
     return pubItemDao.search(srr);
   }
@@ -421,7 +422,6 @@ public class PubItemServiceDbImpl implements PubItemService {
         EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject()
             .getContext().getObjectId()));
 
-
     checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
 
     if (PubItemDbRO.State.SUBMITTED.equals(state)
@@ -436,24 +436,25 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
       // change public state to withdrawn, leave version state as is
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.WITHDRAWN);
+      latestVersion.getObject().setPublicStatusComment(message);
     } else {
       latestVersion.setState(state);
     }
-
 
     updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference()
         .getObjectId());
 
     latestVersion.setLastMessage(message);
     latestVersion = itemRepository.saveAndFlush(latestVersion);
+
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
 
-
     createAuditEntry(latestVersion, auditEventType);
+
     reindex(latestVersion);
+
     return itemToReturn;
   }
-
 
   private void reindex(PubItemVersionDbVO item) throws IngeServiceException {
     pubItemDao
