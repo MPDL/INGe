@@ -13,7 +13,6 @@
 			{
 				"user" : {
 					"role" : "DEPOSITOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				}
 			}
@@ -32,7 +31,6 @@
 				"context.adminDescriptor.workflow" : "SIMPLE",
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["RELEASED"],
@@ -50,7 +48,6 @@
 				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["RELEASED", "SUBMITTED"],
@@ -84,7 +81,6 @@
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["SUBMITTED", "IN_REVISION"]
@@ -115,7 +111,6 @@
 				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["SUBMITTED"],
@@ -128,7 +123,6 @@
 				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["SUBMITTED"],
@@ -149,7 +143,6 @@
 				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
-					"grant_type" : "CONTEXT",
 					"field_grant_id_match" : "item.context.objectId"
 				},
 				"item.version.state" : ["RELEASED"],
