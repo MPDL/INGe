@@ -24,7 +24,7 @@
 					"field_user_id_match" : "item.owner.objectId"
 				},
 				"context.adminDescriptor.workflow" : "SIMPLE",
-				"item.version.state" : ["PENDING", "RELEASED"],
+				"item.version.state" : ["PENDING", "SUBMITTED", "RELEASED"],
 				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
@@ -45,7 +45,6 @@
 				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
 					"field_grant_id_match" : "item.context.objectId"
@@ -108,7 +107,6 @@
 				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
 					"field_grant_id_match" : "item.context.objectId"
@@ -140,7 +138,6 @@
 				"item.publicStatus" : ["RELEASED"]
 			},
 			{
-				"context.adminDescriptor.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
 					"field_grant_id_match" : "item.context.objectId"

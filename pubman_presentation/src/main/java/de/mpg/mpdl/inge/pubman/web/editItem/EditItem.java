@@ -952,12 +952,11 @@ public class EditItem extends FacesBean {
       this.lnkSave.setRendered(false);
     } else {
       this.lnkRelease.setRendered(isOwner && isWorkflowSimple
-          && (isStatePending || isStateReleased));
-      this.lnkAccept.setRendered(isModerator && !isOwner && isWorkflowStandard
-          && (isStateSubmitted || isStateReleased));
+          && (isStatePending || isStateSubmitted || isStateReleased));
+      this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
       this.lnkSave.setRendered(isOwner || isModerator);
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
-          && (isStatePending || isStateInRevision || isStateReleased));
+          && (isStatePending || isStateInRevision));
       this.lnkDelete.setRendered(isOwner && isStatePending && !isPublicStateReleased && itemHasID);
     }
   }
