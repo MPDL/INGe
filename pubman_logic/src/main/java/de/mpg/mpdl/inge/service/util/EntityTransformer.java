@@ -304,6 +304,10 @@ public class EntityTransformer {
     oldPubItem.setPublicStatusComment(itemVo.getObject().getPublicStatusComment());
     oldPubItem.setVersion(transformToOld((PubItemDbRO) itemVo));
 
+    for (String localTag : itemVo.getObject().getLocalTags()) {
+      oldPubItem.getLocalTags().add(localTag);
+    }
+
     for (FileDbVO newFile : itemVo.getFiles()) {
       oldPubItem.getFiles().add(transformToOld(newFile));
     }
@@ -312,10 +316,10 @@ public class EntityTransformer {
   }
 
   public static ContextVO transformToOld(ContextDbVO newContextVo) {
-
     if (newContextVo == null) {
       return null;
     }
+
     ContextVO oldContextVo = new ContextVO();
     oldContextVo.setAdminDescriptor(newContextVo.getAdminDescriptor());
     oldContextVo.setCreationDate(newContextVo.getCreationDate());
@@ -324,21 +328,15 @@ public class EntityTransformer {
     oldContextVo.setLastModificationDate(newContextVo.getLastModificationDate());
     oldContextVo.setModifiedBy(transformToOld(newContextVo.getModifier()));
     oldContextVo.setName(newContextVo.getName());
-
-
     oldContextVo.setReference(transformToOld((ContextDbRO) newContextVo));
     oldContextVo.setState(ContextVO.State.valueOf(newContextVo.getState().name()));
     oldContextVo.setType(newContextVo.getType());
-
 
     for (AffiliationDbRO aff : newContextVo.getResponsibleAffiliations()) {
       oldContextVo.getResponsibleAffiliations().add(transformToOld(aff));
     }
 
-
     return oldContextVo;
-
-
   }
 
   private static AffiliationRO transformToOld(AffiliationDbRO newAffiliationRO) {

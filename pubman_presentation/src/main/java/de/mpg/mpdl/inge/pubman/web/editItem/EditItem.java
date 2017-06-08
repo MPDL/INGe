@@ -182,13 +182,13 @@ public class EditItem extends FacesBean {
   }
 
   public String acceptLocalTags() {
-    this.getPubItem().writeBackLocalTags(null);
+    this.getPubItem().writeBackLocalTags();
+    this.bindFilesAndLocators = false;
+
     if (this.getPubItem().getVersion().getState().equals(ItemVO.State.RELEASED)) {
-      this.bindFilesAndLocators = false;
       return this.saveAndAccept();
     }
 
-    this.bindFilesAndLocators = false;
     this.save();
 
     return null;
@@ -937,13 +937,25 @@ public class EditItem extends FacesBean {
   public boolean getLocalTagEditingAllowed() {
     final ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
 
-    return !viewItemFull.getIsStateWithdrawn()
-        && viewItemFull.getIsLatestVersion()
-        && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() //
-        && (viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull
-            .getIsOwner() //
-        && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateReleased() || viewItemFull
-            .getIsStateInRevision())));
+    boolean isWorkflowSimple = true;
+
+    try {
+      if (this.getItemControllerSessionBean().getCurrentContext() != null
+          && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
+        isWorkflowSimple =
+            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this
+                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
+                .getWorkflow()));
+      }
+    } catch (final Exception e) {
+      throw new RuntimeException("Previously uncaught exception", e);
+    }
+
+    return viewItemFull.getIsLatestVersion()
+        && ((viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())
+            && viewItemFull.getIsModerator() || (viewItemFull.getIsStatePending()
+            || viewItemFull.getIsStateSubmitted() && isWorkflowSimple || viewItemFull
+              .getIsStateInRevision()) && viewItemFull.getIsOwner());
   }
 
   /**
@@ -1273,7 +1285,7 @@ public class EditItem extends FacesBean {
     wrappedLocalTag.setParent(this.getPubItem());
     wrappedLocalTag.setValue("");
     this.getPubItem().getWrappedLocalTags().add(wrappedLocalTag);
-    this.getPubItem().writeBackLocalTags(null);
+    this.getPubItem().writeBackLocalTags();
   }
 
   public String loadEditLocalTags() {

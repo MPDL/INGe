@@ -101,7 +101,6 @@ import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -136,8 +135,6 @@ public class ViewItemFull extends FacesBean {
   private static final String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
   private static final String PARAMETERNAME_ITEM_ID = "itemId";
   private static final String PARAMETERNAME_MENU_VIEW = "view";
-  private static final String FUNCTION_MODIFY = "modify";
-  private static final String FUNCTION_NEW_REVISION = "new_revision";
   private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
 
   private ArrayList<String> organizationArray;
@@ -197,7 +194,6 @@ public class ViewItemFull extends FacesBean {
   private boolean isLoggedIn = false;
   private boolean isMemberOfYearbook = false;
   private boolean isModerator = false;
-  private boolean isModifyDisabled = false;
   private boolean isOwner = false;
   private boolean isPrivilegedViewer = false;
   private boolean isPublicStateReleased = false;
@@ -1645,14 +1641,6 @@ public class ViewItemFull extends FacesBean {
     this.isOwner = isOwner;
   }
 
-  public boolean getIsModifyDisabled() {
-    return this.isModifyDisabled;
-  }
-
-  public void setModifyDisabled(boolean isModifyDisabled) {
-    this.isModifyDisabled = isModifyDisabled;
-  }
-
   public boolean getIsCreateNewRevisionDisabled() {
     return this.isCreateNewRevisionDisabled;
   }
@@ -2071,15 +2059,6 @@ public class ViewItemFull extends FacesBean {
   }
 
   private void setLinks() {
-    this.isModifyDisabled =
-        this.getRightsManagementSessionBean().isDisabled(
-            RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-                + ViewItemFull.FUNCTION_MODIFY);
-    this.isCreateNewRevisionDisabled =
-        this.getRightsManagementSessionBean().isDisabled(
-            RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-                + ViewItemFull.FUNCTION_NEW_REVISION);
-
     if (((this.isStatePending || this.isStateSubmitted && this.isWorkflowSimple || this.isStateInRevision)
         && this.isLatestVersion && this.isOwner)
         || (this.isStateSubmitted && this.isLatestVersion && this.isModerator)) {
@@ -2098,12 +2077,11 @@ public class ViewItemFull extends FacesBean {
       this.canRelease = true;
     }
 
-    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner
-        && !this.isModifyDisabled) {
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner) {
       this.canAccept = true;
     }
 
-    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled
+    if (this.isStateSubmitted && this.isLatestVersion && this.isModerator
         && this.isWorkflowStandard && !this.isPublicStateReleased) {
       this.canRevise = true;
     }
@@ -2117,8 +2095,7 @@ public class ViewItemFull extends FacesBean {
       this.canWithdraw = true;
     }
 
-    if (this.isStateReleased && this.isLatestVersion && !this.isModifyDisabled
-        && (this.isModerator || this.isOwner)) {
+    if (this.isStateReleased && this.isLatestVersion && (this.isModerator || this.isOwner)) {
       this.canModify = true;
     }
 
@@ -2363,10 +2340,6 @@ public class ViewItemFull extends FacesBean {
 
   private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-  }
-
-  private RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) FacesTools.findBean("RightsManagementSessionBean");
   }
 
   private ItemVersionListSessionBean getItemVersionListSessionBean() {
