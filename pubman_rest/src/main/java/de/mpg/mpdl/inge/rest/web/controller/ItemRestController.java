@@ -1,8 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
@@ -37,12 +41,27 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token,
-      @RequestBody SearchRetrieveRequestVO<QueryBuilder> srr) throws AaException,
+  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit") int limit) throws AaException,
       IngeServiceException {
-    SearchRetrieveResponseVO<PubItemVO> response = pis.search(srr, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(response, HttpStatus.OK);
+	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, limit, 0);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
+    List<PubItemVO> response = new ArrayList<PubItemVO>();;
+    srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
+  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query, @RequestParam(value = "limit") int limit) throws AaException,
+      IngeServiceException {
+	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, 0);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
+    List<PubItemVO> response = new ArrayList<PubItemVO>();;
+    srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)

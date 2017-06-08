@@ -1,6 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -34,12 +39,27 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<ContextVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token,
-      @RequestBody SearchRetrieveRequestVO<QueryBuilder> srr) throws AaException,
+  public ResponseEntity<List<ContextVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token) throws AaException,
       IngeServiceException {
-    SearchRetrieveResponseVO<ContextVO> response = ctxSvc.search(srr, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ContextVO>>(response, HttpStatus.OK);
+	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
+	  SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+	  List<ContextVO> response = new ArrayList<ContextVO>();
+	  srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
+  public ResponseEntity<List<ContextVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AaException,
+      IngeServiceException {
+	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
+	  SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+	  List<ContextVO> response = new ArrayList<ContextVO>();
+	  srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
