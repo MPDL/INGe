@@ -44,23 +44,18 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 public class PubManSessionListener implements HttpSessionListener {
   private static final Logger logger = Logger.getLogger(PubManSessionListener.class);
 
-  // public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
-
   @Override
-  public void sessionCreated(HttpSessionEvent arg0) {
-    // Do nothing here
-  }
+  public void sessionCreated(HttpSessionEvent arg0) {}
 
   @Override
   public void sessionDestroyed(HttpSessionEvent event) {
-    PubManSessionListener.logger.debug("Session timed out.");
+    PubManSessionListener.logger.warn("Session timed out." + event);
     final LoginHelper login = (LoginHelper) event.getSession().getAttribute("LoginHelper");
     if (login != null) {
       try {
         login.logoutCallBySessionListener();
       } catch (final Exception e) {
-        // Suppress stacktrace
-        PubManSessionListener.logger.warn("Error logging out user: " + e.getMessage());
+        PubManSessionListener.logger.warn("Error logging out user: " + e);
       }
     }
   }

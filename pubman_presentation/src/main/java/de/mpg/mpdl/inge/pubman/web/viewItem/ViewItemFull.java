@@ -187,7 +187,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowLastMessage = false;
 
   private boolean isCandidateOfYearbook = false;
-  private boolean isCreateNewRevisionDisabled = false;
   private boolean isDepositor = false;
   private boolean isLatestRelease = false;
   private boolean isLatestVersion = false;
@@ -1641,14 +1640,6 @@ public class ViewItemFull extends FacesBean {
     this.isOwner = isOwner;
   }
 
-  public boolean getIsCreateNewRevisionDisabled() {
-    return this.isCreateNewRevisionDisabled;
-  }
-
-  public void setCreateNewRevisionDisabled(boolean isCreateNewRevisionDisabled) {
-    this.isCreateNewRevisionDisabled = isCreateNewRevisionDisabled;
-  }
-
   public boolean getHasAudience() {
     if (this.pubItem != null
         && (ItemVO.State.RELEASED.equals(this.pubItem.getVersion().getState()) || ItemVO.State.SUBMITTED
@@ -2099,13 +2090,11 @@ public class ViewItemFull extends FacesBean {
       this.canModify = true;
     }
 
-    if (this.isStateReleased && this.isLatestRelease && !this.isCreateNewRevisionDisabled
-        && this.isDepositor) {
+    if (this.isStateReleased && this.isLatestRelease && this.isDepositor) {
       this.canCreateNewRevision = true;
     }
 
-    if (!this.isStateWithdrawn && this.isLatestVersion && !this.isCreateNewRevisionDisabled
-        && this.isDepositor) {
+    if (!this.isStateWithdrawn && this.isLatestVersion && this.isDepositor) {
       this.canCreateFromTemplate = true;
     }
 
