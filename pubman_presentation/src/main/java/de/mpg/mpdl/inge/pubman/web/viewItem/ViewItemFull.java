@@ -2080,7 +2080,7 @@ public class ViewItemFull extends FacesBean {
             RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
                 + ViewItemFull.FUNCTION_NEW_REVISION);
 
-    if (((this.isStatePending || this.isStateSubmitted || this.isStateInRevision)
+    if (((this.isStatePending || this.isStateSubmitted && this.isWorkflowSimple || this.isStateInRevision)
         && this.isLatestVersion && this.isOwner)
         || (this.isStateSubmitted && this.isLatestVersion && this.isModerator)) {
       this.canEdit = true;

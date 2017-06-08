@@ -73,12 +73,10 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectC
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releaseItem.ReleaseItem;
@@ -120,7 +118,6 @@ public class EditItem extends FacesBean {
   // für Binding in jsp Seite
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
-  private HtmlCommandLink lnkDelete = new HtmlCommandLink();
   private HtmlCommandLink lnkAccept = new HtmlCommandLink();
   private HtmlCommandLink lnkRelease = new HtmlCommandLink();
 
@@ -588,24 +585,6 @@ public class EditItem extends FacesBean {
   }
 
   /**
-   * Deletes the current item.
-   * 
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String delete() {
-    final String navigateTo = MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
-
-    final String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(navigateTo);
-
-    if (navigateTo.equals(retVal)) {
-      this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
-      this.getPubItemListSessionBean().update();
-    }
-
-    return retVal;
-  }
-
-  /**
    * Cancels the editing.
    * 
    * @return string, identifying the page that should be navigated to after this methodcall
@@ -893,7 +872,7 @@ public class EditItem extends FacesBean {
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
     boolean isStateInRevision = false;
-    boolean isPublicStateReleased = false;
+    // boolean isPublicStateReleased = false;
 
     if (this.getPubItem() != null && this.getPubItem().getVersion() != null
         && this.getPubItem().getVersion().getState() != null) {
@@ -902,7 +881,7 @@ public class EditItem extends FacesBean {
       isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersion().getState());
       isStateInRevision =
           ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersion().getState());
-      isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
+      // isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
     }
 
     boolean isOwner = true;
@@ -938,16 +917,11 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Previously uncaught exception", e);
     }
 
-    final boolean itemHasID =
-        this.getPubItem() != null && this.getPubItem().getVersion() != null
-            && this.getPubItem().getVersion().getObjectId() != null;
-
     final boolean isItem = this.getPubItem() != null;
 
     if (!isItem) {
       this.lnkAccept.setRendered(false);
       this.lnkRelease.setRendered(false);
-      this.lnkDelete.setRendered(false);
       this.lnkSaveAndSubmit.setRendered(false);
       this.lnkSave.setRendered(false);
     } else {
@@ -957,7 +931,6 @@ public class EditItem extends FacesBean {
       this.lnkSave.setRendered(isOwner || isModerator);
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
           && (isStatePending || isStateInRevision));
-      this.lnkDelete.setRendered(isOwner && isStatePending && !isPublicStateReleased && itemHasID);
     }
   }
 
@@ -1076,14 +1049,6 @@ public class EditItem extends FacesBean {
 
   public void setLnkAccept(HtmlCommandLink lnkAccept) {
     this.lnkAccept = lnkAccept;
-  }
-
-  public HtmlCommandLink getLnkDelete() {
-    return this.lnkDelete;
-  }
-
-  public void setLnkDelete(HtmlCommandLink lnkDelete) {
-    this.lnkDelete = lnkDelete;
   }
 
   public HtmlCommandLink getLnkSave() {
