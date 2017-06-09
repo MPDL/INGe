@@ -327,8 +327,8 @@ public class ItemVO extends ValueObject implements Searchable {
    * Delivers the comment which has to be given when an item is withdrawn.
    */
   public String getWithdrawalComment() {
-    if (getPublicStatus() == ItemVO.State.WITHDRAWN) {
-      return getPublicStatusComment();
+    if (ItemVO.State.WITHDRAWN.equals(this.publicStatus)) {
+      return this.publicStatusComment;
     }
 
     return null;
@@ -340,8 +340,8 @@ public class ItemVO extends ValueObject implements Searchable {
    * @return The modification date as {@link Date}.
    */
   public Date getModificationDate() {
-    if (getVersion() != null) {
-      return getVersion().getModificationDate();
+    if (this.version != null) {
+      return this.version.getModificationDate();
     }
 
     return null;

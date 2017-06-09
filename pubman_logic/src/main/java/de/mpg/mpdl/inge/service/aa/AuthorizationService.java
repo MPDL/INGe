@@ -15,9 +15,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
-import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -109,15 +107,12 @@ public class AuthorizationService {
 
                 }
 
-                if (userMap.containsKey("role") || userMap.containsKey("grant_type")
-                    || userMap.containsKey("field_grant_id_match")) {
+                if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
 
 
                   BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                   for (GrantVO grant : userAccount.getGrants()) {
-                    if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))
-                        && (userMap.get("grant_type") == null || userMap.get("grant_type")
-                            .equalsIgnoreCase(grant.getGrantType()))) {
+                    if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                       userMatch = true;
                       if (userMap.get("field_grant_id_match") != null) {
                         grantQueryBuilder

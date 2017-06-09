@@ -41,7 +41,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -57,22 +56,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.RightsManagementSessionBean;
 public class ExportItems extends FacesBean {
   private static final Logger logger = Logger.getLogger(ExportItems.class);
 
-  // constant for the function export to check the rights and/or if the function has to be disabled
-  // (DiT)
-  private final String FUNCTION_EXPORT = "export";
-
-  // binded components in JSP
-  // private HtmlMessages valMessage = new HtmlMessages();
-  // private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
-
-
-  // public SelectItemGroup CITATIONSTYLES_GROUP = new
-  // SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new
-  // SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
-  // public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE,
-  // EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, CITATIONSTYLES_GROUP};
-
-
   // constants for error and status messages
   public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
   // constants for error and status messages
@@ -87,28 +70,6 @@ public class ExportItems extends FacesBean {
   public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
 
   public ExportItems() {}
-
-  /**
-   * Returns the RightsManagementSessionBean.
-   * 
-   * @author StG
-   * @return a reference to the scoped data bean (RightsManagementSessionBean)
-   */
-  private RightsManagementSessionBean getRightsManagementSessionBean() {
-    return (RightsManagementSessionBean) FacesTools.findBean("RightsManagementSessionBean");
-  }
-
-  /**
-   * Returns true if the AdvancedSearch should be disabled by the escidoc properties file.
-   * 
-   * @author StG
-   * @return
-   */
-  public boolean getVisibleExport() {
-    return !this.getRightsManagementSessionBean().isDisabled(
-        RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-            + this.FUNCTION_EXPORT);
-  }
 
   public SelectItem[] getEXPORTFORMAT_OPTIONS() {
     // constants for comboBoxes and HtmlSelectOneRadios

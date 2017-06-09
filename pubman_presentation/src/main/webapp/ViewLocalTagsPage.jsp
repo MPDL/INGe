@@ -34,18 +34,6 @@
                                 <!-- content menu starts here -->
                                 <div class="free_area0 sub">
                                     <!-- content menu lower line starts here -->
-                                    <!--<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/> -->
-                                    <!-- Rendering condition for edit local tag:								
-											- NOT state withdrawn
-											AND
-											- item version is latest version
-											AND
-											(
-												- user is moderator AND item is in state Released OR Submitted
-											 	OR
-											 	- user is owner AND item is in state pending OR in-revision
-											)
-										-->
                                     <!-- content menu lower line ends here -->
                                 </div>
                                 <!-- content menu ends here -->

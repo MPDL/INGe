@@ -1099,7 +1099,7 @@ public class PubItemVOPresentation extends PubItemVO {
     return true;
   }
 
-  public void writeBackLocalTags(ValueChangeEvent event) {
+  public void writeBackLocalTags() {
     this.getLocalTags().clear();
     for (final WrappedLocalTag wrappedLocalTag : this.getWrappedLocalTags()) {
       this.getLocalTags().add(wrappedLocalTag.getValue());
@@ -1328,7 +1328,7 @@ public class PubItemVOPresentation extends PubItemVO {
 
     public void removeLocalTag() {
       this.parent.getWrappedLocalTags().remove(this);
-      this.parent.writeBackLocalTags(null);
+      this.parent.writeBackLocalTags();
     }
 
     public boolean getIsLast() {
@@ -1338,10 +1338,6 @@ public class PubItemVOPresentation extends PubItemVO {
 
     public int getNumberOfAllTags() {
       return (this.parent.getWrappedLocalTags().size());
-    }
-
-    public boolean getIsSingle() {
-      return (this.parent.getWrappedLocalTags().size() == 1);
     }
   }
 

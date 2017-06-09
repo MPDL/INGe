@@ -24,13 +24,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  * @param <ListElementType> The Type of the list elements managed by this bean
- * @param <FilterType> The type of filters managed by this bean
+ * @param <SortCriteria> Sortcriterias managed by this bean
  */
 @SuppressWarnings("serial")
-public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean {
+public abstract class BaseListRetrieverRequestBean<ListElementType, SortCriteria> extends FacesBean {
   private static final Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
 
-  private final BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
+  private final BasePaginatorListSessionBean<ListElementType, SortCriteria> basePaginatorListSessionBean;
   private String unapiURLview;
 
   /**
@@ -39,13 +39,13 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    * update of the lists and the retrieval of GET-parameters in the right phase of the JSF
    * lifecycle.
    * 
-   * @param plb A corresponding PaginatorListBean with the same ListElementType and FilterType as
+   * @param plb A corresponding PaginatorListBean with the same ListElementType and SortCriteria as
    *        used in the implementation of this class.
    * @param refreshAlways Set this flag to true if the list should be refreshed any time the page is
    *        called, not only if a get parameter has changed.
    */
   public BaseListRetrieverRequestBean(
-      BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways) {
+      BasePaginatorListSessionBean<ListElementType, SortCriteria> plb, boolean refreshAlways) {
     try {
       this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
     } catch (final Exception e) {
@@ -58,7 +58,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     this.basePaginatorListSessionBean.setPageType(this.getType());
     this.basePaginatorListSessionBean.setListPageName(this.getListPageName());
     if (refreshAlways) {
-      this.basePaginatorListSessionBean.setNoListUpdate(false);
+      this.basePaginatorListSessionBean.setListUpdate(true);
     }
 
     this.init();
@@ -103,11 +103,11 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
    *        records)
    * @param limit The length of the list that has to be returned. If the whole list has less records
    *        than this paramter allows, a smaller list can be returned.
-   * @param additionalFilters Additional filters that have to be included when retrieving the list.
+   * @param sortCriteria Additional filters that have to be included when retrieving the list.
    * @return
    */
   public abstract List<ListElementType> retrieveList(int offset, int limit,
-      FilterType additionalFilters);
+      SortCriteria sortCriteria);
 
   /**
    * Must return the total size of the retrieved list without limit and offset parameters. E.g. for
@@ -133,7 +133,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     return this.unapiURLview;
   }
 
-  public BasePaginatorListSessionBean<ListElementType, FilterType> getBasePaginatorListSessionBean() {
+  public BasePaginatorListSessionBean<ListElementType, SortCriteria> getBasePaginatorListSessionBean() {
     return this.basePaginatorListSessionBean;
   }
 }

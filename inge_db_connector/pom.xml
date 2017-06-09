@@ -65,10 +65,14 @@
 		</dependency>
 
 		<!-- Spring dependencies -->
+				<!-- 
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
+				 -->
+		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
@@ -81,8 +85,13 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
 		<!-- Hibernate & Database -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

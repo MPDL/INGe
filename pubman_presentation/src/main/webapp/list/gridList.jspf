@@ -25,13 +25,6 @@
 						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 					</h:selectOneMenu>
 				</h:panelGroup>
-				<!--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
- 			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
- 			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
- 			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
- 			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
- 			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
- 		</h:selectOneMenu>	-->
 				<h:commandButton id="btChangeElementsPerPageTop"
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButtonTop"
 					value="go"
@@ -377,13 +370,6 @@
 						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 					</h:selectOneMenu>
 				</h:panelGroup>
-				<!--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
- 			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
- 			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
- 			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
- 			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
- 			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
- 		</h:selectOneMenu>	-->
 				<h:commandButton
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButtonBottom"
 					value="go"

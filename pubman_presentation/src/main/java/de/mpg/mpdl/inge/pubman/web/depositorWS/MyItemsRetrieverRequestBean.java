@@ -156,13 +156,14 @@ public class MyItemsRetrieverRequestBean extends
     }
 
     try {
-      
       this.checkSortCriterias(sc);
+      
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      
       bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+      
       //display only latest versions
       bq.must(QueryBuilders.scriptQuery(new Script("doc['"+ PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['" + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER +"']")));
-      
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
@@ -175,8 +176,8 @@ public class MyItemsRetrieverRequestBean extends
       else {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
-        
       }
+      
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
@@ -185,12 +186,12 @@ public class MyItemsRetrieverRequestBean extends
       SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
 
-
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
       this.numberOfRecords = resp.getNumberOfRecords();
       
       List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+      
       returnList =
           CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {

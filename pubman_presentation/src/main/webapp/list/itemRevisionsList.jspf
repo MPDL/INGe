@@ -4,77 +4,94 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:repeat var="item"
-		value="#{RevisionItemListSessionBean.currentPartList}">
+	<ui:repeat var="item" value="#{RevisionItemListSessionBean.currentPartList}">
 		<li class="full_area0 listItem">
 			<div class="free_area0 itemHeader">
-				<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText
-						value="#{lbl.List_lblRevision}" /><br class="noDisplay" /></b> <span
-					class="free_area0_p6 medium_marginLIncl endline itemHeadline">
+				<b class="huge_marginRIncl xTiny_marginLExcl">
+					<h:outputText value="#{lbl.List_lblRevision}" />
+					<br class="noDisplay" />
+				</b> 
+				<span class="free_area0_p6 medium_marginLIncl endline itemHeadline">
 					<h:outputLink title="#{tip.list_shortTitle}" value="#{item.link}">
-						<b><h:outputText value="#{item.fullTitle}"
-								converter="HTMLSubSupShortTitleConverter" escape="false" /></b>
+						<b>
+							<h:outputText value="#{item.fullTitle}" converter="HTMLSubSupShortTitleConverter" escape="false" />
+						</b>
 					</h:outputLink>
 				</span>
 			</div>
 			<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-				<span class="huge_area0_p8 endline labelLine">
+				<div class="huge_area0_p8 endline labelLine">
 					<div>
-						<a class="collapse itemInfoSwitch" style="display: none;"
-							onclick="$(this).siblings('a').show(); $(this).hide();"><span
-							class="noDisplay"><h:outputText value="#{lbl.List_lkShow}" />
-						</span>
-						<h:outputText value="#{lbl.List_lkLess}" /><span class="noDisplay">
+						<a class="collapse itemInfoSwitch" style="display: none;" onclick="$(this).siblings('a').show(); $(this).hide();">
+							<span class="noDisplay">
+								<h:outputText value="#{lbl.List_lkShow}" />
+							</span>
+							<h:outputText value="#{lbl.List_lkLess}" />
+								<span class="noDisplay">
+									<h:outputText value="#{lbl.List_lkDetails}" />
+								</span>
+						</a>
+						<a class="expand itemInfoSwitch" onclick="$(this).siblings('a').show(); $(this).hide();">
+							<span class="noDisplay">
+								<h:outputText value="#{lbl.List_lkShow}" />
+							</span>
+							<h:outputText value="#{lbl.List_lkMore}" />
+							<span class="noDisplay">
 								<h:outputText value="#{lbl.List_lkDetails}" />
-						</span></a> <a class="expand itemInfoSwitch"
-							onclick="$(this).siblings('a').show(); $(this).hide();"><span
-							class="noDisplay"><h:outputText value="#{lbl.List_lkShow}" />
-						</span>
-						<h:outputText value="#{lbl.List_lkMore}" /><span class="noDisplay">
-								<h:outputText value="#{lbl.List_lkDetails}" />
-						</span></a>
+							</span>
+						</a>
 					</div> &#160;
-				</span> <span class="xHuge_area0 endline"> &#160; </span>
+				</div>
+				<span class="xHuge_area0 endline"> &#160; </span>
 			</div>
 			<div class="full_area0 shortView">
 				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine"> <h:outputText
-							value="#{lbl.ViewItemShort_lblCreators}" /><span
-						class="noDisplay">: </span>
-					</span> <span class="xHuge_area0 endline"> <h:outputText
-							value="#{item.creators}" />&#160;
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.ViewItemShort_lblCreators}" />
+						<span class="noDisplay">: </span>
+					</span>
+					 <span class="xHuge_area0 endline"> 
+					 	<h:outputText value="#{item.creators}" />&#160;
 					</span>
 				</div>
 				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine"> <h:outputText
-							value="#{lbl.ViewItemShort_lblDates}" /><span class="noDisplay">:
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.ViewItemShort_lblDates}" />
+						<span class="noDisplay">:</span>
 					</span>
-					</span> <span class="xHuge_area0 endline"> <h:outputText
-							value="#{item.latestDate}" />&#160;
-					</span>
-				</div>
-				<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine"> <h:outputText
-							value="#{lbl.ViewItemShort_lblGenre}" /><span class="noDisplay">:
-					</span>
-					</span> <span class="xHuge_area0 endline"> <h:outputText
-							value="#{item.genre}" />&#160;
+					<span class="xHuge_area0 endline">
+						<h:outputText value="#{item.latestDate}" />&#160;
 					</span>
 				</div>
 				<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine"> <h:outputText
-							value="#{lbl.ViewItemShort_lblFile}" /><span class="noDisplay">:
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.ViewItemShort_lblGenre}" />
+						<span class="noDisplay">:</span>
 					</span>
-					</span> <span class="xHuge_area0 endline"> <span class="files"><h:outputText
-								value="#{item.fileInfo}" /></span>
+					<span class="xHuge_area0 endline">
+						<h:outputText value="#{item.genre}" />&#160;
 					</span>
 				</div>
 				<div class="free_area0_p0  small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine"> <h:outputText
-							value="#{lbl.ViewItemShort_lblLocator}" /><span class="noDisplay">:
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.ViewItemShort_lblFile}" />
+						<span class="noDisplay">:</span>
+					</span> 
+					<span class="xHuge_area0 endline"> 
+						<span class="files">
+							<h:outputText value="#{item.fileInfo}" />
+						</span>
 					</span>
-					</span> <span class="xHuge_area0 endline"> <span class="locators"><h:outputText
-								value="#{item.locatorInfo}" /></span>
+				</div>
+				<div class="free_area0_p0  small_marginLIncl endline listItemLine">
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.ViewItemShort_lblLocator}" />
+						<span class="noDisplay">:</span>
+					</span>
+					<span class="xHuge_area0 endline">
+						<span class="locators">
+							<h:outputText value="#{item.locatorInfo}" />
+						</span>
 					</span>
 				</div>
 			</div>

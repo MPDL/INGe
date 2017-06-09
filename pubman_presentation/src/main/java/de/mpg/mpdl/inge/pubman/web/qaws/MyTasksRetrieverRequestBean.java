@@ -96,14 +96,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     }
 
     try {
-
-
-
       this.checkSortCriterias(sc);
+      
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "WITHDRAWN"));
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
@@ -112,7 +110,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
         stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "IN_REVISION"));
         bq.must(stateQueryBuilder);
-        
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
@@ -120,13 +117,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
             ItemVO.State.valueOf(getSelectedItemState()).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
-
       }
+      
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
         bq.must(
             QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
-
 
       if (this.getSelectedContext().toLowerCase().equals("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
@@ -136,14 +132,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         for (int i = 1; i < this.getContextSelectItems().size(); i++) {
           final String contextId = (String) this.getContextSelectItems().get(i).getValue();
           contextQueryBuilder.should(
-              QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBEJCT_ID, contextId));
+              QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, contextId));
         }
       } else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBEJCT_ID,
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
             getSelectedContext()));
       }
-
-
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
         // TODO org unit filter!!
@@ -166,8 +160,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       
       List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
           .collect(Collectors.toList());
-      returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
       
+      returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyTasksRetrieverRequestBean.logger.error("Error in retrieving items", e);
       FacesBean.error("Error in retrieving items");
