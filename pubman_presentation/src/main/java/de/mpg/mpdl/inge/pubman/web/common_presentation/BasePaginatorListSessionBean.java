@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.common_presentation;
 
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -143,7 +142,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   private Map<String, String> oldRedirectParameterMap = new HashMap<String, String>();
 
-  private boolean noListUpdate;
+  private boolean listUpdate;
 
   /**
    * Initializes a new BasePaginatorListSessionBean
@@ -186,8 +185,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     this.readOutParameters();
 
-    // logger.info("No List update: "+noListUpdate);
-    if (!this.getNoListUpdate() && this.getPaginatorListRetriever() != null) {
+    if (this.getListUpdate() && this.getPaginatorListRetriever() != null) {
       this.currentPartList =
           this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
               this.getSortCriteria());
@@ -220,8 +218,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.setElementsPerPage(elementsPerP);
     this.setCurrentPageNumber(pageNumber);
 
-    // logger.info("No List update: "+noListUpdate);
-    if (!this.getNoListUpdate()) {
+    if (this.getListUpdate()) {
       this.currentPartList =
           this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
               this.getSortCriteria());
@@ -249,29 +246,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     this.saveOldParameters();
   }
-
-  // /**
-  // * Compares the parameters from the current request with the ones from the last request. Returns
-  // * true if parameters have changed or if there are more/less parameters since the last request.
-  // * This is done in order to avoid the list update if only e.g. a new menu should be displayed.
-  // *
-  // * @return
-  // */
-  // private boolean parametersChanged() {
-  // if (getOldRedirectParameterMap().isEmpty()
-  // || getOldRedirectParameterMap().size() != getParameterMap().size()) {
-  // return true;
-  // } else {
-  // for (String key : getOldRedirectParameterMap().keySet()) {
-  // if (!getParameterMap().containsKey(key)
-  // || !getParameterMap().get(key).equals(getOldRedirectParameterMap().get(key))) {
-  // return true;
-  // }
-  // }
-  // return false;
-  // }
-  //
-  // }
 
   /**
    * Implementing subclasses have to read out and set GET parameters within this method. If
@@ -312,8 +286,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     return this.getCurrentPartList().size();
   }
 
-  // protected abstract List<ListElementType> getPartList(int offset, int limit);
-
   /**
    * Returns the total number of elements, without offset and limit filters. Drawn from
    * BaseRetrieverRequestBean
@@ -328,10 +300,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   public int getOffset() {
     return ((this.currentPageNumber - 1) * this.elementsPerPage);
   }
-
-  /*
-   * public abstract String getAdditionalParameterUrl();
-   */
 
   /**
    * Sets the current value for 'element per pages'
@@ -747,12 +715,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @param pageType
    */
   public void setPageType(String pageType) {
-    // String oldPageType = this.pageType;
     this.pageType = pageType;
-    /*
-     * if (!pageType.equals(oldPageType)) { pageTypeChanged(); setGoToPage("");
-     * getParameterMap().clear(); oldRedirectParameterMap.clear(); }
-     */
   }
 
   /**
@@ -849,41 +812,23 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.getOldRedirectParameterMap().putAll(this.getParameterMap());
   }
 
-  // /**
-  // * Set this method from outside if the list has to be updated even if no GET parameters have
-  // * changed;
-  // */
-  // public void setHasChanged() {
-  // hasChanged = true;
-  // }
-  //
-  // /**
-  // * Returns the value of hasChanged and resets it to false.
-  // *
-  // * @return
-  // */
-  // private boolean getHasChanged() {
-  // boolean returnVal = hasChanged;
-  // hasChanged = false;
-  // return returnVal;
-  // }
-
   /**
    * Set this method if during the next call of the retriever request bean the list should not be
    * updated;
    */
-  public void setNoListUpdate(boolean noListUpdate) {
-    this.noListUpdate = noListUpdate;
+  public void setListUpdate(boolean listUpdate) {
+    this.listUpdate = listUpdate;
   }
 
   /**
-   * Returns the value of noListUpdate and resets it to false.
+   * Returns the value of listUpdate and resets it to true.
    * 
    * @return
    */
-  private boolean getNoListUpdate() {
-    final boolean returnVal = this.noListUpdate;
-    this.noListUpdate = false;
+  private boolean getListUpdate() {
+    final boolean returnVal = this.listUpdate;
+    this.listUpdate = true;
+
     return returnVal;
   }
 

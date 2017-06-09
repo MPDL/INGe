@@ -409,7 +409,7 @@ public class PubItemListSessionBean extends
   public void changeSubmenuToView() {
     try {
       this.setSubMenu("VIEW");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
@@ -424,7 +424,7 @@ public class PubItemListSessionBean extends
   public void changeSubmenuToExport() {
     try {
       this.setSubMenu("EXPORT");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
@@ -439,7 +439,7 @@ public class PubItemListSessionBean extends
   public void changeSubmenuToFilter() {
     try {
       this.setSubMenu("FILTER");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
@@ -454,7 +454,7 @@ public class PubItemListSessionBean extends
   public void changeSubmenuToSorting() {
     try {
       this.setSubMenu("SORTING");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
@@ -469,7 +469,7 @@ public class PubItemListSessionBean extends
   public void changeListTypeToBib() {
     try {
       this.setListType("BIB");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
@@ -484,7 +484,7 @@ public class PubItemListSessionBean extends
   public void changeListTypeToGrid() {
     try {
       this.setListType("GRID");
-      this.setNoListUpdate(true);
+      this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
       FacesBean.error("Could not redirect");
