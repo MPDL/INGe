@@ -142,7 +142,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   private Map<String, String> oldRedirectParameterMap = new HashMap<String, String>();
 
-  private boolean listUpdate;
+  private boolean listUpdate = true;
 
   /**
    * Initializes a new BasePaginatorListSessionBean
