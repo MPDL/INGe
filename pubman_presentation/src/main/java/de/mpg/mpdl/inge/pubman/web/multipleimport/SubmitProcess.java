@@ -108,12 +108,13 @@ public class SubmitProcess extends Thread {
           final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
           if (this.alsoRelease) {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            pubItemService.releasePubItem(item.getItemId(), "Batch submit/release from import "
-                + this.log.getMessage(), this.authenticationToken);
+            pubItemService.releasePubItem(item.getItemId(), item.getItemVO().getModificationDate(),
+                "Batch submit/release from import " + this.log.getMessage(),
+                this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
           } else {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            pubItemService.submitPubItem(item.getItemId(),
+            pubItemService.submitPubItem(item.getItemId(), item.getItemVO().getModificationDate(),
                 "Batch submit from import " + this.log.getMessage(), this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }

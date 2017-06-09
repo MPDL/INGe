@@ -223,7 +223,15 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVersionDbVO latestVersion =
         itemRepository.findLatestVersion(pubItemVO.getVersion().getObjectId());
+    if (latestVersion == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    }
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
+
+    if (!checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(), latestVersionOld
+        .getVersion().getModificationDate())) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
 
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
@@ -234,11 +242,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (PubItemDbRO.State.RELEASED.equals(latestVersion.getState())) {
       entityManager.detach(latestVersion);
       // Reset latestRelase reference because it is the same object as latest version
-      PubItemDbRO latestReleaseRO = new PubItemDbRO();
-      latestReleaseRO.setObjectId(latestVersion.getObject().getLatestRelease().getObjectId());
-      latestReleaseRO.setVersionNumber(latestVersion.getObject().getLatestRelease()
+      PubItemDbRO latestReleaseDbRO = new PubItemDbRO();
+      latestReleaseDbRO.setObjectId(latestVersion.getObject().getLatestRelease().getObjectId());
+      latestReleaseDbRO.setVersionNumber(latestVersion.getObject().getLatestRelease()
           .getVersionNumber());
-      latestVersion.getObject().setLatestRelease(latestReleaseRO);
+      latestVersion.getObject().setLatestRelease(latestReleaseDbRO);
 
       // if current user is owner, set to status pending. Else, set to status submitted
 
@@ -273,24 +281,28 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
+  public void delete(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    PubItemVersionDbVO latestPubItemVersion = itemRepository.findLatestVersion(id);
-    if (latestPubItemVersion == null) {
+    PubItemVersionDbVO latestPubItemDbVersion = itemRepository.findLatestVersion(id);
+    if (latestPubItemDbVersion == null) {
       throw new IngeServiceException("Item " + id + " not found");
     }
 
-    PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemVersion);
+    PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemDbVersion);
 
+    if (!checkEqualModificationDate(modificationDate, latestPubItem.getVersion()
+        .getModificationDate())) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestPubItem.getContext()
             .getObjectId()));
     checkPubItemAa(latestPubItem, context, userAccount, "delete");
 
-    itemObjectRepository.delete(latestPubItemVersion.getObject());
+    itemObjectRepository.delete(latestPubItemDbVersion.getObject());
 
     SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<PubItemVO> rec : resp.getRecords()) {
@@ -379,44 +391,52 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   @Transactional
-  public PubItemVO submitPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return changeState(pubItemId, PubItemDbRO.State.SUBMITTED, message, "submit",
+  public PubItemVO submitPubItem(String pubItemId, Date modificationDate, String message,
+      String authenticationToken) throws IngeServiceException, AaException {
+    return changeState(pubItemId, modificationDate, PubItemDbRO.State.SUBMITTED, message, "submit",
         authenticationToken, EventType.SUBMIT);
   }
 
   @Override
   @Transactional
-  public PubItemVO revisePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return changeState(pubItemId, PubItemDbRO.State.IN_REVISION, message, "revise",
-        authenticationToken, EventType.REVISE);
+  public PubItemVO revisePubItem(String pubItemId, Date modificationDate, String message,
+      String authenticationToken) throws IngeServiceException, AaException {
+    return changeState(pubItemId, modificationDate, PubItemDbRO.State.IN_REVISION, message,
+        "revise", authenticationToken, EventType.REVISE);
   }
 
   @Override
   @Transactional
-  public PubItemVO releasePubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return changeState(pubItemId, PubItemDbRO.State.RELEASED, message, "release",
+  public PubItemVO releasePubItem(String pubItemId, Date modificationDate, String message,
+      String authenticationToken) throws IngeServiceException, AaException {
+    return changeState(pubItemId, modificationDate, PubItemDbRO.State.RELEASED, message, "release",
         authenticationToken, EventType.RELEASE);
   }
 
   @Override
   @Transactional
-  public PubItemVO withdrawPubItem(String pubItemId, String message, String authenticationToken)
-      throws IngeServiceException, AaException {
-    return changeState(pubItemId, PubItemDbRO.State.WITHDRAWN, message, "withdraw",
-        authenticationToken, EventType.WITHDRAW);
+  public PubItemVO withdrawPubItem(String pubItemId, Date modificationDate, String message,
+      String authenticationToken) throws IngeServiceException, AaException {
+    return changeState(pubItemId, modificationDate, PubItemDbRO.State.WITHDRAWN, message,
+        "withdraw", authenticationToken, EventType.WITHDRAW);
   }
 
-  private PubItemVO changeState(String id, PubItemDbRO.State state, String message,
-      String aaMethod, String authenticationToken, EventType auditEventType)
+  private PubItemVO changeState(String id, Date modificationDate, PubItemDbRO.State state,
+      String message, String aaMethod, String authenticationToken, EventType auditEventType)
       throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
     PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
 
+    if (latestVersion == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    }
+
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
+
+    if (!checkEqualModificationDate(modificationDate, latestVersionOld.getModificationDate())) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
 
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject()
@@ -569,6 +589,13 @@ public class PubItemServiceDbImpl implements PubItemService {
       String method) throws AaException, IngeServiceException {
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, item,
         context);
+  }
+
+  protected boolean checkEqualModificationDate(Date date1, Date date2) {
+    if (date1.equals(date2))
+      return true;
+    else
+      return false;
   }
 
 }

@@ -142,7 +142,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   private Map<String, String> oldRedirectParameterMap = new HashMap<String, String>();
 
-  private boolean listUpdate;
+  private boolean listUpdate = true;
 
   /**
    * Initializes a new BasePaginatorListSessionBean
@@ -730,7 +730,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     if (!listPageName.equals(oldPageName)) {
       this.pageTypeChanged();
-      this.setGoToPage("");
+      this.setGoToPage("1");
       this.getParameterMap().clear();
       this.getOldRedirectParameterMap().clear();
     }

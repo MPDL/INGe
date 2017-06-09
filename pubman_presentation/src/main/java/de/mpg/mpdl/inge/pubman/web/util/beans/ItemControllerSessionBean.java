@@ -116,7 +116,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
-              this.currentPubItem.getVersion().getObjectId(), comment,
+              this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -264,9 +265,10 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String deleteCurrentPubItem(String navigationRuleWhenSuccessfull) {
     try {
-      ApplicationBean.INSTANCE.getPubItemService().delete(
-          this.currentPubItem.getVersion().getObjectId(),
-          this.getLoginHelper().getAuthenticationToken());
+      ApplicationBean.INSTANCE.getPubItemService()
+          .delete(this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(),
+              this.getLoginHelper().getAuthenticationToken());
       this.setCurrentPubItem(null);
       return navigationRuleWhenSuccessfull;
     } catch (final AaException e) {
@@ -541,7 +543,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().submitPubItem(
-              this.currentPubItem.getVersion().getObjectId(), comment,
+              this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -616,24 +619,28 @@ public class ItemControllerSessionBean extends FacesBean {
     if (itemRefs == null || itemRefs.isEmpty()) {
       return new ArrayList<PubItemVO>();
     }
-    
-    
+
+
     final BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
     for (final ItemRO id : itemRefs) {
-     final BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-     subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
-     subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
-     bq.should(subQuery);
+      final BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
+      subQuery.must(
+          QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+      subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
+          id.getVersionNumber()));
+      bq.should(subQuery);
     }
 
-     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
+    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
 
 
-     final SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, this.getLoginHelper().getAuthenticationToken());
+    final SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+        .search(srr, this.getLoginHelper().getAuthenticationToken());
 
 
-    return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+    return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -736,7 +743,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().revisePubItem(
-              this.currentPubItem.getVersion().getObjectId(), comment,
+              this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -840,7 +848,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
-              this.currentPubItem.getVersion().getObjectId(), comment,
+              this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -865,7 +874,8 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       final PubItemVO updatedPubItem =
           ApplicationBean.INSTANCE.getPubItemService().withdrawPubItem(
-              this.currentPubItem.getVersion().getObjectId(), comment,
+              this.currentPubItem.getVersion().getObjectId(),
+              this.currentPubItem.getModificationDate(), comment,
               this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));

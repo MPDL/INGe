@@ -86,6 +86,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
       pubItemVONewVersion =
           ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
               pubItemVONewVersion.getVersion().getObjectId(),
+              pubItemVONewVersion.getModificationDate(),
               "Release after rollback to version " + this.getReference().getVersionNumber(),
               loginHelper.getAuthenticationToken());
     }

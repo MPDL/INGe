@@ -225,8 +225,8 @@ public class YearbookModeratorRetrieverRequestBean extends
             .getBasePaginatorListSessionBean()).getSelectedItems()) {
           if (ItemVO.State.SUBMITTED.equals(yearbookItem.getVersion().getState())) {
             ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
-                yearbookItem.getVersion().getObjectId(), "Releasing yearbook",
-                this.getLoginHelper().getAuthenticationToken());
+                yearbookItem.getVersion().getObjectId(), yearbookItem.getModificationDate(),
+                "Releasing yearbook", this.getLoginHelper().getAuthenticationToken());
 
           } else {
             this.warn("\"" + yearbookItem.getFullTitle() + "\""

@@ -55,6 +55,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     DbObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
       throw new IngeServiceException("Object with given id not found.");
+    } else if (!checkEqualModificationDate(getModificationDate(object),
+        getModificationDate(transformToOld(objectToBeUpdated)))) {
+      throw new IngeServiceException("Object changed in meantime");
     }
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
@@ -75,10 +78,16 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   @Transactional
   @Override
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
+  public void delete(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
+    if (objectToBeDeleted == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    } else if (!checkEqualModificationDate(modificationDate,
+        getModificationDate(transformToOld(objectToBeDeleted)))) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
     getElasticDao().delete(id);
@@ -156,13 +165,21 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected abstract String getObjectId(ModelObject object);
 
+  protected abstract Date getModificationDate(ModelObject object);
+
   protected void reindex(List<String> idList) throws IngeServiceException {
     // Reindex old and new Parents
     for (String id : idList) {
       ModelObject vo = transformToOld(getDbRepository().findOne(id));
       getElasticDao().create(id, vo);
     }
+  }
 
+  protected boolean checkEqualModificationDate(Date date1, Date date2) {
+    if (date1.equals(date2))
+      return true;
+    else
+      return false;
   }
 
 
