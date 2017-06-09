@@ -58,7 +58,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, SortCriteria
     this.basePaginatorListSessionBean.setPageType(this.getType());
     this.basePaginatorListSessionBean.setListPageName(this.getListPageName());
     if (refreshAlways) {
-      this.basePaginatorListSessionBean.setNoListUpdate(false);
+      this.basePaginatorListSessionBean.setListUpdate(true);
     }
 
     this.init();
