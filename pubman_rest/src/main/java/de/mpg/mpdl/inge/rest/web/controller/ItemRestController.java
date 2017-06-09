@@ -41,11 +41,13 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit") int limit) throws AaException,
+  public ResponseEntity<List<PubItemVO>> getAll(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token,
+		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AaException,
       IngeServiceException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, limit, 0);
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -53,15 +55,31 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query, @RequestParam(value = "limit") int limit) throws AaException,
+  public ResponseEntity<List<PubItemVO>> getFiltered(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token,
+		  @RequestParam(value = "q") String query,
+		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AaException,
       IngeServiceException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, 0);
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/search", method = RequestMethod.POST)
+  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody String query,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AaException, IngeServiceException {
+    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
+    SearchRetrieveRequestVO<QueryBuilder> srRequest =
+        new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
