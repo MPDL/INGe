@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -23,6 +25,8 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
@@ -46,7 +50,8 @@ public class OrganizationRestController {
       value = AUTHZ_HEADER, required = false) String token) throws AaException,
       IngeServiceException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
+	  SearchSortCriteria sorting = new SearchSortCriteria("defaultMetadata.name.sorted", SortOrder.ASC);
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     List<AffiliationVO> response = new ArrayList<AffiliationVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -58,7 +63,8 @@ public class OrganizationRestController {
       value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AaException,
       IngeServiceException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
+	  SearchSortCriteria sorting = new SearchSortCriteria("defaultMetadata.name.sorted", SortOrder.ASC);
+	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     List<AffiliationVO> response = new ArrayList<AffiliationVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -76,6 +82,7 @@ public class OrganizationRestController {
   public ResponseEntity<List<AffiliationVO>> searchChildOrganizations(@PathVariable(
       value = OU_ID_VAR) String parentAffiliationId) throws AaException, IngeServiceException {
     List<AffiliationVO> response = organizationSvc.searchChildOrganizations(parentAffiliationId);
+    response.sort((ou1, ou2) -> ou1.getDefaultMetadata().getName().compareTo(ou2.getDefaultMetadata().getName()));
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
   }
 
