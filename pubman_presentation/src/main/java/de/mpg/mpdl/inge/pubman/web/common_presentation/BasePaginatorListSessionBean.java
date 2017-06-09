@@ -730,7 +730,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     if (!listPageName.equals(oldPageName)) {
       this.pageTypeChanged();
-      this.setGoToPage("");
+      this.setGoToPage("1");
       this.getParameterMap().clear();
       this.getOldRedirectParameterMap().clear();
     }
