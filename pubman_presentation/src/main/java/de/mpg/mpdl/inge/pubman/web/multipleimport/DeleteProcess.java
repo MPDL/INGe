@@ -82,7 +82,7 @@ public class DeleteProcess extends Thread {
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
         try {
           ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(),
-              this.authenticationToken);
+              item.getItemVO().getModificationDate(), this.authenticationToken);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
           item.setItemId(null);
