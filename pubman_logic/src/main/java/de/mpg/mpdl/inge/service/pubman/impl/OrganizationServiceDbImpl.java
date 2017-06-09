@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,15 +98,21 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
   @Override
   @Transactional
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
+  public void delete(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
 
-    AffiliationDbVO ouTobeDeleted = organizationRepository.findOne(id);
-    super.delete(id, authenticationToken);
+    AffiliationDbVO ouDbTobeDeleted = organizationRepository.findOne(id);
+    super.delete(id, modificationDate, authenticationToken);
 
-    if (ouTobeDeleted.getParentAffiliation() != null) {
+    if (ouDbTobeDeleted.getParentAffiliation() != null) {
+      AffiliationVO ouVoTobeDeleted = EntityTransformer.transformToOld(ouDbTobeDeleted);
+
+      if (!checkEqualModificationDate(modificationDate, getModificationDate(ouVoTobeDeleted))) {
+        throw new IngeServiceException("Object changed in meantime");
+
+      }
       AffiliationDbVO parentVO =
-          organizationRepository.findOne(ouTobeDeleted.getParentAffiliation().getObjectId());
+          organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
       organizationDao.create(parentVO.getObjectId(), EntityTransformer.transformToOld(parentVO));
     }
 
@@ -115,29 +122,36 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
   @Override
   @Transactional
-  public AffiliationVO open(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
-    return changeState(id, authenticationToken, AffiliationDbVO.State.OPENED);
+  public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.OPENED);
   }
 
 
   @Override
   @Transactional
-  public AffiliationVO close(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
-    return changeState(id, authenticationToken, AffiliationDbVO.State.CLOSED);
+  public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.CLOSED);
   }
 
-  private AffiliationVO changeState(String id, String authenticationToken,
+  private AffiliationVO changeState(String id, Date modificationDate, String authenticationToken,
       AffiliationDbVO.State state) throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-    AffiliationDbVO affToBeUpdated = organizationRepository.findOne(id);
-    if (affToBeUpdated == null) {
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    if (affDbToBeUpdated == null) {
       throw new IngeServiceException("Organization with given id " + id + " not found.");
     }
-    if (affToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
+
+    AffiliationVO affVoToBeUpdated = EntityTransformer.transformToOld(affDbToBeUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(affVoToBeUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
+
+    if (affDbToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
       AffiliationDbVO parentVo =
-          organizationRepository.findOne(affToBeUpdated.getParentAffiliation().getObjectId());
+          organizationRepository.findOne(affDbToBeUpdated.getParentAffiliation().getObjectId());
       if (parentVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
         throw new AaException("Parent organization " + parentVo.getObjectId()
             + " must be in state OPENED");
@@ -145,14 +159,14 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     }
 
     checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), userAccount,
-        EntityTransformer.transformToOld(affToBeUpdated));
+        affVoToBeUpdated);
 
-    affToBeUpdated.setPublicStatus(state);
-    updateWithTechnicalMetadata(affToBeUpdated, userAccount, false);
-    affToBeUpdated = organizationRepository.saveAndFlush(affToBeUpdated);
+    affDbToBeUpdated.setPublicStatus(state);
+    updateWithTechnicalMetadata(affDbToBeUpdated, userAccount, false);
+    affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
 
-    AffiliationVO affToReturn = EntityTransformer.transformToOld(affToBeUpdated);
-    organizationDao.update(affToBeUpdated.getObjectId(), affToReturn);
+    AffiliationVO affToReturn = EntityTransformer.transformToOld(affDbToBeUpdated);
+    organizationDao.update(affDbToBeUpdated.getObjectId(), affToReturn);
     return affToReturn;
   }
 
@@ -277,5 +291,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   @Override
   protected String getObjectId(AffiliationVO object) {
     return object.getReference().getObjectId();
+  }
+
+  @Override
+  protected Date getModificationDate(AffiliationVO object) {
+    return object.getLastModificationDate();
   }
 }

@@ -320,7 +320,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     assertEquals("ObjectId not transformed correctly", "/ir/item/escidoc:149937", pubItemVO
         .getVersion().getObjectId());
-    assertEquals("ObjectId and Version not transformed correctly", "/ir/item/escidoc:149937:3",
+    assertEquals("ObjectId and Version not transformed correctly", "/ir/item/escidoc:149937_3",
         pubItemVO.getVersion().getObjectIdAndVersion());
     assertEquals("Content Model not transformed correctly", "escidoc:persistent4",
         pubItemVO.getContentModel());

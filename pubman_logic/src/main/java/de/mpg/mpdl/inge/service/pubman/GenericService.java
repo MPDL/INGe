@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman;
 
+import java.util.Date;
+
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -17,8 +19,8 @@ public interface GenericService<E extends ValueObject> {
   public E update(E object, String authenticationToken) throws IngeServiceException, AaException,
       ItemInvalidException;
 
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException;
+  public void delete(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException;
 
   public E get(String id, String authenticationToken) throws IngeServiceException, AaException;
 

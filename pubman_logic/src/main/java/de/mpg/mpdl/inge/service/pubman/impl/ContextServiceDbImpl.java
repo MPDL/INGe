@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -89,37 +90,43 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
   @Override
   @Transactional
-  public ContextVO open(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
-    return changeState(id, authenticationToken, ContextDbVO.State.OPENED);
+  public ContextVO open(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.OPENED);
   }
 
 
   @Override
   @Transactional
-  public ContextVO close(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
-    return changeState(id, authenticationToken, ContextDbVO.State.CLOSED);
+  public ContextVO close(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.CLOSED);
   }
 
-  private ContextVO changeState(String id, String authenticationToken, ContextDbVO.State state)
-      throws IngeServiceException, AaException {
+  private ContextVO changeState(String id, Date modificationDate, String authenticationToken,
+      ContextDbVO.State state) throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-    ContextDbVO contextToBeUpdated = contextRepository.findOne(id);
-    if (contextToBeUpdated == null) {
+    ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
+    if (contextDbToBeUpdated == null) {
       throw new IngeServiceException("Context with given id " + id + " not found.");
     }
 
+    ContextVO contextVoToBeUpdated = transformToOld(contextDbToBeUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(contextVoToBeUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
+
     checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount,
-        transformToOld(contextToBeUpdated));
+        contextVoToBeUpdated);
 
-    contextToBeUpdated.setState(state);
-    updateWithTechnicalMetadata(contextToBeUpdated, userAccount, false);
+    contextDbToBeUpdated.setState(state);
+    updateWithTechnicalMetadata(contextDbToBeUpdated, userAccount, false);
 
-    contextToBeUpdated = contextRepository.saveAndFlush(contextToBeUpdated);
+    contextDbToBeUpdated = contextRepository.saveAndFlush(contextDbToBeUpdated);
 
-    ContextVO contextToReturn = EntityTransformer.transformToOld(contextToBeUpdated);
-    contextDao.update(contextToBeUpdated.getObjectId(), contextToReturn);
+    ContextVO contextToReturn = EntityTransformer.transformToOld(contextDbToBeUpdated);
+    contextDao.update(contextDbToBeUpdated.getObjectId(), contextToReturn);
     return contextToReturn;
   }
 
@@ -192,6 +199,12 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   protected GenericDaoEs<ContextVO, QueryBuilder> getElasticDao() {
     return contextDao;
+  }
+
+
+  @Override
+  protected Date getModificationDate(ContextVO object) {
+    return object.getLastModificationDate();
   }
 
 

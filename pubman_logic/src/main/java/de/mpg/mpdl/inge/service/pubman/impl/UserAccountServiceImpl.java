@@ -40,6 +40,7 @@ import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -118,8 +119,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         passwordEncoder.encode(givenUser.getPassword()));
     if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
       accountUser =
-          this.addGrants(accountUser.getReference().getObjectId(),
-              givenUser.getGrants().toArray(new GrantVO[] {}), authenticationToken);
+          this.addGrants(accountUser.getReference().getObjectId(), accountUser
+              .getLastModificationDate(), givenUser.getGrants().toArray(new GrantVO[] {}),
+              authenticationToken);
     }
 
 
@@ -130,25 +132,42 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Transactional
   @Override
-  public void changePassword(String userId, String newPassword, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void changePassword(String userId, Date modificationDate, String newPassword,
+      String authenticationToken) throws IngeServiceException, AaException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
-    AccountUserDbVO userToUpdated = userAccountRepository.findOne(userId);
-    checkAa("changePassword", userAccount, transformToOld(userToUpdated));
+    AccountUserDbVO userDbToUpdated = userAccountRepository.findOne(userId);
+
+    if (userDbToUpdated == null) {
+      throw new IngeServiceException("Object with given id not found.");
+    }
+
+    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(userDbToUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
+
+    checkAa("changePassword", userAccount, transformToOld(userDbToUpdated));
     userLoginRepository.updateLogin(userId, passwordEncoder.encode(newPassword));
 
   }
 
 
   @Transactional
-  public AccountUserVO addGrants(String userId, GrantVO[] grants, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants,
+      String authenticationToken) throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeServiceException("Object with given id not found.");
+    }
+
+    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
     }
 
     for (GrantVO grantToBeAdded : grants) {
@@ -210,12 +229,18 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Transactional
-  public AccountUserVO removeGrants(String userId, GrantVO[] grants, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants,
+      String authenticationToken) throws IngeServiceException, AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeServiceException("Object with given id not found.");
+    }
+
+    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
     }
 
     for (GrantVO givenGrant : grants) {
@@ -435,6 +460,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
           "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
     }
 
+  }
+
+  @Override
+  protected Date getModificationDate(AccountUserVO object) {
+    return object.getLastModificationDate();
   }
 
 
