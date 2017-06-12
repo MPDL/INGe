@@ -86,7 +86,7 @@ public class ContextRestController {
   @RequestMapping(value = CTX_ID_PATH + "/open", method = RequestMethod.PUT)
   public ResponseEntity<ContextVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException {
-	  ContextVO ctx2BeOpened = ctxSvc.get(ctxId, token);
+    ContextVO ctx2BeOpened = ctxSvc.get(ctxId, token);
     ContextVO opened = null;
     opened = ctxSvc.open(ctxId, ctx2BeOpened.getLastModificationDate(), token);
     return new ResponseEntity<ContextVO>(opened, HttpStatus.OK);
@@ -95,7 +95,7 @@ public class ContextRestController {
   @RequestMapping(value = CTX_ID_PATH + "/close", method = RequestMethod.PUT)
   public ResponseEntity<ContextVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException {
-	  ContextVO ctx2BeClosed = ctxSvc.get(ctxId, token);
+    ContextVO ctx2BeClosed = ctxSvc.get(ctxId, token);
     ContextVO closed = null;
     closed = ctxSvc.close(ctxId, ctx2BeClosed.getLastModificationDate(), token);
     return new ResponseEntity<ContextVO>(closed, HttpStatus.OK);
@@ -113,7 +113,7 @@ public class ContextRestController {
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException {
-	  ContextVO ctx2BeDeleted = ctxSvc.get(ctxId, token);
+    ContextVO ctx2BeDeleted = ctxSvc.get(ctxId, token);
     ctxSvc.delete(ctxId, ctx2BeDeleted.getLastModificationDate(), token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }

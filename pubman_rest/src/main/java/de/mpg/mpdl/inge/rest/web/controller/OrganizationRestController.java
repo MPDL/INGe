@@ -110,7 +110,7 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-	  AffiliationVO toBeOpened = organizationSvc.get(ouId, token);
+    AffiliationVO toBeOpened = organizationSvc.get(ouId, token);
     AffiliationVO opened = null;
     opened = organizationSvc.open(ouId, toBeOpened.getLastModificationDate(), token);
     return new ResponseEntity<AffiliationVO>(opened, HttpStatus.OK);
@@ -119,7 +119,7 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH + "/close", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-	  AffiliationVO toBeClosed = organizationSvc.get(ouId, token);
+    AffiliationVO toBeClosed = organizationSvc.get(ouId, token);
     AffiliationVO closed = null;
     closed = organizationSvc.close(ouId, toBeClosed.getLastModificationDate(), token);
     return new ResponseEntity<AffiliationVO>(closed, HttpStatus.OK);
@@ -137,7 +137,7 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-	  AffiliationVO toBeDeleted = organizationSvc.get(ouId, token);
+    AffiliationVO toBeDeleted = organizationSvc.get(ouId, token);
     organizationSvc.delete(ouId, toBeDeleted.getLastModificationDate(), token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }

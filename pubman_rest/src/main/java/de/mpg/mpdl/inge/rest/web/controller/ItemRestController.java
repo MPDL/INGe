@@ -116,7 +116,7 @@ public class ItemRestController {
   public ResponseEntity<PubItemVO> release(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody String message)
       throws AaException, IngeServiceException, ItemInvalidException {
-	  PubItemVO item2BeReleased = pis.get(itemId, token);
+    PubItemVO item2BeReleased = pis.get(itemId, token);
     PubItemVO released = null;
     released = pis.releasePubItem(itemId, item2BeReleased.getModificationDate(), message, token);
     return new ResponseEntity<PubItemVO>(released, HttpStatus.OK);
@@ -126,7 +126,7 @@ public class ItemRestController {
   public ResponseEntity<PubItemVO> revise(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody String message)
       throws AaException, IngeServiceException, ItemInvalidException {
-	  PubItemVO item2BeRevised = pis.get(itemId, token);
+    PubItemVO item2BeRevised = pis.get(itemId, token);
     PubItemVO revised = null;
     revised = pis.revisePubItem(itemId, item2BeRevised.getModificationDate(), message, token);
     return new ResponseEntity<PubItemVO>(revised, HttpStatus.OK);
@@ -136,7 +136,7 @@ public class ItemRestController {
   public ResponseEntity<PubItemVO> submit(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody String message)
       throws AaException, IngeServiceException, ItemInvalidException {
-	  PubItemVO item2BeSubmitted = pis.get(itemId, token);
+    PubItemVO item2BeSubmitted = pis.get(itemId, token);
     PubItemVO submitted = null;
     submitted = pis.submitPubItem(itemId, item2BeSubmitted.getModificationDate(), message, token);
     return new ResponseEntity<PubItemVO>(submitted, HttpStatus.OK);
@@ -146,7 +146,7 @@ public class ItemRestController {
   public ResponseEntity<PubItemVO> withdraw(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody String message)
       throws AaException, IngeServiceException, ItemInvalidException {
-	  PubItemVO item2BeWithdrawn = pis.get(itemId, token);
+    PubItemVO item2BeWithdrawn = pis.get(itemId, token);
     PubItemVO withdrawn = null;
     withdrawn = pis.withdrawPubItem(itemId, item2BeWithdrawn.getModificationDate(), message, token);
     return new ResponseEntity<PubItemVO>(withdrawn, HttpStatus.OK);
@@ -164,7 +164,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = ITEM_ID_VAR) String itemId) throws AaException, IngeServiceException {
-	  PubItemVO item2BeDeleted = pis.get(itemId, token);
+    PubItemVO item2BeDeleted = pis.get(itemId, token);
     pis.delete(itemId, item2BeDeleted.getModificationDate(), token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }
