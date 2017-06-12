@@ -71,7 +71,6 @@ public class ViewItemLog extends FacesBean {
    * @return the list of EventLogEntryVOs
    */
   public List<VersionHistoryEntryVO> getVersionHistory(String itemID) {
-
     try {
       return ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
           .retrieveVersionHistoryForItem(itemID);
