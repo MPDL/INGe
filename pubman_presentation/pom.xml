@@ -221,12 +221,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_logic</artifactId>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>citationmanager</artifactId>
+			<artifactId>pubman_logic</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -234,41 +234,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_es_connector</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>framework_access</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformationManager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_validation</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>de.mpg.mpdl.inge</groupId>
-					<artifactId>cone_cache</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>search</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -288,15 +254,13 @@
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.12</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>transport</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>sword</groupId>
 			<artifactId>swordcommon</artifactId>

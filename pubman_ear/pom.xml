@@ -37,6 +37,7 @@
 					<packagingExcludes>./*.properties</packagingExcludes>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<skinnyWars>true</skinnyWars>
 					<modules>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -307,10 +308,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>cone_cache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_presentation</artifactId>
 			<type>war</type>
 		</dependency>
@@ -349,6 +346,20 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_rest</artifactId>
 			<type>war</type>
+		</dependency>
+		
+		<!-- Import pubman logic and spring dependencies to use all of the dependencies as common dependencies -->
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>pubman_logic</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
 	</dependencies>
 
