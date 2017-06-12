@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <!-- This bean is the parent ApplicationContext for the WebApplicationContexts defined in the WARs. 
+         The context files listed here should contain beans that are used by all WARs, 
+         for example Services and DAO's. -->
+    <!--<bean id="ear.context" class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        <constructor-arg>
+            <list>
+                <value>classpath*:service-context.xml</value>
+            </list>
+        </constructor-arg>
+    </bean>-->
+    <!-- see http://stackoverflow.com/questions/15704698/ejb3-with-spring-java-configuration -->
+	<bean id="ear.context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext">
+		<constructor-arg>
+			<list>
+				<value type="java.lang.Class">de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

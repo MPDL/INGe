@@ -1,7 +1,10 @@
 package de.mpg.mpdl.inge.service.spring;
 
+import javax.persistence.Inheritance;
 import javax.sql.DataSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +26,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @EnableTransactionManagement
 public class AppConfigPubmanLogic {
 
+  private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
+
   @Bean
   public PasswordEncoder passwordEncoder() {
+    logger.info("Initializing Spring Bean PasswordEncoder");
     return new BCryptPasswordEncoder();
   }
 

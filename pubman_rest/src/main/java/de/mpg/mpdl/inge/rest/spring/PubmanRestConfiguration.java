@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 })
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
-@Import(value = {AppConfigPubmanLogic.class, WebConfiguration.class, RestWebConfiguration.class})
+@Import(value = {WebConfiguration.class, RestWebConfiguration.class})
 public class PubmanRestConfiguration {
 
 }
