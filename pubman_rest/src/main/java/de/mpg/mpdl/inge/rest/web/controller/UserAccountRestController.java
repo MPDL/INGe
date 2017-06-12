@@ -100,8 +100,9 @@ public class UserAccountRestController {
   public ResponseEntity<AccountUserVO> addGrant(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
       throws AaException, IngeServiceException, ItemInvalidException {
+	  AccountUserVO user2AddGrants2 = userSvc.get(userId, token);
     AccountUserVO updated = null;
-    updated = userSvc.addGrants(userId, grants, token);
+    updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 
@@ -110,15 +111,17 @@ public class UserAccountRestController {
       @RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
       throws AaException, IngeServiceException, ItemInvalidException {
+	  AccountUserVO user2RemoveGrantsFrom = userSvc.get(userId, token);
     AccountUserVO updated = null;
-    updated = userSvc.removeGrants(userId, grants, token);
+    updated = userSvc.removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = USER_ID_VAR) String userId) throws AaException, IngeServiceException {
-    userSvc.delete(userId, token);
+	  AccountUserVO user2BeDeleted = userSvc.get(userId, token);
+    userSvc.delete(userId, user2BeDeleted.getLastModificationDate(), token);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
