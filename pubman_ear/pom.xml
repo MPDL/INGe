@@ -38,11 +38,12 @@
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<skinnyWars>true</skinnyWars>
+					<initializeInOrder>true</initializeInOrder>	
 					<modules>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>pubman_presentation</artifactId>
-							<contextRoot>/pubman</contextRoot>
+							<artifactId>aa_presentation</artifactId>
+							<contextRoot>/auth</contextRoot>
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -51,8 +52,8 @@
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>aa_presentation</artifactId>
-							<contextRoot>/auth</contextRoot>
+							<artifactId>pubman_presentation</artifactId>
+							<contextRoot>/pubman</contextRoot>
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
