@@ -48,7 +48,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
-    // Use ear.context (pubman_logic) as shared context between all webapps in the ear. 
+    // Use ear.context (pubman_logic) as shared context between all webapps in the ear.
     // ear.context is defined in beanRefContext.xml in module pubman_logic
     servletContext.setInitParameter(ContextLoader.LOCATOR_FACTORY_KEY_PARAM, "ear.context");
     super.onStartup(servletContext);
