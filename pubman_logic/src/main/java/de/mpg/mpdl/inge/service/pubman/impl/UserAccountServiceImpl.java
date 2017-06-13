@@ -98,7 +98,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   public UserAccountServiceImpl() throws Exception {
     String key = PropertyReader.getProperty("inge.jwt.shared-secret");
-    if (key == null) {
+    if (key == null || key.trim().isEmpty()) {
       logger
           .warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
       key = UUID.randomUUID().toString();
