@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.exceptions;
 
+import java.text.ParseException;
+
 import org.springframework.hateoas.VndErrors;
 import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +41,13 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   VndError itemInvalidExceptionHandler(ItemInvalidException itemInvalidException) {
     return new VndError("error", itemInvalidException.getMessage());
+  }
+
+  @ResponseBody
+  @ExceptionHandler(ParseException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  VndError parseExceptionHandler(ParseException parseException) {
+    return new VndError("error", parseException.getMessage());
   }
 
   @ResponseBody

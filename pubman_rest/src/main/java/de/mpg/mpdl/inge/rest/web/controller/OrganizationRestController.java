@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -27,6 +28,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
@@ -39,10 +41,12 @@ public class OrganizationRestController {
   private final String OU_ID_PATH = "/{ouId}";
   private final String OU_ID_VAR = "ouId";
   private OrganizationService organizationSvc;
+  private UtilServiceBean utils;
 
   @Autowired
-  public OrganizationRestController(OrganizationService ouSvc) {
+  public OrganizationRestController(OrganizationService ouSvc, UtilServiceBean utils) {
     this.organizationSvc = ouSvc;
+    this.utils = utils;
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
@@ -109,19 +113,19 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-    AffiliationVO toBeOpened = organizationSvc.get(ouId, token);
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
     AffiliationVO opened = null;
-    opened = organizationSvc.open(ouId, toBeOpened.getLastModificationDate(), token);
+    Date lmd = utils.string2Date(modificationDate);
+    opened = organizationSvc.open(ouId, lmd, token);
     return new ResponseEntity<AffiliationVO>(opened, HttpStatus.OK);
   }
 
   @RequestMapping(value = OU_ID_PATH + "/close", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-    AffiliationVO toBeClosed = organizationSvc.get(ouId, token);
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
     AffiliationVO closed = null;
-    closed = organizationSvc.close(ouId, toBeClosed.getLastModificationDate(), token);
+    Date lmd = utils.string2Date(modificationDate);
+    closed = organizationSvc.close(ouId, lmd, token);
     return new ResponseEntity<AffiliationVO>(closed, HttpStatus.OK);
   }
 
@@ -136,9 +140,9 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
-    AffiliationVO toBeDeleted = organizationSvc.get(ouId, token);
-    organizationSvc.delete(ouId, toBeDeleted.getLastModificationDate(), token);
+      value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
+	  Date lmd = utils.string2Date(modificationDate);
+    organizationSvc.delete(ouId, lmd, token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }
 

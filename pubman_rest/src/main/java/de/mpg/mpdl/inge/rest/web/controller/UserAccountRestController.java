@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -23,6 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
@@ -35,10 +37,12 @@ public class UserAccountRestController {
   private final String USER_ID_PATH = "/{userId}";
   private final String USER_ID_VAR = "userId";
   private UserAccountService userSvc;
+  private UtilServiceBean utils;
 
   @Autowired
-  public UserAccountRestController(UserAccountService userSvc) {
+  public UserAccountRestController(UserAccountService userSvc, UtilServiceBean utils) {
     this.userSvc = userSvc;
+    this.utils = utils;
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
@@ -121,9 +125,9 @@ public class UserAccountRestController {
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = USER_ID_VAR) String userId) throws AaException, IngeServiceException {
-    AccountUserVO user2BeDeleted = userSvc.get(userId, token);
-    userSvc.delete(userId, user2BeDeleted.getLastModificationDate(), token);
+      value = USER_ID_VAR) String userId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
+	  Date lmd = utils.string2Date(modificationDate);
+    userSvc.delete(userId, lmd, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
