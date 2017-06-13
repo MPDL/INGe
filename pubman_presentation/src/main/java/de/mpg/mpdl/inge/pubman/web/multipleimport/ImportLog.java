@@ -166,19 +166,11 @@ public class ImportLog {
    */
   public static Connection getConnection() {
     try {
-      Class.forName(PropertyReader.getProperty("escidoc.import.database.driver.class"));
-      final String connectionUrl =
-          PropertyReader.getProperty("escidoc.import.database.connection.url");
-      return DriverManager
-          .getConnection(
-              connectionUrl
-                  .replaceAll("\\$1",
-                      PropertyReader.getProperty("escidoc.import.database.server.name"))
-                  .replaceAll("\\$2",
-                      PropertyReader.getProperty("escidoc.import.database.server.port"))
-                  .replaceAll("\\$3", PropertyReader.getProperty("escidoc.import.database.name")),
-              PropertyReader.getProperty("escidoc.import.database.user.name"),
-              PropertyReader.getProperty("escidoc.import.database.user.password"));
+      Class.forName(PropertyReader.getProperty("inge.database.driver.class"));
+      final String connectionUrl = PropertyReader.getProperty("inge.database.jdbc.url");
+      return DriverManager.getConnection(connectionUrl,
+          PropertyReader.getProperty("inge.database.user.name"),
+          PropertyReader.getProperty("inge.database.user.password"));
     } catch (final Exception e) {
       throw new RuntimeException("Error creating database connection", e);
     }
@@ -702,7 +694,7 @@ public class ImportLog {
     try {
       statement =
           this.connection
-              .prepareStatement("insert into escidoc_import_log "
+              .prepareStatement("insert into import_log "
                   + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
                   + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
 
@@ -717,8 +709,7 @@ public class ImportLog {
 
       statement.executeUpdate();
 
-      statement =
-          this.connection.prepareStatement("select max(id) as maxid from escidoc_import_log");
+      statement = this.connection.prepareStatement("select max(id) as maxid from import_log");
 
       resultSet = statement.executeQuery();
 
@@ -735,7 +726,7 @@ public class ImportLog {
   private synchronized void updateLog() {
     try {
       final PreparedStatement statement =
-          this.connection.prepareStatement("update escidoc_import_log set " + "status = ?, "
+          this.connection.prepareStatement("update import_log set " + "status = ?, "
               + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "action = ?, "
               + "userid = ?, " + "name = ?, " + "context = ?, " + "format = ?, "
               + "percentage = ? " + "where id = ?");
@@ -767,7 +758,7 @@ public class ImportLog {
   private synchronized void saveItem(ImportLogItem item) {
     try {
       PreparedStatement statement =
-          this.connection.prepareStatement("insert into escidoc_import_log_item "
+          this.connection.prepareStatement("insert into import_log_item "
               + "(status, errorlevel, startdate, parent, message, item_id, action) "
               + "values (?, ?, ?, ?, ?, ?, ?)");
 
@@ -781,8 +772,7 @@ public class ImportLog {
 
       statement.executeUpdate();
 
-      statement =
-          this.connection.prepareStatement("select max(id) as maxid from escidoc_import_log_item");
+      statement = this.connection.prepareStatement("select max(id) as maxid from import_log_item");
       final ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
@@ -798,7 +788,7 @@ public class ImportLog {
   private synchronized void updateItem(ImportLogItem item) {
     try {
       final PreparedStatement statement =
-          this.connection.prepareStatement("update escidoc_import_log_item set " + "status = ?, "
+          this.connection.prepareStatement("update import_log_item set " + "status = ?, "
               + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "parent = ?, "
               + "message = ?, " + "item_id = ?, " + "action = ? " + "where id = ?");
 
@@ -827,7 +817,7 @@ public class ImportLog {
   private synchronized void saveDetail(ImportLogItem detail) {
     try {
       PreparedStatement statement =
-          this.connection.prepareStatement("insert into escidoc_import_log_detail "
+          this.connection.prepareStatement("insert into import_log_detail "
               + "(status, errorlevel, startdate, parent, message, item_id, action) "
               + "values (?, ?, ?, ?, ?, ?, ?)");
 
@@ -842,8 +832,7 @@ public class ImportLog {
       statement.executeUpdate();
 
       statement =
-          this.connection
-              .prepareStatement("select max(id) as maxid from escidoc_import_log_detail");
+          this.connection.prepareStatement("select max(id) as maxid from import_log_detail");
       final ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
@@ -912,8 +901,8 @@ public class ImportLog {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     final String query =
-        "select id from escidoc_import_log where action = ? and userid = ? " + "order by "
-            + sortBy.toSQL() + " " + dir.toSQL();
+        "select id from import_log where action = ? and userid = ? " + "order by " + sortBy.toSQL()
+            + " " + dir.toSQL();
 
     try {
       statement = connection.prepareStatement(query);
@@ -986,7 +975,7 @@ public class ImportLog {
     ImportLog result = null;
 
     try {
-      query = "select * from escidoc_import_log where id = ?";
+      query = "select * from import_log where id = ?";
       statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       resultSet = statement.executeQuery();
@@ -999,7 +988,7 @@ public class ImportLog {
       }
       statement.close();
 
-      query = "select * from escidoc_import_log_item where parent = ? order by id";
+      query = "select * from import_log_item where parent = ? order by id";
       statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       resultSet = statement.executeQuery();
@@ -1016,11 +1005,9 @@ public class ImportLog {
 
       if (loadDetails) {
         query =
-            "select escidoc_import_log_detail.* "
-                + "from escidoc_import_log_item, escidoc_import_log_detail "
-                + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-                + "and escidoc_import_log_item.parent = ? "
-                + "order by escidoc_import_log_detail.id";
+            "select import_log_detail.* " + "from import_log_item, import_log_detail "
+                + "where import_log_item.id = import_log_detail.parent "
+                + "and import_log_item.parent = ? " + "order by import_log_detail.id";
         statement = connection.prepareStatement(query);
         statement.setInt(1, id);
         resultSet = statement.executeQuery();
@@ -1133,12 +1120,10 @@ public class ImportLog {
     final Connection connection = ImportLog.getConnection();
 
     final String query =
-        "select escidoc_import_log_detail.* "
-            + "from escidoc_import_log_item, escidoc_import_log_detail, escidoc_import_log "
-            + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-            + "and escidoc_import_log_item.parent = escidoc_import_log.id "
-            + "and escidoc_import_log_item.id = ? " + "and escidoc_import_log.userid = ? "
-            + "order by escidoc_import_log_detail.id";
+        "select import_log_detail.* " + "from import_log_item, import_log_detail, import_log "
+            + "where import_log_item.id = import_log_detail.parent "
+            + "and import_log_item.parent = import_log.id " + "and import_log_item.id = ? "
+            + "and import_log.userid = ? " + "order by import_log_detail.id";
     try {
       final PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
@@ -1272,20 +1257,20 @@ public class ImportLog {
       final Connection conn = ImportLog.getConnection();
 
       String query =
-          "delete from escidoc_import_log_detail where parent in "
-              + "(select id from escidoc_import_log_item where parent = ?)";
+          "delete from import_log_detail where parent in "
+              + "(select id from import_log_item where parent = ?)";
       PreparedStatement statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
       statement.executeUpdate();
       statement.close();
 
-      query = "delete from escidoc_import_log_item where parent  = ?";
+      query = "delete from import_log_item where parent  = ?";
       statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
       statement.executeUpdate();
       statement.close();
 
-      query = "delete from escidoc_import_log where id  = ?";
+      query = "delete from import_log where id  = ?";
       statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
       statement.executeUpdate();

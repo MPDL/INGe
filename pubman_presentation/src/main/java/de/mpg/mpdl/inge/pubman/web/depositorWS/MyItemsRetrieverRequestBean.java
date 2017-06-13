@@ -116,8 +116,7 @@ public class MyItemsRetrieverRequestBean extends
 
     try {
       final Connection connection = ImportLog.getConnection();
-      final String sql =
-          "select * from ESCIDOC_IMPORT_LOG where userid = ? order by STARTDATE desc";
+      final String sql = "select * from IMPORT_LOG where userid = ? order by STARTDATE desc";
       final PreparedStatement statement = connection.prepareStatement(sql);
 
       statement.setString(1, this.userVO.getReference().getObjectId());

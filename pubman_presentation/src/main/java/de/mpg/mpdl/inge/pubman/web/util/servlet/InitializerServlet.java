@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
-import de.mpg.mpdl.inge.pubman.web.util.ImportDatabaseInitializer;
 import de.mpg.mpdl.inge.pubman.web.util.threads.ImportSurveyor;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 
@@ -63,14 +62,7 @@ public class InitializerServlet extends HttpServlet {
       InitializerServlet.logger.error("Problem with initializing statistics system", e);
     }
 
-    // initialize import database
-    try {
-      new ImportDatabaseInitializer();
-    } catch (final Exception e) {
-      InitializerServlet.logger.error("Problem with initializing import database", e);
-    }
-
-    // initialize import database
+    // surveyes import database
     try {
       this.importSurveyor = new ImportSurveyor();
       this.importSurveyor.start();
