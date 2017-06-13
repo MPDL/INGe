@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -465,6 +466,48 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Override
   protected Date getModificationDate(AccountUserVO object) {
     return object.getLastModificationDate();
+  }
+
+
+  @Override
+  @Transactional
+  public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, true);
+  }
+
+
+  @Override
+  @Transactional
+  public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException {
+    return changeState(id, modificationDate, authenticationToken, false);
+  }
+
+  private AccountUserVO changeState(String id, Date modificationDate, String authenticationToken,
+      boolean active) throws IngeServiceException, AaException {
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO accountToBeUpdated = userAccountRepository.findOne(id);
+    if (accountToBeUpdated == null) {
+      throw new IngeServiceException("User account with given id " + id + " not found.");
+    }
+
+    AccountUserVO userVoToBeUpdated = transformToOld(accountToBeUpdated);
+
+    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToBeUpdated))) {
+      throw new IngeServiceException("Object changed in meantime");
+    }
+
+    checkAa((active ? "activate" : "deactivate"), userAccount, userVoToBeUpdated);
+
+    userVoToBeUpdated.setActive(active);
+    updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
+
+    accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);
+
+    AccountUserVO userToReturn = EntityTransformer.transformToOld(accountToBeUpdated);
+    userAccountDao.update(accountToBeUpdated.getObjectId(), userToReturn);
+    return userToReturn;
   }
 
 

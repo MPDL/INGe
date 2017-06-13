@@ -258,6 +258,7 @@
 		"technical" : {
 			"order" : ["user", "givenUser"],
 			"indices" : {
+				"givenUser.reference.objectId" : "reference.objectId"
 			}
 		}, 
 		"create" : [
@@ -291,7 +292,7 @@
 				}
 			},
 			{
-				"user.reference.objectId": "givenUser.reference.objectId"
+				"givenUser.reference.objectId": "user.reference.objectId"
 
 			}
 		],
@@ -308,6 +309,21 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			}
+		],
+		"activate" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			}
+		],
+		"deactivate" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				},
+				"givenUser.active" : "true"
 			}
 		]
 	}

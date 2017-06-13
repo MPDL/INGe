@@ -23,4 +23,10 @@ public interface UserAccountService extends GenericService<AccountUserVO> {
 
   public void changePassword(String userId, Date modificationDate, String newPassword,
       String authenticationToken) throws IngeServiceException, AaException;
+
+  public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException;
+
+  public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
+      throws IngeServiceException, AaException;
 }
