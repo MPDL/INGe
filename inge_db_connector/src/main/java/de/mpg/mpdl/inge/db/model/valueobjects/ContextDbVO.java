@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.db.model.valueobjects;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -59,8 +58,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 @JsonInclude(value = Include.NON_NULL)
 @Entity(name = "ContextVO")
 @Table(name = "context")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType",
     typeClass = ContextAdminDescriptorJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable {

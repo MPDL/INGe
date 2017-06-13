@@ -40,6 +40,31 @@ public class VersionableId implements Serializable {
     return objectId + "_" + versionNumber;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((this.objectId == null) ? 0 : this.objectId.hashCode());
+    result = prime * result + this.versionNumber;
+    return result;
+  }
 
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    VersionableId other = (VersionableId) obj;
+    if (this.objectId == null) {
+      if (other.objectId != null)
+        return false;
+    } else if (!this.objectId.equals(other.objectId))
+      return false;
+    if (this.versionNumber != other.versionNumber)
+      return false;
+    return true;
+  }
 }
