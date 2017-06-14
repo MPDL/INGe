@@ -24,28 +24,13 @@
  */
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.math.BigInteger;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
@@ -83,16 +68,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
-/**
- * TODO Description
- * 
- * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- */
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
@@ -110,16 +86,17 @@ public class ImportProcess extends Thread {
   private Map<String, String> configuration = null;
 
   private String authenticationToken;
-  private String fileName;
+  // private String fileName;
   private String itemContentModel;
-  private String name;
+  // private String name;
   private String publicationContentModel;
 
   private boolean failed = false;
   private boolean rollback;
 
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-  private long lastBeat = 0;
+
+  // private long lastBeat = 0;
 
   public ImportProcess(String name, String fileName, File file, FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
@@ -135,8 +112,7 @@ public class ImportProcess extends Thread {
     this.authenticationToken = authenticationToken;
 
     this.log =
-        new ImportLog("import", user.getReference().getObjectId(), format.name(),
-            this.authenticationToken);
+        new ImportLog("import", user.getReference().getObjectId(), format, this.authenticationToken);
     this.log.setUserHandle(user.getHandle());
     this.log.setPercentage(5);
     this.log.startItem("import_process_started");
@@ -162,7 +138,7 @@ public class ImportProcess extends Thread {
       return;
     }
 
-    if (!this.validate(file, format)) {
+    if (!this.validateFormat(file, format)) {
       return;
     }
 
@@ -181,17 +157,17 @@ public class ImportProcess extends Thread {
     try {
       this.log.setMessage(name);
       this.log.setContext(escidocContext.getObjectId());
-      this.log.setFormat(format.name());
+      this.log.setFormat(format);
 
       this.configuration = configuration;
       this.duplicateStrategy = duplicateStrategy;
       this.escidocContext = escidocContext;
       this.file = file;
-      this.fileName = fileName;
+      // this.fileName = fileName;
       this.format = format;
       this.itemContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-      this.name = name;
+      // this.name = name;
       this.rollback = rollback;
       this.user = user;
     } catch (final Exception e) {
@@ -207,7 +183,7 @@ public class ImportProcess extends Thread {
    * @param inputStream
    * @param format
    */
-  private boolean validate(File file, FORMAT format) {
+  private boolean validateFormat(File file, FORMAT format) {
     this.log.startItem("import_process_validate");
 
     if (file == null) {
@@ -226,27 +202,28 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    final FORMAT[] allSourceFormats =
-        this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-    boolean found = false;
-    for (final FORMAT sourceFormat : allSourceFormats) {
-      if (format.equals(sourceFormat)) {
-        found = true;
-        if (this.setProcessor(format)) {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
-        } else {
-          this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
-          this.fail();
-        }
-        break;
-      }
-    }
-
-    if (!found) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
+    // TODO: Brauchen wir das noch an dieser Stelle?
+    // final FORMAT[] allSourceFormats =
+    // this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+    // boolean found = false;
+    // for (final FORMAT sourceFormat : allSourceFormats) {
+    // if (format.equals(sourceFormat)) {
+    // found = true;
+    if (this.setProcessor(format)) {
+      this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
+    } else {
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
       this.fail();
-      return false;
     }
+    // break;
+    // }
+    // }
+
+    // if (!found) {
+    // this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
+    // this.fail();
+    // return false;
+    // }
 
     this.log.finishItem();
 
@@ -376,7 +353,7 @@ public class ImportProcess extends Thread {
               break;
             }
           }
-          this.heartBeat();
+          // this.heartBeat();
         }
       } catch (final Exception e) {
         ImportProcess.logger.error("Error during import", e);
@@ -446,27 +423,27 @@ public class ImportProcess extends Thread {
         this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
         this.log.finishItem();
 
-        try {
-          this.log.startItem("import_process_archive_log");
-          this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-          final String taskItemXml = this.createTaskItemXml();
-          final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-          final String savedTaskItemXml = itemHandler.create(taskItemXml);
-          final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
-          final Matcher matcher = pattern.matcher(savedTaskItemXml);
-
-          if (matcher.find()) {
-            final String taskId = matcher.group(1);
-            ImportProcess.logger.info("Imported task item: " + taskId);
-          }
-          this.log.setPercentage(100);
-        } catch (final Exception e) {
-          ImportProcess.logger.error("Error during import", e);
-          this.log.finishItem();
-          this.log.startItem(ErrorLevel.ERROR, "import_process_error");
-          this.log.addDetail(ErrorLevel.ERROR, e);
-          this.fail();
-        }
+        // try {
+        // this.log.startItem("import_process_archive_log");
+        // this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
+        // final String taskItemXml = this.createTaskItemXml();
+        // final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
+        // final String savedTaskItemXml = itemHandler.create(taskItemXml);
+        // final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
+        // final Matcher matcher = pattern.matcher(savedTaskItemXml);
+        //
+        // if (matcher.find()) {
+        // final String taskId = matcher.group(1);
+        // ImportProcess.logger.info("Imported task item: " + taskId);
+        // }
+        // this.log.setPercentage(100);
+        // } catch (final Exception e) {
+        // ImportProcess.logger.error("Error during import", e);
+        // this.log.finishItem();
+        // this.log.startItem(ErrorLevel.ERROR, "import_process_error");
+        // this.log.addDetail(ErrorLevel.ERROR, e);
+        // this.fail();
+        // }
       }
     }
 
@@ -479,106 +456,107 @@ public class ImportProcess extends Thread {
     this.file.delete();
   }
 
-  /**
-   * Send a request to the framework every 30 minutes to make sure the user handle will not expire.
-   */
-  private void heartBeat() {
-    final long now = new Date().getTime();
-    if ((now - this.lastBeat) > 1000 * 60 * 30) {
-      ImportProcess.logger.info("Refreshing " + this.log.getUserHandle());
-      this.lastBeat = now;
-      try {
-        ServiceLocator.getContextHandler(this.log.getUserHandle()).retrieve(this.log.getContext());
-      } catch (final Exception e) {
-        ImportProcess.logger.warn("Heartbeat error", e);
-      }
-    }
-  }
+  // /**
+  // * Send a request to the framework every 30 minutes to make sure the user handle will not
+  // expire.
+  // */
+  // private void heartBeat() {
+  // final long now = new Date().getTime();
+  // if ((now - this.lastBeat) > 1000 * 60 * 30) {
+  // ImportProcess.logger.info("Refreshing " + this.log.getUserHandle());
+  // this.lastBeat = now;
+  // try {
+  // ServiceLocator.getContextHandler(this.log.getUserHandle()).retrieve(this.log.getContext());
+  // } catch (final Exception e) {
+  // ImportProcess.logger.warn("Heartbeat error", e);
+  // }
+  // }
+  // }
 
-  private String createTaskItemXml() {
-    try {
-      final String fwUrl = PropertyReader.getFrameworkUrl();
-      final HttpClient client = new HttpClient();
-      ProxyHelper.setProxy(client, fwUrl);
+  // private String createTaskItemXml() {
+  // try {
+  // final String fwUrl = PropertyReader.getFrameworkUrl();
+  // final HttpClient client = new HttpClient();
+  // ProxyHelper.setProxy(client, fwUrl);
+  //
+  // final StringBuilder sb =
+  // new StringBuilder(ResourceUtil.getResourceAsString(
+  // "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
+  // ImportProcess.replace("$01", this.escape(this.escidocContext.getObjectId()), sb);
+  // ImportProcess.replace("$02",
+  // this.escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
+  // ImportProcess.replace("$03", this.escape("Import Task Item for import " + this.name + " "),
+  // sb);
+  //
+  // // Upload original data
+  // final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+  // method.setRequestHeader("Content-Type", this.format.toString());
+  // method.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
+  // InputStream is = new FileInputStream(this.formatProcessor.getSourceFile());
+  // method.setRequestEntity(new InputStreamRequestEntity(is));
+  // client.executeMethod(method);
+  // is.close();
+  // String response = method.getResponseBodyAsString();
+  // final URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
+  //
+  // ImportProcess.replace("$04", this.escape(this.name), sb);
+  // ImportProcess.replace("$05", this.escape(this.fileName), sb);
+  // ImportProcess.replace("$06", this.escape(originalDataUrl.toExternalForm()), sb);
+  // ImportProcess.replace("$07", this.escape(this.log.getStoredId() + ""), sb);
+  // ImportProcess.replace("$08", this.escape(this.format.toString()), sb);
+  // ImportProcess.replace("$09", this.escape(String.valueOf(this.formatProcessor.getLength())),
+  // sb);
+  //
+  // // Upload and create task item xml
+  // final File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
+  // final Writer fw =
+  // new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogXml), "UTF-8"));
+  // this.log.toXML(fw);
+  // fw.flush();
+  // fw.close();
+  //
+  // final PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
+  // method2.setRequestHeader("Content-Type", "text/xml");
+  // method2.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
+  // is = new FileInputStream(tempLogXml);
+  // method2.setRequestEntity(new InputStreamRequestEntity(is));
+  // client.executeMethod(method2);
+  // is.close();
+  //
+  // response = method2.getResponseBodyAsString();
+  // final URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
+  //
+  // ImportProcess.replace("$10", this.escape(this.name), sb);
+  // ImportProcess.replace("$11", "importthis.log.xml", sb);
+  // ImportProcess.replace("$12", this.escape(logXmlUrl.toExternalForm()), sb);
+  // ImportProcess.replace("$13", this.escape(this.log.getStoredId() + ""), sb);
+  // ImportProcess.replace("$14", this.escape(String.valueOf(tempLogXml.length())), sb);
+  //
+  // tempLogXml.delete();
+  //
+  // this.log.finishItem();
+  // this.log.close();
+  // return sb.toString();
+  // } catch (final Exception e) {
+  // throw new RuntimeException(e);
+  // }
+  // }
 
-      final StringBuilder sb =
-          new StringBuilder(ResourceUtil.getResourceAsString(
-              "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
-      ImportProcess.replace("$01", this.escape(this.escidocContext.getObjectId()), sb);
-      ImportProcess.replace("$02",
-          this.escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
-      ImportProcess.replace("$03", this.escape("Import Task Item for import " + this.name + " "),
-          sb);
+  // public static void replace(String target, String replacement, StringBuilder builder) {
+  // int indexOfTarget = -1;
+  // while ((indexOfTarget = builder.indexOf(target)) >= 0) {
+  // builder.replace(indexOfTarget, indexOfTarget + target.length(), replacement);
+  // }
+  // }
 
-      // Upload original data
-      final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-      method.setRequestHeader("Content-Type", this.format.toString());
-      method.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
-      InputStream is = new FileInputStream(this.formatProcessor.getSourceFile());
-      method.setRequestEntity(new InputStreamRequestEntity(is));
-      client.executeMethod(method);
-      is.close();
-      String response = method.getResponseBodyAsString();
-      final URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
-
-      ImportProcess.replace("$04", this.escape(this.name), sb);
-      ImportProcess.replace("$05", this.escape(this.fileName), sb);
-      ImportProcess.replace("$06", this.escape(originalDataUrl.toExternalForm()), sb);
-      ImportProcess.replace("$07", this.escape(this.log.getStoredId() + ""), sb);
-      ImportProcess.replace("$08", this.escape(this.format.toString()), sb);
-      ImportProcess.replace("$09", this.escape(String.valueOf(this.formatProcessor.getLength())),
-          sb);
-
-      // Upload and create task item xml
-      final File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
-      final Writer fw =
-          new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogXml), "UTF-8"));
-      this.log.toXML(fw);
-      fw.flush();
-      fw.close();
-
-      final PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
-      method2.setRequestHeader("Content-Type", "text/xml");
-      method2.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
-      is = new FileInputStream(tempLogXml);
-      method2.setRequestEntity(new InputStreamRequestEntity(is));
-      client.executeMethod(method2);
-      is.close();
-
-      response = method2.getResponseBodyAsString();
-      final URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
-
-      ImportProcess.replace("$10", this.escape(this.name), sb);
-      ImportProcess.replace("$11", "importthis.log.xml", sb);
-      ImportProcess.replace("$12", this.escape(logXmlUrl.toExternalForm()), sb);
-      ImportProcess.replace("$13", this.escape(this.log.getStoredId() + ""), sb);
-      ImportProcess.replace("$14", this.escape(String.valueOf(tempLogXml.length())), sb);
-
-      tempLogXml.delete();
-
-      this.log.finishItem();
-      this.log.close();
-      return sb.toString();
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static void replace(String target, String replacement, StringBuilder builder) {
-    int indexOfTarget = -1;
-    while ((indexOfTarget = builder.indexOf(target)) >= 0) {
-      builder.replace(indexOfTarget, indexOfTarget + target.length(), replacement);
-    }
-  }
-
-  private String escape(String string) {
-    if (string != null) {
-      return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
-          .replace(">", "&gt;");
-    }
-
-    return null;
-  }
+  // private String escape(String string) {
+  // if (string != null) {
+  // return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
+  // .replace(">", "&gt;");
+  // }
+  //
+  // return null;
+  // }
 
   /**
    * @param writer

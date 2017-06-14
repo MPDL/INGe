@@ -26,12 +26,10 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.io.Writer;
 import java.util.Date;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-
 
 /**
  * Class describing an import item. The parent is a {@link ImportLog}.
@@ -147,51 +145,50 @@ public class ImportLogItem extends ImportLog {
   }
 
 
-  /**
-   * @return An XML representation of this item
-   */
-
-  @Override
-  public void toXML(Writer writer) throws Exception {
-    // StringWriter writer = new StringWriter();
-
-    writer.write("<import-item ");
-    writer.write("status=\"");
-    writer.write(this.getStatus().toString());
-    writer.write("\" error-level=\"");
-    writer.write(this.getErrorLevel().toString());
-    writer.write("\">\n");
-
-    writer.write("\t<message>");
-    writer.write(this.escape(this.getMessage()));
-    writer.write("</message>\n");
-
-    if (this.getItemId() != null) {
-      writer.write("\t<escidoc-id>");
-      writer.write(this.getItemId());
-      writer.write("</escidoc-id>\n");
-    }
-
-
-    writer.write("\t<start-date>");
-    writer.write(this.getStartDateFormatted());
-    writer.write("</start-date>\n");
-
-    if (this.getEndDate() != null) {
-      writer.write("\t<end-date>");
-      writer.write(this.getEndDateFormatted());
-      writer.write("</end-date>\n");
-    }
-
-    writer.write("\t<items>\n");
-    for (final ImportLogItem item : this.getItems()) {
-      item.toXML(writer);
-    }
-    writer.write("\t</items>\n");
-
-    writer.write("</import-item>\n");
-
-  }
+  // /**
+  // * @return An XML representation of this item
+  // */
+  // @Override
+  // public void toXML(Writer writer) throws Exception {
+  // // StringWriter writer = new StringWriter();
+  //
+  // writer.write("<import-item ");
+  // writer.write("status=\"");
+  // writer.write(this.getStatus().toString());
+  // writer.write("\" error-level=\"");
+  // writer.write(this.getErrorLevel().toString());
+  // writer.write("\">\n");
+  //
+  // writer.write("\t<message>");
+  // writer.write(this.escape(this.getMessage()));
+  // writer.write("</message>\n");
+  //
+  // if (this.getItemId() != null) {
+  // writer.write("\t<escidoc-id>");
+  // writer.write(this.getItemId());
+  // writer.write("</escidoc-id>\n");
+  // }
+  //
+  //
+  // writer.write("\t<start-date>");
+  // writer.write(this.getStartDateFormatted());
+  // writer.write("</start-date>\n");
+  //
+  // if (this.getEndDate() != null) {
+  // writer.write("\t<end-date>");
+  // writer.write(this.getEndDateFormatted());
+  // writer.write("</end-date>\n");
+  // }
+  //
+  // writer.write("\t<items>\n");
+  // for (final ImportLogItem item : this.getItems()) {
+  // item.toXML(writer);
+  // }
+  // writer.write("\t</items>\n");
+  //
+  // writer.write("</import-item>\n");
+  //
+  // }
 
 
   /**

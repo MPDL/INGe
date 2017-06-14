@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import org.apache.log4j.Logger;
 
@@ -50,6 +50,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -123,7 +125,7 @@ public class ImportLog {
   private Status status;
   private String action;
   private String context;
-  private String format;
+  private FORMAT format;
   private String message;
   private String user;
   private String userHandle;
@@ -131,6 +133,9 @@ public class ImportLog {
   private Workflow workflow;
   private int percentage;
   private int storedId;
+
+  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesTools
+      .findBean("InternationalizationHelper");
 
   /**
    * Implicit constructor for inheriting classes.
@@ -146,7 +151,7 @@ public class ImportLog {
    * @param user The eSciDoc user id of the user that invoces this action.
    * @param format A string holding the format of the import, e.g. "bibtex".
    */
-  public ImportLog(String action, String user, String format, String authenticationToken) {
+  public ImportLog(String action, String user, FORMAT format, String authenticationToken) {
     this.startDate = new Date();
     this.status = Status.PENDING;
     this.errorLevel = ErrorLevel.FINE;
@@ -507,14 +512,14 @@ public class ImportLog {
   /**
    * @return the format
    */
-  public String getFormat() {
+  public FORMAT getFormat() {
     return this.format;
   }
 
   /**
    * @param format the format to set
    */
-  public void setFormat(String format) {
+  public void setFormat(FORMAT format) {
     this.format = format;
   }
 
@@ -645,6 +650,20 @@ public class ImportLog {
   }
 
   /**
+   * Reads a localized message from the message resource bundle.
+   * 
+   * @return A string holding the localized message
+   */
+  public String getLocalizedMessage() {
+    try {
+      return this.i18nHelper.getMessage(getMessage());
+    } catch (MissingResourceException mre) {
+      // No message entry for this message, it's probably raw data.
+      return getMessage();
+    }
+  }
+
+  /**
    * @return the message
    */
   public String getMessage() {
@@ -705,7 +724,7 @@ public class ImportLog {
       statement.setString(5, this.user);
       statement.setString(6, this.message);
       statement.setString(7, this.context);
-      statement.setString(8, this.format);
+      statement.setString(8, this.format.name());
 
       statement.executeUpdate();
 
@@ -745,7 +764,7 @@ public class ImportLog {
       statement.setString(6, this.user);
       statement.setString(7, this.message);
       statement.setString(8, this.context);
-      statement.setString(9, this.format);
+      statement.setString(9, this.format.name());
       statement.setInt(10, this.percentage);
       statement.setInt(11, this.storedId);
 
@@ -817,7 +836,7 @@ public class ImportLog {
   private synchronized void saveDetail(ImportLogItem detail) {
     try {
       PreparedStatement statement =
-          this.connection.prepareStatement("insert into import_log_detail "
+          this.connection.prepareStatement("insert into import_log_item_detail "
               + "(status, errorlevel, startdate, parent, message, item_id, action) "
               + "values (?, ?, ?, ?, ?, ?, ?)");
 
@@ -832,7 +851,7 @@ public class ImportLog {
       statement.executeUpdate();
 
       statement =
-          this.connection.prepareStatement("select max(id) as maxid from import_log_detail");
+          this.connection.prepareStatement("select max(id) as maxid from import_log_item_detail");
       final ResultSet resultSet = statement.executeQuery();
 
       if (resultSet.next()) {
@@ -1005,9 +1024,9 @@ public class ImportLog {
 
       if (loadDetails) {
         query =
-            "select import_log_detail.* " + "from import_log_item, import_log_detail "
-                + "where import_log_item.id = import_log_detail.parent "
-                + "and import_log_item.parent = ? " + "order by import_log_detail.id";
+            "select import_log_item_detail.* " + "from import_log_item, import_log_item_detail "
+                + "where import_log_item.id = import_log_item_detail.parent "
+                + "and import_log_item.parent = ? " + "order by import_log_item_detail.id";
         statement = connection.prepareStatement(query);
         statement.setInt(1, id);
         resultSet = statement.executeQuery();
@@ -1095,7 +1114,7 @@ public class ImportLog {
     result.setAction(resultSet.getString("action"));
     result.setEndDate(resultSet.getTimestamp("enddate"));
     result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-    result.setFormat(resultSet.getString("format"));
+    result.setFormat(FORMAT.valueOf(resultSet.getString("format")));
     result.setStartDate(resultSet.getTimestamp("startdate"));
     result.setStatus(Status.valueOf(resultSet.getString("status")));
     result.setStoredId(resultSet.getInt("id"));
@@ -1120,10 +1139,11 @@ public class ImportLog {
     final Connection connection = ImportLog.getConnection();
 
     final String query =
-        "select import_log_detail.* " + "from import_log_item, import_log_detail, import_log "
-            + "where import_log_item.id = import_log_detail.parent "
+        "select import_log_item_detail.* "
+            + "from import_log_item, import_log_item_detail, import_log "
+            + "where import_log_item.id = import_log_item_detail.parent "
             + "and import_log_item.parent = import_log.id " + "and import_log_item.id = ? "
-            + "and import_log.userid = ? " + "order by import_log_detail.id";
+            + "and import_log.userid = ? " + "order by import_log_item_detail.id";
     try {
       final PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
@@ -1190,62 +1210,62 @@ public class ImportLog {
     }
   }
 
-  /**
-   * @return An XML representation of this import. Used to store it in the repository.
-   */
-  public void toXML(Writer writer) throws Exception {
-    writer.write("<import-task ");
-    writer.write("status=\"");
-    writer.write(this.status.toString());
-    writer.write("\" error-level=\"");
-    writer.write(this.errorLevel.toString());
-    writer.write("\" created-by=\"");
-    writer.write(this.user);
-    writer.write("\">\n");
+  // /**
+  // * @return An XML representation of this import. Used to store it in the repository.
+  // */
+  // public void toXML(Writer writer) throws Exception {
+  // writer.write("<import-task ");
+  // writer.write("status=\"");
+  // writer.write(this.status.toString());
+  // writer.write("\" error-level=\"");
+  // writer.write(this.errorLevel.toString());
+  // writer.write("\" created-by=\"");
+  // writer.write(this.user);
+  // writer.write("\">\n");
+  //
+  // writer.write("\t<name>");
+  // writer.write(this.escape(this.message));
+  // writer.write("</name>\n");
+  //
+  // writer.write("\t<context>");
+  // writer.write(this.context);
+  // writer.write("</context>\n");
+  //
+  // writer.write("\t<start-date>");
+  // writer.write(this.getStartDateFormatted());
+  // writer.write("</start-date>\n");
+  //
+  // if (this.endDate != null) {
+  // writer.write("\t<end-date>");
+  // writer.write(this.getEndDateFormatted());
+  // writer.write("</end-date>\n");
+  // }
+  //
+  // writer.write("\t<format>");
+  // writer.write(this.format.name());
+  // writer.write("</format>\n");
+  //
+  // writer.write("\t<items>\n");
+  // for (final ImportLogItem item : this.items) {
+  // item.toXML(writer);// .replaceAll("(.*\\n)", "\t\t$1"));
+  // }
+  // writer.write("\t</items>\n");
+  // writer.write("</import-task>\n");
+  // }
 
-    writer.write("\t<name>");
-    writer.write(this.escape(this.message));
-    writer.write("</name>\n");
-
-    writer.write("\t<context>");
-    writer.write(this.context);
-    writer.write("</context>\n");
-
-    writer.write("\t<start-date>");
-    writer.write(this.getStartDateFormatted());
-    writer.write("</start-date>\n");
-
-    if (this.endDate != null) {
-      writer.write("\t<end-date>");
-      writer.write(this.getEndDateFormatted());
-      writer.write("</end-date>\n");
-    }
-
-    writer.write("\t<format>");
-    writer.write(this.format);
-    writer.write("</format>\n");
-
-    writer.write("\t<items>\n");
-    for (final ImportLogItem item : this.items) {
-      item.toXML(writer);// .replaceAll("(.*\\n)", "\t\t$1"));
-    }
-    writer.write("\t</items>\n");
-    writer.write("</import-task>\n");
-  }
-
-  /**
-   * An XML-safe representation of the given string.
-   * 
-   * @param string The given string
-   * @return the escaped string
-   */
-  protected String escape(String string) {
-    if (string == null) {
-      return null;
-    }
-
-    return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
-  }
+  // /**
+  // * An XML-safe representation of the given string.
+  // *
+  // * @param string The given string
+  // * @return the escaped string
+  // */
+  // protected String escape(String string) {
+  // if (string == null) {
+  // return null;
+  // }
+  //
+  // return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
+  // }
 
   /**
    * JSF action to remove an import from the database.
@@ -1257,7 +1277,7 @@ public class ImportLog {
       final Connection conn = ImportLog.getConnection();
 
       String query =
-          "delete from import_log_detail where parent in "
+          "delete from import_log_item_detail where parent in "
               + "(select id from import_log_item where parent = ?)";
       PreparedStatement statement = conn.prepareStatement(query);
       statement.setInt(1, this.storedId);
