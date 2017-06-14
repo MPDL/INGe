@@ -113,7 +113,8 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate)
+      throws AaException, IngeServiceException {
     AffiliationVO opened = null;
     Date lmd = utils.string2Date(modificationDate);
     opened = organizationSvc.open(ouId, lmd, token);
@@ -122,7 +123,8 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH + "/close", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate)
+      throws AaException, IngeServiceException {
     AffiliationVO closed = null;
     Date lmd = utils.string2Date(modificationDate);
     closed = organizationSvc.close(ouId, lmd, token);
@@ -140,8 +142,9 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
-	  Date lmd = utils.string2Date(modificationDate);
+      value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException,
+      IngeServiceException {
+    Date lmd = utils.string2Date(modificationDate);
     organizationSvc.delete(ouId, lmd, token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }

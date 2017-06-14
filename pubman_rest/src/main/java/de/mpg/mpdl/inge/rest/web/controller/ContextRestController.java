@@ -35,20 +35,20 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 @RequestMapping("/contexts")
 public class ContextRestController {
 
-	private final String AUTHZ_HEADER = "Authorization";
-	private final String CTX_ID_PATH = "/{ctxId}";
-	private final String CTX_ID_VAR = "ctxId";
+  private final String AUTHZ_HEADER = "Authorization";
+  private final String CTX_ID_PATH = "/{ctxId}";
+  private final String CTX_ID_VAR = "ctxId";
 
-	private ContextService ctxSvc;
-	private UtilServiceBean utils;
+  private ContextService ctxSvc;
+  private UtilServiceBean utils;
 
-	@Autowired
-	public ContextRestController(ContextService ctxSvc, UtilServiceBean utils) {
-		this.ctxSvc = ctxSvc;
-		this.utils = utils;
-	}
+  @Autowired
+  public ContextRestController(ContextService ctxSvc, UtilServiceBean utils) {
+    this.ctxSvc = ctxSvc;
+    this.utils = utils;
+  }
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+  @RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token)
 			throws AaException, IngeServiceException {
 		QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
@@ -59,7 +59,7 @@ public class ContextRestController {
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "", params = "q", method = RequestMethod.GET)
+  @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
 	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
 			@RequestParam(value = "q") String query) throws AaException, IngeServiceException {
 		QueryBuilder matchQueryParam = QueryBuilders.boolQuery()
@@ -71,65 +71,67 @@ public class ContextRestController {
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
-	public ResponseEntity<?> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-			@PathVariable(value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException {
-		ContextVO ctx = null;
-		if (token != null && !token.isEmpty()) {
-			ctx = ctxSvc.get(ctxId, token);
-		} else {
-			ctx = ctxSvc.get(ctxId, null);
-		}
-		if (ctx != null) {
-			return new ResponseEntity<ContextVO>(ctx, HttpStatus.OK);
-		} else {
-			VndError error = new VndError("404 - NOT FOUND", "could not get context with id: " + ctxId);
-			return new ResponseEntity<VndError>(error, HttpStatus.NOT_FOUND);
-		}
-	}
+  @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<?> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException {
+    ContextVO ctx = null;
+    if (token != null && !token.isEmpty()) {
+      ctx = ctxSvc.get(ctxId, token);
+    } else {
+      ctx = ctxSvc.get(ctxId, null);
+    }
+    if (ctx != null) {
+      return new ResponseEntity<ContextVO>(ctx, HttpStatus.OK);
+    } else {
+      VndError error = new VndError("404 - NOT FOUND", "could not get context with id: " + ctxId);
+      return new ResponseEntity<VndError>(error, HttpStatus.NOT_FOUND);
+    }
+  }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ContextVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-			@RequestBody ContextVO ctx) throws AaException, IngeServiceException, ItemInvalidException {
-		ContextVO created = null;
-		created = ctxSvc.create(ctx, token);
-		return new ResponseEntity<ContextVO>(created, HttpStatus.CREATED);
-	}
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<ContextVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @RequestBody ContextVO ctx) throws AaException, IngeServiceException, ItemInvalidException {
+    ContextVO created = null;
+    created = ctxSvc.create(ctx, token);
+    return new ResponseEntity<ContextVO>(created, HttpStatus.CREATED);
+  }
 
-	@RequestMapping(value = CTX_ID_PATH + "/open", method = RequestMethod.PUT)
-	public ResponseEntity<ContextVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
-			@PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate) throws AaException, IngeServiceException {
-		Date lmd = utils.string2Date(modificatioDate);
-		ContextVO opened = null;
-		opened = ctxSvc.open(ctxId, lmd, token);
-		return new ResponseEntity<ContextVO>(opened, HttpStatus.OK);
-	}
+  @RequestMapping(value = CTX_ID_PATH + "/open", method = RequestMethod.PUT)
+  public ResponseEntity<ContextVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate)
+      throws AaException, IngeServiceException {
+    Date lmd = utils.string2Date(modificatioDate);
+    ContextVO opened = null;
+    opened = ctxSvc.open(ctxId, lmd, token);
+    return new ResponseEntity<ContextVO>(opened, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = CTX_ID_PATH + "/close", method = RequestMethod.PUT)
-	public ResponseEntity<ContextVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
-			@PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate) throws AaException, IngeServiceException {
-		Date lmd = utils.string2Date(modificatioDate);
-		ContextVO closed = null;
-		closed = ctxSvc.close(ctxId, lmd, token);
-		return new ResponseEntity<ContextVO>(closed, HttpStatus.OK);
-	}
+  @RequestMapping(value = CTX_ID_PATH + "/close", method = RequestMethod.PUT)
+  public ResponseEntity<ContextVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate)
+      throws AaException, IngeServiceException {
+    Date lmd = utils.string2Date(modificatioDate);
+    ContextVO closed = null;
+    closed = ctxSvc.close(ctxId, lmd, token);
+    return new ResponseEntity<ContextVO>(closed, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = CTX_ID_PATH, method = RequestMethod.PUT)
-	public ResponseEntity<ContextVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
-			@PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody ContextVO ctx)
-			throws AaException, IngeServiceException, ItemInvalidException {
-		ContextVO updated = null;
-		updated = ctxSvc.update(ctx, token);
-		return new ResponseEntity<ContextVO>(updated, HttpStatus.OK);
-	}
+  @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.PUT)
+  public ResponseEntity<ContextVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody ContextVO ctx)
+      throws AaException, IngeServiceException, ItemInvalidException {
+    ContextVO updated = null;
+    updated = ctxSvc.update(ctx, token);
+    return new ResponseEntity<ContextVO>(updated, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = CTX_ID_PATH, method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token,
-			@PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate)
-			throws AaException, IngeServiceException, ParseException {
-		Date lmd = utils.string2Date(modificatioDate);
-		ctxSvc.delete(ctxId, lmd, token);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+  @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.DELETE)
+  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
+      value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate) throws AaException,
+      IngeServiceException, ParseException {
+    Date lmd = utils.string2Date(modificatioDate);
+    ctxSvc.delete(ctxId, lmd, token);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
 }

@@ -125,8 +125,9 @@ public class UserAccountRestController {
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = USER_ID_VAR) String userId, @RequestBody String modificationDate) throws AaException, IngeServiceException {
-	  Date lmd = utils.string2Date(modificationDate);
+      value = USER_ID_VAR) String userId, @RequestBody String modificationDate) throws AaException,
+      IngeServiceException {
+    Date lmd = utils.string2Date(modificationDate);
     userSvc.delete(userId, lmd, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }
