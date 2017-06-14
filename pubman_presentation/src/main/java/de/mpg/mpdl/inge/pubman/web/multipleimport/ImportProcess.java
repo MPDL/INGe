@@ -202,28 +202,27 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    // TODO: Brauchen wir das noch an dieser Stelle?
-    // final FORMAT[] allSourceFormats =
-    // this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-    // boolean found = false;
-    // for (final FORMAT sourceFormat : allSourceFormats) {
-    // if (format.equals(sourceFormat)) {
-    // found = true;
-    if (this.setProcessor(format)) {
-      this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
-    } else {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
-      this.fail();
+    final FORMAT[] allSourceFormats =
+        this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+    boolean found = false;
+    for (final FORMAT sourceFormat : allSourceFormats) {
+      if (format.equals(sourceFormat)) {
+        found = true;
+        if (this.setProcessor(format)) {
+          this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
+        } else {
+          this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
+          this.fail();
+        }
+        break;
+      }
     }
-    // break;
-    // }
-    // }
 
-    // if (!found) {
-    // this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
-    // this.fail();
-    // return false;
-    // }
+    if (!found) {
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
+      this.fail();
+      return false;
+    }
 
     this.log.finishItem();
 

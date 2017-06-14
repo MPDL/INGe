@@ -134,9 +134,6 @@ public class ImportLog {
   private int percentage;
   private int storedId;
 
-  private final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesTools
-      .findBean("InternationalizationHelper");
-
   /**
    * Implicit constructor for inheriting classes.
    */
@@ -656,7 +653,8 @@ public class ImportLog {
    */
   public String getLocalizedMessage() {
     try {
-      return this.i18nHelper.getMessage(getMessage());
+      return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
+          .getMessage(getMessage());
     } catch (MissingResourceException mre) {
       // No message entry for this message, it's probably raw data.
       return getMessage();
@@ -1272,7 +1270,7 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public void remove() {
+  public String remove() {
     try {
       final Connection conn = ImportLog.getConnection();
 
@@ -1304,6 +1302,8 @@ public class ImportLog {
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
+
+    return null;
   }
 
   /**
