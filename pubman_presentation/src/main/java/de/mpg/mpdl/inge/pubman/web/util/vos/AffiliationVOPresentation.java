@@ -338,8 +338,10 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
-        this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.reference.getObjectId());
-        
+        this.successors =
+            ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(
+                this.reference.getObjectId());
+
       } catch (final Exception e) {
         this.successors = new ArrayList<AffiliationVO>();
       }
