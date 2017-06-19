@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.transformation;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 
@@ -15,11 +15,13 @@ public class TransformerCache {
 
   // Map holding a List of target FORMATS
   // key: source format, value: Array of FORMAT objects containing all reachable target formats
-  private static Map<FORMAT, FORMAT[]> targetFormatsMap = new HashMap<FORMAT, FORMAT[]>();
+  private static Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> targetFormatsMap =
+      new HashMap<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]>();
 
   // Map holding a List of source FORMATS
   // key: target format, value: Array of FORMAT objects containing all source formats
-  private static Map<FORMAT, FORMAT[]> sourceFormatsMap = new HashMap<FORMAT, FORMAT[]>();
+  private static Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> sourceFormatsMap =
+      new HashMap<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]>();
 
   private TransformerCache() {}
 
@@ -27,8 +29,8 @@ public class TransformerCache {
     return TransformerCacheHolder.instance;
   }
 
-  public static Transformer getTransformer(FORMAT sourceFormat, FORMAT targetFormat)
-      throws TransformationException {
+  public static Transformer getTransformer(TransformerFactory.FORMAT sourceFormat,
+      TransformerFactory.FORMAT targetFormat) throws TransformationException {
 
     synchronized (transformerMap) {
       Transformer t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat));
@@ -44,10 +46,11 @@ public class TransformerCache {
     }
   }
 
-  public static FORMAT[] getAllTargetFormatsFor(FORMAT sourceFormat) {
+  public static TransformerFactory.FORMAT[] getAllTargetFormatsFor(
+      TransformerFactory.FORMAT sourceFormat) {
 
     synchronized (targetFormatsMap) {
-      FORMAT[] targetFormats = targetFormatsMap.get(sourceFormat);
+      TransformerFactory.FORMAT[] targetFormats = targetFormatsMap.get(sourceFormat);
 
       if (targetFormats == null) {
         targetFormats = TransformerFactory.getAllTargetFormatsFor(sourceFormat);
@@ -62,10 +65,11 @@ public class TransformerCache {
     }
   }
 
-  public static FORMAT[] getAllSourceFormatsFor(FORMAT targetFormat) {
+  public static TransformerFactory.FORMAT[] getAllSourceFormatsFor(
+      TransformerFactory.FORMAT targetFormat) {
 
     synchronized (sourceFormatsMap) {
-      FORMAT[] sourceFormats = sourceFormatsMap.get(targetFormat);
+      TransformerFactory.FORMAT[] sourceFormats = sourceFormatsMap.get(targetFormat);
 
       if (sourceFormats == null) {
         sourceFormats = TransformerFactory.getAllSourceFormatsFor(targetFormat);

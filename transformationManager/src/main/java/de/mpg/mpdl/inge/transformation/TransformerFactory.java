@@ -20,7 +20,6 @@ public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
 
   public enum FORMAT {
-
     ARXIV_OAIPMH_XML, //
     BIBTEX_STRING, //
     BMC_XML, BMC_OAIPMH_XML, BMC_FULLTEXT_XML, BMC_FULLTEXT_HTML, //

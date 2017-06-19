@@ -54,8 +54,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 /**
  * Session bean to hold data needed for an import of multiple items.
@@ -75,8 +74,8 @@ public class MultipleImport extends FacesBean {
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
 
   private ContextVO context;
+  private TransformerFactory.FORMAT format;
   private File uploadedFile;
-  private FORMAT format;
   private List<SelectItem> configParameters = null;
   private List<SelectItem> importFormats = new ArrayList<SelectItem>();
   private Map<String, List<SelectItem>> parametersValues;
@@ -87,27 +86,28 @@ public class MultipleImport extends FacesBean {
   private int duplicateStrategy = 3;
 
   public MultipleImport() {
-    this.importFormats.add(new SelectItem(FORMAT.ENDNOTE_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
-    this.importFormats.add(new SelectItem(FORMAT.BIBTEX_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
-    this.importFormats.add(new SelectItem(FORMAT.RIS_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_RIS")));
-    this.importFormats.add(new SelectItem(FORMAT.WOS_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_WOS")));
-    this.importFormats.add(new SelectItem(FORMAT.MAB_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_MAB")));
-    this.importFormats
-        .add(new SelectItem(FORMAT.EDOC_XML, this.getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    this.importFormats.add(new SelectItem(FORMAT.ESCIDOC_ITEMLIST_V3_XML, this
-        .getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
-    this.importFormats.add(new SelectItem(FORMAT.ZFN_TEI_XML, this
-        .getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-    this.importFormats.add(new SelectItem(FORMAT.MARC_21_STRING, this
-        .getLabel("ENUM_IMPORT_FORMAT_MARC21")));
-    this.importFormats.add(new SelectItem(FORMAT.MARC_XML, this
-        .getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
-    this.importFormats.add(new SelectItem(FORMAT.BMC_XML, this.getLabel("ENUM_IMPORT_FORMAT_BMC")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ENDNOTE_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BIBTEX_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.RIS_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_RIS")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.WOS_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_WOS")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MAB_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_MAB")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.EDOC_XML, //
+        this.getLabel("ENUM_IMPORT_FORMAT_EDOC")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, //
+        this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ZFN_TEI_XML, //
+        this.getLabel("ENUM_IMPORT_FORMAT_ZFN")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_21_STRING, //
+        this.getLabel("ENUM_IMPORT_FORMAT_MARC21")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_XML, //
+        this.getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BMC_XML, //
+        this.getLabel("ENUM_IMPORT_FORMAT_BMC")));
   }
 
   public String uploadFile() {
@@ -201,15 +201,16 @@ public class MultipleImport extends FacesBean {
   }
 
   public List<SelectItem> initConfigParameters() throws Exception {
-
     Transformer transformer = null;
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer = TransformerCache.getTransformer(this.format, FORMAT.ESCIDOC_ITEM_V3_XML);
-
+      transformer =
+          TransformerCache.getTransformer(this.format,
+              TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
       config = transformer.getConfiguration();
     }
+
     this.configParameters = new ArrayList<SelectItem>();
 
     if (config != null) {
@@ -236,6 +237,7 @@ public class MultipleImport extends FacesBean {
     if (this.configParameters == null) {
       this.initConfigParameters();
     }
+
     return this.configParameters;
   }
 
@@ -282,14 +284,14 @@ public class MultipleImport extends FacesBean {
   /**
    * @return the format
    */
-  public FORMAT getFormat() {
+  public TransformerFactory.FORMAT getFormat() {
     return this.format;
   }
 
   /**
    * @param format the format to set
    */
-  public void setFormat(FORMAT format) {
+  public void setFormat(TransformerFactory.FORMAT format) {
     if (!format.equals(this.format)) {
       this.setName("");
     }

@@ -111,7 +111,7 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -2217,12 +2217,12 @@ public class ViewItemFull extends FacesBean {
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire =
-          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
-              FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
+          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+              TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
 
       final String resDC =
-          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
-              FORMAT.HTML_METATAGS_DC_XML, itemXml);
+          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+              TransformerFactory.FORMAT.HTML_METATAGS_DC_XML, itemXml);
 
       final String result = resHighwire + resDC;
 

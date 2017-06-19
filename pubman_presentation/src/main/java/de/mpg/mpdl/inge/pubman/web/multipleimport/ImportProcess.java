@@ -66,7 +66,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class ImportProcess extends Thread {
@@ -79,7 +79,7 @@ public class ImportProcess extends Thread {
   private AccountUserVO user;
   private ContextRO escidocContext;
   private DuplicateStrategy duplicateStrategy;
-  private FORMAT format;
+  private TransformerFactory.FORMAT format;
   private File file;
   private FormatProcessor formatProcessor;
   private ImportLog log;
@@ -98,7 +98,7 @@ public class ImportProcess extends Thread {
 
   // private long lastBeat = 0;
 
-  public ImportProcess(String name, String fileName, File file, FORMAT format,
+  public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
       Map<String, String> configuration, String authenticationToken) {
     try {
@@ -149,9 +149,9 @@ public class ImportProcess extends Thread {
    * @param inputStream
    * @param format
    */
-  private void initialize(String name, String fileName, File file, FORMAT format,
-      ContextRO escidocContext, AccountUserVO user, boolean rollback,
-      DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
+  private void initialize(String name, String fileName, File file,
+      TransformerFactory.FORMAT format, ContextRO escidocContext, AccountUserVO user,
+      boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
     this.log.startItem("import_process_initialize");
 
     try {
@@ -183,7 +183,7 @@ public class ImportProcess extends Thread {
    * @param inputStream
    * @param format
    */
-  private boolean validateFormat(File file, FORMAT format) {
+  private boolean validateFormat(File file, TransformerFactory.FORMAT format) {
     this.log.startItem("import_process_validate");
 
     if (file == null) {
@@ -202,10 +202,11 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    final FORMAT[] allSourceFormats =
-        this.itemTransformingService.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+    final TransformerFactory.FORMAT[] allSourceFormats =
+        this.itemTransformingService
+            .getAllSourceFormatsFor(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML);
     boolean found = false;
-    for (final FORMAT sourceFormat : allSourceFormats) {
+    for (final TransformerFactory.FORMAT sourceFormat : allSourceFormats) {
       if (format.equals(sourceFormat)) {
         found = true;
         if (this.setProcessor(format)) {
@@ -229,7 +230,7 @@ public class ImportProcess extends Thread {
     return true;
   }
 
-  private boolean setProcessor(FORMAT format) {
+  private boolean setProcessor(TransformerFactory.FORMAT format) {
     try {
       if (format == null) {
         return false;
@@ -381,7 +382,7 @@ public class ImportProcess extends Thread {
             this.log.activateItem(item);
 
             // Fetch files for zfn import
-            if (this.format.equals(FORMAT.ZFN_TEI_XML)) {
+            if (this.format.equals(TransformerFactory.FORMAT.ZFN_TEI_XML)) {
               try {
                 // Set file
                 final FileVO file =
@@ -421,6 +422,7 @@ public class ImportProcess extends Thread {
         this.log.startItem("import_process_finished");
         this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
         this.log.finishItem();
+        this.log.close();
 
         // try {
         // this.log.startItem("import_process_archive_log");
@@ -570,8 +572,8 @@ public class ImportProcess extends Thread {
 
     try {
       escidocXml =
-          this.itemTransformingService.transformFromTo(this.format, FORMAT.ESCIDOC_ITEM_V3_XML,
-              singleItem);
+          this.itemTransformingService.transformFromTo(this.format,
+              TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, singleItem);
 
       this.log.addDetail(ErrorLevel.FINE, escidocXml);
       this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");

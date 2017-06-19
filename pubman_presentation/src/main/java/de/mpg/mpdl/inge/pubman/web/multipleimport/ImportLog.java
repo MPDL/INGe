@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -125,7 +125,7 @@ public class ImportLog {
   private Status status;
   private String action;
   private String context;
-  private FORMAT format;
+  private TransformerFactory.FORMAT format;
   private String message;
   private String user;
   private String userHandle;
@@ -148,7 +148,8 @@ public class ImportLog {
    * @param user The eSciDoc user id of the user that invoces this action.
    * @param format A string holding the format of the import, e.g. "bibtex".
    */
-  public ImportLog(String action, String user, FORMAT format, String authenticationToken) {
+  public ImportLog(String action, String user, TransformerFactory.FORMAT format,
+      String authenticationToken) {
     this.startDate = new Date();
     this.status = Status.PENDING;
     this.errorLevel = ErrorLevel.FINE;
@@ -509,14 +510,14 @@ public class ImportLog {
   /**
    * @return the format
    */
-  public FORMAT getFormat() {
+  public TransformerFactory.FORMAT getFormat() {
     return this.format;
   }
 
   /**
    * @param format the format to set
    */
-  public void setFormat(FORMAT format) {
+  public void setFormat(TransformerFactory.FORMAT format) {
     this.format = format;
   }
 
@@ -950,19 +951,6 @@ public class ImportLog {
   /**
    * Get a single import by its stored id.
    * 
-   * Defaults: - items are loaded - item details are loaded
-   * 
-   * @param id The id
-   * 
-   * @return The import
-   */
-  /*
-   * public static ImportLog getImportLog(int id) { return getImportLog(id, true); }
-   */
-
-  /**
-   * Get a single import by its stored id.
-   * 
    * Defaults: - items are loaded
    * 
    * @param id The id
@@ -1112,7 +1100,7 @@ public class ImportLog {
     result.setAction(resultSet.getString("action"));
     result.setEndDate(resultSet.getTimestamp("enddate"));
     result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-    result.setFormat(FORMAT.valueOf(resultSet.getString("format")));
+    result.setFormat(TransformerFactory.FORMAT.valueOf(resultSet.getString("format")));
     result.setStartDate(resultSet.getTimestamp("startdate"));
     result.setStatus(Status.valueOf(resultSet.getString("status")));
     result.setStoredId(resultSet.getInt("id"));

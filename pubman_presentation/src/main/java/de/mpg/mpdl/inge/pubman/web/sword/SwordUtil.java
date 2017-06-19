@@ -89,7 +89,7 @@ import de.mpg.mpdl.inge.service.exceptions.AaException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -382,8 +382,8 @@ public class SwordUtil extends FacesBean {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
         final String fileXml =
-            itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML,
-                FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
+            itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
+                TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
 
         try {
           final FileVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
@@ -429,32 +429,33 @@ public class SwordUtil extends FacesBean {
 
     try {
       // Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
-      FORMAT trgFormat = null;
+      TransformerFactory.FORMAT trgFormat = null;
       Boolean transform = false;
 
       // Transform from tei to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatPeerTEI)) {
         // trgFormat = new Format("peer_tei", "application/xml", "UTF-8");
-        trgFormat = FORMAT.PEER_TEI_XML;
+        trgFormat = TransformerFactory.FORMAT.PEER_TEI_XML;
         transform = true;
       }
 
       // Transform from bibtex to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatBibTex)) {
-        trgFormat = FORMAT.BIBTEX_STRING;
+        trgFormat = TransformerFactory.FORMAT.BIBTEX_STRING;
         transform = true;
       }
 
       // Transform from endnote to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatEndnote)) {
-        trgFormat = FORMAT.ENDNOTE_STRING;
+        trgFormat = TransformerFactory.FORMAT.ENDNOTE_STRING;
         transform = true;
       }
 
       if (transform) {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
         transformedItem =
-            itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML, trgFormat, item);
+            itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
+                trgFormat, item);
       }
 
       // Create item
