@@ -86,10 +86,10 @@ public class ImportSurveyor extends Thread {
       // Searches for Import-Items which are in status "pending" OR "rollback" AND which have NOT
       // been changed in the last 60 Minutes
       final String query =
-          "select id from import_log where " + "(status = 'PENDING' or status = 'ROLLBACK') "
-              + "and id not in (select parent from import_log_item where "
-              + "datediff('minute', startdate, now()) <= 60)"; // datediff is defined as function in
-                                                               // PostgreSQL for Migration
+          "select id from import_log where (status = 'PENDING' or status = 'ROLLBACK') "
+              + "and id not in (select parent from import_log_item "
+              + "               where localtimestamp - interval '60 minutes' < startdate)";
+
       ResultSet resultSet = null;
       PreparedStatement statement = null;
       try {

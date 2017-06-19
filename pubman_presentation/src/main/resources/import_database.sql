@@ -63,38 +63,13 @@ TABLESPACE pg_default;
 ALTER TABLE public.import_log
     OWNER to postgres;
 
--- Table: public.import_log_detail
-
--- DROP TABLE public.import_log_detail;
-
-CREATE TABLE public.import_log_detail
-(
-    id integer NOT NULL DEFAULT nextval('import_log_detail_id_seq'::regclass),
-    status character varying COLLATE pg_catalog."default" NOT NULL,
-    errorlevel character varying COLLATE pg_catalog."default" NOT NULL,
-    startdate timestamp without time zone NOT NULL,
-    enddate timestamp without time zone,
-    parent integer NOT NULL,
-    message character varying COLLATE pg_catalog."default",
-    item_id character varying COLLATE pg_catalog."default",
-    action character varying COLLATE pg_catalog."default",
-    CONSTRAINT import_log_detail_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.import_log_detail
-    OWNER to postgres;
-
 -- Table: public.import_log_item
 
 -- DROP TABLE public.import_log_item;
 
 CREATE TABLE public.import_log_item
 (
-    id integer NOT NULL DEFAULT nextval('import_log_item_id_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('import_log_id_seq'::regclass),
     status character varying COLLATE pg_catalog."default" NOT NULL,
     errorlevel character varying COLLATE pg_catalog."default" NOT NULL,
     startdate timestamp without time zone NOT NULL,
@@ -111,4 +86,29 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.import_log_item
+    OWNER to postgres;
+    
+-- Table: public.import_log_item_detail
+
+-- DROP TABLE public.import_log_item_detail;
+
+CREATE TABLE public.import_log_item_detail
+(
+    id integer NOT NULL DEFAULT nextval('import_log_id_seq'::regclass),
+    status character varying COLLATE pg_catalog."default" NOT NULL,
+    errorlevel character varying COLLATE pg_catalog."default" NOT NULL,
+    startdate timestamp without time zone NOT NULL,
+    enddate timestamp without time zone,
+    parent integer NOT NULL,
+    message character varying COLLATE pg_catalog."default",
+    item_id character varying COLLATE pg_catalog."default",
+    action character varying COLLATE pg_catalog."default",
+    CONSTRAINT import_log_item_detail_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.import_log_item_detail
     OWNER to postgres;

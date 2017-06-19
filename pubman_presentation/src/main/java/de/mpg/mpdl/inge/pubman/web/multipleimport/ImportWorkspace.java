@@ -50,15 +50,14 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 public class ImportWorkspace extends BreadcrumbPage {
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
-  private List<ImportLog> imports = null;
+
+  // private List<ImportLog> imports = null;
 
   public ImportWorkspace() {}
 
   @Override
   public void init() {
     super.init();
-
-    final AccountUserVO user = this.getLoginHelper().getAccountUser();
 
     ImportLog.SortColumn currentColumn = null;
     ImportLog.SortDirection currentDirection = null;
@@ -94,26 +93,28 @@ public class ImportWorkspace extends BreadcrumbPage {
       this.sortColumn = newColumn;
       this.sortDirection = SortDirection.ASCENDING;
     }
-
-    if (user != null) {
-      this.imports =
-          ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true, false);
-    }
   }
 
   /**
    * @return the imports
    */
   public List<ImportLog> getImports() {
-    return this.imports;
+    final AccountUserVO user = this.getLoginHelper().getAccountUser();
+
+    if (user != null) {
+      return ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true,
+          false);
+    }
+
+    return null;
   }
 
-  /**
-   * @param imports the imports to set
-   */
-  public void setImports(List<ImportLog> imports) {
-    this.imports = imports;
-  }
+  // /**
+  // * @param imports the imports to set
+  // */
+  // public void setImports(List<ImportLog> imports) {
+  // this.imports = imports;
+  // }
 
   /**
    * @return the sortColumn

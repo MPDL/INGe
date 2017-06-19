@@ -91,12 +91,15 @@
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
 
-<!-- 	<servlet>
+<!--  TODO wieder einkommentieren -->
+<!-- 
+ 	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.InitializerServlet</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
  -->
+ 
 	<servlet>
 		<servlet-name>Redirect Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet</servlet-class>
@@ -145,11 +148,6 @@
 		<servlet-name>deposit</servlet-name>
 		<url-pattern>/sword-app/deposit</url-pattern>
 	</servlet-mapping>
-	<!-- 
-	<listener>
-    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	-->
 	<!-- End SWORD -->
 </web-app>
 
