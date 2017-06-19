@@ -35,8 +35,6 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -44,14 +42,12 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
@@ -265,86 +261,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
     return this.getSortOrder().compareTo(other.getSortOrder());
   }
 
-  private List<AffiliationVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) { /*
-                                                                                          * List<
-                                                                                          * AffiliationVO
-                                                                                          * >
-                                                                                          * transformedAffs
-                                                                                          * = new
-                                                                                          * ArrayList
-                                                                                          * <
-                                                                                          * AffiliationVO
-                                                                                          * >();
-                                                                                          * InitialContext
-                                                                                          * initialContext
-                                                                                          * = null;
-                                                                                          * XmlTransforming
-                                                                                          * xmlTransforming
-                                                                                          * = null;
-                                                                                          * if(
-                                                                                          * affiliations
-                                                                                          * .size()
-                                                                                          * == 0 ) {
-                                                                                          * return
-                                                                                          * transformedAffs
-                                                                                          * ; } try
-                                                                                          * {
-                                                                                          * initialContext
-                                                                                          * = new
-                                                                                          * InitialContext
-                                                                                          * ();
-                                                                                          * xmlTransforming
-                                                                                          * = (
-                                                                                          * XmlTransforming
-                                                                                          * )
-                                                                                          * initialContext
-                                                                                          * .lookup(
-                                                                                          * XmlTransforming
-                                                                                          * .
-                                                                                          * SERVICE_NAME
-                                                                                          * ); for(
-                                                                                          * AffiliationRO
-                                                                                          * affiliation
-                                                                                          * :
-                                                                                          * affiliations
-                                                                                          * ) {
-                                                                                          * OrganizationalUnitHandler
-                                                                                          * ouHandler
-                                                                                          * =
-                                                                                          * ServiceLocator
-                                                                                          * .
-                                                                                          * getOrganizationalUnitHandler
-                                                                                          * ();
-                                                                                          * String
-                                                                                          * ouXml =
-                                                                                          * ouHandler
-                                                                                          * .
-                                                                                          * retrieve
-                                                                                          * (
-                                                                                          * affiliation
-                                                                                          * .
-                                                                                          * getObjectId
-                                                                                          * ());
-                                                                                          * AffiliationVO
-                                                                                          * affVO =
-                                                                                          * xmlTransforming
-                                                                                          * .
-                                                                                          * transformToAffiliation
-                                                                                          * (ouXml);
-                                                                                          * transformedAffs
-                                                                                          * .
-                                                                                          * add(affVO
-                                                                                          * ); }
-                                                                                          * return
-                                                                                          * transformedAffs
-                                                                                          * ; }
-                                                                                          * catch
-                                                                                          * (Exception
-                                                                                          * e) {
-                                                                                          * return
-                                                                                          * transformedAffs
-                                                                                          * ; }
-                                                                                          */
+  private List<AffiliationVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) {
     return this.retrieveAllOrganizationalUnits(affiliations);
   }
 
@@ -421,19 +338,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
-        final String userHandle = AdminHelper.getAdminUserHandle();
-        final OrganizationalUnitHandler ouHandler =
-            ServiceLocator.getOrganizationalUnitHandler(userHandle);
-        final String ouXml = ouHandler.retrieveSuccessors(this.reference.getObjectId());
-        final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
-        logger.debug(ouXml);
-        final List<AffiliationRO> affROs =
-            XmlTransformingService.transformToSuccessorAffiliationList(ouXml);
-        this.successors = new ArrayList<AffiliationVO>();
-        if (affROs != null && affROs.size() > 0) {
-          final List<AffiliationVO> affVOs = this.getAffiliationVOfromRO(affROs);
-          this.successors = affVOs;
-        }
+        this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.reference.getObjectId());
+        
       } catch (final Exception e) {
         this.successors = new ArrayList<AffiliationVO>();
       }
