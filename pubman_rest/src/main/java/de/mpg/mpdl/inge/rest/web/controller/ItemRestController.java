@@ -119,7 +119,8 @@ public class ItemRestController {
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AaException, IngeServiceException, ItemInvalidException {
     PubItemVO released = null;
-    released = pis.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+    released =
+        pis.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
     return new ResponseEntity<PubItemVO>(released, HttpStatus.OK);
   }
 
@@ -128,7 +129,8 @@ public class ItemRestController {
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AaException, IngeServiceException, ItemInvalidException {
     PubItemVO revised = null;
-    revised = pis.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+    revised =
+        pis.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
     return new ResponseEntity<PubItemVO>(revised, HttpStatus.OK);
   }
 
@@ -137,7 +139,8 @@ public class ItemRestController {
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AaException, IngeServiceException, ItemInvalidException {
     PubItemVO submitted = null;
-    submitted = pis.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+    submitted =
+        pis.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
     return new ResponseEntity<PubItemVO>(submitted, HttpStatus.OK);
   }
 
@@ -146,7 +149,8 @@ public class ItemRestController {
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AaException, IngeServiceException, ItemInvalidException {
     PubItemVO withdrawn = null;
-    withdrawn = pis.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+    withdrawn =
+        pis.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
     return new ResponseEntity<PubItemVO>(withdrawn, HttpStatus.OK);
   }
 
@@ -161,7 +165,8 @@ public class ItemRestController {
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params) throws AaException, IngeServiceException {
+      value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params) throws AaException,
+      IngeServiceException {
     pis.delete(itemId, params.getLastModificationDate(), token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }

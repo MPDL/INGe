@@ -175,7 +175,7 @@
 					"role" : "SYSADMIN"
 				},
 				"ou.hasChildren" : "false",
-				"context.state" : "CREATED"
+				"ou.publicStatus" : "CREATED"
 				
 			}
 		],
@@ -189,7 +189,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"context.state" : "CREATED"
+				"ou.publicStatus" : "CREATED"
 			}
 		],
 		"close" : [
@@ -197,7 +197,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"context.state" : "OPENED"
+				"ou.publicStatus" : "OPENED"
 			}
 		]
 	},
