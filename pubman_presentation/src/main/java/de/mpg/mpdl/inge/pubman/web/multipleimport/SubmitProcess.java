@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -106,18 +107,17 @@ public class SubmitProcess extends Thread {
           // }
 
           final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
+          ItemVO itemVO = pubItemService.get(item.getItemId(), this.authenticationToken);
           if (this.alsoRelease) {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
-            // TODO: andere Methode ohne modificationDate verwenden
-            pubItemService.releasePubItem(item.getItemId(), null,
+            pubItemService.releasePubItem(item.getItemId(), itemVO.getModificationDate(),
                 "Batch submit/release from import " + this.log.getMessage(),
                 this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
           } else {
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-            // TODO: andere Methode ohne modificationDate verwenden
-            pubItemService.submitPubItem(item.getItemId(), null, "Batch submit from import "
-                + this.log.getMessage(), this.authenticationToken);
+            pubItemService.submitPubItem(item.getItemId(), itemVO.getModificationDate(),
+                "Batch submit from import " + this.log.getMessage(), this.authenticationToken);
             this.log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
           }
 
