@@ -1272,6 +1272,9 @@
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
                 <jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
+                <jboss.username>jboss</jboss.username>
+                <jboss.host>vm44.mpdl.mpg.de</jboss.host>
+                <jboss.tmp.deploy>/tmp/ear</jboss.tmp.deploy>
                 <!-- syndication service -->
                 <escidoc.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
                 <!-- AA -->
