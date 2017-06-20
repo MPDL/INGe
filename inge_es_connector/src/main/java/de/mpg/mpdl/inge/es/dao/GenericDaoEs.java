@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.es.dao;
 
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
@@ -24,9 +24,9 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * @param vo
    * @return {@link String}
    */
-  public String create(String id, E entity) throws IngeServiceException;
+  public String create(String id, E entity) throws IngeTechnicalException;
 
-  public String createNotImmediately(String id, E entity) throws IngeServiceException;
+  public String createNotImmediately(String id, E entity) throws IngeTechnicalException;
 
   /**
    * retrieves the object from elasticsearch for a given id
@@ -36,7 +36,7 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * @param id
    * @return {@link ValueObject}
    */
-  public E get(String id) throws IngeServiceException;
+  public E get(String id) throws IngeTechnicalException;
 
   /**
    * updates the object with the given id and the new entity in elasticsearch
@@ -47,7 +47,7 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * @param vo
    * @return {@link String}
    */
-  public String update(String id, E entity) throws IngeServiceException;
+  public String update(String id, E entity) throws IngeTechnicalException;
 
 
   /**
@@ -66,9 +66,9 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * 
    * @param searchQuery
    * @return
-   * @throws IngeServiceException
+   * @throws IngeTechnicalException
    */
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<Query> searchQuery)
-      throws IngeServiceException;
+      throws IngeTechnicalException;
 
 }

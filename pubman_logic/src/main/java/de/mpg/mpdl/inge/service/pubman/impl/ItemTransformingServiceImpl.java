@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -42,7 +42,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   @Override
   public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList)
-      throws IngeServiceException {
+      throws IngeTechnicalException {
 
     byte[] exportData = null;
 
@@ -53,7 +53,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         try {
           exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
         } catch (CitationStyleManagerException e) {
-          throw new IngeServiceException(e);
+          throw new IngeTechnicalException(e);
         }
         break;
 
@@ -80,12 +80,12 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
           logger.warn("Exception occured when transforming from <"
               + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
               + map.get(exportFormat));
-          throw new IngeServiceException(e);
+          throw new IngeTechnicalException(e);
         }
         break;
 
       default:
-        throw new IngeServiceException("format Type <" + exportFormat.getFormatType()
+        throw new IngeTechnicalException("format Type <" + exportFormat.getFormatType()
             + "> is not supported");
     }
 

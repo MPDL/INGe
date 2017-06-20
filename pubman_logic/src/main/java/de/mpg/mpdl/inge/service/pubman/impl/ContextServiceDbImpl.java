@@ -26,12 +26,14 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
@@ -91,7 +93,8 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   @Transactional
   public ContextVO open(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.OPENED);
   }
 
@@ -99,22 +102,24 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   @Transactional
   public ContextVO close(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.CLOSED);
   }
 
   private ContextVO changeState(String id, Date modificationDate, String authenticationToken,
-      ContextDbVO.State state) throws IngeServiceException, AaException {
+      ContextDbVO.State state) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
     if (contextDbToBeUpdated == null) {
-      throw new IngeServiceException("Context with given id " + id + " not found.");
+      throw new IngeTechnicalException("Context with given id " + id + " not found.");
     }
 
     ContextVO contextVoToBeUpdated = transformToOld(contextDbToBeUpdated);
 
     if (!checkEqualModificationDate(modificationDate, getModificationDate(contextVoToBeUpdated))) {
-      throw new IngeServiceException("Object changed in meantime");
+      throw new IngeTechnicalException("Object changed in meantime");
     }
 
     checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount,
@@ -142,7 +147,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   protected List<String> updateObjectWithValues(ContextVO givenContext,
       ContextDbVO toBeUpdatedContext, AccountUserVO userAccount, boolean createNew)
-      throws IngeServiceException {
+      throws IngeTechnicalException {
 
     toBeUpdatedContext.setAdminDescriptor(givenContext.getAdminDescriptor());
 
@@ -150,7 +155,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
     toBeUpdatedContext.setName(givenContext.getName());
 
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
-      throw new IngeServiceException("A name is required");
+      throw new IngeTechnicalException("A name is required");
     }
 
     if (givenContext.getResponsibleAffiliations() != null) {

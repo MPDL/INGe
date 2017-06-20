@@ -39,7 +39,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -85,7 +85,9 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -270,13 +272,17 @@ public class ItemControllerSessionBean extends FacesBean {
           this.getLoginHelper().getAuthenticationToken());
       this.setCurrentPubItem(null);
       return navigationRuleWhenSuccessfull;
-    } catch (final AaException e) {
-      ItemControllerSessionBean.logger.error("Authentication error while deleting current PubItem",
-          e);
-      FacesBean.error("Authentication error while deleting current PubItem");
-    } catch (final IngeServiceException e) {
+    } catch (final AuthenticationException | AuthorizationException e) {
+      ItemControllerSessionBean.logger.error(
+          "Authentication/Authorization error while deleting current PubItem", e);
+      FacesBean.error("Authentication/Authorization error while deleting current PubItem: "
+          + e.getMessage());
+    } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while deleting current PubItem", e);
       FacesBean.error("Technical error while deleting current PubItem");
+    } catch (final IngeApplicationException e) {
+      ItemControllerSessionBean.logger.error("Application error while deleting current PubItem", e);
+      FacesBean.error("Application error while deleting current PubItem: " + e.getMessage());
     }
 
     return "";
@@ -782,16 +788,23 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
       return navigationRuleWhenSuccessfull;
-    } catch (final AaException e) {
+    } catch (final AuthenticationException | AuthorizationException e) {
       // TODO Auto-generated catch block
       ItemControllerSessionBean.logger
           .error("Authentication error while saving current PubItem", e);
-      FacesBean.error("Authentication error while saving current PubItem");
-    } catch (final IngeServiceException e) {
+      FacesBean.error("Authentication error while saving current PubItem: " + e.getMessage());
+    } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
       FacesBean.error("Technical error while saving current PubItem");
-    }
+    } catch (final IngeApplicationException e) {
+      if (e.getCause() instanceof ValidationException) {
+        throw (ValidationException) e.getCause();
+      } else {
+        ItemControllerSessionBean.logger.error("Application Error while saving current PubItem", e);
+        FacesBean.error("Application error while saving current PubItem: " + e.getMessage());
+      }
 
+    }
     return "";
   }
 

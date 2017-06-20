@@ -68,7 +68,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -85,7 +85,8 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
@@ -489,7 +490,7 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws PubItemStatusInvalidException
    * @throws IngeEsServiceException
-   * @throws AaException
+   * @throws AuthenticationException
    * @throws ValidationException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
@@ -500,14 +501,15 @@ public class SwordUtil extends FacesBean {
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(PubItemVO item) throws AaException, IngeServiceException,
-      ValidationException {
+  public PubItemVO doDeposit(PubItemVO item) throws AuthenticationException,
+      IngeTechnicalException, de.mpg.mpdl.inge.service.exceptions.AuthorizationException,
+      IngeApplicationException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);
 
     if (method == null) {
-      throw new IngeServiceException(null, null);
+      throw new IngeTechnicalException(null, null);
     }
 
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();

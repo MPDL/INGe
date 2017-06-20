@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,7 +32,7 @@ public class ItemServiceHandlerTest extends TestBase {
     try {
       String contextId = this.itemDao.create(test_item_id, test_item());
       assert contextId.equals(test_item_id);
-    } catch (IngeServiceException e) {
+    } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
     }
@@ -43,7 +43,7 @@ public class ItemServiceHandlerTest extends TestBase {
     try {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
-    } catch (IngeServiceException e) {
+    } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
     }
@@ -79,7 +79,7 @@ public class ItemServiceHandlerTest extends TestBase {
       this.itemDao.update(test_item_id, pubItemVO);
       PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
-    } catch (IngeServiceException e) {
+    } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
     }

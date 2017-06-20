@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -15,7 +15,7 @@ public interface ItemTransformingService {
       throws TechnicalException;
 
   public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList)
-      throws IngeServiceException;
+      throws IngeTechnicalException;
 
   public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
 

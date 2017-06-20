@@ -8,21 +8,21 @@ package de.mpg.mpdl.inge.model.exception;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class IngeServiceException extends Exception {
+public class IngeTechnicalException extends Exception {
 
   private static final long serialVersionUID = -2755845075749766737L;
 
-  public IngeServiceException() {}
+  public IngeTechnicalException() {}
 
-  public IngeServiceException(final String message, final Throwable cause) {
+  public IngeTechnicalException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
-  public IngeServiceException(final String message) {
+  public IngeTechnicalException(final String message) {
     super(message);
   }
 
-  public IngeServiceException(final Throwable cause) {
+  public IngeTechnicalException(final Throwable cause) {
     super(cause);
   }
 

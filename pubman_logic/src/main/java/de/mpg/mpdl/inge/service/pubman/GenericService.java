@@ -5,27 +5,31 @@ import java.util.Date;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface GenericService<E extends ValueObject> {
 
-  public E create(E object, String authenticationToken) throws IngeServiceException, AaException,
-      ValidationException;
+  public E create(E object, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public E update(E object, String authenticationToken) throws IngeServiceException, AaException,
-      ValidationException;
+  public E update(E object, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public void delete(String id, String authenticationToken) throws IngeServiceException,
-      AaException;
+  public void delete(String id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public E get(String id, String authenticationToken) throws IngeServiceException, AaException;
+  public E get(String id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
 
   // public void reindex() throws IngeServiceException, AaException;
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeServiceException, AaException;
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException;
 }
