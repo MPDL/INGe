@@ -57,7 +57,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       throw new IngeServiceException("Object with given id not found.");
     } else if (!checkEqualModificationDate(getModificationDate(object),
         getModificationDate(transformToOld(objectToBeUpdated)))) {
-      throw new IngeServiceException("Object changed in meantime");
+      throw new IngeServiceException("Object changed in meantime (wrong modification date)");
     }
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
@@ -78,15 +78,12 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   @Transactional
   @Override
-  public void delete(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
     if (objectToBeDeleted == null) {
       throw new IngeServiceException("Object with given id not found.");
-    } else if (!checkEqualModificationDate(modificationDate,
-        getModificationDate(transformToOld(objectToBeDeleted)))) {
-      throw new IngeServiceException("Object changed in meantime");
     }
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
@@ -176,9 +173,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
   protected boolean checkEqualModificationDate(Date date1, Date date2) {
-    if (date1.equals(date2))
+    if (date1 != null && date2 != null && date1.equals(date2)) {
       return true;
-    else
+    } else
       return false;
   }
 

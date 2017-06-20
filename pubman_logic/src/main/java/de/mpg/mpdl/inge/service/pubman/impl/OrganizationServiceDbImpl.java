@@ -98,19 +98,15 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
   @Override
   @Transactional
-  public void delete(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
 
     AffiliationDbVO ouDbTobeDeleted = organizationRepository.findOne(id);
-    super.delete(id, modificationDate, authenticationToken);
+    super.delete(id, authenticationToken);
 
     if (ouDbTobeDeleted.getParentAffiliation() != null) {
       AffiliationVO ouVoTobeDeleted = EntityTransformer.transformToOld(ouDbTobeDeleted);
 
-      if (!checkEqualModificationDate(modificationDate, getModificationDate(ouVoTobeDeleted))) {
-        throw new IngeServiceException("Object changed in meantime");
-
-      }
       AffiliationDbVO parentVO =
           organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
       organizationDao.create(parentVO.getObjectId(), EntityTransformer.transformToOld(parentVO));

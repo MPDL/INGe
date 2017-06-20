@@ -142,10 +142,8 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = OU_ID_VAR) String ouId, @RequestBody String modificationDate) throws AaException,
-      IngeServiceException {
-    Date lmd = utils.string2Date(modificationDate);
-    organizationSvc.delete(ouId, lmd, token);
+      value = OU_ID_VAR) String ouId) throws AaException, IngeServiceException {
+    organizationSvc.delete(ouId, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

@@ -265,10 +265,9 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String deleteCurrentPubItem(String navigationRuleWhenSuccessfull) {
     try {
-      ApplicationBean.INSTANCE.getPubItemService()
-          .delete(this.currentPubItem.getVersion().getObjectId(),
-              this.currentPubItem.getModificationDate(),
-              this.getLoginHelper().getAuthenticationToken());
+      ApplicationBean.INSTANCE.getPubItemService().delete(
+          this.currentPubItem.getVersion().getObjectId(),
+          this.getLoginHelper().getAuthenticationToken());
       this.setCurrentPubItem(null);
       return navigationRuleWhenSuccessfull;
     } catch (final AaException e) {

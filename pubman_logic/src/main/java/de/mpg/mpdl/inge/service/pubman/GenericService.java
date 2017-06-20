@@ -19,8 +19,8 @@ public interface GenericService<E extends ValueObject> {
   public E update(E object, String authenticationToken) throws IngeServiceException, AaException,
       ItemInvalidException;
 
-  public void delete(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException;
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException;
 
   public E get(String id, String authenticationToken) throws IngeServiceException, AaException;
 

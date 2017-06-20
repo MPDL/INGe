@@ -127,10 +127,8 @@ public class ContextRestController {
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate) throws AaException,
-      IngeServiceException, ParseException {
-    Date lmd = utils.string2Date(modificatioDate);
-    ctxSvc.delete(ctxId, lmd, token);
+      value = CTX_ID_VAR) String ctxId) throws AaException, IngeServiceException, ParseException {
+    ctxSvc.delete(ctxId, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

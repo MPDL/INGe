@@ -281,8 +281,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Override
   @Transactional
-  public void delete(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeServiceException,
+      AaException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -293,10 +293,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemDbVersion);
 
-    if (!checkEqualModificationDate(modificationDate, latestPubItem.getVersion()
-        .getModificationDate())) {
-      throw new IngeServiceException("Object changed in meantime");
-    }
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestPubItem.getContext()
             .getObjectId()));

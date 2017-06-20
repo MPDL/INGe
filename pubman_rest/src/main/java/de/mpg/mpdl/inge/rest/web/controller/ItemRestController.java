@@ -167,7 +167,7 @@ public class ItemRestController {
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params) throws AaException,
       IngeServiceException {
-    pis.delete(itemId, params.getLastModificationDate(), token);
+    pis.delete(itemId, token);
     return new ResponseEntity<>(HttpStatus.GONE);
   }
 
