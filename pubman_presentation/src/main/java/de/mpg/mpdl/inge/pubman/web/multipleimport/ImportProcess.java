@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -609,13 +609,13 @@ public class ImportProcess extends Thread {
           } else {
             this.log.suspendItem();
           }
-        } catch (final ItemInvalidException e2) { // Standard Validation
+        } catch (final ValidationException e2) { // Standard Validation
           this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
           for (final ValidationReportItemVO item : e2.getReport().getItems()) {
             this.log.addDetail(ErrorLevel.WARNING, item.getContent());
           }
         }
-      } catch (final ItemInvalidException e) { // Simple Validation
+      } catch (final ValidationException e) { // Simple Validation
         this.log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
           this.log.addDetail(ErrorLevel.PROBLEM, item.getContent());

@@ -38,7 +38,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -763,10 +763,9 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
    * @return string, identifying the page that should be navigated to after this methodcall
-   * @throws ItemInvalidException
+   * @throws ValidationException
    */
-  public String saveCurrentPubItem(String navigationRuleWhenSuccessfull)
-      throws ItemInvalidException {
+  public String saveCurrentPubItem(String navigationRuleWhenSuccessfull) throws ValidationException {
     try {
       PubItemVO updatedPubItem = null;
 

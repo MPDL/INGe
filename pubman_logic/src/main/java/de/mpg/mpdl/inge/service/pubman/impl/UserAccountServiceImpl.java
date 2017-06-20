@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -113,7 +113,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Transactional
   @Override
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ValidationException {
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
     userLoginRepository.insertLogin(accountUser.getUserid(),

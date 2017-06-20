@@ -1,19 +1,17 @@
 package de.mpg.mpdl.inge.inge_validation.exception;
 
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+
 @SuppressWarnings("serial")
 public class ValidationException extends Exception {
 
-  public ValidationException() {}
+  private final ValidationReportVO report;
 
-  public ValidationException(String message) {
-    super(message);
+  public ValidationException(ValidationReportVO report) {
+    this.report = report;
   }
 
-  public ValidationException(Throwable cause) {
-    super(cause);
-  }
-
-  public ValidationException(String message, Throwable cause) {
-    super(message, cause);
+  public ValidationReportVO getReport() {
+    return this.report;
   }
 }

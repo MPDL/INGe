@@ -46,8 +46,8 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -733,10 +733,10 @@ public class ViewItemFull extends FacesBean {
       PubItemVO itemVO = new PubItemVO(this.getPubItem());
       PubItemUtil.cleanUpItem(itemVO);
       ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());
       return false;
-    } catch (final ValidationException e) {
+    } catch (final ValidationServiceException e) {
       throw new RuntimeException("Validation error", e);
     }
 

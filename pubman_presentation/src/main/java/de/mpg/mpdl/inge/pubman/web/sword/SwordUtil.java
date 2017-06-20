@@ -66,8 +66,8 @@ import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFo
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -417,7 +417,7 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private PubItemVO createItem(String item, AccountUserVO user) throws ItemInvalidException,
+  private PubItemVO createItem(String item, AccountUserVO user) throws ValidationException,
       ContentStreamNotFoundException, Exception {
     PubItemVO itemVO = null;
 
@@ -471,7 +471,7 @@ public class SwordUtil extends FacesBean {
       itemReport.setContent("Error transforming item into eSciDoc Publication Item.");
       final ValidationReportVO report = new ValidationReportVO();
       report.getItems().add(itemReport);
-      throw new ItemInvalidException(report);
+      throw new ValidationException(report);
     }
 
     return itemVO;
@@ -490,18 +490,18 @@ public class SwordUtil extends FacesBean {
    * @throws PubItemStatusInvalidException
    * @throws IngeEsServiceException
    * @throws AaException
-   * @throws ItemInvalidException
+   * @throws ValidationException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
    * @throws PubCollectionNotFoundException
    * @throws PubItemLockedException
    * @throws PubItemMandatoryAttributesMissingException
-   * @throws ValidationException
+   * @throws ValidationServiceException
    * @throws PubManException
    * @throws DepositingException
    */
   public PubItemVO doDeposit(PubItemVO item) throws AaException, IngeServiceException,
-      ItemInvalidException {
+      ValidationException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);

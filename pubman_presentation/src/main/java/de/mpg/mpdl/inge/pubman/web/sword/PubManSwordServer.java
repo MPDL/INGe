@@ -55,8 +55,8 @@ import org.w3c.dom.Element;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -94,7 +94,7 @@ public class PubManSwordServer {
    * @return DepositResponse
    * @throws ContentStreamNotFoundException
    * @throws Exception
-   * @throws ValidationException
+   * @throws ValidationServiceException
    * @throws NamingException
    * @throws SWORDContentTypeException
    * @throws IngeEsServiceException
@@ -111,11 +111,11 @@ public class PubManSwordServer {
    * @throws SecurityException
    * @throws DepositingException
    * @throws AuthorizationException
-   * @throws ItemInvalidException
+   * @throws ValidationException
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
       throws ContentStreamNotFoundException, SWORDContentTypeException, AaException,
-      IngeServiceException, ItemInvalidException, ValidationException {
+      IngeServiceException, ValidationException, ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
@@ -137,10 +137,10 @@ public class PubManSwordServer {
     try {
       PubItemUtil.cleanUpItem(depositItem);
       ItemValidatingService.validate(depositItem, ValidationPoint.STANDARD);
-    } catch (final ValidationException e) {
+    } catch (final ValidationServiceException e) {
       this.setVerbose("Following validation error(s) occurred: " + e);
       throw e;
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       this.setVerbose("Following validation error(s) occurred: " + e.getReport());
       throw e;
     }

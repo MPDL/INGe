@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -14,10 +14,10 @@ import de.mpg.mpdl.inge.service.exceptions.AaException;
 public interface GenericService<E extends ValueObject> {
 
   public E create(E object, String authenticationToken) throws IngeServiceException, AaException,
-      ItemInvalidException;
+      ValidationException;
 
   public E update(E object, String authenticationToken) throws IngeServiceException, AaException,
-      ItemInvalidException;
+      ValidationException;
 
   public void delete(String id, Date modificationDate, String authenticationToken)
       throws IngeServiceException, AaException;

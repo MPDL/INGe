@@ -57,8 +57,8 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -535,7 +535,7 @@ public class EasySubmission extends FacesBean {
       }
       this.getPubItemListSessionBean().update();
       return returnValue;
-    } catch (ItemInvalidException e) {
+    } catch (ValidationException e) {
       for (final ValidationReportItemVO item : e.getReport().getItems()) {
         FacesBean.error(this.getMessage(item.getContent()));
       }
@@ -1190,12 +1190,12 @@ public class EasySubmission extends FacesBean {
 
       try {
         ItemValidatingService.validate(itemVO, validationPoint);
-      } catch (final ItemInvalidException e) {
+      } catch (final ValidationException e) {
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
           FacesBean.error(this.getMessage(item.getContent()));
         }
         return null;
-      } catch (final ValidationException e) {
+      } catch (final ValidationServiceException e) {
         throw new RuntimeException("Validation error", e);
       }
     } catch (final Exception e) {

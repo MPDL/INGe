@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -108,7 +108,7 @@ public class ItemRestController {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<PubItemVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @RequestBody PubItemVO item) throws AaException, IngeServiceException, ItemInvalidException {
+      @RequestBody PubItemVO item) throws AaException, IngeServiceException, ValidationException {
     PubItemVO created = null;
     created = pis.create(item, token);
     return new ResponseEntity<PubItemVO>(created, HttpStatus.CREATED);
@@ -117,7 +117,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH + "/release", method = RequestMethod.PUT)
   public ResponseEntity<PubItemVO> release(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     PubItemVO released = null;
     released =
         pis.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
@@ -127,7 +127,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH + "/revise", method = RequestMethod.PUT)
   public ResponseEntity<PubItemVO> revise(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     PubItemVO revised = null;
     revised =
         pis.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
@@ -137,7 +137,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH + "/submit", method = RequestMethod.PUT)
   public ResponseEntity<PubItemVO> submit(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     PubItemVO submitted = null;
     submitted =
         pis.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
@@ -147,7 +147,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH + "/withdraw", method = RequestMethod.PUT)
   public ResponseEntity<PubItemVO> withdraw(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     PubItemVO withdrawn = null;
     withdrawn =
         pis.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
@@ -157,7 +157,7 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<PubItemVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody PubItemVO item)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     PubItemVO updated = null;
     updated = pis.update(item, token);
     return new ResponseEntity<PubItemVO>(updated, HttpStatus.OK);

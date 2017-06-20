@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -105,7 +105,7 @@ public class OrganizationRestController {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<AffiliationVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @RequestBody AffiliationVO ou) throws AaException, IngeServiceException, ItemInvalidException {
+      @RequestBody AffiliationVO ou) throws AaException, IngeServiceException, ValidationException {
     AffiliationVO created = null;
     created = organizationSvc.create(ou, token);
     return new ResponseEntity<AffiliationVO>(created, HttpStatus.CREATED);
@@ -134,7 +134,7 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody AffiliationVO ou)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     AffiliationVO updated = null;
     updated = organizationSvc.update(ou, token);
     return new ResponseEntity<AffiliationVO>(updated, HttpStatus.OK);
