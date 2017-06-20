@@ -44,7 +44,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ArxivProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EdocProcessor;
@@ -237,9 +236,6 @@ public class ImportProcess extends Thread {
       }
 
       switch (format) {
-        case ARXIV_OAIPMH_XML:
-          this.formatProcessor = new ArxivProcessor();
-          break;
         case BIBTEX_STRING:
           this.formatProcessor = new BibtexProcessor();
           break;
