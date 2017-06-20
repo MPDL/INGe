@@ -255,7 +255,7 @@
                                             passphrase="" trust="true" verbose="true" />
                                         <sshexec host="vm44.mpdl.mpg.de" username="${jboss.user.scp}" trust="true" 
                                             keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-                                            command="mv /tmp/ear/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging} ${jboss.user.scp}:${jboss.install.dir}/standalone/deployments"/>  
+                                            command="mv -f /tmp/ear/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
 										
 										<!-- configuration for the deploy jboss server -->
 										<scp file="${project.build.directory}/classes/module.xml"
