@@ -253,8 +253,9 @@
                                             todir="${jboss.user.scp}:/tmp/ear"
                                             keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
                                             passphrase="" trust="true" verbose="true" />
-                                        <sshexec host="vm44.mpdl.mpg.de" username="${jboss.user.scp}" trust="true" 
+                                        <sshexec host="vm44.mpdl.mpg.de" username="${jboss.user.scp}" 
                                             keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
+                                            passphrase="" trust="true" verbose="true"
                                             command="mv -f /tmp/ear/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
 										
 										<!-- configuration for the deploy jboss server -->
