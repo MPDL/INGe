@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -129,7 +130,6 @@ public class ImportLog {
   private String message;
   private String user;
   private String userHandle;
-  private String authenticationToken;
   private Workflow workflow;
   private int percentage;
   private int storedId;
@@ -148,8 +148,7 @@ public class ImportLog {
    * @param user The eSciDoc user id of the user that invoces this action.
    * @param format A string holding the format of the import, e.g. "bibtex".
    */
-  public ImportLog(String action, String user, TransformerFactory.FORMAT format,
-      String authenticationToken) {
+  public ImportLog(String action, String user, TransformerFactory.FORMAT format) {
     this.startDate = new Date();
     this.status = Status.PENDING;
     this.errorLevel = ErrorLevel.FINE;
@@ -157,7 +156,6 @@ public class ImportLog {
     this.format = format;
     this.action = action;
     this.connection = ImportLog.getConnection();
-    this.authenticationToken = authenticationToken;
 
     this.saveLog();
   }
@@ -1302,7 +1300,9 @@ public class ImportLog {
   public String deleteAll() {
     this.connection = ImportLog.getConnection();
 
-    final DeleteProcess deleteProcess = new DeleteProcess(this, this.authenticationToken);
+    String authenticationToken =
+        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final DeleteProcess deleteProcess = new DeleteProcess(this, authenticationToken);
     deleteProcess.start();
 
     try {
@@ -1322,7 +1322,9 @@ public class ImportLog {
   public String submitAll() {
     this.connection = ImportLog.getConnection();
 
-    final SubmitProcess submitProcess = new SubmitProcess(this, false, this.authenticationToken);
+    String authenticationToken =
+        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final SubmitProcess submitProcess = new SubmitProcess(this, false, authenticationToken);
     submitProcess.start();
 
     try {
@@ -1342,7 +1344,9 @@ public class ImportLog {
   public String submitAndReleaseAll() {
     this.connection = ImportLog.getConnection();
 
-    final SubmitProcess submitProcess = new SubmitProcess(this, true, this.authenticationToken);
+    String authenticationToken =
+        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final SubmitProcess submitProcess = new SubmitProcess(this, true, authenticationToken);
     submitProcess.start();
 
     try {

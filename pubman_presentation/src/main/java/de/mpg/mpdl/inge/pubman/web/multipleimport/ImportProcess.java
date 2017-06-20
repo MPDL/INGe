@@ -110,8 +110,7 @@ public class ImportProcess extends Thread {
 
     this.authenticationToken = authenticationToken;
 
-    this.log =
-        new ImportLog("import", user.getReference().getObjectId(), format, this.authenticationToken);
+    this.log = new ImportLog("import", user.getReference().getObjectId(), format);
     this.log.setUserHandle(user.getHandle());
     this.log.setPercentage(5);
     this.log.startItem("import_process_started");
