@@ -81,8 +81,7 @@ public class DeleteProcess extends Thread {
         this.log.activateItem(item);
         this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
         try {
-          // TODO: andere Methode ohne modificationDate verwenden
-          ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(), null,
+          ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(),
               this.authenticationToken);
           this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
           this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
