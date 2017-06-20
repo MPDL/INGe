@@ -21,4 +21,6 @@ public interface OrganizationService extends GenericService<AffiliationVO> {
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeServiceException;
 
+  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeServiceException;
+
 }

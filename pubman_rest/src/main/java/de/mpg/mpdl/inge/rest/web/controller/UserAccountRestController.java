@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -85,7 +85,7 @@ public class UserAccountRestController {
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<AccountUserVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
       @RequestBody AccountUserVO user) throws AaException, IngeServiceException,
-      ItemInvalidException {
+      ValidationException {
     AccountUserVO created = null;
     created = userSvc.create(user, token);
     return new ResponseEntity<AccountUserVO>(created, HttpStatus.CREATED);
@@ -94,7 +94,7 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody AccountUserVO user)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     AccountUserVO updated = null;
     updated = userSvc.update(user, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
@@ -103,7 +103,7 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH + "/add", method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> addGrant(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     AccountUserVO user2AddGrants2 = userSvc.get(userId, token);
     AccountUserVO updated = null;
     updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
@@ -114,7 +114,7 @@ public class UserAccountRestController {
   public ResponseEntity<AccountUserVO> removeGrant(
       @RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     AccountUserVO user2RemoveGrantsFrom = userSvc.get(userId, token);
     AccountUserVO updated = null;
     updated =

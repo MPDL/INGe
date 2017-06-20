@@ -241,11 +241,23 @@
 								</goals>
 								<configuration>
 									<target>
+									<!--
 										<scp
 											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.user.scp}:${jboss.install.dir}/standalone/deployments"
 											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
 											passphrase="" trust="true" verbose="true" />
+											-->
+										<scp
+                                            file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
+                                            todir="${jboss.user.scp}:/tmp/ear"
+                                            keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
+                                            passphrase="" trust="true" verbose="true" />
+                                        <sshexec host="vm44.mpdl.mpg.de" username="jboss" 
+                                            keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
+                                            passphrase="" trust="true" verbose="true"
+                                            command="mv -f /tmp/ear/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
+										
 										<!-- configuration for the deploy jboss server -->
 										<scp file="${project.build.directory}/classes/module.xml"
 											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"

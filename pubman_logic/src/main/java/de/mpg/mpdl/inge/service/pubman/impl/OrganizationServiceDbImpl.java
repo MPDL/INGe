@@ -96,6 +96,15 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
 
+  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeServiceException {
+    final QueryBuilder qb =
+        QueryBuilders.boolQuery().must(QueryBuilders.termQuery("predecessorAffiliations.objectId", objectId));
+    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
+    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
+
+    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+  }
+
   @Override
   @Transactional
   public void delete(String id, String authenticationToken) throws IngeServiceException,

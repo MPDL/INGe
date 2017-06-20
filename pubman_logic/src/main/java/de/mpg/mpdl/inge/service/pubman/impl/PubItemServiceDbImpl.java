@@ -33,8 +33,8 @@ import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -115,7 +115,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ValidationException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -217,7 +217,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Override
   @Transactional
   public PubItemVO update(PubItemVO pubItemVO, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ValidationException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
@@ -487,7 +487,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
 
-  private void validate(PubItemVO pubItem) throws IngeServiceException, ItemInvalidException {
+  private void validate(PubItemVO pubItem) throws IngeServiceException, ValidationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
     if (pubItem.getPublicStatus() != null && ItemVO.State.PENDING.equals(pubItem.getPublicStatus())) {
@@ -498,11 +498,11 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeServiceException,
-      ItemInvalidException {
+      ValidationException {
     try {
       PubItemUtil.cleanUpItem(pubItem);
       ItemValidatingService.validate(pubItem, vp);
-    } catch (ValidationException e) {
+    } catch (ValidationServiceException e) {
       throw new IngeServiceException(e);
     }
   }

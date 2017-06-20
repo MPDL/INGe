@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 
@@ -55,19 +55,19 @@ public class ReportWorkspaceBean extends FacesBean {
   List<String> childAffilList;
 
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
-  private FORMAT format;
+  private TransformerFactory.FORMAT format;
 
   private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ReportWorkspaceBean() {
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
-    final FORMAT[] targetFormats =
-        itemTransformingService.getAllTargetFormatsFor(FORMAT.JUS_SNIPPET_XML);
+    final TransformerFactory.FORMAT[] targetFormats =
+        itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
 
 
-    for (FORMAT f : targetFormats) {
-      if (!FORMAT.JUS_SNIPPET_XML.equals(f)) {
+    for (TransformerFactory.FORMAT f : targetFormats) {
+      if (!TransformerFactory.FORMAT.JUS_SNIPPET_XML.equals(f)) {
         String formatName = f.name() + "_" + (f.name().contains("HTML") ? "html" : "indesign");
         outputFormats.add(new SelectItem(f, getLabel(formatName)));
       }
@@ -90,11 +90,11 @@ public class ReportWorkspaceBean extends FacesBean {
     this.reportYear = reportYear;
   }
 
-  public FORMAT getFormat() {
+  public TransformerFactory.FORMAT getFormat() {
     return this.format;
   }
 
-  public void setFormat(FORMAT format) {
+  public void setFormat(TransformerFactory.FORMAT format) {
     this.format = format;
   }
 
@@ -250,8 +250,8 @@ public class ReportWorkspaceBean extends FacesBean {
 
     try {
       result =
-          itemTransformingService.transformFromTo(FORMAT.JUS_SNIPPET_XML, this.format, new String(
-              src, "UTF-8"));
+          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML,
+              this.format, new String(src, "UTF-8"));
 
     } catch (final TransformationException | UnsupportedEncodingException e) {
       throw new RuntimeException(e);

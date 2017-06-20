@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -29,15 +29,15 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
 
   // Mapping the format names of a ExportVO object to the enums used in transformationManager
-  private static Map<String, FORMAT> map;
+  private static Map<String, TransformerFactory.FORMAT> map;
   static {
-    map = new HashMap<String, FORMAT>();
-    map.put("MARCXML", FORMAT.MARC_XML);
-    map.put("ENDNOTE", FORMAT.ENDNOTE_STRING);
-    map.put("BIBTEX", FORMAT.BIBTEX_STRING);
-    map.put("ESCIDOC_XML", FORMAT.ESCIDOC_ITEM_V3_XML);
-    map.put("EDOC_EXPORT", FORMAT.EDOC_XML);
-    map.put("EDOC_IMPORT", FORMAT.EDOC_XML);
+    map = new HashMap<String, TransformerFactory.FORMAT>();
+    map.put("MARCXML", TransformerFactory.FORMAT.MARC_XML);
+    map.put("ENDNOTE", TransformerFactory.FORMAT.ENDNOTE_STRING);
+    map.put("BIBTEX", TransformerFactory.FORMAT.BIBTEX_STRING);
+    map.put("ESCIDOC_XML", TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+    map.put("EDOC_EXPORT", TransformerFactory.FORMAT.EDOC_XML);
+    map.put("EDOC_IMPORT", TransformerFactory.FORMAT.EDOC_XML);
   }
 
   @Override
@@ -68,8 +68,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
         try {
           trans =
-              TransformerCache
-                  .getTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, map.get(exportFormat));
+              TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
+                  map.get(exportFormat));
 
           trans.transform(
               new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
@@ -77,8 +77,9 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
           exportData = wr.toString().getBytes("UTF-8");
         } catch (UnsupportedEncodingException | TransformationException e) {
-          logger.warn("Exception occured when transforming from <" + FORMAT.ESCIDOC_ITEMLIST_V3_XML
-              + "> to <" + map.get(exportFormat));
+          logger.warn("Exception occured when transforming from <"
+              + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
+              + map.get(exportFormat));
           throw new IngeServiceException(e);
         }
         break;
@@ -108,18 +109,18 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public FORMAT[] getAllSourceFormatsFor(FORMAT target) {
+  public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target) {
     return TransformerCache.getAllSourceFormatsFor(target);
   }
 
   @Override
-  public FORMAT[] getAllTargetFormatsFor(FORMAT source) {
+  public TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source) {
     return TransformerCache.getAllTargetFormatsFor(source);
   }
 
   @Override
-  public String transformFromTo(FORMAT source, FORMAT target, String itemXml)
-      throws TransformationException {
+  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target,
+      String itemXml) throws TransformationException {
     StringWriter wr = new StringWriter();
 
     final Transformer t = TransformerCache.getTransformer(source, target);

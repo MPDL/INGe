@@ -8,8 +8,8 @@ import com.baidu.unbiz.fluentvalidator.ValidationError;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator;
@@ -39,10 +39,10 @@ public class Validation {
   private static final Logger logger = Logger.getLogger(Validation.class);
 
   public static void validate(final ItemVO itemVO, ValidationPoint validationPoint)
-      throws ValidationException, ItemInvalidException {
+      throws ValidationServiceException, ValidationException {
 
     if (itemVO instanceof PubItemVO == false) {
-      throw new ValidationException("itemVO instanceof PubItemVO == false");
+      throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
     }
 
     final PubItemVO pubItemVO = (PubItemVO) itemVO;
@@ -199,12 +199,12 @@ public class Validation {
         break;
 
       default:
-        throw new ValidationException("undefined validation for validation point:"
+        throw new ValidationServiceException("undefined validation for validation point:"
             + validationPoint);
     }
   }
 
-  private static void checkResult(ComplexResult complexResult) throws ItemInvalidException {
+  private static void checkResult(ComplexResult complexResult) throws ValidationException {
     final ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {
@@ -215,7 +215,7 @@ public class Validation {
         v.addItem(item);
       }
 
-      throw new ItemInvalidException(v);
+      throw new ValidationException(v);
     }
   }
 }

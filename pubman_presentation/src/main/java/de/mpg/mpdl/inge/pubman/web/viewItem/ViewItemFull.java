@@ -46,8 +46,8 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -111,7 +111,7 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -733,10 +733,10 @@ public class ViewItemFull extends FacesBean {
       PubItemVO itemVO = new PubItemVO(this.getPubItem());
       PubItemUtil.cleanUpItem(itemVO);
       ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());
       return false;
-    } catch (final ValidationException e) {
+    } catch (final ValidationServiceException e) {
       throw new RuntimeException("Validation error", e);
     }
 
@@ -2217,12 +2217,12 @@ public class ViewItemFull extends FacesBean {
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire =
-          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
-              FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
+          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+              TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
 
       final String resDC =
-          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
-              FORMAT.HTML_METATAGS_DC_XML, itemXml);
+          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+              TransformerFactory.FORMAT.HTML_METATAGS_DC_XML, itemXml);
 
       final String result = resHighwire + resDC;
 

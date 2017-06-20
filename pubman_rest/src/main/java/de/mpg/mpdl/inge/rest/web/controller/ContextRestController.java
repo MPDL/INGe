@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -90,7 +90,7 @@ public class ContextRestController {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<ContextVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @RequestBody ContextVO ctx) throws AaException, IngeServiceException, ItemInvalidException {
+      @RequestBody ContextVO ctx) throws AaException, IngeServiceException, ValidationException {
     ContextVO created = null;
     created = ctxSvc.create(ctx, token);
     return new ResponseEntity<ContextVO>(created, HttpStatus.CREATED);
@@ -119,7 +119,7 @@ public class ContextRestController {
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<ContextVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody ContextVO ctx)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AaException, IngeServiceException, ValidationException {
     ContextVO updated = null;
     updated = ctxSvc.update(ctx, token);
     return new ResponseEntity<ContextVO>(updated, HttpStatus.OK);

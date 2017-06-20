@@ -44,8 +44,8 @@ import org.purl.sword.base.SWORDContentTypeException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
@@ -167,7 +167,7 @@ public class PubManDepositServlet extends HttpServlet {
       this.errorDoc.setSummary("No metadata File was found.");
       this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
       this.validDeposit = false;
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       ValidationReportItemVO itemReport = null;
       final ValidationReportVO report = e.getReport();
       String error = "";
@@ -178,7 +178,7 @@ public class PubManDepositServlet extends HttpServlet {
       this.errorDoc.setSummary(error);
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);
       this.validDeposit = false;
-    } catch (final ValidationException e) {
+    } catch (final ValidationServiceException e) {
       PubManDepositServlet.logger.error("Error in Validation", e);
       this.errorDoc.setSummary(e.getMessage());
       this.errorDoc.setErrorDesc(swordError.ValidationFailure);

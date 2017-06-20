@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeServiceException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -32,7 +32,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Transactional
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ValidationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
@@ -50,7 +50,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Transactional
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeServiceException, AaException, ValidationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
