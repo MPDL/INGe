@@ -15,6 +15,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,7 +116,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -142,7 +143,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
 
-    pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
+    try {
+      pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
 
     createAuditEntry(pubItemToCreate, EventType.CREATE);
@@ -153,14 +158,19 @@ public class PubItemServiceDbImpl implements PubItemService {
     return itemToReturn;
   }
 
-  private void createAuditEntry(PubItemVersionDbVO pubItem, EventType event) {
+  private void createAuditEntry(PubItemVersionDbVO pubItem, EventType event)
+      throws IngeApplicationException, IngeTechnicalException {
     AuditDbVO audit = new AuditDbVO();
     audit.setEvent(event);
     audit.setComment(pubItem.getLastMessage());
     audit.setModificationDate(pubItem.getModificationDate());
     audit.setModifier(pubItem.getModifiedBy());
     audit.setPubItem(pubItem);
-    auditRepository.saveAndFlush(audit);
+    try {
+      auditRepository.saveAndFlush(audit);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
   }
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
@@ -218,7 +228,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO update(PubItemVO pubItemVO, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -272,7 +282,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
 
-    latestVersion = itemRepository.saveAndFlush(latestVersion);
+    try {
+      latestVersion = itemRepository.saveAndFlush(latestVersion);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     createAuditEntry(latestVersion, EventType.UPDATE);
     reindex(latestVersion);
@@ -282,7 +296,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public void delete(String id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
 
@@ -389,7 +403,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO submitPubItem(String pubItemId, Date modificationDate, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -398,7 +412,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO revisePubItem(String pubItemId, Date modificationDate, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -407,7 +421,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO releasePubItem(String pubItemId, Date modificationDate, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -416,7 +430,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public PubItemVO withdrawPubItem(String pubItemId, Date modificationDate, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -467,7 +481,11 @@ public class PubItemServiceDbImpl implements PubItemService {
         .getObjectId());
 
     latestVersion.setLastMessage(message);
-    latestVersion = itemRepository.saveAndFlush(latestVersion);
+    try {
+      latestVersion = itemRepository.saveAndFlush(latestVersion);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
 
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
 

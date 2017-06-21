@@ -13,6 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -112,21 +113,20 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
 
-    if (userAccountRepository.findByLoginname(givenUser.getUserid()) != null) {
-      throw new IngeApplicationException("User with loginname " + givenUser.getUserid()
-          + " already exists.");
-    }
-
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
-    userLoginRepository.insertLogin(accountUser.getUserid(),
-        passwordEncoder.encode(givenUser.getPassword()));
+    try {
+      userLoginRepository.insertLogin(accountUser.getUserid(),
+          passwordEncoder.encode(givenUser.getPassword()));
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
       accountUser =
           this.addGrants(accountUser.getReference().getObjectId(), accountUser
@@ -140,7 +140,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public void changePassword(String userId, Date modificationDate, String newPassword,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
@@ -164,7 +164,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -227,8 +227,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
 
-    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
-
+    try {
+      objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
 
@@ -236,7 +239,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -271,8 +274,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
-    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
-
+    try {
+      objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
 
@@ -481,7 +487,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -490,7 +496,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -515,8 +521,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     userVoToBeUpdated.setActive(active);
     updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
 
-    accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);
-
+    try {
+      accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO userToReturn = EntityTransformer.transformToOld(accountToBeUpdated);
     userAccountDao.update(accountToBeUpdated.getObjectId(), userToReturn);
     return userToReturn;

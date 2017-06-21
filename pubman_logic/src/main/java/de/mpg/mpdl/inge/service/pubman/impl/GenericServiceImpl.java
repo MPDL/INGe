@@ -7,7 +7,11 @@ import java.util.stream.Stream;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
@@ -31,7 +35,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Autowired
   private AuthorizationService aaService;
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
@@ -41,7 +45,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
     updateWithTechnicalMetadata(objectToCreate, userAccount, true);
     checkAa("create", userAccount, transformToOld(objectToCreate));
-    objectToCreate = getDbRepository().saveAndFlush(objectToCreate);
+    try {
+      objectToCreate = getDbRepository().saveAndFlush(objectToCreate);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     ModelObject objectToReturn = transformToOld(objectToCreate);
     getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
     if (reindexList != null) {
@@ -50,7 +58,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     return objectToReturn;
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
@@ -67,7 +75,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
     checkAa("update", userAccount, transformToOld(objectToBeUpdated));
-    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    try {
+      objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
@@ -79,7 +91,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
 
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public void delete(String id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
@@ -184,6 +196,29 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
   }
 
+
+  protected static void handleDBException(DataAccessException exception) throws IngeApplicationException {
+    
+    try
+    {
+      throw exception;
+    }
+    catch (JpaObjectRetrievalFailureException ex)
+    {
+      throw new IngeApplicationException(ex.getMessage(), ex);
+    }
+    catch (DataIntegrityViolationException ex)
+    {
+      StringBuilder message = new StringBuilder("Object already exists.");
+      //Get message from
+      if(ex.getCause()!=null && ex.getCause().getCause()!=null)
+      {
+        message.append(" ").append(ex.getCause().getCause().getMessage());
+      }
+      throw new IngeApplicationException(message.toString(), ex);
+    }
+
+  }
 
 }
 

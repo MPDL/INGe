@@ -17,6 +17,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,7 +109,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public void delete(String id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
 
@@ -128,7 +129,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -137,7 +138,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -171,8 +172,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     affDbToBeUpdated.setPublicStatus(state);
     updateWithTechnicalMetadata(affDbToBeUpdated, userAccount, false);
-    affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
-
+    try {
+      affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affDbToBeUpdated);
     organizationDao.update(affDbToBeUpdated.getObjectId(), affToReturn);
     return affToReturn;
