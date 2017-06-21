@@ -13,6 +13,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -120,8 +121,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
       
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(
-            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
       }
 
       if (this.getSelectedContext().toLowerCase().equals("all")) {
@@ -141,11 +141,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
         // TODO org unit filter!!
-      }
-
-      if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(
-            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
       // TODO Sorting!!
