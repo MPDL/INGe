@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -68,6 +69,16 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
     viewResolver.setPrefix("/WEB-INF/jsp/");
     viewResolver.setSuffix(".jsp");
     registry.viewResolver(viewResolver);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+        "classpath:/META-INF/resources/");
+
+    registry.addResourceHandler("/webjars/**").addResourceLocations(
+        "classpath:/META-INF/resources/webjars/");
+    // super.addResourceHandlers(registry);
   }
 
 }

@@ -123,6 +123,27 @@ public class UserAccountRestController {
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 
+  @RequestMapping(value = USER_ID_PATH + "/activate", method = RequestMethod.PUT)
+  public ResponseEntity<AccountUserVO> activate(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
+      throws AaException, IngeServiceException, ItemInvalidException {
+    Date lmd = utils.string2Date(modificationDate);
+    AccountUserVO updated = null;
+    updated = userSvc.activate(userId, lmd, token);
+    return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = USER_ID_PATH + "/deactivate", method = RequestMethod.PUT)
+  public ResponseEntity<AccountUserVO> deactivate(
+      @RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
+      throws AaException, IngeServiceException, ItemInvalidException {
+    Date lmd = utils.string2Date(modificationDate);
+    AccountUserVO updated = null;
+    updated = userSvc.deactivate(userId, lmd, token);
+    return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
+  }
+
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
       value = USER_ID_VAR) String userId, @RequestBody String modificationDate) throws AaException,

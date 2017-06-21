@@ -1,22 +1,16 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
-import java.util.Set;
-
 import javax.servlet.Filter;
-import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import de.mpg.mpdl.inge.rest.spring.PubmanRestConfiguration;
 import de.mpg.mpdl.inge.rest.spring.WebConfiguration;
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements
@@ -29,7 +23,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    // return new Class[] {WebConfiguration.class};
     return null;
   }
 

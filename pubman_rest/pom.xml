@@ -34,6 +34,16 @@
 			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
@@ -69,32 +79,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- 
-	<build>
-		<finalName>pubman_rest</finalName>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.2</version>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
-					<configuration>
-						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>pubman_rest</warName>
-						<failOnMissingWebXml>false</failOnMissingWebXml>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	 -->
+	<!-- <build> <finalName>pubman_rest</finalName> <pluginManagement> <plugins> 
+		<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+		<version>3.2</version> <configuration> <source>1.8</source> <target>1.8</target> 
+		</configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-war-plugin</artifactId> <version>2.4</version> <configuration> 
+		<warSourceDirectory>src/main/webapp</warSourceDirectory> <warName>pubman_rest</warName> 
+		<failOnMissingWebXml>false</failOnMissingWebXml> </configuration> </plugin> 
+		</plugins> </pluginManagement> </build> -->
 </project>
