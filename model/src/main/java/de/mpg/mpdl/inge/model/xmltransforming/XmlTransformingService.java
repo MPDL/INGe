@@ -554,7 +554,7 @@ public class XmlTransformingService {
 
     logger.debug("transformed contextList =" + contextList);
 
-    SearchRetrieveResponseVO<ContextVO> response = null;
+    SearchRetrieveResponseVO<?, ContextVO> response = null;
     try {
       // unmarshal ContextVOListWrapper from String
       IBindingFactory bfact =
@@ -1330,7 +1330,7 @@ public class XmlTransformingService {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
           + ":transformToStatisticReportDefinitionList: reportDefinitionList is null");
     }
-    SearchRetrieveResponseVO<StatisticReportDefinitionVO> response = null;
+    SearchRetrieveResponseVO<?, StatisticReportDefinitionVO> response = null;
 
     try {
       // unmarshal StatisticReport from String
@@ -1339,7 +1339,7 @@ public class XmlTransformingService {
       IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
       StringReader sr = new StringReader(reportDefinitionList);
       Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-      response = (SearchRetrieveResponseVO<StatisticReportDefinitionVO>) unmarshalledObject;
+      response = (SearchRetrieveResponseVO<?, StatisticReportDefinitionVO>) unmarshalledObject;
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e.getRootCause());
@@ -1489,7 +1489,7 @@ public class XmlTransformingService {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
           + ":transformToStatisticAggregationDefinitionList: aggregationDefinitionList is null");
     }
-    SearchRetrieveResponseVO<AggregationDefinitionVO> response = null;
+    SearchRetrieveResponseVO<?, AggregationDefinitionVO> response = null;
 
     try {
       // unmarshal StatisticReport from String
@@ -1498,7 +1498,7 @@ public class XmlTransformingService {
       IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
       StringReader sr = new StringReader(aggregationDefinitionList);
       Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-      response = (SearchRetrieveResponseVO<AggregationDefinitionVO>) unmarshalledObject;
+      response = (SearchRetrieveResponseVO<?, AggregationDefinitionVO>) unmarshalledObject;
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e.getRootCause());

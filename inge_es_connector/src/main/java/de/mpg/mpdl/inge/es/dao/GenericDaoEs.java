@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.es.dao;
 
+import org.elasticsearch.action.search.SearchResponse;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -68,7 +70,7 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * @return
    * @throws IngeTechnicalException
    */
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<Query> searchQuery)
-      throws IngeTechnicalException;
+  public SearchRetrieveResponseVO<SearchResponse, E> search(
+      SearchRetrieveRequestVO<Query> searchQuery) throws IngeTechnicalException;
 
 }

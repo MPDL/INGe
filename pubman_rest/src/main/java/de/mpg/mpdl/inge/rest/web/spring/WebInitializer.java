@@ -10,7 +10,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import de.mpg.mpdl.inge.rest.spring.PubmanRestConfiguration;
-import de.mpg.mpdl.inge.rest.spring.WebConfiguration;
 
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements

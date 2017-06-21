@@ -32,6 +32,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -68,7 +69,7 @@ public class OrganizationSuggest extends EditItemBean {
       SearchRetrieveRequestVO<QueryBuilder> srr =
           new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
 
-      SearchRetrieveResponseVO<AffiliationVO> response =
+      SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response =
           ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
       for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {

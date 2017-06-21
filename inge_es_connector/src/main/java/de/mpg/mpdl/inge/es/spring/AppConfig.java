@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
-import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")

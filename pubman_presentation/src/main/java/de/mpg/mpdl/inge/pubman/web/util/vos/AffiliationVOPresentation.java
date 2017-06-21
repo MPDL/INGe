@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -285,7 +286,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
        }
       
       SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
-      SearchRetrieveResponseVO<AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      SearchRetrieveResponseVO<SearchResponse, AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
       transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
       
       

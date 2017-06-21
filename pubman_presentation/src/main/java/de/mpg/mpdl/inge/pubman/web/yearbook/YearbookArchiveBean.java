@@ -7,6 +7,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.elasticsearch.action.search.SearchResponse;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -56,7 +58,7 @@ public class YearbookArchiveBean extends FacesBean {
             + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
     filterParams.put("maximumRecords", new String[] {YearbookArchiveBean.MAXIMUM_RECORDS});
     final String xmlItemList = itemHandler.retrieveItems(filterParams);
-    final SearchRetrieveResponseVO<PubItemVO> result =
+    final SearchRetrieveResponseVO<SearchResponse, PubItemVO> result =
         XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // check if years have to be excluded from selection
     if (result.getNumberOfRecords() > 0) {

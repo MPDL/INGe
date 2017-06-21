@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.query.Query;
@@ -86,7 +87,8 @@ public class PubmanLogicTest {
     QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
-    SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
+    SearchRetrieveResponseVO<SearchResponse, AffiliationVO> resp =
+        organizationService.search(srr, null);
     System.out.println("Found: " + resp.getNumberOfRecords() + " records");
 
     /*
@@ -113,7 +115,7 @@ public class PubmanLogicTest {
     QueryBuilder testQuery = QueryBuilders.matchQuery("metadata.title", "test");
     SearchRetrieveRequestVO<QueryBuilder> srr =
         new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
-    SearchRetrieveResponseVO<PubItemVO> resp = pubItemService.search(srr, null);
+    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = pubItemService.search(srr, null);
     System.out.println("Found: " + resp.getNumberOfRecords() + " records");
   }
 
@@ -227,11 +229,12 @@ public class PubmanLogicTest {
     AccountUserVO user = new AccountUserVO();
     user.setEmail("a@b.de");
     user.setName("Test Moderator");
-    user.setUserid("testCreateUserWithGrant");
+    user.setUserid("efwfeewfwe");
     user.setPassword("michael");
 
     AffiliationRO aff = new AffiliationRO();
-    aff.setObjectId("ou_persistent25");
+    // aff.setObjectId("ou_persistent25");
+    aff.setObjectId("ou_blaaablub");
     user.getAffiliations().add(aff);
 
     GrantVO grant = new GrantVO();

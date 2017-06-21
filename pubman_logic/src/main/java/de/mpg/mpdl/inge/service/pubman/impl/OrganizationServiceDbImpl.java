@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -76,7 +77,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     final QueryBuilder qb =
         QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
@@ -94,7 +95,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     final QueryBuilder qb =
         QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
@@ -103,7 +104,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     final QueryBuilder qb =
         QueryBuilders.boolQuery().must(QueryBuilders.termQuery("predecessorAffiliations.objectId", objectId));
     final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }

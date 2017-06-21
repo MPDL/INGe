@@ -27,24 +27,24 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseBody
   VndErrors authc(AuthenticationException authcException) {
     if (authcException.getMessage() != null) {
-    	VndErrors authcErrors = new VndErrors("401", authcException.getMessage());
-    	authcErrors = addTheCause(authcErrors, authcException);
+      VndErrors authcErrors = new VndErrors("401", authcException.getMessage());
+      authcErrors = addTheCause(authcErrors, authcException);
       return authcErrors;
     } else {
       return new VndErrors("401", authcException.getClass().getCanonicalName() + ": "
           + "no message available!");
     }
   }
-  
+
   @ExceptionHandler(value = AuthorizationException.class)
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ResponseBody
   VndErrors authz(AuthorizationException authzException) {
     if (authzException.getMessage() != null) {
-    	VndErrors authzErrors = new VndErrors("403", authzException.getMessage());
-    	authzErrors = addTheCause(authzErrors, authzException);
+      VndErrors authzErrors = new VndErrors("403", authzException.getMessage());
+      authzErrors = addTheCause(authzErrors, authzException);
       return authzErrors;
-      } else {
+    } else {
       return new VndErrors("403", authzException.getClass().getCanonicalName() + ": "
           + "no message available!");
     }
@@ -55,24 +55,24 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseBody
   VndErrors ingeTech(IngeTechnicalException iingeTechnicalException) {
     if (iingeTechnicalException.getMessage() != null) {
-    	VndErrors techErrors = new VndErrors("500", iingeTechnicalException.getMessage());
-    	techErrors = addTheCause(techErrors, iingeTechnicalException);
+      VndErrors techErrors = new VndErrors("500", iingeTechnicalException.getMessage());
+      techErrors = addTheCause(techErrors, iingeTechnicalException);
       return techErrors;
-      } else {
+    } else {
       return new VndErrors("500", iingeTechnicalException.getClass().getCanonicalName() + ": "
           + "no message available!");
     }
   }
-  
+
   @ExceptionHandler(value = IngeApplicationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
   VndErrors ingeApp(IngeApplicationException iingeApplicationException) {
     if (iingeApplicationException.getMessage() != null) {
-    	VndErrors appErrors = new VndErrors("400", iingeApplicationException.getMessage());
-    	appErrors = addTheCause(appErrors, iingeApplicationException);
+      VndErrors appErrors = new VndErrors("400", iingeApplicationException.getMessage());
+      appErrors = addTheCause(appErrors, iingeApplicationException);
       return appErrors;
-      } else {
+    } else {
       return new VndErrors("400", iingeApplicationException.getClass().getCanonicalName() + ": "
           + "no message available!");
     }
@@ -96,27 +96,28 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   VndErrors genreic(Exception exception) {
     logger.error("pech!", exception);
     if (exception.getMessage() != null) {
-    	VndErrors genericErrors = new VndErrors("500", exception.getClass().getCanonicalName() + ": "
-    	          + exception.getMessage());
-    	genericErrors = addTheCause(genericErrors, exception);
+      VndErrors genericErrors =
+          new VndErrors("500", exception.getClass().getCanonicalName() + ": "
+              + exception.getMessage());
+      genericErrors = addTheCause(genericErrors, exception);
       return genericErrors;
     } else {
       return new VndErrors("500", exception.getClass().getCanonicalName() + ": "
           + "no message available!");
     }
   }
-  
+
   private VndErrors addTheCause(VndErrors errors, Throwable throwable) {
-	  Throwable cause = throwable;
-  	while(cause.getCause() != null) {
-  	    cause = cause.getCause();
-  	    if (cause.getMessage() != null) {
-      	    errors.add(new VndError(cause.getClass().getCanonicalName(), cause.getMessage()));
-  	    } else {
-      	    errors.add(new VndError(cause.getClass().getCanonicalName(), "no message available!"));
-  	    }
-  	}
-	return errors;
+    Throwable cause = throwable;
+    while (cause.getCause() != null) {
+      cause = cause.getCause();
+      if (cause.getMessage() != null) {
+        errors.add(new VndError(cause.getClass().getCanonicalName(), cause.getMessage()));
+      } else {
+        errors.add(new VndError(cause.getClass().getCanonicalName(), "no message available!"));
+      }
+    }
+    return errors;
   }
 
 }

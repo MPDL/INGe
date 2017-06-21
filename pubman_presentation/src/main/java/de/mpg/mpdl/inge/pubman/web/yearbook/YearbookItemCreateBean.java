@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
@@ -104,7 +105,7 @@ public class YearbookItemCreateBean extends FacesBean {
                   + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       final String xmlItemList = itemHandler.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO<PubItemVO> result =
+      final SearchRetrieveResponseVO<SearchResponse, PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {
@@ -258,7 +259,7 @@ public class YearbookItemCreateBean extends FacesBean {
           + this.getAffiliation().getReference().getObjectId()});
       filterParams.put("maximumRecords", new String[] {YearbookItemCreateBean.MAXIMUM_RECORDS});
       final String xmlItemList = ih.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO<PubItemVO> result =
+      final SearchRetrieveResponseVO<SearchResponse, PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       if (result.getNumberOfRecords() > 0) {
         PubItemVO yearbookPubItem = null;

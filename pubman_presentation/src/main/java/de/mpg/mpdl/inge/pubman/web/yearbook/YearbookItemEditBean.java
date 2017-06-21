@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
@@ -148,7 +149,7 @@ public class YearbookItemEditBean extends FacesBean {
         new String[] {"\"http://escidoc.de/core/01/structural-relations/organizational-unit\"="
             + this.getOrganization().getIdentifier()});
     final String userAccountXml = uah.retrieveUserAccounts(filterParams);
-    final SearchRetrieveResponseVO<AccountUserVO> userAccounts =
+    final SearchRetrieveResponseVO<SearchResponse, AccountUserVO> userAccounts =
         XmlTransformingService.transformToSearchRetrieveResponseAccountUser(userAccountXml);
     for (final SearchRetrieveRecordVO<AccountUserVO> record : userAccounts.getRecords()) {
       final AccountUserVO userVO = (AccountUserVO) record.getData();
@@ -173,7 +174,7 @@ public class YearbookItemEditBean extends FacesBean {
         + " - Yearbook User Group for " + this.getOrganization().getName() + " ("
         + this.getOrganization().getIdentifier() + ")\" and \"/properties/active\" = true"});
     final String userGroupXml = userGroupHandler.retrieveUserGroups(filterParams);
-    final SearchRetrieveResponseVO<UserGroupVO> userGroupSearchRetrieveResponse =
+    final SearchRetrieveResponseVO<SearchResponse, UserGroupVO> userGroupSearchRetrieveResponse =
         XmlTransformingService.transformToSearchRetrieveResponseUserGroup(userGroupXml);
     this.userGroups = new ArrayList<UserGroupVO>();
     for (final SearchRetrieveRecordVO<UserGroupVO> record : userGroupSearchRetrieveResponse
@@ -235,7 +236,7 @@ public class YearbookItemEditBean extends FacesBean {
                   + orgId});
       filterParams.put("maximumRecords", new String[] {YearbookItemEditBean.MAXIMUM_RECORDS});
       final String xmlItemList = itemHandler.retrieveItems(filterParams);
-      final SearchRetrieveResponseVO<PubItemVO> result =
+      final SearchRetrieveResponseVO<SearchResponse, PubItemVO> result =
           XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
       // check if years have to be excluded from selection
       if (result.getNumberOfRecords() > 0) {

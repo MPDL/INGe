@@ -1,17 +1,10 @@
 package de.mpg.mpdl.inge.rest.spring;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 @Configuration
 @PropertySources({

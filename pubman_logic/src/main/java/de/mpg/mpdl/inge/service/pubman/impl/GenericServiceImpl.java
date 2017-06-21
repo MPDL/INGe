@@ -5,19 +5,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -120,9 +119,10 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     return object;
   }
 
-  public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public SearchRetrieveResponseVO<SearchResponse, ModelObject> search(
+      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
 
     QueryBuilder qb = srr.getQueryObject();
     if (authenticationToken != null) {
@@ -197,22 +197,17 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
 
-  protected static void handleDBException(DataAccessException exception) throws IngeApplicationException {
-    
-    try
-    {
+  protected static void handleDBException(DataAccessException exception)
+      throws IngeApplicationException {
+
+    try {
       throw exception;
-    }
-    catch (ObjectRetrievalFailureException ex)
-    {
+    } catch (ObjectRetrievalFailureException ex) {
       throw new IngeApplicationException(ex.getMessage(), ex);
-    }
-    catch (DataIntegrityViolationException ex)
-    {
+    } catch (DataIntegrityViolationException ex) {
       StringBuilder message = new StringBuilder("Object already exists.");
-      //Get message from
-      if(ex.getCause()!=null && ex.getCause().getCause()!=null)
-      {
+      // Get message from
+      if (ex.getCause() != null && ex.getCause().getCause() != null) {
         message.append(" ").append(ex.getCause().getCause().getMessage());
       }
       throw new IngeApplicationException(message.toString(), ex);

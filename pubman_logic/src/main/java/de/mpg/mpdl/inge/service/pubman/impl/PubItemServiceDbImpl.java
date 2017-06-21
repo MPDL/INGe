@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -35,7 +36,6 @@ import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -316,7 +316,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     itemObjectRepository.delete(latestPubItemDbVersion.getObject());
 
-    SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
+    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<PubItemVO> rec : resp.getRecords()) {
       pubItemDao.delete(rec.getPersistenceId());
     }
@@ -379,9 +379,10 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  public SearchRetrieveResponseVO<PubItemVO> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public SearchRetrieveResponseVO<SearchResponse, PubItemVO> search(
+      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
 
     QueryBuilder authorizedQuery;
 
@@ -534,18 +535,18 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
   }
 
-  private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
+  private SearchRetrieveResponseVO<SearchResponse, PubItemVO> getAllVersions(String objectId)
       throws IngeTechnicalException {
     QueryBuilder latestReleaseQuery =
         QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
-    SearchRetrieveResponseVO<PubItemVO> resp =
+    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 
     return resp;
   }
 
-  private SearchRetrieveResponseVO<PubItemVO> executeSearchSortByVersion(QueryBuilder query,
-      int limit, int offset) throws IngeTechnicalException {
+  private SearchRetrieveResponseVO<SearchResponse, PubItemVO> executeSearchSortByVersion(
+      QueryBuilder query, int limit, int offset) throws IngeTechnicalException {
 
     SearchSortCriteria sortByVersion =
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);

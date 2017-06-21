@@ -1,10 +1,8 @@
 package de.mpg.mpdl.inge.service.pubman;
 
-import java.util.Date;
-
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -29,7 +27,8 @@ public interface GenericService<E extends ValueObject> {
 
   // public void reindex() throws IngeServiceException, AaException;
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException;
+  public SearchRetrieveResponseVO<SearchResponse, E> search(
+      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException;
 }

@@ -3,11 +3,13 @@ package de.mpg.mpdl.inge.model.valueobjects;
 import java.util.List;
 
 
-public class SearchRetrieveResponseVO<T extends ValueObject> extends ValueObject {
+public class SearchRetrieveResponseVO<OriginalResponse, T extends ValueObject> extends ValueObject {
 
   private String version;
   private int numberOfRecords;
   private List<SearchRetrieveRecordVO<T>> records;
+  private OriginalResponse originalResponse;
+
 
 
   public String getVersion() {
@@ -32,6 +34,14 @@ public class SearchRetrieveResponseVO<T extends ValueObject> extends ValueObject
 
   public void setRecords(List<SearchRetrieveRecordVO<T>> records) {
     this.records = records;
+  }
+
+  public OriginalResponse getOriginalResponse() {
+    return originalResponse;
+  }
+
+  public void setOriginalResponse(OriginalResponse originalResponse) {
+    this.originalResponse = originalResponse;
   }
 
 

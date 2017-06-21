@@ -88,7 +88,7 @@ public class YearbookItemSessionBean extends FacesBean {
     // + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
     // filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS});
     // final String xmlItemList = this.itemHandler.retrieveItems(filterParams);
-    // final SearchRetrieveResponseVO<PubItemVO> result =
+    // final SearchRetrieveResponseVO<SearchResponse, PubItemVO> result =
     // XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
     // set current yearbook if already existent
     // if (result.getNumberOfRecords() > 0) {

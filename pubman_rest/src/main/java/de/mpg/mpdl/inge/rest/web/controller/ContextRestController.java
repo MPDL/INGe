@@ -1,13 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -55,7 +51,7 @@ public class ContextRestController {
 			throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 		QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
 		SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
-		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+		SearchRetrieveResponseVO<SearchResponse, ContextVO> srResponse = ctxSvc.search(srRequest, token);
 		List<ContextVO> response = new ArrayList<ContextVO>();
 		srResponse.getRecords().forEach(record -> response.add(record.getData()));
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
@@ -67,7 +63,7 @@ public class ContextRestController {
 		QueryBuilder matchQueryParam = QueryBuilders.boolQuery()
 				.filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
 		SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
-		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+		SearchRetrieveResponseVO<SearchResponse, ContextVO> srResponse = ctxSvc.search(srRequest, token);
 		List<ContextVO> response = new ArrayList<ContextVO>();
 		srResponse.getRecords().forEach(record -> response.add(record.getData()));
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
