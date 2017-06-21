@@ -17,9 +17,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 
 @ControllerAdvice
@@ -29,9 +29,9 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
   @ResponseBody
-  @ExceptionHandler(AaException.class)
+  @ExceptionHandler(AuthenticationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  VndError aaExceptionHandler(AaException aaException) {
+  VndError aaExceptionHandler(AuthenticationException aaException) {
     if (aaException.getMessage() != null) {
       return new VndError("400", aaException.getMessage());
     } else {
@@ -41,9 +41,9 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ResponseBody
-  @ExceptionHandler(IngeServiceException.class)
+  @ExceptionHandler(IngeTechnicalException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  VndError iingeServiceExceptionHandler(IngeServiceException iingeServicexception) {
+  VndError iingeServiceExceptionHandler(IngeTechnicalException iingeServicexception) {
     if (iingeServicexception.getMessage() != null) {
       return new VndError("400", iingeServicexception.getMessage());
     } else {
@@ -53,9 +53,9 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ResponseBody
-  @ExceptionHandler(ItemInvalidException.class)
+  @ExceptionHandler(ValidationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  VndError itemInvalidExceptionHandler(ItemInvalidException itemInvalidException) {
+  VndError itemInvalidExceptionHandler(ValidationException itemInvalidException) {
     if (itemInvalidException.getMessage() != null) {
       return new VndError("400", itemInvalidException.getMessage());
     } else {

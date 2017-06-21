@@ -56,7 +56,7 @@ public class ComponentDataRequiredValidator extends ValidatorHandler<List<FileVO
       for (final FileVO fileVO : files) {
 
         if (fileVO != null //
-            && fileVO.getContent() == null) {
+            && ValidationTools.isEmpty(fileVO.getContent())) {
 
           if (fileVO.getDefaultMetadata() != null //
               && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())) {

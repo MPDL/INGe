@@ -13,7 +13,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -55,7 +55,7 @@ public class DoiRestService {
 
     // validate if a DOI can be generated for the given item
     if (!isDoiReady(pubItem)) {
-      throw new IngeServiceException();
+      throw new IngeTechnicalException();
     }
 
     String doi = "";

@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
@@ -178,7 +179,7 @@ public class MyItemsRetrieverRequestBean extends
       }
       
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
       }
 
      //TODO Sorting!!

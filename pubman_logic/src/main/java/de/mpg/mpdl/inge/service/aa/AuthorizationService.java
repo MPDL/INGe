@@ -16,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -55,7 +57,7 @@ public class AuthorizationService {
   }
 
   public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query,
-      AccountUserVO userAccount) throws AaException {
+      AccountUserVO userAccount) throws AuthenticationException {
 
     QueryBuilder filterQuery = getAaFilterQuery(serviceName, userAccount);
 
@@ -186,27 +188,28 @@ public class AuthorizationService {
 
 
 
-  public AccountUserVO checkLoginRequired(String authenticationToken) throws AaException,
-      IngeServiceException {
+  public AccountUserVO checkLoginRequired(String authenticationToken)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException,
+      AuthorizationException {
     return userAccountService.get(authenticationToken);
   }
 
 
 
   public void checkAuthorization(String serviceName, String methodName, Object... objects)
-      throws AaException, IngeServiceException {
+      throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
 
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     if(serviceMap==null)
     {
-      throw new AaException("Nor rules for service " + serviceName);
+      throw new AuthorizationException("Nor rules for service " + serviceName);
     }
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
     if (allowedMap == null) {
-      throw new AaException("No rules for service " + serviceName + ", method " + methodName);
+      throw new AuthorizationException("No rules for service " + serviceName + ", method " + methodName);
     }
 
     else {
@@ -231,14 +234,14 @@ public class AuthorizationService {
                   check = valuesToCompare.stream().anyMatch(
                       val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
                   if (!check) {
-                    throw new AaException("Expected one of " + valuesToCompare + " for field " + key
+                    throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key
                         + " (" + keyValue + ")");
                   }
                 } else {
                   String value = getFieldValueOrString(order, objects, (String) rule.getValue());
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
-                    throw new AaException(
+                    throw new AuthorizationException(
                         "Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
                   }
                 }
@@ -249,7 +252,7 @@ public class AuthorizationService {
 
 
             }
-          } catch (AaException e) {
+          } catch (AuthorizationException|AuthenticationException e ) {
             lastExceptionOfRule = e;
             lastExceptionOfAll = e;
             break;
@@ -265,7 +268,12 @@ public class AuthorizationService {
       if (lastExceptionOfAll == null) {
         return;
       } else {
-        throw new AaException(lastExceptionOfAll);
+        if(lastExceptionOfAll instanceof AuthorizationException)
+          throw (AuthorizationException)lastExceptionOfAll;
+        else if (lastExceptionOfAll instanceof AuthenticationException)
+        {
+          throw (AuthenticationException) lastExceptionOfAll;
+        }
       }
 
 
@@ -274,12 +282,12 @@ public class AuthorizationService {
   }
 
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
-      throws AaException, IngeServiceException {
+      throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
 
     AccountUserVO userAccount = (AccountUserVO) objects[order.indexOf("user")];
 
     if (userAccount == null) {
-      throw new AaException("You have to be logged in.");
+      throw new AuthenticationException("You have to be logged in.");
     }
 
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
@@ -289,7 +297,7 @@ public class AuthorizationService {
 
       if (expectedUserId == null
           || !expectedUserId.equals(userAccount.getReference().getObjectId())) {
-        throw new AaException("User is not owner of object.");
+        throw new AuthorizationException("User is not owner of object.");
       }
     }
 
@@ -327,7 +335,7 @@ public class AuthorizationService {
       }
 
       if (!check) {
-        throw new AaException("Expected user with role [" + role + "], on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
+        throw new AuthorizationException("Expected user with role [" + role + "], on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
       }
 
     }
@@ -336,7 +344,8 @@ public class AuthorizationService {
   }
 
   private void searchAllChildOrganizations(String parentAffiliationId,
-      List<AffiliationVO> completeList) throws IngeServiceException {
+      List<AffiliationVO> completeList) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
 
 
     List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
@@ -349,7 +358,7 @@ public class AuthorizationService {
   }
 
   private String getFieldValueOrString(List<String> order, Object[] objects, String field)
-      throws AaException {
+      throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
       Object object = objects[order.indexOf(fieldHierarchy[0])];
@@ -367,7 +376,7 @@ public class AuthorizationService {
     }
   }
 
-  private String getFieldValueViaGetter(Object object, String field) throws AaException {
+  private String getFieldValueViaGetter(Object object, String field) throws AuthorizationException {
     try {
       String[] fieldHierarchy = field.split("\\.");
 
@@ -393,7 +402,7 @@ public class AuthorizationService {
 
 
     } catch (Exception e) {
-      throw new AaException("Error while calling getter in object", e);
+      throw new AuthorizationException("Error while calling getter in object", e);
     }
     return null;
 

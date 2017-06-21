@@ -35,7 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 /**
  * JSF bean class (request) to hold data for the import workspace.
@@ -50,8 +49,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 public class ImportWorkspace extends BreadcrumbPage {
   private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
   private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
-
-  // private List<ImportLog> imports = null;
 
   public ImportWorkspace() {}
 
@@ -109,13 +106,6 @@ public class ImportWorkspace extends BreadcrumbPage {
     return null;
   }
 
-  // /**
-  // * @param imports the imports to set
-  // */
-  // public void setImports(List<ImportLog> imports) {
-  // this.imports = imports;
-  // }
-
   /**
    * @return the sortColumn
    */
@@ -144,51 +134,111 @@ public class ImportWorkspace extends BreadcrumbPage {
     this.sortDirection = sortDirection;
   }
 
-
-
   public String getFormatLabel(ImportLog currentImport) {
     String label = "n/a";
 
     if (currentImport != null) {
-      if (currentImport.getFormat().equals(FORMAT.ENDNOTE_STRING)
-          || currentImport.getFormat().equals(FORMAT.ENDNOTE_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
+      switch (currentImport.getFormat()) {
+        case ARXIV_OAIPMH_XML:
+          break;
+        case BIBTEX_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
+          break;
+        case BMC_FULLTEXT_HTML:
+          break;
+        case BMC_FULLTEXT_XML:
+          break;
+        case BMC_OAIPMH_XML:
+          break;
+        case BMC_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
+          break;
+        case COINS_STRING:
+          break;
+        case DC_XML:
+          break;
+        case DOI_METADATA_XML:
+          break;
+        case EDOC_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
+          break;
+        case ENDNOTE_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
+          break;
+        case ENDNOTE_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
+          break;
+        case ESCIDOC_COMPONENT_XML:
+          break;
+        case ESCIDOC_ITEMLIST_V1_XML:
+          break;
+        case ESCIDOC_ITEMLIST_V2_XML:
+          break;
+        case ESCIDOC_ITEMLIST_V3_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
+          break;
+        case ESCIDOC_ITEM_V1_XML:
+          break;
+        case ESCIDOC_ITEM_V2_XML:
+          break;
+        case ESCIDOC_ITEM_V3_XML:
+          break;
+        case ESCIDOC_ITEM_VO:
+          break;
+        case HTML_METATAGS_DC_XML:
+          break;
+        case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
+          break;
+        case JUS_HTML_XML:
+          break;
+        case JUS_INDESIGN_XML:
+          break;
+        case JUS_SNIPPET_XML:
+          break;
+        case MAB_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
+          break;
+        case MAB_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
+          break;
+        case MARC_21_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
+          break;
+        case MARC_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
+          break;
+        case MODS_XML:
+          break;
+        case OAI_DC:
+          break;
+        case PEER_TEI_XML:
+          break;
+        case PMC_OAIPMH_XML:
+          break;
+        case RIS_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
+          break;
+        case RIS_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
+          break;
+        case SPIRES_XML:
+          break;
+        case WOS_STRING:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
+          break;
+        case WOS_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
+          break;
+        case ZFN_TEI_XML:
+          label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
+          break;
+        case ZIM_XML:
+          break;
+        default:
+          break;
       }
-      if (currentImport.getFormat().equals(FORMAT.BIBTEX_STRING)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
-      }
-      if (currentImport.getFormat().equals(FORMAT.EDOC_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
-      }
-      if (currentImport.getFormat().equals(FORMAT.RIS_STRING)
-          || currentImport.getFormat().equals(FORMAT.RIS_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
-      }
-      if (currentImport.getFormat().equals(FORMAT.WOS_STRING)
-          || currentImport.getFormat().equals(FORMAT.WOS_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
-      }
-      if (currentImport.getFormat().equals(FORMAT.MAB_STRING)
-          || currentImport.getFormat().equals(FORMAT.MAB_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
-      }
-      if (currentImport.getFormat().equals(FORMAT.ESCIDOC_ITEMLIST_V3_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
-      }
-      if (currentImport.getFormat().equals(FORMAT.ZFN_TEI_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
-      }
-      if (currentImport.getFormat().equals(FORMAT.MARC_21_STRING)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
-      }
-      if (currentImport.getFormat().equals(FORMAT.MARC_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
-      }
-      if (currentImport.getFormat().equals(FORMAT.BMC_XML)) {
-        label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
-      }
-
     }
+
     return label;
   }
 

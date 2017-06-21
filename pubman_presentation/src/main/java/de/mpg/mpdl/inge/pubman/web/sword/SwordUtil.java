@@ -66,9 +66,9 @@ import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFo
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -85,11 +85,12 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -382,8 +383,8 @@ public class SwordUtil extends FacesBean {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
         final String fileXml =
-            itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML,
-                FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
+            itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
+                TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
 
         try {
           final FileVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
@@ -417,7 +418,7 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private PubItemVO createItem(String item, AccountUserVO user) throws ItemInvalidException,
+  private PubItemVO createItem(String item, AccountUserVO user) throws ValidationException,
       ContentStreamNotFoundException, Exception {
     PubItemVO itemVO = null;
 
@@ -429,32 +430,33 @@ public class SwordUtil extends FacesBean {
 
     try {
       // Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
-      FORMAT trgFormat = null;
+      TransformerFactory.FORMAT trgFormat = null;
       Boolean transform = false;
 
       // Transform from tei to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatPeerTEI)) {
         // trgFormat = new Format("peer_tei", "application/xml", "UTF-8");
-        trgFormat = FORMAT.PEER_TEI_XML;
+        trgFormat = TransformerFactory.FORMAT.PEER_TEI_XML;
         transform = true;
       }
 
       // Transform from bibtex to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatBibTex)) {
-        trgFormat = FORMAT.BIBTEX_STRING;
+        trgFormat = TransformerFactory.FORMAT.BIBTEX_STRING;
         transform = true;
       }
 
       // Transform from endnote to escidoc-publication-item
       if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(SwordUtil.mdFormatEndnote)) {
-        trgFormat = FORMAT.ENDNOTE_STRING;
+        trgFormat = TransformerFactory.FORMAT.ENDNOTE_STRING;
         transform = true;
       }
 
       if (transform) {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
         transformedItem =
-            itemTransformingService.transformFromTo(FORMAT.PEER_TEI_XML, trgFormat, item);
+            itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
+                trgFormat, item);
       }
 
       // Create item
@@ -470,7 +472,7 @@ public class SwordUtil extends FacesBean {
       itemReport.setContent("Error transforming item into eSciDoc Publication Item.");
       final ValidationReportVO report = new ValidationReportVO();
       report.getItems().add(itemReport);
-      throw new ItemInvalidException(report);
+      throw new ValidationException(report);
     }
 
     return itemVO;
@@ -488,25 +490,26 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws PubItemStatusInvalidException
    * @throws IngeEsServiceException
-   * @throws AaException
-   * @throws ItemInvalidException
+   * @throws AuthenticationException
+   * @throws ValidationException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
    * @throws PubCollectionNotFoundException
    * @throws PubItemLockedException
    * @throws PubItemMandatoryAttributesMissingException
-   * @throws ValidationException
+   * @throws ValidationServiceException
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(PubItemVO item) throws AaException, IngeServiceException,
-      ItemInvalidException {
+  public PubItemVO doDeposit(PubItemVO item) throws AuthenticationException,
+      IngeTechnicalException, de.mpg.mpdl.inge.service.exceptions.AuthorizationException,
+      IngeApplicationException {
 
     PubItemVO depositedItem = null;
     final String method = this.getMethod(item);
 
     if (method == null) {
-      throw new IngeServiceException(null, null);
+      throw new IngeTechnicalException(null, null);
     }
 
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();

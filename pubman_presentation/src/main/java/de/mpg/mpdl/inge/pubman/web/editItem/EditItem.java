@@ -49,7 +49,7 @@ import com.sun.faces.facelets.component.UIRepeat;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
@@ -485,7 +485,7 @@ public class EditItem extends FacesBean {
       ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());
       return null;
     } catch (final Exception e) {
@@ -577,7 +577,7 @@ public class EditItem extends FacesBean {
   private String saveItem(String navigateTo) {
     try {
       return this.getItemControllerSessionBean().saveCurrentPubItem(navigateTo);
-    } catch (ItemInvalidException e) {
+    } catch (ValidationException e) {
       this.showValidationMessages(e.getReport());
     }
 

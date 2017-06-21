@@ -55,10 +55,10 @@ import org.w3c.dom.Element;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -68,7 +68,8 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -94,11 +95,11 @@ public class PubManSwordServer {
    * @return DepositResponse
    * @throws ContentStreamNotFoundException
    * @throws Exception
-   * @throws ValidationException
+   * @throws ValidationServiceException
    * @throws NamingException
    * @throws SWORDContentTypeException
    * @throws IngeEsServiceException
-   * @throws AaException
+   * @throws AuthenticationException
    * @throws PubItemAlreadyReleasedException
    * @throws PubItemNotFoundException
    * @throws PubCollectionNotFoundException
@@ -111,11 +112,13 @@ public class PubManSwordServer {
    * @throws SecurityException
    * @throws DepositingException
    * @throws AuthorizationException
-   * @throws ItemInvalidException
+   * @throws ValidationException
    */
   public DepositResponse doDeposit(Deposit deposit, String collection)
-      throws ContentStreamNotFoundException, SWORDContentTypeException, AaException,
-      IngeServiceException, ItemInvalidException, ValidationException {
+      throws ContentStreamNotFoundException, SWORDContentTypeException, AuthenticationException,
+      IngeTechnicalException, IngeApplicationException,
+      de.mpg.mpdl.inge.service.exceptions.AuthorizationException, ValidationException,
+      ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
@@ -137,10 +140,10 @@ public class PubManSwordServer {
     try {
       PubItemUtil.cleanUpItem(depositItem);
       ItemValidatingService.validate(depositItem, ValidationPoint.STANDARD);
-    } catch (final ValidationException e) {
+    } catch (final ValidationServiceException e) {
       this.setVerbose("Following validation error(s) occurred: " + e);
       throw e;
-    } catch (final ItemInvalidException e) {
+    } catch (final ValidationException e) {
       this.setVerbose("Following validation error(s) occurred: " + e.getReport());
       throw e;
     }

@@ -39,17 +39,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.OrgUnitsSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -252,10 +250,17 @@ public class SiteMapTask extends Thread {
       try {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
-        final ItemContainerSearchResult itemSearchResult = this.getItems(firstRecord);
-        totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
+
+
+        final SearchRetrieveResponseVO<PubItemVO> itemSearchResult = this.getItems(firstRecord);
+        totalRecords = itemSearchResult.getNumberOfRecords();
         this.addItemsToSitemap(itemSearchResult);
 
+        /*
+         * final ItemContainerSearchResult itemSearchResult = this.getItems(firstRecord);
+         * totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
+         * this.addItemsToSitemap(itemSearchResult);
+         */
 
         firstRecord += this.maxItemsPerRetrieve;
 
@@ -286,14 +291,19 @@ public class SiteMapTask extends Thread {
 
     // fileWriter.write("<ul>");
     do {
-      final OrgUnitsSearchResult ouSearchResult = this.getOUs(firstRecord);
-      totalRecords = ouSearchResult.getTotalNumberOfResults().intValue();
-      this.addOUsToSitemap(ouSearchResult);
+      try {
+        final SearchRetrieveResponseVO<AffiliationVO> ouSearchResult = this.getOUs(firstRecord);
+        totalRecords = ouSearchResult.getNumberOfRecords();
+        this.addOUsToSitemap(ouSearchResult);
 
-      firstRecord += this.maxItemsPerRetrieve;
+        firstRecord += this.maxItemsPerRetrieve;
 
-      if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
-        this.changeFile();
+        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
+          this.changeFile();
+        }
+      } catch (final Exception e) {
+        SiteMapTask.logger.error("Error while creating sitemap part for ous from offset "
+            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
       }
 
       try {
@@ -327,21 +337,27 @@ public class SiteMapTask extends Thread {
    * @throws TechnicalException
    * @throws Exception
    */
-  private ItemContainerSearchResult getItems(int firstRecord) {
-    final SearchQuery itemQuery =
-        new PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid="
-            + this.contentModel + ")");
-    itemQuery.setStartRecord(firstRecord + "");
-    itemQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
-    try {
-      final ItemContainerSearchResult itemSearchResult =
-          SearchService.searchForItemContainer(itemQuery);
-      return itemSearchResult;
-    } catch (final Exception e) {
-      SiteMapTask.logger.error("Error getting items", e);
-    }
+  private SearchRetrieveResponseVO<PubItemVO> getItems(int firstRecord) throws Exception {
 
-    return null;
+    SearchRetrieveRequestVO<QueryBuilder> srr =
+        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveResponseVO<PubItemVO> resp =
+        ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+
+
+    return resp;
+
+    /*
+     * final SearchQuery itemQuery = new
+     * PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid=" + this.contentModel
+     * + ")"); itemQuery.setStartRecord(firstRecord + "");
+     * itemQuery.setMaximumRecords(this.maxItemsPerRetrieve + ""); try { final
+     * ItemContainerSearchResult itemSearchResult = SearchService.searchForItemContainer(itemQuery);
+     * return itemSearchResult; } catch (final Exception e) {
+     * SiteMapTask.logger.error("Error getting items", e); }
+     * 
+     * return null;
+     */
   }
 
   /**
@@ -351,21 +367,26 @@ public class SiteMapTask extends Thread {
    * @throws TechnicalException
    * @throws Exception
    */
-  private OrgUnitsSearchResult getOUs(int firstRecord) {
+  private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
-    final SearchQuery ouQuery =
-        new PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
-    ouQuery.setStartRecord(firstRecord + "");
-    ouQuery.setMaximumRecords(this.maxItemsPerRetrieve + "");
-    try {
-      final OrgUnitsSearchResult ouSearchResult =
-          SearchService.searchForOrganizationalUnits(ouQuery);
-      return ouSearchResult;
-    } catch (final Exception e) {
-      SiteMapTask.logger.error("Error getting ous", e);
-    }
 
-    return null;
+    SearchRetrieveRequestVO<QueryBuilder> srr =
+        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveResponseVO<AffiliationVO> resp =
+        ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+
+
+    return resp;
+    /*
+     * final SearchQuery ouQuery = new
+     * PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
+     * ouQuery.setStartRecord(firstRecord + ""); ouQuery.setMaximumRecords(this.maxItemsPerRetrieve
+     * + ""); try { final OrgUnitsSearchResult ouSearchResult =
+     * SearchService.searchForOrganizationalUnits(ouQuery); return ouSearchResult; } catch (final
+     * Exception e) { SiteMapTask.logger.error("Error getting ous", e); }
+     * 
+     * return null;
+     */
   }
 
   private void startSitemap() {
@@ -380,33 +401,29 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  private void addItemsToSitemap(ItemContainerSearchResult searchResult) {
-    final List<SearchResultElement> results = searchResult.getResultList();
-    for (final SearchResultElement result : results) {
-      if (result instanceof ItemVO) {
-        final PubItemVO pubItemVO = new PubItemVO((ItemVO) result);
-        try {
-          this.fileWriter.write("\t<url>\n\t\t<loc>");
-          this.fileWriter.write(this.instanceUrl);
-          this.fileWriter.write(this.contextPath);
-          this.fileWriter.write(this.itemPattern
-              .replace("$1", pubItemVO.getVersion().getObjectId()));
-          this.fileWriter.write("</loc>\n\t\t<lastmod>");
-          this.fileWriter.write(this.dateFormat.format(pubItemVO.getModificationDate()));
-          this.fileWriter.write("</lastmod>\n\t</url>\n");
-        } catch (final Exception e) {
-          SiteMapTask.logger.error("Error", e);
-        }
-      } else {
-        SiteMapTask.logger.error("Search result is not an ItemVO, " + "but a "
-            + result.getClass().getSimpleName());
+  private void addItemsToSitemap(SearchRetrieveResponseVO<PubItemVO> searchResult) {
+
+    for (final SearchRetrieveRecordVO<PubItemVO> result : searchResult.getRecords()) {
+
+      final PubItemVO pubItemVO = new PubItemVO(result.getData());
+      try {
+        this.fileWriter.write("\t<url>\n\t\t<loc>");
+        this.fileWriter.write(this.instanceUrl);
+        this.fileWriter.write(this.contextPath);
+        this.fileWriter.write(this.itemPattern.replace("$1", pubItemVO.getVersion().getObjectId()));
+        this.fileWriter.write("</loc>\n\t\t<lastmod>");
+        this.fileWriter.write(this.dateFormat.format(pubItemVO.getModificationDate()));
+        this.fileWriter.write("</lastmod>\n\t</url>\n");
+      } catch (final Exception e) {
+        SiteMapTask.logger.error("Error", e);
       }
+
     }
   }
 
-  private void addOUsToSitemap(OrgUnitsSearchResult searchResult) {
-    final List<AffiliationVO> results = searchResult.getResults();
-    for (final AffiliationVO result : results) {
+  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationVO> searchResult) {
+
+    for (final SearchRetrieveRecordVO<AffiliationVO> result : searchResult.getRecords()) {
 
       try {
         this.fileWriter.write("\t<url>\n\t\t<loc>");
@@ -414,7 +431,7 @@ public class SiteMapTask extends Thread {
         this.fileWriter.write(this.contextPath);
         this.fileWriter
             .write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-        this.fileWriter.write(result.getReference().getObjectId());
+        this.fileWriter.write(result.getData().getReference().getObjectId());
         this.fileWriter
             .write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
         this.fileWriter.write(this.contentModel);

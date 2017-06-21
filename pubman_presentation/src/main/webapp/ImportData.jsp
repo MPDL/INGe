@@ -34,7 +34,7 @@
 					</span></td>
                     <td class="free_area0 endline">
                         <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputText
-								value="#{ImportData.import.format}" />&#160;
+								value="#{ImportWorkspace.getFormatLabel(ImportData.import)}" />&#160;
 					</span></td>
                     <td class="free_area0 endline">
                         <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputText

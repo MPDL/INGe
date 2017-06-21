@@ -294,6 +294,7 @@
                 );
                 window.setTimeout("reloadDetails()", 5000);
             }
+            
             window.setTimeout("reloadImports()", 2000);
             window.setTimeout("reloadDetails()", 5000);
         </script>

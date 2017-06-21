@@ -13,14 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ItemInvalidException;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
 
 public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObject extends BasicDbRO>
@@ -32,7 +34,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Transactional
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
     List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
@@ -50,15 +53,15 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Transactional
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
-      throws IngeServiceException, AaException, ItemInvalidException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
-      throw new IngeServiceException("Object with given id not found.");
-    } else if (!checkEqualModificationDate(getModificationDate(object),
-        getModificationDate(transformToOld(objectToBeUpdated)))) {
-      throw new IngeServiceException("Object changed in meantime");
+      throw new IngeApplicationException("Object with given id not found.");
     }
+    checkEqualModificationDate(getModificationDate(object),
+        getModificationDate(transformToOld(objectToBeUpdated)));
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
@@ -78,15 +81,12 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   @Transactional
   @Override
-  public void delete(String id, Date modificationDate, String authenticationToken)
-      throws IngeServiceException, AaException {
+  public void delete(String id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
     if (objectToBeDeleted == null) {
-      throw new IngeServiceException("Object with given id not found.");
-    } else if (!checkEqualModificationDate(modificationDate,
-        getModificationDate(transformToOld(objectToBeDeleted)))) {
-      throw new IngeServiceException("Object changed in meantime");
+      throw new IngeApplicationException("Object with given id not found.");
     }
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
@@ -96,8 +96,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   @Transactional(readOnly = true)
   @Override
-  public ModelObject get(String id, String authenticationToken) throws IngeServiceException,
-      AaException {
+  public ModelObject get(String id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = null;
     ModelObject object = transformToOld(getDbRepository().findOne(id));
     if (authenticationToken != null) {
@@ -109,7 +109,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   }
 
   public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO<QueryBuilder> srr,
-      String authenticationToken) throws IngeServiceException, AaException {
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
 
     QueryBuilder qb = srr.getQueryObject();
     if (authenticationToken != null) {
@@ -126,7 +127,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
-      throws AaException, IngeServiceException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];
     }
@@ -155,7 +157,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected abstract List<String> updateObjectWithValues(ModelObject givenObject,
       DbObject objectToBeUpdated, AccountUserVO userAccount, boolean create)
-      throws IngeServiceException;
+      throws IngeTechnicalException, IngeApplicationException;
 
   protected abstract ModelObject transformToOld(DbObject dbObject);
 
@@ -167,7 +169,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected abstract Date getModificationDate(ModelObject object);
 
-  protected void reindex(List<String> idList) throws IngeServiceException {
+  protected void reindex(List<String> idList) throws IngeTechnicalException {
     // Reindex old and new Parents
     for (String id : idList) {
       ModelObject vo = transformToOld(getDbRepository().findOne(id));
@@ -175,11 +177,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
   }
 
-  protected boolean checkEqualModificationDate(Date date1, Date date2) {
-    if (date1.equals(date2))
-      return true;
-    else
-      return false;
+  protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
+    if (date1 == null || date2 == null || !date1.equals(date2)) {
+      throw new IngeApplicationException("Object changed in the meantime: " + date1
+          + "  does not equal  " + date2);
+    }
   }
 
 

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -255,11 +255,11 @@ public class PubmanLogicTest {
   }
 
 
-  private static void validateLoginname(String loginname) throws IngeServiceException {
+  private static void validateLoginname(String loginname) throws IngeTechnicalException {
     if (loginname == null || loginname.trim().isEmpty()) {
-      throw new IngeServiceException("A loginname (userId) has to be provided");
+      throw new IngeTechnicalException("A loginname (userId) has to be provided");
     } else if (!loginname.matches("^[a-zA-Z0-9@_\\-\\.]{4,}$")) {
-      throw new IngeServiceException(
+      throw new IngeTechnicalException(
           "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
     }
 

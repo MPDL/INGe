@@ -1,26 +1,24 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
-
 @SuppressWarnings("serial")
-public class AaException extends IngeServiceException {
+public class IngeApplicationException extends Exception {
 
-  public AaException() {
+  public IngeApplicationException() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  public AaException(String message, Throwable cause) {
+  public IngeApplicationException(String message, Throwable cause) {
     super(message, cause);
     // TODO Auto-generated constructor stub
   }
 
-  public AaException(String message) {
+  public IngeApplicationException(String message) {
     super(message);
     // TODO Auto-generated constructor stub
   }
 
-  public AaException(Throwable cause) {
+  public IngeApplicationException(Throwable cause) {
     super(cause);
     // TODO Auto-generated constructor stub
   }

@@ -1,21 +1,9 @@
 package de.mpg.mpdl.inge.service.aa;
 
-import java.net.URI;
-import java.net.URL;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.entity.ContentType;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
-import de.mpg.mpdl.inge.model.exception.IngeServiceException;
-import de.mpg.mpdl.inge.service.exceptions.AaException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class IngeSpringAuthenticationProvider implements AuthenticationProvider {
 
