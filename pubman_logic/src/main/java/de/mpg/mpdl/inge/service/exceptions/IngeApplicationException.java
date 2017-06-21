@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-
 @SuppressWarnings("serial")
 public class IngeApplicationException extends Exception {
 
