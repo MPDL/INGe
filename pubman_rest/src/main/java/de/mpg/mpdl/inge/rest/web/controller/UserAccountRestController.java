@@ -130,7 +130,8 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH + "/activate", method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> activate(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserVO updated = null;
     updated = userSvc.activate(userId, lmd, token);
@@ -141,7 +142,8 @@ public class UserAccountRestController {
   public ResponseEntity<AccountUserVO> deactivate(
       @RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
-      throws AaException, IngeServiceException, ItemInvalidException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserVO updated = null;
     updated = userSvc.deactivate(userId, lmd, token);
