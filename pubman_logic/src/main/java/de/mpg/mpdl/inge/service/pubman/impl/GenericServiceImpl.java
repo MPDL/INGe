@@ -203,7 +203,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     {
       throw exception;
     }
-    catch (JpaObjectRetrievalFailureException ex)
+    catch (ObjectRetrievalFailureException ex)
     {
       throw new IngeApplicationException(ex.getMessage(), ex);
     }
