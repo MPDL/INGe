@@ -358,7 +358,7 @@ public class AuthorizationService {
   }
 
   private String getFieldValueOrString(List<String> order, Object[] objects, String field)
-      throws AuthenticationException {
+      throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
       Object object = objects[order.indexOf(fieldHierarchy[0])];
@@ -376,7 +376,7 @@ public class AuthorizationService {
     }
   }
 
-  private String getFieldValueViaGetter(Object object, String field) throws AuthenticationException {
+  private String getFieldValueViaGetter(Object object, String field) throws AuthorizationException {
     try {
       String[] fieldHierarchy = field.split("\\.");
 
@@ -402,7 +402,7 @@ public class AuthorizationService {
 
 
     } catch (Exception e) {
-      throw new AuthenticationException("Error while calling getter in object", e);
+      throw new AuthorizationException("Error while calling getter in object", e);
     }
     return null;
 

@@ -228,14 +228,12 @@ public class PubItemServiceDbImpl implements PubItemService {
     PubItemVersionDbVO latestVersion =
         itemRepository.findLatestVersion(pubItemVO.getVersion().getObjectId());
     if (latestVersion == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
-    if (!checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(), latestVersionOld
-        .getVersion().getModificationDate())) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(), latestVersionOld
+        .getVersion().getModificationDate());
 
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
@@ -292,7 +290,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVersionDbVO latestPubItemDbVersion = itemRepository.findLatestVersion(id);
     if (latestPubItemDbVersion == null) {
-      throw new IngeTechnicalException("Item " + id + " not found");
+      throw new IngeApplicationException("Item " + id + " not found");
     }
 
     PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemDbVersion);
@@ -357,7 +355,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
 
     if (requestedItem == null) {
-      throw new IngeTechnicalException("Item " + id + " not found");
+      throw new IngeApplicationException("Item " + id + " not found");
     }
 
     long time = System.currentTimeMillis() - start;
@@ -435,14 +433,12 @@ public class PubItemServiceDbImpl implements PubItemService {
     PubItemVersionDbVO latestVersion = itemRepository.findLatestVersion(id);
 
     if (latestVersion == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
 
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
-    if (!checkEqualModificationDate(modificationDate, latestVersionOld.getModificationDate())) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, latestVersionOld.getModificationDate());
 
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject()

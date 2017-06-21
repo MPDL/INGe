@@ -150,20 +150,18 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
     if (affDbToBeUpdated == null) {
-      throw new IngeTechnicalException("Organization with given id " + id + " not found.");
+      throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
 
     AffiliationVO affVoToBeUpdated = EntityTransformer.transformToOld(affDbToBeUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(affVoToBeUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(affVoToBeUpdated));
 
     if (affDbToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
       AffiliationDbVO parentVo =
           organizationRepository.findOne(affDbToBeUpdated.getParentAffiliation().getObjectId());
       if (parentVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
-        throw new AuthenticationException("Parent organization " + parentVo.getObjectId()
+        throw new IngeApplicationException("Parent organization " + parentVo.getObjectId()
             + " must be in state OPENED");
       }
     }
@@ -230,7 +228,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     if (givenAff.getDefaultMetadata().getName() == null
         || givenAff.getDefaultMetadata().getName().trim().isEmpty()) {
-      throw new IngeTechnicalException("Please provide a name for the organization.");
+      throw new IngeApplicationException("Please provide a name for the organization.");
     }
 
     List<String> reindexList = new ArrayList<>();

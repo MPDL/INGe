@@ -117,6 +117,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
+
+    if (userAccountRepository.findByLoginname(givenUser.getUserid()) != null) {
+      throw new IngeApplicationException("User with loginname " + givenUser.getUserid()
+          + " already exists.");
+    }
+
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
     userLoginRepository.insertLogin(accountUser.getUserid(),
@@ -145,14 +151,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     AccountUserDbVO userDbToUpdated = userAccountRepository.findOne(userId);
 
     if (userDbToUpdated == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
 
     AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(userDbToUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
     checkAa("changePassword", userAccount, transformToOld(userDbToUpdated));
     userLoginRepository.updateLogin(userId, passwordEncoder.encode(newPassword));
@@ -167,21 +171,19 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
 
     AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
     for (GrantVO grantToBeAdded : grants) {
 
       for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
         if (Objects.equals(grantToBeAdded.getRole(), existingGrant.getRole())
             && Objects.equals(grantToBeAdded.getObjectRef(), existingGrant.getObjectRef())) {
-          throw new IngeTechnicalException("Grant with given value [role="
+          throw new IngeApplicationException("Grant with given value [role="
               + grantToBeAdded.getRole() + ", objectRef= " + grantToBeAdded.getObjectRef()
               + "] already exists in user account " + objectToBeUpdated.getObjectId());
         }
@@ -209,7 +211,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
         }
 
         if (referencedObject == null) {
-          throw new IngeTechnicalException("Unknown identifier reference: "
+          throw new IngeApplicationException("Unknown identifier reference: "
               + grantToBeAdded.getObjectRef());
         }
       }
@@ -241,14 +243,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
 
     AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
     for (GrantVO givenGrant : grants) {
       GrantVO grantToBeRemoved = null;
@@ -260,7 +260,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       }
 
       if (grantToBeRemoved == null) {
-        throw new IngeTechnicalException("Grant with given values [role=" + givenGrant.getRole()
+        throw new IngeApplicationException("Grant with given values [role=" + givenGrant.getRole()
             + ", objectRef= " + givenGrant.getObjectRef() + "] does not exist in user account "
             + objectToBeUpdated.getObjectId());
       }
@@ -508,9 +508,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
     AccountUserVO userVoToBeUpdated = transformToOld(accountToBeUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(userVoToBeUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(userVoToBeUpdated));
 
     checkAa((active ? "activate" : "deactivate"), userAccount, userVoToBeUpdated);
 

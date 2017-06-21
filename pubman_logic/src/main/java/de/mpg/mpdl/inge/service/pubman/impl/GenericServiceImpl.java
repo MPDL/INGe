@@ -58,11 +58,10 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
-    } else if (!checkEqualModificationDate(getModificationDate(object),
-        getModificationDate(transformToOld(objectToBeUpdated)))) {
-      throw new IngeTechnicalException("Object changed in meantime (wrong modification date)");
+      throw new IngeApplicationException("Object with given id not found.");
     }
+    checkEqualModificationDate(getModificationDate(object),
+        getModificationDate(transformToOld(objectToBeUpdated)));
     List<String> reindexList =
         updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
@@ -87,7 +86,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
     if (objectToBeDeleted == null) {
-      throw new IngeTechnicalException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.");
     }
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
@@ -178,11 +177,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
   }
 
-  protected boolean checkEqualModificationDate(Date date1, Date date2) {
-    if (date1 != null && date2 != null && date1.equals(date2)) {
-      return true;
-    } else
-      return false;
+  protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
+    if (date1 == null || date2 == null || !date1.equals(date2)) {
+      throw new IngeApplicationException("Object changed in the meantime: " + date1
+          + "  does not equal  " + date2);
+    }
   }
 
 

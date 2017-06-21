@@ -113,14 +113,12 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
     if (contextDbToBeUpdated == null) {
-      throw new IngeTechnicalException("Context with given id " + id + " not found.");
+      throw new IngeApplicationException("Context with given id " + id + " not found.");
     }
 
     ContextVO contextVoToBeUpdated = transformToOld(contextDbToBeUpdated);
 
-    if (!checkEqualModificationDate(modificationDate, getModificationDate(contextVoToBeUpdated))) {
-      throw new IngeTechnicalException("Object changed in meantime");
-    }
+    checkEqualModificationDate(modificationDate, getModificationDate(contextVoToBeUpdated));
 
     checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount,
         contextVoToBeUpdated);
@@ -147,7 +145,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   protected List<String> updateObjectWithValues(ContextVO givenContext,
       ContextDbVO toBeUpdatedContext, AccountUserVO userAccount, boolean createNew)
-      throws IngeTechnicalException {
+      throws IngeTechnicalException, IngeApplicationException {
 
     toBeUpdatedContext.setAdminDescriptor(givenContext.getAdminDescriptor());
 
@@ -155,7 +153,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
     toBeUpdatedContext.setName(givenContext.getName());
 
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
-      throw new IngeTechnicalException("A name is required");
+      throw new IngeApplicationException("A name is required");
     }
 
     if (givenContext.getResponsibleAffiliations() != null) {
