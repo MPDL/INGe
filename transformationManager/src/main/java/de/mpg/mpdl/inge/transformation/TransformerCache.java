@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 
@@ -84,8 +85,33 @@ public class TransformerCache {
     }
   }
 
+  public static boolean isTransformerExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+
+    synchronized (transformerMap) {
+
+      Transformer t = null;
+      if ((t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))) != null)
+        return true;
+
+      if (t == null) {
+        try {
+          t = TransformerFactory.newInstance(sourceFormat, targetFormat);
+        } catch (TransformationException e) {
+          return false;
+        }
+
+        if (t != null) {
+          transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
   // for testing purposes
-  int getTransformerCacheSize() {
+  static int getTransformerCacheSize() {
     return transformerMap.size();
   }
 

@@ -65,7 +65,11 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
+import de.mpg.mpdl.inge.transformation.Transformer;
+import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class ImportProcess extends Thread {
@@ -200,27 +204,17 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
     }
 
-    final TransformerFactory.FORMAT[] allSourceFormats =
-        this.itemTransformingService
-            .getAllSourceFormatsFor(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-    boolean found = false;
-    for (final TransformerFactory.FORMAT sourceFormat : allSourceFormats) {
-      if (format.equals(sourceFormat)) {
-        found = true;
-        if (this.setProcessor(format)) {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
-        } else {
-          this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
-          this.fail();
-        }
-        break;
-      }
-    }
-
-    if (!found) {
+    if (!TransformerCache.isTransformerExisting(format, FORMAT.ESCIDOC_ITEM_V3_XML)) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
       this.fail();
       return false;
+    }
+
+    if (this.setProcessor(format)) {
+      this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
+    } else {
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
+      this.fail();
     }
 
     this.log.finishItem();
@@ -245,7 +239,6 @@ public class ImportProcess extends Thread {
           this.formatProcessor = new EdocProcessor();
           break;
         case ENDNOTE_STRING:
-        case ENDNOTE_XML:
           this.formatProcessor = new EndnoteProcessor();
           break;
         case ESCIDOC_ITEMLIST_V1_XML:

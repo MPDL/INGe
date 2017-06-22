@@ -323,7 +323,7 @@ public class TransformerFactoryTest {
   }
 
   @Test
-  public void testEndnoteXmlToItemXmlV3() throws TransformationException, IOException {
+  public void testEndnoteXmlToItemXml() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -340,7 +340,7 @@ public class TransformerFactoryTest {
 
     assertXmlTransformationWithIgnore(
         wr,
-        "results/fromEndnoteXmlToEscidocItem.xml",
+        "results/fromEndnoteXmlToItemXml.xml",
         Arrays
             .asList(new String[] {"creator,role=http://www.loc.gov/loc.terms/relators/AUT,http://purl.org/escidoc/metadata/terms/0.1/"}));
   }
@@ -627,7 +627,26 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
+    String s = wr.toString();
+
     assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
+  }
+
+  @Test
+  public void testEndnoteToItemXmlList() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/endnote_item.txt")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromEndnoteToItemListXml.xml");
   }
 
   @Test
@@ -644,6 +663,24 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMabToEscidocItemXml.xml");
+  }
+
+  @Ignore
+  @Test
+  public void testMarc21ToItemXml() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/marc21.txt")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    assertXmlTransformation(wr, "results/fromMarc21ToEscidocItemXml.xml");
   }
 
   @Test
