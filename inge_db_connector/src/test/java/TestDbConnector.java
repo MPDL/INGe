@@ -297,7 +297,7 @@ public class TestDbConnector {
     // System.out.println(singleOu);
 
     try {
-      SearchRetrieveResponseVO<SearchResponse, de.mpg.mpdl.inge.model.valueobjects.ContextVO> contextList =
+      SearchRetrieveResponseVO<?, de.mpg.mpdl.inge.model.valueobjects.ContextVO> contextList =
           XmlTransformingService.transformToSearchRetrieveResponse(contextXml);
 
 
@@ -371,7 +371,7 @@ public class TestDbConnector {
     String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     // System.out.println(xml);
 
-    SearchRetrieveResponseVO<SearchResponse, AccountUserVO> userList =
+    SearchRetrieveResponseVO<?, AccountUserVO> userList =
         XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xml);
     for (SearchRetrieveRecordVO<AccountUserVO> accountUser : userList.getRecords()) {
 
@@ -419,7 +419,7 @@ public class TestDbConnector {
 
 
 
-  private void saveOuList(SearchRetrieveResponseVO<SearchResponse, AffiliationVO> srr)
+  private void saveOuList(SearchRetrieveResponseVO<?, AffiliationVO> srr)
       throws Exception {
     if (srr.getNumberOfRecords() > 0) {
       for (SearchRetrieveRecordVO<AffiliationVO> affRecord : srr.getRecords()) {
@@ -434,7 +434,7 @@ public class TestDbConnector {
                 .addParameter("query", "\"/parents/parent/id\"=\"" + objectId + "\"").build();
         String ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
 
-        SearchRetrieveResponseVO<SearchResponse, AffiliationVO> ouList =
+        SearchRetrieveResponseVO<?, AffiliationVO> ouList =
             XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
         saveOuList(ouList);
 
@@ -492,7 +492,7 @@ public class TestDbConnector {
       String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
       //System.out.println(xml);
       
-      SearchRetrieveResponseVO<SearchResponse, PubItemVO> pubItemList = XmlTransformingService.transformToSearchRetrieveResponse(xml);
+      SearchRetrieveResponseVO<?, PubItemVO> pubItemList = XmlTransformingService.transformToSearchRetrieveResponse(xml);
       
       allRecords = pubItemList.getNumberOfRecords();
       startRecord = startRecord + limit;
