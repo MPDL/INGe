@@ -15,7 +15,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @param <E>
  * @param <Query>
  */
-public interface GenericDaoEs<E extends ValueObject, Query> {
+public interface GenericDaoEs<E extends ValueObject> {
 
   /**
    * creates a new object in elasticsearch for the entity with a specific id
@@ -70,7 +70,7 @@ public interface GenericDaoEs<E extends ValueObject, Query> {
    * @return
    * @throws IngeTechnicalException
    */
-  public SearchRetrieveResponseVO<SearchResponse, E> search(
-      SearchRetrieveRequestVO<Query> searchQuery) throws IngeTechnicalException;
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
+      throws IngeTechnicalException;
 
 }

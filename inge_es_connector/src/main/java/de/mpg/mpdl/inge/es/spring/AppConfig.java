@@ -16,6 +16,6 @@ public class AppConfig {
 
   public static void main(String[] args) {
     ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-    OrganizationDaoEs<QueryBuilder> printer = context.getBean(OrganizationDaoEs.class);
+    OrganizationDaoEs printer = context.getBean(OrganizationDaoEs.class);
   }
 }

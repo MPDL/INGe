@@ -54,7 +54,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   private IdentifierProviderServiceImpl idProviderService;
 
   @Autowired
-  private ContextDaoEs<QueryBuilder> contextDao;
+  private ContextDaoEs contextDao;
 
   @Autowired
   private ContextRepository contextRepository;
@@ -206,7 +206,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  protected GenericDaoEs<ContextVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<ContextVO> getElasticDao() {
     return contextDao;
   }
 

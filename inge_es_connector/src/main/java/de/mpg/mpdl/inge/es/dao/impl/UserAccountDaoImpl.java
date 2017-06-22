@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
 public class UserAccountDaoImpl extends ElasticSearchGenericDAOImpl<AccountUserVO> implements
-    UserAccountDaoEs<QueryBuilder> {
+    UserAccountDaoEs {
 
   private static final String indexName = PropertyReader.getProperty("user_index_name");
   private static final String indexType = PropertyReader.getProperty("user_index_type");

@@ -168,9 +168,8 @@ public class HomePage extends BreadcrumbPage {
 
     SearchSortCriteria sc =
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, 4, 1, sc);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp =
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, 4, 1, sc);
+    SearchRetrieveResponseVO<PubItemVO> resp =
         ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     final List<PubItemVOPresentation> list =
         SearchRetrieverRequestBean.extractItemsOfSearchResult(resp);

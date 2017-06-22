@@ -2,13 +2,15 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
 
-public class SearchRetrieveResponseVO<OriginalResponse, T extends ValueObject> extends ValueObject {
+
+public class SearchRetrieveResponseVO<T extends ValueObject> extends ValueObject {
 
   private String version;
   private int numberOfRecords;
   private List<SearchRetrieveRecordVO<T>> records;
-  private OriginalResponse originalResponse;
+  private SearchResponse originalResponse;
 
 
 
@@ -36,11 +38,11 @@ public class SearchRetrieveResponseVO<OriginalResponse, T extends ValueObject> e
     this.records = records;
   }
 
-  public OriginalResponse getOriginalResponse() {
+  public SearchResponse getOriginalResponse() {
     return originalResponse;
   }
 
-  public void setOriginalResponse(OriginalResponse originalResponse) {
+  public void setOriginalResponse(SearchResponse originalResponse) {
     this.originalResponse = originalResponse;
   }
 

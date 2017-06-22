@@ -767,9 +767,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
             QueryBuilders.boolQuery().must(
                 QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
-        SearchRetrieveRequestVO<QueryBuilder> srr =
-            new SearchRetrieveRequestVO<QueryBuilder>(qb, 1000, 0);
-        SearchRetrieveResponseVO<SearchResponse, ContextVO> result =
+        SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
+        SearchRetrieveResponseVO<ContextVO> result =
             ApplicationBean.INSTANCE.getContextService().search(srr, null);
 
         this.contextListMenu = new ArrayList<SelectItem>();

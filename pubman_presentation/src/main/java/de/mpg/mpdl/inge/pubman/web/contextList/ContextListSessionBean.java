@@ -179,8 +179,8 @@ public class ContextListSessionBean extends FacesBean {
             bq.should(QueryBuilders.termQuery("reference.objectId", id));
           }
 
-          SearchRetrieveResponseVO<SearchResponse, ContextVO> response = ApplicationBean.INSTANCE
-              .getContextService().search(new SearchRetrieveRequestVO<QueryBuilder>(bq), null);
+          SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE
+              .getContextService().search(new SearchRetrieveRequestVO(bq), null);
           List<ContextVO> ctxList =
               response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 

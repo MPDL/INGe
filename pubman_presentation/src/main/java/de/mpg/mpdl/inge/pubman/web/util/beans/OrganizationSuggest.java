@@ -66,10 +66,9 @@ public class OrganizationSuggest extends EditItemBean {
               QueryBuilders.multiMatchQuery(query, "defaultMetadata.name",
                   "defaultMetadata.alternativeNames"));
 
-      SearchRetrieveRequestVO<QueryBuilder> srr =
-          new SearchRetrieveRequestVO<QueryBuilder>(qb, 50, 0);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0);
 
-      SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response =
+      SearchRetrieveResponseVO<AffiliationVO> response =
           ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
       for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {

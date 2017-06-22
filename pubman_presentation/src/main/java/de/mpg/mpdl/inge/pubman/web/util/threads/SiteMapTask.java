@@ -253,8 +253,7 @@ public class SiteMapTask extends Thread {
         // " to " + (firstRecord+maxItemsPerRetrieve));
 
 
-        final SearchRetrieveResponseVO<SearchResponse, PubItemVO> itemSearchResult =
-            this.getItems(firstRecord);
+        final SearchRetrieveResponseVO<PubItemVO> itemSearchResult = this.getItems(firstRecord);
         totalRecords = itemSearchResult.getNumberOfRecords();
         this.addItemsToSitemap(itemSearchResult);
 
@@ -294,8 +293,7 @@ public class SiteMapTask extends Thread {
     // fileWriter.write("<ul>");
     do {
       try {
-        final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> ouSearchResult =
-            this.getOUs(firstRecord);
+        final SearchRetrieveResponseVO<AffiliationVO> ouSearchResult = this.getOUs(firstRecord);
         totalRecords = ouSearchResult.getNumberOfRecords();
         this.addOUsToSitemap(ouSearchResult);
 
@@ -340,12 +338,11 @@ public class SiteMapTask extends Thread {
    * @throws TechnicalException
    * @throws Exception
    */
-  private SearchRetrieveResponseVO<SearchResponse, PubItemVO> getItems(int firstRecord)
-      throws Exception {
+  private SearchRetrieveResponseVO<PubItemVO> getItems(int firstRecord) throws Exception {
 
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp =
+    SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveResponseVO<PubItemVO> resp =
         ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
 
@@ -371,13 +368,12 @@ public class SiteMapTask extends Thread {
    * @throws TechnicalException
    * @throws Exception
    */
-  private SearchRetrieveResponseVO<SearchResponse, AffiliationVO> getOUs(int firstRecord)
-      throws Exception {
+  private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
 
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<SearchResponse, AffiliationVO> resp =
+    SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveResponseVO<AffiliationVO> resp =
         ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
 
@@ -406,7 +402,7 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  private void addItemsToSitemap(SearchRetrieveResponseVO<SearchResponse, PubItemVO> searchResult) {
+  private void addItemsToSitemap(SearchRetrieveResponseVO<PubItemVO> searchResult) {
 
     for (final SearchRetrieveRecordVO<PubItemVO> result : searchResult.getRecords()) {
 
@@ -426,7 +422,7 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  private void addOUsToSitemap(SearchRetrieveResponseVO<SearchResponse, AffiliationVO> searchResult) {
+  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationVO> searchResult) {
 
     for (final SearchRetrieveRecordVO<AffiliationVO> result : searchResult.getRecords()) {
 

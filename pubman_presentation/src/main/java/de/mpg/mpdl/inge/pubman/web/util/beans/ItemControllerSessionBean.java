@@ -638,10 +638,10 @@ public class ItemControllerSessionBean extends FacesBean {
       bq.should(subQuery);
     }
 
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
 
 
-    final SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+    final SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
         .search(srr, this.getLoginHelper().getAuthenticationToken());
 
 

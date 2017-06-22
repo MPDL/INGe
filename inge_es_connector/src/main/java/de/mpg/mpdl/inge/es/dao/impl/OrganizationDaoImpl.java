@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
 public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<AffiliationVO> implements
-    OrganizationDaoEs<QueryBuilder> {
+    OrganizationDaoEs {
 
   private static final String indexName = PropertyReader.getProperty("organization_index_name");
   private static final String indexType = PropertyReader.getProperty("organization_index_type");

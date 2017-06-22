@@ -21,7 +21,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
-  private OrganizationDaoEs<QueryBuilder> organizationDao;
+  private OrganizationDaoEs organizationDao;
 
   private String test_ou_id = "test_ou";
 

@@ -285,8 +285,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         bq.should(QueryBuilders.termQuery(OrganizationServiceDbImpl.INDEX_OBJECT_ID, id.getObjectId()));
        }
       
-      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq);
-      SearchRetrieveResponseVO<SearchResponse, AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
+      SearchRetrieveResponseVO<AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
       transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
       
       

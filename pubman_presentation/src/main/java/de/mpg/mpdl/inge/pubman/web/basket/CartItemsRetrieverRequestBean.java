@@ -102,10 +102,10 @@ public class CartItemsRetrieverRequestBean extends
         
         
         //TODO Sorting!!
-        SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset);
+        SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq, limit, offset);
 
 
-        SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
+        SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
         this.numberOfRecords = resp.getNumberOfRecords();
         

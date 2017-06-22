@@ -49,8 +49,8 @@ public class UserAccountRestController {
   public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
-    SearchRetrieveResponseVO<SearchResponse, AccountUserVO> srResponse = userSvc.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery);
+    SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<AccountUserVO>>(response, HttpStatus.OK);
@@ -60,8 +60,8 @@ public class UserAccountRestController {
   public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
-    SearchRetrieveResponseVO<SearchResponse, AccountUserVO> srResponse = userSvc.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);
+    SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<AccountUserVO>>(response, HttpStatus.OK);

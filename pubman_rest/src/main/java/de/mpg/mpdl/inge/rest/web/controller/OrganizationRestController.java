@@ -51,8 +51,8 @@ public class OrganizationRestController {
       value = AUTHZ_HEADER, required = false) String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
 	  SearchSortCriteria sorting = new SearchSortCriteria("defaultMetadata.name.sorted", SortOrder.ASC);
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, sorting);
-    SearchRetrieveResponseVO<SearchResponse, AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, sorting);
+    SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     List<AffiliationVO> response = new ArrayList<AffiliationVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
@@ -63,8 +63,8 @@ public class OrganizationRestController {
       value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
 	  SearchSortCriteria sorting = new SearchSortCriteria("defaultMetadata.name.sorted", SortOrder.ASC);
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, sorting);
-    SearchRetrieveResponseVO<SearchResponse, AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, sorting);
+    SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     List<AffiliationVO> response = new ArrayList<AffiliationVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);

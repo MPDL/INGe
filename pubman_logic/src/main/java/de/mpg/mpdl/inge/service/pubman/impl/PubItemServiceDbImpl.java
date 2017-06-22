@@ -83,7 +83,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   private AuditRepository auditRepository;
 
   @Autowired
-  private PubItemDaoEs<QueryBuilder> pubItemDao;
+  private PubItemDaoEs pubItemDao;
 
   @PersistenceContext
   EntityManager entityManager;
@@ -114,6 +114,10 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
+
+  public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
+
+  public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -316,7 +320,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     itemObjectRepository.delete(latestPubItemDbVersion.getObject());
 
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = getAllVersions(id);
+    SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<PubItemVO> rec : resp.getRecords()) {
       pubItemDao.delete(rec.getPersistenceId());
     }
@@ -379,25 +383,24 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   @Override
-  public SearchRetrieveResponseVO<SearchResponse, PubItemVO> search(
-      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+  public SearchRetrieveResponseVO<PubItemVO> search(SearchRetrieveRequestVO srr,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
 
     QueryBuilder authorizedQuery;
 
     if (authenticationToken == null) {
       authorizedQuery =
-          aaService
-              .modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryObject(), null);
+          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
+              null);
     } else {
       AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
       authorizedQuery =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryObject(),
+          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
               userAccount);
     }
 
-    srr.setQueryObject(authorizedQuery);
+    srr.setQueryBuilder(authorizedQuery);
     System.out.println(authorizedQuery);
     logger.debug("Searching with authorized query: \n" + authorizedQuery.toString());
     return pubItemDao.search(srr);
@@ -535,23 +538,22 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
   }
 
-  private SearchRetrieveResponseVO<SearchResponse, PubItemVO> getAllVersions(String objectId)
+  private SearchRetrieveResponseVO<PubItemVO> getAllVersions(String objectId)
       throws IngeTechnicalException {
     QueryBuilder latestReleaseQuery =
         QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp =
+    SearchRetrieveResponseVO<PubItemVO> resp =
         executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
 
     return resp;
   }
 
-  private SearchRetrieveResponseVO<SearchResponse, PubItemVO> executeSearchSortByVersion(
-      QueryBuilder query, int limit, int offset) throws IngeTechnicalException {
+  private SearchRetrieveResponseVO<PubItemVO> executeSearchSortByVersion(QueryBuilder query,
+      int limit, int offset) throws IngeTechnicalException {
 
     SearchSortCriteria sortByVersion =
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(query, limit, offset, sortByVersion);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, sortByVersion);
     return pubItemDao.search(srr);
   }
 

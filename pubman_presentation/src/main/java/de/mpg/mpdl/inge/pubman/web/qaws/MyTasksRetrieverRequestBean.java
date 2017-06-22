@@ -146,10 +146,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       // TODO Sorting!!
       SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-      SearchRetrieveRequestVO<QueryBuilder> srr =
-          new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
+      SearchRetrieveRequestVO srr =
+          new SearchRetrieveRequestVO(bq, limit, offset, ssc);
 
-      SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
           .search(srr, getLoginHelper().getAuthenticationToken());
 
       this.numberOfRecords = resp.getNumberOfRecords();

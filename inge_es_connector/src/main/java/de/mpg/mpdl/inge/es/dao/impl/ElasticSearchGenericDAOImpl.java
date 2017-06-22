@@ -36,8 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
-    GenericDaoEs<E, QueryBuilder> {
+public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements GenericDaoEs<E> {
 
 
   @Autowired
@@ -163,14 +162,15 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
 
   }
 
-  public SearchRetrieveResponseVO<SearchResponse, E> search(
-      SearchRetrieveRequestVO<QueryBuilder> searchQuery) throws IngeTechnicalException {
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
+      throws IngeTechnicalException {
 
-    SearchRetrieveResponseVO<SearchResponse, E> srrVO;
+    SearchRetrieveResponseVO<E> srrVO;
     try {
 
+
       SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
-      srb.setQuery(searchQuery.getQueryObject());
+      srb.setQuery(searchQuery.getQueryBuilder());
 
 
       if (searchQuery.getOffset() != 0) {
@@ -201,10 +201,11 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
 
   }
 
-  private SearchRetrieveResponseVO<SearchResponse, E> getSearchRetrieveResponseFromElasticSearchResponse(
+
+
+  private SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(
       SearchResponse sr) throws IOException {
-    SearchRetrieveResponseVO<SearchResponse, E> srrVO =
-        new SearchRetrieveResponseVO<SearchResponse, E>();
+    SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
     srrVO.setOriginalResponse(sr);
     srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
 

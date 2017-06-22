@@ -8,8 +8,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
-public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<PubItemVO> implements
-    PubItemDaoEs<QueryBuilder> {
+public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<PubItemVO> implements PubItemDaoEs {
 
   private static final String indexName = PropertyReader.getProperty("item_index_name");
   private static final String indexType = PropertyReader.getProperty("item_index_type");

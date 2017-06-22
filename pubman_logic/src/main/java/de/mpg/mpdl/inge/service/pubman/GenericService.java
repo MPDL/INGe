@@ -27,8 +27,7 @@ public interface GenericService<E extends ValueObject> {
 
   // public void reindex() throws IngeServiceException, AaException;
 
-  public SearchRetrieveResponseVO<SearchResponse, E> search(
-      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO srr, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 }

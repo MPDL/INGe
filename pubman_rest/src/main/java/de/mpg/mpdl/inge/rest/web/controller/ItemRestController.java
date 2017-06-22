@@ -48,8 +48,8 @@ public class ItemRestController {
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
 		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, limit, offset);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> srResponse = pis.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
@@ -62,26 +62,24 @@ public class ItemRestController {
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
 		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> srResponse = pis.search(srRequest, token);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<SearchResponse, PubItemVO>> search(@RequestHeader(
+  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token, @RequestBody String query,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
-    SearchRetrieveRequestVO<QueryBuilder> srRequest =
-        new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<SearchResponse, PubItemVO>>(srResponse,
-        HttpStatus.OK);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)

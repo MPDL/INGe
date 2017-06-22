@@ -119,12 +119,11 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     return object;
   }
 
-  public SearchRetrieveResponseVO<SearchResponse, ModelObject> search(
-      SearchRetrieveRequestVO<QueryBuilder> srr, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+  public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
 
-    QueryBuilder qb = srr.getQueryObject();
+    QueryBuilder qb = srr.getQueryBuilder();
     if (authenticationToken != null) {
       qb =
           aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
@@ -132,8 +131,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     } else {
       qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
     }
-    srr.setQueryObject(qb);
-    System.out.println(srr.getQueryObject().toString());
+    srr.setQueryBuilder(qb);
+    System.out.println(srr.getQueryBuilder().toString());
     return getElasticDao().search(srr);
   }
 
@@ -175,7 +174,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected abstract JpaRepository<DbObject, String> getDbRepository();
 
-  protected abstract GenericDaoEs<ModelObject, QueryBuilder> getElasticDao();
+  protected abstract GenericDaoEs<ModelObject> getElasticDao();
 
   protected abstract String getObjectId(ModelObject object);
 

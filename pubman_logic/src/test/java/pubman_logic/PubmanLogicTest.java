@@ -85,10 +85,8 @@ public class PubmanLogicTest {
     System.out.println("HasChildren :" + affv0.getHasChildren());
 
     QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
-    SearchRetrieveResponseVO<SearchResponse, AffiliationVO> resp =
-        organizationService.search(srr, null);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(testQuery);
+    SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
     System.out.println("Found: " + resp.getNumberOfRecords() + " records");
 
     /*
@@ -113,9 +111,8 @@ public class PubmanLogicTest {
 
     System.out.println(token);
     QueryBuilder testQuery = QueryBuilders.matchQuery("metadata.title", "test");
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(testQuery);
-    SearchRetrieveResponseVO<SearchResponse, PubItemVO> resp = pubItemService.search(srr, null);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(testQuery);
+    SearchRetrieveResponseVO<PubItemVO> resp = pubItemService.search(srr, null);
     System.out.println("Found: " + resp.getNumberOfRecords() + " records");
   }
 

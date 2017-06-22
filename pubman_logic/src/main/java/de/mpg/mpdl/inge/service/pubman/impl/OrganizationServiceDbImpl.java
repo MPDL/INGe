@@ -53,7 +53,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   @Autowired
-  private OrganizationDaoEs<QueryBuilder> organizationDao;
+  private OrganizationDaoEs organizationDao;
 
   @Autowired
   private OrganizationRepository organizationRepository;
@@ -76,8 +76,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
@@ -94,8 +94,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
@@ -103,8 +103,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.boolQuery().must(QueryBuilders.termQuery("predecessorAffiliations.objectId", objectId));
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
-    final SearchRetrieveResponseVO<SearchResponse, AffiliationVO> response = this.search(srr, null);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
@@ -296,7 +296,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
 
   @Override
-  protected GenericDaoEs<AffiliationVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<AffiliationVO> getElasticDao() {
     return organizationDao;
   }
 

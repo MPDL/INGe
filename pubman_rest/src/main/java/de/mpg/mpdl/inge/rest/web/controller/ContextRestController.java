@@ -50,8 +50,8 @@ public class ContextRestController {
 	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token)
 			throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 		QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-		SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
-		SearchRetrieveResponseVO<SearchResponse, ContextVO> srResponse = ctxSvc.search(srRequest, token);
+		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery);
+		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
 		List<ContextVO> response = new ArrayList<ContextVO>();
 		srResponse.getRecords().forEach(record -> response.add(record.getData()));
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
@@ -62,8 +62,8 @@ public class ContextRestController {
 			@RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 		QueryBuilder matchQueryParam = QueryBuilders.boolQuery()
 				.filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-		SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
-		SearchRetrieveResponseVO<SearchResponse, ContextVO> srResponse = ctxSvc.search(srRequest, token);
+		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);
+		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
 		List<ContextVO> response = new ArrayList<ContextVO>();
 		srResponse.getRecords().forEach(record -> response.add(record.getData()));
 		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);

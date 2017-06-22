@@ -67,7 +67,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   private UserLoginRepository userLoginRepository;
 
   @Autowired
-  private UserAccountDaoEs<QueryBuilder> userAccountDao;
+  private UserAccountDaoEs userAccountDao;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -445,7 +445,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Override
-  protected GenericDaoEs<AccountUserVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<AccountUserVO> getElasticDao() {
     return userAccountDao;
   }
 
