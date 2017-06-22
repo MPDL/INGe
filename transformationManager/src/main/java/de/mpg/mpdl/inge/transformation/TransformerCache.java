@@ -85,7 +85,7 @@ public class TransformerCache {
     }
   }
 
-  public static boolean isTransformerExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+  public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
 
     synchronized (transformerMap) {
 

@@ -1,12 +1,14 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
+import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
@@ -16,7 +18,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
-public class EdocXmlToItemXml extends XslTransformer implements ChainableTransformer {
+public class EdocXmlToItemXml extends XslTransformer implements ChainableTransformer,
+    ImportUsableTransformer {
 
 
   @Override
@@ -56,6 +59,13 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public URIResolver getURIResolver() {
     return new LocalUriResolver("transformations/otherFormats/xslt");
+  }
+
+  @Override
+  public List<String> getConfigurationValuesFor(String key) throws TransformationException {
+    return getAllConfigurationValuesFromProperty(
+        "escidoc.transformation.edoc.configuration.filename",
+        "transformations/otherFormats/conf/edoc.properties").get(key);
   }
 
 }
