@@ -512,7 +512,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
     checkAa((active ? "activate" : "deactivate"), userAccount, userVoToBeUpdated);
 
-    userVoToBeUpdated.setActive(active);
+    accountToBeUpdated.setActive(active);
     updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
 
     try {
