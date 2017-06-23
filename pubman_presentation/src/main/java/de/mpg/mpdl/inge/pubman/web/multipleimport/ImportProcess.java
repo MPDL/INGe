@@ -199,7 +199,8 @@ public class ImportProcess extends Thread {
       this.log.addDetail(ErrorLevel.FINE, "import_process_format_available", this.connection);
     }
 
-    if (!itemTransformingService.isTransformationExisting(format, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)) {
+    if (!itemTransformingService.isTransformationExisting(format,
+        TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)) {
       this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid", this.connection);
       this.fail();
       return false;
