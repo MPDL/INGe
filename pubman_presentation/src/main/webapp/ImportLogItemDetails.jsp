@@ -11,12 +11,12 @@
             <h2>
                 <h:outputText value="#{lbl.import_workspace_details}" />
             </h2>
-            <h:panelGroup styleClass="free_area0" style="margin-bottom: 0.56em;" rendered="#{ImportItemDetails.length == 0}">
-                <span class="small_area0"> <h:outputText
-						value="#{msg.multiple_import_no_details}" />
+            <h:panelGroup styleClass="free_area0" style="margin-bottom: 0.56em;" rendered="#{ImportLogItemDetailBean.length == 0}">
+                <span class="small_area0">
+                	<h:outputText value="#{msg.multiple_import_no_details}" />
 				</span>
             </h:panelGroup>
-            <ui:repeat var="detail" value="#{ImportItemDetails.details}">
+            <ui:repeat var="detail" value="#{ImportLogItemDetailBean.details}">
                 <h:panelGroup styleClass="quad_area0" style="margin-bottom: 0.56em;">
                     <span class="small_area0 endline"> <h:outputText
 							value="#{detail.status}" />&#160;

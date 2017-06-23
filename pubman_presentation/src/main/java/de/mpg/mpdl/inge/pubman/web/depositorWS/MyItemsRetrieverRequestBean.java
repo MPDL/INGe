@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -105,7 +106,6 @@ public class MyItemsRetrieverRequestBean extends
   public void init() {
     this.checkForLogin();
 
-    // Init imports
     final List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
     importSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
@@ -115,27 +115,31 @@ public class MyItemsRetrieverRequestBean extends
 
     this.userVO = this.getLoginHelper().getAccountUser();
 
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    final String sql = "select * from IMPORT_LOG where userid = ? order by STARTDATE desc";
+
     try {
-      final Connection connection = ImportLog.getConnection();
-      final String sql = "select * from IMPORT_LOG where userid = ? order by STARTDATE desc";
-      final PreparedStatement statement = connection.prepareStatement(sql);
+      connection = DbTools.getNewConnection();
+      ps = connection.prepareStatement(sql);
+      ps.setString(1, this.userVO.getReference().getObjectId());
+      rs = ps.executeQuery();
 
-      statement.setString(1, this.userVO.getReference().getObjectId());
-
-      final ResultSet resultSet = statement.executeQuery();
-
-      while (resultSet.next()) {
+      while (rs.next()) {
         final SelectItem selectItem =
-            new SelectItem(resultSet.getString("name") + " "
-                + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+            new SelectItem(rs.getString("name") + " "
+                + ImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
-
-      resultSet.close();
-      statement.close();
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error getting imports from database", e);
       FacesBean.error("Error getting imports from database");
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
+      DbTools.closeConnection(connection);
     }
 
     this.setImportSelectItems(importSelectItems);
@@ -157,13 +161,16 @@ public class MyItemsRetrieverRequestBean extends
 
     try {
       this.checkSortCriterias(sc);
-      
+
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getReference().getObjectId()));
-      
-      //display only latest versions
-      bq.must(QueryBuilders.scriptQuery(new Script("doc['"+ PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['" + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER +"']")));
+
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
+          this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+
+      // display only latest versions
+      bq.must(QueryBuilders
+          .scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER
+              + "']==doc['" + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
@@ -172,28 +179,32 @@ public class MyItemsRetrieverRequestBean extends
       else if (this.selectedItemState.toLowerCase().equals("all")) {
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
-     
+
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(this.selectedItemState).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
+            ItemVO.State.valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
-      
+
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
+        bq.must(QueryBuilders
+            .matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport())
+            .operator(Operator.AND));
       }
 
-     //TODO Sorting!!
+      //TODO Sorting!!
       SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
 
-      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+          .search(srr, getLoginHelper().getAuthenticationToken());
 
       this.numberOfRecords = resp.getNumberOfRecords();
-      
-      List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
-      
-      returnList =
-          CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+
+      List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
+          .collect(Collectors.toList());
+
+      returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error in retrieving items", e);
       FacesBean.error("Error in retrieving items");

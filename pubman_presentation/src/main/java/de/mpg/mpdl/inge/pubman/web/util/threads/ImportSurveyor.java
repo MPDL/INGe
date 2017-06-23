@@ -32,6 +32,7 @@ import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
@@ -82,7 +83,10 @@ public class ImportSurveyor extends Thread {
         return;
       }
 
-      final Connection connection = ImportLog.getConnection();
+      Connection connection = null;
+      ResultSet rs = null;
+      PreparedStatement ps = null;
+
       // Searches for Import-Items which are in status "pending" OR "rollback" AND which have NOT
       // been changed in the last 60 Minutes
       final String query =
@@ -90,44 +94,38 @@ public class ImportSurveyor extends Thread {
               + "and id not in (select parent from import_log_item "
               + "               where localtimestamp - interval '60 minutes' < startdate)";
 
-      ResultSet resultSet = null;
-      PreparedStatement statement = null;
       try {
-        statement = connection.prepareStatement(query);
-        resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-          final int id = resultSet.getInt("id");
+        connection = DbTools.getNewConnection();
+        ps = connection.prepareStatement(query);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+          final int id = rs.getInt("id");
           ImportSurveyor.logger.warn("Unfinished import detected (" + id
               + "). Finishing it with status FATAL.");
-          final ImportLog log = ImportLog.getImportLog(id, true, true, connection);
-          log.setConnection(connection);
+          final ImportLog log = ImportLog.getImportLog(id, true, connection);
 
           for (final ImportLogItem item : log.getItems()) {
             if (item.getEndDate() == null) {
               log.activateItem(item);
-              log.addDetail(ErrorLevel.WARNING, "import_process_terminate_item");
-              log.finishItem();
+              log.addDetail(ErrorLevel.WARNING, "import_process_terminate_item", connection);
+              log.finishItem(connection);
             }
           }
 
-          log.startItem("import_process_aborted_unexpectedly");
-          log.addDetail(ErrorLevel.FATAL, "import_process_failed");
-          log.finishItem();
-          log.close();
+          log.startItem("import_process_aborted_unexpectedly", connection);
+          log.addDetail(ErrorLevel.FATAL, "import_process_failed", connection);
+          log.finishItem(connection);
+          log.close(connection);
         }
       } catch (final Exception e) {
         ImportSurveyor.logger.error("Error checking database for unfinished imports", e);
-
       } finally {
-        try {
-          resultSet.close();
-          statement.close();
-          connection.close();
-        } catch (final Exception e2) {
-          ImportSurveyor.logger.error("error while closing database connection", e2);
-        }
+        DbTools.closeResultSet(rs);
+        DbTools.closePreparedStatement(ps);
+        DbTools.closeConnection(connection);
       }
     } while (!this.signal);
+
     ImportSurveyor.logger.info("Import surveyor interrupted");
   }
 

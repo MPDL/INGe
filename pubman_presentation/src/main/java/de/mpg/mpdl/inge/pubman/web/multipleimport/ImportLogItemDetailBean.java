@@ -26,27 +26,56 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
+import java.sql.Connection;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
- * Session bean to hold data needed for an import of multiple items.
+ * A JSF bean class to hold data of an import item's details.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 4287 $ $LastChangedDate: 2011-03-10 14:23:22 +0100 (Do, 10 Mrz 2011) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
  */
-@ManagedBean(name = "MultipleImportForm")
+@ManagedBean(name = "ImportLogItemDetailBean")
 @SuppressWarnings("serial")
-public class MultipleImportForm extends FacesBean {
-  public MultipleImportForm() {
-    try {
-      ((MultipleImport) FacesTools.findBean("MultipleImport.class")).initConfigParameters();
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
+public class ImportLogItemDetailBean extends FacesBean {
+  private int itemId = 0;
+  private List<ImportLogItemDetail> importLogItemDetails = null;
+  private String userid = null;
+
+  public ImportLogItemDetailBean() {
+    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+
+    if (idString != null) {
+      this.itemId = Integer.parseInt(idString);
     }
+
+    if (this.getLoginHelper().getAccountUser() != null) {
+      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
+    }
+  }
+
+  public int getLength() {
+    return this.getDetails().size();
+  }
+
+  public List<ImportLogItemDetail> getDetails() {
+    if (this.importLogItemDetails == null && this.itemId != 0 && this.userid != null) {
+      final Connection connection = DbTools.getNewConnection();
+      try {
+        this.importLogItemDetails =
+            ImportLog.loadImportLogItemDetails(this.itemId, this.userid, connection);
+      } finally {
+        DbTools.closeConnection(connection);
+      }
+    }
+
+    return this.importLogItemDetails;
   }
 }

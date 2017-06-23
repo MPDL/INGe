@@ -26,6 +26,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -93,13 +94,15 @@ public class ImportProcess extends Thread {
   private boolean failed = false;
   private boolean rollback;
 
+  private Connection connection = null;
+
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   // private long lastBeat = 0;
 
   public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
-      Map<String, String> configuration, String authenticationToken) {
+      Map<String, String> configuration, String authenticationToken, Connection connection) {
     try {
       this.publicationContentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
@@ -109,12 +112,13 @@ public class ImportProcess extends Thread {
     }
 
     this.authenticationToken = authenticationToken;
+    this.connection = connection;
 
-    this.log = new ImportLog("import", user.getReference().getObjectId(), format);
+    this.log = new ImportLog(user.getReference().getObjectId(), format, connection);
     this.log.setUserHandle(user.getHandle());
-    this.log.setPercentage(5);
-    this.log.startItem("import_process_started");
-    this.log.finishItem();
+    this.log.setPercentage(5, connection);
+    this.log.startItem("import_process_started", connection);
+    this.log.finishItem(connection);
 
     DuplicateStrategy strategy;
     if (duplicateStrategy == 1) {
@@ -130,27 +134,25 @@ public class ImportProcess extends Thread {
     this.initialize(name, fileName, file, format, escidocContext, user, rollback, strategy,
         configuration);
 
-    this.log.setPercentage(7);
+    this.log.setPercentage(7, connection);
 
     if (this.log.isDone()) {
+      DbTools.closeConnection(connection);
       return;
     }
 
     if (!this.validateFormat(file, format)) {
+      DbTools.closeConnection(connection);
       return;
     }
 
-    this.log.setPercentage(10);
+    this.log.setPercentage(10, connection);
   }
 
-  /**
-   * @param inputStream
-   * @param format
-   */
   private void initialize(String name, String fileName, File file,
       TransformerFactory.FORMAT format, ContextRO escidocContext, AccountUserVO user,
       boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
-    this.log.startItem("import_process_initialize");
+    this.log.startItem("import_process_initialize", this.connection);
 
     try {
       this.log.setMessage(name);
@@ -169,61 +171,48 @@ public class ImportProcess extends Thread {
       this.rollback = rollback;
       this.user = user;
     } catch (final Exception e) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed");
-      this.log.addDetail(ErrorLevel.FATAL, e);
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed", this.connection);
+      this.log.addDetail(ErrorLevel.FATAL, e, this.connection);
       this.fail();
     }
 
-    this.log.finishItem();
+    this.log.finishItem(this.connection);
   }
 
-  /**
-   * @param inputStream
-   * @param format
-   */
   private boolean validateFormat(File file, TransformerFactory.FORMAT format) {
-    this.log.startItem("import_process_validate");
+    this.log.startItem("import_process_validate", this.connection);
 
     if (file == null) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable");
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable",
+          this.connection);
       this.fail();
       return false;
     } else {
-      this.log.addDetail(ErrorLevel.FINE, "import_process_inputstream_available");
+      this.log.addDetail(ErrorLevel.FINE, "import_process_inputstream_available", this.connection);
     }
 
     if (format == null) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_unavailable");
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_unavailable", this.connection);
       this.fail();
       return false;
     } else {
-      this.log.addDetail(ErrorLevel.FINE, "import_process_format_available");
+      this.log.addDetail(ErrorLevel.FINE, "import_process_format_available", this.connection);
     }
 
-    final TransformerFactory.FORMAT[] allSourceFormats =
-        this.itemTransformingService
-            .getAllSourceFormatsFor(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-    boolean found = false;
-    for (final TransformerFactory.FORMAT sourceFormat : allSourceFormats) {
-      if (format.equals(sourceFormat)) {
-        found = true;
-        if (this.setProcessor(format)) {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid");
-        } else {
-          this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported");
-          this.fail();
-        }
-        break;
-      }
-    }
-
-    if (!found) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid");
+    if (!itemTransformingService.isTransformationExisting(format, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)) {
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_invalid", this.connection);
       this.fail();
       return false;
     }
 
-    this.log.finishItem();
+    if (this.setProcessor(format)) {
+      this.log.addDetail(ErrorLevel.FINE, "import_process_format_valid", this.connection);
+    } else {
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported", this.connection);
+      this.fail();
+    }
+
+    this.log.finishItem(this.connection);
 
     return true;
   }
@@ -276,8 +265,8 @@ public class ImportProcess extends Thread {
           return false;
       }
     } catch (final Exception e) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_error");
-      this.log.addDetail(ErrorLevel.FATAL, e);
+      this.log.addDetail(ErrorLevel.FATAL, "import_process_format_error", this.connection);
+      this.log.addDetail(ErrorLevel.FATAL, e, this.connection);
       this.fail();
     }
 
@@ -288,168 +277,172 @@ public class ImportProcess extends Thread {
 
   private void fail() {
     this.failed = true;
-    this.log.finishItem();
-    this.log.startItem(ErrorLevel.FATAL, "import_process_failed");
-    this.log.finishItem();
+    this.log.finishItem(this.connection);
+    this.log.startItem(ErrorLevel.FATAL, "import_process_failed", this.connection);
+    this.log.finishItem(this.connection);
 
     if (this.rollback) {
       this.log.setStatus(Status.ROLLBACK);
       this.rollback();
     }
 
-    this.log.close();
+    this.log.close(this.connection);
   }
 
   private void rollback() {
-    this.log.startItem(ErrorLevel.FINE, "import_process_rollback");
-    this.log.finishItem();
-    this.log.close();
+    this.log.startItem(ErrorLevel.FINE, "import_process_rollback", this.connection);
+    this.log.finishItem(this.connection);
+    this.log.close(this.connection);
 
-    final DeleteProcess deleteProcess = new DeleteProcess(this.log, this.authenticationToken);
-    deleteProcess.start();
+    final Connection con = DbTools.getNewConnection();
+    final DeleteProcess deleteProcess;
+    try {
+      deleteProcess = new DeleteProcess(this.log, this.authenticationToken, con);
+      deleteProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(con);
+      throw e;
+    }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void run() {
-    int counter = 0;
-    int itemCount = 1;
-
-    if (!this.failed) {
-      try {
-        this.log.startItem("import_process_start_import");
-        this.formatProcessor.setSourceFile(this.file);
-        if (this.formatProcessor.hasNext()) {
-          itemCount = this.formatProcessor.getLength();
-        }
-        this.log.finishItem();
-        while (this.formatProcessor.hasNext() && !this.failed) {
-          try {
-            if (this.log.getCurrentItem() == null) {
-              this.log.startItem("import_process_import_item");
-            }
-            final String singleItem = this.formatProcessor.next();
-            if (this.failed) {
-              return;
-            }
-            if (singleItem != null && !"".equals(singleItem.trim())) {
-              this.prepareItem(singleItem);
-            }
-            counter++;
-            this.log.setPercentage(30 * counter / itemCount + 10);
-          } catch (final Exception e) {
-            ImportProcess.logger.error("Error during import", e);
-            this.log.addDetail(ErrorLevel.ERROR, e);
-            this.log.finishItem();
-            if (this.rollback) {
-              this.fail();
-              break;
-            }
-          }
-          // this.heartBeat();
-        }
-      } catch (final Exception e) {
-        ImportProcess.logger.error("Error during import", e);
-        this.log.addDetail(ErrorLevel.ERROR, e);
-        this.log.finishItem();
-        if (this.rollback) {
-          this.fail();
-        }
-      }
-
-      if (this.failed) {
-        return;
-      }
-
-      this.log.finishItem();
-      this.log.startItem("import_process_preparation_finished");
-      this.log.addDetail(ErrorLevel.FINE, "import_process_no_more_items");
-      this.log.finishItem();
-      this.log.setPercentage(40);
-      counter = 0;
-
-      for (int i = 0; i < this.log.getItems().size(); i++) {
-        final ImportLogItem item = this.log.getItems().get(i);
-        if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
-          try {
-            this.log.activateItem(item);
-
-            // Fetch files for zfn import
-            if (this.format.equals(TransformerFactory.FORMAT.ZFN_TEI_XML)) {
-              try {
-                // Set file
-                final FileVO file =
-                    ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration,
-                        this.user);
-                item.getItemVO().getFiles().add(file);
-              } catch (final Exception e) {
-                this.log.addDetail(ErrorLevel.WARNING, "Could not fetch file for import");
-              }
-            }
-
-            this.log.addDetail(ErrorLevel.FINE, "import_process_save_item");
-
-            final PubItemVO savedPubItem =
-                ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(),
-                    this.authenticationToken);
-
-            final String objid = savedPubItem.getVersion().getObjectId();
-            this.log.setItemId(objid);
-            this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
-            this.log.finishItem();
-            counter++;
-            this.log.setPercentage(55 * counter / itemCount + 40);
-          } catch (final Exception e) {
-            ImportProcess.logger.error("Error during import", e);
-            this.log.addDetail(ErrorLevel.ERROR, e);
-            this.log.finishItem();
-            if (this.rollback) {
-              this.fail();
-              break;
-            }
-          }
-        }
-      }
+    try {
+      int counter = 0;
+      int itemCount = 1;
 
       if (!this.failed) {
-        this.log.startItem("import_process_finished");
-        this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
-        this.log.finishItem();
-        this.log.close();
+        try {
+          this.log.startItem("import_process_start_import", this.connection);
+          this.formatProcessor.setSourceFile(this.file);
+          if (this.formatProcessor.hasNext()) {
+            itemCount = this.formatProcessor.getLength();
+          }
+          this.log.finishItem(this.connection);
+          while (this.formatProcessor.hasNext() && !this.failed) {
+            try {
+              if (this.log.getCurrentItem() == null) {
+                this.log.startItem("import_process_import_item", this.connection);
+              }
+              final String singleItem = this.formatProcessor.next();
+              if (this.failed) {
+                return;
+              }
+              if (singleItem != null && !"".equals(singleItem.trim())) {
+                this.prepareItem(singleItem);
+              }
+              counter++;
+              this.log.setPercentage(30 * counter / itemCount + 10, this.connection);
+            } catch (final Exception e) {
+              ImportProcess.logger.error("Error during import", e);
+              this.log.addDetail(ErrorLevel.ERROR, e, this.connection);
+              this.log.finishItem(this.connection);
+              if (this.rollback) {
+                this.fail();
+                break;
+              }
+            }
+            // this.heartBeat();
+          }
+        } catch (final Exception e) {
+          ImportProcess.logger.error("Error during import", e);
+          this.log.addDetail(ErrorLevel.ERROR, e, this.connection);
+          this.log.finishItem(this.connection);
+          if (this.rollback) {
+            this.fail();
+          }
+        }
 
-        // try {
-        // this.log.startItem("import_process_archive_log");
-        // this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-        // final String taskItemXml = this.createTaskItemXml();
-        // final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-        // final String savedTaskItemXml = itemHandler.create(taskItemXml);
-        // final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
-        // final Matcher matcher = pattern.matcher(savedTaskItemXml);
-        //
-        // if (matcher.find()) {
-        // final String taskId = matcher.group(1);
-        // ImportProcess.logger.info("Imported task item: " + taskId);
-        // }
-        // this.log.setPercentage(100);
-        // } catch (final Exception e) {
-        // ImportProcess.logger.error("Error during import", e);
-        // this.log.finishItem();
-        // this.log.startItem(ErrorLevel.ERROR, "import_process_error");
-        // this.log.addDetail(ErrorLevel.ERROR, e);
-        // this.fail();
-        // }
+        if (this.failed) {
+          return;
+        }
+
+        this.log.finishItem(this.connection);
+        this.log.startItem("import_process_preparation_finished", this.connection);
+        this.log.addDetail(ErrorLevel.FINE, "import_process_no_more_items", this.connection);
+        this.log.finishItem(this.connection);
+        this.log.setPercentage(40, this.connection);
+        counter = 0;
+
+        for (int i = 0; i < this.log.getItems().size(); i++) {
+          final ImportLogItem item = this.log.getItems().get(i);
+          if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
+            try {
+              this.log.activateItem(item);
+
+              // Fetch files for zfn import
+              if (this.format.equals(TransformerFactory.FORMAT.ZFN_TEI_XML)) {
+                try {
+                  // Set file
+                  final FileVO file =
+                      ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration,
+                          this.user);
+                  item.getItemVO().getFiles().add(file);
+                } catch (final Exception e) {
+                  this.log.addDetail(ErrorLevel.WARNING, "Could not fetch file for import",
+                      this.connection);
+                }
+              }
+
+              this.log.addDetail(ErrorLevel.FINE, "import_process_save_item", this.connection);
+
+              final PubItemVO savedPubItem =
+                  ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(),
+                      this.authenticationToken);
+
+              final String objid = savedPubItem.getVersion().getObjectId();
+              this.log.setItemId(objid, this.connection);
+              this.log.addDetail(ErrorLevel.FINE, "import_process_item_imported", this.connection);
+              this.log.finishItem(this.connection);
+              counter++;
+              this.log.setPercentage(55 * counter / itemCount + 40, this.connection);
+            } catch (final Exception e) {
+              ImportProcess.logger.error("Error during import", e);
+              this.log.addDetail(ErrorLevel.ERROR, e, this.connection);
+              this.log.finishItem(this.connection);
+              if (this.rollback) {
+                this.fail();
+                break;
+              }
+            }
+          }
+        }
+
+        if (!this.failed) {
+          this.log.startItem("import_process_finished", this.connection);
+          this.log.addDetail(ErrorLevel.FINE, "import_process_import_finished", this.connection);
+          this.log.finishItem(this.connection);
+          this.log.close(this.connection);
+
+          // try {
+          // this.log.startItem("import_process_archive_log");
+          // this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
+          // final String taskItemXml = this.createTaskItemXml();
+          // final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
+          // final String savedTaskItemXml = itemHandler.create(taskItemXml);
+          // final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
+          // final Matcher matcher = pattern.matcher(savedTaskItemXml);
+          //
+          // if (matcher.find()) {
+          // final String taskId = matcher.group(1);
+          // ImportProcess.logger.info("Imported task item: " + taskId);
+          // }
+          // this.log.setPercentage(100);
+          // } catch (final Exception e) {
+          // ImportProcess.logger.error("Error during import", e);
+          // this.log.finishItem();
+          // this.log.startItem(ErrorLevel.ERROR, "import_process_error");
+          // this.log.addDetail(ErrorLevel.ERROR, e);
+          // this.fail();
+          // }
+        }
       }
-    }
 
-    // Close connection if no rollback is done. Otherwise, Connection is still required for delete
-    // process
-    if (!this.rollback) {
-      this.log.closeConnection();
-    }
+      this.file.delete();
 
-    this.file.delete();
+    } finally {
+      DbTools.closeConnection(this.connection);
+    }
   }
 
   // /**
@@ -554,15 +547,10 @@ public class ImportProcess extends Thread {
   // return null;
   // }
 
-  /**
-   * @param writer
-   * @param singleItem
-   * @return
-   */
   private void prepareItem(String singleItem) {
-    this.log.addDetail(ErrorLevel.FINE, "import_process_source_data_found");
-    this.log.addDetail(ErrorLevel.FINE, singleItem);
-    this.log.addDetail(ErrorLevel.FINE, "import_process_start_transformation");
+    this.log.addDetail(ErrorLevel.FINE, "import_process_source_data_found", this.connection);
+    this.log.addDetail(ErrorLevel.FINE, singleItem, this.connection);
+    this.log.addDetail(ErrorLevel.FINE, "import_process_start_transformation", this.connection);
     String escidocXml = null;
 
     try {
@@ -570,8 +558,8 @@ public class ImportProcess extends Thread {
           this.itemTransformingService.transformFromTo(this.format,
               TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, singleItem);
 
-      this.log.addDetail(ErrorLevel.FINE, escidocXml);
-      this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
+      this.log.addDetail(ErrorLevel.FINE, escidocXml, this.connection);
+      this.log.addDetail(ErrorLevel.FINE, "import_process_transformation_done", this.connection);
       final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
       pubItemVO.setContext(this.escidocContext);
       pubItemVO.setContentModel(this.publicationContentModel);
@@ -580,56 +568,61 @@ public class ImportProcess extends Thread {
       pubItemVO.getLocalTags().add(this.log.getMessage() + " " + this.log.getStartDateFormatted());
 
       // Simple Validation
-      this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
+      this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation", this.connection);
       try {
         PubItemUtil.cleanUpItem(pubItemVO);
         ItemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
-        this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful");
+        this.log.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful",
+            this.connection);
 
         // Standard Validation
-        this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
+        this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation", this.connection);
         try {
           ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
-          this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful");
-          this.log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
+          this.log.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful",
+              this.connection);
+          this.log.addDetail(ErrorLevel.FINE, "import_process_generate_item", this.connection);
           this.log.setItemVO(pubItemVO);
           if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
-            this.log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
+            this.log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier",
+                this.connection);
             final boolean duplicatesDetected = this.checkDuplicatesByIdentifier(pubItemVO);
             if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
               this.rollback = true;
               this.fail();
             } else if (duplicatesDetected) {
-              this.log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
-              this.log.finishItem();
+              this.log.addDetail(ErrorLevel.WARNING, "import_process_no_import", this.connection);
+              this.log.finishItem(this.connection);
             } else {
-              this.log.suspendItem();
+              this.log.suspendItem(this.connection);
             }
           } else {
-            this.log.suspendItem();
+            this.log.suspendItem(this.connection);
           }
         } catch (final ValidationException e2) { // Standard Validation
-          this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed");
+          this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed",
+              this.connection);
           for (final ValidationReportItemVO item : e2.getReport().getItems()) {
-            this.log.addDetail(ErrorLevel.WARNING, item.getContent());
+            this.log.addDetail(ErrorLevel.WARNING, item.getContent(), this.connection);
           }
         }
       } catch (final ValidationException e) { // Simple Validation
-        this.log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed");
+        this.log.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed",
+            this.connection);
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
-          this.log.addDetail(ErrorLevel.PROBLEM, item.getContent());
+          this.log.addDetail(ErrorLevel.PROBLEM, item.getContent(), this.connection);
         }
-        this.log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
-        this.log.finishItem();
+        this.log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported", this.connection);
+        this.log.finishItem(this.connection);
       }
     } catch (final Exception e) {
       ImportProcess.logger.error("Error while multiple import", e);
-      this.log.addDetail(ErrorLevel.ERROR, e);
-      this.log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
+      this.log.addDetail(ErrorLevel.ERROR, e, this.connection);
+      this.log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported", this.connection);
       if (this.rollback) {
         this.fail();
       }
-      this.log.finishItem();
+      this.log.finishItem(this.connection);
     }
   }
 
@@ -651,37 +644,42 @@ public class ImportProcess extends Thread {
         final MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
         final ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
         if (searchResult.getTotalNumberOfResults().equals(BigInteger.ZERO)) {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected");
+          this.log.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected",
+              this.connection);
           return false;
         } else {
-          this.log.addDetail(ErrorLevel.FINE, "import_process_duplicates_detected");
+          this.log
+              .addDetail(ErrorLevel.FINE, "import_process_duplicates_detected", this.connection);
           for (final ItemVO duplicate : searchResult.extractItemsOfSearchResult()) {
             if (this.itemContentModel.equals(duplicate.getContentModel())) {
               final PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
-                this.log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected");
+                this.log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected",
+                    this.connection);
                 this.log.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion()
                     .getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId());
+                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
                 return true;
               } else {
-                this.log.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected");
+                this.log.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected",
+                    this.connection);
                 this.log.addDetail(ErrorLevel.WARNING, duplicatePubItemVO.getVersion()
                     .getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId());
+                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
               }
             } else {
               this.log.addDetail(ErrorLevel.WARNING,
-                  "import_process_detected_duplicate_no_publication");
+                  "import_process_detected_duplicate_no_publication", this.connection);
             }
           }
         }
         return true;
       } else {
-        this.log.addDetail(ErrorLevel.FINE, "import_process_no_identifier_for_duplicate_check");
+        this.log.addDetail(ErrorLevel.FINE, "import_process_no_identifier_for_duplicate_check",
+            this.connection);
       }
     } catch (final Exception e) {
-      this.log.addDetail(ErrorLevel.WARNING, e);
+      this.log.addDetail(ErrorLevel.WARNING, e, this.connection);
       // An error while checking for duplicates should not cause the item not to be imported.
       // this.log.finishItem();
     }

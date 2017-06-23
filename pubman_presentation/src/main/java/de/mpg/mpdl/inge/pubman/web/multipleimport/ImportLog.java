@@ -30,7 +30,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,7 +52,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Class that describes an import.
@@ -117,14 +115,12 @@ public class ImportLog {
 
   private static final Logger logger = Logger.getLogger(ImportLog.class);
 
-  private Connection connection;
   private Date endDate;
   private Date startDate;
   private ErrorLevel errorLevel;
-  private ImportLogItem currentItem = null;
-  private List<ImportLogItem> items = new ArrayList<ImportLogItem>();
+  private ImportLogItem currentImportLogItem = null;
+  private List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
   private Status status;
-  private String action;
   private String context;
   private TransformerFactory.FORMAT format;
   private String message;
@@ -132,89 +128,33 @@ public class ImportLog {
   private String userHandle;
   private Workflow workflow;
   private int percentage;
-  private int storedId;
+  private int id;
 
-  /**
-   * Implicit constructor for inheriting classes.
-   */
   protected ImportLog() {}
 
-  /**
-   * Constructor.
-   * 
-   * @param action A string indicating what action is logged by this. - "import" - "delete" -
-   *        "submit" - "release" TODO: Put this into an enum
-   * 
-   * @param user The eSciDoc user id of the user that invoces this action.
-   * @param format A string holding the format of the import, e.g. "bibtex".
-   */
-  public ImportLog(String action, String user, TransformerFactory.FORMAT format) {
+  public ImportLog(String user, TransformerFactory.FORMAT format, Connection connection) {
     this.startDate = new Date();
     this.status = Status.PENDING;
     this.errorLevel = ErrorLevel.FINE;
     this.user = user;
     this.format = format;
-    this.action = action;
-    this.connection = ImportLog.getConnection();
 
-    this.saveLog();
+    this.saveImportLog(connection);
   }
 
-  /**
-   * Reads the database configuration from the properties and then creates a {@link Connection}.
-   * 
-   * @return An open connection to the import database
-   */
-  public static Connection getConnection() {
-    try {
-      Class.forName(PropertyReader.getProperty("inge.database.driver.class"));
-      final String connectionUrl = PropertyReader.getProperty("inge.database.jdbc.url");
-      return DriverManager.getConnection(connectionUrl,
-          PropertyReader.getProperty("inge.database.user.name"),
-          PropertyReader.getProperty("inge.database.user.password"));
-    } catch (final Exception e) {
-      throw new RuntimeException("Error creating database connection", e);
-    }
+  public void close(Connection connection) {
+    this.endDate = new Date();
+    this.status = Status.FINISHED;
+    this.percentage = 100;
+
+    this.updateImportLog(connection);
   }
 
-  /**
-   * @throws RuntimeException
-   */
-  public void closeConnection() {
-    try {
-      if (this.connection != null && !this.connection.isClosed()) {
-        this.connection.close();
-      }
-    } catch (final Exception e) {
-      throw new RuntimeException("Error closing database connection", e);
-    }
-  }
-
-  /**
-   * Called when, for any reason, this action is over.
-   */
-  public void close() {
-    try {
-      if (!this.connection.isClosed()) {
-        this.endDate = new Date();
-        this.status = Status.FINISHED;
-        this.percentage = 100;
-
-        this.updateLog();
-      }
-    } catch (final Exception e) {
-      throw new RuntimeException("Error closing connection", e);
-    }
-  }
-
-  /**
-   * Called when this process shall continue.
-   */
-  public void reopen() {
+  public void reopen(Connection connection) {
     this.endDate = null;
     this.status = Status.PENDING;
 
-    this.updateLog();
+    this.updateImportLog(connection);
   }
 
   /**
@@ -225,8 +165,8 @@ public class ImportLog {
    * 
    * @param msg A message key for a localized message
    */
-  public void startItem(String msg) {
-    this.startItem(msg, null);
+  public void startItem(String msg, Connection connection) {
+    this.startItem(msg, null, connection);
   }
 
   /**
@@ -238,8 +178,8 @@ public class ImportLog {
    * @param msg A message key for a localized message
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(String msg, String itemId) {
-    this.startItem(msg, new Date(), itemId);
+  public void startItem(String msg, String itemId, Connection connection) {
+    this.startItem(msg, new Date(), itemId, connection);
   }
 
   /**
@@ -252,8 +192,8 @@ public class ImportLog {
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(String msg, Date sDate, String itemId) {
-    this.startItem(ErrorLevel.FINE, msg, sDate, itemId);
+  public void startItem(String msg, Date sDate, String itemId, Connection connection) {
+    this.startItem(ErrorLevel.FINE, msg, sDate, itemId, connection);
   }
 
   /**
@@ -265,8 +205,8 @@ public class ImportLog {
    * @param errLevel The initial error level of this item
    * @param msg A message key for a localized message
    */
-  public void startItem(ErrorLevel errLevel, String msg) {
-    this.startItem(errLevel, msg, new Date(), null);
+  public void startItem(ErrorLevel errLevel, String msg, Connection connection) {
+    this.startItem(errLevel, msg, new Date(), null, connection);
   }
 
   /**
@@ -278,37 +218,38 @@ public class ImportLog {
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(ErrorLevel errLevel, String msg, Date sDate, String itemId) {
-    if (this.currentItem != null) {
+  public void startItem(ErrorLevel errLevel, String msg, Date sDate, String itemId,
+      Connection connection) {
+    if (this.currentImportLogItem != null) {
       throw new RuntimeException(
           "Trying to start logging an item while another is not yet finished");
     }
 
-    final ImportLogItem newItem = new ImportLogItem(this);
+    final ImportLogItem newItem = new ImportLogItem(this, connection);
 
-    newItem.setErrorLevel(errLevel);
+    newItem.setErrorLevel(errLevel, connection);
     newItem.setMessage(msg);
     newItem.setStartDate(sDate);
 
-    this.saveItem(newItem);
+    this.saveImportLogItem(newItem, connection);
 
-    this.items.add(newItem);
+    this.importLogItems.add(newItem);
 
-    this.currentItem = newItem;
+    this.currentImportLogItem = newItem;
   }
 
   /**
    * Sets the status of the focused item to FINISHED and the end date to the current date, then
    * removes the focus of the import.
    */
-  public void finishItem() {
-    if (this.currentItem != null) {
-      this.currentItem.setEndDate(new Date());
-      this.currentItem.setStatus(Status.FINISHED);
+  public void finishItem(Connection connection) {
+    if (this.currentImportLogItem != null) {
+      this.currentImportLogItem.setEndDate(new Date());
+      this.currentImportLogItem.setStatus(Status.FINISHED);
 
-      this.updateItem(this.currentItem);
+      this.updateImportLogItem(this.currentImportLogItem, connection);
 
-      this.currentItem = null;
+      this.currentImportLogItem = null;
     }
   }
 
@@ -317,13 +258,13 @@ public class ImportLog {
    * visit this item again later. I.e. in a first step, all items are transformed and validated,
    * then suspended. In a second step, all items are imported into the repository.
    */
-  public void suspendItem() {
-    if (this.currentItem != null) {
-      this.currentItem.setStatus(Status.SUSPENDED);
+  public void suspendItem(Connection connection) {
+    if (this.currentImportLogItem != null) {
+      this.currentImportLogItem.setStatus(Status.SUSPENDED);
 
-      this.updateItem(this.currentItem);
+      this.updateImportLogItem(this.currentImportLogItem, connection);
 
-      this.currentItem = null;
+      this.currentImportLogItem = null;
     }
   }
 
@@ -336,8 +277,8 @@ public class ImportLog {
    * @param errLevel The error level of this item
    * @param msg A message key for a localized message
    */
-  public void addDetail(ErrorLevel errLevel, String msg) {
-    this.addDetail(errLevel, msg, null);
+  public void addDetail(ErrorLevel errLevel, String msg, Connection connection) {
+    this.addDetail(errLevel, msg, null, connection);
   }
 
   /**
@@ -349,25 +290,25 @@ public class ImportLog {
    * @param detailId The (eSciDoc) id related to this detail (e.g. the id of an identified
    *        duplicate)
    */
-  public void addDetail(ErrorLevel errLevel, String msg, String detailId) {
-    if (this.currentItem == null) {
+  public void addDetail(ErrorLevel errLevel, String msg, String detailId, Connection connection) {
+    if (this.currentImportLogItem == null) {
       throw new RuntimeException("Trying to add a detail but no log item is started.");
     }
 
-    final ImportLogItem newDetail = new ImportLogItem(this.currentItem);
-    newDetail.setErrorLevel(errLevel);
-    newDetail.setMessage(msg);
-    newDetail.setStartDate(new Date());
-    newDetail.setItemId(detailId);
-    newDetail.setStatus(Status.FINISHED);
+    final ImportLogItemDetail importLogItemDetail =
+        new ImportLogItemDetail(this.currentImportLogItem, connection);
+    importLogItemDetail.setErrorLevel(errLevel, connection);
+    importLogItemDetail.setMessage(msg);
+    importLogItemDetail.setStartDate(new Date());
+    importLogItemDetail.setStatus(Status.FINISHED);
 
-    if (this.currentItem == null) {
-      this.startItem("");
+    if (this.currentImportLogItem == null) {
+      this.startItem("", connection);
     }
 
-    this.currentItem.getItems().add(newDetail);
+    this.currentImportLogItem.getItems().add(importLogItemDetail);
 
-    this.saveDetail(newDetail);
+    this.saveImportLogItemDetail(importLogItemDetail, connection);
   }
 
   /**
@@ -378,16 +319,16 @@ public class ImportLog {
    * @param errLevel The error level of this item
    * @param exception The exception that should be added to the item
    */
-  public void addDetail(ErrorLevel errLevel, Exception exception) {
+  public void addDetail(ErrorLevel errLevel, Exception exception, Connection connection) {
     final String msg = this.getExceptionMessage(exception);
-    this.addDetail(errLevel, msg, null);
+    this.addDetail(errLevel, msg, null, connection);
   }
 
   /**
    * @param itemVO Assigns a value object to the focused item.
    */
   public void setItemVO(PubItemVO itemVO) {
-    this.currentItem.setItemVO(itemVO);
+    this.currentImportLogItem.setItemVO(itemVO);
   }
 
   /**
@@ -424,33 +365,19 @@ public class ImportLog {
     return stringWriter.toString();
   }
 
-  /**
-   * Sets the (eSciDoc) id of the focused item.
-   * 
-   * @param id The id
-   */
-  public void setItemId(String id) {
-    this.currentItem.setItemId(id);
-    this.updateItem(this.currentItem);
+  public void setItemId(String id, Connection connection) {
+    this.currentImportLogItem.setItemId(id);
+    this.updateImportLogItem(this.currentImportLogItem, connection);
   }
 
-  /**
-   * @return true if this import is already finished
-   */
   public boolean isDone() {
     return (this.status == Status.FINISHED);
   }
 
-  /**
-   * @return the startDate
-   */
   public Date getStartDate() {
     return this.startDate;
   }
 
-  /**
-   * @return the startDate
-   */
   public String getStartDateFormatted() {
     if (this.startDate != null) {
       return ImportLog.DATE_FORMAT.format(this.startDate);
@@ -459,23 +386,14 @@ public class ImportLog {
     return "";
   }
 
-  /**
-   * @param startDate the startDate to set
-   */
   public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
 
-  /**
-   * @return the endDate
-   */
   public Date getEndDate() {
     return this.endDate;
   }
 
-  /**
-   * @return the endDate
-   */
   public String getEndDateFormatted() {
     if (this.endDate != null) {
       return ImportLog.DATE_FORMAT.format(this.endDate);
@@ -484,110 +402,71 @@ public class ImportLog {
     return "";
   }
 
-  /**
-   * @param endDate the endDate to set
-   */
   public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
 
-  /**
-   * @return the status
-   */
   public Status getStatus() {
     return this.status;
   }
 
-  /**
-   * @param status the status to set
-   */
   public void setStatus(Status status) {
     this.status = status;
   }
 
-  /**
-   * @return the format
-   */
   public TransformerFactory.FORMAT getFormat() {
     return this.format;
   }
 
-  /**
-   * @param format the format to set
-   */
   public void setFormat(TransformerFactory.FORMAT format) {
     this.format = format;
   }
 
-  /**
-   * @return the user
-   */
   public String getUser() {
     return this.user;
   }
 
-  /**
-   * @param user the user to set
-   */
   public void setUser(String user) {
     this.user = user;
   }
 
-  /**
-   * @return the context
-   */
   public String getContext() {
     return this.context;
   }
 
-  /**
-   * @param context the context to set
-   */
   public void setContext(String context) {
     this.context = context;
   }
 
-  /**
-   * @return the errorLevel
-   */
   public ErrorLevel getErrorLevel() {
     return this.errorLevel;
   }
 
-  /**
-   * @param errorLevel the errorLevel to set
-   */
   public void setErrorLevel(ErrorLevel errorLevel) {
+    setErrorLevel(errorLevel, null);
+  }
+
+  public void setErrorLevel(ErrorLevel errorLevel, Connection connection) {
     if (this.errorLevel == null
-        || this.errorLevel == ErrorLevel.FATAL
-        || (this.errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
-        || (this.errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
-        || (this.errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
+        || errorLevel == ErrorLevel.FATAL
+        || (errorLevel == ErrorLevel.ERROR && this.errorLevel != ErrorLevel.FATAL)
+        || (errorLevel == ErrorLevel.PROBLEM && this.errorLevel != ErrorLevel.FATAL && this.errorLevel != ErrorLevel.ERROR)
+        || (errorLevel == ErrorLevel.WARNING && this.errorLevel != ErrorLevel.FATAL
             && this.errorLevel != ErrorLevel.ERROR && this.errorLevel != ErrorLevel.PROBLEM)) {
       this.errorLevel = errorLevel;
     }
 
-    if (this.connection != null) {
-      this.updateLog();
+    if (connection != null) {
+      this.updateImportLog(connection);
     }
   }
 
-  /**
-   * Checks if the import is already finished.
-   * 
-   * @return true if the import is finished
-   */
   public boolean getFinished() {
     return (this.status == Status.FINISHED);
   }
 
-  /**
-   * Checks if at least one item was imported.
-   * 
-   * @return true if one or more items were imported, otherwise false.
-   */
   public boolean getImportedItems() {
-    for (final ImportLogItem item : this.items) {
+    for (final ImportLogItem item : this.importLogItems) {
       if (item.getItemId() != null) {
         return true;
       }
@@ -596,268 +475,225 @@ public class ImportLog {
     return false;
   }
 
-  /**
-   * @return the items
-   */
   public List<ImportLogItem> getItems() {
-    return this.items;
+    return this.importLogItems;
   }
 
-  /**
-   * @param items the items to set
-   */
   public void setItems(List<ImportLogItem> items) {
-    this.items = items;
+    this.importLogItems = items;
   }
 
-  /**
-   * @return the storedId
-   */
-  public int getStoredId() {
-    return this.storedId;
+  public int getId() {
+    return this.id;
   }
 
-  /**
-   * @param storedId the storedId to set
-   */
-  public void setStoredId(int storedId) {
-    this.storedId = storedId;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  /**
-   * @return the action
-   */
-  public String getAction() {
-    return this.action;
-  }
-
-  /**
-   * @param action the action to set
-   */
-  public void setAction(String action) {
-    this.action = action;
-  }
-
-  /**
-   * @return the currentItem
-   */
   public ImportLogItem getCurrentItem() {
-    return this.currentItem;
+    return this.currentImportLogItem;
   }
 
-  /**
-   * Reads a localized message from the message resource bundle.
-   * 
-   * @return A string holding the localized message
-   */
   public String getLocalizedMessage() {
     try {
       return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
-          .getMessage(getMessage());
-    } catch (MissingResourceException mre) {
+          .getMessage(this.getMessage());
+    } catch (final MissingResourceException mre) {
       // No message entry for this message, it's probably raw data.
-      return getMessage();
+      return this.getMessage();
     }
   }
 
-  /**
-   * @return the message
-   */
   public String getMessage() {
     return this.message;
   }
 
-  /**
-   * @param message the message to set
-   */
   public void setMessage(String message) {
     this.message = message;
   }
 
-  /**
-   * @return the userHandle
-   */
   public String getUserHandle() {
     return this.userHandle;
   }
 
-  /**
-   * @param userHandle the userHandle to set
-   */
   public void setUserHandle(String userHandle) {
     this.userHandle = userHandle;
   }
 
-  /**
-   * @return the percentage
-   */
   public int getPercentage() {
     return this.percentage;
   }
 
-  /**
-   * @param percentage the percentage to set
-   */
-  public void setPercentage(int percentage) {
+  public void setPercentage(int percentage, Connection connection) {
     this.percentage = percentage;
 
-    this.updateLog();
+    this.updateImportLog(connection);
   }
 
-  private synchronized void saveLog() {
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+  private synchronized void saveImportLog(Connection connection) {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     try {
-      statement =
-          this.connection
-              .prepareStatement("insert into import_log "
-                  + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
-                  + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+      ps =
+          connection.prepareStatement("insert into import_log "
+              + "(status, errorlevel, startdate, userid, name, context, format, percentage) "
+              + "values (?, ?, ?, ?, ?, ?, ?, 0)");
 
-      statement.setString(1, this.status.toString());
-      statement.setString(2, this.errorLevel.toString());
-      statement.setTimestamp(3, new Timestamp(this.startDate.getTime()));
-      statement.setString(4, this.action);
-      statement.setString(5, this.user);
-      statement.setString(6, this.message);
-      statement.setString(7, this.context);
-      statement.setString(8, this.format.name());
+      ps.setString(1, this.status.toString());
+      ps.setString(2, this.errorLevel.toString());
+      ps.setTimestamp(3, new Timestamp(this.startDate.getTime()));
+      ps.setString(4, this.user);
+      ps.setString(5, this.message);
+      ps.setString(6, this.context);
+      ps.setString(7, this.format.name());
 
-      statement.executeUpdate();
+      ps.executeUpdate();
+      DbTools.closePreparedStatement(ps);
 
-      statement = this.connection.prepareStatement("select max(id) as maxid from import_log");
+      ps = connection.prepareStatement("select max(id) as maxid from import_log");
 
-      resultSet = statement.executeQuery();
+      rs = ps.executeQuery();
 
-      if (resultSet.next()) {
-        this.storedId = resultSet.getInt("maxid");
+      if (rs.next()) {
+        this.id = rs.getInt("maxid");
       } else {
         throw new RuntimeException("Error saving log");
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
   }
 
-  private synchronized void updateLog() {
-    try {
-      final PreparedStatement statement =
-          this.connection.prepareStatement("update import_log set " + "status = ?, "
-              + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "action = ?, "
-              + "userid = ?, " + "name = ?, " + "context = ?, " + "format = ?, "
-              + "percentage = ? " + "where id = ?");
+  private synchronized void updateImportLog(Connection connection) {
+    PreparedStatement ps = null;
 
-      statement.setString(1, this.status.toString());
-      statement.setString(2, this.errorLevel.toString());
-      statement.setTimestamp(3, new Timestamp(this.startDate.getTime()));
+    try {
+      ps =
+          connection.prepareStatement("update import_log set status = ?, errorlevel = ?, "
+              + "startdate = ?, enddate = ?, userid = ?, name = ?, "
+              + "context = ?, format = ?, percentage = ? where id = ?");
+
+      ps.setString(1, this.status.toString());
+      ps.setString(2, this.errorLevel.toString());
+      ps.setTimestamp(3, new Timestamp(this.startDate.getTime()));
 
       if (this.endDate != null) {
-        statement.setTimestamp(4, new Timestamp(this.endDate.getTime()));
+        ps.setTimestamp(4, new Timestamp(this.endDate.getTime()));
       } else {
-        statement.setTimestamp(4, null);
+        ps.setTimestamp(4, null);
       }
 
-      statement.setString(5, this.action);
-      statement.setString(6, this.user);
-      statement.setString(7, this.message);
-      statement.setString(8, this.context);
-      statement.setString(9, this.format.name());
-      statement.setInt(10, this.percentage);
-      statement.setInt(11, this.storedId);
+      ps.setString(5, this.user);
+      ps.setString(6, this.message);
+      ps.setString(7, this.context);
+      ps.setString(8, this.format.name());
+      ps.setInt(9, this.percentage);
+      ps.setInt(10, this.id);
 
-      statement.executeUpdate();
+      ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
+    } finally {
+      DbTools.closePreparedStatement(ps);
     }
   }
 
-  private synchronized void saveItem(ImportLogItem item) {
+  private synchronized void saveImportLogItem(ImportLogItem importLogItem, Connection connection) {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     try {
-      PreparedStatement statement =
-          this.connection.prepareStatement("insert into import_log_item "
-              + "(status, errorlevel, startdate, parent, message, item_id, action) "
-              + "values (?, ?, ?, ?, ?, ?, ?)");
+      ps =
+          connection.prepareStatement("insert into import_log_item "
+              + "(status, errorlevel, startdate, parent, message, item_id) "
+              + "values (?, ?, ?, ?, ?, ?)");
 
-      statement.setString(1, item.getStatus().toString());
-      statement.setString(2, item.getErrorLevel().toString());
-      statement.setTimestamp(3, new Timestamp(item.getStartDate().getTime()));
-      statement.setInt(4, this.storedId);
-      statement.setString(5, item.getMessage());
-      statement.setString(6, item.getItemId());
-      statement.setString(7, item.getAction());
+      ps.setString(1, importLogItem.getStatus().toString());
+      ps.setString(2, importLogItem.getErrorLevel().toString());
+      ps.setTimestamp(3, new Timestamp(importLogItem.getStartDate().getTime()));
+      ps.setInt(4, this.id);
+      ps.setString(5, importLogItem.getMessage());
+      ps.setString(6, importLogItem.getItemId());
 
-      statement.executeUpdate();
+      ps.executeUpdate();
+      DbTools.closePreparedStatement(ps);
 
-      statement = this.connection.prepareStatement("select max(id) as maxid from import_log_item");
-      final ResultSet resultSet = statement.executeQuery();
+      ps = connection.prepareStatement("select max(id) as maxid from import_log_item");
 
-      if (resultSet.next()) {
-        item.setStoredId(resultSet.getInt("maxid"));
+      rs = ps.executeQuery();
+
+      if (rs.next()) {
+        importLogItem.setId(rs.getInt("maxid"));
       } else {
         throw new RuntimeException("Error saving log item");
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
   }
 
-  private synchronized void updateItem(ImportLogItem item) {
+  private synchronized void updateImportLogItem(ImportLogItem importLogItem, Connection connection) {
+    PreparedStatement ps = null;
+
     try {
-      final PreparedStatement statement =
-          this.connection.prepareStatement("update import_log_item set " + "status = ?, "
-              + "errorlevel = ?, " + "startdate = ?, " + "enddate = ?, " + "parent = ?, "
-              + "message = ?, " + "item_id = ?, " + "action = ? " + "where id = ?");
+      ps =
+          connection.prepareStatement("update import_log_item set status = ?, "
+              + "errorlevel = ?, startdate = ?, enddate = ?, parent = ?, "
+              + "message = ?, item_id = ? where id = ?");
 
-      statement.setString(1, item.getStatus().toString());
-      statement.setString(2, item.getErrorLevel().toString());
-      statement.setTimestamp(3, new Timestamp(item.getStartDate().getTime()));
+      ps.setString(1, importLogItem.getStatus().toString());
+      ps.setString(2, importLogItem.getErrorLevel().toString());
+      ps.setTimestamp(3, new Timestamp(importLogItem.getStartDate().getTime()));
 
-      if (item.getEndDate() != null) {
-        statement.setTimestamp(4, new Timestamp(item.getEndDate().getTime()));
+      if (importLogItem.getEndDate() != null) {
+        ps.setTimestamp(4, new Timestamp(importLogItem.getEndDate().getTime()));
       } else {
-        statement.setDate(4, null);
+        ps.setDate(4, null);
       }
 
-      statement.setInt(5, this.storedId);
-      statement.setString(6, item.getMessage());
-      statement.setString(7, item.getItemId());
-      statement.setString(8, item.getAction());
-      statement.setInt(9, item.getStoredId());
+      ps.setInt(5, this.id);
+      ps.setString(6, importLogItem.getMessage());
+      ps.setString(7, importLogItem.getItemId());
+      ps.setInt(8, importLogItem.getId());
 
-      statement.executeUpdate();
+      ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
+    } finally {
+      DbTools.closePreparedStatement(ps);
     }
   }
 
-  private synchronized void saveDetail(ImportLogItem detail) {
+  private synchronized void saveImportLogItemDetail(ImportLogItemDetail importLogItemDetail,
+      Connection connection) {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     try {
-      PreparedStatement statement =
-          this.connection.prepareStatement("insert into import_log_item_detail "
-              + "(status, errorlevel, startdate, parent, message, item_id, action) "
-              + "values (?, ?, ?, ?, ?, ?, ?)");
+      ps =
+          connection.prepareStatement("insert into import_log_item_detail "
+              + "(status, errorlevel, startdate, parent, message) values (?, ?, ?, ?, ?)");
 
-      statement.setString(1, detail.getStatus().toString());
-      statement.setString(2, detail.getErrorLevel().toString());
-      statement.setTimestamp(3, new Timestamp(detail.getStartDate().getTime()));
-      statement.setInt(4, detail.getParent().getStoredId());
-      statement.setString(5, detail.getMessage());
-      statement.setString(6, detail.getItemId());
-      statement.setString(7, detail.getAction());
+      ps.setString(1, importLogItemDetail.getStatus().toString());
+      ps.setString(2, importLogItemDetail.getErrorLevel().toString());
+      ps.setTimestamp(3, new Timestamp(importLogItemDetail.getStartDate().getTime()));
+      ps.setInt(4, importLogItemDetail.getParent().getId());
+      ps.setString(5, importLogItemDetail.getMessage());
 
-      statement.executeUpdate();
-
-      statement =
-          this.connection.prepareStatement("select max(id) as maxid from import_log_item_detail");
-      final ResultSet resultSet = statement.executeQuery();
-
-      if (resultSet.next()) {
-        detail.setStoredId(resultSet.getInt("maxid"));
-      } else {
-        throw new RuntimeException("Error saving log item");
-      }
+      ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -873,29 +709,10 @@ public class ImportLog {
    * 
    * @return A list of imports
    */
-  public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
-      SortDirection dir) {
+  public static List<ImportLog> getImportLogs(AccountUserVO user, SortColumn sortBy,
+      SortDirection dir, Connection connection) {
 
-    return ImportLog.getImportLogs(action, user, sortBy, dir, true);
-  }
-
-  /**
-   * Retrieves a users imports from the database.
-   * 
-   * Defaults: - items are loaded
-   * 
-   * @param action Usually "import"
-   * @param user The user's value object
-   * @param sortBy The column the logs should be sorted by
-   * @param dir The direction the imports should be sorted by
-   * @param loadDetails Indicates whether the items details should be loaded
-   * 
-   * @return A list of imports
-   */
-  public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
-      SortDirection dir, boolean loadDetails) {
-
-    return ImportLog.getImportLogs(action, user, sortBy, dir, true, loadDetails);
+    return ImportLog.getImportLogs(user, sortBy, dir, true, connection);
   }
 
   /**
@@ -910,25 +727,24 @@ public class ImportLog {
    * 
    * @return A list of imports
    */
-  public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy,
-      SortDirection dir, boolean loadItems, boolean loadDetails) {
+  public static List<ImportLog> getImportLogs(AccountUserVO user, SortColumn sortBy,
+      SortDirection dir, boolean loadDetails, Connection connection) {
     final List<ImportLog> result = new ArrayList<ImportLog>();
-    final Connection connection = ImportLog.getConnection();
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     final String query =
-        "select id from import_log where action = ? and userid = ? " + "order by " + sortBy.toSQL()
-            + " " + dir.toSQL();
+        "select id from import_log where userid = ? " + "order by " + sortBy.toSQL() + " "
+            + dir.toSQL();
 
     try {
-      statement = connection.prepareStatement(query);
-      statement.setString(1, action);
-      statement.setString(2, user.getReference().getObjectId());
+      ps = connection.prepareStatement(query);
+      ps.setString(1, user.getReference().getObjectId());
 
-      resultSet = statement.executeQuery();
+      rs = ps.executeQuery();
 
-      while (resultSet.next()) {
-        final int id = resultSet.getInt("id");
+      while (rs.next()) {
+        final int id = rs.getInt("id");
         final ImportLog log = ImportLog.getImportLog(id, loadDetails, connection);
         log.userHandle = user.getHandle();
         result.add(log);
@@ -936,28 +752,11 @@ public class ImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error getting log", e);
     } finally {
-      try {
-        connection.close();
-      } catch (final Exception f) {
-        ImportLog.logger.error("Error closing db connection", f);
-      }
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
 
     return result;
-  }
-
-  /**
-   * Get a single import by its stored id.
-   * 
-   * Defaults: - items are loaded
-   * 
-   * @param id The id
-   * @param loadDetails Indicates whether the items details should be loaded
-   * 
-   * @return The import
-   */
-  public static ImportLog getImportLog(int id, boolean loadDetails, Connection conn) {
-    return ImportLog.getImportLog(id, true, loadDetails, conn);
   }
 
   /**
@@ -969,123 +768,123 @@ public class ImportLog {
    * 
    * @return The import
    */
-  public static ImportLog getImportLog(int id, boolean loadItems, boolean loadDetails,
-      Connection connection) {
-    // Connection connection = getConnection();
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+  public static ImportLog getImportLog(int id, boolean loadDetails, Connection connection) {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
     String query = null;
-    ImportLog result = null;
+    ImportLog importLog = null;
 
     try {
       query = "select * from import_log where id = ?";
-      statement = connection.prepareStatement(query);
-      statement.setInt(1, id);
-      resultSet = statement.executeQuery();
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, id);
+      rs = ps.executeQuery();
 
-
-      if (resultSet.next()) {
-        result = ImportLog.fillLog(resultSet);
+      if (rs.next()) {
+        importLog = ImportLog.fillImportLog(rs, connection);
       } else {
         ImportLog.logger.warn("Import log query returned no result for id " + id);
       }
-      statement.close();
+
+      DbTools.closePreparedStatement(ps);
 
       query = "select * from import_log_item where parent = ? order by id";
-      statement = connection.prepareStatement(query);
-      statement.setInt(1, id);
-      resultSet = statement.executeQuery();
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, id);
+      rs = ps.executeQuery();
 
-      final List<ImportLogItem> items = new ArrayList<ImportLogItem>();
+      final List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
 
-      while (resultSet.next()) {
-        final ImportLogItem item = ImportLog.fillItem(resultSet, result);
-        items.add(item);
+      while (rs.next()) {
+        final ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog, connection);
+        importLogItems.add(importLogItem);
       }
 
-      result.setItems(items);
-      statement.close();
+      importLog.setItems(importLogItems);
+
+      DbTools.closePreparedStatement(ps);
 
       if (loadDetails) {
         query =
-            "select import_log_item_detail.* " + "from import_log_item, import_log_item_detail "
+            "select import_log_item_detail.* from import_log_item, import_log_item_detail "
                 + "where import_log_item.id = import_log_item_detail.parent "
-                + "and import_log_item.parent = ? " + "order by import_log_item_detail.id";
-        statement = connection.prepareStatement(query);
-        statement.setInt(1, id);
-        resultSet = statement.executeQuery();
+                + "and import_log_item.parent = ? order by import_log_item_detail.id";
+        ps = connection.prepareStatement(query);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
 
-        final Iterator<ImportLogItem> iterator = items.iterator();
+        final Iterator<ImportLogItem> iterator = importLogItems.iterator();
 
-        if (items.size() > 0) {
+        if (importLogItems.size() > 0) {
 
-          ImportLogItem currentItem = iterator.next();
-          List<ImportLogItem> details = new ArrayList<ImportLogItem>();
-          currentItem.setItems(details);
+          ImportLogItem currentImportLogItem = iterator.next();
+          List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
+          currentImportLogItem.setItems(importLogItemDetails);
 
-          while (resultSet.next()) {
-            final int itemId = resultSet.getInt("parent");
-            while (currentItem.getStoredId() != itemId && iterator.hasNext()) {
-              currentItem = iterator.next();
-              details = new ArrayList<ImportLogItem>();
-              currentItem.setItems(details);
+          while (rs.next()) {
+            final int itemId = rs.getInt("parent");
+            while (currentImportLogItem.getId() != itemId && iterator.hasNext()) {
+              currentImportLogItem = iterator.next();
+              importLogItemDetails = new ArrayList<ImportLogItemDetail>();
+              currentImportLogItem.setItems(importLogItemDetails);
             }
 
-            final ImportLogItem detail = ImportLog.fillDetail(resultSet, currentItem);
-            details.add(detail);
+            final ImportLogItemDetail importLogItemDetail =
+                ImportLog.fillImportLogItemDetail(rs, currentImportLogItem, connection);
+            importLogItemDetails.add(importLogItemDetail);
           }
         }
-        statement.close();
       }
-
     } catch (final Exception e) {
       throw new RuntimeException("Error getting detail", e);
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
 
-    return result;
+    return importLog;
   }
 
   /**
    * @param resultSet
-   * @param currentItem
+   * @param importLogItem
    * @return
    * @throws SQLException
    */
-  private static ImportLogItem fillDetail(ResultSet resultSet, ImportLogItem currentItem)
-      throws SQLException {
-    final ImportLogItem detail = new ImportLogItem(currentItem);
+  private static ImportLogItemDetail fillImportLogItemDetail(ResultSet resultSet,
+      ImportLogItem importLogItem, Connection connection) throws SQLException {
+    final ImportLogItemDetail importLogItemDetail =
+        new ImportLogItemDetail(importLogItem, connection);
 
-    detail.setAction(resultSet.getString("action"));
-    detail.setEndDate(resultSet.getTimestamp("enddate"));
-    detail.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-    detail.setStartDate(resultSet.getTimestamp("startdate"));
-    detail.setStatus(Status.valueOf(resultSet.getString("status")));
-    detail.setStoredId(resultSet.getInt("id"));
-    detail.setItemId(resultSet.getString("item_id"));
-    detail.setMessage(resultSet.getString("message"));
+    importLogItemDetail.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel")
+        .toUpperCase()));
+    importLogItemDetail.setStartDate(resultSet.getTimestamp("startdate"));
+    importLogItemDetail.setStatus(Status.valueOf(resultSet.getString("status")));
+    importLogItemDetail.setMessage(resultSet.getString("message"));
 
-    return detail;
+    return importLogItemDetail;
   }
 
   /**
    * @param resultSet
-   * @param result
+   * @param importLog
    * @return
    * @throws SQLException
    */
-  private static ImportLogItem fillItem(ResultSet resultSet, ImportLog result) throws SQLException {
-    final ImportLogItem item = new ImportLogItem(result);
+  private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog,
+      Connection connection) throws SQLException {
+    final ImportLogItem importLogItem = new ImportLogItem(importLog, connection);
 
-    item.setAction(resultSet.getString("action"));
-    item.setEndDate(resultSet.getTimestamp("enddate"));
-    item.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-    item.setStartDate(resultSet.getTimestamp("startdate"));
-    item.setStatus(Status.valueOf(resultSet.getString("status")));
-    item.setStoredId(resultSet.getInt("id"));
-    item.setItemId(resultSet.getString("item_id"));
-    item.setMessage(resultSet.getString("message"));
+    importLogItem.setEndDate(resultSet.getTimestamp("enddate"));
+    importLogItem
+        .setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
+    importLogItem.setStartDate(resultSet.getTimestamp("startdate"));
+    importLogItem.setStatus(Status.valueOf(resultSet.getString("status")));
+    importLogItem.setId(resultSet.getInt("id"));
+    importLogItem.setItemId(resultSet.getString("item_id"));
+    importLogItem.setMessage(resultSet.getString("message"));
 
-    return item;
+    return importLogItem;
   }
 
   /**
@@ -1093,21 +892,22 @@ public class ImportLog {
    * @return The filled import
    * @throws SQLException
    */
-  private static ImportLog fillLog(ResultSet resultSet) throws SQLException {
-    final ImportLog result = new ImportLog();
-    result.setAction(resultSet.getString("action"));
-    result.setEndDate(resultSet.getTimestamp("enddate"));
-    result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-    result.setFormat(TransformerFactory.FORMAT.valueOf(resultSet.getString("format")));
-    result.setStartDate(resultSet.getTimestamp("startdate"));
-    result.setStatus(Status.valueOf(resultSet.getString("status")));
-    result.setStoredId(resultSet.getInt("id"));
-    result.setContext(resultSet.getString("context"));
-    result.setUser(resultSet.getString("userid"));
-    result.setMessage(resultSet.getString("name"));
-    result.percentage = resultSet.getInt("percentage");
+  private static ImportLog fillImportLog(ResultSet resultSet, Connection connection)
+      throws SQLException {
+    final ImportLog importLog = new ImportLog();
 
-    return result;
+    importLog.setEndDate(resultSet.getTimestamp("enddate"));
+    importLog.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
+    importLog.setFormat(TransformerFactory.FORMAT.valueOf(resultSet.getString("format")));
+    importLog.setStartDate(resultSet.getTimestamp("startdate"));
+    importLog.setStatus(Status.valueOf(resultSet.getString("status")));
+    importLog.setId(resultSet.getInt("id"));
+    importLog.setContext(resultSet.getString("context"));
+    importLog.setUser(resultSet.getString("userid"));
+    importLog.setMessage(resultSet.getString("name"));
+    importLog.percentage = resultSet.getInt("percentage");
+
+    return importLog;
   }
 
   /**
@@ -1118,47 +918,48 @@ public class ImportLog {
    * 
    * @return A list of details
    */
-  public static List<ImportLogItem> loadDetails(int id, String userid) {
-    final List<ImportLogItem> details = new ArrayList<ImportLogItem>();
-    final Connection connection = ImportLog.getConnection();
+  public static List<ImportLogItemDetail> loadImportLogItemDetails(int id, String userid,
+      Connection connection) {
+    final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
 
     final String query =
         "select import_log_item_detail.* "
             + "from import_log_item, import_log_item_detail, import_log "
             + "where import_log_item.id = import_log_item_detail.parent "
-            + "and import_log_item.parent = import_log.id " + "and import_log_item.id = ? "
-            + "and import_log.userid = ? " + "order by import_log_item_detail.id";
+            + "and import_log_item.parent = import_log.id and import_log_item.id = ? "
+            + "and import_log.userid = ? order by import_log_item_detail.id";
+
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     try {
-      final PreparedStatement statement = connection.prepareStatement(query);
-      statement.setInt(1, id);
-      statement.setString(2, userid);
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, id);
+      ps.setString(2, userid);
 
-      final ResultSet resultSet = statement.executeQuery();
+      rs = ps.executeQuery();
 
-      while (resultSet.next()) {
-        final ImportLogItem detail = ImportLog.fillDetail(resultSet, null);
-        details.add(detail);
+      while (rs.next()) {
+        final ImportLogItemDetail importLogItemDetail =
+            ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null, connection);
+        importLogItemDetails.add(importLogItemDetail);
       }
-      return details;
+
+      return importLogItemDetails;
     } catch (final Exception e) {
       throw new RuntimeException(e);
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     final StringWriter writer = new StringWriter();
 
     writer.write(this.getErrorLevel().toString());
     writer.write(": ");
-    if (this.getRelevantString() != null) {
-      writer.write(this.getRelevantString());
-    } else {
-      writer.write("- - -");
-    }
     writer.write(" (");
     writer.write(ImportLog.DATE_FORMAT.format(this.getStartDate()));
     writer.write(" - ");
@@ -1176,18 +977,14 @@ public class ImportLog {
     return writer.toString();
   }
 
-  protected String getRelevantString() {
-    return this.getAction();
-  }
-
   /**
    * Puts the import's focus on this item.
    * 
    * @param item The item to be activated
    */
   public void activateItem(ImportLogItem item) {
-    if (this.currentItem == null) {
-      this.currentItem = item;
+    if (this.currentImportLogItem == null) {
+      this.currentImportLogItem = item;
     } else {
       throw new RuntimeException(
           "Trying to start logging an item while another is not yet finished");
@@ -1256,31 +1053,41 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public String remove() {
+  public void remove() {
+    Connection connection = null;
+    PreparedStatement ps = null;
+
     try {
-      final Connection conn = ImportLog.getConnection();
+      connection = DbTools.getNewConnection();
 
       String query =
           "delete from import_log_item_detail where parent in "
               + "(select id from import_log_item where parent = ?)";
-      PreparedStatement statement = conn.prepareStatement(query);
-      statement.setInt(1, this.storedId);
-      statement.executeUpdate();
-      statement.close();
+
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, this.id);
+      ps.executeUpdate();
+
+      DbTools.closePreparedStatement(ps);
 
       query = "delete from import_log_item where parent  = ?";
-      statement = conn.prepareStatement(query);
-      statement.setInt(1, this.storedId);
-      statement.executeUpdate();
-      statement.close();
+
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, this.id);
+      ps.executeUpdate();
+
+      DbTools.closePreparedStatement(ps);
 
       query = "delete from import_log where id  = ?";
-      statement = conn.prepareStatement(query);
-      statement.setInt(1, this.storedId);
-      statement.executeUpdate();
-      statement.close();
+
+      ps = connection.prepareStatement(query);
+      ps.setInt(1, this.id);
+      ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException(e);
+    } finally {
+      DbTools.closePreparedStatement(ps);
+      DbTools.closeConnection(connection);
     }
 
     try {
@@ -1288,8 +1095,6 @@ public class ImportLog {
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
-
-    return null;
   }
 
   /**
@@ -1297,21 +1102,25 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public String deleteAll() {
-    this.connection = ImportLog.getConnection();
-
-    String authenticationToken =
+  public void deleteAll() {
+    final String authenticationToken =
         ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
-    final DeleteProcess deleteProcess = new DeleteProcess(this, authenticationToken);
-    deleteProcess.start();
+
+    final Connection connection = DbTools.getNewConnection();
+    final DeleteProcess deleteProcess;
+    try {
+      deleteProcess = new DeleteProcess(this, authenticationToken, connection);
+      deleteProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(connection);
+      throw e;
+    }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
-
-    return null;
   }
 
   /**
@@ -1319,21 +1128,25 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public String submitAll() {
-    this.connection = ImportLog.getConnection();
-
-    String authenticationToken =
+  public void submitAll() {
+    final String authenticationToken =
         ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
-    final SubmitProcess submitProcess = new SubmitProcess(this, false, authenticationToken);
-    submitProcess.start();
+
+    final Connection connection = DbTools.getNewConnection();
+    final SubmitProcess submitProcess;
+    try {
+      submitProcess = new SubmitProcess(this, false, authenticationToken, connection);
+      submitProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(connection);
+      throw e;
+    }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
-
-    return null;
   }
 
   /**
@@ -1341,28 +1154,32 @@ public class ImportLog {
    * 
    * @return Always null.
    */
-  public String submitAndReleaseAll() {
-    this.connection = ImportLog.getConnection();
-
-    String authenticationToken =
+  public void submitAndReleaseAll() {
+    final String authenticationToken =
         ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
-    final SubmitProcess submitProcess = new SubmitProcess(this, true, authenticationToken);
-    submitProcess.start();
+
+    final Connection connection = DbTools.getNewConnection();
+    final SubmitProcess submitProcess;
+    try {
+      submitProcess = new SubmitProcess(this, true, authenticationToken, connection);
+      submitProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(connection);
+      throw e;
+    }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
-
-    return null;
   }
 
   /**
    * @return A link to a JSP page showing only this import (no items)
    */
   public String getLogLink() {
-    return "ImportData.jsp?id=" + this.getStoredId();
+    return "ImportLog.jsp?id=" + this.getId();
   }
 
   /**
@@ -1373,7 +1190,6 @@ public class ImportLog {
       return "DepositorWSPage.jsp?import="
           + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), "ISO-8859-1");
     } catch (final UnsupportedEncodingException usee) {
-      // This should not happen as UTF-8 is known
       throw new RuntimeException(usee);
     }
   }
@@ -1382,7 +1198,7 @@ public class ImportLog {
    * @return A link to a JSP page showing the items of this import (no details)
    */
   public String getItemsLink() {
-    return "ImportItems.jsp?id=" + this.getStoredId();
+    return "ImportLogItems.jsp?id=" + this.getId();
   }
 
   /**
@@ -1399,17 +1215,11 @@ public class ImportLog {
    */
   public void setLogLink(String link) {}
 
-  /**
-   * @param connection the connection to set
-   */
-  public void setConnection(Connection connection) {
-    this.connection = connection;
-  }
-
   private Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
-        ContextVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
+        final ContextVO contextVO =
+            ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
       } catch (final Exception e) {
@@ -1420,11 +1230,6 @@ public class ImportLog {
     return this.workflow;
   }
 
-  /**
-   * Indicates whether the workflow of the currently used context is SIMPLE.
-   * 
-   * @return true if the workflow of the currently used context is SIMPLE.
-   */
   public boolean getSimpleWorkflow() {
     return (this.getWorkflow() == Workflow.SIMPLE);
   }

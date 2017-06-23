@@ -47,7 +47,6 @@ CREATE TABLE public.import_log
     errorlevel character varying COLLATE pg_catalog."default" NOT NULL,
     startdate timestamp without time zone NOT NULL,
     enddate timestamp without time zone,
-    action character varying COLLATE pg_catalog."default",
     userid character varying COLLATE pg_catalog."default",
     name character varying COLLATE pg_catalog."default",
     format character varying COLLATE pg_catalog."default",
@@ -77,7 +76,6 @@ CREATE TABLE public.import_log_item
     parent integer NOT NULL,
     message character varying COLLATE pg_catalog."default",
     item_id character varying COLLATE pg_catalog."default",
-    action character varying COLLATE pg_catalog."default",
     CONSTRAINT import_log_item_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -98,11 +96,8 @@ CREATE TABLE public.import_log_item_detail
     status character varying COLLATE pg_catalog."default" NOT NULL,
     errorlevel character varying COLLATE pg_catalog."default" NOT NULL,
     startdate timestamp without time zone NOT NULL,
-    enddate timestamp without time zone,
     parent integer NOT NULL,
     message character varying COLLATE pg_catalog."default",
-    item_id character varying COLLATE pg_catalog."default",
-    action character varying COLLATE pg_catalog."default",
     CONSTRAINT import_log_item_detail_pkey PRIMARY KEY (id)
 )
 WITH (

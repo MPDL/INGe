@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -152,12 +153,19 @@ public class MultipleImport extends FacesBean {
       configuration.put(si.getLabel(), si.getValue().toString());
     }
 
-    final ImportProcess importProcess =
-        new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
-            this.format, this.context.getReference(), this.getLoginHelper().getAccountUser(),
-            this.rollback, this.duplicateStrategy, configuration, this.getLoginHelper()
-                .getAuthenticationToken());
-    importProcess.start();
+    final Connection connection = DbTools.getNewConnection();
+    ImportProcess importProcess = null;
+    try {
+      importProcess =
+          new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
+              this.format, this.context.getReference(), this.getLoginHelper().getAccountUser(),
+              this.rollback, this.duplicateStrategy, configuration, this.getLoginHelper()
+                  .getAuthenticationToken(), connection);
+      importProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(connection);
+      throw e;
+    }
 
     FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
   }
@@ -253,44 +261,26 @@ public class MultipleImport extends FacesBean {
     this.parametersValues = parametersValues;
   }
 
-  /**
-   * @return the context
-   */
   public ContextVO getContext() {
     return this.context;
   }
 
-  /**
-   * @param context the context to set
-   */
   public void setContext(ContextVO context) {
     this.context = context;
   }
 
-  /**
-   * @return the importFormats
-   */
   public List<SelectItem> getImportFormats() {
     return this.importFormats;
   }
 
-  /**
-   * @param importFormats the importFormats to set
-   */
   public void setImportFormats(List<SelectItem> importFormats) {
     this.importFormats = importFormats;
   }
 
-  /**
-   * @return the format
-   */
   public TransformerFactory.FORMAT getFormat() {
     return this.format;
   }
 
-  /**
-   * @param format the format to set
-   */
   public void setFormat(TransformerFactory.FORMAT format) {
     if (!format.equals(this.format)) {
       this.setName("");
@@ -298,44 +288,26 @@ public class MultipleImport extends FacesBean {
     this.format = format;
   }
 
-  /**
-   * @return the uploadedImportFile
-   */
   public UploadedFile getUploadedImportFile() {
     return this.uploadedImportFile;
   }
 
-  /**
-   * @param uploadedImportFile the uploadedImportFile to set
-   */
   public void setUploadedImportFile(UploadedFile uploadedImportFile) {
     this.uploadedImportFile = uploadedImportFile;
   }
 
-  /**
-   * @return the rollback
-   */
   public boolean getRollback() {
     return this.rollback;
   }
 
-  /**
-   * @param rollback the rollback to set
-   */
   public void setRollback(boolean rollback) {
     this.rollback = rollback;
   }
 
-  /**
-   * @return the name
-   */
   public String getName() {
     return this.name;
   }
 
-  /**
-   * @param name the name to set
-   */
   public void setName(String name) {
     this.name = name;
     this.name =
@@ -343,16 +315,10 @@ public class MultipleImport extends FacesBean {
             .replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
   }
 
-  /**
-   * @return the duplicateStrategy
-   */
   public int getDuplicateStrategy() {
     return this.duplicateStrategy;
   }
 
-  /**
-   * @param duplicateStrategy the duplicateStrategy to set
-   */
   public void setDuplicateStrategy(int duplicateStrategy) {
     this.duplicateStrategy = duplicateStrategy;
   }

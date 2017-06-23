@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -92,44 +93,34 @@ public class ImportWorkspace extends BreadcrumbPage {
     }
   }
 
-  /**
-   * @return the imports
-   */
   public List<ImportLog> getImports() {
     final AccountUserVO user = this.getLoginHelper().getAccountUser();
 
     if (user != null) {
-      return ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true,
-          false);
+      final Connection connection = DbTools.getNewConnection();
+      try {
+        return ImportLog
+            .getImportLogs(user, this.sortColumn, this.sortDirection, false, connection);
+      } finally {
+        DbTools.closeConnection(connection);
+      }
     }
 
     return null;
   }
 
-  /**
-   * @return the sortColumn
-   */
   public ImportLog.SortColumn getSortColumn() {
     return this.sortColumn;
   }
 
-  /**
-   * @param sortColumn the sortColumn to set
-   */
   public void setSortColumn(ImportLog.SortColumn sortColumn) {
     this.sortColumn = sortColumn;
   }
 
-  /**
-   * @return the sortDirection
-   */
   public ImportLog.SortDirection getSortDirection() {
     return this.sortDirection;
   }
 
-  /**
-   * @param sortDirection the sortDirection to set
-   */
   public void setSortDirection(ImportLog.SortDirection sortDirection) {
     this.sortDirection = sortDirection;
   }

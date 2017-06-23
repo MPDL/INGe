@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -322,28 +323,34 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     final List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
     importSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    final String sql =
+        "SELECT * FROM import_log WHERE ? LIKE '%,' || context || ',%' ORDER BY startdate DESC";
+
     try {
-      final Connection connection = ImportLog.getConnection();
-      final String sql =
-          "SELECT * FROM import_log WHERE ? LIKE '%,' || context || ',%' ORDER BY startdate DESC";
-      final PreparedStatement statement = connection.prepareStatement(sql);
+      connection = DbTools.getNewConnection();
+      ps = connection.prepareStatement(sql);
+      ps.setString(1, contextString);
+      rs = ps.executeQuery();
 
-      statement.setString(1, contextString);
-
-      final ResultSet resultSet = statement.executeQuery();
-
-      while (resultSet.next()) {
+      while (rs.next()) {
         final SelectItem selectItem =
-            new SelectItem(resultSet.getString("name") + " "
-                + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+            new SelectItem(rs.getString("name") + " "
+                + ImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
-      resultSet.close();
-      statement.close();
     } catch (final Exception e) {
       MyTasksRetrieverRequestBean.logger.error("Error getting imports from database", e);
       FacesBean.error("Error getting imports from database");
+    } finally {
+      DbTools.closeResultSet(rs);
+      DbTools.closePreparedStatement(ps);
+      DbTools.closeConnection(connection);
     }
+
     this.setImportSelectItems(importSelectItems);
   }
 

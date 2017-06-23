@@ -6,7 +6,7 @@
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
-        <ui:repeat var="item" value="#{ImportItems.import.items}" varStatus="status">
+        <ui:repeat var="item" value="#{ImportLogItemBean.import.items}" varStatus="status">
             <h:panelGroup>
                 <div class="full_area0" style="margin-bottom: 0.19em;">
                     <div class="medium_area0_p8 state noPaddingTopBottom" style="margin-left: 2.28em;">

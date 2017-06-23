@@ -27,11 +27,8 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
-
-import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -44,20 +41,15 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@ManagedBean(name = "ImportData")
+@ManagedBean(name = "ImportLogBean")
 @SuppressWarnings("serial")
-public class ImportData extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ImportData.class);
-
+public class ImportLogBean extends FacesBean {
   private int importId = 0;
   private String userid = null;
   private String userHandle = null;
   private ImportLog log = null;
 
-  /**
-   * Constructor extracting the import's id from the URL and setting user settings.
-   */
-  public ImportData() {
+  public ImportLogBean() {
     final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (idString != null) {
@@ -71,23 +63,16 @@ public class ImportData extends FacesBean {
     }
   }
 
-  /**
-   * Getter.
-   * 
-   * @return the import
-   */
   public ImportLog getImport() {
-
     if (this.log == null && this.userid != null) {
-      final Connection conn = ImportLog.getConnection();
-      this.log = ImportLog.getImportLog(this.importId, false, false, conn);
-      this.log.setUser(this.userid);
-      this.log.setUserHandle(this.userHandle);
+      final Connection connection = DbTools.getNewConnection();
 
       try {
-        conn.close();
-      } catch (final SQLException e) {
-        ImportData.logger.error("Error closing db connection", e);
+        this.log = ImportLog.getImportLog(this.importId, false, connection);
+        this.log.setUser(this.userid);
+        this.log.setUserHandle(this.userHandle);
+      } finally {
+        DbTools.closeConnection(connection);
       }
     }
 

@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.util.List;
+import java.sql.Connection;
 
 import javax.faces.bean.ManagedBean;
 
@@ -34,28 +34,37 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
- * A JSF bean class to hold data of an import item's details.
+ * A JSF bean class to hold the data of the items of an import.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@ManagedBean(name = "ImportItemDetails")
+@ManagedBean(name = "ImportLogItemBean")
 @SuppressWarnings("serial")
-public class ImportItemDetails extends FacesBean {
-  private int itemId = 0;
-  private List<ImportLogItem> details = null;
+public class ImportLogItemBean extends FacesBean {
+  private ImportLog log = null;
   private String userid = null;
+  private int importId = 0;
+  private int itemsPerPage = 0;
+  private int page = 0;
 
-  /**
-   * Constructor extracting the import's id from the URL and setting user settings.
-   */
-  public ImportItemDetails() {
+  public ImportLogItemBean() {
     final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
-
     if (idString != null) {
-      this.itemId = Integer.parseInt(idString);
+      this.importId = Integer.parseInt(idString);
+    }
+
+    final String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
+    if (pageString != null) {
+      this.page = Integer.parseInt(pageString);
+    }
+
+    final String itemsPerPageString =
+        FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+    if (itemsPerPageString != null) {
+      this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }
 
     if (this.getLoginHelper().getAccountUser() != null) {
@@ -63,25 +72,33 @@ public class ImportItemDetails extends FacesBean {
     }
   }
 
-  /**
-   * @return The number of details.
-   */
-  public int getLength() {
-    if (this.details == null && this.itemId != 0 && this.userid != null) {
+  public ImportLog getImport() {
+    if (this.log == null && this.userid != null) {
+      final Connection connection = DbTools.getNewConnection();
 
-      this.details = ImportLog.loadDetails(this.itemId, this.userid);
+      try {
+        this.log = ImportLog.getImportLog(this.importId, false, connection);
+      } finally {
+        DbTools.closeConnection(connection);
+      }
     }
-    return this.details.size();
+
+    return this.log;
   }
 
-  /**
-   * @return The list of details for JSF iteration
-   */
-  public List<ImportLogItem> getDetails() {
-    if (this.details == null && this.itemId != 0 && this.userid != null) {
+  public int getPage() {
+    return this.page;
+  }
 
-      this.details = ImportLog.loadDetails(this.itemId, this.userid);
-    }
-    return this.details;
+  public void setPage(int page) {
+    this.page = page;
+  }
+
+  public int getItemsPerPage() {
+    return this.itemsPerPage;
+  }
+
+  public void setItemsPerPage(int itemsPerPage) {
+    this.itemsPerPage = itemsPerPage;
   }
 }

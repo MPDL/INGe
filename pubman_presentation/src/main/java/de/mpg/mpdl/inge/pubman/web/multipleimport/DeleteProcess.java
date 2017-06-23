@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
+import java.sql.Connection;
+
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
@@ -39,23 +41,25 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
  */
 public class DeleteProcess extends Thread {
   private final ImportLog log;
-  private String authenticationToken;
+  private final String authenticationToken;
+  private Connection connection = null;
 
   /**
    * Constructor taking an {@link ImportLog}. Reopens the log again and checks user data.
    * 
    * @param log The {@link ImportLog} whose items should be deleted
    */
-  public DeleteProcess(ImportLog log, String authenticationToken) {
+  public DeleteProcess(ImportLog log, String authenticationToken, Connection connection) {
     this.authenticationToken = authenticationToken;
-
+    this.connection = connection;
     this.log = log;
-    this.log.reopen();
-    this.log.setPercentage(5);
-    this.log.startItem("import_process_delete_items");
-    this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process");
-    this.log.finishItem();
-    this.log.setPercentage(5);
+
+    this.log.reopen(connection);
+    this.log.setPercentage(5, connection);
+    this.log.startItem("import_process_delete_items", connection);
+    this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_delete_process", connection);
+    this.log.finishItem(connection);
+    this.log.setPercentage(5, connection);
   }
 
   /**
@@ -63,43 +67,48 @@ public class DeleteProcess extends Thread {
    */
   @Override
   public void run() {
-    int itemCount = 0;
-    for (final ImportLogItem item : this.log.getItems()) {
-      if (item.getItemId() != null && !"".equals(item.getItemId())) {
-        itemCount++;
-        this.log.activateItem(item);
-        this.log.addDetail(ErrorLevel.FINE, "import_process_schedule_delete");
-        this.log.suspendItem();
-      }
-    }
-
-    this.log.setPercentage(10);
-
-    int counter = 0;
-    for (final ImportLogItem item : this.log.getItems()) {
-      if (item.getItemId() != null && !"".equals(item.getItemId())) {
-        this.log.activateItem(item);
-        this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item");
-        try {
-          ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(),
-              this.authenticationToken);
-          this.log.addDetail(ErrorLevel.FINE, "import_process_delete_successful");
-          this.log.addDetail(ErrorLevel.FINE, "import_process_remove_identifier");
-          item.setItemId(null);
-          this.log.finishItem();
-        } catch (final Exception e) {
-          this.log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed");
-          this.log.addDetail(ErrorLevel.WARNING, e);
-          this.log.finishItem();
+    try {
+      int itemCount = 0;
+      for (final ImportLogItem item : this.log.getItems()) {
+        if (item.getItemId() != null && !"".equals(item.getItemId())) {
+          itemCount++;
+          this.log.activateItem(item);
+          this.log.addDetail(ErrorLevel.FINE, "import_process_schedule_delete", this.connection);
+          this.log.suspendItem(this.connection);
         }
-        counter++;
-        this.log.setPercentage(85 * counter / itemCount + 10);
       }
-    }
 
-    this.log.startItem("import_process_delete_finished");
-    this.log.finishItem();
-    this.log.close();
-    this.log.closeConnection();
+      this.log.setPercentage(10, this.connection);
+
+      int counter = 0;
+      for (final ImportLogItem item : this.log.getItems()) {
+        if (item.getItemId() != null && !"".equals(item.getItemId())) {
+          this.log.activateItem(item);
+          this.log.addDetail(ErrorLevel.FINE, "import_process_delete_item", this.connection);
+          try {
+            ApplicationBean.INSTANCE.getPubItemService().delete(item.getItemId(),
+                this.authenticationToken);
+            this.log
+                .addDetail(ErrorLevel.FINE, "import_process_delete_successful", this.connection);
+            this.log
+                .addDetail(ErrorLevel.FINE, "import_process_remove_identifier", this.connection);
+            item.setItemId(null);
+            this.log.finishItem(this.connection);
+          } catch (final Exception e) {
+            this.log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed", this.connection);
+            this.log.addDetail(ErrorLevel.WARNING, e, this.connection);
+            this.log.finishItem(this.connection);
+          }
+          counter++;
+          this.log.setPercentage(85 * counter / itemCount + 10, this.connection);
+        }
+      }
+
+      this.log.startItem("import_process_delete_finished", this.connection);
+      this.log.finishItem(this.connection);
+      this.log.close(this.connection);
+    } finally {
+      DbTools.closeConnection(this.connection);
+    }
   }
 }

@@ -27,34 +27,22 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.MissingResourceException;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
-public class ImportLogItem {
-  private static String link = null;
-
-  private ImportLog parent;
-  private String itemId;
-  private PubItemVO itemVO;
-  private Status status;
-  private ErrorLevel errorLevel;
+public class ImportLogItemDetail {
   private Date startDate;
-  private Date endDate;
+  private ErrorLevel errorLevel;
+  private ImportLogItem parent;
+  private Status status;
   private String message;
-  private int id;
 
-  private List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
-
-  public ImportLogItem(ImportLog parent, Connection connection) {
+  public ImportLogItemDetail(ImportLogItem parent, Connection connection) {
     this.setStartDate(new Date());
     this.setStatus(Status.PENDING);
     this.setErrorLevel(ErrorLevel.FINE, connection);
@@ -62,37 +50,13 @@ public class ImportLogItem {
     this.parent = parent;
   }
 
-  public ImportLog getParent() {
+  public ImportLogItem getParent() {
     return this.parent;
   }
 
-  public void setParent(ImportLog parent) {
+  public void setParent(ImportLogItem parent) {
     this.parent = parent;
   }
-
-  public PubItemVO getItemVO() {
-    return this.itemVO;
-  }
-
-  public String getLink() {
-    if (ImportLogItem.link == null) {
-      try {
-        ImportLogItem.link =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern");
-      } catch (final Exception e) {
-        throw new RuntimeException(e);
-      }
-    }
-
-    return ImportLogItem.link.replaceAll("\\$1", this.itemId);
-  }
-
-  public String getDetailsLink() {
-    return "ImportLogItemDetails.jsp?id=" + this.getId();
-  }
-
 
   // /**
   // * @return An XML representation of this item
@@ -183,7 +147,6 @@ public class ImportLogItem {
 
   public void setErrorLevel(ErrorLevel errorLevel) {
     setErrorLevel(errorLevel, null);
-
   }
 
   public void setErrorLevel(ErrorLevel errorLevel, Connection connection) {
@@ -217,34 +180,6 @@ public class ImportLogItem {
     this.startDate = startDate;
   }
 
-  public Date getEndDate() {
-    return this.endDate;
-  }
-
-  public String getEndDateFormatted() {
-    if (this.endDate != null) {
-      return ImportLog.DATE_FORMAT.format(this.endDate);
-    }
-
-    return "";
-  }
-
-  public void setEndDate(Date endDate) {
-    this.endDate = endDate;
-  }
-
-  public String getItemId() {
-    return this.itemId;
-  }
-
-  public void setItemId(String itemId) {
-    this.itemId = itemId;
-  }
-
-  public void setItemVO(PubItemVO itemVO) {
-    this.itemVO = itemVO;
-  }
-
   public String getMessage() {
     return this.message;
   }
@@ -263,19 +198,11 @@ public class ImportLogItem {
     this.message = message;
   }
 
-  public int getId() {
-    return this.id;
+  public String getLink() {
+    return this.getParent() != null ? this.getParent().getLink() : null;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public List<ImportLogItemDetail> getItems() {
-    return this.importLogItemDetails;
-  }
-
-  public void setItems(List<ImportLogItemDetail> items) {
-    this.importLogItemDetails = items;
+  public String getItemId() {
+    return this.getParent() != null ? this.getParent().getItemId() : null;
   }
 }
