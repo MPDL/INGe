@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -339,8 +340,8 @@ public class SiteMapTask extends Thread {
    */
   private SearchRetrieveResponseVO<PubItemVO> getItems(int firstRecord) throws Exception {
 
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
     SearchRetrieveResponseVO<PubItemVO> resp =
         ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
@@ -370,8 +371,8 @@ public class SiteMapTask extends Thread {
   private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
 
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
     SearchRetrieveResponseVO<AffiliationVO> resp =
         ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 

@@ -1,8 +1,10 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
-public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
+import org.elasticsearch.index.query.QueryBuilder;
 
-  private QueryObject queryObject;
+public class SearchRetrieveRequestVO extends ValueObject {
+
+  private QueryBuilder queryBuilder;
 
   // use -1 for limit set by property (currently 10000)
   private int limit = -1;
@@ -11,18 +13,22 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
 
   private SearchSortCriteria[] sortKeys;
 
-  public SearchRetrieveRequestVO(QueryObject queryObject, int limit, int offset,
+  public SearchRetrieveRequestVO() {
+
+  }
+
+  public SearchRetrieveRequestVO(QueryBuilder queryBuilder, int limit, int offset,
       SearchSortCriteria... sortKeys) {
     super();
-    this.queryObject = queryObject;
+    this.setQueryBuilder(queryBuilder);
     this.limit = limit;
     this.offset = offset;
     this.sortKeys = sortKeys;
   }
 
 
-  public SearchRetrieveRequestVO(QueryObject queryObject, SearchSortCriteria... sortKeys) {
-    this(queryObject, -1, 0, sortKeys);
+  public SearchRetrieveRequestVO(QueryBuilder queryBuilder, SearchSortCriteria... sortKeys) {
+    this(queryBuilder, -1, 0, sortKeys);
   }
 
   public int getLimit() {
@@ -49,14 +55,12 @@ public class SearchRetrieveRequestVO<QueryObject> extends ValueObject {
     this.sortKeys = sortKeys;
   }
 
-
-
-  public QueryObject getQueryObject() {
-    return queryObject;
+  public QueryBuilder getQueryBuilder() {
+    return queryBuilder;
   }
 
-  public void setQueryObject(QueryObject queryObject) {
-    this.queryObject = queryObject;
+  public void setQueryBuilder(QueryBuilder queryBuilder) {
+    this.queryBuilder = queryBuilder;
   }
 
 

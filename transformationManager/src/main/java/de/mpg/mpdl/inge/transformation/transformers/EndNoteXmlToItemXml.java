@@ -43,9 +43,9 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
-      map.put("is-item-list", Boolean.FALSE.toString());
+      map.put("is-item-list", Boolean.FALSE);
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
-      map.put("is-item-list", Boolean.TRUE.toString());
+      map.put("is-item-list", Boolean.TRUE);
     }
 
     map.put("content-model",

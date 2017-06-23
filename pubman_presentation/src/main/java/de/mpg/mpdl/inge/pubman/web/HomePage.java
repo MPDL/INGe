@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -167,8 +168,7 @@ public class HomePage extends BreadcrumbPage {
 
     SearchSortCriteria sc =
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-    SearchRetrieveRequestVO<QueryBuilder> srr =
-        new SearchRetrieveRequestVO<QueryBuilder>(null, 4, 1, sc);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, 4, 1, sc);
     SearchRetrieveResponseVO<PubItemVO> resp =
         ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     final List<PubItemVOPresentation> list =

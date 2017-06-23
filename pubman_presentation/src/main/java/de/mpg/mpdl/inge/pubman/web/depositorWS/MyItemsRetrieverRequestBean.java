@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -194,7 +195,7 @@ public class MyItemsRetrieverRequestBean extends
 
       //TODO Sorting!!
       SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-      SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(bq, limit, offset, ssc);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq, limit, offset, ssc);
 
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
           .search(srr, getLoginHelper().getAuthenticationToken());

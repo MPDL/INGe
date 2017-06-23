@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -28,7 +27,6 @@ import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 @RestController
@@ -51,7 +49,7 @@ public class UserAccountRestController {
   public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -62,7 +60,7 @@ public class UserAccountRestController {
   public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -124,6 +122,29 @@ public class UserAccountRestController {
     updated =
         userSvc
             .removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
+    return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = USER_ID_PATH + "/activate", method = RequestMethod.PUT)
+  public ResponseEntity<AccountUserVO> activate(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
+    Date lmd = utils.string2Date(modificationDate);
+    AccountUserVO updated = null;
+    updated = userSvc.activate(userId, lmd, token);
+    return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = USER_ID_PATH + "/deactivate", method = RequestMethod.PUT)
+  public ResponseEntity<AccountUserVO> deactivate(
+      @RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
+    Date lmd = utils.string2Date(modificationDate);
+    AccountUserVO updated = null;
+    updated = userSvc.deactivate(userId, lmd, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 

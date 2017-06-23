@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +12,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,31 +24,26 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
-import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
+import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -72,7 +67,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   private UserLoginRepository userLoginRepository;
 
   @Autowired
-  private UserAccountDaoEs<QueryBuilder> userAccountDao;
+  private UserAccountDaoEs userAccountDao;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -112,21 +107,20 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
 
-    if (userAccountRepository.findByLoginname(givenUser.getUserid()) != null) {
-      throw new IngeApplicationException("User with loginname " + givenUser.getUserid()
-          + " already exists.");
-    }
-
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
-    userLoginRepository.insertLogin(accountUser.getUserid(),
-        passwordEncoder.encode(givenUser.getPassword()));
+    try {
+      userLoginRepository.insertLogin(accountUser.getUserid(),
+          passwordEncoder.encode(givenUser.getPassword()));
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
       accountUser =
           this.addGrants(accountUser.getReference().getObjectId(), accountUser
@@ -140,7 +134,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   @Override
   public void changePassword(String userId, Date modificationDate, String newPassword,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
@@ -164,7 +158,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -227,8 +221,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
 
-    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
-
+    try {
+      objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
 
@@ -236,7 +233,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -271,8 +268,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
-    objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
-
+    try {
+      objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
 
@@ -445,7 +445,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Override
-  protected GenericDaoEs<AccountUserVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<AccountUserVO> getElasticDao() {
     return userAccountDao;
   }
 
@@ -481,7 +481,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -490,7 +490,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -512,11 +512,14 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
     checkAa((active ? "activate" : "deactivate"), userAccount, userVoToBeUpdated);
 
-    userVoToBeUpdated.setActive(active);
+    accountToBeUpdated.setActive(active);
     updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
 
-    accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);
-
+    try {
+      accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AccountUserVO userToReturn = EntityTransformer.transformToOld(accountToBeUpdated);
     userAccountDao.update(accountToBeUpdated.getObjectId(), userToReturn);
     return userToReturn;

@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -50,7 +48,7 @@ public class ItemRestController {
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
 		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchAllQuery, limit, offset);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -64,7 +62,7 @@ public class ItemRestController {
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
 		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO<QueryBuilder> srRequest = new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     List<PubItemVO> response = new ArrayList<PubItemVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
@@ -79,8 +77,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
-    SearchRetrieveRequestVO<QueryBuilder> srRequest =
-        new SearchRetrieveRequestVO<QueryBuilder>(matchQueryParam, limit, offset);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }

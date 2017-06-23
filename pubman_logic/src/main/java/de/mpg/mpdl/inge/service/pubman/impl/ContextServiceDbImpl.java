@@ -15,6 +15,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +54,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   private IdentifierProviderServiceImpl idProviderService;
 
   @Autowired
-  private ContextDaoEs<QueryBuilder> contextDao;
+  private ContextDaoEs contextDao;
 
   @Autowired
   private ContextRepository contextRepository;
@@ -91,7 +92,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public ContextVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -100,7 +101,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public ContextVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -126,7 +127,12 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
     contextDbToBeUpdated.setState(state);
     updateWithTechnicalMetadata(contextDbToBeUpdated, userAccount, false);
 
-    contextDbToBeUpdated = contextRepository.saveAndFlush(contextDbToBeUpdated);
+    try {
+      contextDbToBeUpdated = contextRepository.saveAndFlush(contextDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextDbToBeUpdated);
     contextDao.update(contextDbToBeUpdated.getObjectId(), contextToReturn);
@@ -200,7 +206,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  protected GenericDaoEs<ContextVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<ContextVO> getElasticDao() {
     return contextDao;
   }
 

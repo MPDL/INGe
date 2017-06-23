@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;

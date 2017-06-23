@@ -21,7 +21,7 @@ public class ItemServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ItemServiceHandlerTest.class);
 
   @Autowired
-  private PubItemDaoEs<QueryBuilder> itemDao;
+  private PubItemDaoEs itemDao;
   private String test_item_id = "test_item";
 
   @After

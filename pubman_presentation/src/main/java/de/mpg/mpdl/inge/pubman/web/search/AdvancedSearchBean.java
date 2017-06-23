@@ -44,6 +44,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -766,8 +767,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
             QueryBuilders.boolQuery().must(
                 QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
-        SearchRetrieveRequestVO<QueryBuilder> srr =
-            new SearchRetrieveRequestVO<QueryBuilder>(qb, 1000, 0);
+        SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
         SearchRetrieveResponseVO<ContextVO> result =
             ApplicationBean.INSTANCE.getContextService().search(srr, null);
 

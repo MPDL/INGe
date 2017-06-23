@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.ScrollMode;
@@ -17,6 +18,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +53,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   @Autowired
-  private OrganizationDaoEs<QueryBuilder> organizationDao;
+  private OrganizationDaoEs organizationDao;
 
   @Autowired
   private OrganizationRepository organizationRepository;
@@ -74,7 +76,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -92,7 +94,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -101,14 +103,14 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
         QueryBuilders.boolQuery().must(QueryBuilders.termQuery("predecessorAffiliations.objectId", objectId));
-    final SearchRetrieveRequestVO<QueryBuilder> srr = new SearchRetrieveRequestVO<QueryBuilder>(qb);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public void delete(String id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
 
@@ -128,7 +130,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -137,7 +139,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -171,8 +173,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     affDbToBeUpdated.setPublicStatus(state);
     updateWithTechnicalMetadata(affDbToBeUpdated, userAccount, false);
-    affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
-
+    try {
+      affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affDbToBeUpdated);
     organizationDao.update(affDbToBeUpdated.getObjectId(), affToReturn);
     return affToReturn;
@@ -291,7 +296,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
 
   @Override
-  protected GenericDaoEs<AffiliationVO, QueryBuilder> getElasticDao() {
+  protected GenericDaoEs<AffiliationVO> getElasticDao() {
     return organizationDao;
   }
 

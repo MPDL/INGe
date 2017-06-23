@@ -21,7 +21,7 @@ public class ContextServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
-  private ContextDaoEs<QueryBuilder> contextDao;
+  private ContextDaoEs contextDao;
   private String test_context_id = "test_context";
 
 

@@ -1,50 +1,32 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.get.MultiGetRequest;
-import org.elasticsearch.action.get.MultiGetRequestBuilder;
-import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.SortOrder;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 import de.mpg.mpdl.inge.es.connector.ModelMapper;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * ElasticSearchTransportClient enables elasticsearch accessibility
@@ -54,8 +36,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
-    GenericDaoEs<E, QueryBuilder> {
+public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements GenericDaoEs<E> {
 
 
   @Autowired
@@ -181,14 +162,15 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
 
   }
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO<QueryBuilder> searchQuery)
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
       throws IngeTechnicalException {
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
 
+
       SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
-      srb.setQuery(searchQuery.getQueryObject());
+      srb.setQuery(searchQuery.getQueryBuilder());
 
 
       if (searchQuery.getOffset() != 0) {
@@ -219,9 +201,12 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements
 
   }
 
+
+
   private SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(
       SearchResponse sr) throws IOException {
     SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
+    srrVO.setOriginalResponse(sr);
     srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
 
     List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();

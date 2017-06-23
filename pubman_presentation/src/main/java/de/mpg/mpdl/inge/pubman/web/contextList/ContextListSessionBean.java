@@ -34,6 +34,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -179,7 +180,7 @@ public class ContextListSessionBean extends FacesBean {
           }
 
           SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE
-              .getContextService().search(new SearchRetrieveRequestVO<QueryBuilder>(bq), null);
+              .getContextService().search(new SearchRetrieveRequestVO(bq), null);
           List<ContextVO> ctxList =
               response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
