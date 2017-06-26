@@ -36,17 +36,27 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -55,6 +65,7 @@ import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -75,7 +86,6 @@ public class BrowseBySessionBean extends FacesBean {
   public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();
 
   private List<LinkVO> searchResults;
-  private List<String> browseByYears;
   private String currentCharacter = "A";
   private String dateMode = "published";
   private String dateType = "published";
@@ -86,7 +96,9 @@ public class BrowseBySessionBean extends FacesBean {
   private String[] characters = null;
   private boolean showChars = true;
   private final int maxDisplay = 100;
-  private int yearStart;
+  // private int yearStart;
+
+  private Map<String, Long> yearMap = new TreeMap<>();
 
   public BrowseBySessionBean() {
     try {
@@ -252,143 +264,72 @@ public class BrowseBySessionBean extends FacesBean {
     this.searchIndex = searchIndex;
   }
 
-  public int getYearStart() {
-    return this.yearStart;
-  }
 
-  public void setYearStart(int year) {
-    this.yearStart = year;
-  }
 
-  public List<String> getYearRange() {
-    final List<String> years = new ArrayList<String>();
-    final Calendar cal = Calendar.getInstance();
-    final int currentYear = cal.get(Calendar.YEAR);
-    int yearTmp = currentYear;
-    final DecimalFormat yearFormatter = new DecimalFormat("0000");
-    while (this.getYearStart() <= yearTmp) {
-      years.add(yearFormatter.format(yearTmp));
-      yearTmp--;
+  private void fillDateMap(String... indexes) {
+    System.out.println("DO SEARCH!!!!");
+    
+    try {
+
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO();
+      yearMap.clear();
+
+      for (String index : indexes) {
+        AggregationBuilder aggBuilder =
+            AggregationBuilders.dateHistogram(index).field(index)
+                .dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
+        srr.getAggregationBuilders().add(aggBuilder);
+      }
+      
+      srr.setLimit(0);
+
+      SearchRetrieveResponseVO<PubItemVO> resp =
+          ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+      
+
+      for (String index : indexes) {
+        Histogram dh = resp.getOriginalResponse().getAggregations().get(index);
+
+        for (Histogram.Bucket entry : dh.getBuckets()) {
+          String year = entry.getKeyAsString().substring(0, 4);
+          if (yearMap.containsKey(year)) {
+            yearMap.put(year, yearMap.get(year) + entry.getDocCount());
+          } else {
+            yearMap.put(year, entry.getDocCount());
+          }
+        }
+
+
+      }
+
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
 
-    return years;
   }
+
 
   /**
    * Searches the rep for the oldest year.
    */
   public void setYearPublished() {
-    int yearPublishedPrint = -1;
-    int yearPublishedOnline = -1;
 
-    yearPublishedPrint =
-        this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ISSUED(), "print");
-    yearPublishedOnline =
-        this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE(), "online");
-
-    if ((yearPublishedPrint == -1)) {
-      this.yearStart = yearPublishedOnline;
-    } else {
-      if ((yearPublishedOnline == -1)) {
-        this.yearStart = yearPublishedPrint;
-      } else if (yearPublishedPrint < yearPublishedOnline) {
-        this.yearStart = yearPublishedPrint;
-      } else {
-        this.yearStart = yearPublishedOnline;
-      }
-    }
+    fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE});
   }
 
   public void setYearStartAny() {
-    final List<Integer> years = new ArrayList<Integer>();
-    int yearPublishedPrint = -1;
-    int yearPublishedOnline = -1;
-    int yearAccepted = -1;
-    int yearSubmitted = -1;
-    int yearModified = -1;
-    int yearCreated = -1;
-    int oldestYear = -1;
 
-    yearPublishedPrint =
-        this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ISSUED(), "print");
-    years.add(yearPublishedPrint);
-    yearPublishedOnline =
-        this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE(), "online");
-    years.add(yearPublishedOnline);
-    yearAccepted = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ACCEPTED(), "accepted");
-    years.add(yearAccepted);
-    yearSubmitted =
-        this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_SUBMITTED(), "submitted");
-    years.add(yearSubmitted);
-    yearModified = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_MODIFIED(), "modified");
-    years.add(yearModified);
-    yearCreated = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_CREATED(), "created");
-    years.add(yearCreated);
-
-    for (int i = 0; i < years.size(); i++) {
-      final int tmp = Integer.parseInt(years.get(i) + "");
-      if (oldestYear == -1 && tmp != -1) {
-        oldestYear = tmp;
-      }
-      if (oldestYear != -1 && tmp != -1 && oldestYear > tmp) {
-        oldestYear = tmp;
-      }
-    }
-    this.yearStart = oldestYear;
+    fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED,});
   }
 
-  private int getOldestYear(String index, String type) {
 
-    PubItemVOPresentation item;
-    String yearStr = "";
-    int year = -1;
-
-    final PlainCqlQuery query =
-        new PlainCqlQuery("escidoc.content-model.objid=" + this.getPubContentModel() + " and "
-            + index + " > ''");
-    query.setSortKeysAndOrder("sort." + index, SortingOrder.ASCENDING);
-    query.setStartRecord("1");
-    query.setMaximumRecords("1");
-
-    ItemContainerSearchResult result;
-    try {
-      result = SearchService.searchForItemContainer(query);
-      if (result.getResultList().isEmpty() == false) {
-        item = this.extractItemsOfSearchResult(result);
-        if (type.equals("print")) {
-          yearStr = item.getMetadata().getDatePublishedInPrint();
-        }
-        if (type.equals("online")) {
-          yearStr = item.getMetadata().getDatePublishedOnline();
-        }
-        if (type.equals("created")) {
-          yearStr = item.getMetadata().getDateCreated();
-        }
-        if (type.equals("accepted")) {
-          yearStr = item.getMetadata().getDateAccepted();
-        }
-        if (type.equals("modified")) {
-          yearStr = item.getMetadata().getDateModified();
-        }
-        if (type.equals("submitted")) {
-          yearStr = item.getMetadata().getDateSubmitted();
-        }
-        if (yearStr != null) {
-          // Take only first part of date string = year.
-          final String[] yearArr = yearStr.split("-");
-          if (yearArr.length > 1) {
-            year = Integer.parseInt(yearArr[0]);
-          } else {
-            year = Integer.parseInt(yearStr);
-          }
-        }
-      }
-    } catch (final Exception e) {
-      BrowseBySessionBean.logger.warn("Error computing starting year.", e);
-    }
-
-    return year;
-  }
 
   /**
    * Helper method that transforms the result of the search into a list of PubItemVOPresentation
@@ -427,13 +368,6 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
 
-  public List<String> getBrowseByYears() {
-    return this.browseByYears;
-  }
-
-  public void setBrowseByYears(List<String> browseByYears) {
-    this.browseByYears = browseByYears;
-  }
 
   public String getDateType() {
     return this.dateType;
@@ -461,5 +395,13 @@ public class BrowseBySessionBean extends FacesBean {
 
   public void setDateMode(String dateMode) {
     this.dateMode = dateMode;
+  }
+
+  public Map<String, Long> getYearMap() {
+    return yearMap;
+  }
+
+  public void setYearMap(Map<String, Long> yearMap) {
+    this.yearMap = yearMap;
   }
 }

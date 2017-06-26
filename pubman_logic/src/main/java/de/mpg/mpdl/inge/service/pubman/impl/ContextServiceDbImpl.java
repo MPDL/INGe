@@ -64,7 +64,6 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
 
-
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ContextVO open(String id, Date modificationDate, String authenticationToken)

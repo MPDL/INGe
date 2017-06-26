@@ -123,6 +123,14 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
 
+  public static String INDEX_METADATA_DATE_ACCEPTED = "metadata.dateAccepted";
+
+  public static String INDEX_METADATA_DATE_CREATED = "metadata.dateCreated";
+
+  public static String INDEX_METADATA_DATE_MODIFIED = "metadata.dateModified";
+
+  public static String INDEX_METADATA_DATE_SUBMITTED = "metadata.dateSubmitted";
+
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public PubItemVO create(PubItemVO pubItemVO, String authenticationToken)
@@ -563,7 +571,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
 
-  @Transactional(readOnly=true)
+  @Transactional(readOnly = true)
   public void reindex() {
 
     Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
@@ -575,7 +583,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
     ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-    
+
     int count = 0;
     while (results.next()) {
       try {
@@ -598,10 +606,9 @@ public class PubItemServiceDbImpl implements PubItemService {
           pubItemDao.createNotImmediately(latestRelease.getVersion().getObjectId() + "_"
               + latestRelease.getVersion().getVersionNumber(), latestRelease);
         }
-        
-        //Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-        if(count%1000 == 0)
-        {
+
+        // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+        if (count % 1000 == 0) {
           logger.info("Clearing entity manager");
           entityManager.flush();
           entityManager.clear();

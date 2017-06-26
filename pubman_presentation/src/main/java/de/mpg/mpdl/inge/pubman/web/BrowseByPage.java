@@ -81,12 +81,13 @@ public class BrowseByPage extends BreadcrumbPage {
   @Override
   public void init() {
     super.init();
-
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
+    /*
     if ("year".equals(this.getSelectedValue())) {
       this.loadBrowseByYear();
     }
+    */
   }
 
   /**
@@ -238,8 +239,6 @@ public class BrowseByPage extends BreadcrumbPage {
     }
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
-    this.bbBean.setYearPublished();
-    this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
     if ("any".equals(this.bbBean.getDateMode())) {
       this.bbBean.setYearStartAny();
       this.bbBean.setDateType("any");
@@ -247,7 +246,6 @@ public class BrowseByPage extends BreadcrumbPage {
       this.bbBean.setYearPublished();
       this.bbBean.setDateType("published");
     }
-    this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
 
     return "loadBrowseByPage";
   }

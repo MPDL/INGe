@@ -137,8 +137,8 @@
 			</span>
 			<div class="free_area0 itemBlockContent endline">
 				<ui:repeat var="year" id="yearIter"
-					value="#{BrowseBySessionBean.browseByYears}">
-					<div class="small_area0 noTopBorder"
+					value="#{BrowseBySessionBean.yearMap.keySet().toArray()}">
+					<div class="large_area0 noTopBorder"
 						style="padding-left: 8px !important;">
 						<span class="seperator"></span>
 						<h:panelGroup styleClass="free_area0_p6 xTiny_marginLExcl"
@@ -147,6 +147,7 @@
 								value="#{BrowseByPage.searchUrl}cql=#{BrowseByPage.pubYearSearchIndex}%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">
 								<h:outputText value="#{year}" />
 							</h:outputLink>
+							<h:outputText value=" (#{BrowseBySessionBean.yearMap.get(year)})"/>
 						</h:panelGroup>
 						<h:panelGroup styleClass="free_area0_p6 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.dateMode == 'any'}">
@@ -154,6 +155,7 @@
 								value="#{BrowseByPage.searchUrl}cql=escidoc.publication.compound.dates%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">
 								<h:outputText value="#{year}" />
 							</h:outputLink>
+							<h:outputText value=" (#{BrowseBySessionBean.yearMap.get(year)})"/>
 						</h:panelGroup>
 					</div>
 				</ui:repeat>

@@ -47,10 +47,10 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   @Autowired
   private AuthorizationService aaService;
-  
+
   @PersistenceContext
   EntityManager entityManager;
-  
+
   private final static Logger logger = LogManager.getLogger(GenericServiceImpl.class);
 
   @Transactional(rollbackFor = Throwable.class)
@@ -232,16 +232,17 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
 
   }
-  
-  
-  @Transactional(readOnly=true)
+
+
+  @Transactional(readOnly = true)
   public void reindex() {
 
-    
-    String entityName =  ((Class<ModelObject>) ((ParameterizedType) getClass()
-        .getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
-    
-   
+
+    String entityName =
+        ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass())
+            .getActualTypeArguments()[0]).getSimpleName();
+
+
     Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
         (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT e FROM " + entityName + " e");
@@ -251,7 +252,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
     ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-    
+
     int count = 0;
     while (results.next()) {
       try {
@@ -260,9 +261,8 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
         logger.info("(" + count + ") Reindexing " + entityName + " " + dbObject.getObjectId());
         getElasticDao().createNotImmediately(dbObject.getObjectId(), transformToOld(dbObject));
 
-        //Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-        if(count%1000 == 0)
-        {
+        // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+        if (count % 1000 == 0) {
           logger.info("Clearing entity manager while reindexing");
           entityManager.flush();
           entityManager.clear();
