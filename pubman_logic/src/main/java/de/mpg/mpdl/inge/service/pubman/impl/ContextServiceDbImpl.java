@@ -64,32 +64,6 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
 
-  public void reindex() {
-
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO>) entityManager
-            .createQuery("SELECT context FROM ContextVO context");
-    query.setReadOnly(true);
-    query.setFetchSize(1000);
-    query.setCacheable(false);
-    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-
-    while (results.next()) {
-      try {
-        de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO) results.get(0);
-        ContextVO context = EntityTransformer.transformToOld(object);
-        logger.info("Reindexing context " + context.getReference().getObjectId());
-        contextDao.create(context.getReference().getObjectId(), context);
-      } catch (Exception e) {
-        logger.error("Error while reindexing ", e);
-      }
-
-
-    }
-
-  }
-
 
   @Override
   @Transactional(rollbackFor = Throwable.class)

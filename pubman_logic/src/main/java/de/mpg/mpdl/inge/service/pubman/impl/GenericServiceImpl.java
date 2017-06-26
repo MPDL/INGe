@@ -1,12 +1,23 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.PersistenceContext;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.hibernate.CacheMode;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,23 +27,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
+import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObject extends BasicDbRO>
     implements GenericService<ModelObject> {
 
   @Autowired
   private AuthorizationService aaService;
+  
+  @PersistenceContext
+  EntityManager entityManager;
+  
+  private final static Logger logger = LogManager.getLogger(GenericServiceImpl.class);
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
@@ -83,7 +102,7 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
     getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
     if (reindexList != null) {
-      reindex(reindexList);;
+      reindex(reindexList);
     }
     return objectToReturn;
   }
@@ -212,6 +231,49 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       throw new IngeApplicationException(message.toString(), ex);
     }
 
+  }
+  
+  
+  @Transactional(readOnly=true)
+  public void reindex() {
+
+    
+    String entityName =  ((Class<ModelObject>) ((ParameterizedType) getClass()
+        .getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
+    
+   
+    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+            .createQuery("SELECT e FROM " + entityName + " e");
+    query.setReadOnly(true);
+    query.setFetchSize(500);
+    query.setCacheMode(CacheMode.IGNORE);
+    query.setFlushMode(FlushModeType.COMMIT);
+    query.setCacheable(false);
+    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+    
+    int count = 0;
+    while (results.next()) {
+      try {
+        count++;
+        DbObject dbObject = (DbObject) results.get(0);
+        logger.info("(" + count + ") Reindexing " + entityName + " " + dbObject.getObjectId());
+        getElasticDao().createNotImmediately(dbObject.getObjectId(), transformToOld(dbObject));
+
+        //Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+        if(count%1000 == 0)
+        {
+          logger.info("Clearing entity manager while reindexing");
+          entityManager.flush();
+          entityManager.clear();
+        }
+
+      } catch (Exception e) {
+        logger.error("Error while reindexing ", e);
+      }
+
+
+    }
   }
 
 }

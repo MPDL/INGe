@@ -183,32 +183,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     return affToReturn;
   }
 
-  public void reindex() {
-
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO>) entityManager
-            .createQuery("SELECT ou FROM AffiliationVO ou");
-    query.setReadOnly(true);
-    query.setFetchSize(1000);
-    query.setCacheable(false);
-    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-
-    while (results.next()) {
-      try {
-        de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO) results.get(0);
-        AffiliationVO aff = EntityTransformer.transformToOld(object);
-        logger.info("Reindexing ou " + aff.getReference().getObjectId());
-        organizationDao.create(aff.getReference().getObjectId(), aff);
-      } catch (Exception e) {
-        logger.error("Error while reindexing ", e);
-      }
-
-
-    }
-
-  }
-
 
   @Override
   protected AffiliationDbVO createEmptyDbObject() {

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
@@ -11,8 +12,11 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.hibernate.CacheMode;
+import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -559,23 +563,28 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
 
+  @Transactional(readOnly=true)
   public void reindex() {
 
     Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
         (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     query.setReadOnly(true);
-    query.setFetchSize(5000);
+    query.setFetchSize(500);
+    query.setCacheMode(CacheMode.IGNORE);
+    query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
     ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-
+    
+    int count = 0;
     while (results.next()) {
       try {
+        count++;
         de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
             (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
         PubItemVO latestVersion =
             EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
-        logger.info("Reindexing item latest version "
+        logger.info("(" + count + ") Reindexing item latest version "
             + latestVersion.getVersion().getObjectIdAndVersion());
         pubItemDao.createNotImmediately(latestVersion.getVersion().getObjectId() + "_"
             + latestVersion.getVersion().getVersionNumber(), latestVersion);
@@ -584,10 +593,18 @@ public class PubItemServiceDbImpl implements PubItemService {
                 .getVersionNumber()) {
           PubItemVO latestRelease =
               EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
-          logger.info("Reindexing item latest release "
+          logger.info("(" + count + ") Reindexing item latest release "
               + latestRelease.getVersion().getObjectIdAndVersion());
           pubItemDao.createNotImmediately(latestRelease.getVersion().getObjectId() + "_"
               + latestRelease.getVersion().getVersionNumber(), latestRelease);
+        }
+        
+        //Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+        if(count%1000 == 0)
+        {
+          logger.info("Clearing entity manager");
+          entityManager.flush();
+          entityManager.clear();
         }
 
       } catch (Exception e) {

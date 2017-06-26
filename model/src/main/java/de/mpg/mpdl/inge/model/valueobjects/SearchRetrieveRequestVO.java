@@ -1,10 +1,16 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 
 public class SearchRetrieveRequestVO extends ValueObject {
 
   private QueryBuilder queryBuilder;
+
+  private List<AggregationBuilder> aggregationBuilders = new ArrayList<>();
 
   // use -1 for limit set by property (currently 10000)
   private int limit = -1;
@@ -16,6 +22,12 @@ public class SearchRetrieveRequestVO extends ValueObject {
   public SearchRetrieveRequestVO() {
 
   }
+
+  public SearchRetrieveRequestVO(AggregationBuilder aggBuilder) {
+    this.aggregationBuilders.add(aggBuilder);
+  }
+
+
 
   public SearchRetrieveRequestVO(QueryBuilder queryBuilder, int limit, int offset,
       SearchSortCriteria... sortKeys) {
@@ -61,6 +73,14 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   public void setQueryBuilder(QueryBuilder queryBuilder) {
     this.queryBuilder = queryBuilder;
+  }
+
+  public List<AggregationBuilder> getAggregationBuilders() {
+    return aggregationBuilders;
+  }
+
+  public void setAggregationBuilders(List<AggregationBuilder> aggregationBuilders) {
+    this.aggregationBuilders = aggregationBuilders;
   }
 
 

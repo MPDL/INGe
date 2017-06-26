@@ -15,8 +15,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.es.connector.ModelMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -37,14 +39,12 @@ public class AuthorizationService {
   @Autowired
   private UserAccountService userAccountService;
 
-  @Autowired
-  ModelMapper modelMapper;
+  ObjectMapper modelMapper = JsonObjectMapperFactory.getObjectMapper();
 
   @Autowired
   OrganizationService ouService;
 
-  @Autowired
-  public AuthorizationService(ModelMapper modelMapper) {
+  public AuthorizationService() {
 
     try {
       aaMap =

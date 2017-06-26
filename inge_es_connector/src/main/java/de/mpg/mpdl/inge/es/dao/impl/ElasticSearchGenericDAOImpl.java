@@ -11,17 +11,18 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
-import de.mpg.mpdl.inge.es.connector.ModelMapper;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -42,8 +43,7 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements Gener
   @Autowired
   ElasticSearchTransportClientProvider client;
 
-  @Autowired
-  ModelMapper mapper;
+  ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
 
 
 
@@ -170,7 +170,16 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements Gener
 
 
       SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
-      srb.setQuery(searchQuery.getQueryBuilder());
+      if (searchQuery.getQueryBuilder() != null) {
+        srb.setQuery(searchQuery.getQueryBuilder());
+      }
+
+      if (searchQuery.getAggregationBuilders() != null) {
+        for (AggregationBuilder aggBuilder : searchQuery.getAggregationBuilders()) {
+          srb.addAggregation(aggBuilder);
+        }
+      }
+
 
 
       if (searchQuery.getOffset() != 0) {

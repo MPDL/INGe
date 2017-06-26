@@ -3,14 +3,14 @@ package de.mpg.mpdl.inge.es.es.connector;
 import java.io.IOException;
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.mpg.mpdl.inge.es.connector.ModelMapper;
 import de.mpg.mpdl.inge.es.spring.AppConfig;
+import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -61,9 +61,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 public class TestBase {
   private static final Date DATE = new Date();
 
-  @Autowired
-  private ModelMapper mapper;
 
+  ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+  
   public AffiliationVO test_ou() {
     AffiliationVO vo = new AffiliationVO();
 
