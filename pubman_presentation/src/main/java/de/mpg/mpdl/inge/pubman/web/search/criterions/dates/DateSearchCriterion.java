@@ -28,13 +28,18 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.dates;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class DateSearchCriterion extends SearchCriterionBase {
@@ -312,19 +317,81 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
-    try {
-      final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-      return QueryBuilders.rangeQuery("metadata.issued").includeLower(false).includeUpper(false)
-          .from(df.parse(this.getFrom())).to(df.parse(this.getTo()));
-    } catch (final ParseException e) {
-      throw new SearchParseException("Error while parsing dates", e);
+    switch (this.getSearchCriterion()) {
+      case ANYDATE: {
+        BoolQueryBuilder bq = QueryBuilders.boolQuery();
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED));
+        return bq;
+      }
+
+      case PUBLISHED:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE);
+      case PUBLISHEDPRINT:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT);
+      case ACCEPTED:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED);
+      case SUBMITTED:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED);
+      case MODIFIED:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED);
+      case CREATED:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED);
+      case EVENT_STARTDATE:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_STARTDATE);
+      case EVENT_ENDDATE:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_ENDDATE);
+      case MODIFIED_INTERNAL:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE);
+      case CREATED_INTERNAL:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_CREATION_DATE);
+      case COMPONENT_EMBARGO_DATE:
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL);
     }
+    return null;
 
+
+  }
+
+
+  private QueryBuilder buildDateRangeQuery(String index) {
+
+    return QueryBuilders.rangeQuery(index).gte(roundDateString(getFrom()))
+        .lte(roundDateString(getTo()));
   }
 
   @Override
   public String getElasticSearchNestedPath() {
+    if (this.getSearchCriterion() == SearchCriterion.COMPONENT_EMBARGO_DATE) {
+      return "files";
+    }
     return null;
+  }
+
+
+  public String roundDateString(String toQuery) {
+    if (toQuery == null) {
+      return null;
+    } else if (toQuery.matches("\\d\\d\\d\\d")) {
+      return toQuery + "||/y";
+    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
+      return toQuery + "||/M";
+      /*
+       * final String[] parts = toQuery.split("-"); YearMonth yearMonth =
+       * YearMonth.of(Integer.parseInt(parts[0]), Month.of(Integer.parseInt(parts[1]))); int
+       * daysInMonth = yearMonth.lengthOfMonth(); return toQuery + "-" + daysInMonth;
+       */
+    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+      return toQuery + "||/d";
+
+    }
+
+    return toQuery;
+
+
   }
 }

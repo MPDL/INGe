@@ -267,7 +267,6 @@ public class BrowseBySessionBean extends FacesBean {
 
 
   private void fillDateMap(String... indexes) {
-    System.out.println("DO SEARCH!!!!");
 
     try {
 

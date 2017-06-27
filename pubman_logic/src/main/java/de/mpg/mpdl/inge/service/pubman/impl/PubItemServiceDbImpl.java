@@ -95,6 +95,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
 
+  public static String INDEX_CREATION_DATE = "creationDate";
+
 
   public static String INDEX_LOCAL_TAGS = "localTags";
 
@@ -130,6 +132,14 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_METADATA_DATE_MODIFIED = "metadata.dateModified";
 
   public static String INDEX_METADATA_DATE_SUBMITTED = "metadata.dateSubmitted";
+
+  public static String INDEX_METADATA_EVENT_STARTDATE = "metadata.event.startDate";
+
+  public static String INDEX_METADATA_EVENT_ENDDATE = "metadata.event.endDate";
+
+  public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
+
+
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
