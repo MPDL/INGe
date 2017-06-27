@@ -43,108 +43,98 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
  * 
  */
 public class SubmitProcess extends Thread {
-  private final ImportLog log;
+  private final ImportLog importLog;
   private AccountUserVO user;
   private final boolean alsoRelease;
   private final String authenticationToken;
   private Connection connection = null;
 
-  public SubmitProcess(ImportLog log, boolean alsoRelease, String authenticationToken,
+  public SubmitProcess(ImportLog importLog, boolean alsoRelease, String authenticationToken,
       Connection connection) {
-    this.log = log;
+    this.importLog = importLog;
     this.alsoRelease = alsoRelease;
     this.authenticationToken = authenticationToken;
     this.connection = connection;
 
     try {
-      this.log.reopen(connection);
-      this.log.setPercentage(5, connection);
-      this.log.startItem("import_process_submit_items", connection);
-      this.log.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process", connection);
-      this.user = new AccountUserVO();
-      this.user.setHandle(log.getUserHandle());
-      this.user.setUserid(log.getUser());
-    } catch (final Exception e) {
-      this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error",
+      this.importLog.reopen(connection);
+      this.importLog.startItem("import_process_submit_items", connection);
+      this.importLog.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process",
           connection);
-      this.log.addDetail(ErrorLevel.FATAL, e, connection);
-      this.log.close(connection);
+      this.user = new AccountUserVO();
+      this.user.setHandle(importLog.getUserHandle());
+      this.user.setUserid(importLog.getUser());
+    } catch (final Exception e) {
+      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error",
+          connection);
+      this.importLog.addDetail(ErrorLevel.FATAL, e, connection);
+      this.importLog.close(connection);
       throw new RuntimeException(e);
     }
 
-    this.log.finishItem(connection);
-    this.log.setPercentage(5, connection);
+    this.importLog.finishItem(connection);
+    this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_START, connection);
   }
 
   @Override
   public void run() {
     try {
       int itemCount = 0;
-      for (final ImportLogItem item : this.log.getItems()) {
+      for (final ImportLogItem item : this.importLog.getItems()) {
         if (item.getItemId() != null && !"".equals(item.getItemId())) {
           itemCount++;
-          this.log.activateItem(item);
-          this.log.addDetail(ErrorLevel.FINE, "import_process_schedule_submit", this.connection);
-          this.log.suspendItem(this.connection);
+          this.importLog.activateItem(item);
+          this.importLog.addDetail(ErrorLevel.FINE, "import_process_schedule_submit",
+              this.connection);
+          this.importLog.suspendItem(this.connection);
         }
       }
 
-      this.log.setPercentage(10, this.connection);
+      this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
       int counter = 0;
 
-      for (final ImportLogItem item : this.log.getItems()) {
+      for (final ImportLogItem item : this.importLog.getItems()) {
         if (item.getItemId() != null && !"".equals(item.getItemId())) {
-          this.log.activateItem(item);
+          this.importLog.activateItem(item);
 
           try {
-            // this.log.addDetail(ErrorLevel.FINE, "import_process_retrieve_item");
-            //
-            // final String itemXml = this.itemHandler.retrieve(item.getItemId());
-            // final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(itemXml);
-            //
-            // try {
-            // ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
-            // } catch (final ItemInvalidException e) {
-            // this.log.addDetail(ErrorLevel.WARNING, "import_process_release_validation");
-            // for (final ValidationReportItemVO v : e.getReport().getItems()) {
-            // this.log.addDetail(ErrorLevel.WARNING, v.getContent());
-            // }
-            // throw e;
-            // }
-
             final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
             final ItemVO itemVO = pubItemService.get(item.getItemId(), this.authenticationToken);
             if (this.alsoRelease) {
-              this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item",
+              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_release_item",
                   this.connection);
               pubItemService.releasePubItem(item.getItemId(), itemVO.getModificationDate(),
-                  "Batch submit/release from import " + this.log.getMessage(),
+                  "Batch submit/release from import " + this.importLog.getMessage(),
                   this.authenticationToken);
-              this.log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful",
+              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful",
                   this.connection);
             } else {
-              this.log.addDetail(ErrorLevel.FINE, "import_process_submit_item", this.connection);
+              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_item",
+                  this.connection);
               pubItemService.submitPubItem(item.getItemId(), itemVO.getModificationDate(),
-                  "Batch submit from import " + this.log.getMessage(), this.authenticationToken);
-              this.log.addDetail(ErrorLevel.FINE, "import_process_submit_successful",
+                  "Batch submit from import " + this.importLog.getMessage(),
+                  this.authenticationToken);
+              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_successful",
                   this.connection);
             }
 
-            this.log.finishItem(this.connection);
+            this.importLog.finishItem(this.connection);
           } catch (final Exception e) {
-            this.log.addDetail(ErrorLevel.WARNING, "import_process_submit_failed", this.connection);
-            this.log.addDetail(ErrorLevel.WARNING, e, this.connection);
-            this.log.finishItem(this.connection);
+            this.importLog.addDetail(ErrorLevel.WARNING, "import_process_submit_failed",
+                this.connection);
+            this.importLog.addDetail(ErrorLevel.WARNING, e, this.connection);
+            this.importLog.finishItem(this.connection);
           }
 
           counter++;
-          this.log.setPercentage(85 * counter / itemCount + 10, this.connection);
+          this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_END * counter / itemCount
+              + ImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
         }
       }
 
-      this.log.startItem("import_process_submit_finished", this.connection);
-      this.log.finishItem(this.connection);
-      this.log.close(this.connection);
+      this.importLog.startItem("import_process_submit_finished", this.connection);
+      this.importLog.finishItem(this.connection);
+      this.importLog.close(this.connection);
     } finally {
       DbTools.closeConnection(this.connection);
     }

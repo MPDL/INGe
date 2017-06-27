@@ -87,9 +87,7 @@ public class ImportProcess extends Thread {
   private Map<String, String> configuration = null;
 
   private String authenticationToken;
-  // private String fileName;
   private String itemContentModel;
-  // private String name;
   private String publicationContentModel;
 
   private boolean failed = false;
@@ -98,8 +96,6 @@ public class ImportProcess extends Thread {
   private Connection connection = null;
 
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-
-  // private long lastBeat = 0;
 
   public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
@@ -117,7 +113,6 @@ public class ImportProcess extends Thread {
 
     this.importLog = new ImportLog(user.getReference().getObjectId(), format, connection);
     this.importLog.setUserHandle(user.getHandle());
-    this.importLog.setPercentage(5, connection);
     this.importLog.startItem("import_process_started", connection);
     this.importLog.finishItem(connection);
 
@@ -135,8 +130,6 @@ public class ImportProcess extends Thread {
     this.initialize(name, fileName, file, format, escidocContext, user, rollback, strategy,
         configuration);
 
-    this.importLog.setPercentage(7, connection);
-
     if (this.importLog.isDone()) {
       DbTools.closeConnection(connection);
       return;
@@ -147,7 +140,7 @@ public class ImportProcess extends Thread {
       return;
     }
 
-    this.importLog.setPercentage(10, connection);
+    this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_START, connection);
   }
 
   private void initialize(String name, String fileName, File file,
@@ -334,7 +327,8 @@ public class ImportProcess extends Thread {
                 this.prepareItem(singleItem);
               }
               counter++;
-              this.importLog.setPercentage(30 * counter / itemCount + 10, this.connection);
+              this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_PREPARE * counter
+                  / itemCount + ImportLog.PERCENTAGE_IMPORT_START, this.connection);
             } catch (final Exception e) {
               ImportProcess.logger.error("Error during import", e);
               this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
@@ -363,7 +357,6 @@ public class ImportProcess extends Thread {
         this.importLog.startItem("import_process_preparation_finished", this.connection);
         this.importLog.addDetail(ErrorLevel.FINE, "import_process_no_more_items", this.connection);
         this.importLog.finishItem(this.connection);
-        this.importLog.setPercentage(40, this.connection);
         counter = 0;
 
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
@@ -399,7 +392,9 @@ public class ImportProcess extends Thread {
                   this.connection);
               this.importLog.finishItem(this.connection);
               counter++;
-              this.importLog.setPercentage(55 * counter / itemCount + 40, this.connection);
+              this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_END * counter / itemCount
+                  + ImportLog.PERCENTAGE_IMPORT_START + ImportLog.PERCENTAGE_IMPORT_PREPARE,
+                  this.connection);
             } catch (final Exception e) {
               ImportProcess.logger.error("Error during import", e);
               this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
@@ -418,28 +413,6 @@ public class ImportProcess extends Thread {
               this.connection);
           this.importLog.finishItem(this.connection);
           this.importLog.close(this.connection);
-
-          // try {
-          // this.log.startItem("import_process_archive_log");
-          // this.log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-          // final String taskItemXml = this.createTaskItemXml();
-          // final ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-          // final String savedTaskItemXml = itemHandler.create(taskItemXml);
-          // final Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
-          // final Matcher matcher = pattern.matcher(savedTaskItemXml);
-          //
-          // if (matcher.find()) {
-          // final String taskId = matcher.group(1);
-          // ImportProcess.logger.info("Imported task item: " + taskId);
-          // }
-          // this.log.setPercentage(100);
-          // } catch (final Exception e) {
-          // ImportProcess.logger.error("Error during import", e);
-          // this.log.finishItem();
-          // this.log.startItem(ErrorLevel.ERROR, "import_process_error");
-          // this.log.addDetail(ErrorLevel.ERROR, e);
-          // this.fail();
-          // }
         }
       }
 
@@ -449,108 +422,6 @@ public class ImportProcess extends Thread {
       DbTools.closeConnection(this.connection);
     }
   }
-
-  // /**
-  // * Send a request to the framework every 30 minutes to make sure the user handle will not
-  // expire.
-  // */
-  // private void heartBeat() {
-  // final long now = new Date().getTime();
-  // if ((now - this.lastBeat) > 1000 * 60 * 30) {
-  // ImportProcess.logger.info("Refreshing " + this.log.getUserHandle());
-  // this.lastBeat = now;
-  // try {
-  // ServiceLocator.getContextHandler(this.log.getUserHandle()).retrieve(this.log.getContext());
-  // } catch (final Exception e) {
-  // ImportProcess.logger.warn("Heartbeat error", e);
-  // }
-  // }
-  // }
-
-  // private String createTaskItemXml() {
-  // try {
-  // final String fwUrl = PropertyReader.getFrameworkUrl();
-  // final HttpClient client = new HttpClient();
-  // ProxyHelper.setProxy(client, fwUrl);
-  //
-  // final StringBuilder sb =
-  // new StringBuilder(ResourceUtil.getResourceAsString(
-  // "multipleImport/ImportTaskTemplate.xml", ImportProcess.class.getClassLoader()));
-  // ImportProcess.replace("$01", this.escape(this.escidocContext.getObjectId()), sb);
-  // ImportProcess.replace("$02",
-  // this.escape(PropertyReader.getProperty("escidoc.import.task.content-model")), sb);
-  // ImportProcess.replace("$03", this.escape("Import Task Item for import " + this.name + " "),
-  // sb);
-  //
-  // // Upload original data
-  // final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-  // method.setRequestHeader("Content-Type", this.format.toString());
-  // method.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
-  // InputStream is = new FileInputStream(this.formatProcessor.getSourceFile());
-  // method.setRequestEntity(new InputStreamRequestEntity(is));
-  // client.executeMethod(method);
-  // is.close();
-  // String response = method.getResponseBodyAsString();
-  // final URL originalDataUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
-  //
-  // ImportProcess.replace("$04", this.escape(this.name), sb);
-  // ImportProcess.replace("$05", this.escape(this.fileName), sb);
-  // ImportProcess.replace("$06", this.escape(originalDataUrl.toExternalForm()), sb);
-  // ImportProcess.replace("$07", this.escape(this.log.getStoredId() + ""), sb);
-  // ImportProcess.replace("$08", this.escape(this.format.toString()), sb);
-  // ImportProcess.replace("$09", this.escape(String.valueOf(this.formatProcessor.getLength())),
-  // sb);
-  //
-  // // Upload and create task item xml
-  // final File tempLogXml = File.createTempFile("multipleImportLogXml", "xml");
-  // final Writer fw =
-  // new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogXml), "UTF-8"));
-  // this.log.toXML(fw);
-  // fw.flush();
-  // fw.close();
-  //
-  // final PutMethod method2 = new PutMethod(fwUrl + "/st/staging-file");
-  // method2.setRequestHeader("Content-Type", "text/xml");
-  // method2.setRequestHeader("Cookie", "escidocCookie=" + this.user.getHandle());
-  // is = new FileInputStream(tempLogXml);
-  // method2.setRequestEntity(new InputStreamRequestEntity(is));
-  // client.executeMethod(method2);
-  // is.close();
-  //
-  // response = method2.getResponseBodyAsString();
-  // final URL logXmlUrl = XmlTransformingService.transformUploadResponseToFileURL(response);
-  //
-  // ImportProcess.replace("$10", this.escape(this.name), sb);
-  // ImportProcess.replace("$11", "importthis.log.xml", sb);
-  // ImportProcess.replace("$12", this.escape(logXmlUrl.toExternalForm()), sb);
-  // ImportProcess.replace("$13", this.escape(this.log.getStoredId() + ""), sb);
-  // ImportProcess.replace("$14", this.escape(String.valueOf(tempLogXml.length())), sb);
-  //
-  // tempLogXml.delete();
-  //
-  // this.log.finishItem();
-  // this.log.close();
-  // return sb.toString();
-  // } catch (final Exception e) {
-  // throw new RuntimeException(e);
-  // }
-  // }
-
-  // public static void replace(String target, String replacement, StringBuilder builder) {
-  // int indexOfTarget = -1;
-  // while ((indexOfTarget = builder.indexOf(target)) >= 0) {
-  // builder.replace(indexOfTarget, indexOfTarget + target.length(), replacement);
-  // }
-  // }
-
-  // private String escape(String string) {
-  // if (string != null) {
-  // return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
-  // .replace(">", "&gt;");
-  // }
-  //
-  // return null;
-  // }
 
   private void prepareItem(String singleItem) {
     this.importLog.addDetail(ErrorLevel.FINE, "import_process_source_data_found", this.connection);

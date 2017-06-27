@@ -62,6 +62,17 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
  * 
  */
 public class ImportLog {
+  public static final int PERCENTAGE_COMPLETED = 100;
+  public static final int PERCENTAGE_DELETE_END = 89;
+  public static final int PERCENTAGE_DELETE_START = 5;
+  public static final int PERCENTAGE_DELETE_SUSPEND = 10;
+  public static final int PERCENTAGE_IMPORT_END = 29;
+  public static final int PERCENTAGE_IMPORT_PREPARE = 65;
+  public static final int PERCENTAGE_IMPORT_START = 5;
+  public static final int PERCENTAGE_SUBMIT_END = 89;
+  public static final int PERCENTAGE_SUBMIT_START = 5;
+  public static final int PERCENTAGE_SUBMIT_SUSPEND = 10;
+
   /**
    * enum to describe the general state of the log.
    */
@@ -145,7 +156,7 @@ public class ImportLog {
   public void close(Connection connection) {
     this.endDate = new Date();
     this.status = Status.FINISHED;
-    this.percentage = 100;
+    this.percentage = ImportLog.PERCENTAGE_COMPLETED;
 
     this.updateImportLog(connection);
   }
