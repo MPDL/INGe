@@ -656,7 +656,7 @@ public class ImportLog {
       if (importLogItem.getEndDate() != null) {
         ps.setTimestamp(4, new Timestamp(importLogItem.getEndDate().getTime()));
       } else {
-        ps.setDate(4, null);
+        ps.setTimestamp(4, null);
       }
 
       ps.setInt(5, this.id);
@@ -918,7 +918,7 @@ public class ImportLog {
    * 
    * @return A list of details
    */
-  public static List<ImportLogItemDetail> loadImportLogItemDetails(int id, String userid,
+  public static List<ImportLogItemDetail> getImportLogItemDetails(int id, String userid,
       Connection connection) {
     final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
 

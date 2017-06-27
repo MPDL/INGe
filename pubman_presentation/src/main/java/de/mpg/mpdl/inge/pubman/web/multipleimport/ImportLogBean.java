@@ -47,7 +47,7 @@ public class ImportLogBean extends FacesBean {
   private int importId = 0;
   private String userid = null;
   private String userHandle = null;
-  private ImportLog log = null;
+  private ImportLog importLog = null;
 
   public ImportLogBean() {
     final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
@@ -64,19 +64,19 @@ public class ImportLogBean extends FacesBean {
   }
 
   public ImportLog getImport() {
-    if (this.log == null && this.userid != null) {
+    if (this.importLog == null && this.userid != null) {
       final Connection connection = DbTools.getNewConnection();
 
       try {
-        this.log = ImportLog.getImportLog(this.importId, false, connection);
-        this.log.setUser(this.userid);
-        this.log.setUserHandle(this.userHandle);
+        this.importLog = ImportLog.getImportLog(this.importId, false, connection);
+        this.importLog.setUser(this.userid);
+        this.importLog.setUserHandle(this.userHandle);
       } finally {
         DbTools.closeConnection(connection);
       }
     }
 
-    return this.log;
+    return this.importLog;
   }
 
   public String getRemove() {

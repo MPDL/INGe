@@ -157,7 +157,6 @@ public class ImportWorkspace extends BreadcrumbPage {
           label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
           break;
         case ENDNOTE_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
           break;
         case ESCIDOC_COMPONENT_XML:
           break;
@@ -190,7 +189,6 @@ public class ImportWorkspace extends BreadcrumbPage {
           label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
           break;
         case MAB_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
           break;
         case MARC_21_STRING:
           label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
@@ -210,7 +208,6 @@ public class ImportWorkspace extends BreadcrumbPage {
           label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
           break;
         case RIS_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
           break;
         case SPIRES_XML:
           break;
@@ -218,7 +215,6 @@ public class ImportWorkspace extends BreadcrumbPage {
           label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
           break;
         case WOS_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
           break;
         case ZFN_TEI_XML:
           label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");

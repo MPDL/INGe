@@ -70,7 +70,7 @@ public class ImportLogItemDetailBean extends FacesBean {
       final Connection connection = DbTools.getNewConnection();
       try {
         this.importLogItemDetails =
-            ImportLog.loadImportLogItemDetails(this.itemId, this.userid, connection);
+            ImportLog.getImportLogItemDetails(this.itemId, this.userid, connection);
       } finally {
         DbTools.closeConnection(connection);
       }

@@ -37,7 +37,6 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.io.IOUtils;
@@ -208,7 +207,7 @@ public class MultipleImport extends FacesBean {
     }
   }
 
-  public List<SelectItem> initConfigParameters() throws Exception {
+  public List<SelectItem> getConfigParameters() throws Exception {
     Transformer transformer = null;
     Map<String, String> config = null;
 
@@ -241,24 +240,8 @@ public class MultipleImport extends FacesBean {
     return this.configParameters;
   }
 
-  public List<SelectItem> getConfigParameters() throws Exception {
-    if (this.configParameters == null) {
-      this.initConfigParameters();
-    }
-
-    return this.configParameters;
-  }
-
-  public void setConfigParameters(List<SelectItem> list) {
-    this.configParameters = list;
-  }
-
   public Map<String, List<SelectItem>> getParametersValues() {
     return this.parametersValues;
-  }
-
-  public void setParametersValues(Map<String, List<SelectItem>> parametersValues) {
-    this.parametersValues = parametersValues;
   }
 
   public ContextVO getContext() {
@@ -337,10 +320,6 @@ public class MultipleImport extends FacesBean {
     } catch (final Exception e) {
       MultipleImport.logger.error("Error while uplaoding file", e);
     }
-  }
-
-  public void clearImportFile(ActionEvent evt) {
-    this.uploadedImportFile = null;
   }
 
   public String getFixedFileName() {

@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ImportLogItemBean")
 @SuppressWarnings("serial")
 public class ImportLogItemBean extends FacesBean {
-  private ImportLog log = null;
+  private ImportLog importLog = null;
   private String userid = null;
   private int importId = 0;
   private int itemsPerPage = 0;
@@ -73,17 +73,17 @@ public class ImportLogItemBean extends FacesBean {
   }
 
   public ImportLog getImport() {
-    if (this.log == null && this.userid != null) {
+    if (this.importLog == null && this.userid != null) {
       final Connection connection = DbTools.getNewConnection();
 
       try {
-        this.log = ImportLog.getImportLog(this.importId, false, connection);
+        this.importLog = ImportLog.getImportLog(this.importId, false, connection);
       } finally {
         DbTools.closeConnection(connection);
       }
     }
 
-    return this.log;
+    return this.importLog;
   }
 
   public int getPage() {

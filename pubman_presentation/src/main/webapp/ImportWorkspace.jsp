@@ -278,7 +278,7 @@
                         });
                     }
                 );
-                window.setTimeout("reloadImports()", 2000);
+                window.setTimeout("reloadImports()", 5000);
             }
 
             function reloadDetails() {
@@ -292,11 +292,11 @@
                         }
                     }
                 );
-                window.setTimeout("reloadDetails()", 5000);
+                window.setTimeout("reloadDetails()", 2000);
             }
             
-            window.setTimeout("reloadImports()", 2000);
-            window.setTimeout("reloadDetails()", 5000);
+            window.setTimeout("reloadImports()", 1000);
+            window.setTimeout("reloadDetails()", 3000);
         </script>
     </f:view>
 </body>
