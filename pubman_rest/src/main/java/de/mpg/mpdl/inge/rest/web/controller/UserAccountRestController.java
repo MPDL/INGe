@@ -57,7 +57,7 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
+  public ResponseEntity<List<AccountUserVO>> filter(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
 	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);

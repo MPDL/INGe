@@ -1,7 +1,11 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -71,12 +75,15 @@ public class ItemRestController {
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody String query,
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody Map<String, Object> query,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
-    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
+      IngeApplicationException, IOException {
+	  ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    ObjectOutputStream os = new ObjectOutputStream(out);
+	    os.writeObject(query);
+    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(out.toByteArray());
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
@@ -175,7 +182,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException {
     pis.delete(itemId, token);
-    return new ResponseEntity<>(HttpStatus.GONE);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }
