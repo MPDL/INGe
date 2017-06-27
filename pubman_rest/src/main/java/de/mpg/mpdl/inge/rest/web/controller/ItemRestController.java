@@ -80,9 +80,9 @@ public class ItemRestController {
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException, IOException {
-	  ByteArrayOutputStream out = new ByteArrayOutputStream();
-	    ObjectOutputStream os = new ObjectOutputStream(out);
-	    os.writeObject(query);
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    ObjectOutputStream os = new ObjectOutputStream(out);
+    os.writeObject(query);
     QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(out.toByteArray());
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);

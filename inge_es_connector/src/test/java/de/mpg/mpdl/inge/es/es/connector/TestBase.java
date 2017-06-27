@@ -63,7 +63,7 @@ public class TestBase {
 
 
   ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
-  
+
   public AffiliationVO test_ou() {
     AffiliationVO vo = new AffiliationVO();
 

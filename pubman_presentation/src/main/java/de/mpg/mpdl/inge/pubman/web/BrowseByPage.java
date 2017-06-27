@@ -84,10 +84,8 @@ public class BrowseByPage extends BreadcrumbPage {
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
     /*
-    if ("year".equals(this.getSelectedValue())) {
-      this.loadBrowseByYear();
-    }
-    */
+     * if ("year".equals(this.getSelectedValue())) { this.loadBrowseByYear(); }
+     */
   }
 
   /**

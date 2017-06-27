@@ -23,7 +23,7 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 public class MABImport {
   private static final Logger logger = Logger.getLogger(MABImport.class);
 
-  // TODO: da febhlt wohl noch was
+  // TODO: da fehlt wohl noch was
   private static final String URL = null;
 
   public MABImport() {}

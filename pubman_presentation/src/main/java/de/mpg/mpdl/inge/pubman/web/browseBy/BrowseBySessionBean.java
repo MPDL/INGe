@@ -268,7 +268,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   private void fillDateMap(String... indexes) {
     System.out.println("DO SEARCH!!!!");
-    
+
     try {
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO();
@@ -280,12 +280,12 @@ public class BrowseBySessionBean extends FacesBean {
                 .dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
         srr.getAggregationBuilders().add(aggBuilder);
       }
-      
+
       srr.setLimit(0);
 
       SearchRetrieveResponseVO<PubItemVO> resp =
           ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
-      
+
 
       for (String index : indexes) {
         Histogram dh = resp.getOriginalResponse().getAggregations().get(index);
