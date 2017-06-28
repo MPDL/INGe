@@ -114,8 +114,15 @@ public class TransformerCache {
   static int getTransformerCacheSize() {
     return transformerMap.size();
   }
+  
+  public static void clear() {
+    transformerMap.clear();
+    
+  }
 
   private static class TransformerCacheHolder {
     private static final TransformerCache instance = new TransformerCache();
   }
+
+  
 }

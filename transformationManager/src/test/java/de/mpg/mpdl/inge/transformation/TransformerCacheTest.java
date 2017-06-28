@@ -5,12 +5,18 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public class TransformerCacheTest {
+  
+  @Before
+  public void setUp() {
+    TransformerCache.clear();
+  }
 
   @Test
   public void testTransformerCache() {
@@ -89,7 +95,7 @@ public class TransformerCacheTest {
     assertTrue(TransformerCache.isTransformationExisting(FORMAT.ZFN_TEI_XML,
         FORMAT.ESCIDOC_ITEM_V3_XML));
 
-    assertTrue(TransformerCache.getTransformerCacheSize() == 10);
+    assertTrue("Is " + TransformerCache.getTransformerCacheSize() + " expected 10", TransformerCache.getTransformerCacheSize() == 10);
   }
 
 }
