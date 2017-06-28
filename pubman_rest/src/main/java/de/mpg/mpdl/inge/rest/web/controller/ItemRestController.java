@@ -11,7 +11,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +49,7 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> getAll(@RequestHeader(
+  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token,
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
 		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
@@ -60,7 +62,7 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> getFiltered(@RequestHeader(
+  public ResponseEntity<List<PubItemVO>> filter(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token,
 		  @RequestParam(value = "q") String query,
 		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
@@ -73,17 +75,16 @@ public class ItemRestController {
     return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody Map<String, Object> query,
+  @RequestMapping(value = "/search", method = RequestMethod.POST,
+      produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> query(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody String query,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException, IOException {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    ObjectOutputStream os = new ObjectOutputStream(out);
-    os.writeObject(query);
-    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(out.toByteArray());
+
+    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);

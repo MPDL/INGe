@@ -58,7 +58,7 @@ public class ContextRestController {
 	}
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+	public ResponseEntity<List<ContextVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
 			@RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 		QueryBuilder matchQueryParam = QueryBuilders.boolQuery()
 				.filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));

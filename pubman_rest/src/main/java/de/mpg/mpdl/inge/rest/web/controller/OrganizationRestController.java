@@ -71,14 +71,14 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = "/toplevel", method = RequestMethod.GET)
-  public ResponseEntity<List<AffiliationVO>> searchTopLevel() throws AuthenticationException,
+  public ResponseEntity<List<AffiliationVO>> topLevel() throws AuthenticationException,
       AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationVO> response = organizationSvc.searchTopLevelOrganizations();
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = OU_ID_PATH + "/children", method = RequestMethod.GET)
-  public ResponseEntity<List<AffiliationVO>> searchChildOrganizations(@PathVariable(
+  public ResponseEntity<List<AffiliationVO>> childOrganizations(@PathVariable(
       value = OU_ID_VAR) String parentAffiliationId) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationVO> response = organizationSvc.searchChildOrganizations(parentAffiliationId);
     response.sort((ou1, ou2) -> ou1.getDefaultMetadata().getName().compareTo(ou2.getDefaultMetadata().getName()));
