@@ -213,18 +213,6 @@ public class ApplicationBean extends FacesBean {
     }
   }
 
-  // /**
-  // * Returns an appropriate character encoding based on the Locale defined for the current
-  // * JavaServer Faces view. If no more suitable encoding can be found, return "UTF-8" as a general
-  // * purpose default. The default implementation uses the implementation from our superclass,
-  // * FacesBean.
-  // *
-  // * @return the local character encoding
-  // */
-  // public String getLocaleCharacterEncoding() {
-  // return System.getProperty("file.encoding"); // super.getLocaleCharacterEncoding();
-  // }
-
   /**
    * Returns the title and version of the application, shown in the header.
    * 
@@ -233,16 +221,6 @@ public class ApplicationBean extends FacesBean {
   public String getAppTitle() {
     return this.appTitle;
   }
-
-  // /**
-  // * Provides the escidoc version string.
-  // *
-  // * @return the escidoc version
-  // * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
-  // */
-  // private String getVersion() {
-  // return this.version;
-  // }
 
   /**
    * Provides the escidoc version string without build date.
@@ -264,14 +242,6 @@ public class ApplicationBean extends FacesBean {
   public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException {
     return this.pubmanInstanceUrl;
   }
-
-  // /**
-  // * Provides the url for common-presentation.
-  // *
-  // */
-  // public String getCommonPresentationUrl() {
-  // return this.commonPresentationUrl;
-  // }
 
   /**
    * Provides the url for the pubman blog feed.
@@ -477,14 +447,6 @@ public class ApplicationBean extends FacesBean {
       throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
     }
   }
-
-  // public boolean getCheckSystemTypeProduction() {
-  // if (systemType == SystemType.Production_Server) {
-  // return true;
-  // }
-  //
-  // return false;
-  // }
 
   public String getReloadResourceBundlesAndProperties() throws Exception {
     ResourceBundle.clearCache();

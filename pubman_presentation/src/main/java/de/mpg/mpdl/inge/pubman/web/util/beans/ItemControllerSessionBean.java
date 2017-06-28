@@ -211,30 +211,6 @@ public class ItemControllerSessionBean extends FacesBean {
     return navigationRuleWhenSuccessful;
   }
 
-  // public String createPubItem(String navigationRuleWhenSuccessful, final ContextRO pubContextRO)
-  // throws ValidationException {
-  //
-  // try {
-  //
-  // currentPubItem.setContext(pubContextRO);
-  // PubItemVO updatedPubItem =
-  // ApplicationBean.INSTANCE.getPubItemService().create(currentPubItem,
-  // this.getLoginHelper().getAuthenticationToken());
-  // this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
-  // return navigationRuleWhenSuccessful;
-  // } catch (AaException e) {
-  // // TODO Auto-generated catch block
-  // logger.error("Authentication error while saving current PubItem", e);
-  // error("Authentication error while saving current PubItem");
-  // } catch (IngeServiceException e) {
-  // logger.error("Technical Error while saving current PubItem", e);
-  // error("Technical error while saving current PubItem");
-  // }
-  //
-  // return "";
-  //
-  // }
-
   /**
    * Creates a new Revision of a PubItem and handles navigation afterwards.
    * 

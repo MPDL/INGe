@@ -25,13 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.dates;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.YearMonth;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
