@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -70,6 +71,13 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
     return SingleTransformer.getDefaultConfigurationFromProperty(
         "escidoc.transformation.endnote.configuration.filename",
         "transformations/commonPublicationFormats/conf/endnote.properties");
+  }
+
+  @Override
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    return SingleTransformer.getAllConfigurationValuesFromProperty(
+        "escidoc.transformation.endnote.configuration.filename",
+        "transformations/commonPublicationFormats/conf/endnote.properties").get(key);
   }
 
 

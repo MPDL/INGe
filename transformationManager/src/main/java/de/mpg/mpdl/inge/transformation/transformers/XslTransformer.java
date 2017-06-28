@@ -172,5 +172,4 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
     t.transform(s, r);
   }
-
 }

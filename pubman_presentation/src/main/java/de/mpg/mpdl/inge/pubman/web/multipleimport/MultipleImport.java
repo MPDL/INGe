@@ -224,8 +224,7 @@ public class MultipleImport extends FacesBean {
       this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
 
       for (final String key : config.keySet()) {
-        final List<String> values =
-            ((ImportUsableTransformer) transformer).getConfigurationValuesFor(key);
+        final List<String> values = transformer.getAllConfigurationValuesFor(key);
         final List<SelectItem> list = new ArrayList<SelectItem>();
         if (values != null) {
           for (final String str : values) {

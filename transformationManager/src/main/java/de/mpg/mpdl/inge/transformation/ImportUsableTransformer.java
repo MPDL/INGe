@@ -6,6 +6,6 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public interface ImportUsableTransformer extends ChainableTransformer {
 
-  public List<String> getConfigurationValuesFor(String key) throws TransformationException;
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException;
 
 }

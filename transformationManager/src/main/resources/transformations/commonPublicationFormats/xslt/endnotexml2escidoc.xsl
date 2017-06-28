@@ -98,6 +98,7 @@
 			<xsl:value-of select="'http://ftp.mpdl.mpg.de/caesar/PDF/'"/>
 		</xsl:if>
 	</xsl:variable>
+	
 
 	<xsl:variable name="genreMap">
 			<m key="Book">book</m>
@@ -124,6 +125,7 @@
 	
 	
 	<xsl:template match="/">
+	<xsl:message>is-item-list <xsl:value-of select="$is-item-list"/></xsl:message>
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
 				<itemlist:item-list>

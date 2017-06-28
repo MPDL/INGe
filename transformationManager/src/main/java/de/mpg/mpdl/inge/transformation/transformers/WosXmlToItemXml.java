@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -46,6 +47,13 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return getDefaultConfigurationFromProperty("escidoc.transformation.wos.configuration.filename",
         "transformations/otherFormats/conf/wos.properties");
+  }
+
+  @Override
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    return getAllConfigurationValuesFromProperty(
+        "escidoc.transformation.wos.configuration.filename",
+        "transformations/otherFormats/conf/wos.properties").get(key);
   }
 
 }

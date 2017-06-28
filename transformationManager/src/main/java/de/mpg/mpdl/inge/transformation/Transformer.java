@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation;
 
+import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
@@ -22,4 +23,6 @@ public interface Transformer {
   public void setTargetFormat(FORMAT targetFormat);
 
   public FORMAT getTargetFormat();
+
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException;
 }

@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -58,8 +59,15 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.endnote.configuration.filename",
+        "escidoc.transformation.marcxml2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
+  }
+
+  @Override
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    return getAllConfigurationValuesFromProperty(
+        "escidoc.transformation.marcxml2escidoc.configuration.filename",
+        "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties").get(key);
   }
 
 

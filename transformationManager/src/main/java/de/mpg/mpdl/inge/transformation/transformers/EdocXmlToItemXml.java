@@ -18,8 +18,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
-public class EdocXmlToItemXml extends XslTransformer implements ChainableTransformer,
-    ImportUsableTransformer {
+public class EdocXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
 
   @Override
@@ -48,7 +47,6 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   }
 
-
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
@@ -62,7 +60,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   }
 
   @Override
-  public List<String> getConfigurationValuesFor(String key) throws TransformationException {
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
         "escidoc.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties").get(key);

@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.transformation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -178,6 +179,10 @@ public abstract class SingleTransformer implements Transformer {
       throw new TransformationException("The result does not contain an output stream or a writer");
     }
 
+  }
+
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    return new ArrayList<String>();
   }
 
 }

@@ -2,7 +2,9 @@ package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamSource;
@@ -31,12 +33,6 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
     try {
 
       Bibtex bib = new Bibtex();
-      if (getConfiguration() == null) {
-        setConfiguration(getDefaultConfigurationFromProperty(
-            "escidoc.transformation.bibtex.configuration.filename",
-            "transformations/commonPublicationFormats/conf/bibtex.properties"));
-      }
-      bib.setConfiguration(getConfiguration());
 
       String res = bib.getBibtex(getStringFromSource(source));
 
@@ -54,10 +50,31 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   }
 
   @Override
-  public List<String> getConfigurationValuesFor(String key) throws TransformationException {
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
         "escidoc.transformation.bibtex.configuration.filename",
         "transformations/commonPublicationFormats/conf/bibtex.properties").get(key);
+  }
+
+  @Override
+  public Map<String, String> getConfiguration() {
+
+    if (super.getConfiguration() == null) {
+      Map<String, String> c = new HashMap<String, String>();
+      try {
+        c =
+            getDefaultConfigurationFromProperty(
+                "escidoc.transformation.bibtex.configuration.filename",
+                "transformations/commonPublicationFormats/conf/bibtex.properties");
+
+        setConfiguration(c);
+        return c;
+      } catch (TransformationException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    return super.getConfiguration();
   }
 
 }

@@ -1061,6 +1061,9 @@
 		<escidoc.transformation.bibtex.class>de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<!-- Transformation stylesheets -->
+		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
+		<escidoc.transformation.ris.configuration.filename>transformations/otherFormats/conf/bibtex.properties</escidoc.transformation.ris.configuration.filename>
+        
 		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
 		<escidoc.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>

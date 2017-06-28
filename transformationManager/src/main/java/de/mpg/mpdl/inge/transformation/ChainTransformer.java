@@ -1,7 +1,10 @@
 package de.mpg.mpdl.inge.transformation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -70,6 +73,29 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
     this.transformerChain = transformerChain;
   }
 
+  @Override
+  public Map<String, String> getConfiguration() {
 
+    Map<String, String> c = new HashMap<String, String>();
+
+    for (ChainableTransformer t : transformerChain) {
+      if (t.getConfiguration() != null) {
+        c.putAll(t.getConfiguration());
+      }
+    }
+
+    return c;
+  }
+
+  @Override
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    List<String> v = new ArrayList<String>();
+
+    for (ChainableTransformer t : transformerChain) {
+      if (t.getAllConfigurationValuesFor(key) != null)
+        v.addAll(t.getAllConfigurationValuesFor(key));
+    }
+    return v;
+  }
 
 }
