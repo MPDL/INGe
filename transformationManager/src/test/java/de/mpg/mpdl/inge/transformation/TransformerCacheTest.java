@@ -12,7 +12,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public class TransformerCacheTest {
-  
+
   @Before
   public void setUp() {
     TransformerCache.clear();
@@ -95,7 +95,8 @@ public class TransformerCacheTest {
     assertTrue(TransformerCache.isTransformationExisting(FORMAT.ZFN_TEI_XML,
         FORMAT.ESCIDOC_ITEM_V3_XML));
 
-    assertTrue("Is " + TransformerCache.getTransformerCacheSize() + " expected 10", TransformerCache.getTransformerCacheSize() == 10);
+    assertTrue("Is " + TransformerCache.getTransformerCacheSize() + " expected 10",
+        TransformerCache.getTransformerCacheSize() == 10);
   }
 
 }
