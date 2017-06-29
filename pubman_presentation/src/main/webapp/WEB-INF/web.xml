@@ -91,12 +91,18 @@
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
 
+ 	<servlet>
+		<servlet-name>Import Surveyer Servlet</servlet-name>
+		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.ImportSurveyerServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
 <!--  TODO wieder einkommentieren -->
 <!-- 
  	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.InitializerServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
+		<load-on-startup>4</load-on-startup>
 	</servlet>
  -->
  

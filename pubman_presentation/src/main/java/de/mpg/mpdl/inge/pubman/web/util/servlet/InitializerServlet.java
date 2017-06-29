@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
-import de.mpg.mpdl.inge.pubman.web.util.threads.ImportSurveyor;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 
 @SuppressWarnings("serial")
@@ -14,7 +13,6 @@ public class InitializerServlet extends HttpServlet {
   private static final Logger logger = Logger.getLogger(InitializerServlet.class);
 
   private SiteMapTask siteMapTask;
-  private ImportSurveyor importSurveyor;
 
   /**
    * {@inheritDoc}
@@ -33,14 +31,6 @@ public class InitializerServlet extends HttpServlet {
       }.start();
     } catch (final Exception e) {
       InitializerServlet.logger.error("Problem with initializing statistics system", e);
-    }
-
-    // surveyes import database
-    try {
-      this.importSurveyor = new ImportSurveyor();
-      this.importSurveyor.start();
-    } catch (final Exception e) {
-      InitializerServlet.logger.error("Problem with initializing import database", e);
     }
 
     // initialize google sitemap creation

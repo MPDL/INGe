@@ -57,28 +57,27 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
  * 
  */
 public class ImportLog extends BaseImportLog {
-  private static ImportLog fillImportLog(ResultSet resultSet, Connection connection)
-      throws SQLException {
+  private static ImportLog fillImportLog(ResultSet resultSet) throws SQLException {
     final ImportLog importLog = new ImportLog();
 
-    importLog.setEndDate(resultSet.getTimestamp("enddate"));
-    importLog.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel")
-        .toUpperCase()));
-    importLog.setFormat(TransformerFactory.FORMAT.valueOf(resultSet.getString("format")));
-    importLog.setStartDate(resultSet.getTimestamp("startdate"));
-    importLog.setStatus(BaseImportLog.Status.valueOf(resultSet.getString("status")));
-    importLog.setId(resultSet.getInt("id"));
-    importLog.setContext(resultSet.getString("context"));
-    importLog.setUser(resultSet.getString("userid"));
-    importLog.setMessage(resultSet.getString("name"));
+    importLog.endDate = resultSet.getTimestamp("enddate");
+    importLog.errorLevel =
+        BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase());
+    importLog.format = TransformerFactory.FORMAT.valueOf(resultSet.getString("format"));
+    importLog.startDate = resultSet.getTimestamp("startdate");
+    importLog.status = BaseImportLog.Status.valueOf(resultSet.getString("status"));
+    importLog.id = resultSet.getInt("id");
+    importLog.context = resultSet.getString("context");
+    importLog.user = resultSet.getString("userid");
+    importLog.message = resultSet.getString("name");
     importLog.percentage = resultSet.getInt("percentage");
 
     return importLog;
   }
 
-  private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog,
-      Connection connection) throws SQLException {
-    final ImportLogItem importLogItem = new ImportLogItem(importLog, connection);
+  private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog)
+      throws SQLException {
+    final ImportLogItem importLogItem = new ImportLogItem(importLog);
 
     importLogItem.setEndDate(resultSet.getTimestamp("enddate"));
     importLogItem.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel")
@@ -93,9 +92,8 @@ public class ImportLog extends BaseImportLog {
   }
 
   private static ImportLogItemDetail fillImportLogItemDetail(ResultSet resultSet,
-      ImportLogItem importLogItem, Connection connection) throws SQLException {
-    final ImportLogItemDetail importLogItemDetail =
-        new ImportLogItemDetail(importLogItem, connection);
+      ImportLogItem importLogItem) throws SQLException {
+    final ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(importLogItem);
 
     importLogItemDetail.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString(
         "errorlevel").toUpperCase()));
@@ -119,7 +117,7 @@ public class ImportLog extends BaseImportLog {
       rs = ps.executeQuery();
 
       if (rs.next()) {
-        importLog = ImportLog.fillImportLog(rs, connection);
+        importLog = ImportLog.fillImportLog(rs);
       }
 
       DbTools.closePreparedStatement(ps);
@@ -132,7 +130,7 @@ public class ImportLog extends BaseImportLog {
       final List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
 
       while (rs.next()) {
-        final ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog, connection);
+        final ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog);
         importLogItems.add(importLogItem);
       }
 
@@ -166,7 +164,7 @@ public class ImportLog extends BaseImportLog {
             }
 
             final ImportLogItemDetail importLogItemDetail =
-                ImportLog.fillImportLogItemDetail(rs, currentImportLogItem, connection);
+                ImportLog.fillImportLogItemDetail(rs, currentImportLogItem);
             importLogItemDetails.add(importLogItemDetail);
           }
         }
@@ -204,7 +202,7 @@ public class ImportLog extends BaseImportLog {
 
       while (rs.next()) {
         final ImportLogItemDetail importLogItemDetail =
-            ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null, connection);
+            ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null);
         importLogItemDetails.add(importLogItemDetail);
       }
 
@@ -225,8 +223,7 @@ public class ImportLog extends BaseImportLog {
     ResultSet rs = null;
 
     final String query =
-        "select id from import_log where userid = ? " + "order by " + sortBy.toSQL() + " "
-            + dir.toSQL();
+        "select id from import_log where userid = ? order by " + sortBy.toSQL() + " " + dir.toSQL();
 
     try {
       ps = connection.prepareStatement(query);
@@ -334,7 +331,7 @@ public class ImportLog extends BaseImportLog {
     }
 
     final ImportLogItemDetail importLogItemDetail =
-        new ImportLogItemDetail(this.currentImportLogItem, connection);
+        new ImportLogItemDetail(this.currentImportLogItem);
     importLogItemDetail.setErrorLevel(errLevel, connection);
     importLogItemDetail.setMessage(msg);
     importLogItemDetail.setStartDate(new Date());
@@ -683,11 +680,6 @@ public class ImportLog extends BaseImportLog {
     this.context = context;
   }
 
-  @Override
-  public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel) {
-    this.setErrorLevel(errorLevel, null);
-  }
-
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel, Connection connection) {
     super.setErrorLevel(errorLevel);
 
@@ -733,7 +725,9 @@ public class ImportLog extends BaseImportLog {
   public void setPercentage(int percentage, Connection connection) {
     this.percentage = percentage;
 
-    this.updateImportLog(connection);
+    if (connection != null) {
+      this.updateImportLog(connection);
+    }
   }
 
   public void setUser(String user) {
@@ -773,7 +767,7 @@ public class ImportLog extends BaseImportLog {
           "Trying to start logging an item while another is not yet finished");
     }
 
-    final ImportLogItem newItem = new ImportLogItem(this, connection);
+    final ImportLogItem newItem = new ImportLogItem(this);
 
     newItem.setErrorLevel(errLevel, connection);
     newItem.setMessage(msg);

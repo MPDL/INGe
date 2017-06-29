@@ -42,10 +42,10 @@ public class ImportLogItem extends BaseImportLog {
   private PubItemVO itemVO;
   private ImportLog parent;
 
-  public ImportLogItem(ImportLog parent, Connection connection) {
-    this.setStartDate(new Date());
-    this.setStatus(BaseImportLog.Status.PENDING);
-    this.setErrorLevel(BaseImportLog.ErrorLevel.FINE, connection);
+  public ImportLogItem(ImportLog parent) {
+    this.startDate = new Date();
+    this.status = BaseImportLog.Status.PENDING;
+    this.errorLevel = BaseImportLog.ErrorLevel.FINE;
 
     this.parent = parent;
   }
@@ -83,11 +83,6 @@ public class ImportLogItem extends BaseImportLog {
 
   public BaseImportLog getParent() {
     return this.parent;
-  }
-
-  @Override
-  public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel) {
-    this.setErrorLevel(errorLevel, null);
   }
 
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel, Connection connection) {

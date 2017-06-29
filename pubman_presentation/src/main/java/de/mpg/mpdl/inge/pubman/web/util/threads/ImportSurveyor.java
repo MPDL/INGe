@@ -33,7 +33,6 @@ import java.sql.ResultSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;

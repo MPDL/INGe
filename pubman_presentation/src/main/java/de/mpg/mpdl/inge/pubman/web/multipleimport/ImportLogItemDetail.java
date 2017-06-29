@@ -32,10 +32,10 @@ import java.util.Date;
 public class ImportLogItemDetail extends BaseImportLog {
   private ImportLogItem parent;
 
-  public ImportLogItemDetail(ImportLogItem parent, Connection connection) {
-    this.setStartDate(new Date());
-    this.setStatus(BaseImportLog.Status.PENDING);
-    this.setErrorLevel(BaseImportLog.ErrorLevel.FINE, connection);
+  public ImportLogItemDetail(ImportLogItem parent) {
+    this.startDate = new Date();
+    this.status = BaseImportLog.Status.PENDING;
+    this.errorLevel = BaseImportLog.ErrorLevel.FINE;
 
     this.parent = parent;
   }
