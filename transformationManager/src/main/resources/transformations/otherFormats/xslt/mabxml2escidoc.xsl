@@ -47,8 +47,8 @@
 		xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
 		xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
 		xmlns:escidoc="urn:escidoc:functions"
-		xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
-		xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"		
+		xmlns:ei="${xsd.soap.item.item}"
+		xmlns:mdr="${xsd.soap.common.mdrecords}"		
 		xmlns:file="${xsd.metadata.file}"
 		xmlns:pub="${xsd.metadata.publication}"
 		xmlns:person="${xsd.metadata.person}"
@@ -56,10 +56,10 @@
 		xmlns:event="${xsd.metadata.event}"
 		xmlns:organization="${xsd.metadata.organization}"		
 		xmlns:eterms="${xsd.metadata.terms}"
-		xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+		xmlns:ec="${xsd.soap.item.components}"
 		xmlns:prop="${xsd.soap.common.prop}"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-		xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8">
+		xmlns:itemlist="${xsd.soap.item.itemlist}">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	

@@ -1057,38 +1057,41 @@
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
 		<!-- Dataacquisition - Apache FOP configuration file -->
 		<escidoc.dataacquisition.resources.fop.configuration />
+		
 		<!-- Transformation implementing classes -->
-		<escidoc.transformation.bibtex.class>de.mpg.mpdl.inge.transformation.transformations.commonPublicationFormats.Bibtex</escidoc.transformation.bibtex.class>
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<!-- Transformation stylesheets -->
-		<escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename />
-		<escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
-		<escidoc.transformation.bmc2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/bmc2escidoc.properties</escidoc.transformation.bmc2escidoc.configuration.filename>
-		<escidoc.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</escidoc.transformation.bmc2escidoc.stylesheet.filename>
-		<escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename />
-		<escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename />
-		<escidoc.transformation.doi.stylesheet.filename>transformations/otherFormats/xslt/escidoc2doi.xsl</escidoc.transformation.doi.stylesheet.filename>
-		<escidoc.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</escidoc.transformation.edoc.configuration.filename>
-		<escidoc.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</escidoc.transformation.edoc.stylesheet.filename>
-		<escidoc.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>
-		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
-		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
-		<escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
-		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
-		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
-		<escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
-		<escidoc.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</escidoc.transformation.marcxml2escidoc.stylesheet.filename>
-		<escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename />
-		<escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename />
-		<escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename />
-		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
-		<escidoc.transformation.ris.configuration.filename>transformations/otherFormats/conf/ris.properties</escidoc.transformation.ris.configuration.filename>
-		<escidoc.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</escidoc.transformation.wos.configuration.filename>
-		<escidoc.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</escidoc.transformation.wos.stylesheet.filename>
-		<escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
-		<escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>
+
+        <escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
+        <escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>        
+        <escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
+        <escidoc.transformation.bmc2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/bmc2escidoc.properties</escidoc.transformation.bmc2escidoc.configuration.filename>
+        <escidoc.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</escidoc.transformation.bmc2escidoc.stylesheet.filename>        
+        <escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl</escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename>
+        <escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl</escidoc.transformation.bmc2escidoc_publication_item.stylesheet.filename>
+        <escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>transformations/thirdParty/xslt/bmc-fulltext-xml2bms-fulltext-html.xsl</escidoc.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+        <escidoc.transformation.doi.stylesheet.filename>transformations/otherFormats/xslt/escidoc2doi.xsl</escidoc.transformation.doi.stylesheet.filename>
+        <escidoc.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</escidoc.transformation.edoc.configuration.filename>
+        <escidoc.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</escidoc.transformation.edoc.stylesheet.filename>
+        <escidoc.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>
+        <escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
+        <escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
+        <escidoc.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</escidoc.transformation.escidoc2marcxml.stylesheet.filename>
+        <escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+        <escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
+        <escidoc.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</escidoc.transformation.marcxml2escidoc.configuration.filename>
+        <escidoc.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</escidoc.transformation.marcxml2escidoc.stylesheet.filename>
+        <escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl</escidoc.transformation.pmc2escidoc_publication_component.stylesheet.filename>
+        <escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl</escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename>
+        <escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>transformations/thirdParty/xslt/pmc_fulltext_xml2pmc_fulltext_xslfo.xsl</escidoc.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
+        <escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
+        <escidoc.transformation.ris.configuration.filename>transformations/otherFormats/conf/ris.properties</escidoc.transformation.ris.configuration.filename>
+        <escidoc.transformation.ris.stylesheet.filename>transformations/otherFormats/xslt/risxml2escidoc.xsl</escidoc.transformation.ris.stylesheet.filename>
+        <escidoc.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</escidoc.transformation.wos.configuration.filename>
+        <escidoc.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</escidoc.transformation.wos.stylesheet.filename>
+        <escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
+        <escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>		
+
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>

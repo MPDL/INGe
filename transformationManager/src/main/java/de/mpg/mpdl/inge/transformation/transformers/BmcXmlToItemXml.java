@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -95,6 +96,13 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
     return SingleTransformer.getDefaultConfigurationFromProperty(
         "escidoc.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
+  }
+
+  @Override
+  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
+    return SingleTransformer.getAllConfigurationValuesFromProperty(
+        "escidoc.transformation.bmc2escidoc.configuration.filename",
+        "transformations/commonPublicationFormats/conf/bmc2escidoc.properties").get(key);
   }
 
   public URIResolver getURIResolver() {

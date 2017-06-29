@@ -91,6 +91,9 @@ public class QuerierTest {
     logger.info("Query returned " + results.size() + " hits");
 
     for (Describable pair : results) {
+      if (((Pair<?>) pair).getValue().toString().contains("Adsorpt")) {
+        int i = 1;
+      }
       assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
           ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of"));
     }

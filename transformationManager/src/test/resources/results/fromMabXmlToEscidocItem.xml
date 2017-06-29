@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
    <ei:properties>
       <srel:content-model xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
@@ -112,10 +113,9 @@
                         xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
                         xmlns:dcterms="http://purl.org/dc/terms/"
                         xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
-            <prop:visibility>audience</prop:visibility>
-            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
-            <prop:file-name>ASSidUE09.pdf</prop:file-name>
-            <prop:mime-type>application/pdf</prop:mime-type>
+            <prop:visibility>public</prop:visibility>
+            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+            <prop:file-name>https://www.db-thueringen.de/servlets/DerivateServlet/Derivate-2058/ASSidUE09.pdf</prop:file-name>
          </ec:properties>
          <ec:content xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
                      xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
@@ -143,7 +143,7 @@
                      xlink:type="simple"
                      xlink:title="ASSidUE09.pdf"
                      xlink:href="https://www.db-thueringen.de/servlets/DerivateServlet/Derivate-2058/ASSidUE09.pdf"
-                     storage="internal-managed"/>
+                     storage="external-url"/>
          <mdr:md-records xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
@@ -171,13 +171,8 @@
             <mdr:md-record name="escidoc">
                <file:file>
                   <dc:title>ASSidUE09.pdf</dc:title>
-                  <dc:identifier xsi:type="eterms:URI">https://www.db-thueringen
-              .
-              de/servlets/DerivateServlet/Derivate-2058/ASSid
-              UE09.pdf</dc:identifier>
-                  <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
-                  <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
-                  <dcterms:extent>864713</dcterms:extent>
+                  <dc:identifier xsi:type="eterms:URI">ASSidUE09.pdf</dc:identifier>
+                  <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</eterms:content-category>
                </file:file>
             </mdr:md-record>
          </mdr:md-records>

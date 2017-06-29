@@ -190,4 +190,16 @@ public class ConfigurationTest {
     assertTrue(t.getAllConfigurationValuesFor("CoNE").contains("false"));
   }
 
+  @Test
+  public void testZfnTei() throws TransformationException {
+
+    Transformer t = TransformerCache.getTransformer(FORMAT.ZFN_TEI_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    assertTrue(t.getConfiguration() != null);
+    assertTrue(t.getConfiguration().get("ftpDirectory").equals("folder"));
+    assertTrue(t.getConfiguration().get("License")
+        .equals("http://creativecommons.org/licenses/by-nd/3.0/de/"));
+    assertTrue(t.getConfiguration().get("ftpServer").equals("servername"));
+    assertTrue(t.getConfiguration().get("JournalConeID").equals("954927655916_1"));
+  }
+
 }

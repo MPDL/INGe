@@ -309,11 +309,11 @@ public class TransformerFactoryTest {
 
     TransformerStreamSource streamSource =
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "sourceFiles/xxx.xml"));
+            "sourceFiles/edoc_item1.xml"));
 
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
-            "sourceFiles/xxx.xml")), new TransformerStreamResult(wr));
+            "sourceFiles/edoc_item1.xml")), new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
@@ -361,7 +361,7 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabXmlToEscidocItem.xml");
   }
 
-  @Test(expected = TransformationException.class)
+  @Test
   public void testMabXmlWrongLinkToItemXmlV3() throws TransformationException {
 
     StringWriter wr = new StringWriter();
@@ -371,6 +371,7 @@ public class TransformerFactoryTest {
     t.transform(
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
             "sourceFiles/mabXml_item_wronglink.xml")), new TransformerStreamResult(wr));
+    logger.info("\n" + wr.toString());
   }
 
   @Test

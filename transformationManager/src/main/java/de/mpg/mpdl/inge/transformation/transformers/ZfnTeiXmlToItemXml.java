@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.xml.transform.Source;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
+import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
@@ -45,7 +46,9 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return null;
+    return SingleTransformer.getDefaultConfigurationFromProperty(
+        "escidoc.transformation.zfn.configuration.filename",
+        "transformations/standardFormats/conf/zfn.properties");
   }
 
 
