@@ -33,8 +33,6 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortColumn;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.SortDirection;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
@@ -48,8 +46,38 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 @ManagedBean(name = "ImportWorkspace")
 @SuppressWarnings("serial")
 public class ImportWorkspace extends BreadcrumbPage {
-  private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
-  private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
+  /**
+   * enum defining possible sorting columns.
+   */
+  public enum SortColumn {
+    STARTDATE, ENDDATE, NAME, FORMAT, STATUS, ERRORLEVEL;
+
+    /**
+     * @return A representation of the element that is used for storing in a database
+     */
+    public String toSQL() {
+      return super.toString().toLowerCase();
+    }
+  }
+
+  /**
+   * enum defining sorting directions.
+   * 
+   */
+  public enum SortDirection {
+    ASCENDING, DESCENDING;
+
+    /**
+     * @return A representation of the element that is used for storing in a database
+     */
+    public String toSQL() {
+      final String value = super.toString();
+      return value.replace("ENDING", "").toLowerCase();
+    }
+  }
+
+  private ImportWorkspace.SortColumn sortColumn = ImportWorkspace.SortColumn.STARTDATE;
+  private ImportWorkspace.SortDirection sortDirection = ImportWorkspace.SortDirection.DESCENDING;
 
   public ImportWorkspace() {}
 
@@ -57,39 +85,39 @@ public class ImportWorkspace extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    ImportLog.SortColumn currentColumn = null;
-    ImportLog.SortDirection currentDirection = null;
-    ImportLog.SortColumn newColumn = null;
+    ImportWorkspace.SortColumn currentColumn = null;
+    ImportWorkspace.SortDirection currentDirection = null;
+    ImportWorkspace.SortColumn newColumn = null;
 
     final String sortColumnString =
         FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
     if (sortColumnString != null && !"".equals(sortColumnString)) {
-      newColumn = SortColumn.valueOf(sortColumnString);
+      newColumn = ImportWorkspace.SortColumn.valueOf(sortColumnString);
     }
 
     final String currentColumnString =
         FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
     if (currentColumnString != null && !"".equals(currentColumnString)) {
-      currentColumn = SortColumn.valueOf(currentColumnString);
+      currentColumn = ImportWorkspace.SortColumn.valueOf(currentColumnString);
     }
 
     final String currentDirectionString =
         FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
     if (currentDirectionString != null && !"".equals(currentDirectionString)) {
-      currentDirection = SortDirection.valueOf(currentDirectionString);
+      currentDirection = ImportWorkspace.SortDirection.valueOf(currentDirectionString);
     }
 
     if (newColumn != null && newColumn.equals(currentColumn)) {
       this.sortColumn = newColumn;
-      if (currentDirection == SortDirection.ASCENDING) {
-        this.sortDirection = SortDirection.DESCENDING;
+      if (currentDirection == ImportWorkspace.SortDirection.ASCENDING) {
+        this.sortDirection = ImportWorkspace.SortDirection.DESCENDING;
       } else {
-        this.sortDirection = SortDirection.ASCENDING;
+        this.sortDirection = ImportWorkspace.SortDirection.ASCENDING;
       }
     } else if (newColumn != null) {
       this.sortColumn = newColumn;
-      this.sortDirection = SortDirection.ASCENDING;
+      this.sortDirection = ImportWorkspace.SortDirection.ASCENDING;
     }
   }
 
@@ -109,19 +137,19 @@ public class ImportWorkspace extends BreadcrumbPage {
     return null;
   }
 
-  public ImportLog.SortColumn getSortColumn() {
+  public ImportWorkspace.SortColumn getSortColumn() {
     return this.sortColumn;
   }
 
-  public void setSortColumn(ImportLog.SortColumn sortColumn) {
+  public void setSortColumn(ImportWorkspace.SortColumn sortColumn) {
     this.sortColumn = sortColumn;
   }
 
-  public ImportLog.SortDirection getSortDirection() {
+  public ImportWorkspace.SortDirection getSortDirection() {
     return this.sortDirection;
   }
 
-  public void setSortDirection(ImportLog.SortDirection sortDirection) {
+  public void setSortDirection(ImportWorkspace.SortDirection sortDirection) {
     this.sortDirection = sortDirection;
   }
 

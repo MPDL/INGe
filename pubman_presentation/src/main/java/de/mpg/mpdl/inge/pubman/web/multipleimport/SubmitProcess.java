@@ -30,7 +30,6 @@ import java.sql.Connection;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
@@ -59,21 +58,21 @@ public class SubmitProcess extends Thread {
     try {
       this.importLog.reopen(connection);
       this.importLog.startItem("import_process_submit_items", connection);
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_initialize_submit_process",
-          connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+          "import_process_initialize_submit_process", connection);
       this.user = new AccountUserVO();
       this.user.setHandle(importLog.getUserHandle());
       this.user.setUserid(importLog.getUser());
     } catch (final Exception e) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_initialize_submit_process_error",
-          connection);
-      this.importLog.addDetail(ErrorLevel.FATAL, e, connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL,
+          "import_process_initialize_submit_process_error", connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, e, connection);
       this.importLog.close(connection);
       throw new RuntimeException(e);
     }
 
     this.importLog.finishItem(connection);
-    this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_START, connection);
+    this.importLog.setPercentage(BaseImportLog.PERCENTAGE_SUBMIT_START, connection);
   }
 
   @Override
@@ -84,13 +83,13 @@ public class SubmitProcess extends Thread {
         if (item.getItemId() != null && !"".equals(item.getItemId())) {
           itemCount++;
           this.importLog.activateItem(item);
-          this.importLog.addDetail(ErrorLevel.FINE, "import_process_schedule_submit",
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_submit",
               this.connection);
           this.importLog.suspendItem(this.connection);
         }
       }
 
-      this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
+      this.importLog.setPercentage(BaseImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
       int counter = 0;
 
       for (final ImportLogItem item : this.importLog.getItems()) {
@@ -101,34 +100,34 @@ public class SubmitProcess extends Thread {
             final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
             final ItemVO itemVO = pubItemService.get(item.getItemId(), this.authenticationToken);
             if (this.alsoRelease) {
-              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_release_item",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+                  "import_process_submit_release_item", this.connection);
               pubItemService.releasePubItem(item.getItemId(), itemVO.getModificationDate(),
                   "Batch submit/release from import " + this.importLog.getMessage(),
                   this.authenticationToken);
-              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+                  "import_process_submit_release_successful", this.connection);
             } else {
-              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_item",
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item",
                   this.connection);
               pubItemService.submitPubItem(item.getItemId(), itemVO.getModificationDate(),
                   "Batch submit from import " + this.importLog.getMessage(),
                   this.authenticationToken);
-              this.importLog.addDetail(ErrorLevel.FINE, "import_process_submit_successful",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+                  "import_process_submit_successful", this.connection);
             }
 
             this.importLog.finishItem(this.connection);
           } catch (final Exception e) {
-            this.importLog.addDetail(ErrorLevel.WARNING, "import_process_submit_failed",
-                this.connection);
-            this.importLog.addDetail(ErrorLevel.WARNING, e, this.connection);
+            this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+                "import_process_submit_failed", this.connection);
+            this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, e, this.connection);
             this.importLog.finishItem(this.connection);
           }
 
           counter++;
-          this.importLog.setPercentage(ImportLog.PERCENTAGE_SUBMIT_END * counter / itemCount
-              + ImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
+          this.importLog.setPercentage(BaseImportLog.PERCENTAGE_SUBMIT_END * counter / itemCount
+              + BaseImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
         }
       }
 

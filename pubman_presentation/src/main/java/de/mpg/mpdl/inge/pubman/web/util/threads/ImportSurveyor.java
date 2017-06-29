@@ -32,9 +32,10 @@ import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
+import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLogItem;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -107,13 +108,14 @@ public class ImportSurveyor extends Thread {
           for (final ImportLogItem item : log.getItems()) {
             if (item.getEndDate() == null) {
               log.activateItem(item);
-              log.addDetail(ErrorLevel.WARNING, "import_process_terminate_item", connection);
+              log.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_terminate_item",
+                  connection);
               log.finishItem(connection);
             }
           }
 
           log.startItem("import_process_aborted_unexpectedly", connection);
-          log.addDetail(ErrorLevel.FATAL, "import_process_failed", connection);
+          log.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_failed", connection);
           log.finishItem(connection);
           log.close(connection);
         }

@@ -43,8 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.ErrorLevel;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.ImportLog.Status;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EdocProcessor;
@@ -140,7 +138,7 @@ public class ImportProcess extends Thread {
       return;
     }
 
-    this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_START, connection);
+    this.importLog.setPercentage(BaseImportLog.PERCENTAGE_IMPORT_START, connection);
   }
 
   private void initialize(String name, String fileName, File file,
@@ -165,9 +163,9 @@ public class ImportProcess extends Thread {
       this.rollback = rollback;
       this.user = user;
     } catch (final Exception e) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_initialization_failed",
-          this.connection);
-      this.importLog.addDetail(ErrorLevel.FATAL, e, this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL,
+          "import_process_initialization_failed", this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, e, this.connection);
       this.fail();
     }
 
@@ -178,36 +176,39 @@ public class ImportProcess extends Thread {
     this.importLog.startItem("import_process_validate", this.connection);
 
     if (file == null) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_inputstream_unavailable",
-          this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL,
+          "import_process_inputstream_unavailable", this.connection);
       this.fail();
       return false;
     } else {
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_inputstream_available",
-          this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+          "import_process_inputstream_available", this.connection);
     }
 
     if (format == null) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_format_unavailable",
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_format_unavailable",
           this.connection);
       this.fail();
       return false;
     } else {
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_format_available", this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_format_available",
+          this.connection);
     }
 
     if (!itemTransformingService.isTransformationExisting(format,
         TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_format_invalid", this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_format_invalid",
+          this.connection);
       this.fail();
       return false;
     }
 
     if (this.setProcessor(format)) {
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_format_valid", this.connection);
-    } else {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_format_not_supported",
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_format_valid",
           this.connection);
+    } else {
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL,
+          "import_process_format_not_supported", this.connection);
       this.fail();
     }
 
@@ -260,8 +261,9 @@ public class ImportProcess extends Thread {
           return false;
       }
     } catch (final Exception e) {
-      this.importLog.addDetail(ErrorLevel.FATAL, "import_process_format_error", this.connection);
-      this.importLog.addDetail(ErrorLevel.FATAL, e, this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_format_error",
+          this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, e, this.connection);
       this.fail();
     }
 
@@ -273,11 +275,12 @@ public class ImportProcess extends Thread {
   private void fail() {
     this.failed = true;
     this.importLog.finishItem(this.connection);
-    this.importLog.startItem(ErrorLevel.FATAL, "import_process_failed", this.connection);
+    this.importLog.startItem(BaseImportLog.ErrorLevel.FATAL, "import_process_failed",
+        this.connection);
     this.importLog.finishItem(this.connection);
 
     if (this.rollback) {
-      this.importLog.setStatus(Status.ROLLBACK);
+      this.importLog.setStatus(BaseImportLog.Status.ROLLBACK);
       this.rollback();
     }
 
@@ -285,7 +288,8 @@ public class ImportProcess extends Thread {
   }
 
   private void rollback() {
-    this.importLog.startItem(ErrorLevel.FINE, "import_process_rollback", this.connection);
+    this.importLog.startItem(BaseImportLog.ErrorLevel.FINE, "import_process_rollback",
+        this.connection);
     this.importLog.finishItem(this.connection);
     this.importLog.close(this.connection);
 
@@ -327,11 +331,11 @@ public class ImportProcess extends Thread {
                 this.prepareItem(singleItem);
               }
               counter++;
-              this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_PREPARE * counter
-                  / itemCount + ImportLog.PERCENTAGE_IMPORT_START, this.connection);
+              this.importLog.setPercentage(BaseImportLog.PERCENTAGE_IMPORT_PREPARE * counter
+                  / itemCount + BaseImportLog.PERCENTAGE_IMPORT_START, this.connection);
             } catch (final Exception e) {
               ImportProcess.logger.error("Error during import", e);
-              this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.ERROR, e, this.connection);
               this.importLog.finishItem(this.connection);
               if (this.rollback) {
                 this.fail();
@@ -342,7 +346,7 @@ public class ImportProcess extends Thread {
           }
         } catch (final Exception e) {
           ImportProcess.logger.error("Error during import", e);
-          this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.ERROR, e, this.connection);
           this.importLog.finishItem(this.connection);
           if (this.rollback) {
             this.fail();
@@ -355,13 +359,15 @@ public class ImportProcess extends Thread {
 
         this.importLog.finishItem(this.connection);
         this.importLog.startItem("import_process_preparation_finished", this.connection);
-        this.importLog.addDetail(ErrorLevel.FINE, "import_process_no_more_items", this.connection);
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_no_more_items",
+            this.connection);
         this.importLog.finishItem(this.connection);
         counter = 0;
 
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
           final ImportLogItem item = this.importLog.getItems().get(i);
-          if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
+          if (item.getStatus() == BaseImportLog.Status.SUSPENDED && item.getItemVO() != null
+              && !this.failed) {
             try {
               this.importLog.activateItem(item);
 
@@ -374,13 +380,13 @@ public class ImportProcess extends Thread {
                           this.user);
                   item.getItemVO().getFiles().add(file);
                 } catch (final Exception e) {
-                  this.importLog.addDetail(ErrorLevel.WARNING, "Could not fetch file for import",
-                      this.connection);
+                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+                      "Could not fetch file for import", this.connection);
                 }
               }
 
-              this.importLog
-                  .addDetail(ErrorLevel.FINE, "import_process_save_item", this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item",
+                  this.connection);
 
               final PubItemVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(),
@@ -388,16 +394,16 @@ public class ImportProcess extends Thread {
 
               final String objid = savedPubItem.getVersion().getObjectId();
               this.importLog.setItemId(objid, this.connection);
-              this.importLog.addDetail(ErrorLevel.FINE, "import_process_item_imported",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+                  "import_process_item_imported", this.connection);
               this.importLog.finishItem(this.connection);
               counter++;
-              this.importLog.setPercentage(ImportLog.PERCENTAGE_IMPORT_END * counter / itemCount
-                  + ImportLog.PERCENTAGE_IMPORT_START + ImportLog.PERCENTAGE_IMPORT_PREPARE,
-                  this.connection);
+              this.importLog.setPercentage(BaseImportLog.PERCENTAGE_IMPORT_END * counter
+                  / itemCount + BaseImportLog.PERCENTAGE_IMPORT_START
+                  + BaseImportLog.PERCENTAGE_IMPORT_PREPARE, this.connection);
             } catch (final Exception e) {
               ImportProcess.logger.error("Error during import", e);
-              this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.ERROR, e, this.connection);
               this.importLog.finishItem(this.connection);
               if (this.rollback) {
                 this.fail();
@@ -409,7 +415,7 @@ public class ImportProcess extends Thread {
 
         if (!this.failed) {
           this.importLog.startItem("import_process_finished", this.connection);
-          this.importLog.addDetail(ErrorLevel.FINE, "import_process_import_finished",
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_import_finished",
               this.connection);
           this.importLog.finishItem(this.connection);
           this.importLog.close(this.connection);
@@ -424,9 +430,10 @@ public class ImportProcess extends Thread {
   }
 
   private void prepareItem(String singleItem) {
-    this.importLog.addDetail(ErrorLevel.FINE, "import_process_source_data_found", this.connection);
-    this.importLog.addDetail(ErrorLevel.FINE, singleItem, this.connection);
-    this.importLog.addDetail(ErrorLevel.FINE, "import_process_start_transformation",
+    this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_source_data_found",
+        this.connection);
+    this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, singleItem, this.connection);
+    this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_start_transformation",
         this.connection);
     String escidocXml = null;
 
@@ -435,8 +442,8 @@ public class ImportProcess extends Thread {
           this.itemTransformingService.transformFromTo(this.format,
               TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, singleItem);
 
-      this.importLog.addDetail(ErrorLevel.FINE, escidocXml, this.connection);
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_transformation_done",
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done",
           this.connection);
       final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
       pubItemVO.setContext(this.escidocContext);
@@ -447,34 +454,34 @@ public class ImportProcess extends Thread {
           this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
 
       // Simple Validation
-      this.importLog.addDetail(ErrorLevel.FINE, "import_process_default_validation",
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation",
           this.connection);
       try {
         PubItemUtil.cleanUpItem(pubItemVO);
         ItemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
-        this.importLog.addDetail(ErrorLevel.FINE, "import_process_default_validation_successful",
-            this.connection);
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+            "import_process_default_validation_successful", this.connection);
 
         // Standard Validation
-        this.importLog.addDetail(ErrorLevel.FINE, "import_process_release_validation",
-            this.connection);
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+            "import_process_release_validation", this.connection);
         try {
           ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
-          this.importLog.addDetail(ErrorLevel.FINE, "import_process_release_validation_successful",
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+              "import_process_release_validation_successful", this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_generate_item",
               this.connection);
-          this.importLog
-              .addDetail(ErrorLevel.FINE, "import_process_generate_item", this.connection);
           this.importLog.setItemVO(pubItemVO);
           if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
-            this.importLog.addDetail(ErrorLevel.FINE,
+            this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
                 "import_process_check_duplicates_by_identifier", this.connection);
             final boolean duplicatesDetected = this.checkDuplicatesByIdentifier(pubItemVO);
             if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
               this.rollback = true;
               this.fail();
             } else if (duplicatesDetected) {
-              this.importLog.addDetail(ErrorLevel.WARNING, "import_process_no_import",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+                  "import_process_no_import", this.connection);
               this.importLog.finishItem(this.connection);
             } else {
               this.importLog.suspendItem(this.connection);
@@ -483,26 +490,28 @@ public class ImportProcess extends Thread {
             this.importLog.suspendItem(this.connection);
           }
         } catch (final ValidationException e2) { // Standard Validation
-          this.importLog.addDetail(ErrorLevel.WARNING, "import_process_release_validation_failed",
-              this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+              "import_process_release_validation_failed", this.connection);
           for (final ValidationReportItemVO item : e2.getReport().getItems()) {
-            this.importLog.addDetail(ErrorLevel.WARNING, item.getContent(), this.connection);
+            this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, item.getContent(),
+                this.connection);
           }
         }
       } catch (final ValidationException e) { // Simple Validation
-        this.importLog.addDetail(ErrorLevel.PROBLEM, "import_process_default_validation_failed",
-            this.connection);
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
+            "import_process_default_validation_failed", this.connection);
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
-          this.importLog.addDetail(ErrorLevel.PROBLEM, item.getContent(), this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, item.getContent(),
+              this.connection);
         }
-        this.importLog.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported",
-            this.connection);
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
+            "import_process_item_not_imported", this.connection);
         this.importLog.finishItem(this.connection);
       }
     } catch (final Exception e) {
       ImportProcess.logger.error("Error while multiple import", e);
-      this.importLog.addDetail(ErrorLevel.ERROR, e, this.connection);
-      this.importLog.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported",
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.ERROR, e, this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.ERROR, "import_process_item_not_imported",
           this.connection);
       if (this.rollback) {
         this.fail();
@@ -529,42 +538,46 @@ public class ImportProcess extends Thread {
         final MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
         final ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
         if (searchResult.getTotalNumberOfResults().equals(BigInteger.ZERO)) {
-          this.importLog.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected",
-              this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+              "import_process_no_duplicate_detected", this.connection);
           return false;
         } else {
-          this.importLog.addDetail(ErrorLevel.FINE, "import_process_duplicates_detected",
-              this.connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
+              "import_process_duplicates_detected", this.connection);
           for (final ItemVO duplicate : searchResult.extractItemsOfSearchResult()) {
             if (this.itemContentModel.equals(duplicate.getContentModel())) {
               final PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
-                this.importLog.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected",
-                    this.connection);
-                this.importLog.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion()
-                    .getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
+                    "import_process_duplicate_detected", this.connection);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, duplicatePubItemVO
+                    .getVersion().getObjectId()
+                    + " \""
+                    + duplicatePubItemVO.getMetadata().getTitle() + "\"", duplicatePubItemVO
+                    .getVersion().getObjectId(), this.connection);
                 return true;
               } else {
-                this.importLog.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected",
-                    this.connection);
-                this.importLog.addDetail(ErrorLevel.WARNING, duplicatePubItemVO.getVersion()
-                    .getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+                    "import_process_duplicate_detected", this.connection);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, duplicatePubItemVO
+                    .getVersion().getObjectId()
+                    + " \""
+                    + duplicatePubItemVO.getMetadata().getTitle() + "\"", duplicatePubItemVO
+                    .getVersion().getObjectId(), this.connection);
               }
             } else {
-              this.importLog.addDetail(ErrorLevel.WARNING,
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
                   "import_process_detected_duplicate_no_publication", this.connection);
             }
           }
         }
         return true;
       } else {
-        this.importLog.addDetail(ErrorLevel.FINE,
+        this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
             "import_process_no_identifier_for_duplicate_check", this.connection);
       }
     } catch (final Exception e) {
-      this.importLog.addDetail(ErrorLevel.WARNING, e, this.connection);
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, e, this.connection);
       // An error while checking for duplicates should not cause the item not to be imported.
       // this.log.finishItem();
     }
