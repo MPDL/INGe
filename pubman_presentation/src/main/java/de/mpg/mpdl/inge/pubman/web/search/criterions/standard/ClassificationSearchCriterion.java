@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class ClassificationSearchCriterion extends StandardSearchCriterion {
@@ -53,7 +54,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.subjects.value",
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS,
         true, "metadata.subjects")};
 
   }

@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class IdentifierSearchCriterion extends StandardSearchCriterion {
@@ -49,9 +50,9 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
    */
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("version.objectId"),
-        new ElasticSearchIndexField("pid"), new ElasticSearchIndexField("version.pid"),
-        new ElasticSearchIndexField("identifiers.id")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_PID), new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_VERSION_PID),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID)};
 
   }
 

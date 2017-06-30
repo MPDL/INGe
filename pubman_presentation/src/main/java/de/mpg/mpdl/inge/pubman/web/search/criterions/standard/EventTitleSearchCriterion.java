@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class EventTitleSearchCriterion extends StandardSearchCriterion {
@@ -49,7 +50,7 @@ public class EventTitleSearchCriterion extends StandardSearchCriterion {
    */
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.event.title")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE)};
 
   }
 

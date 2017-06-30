@@ -29,6 +29,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class EventInvitationSearchCriterion extends SearchCriterionBase {
@@ -77,7 +78,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
     if (this.isInvited()) {
       return this.baseElasticSearchQueryBuilder(
           new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-              "metadata.event.invitationStatus")}, "invited");
+              PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS)}, "invited");
     }
 
     return null;

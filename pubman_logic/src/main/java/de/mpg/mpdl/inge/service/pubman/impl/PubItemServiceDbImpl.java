@@ -94,49 +94,48 @@ public class PubItemServiceDbImpl implements PubItemService {
 
 
   public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
-
   public static String INDEX_CREATION_DATE = "creationDate";
-
-
   public static String INDEX_LOCAL_TAGS = "localTags";
-
-
   public static String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
-
-
   public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
-
-
   public static String INDEX_PUBLIC_STATE = "publicStatus";
-
+  public static String INDEX_PID = "pid";
 
   public static String INDEX_VERSION_STATE = "version.state";
-
-
   public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
-
-
   public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
-
-
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
+  public static String INDEX_VERSION_PID = "version.pid";
 
+  public static String INDEX_METADATA_TITLE = "metadata.title";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
-
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
-
   public static String INDEX_METADATA_DATE_ACCEPTED = "metadata.dateAccepted";
-
   public static String INDEX_METADATA_DATE_CREATED = "metadata.dateCreated";
-
   public static String INDEX_METADATA_DATE_MODIFIED = "metadata.dateModified";
-
   public static String INDEX_METADATA_DATE_SUBMITTED = "metadata.dateSubmitted";
-
+  public static String INDEX_METADATA_EVENT_TITLE = "metadata.event.title";
   public static String INDEX_METADATA_EVENT_STARTDATE = "metadata.event.startDate";
-
   public static String INDEX_METADATA_EVENT_ENDDATE = "metadata.event.endDate";
-
+  public static String INDEX_METADATA_EVENT_INVITATION_STATUS = "metadata.event.invitationStatus";
+  public static String INDEX_METADATA_GENRE = "metadata.genre";
+  public static String INDEX_METADATA_REVIEW_METHOD = "metadata.reviewMethod";
+  public static String INDEX_METADATA_SUBJECTS = "metadata.subjects.value";
+  public static String INDEX_METADATA_DEGREE = "metadata.degree";
+  public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
+  public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
+  
+  public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingOrganization.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID = "metadata.projectInfo.fundingOrganization.identifiers.id";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingProgram.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID = "metadata.projectInfo.fundingProgram.identifiers.id";
+  public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
+  
+  
+  public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
+  public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE = "metadata.sources.alternativeTitles.value";
+  
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
 
 

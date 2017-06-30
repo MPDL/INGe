@@ -30,6 +30,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
@@ -75,7 +76,7 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
-    QueryBuilders.existsQuery("files.defaultMetadata.embargoUntil");
+    QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL);
     return null;
   }
 

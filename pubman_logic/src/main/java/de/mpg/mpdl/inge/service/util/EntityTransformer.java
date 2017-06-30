@@ -473,11 +473,10 @@ public class EntityTransformer {
 
     oldAccountUser.setReference(userRo);
     oldAccountUser.getGrants().clear();
-    if(newAccountUser.getGrantList()!=null)
-    {
+    if (newAccountUser.getGrantList() != null) {
       oldAccountUser.getGrants().addAll(newAccountUser.getGrantList());
     }
-   
+
 
     return oldAccountUser;
   }

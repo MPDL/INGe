@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.enums;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 
 @SuppressWarnings("serial")
@@ -60,7 +61,7 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.reviewMethod")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD)};
   }
 
   @Override

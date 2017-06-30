@@ -59,7 +59,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String getElasticSearchNestedPath() {
-    return "metadata.subjects";
+    return null;
   }
 
   @Override

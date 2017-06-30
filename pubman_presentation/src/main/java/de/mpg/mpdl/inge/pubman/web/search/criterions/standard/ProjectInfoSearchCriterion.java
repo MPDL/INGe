@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
@@ -47,7 +48,13 @@ public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.projectInfo")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_TITLE),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE)
+    
+    };
 
   }
 

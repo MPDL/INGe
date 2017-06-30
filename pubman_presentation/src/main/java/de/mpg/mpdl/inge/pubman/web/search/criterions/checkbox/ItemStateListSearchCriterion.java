@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCrit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {
@@ -103,7 +104,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("publicStatus")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_PUBLIC_STATE)};
   }
 
   @Override

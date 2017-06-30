@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.enums;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 
 @SuppressWarnings("serial")
@@ -64,7 +65,7 @@ public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.genre")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_GENRE)};
   }
 
   @Override

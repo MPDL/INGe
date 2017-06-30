@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class JournalSearchCriterion extends StandardSearchCriterion {
@@ -48,8 +49,8 @@ public class JournalSearchCriterion extends StandardSearchCriterion {
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField("metadata.sources.title", true, "metadata.sources"),
-        new ElasticSearchIndexField("metadata.sources.alternativeTitles.value", true,
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, true, "metadata.sources"),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE, true,
             "metadata.sources.alternativeTitles")};
 
   }
