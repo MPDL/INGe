@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -174,7 +175,7 @@ public class ContextListSessionBean extends FacesBean {
           bq.must(QueryBuilders.termQuery("state", ContextVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
-            bq.should(QueryBuilders.termQuery("reference.objectId", id));
+            bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
           }
 
           SearchRetrieveResponseVO<ContextVO> response = ApplicationBean.INSTANCE

@@ -49,6 +49,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
     implements OrganizationService {
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
+  public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
+  public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "defaultMetadata.alternativeNames";
+  public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliations.objectId";
+  public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
@@ -75,7 +79,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
    */
   public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
-        QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("parentAffiliations"));
+        QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
@@ -93,7 +97,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
-        QueryBuilders.termQuery("parentAffiliations.objectId", parentAffiliationId);
+        QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
@@ -102,7 +106,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
   public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
     final QueryBuilder qb =
-        QueryBuilders.boolQuery().must(QueryBuilders.termQuery("predecessorAffiliations.objectId", objectId));
+        QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 

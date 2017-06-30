@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 
 /**
  * @author franke
@@ -62,8 +63,8 @@ public class OrganizationSuggest extends EditItemBean {
     if (query != null) {
       QueryBuilder qb =
           QueryBuilders.boolQuery().should(
-              QueryBuilders.multiMatchQuery(query, "defaultMetadata.name",
-                  "defaultMetadata.alternativeNames"));
+              QueryBuilders.multiMatchQuery(query, OrganizationServiceDbImpl.INDEX_METADATA_TITLE,
+                  OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES));
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0);
 
