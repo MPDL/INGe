@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -42,6 +45,7 @@ public class ItemRestController {
   private final String ITEM_ID_PATH = "/{itemId}";
   private final String ITEM_ID_VAR = "itemId";
   private PubItemService pis;
+  private ObjectMapper mapper;
 
   @Autowired
   public ItemRestController(PubItemService pis) {
@@ -78,13 +82,15 @@ public class ItemRestController {
   @RequestMapping(value = "/search", method = RequestMethod.POST,
       produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> query(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody String query,
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException, IOException {
-
-    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(query);
+    mapper = new ObjectMapper();
+    Object o = mapper.treeToValue(query, Object.class);
+    String s = mapper.writeValueAsString(o);
+    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(s);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
