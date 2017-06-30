@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:48:56
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class ImageAcquisitionDeviceVO extends AbstractAcquisitionDeviceVO {
 
   /**

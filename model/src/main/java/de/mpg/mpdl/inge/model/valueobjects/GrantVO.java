@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
  * @updated 05-Sep-2007 10:46:17
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class GrantVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

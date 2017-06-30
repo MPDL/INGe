@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:48:44
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

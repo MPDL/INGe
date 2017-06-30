@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * @updated 05-Sep-2007 11:14:08
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class ContextVO extends ValueObject implements Searchable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

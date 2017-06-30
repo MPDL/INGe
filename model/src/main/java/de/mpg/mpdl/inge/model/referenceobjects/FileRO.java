@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @version 1.0
  * @updated 04-Sep-2007 11:43:19
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class FileRO extends ReferenceObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

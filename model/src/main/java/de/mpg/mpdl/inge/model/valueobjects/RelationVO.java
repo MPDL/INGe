@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
  * 
  * @updated 18-Okt-2007 15:42:32
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class RelationVO extends ValueObject {
 
   /**

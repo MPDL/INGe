@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 @Entity(name = "AffiliationVO")
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType",

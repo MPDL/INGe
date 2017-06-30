@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @version $Revision$ $LastChangedDate$
  * @updated 21-Nov-2007 12:08:27
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 @MappedSuperclass
 public class BasicDbRO implements Cloneable {
   /**

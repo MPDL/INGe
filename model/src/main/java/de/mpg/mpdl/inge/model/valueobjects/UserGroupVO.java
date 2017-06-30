@@ -61,7 +61,7 @@ import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class UserGroupVO extends ValueObject {
   private Date creationDate;
   private String createdBy;

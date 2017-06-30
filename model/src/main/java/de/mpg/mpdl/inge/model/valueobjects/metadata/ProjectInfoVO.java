@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class ProjectInfoVO extends ValueObject {
   private String title;
   private IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "");

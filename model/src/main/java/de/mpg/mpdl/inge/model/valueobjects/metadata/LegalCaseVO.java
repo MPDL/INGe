@@ -14,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  *         JUS-specific VO
  * 
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class LegalCaseVO extends ValueObject implements Cloneable {
 
   /**

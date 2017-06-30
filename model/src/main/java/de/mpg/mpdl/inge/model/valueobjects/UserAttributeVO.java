@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author haarlaender
  * 
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class UserAttributeVO extends ValueObject {
 
   /**

@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @updated 07-Sep-2007 13:27:29
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class AffiliationVO extends ValueObject implements Searchable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

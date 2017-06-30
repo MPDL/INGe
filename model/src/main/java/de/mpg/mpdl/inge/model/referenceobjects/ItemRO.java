@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
  * @version 1.0
  * @updated 21-Nov-2007 12:37:07
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class ItemRO extends ReferenceObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @version $Revision$ $LastChangedDate$
  * @updated 04-Sep-2007 11:43:18
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 public class AffiliationRO extends ReferenceObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

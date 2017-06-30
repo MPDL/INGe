@@ -12,7 +12,7 @@ public class JsonObjectMapperFactory {
   static {
     jsonObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     jsonObjectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    jsonObjectMapper.setSerializationInclusion(Include.NON_EMPTY);
+    jsonObjectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
   }
 

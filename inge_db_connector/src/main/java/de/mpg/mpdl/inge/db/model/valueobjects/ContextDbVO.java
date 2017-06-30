@@ -55,7 +55,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
  */
-@JsonInclude(value = Include.NON_NULL)
+@JsonInclude(value = Include.NON_EMPTY)
 @Entity(name = "ContextVO")
 @Table(name = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType",
