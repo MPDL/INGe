@@ -9,8 +9,9 @@
         <table>
             <tbody>
                 <tr class="full_area0 listItem">
-                    <td class="free_area0 endline"><span class="tiny_area0">
-							&#160; </span></td>
+                    <td class="free_area0 endline">
+                    	<span class="tiny_area0">&#160; </span>
+                    </td>
                     <td class="free_area0 endline status">
                         <h:panelGroup styleClass="seperator"></h:panelGroup>
                         <h:panelGroup styleClass="free_area0 endline statusArea">
@@ -25,38 +26,52 @@
                         </h:panelGroup>
                     </td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputLink id="lnkImportMyItems"
+                        <h:panelGroup styleClass="seperator"></h:panelGroup>
+                        <span class="large_area0_p8">
+                        	<h:outputLink id="lnkImportMyItems"
 								value="#{ImportLogBean.import.myItemsLink}"
 								rendered="#{ImportLogBean.import.importedItems}">
 								<h:outputText value="#{ImportLogBean.import.message}" />
-							</h:outputLink> <h:outputText value="#{ImportLogBean.import.message}"
-								rendered="#{!ImportLogBean.import.importedItems}" />
-					</span></td>
+							</h:outputLink>
+							<h:outputText value="#{ImportLogBean.import.message}" rendered="#{!ImportLogBean.import.importedItems}" />
+						</span>
+					</td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputText
-								value="#{ImportWorkspace.getFormatLabel(ImportLogBean.import)}" />&#160;
-					</span></td>
+                        <h:panelGroup styleClass="seperator"></h:panelGroup>
+                        <span class="large_area0_p8">
+                        	<h:outputText value="#{ImportWorkspace.getFormatLabel(ImportLogBean.import)}" />&#160;
+						</span>
+					</td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputText
-								value="#{ImportLogBean.import.startDateFormatted}" />&#160;
-					</span></td>
+                        <h:panelGroup styleClass="seperator"></h:panelGroup>
+                        <span class="large_area0_p8">
+                        	<h:outputText value="#{ImportLogBean.import.startDateFormatted}" />&#160;
+					    </span>
+					</td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8"> <h:outputText
-								value="#{ImportLogBean.import.endDateFormatted}" />&#160;
-					</span></td>
+                        <h:panelGroup styleClass="seperator"></h:panelGroup>
+                        <span class="large_area0_p8">
+                        	<h:outputText value="#{ImportLogBean.import.endDateFormatted}" />&#160;
+						</span>
+					</td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0_p8 detailsLinkArea"> <h:inputHidden
-								id="inpImportItemsLink" value="#{ImportLogBean.import.itemsLink}" />
-							<a
-							onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
+                        <h:panelGroup styleClass="seperator"></h:panelGroup>
+                        <span class="large_area0_p8 detailsLinkArea">
+                        	<h:inputHidden id="inpImportItemsLink" value="#{ImportLogBean.import.itemsLink}" />
+							<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 								<b><h:outputText value="#{lbl.import_workspace_detailsView}" /></b>
-						</a>
-					</span></td>
+							</a>
+						</span>
+					</td>
                     <td class="free_area0 endline">
-                        <h:panelGroup styleClass="seperator"></h:panelGroup> <span class="large_area0 endline"> <h:panelGroup rendered="false"
+                        <h:panelGroup styleClass="seperator">
+                        </h:panelGroup>
+                        <span class="large_area0 endline">
+                        	<h:panelGroup rendered="false"
 								styleClass="large_area0_p8 noPaddingTopBottom endline">
 								<h:outputText value="#{ImportLogBean.import.errorLevel}" />
-							</h:panelGroup> <h:panelGroup rendered="#{ImportLogBean.import.finished}">
+							</h:panelGroup>
+							<h:panelGroup rendered="#{ImportLogBean.import.finished}">
 								<h:outputLink
 									styleClass="small_area0_p8 noPaddingTopBottom endline"
 									title="#{tip.import_workspace_remove_import}"
@@ -82,11 +97,11 @@
 									title="#{tip.import_workspace_submit_release_items}"
 									value="ImportWorkspaceRelease.jsp?id=#{ImportLogBean.importId}"
 									rendered="#{ImportLogBean.import.importedItems and (LoginHelper.isModerator or ImportLogBean.simpleWorkflow)}">
-									<h:outputText
-										value="#{lbl.import_workspace_submit_release_items}" />
+									<h:outputText value="#{lbl.import_workspace_submit_release_items}" />
 								</h:outputLink>
 							</h:panelGroup>
-					</span></td>
+						</span>
+					</td>
                 </tr>
             </tbody>
         </table>

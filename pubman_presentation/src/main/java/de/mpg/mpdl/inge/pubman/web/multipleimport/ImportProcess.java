@@ -293,13 +293,13 @@ public class ImportProcess extends Thread {
     this.importLog.finishItem(this.connection);
     this.importLog.close(this.connection);
 
-    final Connection con = DbTools.getNewConnection();
+    final Connection connection = DbTools.getNewConnection();
     final DeleteProcess deleteProcess;
     try {
-      deleteProcess = new DeleteProcess(this.importLog, this.authenticationToken, con);
+      deleteProcess = new DeleteProcess(this.importLog, this.authenticationToken, connection);
       deleteProcess.start();
     } catch (final Exception e) {
-      DbTools.closeConnection(con);
+      DbTools.closeConnection(connection);
       throw e;
     }
   }

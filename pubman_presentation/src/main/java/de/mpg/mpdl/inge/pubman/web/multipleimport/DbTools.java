@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class DbTools {
-
   public static void closePreparedStatement(PreparedStatement ps) {
     try {
       if (ps != null && !ps.isClosed()) {
@@ -42,10 +41,19 @@ public class DbTools {
   public static Connection getNewConnection() {
     try {
       Class.forName(PropertyReader.getProperty("inge.database.driver.class"));
+
       final String connectionUrl = PropertyReader.getProperty("inge.database.jdbc.url");
-      return DriverManager.getConnection(connectionUrl,
-          PropertyReader.getProperty("inge.database.user.name"),
-          PropertyReader.getProperty("inge.database.user.password"));
+
+      Connection connection =
+          DriverManager.getConnection(connectionUrl,
+              PropertyReader.getProperty("inge.database.user.name"),
+              PropertyReader.getProperty("inge.database.user.password"));
+
+      if (connection != null && !connection.isClosed()) {
+        return connection;
+      } else {
+        throw new RuntimeException("Error creating database connection");
+      }
     } catch (final Exception e) {
       throw new RuntimeException("Error creating database connection", e);
     }
