@@ -23,6 +23,8 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -46,21 +48,29 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<List<AccountUserVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery);
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> search(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit",
+      required = true, defaultValue = "10") int limit, @RequestParam(value = "offset",
+      required = true, defaultValue = "0") int offset) throws AuthenticationException,
+      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+    SearchSortCriteria sorting = new SearchSortCriteria("name.sorted", SortOrder.ASC);
+
+    SearchRetrieveRequestVO srRequest =
+        new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
-    List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
-    srResponse.getRecords().forEach(record -> response.add(record.getData()));
-    return new ResponseEntity<List<AccountUserVO>>(response, HttpStatus.OK);
+    // List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
+    // srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<List<AccountUserVO>> filter(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
+		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);
+	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     List<AccountUserVO> response = new ArrayList<AccountUserVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
