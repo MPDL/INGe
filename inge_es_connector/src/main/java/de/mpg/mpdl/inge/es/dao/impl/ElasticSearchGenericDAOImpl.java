@@ -3,7 +3,10 @@ package de.mpg.mpdl.inge.es.dao.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
+import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -11,6 +14,7 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -21,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -232,6 +237,26 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements Gener
 
 
     return srrVO;
+  }
+
+
+
+  public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
+    String realIndexName = indexName;
+
+    GetAliasesResponse aliasResp =
+        client.getClient().admin().indices().prepareGetAliases(indexName).get();
+    if (!aliasResp.getAliases().isEmpty()) {
+      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
+
+    }
+    GetMappingsResponse resp =
+        client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType)
+            .get();
+    MappingMetaData mmd = resp.getMappings().get(realIndexName).get(indexType);
+
+    return ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
+
   }
 
 

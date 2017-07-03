@@ -1,7 +1,10 @@
 package de.mpg.mpdl.inge.es.dao;
 
+import java.util.Map;
+
 import org.elasticsearch.action.search.SearchResponse;
 
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -72,5 +75,15 @@ public interface GenericDaoEs<E extends ValueObject> {
    */
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
       throws IngeTechnicalException;
+
+
+  /**
+   * Retrieves the mapping for the index and transforms it into a map of ElasticSearchIndexField
+   * objects, including information about the field name, its type and the nested path
+   * 
+   * @return
+   * @throws IngeTechnicalException
+   */
+  public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException;
 
 }
