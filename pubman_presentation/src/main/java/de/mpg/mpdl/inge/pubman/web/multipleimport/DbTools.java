@@ -1,13 +1,30 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class DbTools {
+  private static DataSource DS;
+
+  static {
+    try {
+      Context initialContext = new InitialContext();
+      DS =
+          (DataSource) initialContext
+              .lookup(PropertyReader.getProperty("inge.database.datasource"));
+    } catch (NamingException e) {
+      throw new RuntimeException("Error getting datasource", e);
+    }
+  }
+
   public static void closePreparedStatement(PreparedStatement ps) {
     try {
       if (ps != null && !ps.isClosed()) {
@@ -40,14 +57,7 @@ public class DbTools {
 
   public static Connection getNewConnection() {
     try {
-      Class.forName(PropertyReader.getProperty("inge.database.driver.class"));
-
-      final String connectionUrl = PropertyReader.getProperty("inge.database.jdbc.url");
-
-      Connection connection =
-          DriverManager.getConnection(connectionUrl,
-              PropertyReader.getProperty("inge.database.user.name"),
-              PropertyReader.getProperty("inge.database.user.password"));
+      Connection connection = DbTools.DS.getConnection();
 
       if (connection != null && !connection.isClosed()) {
         return connection;
