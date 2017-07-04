@@ -50,7 +50,8 @@ public class EventTitleSearchCriterion extends StandardSearchCriterion {
    */
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE)};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE)};
 
   }
 

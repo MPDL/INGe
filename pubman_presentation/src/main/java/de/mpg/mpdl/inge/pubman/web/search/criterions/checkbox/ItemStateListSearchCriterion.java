@@ -104,7 +104,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_PUBLIC_STATE)};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE)};
   }
 
   @Override

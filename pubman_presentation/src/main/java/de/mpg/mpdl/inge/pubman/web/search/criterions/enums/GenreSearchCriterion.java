@@ -65,7 +65,8 @@ public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_GENRE)};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        PubItemServiceDbImpl.INDEX_METADATA_GENRE)};
   }
 
   @Override

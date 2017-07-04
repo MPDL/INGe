@@ -124,18 +124,24 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_METADATA_DEGREE = "metadata.degree";
   public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
   public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
-  
+
   public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingOrganization.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID = "metadata.projectInfo.fundingOrganization.identifiers.id";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingProgram.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID = "metadata.projectInfo.fundingProgram.identifiers.id";
-  public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
-  
-  
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE =
+      "metadata.projectInfo.fundingOrganization.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID =
+      "metadata.projectInfo.fundingOrganization.identifiers.id";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE =
+      "metadata.projectInfo.fundingProgram.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID =
+      "metadata.projectInfo.fundingProgram.identifiers.id";
+  public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID =
+      "metadata.projectInfo.grantIdentifier.id";
+
+
   public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
-  public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE = "metadata.sources.alternativeTitles.value";
-  
+  public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE =
+      "metadata.sources.alternativeTitles.value";
+
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
 
 

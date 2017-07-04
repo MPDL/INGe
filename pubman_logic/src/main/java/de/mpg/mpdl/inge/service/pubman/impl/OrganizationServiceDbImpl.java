@@ -52,7 +52,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
   public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
   public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "defaultMetadata.alternativeNames";
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliations.objectId";
-  public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
+  public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID =
+      "predecessorAffiliations.objectId";
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 

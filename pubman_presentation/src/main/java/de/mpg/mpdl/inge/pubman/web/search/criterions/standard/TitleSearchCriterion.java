@@ -48,7 +48,8 @@ public class TitleSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_TITLE)};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        PubItemServiceDbImpl.INDEX_METADATA_TITLE)};
   }
 
   @Override

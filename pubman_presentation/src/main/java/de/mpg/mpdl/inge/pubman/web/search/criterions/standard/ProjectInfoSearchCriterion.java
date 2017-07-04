@@ -48,12 +48,17 @@ public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_TITLE),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE)
-    
+    return new ElasticSearchIndexField[] {
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_TITLE),
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE),
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID),
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE),
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE)
+
     };
 
   }

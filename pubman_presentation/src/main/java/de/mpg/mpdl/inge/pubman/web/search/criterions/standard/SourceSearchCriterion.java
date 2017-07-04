@@ -48,9 +48,10 @@ public class SourceSearchCriterion extends StandardSearchCriterion {
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, true, "metadata.sources"),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE, true,
-            "metadata.sources.alternativeTitles")};
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, true,
+            "metadata.sources"),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE,
+            true, "metadata.sources.alternativeTitles")};
 
   }
 

@@ -54,8 +54,8 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS,
-        true, "metadata.subjects")};
+    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
+        PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS, true, "metadata.subjects")};
 
   }
 
