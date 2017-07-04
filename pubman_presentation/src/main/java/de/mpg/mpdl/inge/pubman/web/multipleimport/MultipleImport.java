@@ -122,7 +122,7 @@ public class MultipleImport extends FacesBean {
   public String getFileSize() {
     if (this.uploadedFile != null) {
       final long size = this.uploadedFile.length();
-      System.out.println(size);
+      logger.info("File uploaded of size <" + size);
       if (size < 1024) {
         return size + "B";
       } else if (size < 1024 * 1024) {

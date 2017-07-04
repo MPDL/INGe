@@ -593,6 +593,8 @@
 	<xsl:template match="mab037_c">
 		<xsl:for-each select="tokenize(normalize-space(replace(.,'/', ' ')), '\s+')">
 			<xsl:element name="dc:language">
+			 <xsl:value-of select="."/>
+			<!-- 
 			<xsl:choose>
 				<xsl:when test=". = 'afr'">af</xsl:when>
 				<xsl:when test=". = 'ara'">ar</xsl:when>
@@ -630,6 +632,7 @@
 				<xsl:when test=". = 'chi'">zh</xsl:when>
 				<xsl:otherwise></xsl:otherwise>
 			</xsl:choose>
+			 -->
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>

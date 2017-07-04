@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.10">
    <ei:properties>
       <srel:content-model xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
                           xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
@@ -11,14 +11,14 @@
                           xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
                           xmlns:xs="http://www.w3.org/2001/XMLSchema"
                           xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
                           xmlns:escidoc="urn:escidoc:functions"
                           xmlns:prop="http://escidoc.de/core/01/properties/"
                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                           xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                          xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-                          xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                          xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                          xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                           xmlns:xlink="http://www.w3.org/1999/xlink"
                           xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
                           xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -28,7 +28,7 @@
                           objid="escidoc:2001"/>
       <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
    </ei:properties>
-   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">
       <mdr:md-record xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
                      xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
                      xmlns:srel="http://escidoc.de/core/01/structural-relations/"
@@ -39,13 +39,13 @@
                      xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
                      xmlns:xs="http://www.w3.org/2001/XMLSchema"
                      xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
                      xmlns:escidoc="urn:escidoc:functions"
                      xmlns:prop="http://escidoc.de/core/01/properties/"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                      xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                      xmlns:xlink="http://www.w3.org/1999/xlink"
                      xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
                      xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -65,7 +65,7 @@
                </person:person>
             </eterms:creator>
             <dc:title>Thoughts on grammaticalization</dc:title>
-            <dc:language>en</dc:language>
+            <dc:language>eng</dc:language>
             <dc:identifier xsi:type="eterms:OTHER">244</dc:identifier>
             <dc:identifier xsi:type="eterms:URI">https://www.db-thueringen
               .
@@ -88,7 +88,7 @@
          </pub:publication>
       </mdr:md-record>
    </mdr:md-records>
-   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.8">
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.9">
       <ec:component>
          <ec:properties xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
                         xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
@@ -105,8 +105,8 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                        xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-                        xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                        xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                        xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
                         xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -132,8 +132,8 @@
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                      xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                     xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                     xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                      xmlns:xlink="http://www.w3.org/1999/xlink"
                      xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
                      xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -153,17 +153,17 @@
                          xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
                          xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                         xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
                          xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
                          xmlns:escidoc="urn:escidoc:functions"
                          xmlns:prop="http://escidoc.de/core/01/properties/"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                         xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-                         xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8"
+                         xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                         xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                          xmlns:xlink="http://www.w3.org/1999/xlink"
                          xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
-                         xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
                          xmlns:dc="http://purl.org/dc/elements/1.1/"
                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
                          xmlns:dcterms="http://purl.org/dc/terms/"
