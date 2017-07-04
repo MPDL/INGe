@@ -21,6 +21,7 @@ public class ImportSurveyerServlet extends HttpServlet {
     // surveyes import database
     try {
       this.importSurveyor = new ImportSurveyor();
+      ImportSurveyerServlet.logger.info("Start ImportSurveyer task...");
       this.importSurveyor.start();
     } catch (final Exception e) {
       ImportSurveyerServlet.logger.error("Problem with ImportSurveyer task", e);

@@ -83,6 +83,8 @@ public class ImportSurveyor extends Thread {
         return;
       }
 
+      ImportSurveyor.logger.info("Import surveyor checks logs...");
+
       Connection connection = null;
       ResultSet rs = null;
       PreparedStatement ps = null;
