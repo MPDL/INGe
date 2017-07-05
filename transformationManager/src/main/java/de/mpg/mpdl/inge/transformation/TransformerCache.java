@@ -47,6 +47,31 @@ public class TransformerCache {
     }
   }
 
+  public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+
+    synchronized (transformerMap) {
+
+      Transformer t = null;
+      if ((t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))) != null)
+        return true;
+
+      if (t == null) {
+        try {
+          t = TransformerFactory.newInstance(sourceFormat, targetFormat);
+        } catch (TransformationException e) {
+          return false;
+        }
+
+        if (t != null) {
+          transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
   public static TransformerFactory.FORMAT[] getAllTargetFormatsFor(
       TransformerFactory.FORMAT sourceFormat) {
 
@@ -84,31 +109,6 @@ public class TransformerCache {
       return sourceFormats;
     }
   }
-
-  public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
-
-    synchronized (transformerMap) {
-
-      Transformer t = null;
-      if ((t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))) != null)
-        return true;
-
-      if (t == null) {
-        try {
-          t = TransformerFactory.newInstance(sourceFormat, targetFormat);
-        } catch (TransformationException e) {
-          return false;
-        }
-
-        if (t != null) {
-          transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
 
   // for testing purposes
   static int getTransformerCacheSize() {

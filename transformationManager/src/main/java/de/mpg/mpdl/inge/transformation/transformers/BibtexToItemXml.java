@@ -10,7 +10,6 @@ import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.ImportUsableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
@@ -23,8 +22,7 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.Bibtex;
 @TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING,
     targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
-public class BibtexToItemXml extends SingleTransformer implements ChainableTransformer,
-    ImportUsableTransformer {
+public class BibtexToItemXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
   public void transform(TransformerSource source, TransformerResult result)
