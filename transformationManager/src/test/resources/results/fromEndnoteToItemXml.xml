@@ -45,34 +45,19 @@
                <person:person>
                   <eterms:family-name>Preis</eterms:family-name>
                   <eterms:given-name>Anna</eterms:given-name>
-                  <!--Publication-Date: 2016--><!--pubdate: 2016--><!--start: --><!--start < pubdate true--><!--end: --><!--pubdate < end true--><!-- Case: affiliated institute found for publishing date --><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>escidoc:392901</dc:identifier>
-                  </organization:organization>
-                  <dc:identifier xsi:type="CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons47911</dc:identifier>
-               </person:person>
+                  <!--Publication-Date: 2016--></person:person>
             </eterms:creator>
             <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
                <person:person>
                   <eterms:family-name>Mundry</eterms:family-name>
                   <eterms:given-name>Roger</eterms:given-name>
-                  <!--Publication-Date: 2016--><!--pubdate: 2016--><!--start: --><!--start < pubdate true--><!--end: --><!--pubdate < end true--><!-- Case: affiliated institute found for publishing date --><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>escidoc:392901</dc:identifier>
-                  </organization:organization>
-                  <dc:identifier xsi:type="CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons47865</dc:identifier>
-               </person:person>
+                  <!--Publication-Date: 2016--></person:person>
             </eterms:creator>
             <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
                <person:person>
                   <eterms:family-name>Deschner</eterms:family-name>
                   <eterms:given-name>Tobias</eterms:given-name>
-                  <!--Publication-Date: 2016--><!--pubdate: 2016--><!--start: --><!--start < pubdate true--><!--end: --><!--pubdate < end true--><!-- Case: affiliated institute found for publishing date --><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>escidoc:392901</dc:identifier>
-                  </organization:organization>
-                  <dc:identifier xsi:type="CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons47644</dc:identifier>
-               </person:person>
+                  <!--Publication-Date: 2016--></person:person>
             </eterms:creator>
             <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
                <person:person>
@@ -84,12 +69,7 @@
                <person:person>
                   <eterms:family-name>Wittig</eterms:family-name>
                   <eterms:given-name>Roman M.</eterms:given-name>
-                  <!--Publication-Date: 2016--><!--pubdate: 2016--><!--start: --><!--start < pubdate true--><!--end: --><!--pubdate < end true--><!-- Case: affiliated institute found for publishing date --><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>escidoc:392901</dc:identifier>
-                  </organization:organization>
-                  <dc:identifier xsi:type="CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons48050</dc:identifier>
-               </person:person>
+                  <!--Publication-Date: 2016--></person:person>
             </eterms:creator>
             <dc:title>Oxytocin reactivity during intergroup conflict in wild
 chimpanzees (advance online) : </dc:title>
@@ -111,7 +91,9 @@ chimpanzees (advance online) : </dc:title>
    <escidocComponents:components>
       <escidocComponents:component>
          <escidocComponents:properties>
-            <prop:visibility>public</prop:visibility>
+            <prop:visibility>
+							public
+						</prop:visibility>
             <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
             <prop:file-name>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</prop:file-name>
          </escidocComponents:properties>
