@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -698,6 +700,30 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
+  }
+
+  @Test
+  public void testIdentity() throws TransformationException, IOException {
+    Transformer t =
+        TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    assertTrue(t.getClass().getName()
+        .equals("de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer"));
+
+    StringWriter wr = new StringWriter();
+    StringWriter wr1 = new StringWriter();
+
+    t.transform(
+        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream(
+            "sourceFiles/escidoc_item_v13.xml")), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
+    IOUtils.copy(getClass().getClassLoader()
+        .getResourceAsStream("sourceFiles/escidoc_item_v13.xml"), wr1, "UTF-8");
+
+    assertTrue(wr.toString().length() == wr1.toString().length());
+
   }
 
 

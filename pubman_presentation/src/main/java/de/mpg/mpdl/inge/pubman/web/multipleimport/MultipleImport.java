@@ -97,7 +97,7 @@ public class MultipleImport extends FacesBean {
         this.getLabel("ENUM_IMPORT_FORMAT_MAB")));
     this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.EDOC_XML, //
         this.getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, //
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, //
         this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
     this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ZFN_TEI_XML, //
         this.getLabel("ENUM_IMPORT_FORMAT_ZFN")));
@@ -122,7 +122,7 @@ public class MultipleImport extends FacesBean {
   public String getFileSize() {
     if (this.uploadedFile != null) {
       final long size = this.uploadedFile.length();
-      logger.info("File uploaded of size <" + size);
+      logger.info("File uploaded of size <" + size + ">");
       if (size < 1024) {
         return size + "B";
       } else if (size < 1024 * 1024) {
