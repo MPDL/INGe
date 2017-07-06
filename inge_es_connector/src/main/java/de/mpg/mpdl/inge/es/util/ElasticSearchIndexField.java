@@ -72,8 +72,9 @@ public class ElasticSearchIndexField {
   /**
    * Factory class that produces a Map of ElasticSearchIndexField objects with field name as keys.
    * Requires an Elasticsearch MappingMetadata object
+   * 
    * @author haarlae1
-   *
+   * 
    */
   public static class Factory {
 

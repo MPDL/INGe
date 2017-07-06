@@ -260,25 +260,25 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
     return reindexList;
   }
-  
-  
+
+
   /**
    * Returns the path from the given id up to root parent
    */
   @Transactional
-  public List<String> getIdPath(String id, String token) throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException
-  {
+  public List<String> getIdPath(String id, String token) throws IngeTechnicalException,
+      IngeApplicationException, AuthenticationException, AuthorizationException {
     AffiliationDbVO affVo = organizationRepository.findOne(id);
-    if(affVo == null) throw new IngeApplicationException("Could not find organization with id " + id);
-    
+    if (affVo == null)
+      throw new IngeApplicationException("Could not find organization with id " + id);
+
     List<String> idPath = new ArrayList<>();
     idPath.add(affVo.getObjectId());
-    while(affVo.getParentAffiliation()!=null)
-    {
+    while (affVo.getParentAffiliation() != null) {
       idPath.add(affVo.getParentAffiliation().getObjectId());
       affVo = (AffiliationDbVO) affVo.getParentAffiliation();
     }
-    
+
     return idPath;
   }
 
