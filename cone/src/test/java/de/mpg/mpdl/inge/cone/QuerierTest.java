@@ -97,7 +97,9 @@ public class QuerierTest {
               || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("abstr")
               || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("journal")
               || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("j.")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("adv"));
+              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("adv")
+              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("society")
+              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("acta"));
     }
   }
 
@@ -113,7 +115,13 @@ public class QuerierTest {
 
     for (Describable pair : results) {
       assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
-          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of"));
+          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("abstr")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("journal")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("j.")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("adv")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("society")
+          || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("acta"));
     }
   }
 
