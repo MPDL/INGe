@@ -153,16 +153,6 @@ public class LoginHelper extends FacesBean {
 
   public void logoutCallBySessionListener() {
     this.init();
-    this.gotoHomePage();
-  }
-
-  private void gotoHomePage() {
-    try {
-      FacesTools.getExternalContext().redirect(
-          FacesTools.getRequest().getContextPath() + "/faces/HomePage.jsp");
-    } catch (IOException e) {
-      LoginHelper.logger.error("Could not redirect to HomePage", e);
-    }
   }
 
   public String getAuthenticationToken() {
