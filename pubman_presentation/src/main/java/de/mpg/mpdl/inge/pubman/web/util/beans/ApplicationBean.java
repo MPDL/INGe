@@ -37,6 +37,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.model.SelectItem;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
@@ -118,6 +119,9 @@ public class ApplicationBean extends FacesBean {
 
   @ManagedProperty("#{userAccountServiceImpl}")
   private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
+
+  @ManagedProperty("#{restDataSource}")
+  private DataSource dataSource;
 
   public static ApplicationBean INSTANCE;
 
@@ -560,5 +564,13 @@ public class ApplicationBean extends FacesBean {
   public void setUserAccountService(
       de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService) {
     this.userAccountService = userAccountService;
+  }
+
+  public DataSource getDataSource() {
+    return dataSource;
+  }
+
+  public void setDataSource(DataSource dataSource) {
+    this.dataSource = dataSource;
   }
 }
