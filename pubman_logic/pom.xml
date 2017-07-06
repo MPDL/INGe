@@ -93,10 +93,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
 		
 		<dependency>
 			<groupId>com.auth0</groupId>
