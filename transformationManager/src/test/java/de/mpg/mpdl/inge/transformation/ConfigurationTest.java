@@ -202,4 +202,13 @@ public class ConfigurationTest {
     assertTrue(t.getConfiguration().get("JournalConeID").equals("954927655916_1"));
   }
 
+  @Test
+  public void testEscidoc() throws TransformationException {
+
+    Transformer t =
+        TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    assertTrue(t.getConfiguration() == null);
+
+  }
+
 }

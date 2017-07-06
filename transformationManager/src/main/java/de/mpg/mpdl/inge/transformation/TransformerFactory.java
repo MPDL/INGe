@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
 public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
@@ -70,6 +71,10 @@ public class TransformerFactory {
 
   static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat)
       throws TransformationException {
+
+    if (sourceFormat.equals(targetFormat)) {
+      return new IdentityTransformer();
+    }
 
     List<TransformerEdge> transformerEdges = new ArrayList<TransformerEdge>();
 
