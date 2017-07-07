@@ -47,10 +47,12 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token)
+	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+			@RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+		      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
 			throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 		QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery);
+		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
 		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
 		List<ContextVO> response = new ArrayList<ContextVO>();
 		srResponse.getRecords().forEach(record -> response.add(record.getData()));
