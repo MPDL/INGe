@@ -131,7 +131,7 @@ public class ApplicationBean extends FacesBean {
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
 
-    INSTANCE = this;
+    ApplicationBean.INSTANCE = this;
     this.loadProperties();
   }
 
@@ -534,7 +534,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public OrganizationService getOrganizationService() {
-    return organizationService;
+    return this.organizationService;
   }
 
   public void setOrganizationService(OrganizationService organizationService) {
@@ -542,7 +542,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public ContextService getContextService() {
-    return contextService;
+    return this.contextService;
   }
 
   public void setContextService(ContextService contextService) {
@@ -550,7 +550,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public de.mpg.mpdl.inge.service.pubman.PubItemService getPubItemService() {
-    return pubItemService;
+    return this.pubItemService;
   }
 
   public void setPubItemService(de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService) {
@@ -558,7 +558,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public de.mpg.mpdl.inge.service.pubman.UserAccountService getUserAccountService() {
-    return userAccountService;
+    return this.userAccountService;
   }
 
   public void setUserAccountService(
@@ -567,7 +567,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public DataSource getDataSource() {
-    return dataSource;
+    return this.dataSource;
   }
 
   public void setDataSource(DataSource dataSource) {

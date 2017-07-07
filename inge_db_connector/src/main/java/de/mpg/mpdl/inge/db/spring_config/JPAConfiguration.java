@@ -67,22 +67,22 @@ public class JPAConfiguration {
     return dataSource;
   }
 
-//  @Bean
-//  @Primary
-//  public DataSource jndiDataSource() throws Exception {
-//    DataSource dataSource = null;
-//    JndiTemplate jndi = new JndiTemplate();
-//
-//    try {
-//      dataSource =
-//          jndi.lookup(PropertyReader.getProperty("inge.database.datasource"), DataSource.class);
-//    } catch (NamingException e) {
-//      throw new RuntimeException(
-//          "NamingException for " + PropertyReader.getProperty("inge.database.datasource"), e);
-//    }
-//
-//    return dataSource;
-//  }
+  // @Bean
+  // @Primary
+  // public DataSource jndiDataSource() throws Exception {
+  // DataSource dataSource = null;
+  // JndiTemplate jndi = new JndiTemplate();
+  //
+  // try {
+  // dataSource =
+  // jndi.lookup(PropertyReader.getProperty("inge.database.datasource"), DataSource.class);
+  // } catch (NamingException e) {
+  // throw new RuntimeException(
+  // "NamingException for " + PropertyReader.getProperty("inge.database.datasource"), e);
+  // }
+  //
+  // return dataSource;
+  // }
 
   @Bean
   @Primary
@@ -98,8 +98,7 @@ public class JPAConfiguration {
     return new Properties() {
       {
         setProperty("hibernate.hbm2ddl.auto", "update");
-        setProperty("hibernate.dialect",
-            "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
+        setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");
         setProperty("hibernate.cache.region.factory_class",

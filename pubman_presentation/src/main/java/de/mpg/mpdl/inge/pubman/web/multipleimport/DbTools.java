@@ -4,27 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 public class DbTools {
-  private static DataSource DS;
-
-  static {
-    try {
-      Context initialContext = new InitialContext();
-      DS =
-          (DataSource) initialContext
-              .lookup(PropertyReader.getProperty("inge.database.datasource"));
-    } catch (NamingException e) {
-      throw new RuntimeException("Error getting datasource", e);
-    }
-  }
-
   public static void closePreparedStatement(PreparedStatement ps) {
     try {
       if (ps != null && !ps.isClosed()) {
@@ -57,7 +39,7 @@ public class DbTools {
 
   public static Connection getNewConnection() {
     try {
-      Connection connection = DbTools.DS.getConnection();
+      Connection connection = ApplicationBean.INSTANCE.getDataSource().getConnection();
 
       if (connection != null && !connection.isClosed()) {
         return connection;
