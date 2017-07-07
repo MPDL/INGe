@@ -29,9 +29,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
     entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
 public class JPAConfiguration {
-
-
-
   @Bean
   @Primary
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
@@ -45,27 +42,13 @@ public class JPAConfiguration {
     return em;
   }
 
-
   @Bean
   public HibernateJpaSessionFactoryBean sessionFactory(EntityManagerFactory emf) {
-
     HibernateJpaSessionFactoryBean sessionFactory = new HibernateJpaSessionFactoryBean();
     sessionFactory.setEntityManagerFactory(emf);
 
     return sessionFactory;
   }
-
-
-
-  /*
-   * @Bean public LocalSessionFactoryBean sessionFactory() { LocalSessionFactoryBean sessionFactory
-   * = new LocalSessionFactoryBean(); sessionFactory.setDataSource(restDataSource());
-   * sessionFactory.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model"});
-   * sessionFactory.setHibernateProperties(hibernateProperties());
-   * 
-   * return sessionFactory; }
-   */
-
 
   @Bean
   @Primary
@@ -84,7 +67,22 @@ public class JPAConfiguration {
     return dataSource;
   }
 
-
+//  @Bean
+//  @Primary
+//  public DataSource jndiDataSource() throws Exception {
+//    DataSource dataSource = null;
+//    JndiTemplate jndi = new JndiTemplate();
+//
+//    try {
+//      dataSource =
+//          jndi.lookup(PropertyReader.getProperty("inge.database.datasource"), DataSource.class);
+//    } catch (NamingException e) {
+//      throw new RuntimeException(
+//          "NamingException for " + PropertyReader.getProperty("inge.database.datasource"), e);
+//    }
+//
+//    return dataSource;
+//  }
 
   @Bean
   @Primary
@@ -95,31 +93,13 @@ public class JPAConfiguration {
     return transactionManager;
   }
 
-
-
-  /*
-   * 
-   * @Bean
-   * 
-   * @Autowired public HibernateTransactionManager transactionManager(SessionFactory sessionFactory)
-   * {
-   * 
-   * HibernateTransactionManager txManager = new HibernateTransactionManager();
-   * txManager.setSessionFactory(sessionFactory);
-   * 
-   * return txManager; }
-   */
-
-  /*
-   * 
-   * @Bean public PersistenceExceptionTranslationPostProcessor exceptionTranslation() { return new
-   * PersistenceExceptionTranslationPostProcessor(); }
-   */
+  @SuppressWarnings("serial")
   Properties hibernateProperties() {
     return new Properties() {
       {
         setProperty("hibernate.hbm2ddl.auto", "update");
-        setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
+        setProperty("hibernate.dialect",
+            "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");
         setProperty("hibernate.cache.region.factory_class",
@@ -127,12 +107,9 @@ public class JPAConfiguration {
         setProperty("hibernate.jdbc.time_zone", "UTC");
         // setProperty("hibernate.generate_statistics", "true");
 
-        // Makes it slow if set tot true
+        // Makes it slow if set to true
         setProperty("show_sql", "false");
       }
     };
   }
-
-
-
 }
