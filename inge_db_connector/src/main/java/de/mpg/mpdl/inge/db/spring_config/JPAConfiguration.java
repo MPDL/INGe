@@ -67,23 +67,6 @@ public class JPAConfiguration {
     return dataSource;
   }
 
-  // @Bean
-  // @Primary
-  // public DataSource jndiDataSource() throws Exception {
-  // DataSource dataSource = null;
-  // JndiTemplate jndi = new JndiTemplate();
-  //
-  // try {
-  // dataSource =
-  // jndi.lookup(PropertyReader.getProperty("inge.database.datasource"), DataSource.class);
-  // } catch (NamingException e) {
-  // throw new RuntimeException(
-  // "NamingException for " + PropertyReader.getProperty("inge.database.datasource"), e);
-  // }
-  //
-  // return dataSource;
-  // }
-
   @Bean
   @Primary
   public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
