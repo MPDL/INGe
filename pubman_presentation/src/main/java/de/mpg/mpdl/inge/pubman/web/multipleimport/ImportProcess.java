@@ -236,7 +236,6 @@ public class ImportProcess extends Thread {
         case ENDNOTE_STRING:
           this.formatProcessor = new EndnoteProcessor();
           break;
-        case ESCIDOC_ITEMLIST_V3_XML:
         case ESCIDOC_ITEM_V3_XML:
           this.formatProcessor = new EscidocProcessor();
           break;

@@ -193,7 +193,6 @@ public class ImportWorkspace extends BreadcrumbPage {
         case ESCIDOC_ITEMLIST_V2_XML:
           break;
         case ESCIDOC_ITEMLIST_V3_XML:
-          // label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
           break;
         case ESCIDOC_ITEM_V1_XML:
           break;
