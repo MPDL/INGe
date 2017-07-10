@@ -66,17 +66,20 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> filter(@RequestHeader(
+  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> filter(@RequestHeader(
       value = AUTHZ_HEADER, required = false) String token,
-		  @RequestParam(value = "q") String query,
-		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-	  QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true,
+          defaultValue = "10") int limit, @RequestParam(value = "offset", required = true,
+          defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException,
+      IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchQueryParam =
+        QueryBuilders.boolQuery().filter(
+            QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    List<PubItemVO> response = new ArrayList<PubItemVO>();;
-    srResponse.getRecords().forEach(record -> response.add(record.getData()));
-    return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
+    // List<PubItemVO> response = new ArrayList<PubItemVO>();;
+    // srResponse.getRecords().forEach(record -> response.add(record.getData()));
+    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST,
