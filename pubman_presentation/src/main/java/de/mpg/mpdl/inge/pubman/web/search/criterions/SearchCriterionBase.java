@@ -474,7 +474,7 @@ public abstract class SearchCriterionBase implements Serializable {
       }
       else
       {
-        return QueryBuilders.multiMatchQuery(searchString, fieldnames).type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
+        return QueryBuilders.multiMatchQuery(searchString, fieldnames).type(multiMatchType).operator(Operator.AND);
       }
       
 
@@ -618,15 +618,12 @@ public abstract class SearchCriterionBase implements Serializable {
     QueryBuilder resultedQueryBuilder = null;
 
     int parenthesisOpened = 0;
-    // LogicalOperator mainOperator = null;
-    // int indexOfMainOperator = -1;
 
     final List<LogicalOperator> mainOperators = new ArrayList<>();
     LogicalOperator lastOperator = null;
     boolean mixedOrAndAnd = false;
 
     String sharedNestedField = "";
-    // boolean nestedField = false;
 
     final List<SearchCriterionBase> criterionList = new ArrayList<>(scList);
 
@@ -640,8 +637,6 @@ public abstract class SearchCriterionBase implements Serializable {
             .getPartnerParenthesis() == ((Parenthesis) criterionList
                 .get(criterionList.size() - 1))) {
 
-      // logger.info("Remove: " + criterionList.get(0) + " / " +
-      // criterionList.get(criterionList.size() - 1));
       criterionList.remove(0);
       criterionList.remove(criterionList.size() - 1);
     }
@@ -670,22 +665,7 @@ public abstract class SearchCriterionBase implements Serializable {
           }
           lastOperator = op;
 
-          // new
-          /*
-           * if (mainOperators.isEmpty() ||
-           * !(SearchCriterion.OR_OPERATOR.equals(mainOperators.get(mainOperators.size() - 1)
-           * .getSearchCriterion()) && !SearchCriterion.OR_OPERATOR.equals(sc
-           * .getSearchCriterion()))) {mainOperators.add((LogicalOperator) sc);
-           */
-          // --
-
-          /*
-           * if ((mainOperator == null ||
-           * !SearchCriterion.OR_OPERATOR.equals(mainOperator.getSearchCriterion()))) { int index =
-           * criterionList.indexOf(sc); mainOperator = (LogicalOperator) sc; indexOfMainOperator =
-           * index; }
-           */
-          // }
+         
         }
 
       } else if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
@@ -733,10 +713,6 @@ public abstract class SearchCriterionBase implements Serializable {
 
       final BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      // LogicalOperator lastMainOperator = mainOperators.get(0);
-      // int lastIndexOfOperator = criterionList.indexOf(lastMainOperator);
-
-
       // If there are AND/NOTAND operators mixed with OR operators, divide by OR operators ->
       // Remove all AND / NOTAND operators
       if (mixedOrAndAnd) {
@@ -773,45 +749,26 @@ public abstract class SearchCriterionBase implements Serializable {
           bq.mustNot(SearchCriterionBase.cleanedScListToElasticSearchQuery(rightList, sharedNestedField));
         }
 
-
-        // lastIndexOfOperator = indexOfOperator;
-        // lastMainOperator = op;
       }
 
 
 
-      /*
-       * 
-       * List<SearchCriterionBase> leftList = criterionList.subList(0, indexOfMainOperator);
-       * List<SearchCriterionBase> rightList = criterionList.subList(indexOfMainOperator + 1,
-       * criterionList.size());
-       * 
-       * BoolQueryBuilder bq = QueryBuilders.boolQuery();
-       * 
-       * 
-       * if (SearchCriterion.OR_OPERATOR.equals(mainOperator.getSearchCriterion())) {
-       * bq.should(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
-       * bq.should(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); } else if
-       * (SearchCriterion.AND_OPERATOR.equals(mainOperator.getSearchCriterion())) {
-       * bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
-       * bq.must(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); } else if
-       * (SearchCriterion.NOT_OPERATOR.equals(mainOperator.getSearchCriterion())) {
-       * bq.must(cleanedScListToElasticSearchQuery(leftList, sharedNestedField));
-       * bq.mustNot(cleanedScListToElasticSearchQuery(rightList, sharedNestedField)); }
-       */
       resultedQueryBuilder = bq;
 
 
     }
 
 
+    /*
     if (sharedNestedField != null) {
       return QueryBuilders.nestedQuery(sharedNestedField, resultedQueryBuilder, ScoreMode.Avg);
     }
+    
 
     else {
+    */
       return resultedQueryBuilder;
-    }
+    //}
 
   }
 

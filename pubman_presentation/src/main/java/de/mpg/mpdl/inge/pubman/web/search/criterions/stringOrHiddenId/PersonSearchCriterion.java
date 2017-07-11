@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
+import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -34,6 +35,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
@@ -169,7 +171,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       final String roleUri = selectedRole.getUri();
       BoolQueryBuilder bq =
           QueryBuilders.boolQuery().must(
-              QueryBuilders.matchQuery("metadata.creators.role", roleUri));
+              QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         bq =
@@ -180,7 +182,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
             bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
                 this.getSearchString(), MultiMatchQueryBuilder.Type.CROSS_FIELDS));
       }
-      return bq;
+      return QueryBuilders.nestedQuery("metadata.creators", (QueryBuilder) bq, ScoreMode.Avg);
     }
 
   }
@@ -188,15 +190,16 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
     return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        "metadata.creators.person.identifier.id", true, "metadata.creators")};
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID, true, "metadata.creators")};
   }
 
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField("metadata.creators.person.familyName", true,
-            "metadata.creators"),
-        new ElasticSearchIndexField("metadata.creators.person.givenName", true, "metadata.creators")};
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_FAMILYNAME,
+            true, "metadata.creators"),
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_GIVENNAME,
+            true, "metadata.creators")};
   }
 
   @Override

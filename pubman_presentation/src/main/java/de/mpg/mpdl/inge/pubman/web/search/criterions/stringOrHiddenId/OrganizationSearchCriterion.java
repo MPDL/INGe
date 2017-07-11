@@ -28,6 +28,14 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.batik.bridge.svg12.BindingListener;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
@@ -36,12 +44,17 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   // private Logger logger = Logger.getLogger(OrganizationSearchCriterion.class);
 
+  private final static Logger logger = LogManager.getLogger(OrganizationSearchCriterion.class);
   private boolean includePredecessorsAndSuccessors;
 
   @Override
@@ -190,25 +203,62 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField("metadata.creators.person.organizations.identifier", true,
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, true,
             "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField("metadata.creators.organizations.identifier", true,
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, true,
             "metadata.creators", "metadata.creators.organizations")};
   }
 
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField("metadata.creators.person.organizations.name", true,
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME, true,
             "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField("metadata.creators.organizations.name", true,
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME, true,
             "metadata.creators", "metadata.creators.organizations")};
+  }
+
+
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+    if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
+      List<String> idList = new ArrayList<>();
+      
+
+      try {
+        fillWithChildOus(idList, getHiddenId());
+      } catch (Exception e) {
+        logger.error("Error retrieving id path for organizational unit " + getHiddenId());
+      }
+
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      bq.should(QueryBuilders.termsQuery(
+          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
+          idList.toArray(new String[] {})));
+      bq.should(QueryBuilders.termsQuery(
+          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
+          idList.toArray(new String[] {})));
+      return bq;
+    } else {
+      return super.toElasticSearchQuery();
+    }
   }
 
   @Override
   public String getElasticSearchNestedPath() {
-    // TODO Auto-generated method stub
     return "metadata.creators";
+  }
+  
+  
+  public static void fillWithChildOus(List<String> idList, String ouId) throws Exception
+  {
+    idList.add(ouId);
+    List<AffiliationVO> childAffs = ApplicationBean.INSTANCE.getOrganizationService().searchChildOrganizations(ouId);
+    for(AffiliationVO childAff : childAffs)
+    {
+      fillWithChildOus(idList, childAff.getReference().getObjectId());
+    }
   }
 
 

@@ -107,6 +107,24 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
   public static String INDEX_VERSION_PID = "version.pid";
 
+  public static String INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID =
+      "metadata.creators.person.identifier.id";
+  public static String INDEX_METADATA_CREATOR_PERSON_FAMILYNAME =
+      "metadata.creators.person.familyName";
+  public static String INDEX_METADATA_CREATOR_PERSON_GIVENNAME =
+      "metadata.creators.person.givenName";
+
+  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
+      "metadata.creators.person.organizations.identifier";
+  public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER =
+      "metadata.creators.organizations.identifier";
+  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME =
+      "metadata.creators.person.organizations.name";
+  public static String INDEX_METADATA_CREATOR_ORGANIZATION_NAME =
+      "metadata.creators.organizations.name";
+  public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
+
+
   public static String INDEX_METADATA_TITLE = "metadata.title";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
@@ -512,6 +530,9 @@ public class PubItemServiceDbImpl implements PubItemService {
         .getObjectId());
 
     latestVersion.setLastMessage(message);
+
+    validate(EntityTransformer.transformToOld(latestVersion));
+
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
     } catch (DataAccessException e) {

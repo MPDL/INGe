@@ -3,11 +3,15 @@ package pubman_logic;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.query.Query;
@@ -22,6 +26,10 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
+import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -69,26 +77,58 @@ public class PubmanLogicTest {
   @Autowired
   private AuthorizationService authorizationService;
 
+  @Autowired
+  ElasticSearchTransportClientProvider client;
+
+  @Autowired
+  private PubItemDaoEs pubItemDao;
+
+  @Autowired
+  private OrganizationDaoEs orgDao;
+
 
 
   @Test
-  @Ignore
   public void test() throws Exception {
 
 
-    String token = userAccountService.login("boosen", "boosen");
-    AccountUserVO userAccount = authorizationService.checkLoginRequired(token);
 
-    AffiliationVO affv0 = organizationService.get("ou_1113557", token);
-    System.out.println("HasChildren :" + affv0.getHasChildren());
-    affv0 = organizationService.get("ou_persistent13", token);
-    System.out.println("HasChildren :" + affv0.getHasChildren());
+    List<String> idList = organizationService.getIdPath("ou_1753285", null);
 
-    QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(testQuery);
-    SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
-    System.out.println("Found: " + resp.getNumberOfRecords() + " records");
+    System.out.println(idList);
 
+
+    /*
+     * 
+     * Map<String, ElasticSearchIndexField> map = orgDao.getIndexFields(); for(Entry<String,
+     * ElasticSearchIndexField> entry : map.entrySet()) {
+     * System.out.println(entry.getValue().toString()); }
+     */
+
+
+
+    /*
+     * PubItemVO item = pubItemService.get("item_3002712_1", null);
+     * 
+     * StringWriter w = new StringWriter();
+     * JsonObjectMapperFactory.getObjectMapper().writerFor(PubItemVO.class).writeValue(w, item);
+     * System.out.println(w.toString());
+     */
+
+    /*
+     * String token = userAccountService.login("boosen", "boosen"); AccountUserVO userAccount =
+     * authorizationService.checkLoginRequired(token);
+     * 
+     * AffiliationVO affv0 = organizationService.get("ou_1113557", token);
+     * System.out.println("HasChildren :" + affv0.getHasChildren()); affv0 =
+     * organizationService.get("ou_persistent13", token); System.out.println("HasChildren :" +
+     * affv0.getHasChildren());
+     * 
+     * QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
+     * SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(testQuery);
+     * SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
+     * System.out.println("Found: " + resp.getNumberOfRecords() + " records");
+     */
     /*
      * 
      * QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", "test"); QueryBuilder aaQuery =
@@ -120,7 +160,7 @@ public class PubmanLogicTest {
   @Ignore
   public void testReindexContext() throws Exception {
 
-    ((ContextServiceDbImpl) contextService).reindex();
+    contextService.reindex();
 
   }
 
@@ -128,7 +168,7 @@ public class PubmanLogicTest {
   @Ignore
   public void testReindexOu() throws Exception {
 
-    ((OrganizationServiceDbImpl) organizationService).reindex();
+    organizationService.reindex();
 
   }
 
@@ -137,6 +177,14 @@ public class PubmanLogicTest {
   public void testReindexItems() throws Exception {
 
     pubItemService.reindex();
+
+  }
+
+  @Test
+  @Ignore
+  public void testReindexUsers() throws Exception {
+
+    userAccountService.reindex();
 
   }
 
