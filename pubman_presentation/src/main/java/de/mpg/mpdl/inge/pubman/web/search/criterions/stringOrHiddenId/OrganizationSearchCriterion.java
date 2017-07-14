@@ -203,19 +203,22 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, true,
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, true,
             "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, true,
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, true,
             "metadata.creators", "metadata.creators.organizations")};
   }
 
   @Override
   public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
     return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME, true,
+        new ElasticSearchIndexField(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME, true,
             "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME, true,
-            "metadata.creators", "metadata.creators.organizations")};
+        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME,
+            true, "metadata.creators", "metadata.creators.organizations")};
   }
 
 
@@ -224,7 +227,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   public QueryBuilder toElasticSearchQuery() {
     if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
       List<String> idList = new ArrayList<>();
-      
+
 
       try {
         fillWithChildOus(idList, getHiddenId());
@@ -249,14 +252,13 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   public String getElasticSearchNestedPath() {
     return "metadata.creators";
   }
-  
-  
-  public static void fillWithChildOus(List<String> idList, String ouId) throws Exception
-  {
+
+
+  public static void fillWithChildOus(List<String> idList, String ouId) throws Exception {
     idList.add(ouId);
-    List<AffiliationVO> childAffs = ApplicationBean.INSTANCE.getOrganizationService().searchChildOrganizations(ouId);
-    for(AffiliationVO childAff : childAffs)
-    {
+    List<AffiliationVO> childAffs =
+        ApplicationBean.INSTANCE.getOrganizationService().searchChildOrganizations(ouId);
+    for (AffiliationVO childAff : childAffs) {
       fillWithChildOus(idList, childAff.getReference().getObjectId());
     }
   }
