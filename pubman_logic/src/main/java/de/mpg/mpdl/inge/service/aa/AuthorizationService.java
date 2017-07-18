@@ -56,10 +56,10 @@ public class AuthorizationService {
     }
   }
 
-  public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query,
-      AccountUserVO userAccount) throws AuthenticationException {
+  public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query, Object... objects)
+      throws AuthenticationException, AuthorizationException {
 
-    QueryBuilder filterQuery = getAaFilterQuery(serviceName, userAccount);
+    QueryBuilder filterQuery = getAaFilterQuery(serviceName, objects);
 
     if (filterQuery != null) {
       BoolQueryBuilder completeQuery = QueryBuilders.boolQuery();
@@ -75,7 +75,8 @@ public class AuthorizationService {
   }
 
 
-  private QueryBuilder getAaFilterQuery(String serviceName, AccountUserVO userAccount) {
+  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
+      throws AuthorizationException {
     Map<String, Map<String, Object>> serviceMap =
         (Map<String, Map<String, Object>>) aaMap.get(serviceName);
 
@@ -84,106 +85,124 @@ public class AuthorizationService {
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
 
 
+    AccountUserVO userAccount;
+    try {
+      userAccount = (AccountUserVO) objects[order.indexOf("user")];
+    } catch (NullPointerException e) {
+      userAccount = null;
+
+    }
+
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-    if (allowedMap != null) {
+    if (allowedMap == null) {
+      throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get");
+    }
 
-      rulesLoop: for (Map<String, Object> rules : allowedMap) {
+    // everybody can see anything
+    if (allowedMap.isEmpty()) {
+      return null;
+    }
 
-        BoolQueryBuilder subQb = QueryBuilders.boolQuery();
+    for (Map<String, Object> rules : allowedMap) {
 
-        for (Entry<String, Object> rule : rules.entrySet()) {
-          switch (rule.getKey()) {
-            case "user": {
-              boolean userMatch = false;
+      BoolQueryBuilder subQb = QueryBuilders.boolQuery();
+      boolean userMatch = false;
 
-              if (userAccount != null) {
-
-                Map<String, String> userMap = (Map<String, String>) rule.getValue();
-
-                if (userMap.containsKey("field_user_id_match")) {
-                  String value = (String) userMap.get("field_user_id_match");
-
-                  subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
-                      .getObjectId()));
-                  userMatch = true;
-
-                }
-
-                if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
+      // Everybody is allowed to see everything
+      rulesLoop: for (Entry<String, Object> rule : rules.entrySet()) {
+        switch (rule.getKey()) {
+          case "user": {
 
 
-                  BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
-                  for (GrantVO grant : userAccount.getGrants()) {
-                    if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
-                      userMatch = true;
-                      if (userMap.get("field_grant_id_match") != null) {
-                        grantQueryBuilder
-                            .should(QueryBuilders.termQuery(
-                                indices.get(userMap.get("field_grant_id_match")),
-                                grant.getObjectRef()));
-                      }
+            if (userAccount != null) {
+              Map<String, String> userMap = (Map<String, String>) rule.getValue();
 
+              if (userMap.containsKey("field_user_id_match")) {
+                String value = (String) userMap.get("field_user_id_match");
+
+                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
+                    .getObjectId()));
+                userMatch = true;
+
+              }
+
+              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
+
+
+                BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
+                for (GrantVO grant : userAccount.getGrants()) {
+                  if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
+                    userMatch = true;
+                    if (userMap.get("field_grant_id_match") != null) {
+                      grantQueryBuilder.should(QueryBuilders.termQuery(
+                          indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
                     }
-                  }
 
-                  if (grantQueryBuilder.hasClauses()) {
-                    subQb.must(grantQueryBuilder);
                   }
+                }
 
+                if (grantQueryBuilder.hasClauses()) {
+                  subQb.must(grantQueryBuilder);
                 }
 
               }
-              if (!userMatch) {
-                break rulesLoop;
-              }
 
-
-              break;
             }
-            default: {
-              String key = rule.getKey();
-              String index = indices.get(key);
+            if (!userMatch) {
+              break rulesLoop;
+            }
 
 
-              if (rule.getValue() instanceof Collection<?>) {
-                List<String> valuesToCompare = (List<String>) rule.getValue();
-                if (valuesToCompare.size() > 1) {
-                  BoolQueryBuilder valueQueryBuilder = QueryBuilders.boolQuery();
-                  for (String val : valuesToCompare) {
-                    valueQueryBuilder.should(QueryBuilders.termQuery(index, val));
-                  }
-                  subQb.must(valueQueryBuilder);
-                } else {
-                  subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
+            break;
+          }
+          default: {
+            String key = rule.getKey();
+            String index = indices.get(key);
+
+
+            if (rule.getValue() instanceof Collection<?>) {
+              List<String> valuesToCompare = (List<String>) rule.getValue();
+              if (valuesToCompare.size() > 1) {
+                BoolQueryBuilder valueQueryBuilder = QueryBuilders.boolQuery();
+                for (String val : valuesToCompare) {
+                  valueQueryBuilder.should(QueryBuilders.termQuery(index, val));
                 }
-
-
-
+                subQb.must(valueQueryBuilder);
               } else {
-                String value = (String) rule.getValue();
+                subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
+              }
+
+
+
+            } else {
+              String value = getFieldValueOrString(order, objects, (String) rule.getValue());
+              if (value != null) {
                 subQb.must(QueryBuilders.termQuery(index, value));
               }
-
-
-              break;
             }
+
+
+            break;
           }
         }
+      }
 
-        if (subQb.hasClauses()) {
-          bqb.should(subQb);
-        } else {
-          // Allowed to see everything
-          return null;
-        }
-
+      if (subQb.hasClauses()) {
+        bqb.should(subQb);
+      }
+      // User matches and no more rules -> User can see everything
+      else if (userMatch) {
+        return null;
       }
 
     }
+
+
+
     if (bqb.hasClauses()) {
       return bqb;
     }
-    return null;
+    throw new AuthorizationException("This search requires a login");
   }
 
 
@@ -361,7 +380,12 @@ public class AuthorizationService {
       throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
-      Object object = objects[order.indexOf(fieldHierarchy[0])];
+      Object object;
+      try {
+        object = objects[order.indexOf(fieldHierarchy[0])];
+      } catch (NullPointerException e) {
+        return null;
+      }
       if (object == null) {
         return null;
       } else {

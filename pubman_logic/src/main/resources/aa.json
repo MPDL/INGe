@@ -66,6 +66,11 @@
 		
 		"get" : [
 			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
 				"item.version.state" : ["RELEASED"]
 			},
 			{

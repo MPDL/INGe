@@ -103,7 +103,7 @@ public class ElasticSearchIndexField {
         StringBuilder newCurrentPath = new StringBuilder(currentPath);
         List<String> newCurrentNestedPaths = new ArrayList<>(currentNestedPaths);
 
-        if (parentKey != null && parentKey.equals("properties") || parentKey.equals("fields")) {
+        if (parentKey != null && (parentKey.equals("properties") || parentKey.equals("fields"))) {
           if (newCurrentPath.length() > 0) {
             newCurrentPath.append(".");
           }
