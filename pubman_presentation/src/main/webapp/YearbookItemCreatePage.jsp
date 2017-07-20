@@ -106,14 +106,6 @@
                     });
             ]]>
         </script>
-        <script type="text/javascript">
-            function fullItemReload() {
-                document.getElementById('fullItem').style.opacity = '0.4';
-                document.getElementById('fullItem').style.bg = 'FFF';
-                $('#fullItem :input :text').attr('readonly', true);
-                $('#fullItem :textarea').attr('readonly', true);
-            }
-        </script>
     </f:view>
 </body>
 

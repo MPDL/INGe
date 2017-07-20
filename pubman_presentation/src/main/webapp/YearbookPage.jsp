@@ -258,16 +258,6 @@
                     });
             ]]>
         </script>
-        <script type="text/javascript">
-            function fullItemReload() {
-                document.getElementById('content').style.opacity = '0.4';
-                document.getElementById('content').style.bg = 'FFF';
-                document.getElementById('ImgFullItemLoad').setAttribute(
-                    'class', 'big_imgArea half_marginLIncl smallThrobber');
-                $('#fullItem :input :text').attr('readonly', true);
-                $('#fullItem :textarea').attr('readonly', true);
-            }
-        </script>
     </f:view>
 </body>
 

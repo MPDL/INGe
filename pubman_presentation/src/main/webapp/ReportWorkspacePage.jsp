@@ -6,6 +6,7 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <script src="/cone/js/jquery.suggest.js"></script>
+	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
@@ -122,14 +123,6 @@
                 });
             });
             organizationSuggestURL = 'OrganizationSuggest.jsp';
-        </script>
-        <script type="text/javascript">
-            function fullItemReload() {
-                document.getElementById('reportWorkspace').style.opacity = '0.4';
-                document.getElementById('reportWorkspace').style.bg = 'FFF';
-                document.getElementById('ImgFullItemLoad').setAttribute(
-                    'class', 'big_imgArea half_marginLIncl smallThrobber');
-            }
         </script>
     </f:view>
 </body>

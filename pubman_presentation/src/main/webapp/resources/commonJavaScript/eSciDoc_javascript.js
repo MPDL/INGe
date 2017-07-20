@@ -181,7 +181,6 @@ function install_javascripts() {
         installSameHeight();
     }
     if (typeof bindSuggests == 'function') {
-
         bindSuggests();
     }
 }

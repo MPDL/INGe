@@ -6,6 +6,7 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <script src="/cone/js/jquery.suggest.js"></script>
+	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
     <link rel="stylesheet" href="./resources/cc_license_style.css" />
 </h:head>
 
@@ -57,16 +58,6 @@
             languageDetailsBaseURL = '$1?format=json';
             personSuggestCommonParentClass = 'suggestAnchor';
             journalSuggestTrigger = 'JOURNAL';
-        </script>
-        <script type="text/javascript">
-            function fullItemReload() {
-                document.getElementById('fullItem').style.opacity = '0.4';
-                document.getElementById('fullItem').style.bg = 'FFF';
-                document.getElementById('ImgFullItemLoad').setAttribute(
-                    'class', 'big_imgArea half_marginLIncl smallThrobber');
-                $('*').attr('readonly', true);
-                $(':input :file').attr('disabled', true);
-            }
         </script>
     </f:view>
 </body>

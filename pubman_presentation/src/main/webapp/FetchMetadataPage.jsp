@@ -41,16 +41,6 @@
                     $("input[id$='offset']").val($(window).scrollTop());
                 });
             });
-            languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />iso639-1/query?format=json';
-            journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';
-            subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>$1/query';
-            personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>persons/query?format=json';
-            organizationSuggestURL = 'OrganizationSuggest.jsp';
-            journalDetailsBaseURL = '$1?format=json';
-            personDetailsBaseURL = '$1?format=json';
-            languageDetailsBaseURL = '$1?format=json';
-            personSuggestCommonParentClass = 'suggestAnchor';
-            journalSuggestTrigger = 'JOURNAL';
         </script>
         <script type="text/javascript">
             function fullItemReload() {

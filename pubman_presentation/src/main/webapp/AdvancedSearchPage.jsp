@@ -6,6 +6,7 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <script src="/cone/js/jquery.suggest.js"></script>
+	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
