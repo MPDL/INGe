@@ -26,9 +26,7 @@ package de.mpg.mpdl.inge.dataacquisition;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
@@ -44,16 +42,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.xml.rpc.ServiceException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
@@ -68,7 +59,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -80,6 +71,7 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  */
 public class DataHandlerService {
   private static final Logger logger = Logger.getLogger(DataHandlerService.class);
+
   private static final String fetchTypeTEXTUALDATA = "TEXTUALDATA";
   private static final String fetchTypeFILEDATA = "FILEDATA";
   private static final String fetchTypeESCIDOCTRANS = "ESCIDOCTRANS";
@@ -102,20 +94,12 @@ public class DataHandlerService {
     this.sourceHandler = new DataSourceHandlerService();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public byte[] doFetch(String sourceName, String identifier) throws DataaquisitionException {
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
     MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(this.currentSource);
     return this.doFetch(sourceName, identifier, md.getName(), md.getMdFormat(), md.getEncoding());
   }
 
-
-
-  /**
-   * {@inheritDoc}
-   */
   public byte[] doFetch(String sourceName, String identifier, String[] formats)
       throws DataaquisitionException {
     if (sourceName.equalsIgnoreCase("escidoc")) {
@@ -125,14 +109,11 @@ public class DataHandlerService {
     }
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
     identifier = Util.trimIdentifier(this.currentSource, identifier);
-    FORMAT[] formatsF = mapFetchSettingsToFORMAT(formats);
+    // FORMAT[] formatsF = mapFetchSettingsToFORMAT(formats);
 
-    return this.fetchData(identifier, formatsF);
+    return this.fetchData(identifier, formats);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public byte[] doFetch(String sourceName, String identifier, String formatName)
       throws DataaquisitionException {
     String type;
@@ -148,14 +129,10 @@ public class DataHandlerService {
       type = Util.getDefaultMimeType(formatName);
       enc = Util.getDefaultEncoding(formatName);
     }
+
     return this.doFetch(sourceName, identifier, formatName, type, enc);
   }
 
-
-
-  /**
-   * {@inheritDoc}
-   */
   private byte[] doFetch(String sourceName, String identifier, String trgFormatName,
       String trgFormatType, String trgFormatEncoding) throws DataaquisitionException {
     byte[] fetchedData = null;
@@ -181,48 +158,44 @@ public class DataHandlerService {
         }
         fetchedData = textualData.getBytes(enc);
       }
+
       if (fetchType.equals(fetchTypeFILEDATA)) {
-        // Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-
-
-        fetchedData = this.fetchData(identifier, new FORMAT[] {FORMAT.valueOf(trgFormatName)});
+        // // Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+        // fetchedData = this.fetchData(identifier, new FORMAT[] {FORMAT.valueOf(trgFormatName)});
+        fetchedData = this.fetchData(identifier, new String[] {trgFormatName});
       }
-      if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
 
+      if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
         fetchedData =
-            this.fetchTextualData(identifier, FORMAT.ESCIDOC_ITEM_V3_XML.name(), "application/xml",
-                enc).getBytes(enc);
+            this.fetchTextualData(identifier, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.name(),
+                "application/xml", enc).getBytes(enc);
         Transformer t =
-            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML,
-                FORMAT.valueOf(trgFormatName));
+            TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+                TransformerFactory.FORMAT.valueOf(trgFormatName));
         StringWriter wr = new StringWriter();
 
         t.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedData)),
             new TransformerStreamResult(wr));
         this.setContentType(trgFormatType);
       }
+
       if (fetchType.equals(fetchTypeUNKNOWN)) {
         throw new DataaquisitionException("Unknown type.");
       }
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     }
+
     return fetchedData;
   }
 
-  /**
-   * Fetch data from a given url.
-   * 
-   * @param url
-   * @return byte[]
-   * @throws DataaquisitionException
-   */
   public byte[] fetchMetadatafromURL(URL url) throws DataaquisitionException {
     byte[] input = null;
     URLConnection conn = null;
     Date retryAfter = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
+
     try {
       conn = ProxyHelper.openConnection(url);
       HttpURLConnection httpConn = (HttpURLConnection) conn;
@@ -281,7 +254,7 @@ public class DataHandlerService {
     return baos.toByteArray();
   }
 
-  String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
+  public String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
       String trgFormatEncoding) throws DataaquisitionException {
     String fetchedItem = null;
     String item = null;
@@ -360,7 +333,7 @@ public class DataHandlerService {
 
           Transformer componentTransformer =
               TransformerCache.getTransformer(Util.getFORMAT(md.getName()),
-                  FORMAT.ESCIDOC_COMPONENT_XML);
+                  TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
           if (componentTransformer != null) {
             wr = new StringWriter();
 
@@ -398,7 +371,7 @@ public class DataHandlerService {
    * @return byte[] of the fetched file, zip file if more than one record was fetched
    * @throws DataaquisitionException
    */
-  byte[] fetchData(String identifier, FORMAT[] formats) throws DataaquisitionException {
+  private byte[] fetchData(String identifier, String[] formats) throws DataaquisitionException {
     byte[] in = null;
     FullTextVO fulltext = new FullTextVO();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -407,10 +380,10 @@ public class DataHandlerService {
     try {
       // Call fetch file for every given format
       for (int i = 0; i < formats.length; i++) {
-        FORMAT format = formats[i];
+        String format = formats[i];
         fulltext =
-            Util.getFtObjectToFetch(this.currentSource, format.name(), format.getType(),
-                format.getEncoding());
+            Util.getFtObjectToFetch(this.currentSource, format, Util.getDefaultMimeType(format),
+                Util.getDefaultEncoding(format));
         // Replace regex with identifier
         String decoded =
             java.net.URLDecoder.decode(fulltext.getFtUrl().toString(),
@@ -857,7 +830,8 @@ public class DataHandlerService {
       return fetchTypeESCIDOCTRANS;
     }
     // Transformable formats
-    FORMAT[] trgFormats = TransformerCache.getAllTargetFormatsFor(FORMAT.valueOf(trgFormatName));
+    TransformerFactory.FORMAT[] trgFormats =
+        TransformerCache.getAllTargetFormatsFor(TransformerFactory.FORMAT.valueOf(trgFormatName));
     if (trgFormats.length > 0) {
       return fetchTypeTEXTUALDATA;
     }
@@ -956,21 +930,21 @@ public class DataHandlerService {
     }
   }
 
-  /**
-   * Utility function to map the Strings used in sources.xml configuration to constants used in
-   * TransformationFactory
-   * 
-   * @param formats
-   * @return
-   */
-  private FORMAT[] mapFetchSettingsToFORMAT(String[] formats) {
-    FORMAT[] formatsF = new FORMAT[formats.length];
-
-    for (int i = 0; i < formats.length; i++) {
-      formatsF[i] = Util.getFORMAT(formats[i]);
-    }
-    return formatsF;
-  }
+  // /**
+  // * Utility function to map the Strings used in sources.xml configuration to constants used in
+  // * TransformationFactory
+  // *
+  // * @param formats
+  // * @return
+  // */
+  // private FORMAT[] mapFetchSettingsToFORMAT(String[] formats) {
+  // FORMAT[] formatsF = new FORMAT[formats.length];
+  //
+  // for (int i = 0; i < formats.length; i++) {
+  // formatsF[i] = Util.getFORMAT(formats[i]);
+  // }
+  // return formatsF;
+  // }
 
   // for testing purposes
   void setCurrentSource(DataSourceVO source) {

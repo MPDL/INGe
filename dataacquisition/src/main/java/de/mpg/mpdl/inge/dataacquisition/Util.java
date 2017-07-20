@@ -89,6 +89,7 @@ public class Util {
     if (formatName.equalsIgnoreCase(getInternalFormat())) {
       return "UTF-8";
     }
+
     return "*";
   }
 
