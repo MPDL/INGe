@@ -1047,7 +1047,6 @@
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
-		<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
 		<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
 		<!-- syndication service -->
 		<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
@@ -1274,7 +1273,6 @@
                 <escidoc.pubman.instance.url>https://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
                 <escidoc.systemtype>dev</escidoc.systemtype>
-                <escidoc.unapi.download.server>https://dev.inge.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
                 <escidoc.unapi.view.server>https://dev.inge.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>

@@ -155,12 +155,12 @@ public class ViewItemFull extends FacesBean {
   private String languages;
   private String latestVersionURL;
 
-  private String unapiURLdownload;
+  // private String unapiURLdownload;
   private String unapiURLview;
-  private String unapiEscidoc;
-  private String unapiEndnote;
-  private String unapiBibtex;
-  private String unapiApa;
+  // private String unapiEscidoc;
+  // private String unapiEndnote;
+  // private String unapiBibtex;
+  // private String unapiApa;
 
   private YearbookItemSessionBean yisb;
 
@@ -526,12 +526,12 @@ public class ViewItemFull extends FacesBean {
 
       // Unapi Export
       try {
-        this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+        // this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
         this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
-        this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
-        this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
-        this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
-        this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
+        // this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
+        // this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
+        // this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
+        // this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
       } catch (Exception e) {
         ViewItemFull.logger.error("Error getting unapi url property", e);
         throw new RuntimeException(e);
@@ -1678,45 +1678,45 @@ public class ViewItemFull extends FacesBean {
     return itemState;
   }
 
-  public String getUnapiURLdownload() {
-    return this.unapiURLdownload;
-  }
-
-  public void setUnapiURLdownload(String unapiURLdownload) {
-    this.unapiURLdownload = unapiURLdownload;
-  }
-
-  public String getUnapiEscidoc() {
-    return this.unapiEscidoc;
-  }
-
-  public void setUnapiEscidoc(String unapiEscidoc) {
-    this.unapiEscidoc = unapiEscidoc;
-  }
-
-  public String getUnapiEndnote() {
-    return this.unapiEndnote;
-  }
-
-  public void setUnapiEndnote(String unapiEndnote) {
-    this.unapiEndnote = unapiEndnote;
-  }
-
-  public String getUnapiBibtex() {
-    return this.unapiBibtex;
-  }
-
-  public void setUnapiBibtex(String unapiBibtex) {
-    this.unapiBibtex = unapiBibtex;
-  }
-
-  public String getUnapiApa() {
-    return this.unapiApa;
-  }
-
-  public void setUnapiApa(String unapiApa) {
-    this.unapiApa = unapiApa;
-  }
+  // public String getUnapiURLdownload() {
+  // return this.unapiURLdownload;
+  // }
+  //
+  // public void setUnapiURLdownload(String unapiURLdownload) {
+  // this.unapiURLdownload = unapiURLdownload;
+  // }
+  //
+  // public String getUnapiEscidoc() {
+  // return this.unapiEscidoc;
+  // }
+  //
+  // public void setUnapiEscidoc(String unapiEscidoc) {
+  // this.unapiEscidoc = unapiEscidoc;
+  // }
+  //
+  // public String getUnapiEndnote() {
+  // return this.unapiEndnote;
+  // }
+  //
+  // public void setUnapiEndnote(String unapiEndnote) {
+  // this.unapiEndnote = unapiEndnote;
+  // }
+  //
+  // public String getUnapiBibtex() {
+  // return this.unapiBibtex;
+  // }
+  //
+  // public void setUnapiBibtex(String unapiBibtex) {
+  // this.unapiBibtex = unapiBibtex;
+  // }
+  //
+  // public String getUnapiApa() {
+  // return this.unapiApa;
+  // }
+  //
+  // public void setUnapiApa(String unapiApa) {
+  // this.unapiApa = unapiApa;
+  // }
 
   public String getUnapiURLview() {
     return this.unapiURLview;

@@ -128,21 +128,22 @@ public class EasySubmission extends FacesBean {
       this.getLabel("easy_submission_method_fetch_import"));
   public SelectItem[] SUBMISSION_METHOD_OPTIONS = new SelectItem[] {this.SUBMISSION_METHOD_MANUAL,
       this.SUBMISSION_METHOD_FETCH_IMPORT};
-  public SelectItem DATE_CREATED = new SelectItem("DATE_CREATED",
-      this.getLabel("easy_submission_lblDateCreated"));
-  public SelectItem DATE_SUBMITTED = new SelectItem("DATE_SUBMITTED",
-      this.getLabel("easy_submission_lblDateSubmitted"));
-  public SelectItem DATE_ACCEPTED = new SelectItem("DATE_ACCEPTED",
-      this.getLabel("easy_submission_lblDateAccepted"));
-  public SelectItem DATE_PUBLISHED_IN_PRINT = new SelectItem("DATE_PUBLISHED_IN_PRINT",
-      this.getLabel("easy_submission_lblDatePublishedInPrint"));
-  public SelectItem DATE_PUBLISHED_ONLINE = new SelectItem("DATE_PUBLISHED_ONLINE",
-      this.getLabel("easy_submission_lblDatePublishedOnline"));
-  public SelectItem DATE_MODIFIED = new SelectItem("DATE_MODIFIED",
-      this.getLabel("easy_submission_lblDateModified"));
-  public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[] {this.DATE_CREATED, this.DATE_SUBMITTED,
-      this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE,
-      this.DATE_MODIFIED};
+  // public SelectItem DATE_CREATED = new SelectItem("DATE_CREATED",
+  // this.getLabel("easy_submission_lblDateCreated"));
+  // public SelectItem DATE_SUBMITTED = new SelectItem("DATE_SUBMITTED",
+  // this.getLabel("easy_submission_lblDateSubmitted"));
+  // public SelectItem DATE_ACCEPTED = new SelectItem("DATE_ACCEPTED",
+  // this.getLabel("easy_submission_lblDateAccepted"));
+  // public SelectItem DATE_PUBLISHED_IN_PRINT = new SelectItem("DATE_PUBLISHED_IN_PRINT",
+  // this.getLabel("easy_submission_lblDatePublishedInPrint"));
+  // public SelectItem DATE_PUBLISHED_ONLINE = new SelectItem("DATE_PUBLISHED_ONLINE",
+  // this.getLabel("easy_submission_lblDatePublishedOnline"));
+  // public SelectItem DATE_MODIFIED = new SelectItem("DATE_MODIFIED",
+  // this.getLabel("easy_submission_lblDateModified"));
+  // public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[] {this.DATE_CREATED,
+  // this.DATE_SUBMITTED,
+  // this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, this.DATE_PUBLISHED_ONLINE,
+  // this.DATE_MODIFIED};
 
   private final DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
   // für Binding in jsp seite
@@ -1027,12 +1028,12 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  public String loadStep1() {
-    this.getEasySubmissionSessionBean()
-        .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
-
-    return "loadNewEasySubmission";
-  }
+  // public String loadStep1() {
+  // this.getEasySubmissionSessionBean()
+  // .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
+  //
+  // return "loadNewEasySubmission";
+  // }
 
   public String loadStep2() {
     final List<PubContextVOPresentation> depositorContextList = this.getDepositorContextList();
@@ -1357,30 +1358,30 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  /**
-   * This method selects the import method 'fetch metadata from external systems'
-   * 
-   * @return String navigation string
-   */
-  public String selectImportExternal() {
-    this.changeImportSource(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
-    this.getEasySubmissionSessionBean().setImportMethod(
-        EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+  // /**
+  // * This method selects the import method 'fetch metadata from external systems'
+  // *
+  // * @return String navigation string
+  // */
+  // public String selectImportExternal() {
+  // this.changeImportSource(this.getEasySubmissionSessionBean().getCurrentExternalServiceType());
+  // this.getEasySubmissionSessionBean().setImportMethod(
+  // EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+  //
+  // return "loadNewEasySubmission";
+  // }
 
-    return "loadNewEasySubmission";
-  }
-
-  /**
-   * This method selects the import method 'Upload Bibtex file'
-   * 
-   * @return String navigation string
-   */
-  public String selectImportBibtex() {
-    this.getEasySubmissionSessionBean().setImportMethod(
-        EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
-
-    return "loadNewEasySubmission";
-  }
+  // /**
+  // * This method selects the import method 'Upload Bibtex file'
+  // *
+  // * @return String navigation string
+  // */
+  // public String selectImportBibtex() {
+  // this.getEasySubmissionSessionBean().setImportMethod(
+  // EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
+  //
+  // return "loadNewEasySubmission";
+  // }
 
   /**
    * returns a flag which sets the fields of the import method 'fetch metadata from external
@@ -1457,13 +1458,13 @@ public class EasySubmission extends FacesBean {
     this.SUBMISSION_METHOD_OPTIONS = submission_method_options;
   }
 
-  public SelectItem[] getDATE_TYPE_OPTIONS() {
-    return this.DATE_TYPE_OPTIONS;
-  }
-
-  public void setDATE_TYPE_OPTIONS(SelectItem[] date_type_options) {
-    this.DATE_TYPE_OPTIONS = date_type_options;
-  }
+  // public SelectItem[] getDATE_TYPE_OPTIONS() {
+  // return this.DATE_TYPE_OPTIONS;
+  // }
+  //
+  // public void setDATE_TYPE_OPTIONS(SelectItem[] date_type_options) {
+  // this.DATE_TYPE_OPTIONS = date_type_options;
+  // }
 
   public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
     return this.EXTERNAL_SERVICE_OPTIONS;
