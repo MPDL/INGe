@@ -393,12 +393,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   @Override
   protected List<String> updateObjectWithValues(AccountUserVO givenUser,
       AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser, boolean create)
-      throws IngeTechnicalException {
+      throws IngeApplicationException {
 
 
     if (givenUser.getName() == null || givenUser.getName().trim().isEmpty()
         || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
-      throw new IngeTechnicalException("A name and user id is required");
+      throw new IngeApplicationException("A name and user id is required");
     }
 
     validateLoginname(givenUser.getUserid());
@@ -454,21 +454,21 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     return object.getReference().getObjectId();
   }
 
-  private void validatePassword(String password) throws IngeTechnicalException {
+  private void validatePassword(String password) throws IngeApplicationException {
     if (password == null || password.trim().isEmpty()) {
-      throw new IngeTechnicalException("A password has to be provided");
+      throw new IngeApplicationException("A password has to be provided");
     } else if (!password.matches(PASSWORD_REGEX)) {
-      throw new IngeTechnicalException(
+      throw new IngeApplicationException(
           "Password  must consist of at least 6 characters, no whitespaces");
     }
 
   }
 
-  private void validateLoginname(String loginname) throws IngeTechnicalException {
+  private void validateLoginname(String loginname) throws IngeApplicationException {
     if (loginname == null || loginname.trim().isEmpty()) {
-      throw new IngeTechnicalException("A loginname (userId) has to be provided");
+      throw new IngeApplicationException("A loginname (userId) has to be provided");
     } else if (!loginname.matches(LOGINNAME_REGEX)) {
-      throw new IngeTechnicalException(
+      throw new IngeApplicationException(
           "Invalid loginname (userId). Loginname  must consist of an email adress or at least 4 characters, no whitespaces, no special characters");
     }
 
