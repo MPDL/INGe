@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -38,6 +43,7 @@ public class OrganizationRestController {
   private final String OU_ID_PATH = "/{ouId}";
   private final String OU_ID_VAR = "ouId";
   private OrganizationService organizationSvc;
+  private ObjectMapper mapper;
   private UtilServiceBean utils;
 
   @Autowired
@@ -68,6 +74,22 @@ public class OrganizationRestController {
     List<AffiliationVO> response = new ArrayList<AffiliationVO>();;
     srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/search", method = RequestMethod.POST)
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> query(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException, IOException {
+    mapper = new ObjectMapper();
+    Object o = mapper.treeToValue(query, Object.class);
+    String s = mapper.writeValueAsString(o);
+    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(s);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+    SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/toplevel", method = RequestMethod.GET)
