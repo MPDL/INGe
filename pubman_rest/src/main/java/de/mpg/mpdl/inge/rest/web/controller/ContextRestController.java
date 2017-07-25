@@ -1,10 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +20,14 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
 @RequestMapping("/contexts")
@@ -47,29 +47,37 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<List<ContextVO>> search(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-			@RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-		      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
-			throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-		QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
-		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
-		List<ContextVO> response = new ArrayList<ContextVO>();
-		srResponse.getRecords().forEach(record -> response.add(record.getData()));
-		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
-	}
+  public ResponseEntity<SearchRetrieveResponseVO<ContextVO>> getAll(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit",
+      required = true, defaultValue = "10") int limit, @RequestParam(value = "offset",
+      required = true, defaultValue = "0") int offset) throws AuthenticationException,
+      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty("context_index_sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest =
+        new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
+    SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<ContextVO>>(srResponse, HttpStatus.OK);
+  }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-	public ResponseEntity<List<ContextVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-			@RequestParam(value = "q") String query) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-		QueryBuilder matchQueryParam = QueryBuilders.boolQuery()
-				.filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-		SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam);
-		SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
-		List<ContextVO> response = new ArrayList<ContextVO>();
-		srResponse.getRecords().forEach(record -> response.add(record.getData()));
-		return new ResponseEntity<List<ContextVO>>(response, HttpStatus.OK);
-	}
+  public ResponseEntity<SearchRetrieveResponseVO<ContextVO>> filter(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true,
+          defaultValue = "10") int limit, @RequestParam(value = "offset", required = true,
+          defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException,
+      IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchQueryParam =
+        QueryBuilders.boolQuery().filter(
+            QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty("context_index_sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest =
+        new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
+    SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<ContextVO>>(srResponse, HttpStatus.OK);
+  }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<?> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,

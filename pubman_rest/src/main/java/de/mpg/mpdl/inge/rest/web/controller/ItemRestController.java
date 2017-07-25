@@ -1,19 +1,12 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,18 +17,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
 @RequestMapping("/items")
@@ -45,24 +41,27 @@ public class ItemRestController {
   private final String ITEM_ID_PATH = "/{itemId}";
   private final String ITEM_ID_VAR = "itemId";
   private PubItemService pis;
-  private ObjectMapper mapper;
+  private UtilServiceBean utils;
 
   @Autowired
-  public ItemRestController(PubItemService pis) {
+  public ItemRestController(PubItemService pis, UtilServiceBean utils) {
     this.pis = pis;
+    this.utils = utils;
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<List<PubItemVO>> search(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token,
-		  @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-		  @RequestParam(value = "offset", required = true, defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-	  QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-	  SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
+  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> getAll(@RequestHeader(
+      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit",
+      required = true, defaultValue = "10") int limit, @RequestParam(value = "offset",
+      required = true, defaultValue = "0") int offset) throws AuthenticationException,
+      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty("item_index_sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest =
+        new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    List<PubItemVO> response = new ArrayList<PubItemVO>();;
-    srResponse.getRecords().forEach(record -> response.add(record.getData()));
-    return new ResponseEntity<List<PubItemVO>>(response, HttpStatus.OK);
+    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
@@ -75,26 +74,20 @@ public class ItemRestController {
     QueryBuilder matchQueryParam =
         QueryBuilders.boolQuery().filter(
             QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty("item_index_sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest =
+        new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    // List<PubItemVO> response = new ArrayList<PubItemVO>();;
-    // srResponse.getRecords().forEach(record -> response.add(record.getData()));
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/search", method = RequestMethod.POST,
-      produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> query(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException, IOException {
-    mapper = new ObjectMapper();
-    Object o = mapper.treeToValue(query, Object.class);
-    String s = mapper.writeValueAsString(o);
-    QueryBuilder matchQueryParam = QueryBuilders.wrapperQuery(s);
-    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);
+    SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
   }
