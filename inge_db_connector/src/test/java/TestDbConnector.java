@@ -51,7 +51,7 @@ import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
-import de.mpg.mpdl.inge.db.spring_config.TestJPAConfiguration;
+import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -66,7 +66,7 @@ import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestJPAConfiguration.class)
+@ContextConfiguration(classes = JPAConfiguration.class)
 public class TestDbConnector {
 
   @Autowired
