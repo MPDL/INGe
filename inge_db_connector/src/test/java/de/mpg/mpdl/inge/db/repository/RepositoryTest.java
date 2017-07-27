@@ -24,12 +24,12 @@ import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
-import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
+import de.mpg.mpdl.inge.db.spring_config.TestJPAConfiguration;
 
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JPAConfiguration.class})
+@ContextConfiguration(classes = {TestJPAConfiguration.class})
 public class RepositoryTest {
 
   @Autowired

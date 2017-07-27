@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -25,13 +27,14 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Configuration
+@PropertySources({@PropertySource("classpath:es_connector.properties"),})
 @ComponentScan("de.mpg.mpdl.inge.db.repository")
 @EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository",
     entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
-public class JPAConfiguration {
+public class TestJPAConfiguration {
 
-  static private Logger logger = Logger.getLogger(JPAConfiguration.class);
+  static private Logger logger = Logger.getLogger(TestJPAConfiguration.class);
 
   @Bean
   @Primary
@@ -60,9 +63,9 @@ public class JPAConfiguration {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
     dataSource.setDriverClass(PropertyReader.getProperty("inge.database.driver.class"));
-    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
+    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url.test"));
     logger.info("Setting inge.database.jdbc.url to <"
-        + PropertyReader.getProperty("inge.database.jdbc.url") + ">");
+        + PropertyReader.getProperty("inge.database.jdbc.url.test") + ">");
     dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
     dataSource.setMaxPoolSize(20);
@@ -87,10 +90,7 @@ public class JPAConfiguration {
     return new Properties() {
       {
         setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
-        setProperty("hibernate.hbm2ddl.auto", "update");
-        logger.info("Setting hibernate.hbm2ddl.auto to <"
-            + PropertyReader.getProperty("inge.database.hibernate.mode") + ">");
-
+        setProperty("hibernate.hbm2ddl.auto", "create");
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");
         setProperty("hibernate.cache.region.factory_class",
@@ -100,7 +100,8 @@ public class JPAConfiguration {
         // setProperty("hibernate.generate_statistics", "true");
 
         // Makes it slow if set to true
-        setProperty("show_sql", "false");
+        setProperty("show_sql", "true");
+        setProperty("hibernate.hbm2ddl.import_files", "import.sql");
       }
     };
   }
