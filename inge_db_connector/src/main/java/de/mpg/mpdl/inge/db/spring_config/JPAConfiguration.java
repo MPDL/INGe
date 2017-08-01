@@ -60,9 +60,13 @@ public class JPAConfiguration {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
     dataSource.setDriverClass(PropertyReader.getProperty("inge.database.driver.class"));
-    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
-    logger.info("Setting inge.database.jdbc.url to <"
-        + PropertyReader.getProperty("inge.database.jdbc.url") + ">");
+
+    if ("on".equals(PropertyReader.getProperty("inge.database.junit.mode"))) {
+      dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url.test"));
+    } else {
+      dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
+    }
+
     dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
     dataSource.setMaxPoolSize(20);
@@ -87,9 +91,6 @@ public class JPAConfiguration {
     return new Properties() {
       {
         setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
-        setProperty("hibernate.hbm2ddl.auto", "update");
-        logger.info("Setting hibernate.hbm2ddl.auto to <"
-            + PropertyReader.getProperty("inge.database.hibernate.mode") + ">");
 
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");
@@ -100,7 +101,16 @@ public class JPAConfiguration {
         // setProperty("hibernate.generate_statistics", "true");
 
         // Makes it slow if set to true
-        setProperty("show_sql", "false");
+        if ("on".equals(PropertyReader.getProperty("inge.database.junit.mode"))) {
+          setProperty("hibernate.hbm2ddl.auto",
+              PropertyReader.getProperty("inge.database.hibernate.mode.test"));
+          setProperty("show_sql", "true");
+          setProperty("hibernate.hbm2ddl.import_files", "/db_scripts/import.sql");
+        } else {
+          setProperty("hibernate.hbm2ddl.auto", "update");
+          setProperty("show_sql", "false");
+        }
+
       }
     };
   }
