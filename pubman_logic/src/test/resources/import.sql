@@ -1,1 +1,0 @@
-INSERT INTO id_provider VALUES ('pure', 3000000);

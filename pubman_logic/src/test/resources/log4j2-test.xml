@@ -10,6 +10,7 @@
       <AppenderRef ref="Console"/>
     </Root>
     <Logger name="org.hibernate.cache" level="debug" />
+    <Logger name="org.hibernate.SQL" level="debug" />
     <Logger name="net.sf.ehcache" level="info" />
   </Loggers>
 </Configuration>

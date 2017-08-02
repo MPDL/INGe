@@ -923,11 +923,16 @@
 		<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
 		<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
 
+        <!-- database configuration -->
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
-
 		<inge.database.user.name>postgres</inge.database.user.name>
 		<inge.database.user.password>postgres</inge.database.user.password>
-		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
+		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>		
+		<inge.database.hibernate.mode>update</inge.database.hibernate.mode>
+		<inge.database.junit.mode>off</inge.database.junit.mode>
+		
+		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
+		<inge.database.hibernate.mode.test>create</inge.database.hibernate.mode.test>
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
@@ -1179,6 +1184,9 @@
 		<framework.editor.id>escidoc:2078318</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
 		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
+		
+		<inge.depositor.loginname>test_depositor</inge.depositor.loginname>
+		<inge.moderator.loginname>test_moderator</inge.moderator.loginname>
 	</properties>
 
 	<profiles>
@@ -1356,10 +1364,14 @@
 
 		<!-- enabled to perfom the integration tests -->
 		<profile>
-			<id>integration-tests</id>
+			<id>junit-tests</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<properties>
+				<inge.database.jdbc.url>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url>
+	            <inge.database.hibernate.mode>create</inge.database.hibernate.mode>
+            </properties>
 		</profile>
 
 		<!-- activate this profile to deploy the artifacts -->

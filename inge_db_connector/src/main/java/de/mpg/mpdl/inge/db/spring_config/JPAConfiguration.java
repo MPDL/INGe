@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
     entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
 public class JPAConfiguration {
+
+  static private Logger logger = Logger.getLogger(JPAConfiguration.class);
+
   @Bean
   @Primary
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
@@ -56,7 +60,13 @@ public class JPAConfiguration {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
     dataSource.setDriverClass(PropertyReader.getProperty("inge.database.driver.class"));
-    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
+
+    if ("on".equals(PropertyReader.getProperty("inge.database.junit.mode"))) {
+      dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url.test"));
+    } else {
+      dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
+    }
+
     dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
     dataSource.setMaxPoolSize(20);
@@ -80,17 +90,27 @@ public class JPAConfiguration {
   Properties hibernateProperties() {
     return new Properties() {
       {
-        setProperty("hibernate.hbm2ddl.auto", "update");
         setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
+
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");
         setProperty("hibernate.cache.region.factory_class",
             "org.hibernate.cache.ehcache.EhCacheRegionFactory");
         setProperty("hibernate.jdbc.time_zone", "UTC");
+
         // setProperty("hibernate.generate_statistics", "true");
 
         // Makes it slow if set to true
-        setProperty("show_sql", "false");
+        if ("on".equals(PropertyReader.getProperty("inge.database.junit.mode"))) {
+          setProperty("hibernate.hbm2ddl.auto",
+              PropertyReader.getProperty("inge.database.hibernate.mode.test"));
+          setProperty("show_sql", "true");
+          setProperty("hibernate.hbm2ddl.import_files", "/db_scripts/import.sql");
+        } else {
+          setProperty("hibernate.hbm2ddl.auto", "update");
+          setProperty("show_sql", "false");
+        }
+
       }
     };
   }
