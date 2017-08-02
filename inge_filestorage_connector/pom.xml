@@ -43,6 +43,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 /**
  * File storage service direct on the file system
@@ -36,7 +37,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * java.lang.String)
    */
   @Override
-  public String createFile(InputStream fileInputStream, String fileName) throws IOException {
+  public String createFile(InputStream fileInputStream, String fileName)
+      throws IngeTechnicalException {
     String newFileName = fileName;
     Calendar calendar = Calendar.getInstance();
     int year = calendar.get(Calendar.YEAR);
@@ -46,28 +48,35 @@ public class FileSystemServiceBean implements FileStorageInterface {
     String relativeDirectoryPath = year + "/" + month + "/" + day;
     Path directoryPath =
         FileSystems.getDefault().getPath(filesystemRootPath + relativeDirectoryPath);
-    if (Files.notExists(directoryPath)) {
-      System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
-      Files.createDirectories(directoryPath);
-    }
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
-    if (Files.notExists(filePath)) {
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-          + "]");
-      Files.copy(fileInputStream, filePath);
-    } else {
-      int i = 1;
-      // Split fileName to name and suffix
-      String nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
-      String fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
-      do {
-        newFileName = nameOfTheFile + "_" + i + fileSuffix;
-        filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
-        i++;
-      } while (Files.exists(filePath));
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-          + "]");
-      Files.copy(fileInputStream, filePath);
+    try {
+      
+      if (Files.notExists(directoryPath)) {
+        System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
+        Files.createDirectories(directoryPath);
+      }
+      
+      if (Files.notExists(filePath)) {
+        System.out
+            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        Files.copy(fileInputStream, filePath);
+      } else {
+        int i = 1;
+        // Split fileName to name and suffix
+        String nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
+        String fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
+        do {
+          newFileName = nameOfTheFile + "_" + i + fileSuffix;
+          filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
+          i++;
+        } while (Files.exists(filePath));
+        System.out
+            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        Files.copy(fileInputStream, filePath);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IngeTechnicalException("Error creating file " + filePath, e);
     }
     return relativeDirectoryPath + "/" + newFileName;
   }
@@ -79,10 +88,15 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * java.io.OutputStream)
    */
   @Override
-  public void readFile(String fileRelativePath, OutputStream out) throws IOException {
+  public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
-    if (Files.exists(path)) {
-      Files.copy(path, out);
+    try {
+      if (Files.exists(path)) {
+        Files.copy(path, out);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IngeTechnicalException("Error reading file " + path, e);
     }
   }
 
@@ -92,11 +106,16 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
    */
   @Override
-  public void deleteFile(String fileRelativePath) throws Exception {
+  public void deleteFile(String fileRelativePath) throws IngeTechnicalException {
     System.out.println("Trying to delete File [" + fileRelativePath + "]");
     Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
-    if (Files.exists(path)) {
-      Files.delete(path);
+    try {
+      if (Files.exists(path)) {
+        Files.delete(path);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IngeTechnicalException("Error deleting file " + path, e);
     }
   }
 }

@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+
 /**
  * Interface for file storage systems
  * 
@@ -48,7 +50,7 @@ public interface FileStorageInterface {
    * @return a path or id with which the file can be retrieved again
    * @throws IOException
    */
-  public String createFile(InputStream fileInputstream, String fileName) throws IOException;
+  public String createFile(InputStream fileInputstream, String fileName) throws IngeTechnicalException;
 
   /**
    * reads a file from the file storage into a given OutputStream
@@ -57,7 +59,7 @@ public interface FileStorageInterface {
    * @param out
    * @throws IOException
    */
-  public void readFile(String filePath, OutputStream out) throws IOException;
+  public void readFile(String filePath, OutputStream out) throws IngeTechnicalException;
 
   /**
    * deletes a file from the file storage
@@ -65,5 +67,5 @@ public interface FileStorageInterface {
    * @param filePath
    * @throws Exception
    */
-  public void deleteFile(String filePath) throws Exception;
+  public void deleteFile(String filePath) throws IngeTechnicalException;
 }
