@@ -1182,6 +1182,7 @@
 		
 		<inge.depositor.loginname>test_depositor</inge.depositor.loginname>
 		<inge.moderator.loginname>test_moderator</inge.moderator.loginname>
+        
 	</properties>
 
 	<profiles>
@@ -1355,18 +1356,6 @@
 			<properties>
 				<escidoc.common.release.build>true</escidoc.common.release.build>
 			</properties>
-		</profile>
-
-		<!-- enabled to perfom the integration tests -->
-		<profile>
-			<id>junit-tests</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<inge.database.jdbc.url>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url>
-	            <inge.database.hibernate.mode>create</inge.database.hibernate.mode>
-            </properties>
 		</profile>
 
 		<!-- activate this profile to deploy the artifacts -->

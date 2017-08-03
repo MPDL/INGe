@@ -28,6 +28,7 @@ INSERT INTO context_organization_basic (contextvo_objectid, responsibleaffiliati
 INSERT INTO user_account (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name, active, email, grantlist, loginname, affiliation_objectid) VALUES ('user_3000056', '2017-05-31 13:36:45.703', 'roland', 'user_user42', '2017-05-31 13:36:45.703', 'roland', 'user_user42', 'Test Depositor', true, 'a@b.de', '[{"role": "DEPOSITOR", "objectRef": "ctx_2322554"}, {"role": "DEPOSITOR", "objectRef": "ctx_persistent3"}]', 'test_depositor', 'ou_persistent25');
 INSERT INTO user_account (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name, active, email, grantlist, loginname, affiliation_objectid) VALUES ('user_3000057', '2017-05-31 13:38:09.611', 'roland', 'user_user42', '2017-05-31 13:38:09.611', 'roland', 'user_user42', 'Test Moderator', true, 'b@b.de', '[{"role": "MODERATOR", "objectRef": "ctx_2322554"}, {"role": "MODERATOR", "objectRef": "ctx_persistent3"}]', 'test_moderator', 'ou_persistent25');
 INSERT INTO user_account (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name, active, email, grantlist, loginname, affiliation_objectid) VALUES ('user_3000165', '2017-06-02 09:56:08.234', 'roland', 'user_user42', '2017-06-02 09:56:08.816', 'roland', 'user_user42', 'Test Moderator', true, 'c@b.de', '[{"role": "MODERATOR", "objectRef": "ctx_2322554"}]', 'testCreateUserWithGrant', 'ou_persistent25');
+INSERT INTO user_account (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name, active, email, grantlist, loginname, affiliation_objectid) VALUES ('user_user42', '2008-10-31 10:08:56.889', NULL, 'user_user42', '2010-09-21 09:15:07.051', NULL, 'user_user42', 'roland', true, 'roland@roland', '[{"role": "SYSADMIN", "grantType": "user-account"}]', 'admin', NULL);
 
 CREATE TABLE user_login (loginname character varying(255) NOT NULL, password character varying(255));
 ALTER TABLE user_login OWNER TO postgres;
@@ -35,6 +36,7 @@ ALTER TABLE user_login OWNER TO postgres;
 INSERT INTO user_login (loginname, password) VALUES ('test_depositor', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
 INSERT INTO user_login (loginname, password) VALUES ('test_moderator', '$2a$10$bl82eVlP4Z7g/w4dvFVjKeaoPdzP8ZKo5ag88JNgdXaBMghAHKqQm');
 INSERT INTO user_login (loginname, password) VALUES ('testCreateUserWithGrant', '$2a$10$G5rsfixnZQFICdYaCFKqzerkWSkaZPemUh7kgKW5meapNC4DeHbFu');
+INSERT INTO user_login (loginname, password) VALUES ('admin', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
 
 
 

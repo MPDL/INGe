@@ -39,7 +39,7 @@ public class RepositoryTest {
   UserLoginRepository userLoginRepository;
 
   @Test
-  public void testRepositoryObjects() {
+  public void repositoryObjects() {
     assertTrue(auditRepository != null);
     assertTrue(contextRepository != null);
     assertTrue(identifierProviderServiceImpl != null);
@@ -51,7 +51,7 @@ public class RepositoryTest {
   }
 
   @Test
-  public void findObjects() {
+  public void findAll() {
     List<AffiliationDbVO> ous = organizationRepository.findAll();
     assertTrue(ous.size() == 2);
 
@@ -61,4 +61,23 @@ public class RepositoryTest {
     List<AccountUserDbVO> userAccounts = userAccountRepository.findAll();
     assertTrue(userAccounts.size() == 3);
   }
+
+  @Test
+  public void findOneAccountUserDbVO() {
+    AccountUserDbVO accountUserDbVO = userAccountRepository.findOne("user_3000056");
+    assertTrue(accountUserDbVO != null);
+  }
+
+  @Test
+  public void findOneContextDbVO() {
+    ContextDbVO contextDbVO = contextRepository.findOne("ctx_persistent3");
+    assertTrue(contextDbVO != null);
+  }
+
+  @Test
+  public void findOneAffiliationDbVO() {
+    AffiliationDbVO affiliationDbVO = organizationRepository.findOne("ou_persistent13");
+    assertTrue(affiliationDbVO != null);
+  }
+
 }
