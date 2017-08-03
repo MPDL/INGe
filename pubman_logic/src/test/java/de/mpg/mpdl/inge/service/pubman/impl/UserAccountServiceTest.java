@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -25,20 +24,21 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ContextConfiguration(classes = {AppConfigPubmanLogic.class})
 public class UserAccountServiceTest {
 
-  private static final String ADMIN_PASSWORD = "tseT";
   private static final String ADMIN_LOGIN = "admin";
+  private static final String ADMIN_PASSWORD = "tseT";
   private static final String USER_OBJECTID_MODERATOR = "user_3000165";
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
+  private static final String USER_OBJECTID_DEACTIVATED = "user_3000056";
   @Autowired
   UserAccountService userAccountService;
 
   @Test
-  public void objectsTest() {
+  public void objects() {
     assertTrue(userAccountService != null);
   }
 
   @Test
-  public void loginTest() {
+  public void login() {
     String username = PropertyReader.getProperty("inge.depositor.loginname");
     String password = PropertyReader.getProperty("inge.depositor.password");
     String token = null;
@@ -53,7 +53,7 @@ public class UserAccountServiceTest {
   }
 
   @Test(expected = AuthenticationException.class)
-  public void loginWrongPasswordTest() throws Exception {
+  public void loginWrongPassword() throws Exception {
     String username = PropertyReader.getProperty("inge.depositor.loginname");
     String password = "xxxxxx";
 
@@ -62,7 +62,7 @@ public class UserAccountServiceTest {
 
 
   @Test(expected = AuthenticationException.class)
-  public void loginInvalidUserTest() throws Exception {
+  public void loginInvalidUser() throws Exception {
     String username = "user_does_not_exists";
     String password = PropertyReader.getProperty("inge.depositor.password");
 
@@ -70,8 +70,13 @@ public class UserAccountServiceTest {
   }
 
   @Test
-  public void getTest() throws Exception {
-    AccountUserVO accountUserVO = getAuthTokenForDepositorUser();
+  public void get() throws Exception {
+    String authenticationToken =
+        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
+            PropertyReader.getProperty("inge.depositor.password"));
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
 
     assertTrue("Got no accountUserVO object", accountUserVO != null);
     assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliations().size() == 1);
@@ -79,16 +84,12 @@ public class UserAccountServiceTest {
         .equalsIgnoreCase("ou_persistent25"));
   }
 
-
-
   @Test
-  public void removeGrantsTest() throws Exception {
+  public void removeGrants() throws Exception {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
-
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserGrantsToBeRemoved = null;
-    accountUserGrantsToBeRemoved =
+    AccountUserVO accountUserGrantsToBeRemoved =
         userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
 
     List<GrantVO> grants = accountUserGrantsToBeRemoved.getGrants();
@@ -103,17 +104,14 @@ public class UserAccountServiceTest {
         + userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getGrants().size()
         + ">", userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getGrants()
         .size() + 1 == sizeBeforeRemove);
-
   }
 
   @Test
-  public void addGrantsTest() throws Exception {
+  public void addGrants() throws Exception {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
-
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserGrantsToBeAdded = null;
-    accountUserGrantsToBeAdded =
+    AccountUserVO accountUserGrantsToBeAdded =
         userAccountService.get(USER_OBJECTID_MODERATOR, authenticationToken);
 
     List<GrantVO> grants = accountUserGrantsToBeAdded.getGrants();
@@ -133,18 +131,84 @@ public class UserAccountServiceTest {
             .getGrants().size() - 1 == sizeBeforeAdd);
   }
 
-  private AccountUserVO getAuthTokenForDepositorUser() throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  @Test
+  public void changePasswordByUser() throws Exception {
     String authenticationToken =
         userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
             PropertyReader.getProperty("inge.depositor.password"));
-
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserVO = null;
-    accountUserVO = userAccountService.get(authenticationToken);
-    return accountUserVO;
+    AccountUserVO accountUserPwdToBeChanged =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+        accountUserPwdToBeChanged.getLastModificationDate(), "newPassword", authenticationToken);
+
+    assertTrue(userAccountService.login("test_depositor", "newPassword") != null);
   }
 
+  @Test
+  public void changePasswordByAdmin() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserPwdToBeChanged =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+        accountUserPwdToBeChanged.getLastModificationDate(), "newPassword", authenticationToken);
+
+    String newPassword = userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getPassword();
+    
+    assertTrue(newPassword != null);
+  }
+  
+  @Test
+  public void deactivateByAdmin() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeDeactivated =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+        accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
+    
+    assertFalse(userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).isActive());
+    
+  }
+  
+  @Test
+  public void deactivateByOwner() throws Exception {
+    
+    String username = PropertyReader.getProperty("inge.depositor.loginname");
+    String password = PropertyReader.getProperty("inge.depositor.password");
+    
+    String authenticationToken = userAccountService.login(username, password);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeDeactivated =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+        accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
+    
+    assertFalse(userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).isActive());   
+  }
+  
+  @Test
+  public void activateByAdmin() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeActivated =
+        userAccountService.get(USER_OBJECTID_DEACTIVATED, authenticationToken);
+
+    userAccountService.deactivate(USER_OBJECTID_DEACTIVATED,
+        accountUserToBeActivated.getLastModificationDate(), authenticationToken);
+    
+    assertTrue(userAccountService.get(USER_OBJECTID_DEACTIVATED, authenticationToken).isActive());
+    
+  }
 
 }

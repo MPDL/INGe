@@ -316,6 +316,13 @@
 				}
 			}
 		],
+		"changePassword" : [
+            {
+                "user" : {
+                    "role" : "SYSADMIN"
+                }
+            }
+        ],
 		"activate" : [
 			{
 				"user" : {
