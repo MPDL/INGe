@@ -8,10 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 
 /**
@@ -25,6 +28,8 @@ import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 @Service
 public class GlusterFileServiceBean implements FileStorageInterface {
 
+  private static Logger logger = Logger.getLogger(GlusterFileServiceBean.class);
+
   @Value("${gluster_path}")
   private String glusterRootPath;
 
@@ -37,7 +42,8 @@ public class GlusterFileServiceBean implements FileStorageInterface {
    * java.lang.String)
    */
   @Override
-  public String createFile(InputStream fileInputStream, String fileName) throws IOException {
+  public String createFile(InputStream fileInputStream, String fileName)
+      throws IngeTechnicalException {
     String newFileName = fileName;
     Calendar calendar = Calendar.getInstance();
     int year = calendar.get(Calendar.YEAR);
@@ -46,28 +52,34 @@ public class GlusterFileServiceBean implements FileStorageInterface {
     // Path starting after the the defined glusterRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
     Path directoryPath = FileSystems.getDefault().getPath(glusterRootPath + relativeDirectoryPath);
-    if (Files.notExists(directoryPath)) {
-      System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
-      Files.createDirectories(directoryPath);
-    }
-    Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
-    if (Files.notExists(filePath)) {
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-          + "]");
-      Files.copy(fileInputStream, filePath);
-    } else {
-      int i = 1;
-      // Split fileName to name and suffix
-      String nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
-      String fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
-      do {
-        newFileName = nameOfTheFile + "_" + i + fileSuffix;
-        filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
-        i++;
-      } while (Files.exists(filePath));
-      System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-          + "]");
-      Files.copy(fileInputStream, filePath);
+    try {
+      if (Files.notExists(directoryPath)) {
+        System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
+        Files.createDirectories(directoryPath);
+      }
+      Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
+      if (Files.notExists(filePath)) {
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+            + "]");
+        Files.copy(fileInputStream, filePath);
+      } else {
+        int i = 1;
+        // Split fileName to name and suffix
+        String nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
+        String fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
+        do {
+          newFileName = nameOfTheFile + "_" + i + fileSuffix;
+          filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
+          i++;
+        } while (Files.exists(filePath));
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+            + "]");
+        Files.copy(fileInputStream, filePath);
+      }
+    } catch (IOException e) {
+      logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
+          + "]", e);
     }
     return relativeDirectoryPath + "/" + newFileName;
   }
@@ -79,10 +91,16 @@ public class GlusterFileServiceBean implements FileStorageInterface {
    * java.io.OutputStream)
    */
   @Override
-  public void readFile(String fileRelativePath, OutputStream out) throws IOException {
+  public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     Path path = FileSystems.getDefault().getPath(glusterRootPath + fileRelativePath);
-    if (Files.exists(path)) {
-      Files.copy(path, out);
+    try {
+      if (Files.exists(path)) {
+        Files.copy(path, out);
+      }
+    } catch (IOException e) {
+      logger.error("An error occoured, when trying to read file [" + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to read file ["
+          + path.toString() + "]", e);
     }
   }
 
@@ -92,11 +110,17 @@ public class GlusterFileServiceBean implements FileStorageInterface {
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
    */
   @Override
-  public void deleteFile(String fileRelativePath) throws Exception {
+  public void deleteFile(String fileRelativePath) throws IngeTechnicalException {
     System.out.println("Trying to delete File [" + fileRelativePath + "]");
     Path path = FileSystems.getDefault().getPath(glusterRootPath + fileRelativePath);
-    if (Files.exists(path)) {
-      Files.delete(path);
+    try {
+      if (Files.exists(path)) {
+        Files.delete(path);
+      }
+    } catch (IOException e) {
+      logger.error("An error occoured, when trying to delete file [" + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to delete file ["
+          + path.toString() + "]", e);
     }
   }
 }

@@ -15,12 +15,13 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 
 public class FileServiceFSImpl implements FileService {
-  
+
   @Autowired
   private FileSystemServiceBean fssb;
 
   @Override
-  public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
+  public String createFile(InputStream fileInputStream, String fileName)
+      throws IngeTechnicalException {
     fssb.createFile(fileInputStream, fileName);
     return null;
   }
@@ -36,19 +37,40 @@ public class FileServiceFSImpl implements FileService {
   }
 
   @Override
-  public Path stageFile(InputStream fileInputStream, String fileName)
+  public Path createStageFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
     int fileHashValue = fileName.hashCode();
     File tmpFile = new File(TEMP_FILE_PATH + fileHashValue);
-    //Get the file reference
-    
+    // Get the file reference
+
     try {
       Files.copy(fileInputStream, tmpFile.toPath());
     } catch (IOException e) {
       e.printStackTrace();
       throw new IngeTechnicalException("Could not write temp file", e);
     }
-    return null;
+    return tmpFile.toPath();
+  }
+
+  @Override
+  public void readStageFile(Path stagedFilePath, OutputStream fileOutputStream)
+      throws IngeTechnicalException {
+    try {
+      Files.copy(stagedFilePath, fileOutputStream);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IngeTechnicalException("Could not read temp file", e);
+    }
+  }
+
+  @Override
+  public void deleteStageFile(Path path) throws IngeTechnicalException {
+    try {
+      Files.deleteIfExists(path);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IngeTechnicalException("Could not delete temp file", e);
+    }
   }
 
   @Override
@@ -62,7 +84,8 @@ public class FileServiceFSImpl implements FileService {
     try {
       throw exception;
     } catch (IOException ex) {
-      StringBuilder message = new StringBuilder("An error occured while reading or writing the file");
+      StringBuilder message =
+          new StringBuilder("An error occured while reading or writing the file");
       // Get message from
       if (ex.getCause() != null && ex.getCause().getCause() != null) {
         message.append(" ").append(ex.getCause().getCause().getMessage());
@@ -71,5 +94,7 @@ public class FileServiceFSImpl implements FileService {
     }
 
   }
+
+
 
 }

@@ -50,7 +50,8 @@ public interface FileStorageInterface {
    * @return a path or id with which the file can be retrieved again
    * @throws IOException
    */
-  public String createFile(InputStream fileInputstream, String fileName) throws IngeTechnicalException;
+  public String createFile(InputStream fileInputstream, String fileName)
+      throws IngeTechnicalException;
 
   /**
    * reads a file from the file storage into a given OutputStream

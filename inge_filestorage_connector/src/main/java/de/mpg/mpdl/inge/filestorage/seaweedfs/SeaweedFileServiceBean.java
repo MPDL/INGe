@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 
 /**
@@ -61,7 +62,8 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * @throws IOException
    */
   @Override
-  public String createFile(InputStream fileInputStream, String fileName) throws IOException {
+  public String createFile(InputStream fileInputStream, String fileName)
+      throws IngeTechnicalException {
     String fileId;
     HttpEntity entity =
         MultipartEntityBuilder.create()
@@ -85,9 +87,16 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       fileId = jsonObject.findValuesAsText("fid").get(0);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
-      throw e;
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
+          + "]", e);
     } finally {
-      response.close();
+      try {
+        response.close();
+      } catch (IOException e) {
+        logger.error("An error occoured, when trying to close response for [" + fileName + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to close response for ["
+            + fileName + "]", e);
+      }
     }
     return fileId;
   }
@@ -105,7 +114,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * @throws IOException
    */
   @Override
-  public void readFile(String fileId, OutputStream out) throws IOException {
+  public void readFile(String fileId, OutputStream out) throws IngeTechnicalException {
     System.out.println("Trying to read Id [" + fileId + "]");
     HttpGet httpGet = new HttpGet(seaweedMasterUrl + "/" + fileId);
     CloseableHttpResponse response = null;
@@ -122,9 +131,16 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to retrieve file [" + fileId + "]", e);
-      e.printStackTrace();
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileId
+          + "]", e);
     } finally {
-      response.close();
+      try {
+        response.close();
+      } catch (IOException e) {
+        logger.error("An error occoured, when trying to close response for [" + fileId + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to close response for ["
+            + fileId + "]", e);
+      }
     }
   }
 
@@ -139,14 +155,14 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * @throws Exception
    */
   @Override
-  public void deleteFile(String fileId) throws Exception {
+  public void deleteFile(String fileId) throws IngeTechnicalException {
     System.out.println("Trying to delete Id [" + fileId + "]");
-    HttpDelete httpDelete =
-        new HttpDelete(seaweedMasterUrl + "/" + URLEncoder.encode(fileId, "UTF-8"));
-    logger.info("Delete request: " + httpDelete.getURI().toString());
     CloseableHttpResponse response = null;
-
     try {
+      HttpDelete httpDelete =
+          new HttpDelete(seaweedMasterUrl + "/" + URLEncoder.encode(fileId, "UTF-8"));
+      logger.info("Delete request: " + httpDelete.getURI().toString());
+
       response = httpClient.execute(httpDelete);
       logger.info(response.getStatusLine());
       logger.info(response.getFirstHeader("Location"));
@@ -166,13 +182,22 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to delete the file [" + fileId + "]", e);
-      throw e;
+      throw new IngeTechnicalException("An error occoured, when trying to delete the file ["
+          + fileId + "]", e);
     } catch (URISyntaxException e) {
       logger.error("An error with the generated URI occoured, "
           + "when trying to delete the file [" + fileId + "]", e);
-      throw e;
+      throw new IngeTechnicalException("An error with the generated URI occoured, "
+          + "when trying to delete the file [" + fileId + "]", e);
     } finally {
-      response.close();
+      try {
+        response.close();
+      } catch (IOException e) {
+        logger
+            .error("An error occoured, when trying to close repsons for file [" + fileId + "]", e);
+        throw new IngeTechnicalException(
+            "An error occoured, when trying to close repsons for file [" + fileId + "]", e);
+      }
     }
   }
 }

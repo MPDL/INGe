@@ -43,6 +43,7 @@ import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.faces.facelets.component.UIRepeat;
 
@@ -51,6 +52,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -94,6 +96,8 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -134,6 +138,9 @@ public class EditItem extends FacesBean {
   // Flag for the binding method to avoid unnecessary binding
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
+  
+  @Autowired
+  private FileService fileService;
 
   public EditItem() {
     this.init();
@@ -709,9 +716,8 @@ public class EditItem extends FacesBean {
 
   public String uploadFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
-      final String contentURL = this.uploadFileToEscidoc(file);
-      final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
-      if (contentURL != null && !contentURL.trim().equals("")) {
+      try {
+        String path = fileService.createStageFile(file.getInputstream(), file.getFileName()).toString();
         final FileVO fileVO = new FileVO();
         final MdsFileVO mdsFileVO = new MdsFileVO();
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
@@ -723,28 +729,30 @@ public class EditItem extends FacesBean {
                 new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO,
                     false));
         fileVO.getDefaultMetadata().setSize((int) file.getSize());
-        fileVO.setName(fixedFileName);
-        fileVO.getDefaultMetadata().setTitle(fixedFileName);
+        fileVO.setName(file.getFileName());
+        fileVO.getDefaultMetadata().setTitle(file.getFileName());
 
         final Tika tika = new Tika();
         try {
           final InputStream fis = file.getInputstream();
-          fileVO.setMimeType(tika.detect(fis, fixedFileName));
+          fileVO.setMimeType(tika.detect(fis, file.getFileName()));
           fis.close();
         } catch (final IOException e) {
-          EditItem.logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
+          EditItem.logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
         }
 
         final FormatVO formatVO = new FormatVO();
         formatVO.setType("dcterms:IMT");
         formatVO.setValue(fileVO.getMimeType());
         fileVO.getDefaultMetadata().getFormats().add(formatVO);
-        fileVO.setContent(contentURL);
+        fileVO.setContent(path);
+      } catch (Exception e) {
+        e.printStackTrace();
+        FacesBean.error(this.getMessage("Error uploading file"));
       }
     } else {
       FacesBean.error(this.getMessage("ComponentEmpty"));
     }
-
     return "";
   }
 

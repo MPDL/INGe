@@ -8,10 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 /**
@@ -24,6 +26,8 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
  */
 @Service
 public class FileSystemServiceBean implements FileStorageInterface {
+
+  private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
   @Value("${filesystem_path}")
   private String filesystemRootPath;
@@ -50,15 +54,15 @@ public class FileSystemServiceBean implements FileStorageInterface {
         FileSystems.getDefault().getPath(filesystemRootPath + relativeDirectoryPath);
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
     try {
-      
+
       if (Files.notExists(directoryPath)) {
         System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
         Files.createDirectories(directoryPath);
       }
-      
+
       if (Files.notExists(filePath)) {
-        System.out
-            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+            + "]");
         Files.copy(fileInputStream, filePath);
       } else {
         int i = 1;
@@ -70,13 +74,14 @@ public class FileSystemServiceBean implements FileStorageInterface {
           filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
           i++;
         } while (Files.exists(filePath));
-        System.out
-            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
+            + "]");
         Files.copy(fileInputStream, filePath);
       }
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Error creating file " + filePath, e);
+      logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
+          + "]", e);
     }
     return relativeDirectoryPath + "/" + newFileName;
   }
@@ -95,8 +100,9 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.copy(path, out);
       }
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Error reading file " + path, e);
+      logger.error("An error occoured, when trying to retrieve file [" + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file["
+          + path.toString() + "]", e);
     }
   }
 
@@ -114,8 +120,10 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.delete(path);
       }
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Error deleting file " + path, e);
+      logger
+          .error("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to delete the file ["
+          + path.toString() + "]", e);
     }
   }
 }
