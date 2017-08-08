@@ -79,14 +79,14 @@ public class RepositoryTest {
     AffiliationDbVO affiliationDbVO = organizationRepository.findOne("ou_persistent13");
     assertTrue(affiliationDbVO != null);
   }
-  
+
   @Test
   public void updateLogin() {
     String encodedPassword = "$2a$10$3g.zbUZBGwty2tKCvdk97eitmg6ua2pmpMlh4y2Frmq3dZEssaHMu";
     userLoginRepository.updateLogin("test_depositor", encodedPassword);
-    
+
     String password = userLoginRepository.findPassword("test_depositor");
-    
+
     assertTrue(password != null && password.equals(encodedPassword));
   }
 

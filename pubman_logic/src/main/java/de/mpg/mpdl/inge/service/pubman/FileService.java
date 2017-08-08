@@ -26,7 +26,7 @@ public interface FileService extends FileStorageInterface {
   /**
    * @param fileInputStream
    * @param fileName
-   * @return
+   * @return Path for the created stage-file
    * @throws IOException
    */
   public Path createStageFile(InputStream fileInputStream, String fileName)
@@ -34,11 +34,10 @@ public interface FileService extends FileStorageInterface {
 
   /**
    * @param stagedFilePath
-   * @param fileOutputStream
+   * @return String representing the
    * @throws IngeTechnicalException
    */
-  public void readStageFile(Path stagedFilePath, OutputStream fileOutputStream)
-      throws IngeTechnicalException;
+  public InputStream readStageFile(Path stagedFilePath) throws IngeTechnicalException;
 
   /**
    * @param path

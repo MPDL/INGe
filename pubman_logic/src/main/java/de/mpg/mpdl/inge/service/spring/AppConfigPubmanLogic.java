@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
 import de.mpg.mpdl.inge.es.spring.AppConfig;
+import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfig.class, JPAConfiguration.class})
+@Import({AppConfig.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
 public class AppConfigPubmanLogic {
   private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);

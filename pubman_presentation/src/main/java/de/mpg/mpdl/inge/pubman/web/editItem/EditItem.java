@@ -27,11 +27,13 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
@@ -43,7 +45,6 @@ import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.faces.facelets.component.UIRepeat;
 
@@ -57,6 +58,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -97,7 +99,6 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -138,8 +139,8 @@ public class EditItem extends FacesBean {
   // Flag for the binding method to avoid unnecessary binding
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
-  
-  @Autowired
+
+  @ManagedProperty(value = "#{fileServiceFSImpl}")
   private FileService fileService;
 
   public EditItem() {
@@ -649,6 +650,8 @@ public class EditItem extends FacesBean {
       return retVal;
     }
 
+    uploadStagedFile();
+
     retVal = saveItem(navigateTo);
 
     if (!navigateTo.equals(retVal)) {
@@ -714,10 +717,11 @@ public class EditItem extends FacesBean {
     return saveAndGoto(AcceptItem.LOAD_ACCEPTITEM);
   }
 
-  public String uploadFile(UploadedFile file) {
+  public String stageFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
       try {
-        String path = fileService.createStageFile(file.getInputstream(), file.getFileName()).toString();
+        String path =
+            fileService.createStageFile(file.getInputstream(), file.getFileName()).toString();
         final FileVO fileVO = new FileVO();
         final MdsFileVO mdsFileVO = new MdsFileVO();
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
@@ -738,7 +742,8 @@ public class EditItem extends FacesBean {
           fileVO.setMimeType(tika.detect(fis, file.getFileName()));
           fis.close();
         } catch (final IOException e) {
-          EditItem.logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+          EditItem.logger.info(
+              "Error while trying to detect mimetype of file " + file.getFileName(), e);
         }
 
         final FormatVO formatVO = new FormatVO();
@@ -754,6 +759,43 @@ public class EditItem extends FacesBean {
       FacesBean.error(this.getMessage("ComponentEmpty"));
     }
     return "";
+  }
+
+  private void uploadStagedFile() {
+    for (FileVO fileVO : this.getPubItem().getFiles()) {
+      if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
+        String stagedPath = fileVO.getContent();
+        try {
+          String persitentPath =
+              fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
+                  fileVO.getName());
+          fileVO.setContent(persitentPath);
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not upload staged file [" + stagedPath + "]", e);
+          FacesBean.error(this.getMessage("Could not upload staged file [" + stagedPath + "]"));
+        }
+      }
+    }
+    // for (int i = 0; i < this.getPubItem().getFiles().size(); i++) {
+    // if (this.getPubItem().getFiles().get(i) != null) {
+    // FileVO fileVO = this.getPubItem().getFiles().get(i);
+    // if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
+    // String stagedPath = fileVO.getContent();
+    // try {
+    // String persitentPath =
+    // fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
+    // fileVO.getName());
+    // fileVO.setContent(persitentPath);
+    // this.getPubItem().getFiles().set(i, fileVO);
+    // } catch (IngeTechnicalException e) {
+    // logger.error("Could not upload staged file [" + stagedPath + "]", e);
+    // FacesBean.error(this.getMessage("Could not upload staged file [" + stagedPath + "]"));
+    // }
+    // }
+    // }
+    //
+    //
+    // }
   }
 
   public String uploadFileToEscidoc(UploadedFile file) {
@@ -791,7 +833,7 @@ public class EditItem extends FacesBean {
   }
 
   public void fileUploaded(FileUploadEvent event) {
-    this.uploadFile(event.getFile());
+    this.stageFile(event.getFile());
   }
 
   /**
@@ -1308,6 +1350,14 @@ public class EditItem extends FacesBean {
 
   public void setFileIterator(UIRepeat fileIterator) {
     this.fileIterator = fileIterator;
+  }
+
+  public FileService getFileService() {
+    return fileService;
+  }
+
+  public void setFileService(FileService fileService) {
+    this.fileService = fileService;
   }
 
   public String getSuggestConeUrl() throws Exception {

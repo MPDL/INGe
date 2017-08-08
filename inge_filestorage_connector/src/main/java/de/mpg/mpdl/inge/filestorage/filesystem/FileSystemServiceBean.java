@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
@@ -25,6 +26,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
  * 
  */
 @Service
+@Primary
 public class FileSystemServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);

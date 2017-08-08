@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,59 +7,72 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 
+@Service
+@Primary
 public class FileServiceFSImpl implements FileService {
+  private static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
   @Autowired
-  private FileSystemServiceBean fssb;
+  private FileStorageInterface fsi;
 
   @Override
   public String createFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
-    fssb.createFile(fileInputStream, fileName);
-    return null;
+    return fsi.createFile(fileInputStream, fileName);
   }
 
   @Override
   public void readFile(String filePath, OutputStream out) throws IngeTechnicalException {
-    fssb.readFile(filePath, out);
+    fsi.readFile(filePath, out);
   }
 
   @Override
   public void deleteFile(String filePath) throws IngeTechnicalException {
-    fssb.deleteFile(filePath);
+    fsi.deleteFile(filePath);
   }
 
   @Override
   public Path createStageFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
-    int fileHashValue = fileName.hashCode();
-    File tmpFile = new File(TEMP_FILE_PATH + fileHashValue);
-    // Get the file reference
+    String[] fileNameParts = fileName.split("\\.");
+    Path tmpFilePath = null;
+    if (fileNameParts[0] != null && !("".equals(fileNameParts[0])) && fileNameParts[1] != null
+        && !("".equals(fileNameParts[1]))) {
+      int fileHashValue = (fileNameParts[0] + System.currentTimeMillis()).hashCode();
+      tmpFilePath = Paths.get(TEMP_FILE_PATH + fileHashValue + "." + fileNameParts[1]);
+    }
 
     try {
-      Files.copy(fileInputStream, tmpFile.toPath());
+      Files.copy(fileInputStream, tmpFilePath);
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Could not write temp file", e);
+      logger.error("Could not write staged file [" + tmpFilePath + "] for file [" + fileName + "]",
+          e);
+      throw new IngeTechnicalException("Could not write staged file [" + tmpFilePath
+          + "] for file [" + fileName + "]", e);
     }
-    return tmpFile.toPath();
+    return tmpFilePath;
   }
 
   @Override
-  public void readStageFile(Path stagedFilePath, OutputStream fileOutputStream)
-      throws IngeTechnicalException {
+  public InputStream readStageFile(Path stagedFilePath) throws IngeTechnicalException {
+    InputStream in = null;
     try {
-      Files.copy(stagedFilePath, fileOutputStream);
+      in = Files.newInputStream(stagedFilePath);
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Could not read temp file", e);
+      logger.error("Could not read staged file [" + stagedFilePath.toString() + "]", e);
+      throw new IngeTechnicalException("Could not read staged file [" + stagedFilePath.toString()
+          + "]", e);
     }
+    return in;
   }
 
   @Override
@@ -68,8 +80,8 @@ public class FileServiceFSImpl implements FileService {
     try {
       Files.deleteIfExists(path);
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new IngeTechnicalException("Could not delete temp file", e);
+      logger.error("Could not delete staged file [" + path + "]", e);
+      throw new IngeTechnicalException("Could not delete staged file", e);
     }
   }
 
@@ -78,23 +90,5 @@ public class FileServiceFSImpl implements FileService {
     // TODO Auto-generated method stub
 
   }
-
-  protected static void handleIOException(IOException exception) throws IngeTechnicalException {
-
-    try {
-      throw exception;
-    } catch (IOException ex) {
-      StringBuilder message =
-          new StringBuilder("An error occured while reading or writing the file");
-      // Get message from
-      if (ex.getCause() != null && ex.getCause().getCause() != null) {
-        message.append(" ").append(ex.getCause().getCause().getMessage());
-      }
-      throw new IngeTechnicalException(message.toString(), ex);
-    }
-
-  }
-
-
 
 }
