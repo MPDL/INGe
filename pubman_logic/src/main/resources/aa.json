@@ -321,13 +321,18 @@
                 "user" : {
                     "role" : "SYSADMIN"
                 }
+            },
+            {
+                "givenUser.reference.objectId": "user.reference.objectId"
+
             }
         ],
 		"activate" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"givenUser.active" : "false"
 			}
 		],
 		"deactivate" : [

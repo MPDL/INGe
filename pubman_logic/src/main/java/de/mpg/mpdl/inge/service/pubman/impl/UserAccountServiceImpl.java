@@ -153,7 +153,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
     checkAa("changePassword", userAccount, transformToOld(userDbToUpdated));
-    userLoginRepository.updateLogin(userId, passwordEncoder.encode(newPassword));
+    userLoginRepository.updateLogin(userVoToUpdated.getUserid(),
+        passwordEncoder.encode(newPassword));
 
   }
 
