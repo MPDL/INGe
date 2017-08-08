@@ -28,7 +28,7 @@ public class UserAccountServiceTest {
   private static final String ADMIN_PASSWORD = "tseT";
   private static final String USER_OBJECTID_MODERATOR = "user_3000165";
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
-  private static final String USER_OBJECTID_DEACTIVATED = "user_3000056";
+  private static final String USER_OBJECTID_DEACTIVATED = "user_3000166";
   @Autowired
   UserAccountService userAccountService;
 
@@ -158,44 +158,13 @@ public class UserAccountServiceTest {
     userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
         accountUserPwdToBeChanged.getLastModificationDate(), "newPassword", authenticationToken);
 
-    String newPassword = userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getPassword();
-    
-    assertTrue(newPassword != null);
+    String userAuthenticationToken =
+        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
+            "newPassword");
+
+    assertTrue(userAuthenticationToken != null);
   }
-  
-  @Test
-  public void deactivateByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserToBeDeactivated =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
-
-    userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
-        accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
-    
-    assertFalse(userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).isActive());
-    
-  }
-  
-  @Test
-  public void deactivateByOwner() throws Exception {
-    
-    String username = PropertyReader.getProperty("inge.depositor.loginname");
-    String password = PropertyReader.getProperty("inge.depositor.password");
-    
-    String authenticationToken = userAccountService.login(username, password);
-    assertTrue(authenticationToken != null);
-
-    AccountUserVO accountUserToBeDeactivated =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
-
-    userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
-        accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
-    
-    assertFalse(userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).isActive());   
-  }
-  
   @Test
   public void activateByAdmin() throws Exception {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
@@ -204,11 +173,45 @@ public class UserAccountServiceTest {
     AccountUserVO accountUserToBeActivated =
         userAccountService.get(USER_OBJECTID_DEACTIVATED, authenticationToken);
 
-    userAccountService.deactivate(USER_OBJECTID_DEACTIVATED,
-        accountUserToBeActivated.getLastModificationDate(), authenticationToken);
-    
-    assertTrue(userAccountService.get(USER_OBJECTID_DEACTIVATED, authenticationToken).isActive());
-    
+    accountUserToBeActivated =
+        userAccountService.activate(USER_OBJECTID_DEACTIVATED,
+            accountUserToBeActivated.getLastModificationDate(), authenticationToken);
+
+    assertTrue(accountUserToBeActivated.isActive());
   }
+
+  @Test
+  public void deactivateByAdmin() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeDeactivated =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    accountUserToBeDeactivated =
+        userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+            accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
+
+    assertFalse(accountUserToBeDeactivated.isActive());
+  }
+
+  @Test(expected = AuthorizationException.class)
+  public void deactivateByOwner() throws Exception {
+
+    String username = PropertyReader.getProperty("inge.depositor.loginname");
+    String password = PropertyReader.getProperty("inge.depositor.password");
+
+    String authenticationToken = userAccountService.login(username, password);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeDeactivated =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    accountUserToBeDeactivated =
+        userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+            accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
+  }
+
+
 
 }
