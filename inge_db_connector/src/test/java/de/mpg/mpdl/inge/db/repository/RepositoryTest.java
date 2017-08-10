@@ -14,7 +14,6 @@ import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 
 
 
