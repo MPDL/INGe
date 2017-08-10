@@ -34,7 +34,7 @@ public class DataSourceHandlerTest {
     DataSourceVO test = null;
     List<DataSourceVO> testV = null;
 
-    testV = sourceHandler.getSources();
+    testV = sourceHandler.getSources(null);
     Assert.assertNotNull(testV);
     this.logger.info("Retrieval of all sources successful");
 

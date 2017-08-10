@@ -55,8 +55,8 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
   public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";
 
-  public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
-  public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
+  // public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
+  // public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
 
   public static final String ES_STEP1 = "STEP1";
   public static final String ES_STEP2 = "STEP2";
@@ -76,7 +76,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String currentSubmissionMethod = EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL;
   private String currentSubmissionStep = EasySubmissionSessionBean.ES_STEP1;
   private String currentDateType = EasySubmissionSessionBean.DATE_PUBLISHED_IN_PRINT;
-  private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
+  // private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
 
   private OrganizationVO currentlySelecting = null;
   private ContextVO context;
@@ -91,7 +91,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String currentFTLabel = "";
   private boolean fulltext = true;
   private String radioSelectFulltext;
-  private boolean importSourceRefresh = false;
+  // private boolean importSourceRefresh = false;
 
   private SelectItem[] FULLTEXT_OPTIONS;
   private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
@@ -114,7 +114,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
 
   public EasySubmissionSessionBean() {
     this.currentSubmissionStep = EasySubmissionSessionBean.ES_STEP1;
-    this.importSourceRefresh = false;
+    // this.importSourceRefresh = false;
     this.radioSelectReferenceValue = EasySubmissionSessionBean.REFERENCE_LOCATOR;
     this.initAuthorCopyPasteCreatorBean();
   }
@@ -131,7 +131,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.setGenreBundle("Genre_ARTICLE");
     this.setSelectedDate("");
     this.initAuthorCopyPasteCreatorBean();
-    this.setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+    // this.setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
     this.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
     this.uploadedBibtexFile = null;
   }
@@ -184,13 +184,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.currentDateType = currentDateType;
   }
 
-  public String getImportMethod() {
-    return this.importMethod;
-  }
-
-  public void setImportMethod(String importMethod) {
-    this.importMethod = importMethod;
-  }
+  // public String getImportMethod() {
+  // return this.importMethod;
+  // }
+  //
+  // public void setImportMethod(String importMethod) {
+  // this.importMethod = importMethod;
+  // }
 
   public String getCurrentExternalServiceType() {
     return this.currentExternalServiceType;
@@ -224,13 +224,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.currentFTLabel = currentFTLabel;
   }
 
-  public boolean isImportSourceRefresh() {
-    return this.importSourceRefresh;
-  }
-
-  public void setImportSourceRefresh(boolean importSourceRefresh) {
-    this.importSourceRefresh = importSourceRefresh;
-  }
+  // public boolean isImportSourceRefresh() {
+  // return this.importSourceRefresh;
+  // }
+  //
+  // public void setImportSourceRefresh(boolean importSourceRefresh) {
+  // this.importSourceRefresh = importSourceRefresh;
+  // }
 
   public SelectItem[] getFULLTEXT_OPTIONS() {
     // TODO Workaround cause Labels are set before the language change is done. Could be done better

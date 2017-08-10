@@ -113,8 +113,7 @@
 						class="free_area0 itemBlockContent endline">
 						<!-- Import from external source -->
 						<h:panelGroup id="identifier" layout="block"
-							styleClass="labelline marginTExcl6p clear"
-							rendered="#{EasySubmission.disableBibtexFields}">
+							styleClass="labelline marginTExcl6p clear">
 							<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
 									value="#{lbl.easy_submission_lblProvideID}" /><span
 								class="noDisplay">: </span>
@@ -165,14 +164,6 @@
 								</h:selectOneRadio>
 							</h:panelGroup>
 						</h:panelGroup>
-						<!-- Import from bibtex file -->
-						<h:panelGroup id="uploadBibtexFile" layout="block"
-							styleClass="free_area0 xTiny_marginLExcl"
-							rendered="#{EasySubmission.disableExternalFields}">
-							<h:panelGroup layout="block"
-								styleClass="large_area0_p4 endline firstLine">		
-						&#160;
-					</h:panelGroup>
 							<h:panelGroup layout="block"
 								styleClass="free_area0 endline firstLine line180">
 								<span class="free_area0 xTiny_marginLExcl endline fileSection">
@@ -220,18 +211,10 @@
 				value="#{ApplicationBean.appContext}SubmissionPage.jsp">
 				<h:outputText value="#{lbl.cancel}" />
 			</h:outputLink>
-			<ui:remove>
-				<!-- 
-	<h:commandLink id="lnkImportBibtex" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton #{empty EasySubmissionSessionBean.uploadedBibtexFile ? 'disabled' : ''}" action="#{EasySubmission.harvestData}" rendered="#{EasySubmission.disableExternalFields}" disabled="#{empty EasySubmissionSessionBean.uploadedBibtexFile}">
-		<h:outputText value="#{lbl.easy_submission_btnNext}" />
-	</h:commandLink>
-	-->
-			</ui:remove>
 			<h:commandLink id="lnkImportFetch"
 				title="#{tip.easy_submission_btnImport}"
 				styleClass="free_area1_p8 activeButton"
 				action="#{EasySubmission.harvestData}"
-				rendered="#{EasySubmission.disableBibtexFields}"
 				onclick="fullItemReloadAjax();">
 				<h:outputText value="#{lbl.easy_submission_btnFetch}" />
 			</h:commandLink>
