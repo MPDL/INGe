@@ -34,7 +34,7 @@ import java.util.List;
  * @author kleinfe1
  */
 public class DataSourceVO {
-  // General source_______________________________________
+  // General source
   private String name;
   private String description;
   private URL url;
@@ -55,13 +55,10 @@ public class DataSourceVO {
 
   private List<String> identifierExample;
 
-  // Full text informations_______________________________
+  // Full text informations
   private List<FullTextVO> ftFormats;
   private List<MetadataVO> mdFormats;
 
-  /**
-   * The value object for import sources descriptions.
-   */
   public DataSourceVO() {}
 
   public List<FullTextVO> getFtFormats() {
