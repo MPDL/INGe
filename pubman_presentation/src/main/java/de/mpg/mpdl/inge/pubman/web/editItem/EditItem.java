@@ -650,8 +650,6 @@ public class EditItem extends FacesBean {
       return retVal;
     }
 
-    uploadStagedFile();
-
     retVal = saveItem(navigateTo);
 
     if (!navigateTo.equals(retVal)) {
@@ -759,77 +757,6 @@ public class EditItem extends FacesBean {
       FacesBean.error(this.getMessage("ComponentEmpty"));
     }
     return "";
-  }
-
-  private void uploadStagedFile() {
-    for (FileVO fileVO : this.getPubItem().getFiles()) {
-      if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
-        String stagedPath = fileVO.getContent();
-        try {
-          String persitentPath =
-              fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
-                  fileVO.getName());
-          fileVO.setContent(persitentPath);
-        } catch (IngeTechnicalException e) {
-          logger.error("Could not upload staged file [" + stagedPath + "]", e);
-          FacesBean.error(this.getMessage("Could not upload staged file [" + stagedPath + "]"));
-        }
-      }
-    }
-    // for (int i = 0; i < this.getPubItem().getFiles().size(); i++) {
-    // if (this.getPubItem().getFiles().get(i) != null) {
-    // FileVO fileVO = this.getPubItem().getFiles().get(i);
-    // if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
-    // String stagedPath = fileVO.getContent();
-    // try {
-    // String persitentPath =
-    // fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
-    // fileVO.getName());
-    // fileVO.setContent(persitentPath);
-    // this.getPubItem().getFiles().set(i, fileVO);
-    // } catch (IngeTechnicalException e) {
-    // logger.error("Could not upload staged file [" + stagedPath + "]", e);
-    // FacesBean.error(this.getMessage("Could not upload staged file [" + stagedPath + "]"));
-    // }
-    // }
-    // }
-    //
-    //
-    // }
-  }
-
-  public String uploadFileToEscidoc(UploadedFile file) {
-    String contentURL = "";
-    if (file != null) {
-      try {
-        // upload the file
-        URL url = null;
-        if (this.getLoginHelper().getAccountUser().isDepositor()) {
-          url =
-              this.uploadFile(file, file.getContentType(), this.getLoginHelper()
-                  .getESciDocUserHandle());
-        }
-        // workarround for moderators who can modify released items but do not have the right to
-        // upload files
-        else {
-          url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
-        }
-        if (url != null) {
-          contentURL = url.toString();
-        }
-      } catch (final Exception e) {
-        EditItem.logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-        try {
-          FacesTools.getExternalContext().redirect("ErrorPage.jsp");
-        } catch (final Exception ex) {
-          EditItem.logger.error(e.toString());
-        }
-        return ErrorPage.LOAD_ERRORPAGE;
-      }
-    }
-
-    return contentURL;
   }
 
   public void fileUploaded(FileUploadEvent event) {

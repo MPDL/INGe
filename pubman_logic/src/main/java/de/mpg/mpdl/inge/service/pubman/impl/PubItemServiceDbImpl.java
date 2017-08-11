@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
@@ -44,6 +46,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -51,12 +54,14 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
@@ -88,6 +93,9 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @Autowired
   private PubItemDaoEs pubItemDao;
+
+  @Autowired
+  private FileService fileService;
 
   @PersistenceContext
   EntityManager entityManager;
@@ -177,7 +185,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
     PubItemVersionDbVO pubItemToCreate =
-        buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
+        buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(), pubItemVO.getFiles(),
             pubItemVO.getLocalTags(), userAccount.getReference().getTitle(), userAccount
                 .getReference().getObjectId());
 
@@ -200,6 +208,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
 
     createAuditEntry(pubItemToCreate, EventType.CREATE);
+    uploadStagedFile(pubItemVO);
     reindex(pubItemToCreate);
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
@@ -224,11 +233,11 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
       de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO context, MdsPublicationVO md,
-      List<String> localTags, String modifierName, String modifierId) {
+      List<FileVO> files, List<String> localTags, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
     PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
-    pubItem.getFiles().clear();// TODO
+
     pubItem.setMetadata(md);
     pubItem.setLastMessage(null);
     pubItem.setModificationDate(currentDate);
@@ -253,8 +262,38 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemObject.setPublicStatus(PubItemDbRO.State.PENDING);
     pubItemObject.setPublicStatusComment(null);
 
+    pubItem.getFiles().clear();
+    for (FileVO fileVO : files) {
+      generateFileDbVOFromFileVO(fileVO, mod, currentDate);
+    }
+
     pubItem.setObject(pubItemObject);
     return pubItem;
+  }
+
+  private FileDbVO generateFileDbVOFromFileVO(FileVO fileVO, AccountUserDbRO accountUser,
+      Date currentDate) {
+    FileDbVO fileDbVO = new FileDbVO();
+    fileDbVO.setChecksum(fileVO.getChecksum());
+    // fileDbVO.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(fileVO.getChecksumAlgorithm()
+    // .name()));
+    fileDbVO.setContent(fileVO.getContent());
+    fileDbVO.setContentCategory(fileVO.getContentCategory());
+    fileDbVO.setCreationDate(fileVO.getCreationDate());
+    fileDbVO.setCreator(accountUser);
+    fileDbVO.setDescription(fileVO.getDescription());
+    fileDbVO.setLastModificationDate(fileVO.getLastModificationDate());
+    fileDbVO.setMetadata(fileVO.getDefaultMetadata());
+    fileDbVO.setMimeType(fileVO.getMimeType());
+    fileDbVO.setName(fileVO.getName());
+    fileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES)); // TODO check if no
+                                                                       // transformation is
+    // needed
+    fileDbVO.setPid(fileVO.getPid());
+    fileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVO.getStorage().name()));
+    fileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVO.getVisibility().name()));
+
+    return fileDbVO;
   }
 
 
@@ -683,6 +722,27 @@ public class PubItemServiceDbImpl implements PubItemService {
       return true;
     else
       return false;
+  }
+
+  private void mapFileVOToFileDbVO(PubItemVO pubItemVO) {
+
+  }
+
+  private void uploadStagedFile(PubItemVO pubItemVO) throws IngeTechnicalException {
+    for (FileVO fileVO : pubItemVO.getFiles()) {
+      if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
+        String stagedPath = fileVO.getContent();
+        try {
+          String persitentPath =
+              fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
+                  fileVO.getName());
+          fileVO.setContent(persitentPath);
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not upload staged file [" + stagedPath + "]", e);
+          throw new IngeTechnicalException("Could not upload staged file [" + stagedPath + "]", e);
+        }
+      }
+    }
   }
 
 }
