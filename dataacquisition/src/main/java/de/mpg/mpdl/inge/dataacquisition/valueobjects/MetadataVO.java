@@ -84,5 +84,4 @@ public class MetadataVO {
   public void setMdDefault(boolean mdDefault) {
     this.mdDefault = mdDefault;
   }
-
 }

@@ -251,16 +251,16 @@ public class EasySubmission extends FacesBean {
         && this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT")) {
 
       // Call source initialization only once
-      if (!this.getEasySubmissionSessionBean().isImportSourceRefresh()) {
-        this.getEasySubmissionSessionBean().setImportSourceRefresh(true);
-        this.setImportSourcesInfo();
-      } else if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
-        this.getEasySubmissionSessionBean();
+      // if (!this.getEasySubmissionSessionBean().isImportSourceRefresh()) {
+      // this.getEasySubmissionSessionBean().setImportSourceRefresh(true);
+      this.setImportSourcesInfo();
+    } else if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
+      if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
         this.getEasySubmissionSessionBean().setRadioSelectFulltext(
             EasySubmissionSessionBean.FULLTEXT_ALL);
       }
-    } else {
-      this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
+      // } else {
+      // this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
     }
 
     if (this.getItem() != null && this.getItem().getMetadata() != null
@@ -770,226 +770,229 @@ public class EasySubmission extends FacesBean {
    */
   public String harvestData() {
     // Fetch data from external system
-    if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean()
-        .getImportMethod())) {
-      if (this.getServiceID() == null || "".equals(this.getServiceID())) {
-        this.warn(this.getMessage("easy_submission_external_service_no_id"));
-        return null;
-      }
+    // if
+    // (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean()
+    // .getImportMethod())) {
+    if (this.getServiceID() == null || "".equals(this.getServiceID())) {
+      this.warn(this.getMessage("easy_submission_external_service_no_id"));
+      return null;
+    }
 
-      final DataHandlerService dataHandler = new DataHandlerService();
-      PubItemVO itemVO = null;
-      final String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
-      final List<FileVO> fileVOs = new ArrayList<FileVO>();
-      String fetchedItem = null;
-      try {
-        // Harvest metadata
-        final byte[] fetchedItemByte =
-            dataHandler.doFetch(service, this.getServiceID(), EasySubmission.INTERNAL_MD_FORMAT);
-        fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
+    final DataHandlerService dataHandler = new DataHandlerService();
+    PubItemVO itemVO = null;
+    final String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+    final List<FileVO> fileVOs = new ArrayList<FileVO>();
+    String fetchedItem = null;
+    try {
+      // Harvest metadata
+      final byte[] fetchedItemByte =
+          dataHandler.doFetch(service, this.getServiceID(), EasySubmission.INTERNAL_MD_FORMAT);
+      fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
 
-        // Harvest full text
-        if (this.getEasySubmissionSessionBean().isFulltext()
-            && ((!this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-                .equals(EasySubmissionSessionBean.FULLTEXT_NONE)) && !fetchedItem.equals(""))
-            && !service.equalsIgnoreCase("escidoc")) {
-          final DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
-          final List<FullTextVO> ftFormats = source.getFtFormats();
-          FullTextVO fulltext = new FullTextVO();
-          final List<String> formats = new ArrayList<String>();
+      // Harvest full text
+      if (this.getEasySubmissionSessionBean().isFulltext() //
+          && !this.getEasySubmissionSessionBean().getRadioSelectFulltext()
+              .equals(EasySubmissionSessionBean.FULLTEXT_NONE) //
+          && !fetchedItem.equals("")) {
+        // && !service.equalsIgnoreCase("escidoc")) {
+        final DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
+        final List<FullTextVO> ftFormats = source.getFtFormats();
+        FullTextVO fulltext = new FullTextVO();
+        final List<String> formats = new ArrayList<String>();
 
-          // Get DEFAULT full text version from source
-          if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-              .equals(EasySubmissionSessionBean.FULLTEXT_DEFAULT)) {
-            for (int x = 0; x < ftFormats.size(); x++) {
-              fulltext = ftFormats.get(x);
-              if (fulltext.isFtDefault()) {
-                formats.add(fulltext.getName());
-                break;
-              }
-            }
-          }
-
-          // Get ALL full text versions from source
-          if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-              .equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
-            for (int x = 0; x < ftFormats.size(); x++) {
-              fulltext = ftFormats.get(x);
+        // Get DEFAULT full text version from source
+        if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
+            .equals(EasySubmissionSessionBean.FULLTEXT_DEFAULT)) {
+          for (int x = 0; x < ftFormats.size(); x++) {
+            fulltext = ftFormats.get(x);
+            if (fulltext.isFtDefault()) {
               formats.add(fulltext.getName());
+              break;
             }
           }
+        }
 
-          final String[] arrFormats = new String[formats.size()];
-          final byte[] ba =
-              dataHandler.doFetch(this.getEasySubmissionSessionBean()
-                  .getCurrentExternalServiceType(), this.getServiceID(), formats
-                  .toArray(arrFormats));
-          final ByteArrayInputStream in = new ByteArrayInputStream(ba);
-          final URL fileURL =
-              this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
-                  .getESciDocUserHandle());
-
-          if (fileURL != null && !fileURL.toString().trim().equals("")) {
-            final FileVO fileVO = dataHandler.getComponentVO();
-            final MdsFileVO fileMd = fileVO.getDefaultMetadata();
-            fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-            fileVO.setVisibility(dataHandler.getVisibility());
-            fileVO.setDefaultMetadata(fileMd);
-            fileVO.getDefaultMetadata().setTitle(
-                this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
-            fileVO.setMimeType(dataHandler.getContentType());
-            fileVO.setName(this.replaceSlashes(this.getServiceID().trim()
-                + dataHandler.getFileEnding()));
-            final FormatVO formatVO = new FormatVO();
-            formatVO.setType("dcterms:IMT");
-            formatVO.setValue(dataHandler.getContentType());
-            fileVO.getDefaultMetadata().getFormats().add(formatVO);
-            fileVO.setContent(fileURL.toString());
-            fileVO.getDefaultMetadata().setSize(ba.length);
-            fileVO.getDefaultMetadata().setDescription(
-                "File downloaded from " + service + " at " + CommonUtils.currentDate());
-            fileVO.setContentCategory(dataHandler.getContentCategory());
-            fileVOs.add(fileVO);
+        // Get ALL full text versions from source
+        if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
+            .equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
+          for (int x = 0; x < ftFormats.size(); x++) {
+            fulltext = ftFormats.get(x);
+            formats.add(fulltext.getName());
           }
         }
-      } catch (final AccessException inre) {
-        EasySubmission.logger.error("Error fetching from external import source", inre);
-        FacesBean.error(this
-            .getMessage("easy_submission_import_from_external_service_access_denied_error")
-            + this.getServiceID());
-        return null;
-      } catch (final DataaquisitionException inre) {
-        EasySubmission.logger.error(inre.getMessage(), inre);
-        FacesBean.error(this
-            .getMessage("easy_submission_import_from_external_service_identifier_error")
-            + this.getServiceID());
-        return null;
-      } catch (final Exception e) {
-        EasySubmission.logger.error(e.getMessage(), e);
-        FacesBean.error(this
-            .getMessage("easy_submission_import_from_external_service_identifier_error")
-            + this.getServiceID());
-        return null;
+
+        final String[] arrFormats = new String[formats.size()];
+        final byte[] ba =
+            dataHandler.doFetch(
+                this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),
+                this.getServiceID(), formats.toArray(arrFormats));
+        final ByteArrayInputStream in = new ByteArrayInputStream(ba);
+        final URL fileURL =
+            this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
+                .getESciDocUserHandle());
+
+        if (fileURL != null && !fileURL.toString().trim().equals("")) {
+          final FileVO fileVO = dataHandler.getComponentVO();
+          final MdsFileVO fileMd = fileVO.getDefaultMetadata();
+          fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+          fileVO.setVisibility(dataHandler.getVisibility());
+          fileVO.setDefaultMetadata(fileMd);
+          fileVO.getDefaultMetadata().setTitle(
+              this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
+          fileVO.setMimeType(dataHandler.getContentType());
+          fileVO.setName(this.replaceSlashes(this.getServiceID().trim()
+              + dataHandler.getFileEnding()));
+          final FormatVO formatVO = new FormatVO();
+          formatVO.setType("dcterms:IMT");
+          formatVO.setValue(dataHandler.getContentType());
+          fileVO.getDefaultMetadata().getFormats().add(formatVO);
+          fileVO.setContent(fileURL.toString());
+          fileVO.getDefaultMetadata().setSize(ba.length);
+          fileVO.getDefaultMetadata().setDescription(
+              "File downloaded from " + service + " at " + CommonUtils.currentDate());
+          fileVO.setContentCategory(dataHandler.getContentCategory());
+          fileVOs.add(fileVO);
+        }
       }
+    } catch (final AccessException inre) {
+      EasySubmission.logger.error("Error fetching from external import source", inre);
+      FacesBean.error(this
+          .getMessage("easy_submission_import_from_external_service_access_denied_error")
+          + this.getServiceID());
+      return null;
+    } catch (final DataaquisitionException inre) {
+      EasySubmission.logger.error(inre.getMessage(), inre);
+      FacesBean.error(this
+          .getMessage("easy_submission_import_from_external_service_identifier_error")
+          + this.getServiceID());
+      return null;
+    } catch (final Exception e) {
+      EasySubmission.logger.error(e.getMessage(), e);
+      FacesBean.error(this
+          .getMessage("easy_submission_import_from_external_service_identifier_error")
+          + this.getServiceID());
+      return null;
+    }
 
-      // Generate item ValueObject
-      if (fetchedItem != null && !fetchedItem.trim().equals("")) {
-        try {
-          itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
+    // Generate item ValueObject
+    if (fetchedItem != null && !fetchedItem.trim().equals("")) {
+      try {
+        itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
 
-          // Upload fulltexts from other escidoc repositories to current repository
-          if (this.getEasySubmissionSessionBean().isFulltext()
-              && this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null
-              && this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-                  .equals(EasySubmissionSessionBean.FULLTEXT_ALL)
-              && service.equalsIgnoreCase("escidoc")) {
-            boolean hasFile = false;
-            final List<FileVO> fetchedFileList = itemVO.getFiles();
+        // // Upload fulltexts from other escidoc repositories to current repository
+        // if (this.getEasySubmissionSessionBean().isFulltext()
+        // && this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null
+        // && this.getEasySubmissionSessionBean().getRadioSelectFulltext()
+        // .equals(EasySubmissionSessionBean.FULLTEXT_ALL)
+        // && service.equalsIgnoreCase("escidoc")) {
+        // boolean hasFile = false;
+        // final List<FileVO> fetchedFileList = itemVO.getFiles();
+        //
+        // for (int i = 0; i < fetchedFileList.size(); i++) {
+        // final FileVO file = fetchedFileList.get(i);
+        //
+        // if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
+        // try {
+        // final FileVO newFile = new FileVO();
+        // final byte[] content =
+        // dataHandler.retrieveComponentContent(service, this.getServiceID(),
+        // file.getContent());
+        // final ByteArrayInputStream in = new ByteArrayInputStream(content);
+        // URL fileURL;
+        // fileURL =
+        // this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
+        // .getESciDocUserHandle());
+        //
+        // if (fileURL != null && !fileURL.toString().trim().equals("")
+        // && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
+        // hasFile = true;
+        // newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+        // newFile.setVisibility(file.getVisibility());
+        // newFile.setDefaultMetadata(new MdsFileVO());
+        // newFile.getDefaultMetadata().setTitle(
+        // this.replaceSlashes(file.getDefaultMetadata().getTitle()));
+        // newFile.setMimeType(file.getMimeType());
+        // newFile.setName(this.replaceSlashes(file.getName()));
+        // final FormatVO formatVO = new FormatVO();
+        // formatVO.setType("dcterms:IMT");
+        // formatVO.setValue(file.getMimeType());
+        // newFile.getDefaultMetadata().getFormats().add(formatVO);
+        // newFile.setContent(fileURL.toString());
+        // newFile.getDefaultMetadata().setSize(content.length);
+        // if (file.getDescription() != null) {
+        // newFile.getDefaultMetadata().setDescription(
+        // file.getDescription() + " File downloaded from " + service + " at "
+        // + CommonUtils.currentDate());
+        // } else {
+        // newFile.getDefaultMetadata().setDescription(
+        // "File downloaded from " + service + " at " + CommonUtils.currentDate());
+        // }
+        // newFile.setContentCategory(file.getContentCategory());
+        // fileVOs.add(newFile);
+        // }
+        // } catch (final Exception e) {
+        // EasySubmission.logger.error("Error fetching file from coreservice", e);
+        // }
+        // } else if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL)
+        // && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
+        // // Locator is just added as is
+        // fileVOs.add(file);
+        // }
+        // }
+        //
+        // if (!hasFile) {
+        // this.info(this
+        // .getMessage("easy_submission_import_from_external_service_identifier_info"));
+        // }
+        // }
 
-            for (int i = 0; i < fetchedFileList.size(); i++) {
-              final FileVO file = fetchedFileList.get(i);
+        itemVO.getFiles().clear();
+        itemVO.setContext(this.getItem().getContext());
 
-              if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
-                try {
-                  final FileVO newFile = new FileVO();
-                  final byte[] content =
-                      dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                  final ByteArrayInputStream in = new ByteArrayInputStream(content);
-                  URL fileURL;
-                  fileURL =
-                      this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
-                          .getESciDocUserHandle());
-
-                  if (fileURL != null && !fileURL.toString().trim().equals("")
-                      && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
-                    hasFile = true;
-                    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-                    newFile.setVisibility(file.getVisibility());
-                    newFile.setDefaultMetadata(new MdsFileVO());
-                    newFile.getDefaultMetadata().setTitle(
-                        this.replaceSlashes(file.getDefaultMetadata().getTitle()));
-                    newFile.setMimeType(file.getMimeType());
-                    newFile.setName(this.replaceSlashes(file.getName()));
-                    final FormatVO formatVO = new FormatVO();
-                    formatVO.setType("dcterms:IMT");
-                    formatVO.setValue(file.getMimeType());
-                    newFile.getDefaultMetadata().getFormats().add(formatVO);
-                    newFile.setContent(fileURL.toString());
-                    newFile.getDefaultMetadata().setSize(content.length);
-                    if (file.getDescription() != null) {
-                      newFile.getDefaultMetadata().setDescription(
-                          file.getDescription() + " File downloaded from " + service + " at "
-                              + CommonUtils.currentDate());
-                    } else {
-                      newFile.getDefaultMetadata().setDescription(
-                          "File downloaded from " + service + " at " + CommonUtils.currentDate());
-                    }
-                    newFile.setContentCategory(file.getContentCategory());
-                    fileVOs.add(newFile);
-                  }
-                } catch (final Exception e) {
-                  EasySubmission.logger.error("Error fetching file from coreservice", e);
-                }
-              } else if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL)
-                  && file.getVisibility().equals(FileVO.Visibility.PUBLIC)) {
-                // Locator is just added as is
-                fileVOs.add(file);
-              }
-            }
-
-            if (!hasFile) {
-              this.info(this
-                  .getMessage("easy_submission_import_from_external_service_identifier_info"));
-            }
+        if (dataHandler.getItemUrl() != null) {
+          final IdentifierVO id = new IdentifierVO();
+          id.setType(IdType.URI);
+          try {
+            id.setId(java.net.URLDecoder.decode(dataHandler.getItemUrl().toString(), "UTF-8"));
+            itemVO.getMetadata().getIdentifiers().add(id);
+          } catch (final UnsupportedEncodingException e) {
+            EasySubmission.logger.warn("Item URL could not be decoded");
           }
-
-          itemVO.getFiles().clear();
-          itemVO.setContext(this.getItem().getContext());
-
-          if (dataHandler.getItemUrl() != null) {
-            final IdentifierVO id = new IdentifierVO();
-            id.setType(IdType.URI);
-            try {
-              id.setId(java.net.URLDecoder.decode(dataHandler.getItemUrl().toString(), "UTF-8"));
-              itemVO.getMetadata().getIdentifiers().add(id);
-            } catch (final UnsupportedEncodingException e) {
-              EasySubmission.logger.warn("Item URL could not be decoded");
-            }
-          }
-
-          if (this.getEasySubmissionSessionBean().isFulltext()
-              && !this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-                  .equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
-            for (int i = 0; i < fileVOs.size(); i++) {
-              final FileVO tmp = fileVOs.get(i);
-              itemVO.getFiles().add(tmp);
-            }
-
-            fileVOs.clear();
-          }
-
-          this.getItem().setMetadata(itemVO.getMetadata());
-          this.getItem().getFiles().clear();
-          this.getItem().getFiles().addAll(itemVO.getFiles());
-        } catch (final TechnicalException e) {
-          EasySubmission.logger.warn("Error transforming item to pubItem.");
-          FacesBean.error(this.getMessage("easy_submission_import_from_external_service_error"));
-          return null;
         }
-      } else {
-        EasySubmission.logger.warn("Empty fetched Item.");
+
+        if (this.getEasySubmissionSessionBean().isFulltext()
+            && !this.getEasySubmissionSessionBean().getRadioSelectFulltext()
+                .equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
+          for (int i = 0; i < fileVOs.size(); i++) {
+            final FileVO tmp = fileVOs.get(i);
+            itemVO.getFiles().add(tmp);
+          }
+
+          fileVOs.clear();
+        }
+
+        this.getItem().setMetadata(itemVO.getMetadata());
+        this.getItem().getFiles().clear();
+        this.getItem().getFiles().addAll(itemVO.getFiles());
+      } catch (final TechnicalException e) {
+        EasySubmission.logger.warn("Error transforming item to pubItem.");
         FacesBean.error(this.getMessage("easy_submission_import_from_external_service_error"));
         return null;
       }
+    } else {
+      EasySubmission.logger.warn("Empty fetched Item.");
+      FacesBean.error(this.getMessage("easy_submission_import_from_external_service_error"));
+      return null;
     }
-    // Fetch data from provided file
-    else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this
-        .getEasySubmissionSessionBean().getImportMethod())) {
-      final String uploadResult = this.uploadBibtexFile();
-      if (uploadResult == null) {
-        return null;
-      }
-    }
+    // }
+    // // Fetch data from provided file
+    // else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this
+    // .getEasySubmissionSessionBean().getImportMethod())) {
+    // final String uploadResult = this.uploadBibtexFile();
+    // if (uploadResult == null) {
+    // return null;
+    // }
+    // }
 
     this.getEditItemSessionBean().clean();
 
@@ -1383,35 +1386,35 @@ public class EasySubmission extends FacesBean {
   // return "loadNewEasySubmission";
   // }
 
-  /**
-   * returns a flag which sets the fields of the import method 'fetch metadata from external
-   * systems' to disabled or not
-   * 
-   * @return boolean the flag for disabling
-   */
-  public boolean getDisableExternalFields() {
-    if (this.getEasySubmissionSessionBean().getImportMethod()
-        .equals(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX)) {
-      return true;
-    }
+  // /**
+  // * returns a flag which sets the fields of the import method 'fetch metadata from external
+  // * systems' to disabled or not
+  // *
+  // * @return boolean the flag for disabling
+  // */
+  // public boolean getDisableExternalFields() {
+  // if (this.getEasySubmissionSessionBean().getImportMethod()
+  // .equals(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX)) {
+  // return true;
+  // }
+  //
+  // return false;
+  // }
 
-    return false;
-  }
-
-  /**
-   * returns a flag which sets the fields of the import method 'Upload Bibtex file' to disabled or
-   * not
-   * 
-   * @return boolean the flag for disabling
-   */
-  public boolean getDisableBibtexFields() {
-    if (this.getEasySubmissionSessionBean().getImportMethod()
-        .equals(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL)) {
-      return true;
-    }
-
-    return false;
-  }
+  // /**
+  // * returns a flag which sets the fields of the import method 'Upload Bibtex file' to disabled or
+  // * not
+  // *
+  // * @return boolean the flag for disabling
+  // */
+  // public boolean getDisableBibtexFields() {
+  // if (this.getEasySubmissionSessionBean().getImportMethod()
+  // .equals(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL)) {
+  // return true;
+  // }
+  //
+  // return false;
+  // }
 
   /**
    * localized creation of SelectItems for the genres available.

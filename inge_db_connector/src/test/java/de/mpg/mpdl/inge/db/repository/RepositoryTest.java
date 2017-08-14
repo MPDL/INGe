@@ -14,7 +14,6 @@ import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 
 
 
@@ -82,7 +81,7 @@ public class RepositoryTest {
   }
 
   @Test
-  public void updateLogin() {
+  public void updateLogin() throws Exception {
     String encodedPassword = "$2a$10$3g.zbUZBGwty2tKCvdk97eitmg6ua2pmpMlh4y2Frmq3dZEssaHMu";
     userLoginRepository.updateLogin("test_depositor", encodedPassword);
 
@@ -90,9 +89,9 @@ public class RepositoryTest {
 
     assertTrue(password != null && password.equals(encodedPassword));
   }
-  
+
   @Test(expected = Exception.class)
-  public void updateLoginWrongLoginname() {
+  public void updateLoginWrongLoginname() throws Exception {
     String encodedPassword = "$2a$10$3g.zbUZBGwty2tKCvdk97eitmg6ua2pmpMlh4y2Frmq3dZEssaHMu";
     userLoginRepository.updateLogin("xxxxxxxxxxx", encodedPassword);
   }

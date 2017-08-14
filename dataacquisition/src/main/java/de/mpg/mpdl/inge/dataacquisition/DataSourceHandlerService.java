@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.dataacquisition;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * This class handles the import function from external sources.
@@ -30,17 +30,17 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public class DataSourceHandlerService {
   private static final Logger logger = Logger.getLogger(DataSourceHandlerService.class);
 
-  private ImportSourcesDocument sourceDoc = null;
+  private InputStream sourceInputStream = null;
+  private ImportSourcesDocument importSourcesDocument = null;
   private ImportSourcesType sourceType = null;
-  private String transformationFormat = null;
   private String sourceXmlPath = null;
 
   /**
    * Public constructor for DataSourceHandlerBean class.
    */
   public DataSourceHandlerService() {
-    sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
-    logger.info("SourcesXml-Property: " + sourceXmlPath);
+    this.sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
+    DataSourceHandlerService.logger.info("SourcesXml-Property: " + this.sourceXmlPath);
   }
 
   /**
@@ -49,58 +49,54 @@ public class DataSourceHandlerService {
    * @return List of DataSourceVO
    * @throws RuntimeException
    */
-  public List<DataSourceVO> getSources() throws RuntimeException {
-
-    List<DataSourceVO> sourceVec = new ArrayList<DataSourceVO>();
+  public List<DataSourceVO> getSources(String transformationFormat) throws RuntimeException {
+    List<DataSourceVO> sources = new ArrayList<DataSourceVO>();
 
     try {
-      ClassLoader cl = this.getClass().getClassLoader();
-      java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
-      String xml = ResourceUtil.getStreamAsString(in);
+      ImportSourceType[] sourceTypes = getImportSourceTypes();
 
-      this.sourceDoc = ImportSourcesDocument.Factory.parse(xml);
-
-      this.sourceType = this.sourceDoc.getImportSources();
-      ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-      for (int i = 0; i < sources.length; i++) {
-        ImportSourceType source = sources[i];
+      for (int i = 0; i < sourceTypes.length; i++) {
+        ImportSourceType sourceType = sourceTypes[i];
         List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
         List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
 
-        String status = simpleLiteralTostring(source.getStatus());
+        String status = simpleLiteralTostring(sourceType.getStatus());
         if (status.equalsIgnoreCase("published")) {
           DataSourceVO sourceVO = new DataSourceVO();
-          sourceVO.setName(source.getName());
-          sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
-          sourceVO.setUrl(new URL(simpleLiteralTostring(source.getIdentifier())));
-          sourceVO.setType(simpleLiteralTostring(source.getFormatArray(0)));
-          sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
-          sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
-          sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
-          sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
+          sourceVO.setName(sourceType.getName());
+          sourceVO.setDescription(simpleLiteralTostring(sourceType.getDescription()));
+          sourceVO.setUrl(new URL(simpleLiteralTostring(sourceType.getIdentifier())));
+          sourceVO.setType(simpleLiteralTostring(sourceType.getFormatArray(0)));
+          sourceVO.setEncoding(simpleLiteralTostring(sourceType.getFormatArray(1)));
+          sourceVO.setHarvestProtocol(simpleLiteralTostring(sourceType.getHarvestProtocol()));
+          sourceVO.setTimeout(Integer.parseInt(sourceType.getTimeout().toString()));
+          sourceVO.setStatus(simpleLiteralTostring(sourceType.getStatus()));
+
           // Accepted identifier Prefixes
-          SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
+          SimpleLiteral[] idPrefArr = sourceType.getSourceIdentifierArray();
           List<String> idPrefVec = new ArrayList<String>();
           for (int x = 0; x < idPrefArr.length; x++) {
             String idPref = simpleLiteralTostring(idPrefArr[x]);
             idPrefVec.add(idPref);
           }
           sourceVO.setIdentifier(idPrefVec);
+
           // Identifier Examples
-          SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
+          SimpleLiteral[] idExArr = sourceType.getSourceIdentifierExampleArray();
           List<String> idExVec = new ArrayList<String>();
           for (int y = 0; y < idExArr.length; y++) {
             String idEx = simpleLiteralTostring(idExArr[y]);
             idExVec.add(idEx);
           }
           sourceVO.setIdentifierExample(idExVec);
-          sourceVO.setLicense(source.getLicense());
-          sourceVO.setCopyright(source.getCopyright());
-          if (source.getItemUrl() != null) {
-            sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+          sourceVO.setLicense(sourceType.getLicense());
+          sourceVO.setCopyright(sourceType.getCopyright());
+          if (sourceType.getItemUrl() != null) {
+            sourceVO.setItemUrl(new URL(simpleLiteralTostring(sourceType.getItemUrl())));
           }
+
           // Metadata parameters
-          MDFetchSettingsType mdfs = source.getMDFetchSettings();
+          MDFetchSettingsType mdfs = sourceType.getMDFetchSettings();
           MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
           for (MDFetchSettingType mdf : mdfArray) {
             MetadataVO mdVO = new MetadataVO();
@@ -116,8 +112,9 @@ public class DataSourceHandlerService {
             mdVec.add(mdVO);
           }
           sourceVO.setMdFormats(mdVec);
+
           // Fulltext parameters
-          FTFetchSettingsType ftfs = source.getFTFetchSettings();
+          FTFetchSettingsType ftfs = sourceType.getFTFetchSettings();
           FTFetchSettingType[] ftfArray = ftfs.getFTFetchSettingArray();
           for (FTFetchSettingType ftf : ftfArray) {
             FullTextVO fulltextVO = new FullTextVO();
@@ -135,45 +132,66 @@ public class DataSourceHandlerService {
             fulltextVec.add(fulltextVO);
           }
           sourceVO.setFtFormats(fulltextVec);
+
           // Check if a transformation for the default MD format is possible
-          if (this.transformationFormat != null) {
+          if (transformationFormat != null) {
             for (int x = 0; x < sourceVO.getMdFormats().size(); x++) {
               MetadataVO md = sourceVO.getMdFormats().get(x);
               if (md.isMdDefault()) {
                 if (md.isMdDefault()) {
-                  if (Util.checkXsltTransformation(md.getName(), this.transformationFormat)
-                      || (this.transformationFormat.equalsIgnoreCase(md.getName()))) {
-                    sourceVec.add(sourceVO);
+                  if (Util.checkXsltTransformation(md.getName(), transformationFormat)
+                      || (transformationFormat.equalsIgnoreCase(md.getName()))) {
+                    sources.add(sourceVO);
                   }
                 }
               }
             }
           } else {
-            sourceVec.add(sourceVO);
+            sources.add(sourceVO);
           }
         }
       }
     } catch (MalformedURLException e) {
-      logger.error("Processing the source URL caused an error", e);
+      DataSourceHandlerService.logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      logger.error("Parsing sources.xml caused an error", e);
+      DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
-    return sourceVec;
+
+    return sources;
   }
 
-  /**
-   * Gets all Sources for a specific format.
-   * 
-   * @param format
-   * @return DataSourceVO
-   * @throws RuntimeException
-   */
-  public List<DataSourceVO> getSources(String format) throws RuntimeException {
-    this.transformationFormat = format;
-    return this.getSources();
+  private InputStream getSourceInputStream() {
+    if (this.sourceInputStream == null) {
+      ClassLoader cl = this.getClass().getClassLoader();
+      this.sourceInputStream = cl.getResourceAsStream(this.sourceXmlPath);
+    }
+
+    return this.sourceInputStream;
   }
+
+  private ImportSourcesDocument getImportSourcesDocument() {
+    if (this.importSourcesDocument == null) {
+      try {
+        this.importSourcesDocument = ImportSourcesDocument.Factory.parse(getSourceInputStream());
+      } catch (Exception e) {
+        DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
+        throw new RuntimeException(e);
+      }
+    }
+
+    return this.importSourcesDocument;
+  }
+
+  private ImportSourceType[] getImportSourceTypes() {
+    if (this.sourceType == null) {
+      this.sourceType = getImportSourcesDocument().getImportSources();
+    }
+
+    return this.sourceType.getImportSourceArray();
+  }
+
 
   /**
    * Returns a specific source.
@@ -187,51 +205,52 @@ public class DataSourceHandlerService {
     List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
     List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
     boolean found = false;
+
     try {
-      ClassLoader cl = this.getClass().getClassLoader();
-      java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
-      this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
-      this.sourceType = this.sourceDoc.getImportSources();
-      ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-      for (ImportSourceType source : sources) {
-        if (!source.getName().equalsIgnoreCase(name)) {
+      ImportSourceType[] sourceTypes = getImportSourceTypes();
+
+      for (ImportSourceType sourceType : sourceTypes) {
+        if (!sourceType.getName().equalsIgnoreCase(name)) {
           continue;
         } else {
           found = true;
         }
-        sourceVO.setName(source.getName());
-        sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
-        sourceVO.setUrl(new URL(simpleLiteralTostring(source.getIdentifier())));
-        sourceVO.setType(simpleLiteralTostring(source.getFormatArray(0)));
-        sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
-        sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
-        sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
-        sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
-        sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
+        sourceVO.setName(sourceType.getName());
+        sourceVO.setDescription(simpleLiteralTostring(sourceType.getDescription()));
+        sourceVO.setUrl(new URL(simpleLiteralTostring(sourceType.getIdentifier())));
+        sourceVO.setType(simpleLiteralTostring(sourceType.getFormatArray(0)));
+        sourceVO.setEncoding(simpleLiteralTostring(sourceType.getFormatArray(1)));
+        sourceVO.setHarvestProtocol(simpleLiteralTostring(sourceType.getHarvestProtocol()));
+        sourceVO.setTimeout(Integer.parseInt(sourceType.getTimeout().toString()));
+        sourceVO.setNumberOfTries(Integer.parseInt(sourceType.getNumberOfTries().toString()));
+        sourceVO.setStatus(simpleLiteralTostring(sourceType.getStatus()));
+
         // Accepted identifier Prefixes
-        SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
+        SimpleLiteral[] idPrefArr = sourceType.getSourceIdentifierArray();
         List<String> idPrefVec = new ArrayList<String>();
         for (int i = 0; i < idPrefArr.length; i++) {
           String idPref = simpleLiteralTostring(idPrefArr[i]);
           idPrefVec.add(idPref);
         }
         sourceVO.setIdentifier(idPrefVec);
+
         // Identifier Examples
-        SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
+        SimpleLiteral[] idExArr = sourceType.getSourceIdentifierExampleArray();
         List<String> idExVec = new ArrayList<String>();
         for (int y = 0; y < idExArr.length; y++) {
           String idEx = simpleLiteralTostring(idExArr[y]);
           idExVec.add(idEx);
         }
         sourceVO.setIdentifierExample(idExVec);
-        sourceVO.setLicense(source.getLicense());
-        sourceVO.setCopyright(source.getCopyright());
+        sourceVO.setLicense(sourceType.getLicense());
+        sourceVO.setCopyright(sourceType.getCopyright());
 
-        if (source.getItemUrl() != null) {
-          sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+        if (sourceType.getItemUrl() != null) {
+          sourceVO.setItemUrl(new URL(simpleLiteralTostring(sourceType.getItemUrl())));
         }
+
         // Metadata parameters
-        MDFetchSettingsType mdfs = source.getMDFetchSettings();
+        MDFetchSettingsType mdfs = sourceType.getMDFetchSettings();
         MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
         for (MDFetchSettingType mdf : mdfArray) {
           MetadataVO mdVO = new MetadataVO();
@@ -247,8 +266,9 @@ public class DataSourceHandlerService {
           mdVec.add(mdVO);
         }
         sourceVO.setMdFormats(mdVec);
+
         // Fulltext parameters
-        FTFetchSettingsType ftfs = source.getFTFetchSettings();
+        FTFetchSettingsType ftfs = sourceType.getFTFetchSettings();
         FTFetchSettingType[] ftfArray = ftfs.getFTFetchSettingArray();
         for (FTFetchSettingType ftf : ftfArray) {
           FullTextVO fulltextVO = new FullTextVO();
@@ -268,13 +288,13 @@ public class DataSourceHandlerService {
         sourceVO.setFtFormats(fulltextVec);
       }
     } catch (MalformedURLException e) {
-      logger.error("Processing the source URL caused an error", e);
+      DataSourceHandlerService.logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      logger.error("Parsing sources.xml caused an error", e);
+      DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
-    // this.printSourceXML(sourceVO);
+
     if (found) {
       return sourceVO;
     } else {
@@ -290,27 +310,20 @@ public class DataSourceHandlerService {
    * @throws RuntimeException
    */
   public DataSourceVO getSourceByIdentifier(String id) throws RuntimeException {
-    try {
-      ClassLoader cl = this.getClass().getClassLoader();
-      java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
-      this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
-    } catch (Exception e) {
-      logger.error("Parsing sources.xml caused an error", e);
-      throw new RuntimeException(e);
-    }
-    this.sourceType = this.sourceDoc.getImportSources();
-    ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-    for (ImportSourceType source : sources) {
-      SimpleLiteral[] idPrefVec = source.getSourceIdentifierArray();
+    ImportSourceType[] sourceTypes = getImportSourceTypes();
+
+    for (ImportSourceType sourceType : sourceTypes) {
+      SimpleLiteral[] idPrefVec = sourceType.getSourceIdentifierArray();
       for (int x = 0; x < idPrefVec.length; x++) {
         SimpleLiteral idPref = idPrefVec[x];
         if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id)) {
           continue;
         } else {
-          return this.getSourceByName(source.getName());
+          return this.getSourceByName(sourceType.getName());
         }
       }
     }
+
     return null;
   }
 
@@ -322,27 +335,20 @@ public class DataSourceHandlerService {
    * @throws RuntimeException
    */
   public String getSourceNameByIdentifier(String id) throws RuntimeException {
-    try {
-      ClassLoader cl = this.getClass().getClassLoader();
-      java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
-      this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
-    } catch (Exception e) {
-      logger.error("Parsing sources.xml caused an error", e);
-      throw new RuntimeException(e);
-    }
-    this.sourceType = this.sourceDoc.getImportSources();
-    ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-    for (ImportSourceType source : sources) {
-      SimpleLiteral[] idPrefVec = source.getSourceIdentifierArray();
+    ImportSourceType[] sourceTypes = getImportSourceTypes();
+
+    for (ImportSourceType sourceType : sourceTypes) {
+      SimpleLiteral[] idPrefVec = sourceType.getSourceIdentifierArray();
       for (int x = 0; x < idPrefVec.length; x++) {
         SimpleLiteral idPref = idPrefVec[x];
         if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id)) {
           continue;
         } else {
-          return source.getName();
+          return sourceType.getName();
         }
       }
     }
+
     return null;
   }
 
@@ -356,12 +362,14 @@ public class DataSourceHandlerService {
    */
   public MetadataVO getMdObjectfromSource(DataSourceVO source, String format) {
     MetadataVO md = null;
+
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       md = source.getMdFormats().get(i);
       if (md.getName().equalsIgnoreCase(format)) {
         return md;
       }
     }
+
     return null;
   }
 
@@ -373,12 +381,14 @@ public class DataSourceHandlerService {
    */
   public MetadataVO getDefaultMdFormatFromSource(DataSourceVO source) {
     List<MetadataVO> mdv = source.getMdFormats();
+
     for (int i = 0; i < mdv.size(); i++) {
       MetadataVO mdVO = source.getMdFormats().get(i);
       if (mdVO.isMdDefault()) {
         return mdVO;
       }
     }
+
     return null;
   }
 
@@ -391,6 +401,7 @@ public class DataSourceHandlerService {
    */
   public DataSourceVO updateMdEntry(DataSourceVO source, MetadataVO md) {
     List<MetadataVO> mdv = source.getMdFormats();
+
     if (md != null) {
       for (int i = 0; i < mdv.size(); i++) {
         MetadataVO mdVO = source.getMdFormats().get(i);
@@ -399,55 +410,13 @@ public class DataSourceHandlerService {
         }
       }
     }
+
     source.setMdFormats(mdv);
+
     return source;
   }
 
   private String simpleLiteralTostring(SimpleLiteral sl) {
     return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
   }
-
-  // /**
-  // * Print out source values for debug purpose.
-  // *
-  // * @param source
-  // */
-  // public void printSourceXML(DataSourceVO source) {
-  // String seperator = "____________________________________________________________________";
-  // LOGGER.info(seperator);
-  // LOGGER.info("Source Name        : " + source.getName());
-  // LOGGER.info("Description        : " + source.getDescription());
-  // LOGGER.info("Main URL           : " + java.net.URLDecoder.decode(source.getUrl().toString()));
-  // LOGGER.info("Doc type           : " + source.getType());
-  // LOGGER.info("Doc encoding       : " + source.getEncoding());
-  // LOGGER.info("Identfier          : " + source.getIdentifier());
-  // LOGGER.info("Harvest protocol   : " + source.getHarvestProtocol());
-  // LOGGER.info("Timeout            : " + source.getTimeout());
-  // LOGGER.info("Retry after        : " + source.getRetryAfter());
-  // LOGGER.info("Number of tries    : " + source.getNumberOfTries());
-  // LOGGER.info("Status             : " + source.getStatus());
-  // LOGGER.info("License            : " + source.getLicense());
-  // LOGGER.info("Copyright          : " + source.getCopyright());
-  // LOGGER.info(seperator);
-  // for (int i = 0; i < source.getMdFormats().size(); i++) {
-  // MetadataVO md = source.getMdFormats().get(i);
-  // LOGGER.info(seperator);
-  // LOGGER.info("MD description     : " + md.getMdDesc());
-  // LOGGER.info("MD format          : " + md.getMdFormat());
-  // LOGGER.info("MD label           : " + md.getMdLabel());
-  // LOGGER.info("MD URL             : " + java.net.URLDecoder.decode(md.getMdUrl().toString()));
-  // LOGGER.info("MD default         : " + md.isMdDefault());
-  // LOGGER.info(seperator);
-  // }
-  // for (int i = 0; i < source.getFtFormats().size(); i++) {
-  // FullTextVO ft = source.getFtFormats().get(i);
-  // LOGGER.info(seperator);
-  // LOGGER.info("FT description     : " + ft.getFtDesc());
-  // LOGGER.info("FT format          : " + ft.getFtFormat());
-  // LOGGER.info("FT label           : " + ft.getFtLabel());
-  // LOGGER.info("FT URL             : " + java.net.URLDecoder.decode(ft.getFtUrl().toString()));
-  // LOGGER.info("FT default         : " + ft.isFtDefault());
-  // LOGGER.info(seperator);
-  // }
-  // }
 }

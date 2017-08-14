@@ -97,7 +97,19 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		<!--  
+		<dependency>
+		    <groupId>org.apache.lucene</groupId>
+		    <artifactId>lucene-test-framework</artifactId>
+		    <version>6.4.0</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.elasticsearch.test</groupId>
+		    <artifactId>framework</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		--> 
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>

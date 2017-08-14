@@ -7,24 +7,38 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+
+@Service
 public class UserLoginRepository {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   @Transactional
-  public void insertLogin(String loginName, String encodedPassword) {
-    entityManager.createNativeQuery("INSERT INTO user_login(loginname, password) VALUES (?1, ?2)")
-        .setParameter(1, loginName).setParameter(2, encodedPassword).executeUpdate();
+  public void insertLogin(String loginName, String encodedPassword) throws IngeTechnicalException {
+    int rows =
+        entityManager
+            .createNativeQuery("INSERT INTO user_login(loginname, password) VALUES (?1, ?2)")
+            .setParameter(1, loginName).setParameter(2, encodedPassword).executeUpdate();
+    if (rows != 1) {
+      throw new IngeTechnicalException("Could not add login to table");
+    }
   }
 
   @Transactional
-  public void updateLogin(String loginName, String encodedPassword) {
-    entityManager.createNativeQuery("UPDATE user_login SET password=?2 WHERE loginname=?1")
-        .setParameter(1, loginName).setParameter(2, encodedPassword).executeUpdate();
+  public void updateLogin(String loginName, String encodedPassword) throws IngeTechnicalException {
+    int rows =
+        entityManager.createNativeQuery("UPDATE user_login SET password=?2 WHERE loginname=?1")
+            .setParameter(1, loginName).setParameter(2, encodedPassword).executeUpdate();
+
+    if (rows != 1) {
+      throw new IngeTechnicalException("Could not update login, maybe key " + loginName
+          + " does not exist in table");
+    }
   }
 
   @Transactional(readOnly = true)

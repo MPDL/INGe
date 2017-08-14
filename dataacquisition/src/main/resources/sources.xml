@@ -1,103 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Import-Sources xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource explain-sources.xsd">
-	
-		<Import-Source name="HAL">
-		<dc:description>HAL (Hyper Articles en Linge) is designed for authors to deposit and thus make publicly available scholarly documents from all academic fields.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://hal.archives-ouvertes.fr/</dc:identifier>
+<Import-Sources
+	xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource explain-sources.xsd">
+
+	<Import-Source name="arXiv">
+		<dc:description>ArXiv is an e-print service in the fields of physics,
+			mathematics, non-linear science, computer science, quantitative
+			biology and statistics.
+		</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>		
-		<source-identifier>hal</source-identifier>
-		<source-identifier-example>oai:hal.archives-ouvertes.fr:hal-00000001_v1</source-identifier-example>
+		<dc:format>UTF-8</dc:format>
+		<item-url>http://arxiv.org/abs/GETID</item-url>
+		<source-identifier>arxiv</source-identifier>
+		<source-identifier-example>arXiv:0904.3933</source-identifier-example>
 		<harvest-protocol>oai-pmh</harvest-protocol>
-		<retry-after>3</retry-after>
+		<retry-after>0</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<status>in design</status>
-			
-		<!--Information about Metadata fetching -->
+		<license>http://arxiv.org/help/license</license>
+		<status>published</status>
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
-				<dc:description>http://hal.archives-ouvertes.fr/oai/elements/hal.xsd</dc:description>
-				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_hal</dc:identifier>
+				<dc:description>http://arxiv.org/help/prep</dc:description>
+				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>oai_hal</label>
-				<name>hal</name>
+				<label>arXiv</label>
+				<name>arXiv</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
-				<dc:description>http://hal.inria.fr/oai/elements/inria.xsd</dc:description>
-				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_inria</dc:identifier>
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+				</dc:description>
+				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>oai_inria</label>
-				<name>inria</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
-				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>oai_dc</label>
+				<label>oai dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
-
 		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:identifier>http://export.arxiv.org/pdf/GETID</dc:identifier>
+				<dc:format>application/pdf</dc:format>
+				<label>PDF</label>
+				<name>pdf</name>
+				<encoding>*</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:identifier>http://export.arxiv.org/ps/GETID</dc:identifier>
+				<dc:format>application/gzip</dc:format>
+				<label>Postscript</label>
+				<name>ps</name>
+				<encoding>*</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
 		</FT-fetch-settings>
 	</Import-Source>
 	
 	<Import-Source name="BioMed Central">
-		<dc:description>BioMed Central is an STM (Science, Technology and Medicine) open access publisher.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.biomedcentral.com/</dc:identifier>
+		<dc:description>BioMed Central is an STM (Science, Technology and
+			Medicine) open access publisher.
+		</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://www.biomedcentral.com/
+		</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<source-identifier>bmc</source-identifier>
 		<source-identifier>bmcid</source-identifier>
-		<source-identifier-example>bmc:1471-2121-2-1</source-identifier-example>
+		<source-identifier-example>bmc:1471-2121-2-1
+		</source-identifier-example>
 		<harvest-protocol>oai-pmh</harvest-protocol>
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<copyright>http://www.biomedcentral.com/info/about/copyright </copyright>
+		<copyright>http://www.biomedcentral.com/info/about/copyright
+		</copyright>
 		<license>http://www.biomedcentral.com/info/about/license</license>
 		<status>published</status>
-		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
-				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/pubmedschema.xsd</dc:description>
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=pubmed</dc:identifier>
+				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/pubmedschema.xsd
+				</dc:description>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=pubmed
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>bmc</label>
 				<name>bmc</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
-				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd</dc:description>
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article</dc:identifier>
+				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd
+				</dc:description>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>bmc_article</label>
 				<name>bmcarticle</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
-				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/references.xsd</dc:description>
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_references</dc:identifier>
+				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/references.xsd
+				</dc:description>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_references
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>bmc_references</label>
 				<name>bmcreferences</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
-				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/bibl.xsd</dc:description>
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_bibl</dc:identifier>
+				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/bibl.xsd
+				</dc:description>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_bibl
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>bmc_bibl</label>
 				<name>bmcbibl</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
-				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=oai_dc</dc:identifier>
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+				</dc:description>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=oai_dc
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>oai_dc</label>
 				<name>oai_dc</name>
@@ -106,51 +142,178 @@
 		</MD-fetch-settings>
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article</dc:identifier>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article
+				</dc:identifier>
 				<dc:format>text/html</dc:format>
 				<label>text/html</label>
 				<name>bmcarticleFullTextHtml</name>
 				<encoding>*</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
-				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article</dc:identifier>
+				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article
+				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>application/xml</label>
 				<name>bmcarticleFullTextXml</name>
 				<encoding>*</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
 	</Import-Source>
 	
+	<Import-Source name="HAL">
+		<dc:description>HAL (Hyper Articles en Linge) is designed for authors
+			to deposit and thus make publicly available scholarly documents from
+			all academic fields.
+		</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://hal.archives-ouvertes.fr/
+		</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<source-identifier>hal</source-identifier>
+		<source-identifier-example>oai:hal.archives-ouvertes.fr:hal-00000001_v1
+		</source-identifier-example>
+		<harvest-protocol>oai-pmh</harvest-protocol>
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<status>in design</status>
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://hal.archives-ouvertes.fr/oai/elements/hal.xsd
+				</dc:description>
+				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_hal
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>oai_hal</label>
+				<name>hal</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:description>http://hal.inria.fr/oai/elements/inria.xsd
+				</dc:description>
+				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_inria
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>oai_inria</label>
+				<name>inria</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+				</dc:description>
+				<dc:identifier>http://hal.archives-ouvertes.fr/oai/oai.php?verb=GetRecord%26identifier=oai:hal.archives-ouvertes.fr:GETID%26metadataPrefix=oai_dc
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>oai_dc</label>
+				<name>oai_dc</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+
+	<Import-Source name="PubMedCentral">
+		<dc:description>PubMed Central (PMC) is the U.S. National Institutes
+			of Health (NIH) free digital archive of biomedical and life sciences
+			journal literature.</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">https://www.ncbi.nlm.nih.gov/pmc/
+		</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<item-url>https://www.ncbi.nlm.nih.gov/pmc/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract
+		</item-url>
+		<source-identifier>pmcid:pmc</source-identifier>
+		<source-identifier>pmcid: pmc</source-identifier>
+		<source-identifier>pmcid</source-identifier>
+		<source-identifier>pmc</source-identifier>
+		<source-identifier-example>pmc:2581620</source-identifier-example>
+		<harvest-protocol>oai-pmh</harvest-protocol>
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<copyright>https://www.ncbi.nlm.nih.gov/pmc/about/copyright.html
+		</copyright>
+		<status>published</status>
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html
+				</dc:description>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>PubMed Central</label>
+				<name>pmc</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+				</dc:description>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>oai dc</label>
+				<name>oai_dc</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc
+				</dc:identifier>
+				<dc:format>application/pdf</dc:format>
+				<label>PDF</label>
+				<name>pdf</name>
+				<encoding>UTF-8</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>XML</label>
+				<name>xml</name>
+				<encoding>UTF-8</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+		</FT-fetch-settings>		
+	</Import-Source>
+	
 	<Import-Source name="Spires">
-		<dc:description>The Stanford Physics Information Retrieval System (SPIRES) is a High-Energy Physics Literature Database.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www-spires.fnal.gov/spires/</dc:identifier>
+		<dc:description>The Stanford Physics Information Retrieval System
+			(SPIRES) is a High-Energy Physics Literature Database.
+		</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://www-spires.fnal.gov/spires/
+		</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://inspirehep.net/search?p=GETID</item-url>
-		<!--  
-		<item-url>http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=GETID</item-url>
-		-->
 		<source-identifier>spires</source-identifier>
-		<source-identifier-example>spires:hep-ph/0001001</source-identifier-example>
-		<source-identifier-example>spires:arXiv:0812.2902</source-identifier-example>
-		<source-identifier-example>spires:10.1016/J.NIMA.2008.08.135</source-identifier-example>
+		<source-identifier-example>spires:hep-ph/0001001
+		</source-identifier-example>
+		<source-identifier-example>spires:arXiv:0812.2902
+		</source-identifier-example>
+		<source-identifier-example>spires:10.1016/J.NIMA.2008.08.135
+		</source-identifier-example>
 		<harvest-protocol>http</harvest-protocol>
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
 		<status>published</status>
-		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
-				<dc:description>http://www.slac.stanford.edu/spires/hep/api/</dc:description>
-				<!--  
-				<dc:identifier>http://www.slac.stanford.edu/spires/find/hep/xmlpublic?rawcmd=GETID</dc:identifier>
-				-->
+				<dc:description>http://www.slac.stanford.edu/spires/hep/api/
+				</dc:description>
 				<dc:identifier>http://inspirehep.net/search?p=GETID</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>SPIRES</label>
@@ -161,310 +324,5 @@
 		<FT-fetch-settings>
 		</FT-fetch-settings>
 	</Import-Source>
-	
-	<Import-Source name="eSciDoc">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system from the Max Plack Society.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidoc</source-identifier>
-		<source-identifier-example>escidoc:1817723</source-identifier-example>
-		<source-identifier-example>escidoc:http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:1817723:2</source-identifier-example>
-		<source-identifier-example>escidoc:994838</source-identifier-example>
-		<harvest-protocol>ejb</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<status>published</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>ESciDoc</label>
-				<name>eSciDoc-publication-item</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
-				<dc:format>unknown</dc:format>
-				<label>esidoc-fulltext</label>
-				<name>unknown</name>
-				<encoding>*</encoding>
-				<content-categorie>unknown</content-categorie>
-				<visibility>unknown</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="PubMedCentral">
-		<dc:description>PubMed Central (PMC) is the U.S. National Institutes of Health (NIH) free digital archive of biomedical and life sciences journal literature.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">https://www.ncbi.nlm.nih.gov/pmc/</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>https://www.ncbi.nlm.nih.gov/pmc/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
-		<source-identifier>pmcid:pmc</source-identifier>
-		<source-identifier>pmcid: pmc</source-identifier>
-		<source-identifier>pmcid</source-identifier>
-		<source-identifier>pmc</source-identifier>		
-		<source-identifier-example>pmc:2581620</source-identifier-example>
-		<harvest-protocol>OAI-PMH</harvest-protocol>
-		<retry-after>3</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<copyright>https://www.ncbi.nlm.nih.gov/pmc/about/copyright.html</copyright>
-		<status>published</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
-				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>PubMed Central</label>
-				<name>pmc</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
-				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>oai dc</label>
-				<name>oai_dc</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
-				<dc:format>application/pdf</dc:format>
-				<label>PDF</label>
-				<name>pdf</name>
-				<encoding>UTF-8</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
-				<visibility>PUBLIC</visibility>
-			</FT-fetch-setting>
-			<FT-fetch-setting default="false">
-				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>XML</label>
-				<name>xml</name>
-				<encoding>UTF-8</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
-				<visibility>PUBLIC</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="arXiv">
-		<dc:description>ArXiv is an e-print service in the fields of physics, mathematics, non-linear science, computer science, quantitative biology and statistics.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://arxiv.org/abs/GETID</item-url>
-		<source-identifier>arxiv</source-identifier>
-		<source-identifier-example>arXiv:0904.3933</source-identifier-example>
-		<harvest-protocol>OAI-PMH</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<license>http://arxiv.org/help/license</license>
-		<status>published</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://arxiv.org/help/prep</dc:description>
-				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>arXiv</label>
-				<name>arXiv</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
-				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>oai dc</label>
-				<name>oai_dc</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>http://export.arxiv.org/pdf/GETID</dc:identifier>
-				<dc:format>application/pdf</dc:format>
-				<label>PDF</label>
-				<name>pdf</name>
-				<encoding>*</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</content-categorie>
-				<visibility>PUBLIC</visibility>
-			</FT-fetch-setting>
-			<FT-fetch-setting default="false">
-				<dc:identifier>http://export.arxiv.org/ps/GETID</dc:identifier>
-				<dc:format>application/gzip</dc:format>
-				<label>Postscript</label>
-				<name>ps</name>
-				<encoding>*</encoding>
-				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</content-categorie>
-				<visibility>PUBLIC</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="eSciDocDEV">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://dev-pubman:8080/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidocdev</source-identifier>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
-		<harvest-protocol>ejb</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<status>internal</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://dev-pubman.mpdl.mpg.de</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>ESciDoc</label>
-				<name>eSciDoc-publication-item</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>http://dev-pubman.mpdl.mpg.de</dc:identifier>
-				<dc:format>unknown</dc:format>
-				<label>esidoc-fulltext</label>
-				<name>unknown</name>
-				<encoding>*</encoding>
-				<content-categorie>unknown</content-categorie>
-				<visibility>unknown</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="eSciDocQA">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://qa-pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidocqa</source-identifier>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
-		<harvest-protocol>ejb</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<status>internal</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>https://qa-coreservice.mpdl.mpg.de</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>ESciDoc</label>
-				<name>eSciDoc-publication-item</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>https://qa-coreservice.mpdl.mpg.de:8080</dc:identifier>
-				<dc:format>unknown</dc:format>
-				<label>esidoc-fulltext</label>
-				<name>unknown</name>
-				<encoding>*</encoding>
-				<content-categorie>unknown</content-categorie>
-				<visibility>unknown</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="eSciDocTest">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://test-pubman/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidoctest</source-identifier>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
-		<harvest-protocol>ejb</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<status>internal</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>http://test-coreservice.mpdl.mpg.de:8080</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>ESciDoc</label>
-				<name>eSciDoc-publication-item</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>http://test-coreservice.mpdl.mpg.de:8080</dc:identifier>
-				<dc:format>todo</dc:format>
-				<label>esidoc-fulltext</label>
-				<name>unknown</name>
-				<encoding>*</encoding>
-				<content-categorie>unknown</content-categorie>
-				<visibility>unknown</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
-	
-	<Import-Source name="eSciDocProd">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
-		<item-url>http://pubman.mpdl.mpg.de/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidocprod</source-identifier>
-		<source-identifier-example>escidoc:176137</source-identifier-example>
-		<harvest-protocol>ejb</harvest-protocol>
-		<retry-after>0</retry-after>
-		<timeout>0</timeout>
-		<number-of-tries>5</number-of-tries>
-		<status>internal</status>
-		<!--Information about Metadata fetching -->
-		<MD-fetch-settings>
-			<MD-fetch-setting default="true">
-				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
-				<dc:identifier>https://coreservice.mpdl.mpg.de</dc:identifier>
-				<dc:format>application/xml</dc:format>
-				<label>ESciDoc</label>
-				<name>eSciDoc-publication-item</name>
-				<encoding>UTF-8</encoding>
-			</MD-fetch-setting>
-		</MD-fetch-settings>
-		<!--Information about data fetching-->
-		<FT-fetch-settings>
-			<FT-fetch-setting default="true">
-				<dc:identifier>https://coreservice.mpdl.mpg.de</dc:identifier>
-				<dc:format>unknown</dc:format>
-				<label>esidoc-fulltext</label>
-				<name>unknown</name>
-				<encoding>*</encoding>
-				<content-categorie>unknown</content-categorie>
-				<visibility>unknown</visibility>
-			</FT-fetch-setting>
-		</FT-fetch-settings>
-	</Import-Source>
+
 </Import-Sources>

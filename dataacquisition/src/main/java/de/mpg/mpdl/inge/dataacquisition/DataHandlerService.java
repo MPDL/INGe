@@ -30,8 +30,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
@@ -41,28 +39,22 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.xml.rpc.ServiceException;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
@@ -74,7 +66,7 @@ public class DataHandlerService {
 
   private static final String fetchTypeTEXTUALDATA = "TEXTUALDATA";
   private static final String fetchTypeFILEDATA = "FILEDATA";
-  private static final String fetchTypeESCIDOCTRANS = "ESCIDOCTRANS";
+  // private static final String fetchTypeESCIDOCTRANS = "ESCIDOCTRANS";
   private static final String fetchTypeUNKNOWN = "UNKNOWN";
   private static final String regex = "GETID";
   private static final String enc = "UTF-8";
@@ -94,7 +86,8 @@ public class DataHandlerService {
     this.sourceHandler = new DataSourceHandlerService();
   }
 
-  public byte[] doFetch(String sourceName, String identifier) throws DataaquisitionException {
+  // for testing purposes
+  byte[] doFetch(String sourceName, String identifier) throws DataaquisitionException {
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
     MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(this.currentSource);
     return this.doFetch(sourceName, identifier, md.getName(), md.getMdFormat(), md.getEncoding());
@@ -102,11 +95,11 @@ public class DataHandlerService {
 
   public byte[] doFetch(String sourceName, String identifier, String[] formats)
       throws DataaquisitionException {
-    if (sourceName.equalsIgnoreCase("escidoc")) {
-      // necessary for escidoc sources
-      sourceName = Util.trimSourceName(sourceName, identifier);
-      identifier = Util.setEsciDocIdentifier(identifier);
-    }
+    // if (sourceName.equalsIgnoreCase("escidoc")) {
+    // // necessary for escidoc sources
+    // sourceName = Util.trimSourceName(sourceName, identifier);
+    // identifier = Util.setEsciDocIdentifier(identifier);
+    // }
     this.currentSource = this.sourceHandler.getSourceByName(sourceName);
     identifier = Util.trimIdentifier(this.currentSource, identifier);
     // FORMAT[] formatsF = mapFetchSettingsToFORMAT(formats);
@@ -138,15 +131,15 @@ public class DataHandlerService {
     byte[] fetchedData = null;
 
     try {
-      if (sourceName.equalsIgnoreCase("escidoc")) {
-        // necessary for escidoc sources
-        sourceName = Util.trimSourceName(sourceName, identifier);
-        identifier = Util.setEsciDocIdentifier(identifier);
-        this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-      } else {
-        this.currentSource = this.sourceHandler.getSourceByName(sourceName);
-        identifier = Util.trimIdentifier(this.currentSource, identifier);
-      }
+      // if (sourceName.equalsIgnoreCase("escidoc")) {
+      // // necessary for escidoc sources
+      // sourceName = Util.trimSourceName(sourceName, identifier);
+      // identifier = Util.setEsciDocIdentifier(identifier);
+      // this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+      // } else {
+      this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+      identifier = Util.trimIdentifier(this.currentSource, identifier);
+      // }
 
       String fetchType = this.getFetchingType(trgFormatName, trgFormatType, trgFormatEncoding);
 
@@ -165,19 +158,19 @@ public class DataHandlerService {
         fetchedData = this.fetchData(identifier, new String[] {trgFormatName});
       }
 
-      if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
-        fetchedData =
-            this.fetchTextualData(identifier, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.name(),
-                "application/xml", enc).getBytes(enc);
-        Transformer t =
-            TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
-                TransformerFactory.FORMAT.valueOf(trgFormatName));
-        StringWriter wr = new StringWriter();
-
-        t.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedData)),
-            new TransformerStreamResult(wr));
-        this.setContentType(trgFormatType);
-      }
+      // if (fetchType.equals(fetchTypeESCIDOCTRANS)) {
+      // fetchedData =
+      // this.fetchTextualData(identifier, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.name(),
+      // "application/xml", enc).getBytes(enc);
+      // Transformer t =
+      // TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+      // TransformerFactory.FORMAT.valueOf(trgFormatName));
+      // StringWriter wr = new StringWriter();
+      //
+      // t.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedData)),
+      // new TransformerStreamResult(wr));
+      // this.setContentType(trgFormatType);
+      // }
 
       if (fetchType.equals(fetchTypeUNKNOWN)) {
         throw new DataaquisitionException("Unknown type.");
@@ -283,15 +276,11 @@ public class DataHandlerService {
         // Check the record for error codes
         protocolHandler.checkOAIRecord(item);
         supportedProtocol = true;
-      }
-
-      if (currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
-        logger.debug("Fetch record via EJB.");
-        item = this.fetchEjbRecord(md, identifier);
-        supportedProtocol = true;
-      }
-
-      if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
+        // } else if (currentSource.getHarvestProtocol().equalsIgnoreCase("intern")) {
+        // logger.debug("Fetch record via intern.");
+        // item = this.fetchInternRecord(md, identifier);
+        // supportedProtocol = true;
+      } else if (currentSource.getHarvestProtocol().equalsIgnoreCase("http")) {
         logger.debug("Fetch record via http.");
         item = this.fetchHttpRecord(md);
         supportedProtocol = true;
@@ -393,14 +382,14 @@ public class DataHandlerService {
             .replaceAll(regex, identifier.trim())));
         logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
 
-        // escidoc file
-        if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("ejb")) {
-          in = this.fetchEjbFile(fulltext, identifier);
-        }
-        // other file
-        else {
-          in = this.fetchFile(fulltext);
-        }
+        // // escidoc file
+        // if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("intern")) {
+        // in = this.fetchInternFile(fulltext, identifier);
+        // }
+        // // other file
+        // else {
+        in = this.fetchFile(fulltext);
+        // }
 
         this.setFileProperties(fulltext);
         // If only one file => return it in fetched format
@@ -563,124 +552,126 @@ public class DataHandlerService {
     return itemXML;
   }
 
-  /**
-   * Fetches a eSciDoc Record from eSciDoc system.
-   * 
-   * @param identifier of the item
-   * @return itemXML as String
-   * @throws DataaquisitionException
-   */
-  private String fetchEjbRecord(MetadataVO md, String identifier) throws DataaquisitionException {
+  // /**
+  // * Fetches a eSciDoc Record from eSciDoc system.
+  // *
+  // * @param identifier of the item
+  // * @return itemXML as String
+  // * @throws DataaquisitionException
+  // */
+  // private String fetchInternRecord(MetadataVO md, String identifier) throws
+  // DataaquisitionException {
+  // String defaultUrl = "";
+  //
+  // try {
+  // defaultUrl = PropertyReader.getFrameworkUrl();
+  // if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
+  // return ServiceLocator.getItemHandler().retrieve(identifier);
+  // }
+  //
+  // if (this.currentSource.getName().equalsIgnoreCase("escidocdev")
+  // || this.currentSource.getName().equalsIgnoreCase("escidocqa")
+  // || this.currentSource.getName().equalsIgnoreCase("escidocprod")
+  // || this.currentSource.getName().equalsIgnoreCase("escidoctest")) {
+  //
+  // String xml = ServiceLocator.getItemHandler(md.getMdUrl()).retrieve(identifier);
+  // return xml;
+  // }
+  // } catch (ItemNotFoundException e) {
+  // logger.error("Item with identifier " + identifier + " was not found.");
+  // throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
+  // } catch (Exception e) {
+  // throw new DataaquisitionException(e);
+  // } finally {
+  // // reset ServiceLocator to standard url
+  // try {
+  // ServiceLocator.getItemHandler(new URL(defaultUrl));
+  // } catch (MalformedURLException | ServiceException | URISyntaxException e) {
+  // throw new DataaquisitionException(e);
+  // }
+  // }
+  //
+  // return null;
+  // }
 
-    String defaultUrl = "";
-
-    try {
-      defaultUrl = PropertyReader.getFrameworkUrl();
-      if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
-        return ServiceLocator.getItemHandler().retrieve(identifier);
-      }
-      if (this.currentSource.getName().equalsIgnoreCase("escidocdev")
-          || this.currentSource.getName().equalsIgnoreCase("escidocqa")
-          || this.currentSource.getName().equalsIgnoreCase("escidocprod")
-          || this.currentSource.getName().equalsIgnoreCase("escidoctest")) {
-
-        String xml = ServiceLocator.getItemHandler(md.getMdUrl()).retrieve(identifier);
-        return xml;
-      }
-    } catch (ItemNotFoundException e) {
-      logger.error("Item with identifier " + identifier + " was not found.");
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
-    } catch (Exception e) {
-      throw new DataaquisitionException(e);
-    } finally {
-      // reset ServiceLocator to standard url
-      try {
-        ServiceLocator.getItemHandler(new URL(defaultUrl));
-      } catch (MalformedURLException | ServiceException | URISyntaxException e) {
-        throw new DataaquisitionException(e);
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Fetches a eSciDoc Record from eSciDoc system.
-   * 
-   * @param identifier of the item
-   * @return itemXML as String
-   * @throws DataaquisitionException
-   */
-  private byte[] fetchEjbFile(FullTextVO ft, String identifier) throws DataaquisitionException {
-    String itemXML = "";
-    String coreservice = "";
-    URLConnection contentUrl = null;
-    byte[] input = null;
-
-    try {
-      if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
-        itemXML = ServiceLocator.getItemHandler().retrieve(identifier);
-        coreservice = PropertyReader.getFrameworkUrl();
-      }
-      if (this.currentSource.getName().equalsIgnoreCase("escidocdev")
-          || this.currentSource.getName().equalsIgnoreCase("escidocqa")
-          || this.currentSource.getName().equalsIgnoreCase("escidocprod")) {
-        itemXML = ServiceLocator.getItemHandler(ft.getFtUrl().toString()).retrieve(identifier);
-        coreservice = ft.getFtUrl().toString();
-      }
-
-      PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXML);
-      contentUrl =
-          ProxyHelper.openConnection(new URL(coreservice + itemVO.getFiles().get(0).getContent()));
-      HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
-      int responseCode = httpConn.getResponseCode();
-      switch (responseCode) {
-        case 503:
-          // request was not processed by source
-          logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
-          throw new DataaquisitionException("Import source " + this.currentSource.getName()
-              + "did not provide file.");
-
-        case 302:
-          String alternativeLocation = contentUrl.getHeaderField("Location");
-          ft.setFtUrl(new URL(alternativeLocation));
-          return fetchEjbFile(ft, identifier);
-
-        case 200:
-          logger.info("Source responded with 200.");
-          GetMethod method = new GetMethod(coreservice + itemVO.getFiles().get(0).getContent());
-          HttpClient client = new HttpClient();
-          ProxyHelper.executeMethod(client, method);
-          try {
-            input = method.getResponseBody();
-          } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-          }
-          httpConn.disconnect();
-          break;
-        case 403:
-          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
-              + " is restricted.");
-        default:
-          throw new DataaquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": "
-                  + httpConn.getResponseMessage());
-      } // end switch ?
-    }
-
-    catch (ItemNotFoundException e) {
-      logger.error("Item with identifier " + identifier + " was not found.", e);
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
-    } catch (IOException e) {
-      logger.error("Item with identifier " + identifier + " was not found.", e);
-      throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
-    } catch (Exception e) {
-      throw new DataaquisitionException(e);
-    }
-
-    return input;
-  }
+  // /**
+  // * Fetches a eSciDoc Record from eSciDoc system.
+  // *
+  // * @param identifier of the item
+  // * @return itemXML as String
+  // * @throws DataaquisitionException
+  // */
+  // private byte[] fetchInternFile(FullTextVO ft, String identifier) throws DataaquisitionException
+  // {
+  // String itemXML = "";
+  // String coreservice = "";
+  // URLConnection contentUrl = null;
+  // byte[] input = null;
+  //
+  // try {
+  // if (this.currentSource.getName().equalsIgnoreCase("escidoc")) {
+  // itemXML = ServiceLocator.getItemHandler().retrieve(identifier);
+  // coreservice = PropertyReader.getFrameworkUrl();
+  // }
+  // // if (this.currentSource.getName().equalsIgnoreCase("escidocdev")
+  // // || this.currentSource.getName().equalsIgnoreCase("escidocqa")
+  // // || this.currentSource.getName().equalsIgnoreCase("escidocprod")) {
+  // // itemXML = ServiceLocator.getItemHandler(ft.getFtUrl().toString()).retrieve(identifier);
+  // // coreservice = ft.getFtUrl().toString();
+  // // }
+  //
+  // PubItemVO itemVO = XmlTransformingService.transformToPubItem(itemXML);
+  // contentUrl =
+  // ProxyHelper.openConnection(new URL(coreservice + itemVO.getFiles().get(0).getContent()));
+  // HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
+  // int responseCode = httpConn.getResponseCode();
+  // switch (responseCode) {
+  // case 503:
+  // // request was not processed by source
+  // logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
+  // throw new DataaquisitionException("Import source " + this.currentSource.getName()
+  // + "did not provide file.");
+  //
+  // case 302:
+  // String alternativeLocation = contentUrl.getHeaderField("Location");
+  // ft.setFtUrl(new URL(alternativeLocation));
+  // return fetchInternFile(ft, identifier);
+  //
+  // case 200:
+  // logger.info("Source responded with 200.");
+  // GetMethod method = new GetMethod(coreservice + itemVO.getFiles().get(0).getContent());
+  // HttpClient client = new HttpClient();
+  // ProxyHelper.executeMethod(client, method);
+  // try {
+  // input = method.getResponseBody();
+  // } catch (IOException e1) {
+  // // TODO Auto-generated catch block
+  // e1.printStackTrace();
+  // }
+  // httpConn.disconnect();
+  // break;
+  // case 403:
+  // throw new DataaquisitionException("Access to url " + this.currentSource.getName()
+  // + " is restricted.");
+  // default:
+  // throw new DataaquisitionException(
+  // "An error occurred during importing from external system: " + responseCode + ": "
+  // + httpConn.getResponseMessage());
+  // } // end switch ?
+  // }
+  //
+  // catch (ItemNotFoundException e) {
+  // logger.error("Item with identifier " + identifier + " was not found.", e);
+  // throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
+  // } catch (IOException e) {
+  // logger.error("Item with identifier " + identifier + " was not found.", e);
+  // throw new DataaquisitionException("Item with identifier " + identifier + " was not found.", e);
+  // } catch (Exception e) {
+  // throw new DataaquisitionException(e);
+  // }
+  //
+  // return input;
+  // }
 
   /**
    * Fetches a record via http protocol.
@@ -740,70 +731,72 @@ public class DataHandlerService {
     return item;
   }
 
-  /**
-   * Retrieves the content of a component from different escidoc instances.
-   * 
-   * @param identifier
-   * @param url
-   * @return content of a component as byte[]
-   * @throws DataaquisitionException
-   */
-  public byte[] retrieveComponentContent(String identifier, String url)
-      throws DataaquisitionException {
-    String coreservice = "";
-    URLConnection contentUrl;
-    byte[] input = null;
-
-    String sourceName = Util.trimSourceName("escidoc", identifier);
-    DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
-
-    if (sourceName.equalsIgnoreCase("escidoc")) {
-      try {
-        coreservice = PropertyReader.getFrameworkUrl();
-      } catch (Exception e) {
-        logger.error("Framework Access threw an exception.", e);
-        return null;
-      }
-    }
-    if (sourceName.equalsIgnoreCase("escidocdev") || sourceName.equalsIgnoreCase("escidocqa")
-        || sourceName.equalsIgnoreCase("escidocprod") || sourceName.equalsIgnoreCase("escidoctest")) {
-      // escidoc source has only one dummy ft record
-      FullTextVO ft = source.getFtFormats().get(0);
-      coreservice = ft.getFtUrl().toString();
-    }
-
-    try {
-      contentUrl = ProxyHelper.openConnection(new URL(coreservice + url));
-      HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
-      int responseCode = httpConn.getResponseCode();
-      switch (responseCode) {
-        case 503:
-          // request was not processed by source
-          logger.warn("Component content could not be fetched.");
-          throw new DataaquisitionException("Component content could not be fetched. (503)");
-        case 200:
-          logger.info("Source responded with 200.");
-          GetMethod method = new GetMethod(coreservice + url);
-          HttpClient client = new HttpClient();
-          ProxyHelper.executeMethod(client, method);
-          input = method.getResponseBody();
-          httpConn.disconnect();
-          break;
-        case 403:
-          throw new DataaquisitionException("Access to component content is restricted.");
-        default:
-          throw new DataaquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": "
-                  + httpConn.getResponseMessage());
-      }
-    } catch (Exception e) {
-      logger.error("An error occurred while retrieving the item " + identifier + ".", e);
-      throw new DataaquisitionException("An error occurred while retrieving the item " + identifier
-          + ".", e);
-    }
-
-    return input;
-  }
+  // /**
+  // * Retrieves the content of a component from different escidoc instances.
+  // *
+  // * @param identifier
+  // * @param url
+  // * @return content of a component as byte[]
+  // * @throws DataaquisitionException
+  // */
+  // public byte[] retrieveComponentContent(String sourceName, String identifier, String url)
+  // throws DataaquisitionException {
+  // String coreservice = "";
+  // URLConnection contentUrl;
+  // byte[] input = null;
+  //
+  // // String sourceName = Util.trimSourceName("escidoc", identifier);
+  // // DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
+  //
+  // // if (sourceName.equalsIgnoreCase("escidoc")) {
+  // // try {
+  // // coreservice = PropertyReader.getFrameworkUrl();
+  // // } catch (Exception e) {
+  // // logger.error("Framework Access threw an exception.", e);
+  // // return null;
+  // // }
+  // // }
+  //
+  // // if (sourceName.equalsIgnoreCase("escidocdev") || sourceName.equalsIgnoreCase("escidocqa")
+  // // || sourceName.equalsIgnoreCase("escidocprod")
+  // // || sourceName.equalsIgnoreCase("escidoctest")) {
+  // // // escidoc source has only one dummy ft record
+  // // FullTextVO ft = source.getFtFormats().get(0);
+  // // coreservice = ft.getFtUrl().toString();
+  // // }
+  //
+  // try {
+  // contentUrl = ProxyHelper.openConnection(new URL(coreservice + url));
+  // HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
+  // int responseCode = httpConn.getResponseCode();
+  // switch (responseCode) {
+  // case 503:
+  // // request was not processed by source
+  // logger.warn("Component content could not be fetched.");
+  // throw new DataaquisitionException("Component content could not be fetched. (503)");
+  // case 200:
+  // logger.info("Source responded with 200.");
+  // GetMethod method = new GetMethod(coreservice + url);
+  // HttpClient client = new HttpClient();
+  // ProxyHelper.executeMethod(client, method);
+  // input = method.getResponseBody();
+  // httpConn.disconnect();
+  // break;
+  // case 403:
+  // throw new DataaquisitionException("Access to component content is restricted.");
+  // default:
+  // throw new DataaquisitionException(
+  // "An error occurred during importing from external system: " + responseCode + ": "
+  // + httpConn.getResponseMessage());
+  // }
+  // } catch (Exception e) {
+  // logger.error("An error occurred while retrieving the item " + identifier + ".", e);
+  // throw new DataaquisitionException("An error occurred while retrieving the item " + identifier
+  // + ".", e);
+  // }
+  //
+  // return input;
+  // }
 
   /**
    * Decide which kind of data has to be fetched.
@@ -820,15 +813,18 @@ public class DataHandlerService {
         .getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null) {
       return fetchTypeTEXTUALDATA;
     }
+
     // Native Fulltext format
     if (Util
         .getFtObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null) {
       return fetchTypeFILEDATA;
     }
-    // Transformations via escidoc format
-    if (Util.checkEscidocTransform(trgFormatName, trgFormatType, trgFormatEncoding)) {
-      return fetchTypeESCIDOCTRANS;
-    }
+
+    // // Transformations via escidoc format
+    // if (Util.checkEscidocTransform(trgFormatName, trgFormatType, trgFormatEncoding)) {
+    // return fetchTypeESCIDOCTRANS;
+    // }
+
     // Transformable formats
     TransformerFactory.FORMAT[] trgFormats =
         TransformerCache.getAllTargetFormatsFor(TransformerFactory.FORMAT.valueOf(trgFormatName));
@@ -892,9 +888,9 @@ public class DataHandlerService {
   public Visibility getVisibility() {
     if (this.visibility.equals("PUBLIC")) {
       return FileVO.Visibility.PUBLIC;
-    } else {
-      return FileVO.Visibility.PRIVATE;
     }
+
+    return FileVO.Visibility.PRIVATE;
   }
 
   public void setVisibility(String visibility) {
@@ -915,19 +911,22 @@ public class DataHandlerService {
           || this.componentVO.getDefaultMetadata().getRights().equals("")) {
         this.componentVO.getDefaultMetadata().setRights(this.currentSource.getCopyright());
       }
+
       if (this.componentVO.getDefaultMetadata().getLicense() == null
           || this.componentVO.getDefaultMetadata().getLicense().equals("")) {
         this.componentVO.getDefaultMetadata().setLicense(this.currentSource.getLicense());
       }
+
       return this.componentVO;
-    } else {
-      FileVO file = new FileVO();
-      MdsFileVO md = new MdsFileVO();
-      md.setLicense(this.currentSource.getLicense());
-      md.setRights(this.currentSource.getCopyright());
-      file.setDefaultMetadata(md);
-      return file;
     }
+
+    FileVO file = new FileVO();
+    MdsFileVO md = new MdsFileVO();
+    md.setLicense(this.currentSource.getLicense());
+    md.setRights(this.currentSource.getCopyright());
+    file.setDefaultMetadata(md);
+
+    return file;
   }
 
   // /**

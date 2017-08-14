@@ -12,5 +12,6 @@
     <Logger name="org.hibernate.cache" level="debug" />
     <Logger name="org.hibernate.SQL" level="debug" />
     <Logger name="net.sf.ehcache" level="info" />
+    <Logger name="de.mpg.mpdl.inge.service.pubman.impl" level="info" />
   </Loggers>
 </Configuration>

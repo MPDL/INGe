@@ -3,8 +3,6 @@ package de.mpg.mpdl.inge.dataacquisition.webservice;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +24,10 @@ import noNamespace.FormatType;
 import noNamespace.FormatsDocument;
 import noNamespace.FormatsType;
 
+// TODO: Kein Servlet mehr, sondern in Pubman REST integrieren
+// Item holen über REST Schnittstelle (Json -> Object -> escidoc xml) plus Konvertierung in
+// Zielformat über Transformationmanger
+// Unapi URL in jsp Seiten ändern
 /**
  * This class provides the implementation of the {@link Unapi} interface.
  * 
@@ -36,7 +38,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   private final String idTypeUri = "URI";
   private final String idTypeUrl = "URL";
   private final String idTypeEscidoc = "ESCIDOC";
-  private final String idTypeUnknown = "UNKNOWN";
+  // private final String idTypeUnknown = "UNKNOWN";
   private final Logger logger = Logger.getLogger(UnapiServlet.class);
   private DataHandlerService dataHandler = new DataHandlerService();
   private DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
@@ -160,19 +162,19 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // get fetchable metadata formats
     metadataV = source.getMdFormats();
     // get transformable formats
-    metadataV.addAll(Util.getTransformFormats(metadataV));
-    // get transformable formats via escidoc format
-    if (Util.checkEscidocTransition(metadataV, identifier)) {
-      String transitionFormatName = Util.getInternalFormat();
-      MetadataVO transitionFormat = new MetadataVO();
-      transitionFormat.setName(transitionFormatName);
-      transitionFormat.setEncoding(Util.getDefaultEncoding(transitionFormatName));
-      transitionFormat.setMdFormat(Util.getDefaultMimeType(transitionFormatName));
-      List<MetadataVO> transitionFormatV = new ArrayList<MetadataVO>();
-      transitionFormatV.add(transitionFormat);
-      // Call method with transition format escidoc
-      metadataV.addAll(Util.getTransformFormats(transitionFormatV));
-    }
+    // metadataV.addAll(Util.getTransformFormats(metadataV));
+    // // get transformable formats via escidoc format
+    // if (Util.checkEscidocTransition(metadataV, identifier)) {
+    String transitionFormatName = Util.getInternalFormat();
+    MetadataVO transitionFormat = new MetadataVO();
+    transitionFormat.setName(transitionFormatName);
+    transitionFormat.setEncoding(Util.getDefaultEncoding(transitionFormatName));
+    transitionFormat.setMdFormat(Util.getDefaultMimeType(transitionFormatName));
+    List<MetadataVO> transitionFormatV = new ArrayList<MetadataVO>();
+    transitionFormatV.add(transitionFormat);
+    // Call method with transition format escidoc
+    metadataV.addAll(Util.getTransformFormats(transitionFormatV));
+    // }
     metadataV = Util.getRidOfDuplicatesInVector(metadataV);
 
     for (int i = 0; i < metadataV.size(); i++) {
@@ -210,36 +212,37 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 
   @Override
   public byte[] unapi(String identifier, String format) throws DataaquisitionException {
-    this.filename = identifier;
 
-    try {
-      String[] tmp = identifier.split(":", 2);
-      String sourceId = tmp[0];
-      String fullId = tmp[1];
-
-      String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
-      String idType = this.checkIdentifier(identifier, format);
-
-      if (idType.equals(this.idTypeUri)) {
-        if (sourceId != null) {
-          return this.dataHandler.doFetch(sourceName, fullId, format);
-        }
-      }
-
-      if (idType.equals(this.idTypeUrl)) {
-        return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
-      }
-
-      if (idType.equals(this.idTypeUnknown) || sourceId == null) {
-        this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
-        throw new DataaquisitionException("The type of the identifier (" + identifier
-            + ") was not recognised.");
-      }
-    } catch (DataaquisitionException e) {
-      throw new DataaquisitionException(identifier, e);
-    } catch (MalformedURLException e) {
-      throw new DataaquisitionException(identifier, e);
-    }
+    // this.filename = identifier;
+    //
+    // try {
+    // String[] tmp = identifier.split(":", 2);
+    // String sourceId = tmp[0];
+    // String fullId = tmp[1];
+    //
+    // String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
+    // String idType = this.checkIdentifier(identifier, format);
+    //
+    // if (idType.equals(this.idTypeUri)) {
+    // if (sourceId != null) {
+    // return this.dataHandler.doFetch(sourceName, fullId, format);
+    // }
+    // }
+    //
+    // if (idType.equals(this.idTypeUrl)) {
+    // return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
+    // }
+    //
+    // if (idType.equals(this.idTypeUnknown) || sourceId == null) {
+    // this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
+    // throw new DataaquisitionException("The type of the identifier (" + identifier
+    // + ") was not recognised.");
+    // }
+    // } catch (DataaquisitionException e) {
+    // throw new DataaquisitionException(identifier, e);
+    // } catch (MalformedURLException e) {
+    // throw new DataaquisitionException(identifier, e);
+    // }
 
     return null;
   }
