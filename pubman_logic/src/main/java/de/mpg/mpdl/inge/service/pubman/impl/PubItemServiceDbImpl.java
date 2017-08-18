@@ -264,7 +264,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     pubItem.getFiles().clear();
     for (FileVO fileVO : files) {
-      generateFileDbVOFromFileVO(fileVO, mod, currentDate);
+      pubItem.getFiles().add(generateFileDbVOFromFileVO(fileVO, mod, currentDate));
     }
 
     pubItem.setObject(pubItemObject);

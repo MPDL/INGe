@@ -250,8 +250,9 @@ public class EntityTransformer {
   private static FileVO transformToOld(FileDbVO newFileVo) {
     FileVO oldFileVo = new FileVO();
     oldFileVo.setChecksum(newFileVo.getChecksum());
-    oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
-        .getChecksumAlgorithm().name()));
+    // TODO
+    // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+    // .getChecksumAlgorithm().name()));
     oldFileVo.setContent(newFileVo.getContent());
     oldFileVo.setContentCategory(newFileVo.getContentCategory());
     oldFileVo.setCreatedByRO(transformToOld(newFileVo.getCreator()));
