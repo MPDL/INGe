@@ -1,58 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Production</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.jsp</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
-		<param-value>*.jsp</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>client</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.CONFIG_FILES</param-name>
-		<param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
-	</context-param>
-
-	<filter>
-		<display-name>Sitemap Filter</display-name>
-		<filter-name>sitemap</filter-name>
-		<filter-class>de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>sitemap</filter-name>
-		<servlet-name>default</servlet-name>
-	</filter-mapping>
-
-	<filter>
-		<filter-name>SessionTimeoutFilter</filter-name>
-		<filter-class>de.mpg.mpdl.inge.pubman.web.util.filter.SessionTimeoutFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>SessionTimeoutFilter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
-
-	<listener>
-		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener</listener-class>
-	</listener>
 
 	<mime-mapping>
 		<extension>jsp</extension>
@@ -64,58 +11,6 @@
 		<mime-type>text/html</mime-type>
 	</mime-mapping>
 
-	<servlet>
-		<servlet-name>StatisticChartServlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.StatisticChartServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>StatisticChartServlet</servlet-name>
-		<url-pattern>/statisticchart/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Genre Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
-
- 	<servlet>
-		<servlet-name>Import Surveyer Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.ImportSurveyerServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
-	</servlet>
-	
-<!--  TODO wieder einkommentieren -->
-<!-- 
- 	<servlet>
-		<servlet-name>Initializer Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.InitializerServlet</servlet-class>
-		<load-on-startup>4</load-on-startup>
-	</servlet>
- -->
- 
-	<servlet>
-		<servlet-name>Redirect Servlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Redirect Servlet</servlet-name>
-		<url-pattern>/item/*</url-pattern>
-	</servlet-mapping>
-
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
@@ -124,36 +19,5 @@
 		<welcome-file>faces/HomePage.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- Start SWORD -->
-	<context-param>
-		<param-name>server-class</param-name>
-		<param-value>de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>authentication-method</param-name>
-		<param-value>Basic</param-value>
-	</context-param>
-
-	<servlet>
-		<servlet-name>servicedocument</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>servicedocument</servlet-name>
-		<url-pattern>/sword-app/servicedocument</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>deposit</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>deposit</servlet-name>
-		<url-pattern>/sword-app/deposit</url-pattern>
-	</servlet-mapping>
-	<!-- End SWORD -->
 </web-app>
 
