@@ -20,7 +20,6 @@ import de.mpg.mpdl.inge.pubman.web.util.filter.SessionTimeoutFilter;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
-import de.mpg.mpdl.inge.pubman.web.util.servlet.ImportSurveyerServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.StatisticChartServlet;
 
@@ -41,11 +40,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.addListener(PubManSessionListener.class);
 
 
-    // Sitemap
-    FilterRegistration.Dynamic sitemapFilter =
-        servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
-    sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
-
 
     // JSF
     servletContext.addListener(ConfigureListener.class);
@@ -55,19 +49,28 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "client");
     servletContext.setInitParameter("javax.faces.CONFIG_FILES",
         "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
-    FilterRegistration.Dynamic sessionTimeoutFilter =
-        servletContext.addFilter("SessionTimeoutFilter", SessionTimeoutFilter.class);
-    sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
+
 
     ServletRegistration.Dynamic facesServlet =
         servletContext.addServlet("Faces Servlet", new FacesServlet());
     facesServlet.addMapping("/faces/*");
     facesServlet.setLoadOnStartup(2);
 
+    FilterRegistration.Dynamic sessionTimeoutFilter =
+        servletContext.addFilter("Session Timeout Filter", SessionTimeoutFilter.class);
+    sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
+
+
+    // TODO ???? Was ist mit dem früheren InitializerServlet?
+
+    // Sitemap
+    FilterRegistration.Dynamic sitemapFilter =
+        servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
+    sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
 
     // Statistic Servlet
     ServletRegistration statisticChartServlet =
-        servletContext.addServlet("StatisticChartServlet", StatisticChartServlet.class);
+        servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
     statisticChartServlet.addMapping("/statisticchart/*");
 
 
@@ -75,12 +78,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     ServletRegistration.Dynamic genreServlet =
         servletContext.addServlet("Genre Servlet", GenreServlet.class);
     genreServlet.setLoadOnStartup(1);
-
-
-    // Import Surveyor
-    ServletRegistration.Dynamic importSurveyor =
-        servletContext.addServlet("Import Surveyer Servlet", ImportSurveyerServlet.class);
-    importSurveyor.setLoadOnStartup(3);
 
 
     // Redirect Servlet
@@ -91,12 +88,13 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     // SWORD
     ServletRegistration.Dynamic swordServiceDocumentServlet =
-        servletContext.addServlet("servicedocument", PubManServiceDocumentServlet.class);
+        servletContext.addServlet("Sword Service Document Servlet",
+            PubManServiceDocumentServlet.class);
     swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
 
     ServletRegistration.Dynamic swordDepositServlet =
-        servletContext.addServlet("servicedocument", PubManDepositServlet.class);
-    swordServiceDocumentServlet.addMapping("/sword-app/deposit");
+        servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
+    swordDepositServlet.addMapping("/sword-app/deposit");
 
     servletContext.setInitParameter("server-class",
         "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
