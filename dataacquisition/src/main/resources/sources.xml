@@ -68,4 +68,110 @@
 		</FT-fetch-settings>
 	</Import-Source>
 	
+	<Import-Source name="PubMedCentral">
+		<dc:description>PubMed Central (PMC) is the U.S. National Institutes
+			of Health (NIH) free digital archive of biomedical and life sciences
+			journal literature.</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">https://www.ncbi.nlm.nih.gov/pmc/
+		</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<item-url>https://www.ncbi.nlm.nih.gov/pmc/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract
+		</item-url>
+		<source-identifier>pmcid:pmc</source-identifier>
+		<source-identifier>pmcid: pmc</source-identifier>
+		<source-identifier>pmcid</source-identifier>
+		<source-identifier>pmc</source-identifier>
+		<source-identifier-example>pmc:2581620</source-identifier-example>
+		<harvest-protocol>oai-pmh</harvest-protocol>
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<copyright>https://www.ncbi.nlm.nih.gov/pmc/about/copyright.html
+		</copyright>
+		<status>published</status>
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html
+				</dc:description>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>PubMed Central</label>
+				<name>pmc</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+				</dc:description>
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>oai dc</label>
+				<name>oai_dc</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc
+				</dc:identifier>
+				<dc:format>application/pdf</dc:format>
+				<label>PDF</label>
+				<name>pdf</name>
+				<encoding>UTF-8</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:identifier>https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc
+				</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>XML</label>
+				<name>xml</name>
+				<encoding>UTF-8</encoding>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
+		</FT-fetch-settings>		
+	</Import-Source>
+	
+	<Import-Source name="Spires">
+		<dc:description>The Stanford Physics Information Retrieval System
+			(SPIRES) is a High-Energy Physics Literature Database.
+		</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://www-spires.fnal.gov/spires/
+		</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<item-url>http://inspirehep.net/search?p=GETID</item-url>
+		<source-identifier>spires</source-identifier>
+		<source-identifier-example>spires:hep-ph/0001001
+		</source-identifier-example>
+		<source-identifier-example>spires:arXiv:0812.2902
+		</source-identifier-example>
+		<source-identifier-example>spires:10.1016/J.NIMA.2008.08.135
+		</source-identifier-example>
+		<harvest-protocol>http</harvest-protocol>
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<status>published</status>
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://www.slac.stanford.edu/spires/hep/api/
+				</dc:description>
+				<dc:identifier>http://inspirehep.net/search?p=GETID</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>SPIRES</label>
+				<name>spires</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
 </Import-Sources>
