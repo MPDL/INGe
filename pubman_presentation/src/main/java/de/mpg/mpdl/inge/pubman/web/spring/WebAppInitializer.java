@@ -87,9 +87,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 
     // SWORD
-    ServletRegistration.Dynamic swordServiceDocumentServlet =
-        servletContext.addServlet("Sword Service Document Servlet",
-            PubManServiceDocumentServlet.class);
+    ServletRegistration.Dynamic swordServiceDocumentServlet = servletContext
+        .addServlet("Sword Service Document Servlet", PubManServiceDocumentServlet.class);
     swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
 
     ServletRegistration.Dynamic swordDepositServlet =
