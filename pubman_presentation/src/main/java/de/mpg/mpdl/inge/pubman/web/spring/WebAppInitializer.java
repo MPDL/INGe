@@ -41,11 +41,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.addListener(PubManSessionListener.class);
 
 
-    // Sitemap
-    FilterRegistration.Dynamic sitemapFilter =
-        servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
-    sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
-
 
     // JSF
     servletContext.addListener(ConfigureListener.class);
@@ -55,15 +50,22 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "client");
     servletContext.setInitParameter("javax.faces.CONFIG_FILES",
         "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
-    FilterRegistration.Dynamic sessionTimeoutFilter =
-        servletContext.addFilter("SessionTimeoutFilter", SessionTimeoutFilter.class);
-    sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
+
 
     ServletRegistration.Dynamic facesServlet =
         servletContext.addServlet("Faces Servlet", new FacesServlet());
     facesServlet.addMapping("/faces/*");
     facesServlet.setLoadOnStartup(2);
 
+    FilterRegistration.Dynamic sessionTimeoutFilter =
+        servletContext.addFilter("SessionTimeoutFilter", SessionTimeoutFilter.class);
+    sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
+
+
+    // Sitemap
+    FilterRegistration.Dynamic sitemapFilter =
+        servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
+    sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
 
     // Statistic Servlet
     ServletRegistration statisticChartServlet =
