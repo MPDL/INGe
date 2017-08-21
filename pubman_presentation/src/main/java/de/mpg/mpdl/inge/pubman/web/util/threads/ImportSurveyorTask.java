@@ -25,7 +25,8 @@ public class ImportSurveyorTask {
 
   public ImportSurveyorTask() {}
 
-  @Scheduled(fixedDelay = 60000)
+  @Scheduled(fixedDelay = 600000)
+  // 10 min
   // TODO: Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
   public void run() {
     ImportSurveyorTask.logger.info("Import surveyor task checks logs...");
