@@ -33,8 +33,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.model.UploadedFile;
-
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
@@ -68,8 +66,8 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public static final String FULLTEXT_ALL = "ALL";
   public static final String FULLTEXT_DEFAULT = "FORMAT";
 
-  private static final String REFERENCE_FILE = "FILE";
-  private static final String REFERENCE_LOCATOR = "LOCATOR";
+  // private static final String REFERENCE_FILE = "FILE";
+  // private static final String REFERENCE_LOCATOR = "LOCATOR";
 
   private static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
 
@@ -84,18 +82,18 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
   private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 
-  private UploadedFile uploadedBibtexFile;
+  // private UploadedFile uploadedBibtexFile;
   private String selectedDate;
 
   private String currentExternalServiceType = "";
   private String currentFTLabel = "";
   private boolean fulltext = true;
   private String radioSelectFulltext;
-  // private boolean importSourceRefresh = false;
+  private boolean importSourceRefresh = false;
 
   private SelectItem[] FULLTEXT_OPTIONS;
   private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-  private SelectItem[] REFERENCE_OPTIONS;
+  // private SelectItem[] REFERENCE_OPTIONS;
 
   private String genreBundle = "Genre_ARTICLE";
 
@@ -110,12 +108,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
    */
   private String showAuthorCopyPaste;
   private String creatorParseString;
-  private String radioSelectReferenceValue;
+
+  // private String radioSelectReferenceValue;
 
   public EasySubmissionSessionBean() {
     this.currentSubmissionStep = EasySubmissionSessionBean.ES_STEP1;
-    // this.importSourceRefresh = false;
-    this.radioSelectReferenceValue = EasySubmissionSessionBean.REFERENCE_LOCATOR;
+    this.importSourceRefresh = false;
+    // this.radioSelectReferenceValue = EasySubmissionSessionBean.REFERENCE_LOCATOR;
     this.initAuthorCopyPasteCreatorBean();
   }
 
@@ -133,7 +132,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.initAuthorCopyPasteCreatorBean();
     // this.setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
     this.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
-    this.uploadedBibtexFile = null;
+    // this.uploadedBibtexFile = null;
   }
 
   public String getCurrentSubmissionMethod() {
@@ -224,13 +223,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.currentFTLabel = currentFTLabel;
   }
 
-  // public boolean isImportSourceRefresh() {
-  // return this.importSourceRefresh;
-  // }
-  //
-  // public void setImportSourceRefresh(boolean importSourceRefresh) {
-  // this.importSourceRefresh = importSourceRefresh;
-  // }
+  public boolean isImportSourceRefresh() {
+    return this.importSourceRefresh;
+  }
+
+  public void setImportSourceRefresh(boolean importSourceRefresh) {
+    this.importSourceRefresh = importSourceRefresh;
+  }
 
   public SelectItem[] getFULLTEXT_OPTIONS() {
     // TODO Workaround cause Labels are set before the language change is done. Could be done better
@@ -268,13 +267,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.radioSelectFulltext = radioSelectFulltext;
   }
 
-  public String getRadioSelectReferenceValue() {
-    return this.radioSelectReferenceValue;
-  }
-
-  public void setRadioSelectReferenceValue(String newRadioSelectReferenceValue) {
-    this.radioSelectReferenceValue = newRadioSelectReferenceValue;
-  }
+  // public String getRadioSelectReferenceValue() {
+  // return this.radioSelectReferenceValue;
+  // }
+  //
+  // public void setRadioSelectReferenceValue(String newRadioSelectReferenceValue) {
+  // this.radioSelectReferenceValue = newRadioSelectReferenceValue;
+  // }
 
   public String getGenreBundle() {
     return this.genreBundle;
@@ -313,16 +312,16 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.creatorParseString = creatorParseString;
   }
 
-  public SelectItem[] getREFERENCE_OPTIONS() {
-    this.REFERENCE_OPTIONS =
-        new SelectItem[] {
-            new SelectItem(EasySubmissionSessionBean.REFERENCE_FILE,
-                this.getLabel("easy_submission_lblReference_file")),
-            new SelectItem(EasySubmissionSessionBean.REFERENCE_LOCATOR,
-                this.getLabel("easy_submission_lblReference_locator"))};
-
-    return this.REFERENCE_OPTIONS;
-  }
+  // public SelectItem[] getREFERENCE_OPTIONS() {
+  // this.REFERENCE_OPTIONS =
+  // new SelectItem[] {
+  // new SelectItem(EasySubmissionSessionBean.REFERENCE_FILE,
+  // this.getLabel("easy_submission_lblReference_file")),
+  // new SelectItem(EasySubmissionSessionBean.REFERENCE_LOCATOR,
+  // this.getLabel("easy_submission_lblReference_locator"))};
+  //
+  // return this.REFERENCE_OPTIONS;
+  // }
 
   public boolean isFulltext() {
     return this.fulltext;
@@ -340,19 +339,19 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.setShowAuthorCopyPaste("");
   }
 
-  public String getREFERENCE_FILE() {
-    return EasySubmissionSessionBean.REFERENCE_FILE;
-  }
+  // public String getREFERENCE_FILE() {
+  // return EasySubmissionSessionBean.REFERENCE_FILE;
+  // }
 
-  public String getREFERENCE_LOCATOR() {
-    return EasySubmissionSessionBean.REFERENCE_LOCATOR;
-  }
+  // public String getREFERENCE_LOCATOR() {
+  // return EasySubmissionSessionBean.REFERENCE_LOCATOR;
+  // }
 
-  public UploadedFile getUploadedBibtexFile() {
-    return this.uploadedBibtexFile;
-  }
-
-  public void setUploadedBibtexFile(UploadedFile uploadedBibtexFile) {
-    this.uploadedBibtexFile = uploadedBibtexFile;
-  }
+  // public UploadedFile getUploadedBibtexFile() {
+  // return this.uploadedBibtexFile;
+  // }
+  //
+  // public void setUploadedBibtexFile(UploadedFile uploadedBibtexFile) {
+  // this.uploadedBibtexFile = uploadedBibtexFile;
+  // }
 }

@@ -24,11 +24,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.easySubmission;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
@@ -100,10 +98,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
-import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -146,17 +141,15 @@ public class EasySubmission extends FacesBean {
   // this.DATE_MODIFIED};
 
   private final DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
-  // für Binding in jsp seite
-  private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
-  // für Binding in jsp seite
-  private HtmlSelectOneRadio radioSelect;
 
+  private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
+  private HtmlSelectOneRadio radioSelect;
   private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
   private IdentifierCollection identifierCollection;
   private List<DataSourceVO> dataSources = new ArrayList<DataSourceVO>();
-  private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-  private SelectItem[] FULLTEXT_OPTIONS;
-  private SelectItem[] REFERENCE_OPTIONS;
+  // private SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+  // private SelectItem[] FULLTEXT_OPTIONS;
+  // private SelectItem[] REFERENCE_OPTIONS;
   private SelectItem[] locatorVisibilities;
   private String alternativeLanguageName;
   private String contextName = null;
@@ -251,16 +244,17 @@ public class EasySubmission extends FacesBean {
         && this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT")) {
 
       // Call source initialization only once
-      // if (!this.getEasySubmissionSessionBean().isImportSourceRefresh()) {
-      // this.getEasySubmissionSessionBean().setImportSourceRefresh(true);
-      this.setImportSourcesInfo();
-    } else if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
-      if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            EasySubmissionSessionBean.FULLTEXT_ALL);
+      if (!this.getEasySubmissionSessionBean().isImportSourceRefresh()) {
+        this.getEasySubmissionSessionBean().setImportSourceRefresh(true);
+        this.setImportSourcesInfo();
+        // } else if (this.getServiceID() != null &&
+        // this.getServiceID().toLowerCase().equals("escidoc")) {
+        // if (this.getServiceID() != null && this.getServiceID().toLowerCase().equals("escidoc")) {
+        // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+        // EasySubmissionSessionBean.FULLTEXT_ALL);
       }
-      // } else {
-      // this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
+    } else {
+      this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
     }
 
     if (this.getItem() != null && this.getItem().getMetadata() != null
@@ -555,9 +549,9 @@ public class EasySubmission extends FacesBean {
     this.upload(true);
   }
 
-  public void bibtexFileUploaded(FileUploadEvent event) {
-    this.getEasySubmissionSessionBean().setUploadedBibtexFile(event.getFile());
-  }
+  // public void bibtexFileUploaded(FileUploadEvent event) {
+  // this.getEasySubmissionSessionBean().setUploadedBibtexFile(event.getFile());
+  // }
 
   /**
    * This method uploads a selected file and gives out error messages if needed
@@ -701,67 +695,67 @@ public class EasySubmission extends FacesBean {
     return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
-  public String uploadBibtexFile() {
-    try {
-      final StringBuffer content = new StringBuffer();
-
-      try {
-        final UploadedFile uploadedBibTexFile =
-            this.getEasySubmissionSessionBean().getUploadedBibtexFile();
-
-        final BufferedReader reader =
-            new BufferedReader(new InputStreamReader(uploadedBibTexFile.getInputstream()));
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-          content.append(line + "\n");
-        }
-      } catch (final NullPointerException npe) {
-        EasySubmission.logger.error("Error reading bibtex file", npe);
-        this.warn(this.getMessage("easy_submission_bibtex_empty_file"));
-        return null;
-      }
-
-      final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-
-      String result =
-          itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
-              FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, content.toString());
-
-      final PubItemVO itemVO = XmlTransformingService.transformToPubItem(result);
-      itemVO.setContext(this.getItem().getContext());
-
-      // Check if reference has to be uploaded as file
-      if (this.getEasySubmissionSessionBean().getRadioSelectReferenceValue()
-          .equals(this.getEasySubmissionSessionBean().getREFERENCE_FILE())) {
-        final LocatorUploadBean locatorBean = new LocatorUploadBean();
-        final List<FileVO> locators = locatorBean.getLocators(itemVO);
-        // Check if item has locators
-        if (locators != null && locators.size() > 0) {
-          // Upload the locators as file
-          for (int i = 0; i < locators.size(); i++) {
-            // Add files to item
-            final FileVO uploadedLocator = locatorBean.uploadLocatorAsFile(locators.get(i));
-            if (uploadedLocator != null) {
-              // remove locator
-              itemVO.getFiles().remove(i);
-              // add file
-              itemVO.getFiles().add(uploadedLocator);
-            }
-          }
-        }
-      }
-
-      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(itemVO);
-      this.setItem(pubItemPres);
-    } catch (final Exception e) {
-      EasySubmission.logger.error("Error reading bibtex file", e);
-      FacesBean.error(this.getMessage("easy_submission_bibtex_error"));
-      return null;
-    }
-
-    return "loadNewEasySubmission";
-  }
+  // public String uploadBibtexFile() {
+  // try {
+  // final StringBuffer content = new StringBuffer();
+  //
+  // try {
+  // final UploadedFile uploadedBibTexFile =
+  // this.getEasySubmissionSessionBean().getUploadedBibtexFile();
+  //
+  // final BufferedReader reader =
+  // new BufferedReader(new InputStreamReader(uploadedBibTexFile.getInputstream()));
+  //
+  // String line;
+  // while ((line = reader.readLine()) != null) {
+  // content.append(line + "\n");
+  // }
+  // } catch (final NullPointerException npe) {
+  // EasySubmission.logger.error("Error reading bibtex file", npe);
+  // this.warn(this.getMessage("easy_submission_bibtex_empty_file"));
+  // return null;
+  // }
+  //
+  // final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
+  //
+  // String result =
+  // itemTransformingService.transformFromTo(FORMAT.ESCIDOC_ITEM_V3_XML,
+  // FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, content.toString());
+  //
+  // final PubItemVO itemVO = XmlTransformingService.transformToPubItem(result);
+  // itemVO.setContext(this.getItem().getContext());
+  //
+  // // Check if reference has to be uploaded as file
+  // if (this.getEasySubmissionSessionBean().getRadioSelectReferenceValue()
+  // .equals(this.getEasySubmissionSessionBean().getREFERENCE_FILE())) {
+  // final LocatorUploadBean locatorBean = new LocatorUploadBean();
+  // final List<FileVO> locators = locatorBean.getLocators(itemVO);
+  // // Check if item has locators
+  // if (locators != null && locators.size() > 0) {
+  // // Upload the locators as file
+  // for (int i = 0; i < locators.size(); i++) {
+  // // Add files to item
+  // final FileVO uploadedLocator = locatorBean.uploadLocatorAsFile(locators.get(i));
+  // if (uploadedLocator != null) {
+  // // remove locator
+  // itemVO.getFiles().remove(i);
+  // // add file
+  // itemVO.getFiles().add(uploadedLocator);
+  // }
+  // }
+  // }
+  // }
+  //
+  // final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(itemVO);
+  // this.setItem(pubItemPres);
+  // } catch (final Exception e) {
+  // EasySubmission.logger.error("Error reading bibtex file", e);
+  // FacesBean.error(this.getMessage("easy_submission_bibtex_error"));
+  // return null;
+  // }
+  //
+  // return "loadNewEasySubmission";
+  // }
 
   /**
    * Handles the import from an external ingestion sources.
@@ -1217,66 +1211,71 @@ public class EasySubmission extends FacesBean {
       this.dataSources = this.dataSourceHandler.getSources(EasySubmission.INTERNAL_MD_FORMAT);
 
       final List<SelectItem> v_serviceOptions = new ArrayList<SelectItem>();
-      List<FullTextVO> ftFormats = new ArrayList<FullTextVO>();
+      // List<FullTextVO> ftFormats = new ArrayList<FullTextVO>();
 
-      String currentSource = "";
+      // String currentSource = "";
       for (int i = 0; i < this.dataSources.size(); i++) {
         final DataSourceVO source = this.dataSources.get(i);
         v_serviceOptions.add(new SelectItem(source.getName()));
         this.getEasySubmissionSessionBean().setCurrentExternalServiceType(source.getName());
-        currentSource = source.getName();
+        // currentSource = source.getName();
         // Get full text informations from this source
-        ftFormats = source.getFtFormats();
-
-        for (int x = 0; x < ftFormats.size(); x++) {
-          this.getEasySubmissionSessionBean().setFulltext(true);
-          final FullTextVO ft = ftFormats.get(x);
-          if (ft.isFtDefault()) {
-            this.getEasySubmissionSessionBean().setCurrentFTLabel(ft.getFtLabel());
-            this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-                EasySubmissionSessionBean.FULLTEXT_DEFAULT);
-          }
-        }
-
-        if (ftFormats.size() <= 0) {
-          this.getEasySubmissionSessionBean().setFulltext(false);
-          this.getEasySubmissionSessionBean().setCurrentFTLabel("");
-        }
+        // ftFormats = source.getFtFormats();
+        //
+        // if (ftFormats != null && ftFormats.size() > 0) {
+        // // this.getEasySubmissionSessionBean().setFulltext(true);
+        // for (int x = 0; x < ftFormats.size(); x++) {
+        // final FullTextVO ft = ftFormats.get(x);
+        // if (ft.isFtDefault()) {
+        // this.getEasySubmissionSessionBean().setCurrentFTLabel(ft.getFtLabel());
+        // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+        // EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+        // }
+        // }
+        // } else {
+        // // this.getEasySubmissionSessionBean().setFulltext(false);
+        // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+        // EasySubmissionSessionBean.FULLTEXT_NONE);
+        // this.getEasySubmissionSessionBean().setCurrentFTLabel("");
+        // }
       }
 
-      this.EXTERNAL_SERVICE_OPTIONS = new SelectItem[v_serviceOptions.size()];
-      v_serviceOptions.toArray(this.EXTERNAL_SERVICE_OPTIONS);
-      this.getEasySubmissionSessionBean()
-          .setEXTERNAL_SERVICE_OPTIONS(this.EXTERNAL_SERVICE_OPTIONS);
+      SelectItem[] EXTERNAL_SERVICE_OPTIONS = new SelectItem[v_serviceOptions.size()];
+      v_serviceOptions.toArray(EXTERNAL_SERVICE_OPTIONS);
+      this.getEasySubmissionSessionBean().setEXTERNAL_SERVICE_OPTIONS(EXTERNAL_SERVICE_OPTIONS);
 
-      if (currentSource.toLowerCase().equals("escidoc")) {
-        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
-            new SelectItem[] {
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
-                    .getLabel("easy_submission_lblFulltext_all")),
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
-                    .getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            EasySubmissionSessionBean.FULLTEXT_ALL);
-      } else {
-        if (ftFormats.size() > 1) {
-          this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
-              new SelectItem[] {
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
-                      .getEasySubmissionSessionBean().getCurrentFTLabel()),
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
-                      .getLabel("easy_submission_lblFulltext_all")),
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
-                      .getLabel("easy_submission_lblFulltext_none"))});
-        } else {
-          this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
-              new SelectItem[] {
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
-                      .getEasySubmissionSessionBean().getCurrentFTLabel()),
-                  new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
-                      .getLabel("easy_submission_lblFulltext_none"))});
-        }
-      }
+      SelectItem[] FULLTEXT_OPTIONS = new SelectItem[] {};
+      this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(FULLTEXT_OPTIONS);
+      this.getEasySubmissionSessionBean().setCurrentFTLabel("");
+
+      // if (currentSource.toLowerCase().equals("escidoc")) {
+      // this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+      // new SelectItem[] {
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
+      // .getLabel("easy_submission_lblFulltext_all")),
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
+      // .getLabel("easy_submission_lblFulltext_none"))});
+      // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+      // EasySubmissionSessionBean.FULLTEXT_ALL);
+      // } else {
+      // if (ftFormats.size() > 1) {
+      // this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+      // new SelectItem[] {
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+      // .getEasySubmissionSessionBean().getCurrentFTLabel()),
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
+      // .getLabel("easy_submission_lblFulltext_all")),
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
+      // .getLabel("easy_submission_lblFulltext_none"))});
+      // } else if (ftFormats.size() == 1) {
+      // this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+      // new SelectItem[] {
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+      // .getEasySubmissionSessionBean().getCurrentFTLabel()),
+      // new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
+      // .getLabel("easy_submission_lblFulltext_none"))});
+      // }
+      // }
     } catch (final Exception e) {
       e.printStackTrace();
     }
@@ -1289,15 +1288,16 @@ public class EasySubmission extends FacesBean {
    */
   public void changeImportSource(String newImportSource) {
     DataSourceVO currentSource = this.dataSourceHandler.getSourceByName(newImportSource);
-    if (currentSource == null) {
-      currentSource = new DataSourceVO();
-    }
+    // if (currentSource == null) {
+    // currentSource = new DataSourceVO();
+    // }
 
     this.getEasySubmissionSessionBean().setCurrentExternalServiceType(currentSource.getName());
+
     final List<FullTextVO> ftFormats = currentSource.getFtFormats();
     if (ftFormats != null && ftFormats.size() > 0) {
+      this.getEasySubmissionSessionBean().setFulltext(true);
       for (int x = 0; x < ftFormats.size(); x++) {
-        this.getEasySubmissionSessionBean().setFulltext(true);
         final FullTextVO ft = ftFormats.get(x);
         if (ft.isFtDefault()) {
           this.getEasySubmissionSessionBean().setCurrentFTLabel(ft.getFtLabel());
@@ -1307,50 +1307,50 @@ public class EasySubmission extends FacesBean {
       }
     } else {
       this.getEasySubmissionSessionBean().setFulltext(false);
+      this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+          EasySubmissionSessionBean.FULLTEXT_NONE);
       this.getEasySubmissionSessionBean().setCurrentFTLabel("");
     }
 
-    // This has to be set, because escidoc does not have a default fetching format for full texts
-    if (currentSource.getName().toLowerCase().equals("escidoc")) {
+    // // This has to be set, because escidoc does not have a default fetching format for full texts
+    // if (currentSource.getName().toLowerCase().equals("escidoc")) {
+    // this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+    // new SelectItem[] {
+    // new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
+    // .getLabel("easy_submission_lblFulltext_all")),
+    // new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
+    // .getLabel("easy_submission_lblFulltext_none"))});
+    // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+    // EasySubmissionSessionBean.FULLTEXT_ALL);
+    // } else {
+    if (ftFormats.size() > 1) {
       this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
           new SelectItem[] {
+              new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                  .getEasySubmissionSessionBean().getCurrentFTLabel()),
               new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
                   .getLabel("easy_submission_lblFulltext_all")),
               new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
                   .getLabel("easy_submission_lblFulltext_none"))});
-      this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-          EasySubmissionSessionBean.FULLTEXT_ALL);
-    } else {
-      if (ftFormats.size() > 1) {
-        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
-            new SelectItem[] {
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
-                    .getEasySubmissionSessionBean().getCurrentFTLabel()),
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_ALL, this
-                    .getLabel("easy_submission_lblFulltext_all")),
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
-                    .getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            EasySubmissionSessionBean.FULLTEXT_DEFAULT);
-      }
-
-      if (ftFormats.size() == 1) {
-        this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
-            new SelectItem[] {
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
-                    .getEasySubmissionSessionBean().getCurrentFTLabel()),
-                new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
-                    .getLabel("easy_submission_lblFulltext_none"))});
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            EasySubmissionSessionBean.FULLTEXT_DEFAULT);
-      }
-
-      if (ftFormats.size() <= 0) {
-        this.getEasySubmissionSessionBean().setRadioSelectFulltext(
-            EasySubmissionSessionBean.FULLTEXT_NONE);
-        this.getEasySubmissionSessionBean().setFulltext(false);
-      }
+      // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+      // EasySubmissionSessionBean.FULLTEXT_DEFAULT);
+    } else if (ftFormats.size() == 1) {
+      this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(
+          new SelectItem[] {
+              new SelectItem(EasySubmissionSessionBean.FULLTEXT_DEFAULT, this
+                  .getEasySubmissionSessionBean().getCurrentFTLabel()),
+              new SelectItem(EasySubmissionSessionBean.FULLTEXT_NONE, this
+                  .getLabel("easy_submission_lblFulltext_none"))});
+      // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+      // EasySubmissionSessionBean.FULLTEXT_DEFAULT);
     }
+
+    // else if (ftFormats.size() <= 0) {
+    // this.getEasySubmissionSessionBean().setRadioSelectFulltext(
+    // EasySubmissionSessionBean.FULLTEXT_NONE);
+    // this.getEasySubmissionSessionBean().setFulltext(false);
+    // }
+    // }
 
     this.getEasySubmissionSessionBean().setCurrentExternalServiceType(newImportSource);
   }
@@ -1469,13 +1469,13 @@ public class EasySubmission extends FacesBean {
   // this.DATE_TYPE_OPTIONS = date_type_options;
   // }
 
-  public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
-    return this.EXTERNAL_SERVICE_OPTIONS;
-  }
-
-  public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
-    this.EXTERNAL_SERVICE_OPTIONS = external_service_options;
-  }
+  // public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
+  // return this.EXTERNAL_SERVICE_OPTIONS;
+  // }
+  //
+  // public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
+  // this.EXTERNAL_SERVICE_OPTIONS = external_service_options;
+  // }
 
   public HtmlSelectOneRadio getRadioSelect() {
     return this.radioSelect;
@@ -1845,13 +1845,13 @@ public class EasySubmission extends FacesBean {
     }
   }
 
-  public SelectItem[] getFULLTEXT_OPTIONS() {
-    return this.FULLTEXT_OPTIONS;
-  }
-
-  public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
-    this.FULLTEXT_OPTIONS = fulltext_options;
-  }
+  // public SelectItem[] getFULLTEXT_OPTIONS() {
+  // return this.FULLTEXT_OPTIONS;
+  // }
+  //
+  // public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
+  // this.FULLTEXT_OPTIONS = fulltext_options;
+  // }
 
   public HtmlSelectOneRadio getRadioSelectFulltext() {
     return this.radioSelectFulltext;
@@ -1861,13 +1861,13 @@ public class EasySubmission extends FacesBean {
     this.radioSelectFulltext = radioSelectFulltext;
   }
 
-  public SelectItem[] getREFERENCE_OPTIONS() {
-    return this.REFERENCE_OPTIONS;
-  }
-
-  public void setREFERENCE_OPTIONS(SelectItem[] reference_options) {
-    this.REFERENCE_OPTIONS = reference_options;
-  }
+  // public SelectItem[] getREFERENCE_OPTIONS() {
+  // return this.REFERENCE_OPTIONS;
+  // }
+  //
+  // public void setREFERENCE_OPTIONS(SelectItem[] reference_options) {
+  // this.REFERENCE_OPTIONS = reference_options;
+  // }
 
   /**
    * This method returns the URL to the cone autosuggest service read from the properties
