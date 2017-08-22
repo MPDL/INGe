@@ -39,10 +39,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // SessionListener
     servletContext.addListener(PubManSessionListener.class);
 
-
-
     // JSF
     servletContext.addListener(ConfigureListener.class);
+    servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
     servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
     servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".jsp");
     servletContext.setInitParameter("javax.faces.FACELETS_VIEW_MAPPINGS", "*.jsp");
