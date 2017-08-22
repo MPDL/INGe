@@ -26,9 +26,9 @@ public interface ItemTransformingService {
       throws TransformationException;
 
   public boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat);
-  
-  public String transformPubItemTo(TransformerFactory.FORMAT target,
-      PubItemVO item) throws TransformationException;
+
+  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item)
+      throws TransformationException;
 
 
 }
