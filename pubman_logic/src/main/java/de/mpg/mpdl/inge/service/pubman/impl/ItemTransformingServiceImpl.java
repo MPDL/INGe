@@ -135,6 +135,24 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
     return wr.toString();
   }
+  
+  public String transformPubItemTo(TransformerFactory.FORMAT target,
+      PubItemVO item) throws TransformationException {
+    StringWriter wr = new StringWriter();
+    try {
+    String itemXml = XmlTransformingService.transformToItem(item);
+    
+    final Transformer t = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, target);
+
+   
+      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
+          new TransformerStreamResult(wr));
+    } catch (Exception e) {
+      throw new TransformationException(e);
+    }
+
+    return wr.toString();
+  }
 
   @Override
   public boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {

@@ -6,6 +6,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
@@ -25,6 +26,9 @@ public interface ItemTransformingService {
       throws TransformationException;
 
   public boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat);
+  
+  public String transformPubItemTo(TransformerFactory.FORMAT target,
+      PubItemVO item) throws TransformationException;
 
 
 }
