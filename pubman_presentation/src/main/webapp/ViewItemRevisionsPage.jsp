@@ -6,6 +6,7 @@
         </h:outputText>
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
+    <!-- unapi interface for zotero -->
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}" />
 </h:head>
 

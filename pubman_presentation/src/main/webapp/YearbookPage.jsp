@@ -5,6 +5,7 @@
         <h:outputText value="#{ApplicationBean.appTitle}" />
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
+    <!-- unapi interface for zotero -->
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${YearbookCandidatesRetrieverRequestBean.unapiURLview}" />
 </h:head>
 

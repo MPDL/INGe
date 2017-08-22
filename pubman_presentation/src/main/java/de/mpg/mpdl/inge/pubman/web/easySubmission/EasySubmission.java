@@ -1030,7 +1030,9 @@ public class EasySubmission extends FacesBean {
    */
   private void setImportSourcesInfo() {
     try {
-      this.dataSources = this.dataSourceHandler.getSources(EasySubmission.INTERNAL_MD_FORMAT);
+      this.dataSources =
+          this.dataSourceHandler.getSources(EasySubmission.INTERNAL_MD_FORMAT,
+              DataSourceHandlerService.PUBLISHED);
 
       final List<SelectItem> v_serviceOptions = new ArrayList<SelectItem>();
 

@@ -30,6 +30,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class DataSourceHandlerService {
   private static final Logger logger = Logger.getLogger(DataSourceHandlerService.class);
 
+  public static final String PUBLISHED = "PUBLISHED";
+
   private InputStream sourceInputStream = null;
   private ImportSourcesDocument importSourcesDocument = null;
   private ImportSourcesType sourceType = null;
@@ -49,7 +51,8 @@ public class DataSourceHandlerService {
    * @return List of DataSourceVO
    * @throws RuntimeException
    */
-  public List<DataSourceVO> getSources(String transformationFormat) throws RuntimeException {
+  public List<DataSourceVO> getSources(String transformationFormat, String sourceStatus)
+      throws RuntimeException {
     List<DataSourceVO> sources = new ArrayList<DataSourceVO>();
 
     try {
@@ -61,7 +64,7 @@ public class DataSourceHandlerService {
         List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
 
         String status = simpleLiteralTostring(sourceType.getStatus());
-        if (status.equalsIgnoreCase("published")) {
+        if (status.equalsIgnoreCase(sourceStatus)) {
           DataSourceVO sourceVO = new DataSourceVO();
           sourceVO.setName(sourceType.getName());
           sourceVO.setDescription(simpleLiteralTostring(sourceType.getDescription()));

@@ -411,79 +411,77 @@ public class Util {
     return true;
   }
 
-  /**
-   * Creates the source description xml.
-   * 
-   * @return xml as byte[]
-   */
-  public static byte[] createUnapiSourcesXml() {
-    // TODO: Rewrite ohne Datasources
-    // byte[] xml = null;
-    //
-    // List<DataSourceVO> sources;
-    // ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    // DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
-    //
-    // try {
-    // sources = sourceHandler.getSources(null);
-    // SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
-    // SourcesType xmlSources = xmlSourceDoc.addNewSources();
-    // for (int i = 0; i < sources.size(); i++) {
-    // DataSourceVO source = sources.get(i);
-    // SourceType xmlSource = xmlSources.addNewSource();
-    // // Name
-    // SimpleLiteral name = xmlSource.addNewName();
-    // XmlString sourceName = XmlString.Factory.newInstance();
-    // sourceName.setStringValue(source.getName());
-    // name.set(sourceName);
-    // // Base url
-    // SimpleLiteral url = xmlSource.addNewIdentifier();
-    // XmlString sourceUrl = XmlString.Factory.newInstance();
-    // sourceUrl.setStringValue(source.getUrl().toExternalForm());
-    // url.set(sourceUrl);
-    // // Description
-    // SimpleLiteral desc = xmlSource.addNewDescription();
-    // XmlString sourceDesc = XmlString.Factory.newInstance();
-    // sourceDesc.setStringValue(source.getDescription());
-    // desc.set(sourceDesc);
-    // // Identifier prefix
-    // List<String> idPreVec = source.getIdentifier();
-    // for (int x = 0; x < idPreVec.size(); x++) {
-    // SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
-    // XmlString sourceidPre = XmlString.Factory.newInstance();
-    // sourceidPre.setStringValue(idPreVec.get(x));
-    // idPreSimp.set(sourceidPre);
-    // }
-    // // Identifier delimiter
-    // SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
-    // XmlString sourceidDel = XmlString.Factory.newInstance();
-    // sourceidDel.setStringValue(":");
-    // idDel.set(sourceidDel);
-    // // Identifier example
-    // List<String> examples = source.getIdentifierExample();
-    // if (examples != null) {
-    // for (String example : examples) {
-    // SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
-    // XmlString sourceidEx = XmlString.Factory.newInstance();
-    // sourceidEx.setStringValue(example);
-    // idEx.set(sourceidEx);
-    // }
-    // }
-    // }
-    // XmlOptions xOpts = new XmlOptions();
-    // xOpts.setSavePrettyPrint();
-    // xOpts.setSavePrettyPrintIndent(4);
-    // xOpts.setUseDefaultNamespace();
-    // xmlSourceDoc.save(baos, xOpts);
-    // } catch (IOException e) {
-    // logger.error("Error when creating outputXml.", e);
-    // throw new RuntimeException(e);
-    // }
-    //
-    // xml = baos.toByteArray();
-    // return xml;
-    return null;
-  }
+//  /**
+//   * Creates the source description xml.
+//   * 
+//   * @return xml as byte[]
+//   */
+//  public static byte[] createUnapiSourcesXml() {
+//    byte[] xml = null;
+//
+//    List<DataSourceVO> sources;
+//    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
+//
+//    try {
+//      sources = sourceHandler.getSources(null, DataSourceHandlerService.UNAPI);
+//      SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
+//      SourcesType xmlSources = xmlSourceDoc.addNewSources();
+//      for (int i = 0; i < sources.size(); i++) {
+//        DataSourceVO source = sources.get(i);
+//        SourceType xmlSource = xmlSources.addNewSource();
+//        // Name
+//        SimpleLiteral name = xmlSource.addNewName();
+//        XmlString sourceName = XmlString.Factory.newInstance();
+//        sourceName.setStringValue(source.getName());
+//        name.set(sourceName);
+//        // Base url
+//        SimpleLiteral url = xmlSource.addNewIdentifier();
+//        XmlString sourceUrl = XmlString.Factory.newInstance();
+//        sourceUrl.setStringValue(source.getUrl().toExternalForm());
+//        url.set(sourceUrl);
+//        // Description
+//        SimpleLiteral desc = xmlSource.addNewDescription();
+//        XmlString sourceDesc = XmlString.Factory.newInstance();
+//        sourceDesc.setStringValue(source.getDescription());
+//        desc.set(sourceDesc);
+//        // Identifier prefix
+//        List<String> idPreVec = source.getIdentifier();
+//        for (int x = 0; x < idPreVec.size(); x++) {
+//          SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
+//          XmlString sourceidPre = XmlString.Factory.newInstance();
+//          sourceidPre.setStringValue(idPreVec.get(x));
+//          idPreSimp.set(sourceidPre);
+//        }
+//        // Identifier delimiter
+//        SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
+//        XmlString sourceidDel = XmlString.Factory.newInstance();
+//        sourceidDel.setStringValue(":");
+//        idDel.set(sourceidDel);
+//        // Identifier example
+//        List<String> examples = source.getIdentifierExample();
+//        if (examples != null) {
+//          for (String example : examples) {
+//            SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
+//            XmlString sourceidEx = XmlString.Factory.newInstance();
+//            sourceidEx.setStringValue(example);
+//            idEx.set(sourceidEx);
+//          }
+//        }
+//      }
+//      XmlOptions xOpts = new XmlOptions();
+//      xOpts.setSavePrettyPrint();
+//      xOpts.setSavePrettyPrintIndent(4);
+//      xOpts.setUseDefaultNamespace();
+//      xmlSourceDoc.save(baos, xOpts);
+//    } catch (IOException e) {
+//      logger.error("Error when creating outputXml.", e);
+//      throw new RuntimeException(e);
+//    }
+//
+//    xml = baos.toByteArray();
+//    return xml;
+//  }
 
   // /**
   // * Extracts out of a url the escidoc import source name.

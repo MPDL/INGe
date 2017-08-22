@@ -5,6 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<h:panelGroup layout="block" styleClass="full_area0 shortView">
+        <!-- The unAPI Identifier for this item -->
 		<h:panelGroup rendered="#{item.isReleased}">
 			<abbr class="unapi-id" title="#{item.identifier}"></abbr>
 		</h:panelGroup>

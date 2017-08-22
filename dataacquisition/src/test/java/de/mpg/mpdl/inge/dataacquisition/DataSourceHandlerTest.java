@@ -34,7 +34,7 @@ public class DataSourceHandlerTest {
     DataSourceVO test = null;
     List<DataSourceVO> testV = null;
 
-    testV = sourceHandler.getSources(null);
+    testV = sourceHandler.getSources(null, DataSourceHandlerService.PUBLISHED);
     Assert.assertNotNull(testV);
     this.logger.info("Retrieval of all sources successful");
 
@@ -42,35 +42,35 @@ public class DataSourceHandlerTest {
     test = sourceHandler.getSourceByIdentifier("arXiv");
     Assert.assertNotNull(test);
     this.logger.info("Retrieval of source by identifier (arXiv) successful");
-    test = sourceHandler.getSourceByIdentifier("pmc");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by identifier (pmc) successful");
-    test = sourceHandler.getSourceByIdentifier("bmc");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by identifier (bmc) successful");
-    test = sourceHandler.getSourceByIdentifier("spires");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by identifier (spires) successful");
-    test = sourceHandler.getSourceByIdentifier("eSciDoc");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by identifier (eSciDoc) successful");
+    // test = sourceHandler.getSourceByIdentifier("pmc");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by identifier (pmc) successful");
+    // test = sourceHandler.getSourceByIdentifier("bmc");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by identifier (bmc) successful");
+    // test = sourceHandler.getSourceByIdentifier("spires");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by identifier (spires) successful");
+    // test = sourceHandler.getSourceByIdentifier("eSciDoc");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by identifier (eSciDoc) successful");
 
     // Get source by name
-    test = sourceHandler.getSourceByName("eSciDoc");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by name (eSciDoc) successful");
+    // test = sourceHandler.getSourceByName("eSciDoc");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by name (eSciDoc) successful");
     test = sourceHandler.getSourceByName("arxiv");
     Assert.assertNotNull(test);
     this.logger.info("Retrieval of source by name (arxiv) successful");
-    test = sourceHandler.getSourceByName("PubMedCentral");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by name (PubMedCentral) successful");
-    test = sourceHandler.getSourceByName("BioMed Central");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by name (BioMed Central) successful");
-    test = sourceHandler.getSourceByName("spires");
-    Assert.assertNotNull(test);
-    this.logger.info("Retrieval of source by name (spires) successful");
+    // test = sourceHandler.getSourceByName("PubMedCentral");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by name (PubMedCentral) successful");
+    // test = sourceHandler.getSourceByName("BioMed Central");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by name (BioMed Central) successful");
+    // test = sourceHandler.getSourceByName("spires");
+    // Assert.assertNotNull(test);
+    // this.logger.info("Retrieval of source by name (spires) successful");
 
   }
 
